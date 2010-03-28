@@ -57,7 +57,7 @@ namespace MyGUI
 
 	void UIElement::raiseEvent(const std::string& _name, EventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 
 		MapInfo::iterator entry = mEvents.find(_name);
 		if (entry != mEvents.end())
@@ -73,15 +73,15 @@ namespace MyGUI
 			}
 			else if (type.getPolicy() == EventType::Bubble)
 			{
-				unlinker.addWidgetToUnlink(widget);
+				//unlinker.addWidgetToUnlink(widget);
 				bool handled = onSendEvent(widget, &info, _args, caller);
-				unlinker.removeWidgetFromUnlink(widget);
+				//unlinker.removeWidgetFromUnlink(widget);
 
-				if (widget != nullptr)
-				{
+				//if (widget != nullptr)
+				//{
 					if (!handled)
 						onRaiseEvent(widget, &info, _args, caller);
-				}
+				//}
 			}
 			else
 			{
@@ -96,7 +96,7 @@ namespace MyGUI
 
 	bool UIElement::onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 
 		if (_info->getEventType().getPolicy() == EventType::Tunnel)
 		{
@@ -104,16 +104,16 @@ namespace MyGUI
 			Widget* parent = _sender->getParent();
 			if (parent != nullptr)
 			{
-				unlinker.addWidgetToUnlink(_sender);
+				//unlinker.addWidgetToUnlink(_sender);
 				handled = parent->onRaiseEvent(parent, _info, _args, _caller);
-				unlinker.removeWidgetFromUnlink(_sender);
+				//unlinker.removeWidgetFromUnlink(_sender);
 			}
 
-			if (_sender != nullptr)
-			{
+			//if (_sender != nullptr)
+			//{
 				if (!handled)
 					handled = onSendEvent(_sender, _info, _args, _caller);
-			}
+			//}
 
 			return handled;
 		}
@@ -122,15 +122,15 @@ namespace MyGUI
 			Widget* parent = _sender->getParent();
 			if (parent != nullptr)
 			{
-				unlinker.addWidgetToUnlink(_sender);
+				//unlinker.addWidgetToUnlink(_sender);
 				bool handled = parent->onSendEvent(parent, _info, _args, _caller);
-				unlinker.removeWidgetFromUnlink(_sender);
+				//unlinker.removeWidgetFromUnlink(_sender);
 
-				if (_sender != nullptr)
-				{
+				//if (_sender != nullptr)
+				//{
 					if (!handled)
 						parent->onRaiseEvent(parent, _info, _args, _caller);
-				}
+				//}
 			}
 		}
 
@@ -139,19 +139,19 @@ namespace MyGUI
 
 	bool UIElement::onSendEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 
 		// рассылаем по виджетам и по конкретным евентам
 		// если виджет обработал, конкретный евент не вызывается
 		if (_caller != nullptr)
 		{
-			unlinker.addWidgetToUnlink(_sender);
+			//unlinker.addWidgetToUnlink(_sender);
 			_caller->invoke(this, _sender, _info, _args);
-			unlinker.removeWidgetFromUnlink(_sender);
+			//unlinker.removeWidgetFromUnlink(_sender);
 		}
 
-		if (_sender != nullptr)
-		{
+		//if (_sender != nullptr)
+		//{
 			// если виджет или конкретный евент не обработали то вызываем общий евент
 			if (!_info->getHandled())
 			{
@@ -159,7 +159,7 @@ namespace MyGUI
 				if (entry != mHandlers.end())
 					entry->second(_sender, _info, _args);
 			}
-		}
+		//}
 
 		return _info->getHandled();
 	}

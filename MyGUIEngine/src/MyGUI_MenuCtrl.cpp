@@ -345,16 +345,16 @@ namespace MyGUI
 
 	void MenuCtrl::notifyMenuCtrlAccept(MenuItem* _item)
 	{
-		Widget* sender = this;
+		//Widget* sender = this;
 
-		WidgetManager::getInstance().addWidgetToUnlink(sender);
+		//WidgetManager::getInstance().addWidgetToUnlink(sender);
 		eventMenuCtrlAccept(this, _item);
-		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
+		//WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == nullptr) return;
+		//if (sender == nullptr) return;
 
-		WidgetManager::getInstance().addWidgetToUnlink(sender);
+		//WidgetManager::getInstance().addWidgetToUnlink(sender);
 
 		MenuItem* parent_item = getMenuItemParent();
 		if (parent_item)
@@ -366,10 +366,10 @@ namespace MyGUI
 			}
 		}
 
-		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
+		//WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == nullptr) return;
+		//if (sender == nullptr) return;
 
 
 		if (mHideByAccept)

@@ -69,14 +69,14 @@ namespace MyGUI
 
 	/*internal:*/
 		/** Add widget to list of widgets that should be unlinked. */
-		void addWidgetToUnlink(Widget* _widget);
+		//void addWidgetToUnlink(Widget* _widget);
 
 		/** Remove widget from list of widgets that should be unlinked.
 			Important:
 				Make it nullptr if it wasn't there.
 				Otherwise we won't be able to delete self from events.
 		*/
-		void removeWidgetFromUnlink(Widget*& _widget);
+		//void removeWidgetFromUnlink(Widget*& _widget);
 
 		void _addWidgetToDestroy(Widget* _widget);
 		void _deleteDelayWidgets();
@@ -133,7 +133,7 @@ namespace MyGUI
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
 		// список виджетов для отписки
-		VectorWidgetPtr mUnlinkWidgets;
+		//VectorWidgetPtr mUnlinkWidgets;
 		// список виджето для удаления
 		VectorWidgetPtr mDestroyWidgets;
 	};
