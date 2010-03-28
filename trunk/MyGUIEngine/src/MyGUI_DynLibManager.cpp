@@ -21,6 +21,8 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLibManager.h"
+#include "MyGUI_WidgetManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -32,6 +34,8 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
+		Gui::getInstance().eventFrameStart += newDelegate(this, &DynLibManager::notifyEventFrameStart);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -41,17 +45,10 @@ namespace MyGUI
 		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		StringDynLibMap::iterator it;
+		unloadAll();
 
-		// unload and delete resources
-		for (it = mLibsMap.begin(); it != mLibsMap.end(); ++it)
-		{
-			it->second->unload();
-			delete it->second;
-		}
-
-		// Empty the list
-		mLibsMap.clear();
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &DynLibManager::notifyEventFrameStart);
+		_unloadDelayDynLibs();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -84,7 +81,40 @@ namespace MyGUI
 		if (it != mLibsMap.end())
 			mLibsMap.erase(it);
 
-		library->unload();
-		delete library;
+		mDelayDynLib.push_back(library);
 	}
+
+	void DynLibManager::unloadAll()
+	{
+		// unload and delete resources
+		for (StringDynLibMap::iterator it = mLibsMap.begin(); it != mLibsMap.end(); ++it)
+		{
+			mDelayDynLib.push_back(it->second);
+		}
+		// Empty the list
+		mLibsMap.clear();
+	}
+
+	void DynLibManager::notifyEventFrameStart(float _time)
+	{
+		_unloadDelayDynLibs();
+	}
+
+	void DynLibManager::_unloadDelayDynLibs()
+	{
+		if (!mDelayDynLib.empty())
+		{
+			WidgetManager* manager = WidgetManager::getInstancePtr();
+			if (manager != nullptr)
+				manager->_deleteDelayWidgets();
+
+			for (VectorDynLib::iterator entry=mDelayDynLib.begin(); entry!=mDelayDynLib.end(); ++entry)
+			{
+				(*entry)->unload();
+				delete (*entry);
+			}
+			mDelayDynLib.clear();
+		}
+	}
+
 }
