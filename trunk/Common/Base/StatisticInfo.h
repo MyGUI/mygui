@@ -84,7 +84,7 @@ namespace diagnostic
 				if (text)
 				{
 					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
-					const MyGUI::IntSize& size_view = MyGUI::Gui::getInstance().getViewSize();
+					const MyGUI::IntSize& size_view = MyGUI::RenderManager::getInstance().getViewSize();
 					mInfo->setCoord(size_view.width - size.width - 20, size_view.height - size.height - 20, size.width, size.height);
 				}
 			}

@@ -377,7 +377,7 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 	}
 	else
 	{
-		parent_size = MyGUI::Gui::getInstance().getViewSize();
+		parent_size = MyGUI::RenderManager::getInstance().getViewSize();
 		_parent = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 
 	}

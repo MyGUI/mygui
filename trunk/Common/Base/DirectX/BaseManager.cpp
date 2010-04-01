@@ -327,7 +327,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMouseMove(_absx, _absy, _absz);
+		MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz);
 	}
 
 	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -335,7 +335,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -343,7 +343,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMouseRelease(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
@@ -362,7 +362,7 @@ namespace base
 			mFocusInfo->setFocusVisible(!visible);
 		}
 
-		mGUI->injectKeyPress(_key, _text);
+		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
 
 	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
@@ -370,7 +370,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectKeyRelease(_key);
+		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

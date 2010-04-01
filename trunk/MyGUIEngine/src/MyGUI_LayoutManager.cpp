@@ -27,6 +27,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_ControllerManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -132,7 +133,7 @@ namespace MyGUI
 		else if (_widget->findAttribute("position_real", tmp))
 		{
 			if (_parent == nullptr || style == WidgetStyle::Popup)
-				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), Gui::getInstance().getViewSize());
+				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), RenderManager::getInstance().getViewSize());
 			else
 				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), _parent->getSize());
 		}

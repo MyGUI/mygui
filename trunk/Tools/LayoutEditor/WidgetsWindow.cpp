@@ -249,7 +249,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	}
 	else
 	{
-		parent_size = MyGUI::Gui::getInstance().getViewSize();
+		parent_size = MyGUI::RenderManager::getInstance().getViewSize();
 		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 	}
 	// place in parent center
