@@ -88,7 +88,7 @@ namespace demo
 
 		const int offset = 30;
 		const float time_diff = 0.3;
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
 
 		if (!mMainWidget->isVisible())
 		{

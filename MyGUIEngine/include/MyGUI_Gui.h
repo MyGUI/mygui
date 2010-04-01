@@ -35,7 +35,10 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget, public Singleton<Gui>
+	class MYGUI_EXPORT Gui :
+		public IWidgetCreator,
+		public IUnlinkWidget,
+		public Singleton<Gui>
 	{
 	public:
 		Gui();
@@ -107,32 +110,6 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
-		/** Get view size of GUI area */
-		const IntSize& getViewSize() const { return mViewSize; }
-
-		// mirror of InputManager methods
-		/** Inject MouseMove event
-			@return true if event has been processed by GUI
-		*/
-		bool injectMouseMove(int _absx, int _absy, int _absz);
-		/** Inject MousePress event
-			@return true if event has been processed by GUI
-		*/
-		bool injectMousePress(int _absx, int _absy, MouseButton _id);
-		/** Inject MouseRelease event
-			@return true if event has been processed by GUI
-		*/
-		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
-
-		/** Inject KeyPress event
-			@return true if event has been processed by GUI
-		*/
-		bool injectKeyPress(KeyCode _key, Char _text = 0);
-		/** Inject KeyReleas event
-			@return true if event has been processed by GUI
-		*/
-		bool injectKeyRelease(KeyCode _key);
-
 		/** Destroy any created widget */
 		void destroyWidget(Widget* _widget);
 
@@ -175,20 +152,6 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name, _throw);
 		}
 
-
-		/** Show or hide mouse pointer */
-		void setVisiblePointer(bool _visible);
-		/** Is mouse pointer visible */
-		bool isVisiblePointer();
-
-
-		// mirror ResourceManager
-		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string& _file);
-
-		/** Resize GUI area */
-		void resizeWindow(const IntSize& _size);
-
 		/** Destroy child widget or throw exception if this child widget not found */
 		void destroyChildWidget(Widget* _widget) { _destroyChildWidget(_widget); }
 
@@ -205,6 +168,9 @@ namespace MyGUI
 		*/
 		void _injectFrameEntered(float _time);
 
+		/** Resize GUI area */
+		void _resizeWindow(const IntSize& _size);
+
 	/*event:*/
 		/** Multidelegate for GUI per frame call.\n
 			signature : void method(float _time)\n
@@ -219,18 +185,40 @@ namespace MyGUI
 		void destroyWidgetsVector(VectorWidgetPtr& _widgets) { destroyWidgets(_widgets); }
 
 		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
-		void hidePointer() { setVisiblePointer(false); }
+		void hidePointer();
 		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
-		void showPointer() { setVisiblePointer(true); }
+		void showPointer();
 		MYGUI_OBSOLETE("use : bool Gui::isVisiblePointer()")
-		bool isShowPointer() { return isVisiblePointer(); }
+		bool isShowPointer();
 		MYGUI_OBSOLETE("called be renderer, do not call it manually")
 		void injectFrameEntered(float _time) { }
 
 		MYGUI_OBSOLETE("use : void Gui::getViewSize().width")
-		int getViewWidth() { return getViewSize().width; }
+		int getViewWidth();
 		MYGUI_OBSOLETE("use : void Gui::getViewSize().height")
-		int getViewHeight() { return getViewSize().height; }
+		int getViewHeight();
+
+		MYGUI_OBSOLETE("use : bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)")
+		bool injectMouseMove(int _absx, int _absy, int _absz);
+		MYGUI_OBSOLETE("use : bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)")
+		bool injectMousePress(int _absx, int _absy, MouseButton _id);
+		MYGUI_OBSOLETE("use : bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)")
+		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
+		MYGUI_OBSOLETE("use : bool InputManager::injectKeyPress(KeyCode _key, Char _text = 0)")
+		bool injectKeyPress(KeyCode _key, Char _text = 0);
+		MYGUI_OBSOLETE("use : bool InputManager::injectKeyRelease(KeyCode _key)")
+		bool injectKeyRelease(KeyCode _key);
+
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(_value)")
+		void setVisiblePointer(bool _value);
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
+		bool isVisiblePointer();
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+		MYGUI_OBSOLETE("use : const IntSize& RenderManager::getViewSize() const")
+		const IntSize& getViewSize() const;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
