@@ -37,7 +37,7 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
 
-		const MyGUI::IntSize& size = getGUI()->getViewSize();
+		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
 
 		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, size.height - 10 - 230, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("Camera view");

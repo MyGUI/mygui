@@ -20,7 +20,7 @@ namespace MyGUI
 	template <> const char* Singleton<DirectXRenderManager>::INSTANCE_TYPE_NAME("DirectXRenderManager");
 
 	DirectXRenderManager::DirectXRenderManager() :
-		mpD3DDevice(nullptr);
+		mpD3DDevice(nullptr),
 		mUpdate(false)
 	{
 	}
@@ -196,7 +196,7 @@ namespace MyGUI
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr)
 		{
-			gui->resizeWindow(mViewSize);
+			gui->_resizeWindow(mViewSize);
 			mUpdate = true;
 		}
 	}

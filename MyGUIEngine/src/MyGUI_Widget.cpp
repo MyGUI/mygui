@@ -1320,7 +1320,7 @@ namespace MyGUI
 		if (getLayer())
 			return getLayer()->getSize();
 
-		return Gui::getInstance().getViewSize();
+		return RenderManager::getInstance().getViewSize();
 	}
 
 	/*

@@ -23,7 +23,7 @@ namespace editor
 
 	void Controller::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView = new View();

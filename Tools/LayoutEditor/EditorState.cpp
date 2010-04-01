@@ -380,17 +380,17 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 			if (mWidgetsWindow->getCreatingStatus() != 1)
 			{
 				//FIXME
-				getGUI()->injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
+				MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
 			}
 		}
 		//FIXME
-		getGUI()->injectMouseRelease(_absx, _absy, _id);
-		getGUI()->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 	}
 	else
 	{
 		//FIXME
-		getGUI()->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 		notifySelectWidget(nullptr);
 	}
 
@@ -456,7 +456,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			}
 		}
 
-		getGUI()->injectKeyPress(_key, _text);
+		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 		//base::BaseManager::injectKeyPress(_key, _text);
 		return;
 	}
@@ -519,7 +519,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		}
 	}
 
-	getGUI()->injectKeyPress(_key, _text);
+	MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	//base::BaseManager::injectKeyPress(_key, _text);
 }
 //===================================================================================
