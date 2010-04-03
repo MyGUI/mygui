@@ -79,11 +79,6 @@ namespace MyGUI
 		mLayerNodes.clear();
 	}
 
-	bool LayerManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void LayerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		VectorLayer layers;
@@ -250,5 +245,14 @@ namespace MyGUI
 		MYGUI_LOG(Info, "---------- Statistic for layers end ----------" << spacer);
 		MYGUI_LOG(Info, spacer);
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool LayerManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

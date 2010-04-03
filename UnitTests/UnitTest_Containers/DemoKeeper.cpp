@@ -26,7 +26,7 @@ namespace demo
 			getGUI()->destroyWidget(lastFlow);
 
 		// Load new, find and update
-		MYGUI_ASSERT(getGUI()->load(_layoutFileName), "Can't load test lauout!");
+		/*MYGUI_ASSERT(*/MyGUI::ResourceManager::getInstance().load(_layoutFileName)/*, "Can't load test lauout!")*/;
 
 		MyGUI::FlowContainer* flow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow");
 
@@ -227,7 +227,7 @@ namespace demo
 	{
 		// I love this theme :)
 		MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
-		getGUI()->load("core_skin.xml");
+		MyGUI::ResourceManager::getInstance().load("core_skin.xml");
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		factory.registerFactory<MyGUI::FlowContainer>("Widget");

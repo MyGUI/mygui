@@ -46,9 +46,7 @@ namespace MyGUI
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string& _file);
 
-		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Add resource item to resources */
 		void addResource(IResourcePtr _item);
@@ -69,11 +67,14 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : size_t ResourceManager::getCount()")
 		size_t getResourceCount() { return getCount(); }
-
 		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
 		IResourcePtr getResource(const std::string& _name, bool _throw = true) { return getByName(_name, _throw); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	private:
+		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
+		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
 
 	private:
 		// карта с делегатами для парсинга хмл блоков

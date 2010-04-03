@@ -65,11 +65,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool SkinManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл со скинами
@@ -99,7 +94,7 @@ namespace MyGUI
 		newnode->addAttribute("type", ResourceSkin::getClassTypeName());
 		newnode->addAttribute("name", _value);
 
-		ResourceManager::getInstance()._load(root, "", Version());
+		ResourceManager::getInstance().loadFromXmlNode(root, "", Version());
 	}
 
 	ResourceSkin* SkinManager::getByName(const std::string& _name) const
@@ -129,5 +124,14 @@ namespace MyGUI
 	{
 		mDefaultName = _value;
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool SkinManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
