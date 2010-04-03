@@ -25,7 +25,7 @@
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
-// Definnition of platforms
+// Definition of platforms
 #define MYGUI_PLATFORM_WIN32		1
 #define MYGUI_PLATFORM_LINUX		2
 #define MYGUI_PLATFORM_APPLE		3
