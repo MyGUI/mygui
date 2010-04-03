@@ -197,7 +197,7 @@ void EditorState::destroyScene()
 
 void EditorState::createMainMenu()
 {
-	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
+	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 	bar = menu_items[0]->castType<MyGUI::MenuBar>();
 	bar->setCoord(0, 0, bar->getParentSize().width, bar->getHeight());

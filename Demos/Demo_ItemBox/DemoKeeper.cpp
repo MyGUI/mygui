@@ -99,15 +99,15 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 
 		// регестрируем тип нашего ресурса
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>("Resource");
 
-		MyGUI::Gui::getInstance().load("Resources.xml");
-		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
+		MyGUI::ResourceManager::getInstance().load("Resources.xml");
+		MyGUI::ResourceManager::getInstance().load("ItemBox_skin.xml");
 
 		mToolTip = new ToolTip();
 		mToolTip->hide();

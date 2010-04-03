@@ -103,7 +103,7 @@ namespace demo
 				manager.remove(mFontName);
 			}
 
-			MyGUI::ResourceManager::getInstance()._load(root, "", MyGUI::Version());
+			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
 			MyGUI::IResource* resource = manager.getByName(mFontName, false);
 			MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
 			MyGUI::IFont* font = resource->castType<MyGUI::IFont>();

@@ -41,7 +41,7 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
+		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::loadFromXmlNode);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
@@ -73,7 +73,7 @@ namespace MyGUI
 		return _loadImplement(_file, false, "", INSTANCE_TYPE_NAME);
 	}
 
-	void ResourceManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 

@@ -60,10 +60,6 @@ namespace MyGUI
 		*/
 		void upLayerItem(Widget* _item);
 
-		/** Load additional MyGUI *_layer.xml file */
-		bool load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/** Check is layer exist */
 		bool isExist(const std::string& _name) const;
 		/** Get layer nodes Enumerator */
@@ -81,8 +77,16 @@ namespace MyGUI
 		/** Collect and dump statistic about layers and batches into log. */
 		virtual void dumpStatisticToLog();
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	private:
-		// удаляем данный виджет из всех возможных мест
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _unlinkWidget(Widget* _widget);
 
 		void clear();

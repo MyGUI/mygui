@@ -31,7 +31,7 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
-		getGUI()->load("test_layer.xml");
+		MyGUI::ResourceManager::getInstance().load("test_layer.xml");
 
 		createNewWindow();
 	}

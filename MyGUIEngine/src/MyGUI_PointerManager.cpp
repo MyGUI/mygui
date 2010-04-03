@@ -99,11 +99,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool PointerManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		std::string pointer;
@@ -173,7 +168,7 @@ namespace MyGUI
 						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
 					}
 
-					ResourceManager::getInstance()._load(root, _file, _version);
+					ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
 				}
 
 			}
@@ -357,5 +352,14 @@ namespace MyGUI
 	{
 		setPointer(_name, nullptr);
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool PointerManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
