@@ -18,8 +18,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		// если группа ресурсов не указанна, то ищется в корне приложения

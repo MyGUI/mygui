@@ -103,11 +103,6 @@ namespace MyGUI
 		}
 	}
 
-	bool PluginManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
@@ -179,5 +174,14 @@ namespace MyGUI
 		while (!mLibs.empty())
 			unloadPlugin((*mLibs.begin()).first);
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool PluginManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

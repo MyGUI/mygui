@@ -38,10 +38,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *_skin.xml file */
-		bool load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/** Get ResourceSkin by name */
 		ResourceSkin* getByName(const std::string& _name) const;
 
@@ -62,10 +58,13 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
 		ResourceSkin* getSkin(const std::string& _name) const { return getByName(_name); }
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void createDefault(const std::string& _value);
 
 	private:

@@ -36,11 +36,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *_language.xml file */
-		bool load(const std::string& _file);
-
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/** Set current language for replacing #{} tags */
 		void setCurrentLanguage(const std::string& _name);
 		/** Get current language */
@@ -75,7 +70,18 @@ namespace MyGUI
 			@note If this even is empty and _tag not found - "#{_tag}" used by default.
 		*/
 		delegates::CDelegate2<const UString&, UString&> eventRequestTag;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	private:
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+
 		//bool loadResourceLanguage(const std::string& _name);
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);

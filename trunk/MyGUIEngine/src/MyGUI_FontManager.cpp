@@ -66,11 +66,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool FontManager::load(const std::string& _file)
-	{
-		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator font = _node->getElementEnumerator();
@@ -185,7 +180,7 @@ namespace MyGUI
 						codenew->addAttribute("coord", tmp);
 				}
 
-				ResourceManager::getInstance()._load(root, _file, _version);
+				ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
 			}
 			else if (font->getName() == XML_TYPE_PROPERTY)
 			{
@@ -220,5 +215,14 @@ namespace MyGUI
 
 		return result ? result->castType<IFont>(false) : nullptr;
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool FontManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
