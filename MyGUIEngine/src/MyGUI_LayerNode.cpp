@@ -172,14 +172,15 @@ namespace MyGUI
 					if ((*iter)->getNeedVertexCount() == 0)
 					{
 						// а теперь внимание, если перед пустым наш, то его и юзаем
-						if (iter != mFirstRenderItems.begin())
+						// косячит, иногда дети рисуются под отцами
+						/*if (iter != mFirstRenderItems.begin())
 						{
 							VectorRenderItem::iterator prev = iter - 1;
 							if ((*prev)->getTexture() == _texture)
 							{
 								return (*prev);
 							}
-						}
+						}*/
 						(*iter)->setTexture(_texture);
 						return (*iter);
 					}
