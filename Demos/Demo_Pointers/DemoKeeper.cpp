@@ -229,7 +229,7 @@ namespace demo
 	std::string DemoKeeper::getCursorFromScene(int _x, int _y)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		MyGUI::IntSize size = getGUI()->getViewSize();
+		MyGUI::IntSize size = MyGUI::RenderManager::getInstance().getViewSize();
 		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
 			_x / float(size.width),
 			_y / float(size.height));
