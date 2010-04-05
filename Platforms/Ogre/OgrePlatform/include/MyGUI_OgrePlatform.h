@@ -14,6 +14,7 @@
 #include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreTexture.h"
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
