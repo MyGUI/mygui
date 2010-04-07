@@ -35,6 +35,7 @@ set rules {
     T015
     T017
     T018
+    NoLeadingSpaces
 }
 
 set ruleExclusions(L006) {
