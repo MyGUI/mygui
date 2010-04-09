@@ -74,7 +74,7 @@ namespace MyGUI
 	{
 		//friend class InputManager;
 
-    public:
+	public:
 		virtual ~WidgetEvent() { }
 
 	protected:

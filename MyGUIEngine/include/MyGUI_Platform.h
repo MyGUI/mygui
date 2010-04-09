@@ -52,8 +52,8 @@
 #elif defined( __GNUC__ )
 #	define MYGUI_COMPILER MYGUI_COMPILER_GNUC
 #	define MYGUI_COMP_VER (((__GNUC__)*100) + \
-        (__GNUC_MINOR__*10) + \
-        __GNUC_PATCHLEVEL__)
+		(__GNUC_MINOR__*10) + \
+		__GNUC_PATCHLEVEL__)
 #else
 #	pragma error "Unknown compiler! Stop building!!!"
 #endif

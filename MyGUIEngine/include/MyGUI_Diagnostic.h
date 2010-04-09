@@ -97,9 +97,9 @@
 #elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
 		#define MYGUI_OBSOLETE_START(text)
-        #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#else
-        #define MYGUI_OBSOLETE_START(text)
+		#define MYGUI_OBSOLETE_START(text)
 		#define MYGUI_OBSOLETE_END __attribute__((deprecated))
 	#endif
 
