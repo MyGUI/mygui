@@ -149,35 +149,35 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	// Define version
-    #define MYGUI_VERSION_MAJOR 3
-    #define MYGUI_VERSION_MINOR 1
-    #define MYGUI_VERSION_PATCH 0
+	#define MYGUI_VERSION_MAJOR 3
+	#define MYGUI_VERSION_MINOR 1
+	#define MYGUI_VERSION_PATCH 0
 
-    #define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
+	#define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
 
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
 // disable: warning C4512: '***' : assignment operator could not be generated
-#   pragma warning (disable : 4512)
+#	pragma warning (disable : 4512)
 
 // disable: warning C4127: conditional expression is constant
-#   pragma warning (disable : 4127)
+#	pragma warning (disable : 4127)
 
 // disable: warning C4100: '***' : unreferenced formal parameter
-#   pragma warning (disable : 4100)
+#	pragma warning (disable : 4100)
 
 // disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-#   pragma warning (disable : 4275)
+#	pragma warning (disable : 4275)
 
 // disable: "<type> needs to have dll-interface to be used by clients'
 // Happens on STL member variables which are not public therefore is ok
-#   pragma warning (disable : 4251)
+#	pragma warning (disable : 4251)
 
 // disable: "no suitable definition provided for explicit template
 // instantiation request" Occurs for no justifiable reason on all
 // #includes of Singleton
-#   pragma warning( disable: 4661)
+#	pragma warning( disable: 4661)
 
 #endif
 

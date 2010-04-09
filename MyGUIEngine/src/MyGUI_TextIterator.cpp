@@ -371,9 +371,9 @@ namespace MyGUI
 		wchar_t buff[SIZE];
 //FIXME
 #ifdef __MINGW32__
-        swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #else
-        swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #endif
 		return buff;
 	}
