@@ -5,7 +5,7 @@
 //#include <Ogre.h>
 
 typedef std::pair<std::string, std::string> PairString;
-typedef std::vector<PairString> StringPairs;
+typedef std::vector<PairString> VectorStringPairs;
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
@@ -32,8 +32,8 @@ struct WidgetContainer
 
 	MyGUI::Widget* widget;
 	std::vector<WidgetContainer*> childContainers;
-	StringPairs mProperty;
-	StringPairs mUserString;
+	VectorStringPairs mProperty;
+	VectorStringPairs mUserString;
 	std::vector<ControllerInfo*> mController;
 	std::string type;
 	std::string skin;

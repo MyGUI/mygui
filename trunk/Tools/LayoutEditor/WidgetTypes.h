@@ -13,7 +13,7 @@ typedef std::vector<SkinInfo> VectorSkinInfo;
 typedef std::map<std::string, VectorSkinInfo> SkinGroups;
 
 typedef std::pair<std::string, std::string> PairString;
-typedef std::vector<PairString> StringPairs;
+typedef std::vector<PairString> VectorStringPairs;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
@@ -24,7 +24,7 @@ struct WidgetStyle
 	std::string base;
 	std::vector<std::string> skin;
 	std::string default_skin;
-	StringPairs parameter;
+	VectorStringPairs parameter;
 	// can have child widgets
 	bool parent;
 	// can have farent

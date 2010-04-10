@@ -37,7 +37,3 @@ set rules {
     T018
     NoLeadingSpaces
 }
-
-set ruleExclusions(L006) {
-    MyGUI_UString.h
-}
