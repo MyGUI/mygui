@@ -20,10 +20,10 @@ EditorWidgets::~EditorWidgets()
 {
 }
 
-void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
+void MapSet(VectorStringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = false;
-	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
+	for (VectorStringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -37,9 +37,9 @@ void MapSet(StringPairs & _map, const std::string &_key, const std::string &_val
 	}
 }
 
-StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
+VectorStringPairs::iterator MapFind(VectorStringPairs & _map, const std::string &_key)
 {
-	StringPairs::iterator iter = _map.begin();
+	VectorStringPairs::iterator iter = _map.begin();
 	for (; iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key) break;
@@ -47,9 +47,9 @@ StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 	return iter;
 }
 
-void MapErase(StringPairs & _map, const std::string &_key)
+void MapErase(VectorStringPairs & _map, const std::string &_key)
 {
-	for (StringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -460,14 +460,14 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 	if ("" != _container->layer) node->addAttribute("layer", _container->layer);
 	if ("" != _container->name) node->addAttribute("name", _container->name);
 
-	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
 	}
 
-	for (StringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttribute("key", iter->first);

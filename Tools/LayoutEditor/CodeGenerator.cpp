@@ -50,7 +50,7 @@ std::string CodeGenerator::stringToUpperCase(std::string _str)
 {
 	for(size_t i=0;i<_str.length();i++)
 	{
-		_str[i] = toupper(_str[i]);
+		_str[i] = (char)toupper(_str[i]);
 	}
 	return _str;
 }

@@ -608,7 +608,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 	}
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
-	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action)
 		{

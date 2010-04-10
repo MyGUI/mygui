@@ -82,7 +82,7 @@ namespace MyGUI
 		#endif
 	}
 
-	std::string DynLib::dynlibError( void )
+	std::string DynLib::dynlibError() const
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		LPVOID lpMsgBuf;

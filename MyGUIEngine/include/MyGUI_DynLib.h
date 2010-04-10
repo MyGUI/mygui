@@ -94,7 +94,7 @@ namespace MyGUI
 
 	protected:
 		//! Gets the last loading error
-		std::string dynlibError(void);
+		std::string dynlibError() const;
 
 
 	protected:

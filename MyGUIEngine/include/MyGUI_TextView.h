@@ -77,7 +77,7 @@ namespace MyGUI
 		int getLenght() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return lenght; }
 		size_t getCount() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return count; }
 		size_t getPosition() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return position; }
-		UString::const_iterator getTextIter() { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return space_point; }
+		UString::const_iterator getTextIter() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return space_point; }
 
 	private:
 		size_t position;
@@ -348,7 +348,7 @@ namespace MyGUI
 
 		const IntSize& getViewSize() const { return mViewSize; }
 		size_t getTextLength() const { return mLength; }
-		const VectorLineInfo& getData() { return mLineInfo; }
+		const VectorLineInfo& getData() const { return mLineInfo; }
 
 	private:
 		IntSize mViewSize;
