@@ -26,10 +26,10 @@ size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer *
 {
 	size_t count = widgetType->parameter.size();
 
-	for (StringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+	for (VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 	{
 		std::string value = "";
-		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
 			if (iterProperty->first == iter->first)
 			{
@@ -91,10 +91,10 @@ void PanelProperties::update(MyGUI::Widget* _current_widget, PropertiesGroup _gr
 			setVisible(true);
 			//base properties (from Widget)
 			WidgetStyle * baseType = WidgetTypes::getInstance().find("Widget");
-			for (StringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
+			for (VectorStringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
 			{
 				std::string value = "";
-				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 				{
 					if (iterProperty->first == iter->first)
 					{

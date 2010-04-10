@@ -28,7 +28,6 @@ private:
 	void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 	void notifyGeneratePressed(MyGUI::Widget* _sender);
 private:
-	typedef std::pair<std::string, std::string> PairString;
 	typedef std::map<std::string, std::string> StringPairs;
 
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
