@@ -15,5 +15,9 @@
 #define MYGUI_EXPORT_DLL
 #define MYGUI_DEBUG_MODE 0
 
+#define min min
+#define max max
+#define MYGUI_DONT_USE_OBSOLETE
+
 #endif // __MYGUI_PLATFORM_H__
 
