@@ -14,7 +14,7 @@ include (InstallResources.cmake)
 
 set(INST_FILES
   Packages/FindOIS.cmake
-  Packages/FindOGRE.cmake
+  Packages/FindOGRE_Old.cmake
   Utils/FindPkgMacros.cmake
   Utils/PreprocessorUtils.cmake
   Utils/MyGUIConfigTargets.cmake
