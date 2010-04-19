@@ -45,7 +45,7 @@ namespace demo
 		instance = nullptr;
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_Shudown()
+	MYGUIEXPORT void MYGUICALL ExportDemo_Shutdown()
 	{
 		assert(instance);
 		instance->quit();
