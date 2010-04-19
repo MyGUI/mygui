@@ -38,7 +38,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MyGUI::Singleton<InputManager>
+	class MYGUI_EXPORT InputManager :
+		public IUnlinkWidget,
+		public MyGUI::Singleton<InputManager>
 	{
 	public:
 		InputManager();
@@ -98,10 +100,6 @@ namespace MyGUI
 		*/
 		IntPoint getMousePositionByLayer();
 
-		// тестовый вариант, очистка фокуса мыши
-		/** Drop any mouse focus */
-		void resetMouseFocusWidget();
-
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
 		void addWidgetModal(Widget* _widget);
@@ -140,6 +138,12 @@ namespace MyGUI
 			eventChangeKeyFocus;
 
 	private:
+		// тестовый вариант, очистка фокуса мыши
+		/** Drop any mouse focus */
+		void resetMouseFocusWidget();
+
+		void updateMouseFocus();
+
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);
 
@@ -195,7 +199,6 @@ namespace MyGUI
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
-
 	};
 
 } // namespace MyGUI
