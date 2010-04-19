@@ -28,6 +28,7 @@
 
 namespace MyGUI
 {
+	// FIXME - move to settings
 	const unsigned long INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
@@ -120,30 +121,34 @@ namespace MyGUI
 			return true;
 		}
 
-		Widget* old_mouse_focus = mWidgetMouseFocus;
+		/*
+		Widget* oldMouseFocus = mWidgetMouseFocus;
 
 		// ищем активное окно
-		Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+		Widget* newMouseFocus = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+
+		// запоминаем текущее окно
+		mWidgetMouseFocus = newMouseFocus;
 
 		// ничего не изменилось
-		if (mWidgetMouseFocus == item)
+		if (oldMouseFocus == newMouseFocus)
 		{
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != nullptr)
+			if (oldMouseFocus != nullptr)
 			{
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-					onEventMouseMove(mWidgetMouseFocus, _absx, _absy);
+					onEventMouseMove(newMouseFocus, _absx, _absy);
 				}
 			}
 			return isFocus;
 		}
 
-		if (item)
+		if (newMouseFocus != nullptr)
 		{
 			// поднимаемся до рута
-			Widget* root = item;
+			Widget* root = newMouseFocus;
 			while (root->getParent())
 				root = root->getParent();
 
@@ -152,26 +157,22 @@ namespace MyGUI
 			{
 				if (root != mVectorModalRootWidget.back())
 				{
-					item = nullptr;
+					newMouseFocus = nullptr;
 				}
 			}
 
-			if (item != nullptr)
+			if (newMouseFocus != nullptr)
 			{
 				mLayerMouseFocus = root->getLayer();
 			}
 		}
-
-		// в методе может пропасть наш виджет
-		//WidgetManager::getInstance().addWidgetToUnlink(item);
-
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса мыши
 		Widget* save_widget = nullptr;
 
 		// спускаемся по новому виджету и устанавливаем рутовый фокус
-		Widget* root_focus = item;
+		Widget* root_focus = newMouseFocus;
 		while (root_focus != nullptr)
 		{
 			if (root_focus->getMouseRootFocus())
@@ -180,54 +181,38 @@ namespace MyGUI
 				break;
 			}
 
-			// в методе может пропасть наш виджет
-			//WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			onEventRootMouseFocusChanged(root_focus, true);
-			//WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			//if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
-		root_focus = mWidgetMouseFocus;
+		root_focus = oldMouseFocus;
 		while (root_focus != nullptr)
 		{
 			if (root_focus == save_widget)
-			{
 				break;
-			}
 
-			// в методе может пропасть наш виджет
-			//WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			onEventRootMouseFocusChanged(root_focus, false);
-			//WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			//if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 		//-------------------------------------------------------------------------------------//
 
 		// смена фокуса, проверяем на доступность виджета
+		if ((oldMouseFocus != nullptr) && (oldMouseFocus->isEnabled()))
+			onEventMouseLeave(oldMouseFocus, newMouseFocus);
+
+		if ((newMouseFocus != nullptr) && (newMouseFocus->isEnabled()))
+			onEventMouseEntry(newMouseFocus, oldMouseFocus);
+
+		if (oldMouseFocus != newMouseFocus)
+			eventChangeMouseFocus(newMouseFocus);
+*/
+		updateMouseFocus();
+
 		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->isEnabled()))
-		{
-			onEventMouseLeave(mWidgetMouseFocus, item);
-		}
-
-		//WidgetManager::getInstance().removeWidgetFromUnlink(item);
-
-
-		if ((item != nullptr) && (item->isEnabled()))
-		{
-			onEventMouseMove(item, _absx, _absy);
-			onEventMouseEntry(item, mWidgetMouseFocus);
-		}
-
-		// запоминаем текущее окно
-		mWidgetMouseFocus = item;
-
-		if (old_mouse_focus != mWidgetMouseFocus)
-			eventChangeMouseFocus(mWidgetMouseFocus);
+			onEventMouseMove(mWidgetMouseFocus, _absx, _absy);
 
 		return isFocusMouse();
 	}
@@ -413,13 +398,9 @@ namespace MyGUI
 				break;
 			}
 
-			// в методе может пропасть наш виджет
-			//WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			onEventRootKeyboardFocusChanged(root_focus, true);
-			//WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			//if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
@@ -427,17 +408,11 @@ namespace MyGUI
 		while (root_focus != nullptr)
 		{
 			if (root_focus == save_widget)
-			{
 				break;
-			}
 
-			// в методе может пропасть наш виджет
-			//WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			onEventRootKeyboardFocusChanged(root_focus, false);
-			//WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			//if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 		//-------------------------------------------------------------------------------------//
 
@@ -458,13 +433,9 @@ namespace MyGUI
 		Widget* root_focus = mWidgetMouseFocus;
 		while (root_focus != nullptr)
 		{
-			// в методе может пропасть наш виджет
-			//WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			onEventRootMouseFocusChanged(root_focus, false);
-			//WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			//if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		mIsWidgetMouseCapture = false;
@@ -480,14 +451,22 @@ namespace MyGUI
 	{
 		if (nullptr == _widget)
 			return;
+
+		bool updateMouse = false;
+
 		if (_widget == mWidgetMouseFocus)
 		{
-			mIsWidgetMouseCapture = false;
-			mWidgetMouseFocus = nullptr;
+			resetMouseFocusWidget();
+			resetMouseCaptureWidget();
+			updateMouse = true;
+			//mIsWidgetMouseCapture = false;
+			//mWidgetMouseFocus = nullptr;
 		}
+
 		if (_widget == mWidgetKeyFocus)
 		{
-			mWidgetKeyFocus = nullptr;
+			resetKeyFocusWidget();
+			//mWidgetKeyFocus = nullptr;
 		}
 
 		// ручками сбрасываем, чтобы не менять фокусы
@@ -499,12 +478,16 @@ namespace MyGUI
 				break;
 			}
 		}
+
+		if (updateMouse)
+			updateMouseFocus();
 	}
 
 	void InputManager::addWidgetModal(Widget* _widget)
 	{
 		if (nullptr == _widget)
 			return;
+
 		MYGUI_ASSERT(nullptr == _widget->getParent(), "Modal widget must be root");
 
 		resetMouseFocusWidget();
@@ -610,229 +593,196 @@ namespace MyGUI
 		return mMousePosition;
 	}
 
+	void InputManager::updateMouseFocus()
+	{
+		Widget* oldMouseFocus = mWidgetMouseFocus;
+
+		// ищем активное окно
+		Widget* newMouseFocus = LayerManager::getInstance().getWidgetFromPoint(mMousePosition.left, mMousePosition.top);
+
+		// запоминаем текущее окно
+		mWidgetMouseFocus = newMouseFocus;
+
+		// ничего не изменилось
+		if (oldMouseFocus == newMouseFocus)
+		{
+			if (oldMouseFocus != nullptr)
+			{
+				if (mLayerMouseFocus != nullptr)
+				{
+					IntPoint point = mLayerMouseFocus->getPosition(mMousePosition.left, mMousePosition.top);
+					onEventMouseMove(newMouseFocus, mMousePosition.left, mMousePosition.top);
+				}
+			}
+			return;
+		}
+
+		if (newMouseFocus != nullptr)
+		{
+			// поднимаемся до рута
+			Widget* root = newMouseFocus;
+			while (root->getParent())
+				root = root->getParent();
+
+			// проверяем на модальность
+			if (!mVectorModalRootWidget.empty())
+			{
+				if (root != mVectorModalRootWidget.back())
+				{
+					newMouseFocus = nullptr;
+				}
+			}
+
+			if (newMouseFocus != nullptr)
+			{
+				mLayerMouseFocus = root->getLayer();
+			}
+		}
+
+		// новый вид рутового фокуса мыши
+		Widget* save_widget = nullptr;
+
+		// спускаемся по новому виджету и устанавливаем рутовый фокус
+		Widget* root_focus = newMouseFocus;
+		while (root_focus != nullptr)
+		{
+			if (root_focus->getMouseRootFocus())
+			{
+				save_widget = root_focus;
+				break;
+			}
+
+			onEventRootMouseFocusChanged(root_focus, true);
+
+			root_focus = root_focus->getParent();
+		}
+
+		// спускаемся по старому виджету и сбрасываем фокус
+		root_focus = oldMouseFocus;
+		while (root_focus != nullptr)
+		{
+			if (root_focus == save_widget)
+				break;
+
+			onEventRootMouseFocusChanged(root_focus, false);
+
+			root_focus = root_focus->getParent();
+		}
+
+		// смена фокуса, проверяем на доступность виджета
+		if ((oldMouseFocus != nullptr) && (oldMouseFocus->isEnabled()))
+			onEventMouseLeave(oldMouseFocus, newMouseFocus);
+
+		if ((newMouseFocus != nullptr) && (newMouseFocus->isEnabled()))
+			onEventMouseEntry(newMouseFocus, oldMouseFocus);
+
+		if (oldMouseFocus != newMouseFocus)
+			eventChangeMouseFocus(newMouseFocus);
+	}
+
 	void InputManager::onEventMouseLeave(Widget* _widget, Widget* _new)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseLostFocus(_new);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			FocusChangedEventArgs args(false);
-			_widget->raiseEventMouseFocusChanged(&args);
-		//}
+		FocusChangedEventArgs args(false);
+		_widget->raiseEventMouseFocusChanged(&args);
 	}
 
 	void InputManager::onEventMouseEntry(Widget* _widget, Widget* _old)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseSetFocus(_old);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			FocusChangedEventArgs args(true);
-			_widget->raiseEventMouseFocusChanged(&args);
-		//}
+		FocusChangedEventArgs args(true);
+		_widget->raiseEventMouseFocusChanged(&args);
 	}
 
 	void InputManager::onEventMouseMove(Widget* _widget, int _x, int _y)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseMove(_x, _y);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseMoveEventArgs args(_x, _y);
-			_widget->raiseEventMouseMove(&args);
-		//}
+		MouseMoveEventArgs args(_x, _y);
+		_widget->raiseEventMouseMove(&args);
 	}
 
 	void InputManager::onEventMouseDrag(Widget* _widget, int _x, int _y)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseDrag(_x, _y);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseMoveEventArgs args(_x, _y);
-			_widget->raiseEventMouseDrag(&args);
-		//}
+		MouseMoveEventArgs args(_x, _y);
+		_widget->raiseEventMouseDrag(&args);
 	}
 
 	void InputManager::onEventMouseWheel(Widget* _widget, int _delta)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseWheel(_delta);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseWheelEventArgs args(_delta);
-			_widget->raiseEventMouseWheel(&args);
-		//}
+		MouseWheelEventArgs args(_delta);
+		_widget->raiseEventMouseWheel(&args);
 	}
 
 	void InputManager::onEventMouseButtonDown(Widget* _widget, int _x, int _y, MouseButton _button)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseButtonPressed(_x, _y, _button);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseButtonEventArgs args(_x, _y, _button);
-			_widget->raiseEventMouseButtonDown(&args);
-		//}
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonDown(&args);
 	}
 
 	void InputManager::onEventMouseButtonUp(Widget* _widget, int _x, int _y, MouseButton _button)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseButtonReleased(_x, _y, _button);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseButtonEventArgs args(_x, _y, _button);
-			_widget->raiseEventMouseButtonUp(&args);
-		//}
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonUp(&args);
 	}
 
 	void InputManager::onEventMouseButtonClick(Widget* _widget, int _x, int _y, MouseButton _button)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseButtonClick();
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseButtonEventArgs args(_x, _y, _button);
-			_widget->raiseEventMouseButtonClick(&args);
-		//}
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonClick(&args);
 	}
 
 	void InputManager::onEventMouseButtonDoubleClick(Widget* _widget, int _x, int _y, MouseButton _button)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onMouseButtonDoubleClick();
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			MouseButtonEventArgs args(_x, _y, _button);
-			_widget->raiseEventMouseButtonDoubleClick(&args);
-		//}
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonDoubleClick(&args);
 	}
 
 	void InputManager::onEventGotKeyboardFocus(Widget* _widget, Widget* _old)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onKeySetFocus(_old);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			KeyboardFocusChangedEventArgs args(_old, _widget, true);
-			_widget->raiseEventKeyboardFocusChanged(&args);
-		//}
+		KeyboardFocusChangedEventArgs args(_old, _widget, true);
+		_widget->raiseEventKeyboardFocusChanged(&args);
 	}
 
 	void InputManager::onEventLostKeyboardFocus(Widget* _widget, Widget* _new)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onKeyLostFocus(_new);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			KeyboardFocusChangedEventArgs args(_widget, _new, false);
-			_widget->raiseEventKeyboardFocusChanged(&args);
-		//}
+		KeyboardFocusChangedEventArgs args(_widget, _new, false);
+		_widget->raiseEventKeyboardFocusChanged(&args);
 	}
 
 	void InputManager::onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onKeyButtonPressed(_key, _text);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			KeyButtonEventArgs args(_key, _text);
-			_widget->raiseEventKeyButtonDown(&args);
-		//}
+		KeyButtonEventArgs args(_key, _text);
+		_widget->raiseEventKeyButtonDown(&args);
 	}
 
 	void InputManager::onEventKeyButtonUp(Widget* _widget, KeyCode _key)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		_widget->onKeyButtonReleased(_key);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			KeyButtonEventArgs args(_key);
-			_widget->raiseEventKeyButtonUp(&args);
-		//}
+		KeyButtonEventArgs args(_key);
+		_widget->raiseEventKeyButtonUp(&args);
 	}
 
 	void InputManager::onEventRootMouseFocusChanged(Widget* _widget, bool _focus)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		FocusChangedEventArgs args(_focus);
 		_widget->raiseEventMouseRootFocusChanged(&args);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			_widget->onMouseChangeRootFocus(_focus);
-		//}
+		_widget->onMouseChangeRootFocus(_focus);
 	}
 
 	void InputManager::onEventRootKeyboardFocusChanged(Widget* _widget, bool _focus)
 	{
-		//WidgetManager& unlinker = WidgetManager::getInstance();
-
-		//unlinker.addWidgetToUnlink(_widget);
 		FocusChangedEventArgs args(_focus);
 		_widget->raiseEventKeyboardRootFocusChanged(&args);
-		//unlinker.removeWidgetFromUnlink(_widget);
-
-		//if (_widget != nullptr)
-		//{
-			_widget->onKeyChangeRootFocus(_focus);
-		//}
+		_widget->onKeyChangeRootFocus(_focus);
 	}
 
 } // namespace MyGUI
