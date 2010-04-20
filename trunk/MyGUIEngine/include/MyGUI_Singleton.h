@@ -25,7 +25,7 @@
 #include "MyGUI_Diagnostic.h"
 namespace MyGUI
 {
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	template <class T>
 	class Singleton
 #else
