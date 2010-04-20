@@ -104,6 +104,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+				mWidgetClient->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 				mClient = mWidgetClient;
 			}
 		}
@@ -681,10 +682,8 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		size_t index = calcIndexByWidget(_sender);
-		// солличество айтемов может измениться
-		if (index >= getItemCount()) return;
-		eventNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MouseReleased, _left, _top, _id));
+
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ItemBox::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
