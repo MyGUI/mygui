@@ -21,7 +21,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Move mouse to rotate skin. Right mouse click to set new center.");
 
 		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
 
@@ -30,15 +31,6 @@ namespace demo
 
 		MyGUI::ISubWidget * main = image->getSubWidgetMain();
 		rotato = main->castType<MyGUI::RotatingSkin>();
-	}
-
-	void DemoKeeper::destroyScene()
-	{
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
-	}
-
-	void DemoKeeper::notifyFrameStarted(float _time)
-	{
 	}
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)

@@ -48,7 +48,7 @@ namespace MyGUI
 			@param _center Center point.
 			@param _local If true - _center point calculated as point on SubWidget, else calculated as point on screen.
 		*/
-		void setCenter(const IntPoint &_center, bool _local = true);
+		void setCenter(const IntPoint &_center);
 		/** Get center of rotation */
 		IntPoint getCenter(bool _local = true) const;
 
@@ -85,7 +85,6 @@ namespace MyGUI
 
 		float mAngle;
 		IntPoint mCenterPos;
-		bool mLocalCenter;
 
 		enum {RECT_VERTICIES_COUNT = 4, GEOMETRY_VERTICIES_TOTAL_COUNT = 8};
 		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
