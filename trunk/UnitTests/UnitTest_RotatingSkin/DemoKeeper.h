@@ -15,10 +15,8 @@ namespace demo
 	{
 	public:
 		virtual void createScene();
-		virtual void destroyScene();
 
 		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		void notifyFrameStarted(float _time);
 	private:
 		virtual void setupResources();
 
