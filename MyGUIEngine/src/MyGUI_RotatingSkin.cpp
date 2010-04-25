@@ -29,7 +29,6 @@ namespace MyGUI
 
 	RotatingSkin::RotatingSkin() :
 		mAngle(0.0f),
-		mLocalCenter(false),
 		mEmptyView(false),
 		mNode(nullptr),
 		mRenderItem(nullptr)
@@ -49,10 +48,9 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::setCenter(const IntPoint &_center, bool _local)
+	void RotatingSkin::setCenter(const IntPoint &_center)
 	{
 		mCenterPos = _center;
-		mLocalCenter = _local;
 		_rebuildGeometry();
 
 		if (nullptr != mNode)
@@ -227,32 +225,23 @@ namespace MyGUI
 #ifndef M_PI
 		const float M_PI = 3.141593f;
 #endif
-		// FIXME mLocalCenter ignored
-		float left_base = 0;
-		float top_base = 0;
-
-		if (!mLocalCenter)
-		{
-			left_base = (float)mCurrentCoord.width;
-			top_base = (float)mCurrentCoord.height;
-		}
 
 		float width_base = (float)mCurrentCoord.width;
 		float height_base = (float)mCurrentCoord.height;
 
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = atan2(            - (float)mCenterPos.left,             - (float)mCenterPos.top) + M_PI/2;
-		baseAngles[1] = atan2( width_base - (float)mCenterPos.left,             - (float)mCenterPos.top) + M_PI/2;
-		baseAngles[2] = atan2( width_base - (float)mCenterPos.left, height_base - (float)mCenterPos.top) + M_PI/2;
-		baseAngles[3] = atan2(            - (float)mCenterPos.left, height_base - (float)mCenterPos.top) + M_PI/2;
+		baseAngles[0] = atan2(                (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
+		baseAngles[1] = atan2( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
+		baseAngles[2] = atan2( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
+		baseAngles[3] = atan2(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
-		baseDistances[0] = len(            - (float)mCenterPos.left,             - (float)mCenterPos.top);
-		baseDistances[1] = len( width_base - (float)mCenterPos.left,             - (float)mCenterPos.top);
-		baseDistances[2] = len( width_base - (float)mCenterPos.left, height_base - (float)mCenterPos.top);
-		baseDistances[3] = len(            - (float)mCenterPos.left, height_base - (float)mCenterPos.top);
+		baseDistances[0] = len(                (float)mCenterPos.left,                 (float)mCenterPos.top);
+		baseDistances[1] = len( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top);
+		baseDistances[2] = len( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top);
+		baseDistances[3] = len(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top);
 
 
 		// calculate rotated postions of uncropped rectangle verticies (relative to parent)
