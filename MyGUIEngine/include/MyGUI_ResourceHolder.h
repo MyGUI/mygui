@@ -79,7 +79,7 @@ namespace MyGUI
 			mResources.clear();
 		}
 
-		EnumeratorPtr getEnumerator()
+		EnumeratorPtr getEnumerator() const
 		{
 			return EnumeratorPtr(mResources);
 		}
