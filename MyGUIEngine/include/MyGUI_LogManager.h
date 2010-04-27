@@ -23,22 +23,24 @@
 #define __MYGUI_LOG_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+//#include "MyGUI_Singleton.h"
 #include "MyGUI_LogStream.h"
-#include <map>
+#include "MyGUI_LogSource.h"
+#include "MyGUI_Diagnostic.h"
+//#include <map>
+#include <vector>
 
 namespace MyGUI
 {
 
 	#define MYGUI_LOGGING(section, level, text) \
-		MyGUI::LogManager::out(section, MyGUI::LogManager::level) \
-		<< text \
-		<< MyGUI::LogManager::info(__FILE__, __LINE__) \
-		<< MyGUI::LogManager::end()
+		MyGUI::LogManager::getInstance().log(section, MyGUI::LogLevel::level, MyGUI::LogStream() << text << MyGUI::LogStream::End(), __FILE__, __LINE__)
 
-	class MYGUI_EXPORT LogManager
+	class MYGUI_EXPORT LogManager// :
+		//public Singleton<LogManager>
 	{
 
-	public:
+	/*public:
 		enum LogLevel
 		{
 			Info,
@@ -46,40 +48,60 @@ namespace MyGUI
 			Error,
 			Critical,
 			EndLogLevel
-		};
+		};*/
 
 	public:
-		static void shutdown();
-		static void initialise();
-
-		static void registerSection(const std::string& _section, const std::string& _file);
-		static void unregisterSection(const std::string& _section);
-
-		static LogStream& out(const std::string& _section, LogLevel _level);
-		static const std::string& info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/);
-
-		static const LogStream::LogStreamEnd& end();
-
-		// set logging enabled on std output device
-		static void setSTDOutputEnabled(bool _enable);
-		static bool getSTDOutputEnabled();
-
-	private:
 		LogManager();
 		~LogManager();
 
-	public:
-		static const std::string General;
-		static const std::string separator;
+		//void initialise();
+		//void shutdown();
 
-		static LogStream::LogStreamEnd endl;
-		static const std::string LevelsName[EndLogLevel];
+		static LogManager& getInstance();
+		static LogManager* getInstancePtr();
+
+		// הכÿ סמגלוסעטלמסעט
+		static void registerSection(const std::string& _section, const std::string& _fileName) { }
+		static void unregisterSection(const std::string& _section) { }
+
+		void flush();
+		void log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line);
+
+		void createDefaultListeners(const std::string& _logname);
+		//static LogStream& out(const std::string& _section, LogLevel _level);
+		//static const std::string& info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/);
+
+		//static const LogStream::LogStreamEnd& end();
+
+		// set logging enabled on std output device
+		//static void setSTDOutputEnabled(bool _enable);
+		//static bool getSTDOutputEnabled();
+
+	//public:
+		//static const std::string General;
+		//static const std::string separator;
+
+		//static LogStream::LogStreamEnd endl;
+		//static const std::string LevelsName[EndLogLevel];
+		void addLogSource(LogSource* _source);
+
+	private:
+		void close();
 
 	private:
 		static LogManager * msInstance;
-		typedef std::map<std::string, LogStream*>  MapLogStream;
-		MapLogStream mMapSectionFileName;
-		bool mSTDOut;
+		//typedef std::map<std::string, LogStream*>  MapLogStream;
+		//MapLogStream mMapSectionFileName;
+		//bool mSTDOut;
+
+		typedef std::vector<LogSource*> VectorLogSource;
+		VectorLogSource mSources;
+
+		/*typedef std::map<std::string, ILogListener*> MapLogListener;
+		MapLogListener mListeners;
+
+		typedef std::map<std::string, ILogFilter*> MapLogFilter;
+		MapLogFilter mFilter;*/
 	};
 
 } // namespace MyGUI

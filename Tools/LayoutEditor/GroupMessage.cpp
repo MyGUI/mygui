@@ -4,11 +4,11 @@
 
 template <> const char* MyGUI::Singleton<GroupMessage>::INSTANCE_TYPE_NAME("GroupMessage");
 
-void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogManager::LogLevel _type)
+void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type)
 {
-	if (_type == MyGUI::LogManager::Error)
+	if (_type == MyGUI::LogLevel::Error)
 		mErrorMessages.push_back(_message);
-	else /*if (_type == MyGUI::LogManager::Warning)*/
+	else /*if (_type == MyGUI::LogLevel::Warning)*/
 		mWarningMessages.push_back(_message);
 }
 

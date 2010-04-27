@@ -23,49 +23,31 @@
 #define __MYGUI_LOG_STREAM_H__
 
 #include "MyGUI_Prerequest.h"
-#include <fstream>
-#include <iostream>
-#include <string>
+#include <sstream>
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LogStream
 	{
-		friend class LogManager;
+	public:
+		struct End { };
 
 	public:
-		struct LogStreamEnd { };
-
-	public:
-		LogStream& operator<<(const LogStreamEnd& _endl);
+		std::string operator << (const End& _endl)
+		{
+			return mStream.str();
+		}
 
 		template <typename T>
-		inline LogStream& operator<<(T _value)
+		inline LogStream& operator << (T _value)
 		{
-			if (getSTDOutputEnabled()) std::cout << _value;
-			if (mStream.is_open()) mStream << _value;
+			mStream << _value;
 			return *this;
 		}
 
-		const std::string& getFileName() const { return mFileName; }
-
 	private:
-		LogStream();
-		~LogStream();
-
-		LogStream(const std::string& _file);
-
-		void start(const std::string& _section, const std::string& _level);
-
-		bool getSTDOutputEnabled();
-
-		void lock() const { }
-		void release() const { }
-
-	private:
-		std::ofstream mStream;
-		std::string mFileName;
+		std::ostringstream mStream;
 	};
 
 } // namespace MyGUI
