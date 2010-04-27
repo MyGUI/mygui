@@ -4,7 +4,7 @@
 class GroupMessage : public MyGUI::Singleton<GroupMessage>
 {
 public:
-	void addMessage(const MyGUI::UString & _message, MyGUI::LogManager::LogLevel _type);
+	void addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type);
 	void showMessages();
 private:
 	MyGUI::VectorString mErrorMessages;
