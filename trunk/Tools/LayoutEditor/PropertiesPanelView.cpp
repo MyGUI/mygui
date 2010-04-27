@@ -543,7 +543,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Error);
+			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 		return;
 	}

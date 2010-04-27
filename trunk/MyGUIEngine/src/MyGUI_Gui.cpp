@@ -69,12 +69,11 @@ namespace MyGUI
 
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
-		// самый первый лог
-		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
+		//LogManager::getInstance().registerSection(MYGUI_LOG_SECTION);
 
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
 		MYGUI_LOG(Info, "* MyGUI version "
 			<< MYGUI_VERSION_MAJOR << "."
 			<< MYGUI_VERSION_MINOR << "."
@@ -172,11 +171,9 @@ namespace MyGUI
 		delete mToolTipManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-
-		// last gui log
-		LogManager::unregisterSection(MYGUI_LOG_SECTION);
-
 		mIsInitialise = false;
+
+		//LogManager::getInstance().unregisterSection(MYGUI_LOG_SECTION);
 	}
 
 	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)

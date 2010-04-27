@@ -21,34 +21,43 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_LogManager.h"
-#include <sstream>
+#include "MyGUI_FileLogListener.h"
+#include "MyGUI_ConsoleLogListener.h"
+#include "MyGUI_LogSource.h"
+//#include <sstream>
+#include <time.h>
 
 namespace MyGUI
 {
 
-	const std::string LogManager::LevelsName[EndLogLevel] =
+	//template <> const char* Singleton<LogManager>::INSTANCE_TYPE_NAME("LogManager");
+	/*const std::string LogManager::LevelsName[EndLogLevel] =
 	{
 		"Info",
 		"Warning",
 		"Error",
 		"Critical"
-	};
+	};*/
 
-	const std::string LogManager::General = "General";
-	const std::string LogManager::separator = "  |  ";
+	//const std::string LogManager::General = "General";
+	//const std::string LogManager::separator = "  |  ";
 
-	LogStream::LogStreamEnd LogManager::endl;
-	LogManager* LogManager::msInstance = 0;
+	//LogStream::LogStreamEnd LogManager::endl;
+	LogManager* LogManager::msInstance = nullptr;
 
 	LogManager::LogManager()
 	{
 		msInstance = this;
-		mSTDOut = true;
+		/*mSTDOut = true;*/
 	}
 
 	LogManager::~LogManager()
 	{
-		MapLogStream& mapStream = msInstance->mMapSectionFileName;
+		flush();
+		close();
+
+		msInstance = nullptr;
+		/*MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter)
 		{
 			LogStream * stream = iter->second;
@@ -62,27 +71,94 @@ namespace MyGUI
 			delete stream;
 		}
 		mapStream.clear();
-		msInstance = nullptr;
+		msInstance = nullptr;*/
 	}
 
-	void LogManager::shutdown()
-	{
-		if (msInstance != nullptr)
-		{
-			delete msInstance;
-			msInstance = nullptr;
-		}
-	}
-
-	void LogManager::initialise()
+	LogManager& LogManager::getInstance()
 	{
 		if (msInstance == nullptr)
 		{
-			msInstance = new LogManager();
+			MYGUI_DBG_BREAK;
+			MYGUI_BASE_EXCEPT("Singleton instance LogManager was not created", "MyGUI");
+		}
+		return *msInstance;
+	}
+
+	LogManager* LogManager::getInstancePtr()
+	{
+		return msInstance;
+	}
+
+	/*void LogManager::registerSection(const std::string& _section, const std::string& _source)
+	{
+	}
+
+	void LogManager::unregisterSection(const std::string& _section, const std::string& _source)
+	{
+	}*/
+
+	void LogManager::flush()
+	{
+		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+			(*item)->flush();
+	}
+
+	void LogManager::log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line)
+	{
+		time_t ctTime;
+		time(&ctTime);
+		struct tm *currentTime;
+		currentTime = localtime(&ctTime);
+
+		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+			(*item)->log(_section, _level, currentTime, _message, _file, _line);
+	}
+
+	void LogManager::close()
+	{
+		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+			(*item)->close();
+	}
+
+	void LogManager::addLogSource(LogSource* _source)
+	{
+		mSources.push_back(_source);
+	}
+
+	void LogManager::createDefaultListeners(const std::string& _logname)
+	{
+		if (!_logname.empty())
+		{
+			ConsoleLogListener* console = new ConsoleLogListener();
+			FileLogListener* file = new FileLogListener(_logname);
+			file->open();
+
+			LogSource* source = new LogSource();
+			source->addLogListener(file);
+			source->addLogListener(console);
+
+			LogManager::getInstance().addLogSource(source);
 		}
 	}
 
-	LogStream& LogManager::out(const std::string& _section, LogLevel _level)
+	//void LogManager::shutdown()
+	//{
+		/*if (msInstance != nullptr)
+		{
+			delete msInstance;
+			msInstance = nullptr;
+		}*/
+	//}
+
+	//void LogManager::initialise()
+	//{
+		/*if (msInstance == nullptr)
+		{
+			msInstance = new LogManager();
+		}*/
+	//}
+
+	/*LogStream& LogManager::out(const std::string& _section, LogLevel _level)
 	{
 		static LogStream empty;
 
@@ -108,12 +184,6 @@ namespace MyGUI
 
 		// ищем такую же секцию и удаляем ее
 		MapLogStream& mapStream = msInstance->mMapSectionFileName;
-		/*MapLogStream::iterator iter = mapStream.find(_section);
-		if (iter != mapStream.end())
-		{
-			delete iter->second;
-			mapStream.erase(iter);
-		}*/
 
 		// ищем поток с таким же именем, если нет, то создаем
 		LogStream * stream = 0;
@@ -152,7 +222,7 @@ namespace MyGUI
 		if (mapStream.size() == 0) shutdown();
 	}
 
-	const std::string& LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
+	const std::string& LogManager::info(const char * _file , int _line )
 	{
 		std::ostringstream stream;
 		stream << separator << _file << separator << _line;
@@ -177,6 +247,6 @@ namespace MyGUI
 	{
 		assert(msInstance);
 		return msInstance->mSTDOut;
-	}
+	}*/
 
 } // namespace MyGUI
