@@ -54,7 +54,13 @@ set (HEADER_FILES
   include/MyGUI_Utility.h
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_XmlDocument.h
+  include/MyGUI_ConsoleLogListener.h
+  include/MyGUI_FileLogListener.h
+  include/MyGUI_ILogFilter.h
+  include/MyGUI_ILogListener.h
+  include/MyGUI_LogLevel.h
   include/MyGUI_LogManager.h
+  include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
   include/MyGUI.h
   include/MyGUI_CastWidget.h
@@ -72,6 +78,7 @@ set (HEADER_FILES
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
+  include/MyGUI_IEventCaller.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -81,7 +88,9 @@ set (HEADER_FILES
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
   include/MyGUI_BiIndexBase.h
+  include/MyGUI_InputElement.h
   include/MyGUI_ScrollViewBase.h
+  include/MyGUI_UIElement.h
   include/MyGUI_WidgetEvent.h
   include/MyGUI_WidgetUserData.h
   include/MyGUI_EditText.h
@@ -127,9 +136,21 @@ set (HEADER_FILES
   include/MyGUI_Align.h
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
+  include/MyGUI_ColourARGB.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_EventArgs.h
+  include/MyGUI_EventInfo.h
+  include/MyGUI_EventType.h
   include/MyGUI_FlowDirection.h
+  include/MyGUI_FocusChangedEventArgs.h
   include/MyGUI_ImageInfo.h
+  include/MyGUI_KeyboardFocusChangedEventArgs.h
+  include/MyGUI_KeyButtonEventArgs.h
+  include/MyGUI_KeyCode.h
+  include/MyGUI_MouseButton.h
+  include/MyGUI_MouseButtonEventArgs.h
+  include/MyGUI_MouseMoveEventArgs.h
+  include/MyGUI_MouseWheelEventArgs.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_SizePolicy.h
   include/MyGUI_TCoord.h
@@ -140,7 +161,6 @@ set (HEADER_FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
-  include/MyGUI_ColourARGB.h
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
@@ -158,22 +178,8 @@ set (HEADER_FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_WidgetManager.h
   include/MyGUI_ToolTipManager.h
-  include/MyGUI_UIElement.h
-  include/MyGUI_InputElement.h
-  include/MyGUI_EventInfo.h
-  include/MyGUI_EventType.h
-  include/MyGUI_EventArgs.h
-  include/MyGUI_MouseButton.h
-  include/MyGUI_KeyCode.h
-  include/MyGUI_IEventCaller.h
-  include/MyGUI_FocusChangedEventArgs.h
-  include/MyGUI_KeyButtonEventArgs.h
-  include/MyGUI_MouseButtonEventArgs.h
-  include/MyGUI_MouseMoveEventArgs.h
-  include/MyGUI_MouseWheelEventArgs.h
-  include/MyGUI_KeyboardFocusChangedEventArgs.h
+  include/MyGUI_WidgetManager.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -224,7 +230,9 @@ set (SOURCE_FILES
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
   src/MyGUI_IWidgetCreator.cpp
+  src/MyGUI_InputElement.cpp
   src/MyGUI_ScrollViewBase.cpp
+  src/MyGUI_UIElement.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
   src/MyGUI_ResourceManualFont.cpp
@@ -251,8 +259,8 @@ set (SOURCE_FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_WidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
+  src/MyGUI_WidgetManager.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
@@ -260,12 +268,12 @@ set (SOURCE_FILES
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
-  src/MyGUI_XmlDocument.cpp
-  src/MyGUI_LogManager.cpp
-  src/MyGUI_LogStream.cpp
-  src/MyGUI_UIElement.cpp
-  src/MyGUI_InputElement.cpp
   src/MyGUI_UString.cpp
+  src/MyGUI_XmlDocument.cpp
+  src/MyGUI_ConsoleLogListener.cpp
+  src/MyGUI_FileLogListener.cpp
+  src/MyGUI_LogManager.cpp
+  src/MyGUI_LogSource.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -326,9 +334,9 @@ SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
   src/MyGUI_IWidgetCreator.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
+  src/MyGUI_InputElement.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_UIElement.cpp
-  src/MyGUI_InputElement.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
@@ -367,14 +375,16 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_WidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
+  src/MyGUI_WidgetManager.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
 )
 SOURCE_GROUP("Source Files\\Utility\\Logging" FILES
+  src/MyGUI_ConsoleLogListener.cpp
+  src/MyGUI_FileLogListener.cpp
   src/MyGUI_LogManager.cpp
-  src/MyGUI_LogStream.cpp
+  src/MyGUI_LogSource.cpp
 )
 SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DataFileStream.cpp
@@ -384,8 +394,8 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
-  src/MyGUI_XmlDocument.cpp
   src/MyGUI_UString.cpp
+  src/MyGUI_XmlDocument.cpp
 )
 SOURCE_GROUP("Source Files" FILES
 )
@@ -432,7 +442,13 @@ SOURCE_GROUP("Header Files\\Widget\\Interfaces" FILES
 SOURCE_GROUP("Header Files\\Widget" FILES
 )
 SOURCE_GROUP("Header Files\\Utility\\Logging" FILES
+  include/MyGUI_ConsoleLogListener.h
+  include/MyGUI_FileLogListener.h
+  include/MyGUI_ILogFilter.h
+  include/MyGUI_ILogListener.h
+  include/MyGUI_LogLevel.h
   include/MyGUI_LogManager.h
+  include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
 )
 SOURCE_GROUP("Header Files\\Utility" FILES
@@ -459,6 +475,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
+  include/MyGUI_IEventCaller.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -467,15 +484,14 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
-  include/MyGUI_IEventCaller.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_BiIndexBase.h
+  include/MyGUI_InputElement.h
   include/MyGUI_ScrollViewBase.h
+  include/MyGUI_UIElement.h
   include/MyGUI_WidgetEvent.h
   include/MyGUI_WidgetUserData.h
-  include/MyGUI_UIElement.h
-  include/MyGUI_InputElement.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
@@ -553,11 +569,21 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Align.h
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
+  include/MyGUI_ColourARGB.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_EventArgs.h
+  include/MyGUI_EventInfo.h
+  include/MyGUI_EventType.h
   include/MyGUI_FlowDirection.h
+  include/MyGUI_FocusChangedEventArgs.h
   include/MyGUI_ImageInfo.h
-  include/MyGUI_MouseButton.h
+  include/MyGUI_KeyboardFocusChangedEventArgs.h
+  include/MyGUI_KeyButtonEventArgs.h
   include/MyGUI_KeyCode.h
+  include/MyGUI_MouseButton.h
+  include/MyGUI_MouseButtonEventArgs.h
+  include/MyGUI_MouseMoveEventArgs.h
+  include/MyGUI_MouseWheelEventArgs.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_SizePolicy.h
   include/MyGUI_TCoord.h
@@ -568,16 +594,6 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
-  include/MyGUI_ColourARGB.h
-  include/MyGUI_EventInfo.h
-  include/MyGUI_EventType.h
-  include/MyGUI_EventArgs.h
-  include/MyGUI_FocusChangedEventArgs.h
-  include/MyGUI_KeyButtonEventArgs.h
-  include/MyGUI_MouseButtonEventArgs.h
-  include/MyGUI_MouseMoveEventArgs.h
-  include/MyGUI_MouseWheelEventArgs.h
-  include/MyGUI_KeyboardFocusChangedEventArgs.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
@@ -597,8 +613,8 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_WidgetManager.h
   include/MyGUI_ToolTipManager.h
+  include/MyGUI_WidgetManager.h
 )
 SOURCE_GROUP("Header Files\\Core" FILES
 )
