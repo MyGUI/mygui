@@ -23,6 +23,7 @@
 #define __MYGUI_LOG_STREAM_H__
 
 #include "MyGUI_Prerequest.h"
+#include <string.h>
 #include <sstream>
 
 namespace MyGUI
