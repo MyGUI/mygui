@@ -1,0 +1,39 @@
+set (HEADER_FILES
+  include/MyGUI_OpenGLDataManager.h
+  include/MyGUI_OpenGLDiagnostic.h
+  include/MyGUI_OpenGLPlatform.h
+  include/MyGUI_OpenGLRenderManager.h
+  include/MyGUI_OpenGLTexture.h
+  include/MyGUI_OpenGLRTTexture.h
+  include/MyGUI_OpenGLVertexBuffer.h
+)
+set (SOURCE_FILES
+  include/GL/glew.c
+  src/MyGUI_OpenGLDataManager.cpp
+  src/MyGUI_OpenGLPlatform.cpp
+  src/MyGUI_OpenGLRenderManager.cpp
+  src/MyGUI_OpenGLTexture.cpp
+  src/MyGUI_OpenGLRTTexture.cpp
+  src/MyGUI_OpenGLVertexBuffer.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  include/GL/glew.c
+  src/MyGUI_OpenGLDataManager.cpp
+  src/MyGUI_OpenGLPlatform.cpp
+  src/MyGUI_OpenGLRenderManager.cpp
+  src/MyGUI_OpenGLTexture.cpp
+  src/MyGUI_OpenGLRTTexture.cpp
+  src/MyGUI_OpenGLVertexBuffer.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_OpenGLDataManager.h
+  include/MyGUI_OpenGLDiagnostic.h
+  include/MyGUI_OpenGLPlatform.h
+  include/MyGUI_OpenGLRenderManager.h
+  include/MyGUI_OpenGLTexture.h
+  include/MyGUI_OpenGLRTTexture.h
+  include/MyGUI_OpenGLVertexBuffer.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

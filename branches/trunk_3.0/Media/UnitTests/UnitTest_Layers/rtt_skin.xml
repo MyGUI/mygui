@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceSkin" name="rtt_MonitorProgressTrack" size="28 59" texture="rtt_source.png">
+		<BasisSkin type="SubSkin" offset="0 0 28 59" align="Stretch">
+			<State name="normal" offset="4 3 28 59"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="rtt_MonitorProgress" size="28 59" texture="rtt_source.png">
+		<Property key="TrackSkin" value="rtt_MonitorProgressTrack"/>
+		<Property key="TrackWidth" value="28"/>
+		<Property key="TrackFill" value="false"/>
+
+		<Child type="Widget" skin="Default" offset="0 0 28 59" align="Stretch" name="Client"/>
+
+		<BasisSkin type="TileRect" offset="0 0 28 59" align="Stretch">
+			<State name="normal" offset="4 90 28 59">
+				<Property key="TileSize" value="28 59"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="false"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="rtt_KeyboardLamp" size="38 39" texture="rtt_source.png">
+		<BasisSkin type="MainSkin" offset="0 0 38 39" align="Default">
+			<State name="disabled" offset="18 216 38 39"/>
+			<State name="normal" offset="18 216 38 39"/>
+			<State name="highlighted" offset="18 216 38 39"/>
+			<State name="normal_checked" offset="18 166 38 39"/>
+			<State name="pushed" offset="18 166 38 39"/>
+		</BasisSkin>
+	</Resource>
+
+
+	<Resource type="ResourceSkin" name="rtt_KeyboardProgressTrack" size="45 17" texture="rtt_source.png">
+		<BasisSkin type="SubSkin" offset="0 0 45 17" align="Stretch">
+			<State name="normal" offset="61 20 45 17"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="rtt_KeyboardProgress" size="45 17" texture="rtt_source.png">
+		<Property key="TrackSkin" value="rtt_KeyboardProgressTrack"/>
+		<Property key="TrackWidth" value="17"/>
+		<Property key="TrackFill" value="false"/>
+		<Property key="StartPoint" value="Bottom"/>
+
+		<Child type="Widget" skin="Default" offset="0 0 45 17" align="Stretch" name="Client"/>
+
+		<BasisSkin type="TileRect" offset="0 0 45 17" align="Stretch">
+			<State name="normal" offset="131 20 45 17">
+				<Property key="TileSize" value="45 17"/>
+				<Property key="TileH" value="false"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="rtt_KeyboardButton" size="145 57" texture="rtt_source.png">
+		<Property key="FontName" value="font_rtt_Keyboard"/>
+		<Property key="TextAlign" value="HCenter VCenter"/>
+
+		<BasisSkin type="MainSkin" offset="0 0 145 57" align="Default">
+			<State name="disabled" offset="98 192 145 57"/>
+			<State name="normal" offset="98 192 145 57"/>
+			<State name="highlighted" offset="98 123 145 57"/>
+			<State name="normal_checked" offset="98 54 145 57"/>
+			<State name="pushed" offset="98 54 145 57"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="0 0 145 57" align="Stretch">
+			<State name="disabled" colour="#FFFFFF" shift="false"/>
+			<State name="normal" colour="#FFFFFF" shift="false"/>
+			<State name="highlighted" colour="#FFFFFF" shift="false"/>
+			<State name="normal_checked" colour="#808080" shift="false"/>
+			<State name="pushed" colour="#808080" shift="false"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="rtt_MonitorEditClient" size="16 16">
+		<Property key="FontName" value="font_rtt_Keyboard"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#FFFFFF"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	
+	<Resource type="ResourceSkin" name="rtt_MonitorEdit" size="16 16" texture="rtt_source.png">
+		<Child type="Widget" skin="rtt_MonitorEditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+	</Resource>
+	
+</MyGUI>

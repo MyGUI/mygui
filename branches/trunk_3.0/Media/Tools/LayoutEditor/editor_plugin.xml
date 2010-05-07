@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="List">
+
+	<List file="StrangeButtonPlugin.xml"/>
+	<List file="HikariWidgetPlugin.xml"/>
+	<List file="AwesomiumWidgetPlugin.xml"/>
+	<List file="BerkeliumWidgetPlugin.xml"/>
+
+</MyGUI>

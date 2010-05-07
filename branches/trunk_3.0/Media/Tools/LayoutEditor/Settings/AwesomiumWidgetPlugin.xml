@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+
+	<MyGUI type="Widgets">
+		<Widget name="AwesomiumWidget">
+			<Property key="DefaultSkin" value="Canvas"/>
+
+			<Property key="Skin" value="Canvas" group="Plugin" name="AwesomiumWidget"/>
+
+			<Property key="Parent" value="true"/>
+			<Property key="Child" value="true"/>
+
+			<Parameter key="Awesomium_SourceURL" value="StringAccept"/>
+			<Parameter key="Awesomium_Transparent" value="Bool"/>
+		</Widget>
+	</MyGUI>
+
+	<MyGUI type="Plugin">
+		<Plugin>
+			<Source>Plugin_AwesomiumWidget.dll</Source>
+			<Source build="Debug">Plugin_AwesomiumWidget_d.dll</Source>
+		</Plugin>
+	</MyGUI>
+
+</MyGUI>

@@ -1,0 +1,13 @@
+add_subdirectory(TestApp)
+add_subdirectory(UnitTest_AttachDetach)
+#add_subdirectory(UnitTest_Canvas)
+add_subdirectory(UnitTest_Containers)
+#add_subdirectory(UnitTest_GraphView)
+add_subdirectory(UnitTest_MultiList)
+add_subdirectory(UnitTest_TextureAnimations)
+add_subdirectory(UnitTest_TreeControl)
+add_subdirectory(UnitTest_Layers)
+add_subdirectory(UnitTest_RTTLayer)
+add_subdirectory(UnitTest_ItemBox_Info)
+
+

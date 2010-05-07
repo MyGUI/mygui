@@ -1,0 +1,109 @@
+set (HEADER_FILES
+  Common.h
+  EditorState.h
+  EditorToolTip.h
+  EditorWidgets.h
+  resource.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetTypes.h
+  PanelControllers.h
+  PanelItems.h
+  PanelMainProperties.h
+  PanelProperties.h
+  PanelUserData.h
+  PanelView.h
+  PanelViewCell.h
+  PropertiesPanelView.h
+  MetaSolutionWindow.h
+  SettingsWindow.h
+  WidgetsWindow.h
+  OpenSaveFileDialog.h
+  Parse.h
+  GroupMessage.h
+)
+set (SOURCE_FILES
+  EditorState.cpp
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  UndoManager.cpp
+  WidgetTypes.cpp
+  editor.ico
+  LayoutEditor.rc
+  PanelControllers.cpp
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelUserData.cpp
+  PropertiesPanelView.cpp
+  MetaSolutionWindow.cpp
+  SettingsWindow.cpp
+  WidgetsWindow.cpp
+  OpenSaveFileDialog.cpp
+  Parse.cpp
+  GroupMessage.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  EditorState.cpp
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  UndoManager.cpp
+  WidgetTypes.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Common.h
+  EditorState.h
+  EditorToolTip.h
+  EditorWidgets.h
+  resource.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetTypes.h
+)
+SOURCE_GROUP("Resources" FILES
+  editor.ico
+  LayoutEditor.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("Panels\\Header" FILES
+  PanelControllers.h
+  PanelItems.h
+  PanelMainProperties.h
+  PanelProperties.h
+  PanelUserData.h
+  PanelView.h
+  PanelViewCell.h
+  PropertiesPanelView.h
+)
+SOURCE_GROUP("Panels" FILES
+  PanelControllers.cpp
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelUserData.cpp
+  PropertiesPanelView.cpp
+)
+SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
+  OpenSaveFileDialog.h
+  OpenSaveFileDialog.cpp
+)
+SOURCE_GROUP("Windows" FILES
+  MetaSolutionWindow.h
+  SettingsWindow.h
+  WidgetsWindow.h
+  MetaSolutionWindow.cpp
+  SettingsWindow.cpp
+  WidgetsWindow.cpp
+)
+SOURCE_GROUP("Parse" FILES
+  Parse.h
+  Parse.cpp
+)
+SOURCE_GROUP("GroupedMessage" FILES
+  GroupMessage.h
+  GroupMessage.cpp
+)
+SOURCE_GROUP("Base" FILES
+)
+SOURCE_GROUP("" FILES
+)

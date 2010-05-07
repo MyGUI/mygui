@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Font">
+		<xs:sequence>
+			<xs:element name="Code" type="FontCode" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="tab_width" type="xs:byte"/>
+		<xs:attribute name="space_width" type="xs:byte"/>
+		<xs:attribute name="source" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="size" type="xs:byte"/>
+		<xs:attribute name="resolution" type="xs:byte"/>
+		<xs:attribute name="offset_height" type="xs:byte"/>
+		<xs:attribute name="name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="distance" type="xs:byte"/>
+		<xs:attribute name="default_height" type="xs:byte" use="required"/>
+		<xs:attribute name="cursor_width" type="xs:byte"/>
+		<xs:attribute name="antialias_colour" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="FontCode">
+		<xs:attribute name="range" type="FontCodeNumbers"/>
+		<xs:attribute name="index" type="FontCodeNumbers"/>
+		<xs:attribute name="hide" type="FontCodeNumbers"/>
+		<xs:attribute name="coord" type="Coords"/>
+	</xs:complexType>
+	<xs:simpleType name="FontCodeNumbers">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,5}(\s[0-9]{1,5})?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Font" type="Font" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Font"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI" type="Root"/>
+</xs:schema>

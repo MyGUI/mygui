@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="MenuBar" skin="MenuBar" position="100 100 300 26" align="HStretch Top" layer="Overlapped" name="LayoutEditor_MenuBar2">
+      <Widget type="MenuItem" skin="MenuBarButton">
+        <Property key="Widget_Caption" value="#{File}"/>
+        <Property key="MenuItem_Type" value="Popup"/>
+        <Property key="MenuItem_Id" value="File"/>
+        <Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Load}"/>
+            <Property key="MenuItem_Id" value="File/Load"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Save}"/>
+            <Property key="MenuItem_Id" value="File/Save"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Save_as}"/>
+            <Property key="MenuItem_Id" value="File/SaveAs"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Clear}"/>
+            <Property key="MenuItem_Id" value="File/Clear"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuSeparator">
+            <Property key="MenuItem_Type" value="Separator"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Settings}"/>
+            <Property key="MenuItem_Id" value="File/Settings"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Test}"/>
+            <Property key="MenuItem_Id" value="File/Test"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuSeparator">
+            <Property key="MenuItem_Type" value="Separator"/>
+          </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Quit}"/>
+            <Property key="MenuItem_Id" value="File/Quit"/>
+          </Widget>
+        </Widget>
+      </Widget>
+      <Widget type="MenuItem" skin="MenuBarButton">
+        <Property key="Widget_Caption" value="#{Widgets}"/>
+        <Property key="MenuItem_Type" value="Popup"/>
+        <Property key="MenuItem_Id" value="Widgets"/>
+      </Widget>
+    </Widget>
+</MyGUI>
