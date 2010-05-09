@@ -26,16 +26,16 @@ if (APPLE)
 	set(MYGUI_FRAMEWORK_PATH /Library/Frameworks)
 endif ()
 
-# for VisualStudioUserFile.vcproj.user.in
-if(CMAKE_CL_64)
-	set(MYGUI_WIN_BUILD_CONFIGURATION "x64")
-else()
-	set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
-endif()
-
 # create vcproj.user file for Visual Studio to set debug working directory
 function(mygui_create_vcproj_userfile TARGETNAME)
 	if (MSVC)
+		# for VisualStudioUserFile.vcproj.user.in
+		if(CMAKE_CL_64)
+			set(MYGUI_WIN_BUILD_CONFIGURATION "x64")
+		else()
+			set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
+		endif()
+		
 		configure_file(
 			${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
 			${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
@@ -81,14 +81,6 @@ function(mygui_config_common TARGETNAME)
 	)
 	mygui_create_vcproj_userfile(${TARGETNAME})
 endfunction(mygui_config_common)
-
-function(mygui_add_base_manager_source PLATFORM)
-	include_directories(../../Common/Base/${PLATFORM})
-endfunction(mygui_add_base_manager_source)
-
-function(mygui_add_input_source PLATFORM)
-	include_directories(../../Common/Input/${PLATFORM})
-endfunction(mygui_add_input_source)
 
 #setup Demo builds
 function(mygui_app PROJECTNAME SOLUTIONFOLDER)
@@ -148,7 +140,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	else ()
-		add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
+		# determine specific executable type
+		if (APPLE)
+			set(MYGUI_EXEC_TYPE MACOSX_BUNDLE)
+		elseif (WIN32)
+			set(MYGUI_EXEC_TYPE WIN32)
+		endif ()
+		add_executable(${PROJECTNAME} ${MYGUI_EXEC_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES PROJECT_GROUP ${SOLUTIONFOLDER})
 	
