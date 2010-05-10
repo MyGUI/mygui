@@ -33,8 +33,8 @@ namespace MyGUI
 		mRenderTargetInfo.hOffset = 0;
 		mRenderTargetInfo.vOffset = 0;
 		mRenderTargetInfo.aspectCoef = float(mHeight) / float(mWidth);
-		mRenderTargetInfo.pixScaleX = 1.0 / float(mWidth);
-		mRenderTargetInfo.pixScaleY = 1.0 / float(mHeight);
+		mRenderTargetInfo.pixScaleX = 1.0f / float(mWidth);
+		mRenderTargetInfo.pixScaleY = 1.0f / float(mHeight);
 
 		// create a framebuffer object, you need to delete them when program exits.
 		glGenFramebuffersEXT(1, &mFBOID);
