@@ -32,7 +32,9 @@ namespace MyGUI
 	public:
 		virtual ~ILogFilter() { }
 
-		virtual bool shouldLog(const std::string& _source, const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) { return true; }
+		// DESCRIBEME
+		// проверка необходимости записи события
+		virtual bool shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) { return true; }
 	};
 }
 

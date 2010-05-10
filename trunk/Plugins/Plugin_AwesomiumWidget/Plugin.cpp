@@ -17,12 +17,10 @@ namespace plugin
 	Plugin::Plugin() :
 		mFactory(0)
 	{
-		MyGUI::LogManager::registerSection(Plugin::LogSection, MYGUI_LOG_FILENAME);
 	}
 
 	Plugin::~Plugin()
 	{
-		MyGUI::LogManager::unregisterSection(Plugin::LogSection);
 	}
 
 	void Plugin::install()

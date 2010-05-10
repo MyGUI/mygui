@@ -31,9 +31,21 @@ namespace MyGUI
 		public ILogListener
 	{
 	public:
+		ConsoleLogListener();
 		virtual ~ConsoleLogListener() { }
 
+		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+
+		// DESCRIBEME
+		// устанавливает доступность подписчика
+		bool getEnable() { return mEnable; }
+		// DESCRIBEME
+		// возвращает доступность подписчика
+		void setEnable(bool _value) { mEnable = _value; }
+
+	private:
+		bool mEnable;
 	};
 }
 

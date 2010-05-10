@@ -48,8 +48,6 @@ void EditorState::createScene()
 {
 	getStatisticInfo()->setVisible(false);
 
-	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
-
 	// set locale language if it was taken from OS
 	if (!mLocale.empty())
 		MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
@@ -191,8 +189,6 @@ void EditorState::destroyScene()
 
 	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
-
-	MyGUI::LogManager::unregisterSection(LogSection);
 }
 
 void EditorState::createMainMenu()

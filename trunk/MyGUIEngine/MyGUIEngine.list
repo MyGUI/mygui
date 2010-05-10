@@ -56,6 +56,7 @@ set (HEADER_FILES
   include/MyGUI_XmlDocument.h
   include/MyGUI_ConsoleLogListener.h
   include/MyGUI_FileLogListener.h
+  include/MyGUI_LevelLogFilter.h
   include/MyGUI_ILogFilter.h
   include/MyGUI_ILogListener.h
   include/MyGUI_LogLevel.h
@@ -272,6 +273,7 @@ set (SOURCE_FILES
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_ConsoleLogListener.cpp
   src/MyGUI_FileLogListener.cpp
+  src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
 )
@@ -383,6 +385,7 @@ SOURCE_GROUP("Source Files\\Core" FILES
 SOURCE_GROUP("Source Files\\Utility\\Logging" FILES
   src/MyGUI_ConsoleLogListener.cpp
   src/MyGUI_FileLogListener.cpp
+  src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
 )
@@ -444,6 +447,7 @@ SOURCE_GROUP("Header Files\\Widget" FILES
 SOURCE_GROUP("Header Files\\Utility\\Logging" FILES
   include/MyGUI_ConsoleLogListener.h
   include/MyGUI_FileLogListener.h
+  include/MyGUI_LevelLogFilter.h
   include/MyGUI_ILogFilter.h
   include/MyGUI_ILogListener.h
   include/MyGUI_LogLevel.h

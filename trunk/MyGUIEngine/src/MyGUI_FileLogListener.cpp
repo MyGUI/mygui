@@ -22,19 +22,31 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_FileLogListener.h"
 #include <iomanip>
-//#include <time.h>
+#include <time.h>
 
 namespace MyGUI
 {
 
-	FileLogListener::FileLogListener(const std::string& _fileName) :
-		mFileName(_fileName)
-	{
-	}
-
 	void FileLogListener::open()
 	{
+		/*time_t ctTime;
+		time(&ctTime);
+		struct tm *currentTime;
+		currentTime = localtime(&ctTime);*/
+
 		mStream.open(mFileName.c_str(), std::ios_base::out);
+
+		/*log(
+			"Log",
+			LogLevel::Info,
+			currentTime,
+			LogStream() 
+				<< "Log file created "
+				<< std::setw(2) << std::setfill('0') << currentTime->tm_mday << "."
+				<< std::setw(2) << std::setfill('0') << (currentTime->tm_mon + 1) << "."
+				<< std::setw(2) << std::setfill('0') << (currentTime->tm_year + 1900) <<
+				LogStream::End(),
+			__FILE__, __LINE__);*/
 	}
 
 	void FileLogListener::close()
