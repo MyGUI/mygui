@@ -54,8 +54,13 @@ namespace MyGUI
 		LogLevel() : value(Info) { }
 		LogLevel(Enum _value) : value(_value) { }
 
-		friend bool operator == (LogLevel const& a, LogLevel const& b) { return a.value == b.value; }
-		friend bool operator != (LogLevel const& a, LogLevel const& b) { return a.value != b.value; }
+		friend bool operator < (LogLevel const& a, LogLevel const& b) { return a.value < b.value; }
+		friend bool operator >= (LogLevel const& a, LogLevel const& b) { return !(a < b); }
+		friend bool operator > (LogLevel const& a, LogLevel const& b) { return (b < a); }
+		friend bool operator <= (LogLevel const& a, LogLevel const& b) { return !(a > b); }
+
+		friend bool operator == (LogLevel const& a, LogLevel const& b) { return !(a < b) && !(a > b); }
+		friend bool operator != (LogLevel const& a, LogLevel const& b) { return !(a == b); }
 
 		friend std::ostream& operator << ( std::ostream& _stream, const LogLevel&  _value )
 		{

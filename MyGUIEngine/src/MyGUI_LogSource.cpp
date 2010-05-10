@@ -30,12 +30,6 @@ namespace MyGUI
 	{
 	}
 
-	LogSource::LogSource(const std::string& _name) :
-		mFilter(nullptr),
-		mName(_name)
-	{
-	}
-
 	LogSource::~LogSource()
 	{
 	}
@@ -48,6 +42,12 @@ namespace MyGUI
 	void LogSource::addLogListener(ILogListener* _lestener)
 	{
 		mListeners.push_back(_lestener);
+	}
+
+	void LogSource::open()
+	{
+		for (VectorLogListeners::iterator listener=mListeners.begin(); listener!=mListeners.end(); ++listener)
+			(*listener)->open();
 	}
 
 	void LogSource::close()
@@ -66,7 +66,7 @@ namespace MyGUI
 	{
 		if (mFilter != nullptr)
 		{
-			if (!mFilter->shouldLog(mName, _section, _level, _time, _message, _file, _line))
+			if (!mFilter->shouldLog(_section, _level, _time, _message, _file, _line))
 				return;
 		}
 

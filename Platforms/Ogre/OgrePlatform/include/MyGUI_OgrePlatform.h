@@ -42,10 +42,11 @@ namespace MyGUI
 
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene, const std::string& _group = "General", const std::string& _logName = MYGUI_LOG_FILENAME)
 		{
-			LogManager::getInstance().createDefaultListeners(_logName);
-
 			assert(!mIsInitialise);
 			mIsInitialise = true;
+
+			if (!_logName.empty())
+				LogManager::getInstance().createDefaultSource(_logName);
 
 			mRenderManager->initialise(_window, _scene);
 			mDataManager->initialise(_group);
@@ -77,7 +78,6 @@ namespace MyGUI
 		OgreRenderManager* mRenderManager;
 		OgreDataManager* mDataManager;
 		LogManager* mLogManager;
-
 	};
 
 } // namespace MyGUI

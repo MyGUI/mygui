@@ -14,6 +14,7 @@
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_DirectXDiagnostic.h"
+#include "MyGUI_LogManager.h"
 
 namespace MyGUI
 {
@@ -24,6 +25,7 @@ namespace MyGUI
 		DirectXPlatform() :
 			mIsInitialise(false)
 		{
+			mLogManager = new LogManager();
 			mRenderManager = new DirectXRenderManager();
 			mDataManager = new DirectXDataManager();
 		}
@@ -33,14 +35,16 @@ namespace MyGUI
 			assert(!mIsInitialise);
 			delete mRenderManager;
 			delete mDataManager;
+			delete mLogManager;
 		}
 
-		void initialise(IDirect3DDevice9 *_device, const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(IDirect3DDevice9 *_device, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
 
-			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
+			if (!_logName.empty())
+				LogManager::getInstance().createDefaultSource(_logName);
 
 			mRenderManager->initialise(_device);
 			mDataManager->initialise();
@@ -53,9 +57,6 @@ namespace MyGUI
 
 			mRenderManager->shutdown();
 			mDataManager->shutdown();
-
-			// last platform log
-			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
 		}
 
 		DirectXRenderManager* getRenderManagerPtr()
@@ -74,6 +75,7 @@ namespace MyGUI
 		bool mIsInitialise;
 		DirectXRenderManager* mRenderManager;
 		DirectXDataManager* mDataManager;
+		LogManager* mLogManager;
 
 	};
 

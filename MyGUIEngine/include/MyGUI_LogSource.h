@@ -33,21 +33,32 @@ namespace MyGUI
 	{
 	public:
 		LogSource();
-		LogSource(const std::string& _name);
 		~LogSource();
 
+		// DESCRIBEME
+		// устанавливает фильтр для источника
 		void setLogFilter(ILogFilter* _filter);
+		// DESCRIBEME
+		// добавляет подписчик в источник
 		void addLogListener(ILogListener* _lestener);
 
+		// DESCRIBEME
+		// рассылает всем подписчикам open
+		void open();
+		// DESCRIBEME
+		// рассылает всем подписчикам close
 		void close();
+		// DESCRIBEME
+		// рассылает всем подписчикам flush
 		void flush();
+		// DESCRIBEME
+		// рассылка события всем подписчикам через фильтр
 		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
 	private:
 		typedef std::vector<ILogListener*> VectorLogListeners;
 		VectorLogListeners mListeners;
 		ILogFilter* mFilter;
-		std::string mName;
 	};
 }
 

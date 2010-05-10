@@ -25,7 +25,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ILogListener.h"
 #include <fstream>
-//#include <iostream>
 #include <string>
 
 namespace MyGUI
@@ -34,13 +33,23 @@ namespace MyGUI
 		public ILogListener
 	{
 	public:
-		FileLogListener(const std::string& _fileName);
 		virtual ~FileLogListener() { }
 
+		//! @copydoc ILogListener::open()
 		virtual void open();
+		//! @copydoc ILogListener::close()
 		virtual void close();
+		//! @copydoc ILogListener::flush()
 		virtual void flush();
+		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+
+		// DESCRIBEME
+		// устанавливает имя файла подписчика
+		void setFileName(const std::string& _value) { mFileName = _value; }
+		// DESCRIBEME
+		// возвращает имя файла подписчика
+		const std::string& getFileName() { return mFileName; }
 
 	private:
 		std::ofstream mStream;
