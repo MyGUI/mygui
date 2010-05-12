@@ -75,6 +75,9 @@ namespace MyGUI
 
 		bool isFactoryExist(const std::string& _type);
 
+	/*internal:*/
+		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -89,7 +92,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("")
 		void unregisterFactory(IWidgetFactory * _factory);
 		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
-		void parse(Widget* _widget, const std::string &_key, const std::string &_value);
+		void parse(Widget* _widget, const std::string &_key, const std::string &_value) { _parse(_widget, _key, _value); }
 		MYGUI_OBSOLETE("")
 		ParseDelegate& registerDelegate(const std::string& _key);
 		MYGUI_OBSOLETE("")

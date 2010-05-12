@@ -433,7 +433,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 		{
 			// для поддержки старых пропертей
 #ifndef MYGUI_DONT_USE_OBSOLETE
-			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
+			MyGUI::WidgetManager::getInstance()._parse(_widget, _key, _value);
 #else
 			_widget->setProperty(_key, _value);
 #endif
