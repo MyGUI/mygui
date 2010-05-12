@@ -168,7 +168,7 @@ namespace MyGUI
 		*/
 		void _injectFrameEntered(float _time);
 
-		/** Resize GUI area */
+		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
 
 	/*event:*/
