@@ -121,7 +121,7 @@ namespace MyGUI
 			mConsole->setEnable(_value);
 	}
 
-	bool LogManager::getSTDOutputEnabled()
+	bool LogManager::getSTDOutputEnabled() const
 	{
 		return mConsoleEnable;
 	}
@@ -134,7 +134,7 @@ namespace MyGUI
 			mFilter->setLoggingLevel(_value);
 	}
 
-	LogLevel LogManager::getLoggingLevel()
+	LogLevel LogManager::getLoggingLevel() const
 	{
 		return mLevel;
 	}
