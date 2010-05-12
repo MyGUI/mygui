@@ -52,7 +52,14 @@ set (HEADER_FILES
   include/MyGUI_Utility.h
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_XmlDocument.h
+  include/MyGUI_ConsoleLogListener.h
+  include/MyGUI_FileLogListener.h
+  include/MyGUI_ILogFilter.h
+  include/MyGUI_ILogListener.h
+  include/MyGUI_LevelLogFilter.h
+  include/MyGUI_LogLevel.h
   include/MyGUI_LogManager.h
+  include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
   include/MyGUI.h
   include/MyGUI_CastWidget.h
@@ -238,9 +245,13 @@ set (SOURCE_FILES
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
-  src/MyGUI_XmlDocument.cpp
-  src/MyGUI_LogManager.cpp
   src/MyGUI_UString.cpp
+  src/MyGUI_XmlDocument.cpp
+  src/MyGUI_ConsoleLogListener.cpp
+  src/MyGUI_FileLogListener.cpp
+  src/MyGUI_LevelLogFilter.cpp
+  src/MyGUI_LogManager.cpp
+  src/MyGUI_LogSource.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -342,8 +353,11 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
 SOURCE_GROUP("Source Files\\Core" FILES
 )
 SOURCE_GROUP("Source Files\\Utility\\Logging" FILES
+  src/MyGUI_ConsoleLogListener.cpp
+  src/MyGUI_FileLogListener.cpp
+  src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
-  src/MyGUI_LogStream.cpp
+  src/MyGUI_LogSource.cpp
 )
 SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DataFileStream.cpp
@@ -354,8 +368,8 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
-  src/MyGUI_XmlDocument.cpp
   src/MyGUI_UString.cpp
+  src/MyGUI_XmlDocument.cpp
 )
 SOURCE_GROUP("Source Files" FILES
 )
@@ -399,7 +413,14 @@ SOURCE_GROUP("Header Files\\Widget\\Interfaces" FILES
 SOURCE_GROUP("Header Files\\Widget" FILES
 )
 SOURCE_GROUP("Header Files\\Utility\\Logging" FILES
+  include/MyGUI_ConsoleLogListener.h
+  include/MyGUI_FileLogListener.h
+  include/MyGUI_ILogFilter.h
+  include/MyGUI_ILogListener.h
+  include/MyGUI_LevelLogFilter.h
+  include/MyGUI_LogLevel.h
   include/MyGUI_LogManager.h
+  include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
 )
 SOURCE_GROUP("Header Files\\Utility" FILES
