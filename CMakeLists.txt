@@ -115,7 +115,8 @@ set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
-option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+option(MYGUI_BUILD_TESTS "Build the unit tests" FALSE)
+option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
 option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 
 option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
@@ -225,7 +226,7 @@ if (MYGUI_BUILD_TOOLS)
 endif ()
 
 # Setup tests
-if (MYGUI_BUILD_TESTS)
+if (MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(UnitTests)
 endif ()
 
