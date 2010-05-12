@@ -207,7 +207,7 @@ add_subdirectory(MyGUIEngine)
 # Setup Platforms
 add_subdirectory(Platforms)
 
-if (MYGUI_BUILD_SAMPLES OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TESTS)
+if (MYGUI_BUILD_SAMPLES OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
 endif ()
 
