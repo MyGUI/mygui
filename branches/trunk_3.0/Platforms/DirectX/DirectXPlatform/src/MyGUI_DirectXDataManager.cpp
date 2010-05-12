@@ -8,6 +8,7 @@
 #include "MyGUI_DataFileStream.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXDiagnostic.h"
+#include <fstream>
 
 #include <windows.h>
 

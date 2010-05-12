@@ -315,7 +315,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 			// FIXME : not translated string
 			std::string mess = MyGUI::utility::toString("Widget with name '", container->name, "' already exist. Renamed to '", container->name, renameN, "'.");
 			MYGUI_LOGGING(LogSection, Warning, mess);
-			GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Warning);
+			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Warning);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -341,7 +341,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		else  tmp = "'" + skin + "'";
 		// FIXME : not translated string
 		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", tmp);
-		GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Error);
+		GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 	}
 
 	if (nullptr == _parent)
@@ -424,7 +424,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 		{
 			if (!MyGUI::DataManager::getInstance().isDataExist(_value))
 			{
-				GroupMessage::getInstance().addMessage("No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::LogManager::Warning);
+				GroupMessage::getInstance().addMessage("No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
 				return true;
 			}
 		}
@@ -443,7 +443,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 	}
 	catch(...)
 	{
-		GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogManager::Error);
+		GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogLevel::Error);
 		return false;
 	}
 	return true;

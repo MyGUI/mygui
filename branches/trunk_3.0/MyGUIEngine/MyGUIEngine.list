@@ -240,7 +240,6 @@ set (SOURCE_FILES
   src/MyGUI_Timer.cpp
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_LogManager.cpp
-  src/MyGUI_LogStream.cpp
   src/MyGUI_UString.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES

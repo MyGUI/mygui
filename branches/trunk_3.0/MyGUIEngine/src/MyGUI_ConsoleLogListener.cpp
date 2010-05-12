@@ -1,8 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		01/2008
-	@module
+	@date		04/2010
 */
 /*
 	This file is part of MyGUI.
@@ -20,38 +19,21 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_LOG_STREAM_H__
-#define __MYGUI_LOG_STREAM_H__
-
-#include "MyGUI_Prerequest.h"
-#include <string.h>
-#include <sstream>
+#include "MyGUI_Precompiled.h"
+#include "MyGUI_ConsoleLogListener.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LogStream
+	ConsoleLogListener::ConsoleLogListener() :
+		mEnable(true)
 	{
-	public:
-		struct End { };
+	}
 
-	public:
-		std::string operator << (const End& _endl)
-		{
-			return mStream.str();
-		}
+	void ConsoleLogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
+	{
+		if (mEnable)
+			std::cout << _message << std::endl;
+	}
 
-		template <typename T>
-		inline LogStream& operator << (T _value)
-		{
-			mStream << _value;
-			return *this;
-		}
-
-	private:
-		std::ostringstream mStream;
-	};
-
-} // namespace MyGUI
-
-#endif // __MYGUI_LOG_STREAM_H__
+}
