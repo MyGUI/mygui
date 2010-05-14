@@ -384,6 +384,9 @@ namespace MyGUI
 		if (_widget == mWidgetKeyFocus)
 			return;
 
+		Widget* old_focus = mWidgetKeyFocus;
+		mWidgetKeyFocus = _widget;
+
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса
 		Widget* save_widget = nullptr;
@@ -404,7 +407,7 @@ namespace MyGUI
 		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
-		root_focus = mWidgetKeyFocus;
+		root_focus = old_focus;
 		while (root_focus != nullptr)
 		{
 			if (root_focus == save_widget)
@@ -415,16 +418,13 @@ namespace MyGUI
 			root_focus = root_focus->getParent();
 		}
 		//-------------------------------------------------------------------------------------//
-
 		// сбрасываем старый
-		if (mWidgetKeyFocus)
-			onEventLostKeyboardFocus(mWidgetKeyFocus, _widget);
+		if (old_focus)
+			onEventLostKeyboardFocus(old_focus, _widget);
 
 		// устанавливаем новый
 		if (_widget && _widget->isNeedKeyFocus())
-			onEventGotKeyboardFocus(_widget, mWidgetKeyFocus);
-
-		mWidgetKeyFocus = _widget;
+			onEventGotKeyboardFocus(_widget, old_focus);
 	}
 
 	void InputManager::resetMouseFocusWidget()
