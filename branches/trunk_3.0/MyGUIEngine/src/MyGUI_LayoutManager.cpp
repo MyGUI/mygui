@@ -126,7 +126,7 @@ namespace MyGUI
 			if (_parent == nullptr || style == WidgetStyle::Popup)
 				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), Gui::getInstance().getViewSize());
 			else
-				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), _parent->getSize());
+				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), _parent->getClientCoord().size());
 		}
 
 		Widget* wid;
