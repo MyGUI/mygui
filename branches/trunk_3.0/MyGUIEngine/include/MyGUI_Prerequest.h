@@ -49,7 +49,6 @@ namespace MyGUI
 {
 
 	class Gui;
-	class IWidgetCreator;
 
 	// managers
 	class LogManager;

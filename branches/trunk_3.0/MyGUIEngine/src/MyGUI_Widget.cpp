@@ -45,35 +45,6 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		mMaskPickInfo(nullptr),
-		mText(nullptr),
-		mMainSkin(nullptr),
-		mEnabled(true),
-		mInheritsEnabled(true),
-		mSubSkinsVisible(true),
-		mInheritsVisible(true),
-		mAlpha(ALPHA_MIN),
-		mRealAlpha(ALPHA_MIN),
-		mInheritsAlpha(true),
-		mTexture(nullptr),
-		mParent(nullptr),
-		mIWidgetCreator(nullptr),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
-		mInheritsPick(false),
-		mWidgetClient(nullptr),
-		mNeedToolTip(false),
-		mEnableToolTip(true),
-		mToolTipVisible(false),
-		mToolTipCurrentTime(0),
-		mToolTipOldIndex(ITEM_NONE),
-		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false)
-	{
-		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-	}
-
 	Widget::Widget() :
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
@@ -87,7 +58,6 @@ namespace MyGUI
 		mInheritsAlpha(true),
 		mTexture(nullptr),
 		mParent(nullptr),
-		mIWidgetCreator(nullptr),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
 		mInheritsPick(false),
@@ -102,7 +72,7 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
 		mStateInfo = _info->getStateInfo();
@@ -116,7 +86,6 @@ namespace MyGUI
 
 		mName = _name;
 		mParent = _parent;
-		mIWidgetCreator = _creator;
 
 		mWidgetStyle = _style;
 
@@ -359,7 +328,7 @@ namespace MyGUI
 	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, this,
-			_style == WidgetStyle::Popup ? nullptr : this, this, _name);
+			_style == WidgetStyle::Popup ? nullptr : this, /*this, */_name);
 
 		mWidgetChild.push_back(widget);
 
@@ -478,7 +447,7 @@ namespace MyGUI
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 		else
 		{
@@ -1276,8 +1245,8 @@ namespace MyGUI
 			// нам нужен самый рутовый парент
 			while (parent->getParent()) { parent = parent->getParent(); }
 
-			mIWidgetCreator = parent->mIWidgetCreator;
-			mIWidgetCreator->_linkChildWidget(this);
+			//mIWidgetCreator = parent->mIWidgetCreator;
+			//mIWidgetCreator->_linkChildWidget(this);
 			mParent->_unlinkChildWidget(this);
 			mParent = nullptr;
 		}
@@ -1321,8 +1290,8 @@ namespace MyGUI
 
 		if (_style == WidgetStyle::Popup)
 		{
-			mIWidgetCreator->_unlinkChildWidget(this);
-			mIWidgetCreator = _parent;
+			//mIWidgetCreator->_unlinkChildWidget(this);
+			//mIWidgetCreator = _parent;
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 
@@ -1337,8 +1306,8 @@ namespace MyGUI
 		{
 			LayerManager::getInstance().detachFromLayer(this);
 
-			mIWidgetCreator->_unlinkChildWidget(this);
-			mIWidgetCreator = _parent;
+			//mIWidgetCreator->_unlinkChildWidget(this);
+			//mIWidgetCreator = _parent;
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 
@@ -1356,8 +1325,8 @@ namespace MyGUI
 		{
 			LayerManager::getInstance().detachFromLayer(this);
 
-			mIWidgetCreator->_unlinkChildWidget(this);
-			mIWidgetCreator = _parent;
+			//mIWidgetCreator->_unlinkChildWidget(this);
+			//mIWidgetCreator = _parent;
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 

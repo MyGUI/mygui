@@ -31,7 +31,6 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
 
@@ -44,11 +43,10 @@ namespace MyGUI
 		public LayerItem,
 		public UserData,
 		public WidgetEvent,
-		public IWidgetCreator,
 		public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
-		friend class IWidgetCreator;
+		friend class WidgetManager;
 
 		MYGUI_RTTI_BASE( Widget )
 
@@ -304,8 +302,6 @@ namespace MyGUI
 		virtual void _setTextureName(const std::string& _texture);
 		virtual const std::string& _getTextureName();
 
-		IWidgetCreator * _getIWidgetCreator() { return mIWidgetCreator; }
-
 		IntCoord _getTextRegion();
 		IntSize _getTextSize();
 		void _setFontName(const std::string& _font);
@@ -319,7 +315,14 @@ namespace MyGUI
 
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+
+		// удяляет неудачника
+		virtual void _destroyChildWidget(Widget* _widget);
+		// добавляет в список виджет
+		virtual void _linkChildWidget(Widget* _widget);
+		// удаляет из списка
+		virtual void _unlinkChildWidget(Widget* _widget);
 
 
 	/*obsolete:*/
@@ -370,7 +373,6 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Widget();
 
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
@@ -382,9 +384,6 @@ namespace MyGUI
 
 		// создает виджет
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
-
-		// удяляет неудачника
-		virtual void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
@@ -402,7 +401,6 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 	private:
-
 		void frameEntered(float _frame);
 
 		void initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size);
@@ -422,11 +420,6 @@ namespace MyGUI
 		void _setSubSkinVisible(bool _visible);
 
 		float _getRealAlpha() { return mRealAlpha; }
-
-		// добавляет в список виджет
-		virtual void _linkChildWidget(Widget* _widget);
-		// удаляет из списка
-		virtual void _unlinkChildWidget(Widget* _widget);
 
 	protected:
 		// список всех стейтов
@@ -467,9 +460,6 @@ namespace MyGUI
 
 		// наш отец в иерархии виджетов
 		Widget* mParent;
-
-		// это тот кто нас создал, и кто нас будет удалять
-		IWidgetCreator * mIWidgetCreator;
 
 		// нужен ли виджету ввод с клавы
 		bool mNeedKeyFocus;

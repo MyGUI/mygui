@@ -26,7 +26,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_IUnlinkWidget.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_IPointer.h"
 
@@ -34,8 +33,7 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
-		public IUnlinkWidget,
-		public IWidgetCreator
+		public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER( PointerManager )
 

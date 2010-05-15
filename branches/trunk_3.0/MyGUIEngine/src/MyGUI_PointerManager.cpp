@@ -240,7 +240,7 @@ namespace MyGUI
 	// создает виджет
 	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, /*this, */_name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty())
@@ -267,7 +267,7 @@ namespace MyGUI
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 		else
 		{
@@ -289,7 +289,7 @@ namespace MyGUI
 			manager.unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
 

@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_Widget.h"
@@ -51,7 +50,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);
@@ -77,6 +76,7 @@ namespace MyGUI
 
 	/*internal:*/
 		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
+		void _deleteWidget(Widget* _widget);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

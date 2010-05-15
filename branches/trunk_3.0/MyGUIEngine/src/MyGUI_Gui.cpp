@@ -187,7 +187,7 @@ namespace MyGUI
 
 	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, /*this, */_name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
@@ -224,9 +224,12 @@ namespace MyGUI
 			mWidgetManager->unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
-		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
 	}
 
 	// удаляет всех детей
@@ -244,7 +247,7 @@ namespace MyGUI
 			mWidgetManager->unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
 
@@ -255,17 +258,25 @@ namespace MyGUI
 
 	void Gui::destroyWidget(Widget* _widget)
 	{
-		mWidgetManager->destroyWidget(_widget);
+		Widget* parent = _widget->getParent();
+		if (parent != nullptr)
+			parent->_destroyChildWidget(_widget);
+		else
+			_destroyChildWidget(_widget);
 	}
 
-	void Gui::destroyWidgets(VectorWidgetPtr& _widgets)
+	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		mWidgetManager->destroyWidgets(_widgets);
+		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
+			destroyWidget(*iter);
 	}
 
 	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)
 	{
-		mWidgetManager->destroyWidgets(_widgets);
+		VectorWidgetPtr widgets;
+		while (_widgets.next())
+			widgets.push_back(_widgets.current());
+		destroyWidgets(widgets);
 	}
 
 	void Gui::setVisiblePointer(bool _value)

@@ -82,7 +82,6 @@ set (HEADER_FILES
   include/MyGUI_ITexture.h
   include/MyGUI_IUnlinkWidget.h
   include/MyGUI_IVertexBuffer.h
-  include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
   include/MyGUI_BiIndexBase.h
@@ -208,7 +207,6 @@ set (SOURCE_FILES
   src/MyGUI_ControllerPosition.cpp
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
-  src/MyGUI_IWidgetCreator.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
@@ -304,9 +302,6 @@ SOURCE_GROUP("Source Files\\Core\\Controller" FILES
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerPosition.cpp
-)
-SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
-  src/MyGUI_IWidgetCreator.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
   src/MyGUI_ScrollViewBase.cpp
@@ -454,7 +449,6 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ITexture.h
   include/MyGUI_IUnlinkWidget.h
   include/MyGUI_IVertexBuffer.h
-  include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
 )

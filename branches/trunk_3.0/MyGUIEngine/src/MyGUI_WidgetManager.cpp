@@ -25,7 +25,6 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IWidgetFactory.h"
 #include "MyGUI_FactoryManager.h"
 
@@ -123,14 +122,14 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
+	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)
 		{
 			Widget* widget = object->castType<Widget>();
 			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin);
-			widget->_initialise(_style, _coord, _align, skin, _parent, _cropeedParent, _creator, _name);
+			widget->_initialise(_style, _coord, _align, skin, _parent, _cropeedParent, _name);
 
 			return widget;
 		}
@@ -140,7 +139,7 @@ namespace MyGUI
 		{
 			if ((*factory)->getTypeName() == _type)
 			{
-				Widget* widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, _name);
+				Widget* widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _name);
 				return widget;
 			}
 		}
@@ -151,30 +150,17 @@ namespace MyGUI
 
 	void WidgetManager::destroyWidget(Widget* _widget)
 	{
-		// иначе возможен бесконечный цикл
-		MYGUI_ASSERT(_widget != nullptr, "widget is deleted");
-
-		// делегирует удаление отцу виджета
-		IWidgetCreator * creator = _widget->_getIWidgetCreator();
-		creator->_destroyChildWidget(_widget);
+		Gui::getInstance().destroyWidget(_widget);
 	}
 
 	void WidgetManager::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
-		{
-			destroyWidget(*iter);
-		}
+		Gui::getInstance().destroyWidgets(_widgets);
 	}
 
 	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr _widgets)
 	{
-		VectorWidgetPtr widgets;
-		while (_widgets.next())
-		{
-			widgets.push_back(_widgets.current());
-		}
-		destroyWidgets(widgets);
+		Gui::getInstance().destroyWidgets(_widgets);
 	}
 
 	void WidgetManager::registerUnlinker(IUnlinkWidget * _unlink)
@@ -242,6 +228,11 @@ namespace MyGUI
 		}
 
 		return false;
+	}
+
+	void WidgetManager::_deleteWidget(Widget* _widget)
+	{
+		delete _widget;
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

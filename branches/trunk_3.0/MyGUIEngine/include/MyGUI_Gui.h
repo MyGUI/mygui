@@ -27,7 +27,6 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_Widget.h"
 
@@ -36,7 +35,8 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget
+	class MYGUI_EXPORT Gui :
+		public IUnlinkWidget
 	{
 		friend class WidgetManager;
 		MYGUI_INSTANCE_HEADER( Gui )
@@ -142,7 +142,7 @@ namespace MyGUI
 		void destroyWidget(Widget* _widget);
 
 		/** Destroy vector of widgets */
-		void destroyWidgets(VectorWidgetPtr& _widgets);
+		void destroyWidgets(const VectorWidgetPtr& _widgets);
 
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
