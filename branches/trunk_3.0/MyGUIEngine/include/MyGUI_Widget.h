@@ -47,7 +47,7 @@ namespace MyGUI
 		// для вызова закрытых деструкторов
 		friend class WidgetManager;
 
-		MYGUI_RTTI_BASE( Widget )
+		MYGUI_RTTI_DERIVED( Widget )
 
 	public:
 		Widget();

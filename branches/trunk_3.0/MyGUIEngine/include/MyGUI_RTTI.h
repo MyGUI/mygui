@@ -83,20 +83,7 @@ namespace MyGUI
 			/** Compare with selected type */ \
 			virtual bool isType( const std::type_info& _type ) const { return typeid( DerivedType ) == _type || Base::isType( _type ); } \
 			/** Compare with selected type */ \
-			template<typename Type> bool isType() const { return isType( typeid( DerivedType )); }
-
-	//OBSOLETE
-	#define MYGUI_RTTI_CHILD_HEADER( DerivedType, BaseType ) \
-		public: \
-			MYGUI_DECLARE_TYPE_NAME( DerivedType ) \
-			typedef BaseType Base; \
-			typedef DerivedType RTTIBase; \
-			/** Compare with selected type */ \
-			virtual bool isType( const std::type_info& _type ) const { return typeid( DerivedType ) == _type || BaseType::isType( _type ); }
-
-
-	//OBSOLETE
-	#define MYGUI_RTTI_BASE_HEADER( BaseType ) MYGUI_RTTI_BASE( BaseType )
+			template<typename Type> bool isType() const { return isType( typeid( Type )); }
 
 } // namespace MyGUI
 
