@@ -38,12 +38,12 @@ namespace MyGUI
 	BOOL CALLBACK EnumWindowProc(HWND hWnd, LPARAM lParam)
 	{
 		DWORD dwProcessID = 0;
-		::GetWindowThreadProcessId(hWnd, &dwProcessID);
+		GetWindowThreadProcessId(hWnd, &dwProcessID);
 
 		if (dwProcessID != (DWORD)lParam)
 			return TRUE;
 
-		if (::GetParent(hWnd) == NULL)
+		if (GetParent(hWnd) == NULL)
 		{
 			// Нашли. hWnd - то что надо
 			g_hWnd = hWnd;
@@ -56,12 +56,12 @@ namespace MyGUI
 	BOOL CALLBACK EnumChildWindowProc(HWND hWnd, LPARAM lParam)
 	{
 		DWORD dwProcessID = 0;
-		::GetWindowThreadProcessId(hWnd, &dwProcessID);
+		GetWindowThreadProcessId(hWnd, &dwProcessID);
 
-		if (dwProcessID != ::GetCurrentProcessId())
+		if (dwProcessID != GetCurrentProcessId())
 			return TRUE;
 
-		if (::GetWindowLong(hWnd, GWL_HINSTANCE) == lParam)
+		if (GetWindowLongPtr(hWnd, GWLP_HINSTANCE) == lParam)
 		{
 			// Нашли. hWnd - то что надо
 			g_hWnd = hWnd;
@@ -83,11 +83,11 @@ namespace MyGUI
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// берем имя нашего экзешника
 		char buf[MAX_PATH];
-		::GetModuleFileName(0, (LPCH)&buf, MAX_PATH);
+		GetModuleFileName(0, (LPCH)&buf, MAX_PATH);
 		// берем инстанс нашего модуля
-		HINSTANCE instance = ::GetModuleHandle(buf);
+		HINSTANCE instance = GetModuleHandle(buf);
 
-		::EnumChildWindows(::GetDesktopWindow(), (WNDENUMPROC)EnumWindowProc, (LPARAM)instance);
+		EnumChildWindows(GetDesktopWindow(), (WNDENUMPROC)EnumWindowProc, (LPARAM)instance);
 		mHwnd = (size_t)g_hWnd;
 
 #endif
@@ -115,18 +115,18 @@ namespace MyGUI
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
 			//открываем буфер обмена
-			if (::OpenClipboard((HWND)mHwnd))
+			if (OpenClipboard((HWND)mHwnd))
 			{
-				::EmptyClipboard(); //очищаем буфер
-				HGLOBAL hgBuffer = ::GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
+				EmptyClipboard(); //очищаем буфер
+				HGLOBAL hgBuffer = GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
 				wchar_t * chBuffer = NULL;
 				if ((hgBuffer) && (chBuffer = (wchar_t*)GlobalLock(hgBuffer)))
 				{
-					::memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
-					::GlobalUnlock(hgBuffer);//разблокируем память
-					::SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
+					memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
+					GlobalUnlock(hgBuffer);//разблокируем память
+					SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
 				}
-				::CloseClipboard(); //закрываем буфер обмена
+				CloseClipboard(); //закрываем буфер обмена
 			}
 		}
 #endif
@@ -145,16 +145,16 @@ namespace MyGUI
 		{
 			UString buff;
 			//открываем буфер обмена
-			if ( ::OpenClipboard((HWND)mHwnd) )
+			if (OpenClipboard((HWND)mHwnd))
 			{
-				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
+				HANDLE hData = GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
 				wchar_t * chBuffer = NULL;
-				if ((hData) && (chBuffer = (wchar_t*)::GlobalLock(hData)))
+				if ((hData) && (chBuffer = (wchar_t*)GlobalLock(hData)))
 				{
 					buff = chBuffer;
-					::GlobalUnlock(hData);//разблокируем память
+					GlobalUnlock(hData);//разблокируем память
 				}
-				::CloseClipboard();//закрываем буфер обмена
+				CloseClipboard();//закрываем буфер обмена
 			}
 			// если в буфере не то что мы ложили, то берем из буфера
 			if (mPutTextInClipboard != buff)

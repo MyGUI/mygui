@@ -58,7 +58,7 @@ namespace input
 
 	void PointerManager::setPointerHandle(size_t _id)
 	{
-		SetClassLong((HWND)mHwnd, GCL_HCURSOR, (LONG)_id);
+		SetClassLongPtr((HWND)mHwnd, GCLP_HCURSOR, (LONG_PTR)_id);
 		if ((GetCapture() == (HWND)mHwnd)
 			|| isMouseInClient())
 		{
