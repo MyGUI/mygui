@@ -26,7 +26,8 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_WidgetToolTip.h"
-#include "MyGUI_InputDefine.h"
+#include "MyGUI_MouseButton.h"
+#include "MyGUI_KeyCode.h"
 
 namespace MyGUI
 {
