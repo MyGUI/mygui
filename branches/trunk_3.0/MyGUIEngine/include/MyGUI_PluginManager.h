@@ -52,10 +52,6 @@ namespace MyGUI
 		//!	Unload plugin
 		void unloadPlugin(const std::string& _file);
 
-		/** Load additional MyGUI *_plugin.xml file */
-		bool load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/*!	Install plugin
 			@remarks Calls from plugin
 		*/
@@ -68,6 +64,17 @@ namespace MyGUI
 
 		//!	Unload all plugins
 		void unloadAllPlugins();
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+	private:
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		//!	List of dynamic libraries

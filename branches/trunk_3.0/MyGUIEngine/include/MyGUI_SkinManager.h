@@ -39,15 +39,19 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *_skin.xml file */
-		bool load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
+		/** Get ResourceSkin by name */
 		ResourceSkin* getByName(const std::string& _name) const;
 
+		/** Check if skin with specified name exist */
 		bool isExist(const std::string& _name) const;
 
+		/** Get default skin name.
+			Default skin used when creating widget with skin that doesn't exist.
+		*/
 		const std::string getDefaultSkin() const { return mDefaultName; }
+		/** Set default skin name.
+			Default skin used when creating widget with skin that doesn't exist.
+		*/
 		void setDefaultSkin(const std::string& _value);
 
 	/*obsolete:*/
@@ -55,11 +59,14 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
 		ResourceSkin* getSkin(const std::string& _name) const { return getByName(_name); }
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void createDefault(const std::string& _value);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		std::string mDefaultName;

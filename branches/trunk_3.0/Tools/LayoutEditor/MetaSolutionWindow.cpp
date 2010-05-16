@@ -143,7 +143,7 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 
 			metaForm->mDecription = meta_node->findAttribute("desc");
 			metaForm->mLayoutName = meta_node->findAttribute("layout");
-			metaForm->mId = MyGUI::Guid(meta_node->findAttribute("id"));
+			metaForm->mId = meta_node->findAttribute("id");
 
 			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator metaWidgets = meta_node->getElementEnumerator();
@@ -210,7 +210,7 @@ MetaWidget * MetaSolutionWindow::parseMetaWidget(MyGUI::xml::ElementPtr _node, M
 	while (links.next("MetaLink"))
 	{
 		if (metaWidget->mTarget.empty())
-			metaWidget->mTarget = MyGUI::Guid(links->findAttribute("target"));
+			metaWidget->mTarget = links->findAttribute("target");
 		else
 			MYGUI_LOGGING(LogSection, Warning,
 				"MetaWidget with name '" + metaWidget->mName +
@@ -286,7 +286,7 @@ void MetaSolutionWindow::collapseAll()
 	}
 }
 
-void MetaSolutionWindow::loadTarget(MyGUI::Guid _target)
+void MetaSolutionWindow::loadTarget(const std::string& _target)
 {
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
 	{
@@ -300,7 +300,7 @@ void MetaSolutionWindow::loadTarget(MyGUI::Guid _target)
 	}
 }
 
-bool MetaSolutionWindow::findTarget(MyGUI::Guid _target)
+bool MetaSolutionWindow::findTarget(const std::string& _target)
 {
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
 	{

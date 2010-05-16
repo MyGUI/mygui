@@ -22,7 +22,7 @@ struct MetaWidget
 	std::vector<MetaWidget *> mChilds;
 	std::string mName;
 	std::string mType;
-	MyGUI::Guid mTarget;
+	std::string mTarget;
 };
 
 struct MetaForm
@@ -39,7 +39,7 @@ struct MetaForm
 	std::vector<MetaWidget*> mChilds;
 	std::string mDecription;
 	std::string mLayoutName;
-	MyGUI::Guid mId;
+	std::string mId;
 
 	bool mCollapsed;
 };
@@ -77,8 +77,8 @@ private:
 
 	int addMetaWidgets(std::vector<MetaWidget*> _childs, size_t _index, std::string _level);
 	void collapseAll();
-	void loadTarget(MyGUI::Guid _target);
-	bool findTarget(MyGUI::Guid _target);
+	void loadTarget(const std::string& _target);
+	bool findTarget(const std::string& _target);
 
 	MyGUI::Widget* createWidget(MetaWidget * _widget, MyGUI::Widget* _parent);
 

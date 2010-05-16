@@ -55,11 +55,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool LanguageManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		std::string default_lang;
@@ -314,5 +309,14 @@ namespace MyGUI
 	{
 		return loadLanguage(_file, true);
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	bool LanguageManager::load(const std::string& _file)
+	{
+		return ResourceManager::getInstance().load(_file);
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

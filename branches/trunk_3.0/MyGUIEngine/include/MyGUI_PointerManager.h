@@ -42,11 +42,6 @@ namespace MyGUI
 		void shutdown();
 
 	public:
-		/** Load additional MyGUI *_pointer.xml file */
-		bool load(const std::string& _file);
-
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
@@ -87,11 +82,14 @@ namespace MyGUI
 		void hide() { setVisible(false); }
 		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
 		bool isShow() { return isVisible(); }
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _unlinkWidget(Widget* _widget);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);

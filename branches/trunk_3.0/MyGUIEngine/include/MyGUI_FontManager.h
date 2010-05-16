@@ -39,15 +39,28 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *_font.xml file */
-		bool load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
+		/** Get default font name.
+			Default skin also used when creating widget with skin that doesn't exist.
+		*/
 		const std::string& getDefaultFont() const { return mDefaultName; }
+		/** Get default font name.
+			Default skin also used when creating widget with skin that doesn't exist.
+		*/
 		void setDefaultFont(const std::string& _value);
 
 		/** Get font resource */
 		IFont* getByName(const std::string& _name) const;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+	private:
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		std::string mDefaultName;

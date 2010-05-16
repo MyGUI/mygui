@@ -90,7 +90,7 @@ namespace editor
 			{
 				//mComboResource->addItem(image->getResourceName(), image);
 				mMultiList->addItem(image->getResourceName(), image);
-				mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, image->getResourceID().empty() ? "" : image->getResourceID().print());
+				//mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, image->getResourceID().empty() ? "" : image->getResourceID().print());
 			}
 		}
 

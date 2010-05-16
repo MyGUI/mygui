@@ -25,7 +25,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_Guid.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceHolder.h"
@@ -47,23 +46,20 @@ namespace MyGUI
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string& _file);
 
-		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		/** Get resource by GUID */
-		IResourcePtr getByID(const Guid& _id, bool _throw = true);
-
-		std::string getFileNameByID(const Guid& _id);
-
+		/** Add resource item to resources */
 		void addResource(IResourcePtr _item);
 
+		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
 		typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
 
+		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
 
+		/** Unregister delegate that parse XML node with specified tag (_key) */
 		void unregisterLoadXmlDelegate(const std::string& _key);
 
 	/*obsolete:*/
@@ -75,24 +71,18 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
 		IResourcePtr getResource(const std::string& _name, bool _throw = true) { return getByName(_name, _throw); }
 
-		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByID(const Guid& _id, bool _throw)")
-		IResourcePtr getResource(const Guid& _id, bool _throw = true) { return getByID(_id, _throw); }
-
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		typedef std::map<Guid, IResourcePtr> MapResourceID;
-		MapResourceID mResourcesID;
+		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
+		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
 
+	private:
 		// карта с делегатами для парсинга хмл блоков
 		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		std::string mResourceGroup;
-		typedef std::vector<Guid> VectorGuid;
-		typedef std::map<std::string, VectorGuid> MapVectorString;
-
-		MapVectorString mListFileGuid;
 	};
 
 } // namespace MyGUI

@@ -37,11 +37,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Load additional MyGUI *_language.xml file */
-		bool load(const std::string& _file);
-
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
 		/** Set current language for replacing #{} tags */
 		void setCurrentLanguage(const std::string& _name);
 		/** Get current language */
@@ -60,6 +55,7 @@ namespace MyGUI
 		/** Delete all user tags */
 		void clearUserTags();
 
+		/** Load user tags */
 		bool loadUserTags(const std::string& _file);
 
 		/** Event : Change current language.\n
@@ -68,12 +64,20 @@ namespace MyGUI
 		*/
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	private:
-		//bool loadResourceLanguage(const std::string& _name);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
-		//void _loadSource(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		typedef std::map<UString, UString> MapLanguageString;

@@ -25,7 +25,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Macros.h"
-#include "MyGUI_Guid.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"

@@ -396,13 +396,6 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	bool StaticImage::setItemResource(const Guid& _id)
-	{
-		IResourcePtr resource = _id.empty() ? nullptr : ResourceManager::getInstance().getByID(_id, false);
-		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
-		return resource != nullptr;
-	}
-
 	bool StaticImage::setItemResource(const std::string& _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getByName(_name, false);

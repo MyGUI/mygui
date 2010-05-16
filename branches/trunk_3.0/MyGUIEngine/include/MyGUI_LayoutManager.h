@@ -42,13 +42,6 @@ namespace MyGUI
 
 		/** Load layout file
 			@param _file name of layout
-			@return Return vector of pointers of loaded root widgets (root == without parents)
-		*/
-		VectorWidgetPtr& load(const std::string& _file);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
-		/** Load layout file
-			@param _file name of layout
 			@param _prefix will be added to all loaded widgets names
 			@param _parent widget to load on
 			@return Return vector of pointers of loaded root widgets (root == without parents)
@@ -58,7 +51,17 @@ namespace MyGUI
 		/** Unload layout file */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
+		VectorWidgetPtr& load(const std::string& _file) { return loadLayout(_file); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	private:
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+
 		void parseLayout(VectorWidgetPtr& _widgets, xml::ElementPtr _root);
 		void parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, Widget* _parent);
 
