@@ -69,6 +69,7 @@ namespace MyGUI
 	class RenderManager;
 	class FactoryManager;
 	class TextureManager;
+	class ToolTipManager;
 
 	class IWidgetFactory;
 

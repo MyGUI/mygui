@@ -41,6 +41,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_ToolTipManager.h"
 
 namespace MyGUI
 {
@@ -100,6 +101,7 @@ namespace MyGUI
 		mPluginManager = new PluginManager();
 		mLanguageManager = new LanguageManager();
 		mFactoryManager = new FactoryManager();
+		mToolTipManager = new ToolTipManager();
 
 		mResourceManager->initialise();
 		mLayerManager->initialise();
@@ -116,6 +118,7 @@ namespace MyGUI
 		mPluginManager->initialise();
 		mLanguageManager->initialise();
 		mFactoryManager->initialise();
+		mToolTipManager->initialise();
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
@@ -151,6 +154,7 @@ namespace MyGUI
 		mLanguageManager->shutdown();
 		mResourceManager->shutdown();
 		mFactoryManager->shutdown();
+		mToolTipManager->shutdown();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		mWidgetManager->shutdown();
@@ -170,6 +174,7 @@ namespace MyGUI
 		delete mLanguageManager;
 		delete mResourceManager;
 		delete mFactoryManager;
+		delete mToolTipManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

@@ -260,7 +260,7 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
-		void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
+		virtual size_t _getItemIndex(Widget* _item);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);

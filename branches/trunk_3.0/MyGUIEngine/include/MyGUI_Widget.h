@@ -253,11 +253,6 @@ namespace MyGUI
 		/** Get need tool tip mode flag */
 		bool getNeedToolTip() { return mNeedToolTip; }
 
-		/** Enable or disable tooltip event */
-		void setEnableToolTip(bool _value);
-		/** Get tool tip enabled flag */
-		bool getEnableToolTip() { return mEnableToolTip; }
-
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
 		*/
@@ -292,7 +287,8 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual void _getContainer(Widget*& _container, size_t& _index);
+		//virtual void _getContainer(Widget*& _container, size_t& _index);
+		virtual size_t _getItemIndex(Widget* _item) { return ITEM_NONE; }
 
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
@@ -325,6 +321,8 @@ namespace MyGUI
 		// удаляет из списка
 		void _unlinkChildWidget(Widget* _widget);
 
+		void _setContainer(Widget* _value) { mContainer = _value; }
+		Widget* _getContainer() { return mContainer; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -333,9 +331,6 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : void Widget::setEnableToolTip")
-		void enableToolTip(bool _enable) { setEnableToolTip(_enable); }
 
 		MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
 		void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
@@ -479,7 +474,7 @@ namespace MyGUI
 		float mToolTipCurrentTime;
 		IntPoint mToolTipOldPoint;
 		size_t mToolTipOldIndex;
-		IntPoint m_oldMousePoint;
+		//IntPoint m_oldMousePoint;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
@@ -487,6 +482,8 @@ namespace MyGUI
 		FloatCoord mRelativeCoord;
 		bool mDisableUpdateRelative;
 
+	private:
+		Widget* mContainer;
 	};
 
 } // namespace MyGUI

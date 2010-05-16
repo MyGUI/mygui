@@ -113,7 +113,7 @@ namespace MyGUI
 
 		// подписываем клиент для драгэндропа
 		if (mWidgetClient != nullptr)
-			mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
+			mWidgetClient->_setContainer(this);
 
 		requestItemSize();
 
@@ -240,7 +240,7 @@ namespace MyGUI
 			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
 			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			item->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
+			item->_setContainer(this);
 			item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
@@ -333,22 +333,14 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::_requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index)
+	size_t ItemBox::_getItemIndex(Widget* _item)
 	{
-		if (_sender == _getClientWidget())
-		{
-			_container = this;
-			_index = ITEM_NONE;
-		}
-		else
-		{
-			size_t index = calcIndexByWidget(_sender);
-			if (index < mItemsInfo.size())
-			{
-				_container = this;
-				_index = index;
-			}
-		}
+		if (_item == _getClientWidget())
+			return ITEM_NONE;
+		size_t index = calcIndexByWidget(_item);
+		if (index < mItemsInfo.size())
+			return index;
+		return ITEM_NONE;
 	}
 
 	void ItemBox::_setContainerItemInfo(size_t _index, bool _set, bool _accept)

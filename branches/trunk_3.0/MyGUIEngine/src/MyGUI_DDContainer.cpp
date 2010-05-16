@@ -142,7 +142,6 @@ namespace MyGUI
 			if (mNeedDrop)
 			{
 				eventChangeDDState(this, DDItemState::Start);
-				setEnableToolTip(false);
 			}
 			else
 			{
@@ -178,10 +177,12 @@ namespace MyGUI
 		if (item)
 		{
 			// делаем запрос на индекс по произвольному виджету
-			item->_getContainer(receiver, receiver_index);
+			receiver = item->_getContainer();
 			// работаем только с контейнерами
 			if (receiver && receiver->isType<DDContainer>())
 			{
+				receiver_index = receiver->_getItemIndex(item);
+
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainer*>(receiver);
 				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
@@ -246,7 +247,6 @@ namespace MyGUI
 			if (_reset) mDropResult = false;
 			eventDropResult(this, mDropInfo, mDropResult);
 			eventChangeDDState(this, DDItemState::End);
-			setEnableToolTip(true);
 
 			// сбрасываем инфу для дропа
 			mStartDrop = false;
@@ -289,12 +289,6 @@ namespace MyGUI
 	void DDContainer::notifyInvalideDrop(DDContainer* _sender)
 	{
 		mouseDrag();
-	}
-
-	void DDContainer::_getContainer(Widget*& _container, size_t& _index)
-	{
-		_container = this;
-		_index = ITEM_NONE;
 	}
 
 	void DDContainer::setProperty(const std::string& _key, const std::string& _value)

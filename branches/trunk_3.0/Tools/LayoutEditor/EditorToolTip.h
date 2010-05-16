@@ -14,9 +14,9 @@ class EditorToolTip : public wraps::BaseLayout
 public:
 	EditorToolTip();
 
-	void show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point);
-	void show(MyGUI::Widget* _sender, const MyGUI::IntPoint & _point);
+	void show(MyGUI::Widget* _sender);
 	void hide();
+	void move(const MyGUI::IntPoint & _point);
 
 private:
 	void setPosition(const MyGUI::IntPoint & _point);

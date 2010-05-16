@@ -39,11 +39,10 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_ToolTipManager.h"
 
 namespace MyGUI
 {
-
-	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
 	Widget::Widget() :
 		mMaskPickInfo(nullptr),
@@ -63,12 +62,9 @@ namespace MyGUI
 		mInheritsPick(false),
 		mWidgetClient(nullptr),
 		mNeedToolTip(false),
-		mEnableToolTip(true),
-		mToolTipVisible(false),
-		mToolTipCurrentTime(0),
-		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false)
+		mDisableUpdateRelative(false),
+		mContainer(nullptr)
 	{
 	}
 
@@ -159,10 +155,6 @@ namespace MyGUI
 
 	Widget::~Widget()
 	{
-		Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
-
-		if (mToolTipVisible) eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-
 		shutdownWidgetSkin(true);
 
 		_destroyAllChildWidget();
@@ -617,13 +609,6 @@ namespace MyGUI
 		return layer->getName();
 	}
 
-	void Widget::_getContainer(Widget*& _list, size_t& _index)
-	{
-		_list = nullptr;
-		_index = ITEM_NONE;
-		_requestGetContainer(this, _list, _index);
-	}
-
 	Widget* Widget::findWidget(const std::string& _name)
 	{
 		if (_name == mName) return this;
@@ -635,164 +620,6 @@ namespace MyGUI
 			if (nullptr != find) return find;
 		}
 		return nullptr;
-	}
-
-	void Widget::setNeedToolTip(bool _need)
-	{
-		if (mNeedToolTip == _need) return;
-		mNeedToolTip = _need;
-
-		if (mNeedToolTip)
-		{
-			Gui::getInstance().eventFrameStart += newDelegate(this, &Widget::frameEntered);
-			mToolTipCurrentTime = 0;
-		}
-		else
-		{
-			Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
-		}
-	}
-
-	void Widget::frameEntered(float _frame)
-	{
-		if ( ! mEnableToolTip ) return;
-
-		IntPoint point = InputManager::getInstance().getMousePositionByLayer();
-
-		if (mToolTipOldPoint != point)
-		{
-
-			mToolTipCurrentTime = 0;
-
-			bool inside = getAbsoluteRect().inside(point);
-			if (inside)
-			{
-				inside = false;
-				// проверяем не перекрывают ли нас
-				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
-				while (widget != 0)
-				{
-					if (widget/*->getName()*/ == this/*mName*/)
-					{
-						inside = true;
-						break;
-					}
-					// если виджет берет тултип, значит сбрасываем
-					if (widget->getNeedToolTip())
-						widget = 0;//widget->getParent();
-					else
-						widget = widget->getParent();
-				}
-
-				if (inside)
-				{
-					// теперь смотрим, не поменялся ли индекс внутри окна
-					size_t index = _getContainerIndex(point);
-					if (mToolTipOldIndex != index)
-					{
-						if (mToolTipVisible)
-						{
-							mToolTipCurrentTime = 0;
-							mToolTipVisible = false;
-							eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-						}
-						mToolTipOldIndex = index;
-					}
-
-				}
-				else
-				{
-					if (mToolTipVisible)
-					{
-						mToolTipCurrentTime = 0;
-						mToolTipVisible = false;
-						eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-					}
-				}
-
-			}
-			else
-			{
-				if (mToolTipVisible)
-				{
-					mToolTipCurrentTime = 0;
-					mToolTipVisible = false;
-					eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-				}
-			}
-
-			mToolTipOldPoint = point;
-		}
-		else
-		{
-			bool inside = getAbsoluteRect().inside(point);
-			if (inside)
-			{
-				inside = false;
-				// проверяем не перекрывают ли нас
-				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
-				while (widget != 0)
-				{
-					if (widget/*->getName()*/ == this/*mName*/)
-					{
-						inside = true;
-						break;
-					}
-					// если виджет берет тултип, значит сбрасываем
-					if (widget->getNeedToolTip())
-						widget = 0;//widget->getParent();
-					else
-						widget = widget->getParent();
-				}
-
-				if (inside)
-				{
-					if ( ! mToolTipVisible)
-					{
-						mToolTipCurrentTime += _frame;
-						if (mToolTipCurrentTime > WIDGET_TOOLTIP_TIMEOUT)
-						{
-							mToolTipVisible = true;
-							eventToolTip(this, ToolTipInfo(ToolTipInfo::Show, mToolTipOldIndex, point));
-						}
-					}
-				}
-			}
-		}
-	}
-
-	void Widget::setEnableToolTip(bool _enable)
-	{
-		if (_enable == mEnableToolTip) return;
-		mEnableToolTip = _enable;
-
-		if ( ! mEnableToolTip)
-		{
-			if (mToolTipVisible)
-			{
-				mToolTipCurrentTime = 0;
-				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-			}
-		}
-		else
-		{
-			mToolTipCurrentTime = 0;
-		}
-	}
-
-	void Widget::_resetContainer(bool _updateOnly)
-	{
-		if ( mEnableToolTip)
-		{
-			if (mToolTipVisible)
-			{
-				mToolTipVisible = false;
-				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
-			}
-			mToolTipCurrentTime = 0;
-			mToolTipOldIndex = ITEM_NONE;
-		}
 	}
 
 	void Widget::setMaskPick(const std::string& _filename)
@@ -1704,6 +1531,19 @@ namespace MyGUI
 			if (rect)
 				rect->_setColour(_value);
 		}
+	}
+
+	void Widget::setNeedToolTip(bool _value)
+	{
+		if (mNeedToolTip == _value)
+			return;
+		mNeedToolTip = _value;
+	}
+
+	void Widget::_resetContainer(bool _updateOnly)
+	{
+		if (mNeedToolTip)
+			ToolTipManager::getInstance()._unlinkWidget(this);
 	}
 
 } // namespace MyGUI

@@ -116,7 +116,7 @@ namespace MyGUI
 		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ListCtrl must have Client) skin ='" << _info->getSkinName() << "'");
 
 		// подписываем клиент для драгэндропа
-		_getClientWidget()->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
+		_getClientWidget()->_setContainer(this);
 
 		updateFromResize();
 	}
@@ -243,7 +243,7 @@ namespace MyGUI
 			item->eventMouseButtonReleased = newDelegate(this, &ListCtrl::notifyMouseButtonReleased);
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ListCtrl::notifyMouseButtonDoubleClick);
 			item->eventMouseDrag = newDelegate(this, &ListCtrl::notifyMouseDrag);
-			item->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
+			item->_setContainer(this);
 			item->eventKeyButtonPressed = newDelegate(this, &ListCtrl::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ListCtrl::notifyKeyButtonReleased);
 
@@ -347,22 +347,14 @@ namespace MyGUI
 		}
 	}
 
-	void ListCtrl::_requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index)
+	size_t ListCtrl::_getItemIndex(Widget* _item)
 	{
-		if (_sender == _getClientWidget())
-		{
-			_container = this;
-			_index = ITEM_NONE;
-		}
-		else
-		{
-			size_t index = calcIndexByWidget(_sender);
-			if (index < mItemsInfo.size())
-			{
-				_container = this;
-				_index = index;
-			}
-		}
+		if (_item == _getClientWidget())
+			return ITEM_NONE;
+		size_t index = calcIndexByWidget(_item);
+		if (index < mItemsInfo.size())
+			return index;
+		return ITEM_NONE;
 	}
 
 	void ListCtrl::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
