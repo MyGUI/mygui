@@ -34,6 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ITextureInvalidateListener
 	{
 	public:
+		virtual ~ITextureInvalidateListener() { }
 		virtual void textureInvalidate(ITexture* _texture) = 0;
 	};
 
