@@ -17,7 +17,7 @@ namespace Hikari
 	class HikariWidget :
 		public MyGUI::Canvas
 	{
-		MYGUI_RTTI_CHILD_HEADER( HikariWidget, Canvas );
+		MYGUI_RTTI_DERIVED( HikariWidget );
 
 	public:
 		HikariWidget();

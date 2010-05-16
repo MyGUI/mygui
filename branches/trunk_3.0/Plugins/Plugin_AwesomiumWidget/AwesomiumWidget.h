@@ -23,7 +23,7 @@ namespace Awesomium
 		// для вызова закрытого конструктора
 		friend class AwesomiumWidgetFactory;
 
-		MYGUI_RTTI_CHILD_HEADER( AwesomiumWidget, Canvas );
+		MYGUI_RTTI_DERIVED( AwesomiumWidget );
 
 	public:
 		AwesomiumWidget();

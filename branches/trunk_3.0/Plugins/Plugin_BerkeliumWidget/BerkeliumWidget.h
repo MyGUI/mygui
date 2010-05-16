@@ -23,7 +23,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class BerkeliumWidgetFactory;
 
-		MYGUI_RTTI_CHILD_HEADER( BerkeliumWidget, Canvas );
+		MYGUI_RTTI_DERIVED( BerkeliumWidget );
 
 	public:
 		BerkeliumWidget();
