@@ -168,14 +168,16 @@ namespace MyGUI
 
 	void OpenGLRenderManager::drawOneFrame()
 	{
+		Gui* gui = Gui::getInstancePtr();
+		if (gui == nullptr)
+			return;
+
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		Gui* gui = Gui::getInstancePtr();
-		if (gui != nullptr)
-			gui->_injectFrameEntered((float)((double)(time) / (double)1000));
+		gui->_injectFrameEntered((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 

@@ -153,7 +153,12 @@ namespace MyGUI
 
 	void OgreRenderManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
 	{
-		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
+		Gui* gui = Gui::getInstancePtr();
+		if (gui == nullptr)
+			return;
+
+		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId)
+			return;
 
 		Ogre::Viewport * viewport = mSceneManager->getCurrentViewport();
 		if (nullptr == viewport
@@ -169,9 +174,7 @@ namespace MyGUI
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		Gui* gui = Gui::getInstancePtr();
-		if (gui != nullptr)
-			gui->_injectFrameEntered((float)((double)(time) / (double)1000));
+		gui->_injectFrameEntered((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 
