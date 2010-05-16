@@ -1247,6 +1247,7 @@ namespace MyGUI
 
 			//mIWidgetCreator = parent->mIWidgetCreator;
 			//mIWidgetCreator->_linkChildWidget(this);
+			Gui::getInstance()._linkChildWidget(this);
 			mParent->_unlinkChildWidget(this);
 			mParent = nullptr;
 		}
@@ -1292,6 +1293,11 @@ namespace MyGUI
 		{
 			//mIWidgetCreator->_unlinkChildWidget(this);
 			//mIWidgetCreator = _parent;
+			if (mParent == nullptr)
+				Gui::getInstance()._unlinkChildWidget(this);
+			else
+				mParent->_unlinkChildWidget(this);
+
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 
@@ -1308,6 +1314,11 @@ namespace MyGUI
 
 			//mIWidgetCreator->_unlinkChildWidget(this);
 			//mIWidgetCreator = _parent;
+			if (mParent == nullptr)
+				Gui::getInstance()._unlinkChildWidget(this);
+			else
+				mParent->_unlinkChildWidget(this);
+
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 
@@ -1327,6 +1338,11 @@ namespace MyGUI
 
 			//mIWidgetCreator->_unlinkChildWidget(this);
 			//mIWidgetCreator = _parent;
+			if (mParent == nullptr)
+				Gui::getInstance()._unlinkChildWidget(this);
+			else
+				mParent->_unlinkChildWidget(this);
+
 			mParent = _parent;
 			mParent->_linkChildWidget(this);
 

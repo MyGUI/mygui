@@ -213,6 +213,9 @@ namespace MyGUI
 		*/
 		void _injectFrameEntered(float _time);
 
+		void _linkChildWidget(Widget* _widget);
+		void _unlinkChildWidget(Widget* _widget);
+
 	/*event:*/
 		/** Multidelegate for GUI per frame call.\n
 			signature : void method(float _time)\n
@@ -248,13 +251,6 @@ namespace MyGUI
 		void _destroyAllChildWidget();
 
 		virtual void _unlinkWidget(Widget* _widget);
-
-		// добавляет в список виджет
-		virtual void _linkChildWidget(Widget* _widget);
-
-		// удаляет из списка
-		virtual void _unlinkChildWidget(Widget* _widget);
-
 
 	private:
 		// вектор всех детей виджетов

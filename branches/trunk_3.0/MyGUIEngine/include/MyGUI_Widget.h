@@ -319,10 +319,11 @@ namespace MyGUI
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(Widget* _widget);
+
 		// добавляет в список виджет
-		virtual void _linkChildWidget(Widget* _widget);
+		void _linkChildWidget(Widget* _widget);
 		// удаляет из списка
-		virtual void _unlinkChildWidget(Widget* _widget);
+		void _unlinkChildWidget(Widget* _widget);
 
 
 	/*obsolete:*/
