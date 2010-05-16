@@ -2,7 +2,6 @@
 	@file
 	@author		Denis Koronchik
 	@date		09/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -28,7 +27,7 @@ namespace MyGUI
 {
 	const std::string XML_TYPE("Plugin");
 
-	MYGUI_INSTANCE_IMPLEMENT( PluginManager )
+	template <> const char* Singleton<PluginManager>::INSTANCE_TYPE_NAME("PluginManager");
 
 	void PluginManager::initialise()
 	{
@@ -43,7 +42,7 @@ namespace MyGUI
 
 	void PluginManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		unloadAllPlugins();

@@ -2,7 +2,6 @@
 	@file
 	@author     Pavel Turin
 	@date       08/2009
-	@module
 */
 
 #include "precompiled.h"

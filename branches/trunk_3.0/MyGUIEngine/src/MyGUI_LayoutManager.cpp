@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -34,7 +33,12 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layout");
 
-	MYGUI_INSTANCE_IMPLEMENT( LayoutManager )
+	template <> const char* Singleton<LayoutManager>::INSTANCE_TYPE_NAME("LayoutManager");
+
+	LayoutManager::LayoutManager() :
+		layoutParent(nullptr)
+	{
+	}
 
 	void LayoutManager::initialise()
 	{
@@ -51,7 +55,7 @@ namespace MyGUI
 
 	void LayoutManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

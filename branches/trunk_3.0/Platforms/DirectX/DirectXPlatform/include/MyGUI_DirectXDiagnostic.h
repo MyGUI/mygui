@@ -2,7 +2,6 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #ifndef __MYGUI_DIRECTX_DIAGNOSTIC_H__

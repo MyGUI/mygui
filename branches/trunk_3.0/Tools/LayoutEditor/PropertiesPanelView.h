@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		09/2008
-	@module
 */
 #ifndef __PROPERTIES_PANEL_VIEW_H__
 #define __PROPERTIES_PANEL_VIEW_H__

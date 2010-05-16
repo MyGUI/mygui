@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -26,17 +25,16 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_IFont.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FontManager
+	class MYGUI_EXPORT FontManager :
+		public Singleton<FontManager>
 	{
-		MYGUI_INSTANCE_HEADER( FontManager )
-
 	public:
 		void initialise();
 		void shutdown();

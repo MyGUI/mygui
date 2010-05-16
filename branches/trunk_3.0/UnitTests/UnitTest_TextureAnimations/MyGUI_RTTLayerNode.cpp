@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2008
-	@module
 */
 
 #include "MyGUI_RTTLayerNode.h"

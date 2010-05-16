@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		04/2009
-	@module
 */
 #ifndef __META_SOLUTION_WINDOW_H__
 #define __META_SOLUTION_WINDOW_H__

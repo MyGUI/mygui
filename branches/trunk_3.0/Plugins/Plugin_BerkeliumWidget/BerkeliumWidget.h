@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2010
-	@module
 */
 #ifndef __BERKELIUM_WIDGET_H__
 #define __BERKELIUM_WIDGET_H__

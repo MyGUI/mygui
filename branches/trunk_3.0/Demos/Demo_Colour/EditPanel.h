@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2009
-	@module
 */
 #ifndef __EDIT_PANEL_H__
 #define __EDIT_PANEL_H__

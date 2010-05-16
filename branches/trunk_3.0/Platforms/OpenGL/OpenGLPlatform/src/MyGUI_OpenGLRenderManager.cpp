@@ -2,7 +2,6 @@
 	@file
 	@author		George Evmenov
 	@date		07/2009
-	@module
 */
 
 #include "MyGUI_OpenGLRenderManager.h"
@@ -20,7 +19,13 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OpenGLRenderManager)
+	template <> const char* Singleton<OpenGLRenderManager>::INSTANCE_TYPE_NAME("OpenGLRenderManager");
+
+	OpenGLRenderManager::OpenGLRenderManager() :
+		mUpdate(false),
+		mImageLoader(nullptr)
+	{
+	}
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{

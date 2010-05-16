@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		04/2008
-	@module
 */
 
 #include "MyGUI_OgreDataManager.h"
@@ -18,7 +17,16 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager)
+	template <> const char* Singleton<OgreRenderManager>::INSTANCE_TYPE_NAME("OgreRenderManager");
+
+	OgreRenderManager::OgreRenderManager() :
+		mUpdate(false),
+		mSceneManager(nullptr),
+		mWindow(nullptr),
+		mActiveViewport(0),
+		mRenderSystem(nullptr)
+	{
+	}
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{

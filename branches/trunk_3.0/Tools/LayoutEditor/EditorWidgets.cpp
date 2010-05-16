@@ -7,22 +7,12 @@
 
 const std::string LogSection = "LayoutEditor";
 
-//MYGUI_INSTANCE_IMPLEMENT( EditorWidgets )
-const std::string INSTANCE_TYPE_NAME("EditorWidgets");
-EditorWidgets* EditorWidgets::msInstance = nullptr;
-EditorWidgets* EditorWidgets::getInstancePtr() { return msInstance; }
-EditorWidgets& EditorWidgets::getInstance() { MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created"); return (*msInstance); }
+template <> const char* MyGUI::Singleton<EditorWidgets>::INSTANCE_TYPE_NAME("EditorWidgets");
+
 EditorWidgets::EditorWidgets() :
-	mIsInitialise(false),
 	global_counter(0),
 	widgets_changed(false)
 {
-	MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
-	msInstance = this;
-}
-EditorWidgets::~EditorWidgets()
-{
-	msInstance = nullptr;
 }
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2009
-	@module
 */
 #ifndef __CLASS_ATTRIBUTE_H__
 #define __CLASS_ATTRIBUTE_H__

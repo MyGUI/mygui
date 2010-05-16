@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -36,7 +35,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layer");
 
-	MYGUI_INSTANCE_IMPLEMENT( LayerManager )
+	template <> const char* Singleton<LayerManager>::INSTANCE_TYPE_NAME("LayerManager");
 
 	void LayerManager::initialise()
 	{
@@ -55,7 +54,7 @@ namespace MyGUI
 
 	void LayerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager::getInstance().unregisterFactory<SharedLayer>(XML_TYPE);

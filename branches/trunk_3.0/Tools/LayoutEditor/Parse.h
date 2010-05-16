@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		10/2008
-	@module
 */
 #ifndef __PARSE_H__
 #define __PARSE_H__

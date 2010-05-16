@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		07/2008
-	@module
 */
 #ifndef __TOOL_TIP_H__
 #define __TOOL_TIP_H__

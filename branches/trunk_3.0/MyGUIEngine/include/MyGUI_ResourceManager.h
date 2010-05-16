@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_RESOURCE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_XmlDocument.h"
@@ -36,10 +35,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceManager :
+		public Singleton<ResourceManager>,
 		public ResourceHolder<IResource>
 	{
-		MYGUI_INSTANCE_HEADER( ResourceManager )
-
 	public:
 		void initialise();
 		void shutdown();

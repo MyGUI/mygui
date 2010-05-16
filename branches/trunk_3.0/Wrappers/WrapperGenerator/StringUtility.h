@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 #ifndef __STRING_UTILITY_H__
 #define __STRING_UTILITY_H__

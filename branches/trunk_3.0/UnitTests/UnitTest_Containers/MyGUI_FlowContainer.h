@@ -2,7 +2,6 @@
 	@file
 	@author		Alexander Ptakhin
 	@date		04/2009
-	@module
 */
 #ifndef __MYGUI_FLOW_CONTAINER_H__
 #define __MYGUI_FLOW_CONTAINER_H__

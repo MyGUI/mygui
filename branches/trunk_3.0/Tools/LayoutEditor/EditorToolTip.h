@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		08/2008
-	@module
 */
 #ifndef __EDITOR_TOOL_TIP_H__
 #define __EDITOR_TOOL_TIP_H__

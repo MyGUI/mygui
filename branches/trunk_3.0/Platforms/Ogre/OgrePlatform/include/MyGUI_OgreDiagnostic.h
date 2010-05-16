@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2009
-	@module
 */
 
 #ifndef __MYGUI_OGRE_DIAGNOSTIC_H__

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -43,7 +42,15 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	MYGUI_INSTANCE_IMPLEMENT( PointerManager )
+	template <> const char* Singleton<PointerManager>::INSTANCE_TYPE_NAME("PointerManager");
+
+	PointerManager::PointerManager() :
+		mVisible(false),
+		mWidgetOwner(nullptr),
+		mMousePointer(nullptr),
+		mPointer(nullptr)
+	{
+	}
 
 	void PointerManager::initialise()
 	{
@@ -72,7 +79,7 @@ namespace MyGUI
 
 	void PointerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);

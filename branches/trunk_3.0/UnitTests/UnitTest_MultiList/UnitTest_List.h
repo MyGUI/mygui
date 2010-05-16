@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2008
-	@module
 */
 #ifndef __UNITTEST_LIST_H__
 #define __UNITTEST_LIST_H__

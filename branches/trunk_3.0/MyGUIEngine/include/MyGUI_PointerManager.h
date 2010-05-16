@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_POINTER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_IPointer.h"
@@ -33,11 +32,12 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
+		public Singleton<PointerManager>,
 		public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER( PointerManager )
-
 	public:
+		PointerManager();
+
 		void initialise();
 		void shutdown();
 

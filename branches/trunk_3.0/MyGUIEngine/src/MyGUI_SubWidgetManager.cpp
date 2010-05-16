@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -36,7 +35,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( SubWidgetManager )
+	template <> const char* Singleton<SubWidgetManager>::INSTANCE_TYPE_NAME("SubWidgetManager");
 
 	void SubWidgetManager::initialise()
 	{
@@ -67,7 +66,7 @@ namespace MyGUI
 
 	void SubWidgetManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager& factory = FactoryManager::getInstance();

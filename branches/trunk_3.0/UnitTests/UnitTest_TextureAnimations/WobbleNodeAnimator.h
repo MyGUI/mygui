@@ -2,7 +2,6 @@
     @file
     @author     Albert Semenov
     @date       08/2008
-    @module
 */
 #ifndef __WOBBLE_NODE_ANIMATOR_H__
 #define __WOBBLE_NODE_ANIMATOR_H__

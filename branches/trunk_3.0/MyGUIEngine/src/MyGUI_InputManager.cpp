@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -33,7 +32,22 @@ namespace MyGUI
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 
-	MYGUI_INSTANCE_IMPLEMENT( InputManager )
+	template <> const char* Singleton<InputManager>::INSTANCE_TYPE_NAME("InputManager");
+
+	InputManager::InputManager() :
+		mWidgetMouseFocus(nullptr),
+		mWidgetKeyFocus(nullptr),
+		mLayerMouseFocus(nullptr),
+		mIsWidgetMouseCapture(false),
+		mIsShiftPressed(false),
+		mIsControlPressed(false),
+		mHoldKey(KeyCode::None),
+		mHoldChar(0),
+		mFirstPressKey(false),
+		mTimerKey(0.0f),
+		mOldAbsZ(0)
+	{
+	}
 
 	void InputManager::initialise()
 	{
@@ -61,7 +75,7 @@ namespace MyGUI
 
 	void InputManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);

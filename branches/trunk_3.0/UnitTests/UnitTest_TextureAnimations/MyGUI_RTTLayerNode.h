@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2008
-	@module
 */
 
 #ifndef __MYGUI_RTT_LAYER_NODE_H__

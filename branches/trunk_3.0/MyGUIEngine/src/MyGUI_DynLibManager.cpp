@@ -2,7 +2,6 @@
 	@file
 	@author		Denis Koronchik
 	@date		09/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -26,7 +25,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( DynLibManager )
+	template <> const char* Singleton<DynLibManager>::INSTANCE_TYPE_NAME("DynLibManager");
 
 	void DynLibManager::initialise()
 	{
@@ -39,7 +38,7 @@ namespace MyGUI
 
 	void DynLibManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		StringDynLibMap::iterator it;

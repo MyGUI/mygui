@@ -2,7 +2,6 @@
 	@file
 	@author		Alexander Ptakhin
 	@date		02/2009
-	@module
 */
 #include "MyGUI_Spacer.h"
 

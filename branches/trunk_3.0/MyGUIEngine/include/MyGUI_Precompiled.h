@@ -2,7 +2,6 @@
 	@file
 	@author		Alexander Ptakhin
 	@date		01/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -28,7 +27,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_LogManager.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_IResource.h"

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -35,7 +34,7 @@ namespace MyGUI
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LIST("List");
 
-	MYGUI_INSTANCE_IMPLEMENT( ResourceManager )
+	template <> const char* Singleton<ResourceManager>::INSTANCE_TYPE_NAME("ResourceManager");
 
 	void ResourceManager::initialise()
 	{
@@ -54,7 +53,7 @@ namespace MyGUI
 
 	void ResourceManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);

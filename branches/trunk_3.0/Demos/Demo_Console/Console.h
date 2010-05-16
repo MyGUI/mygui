@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 #ifndef __CONSOLE_H__
 #define __CONSOLE_H__
@@ -29,14 +28,12 @@ namespace demo
 		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
 	}
 
-	class Console : public wraps::BaseLayout
+	class Console :
+		public MyGUI::Singleton<Console>,
+		public wraps::BaseLayout
 	{
 	public:
-		static Console * getInstancePtr();
-		static Console & getInstance();
-
 		Console();
-		virtual ~Console();
 
 		void addToConsole(const MyGUI::UString & _line);
 		void addToConsole(const MyGUI::UString & _reason, const MyGUI::UString & _key, const MyGUI::UString & _value)

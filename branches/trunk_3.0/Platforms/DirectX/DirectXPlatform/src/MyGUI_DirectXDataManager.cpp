@@ -2,7 +2,6 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #include "MyGUI_DataFileStream.h"
@@ -61,7 +60,7 @@ namespace MyGUI
 		}
 	}
 
-	MYGUI_INSTANCE_IMPLEMENT( DirectXDataManager )
+	template <> const char* Singleton<DirectXDataManager>::INSTANCE_TYPE_NAME("DirectXDataManager");
 
 	void DirectXDataManager::initialise()
 	{

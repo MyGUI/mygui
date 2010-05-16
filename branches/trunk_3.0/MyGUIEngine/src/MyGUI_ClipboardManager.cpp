@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -74,7 +73,7 @@ namespace MyGUI
 
 #endif
 
-	MYGUI_INSTANCE_IMPLEMENT( ClipboardManager )
+	template <> const char* Singleton<ClipboardManager>::INSTANCE_TYPE_NAME("ClipboardManager");
 
 	void ClipboardManager::initialise()
 	{
@@ -99,7 +98,7 @@ namespace MyGUI
 
 	void ClipboardManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");

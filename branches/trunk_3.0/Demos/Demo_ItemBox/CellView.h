@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		07/2008
-	@module
 */
 #ifndef __CELL_VIEW_H__
 #define __CELL_VIEW_H__

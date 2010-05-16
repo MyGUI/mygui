@@ -27,7 +27,17 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( ToolTipManager )
+	template <> const char* Singleton<ToolTipManager>::INSTANCE_TYPE_NAME("ToolTipManager");
+
+	ToolTipManager::ToolTipManager() :
+		mDelayVisible(0.5f),
+		mOldFocusWidget(nullptr),
+		mToolTipVisible(false),
+		mCurrentTime(0),
+		mOldIndex(ITEM_NONE),
+		mNeedToolTip(false)
+	{
+	}
 
 	void ToolTipManager::initialise()
 	{

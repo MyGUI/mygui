@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -46,37 +45,10 @@
 namespace MyGUI
 {
 
-	const std::string INSTANCE_TYPE_NAME("Gui");
-
-	Gui* Gui::msInstance = nullptr;
-
-	Gui* Gui::getInstancePtr()
-	{
-		return msInstance;
-	}
-
-	Gui& Gui::getInstance()
-	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
-		return (*msInstance);
-	}
-
-	Gui::Gui() :
-		mIsInitialise(false)
-	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
-		msInstance = this;
-	}
-
-	Gui::~Gui()
-	{
-		msInstance = nullptr;
-	}
+	template <> const char* Singleton<Gui>::INSTANCE_TYPE_NAME("Gui");
 
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
-		//LogManager::getInstance().registerSection(MYGUI_LOG_SECTION);
-
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
@@ -134,7 +106,7 @@ namespace MyGUI
 
 	void Gui::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		_destroyAllChildWidget();

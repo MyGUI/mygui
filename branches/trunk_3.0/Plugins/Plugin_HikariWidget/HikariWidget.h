@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2009
-	@module
 */
 #ifndef __HIKARI_WIDGET_H__
 #define __HIKARI_WIDGET_H__

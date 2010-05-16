@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -57,7 +56,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( WidgetManager )
+	template <> const char* Singleton<WidgetManager>::INSTANCE_TYPE_NAME("WidgetManager");
 
 	void WidgetManager::initialise()
 	{
@@ -107,7 +106,7 @@ namespace MyGUI
 
 	void WidgetManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		//unregisterUnlinker(this);

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		05/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -28,18 +27,17 @@ namespace MyGUI
 
 	const std::string INSTANCE_TYPE_NAME("DataManager");
 
-	DataManager* DataManager::msInstance = 0;
+	DataManager* DataManager::msInstance = nullptr;
 
-	DataManager::DataManager() :
-		mIsInitialise(false)
+	DataManager::DataManager()
 	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
+		MYGUI_ASSERT(nullptr == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 		msInstance = this;
 	}
 
 	DataManager::~DataManager()
 	{
-		msInstance = 0;
+		msInstance = nullptr;
 	}
 
 	DataManager* DataManager::getInstancePtr()
@@ -49,7 +47,7 @@ namespace MyGUI
 
 	DataManager& DataManager::getInstance()
 	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
+		MYGUI_ASSERT(nullptr != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
 		return (*msInstance);
 	}
 

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,17 +23,16 @@
 #define __MYGUI_FACTORY_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FactoryManager
+	class MYGUI_EXPORT FactoryManager :
+		public Singleton<FactoryManager>
 	{
-		MYGUI_INSTANCE_HEADER( FactoryManager )
-
 	public:
 		typedef delegates::CDelegate1<IObject*&> Delegate;
 

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -38,7 +37,7 @@ namespace MyGUI
 	const std::string XML_TYPE_RESOURCE("Resource");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	MYGUI_INSTANCE_IMPLEMENT( SkinManager )
+	template <> const char* Singleton<SkinManager>::INSTANCE_TYPE_NAME("SkinManager");
 
 	void SkinManager::initialise()
 	{
@@ -57,7 +56,7 @@ namespace MyGUI
 
 	void SkinManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

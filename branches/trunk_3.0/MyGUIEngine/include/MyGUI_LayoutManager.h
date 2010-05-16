@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_LAYOUT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_Gui.h"
@@ -32,11 +31,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayoutManager
+	class MYGUI_EXPORT LayoutManager :
+		public Singleton<LayoutManager>
 	{
-		MYGUI_INSTANCE_HEADER( LayoutManager )
-
 	public:
+		LayoutManager();
+
 		void initialise();
 		void shutdown();
 

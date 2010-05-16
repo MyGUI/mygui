@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -25,7 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_Widget.h"
@@ -36,11 +35,10 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
 	class MYGUI_EXPORT Gui :
+		public Singleton<Gui>,
 		public IUnlinkWidget
 	{
 		friend class WidgetManager;
-		MYGUI_INSTANCE_HEADER( Gui )
-
 	public:
 		/** Initialise GUI and all GUI Managers
 			@param

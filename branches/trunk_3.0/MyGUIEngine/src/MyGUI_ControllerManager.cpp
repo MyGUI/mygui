@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -33,7 +32,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( ControllerManager )
+	template <> const char* Singleton<ControllerManager>::INSTANCE_TYPE_NAME("ControllerManager");
 
 	void ControllerManager::initialise()
 	{
@@ -54,7 +53,7 @@ namespace MyGUI
 
 	void ControllerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		const std::string factory_type = "Controller";

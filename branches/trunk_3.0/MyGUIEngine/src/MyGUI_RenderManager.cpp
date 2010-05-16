@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		04/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -28,18 +27,17 @@ namespace MyGUI
 
 	const std::string INSTANCE_TYPE_NAME("RenderManager");
 
-	RenderManager* RenderManager::msInstance = 0;
+	RenderManager* RenderManager::msInstance = nullptr;
 
-	RenderManager::RenderManager() :
-		mIsInitialise(false)
+	RenderManager::RenderManager()
 	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
+		MYGUI_ASSERT(nullptr == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 		msInstance = this;
 	}
 
 	RenderManager::~RenderManager()
 	{
-		msInstance = 0;
+		msInstance = nullptr;
 	}
 
 	RenderManager* RenderManager::getInstancePtr()
@@ -49,7 +47,7 @@ namespace MyGUI
 
 	RenderManager& RenderManager::getInstance()
 	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
+		MYGUI_ASSERT(nullptr != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
 		return (*msInstance);
 	}
 

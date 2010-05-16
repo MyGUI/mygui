@@ -2,7 +2,6 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #include "MyGUI_DirectXRenderManager.h"
@@ -17,7 +16,13 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( DirectXRenderManager )
+	template <> const char* Singleton<DirectXRenderManager>::INSTANCE_TYPE_NAME("DirectXRenderManager");
+
+	DirectXRenderManager::DirectXRenderManager() :
+		mpD3DDevice(nullptr),
+		mUpdate(false)
+	{
+	}
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{

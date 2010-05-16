@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2009
-	@module
 */
 #include "HikariWidget.h"
 #include "FlashSite.h"

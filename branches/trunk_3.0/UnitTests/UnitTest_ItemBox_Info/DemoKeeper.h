@@ -2,7 +2,6 @@
 	@file
 	@author		George Evmenov
 	@date		08/2000
-	@module
 */
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__

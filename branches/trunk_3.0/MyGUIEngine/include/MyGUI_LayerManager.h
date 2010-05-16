@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_LAYER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
@@ -35,10 +34,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayerManager :
+		public Singleton<LayerManager>,
 		public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER( LayerManager )
-
 	public:
 		typedef std::vector<ILayer*> VectorLayer;
 		typedef Enumerator<VectorLayer> EnumeratorLayer;

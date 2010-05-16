@@ -2,25 +2,18 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 #include "precompiled.h"
 #include "Console.h"
 
+// внутри неймспейса demo почему то не линкуется, даже если указать абсолютные пути
+template <> const char* MyGUI::Singleton<demo::Console>::INSTANCE_TYPE_NAME("Console");
+
 namespace demo
 {
 
-	Console * Console::m_instance = 0;
-
-	Console * Console::getInstancePtr() { return m_instance; }
-	Console & Console::getInstance() { assert(m_instance); return *m_instance; }
-
-
 	Console::Console() : BaseLayout("Console.layout")
 	{
-		assert(!m_instance);
-		m_instance = this;
-
 		assignWidget(mListHistory, "list_History");
 		assignWidget(mComboCommand, "combo_Command");
 		assignWidget(mButtonSubmit, "button_Submit");
@@ -42,11 +35,6 @@ namespace demo
 		mListHistory->setOverflowToTheLeft(true);
 
 		mMainWidget->setVisible(false);
-	}
-
-	Console::~Console()
-	{
-		m_instance = 0;
 	}
 
 	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button)

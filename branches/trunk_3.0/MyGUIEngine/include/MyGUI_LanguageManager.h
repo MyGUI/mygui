@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,17 +23,16 @@
 #define __MYGUI_LANGUAGE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LanguageManager
+	class MYGUI_EXPORT LanguageManager :
+		public Singleton<LanguageManager>
 	{
-		MYGUI_INSTANCE_HEADER( LanguageManager )
-
 	public:
 		void initialise();
 		void shutdown();

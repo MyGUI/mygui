@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -32,7 +31,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Language");
 
-	MYGUI_INSTANCE_IMPLEMENT( LanguageManager )
+	template <> const char* Singleton<LanguageManager>::INSTANCE_TYPE_NAME("LanguageManager");
 
 	void LanguageManager::initialise()
 	{
@@ -47,7 +46,7 @@ namespace MyGUI
 
 	void LanguageManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

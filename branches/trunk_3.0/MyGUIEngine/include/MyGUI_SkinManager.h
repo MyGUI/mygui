@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_SKIN_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
@@ -33,10 +32,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinManager
+	class MYGUI_EXPORT SkinManager :
+		public Singleton<SkinManager>
 	{
-		MYGUI_INSTANCE_HEADER( SkinManager )
-
 	public:
 		void initialise();
 		void shutdown();

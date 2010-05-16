@@ -3,7 +3,6 @@
 	@author		Albert Semenov
 	@author		baho_is
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -44,7 +43,7 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_Diagnostic.h"
 #include "MyGUI_LogManager.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_Utility.h"

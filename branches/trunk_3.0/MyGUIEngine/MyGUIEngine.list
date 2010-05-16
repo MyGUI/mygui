@@ -76,7 +76,6 @@ set (HEADER_FILES
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_Instance.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -162,6 +161,7 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
   include/MyGUI_ToolTipManager.h
+  include/MyGUI_Singleton.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -446,7 +446,6 @@ SOURCE_GROUP("Header Files\\Utility" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_Instance.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -454,6 +453,7 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_IVertexBuffer.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
+  include/MyGUI_Singleton.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_BiIndexBase.h

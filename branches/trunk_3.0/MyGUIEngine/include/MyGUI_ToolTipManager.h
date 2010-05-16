@@ -24,16 +24,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_Singleton.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT ToolTipManager :
+		public Singleton<ToolTipManager>,
 		public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER( ToolTipManager )
-
 	public:
+		ToolTipManager();
+
 		void initialise();
 		void shutdown();
 

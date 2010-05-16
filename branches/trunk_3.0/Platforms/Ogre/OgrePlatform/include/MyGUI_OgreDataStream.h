@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2009
-	@module
 */
 
 #ifndef __MYGUI_OGRE_DATA_STREAM_H__

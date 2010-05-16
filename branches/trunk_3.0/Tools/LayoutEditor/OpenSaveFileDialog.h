@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 #ifndef __OPEN_SAVE_FILE_DIALOG_H__
 #define __OPEN_SAVE_FILE_DIALOG_H__

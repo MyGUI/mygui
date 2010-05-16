@@ -2,7 +2,6 @@
 	@file
 	@author		Denis Koronchik
 	@date		08/2007
-	@module		libEngine
 */
 /*
 	This file is part of MyGUI.
@@ -24,7 +23,7 @@
 #define __MYGUI_DYN_LIB_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_DynLib.h"
 #include <map>
 
@@ -33,10 +32,9 @@ namespace MyGUI
 
 	/*!	\brief Manager of dynamic libraries
 	*/
-	class MYGUI_EXPORT DynLibManager
+	class MYGUI_EXPORT DynLibManager :
+		public Singleton<DynLibManager>
 	{
-		MYGUI_INSTANCE_HEADER( DynLibManager )
-
 	public:
 		void initialise();
 		void shutdown();

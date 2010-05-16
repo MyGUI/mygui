@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2008
-	@module
 */
 
 #ifndef __MYGUI_LAYER_NODE_ANIMATION_H__

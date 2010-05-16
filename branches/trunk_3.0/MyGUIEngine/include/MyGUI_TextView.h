@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2009
-	@module
 */
 #ifndef __MYGUI_TEXT_VIEW_H__
 #define __MYGUI_TEXT_VIEW_H__
