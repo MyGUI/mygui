@@ -38,14 +38,9 @@ namespace MyGUI
 		public Singleton<PluginManager>
 	{
 	public:
-		typedef void (*DLL_START_PLUGIN)(void);
-		typedef void (*DLL_STOP_PLUGIN)(void);
-
-	public:
 		void initialise();
 		void shutdown();
 
-	public:
 		//!	Load plugin
 		bool loadPlugin(const std::string& _file);
 

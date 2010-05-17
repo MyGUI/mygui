@@ -41,7 +41,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-	public:
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */

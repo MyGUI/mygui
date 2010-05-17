@@ -42,7 +42,6 @@ namespace MyGUI
 		void shutdown();
 
 	public:
-
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string& _file);
 
@@ -67,7 +66,6 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : size_t ResourceManager::getCount()")
 		size_t getResourceCount() { return getCount(); }
-
 		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
 		IResourcePtr getResource(const std::string& _name, bool _throw = true) { return getByName(_name, _throw); }
 

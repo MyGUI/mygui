@@ -25,6 +25,9 @@
 
 namespace MyGUI
 {
+	typedef void (*DLL_START_PLUGIN)(void);
+	typedef void (*DLL_STOP_PLUGIN)(void);
+
 	const std::string XML_TYPE("Plugin");
 
 	template <> const char* Singleton<PluginManager>::INSTANCE_TYPE_NAME("PluginManager");
