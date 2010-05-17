@@ -25,13 +25,15 @@
 namespace MyGUI
 {
 
-	const std::string INSTANCE_TYPE_NAME("DataManager");
+	template <> const char* Singleton<DataManager>::mClassTypeName("DataManager");
+
+	/*const std::string getClassTypeName()("DataManager");
 
 	DataManager* DataManager::msInstance = 0;
 
 	DataManager::DataManager()
 	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
+		MYGUI_ASSERT(0 == msInstance, "instance " << getClassTypeName() << " is exsist");
 		msInstance = this;
 	}
 
@@ -47,8 +49,8 @@ namespace MyGUI
 
 	DataManager& DataManager::getInstance()
 	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
+		MYGUI_ASSERT(0 != msInstance, "instance " << getClassTypeName() << " was not created");
 		return (*msInstance);
-	}
+	}*/
 
 } // namespace MyGUI

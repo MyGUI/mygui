@@ -15,25 +15,25 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OgreDataManager>::INSTANCE_TYPE_NAME("OgreDataManager");
+	//template <> const char* Singleton<OgreDataManager>::mClassTypeName("OgreDataManager");
 
 	void OgreDataManager::initialise(const std::string& _group)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mGroup = _group;
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OgreDataManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

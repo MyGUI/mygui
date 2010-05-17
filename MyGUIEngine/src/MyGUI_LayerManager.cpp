@@ -35,12 +35,12 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layer");
 
-	template <> const char* Singleton<LayerManager>::INSTANCE_TYPE_NAME("LayerManager");
+	template <> const char* Singleton<LayerManager>::mClassTypeName("LayerManager");
 
 	void LayerManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
@@ -48,14 +48,14 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<SharedLayer>(XML_TYPE);
 		FactoryManager::getInstance().registerFactory<OverlappedLayer>(XML_TYPE);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void LayerManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager::getInstance().unregisterFactory<SharedLayer>(XML_TYPE);
 		FactoryManager::getInstance().unregisterFactory<OverlappedLayer>(XML_TYPE);
@@ -66,7 +66,7 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

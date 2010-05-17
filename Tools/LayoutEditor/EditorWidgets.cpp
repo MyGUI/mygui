@@ -8,7 +8,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
-template <> const char* MyGUI::Singleton<EditorWidgets>::INSTANCE_TYPE_NAME("EditorWidgets");
+template <> const char* MyGUI::Singleton<EditorWidgets>::mClassTypeName("EditorWidgets");
 
 EditorWidgets::EditorWidgets() :
 	global_counter(0),

@@ -8,7 +8,7 @@
 #define __MYGUI_OGRE_RENDER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
+//#include "MyGUI_Singleton.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -25,8 +25,8 @@ namespace MyGUI
 		public IRenderTarget,
 		public Ogre::WindowEventListener,
 		public Ogre::RenderQueueListener,
-		public Ogre::RenderSystem::Listener,
-		public Singleton<OgreRenderManager>
+		public Ogre::RenderSystem::Listener//,
+		//public Singleton<OgreRenderManager>
 	{
 	public:
 		OgreRenderManager();
@@ -34,8 +34,8 @@ namespace MyGUI
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
-		static OgreRenderManager& getInstance() { return Singleton<OgreRenderManager>::getInstance(); }
-		static OgreRenderManager* getInstancePtr() { return Singleton<OgreRenderManager>::getInstancePtr(); }
+		//static OgreRenderManager& getInstance() { return Singleton<OgreRenderManager>::getInstance(); }
+		//static OgreRenderManager* getInstancePtr() { return Singleton<OgreRenderManager>::getInstancePtr(); }
 
 		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const { return mViewSize; }

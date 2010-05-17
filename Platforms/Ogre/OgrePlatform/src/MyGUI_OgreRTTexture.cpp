@@ -80,7 +80,7 @@ namespace MyGUI
 
 	void OgreRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
+		static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->doRender(_buffer, _texture, _count);
 	}
 
 } // namespace MyGUI
