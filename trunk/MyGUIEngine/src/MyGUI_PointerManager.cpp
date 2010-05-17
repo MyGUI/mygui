@@ -42,7 +42,7 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	template <> const char* Singleton<PointerManager>::INSTANCE_TYPE_NAME("PointerManager");
+	template <> const char* Singleton<PointerManager>::mClassTypeName("PointerManager");
 
 	PointerManager::PointerManager() :
 		mVisible(false),
@@ -54,8 +54,8 @@ namespace MyGUI
 
 	void PointerManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &PointerManager::notifyFrameStart);
 		InputManager::getInstance().eventChangeMouseFocus += newDelegate(this, &PointerManager::notifyChangeMouseFocus);
@@ -70,14 +70,14 @@ namespace MyGUI
 
 		mSkinName = "StaticImage";
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void PointerManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &PointerManager::notifyFrameStart);
@@ -95,7 +95,7 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

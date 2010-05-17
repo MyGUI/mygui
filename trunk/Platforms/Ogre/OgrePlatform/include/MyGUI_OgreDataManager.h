@@ -8,22 +8,22 @@
 #define __MYGUI_OGRE_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
+//#include "MyGUI_Singleton.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
 	class OgreDataManager :
-		public DataManager,
-		public Singleton<OgreDataManager>
+		public DataManager//,
+		//public Singleton<OgreDataManager>
 	{
 	public:
 		void initialise(const std::string& _group);
 		void shutdown();
 
-		static OgreDataManager& getInstance() { return Singleton<OgreDataManager>::getInstance(); }
-		static OgreDataManager* getInstancePtr() { return Singleton<OgreDataManager>::getInstancePtr(); }
+		//static OgreDataManager& getInstance() { return Singleton<OgreDataManager>::getInstance(); }
+		//static OgreDataManager* getInstancePtr() { return Singleton<OgreDataManager>::getInstancePtr(); }
 
 		const std::string& getGroup() { return mGroup; }
 

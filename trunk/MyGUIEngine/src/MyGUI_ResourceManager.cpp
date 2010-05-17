@@ -34,12 +34,12 @@ namespace MyGUI
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LIST("List");
 
-	template <> const char* Singleton<ResourceManager>::INSTANCE_TYPE_NAME("ResourceManager");
+	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
 
 	void ResourceManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::loadFromXmlNode);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
@@ -47,14 +47,14 @@ namespace MyGUI
 		// регестрируем дефолтные ресурсы
 		FactoryManager::getInstance().registerFactory<ResourceImageSet>(XML_TYPE);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void ResourceManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
 
@@ -64,13 +64,13 @@ namespace MyGUI
 
 		mMapLoadXmlDelegate.clear();
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
 	bool ResourceManager::load(const std::string& _file)
 	{
-		return _loadImplement(_file, false, "", INSTANCE_TYPE_NAME);
+		return _loadImplement(_file, false, "", getClassTypeName());
 	}
 
 	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -117,7 +117,7 @@ namespace MyGUI
 			std::string source;
 			if (!node->findAttribute("file", source)) continue;
 			MYGUI_LOG(Info, "Load ini file '" << source << "'");
-			_loadImplement(source, false, "", INSTANCE_TYPE_NAME);
+			_loadImplement(source, false, "", getClassTypeName());
 		}
 	}
 

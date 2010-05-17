@@ -34,7 +34,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layout");
 
-	template <> const char* Singleton<LayoutManager>::INSTANCE_TYPE_NAME("LayoutManager");
+	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :
 		layoutParent(nullptr)
@@ -47,25 +47,25 @@ namespace MyGUI
 
 	void LayoutManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
 		layoutPrefix = "";
 		layoutParent = nullptr;
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void LayoutManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
