@@ -56,14 +56,11 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<WidgetManager>::INSTANCE_TYPE_NAME("WidgetManager");
+	template <> const char* Singleton<WidgetManager>::mClassTypeName("WidgetManager");
 
 	void WidgetManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
-
-		//registerUnlinker(this);
+		Base::initialise();
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -94,31 +91,20 @@ namespace MyGUI
 		factory.registerFactory<Window>("Widget");
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-
 		factory.registerFactory<RenderBox>("Widget");
 		factory.registerFactory<Sheet>("Widget");
-
 #endif // MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void WidgetManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
-
-		//unregisterUnlinker(this);
+		Base::shutdown();
 
 		mFactoryList.clear();
 		mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
 
 		FactoryManager::getInstance().unregisterFactory("Widget");
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name)

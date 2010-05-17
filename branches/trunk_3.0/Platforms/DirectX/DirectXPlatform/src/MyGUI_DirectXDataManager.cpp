@@ -60,24 +60,14 @@ namespace MyGUI
 		}
 	}
 
-	template <> const char* Singleton<DirectXDataManager>::INSTANCE_TYPE_NAME("DirectXDataManager");
-
 	void DirectXDataManager::initialise()
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
+		Base::initialise();
 	}
 
 	void DirectXDataManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
+		Base::shutdown();
 	}
 
 	IDataStream* DirectXDataManager::getData(const std::string& _name)

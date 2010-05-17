@@ -45,12 +45,11 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<Gui>::INSTANCE_TYPE_NAME("Gui");
+	template <> const char* Singleton<Gui>::mClassTypeName("Gui");
 
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		MYGUI_LOG(Info, "* MyGUI version "
 			<< MYGUI_VERSION_MAJOR << "."
@@ -99,15 +98,11 @@ namespace MyGUI
 
 		mViewSize = RenderManager::getInstance().getViewSize();
 		resizeWindow(mViewSize);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void Gui::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		_destroyAllChildWidget();
 
@@ -147,11 +142,6 @@ namespace MyGUI
 		delete mResourceManager;
 		delete mFactoryManager;
 		delete mToolTipManager;
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
-
-		//LogManager::getInstance().unregisterSection(MYGUI_LOG_SECTION);
 	}
 
 	bool Gui::injectMouseMove( int _absx, int _absy, int _absz) { return mInputManager->injectMouseMove(_absx, _absy, _absz); }

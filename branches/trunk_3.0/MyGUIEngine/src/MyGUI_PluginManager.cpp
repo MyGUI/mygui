@@ -30,35 +30,27 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Plugin");
 
-	template <> const char* Singleton<PluginManager>::INSTANCE_TYPE_NAME("PluginManager");
+	template <> const char* Singleton<PluginManager>::mClassTypeName("PluginManager");
 
 	void PluginManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PluginManager::_load);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void PluginManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		unloadAllPlugins();
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	bool PluginManager::loadPlugin(const std::string& _file)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
 
 		// Load plugin library
 		DynLib* lib = DynLibManager::getInstance().load(_file);
@@ -88,7 +80,7 @@ namespace MyGUI
 	void PluginManager::unloadPlugin(const std::string& _file)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
 
 		DynLibList::iterator it = mLibs.find(_file);
 		if (it != mLibs.end())
@@ -96,7 +88,7 @@ namespace MyGUI
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it).second->getSymbol("dllStopPlugin");
 
-			MYGUI_ASSERT(nullptr != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStopPlugin' in library " << _file);
+			MYGUI_ASSERT(nullptr != pFunc, getClassTypeName() << "Cannot find symbol 'dllStopPlugin' in library " << _file);
 
 			// this must call uninstallPlugin
 			pFunc();
@@ -144,7 +136,7 @@ namespace MyGUI
 	void PluginManager::installPlugin(IPlugin* _plugin)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
 
 		MYGUI_LOG(Info, "Installing plugin: " << _plugin->getName());
 
@@ -159,7 +151,7 @@ namespace MyGUI
 	void PluginManager::uninstallPlugin(IPlugin* _plugin)
 	{
 		// check initialise
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
 
 		MYGUI_LOG(Info, "Uninstalling plugin: " << _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);

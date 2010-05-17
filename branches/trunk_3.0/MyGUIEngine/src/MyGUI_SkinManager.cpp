@@ -37,33 +37,25 @@ namespace MyGUI
 	const std::string XML_TYPE_RESOURCE("Resource");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	template <> const char* Singleton<SkinManager>::INSTANCE_TYPE_NAME("SkinManager");
+	template <> const char* Singleton<SkinManager>::mClassTypeName("SkinManager");
 
 	void SkinManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
 		FactoryManager::getInstance().registerFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
 		mDefaultName = "skin_Default";
 		createDefault(mDefaultName);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void SkinManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 		FactoryManager::getInstance().unregisterFactory<ResourceSkin>(XML_TYPE_RESOURCE);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

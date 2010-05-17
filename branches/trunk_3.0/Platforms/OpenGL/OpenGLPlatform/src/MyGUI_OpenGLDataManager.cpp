@@ -12,24 +12,14 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OpenGLDataManager>::INSTANCE_TYPE_NAME("OpenGLDataManager");
-
 	void OpenGLDataManager::initialise()
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
+		Base::initialise();
 	}
 
 	void OpenGLDataManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
+		Base::shutdown();
 	}
 
 	IDataStream* OpenGLDataManager::getData(const std::string& _name)

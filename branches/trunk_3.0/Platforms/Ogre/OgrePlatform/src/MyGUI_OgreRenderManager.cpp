@@ -17,8 +17,6 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OgreRenderManager>::INSTANCE_TYPE_NAME("OgreRenderManager");
-
 	OgreRenderManager::OgreRenderManager() :
 		mUpdate(false),
 		mSceneManager(nullptr),
@@ -30,8 +28,7 @@ namespace MyGUI
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
 		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
@@ -58,24 +55,17 @@ namespace MyGUI
 			setRenderSystem(root->getRenderSystem());
 		setRenderWindow(_window);
 		setSceneManager(_scene);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void OgreRenderManager::shutdown()
 	{
-		if (!mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		destroyAllResources();
 
 		setSceneManager(nullptr);
 		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)

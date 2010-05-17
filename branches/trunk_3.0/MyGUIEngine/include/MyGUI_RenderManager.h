@@ -27,19 +27,15 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_IRenderTarget.h"
+#include "MyGUI_Singleton.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RenderManager
+	class MYGUI_EXPORT RenderManager :
+		public Singleton<RenderManager>
 	{
 	public:
-		RenderManager();
-		virtual ~RenderManager() = 0;
-
-		static RenderManager& getInstance();
-		static RenderManager* getInstancePtr();
-
 		/** Create vertex buffer.
 			This method should create vertex buffer with triangles list type,
 			each vertex have position, colour, texture coordinates.
@@ -68,9 +64,6 @@ namespace MyGUI
 		/** Check if texture is valid */
 		virtual bool checkTexture(ITexture* _texture) { return true; }
 #endif
-
-	private:
-		static RenderManager* msInstance;
 	};
 
 } // namespace MyGUI

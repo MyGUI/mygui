@@ -15,26 +15,16 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OgreDataManager>::INSTANCE_TYPE_NAME("OgreDataManager");
-
 	void OgreDataManager::initialise(const std::string& _group)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		mGroup = _group;
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void OgreDataManager::shutdown()
 	{
-		if (!mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
-
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
+		Base::shutdown();
 	}
 
 	IDataStream* OgreDataManager::getData(const std::string& _name)

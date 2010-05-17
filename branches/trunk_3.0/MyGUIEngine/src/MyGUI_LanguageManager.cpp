@@ -31,28 +31,20 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Language");
 
-	template <> const char* Singleton<LanguageManager>::INSTANCE_TYPE_NAME("LanguageManager");
+	template <> const char* Singleton<LanguageManager>::mClassTypeName("LanguageManager");
 
 	void LanguageManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void LanguageManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

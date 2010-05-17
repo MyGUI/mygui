@@ -34,12 +34,11 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	template <> const char* Singleton<FontManager>::INSTANCE_TYPE_NAME("FontManager");
+	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
 
 	void FontManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		Base::initialise();
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
@@ -47,23 +46,16 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
 		mDefaultName = "Default";
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
-		mIsInitialise = true;
 	}
 
 	void FontManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		Base::shutdown();
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
-
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
 	}
 
 	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

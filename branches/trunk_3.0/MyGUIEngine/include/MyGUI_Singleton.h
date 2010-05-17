@@ -33,29 +33,46 @@ namespace MyGUI
 	class MYGUI_EXPORT Singleton
 #endif
 	{
-	private:
-		static T* msInstance;
-	protected:
-		static const char* INSTANCE_TYPE_NAME;
-		bool mIsInitialise;
 	public:
+		typedef Singleton<T> Base;
+
 		Singleton() :
 			mIsInitialise(false)
 		{
-			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << INSTANCE_TYPE_NAME << " already exsist");
+			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");
 			msInstance = static_cast<T*>(this);
 		}
 		virtual ~Singleton()
 		{
-			MYGUI_ASSERT(nullptr != msInstance, "Destroying Singleton instance " << INSTANCE_TYPE_NAME << " before constructing it.");
+			MYGUI_ASSERT(nullptr != msInstance, "Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
 			msInstance = nullptr;
 		}
 		static T& getInstance()
 		{
-			MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << INSTANCE_TYPE_NAME << " was not created");
+			MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << getClassTypeName() << " was not created");
 			return (*getInstancePtr());
 		}
 		static T* getInstancePtr() { return msInstance; }
+		static const char* getClassTypeName() { return mClassTypeName; }
+		bool isInitialised() { return mIsInitialise; }
+
+		virtual void initialise()
+		{
+			MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+			MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+			mIsInitialise = true;
+		}
+		virtual void shutdown()
+		{
+			MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+			MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+			mIsInitialise = false;
+		}
+
+	private:
+		static T* msInstance;
+		static const char* mClassTypeName;
+		bool mIsInitialise;
 	};
 
 	template <class T>
