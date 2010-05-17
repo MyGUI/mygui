@@ -32,12 +32,12 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<ControllerManager>::INSTANCE_TYPE_NAME("ControllerManager");
+	template <> const char* Singleton<ControllerManager>::mClassTypeName("ControllerManager");
 
 	void ControllerManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
@@ -47,14 +47,14 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<ControllerFadeAlpha>(factory_type);
 		FactoryManager::getInstance().registerFactory<ControllerPosition>(factory_type);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void ControllerManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		const std::string factory_type = "Controller";
 
@@ -65,7 +65,7 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

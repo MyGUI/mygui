@@ -3,7 +3,7 @@
 
 const int UNDO_COUNT = 64;
 
-template <> const char* MyGUI::Singleton<UndoManager>::INSTANCE_TYPE_NAME("UndoManager");
+template <> const char* MyGUI::Singleton<UndoManager>::mClassTypeName("UndoManager");
 
 UndoManager::UndoManager() :
 	pos(0),

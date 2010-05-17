@@ -73,12 +73,12 @@ namespace MyGUI
 
 #endif
 
-	template <> const char* Singleton<ClipboardManager>::INSTANCE_TYPE_NAME("ClipboardManager");
+	template <> const char* Singleton<ClipboardManager>::mClassTypeName("ClipboardManager");
 
 	void ClipboardManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// берем имя нашего экзешника
@@ -92,16 +92,16 @@ namespace MyGUI
 
 #endif
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void ClipboardManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

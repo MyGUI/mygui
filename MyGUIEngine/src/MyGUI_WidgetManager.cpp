@@ -60,12 +60,12 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<WidgetManager>::INSTANCE_TYPE_NAME("WidgetManager");
+	template <> const char* Singleton<WidgetManager>::mClassTypeName("WidgetManager");
 
 	void WidgetManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -107,14 +107,14 @@ namespace MyGUI
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &WidgetManager::notifyEventFrameStart);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void WidgetManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &WidgetManager::notifyEventFrameStart);
 		_deleteDelayWidgets();
@@ -161,7 +161,7 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

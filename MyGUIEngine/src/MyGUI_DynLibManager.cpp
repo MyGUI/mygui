@@ -27,30 +27,30 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<DynLibManager>::INSTANCE_TYPE_NAME("DynLibManager");
+	template <> const char* Singleton<DynLibManager>::mClassTypeName("DynLibManager");
 
 	void DynLibManager::initialise()
 	{
-		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &DynLibManager::notifyEventFrameStart);
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void DynLibManager::shutdown()
 	{
 		if (!mIsInitialise) return;
-		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		unloadAll();
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &DynLibManager::notifyEventFrameStart);
 		_unloadDelayDynLibs();
 
-		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
