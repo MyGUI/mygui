@@ -43,6 +43,7 @@ namespace base
 		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 		diagnostic::StatisticInfo * getStatisticInfo() { return mInfo; }
+		diagnostic::InputFocusInfo* getFocusInput() { return mFocusInfo; }
 
 	/*internal:*/
 		void _windowResized();
@@ -78,9 +79,9 @@ namespace base
 		diagnostic::InputFocusInfo* mFocusInfo;
 
 		HWND hWnd;
-	    IDirect3D9 *mD3d;
+		IDirect3D9 *mD3d;
 		IDirect3DDevice9 *mDevice;
-	    D3DPRESENT_PARAMETERS mD3dpp;
+		D3DPRESENT_PARAMETERS mD3dpp;
 		HINSTANCE hInstance;
 
 		bool mExit;

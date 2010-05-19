@@ -19,12 +19,18 @@ namespace demo
 	void TextureView::setFontName(const std::string& _value)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-		if (!manager.isExist(_value)) return;
-
+		if (!manager.isExist(_value))
+		{
+			mImageTexture->setImageTexture("");
+			return;
+		}
 		MyGUI::IFont* font = manager.getByName(_value)->castType<MyGUI::IFont>();
 		MyGUI::ITexture* texture = font->getTextureFont();
-		if (texture == nullptr) return;
-
+		if (texture == nullptr)
+		{
+			mImageTexture->setImageTexture("");
+			return;
+		}
 		const MyGUI::IntSize& size = MyGUI::texture_utility::getTextureSize(texture->getName(), false);
 
 		mImageTexture->setImageTexture(texture->getName());

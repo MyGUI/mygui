@@ -81,13 +81,13 @@ namespace demo
 			mInertiaPoint.set(0.5, 0.5);
 			mInertiaMode = false;
 
-			addInertia(MyGUI::FloatPoint(_coord.left-mOldCoord.left, _coord.top-mOldCoord.top));
+			addInertia(MyGUI::FloatPoint((float)_coord.left-mOldCoord.left, (float)_coord.top-mOldCoord.top));
 		}
 		else if (mOldCoord.size() != _coord.size())
 		{
 			mInertiaMode = true;
 
-			addInertia(MyGUI::FloatPoint(_coord.width - mOldCoord.width, _coord.height-mOldCoord.height));
+			addInertia(MyGUI::FloatPoint((float)_coord.width - mOldCoord.width, (float)_coord.height-mOldCoord.height));
 		}
 		else if (mOldCoord.point() != _coord.point())
 		{
@@ -95,7 +95,7 @@ namespace demo
 			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width , (float)(point.top - _coord.top) / (float)_coord.height);
 			mInertiaMode = false;
 
-			addInertia(MyGUI::FloatPoint(_coord.left-mOldCoord.left, _coord.top-mOldCoord.top));
+			addInertia(MyGUI::FloatPoint((float)_coord.left-mOldCoord.left, (float)_coord.top-mOldCoord.top));
 		}
 
 		mOldCoord = _coord;

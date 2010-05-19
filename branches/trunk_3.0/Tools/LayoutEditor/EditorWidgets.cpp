@@ -4,6 +4,7 @@
 //#include "BasisManager.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
+#include "CodeGenerator.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -11,14 +12,18 @@ template <> const char* MyGUI::Singleton<EditorWidgets>::mClassTypeName("EditorW
 
 EditorWidgets::EditorWidgets() :
 	global_counter(0),
-	widgets_changed(false)
+	widgets_changed(false),
+	mCodeGenerator(nullptr)
+{
+}
+EditorWidgets::~EditorWidgets()
 {
 }
 
-void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
+void MapSet(VectorStringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = false;
-	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
+	for (VectorStringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -32,9 +37,9 @@ void MapSet(StringPairs & _map, const std::string &_key, const std::string &_val
 	}
 }
 
-StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
+VectorStringPairs::iterator MapFind(VectorStringPairs & _map, const std::string &_key)
 {
-	StringPairs::iterator iter = _map.begin();
+	VectorStringPairs::iterator iter = _map.begin();
 	for (; iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key) break;
@@ -42,9 +47,9 @@ StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 	return iter;
 }
 
-void MapErase(StringPairs & _map, const std::string &_key)
+void MapErase(VectorStringPairs & _map, const std::string &_key)
 {
-	for (StringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -105,8 +110,10 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
-			while (widget.next("Widget")) parseWidget(widget, 0);
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Widget")) parseWidget(element, nullptr);
+			element = root->getElementEnumerator();
+			while (element.next("CodeGenaratorSettings")) mCodeGenerator->loadProperties(element);
 		}
 		else
 		{
@@ -132,6 +139,8 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 		// в корень только сирот
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
+
+	mCodeGenerator->saveProperties(root);
 
 	if (!doc.save(_fileName))
 	{
@@ -292,7 +301,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	{
 		container->relative_mode = true;
 		//FIXME парент может быть и не кроппед
-		coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? MyGUI::Gui::getInstance().getViewSize() : _parent->getClientCoord().size());
+		coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? MyGUI::RenderManager::getInstance().getViewSize() : _parent->getClientCoord().size());
 	}
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
@@ -454,14 +463,14 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 	if ("" != _container->layer) node->addAttribute("layer", _container->layer);
 	if ("" != _container->name) node->addAttribute("name", _container->name);
 
-	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
 	}
 
-	for (StringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+	for (VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttribute("key", iter->first);

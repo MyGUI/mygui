@@ -6,7 +6,7 @@
 	>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
+			Name="Debug|@MYGUI_WIN_BUILD_CONFIGURATION@"
 			>
 			<DebugSettings
 				Command="@MYGUI_BINARY_DIR@/bin/$(ConfigurationName)/$(TargetFileName)"
@@ -34,7 +34,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
+			Name="Release|@MYGUI_WIN_BUILD_CONFIGURATION@"
 			>
 			<DebugSettings
 				Command="@MYGUI_BINARY_DIR@/bin/$(ConfigurationName)/$(TargetFileName)"

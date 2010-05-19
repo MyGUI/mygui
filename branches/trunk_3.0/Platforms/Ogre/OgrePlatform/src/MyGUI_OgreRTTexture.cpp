@@ -23,15 +23,15 @@ namespace MyGUI
 			Ogre::RenderSystem* system = root->getRenderSystem();
 			if (system != nullptr)
 			{
-				int width = mTexture->getWidth();
-				int height = mTexture->getHeight();
+				size_t width = mTexture->getWidth();
+				size_t height = mTexture->getHeight();
 
 				mRenderTargetInfo.maximumDepth = system->getMaximumDepthInputValue();
 				mRenderTargetInfo.hOffset = system->getHorizontalTexelOffset() / float(width);
 				mRenderTargetInfo.vOffset = system->getVerticalTexelOffset() / float(height);
 				mRenderTargetInfo.aspectCoef = float(height) / float(width);
-				mRenderTargetInfo.pixScaleX = 1.0 / float(width);
-				mRenderTargetInfo.pixScaleY = 1.0 / float(height);
+				mRenderTargetInfo.pixScaleX = 1.0f / float(width);
+				mRenderTargetInfo.pixScaleY = 1.0f / float(height);
 			}
 
 			if (mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping())

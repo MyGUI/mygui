@@ -181,6 +181,8 @@ namespace MyGUI
 		/** Get parent widget or nullptr if no parent */
 		Widget* getParent() { return mParent; }
 
+		IntSize getParentSize();
+
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator();
 

@@ -42,7 +42,7 @@ void WidgetsWindow::updateSize()
 	width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
 	height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
 
-	const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+	const MyGUI::IntSize& size = mMainWidget->getParentSize();
 	mMainWidget->setCoord(0, size.height - (height + mTabSkins->getHeight()), width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
 
 	mMainWidget->setVisible(true);
@@ -240,17 +240,21 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	EditorWidgets::getInstance().global_counter++;
 
 	while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+
+	MyGUI::IntSize parent_size;
 	if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
 	{
-		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
+		parent_size = current_widget->getSize();
+		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
 	}
 	else
 	{
-		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
+		parent_size = MyGUI::RenderManager::getInstance().getViewSize();
 		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
-		MyGUI::IntSize size(current_widget->getSize());
-		current_widget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
 	}
+	// place in parent center
+	const MyGUI::IntCoord size((parent_size.width - width)/2, (parent_size.height - height)/2, width, height);
+	current_widget->setCoord(size);
 	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);

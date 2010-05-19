@@ -11,7 +11,6 @@
 
 #include "Ogre/RenderBox/RenderBox.h"
 #include "Ogre/RenderBox/RenderBoxScene.h"
-#include "Ogre/RenderBox/RenderBoxScene.cpp"
 
 namespace demo
 {
@@ -35,18 +34,19 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		createDefaultScene();
-		const MyGUI::IntSize& size = getGUI()->getViewSize();
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
 
+		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
+
 		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, size.height - 10 - 230, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("Camera view");
-		window->setMinSize(100, 100);
+		window->setMinSize(MyGUI::IntSize(100, 100));
 		MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
 		MyGUI::Window* window2 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(size.width - 10 - 300, 10, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window2->setCaption("Model view");
-		window2->setMinSize(100, 100);
+		window2->setMinSize(MyGUI::IntSize(100, 100));
 		MyGUI::Canvas* canvas2 = window2->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window2->getClientCoord().width, window2->getClientCoord().height), MyGUI::Align::Stretch);
 		canvas2->setPointer("hand");
 

@@ -36,9 +36,9 @@ namespace MyGUI
 
 	FlowContainer::WidgetInfo::WidgetInfo(Widget* _widget)
 		:	Container::BaseWidgetInfo(_widget),
-			mWasLoaded(false),
 			lineBreak(false),
-			autoLineBreak(false)
+			autoLineBreak(false),
+			mWasLoaded(false)
 	{
 	}
 
@@ -376,8 +376,6 @@ namespace MyGUI
 		// TODO : width
 		result.size.width = result.maxWidth;
 
-		int pxHSum = 0;
-
 		result.parentCoeff = result.size.width;
 
 		result.state = WT_ALL;
@@ -410,7 +408,6 @@ namespace MyGUI
 			freeHSpace = _in.maxWidth - calcRow.size.width;
 
 			calcPxWidthSum(result, calcRow, WT_NOT_SPACER);
-			int pxNeedSum = result.size.width;
 
 			int pxForSpacers = _in.maxWidth - result.size.width;
 
@@ -534,8 +531,6 @@ namespace MyGUI
 			in.cur = curLocal;
 			in.from = iter;
 			in.maxWidth = contSize.width;
-
-			bool result = getRowData(in, row);
 
 			std::string s1 = row.first->widget->getName();
 			std::string s2 = row.last->widget->getName();

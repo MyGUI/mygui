@@ -14,7 +14,7 @@ namespace demo
 	{
 		initialiseByAttributes(this);
 
-		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& size = mMainWidget->getParentSize();
 		mMainWidget->setPosition(10, size.height - 10 - mMainWidget->getHeight());
 
 		mBusy->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);

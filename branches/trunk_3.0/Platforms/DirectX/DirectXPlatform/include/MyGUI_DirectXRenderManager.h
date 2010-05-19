@@ -57,7 +57,7 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 		/** @see IRenderTarget::getInfo */
-	    virtual const RenderTargetInfo& getInfo() { return mInfo; }
+		virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
 	/*internal:*/
 		void drawOneFrame();
@@ -70,7 +70,7 @@ namespace MyGUI
 		void destroyAllResources();
 
 	private:
-	    IDirect3DDevice9 *mpD3DDevice;
+		IDirect3DDevice9 *mpD3DDevice;
 		IntSize mViewSize;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;

@@ -6,11 +6,18 @@
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
+// I have no idea where it comes from, but cppcheck check all code with and without this define
+#define __STDC_ISO_10646__ 1
+
 #define MYGUI_EXPORT
 #define MYGUI_PLATFORM 1
 #define MYGUI_COMPILER 1
 #define MYGUI_EXPORT_DLL
 #define MYGUI_DEBUG_MODE 0
+
+#define min min
+#define max max
+#define MYGUI_DONT_USE_OBSOLETE
 
 #endif // __MYGUI_PLATFORM_H__
 

@@ -23,14 +23,14 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 		{
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
 			break;
 		}
 
 		case WM_MOVE:
 		case WM_SIZE:
 		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
 				baseManager->_windowResized();
 			break;
@@ -38,7 +38,7 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		case WM_CLOSE:
 		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
 				baseManager->quit();
 		}
@@ -222,6 +222,7 @@ namespace base
 		mGUI->initialise(mResourceFileName);
 
 		mInfo = new diagnostic::StatisticInfo();
+		mFocusInfo = new diagnostic::InputFocusInfo();
 	}
 
 	void BaseManager::destroyGui()
@@ -330,7 +331,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMouseMove(_absx, _absy, _absz);
+		MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz);
 	}
 
 	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -338,7 +339,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -346,7 +347,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectMouseRelease(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
@@ -361,14 +362,11 @@ namespace base
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
-			if (mFocusInfo == nullptr)
-				mFocusInfo = new diagnostic::InputFocusInfo();
-
 			bool visible = mFocusInfo->getFocusVisible();
 			mFocusInfo->setFocusVisible(!visible);
 		}
 
-		mGUI->injectKeyPress(_key, _text);
+		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
 
 	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
@@ -376,7 +374,7 @@ namespace base
 		if (!mGUI)
 			return;
 
-		mGUI->injectKeyRelease(_key);
+		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
 	void BaseManager::resizeRender(int _width, int _height)

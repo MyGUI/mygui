@@ -128,7 +128,7 @@ namespace demo
 				const MyGUI::IntSize size(80, 80);
 				MyGUI::Window* window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Frame");
-				window->setMinSize(size.width, size.height);
+				window->setMinSize(size);
 			}
 			else if (_index == 1)
 			{

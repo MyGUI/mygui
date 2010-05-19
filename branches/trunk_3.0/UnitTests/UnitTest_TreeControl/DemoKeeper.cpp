@@ -38,7 +38,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();
 
-#ifdef MYGUI_OGRE_PLATFORM
+/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::ArchiveManager::ArchiveMapIterator ArchiveIterator = Ogre::ArchiveManager::getSingleton().getArchiveIterator();
 	while (ArchiveIterator.hasMoreElements())
 	{
@@ -48,7 +48,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pNode->setData(pArchive);
 		pRoot->add(pNode);
 	}
-#else
+#else*/
 	common::VectorFileInfo result;
 	common::getSystemFileList(result, gMediaBase, L"*.*");
 
@@ -62,7 +62,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pRoot->add(pNode);
 	}
 
-#endif
+//#endif
 }
 
 void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI::TreeControl::Node* pNode)
@@ -72,7 +72,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 
 	pNode->removeAll();
 
-#ifdef MYGUI_OGRE_PLATFORM
+/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::Archive* pArchive = *(pNode->getData<Ogre::Archive*>());
 
 	MyGUI::UString strPath(getPath(pNode));
@@ -127,7 +127,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		pChild->setPrepared(true);
 		pNode->add(pChild);
 	}
-#else
+#else*/
 	PairFileInfo info = *(pNode->getData<PairFileInfo>());
 	// если папка, то добавляем детей
 	if (info.second.folder)
@@ -191,7 +191,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		}
 	}
 
-#endif
+//#endif
 }
 
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
@@ -225,7 +225,7 @@ namespace demo
 		factory.registerFactory<MyGUI::TreeControl>("Widget");
 		factory.registerFactory<MyGUI::TreeControlItem>("Widget");
 
-		MyGUI::Gui::getInstance().load("TreeControl_skin.xml");
+		MyGUI::ResourceManager::getInstance().load("TreeControl_skin.xml");
 
 		mSampleLayout = new SampleLayout();
 	}

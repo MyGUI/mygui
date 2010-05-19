@@ -156,7 +156,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 			else
 			{
 				int index = 0;
-				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 				{
 					if (iterProperty->first == action)
 					{
@@ -196,7 +196,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 		}
 		else
 		{
-			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
 				if (iterProperty->first == action)
 				{
@@ -280,7 +280,7 @@ void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	int index = 0;
-	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action)
 		{

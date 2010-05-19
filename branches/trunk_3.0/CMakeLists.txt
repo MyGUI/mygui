@@ -116,7 +116,8 @@ set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
-option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+option(MYGUI_BUILD_TESTS "Build the unit tests" FALSE)
+option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
 option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 
 option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
@@ -136,25 +137,46 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
+# Used to not annoy users with warnings (should be TRUE for developers)
+option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
+
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-fdiagnostics-show-option)
 	add_definitions(-msse)
-	if (MYGUI_RENDERSYSTEM EQUAL 2)
-		# to avoid warnings from OGRE sources
-		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
-	endif ()
-	# very interesting option, but way too many warnings
-	#add_definitions(-Weffc++)
-	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
-	#add_definitions(-pedantic)
+	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
+		add_definitions(-w)
+	else ()
+		if (MYGUI_RENDERSYSTEM EQUAL 2)
+			# to avoid warnings from OGRE sources
+			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+		endif ()
+		add_definitions(-fdiagnostics-show-option)
+		# very interesting option, but way too many warnings
+		#add_definitions(-Weffc++)
+		add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
+		add_definitions(-pedantic)
 
-	# MyGUI_UString.h ignored from warnings because of this
-	add_definitions(-Wshadow)
+		# MyGUI_UString.h ignored from warnings because of this
+		add_definitions(-Wshadow)
+	endif ()
 endif ()
 
 if (MSVC)
 	add_definitions(/fp:fast)
+	
+	# Use the highest warning level for visual studio.
+	if (MYGUI_HIGH_LEVEL_WARNINGS)
+		SET(WARNING_LEVEL "/W4")
+	else ()
+		SET(WARNING_LEVEL "/W3")
+	endif ()
+
+	if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+		STRING(REGEX REPLACE "/W[0-4]" "${WARNING_LEVEL}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+	else ()
+		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_LEVEL}")
+	endif ()
+
 endif ()
 
 # Find dependencies
@@ -186,6 +208,10 @@ add_subdirectory(MyGUIEngine)
 # Setup Platforms
 add_subdirectory(Platforms)
 
+if (MYGUI_BUILD_SAMPLES OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
+	add_subdirectory(Common)
+endif ()
+
 # Setup Plugins
 if (MYGUI_BUILD_PLUGINS)
 	add_subdirectory(Plugins)
@@ -201,7 +227,7 @@ if (MYGUI_BUILD_TOOLS)
 endif ()
 
 # Setup tests
-if (MYGUI_BUILD_TESTS)
+if (MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(UnitTests)
 endif ()
 

@@ -37,7 +37,6 @@ namespace editor
 		MyGUI::ScrollView* mImageView;
 
 		MyGUI::Edit* mEditResourceName;
-		MyGUI::Edit* mEditResourceID;
 		MyGUI::Edit* mEditFileName;
 
 		struct PairAnim

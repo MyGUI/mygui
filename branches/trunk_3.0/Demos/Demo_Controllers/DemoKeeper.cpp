@@ -28,13 +28,11 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("ControllerFadeAlpha and ControllerPosition examples.");
 
 		mIsAnim = false;
-
-		const MyGUI::IntSize size(128, 128);
 
 		mMenu1 = new State("Menu1.layout", ControllerType::Inertional);
 		mMenu1->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);

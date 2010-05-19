@@ -31,7 +31,7 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
-		getGUI()->load("test_layer.xml");
+		MyGUI::ResourceManager::getInstance().load("test_layer.xml");
 
 		createNewWindow();
 	}
@@ -81,23 +81,7 @@ namespace demo
 		{
 			createNewWindow();
 		}
-
-#ifdef MYGUI_OGRE_PLATFORM
-		if (_key == MyGUI::KeyCode::One)
-		{
-			getCamera()->setPolygonMode(Ogre::PM_SOLID);
-		}
-		else if (_key == MyGUI::KeyCode::Two)
-		{
-			getCamera()->setPolygonMode(Ogre::PM_WIREFRAME);
-		}
-		else if (_key == MyGUI::KeyCode::Three)
-		{
-			getCamera()->setPolygonMode(Ogre::PM_POINTS);
-		}
-		else
-#endif
-			if (_key == MyGUI::KeyCode::Four)
+		else if (_key == MyGUI::KeyCode::Four)
 		{
 			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 			while(layer.next())

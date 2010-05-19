@@ -23,20 +23,20 @@ namespace demo
 		if (_index == 0)
 		{
 			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_tag.xml");
-			getGUI()->load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
 		}
 		else if (_index == 1)
 		{
 			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_blue_tag.xml");
-			getGUI()->load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
 		}
 		else if (_index == 2)
 		{
 			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
-			getGUI()->load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
 		}
 
-		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Themes.layout");
+		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().loadLayout("Themes.layout");
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
 		mDemoView = windows[0];
 
@@ -78,8 +78,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);

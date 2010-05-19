@@ -33,6 +33,10 @@
             <Property key="Widget_Caption" value="#{Test}"/>
             <Property key="MenuItem_Id" value="File/Test"/>
           </Widget>
+          <Widget type="MenuItem" skin="PopupMenuLine">
+            <Property key="Widget_Caption" value="#{Code_Generator}"/>
+            <Property key="MenuItem_Id" value="File/Code_Generator"/>
+          </Widget>
           <Widget type="MenuItem" skin="PopupMenuSeparator">
             <Property key="MenuItem_Type" value="Separator"/>
           </Widget>

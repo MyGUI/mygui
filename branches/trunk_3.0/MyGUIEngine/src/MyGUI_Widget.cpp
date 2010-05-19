@@ -1532,6 +1532,16 @@ namespace MyGUI
 		}
 	}
 
+	IntSize Widget::getParentSize()
+	{
+		if (mCroppedParent)
+			return static_cast<Widget*>(mCroppedParent)->getSize();
+		if (getLayer())
+			return getLayer()->getSize();
+
+		return RenderManager::getInstance().getViewSize();
+	}
+
 	void Widget::setNeedToolTip(bool _value)
 	{
 		if (mNeedToolTip == _value)

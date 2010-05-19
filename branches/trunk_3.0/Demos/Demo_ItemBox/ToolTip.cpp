@@ -54,7 +54,7 @@ namespace demo
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition() + offset;
 
 		const MyGUI::IntSize& size = mMainWidget->getSize();
-		const MyGUI::IntSize& view_size = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& view_size = mMainWidget->getParentSize();
 
 		if ((point.left + size.width) > view_size.width)
 		{

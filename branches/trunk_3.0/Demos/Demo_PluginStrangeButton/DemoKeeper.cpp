@@ -18,8 +18,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
@@ -34,7 +34,6 @@ namespace demo
 
 		m_button = MyGUI::Gui::getInstance().createWidgetT("StrangeButton", "Button", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		m_button->setCaption("Plugin StrangeButton demo");
-
 	}
 
 	void DemoKeeper::destroyScene()

@@ -13,7 +13,7 @@ namespace demo
 	{
 		initialiseByAttributes(this);
 
-		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& size = mMainWidget->getParentSize();
 		int offset = size.width / 3;
 
 		mMainWidget->setPosition(offset + offset - (mMainWidget->getWidth() / 2), (size.height - mMainWidget->getHeight()) / 2);

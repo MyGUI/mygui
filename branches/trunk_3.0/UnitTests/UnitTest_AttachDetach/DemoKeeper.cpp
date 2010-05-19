@@ -232,9 +232,6 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
-		const MyGUI::IntSize size(100, 100);
-
 		MyGUI::WidgetManager::getInstance().registerUnlinker(&unlink_holder);
 		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
@@ -247,7 +244,6 @@ namespace demo
 
 	void DemoKeeper::notifyFrameStarted(float _time)
 	{
-
 		if (all_widgets.size() > 500)
 		{
 			step_destroy_widget(200);

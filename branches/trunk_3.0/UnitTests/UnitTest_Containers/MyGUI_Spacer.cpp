@@ -21,4 +21,3 @@ namespace MyGUI
 	}
 	
 } // namespace MyGUI
-

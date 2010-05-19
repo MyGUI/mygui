@@ -19,7 +19,7 @@ namespace demo
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 		if (!manager.isExist(_value)) return;
 
-		unsigned int height = (manager.getByName(_value)->castType<MyGUI::IFont>())->getDefaultHeight();
+		int height = (manager.getByName(_value)->castType<MyGUI::IFont>())->getDefaultHeight();
 
 		mEditView->setFontName(_value);
 		mEditView->setFontHeight(height);

@@ -6,6 +6,7 @@
 #include "UndoManager.h"
 #include "Base/Main.h"
 #include "GroupMessage.h"
+#include "CodeGenerator.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -38,6 +39,7 @@ void EditorState::setupResources()
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 	addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	setResourceFilename("editor.xml");
 }
@@ -46,8 +48,11 @@ void EditorState::createScene()
 {
 	getStatisticInfo()->setVisible(false);
 
+	// set locale language if it was taken from OS
 	if (!mLocale.empty())
 		MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+	// if you want to test LanguageManager uncomment next line
+	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
 	testMode = false;
 
@@ -87,6 +92,10 @@ void EditorState::createScene()
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	interfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
+	mCodeGenerator = new CodeGenerator();
+	interfaceWidgets.push_back(mCodeGenerator->getMainWidget());
+	ew->setCodeGenerator(mCodeGenerator);
+
 	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
 	mOpenSaveFileDialog->setFileMask("*.layout");
@@ -98,11 +107,12 @@ void EditorState::createScene()
 	// создание меню
 	createMainMenu();
 
-	mPropertiesPanelView->getMainWidget()->setCoord(
-		getGUI()->getViewSize().width - mPropertiesPanelView->getMainWidget()->getSize().width,
+	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
+	widget->setCoord(
+		widget->getParentSize().width - widget->getSize().width,
 		bar->getHeight(),
-		mPropertiesPanelView->getMainWidget()->getSize().width,
-		getGUI()->getViewHeight() - bar->getHeight()
+		widget->getSize().width,
+		widget->getParentSize().height - bar->getHeight()
 		);
 
 	// после загрузки настроек инициализируем
@@ -145,45 +155,48 @@ void EditorState::destroyScene()
 
 	saveSettings(userSettingsFile);
 
-	delete mPropertiesPanelView;	
+	delete mPropertiesPanelView;
 	mPropertiesPanelView = nullptr;
 
 	delete mGroupMessage;
 
 	um->shutdown();
-	delete um;		
+	delete um;
 	um = nullptr;
 
 	ew->shutdown();
-	delete ew;		
+	delete ew;
 	ew = nullptr;
 
 	wt->shutdown();
-	delete wt;						
+	delete wt;
 	wt = nullptr;
 
-	delete mToolTip;				
+	delete mToolTip;
 	mToolTip = nullptr;
 
-	delete mSettingsWindow;			
+	delete mSettingsWindow;
 	mSettingsWindow = nullptr;
 
-	delete mMetaSolutionWindow;		
+	delete mCodeGenerator;
+	mCodeGenerator = nullptr;
+
+	delete mMetaSolutionWindow;
 	mMetaSolutionWindow = nullptr;
 
-	delete mWidgetsWindow;			
+	delete mWidgetsWindow;
 	mWidgetsWindow = nullptr;
 
-	delete mOpenSaveFileDialog;		
+	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
 }
 
 void EditorState::createMainMenu()
 {
-	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
+	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 	bar = menu_items[0]->castType<MyGUI::MenuBar>();
-	bar->setCoord(0, 0, getGUI()->getViewSize().width, bar->getHeight());
+	bar->setCoord(0, 0, bar->getParentSize().width, bar->getHeight());
 
 	// главное меню
 	MyGUI::MenuItem* menu_file = bar->getItemById("File");
@@ -244,6 +257,10 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuIte
 		else if (id == "File/Test")
 		{
 			notifyTest();
+		}
+		else if (id == "File/Code_Generator")
+		{
+			mCodeGenerator->getMainWidget()->setVisible(true);
 		}
 		else if (id == "File/RecentFiles")
 		{
@@ -322,11 +339,6 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	// юбилейный комит  =)
 	mWidgetsWindow->startNewWidget(x1, y1, _id);
 
-	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
-	//MyGUI::LayerItemInfoPtr rootItem = nullptr;
-	//MyGUI::Widget* itemWithRect = static_cast<MyGUI::Widget*>(MyGUI::LayerManager::getInstance().findWidgetItem(_absx, _absy, rootItem));
-	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
-
 	MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 	// не убираем прямоугольник если нажали на его растягивалку
@@ -364,16 +376,17 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 			if (mWidgetsWindow->getCreatingStatus() != 1)
 			{
 				//FIXME
-				getGUI()->injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
+				MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
 			}
 		}
 		//FIXME
-		getGUI()->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 	}
 	else
 	{
 		//FIXME
-		getGUI()->injectMousePress(_absx, _absy, _id);
+		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 		notifySelectWidget(nullptr);
 	}
 
@@ -439,7 +452,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			}
 		}
 
-		getGUI()->injectKeyPress(_key, _text);
+		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 		//base::BaseManager::injectKeyPress(_key, _text);
 		return;
 	}
@@ -489,10 +502,20 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 				mPropertiesPanelView->toggleRelativeMode();
 				return;
 			}
+			else if (_key == MyGUI::KeyCode::F11)
+			{
+				getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
+				return;
+			}
+			else if (_key == MyGUI::KeyCode::F12)
+			{
+				getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+				return;
+			}
 		}
 	}
 
-	getGUI()->injectKeyPress(_key, _text);
+	MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	//base::BaseManager::injectKeyPress(_key, _text);
 }
 //===================================================================================
@@ -714,6 +737,10 @@ void EditorState::notifySettings()
 
 void EditorState::notifyTest()
 {
+	testLayout = ew->savexmlDocument();
+	ew->clear();
+	notifySelectWidget(nullptr);
+
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
 		if ((*iter)->isVisible())
@@ -722,9 +749,7 @@ void EditorState::notifyTest()
 			(*iter)->setVisible(false);
 		}
 	}
-	testLayout = ew->savexmlDocument();
-	ew->clear();
-	notifySelectWidget(nullptr);
+
 	ew->loadxmlDocument(testLayout, true);
 	testMode = true;
 }

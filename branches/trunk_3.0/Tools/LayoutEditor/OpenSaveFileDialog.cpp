@@ -21,6 +21,7 @@ namespace common
 		mListFiles->eventListChangePosition = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
 		mListFiles->eventListSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
 		mEditFileName->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
+		mEditCurrentFolder->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryAccept);
 		mButtonOpenSave->eventMouseButtonClick = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
 
 		mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
@@ -35,6 +36,11 @@ namespace common
 	{
 		if (_name == "close")
 			eventEndDialog(false);
+	}
+
+	void OpenSaveFileDialog::notifyDirectoryAccept(MyGUI::Edit* _sender)
+	{
+		setCurrentFolder(_sender->getCaption());
 	}
 
 	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::Edit* _sender)

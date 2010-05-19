@@ -21,7 +21,5 @@ SOURCE_GROUP("Resource" FILES
   ../../Common/Base/mygui.ico
   CMakeLists.txt
 )
-SOURCE_GROUP("Base" FILES
-)
 SOURCE_GROUP("" FILES
 )
