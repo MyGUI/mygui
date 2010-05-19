@@ -345,7 +345,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 	if (nullptr == _parent)
 	{
-		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, DEFAULT_EDITOR_LAYER/*layer*/, tmpname);
+		std::string layer = DEFAULT_EDITOR_LAYER;
+		if (_test && MyGUI::LayerManager::getInstance().isExist(container->layer))
+			layer = container->layer;
+		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer, tmpname);
 	}
 	else
 	{
