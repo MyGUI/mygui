@@ -144,7 +144,7 @@ namespace MyGUI
 	void BerkeliumWidget::onMouseDrag(int _left, int _top)
 	{
 		if (mWindow != nullptr)
-			mWindow->mouseMoved(_left - getLeft(), _top - getTop());
+			mWindow->mouseMoved(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 
 		Base::onMouseDrag(_left, _top);
 	}
@@ -152,7 +152,7 @@ namespace MyGUI
 	void BerkeliumWidget::onMouseMove(int _left, int _top)
 	{
 		if (mWindow != nullptr)
-			mWindow->mouseMoved(_left - getLeft(), _top - getTop());
+			mWindow->mouseMoved(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 
 		Base::onMouseMove(_left, _top);
 	}
