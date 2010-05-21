@@ -78,6 +78,8 @@ namespace MyGUI
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

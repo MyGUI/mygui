@@ -20,6 +20,7 @@ namespace MyGUI
 {
 
 	OpenGLRenderManager::OpenGLRenderManager() :
+		mIsInitialise(false),
 		mUpdate(false),
 		mImageLoader(nullptr)
 	{
@@ -27,7 +28,8 @@ namespace MyGUI
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mVertexFormat = VertexColourType::ColourABGR;
 
@@ -35,13 +37,20 @@ namespace MyGUI
 		mImageLoader = _loader;
 
 		glewInit();
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void OpenGLRenderManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	IVertexBuffer* OpenGLRenderManager::createVertexBuffer()

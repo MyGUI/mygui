@@ -37,9 +37,15 @@ namespace MyGUI
 
 	template <> const char* Singleton<SubWidgetManager>::mClassTypeName("SubWidgetManager");
 
+	SubWidgetManager::SubWidgetManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void SubWidgetManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -58,11 +64,15 @@ namespace MyGUI
 		factory.registerFactory<TileRect>("BasisSkin");
 		factory.registerFactory<EditText>("BasisSkin");
 		factory.registerFactory<SimpleText>("BasisSkin");
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void SubWidgetManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -81,6 +91,9 @@ namespace MyGUI
 		factory.unregisterFactory<TileRect>("BasisSkin");
 		factory.unregisterFactory<EditText>("BasisSkin");
 		factory.unregisterFactory<SimpleText>("BasisSkin");
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 } // namespace MyGUI

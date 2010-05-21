@@ -38,6 +38,8 @@ namespace MyGUI
 		public Singleton<PluginManager>
 	{
 	public:
+		PluginManager();
+
 		void initialise();
 		void shutdown();
 
@@ -84,6 +86,7 @@ namespace MyGUI
 		//!	Installed plugins
 		PluginList mPlugins;
 
+		bool mIsInitialise;
 	};
 
 }

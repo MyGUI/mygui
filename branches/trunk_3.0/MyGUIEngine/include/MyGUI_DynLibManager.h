@@ -36,6 +36,8 @@ namespace MyGUI
 		public Singleton<DynLibManager>
 	{
 	public:
+		DynLibManager();
+
 		void initialise();
 		void shutdown();
 
@@ -49,6 +51,8 @@ namespace MyGUI
 		typedef std::map <std::string, DynLib*> StringDynLibMap;
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
+
+		bool mIsInitialise;
 	};
 
 }

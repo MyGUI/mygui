@@ -34,6 +34,8 @@ namespace MyGUI
 		public Singleton<ClipboardManager>
 	{
 	public:
+		ClipboardManager();
+
 		void initialise();
 		void shutdown();
 
@@ -61,6 +63,7 @@ namespace MyGUI
 	UString mPutTextInClipboard;
 #endif
 
+		bool mIsInitialise;
 	};
 
 }

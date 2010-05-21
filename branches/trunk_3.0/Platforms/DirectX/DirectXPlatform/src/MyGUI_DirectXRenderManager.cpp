@@ -17,6 +17,7 @@ namespace MyGUI
 {
 
 	DirectXRenderManager::DirectXRenderManager() :
+		mIsInitialise(false),
 		mpD3DDevice(nullptr),
 		mUpdate(false)
 	{
@@ -24,7 +25,8 @@ namespace MyGUI
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mpD3DDevice = _device;
 
@@ -39,14 +41,21 @@ namespace MyGUI
 		}
 
 		mUpdate = false;
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void DirectXRenderManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 		mpD3DDevice = nullptr;
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	IVertexBuffer* DirectXRenderManager::createVertexBuffer()

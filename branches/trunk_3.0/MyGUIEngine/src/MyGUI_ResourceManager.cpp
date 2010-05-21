@@ -36,20 +36,30 @@ namespace MyGUI
 
 	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
 
+	ResourceManager::ResourceManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void ResourceManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::loadFromXmlNode);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
 		FactoryManager::getInstance().registerFactory<ResourceImageSet>(XML_TYPE);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void ResourceManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
 
@@ -58,6 +68,9 @@ namespace MyGUI
 		unregisterLoadXmlDelegate(XML_TYPE_LIST);
 
 		mMapLoadXmlDelegate.clear();
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	bool ResourceManager::load(const std::string& _file)

@@ -32,9 +32,13 @@ namespace MyGUI
 		public Singleton<SubWidgetManager>
 	{
 	public:
+		SubWidgetManager();
+
 		void initialise();
 		void shutdown();
 
+	private:
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

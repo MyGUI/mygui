@@ -45,6 +45,8 @@ namespace MyGUI
 		typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
+		WidgetManager();
+
 		void initialise();
 		void shutdown();
 
@@ -114,7 +116,7 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	protected:
+	private:
 		SetWidgetFactory mFactoryList;
 		//MapWidgetPtr mWidgets;
 		MapDelegate mDelegates;
@@ -124,6 +126,8 @@ namespace MyGUI
 
 		// список виджетов для отписки
 		VectorWidgetPtr mUnlinkWidgets;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

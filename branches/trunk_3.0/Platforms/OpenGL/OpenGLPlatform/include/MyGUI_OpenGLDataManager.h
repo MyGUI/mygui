@@ -17,6 +17,8 @@ namespace MyGUI
 		public DataManager
 	{
 	public:
+		OpenGLDataManager();
+
 		void initialise();
 		void shutdown();
 
@@ -46,6 +48,8 @@ namespace MyGUI
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
 		VectorArhivInfo mPaths;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

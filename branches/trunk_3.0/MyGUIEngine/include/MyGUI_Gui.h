@@ -39,7 +39,10 @@ namespace MyGUI
 		public IUnlinkWidget
 	{
 		friend class WidgetManager;
+
 	public:
+		Gui();
+
 		/** Initialise GUI and all GUI Managers
 			@param
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
@@ -274,6 +277,8 @@ namespace MyGUI
 		ResourceManager* mResourceManager;
 		FactoryManager* mFactoryManager;
 		ToolTipManager* mToolTipManager;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -15,16 +15,29 @@
 namespace MyGUI
 {
 
+	OgreDataManager::OgreDataManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void OgreDataManager::initialise(const std::string& _group)
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mGroup = _group;
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void OgreDataManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	IDataStream* OgreDataManager::getData(const std::string& _name)

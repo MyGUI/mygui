@@ -35,6 +35,7 @@ namespace MyGUI
 	template <> const char* Singleton<InputManager>::mClassTypeName("InputManager");
 
 	InputManager::InputManager() :
+		mIsInitialise(false),
 		mWidgetMouseFocus(nullptr),
 		mWidgetKeyFocus(nullptr),
 		mLayerMouseFocus(nullptr),
@@ -51,7 +52,8 @@ namespace MyGUI
 
 	void InputManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
@@ -67,14 +69,21 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void InputManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
 		WidgetManager::getInstance().unregisterUnlinker(this);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)

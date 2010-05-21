@@ -34,11 +34,12 @@ namespace MyGUI
 		public Singleton<FactoryManager>
 	{
 	public:
-		typedef delegates::CDelegate1<IObject*&> Delegate;
+		FactoryManager();
 
 		void initialise();
 		void shutdown();
 
+		typedef delegates::CDelegate1<IObject*&> Delegate;
 		// DESCRIBEME
 		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
 		// DESCRIBEME
@@ -79,6 +80,8 @@ namespace MyGUI
 		typedef std::map<std::string, Delegate> MapFactoryItem;
 		typedef std::map<std::string, MapFactoryItem> MapRegisterFactoryItem;
 		MapRegisterFactoryItem mRegisterFactoryItems;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -175,6 +175,7 @@ namespace MyGUI
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

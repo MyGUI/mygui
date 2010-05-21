@@ -64,6 +64,7 @@ namespace MyGUI
 		size_t mOldIndex;
 		bool mNeedToolTip;
 
+		bool mIsInitialise;
 	};
 
 }

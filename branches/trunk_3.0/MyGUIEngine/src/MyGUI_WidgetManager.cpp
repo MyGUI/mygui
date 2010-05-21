@@ -58,9 +58,15 @@ namespace MyGUI
 
 	template <> const char* Singleton<WidgetManager>::mClassTypeName("WidgetManager");
 
+	WidgetManager::WidgetManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void WidgetManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -94,17 +100,24 @@ namespace MyGUI
 		factory.registerFactory<RenderBox>("Widget");
 		factory.registerFactory<Sheet>("Widget");
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void WidgetManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		mFactoryList.clear();
 		mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
 
 		FactoryManager::getInstance().unregisterFactory("Widget");
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name)

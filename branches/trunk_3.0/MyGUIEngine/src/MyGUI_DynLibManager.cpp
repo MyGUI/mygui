@@ -27,14 +27,24 @@ namespace MyGUI
 
 	template <> const char* Singleton<DynLibManager>::mClassTypeName("DynLibManager");
 
+	DynLibManager::DynLibManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void DynLibManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void DynLibManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		StringDynLibMap::iterator it;
 
@@ -47,6 +57,9 @@ namespace MyGUI
 
 		// Empty the list
 		mLibsMap.clear();
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	DynLib* DynLibManager::load(const std::string &fileName)

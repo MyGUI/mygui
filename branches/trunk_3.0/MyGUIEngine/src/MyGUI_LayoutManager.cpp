@@ -36,24 +36,33 @@ namespace MyGUI
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :
+		mIsInitialise(false),
 		layoutParent(nullptr)
 	{
 	}
 
 	void LayoutManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
 		layoutPrefix = "";
 		layoutParent = nullptr;
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void LayoutManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	void LayoutManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

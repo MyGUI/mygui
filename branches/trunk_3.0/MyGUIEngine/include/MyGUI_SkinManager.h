@@ -36,6 +36,8 @@ namespace MyGUI
 		public Singleton<SkinManager>
 	{
 	public:
+		SkinManager();
+
 		void initialise();
 		void shutdown();
 
@@ -71,6 +73,7 @@ namespace MyGUI
 	private:
 		std::string mDefaultName;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

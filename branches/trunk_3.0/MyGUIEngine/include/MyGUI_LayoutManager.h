@@ -74,6 +74,7 @@ namespace MyGUI
 		// префикс при загрузке лейаута
 		Widget* layoutParent;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -36,8 +36,7 @@ namespace MyGUI
 	public:
 		typedef Singleton<T> Base;
 
-		Singleton() :
-			mIsInitialise(false)
+		Singleton()
 		{
 			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");
 			msInstance = static_cast<T*>(this);
@@ -54,25 +53,10 @@ namespace MyGUI
 		}
 		static T* getInstancePtr() { return msInstance; }
 		static const char* getClassTypeName() { return mClassTypeName; }
-		bool isInitialised() { return mIsInitialise; }
-
-		virtual void initialise()
-		{
-			MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-			MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
-			mIsInitialise = true;
-		}
-		virtual void shutdown()
-		{
-			MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-			MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
-			mIsInitialise = false;
-		}
 
 	private:
 		static T* msInstance;
 		static const char* mClassTypeName;
-		bool mIsInitialise;
 	};
 
 	template <class T>

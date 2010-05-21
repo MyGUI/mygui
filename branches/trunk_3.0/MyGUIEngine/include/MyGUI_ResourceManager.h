@@ -38,6 +38,8 @@ namespace MyGUI
 		public ResourceHolder<IResource>
 	{
 	public:
+		ResourceManager();
+
 		void initialise();
 		void shutdown();
 
@@ -80,7 +82,7 @@ namespace MyGUI
 		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
-		std::string mResourceGroup;
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -45,6 +45,7 @@ namespace MyGUI
 	template <> const char* Singleton<PointerManager>::mClassTypeName("PointerManager");
 
 	PointerManager::PointerManager() :
+		mIsInitialise(false),
 		mVisible(false),
 		mWidgetOwner(nullptr),
 		mMousePointer(nullptr),
@@ -54,7 +55,8 @@ namespace MyGUI
 
 	void PointerManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &PointerManager::notifyFrameStart);
 		InputManager::getInstance().eventChangeMouseFocus += newDelegate(this, &PointerManager::notifyChangeMouseFocus);
@@ -71,11 +73,15 @@ namespace MyGUI
 		mVisible = true;
 
 		mSkinName = "StaticImage";
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void PointerManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &PointerManager::notifyFrameStart);
@@ -90,6 +96,9 @@ namespace MyGUI
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

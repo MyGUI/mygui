@@ -36,6 +36,8 @@ namespace MyGUI
 		public Singleton<FontManager>
 	{
 	public:
+		FontManager();
+
 		void initialise();
 		void shutdown();
 
@@ -64,6 +66,8 @@ namespace MyGUI
 
 	private:
 		std::string mDefaultName;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

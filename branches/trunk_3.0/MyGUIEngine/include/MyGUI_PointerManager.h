@@ -119,6 +119,8 @@ namespace MyGUI
 		StaticImage* mMousePointer;
 		IPointer* mPointer;
 		std::string mCurrentMousePointer;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -32,25 +32,37 @@ namespace MyGUI
 
 	template <> const char* Singleton<PluginManager>::mClassTypeName("PluginManager");
 
+	PluginManager::PluginManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void PluginManager::initialise()
 	{
-		Base::initialise();
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PluginManager::_load);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void PluginManager::shutdown()
 	{
-		Base::shutdown();
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		unloadAllPlugins();
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
 	bool PluginManager::loadPlugin(const std::string& _file)
 	{
-		// check initialise
-		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
 		// Load plugin library
 		DynLib* lib = DynLibManager::getInstance().load(_file);
@@ -79,8 +91,7 @@ namespace MyGUI
 
 	void PluginManager::unloadPlugin(const std::string& _file)
 	{
-		// check initialise
-		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
 		DynLibList::iterator it = mLibs.find(_file);
 		if (it != mLibs.end())
@@ -135,8 +146,7 @@ namespace MyGUI
 
 	void PluginManager::installPlugin(IPlugin* _plugin)
 	{
-		// check initialise
-		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
 		MYGUI_LOG(Info, "Installing plugin: " << _plugin->getName());
 
@@ -150,8 +160,7 @@ namespace MyGUI
 
 	void PluginManager::uninstallPlugin(IPlugin* _plugin)
 	{
-		// check initialise
-		MYGUI_ASSERT(isInitialised(), getClassTypeName() << "used but not initialised");
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
 		MYGUI_LOG(Info, "Uninstalling plugin: " << _plugin->getName());
 		PluginList::iterator it = mPlugins.find(_plugin);

@@ -42,6 +42,8 @@ namespace MyGUI
 		typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	public:
+		LayerManager();
+
 		void initialise();
 		void shutdown();
 
@@ -97,6 +99,7 @@ namespace MyGUI
 	private:
 		VectorLayer mLayerNodes;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

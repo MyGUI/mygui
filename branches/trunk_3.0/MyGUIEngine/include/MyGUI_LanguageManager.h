@@ -34,6 +34,8 @@ namespace MyGUI
 		public Singleton<LanguageManager>
 	{
 	public:
+		LanguageManager();
+
 		void initialise();
 		void shutdown();
 
@@ -91,6 +93,7 @@ namespace MyGUI
 		typedef std::map<std::string, VectorString> MapListString;
 		MapListString mMapFile;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

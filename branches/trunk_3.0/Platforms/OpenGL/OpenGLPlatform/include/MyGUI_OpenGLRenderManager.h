@@ -74,6 +74,8 @@ namespace MyGUI
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
 		OpenGLImageLoader* mImageLoader;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI
