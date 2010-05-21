@@ -47,33 +47,25 @@ namespace MyGUI
 			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
-			Default = Left | Top, /**< default value (value from left and top) */
-
-			HRelative = MYGUI_FLAG(5),
-			VRelative = MYGUI_FLAG(6),
-			Relative = HRelative | VRelative
+			Default = Left | Top /**< default value (value from left and top) */
 		};
 
 		Align(Enum _value = Default) : value(_value) { }
 
-		bool isHCenter() const { return HCenter == (value & ((int)HStretch | (int)HRelative)); }
-		bool isVCenter() const { return VCenter == (value & ((int)VStretch | (int)VRelative)); }
-		bool isCenter() const { return Center == (value & ((int)Stretch | (int)Relative)); }
+		bool isHCenter() const { return HCenter == (value & ((int)HStretch)); }
+		bool isVCenter() const { return VCenter == (value & ((int)VStretch)); }
+		bool isCenter() const { return Center == (value & ((int)Stretch)); }
 
-		bool isLeft() const { return Left == (value & ((int)HStretch | (int)HRelative)); }
-		bool isRight() const { return Right == (value & ((int)HStretch | (int)HRelative)); }
-		bool isHStretch() const { return HStretch == (value & ((int)HStretch | (int)HRelative)); }
+		bool isLeft() const { return Left == (value & ((int)HStretch)); }
+		bool isRight() const { return Right == (value & ((int)HStretch)); }
+		bool isHStretch() const { return HStretch == (value & ((int)HStretch)); }
 
-		bool isTop() const { return Top == (value & ((int)VStretch | (int)VRelative)); }
-		bool isBottom() const { return (Bottom == (value & ((int)VStretch | (int)VRelative))); }
-		bool isVStretch() const { return (VStretch == (value & ((int)VStretch | (int)VRelative))); }
+		bool isTop() const { return Top == (value & ((int)VStretch)); }
+		bool isBottom() const { return (Bottom == (value & ((int)VStretch))); }
+		bool isVStretch() const { return (VStretch == (value & ((int)VStretch))); }
 
-		bool isStretch() const { return (Stretch == (value & ((int)Stretch | (int)Relative))); }
-		bool isDefault() const { return (Default == (value & ((int)Stretch | (int)Relative))); }
-
-		bool isHRelative() const { return HRelative == (value & (int)HRelative); }
-		bool isVRelative() const { return VRelative == (value & (int)VRelative); }
-		bool isRelative() const { return Relative == (value & (int)Relative); }
+		bool isStretch() const { return (Stretch == (value & ((int)Stretch))); }
+		bool isDefault() const { return (Default == (value & ((int)Stretch))); }
 
 		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
 		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
@@ -184,9 +176,6 @@ namespace MyGUI
 				MYGUI_REGISTER_VALUE(map_names, VStretch);
 				MYGUI_REGISTER_VALUE(map_names, Stretch);
 				MYGUI_REGISTER_VALUE(map_names, Default);
-				MYGUI_REGISTER_VALUE(map_names, HRelative);
-				MYGUI_REGISTER_VALUE(map_names, VRelative);
-				MYGUI_REGISTER_VALUE(map_names, Relative);
 			}
 
 			return map_names;

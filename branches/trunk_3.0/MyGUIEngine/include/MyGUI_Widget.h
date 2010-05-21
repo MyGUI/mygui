@@ -480,9 +480,6 @@ namespace MyGUI
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
-		FloatCoord mRelativeCoord;
-		bool mDisableUpdateRelative;
-
 	private:
 		Widget* mContainer;
 	};
