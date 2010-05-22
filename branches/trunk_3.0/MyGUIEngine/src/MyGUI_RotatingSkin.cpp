@@ -98,7 +98,7 @@ namespace MyGUI
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}
 
-	inline float len(float x, float y) { return sqrt(x*x + y*y); }
+	float len(float x, float y) { return sqrt(x*x + y*y); }
 
 	void RotatingSkin::recalculateAngles()
 	{

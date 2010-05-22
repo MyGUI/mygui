@@ -18,7 +18,7 @@ const int HIDE_REMAIN_PIXELS = 3;
 
 void eventInfo(MyGUI::Widget* _sender, const std::string& _key, const std::string& _event)
 {
-	MyGUI::MYGUI_OUT("eventInfo: ", _event);
+	//MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
 
 template<typename Type>

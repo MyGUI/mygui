@@ -85,7 +85,7 @@ namespace MyGUI
 			return nullptr;
 
 #ifdef MYGUI_OGRE_PLATFORM
-		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
 		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{
@@ -102,7 +102,7 @@ namespace MyGUI
 			return Base::getPosition(_left, _top);
 
 #ifdef MYGUI_OGRE_PLATFORM
-		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
 		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{

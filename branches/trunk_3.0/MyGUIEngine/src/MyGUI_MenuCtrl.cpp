@@ -30,6 +30,7 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -398,9 +399,10 @@ namespace MyGUI
 
 				if (this->mAlignVert)
 				{
-					if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewSize().width)
+					const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
+					if (point.left + menu->getWidth() > size.width)
 						point.left -= menu->getWidth();
-					if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewSize().height)
+					if (point.top + menu->getHeight() > size.height)
 						point.top -= menu->getHeight();
 				}
 				else

@@ -23,7 +23,7 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Resize window to see how ScrollView widget works");
 
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
+		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(450, 450);
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");

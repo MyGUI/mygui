@@ -45,7 +45,6 @@
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_RenderOut.h"
 #include "MyGUI_Utility.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"

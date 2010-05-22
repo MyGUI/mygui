@@ -234,7 +234,7 @@ namespace MyGUI
 
 			Gui* gui = Gui::getInstancePtr();
 			if (gui != nullptr)
-				gui->resizeWindow(mViewSize);
+				gui->_resizeWindow(mViewSize);
 		}
 	}
 

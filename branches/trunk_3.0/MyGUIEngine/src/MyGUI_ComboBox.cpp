@@ -29,6 +29,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -303,7 +304,7 @@ namespace MyGUI
 		IntCoord coord = this->getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > Gui::getInstance().getViewSize().height)
+		if ((coord.top + coord.height + height) > RenderManager::getInstance().getViewSize().height)
 		{
 			coord.height = height;
 			coord.top -= coord.height;

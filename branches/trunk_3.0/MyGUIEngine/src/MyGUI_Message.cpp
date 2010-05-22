@@ -30,6 +30,7 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -261,8 +262,8 @@ namespace MyGUI
 		{
 			if (nullptr == mWidgetFade)
 			{
-				Gui& gui = Gui::getInstance();
-				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, gui.getViewSize().width, gui.getViewSize().height), Align::Stretch, mFadeLayer);
+				const IntSize& size = RenderManager::getInstance().getViewSize();
+				mWidgetFade = Gui::getInstance().createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, size.width, size.height), Align::Stretch, mFadeLayer);
 				if (mSmoothShow)
 				{
 					mWidgetFade->setVisible(false);
@@ -356,7 +357,7 @@ namespace MyGUI
 		int offset = (size.width - width)/2;
 		offset += mButtonOffset.width;
 
-		const IntSize& view = Gui::getInstance().getViewSize();
+		const IntSize& view = RenderManager::getInstance().getViewSize();
 		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		if (nullptr != mIcon)
