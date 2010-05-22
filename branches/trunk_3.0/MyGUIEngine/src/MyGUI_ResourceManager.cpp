@@ -235,4 +235,43 @@ namespace MyGUI
 		}
 	}
 
+	bool ResourceManager::isExist(const std::string& _name) const
+	{
+		return mResources.find(_name) != mResources.end();
+	}
+
+	IResource* ResourceManager::findByName(const std::string& _name) const
+	{
+		MapResource::const_iterator item = mResources.find(_name);
+		return (item == mResources.end()) ? nullptr : item->second;
+	}
+
+	IResource* ResourceManager::getByName(const std::string& _name, bool _throw) const
+	{
+		IResource* result = findByName(_name);
+		MYGUI_ASSERT(result || !_throw, "Resource '" << _name << "' not found");
+		return result;
+	}
+
+	bool ResourceManager::removeByName(const std::string& _name)
+	{
+		MapResource::const_iterator item = mResources.find(_name);
+		if (item != mResources.end())
+		{
+			delete item->second;
+			mResources.erase(item->first);
+			return true;
+		}
+		return false;
+	}
+
+	void ResourceManager::clear()
+	{
+		for (MapResource::iterator item=mResources.begin(); item!=mResources.end(); ++item)
+		{
+			delete item->second;
+		}
+		mResources.clear();
+	}
+
 } // namespace MyGUI

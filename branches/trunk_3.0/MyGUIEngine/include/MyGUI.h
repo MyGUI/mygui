@@ -74,7 +74,6 @@
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_Version.h"

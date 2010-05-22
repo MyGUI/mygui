@@ -60,7 +60,6 @@ set (HEADER_FILES
   include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
   include/MyGUI.h
-  include/MyGUI_CastWidget.h
   include/MyGUI_Common.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
@@ -70,7 +69,6 @@ set (HEADER_FILES
   include/MyGUI_Precompiled.h
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
-  include/MyGUI_ResourceHolder.h
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
@@ -456,7 +454,6 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
-  include/MyGUI_CastWidget.h
   include/MyGUI_Common.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
@@ -466,7 +463,6 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_Precompiled.h
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
-  include/MyGUI_ResourceHolder.h
   include/MyGUI_WidgetDefines.h
 )
 SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES

@@ -27,15 +27,13 @@
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_ResourceHolder.h"
 #include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceManager :
-		public Singleton<ResourceManager>,
-		public ResourceHolder<IResource>
+		public Singleton<ResourceManager>
 	{
 	public:
 		ResourceManager();
@@ -63,6 +61,26 @@ namespace MyGUI
 		/** Unregister delegate that parse XML node with specified tag (_key) */
 		void unregisterLoadXmlDelegate(const std::string& _key);
 
+		/** Check is resource exist */
+		bool isExist(const std::string& _name) const;
+
+		/** Find resource by name*/
+		IResource* findByName(const std::string& _name) const;
+
+		/** Get resource by name*/
+		IResource* getByName(const std::string& _name, bool _throw = true) const;
+
+		bool removeByName(const std::string& _name);
+
+		void clear();
+
+		typedef std::map<std::string, IResource*> MapResource;
+		typedef Enumerator<MapResource> EnumeratorPtr;
+
+		EnumeratorPtr getEnumerator() const { return EnumeratorPtr(mResources); }
+
+		size_t getCount() { return mResources.size(); }
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -81,6 +99,8 @@ namespace MyGUI
 		// карта с делегатами для парсинга хмл блоков
 		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
+
+		MapResource mResources;
 
 		bool mIsInitialise;
 	};

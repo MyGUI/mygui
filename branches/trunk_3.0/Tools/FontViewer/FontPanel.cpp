@@ -100,7 +100,7 @@ namespace demo
 			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 			if (manager.isExist(mFontName))
 			{
-				manager.remove(mFontName);
+				manager.removeByName(mFontName);
 			}
 
 			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
