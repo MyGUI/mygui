@@ -18,6 +18,13 @@ install(FILES ${HEADER_FILES}
 )
 mygui_install_target(MyGUI.OgrePlatform "")
 
+# platform specific dependencies
+if (APPLE)
+	include_directories(/usr/local/include /usr/include)
+	target_link_libraries(${PROJECTNAME} ${Carbon_LIBRARY})
+endif ()
+
+# installation rules
 install(FILES ${HEADER_FILES}
 	DESTINATION include/MYGUI
 )

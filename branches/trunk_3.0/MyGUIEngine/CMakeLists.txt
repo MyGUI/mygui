@@ -1,10 +1,10 @@
-set (PROJECT_NAME MyGUIEngine)
+set (PROJECTNAME MyGUIEngine)
 
-project( ${PROJECT_NAME} )
+project( ${PROJECTNAME} )
 
 include(PrecompiledHeader)
 
-include(${PROJECT_NAME}.list)
+include(${PROJECTNAME}.list)
 
 include_directories(include)
 if (MYGUI_USE_FREETYPE)
@@ -25,21 +25,28 @@ if (WIN32)
 endif ()
 
 # setup MyGUIEngine target
-add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
+add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
 if (MYGUI_USE_FREETYPE)
-	target_link_libraries(${PROJECT_NAME}
+	target_link_libraries(${PROJECTNAME}
 		${FREETYPE_LIBRARIES}
 	)
 endif()
 
+# platform specific dependencies
+if (APPLE)
+	include_directories(/usr/local/include /usr/include)
+	target_link_libraries(${PROJECTNAME} ${Carbon_LIBRARY})
+endif ()
+
 # specify a precompiled header to use
-use_precompiled_header(${PROJECT_NAME}
+use_precompiled_header(${PROJECTNAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
 
-mygui_config_lib(${PROJECT_NAME})
+set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
+mygui_config_lib(${PROJECTNAME})
 
 # install MyGUIEngine headers
 install(FILES ${HEADER_FILES}
