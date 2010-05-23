@@ -16,6 +16,10 @@ namespace Hikari
 	{
 	}
 
+	HikariWidget::~HikariWidget()
+	{
+	}
+
 	void HikariWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
@@ -31,7 +35,7 @@ namespace Hikari
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 	}
 
-	HikariWidget::~HikariWidget()
+	void HikariWidget::_shutdown()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 
@@ -40,6 +44,8 @@ namespace Hikari
 		mControl = 0;
 
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void HikariWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)

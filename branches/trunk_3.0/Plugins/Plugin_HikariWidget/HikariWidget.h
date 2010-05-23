@@ -145,6 +145,7 @@ namespace Hikari
 
 	/*internal:*/
 		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name);
+		virtual void _shutdown();
 
 	protected:
 		virtual ~HikariWidget();

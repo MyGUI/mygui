@@ -66,6 +66,10 @@ namespace MyGUI
 	{
 	}
 
+	Widget::~Widget()
+	{
+	}
+
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
@@ -129,7 +133,7 @@ namespace MyGUI
 		}
 	}
 
-	Widget::~Widget()
+	void Widget::_shutdown()
 	{
 		shutdownWidgetSkin(true);
 
@@ -138,14 +142,20 @@ namespace MyGUI
 		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
-			if (mParent) mParent->removeChildItem(this);
+			if (mParent)
+				mParent->removeChildItem(this);
 		}
 		// дочернее нуно перекрывающееся
 		else if (mWidgetStyle == WidgetStyle::Overlapped)
 		{
 			// дочернее перекрывающееся
-			if (mParent) mParent->removeChildNode(this);
+			if (mParent)
+				mParent->removeChildNode(this);
 		}
+
+		mParent = nullptr;
+		mTexture = nullptr;
+		mCroppedParent = nullptr;
 	}
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
@@ -403,7 +413,6 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-
 			// сохраняем указатель
 			MyGUI::Widget* widget = *iter;
 
@@ -429,18 +438,15 @@ namespace MyGUI
 		WidgetManager& manager = WidgetManager::getInstance();
 		while (!mWidgetChild.empty())
 		{
-
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
-
-			//if (widget->isRootWidget()) widget->detachWidget();
 
 			// отписываем от всех
 			manager.unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
-			delete widget;
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
 

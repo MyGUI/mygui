@@ -101,6 +101,8 @@ namespace MyGUI
 		factory.registerFactory<Sheet>("Widget");
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+		Gui::getInstance().eventFrameStart += newDelegate(this, &WidgetManager::notifyEventFrameStart);
+
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -109,6 +111,9 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &WidgetManager::notifyEventFrameStart);
+		_deleteDelayWidgets();
 
 		mFactoryList.clear();
 		mDelegates.clear();
@@ -186,27 +191,6 @@ namespace MyGUI
 		{
 			(*iter)->_unlinkWidget(_widget);
 		}
-		// вызывать последним, обнулится
-		removeWidgetFromUnlink(_widget);
-	}
-
-	void WidgetManager::addWidgetToUnlink(Widget* _widget)
-	{
-		if (_widget) mUnlinkWidgets.push_back(_widget);
-	}
-
-	void WidgetManager::removeWidgetFromUnlink(Widget*& _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
-		if (iter != mUnlinkWidgets.end())
-		{
-			(*iter) = mUnlinkWidgets.back();
-			mUnlinkWidgets.pop_back();
-		}
-		else
-		{
-			_widget = nullptr;
-		}
 	}
 
 	bool WidgetManager::isFactoryExist(const std::string& _type)
@@ -228,9 +212,25 @@ namespace MyGUI
 		return false;
 	}
 
+	void WidgetManager::notifyEventFrameStart(float _time)
+	{
+		_deleteDelayWidgets();
+	}
+
 	void WidgetManager::_deleteWidget(Widget* _widget)
 	{
-		delete _widget;
+		_widget->_shutdown();
+		mDestroyWidgets.push_back(_widget);
+	}
+
+	void WidgetManager::_deleteDelayWidgets()
+	{
+		if (!mDestroyWidgets.empty())
+		{
+			for (VectorWidgetPtr::iterator entry=mDestroyWidgets.begin(); entry!=mDestroyWidgets.end(); ++entry)
+				delete (*entry);
+			mDestroyWidgets.clear();
+		}
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

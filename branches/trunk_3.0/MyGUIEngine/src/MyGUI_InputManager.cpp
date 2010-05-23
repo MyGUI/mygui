@@ -159,10 +159,6 @@ namespace MyGUI
 			}
 		}
 
-		// в методе может пропасть наш виджет
-		WidgetManager::getInstance().addWidgetToUnlink(item);
-
-
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса мыши
 		Widget* save_widget = nullptr;
@@ -176,15 +172,10 @@ namespace MyGUI
 				save_widget = root_focus;
 				break;
 			}
+
 			root_focus->mRootMouseActive = true;
-
-			// в методе может пропасть наш виджет
-			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(true);
-			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
-
-			if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
@@ -192,18 +183,11 @@ namespace MyGUI
 		while (root_focus != nullptr)
 		{
 			if (root_focus == save_widget)
-			{
 				break;
-			}
+
 			root_focus->mRootMouseActive = false;
-
-			// в методе может пропасть наш виджет
-			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(false);
-			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
-
-			if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 		//-------------------------------------------------------------------------------------//
 
@@ -212,9 +196,6 @@ namespace MyGUI
 		{
 			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
-
-		WidgetManager::getInstance().removeWidgetFromUnlink(item);
-
 
 		if ((item != nullptr) && (item->isEnabled()))
 		{
@@ -410,15 +391,10 @@ namespace MyGUI
 				save_widget = root_focus;
 				break;
 			}
+
 			root_focus->mRootKeyActive = true;
-
-			// в методе может пропасть наш виджет
-			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onKeyChangeRootFocus(true);
-			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
-
-			if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
@@ -426,18 +402,11 @@ namespace MyGUI
 		while (root_focus != nullptr)
 		{
 			if (root_focus == save_widget)
-			{
 				break;
-			}
+
 			root_focus->mRootKeyActive = false;
-
-			// в методе может пропасть наш виджет
-			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onKeyChangeRootFocus(false);
-			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
-
-			if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 		//-------------------------------------------------------------------------------------//
 
@@ -463,14 +432,8 @@ namespace MyGUI
 		while (root_focus != nullptr)
 		{
 			root_focus->mRootMouseActive = false;
-
-			// в методе может пропасть наш виджет
-			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(false);
-			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
-
-			if (root_focus)
-				root_focus = root_focus->getParent();
+			root_focus = root_focus->getParent();
 		}
 
 		mIsWidgetMouseCapture = false;

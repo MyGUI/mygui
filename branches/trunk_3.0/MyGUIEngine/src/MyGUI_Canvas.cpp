@@ -40,14 +40,20 @@ namespace MyGUI
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
+	Canvas::~Canvas()
+	{
+	}
+
 	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 	}
 
-	Canvas::~Canvas()
+	void Canvas::_shutdown()
 	{
 		_destroyTexture( false );
+
+		Base::_shutdown();
 	}
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )

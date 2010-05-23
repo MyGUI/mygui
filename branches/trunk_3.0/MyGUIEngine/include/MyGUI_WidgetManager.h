@@ -66,17 +66,12 @@ namespace MyGUI
 		/** Unlink widget */
 		void unlinkFromUnlinkers(Widget* _widget);
 
-		// добавляет виджет в список для анлинка
-		void addWidgetToUnlink(Widget* _widget);
-
-		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(Widget*& _widget);
-
 		bool isFactoryExist(const std::string& _type);
 
 	/*internal:*/
 		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
 		void _deleteWidget(Widget* _widget);
+		void _deleteDelayWidgets();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -117,17 +112,19 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
+		void notifyEventFrameStart(float _time);
+
+	private:
+		bool mIsInitialise;
+
 		SetWidgetFactory mFactoryList;
-		//MapWidgetPtr mWidgets;
 		MapDelegate mDelegates;
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
-		// список виджетов для отписки
-		VectorWidgetPtr mUnlinkWidgets;
-
-		bool mIsInitialise;
+		// список виджетов для удаления
+		VectorWidgetPtr mDestroyWidgets;
 	};
 
 } // namespace MyGUI

@@ -57,8 +57,6 @@ namespace MyGUI
 
         TreeControl();
 
-        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-
         Node* getRoot() const;
         void setRootVisible(bool bValue);
         bool isRootVisible() const;
@@ -78,6 +76,10 @@ namespace MyGUI
         EventHandle_TreeControlPtrNodePtr eventTreeNodeContextMenu;
         EventHandle_TreeControlPtrNodePtr eventTreeNodePrepare;
         EventHandle_TreeControlPtrSizeT eventTreeScrolled;
+
+	/*internal:*/
+        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		virtual void _shutdown();
 
     protected:
         virtual ~TreeControl();

@@ -19,20 +19,11 @@ namespace MyGUI
 
 	BerkeliumWidget::~BerkeliumWidget()
 	{
-		requestUpdateCanvas = nullptr;
-
-		shutdownWidgetSkin();
-	}
-
-	void BerkeliumWidget::updateSize()
-	{
-		mOldWidth = std::max(1, getWidth());
-		mOldHeight = std::max(1, getHeight());
 	}
 
 	void BerkeliumWidget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 
 		updateSize();
 
@@ -40,6 +31,21 @@ namespace MyGUI
 		requestUpdateCanvas = newDelegate(this, &BerkeliumWidget::notifyUpdateCanvas);
 
 		initialiseWidgetSkin(_info);
+	}
+
+	void BerkeliumWidget::_shutdown()
+	{
+		requestUpdateCanvas = nullptr;
+
+		shutdownWidgetSkin();
+
+		Base::_shutdown();
+	}
+
+	void BerkeliumWidget::updateSize()
+	{
+		mOldWidth = std::max(1, getWidth());
+		mOldHeight = std::max(1, getHeight());
 	}
 
 	void BerkeliumWidget::baseChangeWidgetSkin(ResourceSkin* _info)

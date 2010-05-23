@@ -20,18 +20,11 @@ namespace Awesomium
 
 	AwesomiumWidget::~AwesomiumWidget()
 	{
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
-		mControl->destroy();
-		mControl = 0;
-
-		requestUpdateCanvas = nullptr;
-
-		shutdownWidgetSkin();
 	}
 
 	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 
 		initialiseWidgetSkin(_info);
 
@@ -42,6 +35,19 @@ namespace Awesomium
 		requestUpdateCanvas = newDelegate(this, &AwesomiumWidget::notifyUpdateCanvas);
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
+	}
+
+	void AwesomiumWidget::_shutdown()
+	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
+		mControl->destroy();
+		mControl = 0;
+
+		requestUpdateCanvas = nullptr;
+
+		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void AwesomiumWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)

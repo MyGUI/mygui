@@ -102,9 +102,6 @@ namespace MyGUI
 
     TreeControl::~TreeControl()
     {
-        shutdownWidgetSkin();
-
-        delete mpRoot;
     }
 
     void TreeControl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
@@ -112,6 +109,15 @@ namespace MyGUI
         Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 
         initialiseWidgetSkin(_info);
+    }
+
+    void TreeControl::_shutdown()
+    {
+        shutdownWidgetSkin();
+
+        delete mpRoot;
+
+		Base::_shutdown();
     }
 
     void TreeControl::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)

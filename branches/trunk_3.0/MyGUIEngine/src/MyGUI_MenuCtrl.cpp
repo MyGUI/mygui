@@ -54,6 +54,10 @@ namespace MyGUI
 	{
 	}
 
+	MenuCtrl::~MenuCtrl()
+	{
+	}
+
 	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
@@ -77,10 +81,12 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	MenuCtrl::~MenuCtrl()
+	void MenuCtrl::_shutdown()
 	{
 		mShutdown = true;
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void MenuCtrl::baseChangeWidgetSkin(ResourceSkin* _info)
@@ -346,14 +352,7 @@ namespace MyGUI
 	{
 		Widget* sender = this;
 
-		WidgetManager::getInstance().addWidgetToUnlink(sender);
 		eventMenuCtrlAccept(this, _item);
-		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
-
-		// нас удалили
-		if (sender == nullptr) return;
-
-		WidgetManager::getInstance().addWidgetToUnlink(sender);
 
 		MenuItem* parent_item = getMenuItemParent();
 		if (parent_item)
@@ -364,12 +363,6 @@ namespace MyGUI
 				parent_ctrl->notifyMenuCtrlAccept(_item);
 			}
 		}
-
-		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
-
-		// нас удалили
-		if (sender == nullptr) return;
-
 
 		if (mHideByAccept)
 		{

@@ -32,6 +32,10 @@ namespace MyGUI
 	{
 	}
 
+	MenuItem::~MenuItem()
+	{
+	}
+
 	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
@@ -54,10 +58,12 @@ namespace MyGUI
 		this->mNeedKeyFocus = true;
 	}
 
-	MenuItem::~MenuItem()
+	void MenuItem::_shutdown()
 	{
 		shutdownWidgetSkin();
 		mOwner->_notifyDeleteItem(this);
+
+		Base::_shutdown();
 	}
 
 	Widget* MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)

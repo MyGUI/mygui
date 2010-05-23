@@ -69,6 +69,10 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
+	Edit::~Edit()
+	{
+	}
+
 	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
@@ -76,9 +80,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Edit::~Edit()
+	void Edit::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Edit::baseChangeWidgetSkin(ResourceSkin* _info)

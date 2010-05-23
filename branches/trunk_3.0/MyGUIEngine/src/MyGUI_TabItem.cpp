@@ -30,6 +30,10 @@ namespace MyGUI
 	{
 	}
 
+	TabItem::~TabItem()
+	{
+	}
+
 	void TabItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
@@ -37,9 +41,11 @@ namespace MyGUI
 		mOwner = getParent()->castType<Tab>();
 	}
 
-	TabItem::~TabItem()
+	void TabItem::_shutdown()
 	{
 		mOwner->_notifyDeleteItem(this);
+
+		Base::_shutdown();
 	}
 
 	void TabItem::setSelected(bool _value)
