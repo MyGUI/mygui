@@ -118,15 +118,15 @@ namespace MyGUI
 		float width_base = (float)mCurrentCoord.width;
 		float height_base = (float)mCurrentCoord.height;
 
-		mBaseAngles[0] = atan2((float)           - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
-		mBaseAngles[1] = atan2((float)           - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
+		mBaseAngles[0] = atan2((float) - mCenterPos.left, (float) - mCenterPos.top) + M_PI/2;
+		mBaseAngles[1] = atan2((float) - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
 		mBaseAngles[2] = atan2((float)width_base - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
-		mBaseAngles[3] = atan2((float)width_base - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
+		mBaseAngles[3] = atan2((float)width_base - mCenterPos.left, (float) - mCenterPos.top) + M_PI/2;
 
-		mBaseDistances[0] = len((float)           - mCenterPos.left,             - mCenterPos.top);
-		mBaseDistances[1] = len((float)           - mCenterPos.left, height_base - mCenterPos.top);
+		mBaseDistances[0] = len((float) - mCenterPos.left, (float) - mCenterPos.top);
+		mBaseDistances[1] = len((float) - mCenterPos.left, height_base - mCenterPos.top);
 		mBaseDistances[2] = len((float)width_base - mCenterPos.left, height_base - mCenterPos.top);
-		mBaseDistances[3] = len((float)width_base - mCenterPos.left,             - mCenterPos.top);
+		mBaseDistances[3] = len((float)width_base - mCenterPos.left, (float) - mCenterPos.top);
 
 	}
 
