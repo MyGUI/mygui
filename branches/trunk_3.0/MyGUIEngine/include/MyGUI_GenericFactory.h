@@ -1,7 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       06/2009
+	@file
+	@author		Albert Semenov
+	@date		06/2009
 */
 #ifndef __MYGUI_GENERIC_FACTORY_H__
 #define __MYGUI_GENERIC_FACTORY_H__

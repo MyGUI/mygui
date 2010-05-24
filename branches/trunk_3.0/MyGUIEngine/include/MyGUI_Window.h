@@ -189,7 +189,6 @@ namespace MyGUI
 
 		IntCoord mCurrentActionScale;
 		bool mAnimateSmooth;
-
 	};
 
 } // namespace MyGUI

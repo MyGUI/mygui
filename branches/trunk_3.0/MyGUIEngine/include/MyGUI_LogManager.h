@@ -66,14 +66,14 @@ namespace MyGUI
 		void setSTDOutputEnabled(bool _value);
 		// DESCRIBEME
 		// возвращает доступность дефолтного подписчика в std::cout
-		bool getSTDOutputEnabled();
+		bool getSTDOutputEnabled() const;
 
 		// DESCRIBEME
 		// устанавливает уровень для дефолтного фильтра
 		void setLoggingLevel(LogLevel _value);
 		// DESCRIBEME
 		// возвращает уровень для дефолтного фильтра
-		LogLevel getLoggingLevel();
+		LogLevel getLoggingLevel() const;
 
 		// DESCRIBEME
 		// добавляет источник в список источников

@@ -24,7 +24,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_WidgetToolTip.h"
 
 namespace MyGUI
 {

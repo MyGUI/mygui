@@ -57,10 +57,10 @@ namespace MyGUI
 		MapString mClipboardData;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	// дискриптор нашего главного окна
-	size_t mHwnd;
-	// строка, которую мы положили в буфер обмена винды
-	UString mPutTextInClipboard;
+		// дескриптор нашего главного окна
+		size_t mHwnd;
+		// строка, которую мы положили в буфер обмена винды
+		UString mPutTextInClipboard;
 #endif
 
 		bool mIsInitialise;

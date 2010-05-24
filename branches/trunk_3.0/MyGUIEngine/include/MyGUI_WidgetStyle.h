@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_WIDGET_TYPE_H__
-#define __MYGUI_WIDGET_TYPE_H__
+#ifndef __MYGUI_WIDGET_STYLE_H__
+#define __MYGUI_WIDGET_STYLE_H__
 
 #include "MyGUI_Prerequest.h"
 #include <string.h>
@@ -87,4 +87,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_WIDGET_TYPE_H__
+#endif // __MYGUI_WIDGET_STYLE_H__

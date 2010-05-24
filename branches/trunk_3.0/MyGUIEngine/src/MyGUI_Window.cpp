@@ -369,11 +369,7 @@ namespace MyGUI
 		if (abs(_coord.left) <= WINDOW_SNAP_DISTANSE) _coord.left = 0;
 		if (abs(_coord.top) <= WINDOW_SNAP_DISTANSE) _coord.top = 0;
 
-		IntSize view_size;
-		if (getCroppedParent() == nullptr)
-			view_size = this->getLayer()->getSize();
-		else
-			view_size = ((Widget*)getCroppedParent())->getSize();
+		const IntSize view_size = getParentSize();
 
 		if ( abs(_coord.left + _coord.width - view_size.width) < WINDOW_SNAP_DISTANSE) _coord.left = view_size.width - _coord.width;
 		if ( abs(_coord.top + _coord.height - view_size.height) < WINDOW_SNAP_DISTANSE) _coord.top = view_size.height - _coord.height;

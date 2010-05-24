@@ -73,7 +73,7 @@ namespace MyGUI
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
+		/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
 		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
@@ -132,9 +132,8 @@ namespace MyGUI
 			return findWidgetT(_prefix + _name, _throw);
 		}
 
-		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
+			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T>
 		T* findWidget(const std::string& _name, bool _throw = true)
@@ -172,6 +171,7 @@ namespace MyGUI
 		void _linkChildWidget(Widget* _widget);
 		void _unlinkChildWidget(Widget* _widget);
 
+		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
 
 	/*event:*/
@@ -245,8 +245,8 @@ namespace MyGUI
 		IntSize mViewSize;
 
 		// синглтоны гуя
-		InputManager * mInputManager;
-		SubWidgetManager * mSubWidgetManager;
+		InputManager* mInputManager;
+		SubWidgetManager* mSubWidgetManager;
 		LayerManager* mLayerManager;
 		SkinManager* mSkinManager;
 		WidgetManager* mWidgetManager;

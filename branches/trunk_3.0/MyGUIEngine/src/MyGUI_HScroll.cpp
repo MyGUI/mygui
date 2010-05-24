@@ -79,7 +79,7 @@ namespace MyGUI
 		{
 			mWidgetTrack->setVisible(false);
 			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
-			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
+			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			return;
 		}
 		// если скрыт то покажем

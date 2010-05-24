@@ -538,12 +538,13 @@ namespace MyGUI
 		if (0 == count) return;
 
 		// shell sort
-		int first, last;
+		int first;
+		size_t last;
 		for (size_t step = count>>1; step>0 ; step >>= 1)
 		{
 			for (size_t i=0;i<(count-step);i++)
 			{
-				first=i;
+				first=(int)i;
 				while (first>=0)
 				{
 					last = first+step;

@@ -66,6 +66,7 @@ namespace MyGUI
 		/** Unlink widget */
 		void unlinkFromUnlinkers(Widget* _widget);
 
+		/** Check if factory with specified widget type exist */
 		bool isFactoryExist(const std::string& _type);
 
 	/*internal:*/

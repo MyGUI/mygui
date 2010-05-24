@@ -210,7 +210,13 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)
+		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
+			if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
+			{
+				MYGUI_LOG(Error, "Font '" << _name << "' not found. Replaced with default font.");
+			}
+		}
 
 		return result ? result->castType<IFont>(false) : nullptr;
 	}

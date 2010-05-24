@@ -318,7 +318,8 @@ namespace MyGUI
 	void ScrollView::setCanvasSize(const IntSize& _value)
 	{
 		if (mWidgetClient != nullptr)
-			mWidgetClient->setSize(_value); updateView();
+			mWidgetClient->setSize(_value);
+		updateView();
 	}
 
 	void ScrollView::setProperty(const std::string& _key, const std::string& _value)

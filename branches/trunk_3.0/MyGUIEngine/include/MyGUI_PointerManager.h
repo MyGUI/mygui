@@ -58,7 +58,9 @@ namespace MyGUI
 		/** Set default pointer */
 		void setDeafultPointer(const std::string& _value);
 
+		/** Get layer name where pointer rendered */
 		const std::string& getLayerName() { return mLayerName; }
+		/** Set layer where pointer rendered */
 		void setLayerName(const std::string& _value);
 
 		/** Get pointer resource */

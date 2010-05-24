@@ -88,16 +88,17 @@ namespace MyGUI
 		Widget* getMouseFocusWidget() { return mWidgetMouseFocus; }
 		/** Get key focused widget */
 		Widget* getKeyFocusWidget() { return mWidgetKeyFocus; }
-		/** Get position of last left mouse button press */
+		/** Get position of last left mouse button press.
+			Position calculated on specific layer where mouse was pressed.
+		*/
 		const IntPoint& getLastLeftPressed() { return mLastLeftPressed; }
-		/** Get current mouse position */
+		/** Get current mouse position on screen */
 		const IntPoint& getMousePosition() { return mMousePosition; }
 
+		/** Get mouse position on current layer.
+			This position might different from getMousePosition() if mouse is over non-2d layer.
+		*/
 		IntPoint getMousePositionByLayer();
-
-		// тестовый вариант, очистка фокуса мыши
-		/** Drop any mouse focus */
-		void resetMouseFocusWidget();
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
@@ -113,21 +114,23 @@ namespace MyGUI
 		/** Is shift button pressed */
 		bool isShiftPressed() { return mIsShiftPressed; }
 
-		/** Reset mouse capture (for example when we dragging and application
-			lost focus you should call this)
+		/** Reset mouse capture.
+			For example when we dragging and application
+			lost focus you should call this.
 		*/
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
+		/** Unlink widget from input manager. */
 		void unlinkWidget(Widget* _widget) { _unlinkWidget(_widget); }
 
-		/** Event :\n
+		/** Event : MultiDelegate. Mouse focus was changed.\n
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
 		delegates::CMultiDelegate1<Widget*>
 			eventChangeMouseFocus;
 
-		/** Event :\n
+		/** Event : MultiDelegate. Key focus was changed.\n
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
@@ -135,6 +138,10 @@ namespace MyGUI
 			eventChangeKeyFocus;
 
 	private:
+		// тестовый вариант, очистка фокуса мыши
+		/** Drop any mouse focus */
+		void resetMouseFocusWidget();
+
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);
 
@@ -156,7 +163,7 @@ namespace MyGUI
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика
-	    Timer mTimer; //used for double click timing
+		Timer mTimer; //used for double click timing
 
 		// нажат ли шифт
 		bool mIsShiftPressed;

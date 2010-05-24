@@ -88,18 +88,18 @@
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	#if MYGUI_COMP_VER == 1310 	// VC++ 7.1
 		#define MYGUI_OBSOLETE_START(text)
-	    #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#else
 		#define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
-	    #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#endif
 
 #elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
 		#define MYGUI_OBSOLETE_START(text)
-        #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#else
-        #define MYGUI_OBSOLETE_START(text)
+		#define MYGUI_OBSOLETE_START(text)
 		#define MYGUI_OBSOLETE_END __attribute__((deprecated))
 	#endif
 

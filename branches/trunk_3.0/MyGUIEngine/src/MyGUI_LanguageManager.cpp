@@ -244,26 +244,49 @@ namespace MyGUI
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const UString& tag = line.substr(start + 1, len);
+							UString replacement;
 
 							bool find = true;
+							// try to find in loaded from resources language strings
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
-							if (replace == mMapLanguage.end())
+							if (replace != mMapLanguage.end())
 							{
+								replacement = replace->second;
+							}
+							else
+							{
+								// try to find in user language strings
 								replace = mUserMapLanguage.find(tag);
-								find = replace != mUserMapLanguage.end();
+								if (replace != mUserMapLanguage.end())
+								{
+									find = true;
+									replacement = replace->second;
+								}
+								else
+								{
+									find = false;
+								}
 							}
 
+							// try to ask user if event assigned or use #{_tag} instead
 							if (!find)
 							{
-								iter = line.insert(iter, '#') + size_t(len + 2);
-								end = line.end();
-								break;
+								if (!eventRequestTag.empty())
+								{
+									eventRequestTag(tag, replacement);
+								}
+								else
+								{
+									iter = line.insert(iter, '#') + size_t(len + 2);
+									end = line.end();
+									break;
+								}
 							}
 
 							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 							size_t pos = iter - line.begin();
-							line.insert(pos, replace->second);
-							iter = line.begin() + pos + replace->second.length();
+							line.insert(pos, replacement);
+							iter = line.begin() + pos + replacement.length();
 							end = line.end();
 							if (iter == end) return line;
 							break;

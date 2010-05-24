@@ -48,7 +48,7 @@ namespace MyGUI
 		*/
 		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
 
-		/** Unload layout file */
+		/** Unload layout (actually deletes vector of widgets returned by loadLayout) */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
 	/*obsolete:*/

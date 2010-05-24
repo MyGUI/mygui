@@ -133,7 +133,7 @@ namespace MyGUI
 				      true: function return true when at least part of item is visible
 		*/
 		bool isItemVisibleAt(size_t _index, bool _fill = true);
-		//! Same as List::isItemVisible for selected item
+		//! Same as List::isItemVisibleAt for selected item
 		bool isItemSelectedVisible(bool _fill = true) { return isItemVisibleAt(mIndexSelect, _fill); }
 
 

@@ -66,6 +66,14 @@ namespace MyGUI
 		*/
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
+		/** Event : Request tag.\n
+			signature : void method(const MyGUI::UString& _tag, MyGUI::UString& _result);
+			@param _tag Tag than should be translated.
+			@param _result String that should be placed instead specified tag.
+			@note If this even is empty and _tag not found - "#{_tag}" used by default.
+		*/
+		delegates::CDelegate2<const UString&, UString&> eventRequestTag;
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

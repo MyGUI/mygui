@@ -383,24 +383,23 @@ namespace MyGUI
 			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount())
 			{
 
-				int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
+				int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
 
 				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
-				IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
+				IntPoint point(getAbsoluteRect().right, coord.top - offset);
 
 				MenuCtrl* menu = mItemsInfo[_index].submenu;
 
-				if (this->mAlignVert)
+				if (mAlignVert)
 				{
-					const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
-					if (point.left + menu->getWidth() > size.width)
+					if (point.left + menu->getWidth() > menu->getParentSize().width)
 						point.left -= menu->getWidth();
-					if (point.top + menu->getHeight() > size.height)
+					if (point.top + menu->getHeight() > menu->getParentSize().height)
 						point.top -= menu->getHeight();
 				}
 				else
 				{
-					point.set(coord.left, this->getAbsoluteRect().bottom);
+					point.set(coord.left, getAbsoluteRect().bottom);
 				}
 
 				menu->setPosition(point);

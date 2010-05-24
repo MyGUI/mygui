@@ -301,15 +301,19 @@ namespace MyGUI
 		bool right = true;
 		if (pos == mItemsInfo.size()) right = false;
 
-		// корректируем виджет для пустоты
-		if (width < _getWidgetBar()->getWidth())
+		// в редакторе падает почему то, хотя этот скин создается всегда
+		if (mEmptyBarWidget)
 		{
-			mEmptyBarWidget->setVisible(true);
-			mEmptyBarWidget->setCoord(width, 0, _getWidgetBar()->getWidth() - width, _getWidgetBar()->getHeight());
-		}
-		else
-		{
-			mEmptyBarWidget->setVisible(false);
+			// корректируем виджет для пустоты
+			if (width < _getWidgetBar()->getWidth())
+			{
+				mEmptyBarWidget->setVisible(true);
+				mEmptyBarWidget->setCoord(width, 0, _getWidgetBar()->getWidth() - width, _getWidgetBar()->getHeight());
+			}
+			else
+			{
+				mEmptyBarWidget->setVisible(false);
+			}
 		}
 
 		// корректируем доступность стрелок

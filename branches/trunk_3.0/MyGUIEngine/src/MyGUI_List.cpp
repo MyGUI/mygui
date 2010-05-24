@@ -949,7 +949,7 @@ namespace MyGUI
 
 	int List::getOptimalHeight()
 	{
-		return (mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine);
+		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
 	}
 
 	void List::setProperty(const std::string& _key, const std::string& _value)
