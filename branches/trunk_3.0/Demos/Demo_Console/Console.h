@@ -10,11 +10,6 @@
 #include "BaseLayout/BaseLayout.h"
 #include <limits>
 
-#ifdef max
-#    undef max
-#    undef min
-#endif
-
 namespace demo
 {
 

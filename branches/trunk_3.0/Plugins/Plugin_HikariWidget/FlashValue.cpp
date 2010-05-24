@@ -62,7 +62,7 @@ FlashValue::FlashValue(bool booleanValue) : numValue(0), boolValue(booleanValue)
 {
 }
 
-FlashValue::FlashValue(int numericValue) : numValue(numericValue), boolValue(0), valueType(FT_NUMBER)
+FlashValue::FlashValue(int numericValue) : numValue(float(numericValue)), boolValue(0), valueType(FT_NUMBER)
 {
 }
 

@@ -45,6 +45,11 @@
 	#endif
 #endif
 
+#ifdef max
+#    undef max
+#    undef min
+#endif
+
 namespace MyGUI
 {
 
