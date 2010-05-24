@@ -46,6 +46,14 @@ namespace MyGUI
 		//!	Unload library
 		void unload(DynLib *library);
 
+		void unloadAll();
+
+	/*internal:*/
+		void _unloadDelayDynLibs();
+
+	private:
+		void notifyEventFrameStart(float _time);
+
 	private:
 		//! Dynamic libraries map
 		typedef std::map <std::string, DynLib*> StringDynLibMap;
@@ -53,6 +61,9 @@ namespace MyGUI
 		StringDynLibMap mLibsMap;
 
 		bool mIsInitialise;
+
+		typedef std::vector<DynLib*> VectorDynLib;
+		VectorDynLib mDelayDynLib;
 	};
 
 }
