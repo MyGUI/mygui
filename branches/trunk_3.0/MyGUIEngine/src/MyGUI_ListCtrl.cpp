@@ -45,43 +45,10 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	ListCtrl::~ListCtrl()
-	{
-	}
-
-	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void ListCtrl::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	size_t ListCtrl::getHScrollPage()
-	{
-		return mScrollViewPage;
-	}
-
-	size_t ListCtrl::getVScrollPage()
-	{
-		return mScrollViewPage;
-	}
-
-	void ListCtrl::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void ListCtrl::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 		mDragLayer = "DragAndDrop";
@@ -132,6 +99,18 @@ namespace MyGUI
 		mHScroll = nullptr;
 		mClient = nullptr;
 		mWidgetClient = nullptr;
+
+		Base::shutdownWidgetSkin();
+	}
+
+	size_t ListCtrl::getHScrollPage()
+	{
+		return mScrollViewPage;
+	}
+
+	size_t ListCtrl::getVScrollPage()
+	{
+		return mScrollViewPage;
 	}
 
 	void ListCtrl::setPosition(const IntPoint& _point)

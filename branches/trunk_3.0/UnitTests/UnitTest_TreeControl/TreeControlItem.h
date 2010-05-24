@@ -25,23 +25,15 @@ namespace MyGUI
 
         void setLevel(size_t nLevel);
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
     protected:
-        virtual ~TreeControlItem();
-
-        virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
+        virtual void initialiseWidgetSkin(ResourceSkin* _info);
+        virtual void shutdownWidgetSkin();
 
         void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
         void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
         void notifyMouseWheel(Widget* pSender, int nValue);
 
     private:
-        void initialiseWidgetSkin(ResourceSkin* pSkinInformation);
-        void shutdownWidgetSkin();
-
         Button* mpButtonExpandCollapse;
         StaticImage* mpIcon;
         int mnLevelOffset;

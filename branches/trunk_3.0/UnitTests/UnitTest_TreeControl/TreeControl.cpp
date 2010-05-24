@@ -97,38 +97,15 @@ namespace MyGUI
         mpSelection(nullptr),
         mnExpandedNodes(0)
     {
+    }
+
+    void TreeControl::initialiseWidgetSkin(ResourceSkin* _info)
+    {
+		Base::initialiseWidgetSkin(_info);
+
+		// FIXME перенесенно из конструктора, проверить смену скина
         mpRoot = new Node(this);
-    }
 
-    TreeControl::~TreeControl()
-    {
-    }
-
-    void TreeControl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-    {
-        Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-        initialiseWidgetSkin(_info);
-    }
-
-    void TreeControl::_shutdown()
-    {
-        shutdownWidgetSkin();
-
-        delete mpRoot;
-
-		Base::_shutdown();
-    }
-
-    void TreeControl::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)
-    {
-        shutdownWidgetSkin();
-        Widget::baseChangeWidgetSkin(pSkinInformation);
-        initialiseWidgetSkin(pSkinInformation);
-    }
-
-    void TreeControl::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
-    {
 		//FIXME
 		setNeedKeyFocus(true);
 
@@ -153,7 +130,7 @@ namespace MyGUI
         MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
         MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
 
-        const MapString& SkinProperties = pSkinInformation->getProperties();
+        const MapString& SkinProperties = _info->getProperties();
         MapString::const_iterator PropertyIterator = SkinProperties.find("SkinLine");
         if (PropertyIterator != SkinProperties.end())
             mstrSkinLine = PropertyIterator->second;
@@ -176,6 +153,10 @@ namespace MyGUI
     {
         mpWidgetScroll = nullptr;
         mWidgetClient = nullptr;
+		// FIXME перенесенно из деструктора, проверить смену скина
+        delete mpRoot;
+
+		Base::shutdownWidgetSkin();
     }
 
     void TreeControl::setRootVisible(bool bValue)

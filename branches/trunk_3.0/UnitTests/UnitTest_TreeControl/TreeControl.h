@@ -77,12 +77,9 @@ namespace MyGUI
         EventHandle_TreeControlPtrNodePtr eventTreeNodePrepare;
         EventHandle_TreeControlPtrSizeT eventTreeScrolled;
 
-	/*internal:*/
-        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
     protected:
-        virtual ~TreeControl();
+        virtual void initialiseWidgetSkin(ResourceSkin* _info);
+        virtual void shutdownWidgetSkin();
 
         void notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID);
         void notifyMouseWheel(Widget* pSender, int nValue);
@@ -98,13 +95,8 @@ namespace MyGUI
         virtual void onKeyLostFocus(Widget* pWidget);
         virtual void onKeyButtonPressed(KeyCode Key, Char Character);
 
-        virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
-
     private:
         typedef std::vector<TreeControlItem*> VectorTreeItemPtr;
-
-        void initialiseWidgetSkin(ResourceSkin* pSkinInformation);
-        void shutdownWidgetSkin();
 
         void validate();
 

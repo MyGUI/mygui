@@ -42,33 +42,10 @@ namespace MyGUI
 	{
 	}
 
-	StaticImage::~StaticImage()
-	{
-	}
-
-	void StaticImage::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void StaticImage::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void StaticImage::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void StaticImage::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if ( ! properties.empty() )
@@ -88,6 +65,8 @@ namespace MyGUI
 	void StaticImage::shutdownWidgetSkin()
 	{
 		frameAdvise(false);
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)

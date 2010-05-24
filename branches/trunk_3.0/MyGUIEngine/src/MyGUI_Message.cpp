@@ -51,33 +51,10 @@ namespace MyGUI
 	{
 	}
 
-	Message::~Message()
-	{
-	}
-
-	void Message::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Message::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Message::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Message::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим виджет для текста
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -127,6 +104,8 @@ namespace MyGUI
 	{
 		mWidgetText = nullptr;
 		mIcon = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void Message::setMessageText(const UString& _message)

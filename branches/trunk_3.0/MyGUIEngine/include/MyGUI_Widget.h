@@ -297,7 +297,6 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		//virtual void _getContainer(Widget*& _container, size_t& _index);
 		virtual size_t _getItemIndex(Widget* _item) { return ITEM_NONE; }
 
 		// дает приоритет виджету при пиккинге
@@ -321,8 +320,9 @@ namespace MyGUI
 
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
+
+		void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		void _shutdown();
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(Widget* _widget);
@@ -382,7 +382,8 @@ namespace MyGUI
 		// все создание только через фабрику
 		virtual ~Widget();
 
-		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin() { }
+		virtual void initialiseWidgetSkin(ResourceSkin* _info) { }
 
 		void _updateView(); // обновления себя и детей
 
@@ -410,8 +411,8 @@ namespace MyGUI
 	private:
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size);
-		void shutdownWidgetSkin(bool _deep = false);
+		void initialiseWidgetSkinBase(ResourceSkin* _info, const IntSize& _size);
+		void shutdownWidgetSkinBase(bool _deep = false);
 
 		void _updateAlpha();
 		void _updateAbsolutePoint();
@@ -427,6 +428,8 @@ namespace MyGUI
 		void _setSubSkinVisible(bool _visible);
 
 		float _getRealAlpha() { return mRealAlpha; }
+
+		void baseChangeWidgetSkin2(ResourceSkin* _info);
 
 	protected:
 		// список всех стейтов

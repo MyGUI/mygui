@@ -48,33 +48,10 @@ namespace MyGUI
 	{
 	}
 
-	Progress::~Progress()
-	{
-	}
-
-	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Progress::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Progress::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Progress::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
 			if (*(*iter)->_getInternalData<std::string>() == "Client")
@@ -106,6 +83,8 @@ namespace MyGUI
 	void Progress::shutdownWidgetSkin()
 	{
 		mClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void Progress::setProgressRange(size_t _range)

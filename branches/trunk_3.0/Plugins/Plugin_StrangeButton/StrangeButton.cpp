@@ -18,22 +18,24 @@ namespace plugin
 	{
 	}
 
-	StrangeButton::~StrangeButton()
+	void StrangeButton::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
+		// парсим свойства
+		const MyGUI::MapString& properties = _info->getProperties();
+		if (!properties.empty())
+		{
+			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
+			iter = properties.find("StateCheck");
+			if (iter != properties.end()) setStateCheck(MyGUI::utility::parseBool(iter->second));
+		}
 	}
 
-	void StrangeButton::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name)
+	void StrangeButton::shutdownWidgetSkin()
 	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void StrangeButton::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
+		Base::shutdownWidgetSkin();
 	}
 
 	void StrangeButton::onMouseSetFocus(MyGUI::Widget* _old)
@@ -64,30 +66,6 @@ namespace plugin
 		mText->setCaption(s);
 
 		updateButtonState();
-	}
-
-	void StrangeButton::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void StrangeButton::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-		// парсим свойства
-		const MyGUI::MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
-			iter = properties.find("StateCheck");
-			if (iter != properties.end()) setStateCheck(MyGUI::utility::parseBool(iter->second));
-		}
-	}
-
-	void StrangeButton::shutdownWidgetSkin()
-	{
 	}
 
 	void StrangeButton::onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id)

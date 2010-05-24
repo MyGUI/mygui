@@ -190,11 +190,6 @@ namespace MyGUI
 		*/
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
-
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -234,7 +229,8 @@ namespace MyGUI
 
 
 	protected:
-		virtual ~ItemBox();
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		struct ItemDataInfo
 		{
@@ -243,8 +239,6 @@ namespace MyGUI
 			Any data;
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
-
-		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
@@ -296,9 +290,6 @@ namespace MyGUI
 		virtual void _resetContainer(bool _update);
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		size_t calcIndexByWidget(Widget* _widget);
 
 		void requestItemSize();

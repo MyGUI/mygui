@@ -49,33 +49,10 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	ItemBox::~ItemBox()
-	{
-	}
-
-	void ItemBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void ItemBox::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void ItemBox::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void ItemBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 		mDragLayer = "DragAndDrop";
@@ -132,6 +109,8 @@ namespace MyGUI
 		mHScroll = nullptr;
 		mClient = nullptr;
 		mWidgetClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void ItemBox::setPosition(const IntPoint& _point)

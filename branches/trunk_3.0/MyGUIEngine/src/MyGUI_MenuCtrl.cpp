@@ -50,17 +50,14 @@ namespace MyGUI
 		mDistanceButton(0),
 		mPopupAccept(false),
 		mOwner(nullptr),
-		mAnimateSmooth(false)
+		mAnimateSmooth(false),
+		mChangeChildSkin(false)
 	{
 	}
 
-	MenuCtrl::~MenuCtrl()
+	void MenuCtrl::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-	}
-
-	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
+		Base::initialiseWidgetSkin(_info);
 
 		// инициализируем овнера
 		Widget* parent = getParent();
@@ -78,26 +75,6 @@ namespace MyGUI
 			}
 		}
 
-		initialiseWidgetSkin(_info);
-	}
-
-	void MenuCtrl::_shutdown()
-	{
-		mShutdown = true;
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void MenuCtrl::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void MenuCtrl::initialiseWidgetSkin(ResourceSkin* _info)
-	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -147,11 +124,18 @@ namespace MyGUI
 		if (iterS != properties.end()) mDistanceButton = utility::parseInt(iterS->second);
 
 		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
+
+		// FIXME добавленно, так как шетдаун вызывается и при смене скина
+		mShutdown = false;
 	}
 
 	void MenuCtrl::shutdownWidgetSkin()
 	{
 		mWidgetClient = nullptr;
+		// FIXME перенесенно из деструктора, может косячить при смене скина
+		mShutdown = true;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
@@ -309,8 +293,13 @@ namespace MyGUI
 
 	void MenuCtrl::_notifyDeleteItem(MenuItem* _item)
 	{
+		// дитю меняем скин
+		if (mChangeChildSkin)
+			return;
+
 		// общий шутдаун виджета
-		if (mShutdown) return;
+		if (mShutdown)
+			return;
 
 		size_t index = getItemIndex(_item);
 		mItemsInfo.erase(mItemsInfo.begin() + index);
@@ -341,7 +330,12 @@ namespace MyGUI
 
 		// сохраняем данные
 		info.type = _type;
+
+		// при смене скина дите отпишется
+		mChangeChildSkin = true;
 		info.item->changeWidgetSkin(getSkinByType(_type));
+		mChangeChildSkin = false;
+
 		setButtonImageIndex(info.item, getIconIndexByType(_type ));
 		info.item->setCaption(info.name);
 

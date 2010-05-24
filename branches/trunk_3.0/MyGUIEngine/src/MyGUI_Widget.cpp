@@ -118,7 +118,7 @@ namespace MyGUI
 
 		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
 
-		initialiseWidgetSkin(_info, _coord.size());
+		initialiseWidgetSkinBase(_info, _coord.size());
 
 		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
@@ -131,11 +131,17 @@ namespace MyGUI
 			// дочернее перекрывающееся
 			if (mParent) mParent->addChildNode(this);
 		}
+
+		// витр метод для наследников
+		initialiseWidgetSkin(_info);
 	}
 
 	void Widget::_shutdown()
 	{
-		shutdownWidgetSkin(true);
+		// витр метод для наследников
+		shutdownWidgetSkin();
+
+		shutdownWidgetSkinBase(true);
 
 		_destroyAllChildWidget();
 
@@ -160,23 +166,26 @@ namespace MyGUI
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
-		ResourceSkin* skin_info = SkinManager::getInstance().getByName(_skinname);
-		baseChangeWidgetSkin(skin_info);
+		ResourceSkin* _info = SkinManager::getInstance().getByName(_skinname);
+
+		shutdownWidgetSkin();
+		baseChangeWidgetSkin2(_info);
+		initialiseWidgetSkin(_info);
 	}
 
-	void Widget::baseChangeWidgetSkin(ResourceSkin* _info)
+	void Widget::baseChangeWidgetSkin2(ResourceSkin* _info)
 	{
 		IntSize size = mCoord.size();
 
 		saveLayerItem();
 
-		shutdownWidgetSkin();
-		initialiseWidgetSkin(_info, size);
+		shutdownWidgetSkinBase();
+		initialiseWidgetSkinBase(_info, size);
 
 		restoreLayerItem();
 	}
 
-	void Widget::initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size)
+	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info, const IntSize& _size)
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -277,7 +286,7 @@ namespace MyGUI
 		Widget::setSize(_size);//FIXME - явный вызов
 	}
 
-	void Widget::shutdownWidgetSkin(bool _deep)
+	void Widget::shutdownWidgetSkinBase(bool _deep)
 	{
 		// удаляем все сабскины
 		mMainSkin = nullptr;

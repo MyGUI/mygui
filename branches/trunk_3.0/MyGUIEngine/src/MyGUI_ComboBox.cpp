@@ -51,33 +51,10 @@ namespace MyGUI
 	{
 	}
 
-	ComboBox::~ComboBox()
-	{
-	}
-
-	void ComboBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void ComboBox::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void ComboBox::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void ComboBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -156,8 +133,9 @@ namespace MyGUI
 		}
 		mList = nullptr;
 		mButton = nullptr;
-	}
 
+		Base::shutdownWidgetSkin();
+	}
 
 	void ComboBox::notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{

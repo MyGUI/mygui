@@ -42,33 +42,10 @@ namespace MyGUI
 		mContentAlign = Align::Center;
 	}
 
-	ScrollView::~ScrollView()
-	{
-	}
-
-	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void ScrollView::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void ScrollView::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void ScrollView::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
@@ -114,6 +91,8 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mScrollClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void ScrollView::notifyMouseSetFocus(Widget* _sender, Widget* _old)

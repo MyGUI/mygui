@@ -260,9 +260,6 @@ namespace MyGUI
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -285,9 +282,8 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		virtual ~MenuCtrl();
-
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		// переопределяем для особого обслуживания
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
@@ -295,9 +291,6 @@ namespace MyGUI
 		virtual void onKeyChangeRootFocus(bool _focus);
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonClick(Widget* _sender);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
@@ -364,6 +357,7 @@ namespace MyGUI
 		MenuItem* mOwner;
 		bool mAnimateSmooth;
 
+		bool mChangeChildSkin;
 	};
 
 } // namespace MyGUI

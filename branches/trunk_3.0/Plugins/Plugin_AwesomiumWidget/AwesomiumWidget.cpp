@@ -18,15 +18,9 @@ namespace Awesomium
 	{
 	}
 
-	AwesomiumWidget::~AwesomiumWidget()
+	void AwesomiumWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
 	{
-	}
-
-	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
+		Base::initialiseWidgetSkin(_info);
 
 		mControl = AwesomiumWidgetFactory::getCore()->createWebView(getWidth(), getHeight(), mIsTransparent, true, 90);
 		mControl->setListener(this);
@@ -37,7 +31,7 @@ namespace Awesomium
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 	}
 
-	void AwesomiumWidget::_shutdown()
+	void AwesomiumWidget::shutdownWidgetSkin()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 		mControl->destroy();
@@ -45,24 +39,7 @@ namespace Awesomium
 
 		requestUpdateCanvas = nullptr;
 
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void AwesomiumWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void AwesomiumWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-	}
-
-	void AwesomiumWidget::shutdownWidgetSkin()
-	{
+		Base::shutdownWidgetSkin();
 	}
 
 	void AwesomiumWidget::loadURL(const std::string& _url)

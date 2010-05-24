@@ -99,9 +99,6 @@ namespace MyGUI
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
@@ -119,10 +116,6 @@ namespace MyGUI
 			eventUpdateDropState;
 
 	protected:
-		virtual ~DDContainer();
-
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		virtual void onMouseDrag(int _left, int _top);
@@ -138,11 +131,6 @@ namespace MyGUI
 		void mouseButtonPressed(MouseButton _id);
 
 		void endDrop(bool _reset);
-
-	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 
 	protected:
 		bool mDropResult;

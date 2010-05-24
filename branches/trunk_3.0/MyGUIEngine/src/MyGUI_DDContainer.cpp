@@ -40,39 +40,6 @@ namespace MyGUI
 	{
 	}
 
-	DDContainer::~DDContainer()
-	{
-	}
-
-	void DDContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void DDContainer::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void DDContainer::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void DDContainer::initialiseWidgetSkin(ResourceSkin* _info)
-	{
-	}
-
-	void DDContainer::shutdownWidgetSkin()
-	{
-	}
-
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		// смещение внутри виджета, куда кликнули мышкой

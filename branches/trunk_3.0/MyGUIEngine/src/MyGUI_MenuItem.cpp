@@ -30,14 +30,11 @@ namespace MyGUI
 	{
 	}
 
-	MenuItem::~MenuItem()
+	void MenuItem::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-	}
+		Base::initialiseWidgetSkin(_info);
 
-	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
+		// FIXME проверить смену скина ибо должно один раз вызываться
 		Widget* parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
 		if (!parent->isType<MenuCtrl>())
@@ -50,18 +47,16 @@ namespace MyGUI
 		}
 		mOwner = parent->castType<MenuCtrl>();
 
-		initialiseWidgetSkin(_info);
-
 		// нам нуженфокус клавы
 		this->mNeedKeyFocus = true;
 	}
 
-	void MenuItem::_shutdown()
+	void MenuItem::shutdownWidgetSkin()
 	{
-		shutdownWidgetSkin();
+		// FIXME проверить смену скина ибо должно один раз вызываться
 		mOwner->_notifyDeleteItem(this);
 
-		Base::_shutdown();
+		Base::shutdownWidgetSkin();
 	}
 
 	Widget* MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
@@ -70,31 +65,6 @@ namespace MyGUI
 		MenuCtrl* child = widget->castType<MenuCtrl>(false);
 		if (child) mOwner->_wrapItemChild(this, child);
 		return widget;
-	}
-
-	void MenuItem::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Button::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void MenuItem::initialiseWidgetSkin(ResourceSkin* _info)
-	{
-	}
-
-	void MenuItem::shutdownWidgetSkin()
-	{
-	}
-
-	void MenuItem::onMouseButtonPressed(int _left, int _top, MouseButton _id)
-	{
-		Base::onMouseButtonPressed(_left, _top, _id);
-	}
-
-	void MenuItem::onMouseButtonReleased(int _left, int _top, MouseButton _id)
-	{
-		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void MenuItem::setCaption(const UString& _value)

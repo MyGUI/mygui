@@ -52,34 +52,10 @@ namespace MyGUI
 	{
 	}
 
-	Tab::~Tab()
-	{
-	}
-
-	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Tab::_shutdown()
-	{
-		mShutdown = true;
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Tab::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Tab::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -146,6 +122,9 @@ namespace MyGUI
 		mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 
 		updateBar();
+
+		// FIXME добавленно, так как шетдаун вызывается и при смене скина
+		mShutdown = false;
 	}
 
 	void Tab::shutdownWidgetSkin()
@@ -158,8 +137,11 @@ namespace MyGUI
 		mButtonDecor = nullptr;
 		mItemTemplate = nullptr;
 		mEmptyBarWidget = nullptr;
-	}
+		// FIXME перенесенно из деструктора, может косячить при смене скина
+		mShutdown = true;
 
+		Base::shutdownWidgetSkin();
+	}
 
 	// переопределяем для особого обслуживания страниц
 	Widget* Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)

@@ -44,19 +44,7 @@ namespace MyGUI
 		//! @copydoc VScroll::getTrackSize()
 		virtual int getTrackSize();
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
-	protected:
-		virtual ~HScroll();
-
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void TrackMove(int _left, int _top);
 		void updateTrack();
 

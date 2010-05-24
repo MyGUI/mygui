@@ -69,33 +69,10 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	Edit::~Edit()
-	{
-	}
-
-	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Edit::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Edit::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Edit::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		mOriginalPointer = mPointer;
 
 		// нам нужен фокус клавы
@@ -162,6 +139,8 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 		mVScroll= nullptr;
 		mHScroll = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void Edit::notifyMouseSetFocus(Widget* _sender, Widget* _old)

@@ -40,22 +40,6 @@ namespace MyGUI
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
-	Canvas::~Canvas()
-	{
-	}
-
-	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-	}
-
-	void Canvas::_shutdown()
-	{
-		_destroyTexture( false );
-
-		Base::_shutdown();
-	}
-
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
 		int width = std::max(1, getWidth());
@@ -217,19 +201,6 @@ namespace MyGUI
 	void Canvas::unlock()
 	{
 		mTexture->unlock();
-	}
-
-	void Canvas::baseChangeWidgetSkin( ResourceSkin* _info )
-	{
-		Base::baseChangeWidgetSkin( _info );
-	}
-
-	void Canvas::initialiseWidgetSkin( ResourceSkin* _info )
-	{
-	}
-
-	void Canvas::shutdownWidgetSkin()
-	{
 	}
 
 	bool Canvas::isTextureSrcSize() const

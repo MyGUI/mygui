@@ -30,22 +30,20 @@ namespace MyGUI
 	{
 	}
 
-	TabItem::~TabItem()
+	void TabItem::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-	}
+		Base::initialiseWidgetSkin(_info);
 
-	void TabItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
+		// FIXME проверить смену скина ибо должно один раз вызываться
 		mOwner = getParent()->castType<Tab>();
 	}
 
-	void TabItem::_shutdown()
+	void TabItem::shutdownWidgetSkin()
 	{
+		// FIXME проверить смену скина ибо должно один раз вызываться
 		mOwner->_notifyDeleteItem(this);
 
-		Base::_shutdown();
+		Base::shutdownWidgetSkin();
 	}
 
 	void TabItem::setSelected(bool _value)

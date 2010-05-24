@@ -250,10 +250,6 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
-		virtual void _shutdown();
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -302,7 +298,8 @@ namespace MyGUI
 
 
 	protected:
-		virtual ~Edit();
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		virtual void onMouseDrag(int _left, int _top);
 		virtual void onKeyLostFocus(Widget* _new);
@@ -324,13 +321,7 @@ namespace MyGUI
 		void updateView();
 		void updateViewWithCursor();
 
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
 		void eraseView();
-
-	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
 
 	private:
 		// устанавливает текст

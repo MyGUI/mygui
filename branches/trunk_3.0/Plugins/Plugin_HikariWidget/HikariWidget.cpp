@@ -16,15 +16,9 @@ namespace Hikari
 	{
 	}
 
-	HikariWidget::~HikariWidget()
+	void HikariWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
 	{
-	}
-
-	void HikariWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
-
-		initialiseWidgetSkin(_info);
+		Base::initialiseWidgetSkin(_info);
 
 		createTexture(TRM_PT_VIEW_REQUESTED);
 		requestUpdateCanvas = newDelegate(this, &HikariWidget::notifyUpdateCanvas);
@@ -35,7 +29,7 @@ namespace Hikari
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 	}
 
-	void HikariWidget::_shutdown()
+	void HikariWidget::shutdownWidgetSkin()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 
@@ -43,24 +37,7 @@ namespace Hikari
 		delete mControl;
 		mControl = 0;
 
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void HikariWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void HikariWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-	}
-
-	void HikariWidget::shutdownWidgetSkin()
-	{
+		Base::shutdownWidgetSkin();
 	}
 
 	void HikariWidget::notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)
