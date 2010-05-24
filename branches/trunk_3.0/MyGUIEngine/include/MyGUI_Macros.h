@@ -22,6 +22,7 @@
 #ifndef __MYGUI_MACROS_H__
 #define __MYGUI_MACROS_H__
 
+#include "MyGUI_Prerequest.h"
 #include <limits>
 #include <stddef.h>
 
