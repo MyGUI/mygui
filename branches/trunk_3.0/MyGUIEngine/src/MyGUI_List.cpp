@@ -276,7 +276,7 @@ namespace MyGUI
 		// если не клиент, то просчитывам
 		}
 		// ячейка может быть скрыта
-		else if (_sender->isVisible())
+		else if (_sender->getVisible())
 		{
 
 #if MYGUI_DEBUG_MODE == 1
@@ -335,7 +335,7 @@ namespace MyGUI
 
 		if ( (!mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= _getClientWidget()->getLeft()) )
 		{
-			if (mWidgetScroll->isVisible())
+			if (mWidgetScroll->getVisible())
 			{
 				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
@@ -343,7 +343,7 @@ namespace MyGUI
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 		}
-		else if (!mWidgetScroll->isVisible())
+		else if (!mWidgetScroll->getVisible())
 		{
 			if (mWidgetClient != nullptr)
 				mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
@@ -890,7 +890,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
 			static_cast<Button*>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
-			static_cast<Button*>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
+			static_cast<Button*>(mWidgetLines[pos])->getVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);

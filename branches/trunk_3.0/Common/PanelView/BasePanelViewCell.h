@@ -79,7 +79,7 @@ namespace wraps
 		}
 
 		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool getVisible() { return mMainWidget->getVisible(); }
 
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 

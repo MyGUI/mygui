@@ -41,7 +41,7 @@ namespace MyGUI
 		// подготовка виджета, блокируем если только нужно
 		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
 
-		if ((ALPHA_MIN != mAlpha) && (!_widget->isVisible()))
+		if ((ALPHA_MIN != mAlpha) && (!_widget->getVisible()))
 		{
 			_widget->setAlpha(ALPHA_MIN);
 			_widget->setVisible(true);

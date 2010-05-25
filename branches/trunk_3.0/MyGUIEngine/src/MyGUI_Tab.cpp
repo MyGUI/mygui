@@ -360,7 +360,7 @@ namespace MyGUI
 		for (size_t pos=0; pos<mItemButton.size(); pos++)
 		{
 			Button* button = mItemButton[count]->castType<Button>();
-			if (button->isVisible())
+			if (button->getVisible())
 			{
 				// корректируем нажатость кнопки
 				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);

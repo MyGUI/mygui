@@ -62,7 +62,9 @@ namespace MyGUI
 		mWidgetClient(nullptr),
 		mNeedToolTip(false),
 		mWidgetStyle(WidgetStyle::Child),
-		mContainer(nullptr)
+		mContainer(nullptr),
+		mAlign(Align::Default),
+		mVisible(true)
 	{
 	}
 
@@ -220,7 +222,7 @@ namespace MyGUI
 		if (!isRootWidget())
 		{
 			// проверяем наследуемую скрытость
-			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
+			if ((!mParent->getVisible()) || (!mParent->_isInheritsVisible()))
 			{
 				bool value = false;
 				mInheritsVisible = value;
@@ -949,9 +951,9 @@ namespace MyGUI
 		mIsMargin = margin;
 	}
 
-	void Widget::setAlign(Align _align)
+	void Widget::setAlign(Align _value)
 	{
-		ICroppedRectangle::setAlign(_align);
+		mAlign = _value;
 	}
 
 	void Widget::detachFromWidget(const std::string& _layer)

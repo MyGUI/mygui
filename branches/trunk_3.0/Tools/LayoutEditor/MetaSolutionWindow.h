@@ -54,7 +54,7 @@ public:
 	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
-	bool isVisible() { return mMainWidget->isVisible(); }
+	bool getVisible() { return mMainWidget->getVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 	
 	void loadList();

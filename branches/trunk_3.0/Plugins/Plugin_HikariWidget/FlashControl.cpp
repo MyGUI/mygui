@@ -323,7 +323,7 @@ void FlashControl::update()
 	if (isClean)
 		return;
 
-	if (mOwner && !mOwner->isVisible())
+	if (mOwner && !mOwner->getVisible())
 		return;
 
 	// очищаем текстуру

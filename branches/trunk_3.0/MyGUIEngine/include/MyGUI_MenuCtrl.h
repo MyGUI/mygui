@@ -267,8 +267,8 @@ namespace MyGUI
 		void showMenu() { setVisible(true); }
 		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
 		void hideMenu() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool Widget::isVisible()")
-		bool isShowMenu() { return isVisible(); }
+		MYGUI_OBSOLETE("use : bool Widget::getVisible()")
+		bool isShowMenu() { return getVisible(); }
 
 		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
 		void showItemChildAt(size_t _index) { setItemChildVisibleAt(_index, true); }

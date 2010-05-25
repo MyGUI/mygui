@@ -61,7 +61,7 @@ namespace demo
 		const MyGUI::UString & getConsoleStringUnknow() { return mStringUnknow; }
 		const MyGUI::UString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool getVisible() { return mMainWidget->getVisible(); }
 		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 
 		template <typename T> bool isAction(T & _result, const MyGUI::UString & _key, const MyGUI::UString & _value, const MyGUI::UString & _format = "")

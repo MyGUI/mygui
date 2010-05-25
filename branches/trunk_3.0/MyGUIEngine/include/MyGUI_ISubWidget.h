@@ -43,6 +43,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidget )
 
 	public:
+		ISubWidget() : mVisible(true) { }
 		virtual ~ISubWidget() { }
 
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node) = 0;
@@ -54,6 +55,12 @@ namespace MyGUI
 
 		virtual void doRender() = 0;
 
+		virtual void setAlign(Align _value) { mAlign = _value; }
+		virtual void setVisible(bool _value) { mVisible = _value; }
+
+	protected:
+		Align mAlign;
+		bool mVisible;
 	};
 
 } // namespace MyGUI

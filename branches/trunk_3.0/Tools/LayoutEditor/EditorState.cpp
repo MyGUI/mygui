@@ -459,7 +459,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 
 	if (input.isModalAny())
 	{
-		if (mOpenSaveFileDialog->isVisible())
+		if (mOpenSaveFileDialog->getVisible())
 		{
 			if (_key == MyGUI::KeyCode::Escape)
 				mOpenSaveFileDialog->eventEndDialog(false);
@@ -743,7 +743,7 @@ void EditorState::notifyTest()
 
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
-		if ((*iter)->isVisible())
+		if ((*iter)->getVisible())
 		{
 			(*iter)->setUserString("WasVisible", "true");
 			(*iter)->setVisible(false);
@@ -914,7 +914,7 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::Messa
 
 void EditorState::notifyWidgetsUpdate()
 {
-	if (mMetaSolutionWindow->isVisible())
+	if (mMetaSolutionWindow->getVisible())
 		mMetaSolutionWindow->updateList();
 
 	bool print_name = mSettingsWindow->getShowName();

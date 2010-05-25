@@ -158,7 +158,7 @@ namespace MyGUI
 
 		if ((count_h * count_v) > IMAGE_MAX_INDEX)
 		{
-			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTextureName << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
+			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << _getTextureName() << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
 			return;
 		}
 

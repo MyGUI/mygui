@@ -151,7 +151,7 @@ namespace MyGUI
 			return;
 		}
 		// если скрыт то покажем
-		if (!mWidgetTrack->isVisible())
+		if (!mWidgetTrack->getVisible())
 		{
 			mWidgetTrack->setVisible(true);
 		}

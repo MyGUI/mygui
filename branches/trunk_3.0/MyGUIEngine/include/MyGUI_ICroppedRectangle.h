@@ -33,9 +33,7 @@ namespace MyGUI
 	public:
 		ICroppedRectangle() :
 			mIsMargin(false),
-			mCroppedParent(nullptr),
-			mVisible(true),
-			mAlign(Align::Default)
+			mCroppedParent(nullptr)
 		{ }
 
 		virtual ~ICroppedRectangle() { }
@@ -58,11 +56,6 @@ namespace MyGUI
 		/** Get size */
 		IntSize getSize() const { return mCoord.size(); }
 
-		/** Hide or show */
-		virtual void setVisible(bool _value) { mVisible = _value; }
-		/** Return true if visible */
-		bool isVisible() const { return mVisible; }
-
 		/** Get position in screen coordinates */
 		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
 		/** Get rectangle in screen coordinates */
@@ -74,11 +67,6 @@ namespace MyGUI
 		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
 		/** Get Y in screen coordinates */
 		int getAbsoluteTop() const { return mAbsolutePosition.top; }
-
-		/** Set align */
-		virtual void setAlign(Align _value) { mAlign = _value; }
-		/** Get align */
-		Align getAlign() const { return mAlign; }
 
 		/** Get left x-coordinate */
 		int getLeft() const { return mCoord.left; }
@@ -118,18 +106,6 @@ namespace MyGUI
 		int _getMarginRight() const { return mMargin.right; }
 		int _getMarginTop() const { return mMargin.top; }
 		int _getMarginBottom() const { return mMargin.bottom; }
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
-		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
-		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool ICroppedRectangle::isVisible()")
-		bool isShow() { return isVisible(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		bool _checkPoint(int _left, int _top)
@@ -196,15 +172,12 @@ namespace MyGUI
 		}
 
 	protected:
-		bool mIsMargin;
 		IntRect mMargin; // перекрытие
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
 		ICroppedRectangle * mCroppedParent;
-		bool mVisible;
-		Align mAlign;
-
+		bool mIsMargin;
 	};
 
 } // namespace MyGUI

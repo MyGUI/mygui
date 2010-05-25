@@ -556,7 +556,7 @@ namespace MyGUI
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
 		{
-			if ((*iter)->isVisible())
+			if ((*iter)->getVisible())
 			{
 				if ((*iter)->getAbsoluteRect().inside(_point))
 				{
@@ -586,7 +586,7 @@ namespace MyGUI
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
 		{
-			if ((*iter)->isVisible())
+			if ((*iter)->getVisible())
 			{
 				size_t index = getIndexByWidget(*iter);
 

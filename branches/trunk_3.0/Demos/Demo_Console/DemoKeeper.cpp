@@ -54,7 +54,7 @@ namespace demo
 	{
 		if (_key == MyGUI::KeyCode::Grave)
 		{
-			mConsole->setVisible(!mConsole->isVisible());
+			mConsole->setVisible(!mConsole->getVisible());
 			return;
 		}
 
@@ -85,7 +85,7 @@ namespace demo
 		{
 			if (_value.empty())
 			{
-				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isVisible()));
+				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getVisible()));
 			}
 			else
 			{

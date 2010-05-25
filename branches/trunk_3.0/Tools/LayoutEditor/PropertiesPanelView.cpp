@@ -136,7 +136,8 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 
 void PropertiesPanelView::notifyRectangleResize(MyGUI::Window* _sender)
 {
-	if (!_sender->isVisible()) return;
+	if (!_sender->getVisible())
+		return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)

@@ -363,7 +363,7 @@ namespace MyGUI
 		if (_visible)
 		{
 			setEnabledSilent(true);
-			if ( ! isVisible() )
+			if (!getVisible())
 			{
 				setAlpha(ALPHA_MIN);
 				Base::setVisible(true);

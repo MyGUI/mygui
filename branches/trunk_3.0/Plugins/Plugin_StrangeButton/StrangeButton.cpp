@@ -94,17 +94,34 @@ namespace plugin
 	{
 		if (mIsStateCheck)
 		{
-			if (!isEnabled()) { if (!setState("disabled_checked")) setState("disabled"); }
-			else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
-			else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
-			else setState("normal_checked");
+			if (!getEnabled())
+			{
+				if (!setState("disabled_checked"))
+					setState("disabled");
+			}
+			else if (mIsMousePressed)
+			{
+				if (!setState("pushed_checked"))
+					setState("pushed");
+			}
+			else if (mIsMouseFocus)
+			{
+				if (!setState("highlighted_checked"))
+					setState("pushed");
+			}
+			else
+				setState("normal_checked");
 		}
 		else
 		{
-			if (!isEnabled()) setState("disabled");
-			else if (mIsMousePressed) setState("pushed");
-			else if (mIsMouseFocus) setState("highlighted");
-			else setState("normal");
+			if (!getEnabled())
+				setState("disabled");
+			else if (mIsMousePressed)
+				setState("pushed");
+			else if (mIsMouseFocus)
+				setState("highlighted");
+			else
+				setState("normal");
 		}
 	}
 
@@ -124,7 +141,7 @@ namespace plugin
 	void StrangeButton::baseUpdateEnable()
 	{
 		updateButtonState();
-		if (!isEnabled())
+		if (!getEnabled())
 		{
 			mIsMouseFocus = false;
 		}

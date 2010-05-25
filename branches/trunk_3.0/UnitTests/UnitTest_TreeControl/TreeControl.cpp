@@ -252,14 +252,14 @@ namespace MyGUI
 
         if (!mbScrollAlwaysVisible || mnScrollRange <= 0 || mpWidgetScroll->getLeft() <= mWidgetClient->getLeft())
         {
-            if (mpWidgetScroll->isVisible())
+            if (mpWidgetScroll->getVisible())
             {
                 mpWidgetScroll->setVisible(false);
                 mWidgetClient->setSize(mWidgetClient->getWidth() + mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
             }
         }
         else
-        if (!mpWidgetScroll->isVisible())
+        if (!mpWidgetScroll->getVisible())
         {
             mWidgetClient->setSize(mWidgetClient->getWidth() - mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
             mpWidgetScroll->setVisible(true);
@@ -459,7 +459,7 @@ namespace MyGUI
             if (pSender == mWidgetClient)
                 pSelection = nullptr;
             else
-            if (pSender->isVisible())
+            if (pSender->getVisible())
                 pSelection = *pSender->getUserData<Node*>();
 
             setSelection(pSelection);

@@ -247,7 +247,7 @@ namespace MyGUI
 
 		// ищем вверх тот виджет который может принимать фокус
 		Widget* item = mWidgetMouseFocus;
-		while ((item != nullptr) && (!item->isNeedKeyFocus()))
+		while ((item != nullptr) && (!item->getNeedKeyFocus()))
 			item = item->getParent();
 
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
@@ -417,7 +417,7 @@ namespace MyGUI
 		}
 
 		// устанавливаем новый
-		if (_widget && _widget->isNeedKeyFocus())
+		if (_widget && _widget->getNeedKeyFocus())
 		{
 			_widget->onKeySetFocus(mWidgetKeyFocus);
 		}

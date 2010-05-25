@@ -116,10 +116,6 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 
-		//! Get name of widget
-		const std::string& getName() const { return mName; }
-
-
 		/** Set widget position (position of left top corner) */
 		virtual void setPosition(const IntPoint& _value);
 		/** Set widget size */
@@ -148,11 +144,18 @@ namespace MyGUI
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
+		//! Get name of widget
+		const std::string& getName() const { return mName; }
+
 		/** Hide or show widget */
 		virtual void setVisible(bool _value);
+		/** Return true if visible */
+		bool getVisible() const { return mVisible; }
 
 		/** Set align */
 		virtual void setAlign(Align _value);
+		/** Get align */
+		Align getAlign() const { return mAlign; }
 
 		/** Set widget caption */
 		virtual void setCaption(const UString& _value);
@@ -162,7 +165,7 @@ namespace MyGUI
 		/** Set widget opacity */
 		void setAlpha(float _value);
 		/** Get widget opacity */
-		float getAlpha() { return mAlpha; }
+		float getAlpha() const { return mAlpha; }
 
 		/** Enable or disable inherits alpha mode.\n
 			Inherits alpha mode: when enabled widget alpha it it's own
@@ -176,7 +179,7 @@ namespace MyGUI
 		*/
 		void setInheritsAlpha(bool _value);
 		/** Get inherits alpha mode flag */
-		bool isInheritsAlpha() { return mInheritsAlpha; }
+		bool getInheritsAlpha()  const { return mInheritsAlpha; }
 
 		/** Set widget's state */
 		bool setState(const std::string& _value);
@@ -210,7 +213,7 @@ namespace MyGUI
 			If disable this widget won't be reacting on keyboard at all.\n
 			Enabled (true) by default.
 		*/
-		bool isNeedKeyFocus() { return mNeedKeyFocus; }
+		bool getNeedKeyFocus() const { return mNeedKeyFocus; }
 
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
@@ -218,7 +221,7 @@ namespace MyGUI
 			If disable this widget won't be reacting on mouse at all.\n
 			Enabled (true) by default.
 		*/
-		bool isNeedMouseFocus() { return mNeedMouseFocus; }
+		bool getNeedMouseFocus() const { return mNeedMouseFocus; }
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
@@ -227,7 +230,7 @@ namespace MyGUI
 		*/
 		void setInheritsPick(bool _value) { mInheritsPick = _value; }
 		/** Get inherits mode flag */
-		bool isInheritsPick() { return mInheritsPick; }
+		bool getInheritsPick() const { return mInheritsPick; }
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
@@ -237,7 +240,12 @@ namespace MyGUI
 		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _value) { mEnabled = _value; }
 		/** Is widget enabled */
-		bool getEnabled() { return mEnabled; }
+		bool getEnabled() const { return mEnabled; }
+
+		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
+		void setNeedToolTip(bool _value);
+		/** Get need tool tip mode flag */
+		bool getNeedToolTip() const { return mNeedToolTip; }
 
 		/** Set mouse pointer for this widget */
 		void setPointer(const std::string& _value) { mPointer = _value; }
@@ -257,11 +265,6 @@ namespace MyGUI
 		ISubWidgetText * getSubWidgetText() { return mText; }
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
 		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
-
-		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
-		void setNeedToolTip(bool _value);
-		/** Get need tool tip mode flag */
-		bool getNeedToolTip() { return mNeedToolTip; }
 
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
@@ -325,7 +328,7 @@ namespace MyGUI
 		void _shutdown();
 
 		// удяляет неудачника
-		/*virtual */void _destroyChildWidget(Widget* _widget);
+		void _destroyChildWidget(Widget* _widget);
 
 		// добавляет в список виджет
 		void _linkChildWidget(Widget* _widget);
@@ -345,8 +348,8 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
 		void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
-		MYGUI_OBSOLETE("use : bool isInheritsPick()")
-		bool isInheritsPeek() { return isInheritsPick(); }
+		MYGUI_OBSOLETE("use : bool getInheritsPick()")
+		bool isInheritsPeek() { return getInheritsPick(); }
 
 		MYGUI_OBSOLETE("use : void setMaskPick(const std::string& _filename)")
 		void setMaskPeek(const std::string& _filename) { setMaskPick(_filename); }
@@ -376,8 +379,18 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
 		const Colour& getTextColour() { return _getTextColour(); }
 
-		MYGUI_OBSOLETE("use : bool Widget::getEnabled()")
-		bool isEnabled() { return getEnabled(); }
+		MYGUI_OBSOLETE("use : bool Widget::getEnabled() const")
+		bool isEnabled() const { return getEnabled(); }
+		MYGUI_OBSOLETE("use : bool Widget::getInheritsAlpha() const")
+		bool isInheritsAlpha() const { return getInheritsAlpha(); }
+		MYGUI_OBSOLETE("use : bool Widget::getNeedKeyFocus() const")
+		bool isNeedKeyFocus() const { return getNeedKeyFocus(); }
+		MYGUI_OBSOLETE("use : bool Widget::getNeedMouseFocus() const")
+		bool isNeedMouseFocus() const { return getNeedMouseFocus(); }
+		MYGUI_OBSOLETE("use : bool Widget::getInheritsPick() const")
+		bool isInheritsPick() const { return getInheritsPick(); }
+		MYGUI_OBSOLETE("use : bool Widget::getVisible() const")
+		bool isVisible() const { return getVisible(); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -397,7 +410,7 @@ namespace MyGUI
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удаляет всех детей
-		/*virtual */void _destroyAllChildWidget();
+		void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
@@ -450,8 +463,6 @@ namespace MyGUI
 		// вектор детей скина
 		VectorWidgetPtr mWidgetChildSkin;
 
-		std::string mTextureName;
-
 	private:
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
@@ -477,6 +488,8 @@ namespace MyGUI
 		std::string mName;
 		// курсор который будет показан при наведении
 		std::string mPointer;
+
+		std::string mTextureName;
 		ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
@@ -489,17 +502,14 @@ namespace MyGUI
 		bool mInheritsPick;
 
 		bool mNeedToolTip;
-		//bool mEnableToolTip;
-		//bool mToolTipVisible;
-		//float mToolTipCurrentTime;
-		//IntPoint mToolTipOldPoint;
-		//size_t mToolTipOldIndex;
-		//IntPoint m_oldMousePoint;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
 		Widget* mContainer;
+
+		Align mAlign;
+		bool mVisible;
 	};
 
 } // namespace MyGUI

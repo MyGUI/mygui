@@ -32,7 +32,7 @@ namespace common
 		const MyGUI::UString& getFileName() const { return mFileName; }
 
 		void setVisible(bool _value) { mMainWidget->setVisible(_value); }
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool getVisible() { return mMainWidget->getVisible(); }
 
 		EventHandle_Result eventEndDialog;
 

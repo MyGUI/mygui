@@ -59,7 +59,7 @@ namespace MyGUI
 			mouseFocus = mouseFocus->getParent();
 
 		// if our widget or its children have focus
-		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (_widget->isVisible() == false);
+		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (_widget->getVisible() == false);
 
 		mElapsedTime += haveFocus ? -_time : _time;
 
