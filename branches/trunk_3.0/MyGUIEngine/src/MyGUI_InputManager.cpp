@@ -192,12 +192,12 @@ namespace MyGUI
 		//-------------------------------------------------------------------------------------//
 
 		// смена фокуса, проверяем на доступность виджета
-		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->isEnabled()))
+		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->getEnabled()))
 		{
 			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
 
-		if ((item != nullptr) && (item->isEnabled()))
+		if ((item != nullptr) && (item->getEnabled()))
 		{
 			item->onMouseMove(_absx, _absy);
 			item->onMouseSetFocus(mWidgetMouseFocus);
@@ -229,7 +229,7 @@ namespace MyGUI
 
 		// если активный элемент заблокирован
 		//FIXME
-		if (!mWidgetMouseFocus->isEnabled())
+		if (!mWidgetMouseFocus->getEnabled())
 			return true;
 
 		// захватываем только по левой клавише и только если виджету надо
@@ -290,7 +290,7 @@ namespace MyGUI
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
-			if (!mWidgetMouseFocus->isEnabled())
+			if (!mWidgetMouseFocus->getEnabled())
 				return true;
 
 			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);

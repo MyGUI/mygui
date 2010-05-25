@@ -148,8 +148,10 @@ namespace MyGUI
 	{
 		mItems.clear();
 
-		if ((mRectImage.right <= mRectImage.left) || (mRectImage.bottom <= mRectImage.top)) return;
-		if ((mSizeTile.width <= 0) || (mSizeTile.height <= 0)) return;
+		if ((mRectImage.right <= mRectImage.left) || (mRectImage.bottom <= mRectImage.top))
+			return;
+		if ((mSizeTile.width <= 0) || (mSizeTile.height <= 0))
+			return;
 
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);

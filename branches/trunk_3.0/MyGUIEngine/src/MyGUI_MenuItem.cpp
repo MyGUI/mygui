@@ -47,8 +47,9 @@ namespace MyGUI
 		}
 		mOwner = parent->castType<MenuCtrl>();
 
-		// нам нуженфокус клавы
-		this->mNeedKeyFocus = true;
+		//FIXME нам нуженфокус клавы
+		//mNeedKeyFocus = true;
+		setNeedKeyFocus(true);
 	}
 
 	void MenuItem::shutdownWidgetSkin()

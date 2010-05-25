@@ -46,8 +46,9 @@ namespace MyGUI
 	{
 		Base::initialiseWidgetSkin(_info);
 
-		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -137,14 +138,19 @@ namespace MyGUI
 
 	void ScrollView::updateScrollViewState()
 	{
-		if (!mEnabled) setState("disabled");
+		if (!getEnabled())
+			setState("disabled");
 		else if (mIsPressed)
 		{
-			if (mIsFocus) setState("pushed");
-			else setState("normal_checked");
+			if (mIsFocus)
+				setState("pushed");
+			else
+				setState("normal_checked");
 		}
-		else if (mIsFocus) setState("highlighted");
-		else setState("normal");
+		else if (mIsFocus)
+			setState("highlighted");
+		else
+			setState("normal");
 	}
 
 	void ScrollView::setPosition(const IntPoint& _point)

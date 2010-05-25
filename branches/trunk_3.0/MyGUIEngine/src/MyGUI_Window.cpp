@@ -52,8 +52,9 @@ namespace MyGUI
 	{
 		Base::initialiseWidgetSkin(_info);
 
-		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
+		setNeedKeyFocus(true);
 
 		// дефолтные размеры
 		mMinmax.set(0, 0, 3000, 3000);

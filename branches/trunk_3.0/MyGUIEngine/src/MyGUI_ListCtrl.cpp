@@ -49,8 +49,9 @@ namespace MyGUI
 	{
 		Base::initialiseWidgetSkin(_info);
 
-		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
+		setNeedKeyFocus(true);
 		mDragLayer = "DragAndDrop";
 
 		const MapString& properties = _info->getProperties();

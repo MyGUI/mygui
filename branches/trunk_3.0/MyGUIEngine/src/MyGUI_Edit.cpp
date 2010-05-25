@@ -73,10 +73,11 @@ namespace MyGUI
 	{
 		Base::initialiseWidgetSkin(_info);
 
-		mOriginalPointer = mPointer;
+		mOriginalPointer = getPointer();
 
-		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -1424,14 +1425,19 @@ namespace MyGUI
 
 	void Edit::updateEditState()
 	{
-		if (!mEnabled) setState("disabled");
+		if (!getEnabled())
+			setState("disabled");
 		else if (mIsPressed)
 		{
-			if (mIsFocus) setState("pushed");
-			else setState("normal_checked");
+			if (mIsFocus)
+				setState("pushed");
+			else
+				setState("normal_checked");
 		}
-		else if (mIsFocus) setState("highlighted");
-		else setState("normal");
+		else if (mIsFocus)
+			setState("highlighted");
+		else
+			setState("normal");
 	}
 
 	void Edit::setPosition(const IntPoint& _point)

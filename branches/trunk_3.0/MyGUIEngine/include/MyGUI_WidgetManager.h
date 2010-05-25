@@ -50,7 +50,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, /*Align _align, */Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);
@@ -83,10 +83,10 @@ namespace MyGUI
 		Widget* findWidgetT(const std::string& _name, bool _throw = true);
 		MYGUI_OBSOLETE("")
 		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
-		MYGUI_OBSOLETE("")
-		void registerFactory(IWidgetFactory * _factory);
-		MYGUI_OBSOLETE("")
-		void unregisterFactory(IWidgetFactory * _factory);
+		//MYGUI_OBSOLETE("")
+		//void registerFactory(IWidgetFactory * _factory);
+		//MYGUI_OBSOLETE("")
+		//void unregisterFactory(IWidgetFactory * _factory);
 		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(Widget* _widget, const std::string &_key, const std::string &_value) { _parse(_widget, _key, _value); }
 		MYGUI_OBSOLETE("")
@@ -118,7 +118,7 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 
-		SetWidgetFactory mFactoryList;
+		//SetWidgetFactory mFactoryList;
 		MapDelegate mDelegates;
 
 		// список менеджеров для отписки при удалении

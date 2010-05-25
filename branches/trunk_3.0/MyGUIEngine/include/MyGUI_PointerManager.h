@@ -93,13 +93,13 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		/*virtual */Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(Widget* _widget);
+		/*virtual */void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
-		virtual void _destroyAllChildWidget();
+		/*virtual */void _destroyAllChildWidget();
 
 		void Update();
 

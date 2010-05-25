@@ -237,7 +237,7 @@ namespace MyGUI
 		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _value) { mEnabled = _value; }
 		/** Is widget enabled */
-		bool isEnabled() { return mEnabled; }
+		bool getEnabled() { return mEnabled; }
 
 		/** Set mouse pointer for this widget */
 		void setPointer(const std::string& _value) { mPointer = _value; }
@@ -321,11 +321,11 @@ namespace MyGUI
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
 
-		void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		void _initialise(WidgetStyle _style, const IntCoord& _coord, /*Align _align, */ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
 		void _shutdown();
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(Widget* _widget);
+		/*virtual */void _destroyChildWidget(Widget* _widget);
 
 		// добавляет в список виджет
 		void _linkChildWidget(Widget* _widget);
@@ -376,6 +376,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
 		const Colour& getTextColour() { return _getTextColour(); }
 
+		MYGUI_OBSOLETE("use : bool Widget::getEnabled()")
+		bool isEnabled() { return getEnabled(); }
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
@@ -394,7 +397,7 @@ namespace MyGUI
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удаляет всех детей
-		virtual void _destroyAllChildWidget();
+		/*virtual */void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
@@ -432,23 +435,32 @@ namespace MyGUI
 		void baseChangeWidgetSkin2(ResourceSkin* _info);
 
 	protected:
+		// клиентская зона окна
+		// если виджет имеет пользовательские окна не в себе
+		// то обязательно проинициализировать Client
+		Widget* mWidgetClient;
+
+		// указатель на окно текста
+		ISubWidgetText * mText;
+		// указатель на первый не текстовой сабскин
+		ISubWidgetRect * mMainSkin;
+
+		// вектор всех детей виджетов
+		VectorWidgetPtr mWidgetChild;
+		// вектор детей скина
+		VectorWidgetPtr mWidgetChildSkin;
+
+		std::string mTextureName;
+
+	private:
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 		// информация о маске для пикинга
 		MaskPickInfo const * mMaskPickInfo;
 		MaskPickInfo mOwnMaskPickInfo;
 
-		// вектор всех детей виджетов
-		VectorWidgetPtr mWidgetChild;
-		// вектор детей скина
-		VectorWidgetPtr mWidgetChildSkin;
 		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
-
-		// указатель на окно текста
-		ISubWidgetText * mText;
-		// указатель на первый не текстовой сабскин
-		ISubWidgetRect * mMainSkin;
 
 		// доступен ли на виджет
 		bool mEnabled;
@@ -465,7 +477,6 @@ namespace MyGUI
 		std::string mName;
 		// курсор который будет показан при наведении
 		std::string mPointer;
-		std::string mTextureName;
 		ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
@@ -477,23 +488,17 @@ namespace MyGUI
 		bool mNeedMouseFocus;
 		bool mInheritsPick;
 
-		// клиентская зона окна
-		// если виджет имеет пользовательские окна не в себе
-		// то обязательно проинициализировать Client
-		Widget* mWidgetClient;
-
 		bool mNeedToolTip;
-		bool mEnableToolTip;
-		bool mToolTipVisible;
-		float mToolTipCurrentTime;
-		IntPoint mToolTipOldPoint;
-		size_t mToolTipOldIndex;
+		//bool mEnableToolTip;
+		//bool mToolTipVisible;
+		//float mToolTipCurrentTime;
+		//IntPoint mToolTipOldPoint;
+		//size_t mToolTipOldIndex;
 		//IntPoint m_oldMousePoint;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
-	private:
 		Widget* mContainer;
 	};
 
