@@ -116,7 +116,6 @@ namespace MyGUI
 
 	/*internal:*/
 		void _setAlign(const IntSize& _oldsize, bool _update);
-		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 	private:
 		void _setTextColour(const Colour& _value);

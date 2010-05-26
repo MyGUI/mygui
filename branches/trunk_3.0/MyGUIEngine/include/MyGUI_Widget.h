@@ -324,7 +324,7 @@ namespace MyGUI
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
 
-		void _initialise(WidgetStyle _style, const IntCoord& _coord, /*Align _align, */ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
 		void _shutdown();
 
 		// удяляет неудачника
@@ -337,6 +337,9 @@ namespace MyGUI
 
 		void _setContainer(Widget* _value) { mContainer = _value; }
 		Widget* _getContainer() { return mContainer; }
+
+		void _setAlign(const IntSize& _oldsize, bool _update);
+		bool _checkPoint(int _left, int _top);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -402,9 +405,6 @@ namespace MyGUI
 		virtual void initialiseWidgetSkin(ResourceSkin* _info) { }
 
 		void _updateView(); // обновления себя и детей
-
-		void _setAlign(const IntSize& _oldsize, bool _update);
-		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 		// создает виджет
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);

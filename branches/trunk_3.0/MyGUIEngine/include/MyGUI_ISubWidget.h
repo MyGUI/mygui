@@ -58,6 +58,11 @@ namespace MyGUI
 		virtual void setAlign(Align _value) { mAlign = _value; }
 		virtual void setVisible(bool _value) { mVisible = _value; }
 
+		virtual void _updateView() { }
+		virtual void _correctView() { }
+
+		virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
+
 	protected:
 		Align mAlign;
 		bool mVisible;

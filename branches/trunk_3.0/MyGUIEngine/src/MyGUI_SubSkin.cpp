@@ -67,11 +67,6 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void SubSkin::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		_setAlign(_oldcoord.size(), _update);
-	}
-
 	void SubSkin::_setAlign(const IntSize& _oldsize, bool _update)
 	{
 		// необходимо разобраться

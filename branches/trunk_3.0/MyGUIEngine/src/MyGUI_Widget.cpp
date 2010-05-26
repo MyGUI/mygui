@@ -383,7 +383,6 @@ namespace MyGUI
 			(*widget)->_updateView();
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_updateView();
-
 	}
 
 	void Widget::setCaption(const UString& _caption)
@@ -789,12 +788,6 @@ namespace MyGUI
 		return (nullptr == mText) ? IntCoord() : mText->getCoord();
 	}
 
-	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		// для виджета изменение х у  не меняються
-		_setAlign(_oldcoord.size(), _update);
-	}
-
 	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
 	{
 		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
@@ -941,11 +934,11 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old, mIsMargin || margin);
+			(*widget)->_setAlign(old.size(), mIsMargin || margin);
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old, mIsMargin || margin);
+			(*widget)->_setAlign(old.size(), mIsMargin || margin);
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->_setAlign(old, mIsMargin || margin);
+			(*skin)->_setAlign(old.size(), mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -1493,6 +1486,11 @@ namespace MyGUI
 	{
 		if (mNeedToolTip)
 			ToolTipManager::getInstance()._unlinkWidget(this);
+	}
+
+	bool Widget::_checkPoint(int _left, int _top)
+	{
+		return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
 	}
 
 } // namespace MyGUI
