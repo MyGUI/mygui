@@ -81,7 +81,7 @@ set (HEADER_FILES
   include/MyGUI_RTTI.h
   include/MyGUI_BiIndexBase.h
   include/MyGUI_ScrollViewBase.h
-  include/MyGUI_WidgetEvent.h
+  include/MyGUI_WidgetInput.h
   include/MyGUI_WidgetUserData.h
   include/MyGUI_EditText.h
   include/MyGUI_MainSkin.h
@@ -247,6 +247,7 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
+  src/MyGUI_WidgetInput.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -302,6 +303,7 @@ SOURCE_GROUP("Source Files\\Core\\Controller" FILES
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
   src/MyGUI_ScrollViewBase.cpp
+  src/MyGUI_WidgetInput.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
@@ -449,7 +451,7 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_BiIndexBase.h
   include/MyGUI_ScrollViewBase.h
-  include/MyGUI_WidgetEvent.h
+  include/MyGUI_WidgetInput.h
   include/MyGUI_WidgetUserData.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES

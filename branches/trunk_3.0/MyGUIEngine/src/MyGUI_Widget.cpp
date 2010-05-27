@@ -84,9 +84,6 @@ namespace MyGUI
 
 		mWidgetStyle = _style;
 
-		// имя отсылателя сообщений
-		mWidgetEventSender = this;
-
 #if MYGUI_DEBUG_MODE == 1
 		// проверяем соответсвие входных данных
 		if (mWidgetStyle == WidgetStyle::Child)

@@ -29,7 +29,7 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
-#include "MyGUI_WidgetEvent.h"
+#include "MyGUI_WidgetInput.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
 
@@ -43,7 +43,7 @@ namespace MyGUI
 		public ICroppedRectangle,
 		public LayerItem,
 		public UserData,
-		public WidgetEvent,
+		public WidgetInput,
 		public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
