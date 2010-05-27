@@ -262,4 +262,10 @@ namespace MyGUI
 		updateTexture();
 	}
 
+	void Canvas::_setUVSet(const FloatRect& _rect)
+	{
+		if (nullptr != mMainSkin)
+			mMainSkin->_setUVSet(_rect);
+	}
+
 } // namespace MyGUI

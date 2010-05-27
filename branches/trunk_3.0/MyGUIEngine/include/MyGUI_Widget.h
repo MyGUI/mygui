@@ -36,6 +36,8 @@
 namespace MyGUI
 {
 
+	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
+
 	class MYGUI_EXPORT Widget :
 		public IObject,
 		public ICroppedRectangle,
@@ -207,50 +209,12 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		Widget* findWidget(const std::string& _name);
 
-		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
-		/** Is need key focus
-			If disable this widget won't be reacting on keyboard at all.\n
-			Enabled (true) by default.
-		*/
-		bool getNeedKeyFocus() const { return mNeedKeyFocus; }
-
-		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
-		/** Is need mouse focus
-			If disable this widget won't be reacting on mouse at all.\n
-			Enabled (true) by default.
-		*/
-		bool getNeedMouseFocus() const { return mNeedMouseFocus; }
-
-		/** Set inherits mode flag
-			This mode makes all child widgets pickable even if widget don't
-			need mouse focus (was set setNeedKeyFocus(false) ).\n
-			Disabled (false) by default.
-		*/
-		void setInheritsPick(bool _value) { mInheritsPick = _value; }
-		/** Get inherits mode flag */
-		bool getInheritsPick() const { return mInheritsPick; }
-
-		/** Set picking mask for widget */
-		void setMaskPick(const std::string& _filename);
-
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _value);
 		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _value) { mEnabled = _value; }
 		/** Is widget enabled */
 		bool getEnabled() const { return mEnabled; }
-
-		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
-		void setNeedToolTip(bool _value);
-		/** Get need tool tip mode flag */
-		bool getNeedToolTip() const { return mNeedToolTip; }
-
-		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _value) { mPointer = _value; }
-		/** Get mouse pointer name for this widget */
-		const std::string& getPointer();
 
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
 		const std::string& getLayerName();
@@ -298,6 +262,14 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 
+		/** Event : Widget property changed through setProperty (in code, or from layout)\n
+			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
+			@param _sender widget that called this event
+			@param _key
+			@param _value
+		*/
+		EventHandle_WidgetStringString eventChangeProperty;
+
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
 		virtual size_t _getItemIndex(Widget* _item) { return ITEM_NONE; }
@@ -305,21 +277,21 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _setUVSet(const FloatRect& _rect);
+		//void _setUVSet(const FloatRect& _rect);
 
-		virtual void _setTextureName(const std::string& _texture);
-		virtual const std::string& _getTextureName();
+		/*virtual */void _setTextureName(const std::string& _texture);
+		/*virtual */const std::string& _getTextureName();
 
-		IntCoord _getTextRegion();
-		IntSize _getTextSize();
-		void _setFontName(const std::string& _font);
-		const std::string& _getFontName();
-		void _setFontHeight(int _height);
-		int _getFontHeight();
-		void _setTextAlign(Align _align);
-		Align _getTextAlign();
-		void _setTextColour(const Colour& _colour);
-		const Colour& _getTextColour();
+		//IntCoord _getTextRegion();
+		//IntSize _getTextSize();
+		//void _setFontName(const std::string& _font);
+		//const std::string& _getFontName();
+		//void _setFontHeight(int _height);
+		//int _getFontHeight();
+		//void _setTextAlign(Align _align);
+		//Align _getTextAlign();
+		//void _setTextColour(const Colour& _colour);
+		//const Colour& _getTextColour();
 
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
@@ -349,38 +321,38 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-		MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
-		void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
-		MYGUI_OBSOLETE("use : bool getInheritsPick()")
-		bool isInheritsPeek() { return getInheritsPick(); }
+		//MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
+		//void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
+		//MYGUI_OBSOLETE("use : bool getInheritsPick()")
+		//bool isInheritsPeek() { return getInheritsPick(); }
 
-		MYGUI_OBSOLETE("use : void setMaskPick(const std::string& _filename)")
-		void setMaskPeek(const std::string& _filename) { setMaskPick(_filename); }
+		//MYGUI_OBSOLETE("use : void setMaskPick(const std::string& _filename)")
+		//void setMaskPeek(const std::string& _filename) { setMaskPick(_filename); }
 
-		MYGUI_OBSOLETE("use : const IntCoord& StaticText::getTextRegion()")
-		IntCoord getTextCoord() { return _getTextRegion(); }
-		MYGUI_OBSOLETE("use : IntSize StaticText::getTextSize()")
-		IntSize getTextSize() { return _getTextSize(); }
+		//MYGUI_OBSOLETE("use : const IntCoord& StaticText::getTextRegion()")
+		//IntCoord getTextCoord() { return _getTextRegion(); }
+		//MYGUI_OBSOLETE("use : IntSize StaticText::getTextSize()")
+		//IntSize getTextSize() { return _getTextSize(); }
 
-		MYGUI_OBSOLETE("use : void StaticText::setFontName(const std::string& _font)")
-		void setFontName(const std::string& _font) { _setFontName(_font); }
-		MYGUI_OBSOLETE("use : const std::string& StaticText::getFontName()")
-		const std::string& getFontName() { return _getFontName(); }
+		//MYGUI_OBSOLETE("use : void StaticText::setFontName(const std::string& _font)")
+		//void setFontName(const std::string& _font) { _setFontName(_font); }
+		//MYGUI_OBSOLETE("use : const std::string& StaticText::getFontName()")
+		//const std::string& getFontName() { return _getFontName(); }
 
-		MYGUI_OBSOLETE("use : void StaticText::setFontHeight(int _height)")
-		void setFontHeight(int _height) { _setFontHeight(_height); }
-		MYGUI_OBSOLETE("use : int StaticText::getFontHeight()")
-		int getFontHeight() { return _getFontHeight(); }
+		//MYGUI_OBSOLETE("use : void StaticText::setFontHeight(int _height)")
+		//void setFontHeight(int _height) { _setFontHeight(_height); }
+		//MYGUI_OBSOLETE("use : int StaticText::getFontHeight()")
+		//int getFontHeight() { return _getFontHeight(); }
 
-		MYGUI_OBSOLETE("use : void StaticText::setTextAlign(Align _align)")
-		void setTextAlign(Align _align) { _setTextAlign(_align); }
-		MYGUI_OBSOLETE("use : Align StaticText::getTextAlign()")
-		Align getTextAlign() { return _getTextAlign(); }
+		//MYGUI_OBSOLETE("use : void StaticText::setTextAlign(Align _align)")
+		//void setTextAlign(Align _align) { _setTextAlign(_align); }
+		//MYGUI_OBSOLETE("use : Align StaticText::getTextAlign()")
+		//Align getTextAlign() { return _getTextAlign(); }
 
-		MYGUI_OBSOLETE("use : void StaticText::setTextColour(const Colour& _colour)")
-		void setTextColour(const Colour& _colour) { _setTextColour(_colour); }
-		MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
-		const Colour& getTextColour() { return _getTextColour(); }
+		//MYGUI_OBSOLETE("use : void StaticText::setTextColour(const Colour& _colour)")
+		//void setTextColour(const Colour& _colour) { _setTextColour(_colour); }
+		//MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
+		//const Colour& getTextColour() { return _getTextColour(); }
 
 		MYGUI_OBSOLETE("use : bool Widget::getEnabled() const")
 		bool isEnabled() const { return getEnabled(); }
@@ -466,9 +438,6 @@ namespace MyGUI
 	private:
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
-		// информация о маске для пикинга
-		MaskPickInfo const * mMaskPickInfo;
-		MaskPickInfo mOwnMaskPickInfo;
 
 		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
@@ -486,22 +455,12 @@ namespace MyGUI
 		bool mInheritsAlpha;
 		// имя виджета
 		std::string mName;
-		// курсор который будет показан при наведении
-		std::string mPointer;
 
 		std::string mTextureName;
 		ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
 		Widget* mParent;
-
-		// нужен ли виджету ввод с клавы
-		bool mNeedKeyFocus;
-		// нужен ли виджету фокус мыши
-		bool mNeedMouseFocus;
-		bool mInheritsPick;
-
-		bool mNeedToolTip;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;

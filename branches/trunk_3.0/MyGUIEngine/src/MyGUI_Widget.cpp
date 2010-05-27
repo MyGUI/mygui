@@ -44,7 +44,6 @@ namespace MyGUI
 {
 
 	Widget::Widget() :
-		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
@@ -56,11 +55,7 @@ namespace MyGUI
 		mInheritsAlpha(true),
 		mTexture(nullptr),
 		mParent(nullptr),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
-		mInheritsPick(false),
 		mWidgetClient(nullptr),
-		mNeedToolTip(false),
 		mWidgetStyle(WidgetStyle::Child),
 		mContainer(nullptr),
 		mAlign(Align::Default),
@@ -76,7 +71,7 @@ namespace MyGUI
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
 		mStateInfo = _info->getStateInfo();
-		mMaskPickInfo = _info->getMask();
+		setMaskPick(_info->getMask());
 
 		mTextureName = _info->getTextureName();
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);
@@ -255,19 +250,19 @@ namespace MyGUI
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
-			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
-			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
-			if ((iter = properties.find("Visible")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
+			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseValue<bool>(iter->second));
+			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseValue<bool>(iter->second));
+			if ((iter = properties.find("Pointer")) != properties.end()) setPointer(iter->second);
+			if ((iter = properties.find("Visible")) != properties.end()) setVisible(utility::parseValue<bool>(iter->second));
 
 			// OBSOLETE
-			if ((iter = properties.find("AlignText")) != properties.end()) _setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("Colour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
-			if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
-			if ((iter = properties.find("TextAlign")) != properties.end()) _setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("TextColour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
-			if ((iter = properties.find("FontName")) != properties.end()) _setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) _setFontHeight(utility::parseInt(iter->second));
+			//if ((iter = properties.find("AlignText")) != properties.end()) _setTextAlign(Align::parse(iter->second));
+			//if ((iter = properties.find("Colour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
+			//if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
+			//if ((iter = properties.find("TextAlign")) != properties.end()) _setTextAlign(Align::parse(iter->second));
+			//if ((iter = properties.find("TextColour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
+			//if ((iter = properties.find("FontName")) != properties.end()) _setFontName(iter->second);
+			//if ((iter = properties.find("FontHeight")) != properties.end()) _setFontHeight(utility::parseInt(iter->second));
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
@@ -517,10 +512,10 @@ namespace MyGUI
 		if (!mSubSkinsVisible
 			|| !mEnabled
 			|| !mVisible
-			|| (!mNeedMouseFocus && !mInheritsPick)
+			|| (!getNeedMouseFocus() && !getInheritsPick())
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| ((!mMaskPickInfo->empty()) && (!mMaskPickInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
+			|| isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))//((!mOwnMaskPickInfo.empty()) && (!mOwnMaskPickInfo.pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
 				return nullptr;
 
 		// спрашиваем у детишек
@@ -543,7 +538,7 @@ namespace MyGUI
 		}
 
 		// непослушные дети
-		return mInheritsPick ? nullptr : this;
+		return getInheritsPick() ? nullptr : this;
 	}
 
 	void Widget::_updateAbsolutePoint()
@@ -562,11 +557,11 @@ namespace MyGUI
 			(*skin)->_correctView();
 	}
 
-	void Widget::_setUVSet(const FloatRect& _rect)
+	/*void Widget::_setUVSet(const FloatRect& _rect)
 	{
 		if (nullptr != mMainSkin)
 			mMainSkin->_setUVSet(_rect);
-	}
+	}*/
 
 	void Widget::_setTextureName(const std::string& _texture)
 	{
@@ -644,18 +639,6 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void Widget::setMaskPick(const std::string& _filename)
-	{
-		if (mOwnMaskPickInfo.load(_filename))
-		{
-			mMaskPickInfo = &mOwnMaskPickInfo;
-		}
-		else
-		{
-			MYGUI_LOG(Error, "mask not load '" << _filename << "'");
-		}
-	}
-
 	void Widget::setRealPosition(const FloatPoint& _point)
 	{
 		setPosition(CoordConverter::convertFromRelative(_point, mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
@@ -685,7 +668,7 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	void Widget::_setTextAlign(Align _align)
+	/*void Widget::_setTextAlign(Align _align)
 	{
 		StaticText* text = this->castType<StaticText>(false);
 		if (text)
@@ -786,7 +769,7 @@ namespace MyGUI
 			return text->getTextRegion();
 
 		return (nullptr == mText) ? IntCoord() : mText->getCoord();
-	}
+	}*/
 
 	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
 	{
@@ -1281,17 +1264,6 @@ namespace MyGUI
 		return mWidgetChild[_index];
 	}
 
-	const std::string& Widget::getPointer()
-	{
-		if (!mEnabled)
-		{
-			// FIXME одну сделать
-			static std::string empty;
-			return empty;
-		}
-		return mPointer;
-	}
-
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{Widget, Widget_Caption, string} Sets caption
@@ -1314,7 +1286,7 @@ namespace MyGUI
 		else if (_key == "Widget_Pointer") setPointer(_value);
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Widget_TextColour")
+		/*else if (_key == "Widget_TextColour")
 		{
 			MYGUI_LOG(Warning, "Widget_TextColour is obsolete, use Text_TextColour");
 			_setTextColour(Colour::parse(_value));
@@ -1338,7 +1310,7 @@ namespace MyGUI
 		{
 			MYGUI_LOG(Warning, "Widget_AlignText is obsolete, use Text_TextAlign");
 			_setTextAlign(Align::parse(_value));
-		}
+		}*/
 		else if (_key == "Widget_Show")
 		{
 			MYGUI_LOG(Warning, "Widget_Show is obsolete, use Widget_Visible");
@@ -1475,16 +1447,9 @@ namespace MyGUI
 		return RenderManager::getInstance().getViewSize();
 	}
 
-	void Widget::setNeedToolTip(bool _value)
-	{
-		if (mNeedToolTip == _value)
-			return;
-		mNeedToolTip = _value;
-	}
-
 	void Widget::_resetContainer(bool _updateOnly)
 	{
-		if (mNeedToolTip)
+		if (getNeedToolTip())
 			ToolTipManager::getInstance()._unlinkWidget(this);
 	}
 

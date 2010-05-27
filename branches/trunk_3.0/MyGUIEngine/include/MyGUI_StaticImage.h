@@ -203,6 +203,8 @@ namespace MyGUI
 
 		void frameAdvise(bool _advise);
 
+		void _setUVSet(const FloatRect& _rect);
+
 	private:
 		// кусок в текстуре наших картинок
 		IntRect mRectImage;

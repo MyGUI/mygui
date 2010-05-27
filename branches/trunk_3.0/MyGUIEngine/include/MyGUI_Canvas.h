@@ -202,6 +202,8 @@ namespace MyGUI
 
 		virtual void textureInvalidate(ITexture* _texture);
 
+		void _setUVSet(const FloatRect& _rect);
+
 	protected:
 		/// Current texture
 		ITexture* mTexture;

@@ -28,6 +28,7 @@
 #include "MyGUI_WidgetToolTip.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
+#include "MyGUI_MaskPickInfo.h"
 
 namespace MyGUI
 {
@@ -42,8 +43,8 @@ namespace MyGUI
 	typedef delegates::CDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
 	typedef delegates::CDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
 	typedef delegates::CDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
-	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
-	typedef delegates::CDelegate3<Widget*, Widget*&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
+	//typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
+	//typedef delegates::CDelegate3<Widget*, Widget*&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
 	typedef delegates::CDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
 
 	/**
@@ -81,11 +82,66 @@ namespace MyGUI
 		WidgetEvent() :
 			mWidgetEventSender(0),
 			mRootMouseActive(false),
-			mRootKeyActive(false)
+			mRootKeyActive(false),
+			mNeedToolTip(false),
+			mNeedKeyFocus(false),
+			mNeedMouseFocus(true),
+			mInheritsPick(false)
 		{
 		}
 
 	public:
+		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
+		void setNeedToolTip(bool _value) { mNeedToolTip = _value; }
+		/** Get need tool tip mode flag */
+		bool getNeedToolTip() const { return mNeedToolTip; }
+
+		/** Set mouse pointer for this widget */
+		void setPointer(const std::string& _value) { mPointer = _value; }
+		/** Get mouse pointer name for this widget */
+		const std::string& getPointer() { return mPointer; }
+
+		/** Set need key focus flag */
+		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
+		/** Is need key focus
+			If disable this widget won't be reacting on keyboard at all.\n
+			Enabled (true) by default.
+		*/
+		bool getNeedKeyFocus() const { return mNeedKeyFocus; }
+
+		/** Set need mouse focus flag */
+		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
+		/** Is need mouse focus
+			If disable this widget won't be reacting on mouse at all.\n
+			Enabled (true) by default.
+		*/
+		bool getNeedMouseFocus() const { return mNeedMouseFocus; }
+
+		/** Set inherits mode flag
+			This mode makes all child widgets pickable even if widget don't
+			need mouse focus (was set setNeedKeyFocus(false) ).\n
+			Disabled (false) by default.
+		*/
+		void setInheritsPick(bool _value) { mInheritsPick = _value; }
+		/** Get inherits mode flag */
+		bool getInheritsPick() const { return mInheritsPick; }
+
+		/** Set picking mask for widget */
+		void setMaskPick(const std::string& _filename)
+		{
+			if (!mOwnMaskPickInfo.load(_filename))
+				MYGUI_LOG(Error, "mask not load '" << _filename << "'");
+		}
+
+		void setMaskPick(const MaskPickInfo& _info)
+		{
+			mOwnMaskPickInfo = _info;
+		}
+
+		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord)
+		{
+			return !mOwnMaskPickInfo.empty() && mOwnMaskPickInfo.pick(_point, _coord);
+		}
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
@@ -212,7 +268,7 @@ namespace MyGUI
 			@param _key
 			@param _value
 		*/
-		EventHandle_WidgetStringString eventActionInfo;
+		//EventHandle_WidgetStringString eventActionInfo;
 
 		/** Event : Internal request for parent and item index, used for any widget.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget*& _container, size_t& _index);
@@ -220,7 +276,7 @@ namespace MyGUI
 			@param _container parent
 			@param _index of container
 		*/
-		EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
+		//EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
@@ -228,7 +284,7 @@ namespace MyGUI
 			@param _key
 			@param _value
 		*/
-		EventHandle_WidgetStringString eventChangeProperty;
+		//EventHandle_WidgetStringString eventChangeProperty;
 
 	protected:
 
@@ -326,6 +382,15 @@ namespace MyGUI
 		Widget* mWidgetEventSender;
 
 	private:
+		std::string mPointer;
+		// информация о маске для пикинга
+		MaskPickInfo mOwnMaskPickInfo;
+
+		bool mNeedToolTip;
+		bool mInheritsPick;
+		bool mNeedKeyFocus;
+		bool mNeedMouseFocus;
+
 		bool mRootMouseActive;
 		bool mRootKeyActive;
 	};
