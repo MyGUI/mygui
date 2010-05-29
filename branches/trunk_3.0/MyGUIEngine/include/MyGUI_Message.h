@@ -123,12 +123,12 @@ namespace MyGUI
 
 	private:
 		IntSize mOffsetText;
-		Widget* mWidgetText;
+		StaticText* mWidgetText;
 
 		std::string mButtonSkin, mButtonType;
 		IntSize mButtonSize, mButtonOffset;
 
-		VectorWidgetPtr mVectorButton;
+		std::vector<Button*> mVectorButton;
 		MessageBoxStyle mInfoOk;
 		MessageBoxStyle mInfoCancel;
 		bool mSmoothShow;

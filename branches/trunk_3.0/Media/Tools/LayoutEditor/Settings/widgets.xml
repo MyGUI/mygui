@@ -207,6 +207,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
+		<Parameter key="Text_Caption" value="String"/>
 		<Parameter key="Text_TextColour" value="Colour"/>
 		<Parameter key="Text_TextAlign" value="TextAlign"/>
 		<Parameter key="Text_FontName" value="Font"/>
@@ -257,7 +258,6 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Widget_Caption" value="String"/>
 		<Parameter key="Widget_Visible" value="Bool"/>
 		<Parameter key="Widget_Alpha" value="alpha"/>
 		<Parameter key="Widget_InheritsAlpha" value="Bool"/>
@@ -273,6 +273,7 @@
 
 	<Widget name="Window">
 		<Property key="DefaultSkin" value="Window"/>
+		<Property key="Base" value="StaticText"/>
 
 		<Property key="Skin" value="Window"/>
 		<Property key="Skin" value="WindowC"/>
@@ -290,6 +291,7 @@
 
 	<Widget name="TabItem">
 		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="StaticText"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
@@ -300,6 +302,7 @@
 
 	<Widget name="MenuItem">
 		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="Button"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>

@@ -42,6 +42,11 @@ namespace MyGUI
 		/** Get text region size */
 		IntSize getTextSize();
 
+		/** Set widget caption */
+		virtual void setCaption(const UString& _value);
+		/** Get widget caption */
+		virtual const UString& getCaption();
+
 		/** Set widget text font */
 		virtual void setFontName(const std::string& _value);
 		/** Get widget text font name */
@@ -64,6 +69,9 @@ namespace MyGUI
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+		// устанавливает строку заменив /n на реальный перенос
+		void setCaptionWithNewLine(const std::string& _value);
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

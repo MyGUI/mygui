@@ -18,7 +18,8 @@ MetaSolutionWindow::MetaSolutionWindow() :
 	current_widget = nullptr;
 	assignWidget(mListTree, "ListTree");
 
-	mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
+	mWindow = mMainWidget->castType<MyGUI::Window>();
+	mWindow->eventWindowButtonPressed = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
 
 	mListTree->eventListSelectAccept = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListSelectAccept);
 	mListTree->eventListChangePosition = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListChangePosition);
@@ -131,8 +132,10 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 	mMetaSolutionName = _file;
 
 	size_t pos = _file.find_last_of("\\/");
-	if (pos != std::string::npos) mMainWidget->setCaption(_file.substr(pos + 1));
-	else mMainWidget->setCaption(_file);
+	if (pos != std::string::npos)
+		mWindow->setCaption(_file.substr(pos + 1));
+	else
+		mWindow->setCaption(_file);
 
 	MyGUI::xml::ElementEnumerator meta_node = _node->getElementEnumerator();
 	while (meta_node.next())
@@ -367,7 +370,8 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 	std::string tmpname = "LayoutEditorWidget_" + _widget->mName;
 	EditorWidgets::getInstance().global_counter++;
 
-	while (_parent && !WidgetTypes::getInstance().find(_parent->getTypeName())->parent) _parent = _parent->getParent();
+	while (_parent && !WidgetTypes::getInstance().find(_parent->getTypeName())->parent)
+		_parent = _parent->getParent();
 
 	MyGUI::IntSize parent_size;
 	if (_parent && WidgetTypes::getInstance().find(new_widget_type)->child)
@@ -384,7 +388,8 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 	// place in parent center
 	const MyGUI::IntCoord size((parent_size.width - width)/2, (parent_size.height - height)/2, width, height);
 	_parent->setCoord(size);
-	_parent->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+	if (_parent->isType<MyGUI::StaticText>())
+		_parent->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", new_widget_skin));
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, _parent, _widget->mName);
 	EditorWidgets::getInstance().add(widgetContainer);

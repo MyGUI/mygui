@@ -442,7 +442,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 
 	if (_value.empty())
 	{
-		editOrCombo->setCaption(DEFAULT_VALUE);
+		editOrCombo->castType<MyGUI::Edit>()->setCaption(DEFAULT_VALUE);
 	}
 	else
 	{
@@ -456,7 +456,9 @@ void PropertiesPanelView::setPositionText(const std::string& _caption)
 	MyGUI::Widget* window = mPanelMainProperties->getMainWidget();
 	if (window)
 	{
-		mPropertiesElement[window][1]->setCaption(_caption);
+		MyGUI::Widget* widget = mPropertiesElement[window][1];
+		if (widget->isType<MyGUI::StaticText>())
+			widget->castType<MyGUI::StaticText>()->setCaption(_caption);
 	}
 }
 

@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StaticText.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -112,12 +113,52 @@ namespace MyGUI
 		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
 		else if (_key == "Text_FontName") setFontName(_value);
 		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
+		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
+		else if (_key == "Widget_Caption") setCaptionWithNewLine(_value);// FIXME убрать потом
 		else
 		{
 			Base::setProperty(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void StaticText::setCaption(const UString& _caption)
+	{
+		if (nullptr != mText)
+			mText->setCaption(_caption);
+	}
+
+	const UString& StaticText::getCaption()
+	{
+		if (nullptr == mText)
+		{
+			// FIXME сделать одну пустую строку
+			static UString empty;
+			return empty;
+		}
+		return mText->getCaption();
+	}
+
+	void StaticText::setCaptionWithNewLine(const std::string& _value)
+	{
+		// change '\n' on char 10
+		size_t pos = _value.find("\\n");
+		if (pos == std::string::npos)
+		{
+			setCaption(LanguageManager::getInstance().replaceTags(_value));
+		}
+		else
+		{
+			std::string value(_value);
+			while (pos != std::string::npos)
+			{
+				value[pos++] = '\n';
+				value.erase(pos, 1);
+				pos = value.find("\\n");
+			}
+			setCaption(LanguageManager::getInstance().replaceTags(value));
+		}
 	}
 
 } // namespace MyGUI

@@ -21,7 +21,7 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Resize window to see how ScrollView widget works");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Resize window to see how ScrollView widget works");
 
 		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(450, 450);

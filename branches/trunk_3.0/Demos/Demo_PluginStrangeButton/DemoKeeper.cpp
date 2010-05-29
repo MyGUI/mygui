@@ -20,7 +20,7 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(300, 26);
@@ -32,7 +32,8 @@ namespace demo
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
 	#endif
 
-		m_button = MyGUI::Gui::getInstance().createWidgetT("StrangeButton", "Button", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::Widget* widget = MyGUI::Gui::getInstance().createWidgetT("StrangeButton", "Button", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		m_button = widget->castType<MyGUI::StaticText>();
 		m_button->setCaption("Plugin StrangeButton demo");
 	}
 

@@ -22,7 +22,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Move mouse to rotate skin. Right mouse click to set new center.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Move mouse to rotate skin. Right mouse click to set new center.");
 
 		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
 

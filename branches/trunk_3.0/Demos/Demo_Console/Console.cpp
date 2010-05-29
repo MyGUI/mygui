@@ -88,17 +88,18 @@ namespace demo
 
 	void Console::notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 	{
-		size_t len = _sender->getCaption().length();
 		MyGUI::Edit* edit = _sender->castType<MyGUI::Edit>();
+		size_t len = edit->getCaption().length();
 		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{
 			edit->deleteTextSelection();
-			len = _sender->getCaption().length();
+			len = edit->getCaption().length();
 			edit->eraseText(len-1);
 		}
 
-		MyGUI::UString command = _sender->getCaption();
-		if (command.length() == 0) return;
+		MyGUI::UString command = edit->getCaption();
+		if (command.length() == 0)
+			return;
 
 		for (MapDelegate::iterator iter = mDelegates.begin(); iter != mDelegates.end(); ++iter)
 		{

@@ -31,6 +31,7 @@
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
@@ -61,9 +62,12 @@ namespace MyGUI
 			if (*(*iter)->_getInternalData<std::string>() == "Text")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
-				mWidgetText = (*iter);
-				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
-				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
+				mWidgetText = (*iter)->castType<StaticText>(false);
+				if (mWidgetText != nullptr)
+				{
+					mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
+					mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
+				}
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Icon")
 			{
@@ -130,7 +134,8 @@ namespace MyGUI
 		if (mVectorButton.empty()) mInfoOk = info;
 		mInfoCancel = info;
 
-		Widget* button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
+		Widget* widget = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
+		Button* button = widget->castType<Button>();
 		button->eventMouseButtonClick = newDelegate(this, &Message::notifyButtonClick);
 		button->setCaption(_name);
 		button->_setInternalData(info);
@@ -194,7 +199,7 @@ namespace MyGUI
 
 	void Message::clearButton()
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		for (std::vector<Button*>::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
 		{
 			WidgetManager::getInstance().destroyWidget(*iter);
 		}
@@ -354,7 +359,7 @@ namespace MyGUI
 			}
 		}
 
-		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		for (std::vector<Button*>::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
 		{
 			(*iter)->setCoord(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 			offset += mButtonOffset.width + mButtonSize.width;

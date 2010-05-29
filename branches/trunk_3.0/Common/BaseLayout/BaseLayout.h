@@ -135,7 +135,7 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::WidgetPtr mMainWidget;
+		MyGUI::Widget* mMainWidget;
 
 	private:
 		std::string mPrefix;

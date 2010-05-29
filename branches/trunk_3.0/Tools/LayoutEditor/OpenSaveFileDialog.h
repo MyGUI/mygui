@@ -48,6 +48,7 @@ namespace common
 		void accept();
 
 	private:
+		MyGUI::Window* mWindow;
 		MyGUI::List* mListFiles;
 		MyGUI::Edit* mEditFileName;
 		MyGUI::Edit* mEditCurrentFolder;

@@ -69,9 +69,10 @@ void EditorToolTip::show(MyGUI::Widget* _sender)
 	}
 
 	mMainWidget->setSize(std::max(minWidth, width + 2*MARGIN), std::max(minHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
-	if (lastWidget) MyGUI::Gui::getInstance().destroyWidget(lastWidget);
-	lastWidget = mMainWidget->createWidgetT("Widget", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
-	lastWidget->setCaption(skin);
+	if (lastWidget)
+		MyGUI::Gui::getInstance().destroyWidget(lastWidget);
+	lastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+	lastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
 
 	mMainWidget->setVisible(true);
 }

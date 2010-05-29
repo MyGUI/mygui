@@ -159,11 +159,6 @@ namespace MyGUI
 		/** Get align */
 		Align getAlign() const { return mAlign; }
 
-		/** Set widget caption */
-		virtual void setCaption(const UString& _value);
-		/** Get widget caption */
-		virtual const UString& getCaption();
-
 		/** Set widget opacity */
 		void setAlpha(float _value);
 		/** Get widget opacity */
@@ -292,9 +287,6 @@ namespace MyGUI
 		//Align _getTextAlign();
 		//void _setTextColour(const Colour& _colour);
 		//const Colour& _getTextColour();
-
-		// устанавливает строку заменив /n на реальный перенос
-		void setCaptionWithNewLine(const std::string& _value);
 
 		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
 		void _shutdown();

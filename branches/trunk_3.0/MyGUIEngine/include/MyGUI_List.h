@@ -23,7 +23,7 @@
 #define __MYGUI_LIST_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 
@@ -299,7 +299,7 @@ namespace MyGUI
 		VScroll* mWidgetScroll;
 
 		// наши дети в строках
-		VectorWidgetPtr mWidgetLines;
+		std::vector<Button*> mWidgetLines;
 
 		int mHeightLine; // высота одной строки
 		int mTopIndex; // индекс самого верхнего элемента

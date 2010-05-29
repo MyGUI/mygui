@@ -90,9 +90,12 @@ namespace MyGUI
 			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetCaption, "widget already assigned");
-				mWidgetCaption = (*iter);
-				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-				mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+				mWidgetCaption = (*iter)->castType<StaticText>(false);
+				if (mWidgetCaption != nullptr)
+				{
+					mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
+					mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+				}
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Button")
 			{

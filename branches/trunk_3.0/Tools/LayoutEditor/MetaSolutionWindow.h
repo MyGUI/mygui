@@ -92,7 +92,7 @@ private:
 	typedef std::pair<std::string, std::string> PairString;
 	typedef std::map<std::string, PairString> MapPairString;
 	MapPairString mWidgetType;
-
+	MyGUI::Window* mWindow;
 };
 
 #endif // __META_SOLUTION_WINDOW_H__

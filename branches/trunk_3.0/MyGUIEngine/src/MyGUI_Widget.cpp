@@ -35,7 +35,6 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_FactoryManager.h"
-#include "MyGUI_LanguageManager.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
@@ -375,23 +374,6 @@ namespace MyGUI
 			(*widget)->_updateView();
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_updateView();
-	}
-
-	void Widget::setCaption(const UString& _caption)
-	{
-		if (nullptr != mText)
-			mText->setCaption(_caption);
-	}
-
-	const UString& Widget::getCaption()
-	{
-		if (nullptr == mText)
-		{
-			// FIXME сделать одну пустую строку
-			static UString empty;
-			return empty;
-		}
-		return mText->getCaption();
 	}
 
 	bool Widget::setState(const std::string& _state)
@@ -1195,27 +1177,6 @@ namespace MyGUI
 
 	}
 
-	void Widget::setCaptionWithNewLine(const std::string& _value)
-	{
-		// change '\n' on char 10
-		size_t pos = _value.find("\\n");
-		if (pos == std::string::npos)
-		{
-			setCaption(LanguageManager::getInstance().replaceTags(_value));
-		}
-		else
-		{
-			std::string value(_value);
-			while (pos != std::string::npos)
-			{
-				value[pos++] = '\n';
-				value.erase(pos, 1);
-				pos = value.find("\\n");
-			}
-			setCaption(LanguageManager::getInstance().replaceTags(value));
-		}
-	}
-
 	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
 	{
 		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
@@ -1263,10 +1224,8 @@ namespace MyGUI
 
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{Widget, Widget_Caption, string} Sets caption
-		if (_key == "Widget_Caption") setCaptionWithNewLine(_value);
 		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
-		else if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
+		if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
 		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
 		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
 		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));

@@ -331,7 +331,7 @@ namespace MyGUI
 		int mOffsetTab; // смещение бара при показе кнопок
 		bool mButtonShow;
 		int mWidthBar; // ширина в которую помещаються все кнопки
-		VectorWidgetPtr mItemButton; // список кнопок, не должно равно списку страниц
+		std::vector<Button*> mItemButton; // список кнопок, не должно равно списку страниц
 		std::string mButtonSkinName, mEmptySkinName;
 
 		Widget* mWidgetBar;
@@ -354,7 +354,6 @@ namespace MyGUI
 
 		// флаг, чтобы отсеч уведомления от вкладок, при общем шутдауне виджета
 		bool mShutdown;
-
 	};
 
 } // namespace MyGUI
