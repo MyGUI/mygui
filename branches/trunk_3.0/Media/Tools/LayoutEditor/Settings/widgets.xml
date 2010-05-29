@@ -30,6 +30,7 @@
 
 	<Widget name="Canvas">
 		<Property key="DefaultSkin" value="Canvas"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Canvas"/>
 	</Widget>
@@ -47,6 +48,7 @@
 
 	<Widget name="DDContainer">
 		<Property key="DefaultSkin" value="DDContainer"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="DDContainer"/>
 
@@ -101,14 +103,19 @@
 
 	<Widget name="List">
 		<Property key="DefaultSkin" value="List"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="List"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="MenuCtrl">
-		<Property key="Base" value="Widget"/>
+	<Widget name="ListBox">
+		<Property key="Base" value="ListCtrl"/>
+	</Widget>
+
+	<Widget name="ListCtrl">
+		<Property key="Base" value="DDContainer"/>
 	</Widget>
 
 	<Widget name="MenuBar">
@@ -120,13 +127,19 @@
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="PopupMenu">
-		<Property key="DefaultSkin" value="PopupMenu"/>
-		<Property key="Base" value="MenuCtrl"/>
+	<Widget name="MenuCtrl">
+		<Property key="Base" value="Widget"/>
+	</Widget>
 
-		<Property key="Skin" value="PopupMenu"/>
+	<Widget name="MenuItem">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="Button"/>
 
-		<Property key="ItemManager" value="true"/>
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="MenuItem_Id" value="String"/>
+		<Parameter key="MenuItem_Type" value="MenuItemType"/>
 	</Widget>
 
 	<Widget name="Message">
@@ -145,12 +158,23 @@
 
 	<Widget name="MultiList">
 		<Property key="DefaultSkin" value="MultiList"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="MultiList"/>
 	</Widget>
 
+	<Widget name="PopupMenu">
+		<Property key="DefaultSkin" value="PopupMenu"/>
+		<Property key="Base" value="MenuCtrl"/>
+
+		<Property key="Skin" value="PopupMenu"/>
+
+		<Property key="ItemManager" value="true"/>
+	</Widget>
+
 	<Widget name="Progress">
 		<Property key="DefaultSkin" value="Progress"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Progress"/>
 		<Property key="Skin" value="ProgressFill"/>
@@ -167,6 +191,7 @@
 
 	<Widget name="ScrollView">
 		<Property key="DefaultSkin" value="ScrollView"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="ScrollView"/>
 		<Property key="Skin" value="ScrollViewEmpty"/>
@@ -182,8 +207,9 @@
 
 	<Widget name="StaticImage">
 		<Property key="DefaultSkin" value="StaticImage"/>
-		<Property key="Skin" value="RotatingSkin"/>
+		<Property key="Base" value="Widget"/>
 
+		<Property key="Skin" value="RotatingSkin"/>
 		<Property key="Skin" value="StaticImage"/>
 
 		<Property key="Parent" value="true"/>
@@ -201,6 +227,7 @@
 
 	<Widget name="StaticText">
 		<Property key="DefaultSkin" value="StaticText"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="StaticText"/>
 
@@ -216,6 +243,7 @@
 
 	<Widget name="Tab">
 		<Property key="DefaultSkin" value="Tab"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Tab"/>
 
@@ -226,8 +254,20 @@
 		<Parameter key="Tab_SmoothShow" value="Bool"/>
 	</Widget>
 
+	<Widget name="TabItem">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="StaticText"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="TabItem_ButtonWidth" value="1 int"/>
+		<Parameter key="TabItem_Select" value="Bool"/>
+	</Widget>
+
 	<Widget name="VScroll">
 		<Property key="DefaultSkin" value="VScroll"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="VScroll"/>
 		<Property key="Skin" value="VSlider"/>
@@ -273,6 +313,7 @@
 
 	<Widget name="Window">
 		<Property key="DefaultSkin" value="Window"/>
+		<!-- временно он от статик текста для работы заголовка в редакторе -->
 		<Property key="Base" value="StaticText"/>
 
 		<Property key="Skin" value="Window"/>
@@ -287,28 +328,6 @@
 		<Parameter key="Window_Snap" value="Bool"/>
 		<Parameter key="Window_MinSize" value="2 int"/>
 		<Parameter key="Window_MaxSize" value="2 int"/>
-	</Widget>
-
-	<Widget name="TabItem">
-		<Property key="DefaultSkin" value=""/>
-		<Property key="Base" value="StaticText"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Resizeable" value="false"/>
-
-		<Parameter key="TabItem_ButtonWidth" value="1 int"/>
-		<Parameter key="TabItem_Select" value="Bool"/>
-	</Widget>
-
-	<Widget name="MenuItem">
-		<Property key="DefaultSkin" value=""/>
-		<Property key="Base" value="Button"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Resizeable" value="false"/>
-
-		<Parameter key="MenuItem_Id" value="String"/>
-		<Parameter key="MenuItem_Type" value="MenuItemType"/>
 	</Widget>
 
 </MyGUI>
