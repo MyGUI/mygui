@@ -89,12 +89,6 @@
 
 		<Property key="Skin" value="HScroll"/>
 		<Property key="Skin" value="HSlider"/>
-
-		<_Parameter key="Scroll_Range" value="1 int"/>
-		<_Parameter key="Scroll_Position" value="1 int"/>
-		<_Parameter key="Scroll_Page" value="1 int"/>
-		<_Parameter key="Scroll_ViewPage" value="1 int"/>
-		<_Parameter key="Scroll_MoveToClick" value="Bool"/>
 	</Widget>
 
 	<Widget name="ItemBox">
@@ -103,8 +97,6 @@
 
 		<Property key="Skin" value="ItemBoxV"/>
 		<Property key="Skin" value="ItemBoxH"/>
-
-		<_Parameter key="DDContainer_NeedDragDrop" value="Bool"/>
 	</Widget>
 
 	<Widget name="List">
@@ -205,7 +197,6 @@
 		<Parameter key="Image_Resource" value="String"/>
 		<Parameter key="Image_Group" value="String"/>
 		<Parameter key="Image_Name" value="String"/>
-		
 	</Widget>
 
 	<Widget name="StaticText">
@@ -278,17 +269,6 @@
 		<Parameter key="Widget_NeedMouse" value="Bool"/>
 		<Parameter key="Widget_Enabled" value="Bool"/>
 		<Parameter key="Widget_NeedToolTip" value="Bool"/>
-
-		<_Parameter key="Widget_eventMouseLostFocus" value="String"/>
-		<_Parameter key="Widget_eventMouseSetFocus" value="String"/>
-		<_Parameter key="Widget_eventMouseDrag" value="String"/>
-		<_Parameter key="Widget_eventMouseMove" value="String"/>
-		<_Parameter key="Widget_eventMouseWheel" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonPressed" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonReleased" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonClick" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
-		<_Parameter key="Widget_eventToolTip" value="String"/>
 	</Widget>
 
 	<Widget name="Window">
