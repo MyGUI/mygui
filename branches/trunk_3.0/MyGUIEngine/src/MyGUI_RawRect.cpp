@@ -30,12 +30,6 @@
 namespace MyGUI
 {
 
-	MYGUI_FORCEINLINE void ConvertColour(uint32& _colour, VertexColourType _format)
-	{
-		if (_format == VertexColourType::ColourABGR)
-			_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
-	}
-
 	RawRect::RawRect() :
 		SubSkin(),
 		mRectTextureLT(FloatPoint(0, 0)),
@@ -51,7 +45,6 @@ namespace MyGUI
 		mRenderColourLB(0xFFFFFFFF),
 		mRenderColourRB(0xFFFFFFFF)
 	{
-		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	RawRect::~RawRect()
@@ -74,22 +67,22 @@ namespace MyGUI
 	{
 		mColourLT = _colourLT;
 		mRenderColourLT = texture_utility::toColourARGB(mColourLT);
-		ConvertColour(mRenderColourLT, mVertexFormat);
+		texture_utility::convertColour(mRenderColourLT, mVertexFormat);
 		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
 
 		mColourRT = _colourRT;
 		mRenderColourRT = texture_utility::toColourARGB(mColourRT);
-		ConvertColour(mRenderColourRT, mVertexFormat);
+		texture_utility::convertColour(mRenderColourRT, mVertexFormat);
 		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);
 
 		mColourLB = _colourLB;
 		mRenderColourLB = texture_utility::toColourARGB(mColourLB);
-		ConvertColour(mRenderColourLB, mVertexFormat);
+		texture_utility::convertColour(mRenderColourLB, mVertexFormat);
 		mRenderColourLB = mCurrentColour | (mRenderColourLB & 0x00FFFFFF);
 
 		mColourRB = _colourRB;
 		mRenderColourRB = texture_utility::toColourARGB(mColourRB);
-		ConvertColour(mRenderColourRB, mVertexFormat);
+		texture_utility::convertColour(mRenderColourRB, mVertexFormat);
 		mRenderColourRB = mCurrentColour | (mRenderColourRB & 0x00FFFFFF);
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);

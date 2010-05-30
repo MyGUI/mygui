@@ -67,8 +67,6 @@ namespace MyGUI
 		uint32 mRenderColourRT;
 		uint32 mRenderColourLB;
 		uint32 mRenderColourRB;
-
-		VertexColourType mVertexFormat;
 	};
 
 } // namespace MyGUI

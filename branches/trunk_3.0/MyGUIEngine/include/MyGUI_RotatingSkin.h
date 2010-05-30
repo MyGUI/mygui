@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RotatingSkin : public SubSkin
+	class MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( RotatingSkin )
 
@@ -39,36 +39,69 @@ namespace MyGUI
 		RotatingSkin();
 		virtual ~RotatingSkin();
 
-		/** Set angle of rotation */
+		/** Set angle of rotation in radians */
 		void setAngle(float _angle);
-		/** Get angle of rotation */
+		/** Get angle of rotation in radians */
 		float getAngle() const { return mAngle; }
 
 		/** Set center of rotation
 			@param _center Center point.
 			@param _local If true - _center point calculated as point on SubWidget, else calculated as point on screen.
 		*/
-		void setCenter(const IntPoint &_center, bool _local = true);
+		void setCenter(const IntPoint &_center);
 		/** Get center of rotation */
 		IntPoint getCenter(bool _local = true) const;
+
+		virtual void setAlpha(float _alpha);
+
+		virtual void setVisible(bool _visible);
+
+		virtual void setStateData(IStateInfo* _data);
+
+		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
+		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя
 		virtual void doRender();
 
-	protected:
-		void recalculateAngles();
+	/*internal:*/
+		void _updateView();
+		void _correctView();
 
+		void _setAlign(const IntSize& _oldsize, bool _update);
+
+		virtual void _setUVSet(const FloatRect& _rect);
+		virtual void _setColour(const Colour& _value);
+	protected:
+		void _rebuildGeometry();
+
+		size_t _cropRotatedRectangle(FloatPoint* _baseVerticiesPos);
+		enum Side {Left, Right, Top, Bottom};
+		void _cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, int _sideCoord, Side _side);
+
+		// get point position relative to rectangle
+		FloatPoint _getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2);
 	private:
+
 		float mAngle;
 		IntPoint mCenterPos;
-		bool mLocalCenter;
 
-		/*
-			0 3
-			1 2
-		*/
-		float mBaseAngles[4];
-		float mBaseDistances[4];
+		enum {RECT_VERTICIES_COUNT = 4, GEOMETRY_VERTICIES_TOTAL_COUNT = 8};
+		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
+		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
+
+		// common variables (same in SubSkin and TileRect)
+		//FloatRect mRectTexture;
+		bool mEmptyView;
+
+		VertexColourType mVertexFormat;
+		uint32 mCurrentColour;
+
+		FloatRect mCurrentTexture;
+		IntCoord mCurrentCoord;
+
+		ILayerNode* mNode;
+		RenderItem* mRenderItem;
 	};
 
 } // namespace MyGUI

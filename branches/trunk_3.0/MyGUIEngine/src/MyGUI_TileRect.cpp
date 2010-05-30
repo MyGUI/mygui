@@ -47,6 +47,7 @@ namespace MyGUI
 		mTileH(true),
 		mTileV(true)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	TileRect::~TileRect()
@@ -66,7 +67,8 @@ namespace MyGUI
 		uint32 alpha = ((uint8)(_alpha*255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::_correctView()
@@ -365,7 +367,7 @@ namespace MyGUI
 	void TileRect::_setColour(const Colour& _value)
 	{
 		uint32 colour = texture_utility::toColourARGB(_value);
-		texture_utility::convertColour(colour, RenderManager::getInstance().getVertexFormat());
+		texture_utility::convertColour(colour, mVertexFormat);
 		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
 
 		if (nullptr != mNode)

@@ -27,6 +27,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
@@ -66,6 +67,7 @@ namespace MyGUI
 		FloatRect mRectTexture;
 		bool mEmptyView;
 
+		VertexColourType mVertexFormat;
 		uint32 mCurrentColour;
 
 		FloatRect mCurrentTexture;

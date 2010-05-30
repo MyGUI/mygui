@@ -28,15 +28,11 @@ namespace MyGUI
 {
 
 	RotatingSkin::RotatingSkin() :
-		SubSkin(),
 		mAngle(0.0f),
-		mLocalCenter(false)
+		mEmptyView(false),
+		mNode(nullptr),
+		mRenderItem(nullptr)
 	{
-		for (int i = 0; i<4; ++i)
-		{
-			mBaseAngles[i] = 0.0f;
-			mBaseDistances[i] = 0.0f;
-		}
 	}
 
 	RotatingSkin::~RotatingSkin()
@@ -46,15 +42,19 @@ namespace MyGUI
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		_rebuildGeometry();
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::setCenter(const IntPoint &_center, bool _local)
+	void RotatingSkin::setCenter(const IntPoint &_center)
 	{
 		mCenterPos = _center;
-		mLocalCenter = _local;
-		recalculateAngles();
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		_rebuildGeometry();
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	IntPoint RotatingSkin::getCenter(bool _local) const
@@ -62,72 +62,363 @@ namespace MyGUI
 		return mCenterPos + (_local ? IntPoint() : mCroppedParent->getAbsolutePosition());
 	}
 
+	void RotatingSkin::setVisible(bool _visible)
+	{
+		if (mVisible == _visible)
+			return;
+
+		mVisible = _visible;
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	void RotatingSkin::setAlpha(float _alpha)
+	{
+		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	void RotatingSkin::_correctView()
+	{
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	void RotatingSkin::_setAlign(const IntSize& _oldsize, bool _update)
+	{
+		// необходимо разобраться
+		bool need_update = true;//_update;
+
+		// первоначальное выравнивание
+		if (mAlign.isHStretch())
+		{
+			// растягиваем
+			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+			need_update = true;
+			mIsMargin = true; // при изменении размеров все пересчитывать
+		}
+		else if (mAlign.isRight())
+		{
+			// двигаем по правому краю
+			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
+			need_update = true;
+		}
+		else if (mAlign.isHCenter())
+		{
+			// выравнивание по горизонтали без растяжения
+			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
+			need_update = true;
+		}
+
+		if (mAlign.isVStretch())
+		{
+			// растягиваем
+			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
+			need_update = true;
+			mIsMargin = true; // при изменении размеров все пересчитывать
+		}
+		else if (mAlign.isBottom())
+		{
+			// двигаем по нижнему краю
+			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
+			need_update = true;
+		}
+		else if (mAlign.isVCenter())
+		{
+			// выравнивание по вертикали без растяжения
+			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
+			need_update = true;
+		}
+
+		if (need_update)
+		{
+			mCurrentCoord = mCoord;
+			_updateView();
+		}
+	}
+
+	void RotatingSkin::_updateView()
+	{
+		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
+
+		_rebuildGeometry();
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	void RotatingSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	{
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
+
+		mNode = _node;
+		mRenderItem = mNode->addToRenderItem(_texture, this);
+		mRenderItem->addDrawItem(this, (GEOMETRY_VERTICIES_TOTAL_COUNT - 2) * 3);
+	}
+
+	void RotatingSkin::destroyDrawItem()
+	{
+		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
+
+		mNode = nullptr;
+		mRenderItem->removeDrawItem(this);
+		mRenderItem = nullptr;
+	}
+
 	void RotatingSkin::doRender()
 	{
-		if ((!mVisible) || mEmptyView) return;
+		if ((!mVisible) || mEmptyView)
+			return;
 
-		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
+		Vertex* verticies = mRenderItem->getCurrentVertextBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
 		float vertex_z = info.maximumDepth;
 
-		float vertex_left_base = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() + mCenterPos.left) + info.hOffset) * 2) - 1;
-		float vertex_top_base = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + mCenterPos.top) + info.vOffset) * 2) - 1);
+		for (int i = 1; i < GEOMETRY_VERTICIES_TOTAL_COUNT - 1; ++i)
+		{
+			verticies[3*i - 3].set(mResultVerticiesPos[0].left, mResultVerticiesPos[0].top, vertex_z, mResultVerticiesUV[0].left, mResultVerticiesUV[0].top, mCurrentColour);
+			verticies[3*i - 2].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
+			verticies[3*i - 1].set(mResultVerticiesPos[i+1].left, mResultVerticiesPos[i+1].top, vertex_z, mResultVerticiesUV[i+1].left, mResultVerticiesUV[i+1].top, mCurrentColour);
+		}
 
-		// FIXME: do it only when size changes
-		recalculateAngles();
-
-		quad->set(
-			vertex_left_base + cos(-mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2,
-			vertex_top_base + sin(-mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2,
-			vertex_left_base + cos(-mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2,
-			vertex_top_base + sin(-mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2,
-			vertex_left_base + cos(-mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2,
-			vertex_top_base + sin(-mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2,
-			vertex_left_base + cos(-mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2,
-			vertex_top_base + sin(-mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2,
-			vertex_z,
-			mCurrentTexture.left,
-			mCurrentTexture.top,
-			mCurrentTexture.right,
-			mCurrentTexture.bottom,
-			mCurrentColour
-			);
-
-		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
+		mRenderItem->setLastVertexCount((GEOMETRY_VERTICIES_TOTAL_COUNT - 2) * 3);
 	}
 
-	float len(float x, float y) { return sqrt(x*x + y*y); }
-
-	void RotatingSkin::recalculateAngles()
+	void RotatingSkin::_setColour(const Colour& _value)
 	{
+		uint32 colour = texture_utility::toColourARGB(_value);
+		texture_utility::convertColour(colour, mVertexFormat);
+		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	void RotatingSkin::setStateData(IStateInfo* _data)
+	{
+		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
+	}
+
+	void RotatingSkin::_setUVSet(const FloatRect& _rect)
+	{
+		mCurrentTexture = _rect;
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
+	}
+
+	inline float len(float x, float y) { return sqrt(x*x + y*y); }
+
+	void RotatingSkin::_rebuildGeometry()
+	{
+		/*
+			0 1
+			3 2
+		*/
 #ifndef M_PI
 		const float M_PI = 3.141593f;
 #endif
-		// FIXME mLocalCenter ignored
-		float left_base = 0;
-		float top_base = 0;
-
-		if (!mLocalCenter)
-		{
-			left_base = (float)mCurrentCoord.width;
-			top_base = (float)mCurrentCoord.height;
-		}
 
 		float width_base = (float)mCurrentCoord.width;
 		float height_base = (float)mCurrentCoord.height;
 
-		mBaseAngles[0] = atan2((float) - mCenterPos.left, (float) - mCenterPos.top) + M_PI/2;
-		mBaseAngles[1] = atan2((float) - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
-		mBaseAngles[2] = atan2((float)width_base - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
-		mBaseAngles[3] = atan2((float)width_base - mCenterPos.left, (float) - mCenterPos.top) + M_PI/2;
+		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
+		float baseAngles[RECT_VERTICIES_COUNT];
+		baseAngles[0] = atan2(                (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
+		baseAngles[1] = atan2( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
+		baseAngles[2] = atan2( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
+		baseAngles[3] = atan2(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
 
-		mBaseDistances[0] = len((float) - mCenterPos.left, (float) - mCenterPos.top);
-		mBaseDistances[1] = len((float) - mCenterPos.left, height_base - mCenterPos.top);
-		mBaseDistances[2] = len((float)width_base - mCenterPos.left, height_base - mCenterPos.top);
-		mBaseDistances[3] = len((float)width_base - mCenterPos.left, (float) - mCenterPos.top);
+		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
+		float baseDistances[RECT_VERTICIES_COUNT];
+		baseDistances[0] = len(                (float)mCenterPos.left,                 (float)mCenterPos.top);
+		baseDistances[1] = len( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top);
+		baseDistances[2] = len( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top);
+		baseDistances[3] = len(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top);
 
+
+		// calculate rotated postions of uncropped rectangle verticies (relative to parent)
+		FloatPoint baseVerticiesPos[RECT_VERTICIES_COUNT];
+		if (mRenderItem && mRenderItem->getRenderTarget())
+		{
+			int offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
+			int offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
+
+			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+			{
+				baseVerticiesPos[i].left = offsetX + cos(-mAngle + baseAngles[i]) * baseDistances[i];
+				baseVerticiesPos[i].top = offsetY - sin(-mAngle + baseAngles[i]) * baseDistances[i];
+			}
+		}
+
+		// base texture coordinates
+		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] =
+		{
+			FloatPoint(mCurrentTexture.left, mCurrentTexture.top),
+			FloatPoint(mCurrentTexture.right, mCurrentTexture.top),
+			FloatPoint(mCurrentTexture.right, mCurrentTexture.bottom),
+			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)
+		};
+
+		// now we have rotated uncropped rectangle verticies coordinates
+
+		// --------- here the cropping starts ---------
+
+		// now we are going to calculate vertices of resulting figure
+
+		// no parent - no cropping
+		int size = RECT_VERTICIES_COUNT;
+		if (nullptr == mCroppedParent->getCroppedParent())
+		{
+			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+			{
+				mResultVerticiesPos[i] = baseVerticiesPos[i];
+				mResultVerticiesUV[i] = baseVerticiesUV[i];
+			}
+		}
+		else
+		{
+			size = _cropRotatedRectangle(baseVerticiesPos);
+
+			// calculate texture coordinates
+			FloatPoint v0 = baseVerticiesUV[1] - baseVerticiesUV[0];
+			FloatPoint v1 = baseVerticiesUV[3] - baseVerticiesUV[0];
+			for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
+			{
+				if (i <= size - 1)
+				{
+					FloatPoint point = _getPositionInsideRect(mResultVerticiesPos[i], baseVerticiesPos[0], baseVerticiesPos[1], baseVerticiesPos[3]);
+					mResultVerticiesUV[i] = FloatPoint(baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
+					                                   baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top );
+				}
+				else
+				{
+					// all unused verticies is equal to last used
+					mResultVerticiesUV[i] = mResultVerticiesUV[size - 1];
+				}
+			}
+		}
+
+
+		// now calculate widget base offset and then resulting position in screen coordinates
+		if (mRenderItem && mRenderItem->getRenderTarget())
+		{
+			const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+			float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+			float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+
+			for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
+			{
+				if (i <= size - 1)
+				{
+					mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
+					mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
+				}
+				else
+				{
+					// all unused verticies is equal to last used
+					mResultVerticiesPos[i] = mResultVerticiesPos[size - 1];
+				}
+			}
+		}
+	}
+
+	size_t RotatingSkin::_cropRotatedRectangle(FloatPoint* _baseVerticiesPos)
+	{
+		std::vector<FloatPoint> resultVerticiesPos;
+		resultVerticiesPos.resize(RECT_VERTICIES_COUNT);
+		for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+		{
+			resultVerticiesPos[i] = _baseVerticiesPos[i];
+		}
+
+		ICroppedRectangle * parent = mCroppedParent->getCroppedParent();
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mCroppedParent->getLeft(), Left);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mCroppedParent->getLeft(), Right);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mCroppedParent->getTop(), Top);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() + parent->_getViewHeight() - mCroppedParent->getTop(), Bottom);
+
+		for (size_t i = 0; i < resultVerticiesPos.size(); ++i)
+		{
+			mResultVerticiesPos[i] = resultVerticiesPos[i];
+		}
+
+		return resultVerticiesPos.size();
+	}
+
+	void RotatingSkin::_cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, int _sideCoord, Side _side)
+	{
+		std::vector<FloatPoint> newVerticies;
+		int invert = (_side == Right || _side == Bottom) ? -1 : 1;
+		for (size_t i = 0; i < _verticies.size(); ++i)
+		{
+			FloatPoint& v0 = _verticies[i];
+			FloatPoint& v1 = _verticies[(i+1)%_verticies.size()];
+			switch (_side)
+			{
+			case Left: case Right:
+				// both inside
+				if (invert * v0.left >= invert * _sideCoord && invert * v1.left >= invert * _sideCoord)
+					newVerticies.push_back(v0);
+				// intersect side (1st vertex in)
+				else if (invert * v0.left >= invert * _sideCoord && invert * v1.left < invert * _sideCoord)
+				{
+					newVerticies.push_back(v0);
+					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+				}
+				// intersect side (2nd vertex in)
+				else if (invert * v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
+				{
+					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+				}
+				// else don't add any verticies
+				break;
+			case Top: case Bottom:
+				// both inside
+				if (invert * v0.top >= invert * _sideCoord && invert * v1.top >= invert * _sideCoord)
+					newVerticies.push_back(v0);
+				// intersect side (1st vertex in)
+				else if (invert * v0.top >= invert * _sideCoord && invert * v1.top < invert * _sideCoord)
+				{
+					newVerticies.push_back(v0);
+					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
+					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
+				}
+				// intersect side (2nd vertex in)
+				else if (invert * v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
+				{
+					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
+					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
+				}
+				// else don't add any verticies
+				break;
+			}
+		}
+
+		_verticies = newVerticies;
+	}
+
+	FloatPoint RotatingSkin::_getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2)
+	{
+		FloatPoint result;
+
+		FloatPoint point = _point - _corner0;
+		FloatPoint dirX = _corner1 - _corner0;
+		FloatPoint dirY = _corner2 - _corner0;
+
+		float div = dirX.left*dirY.top - dirX.top*dirY.left;
+		return FloatPoint(
+			(point.top*dirX.left - point.left*dirX.top)/div,
+			(point.left*dirY.top - point.top*dirY.left)/div
+			);
 	}
 
 } // namespace MyGUI
