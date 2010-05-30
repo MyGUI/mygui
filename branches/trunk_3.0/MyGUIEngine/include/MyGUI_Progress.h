@@ -24,6 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Align.h"
+#include "MyGUI_FlowDirection.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
@@ -52,12 +53,8 @@ namespace MyGUI
 		/** Get progress auto tracking flag */
 		bool getProgressAutoTrack() { return mAutoTrack; }
 
-		/** Set progress start point
-			For example with Align::Top if will be filled from top to bottom.
-		*/
-		void setProgressStartPoint(Align _value);
-		/** Get progress start point */
-		Align getProgressStartPoint() { return mStartPoint; }
+		void setFlowDirection(FlowDirection _value);
+		FlowDirection getFlowDirection() { return mFlowDirection; }
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -84,6 +81,11 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
+		MYGUI_OBSOLETE("use : void Progress::setFlowDirection(FlowDirection _value)")
+		void setProgressStartPoint(Align _value) { _setProgressStartPoint(_value); }
+		MYGUI_OBSOLETE("use : FlowDirection Progress::getFlowDirection()")
+		Align getProgressStartPoint();
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
@@ -94,10 +96,11 @@ namespace MyGUI
 		void frameEntered(float _time);
 		void updateTrack();
 
-		int getClientWidth() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getWidth() : mClient->getHeight(); }
-		int getClientHeight() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getHeight() : mClient->getWidth(); }
+		int getClientWidth();
+		int getClientHeight();
 
 		void setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height);
+		void _setProgressStartPoint(Align _value);
 
 	private:
 		std::string mTrackSkin;
@@ -112,10 +115,9 @@ namespace MyGUI
 		bool mAutoTrack;
 		bool mFillTrack;
 
-		Align mStartPoint;
+		FlowDirection mFlowDirection;
 
 		Widget* mClient;
-
 	};
 
 } // namespace MyGUI

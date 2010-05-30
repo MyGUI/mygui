@@ -28,14 +28,6 @@
 		<Property key="HCenter VCenter"/>
 	</Value>
 
-	<Value name="AlignStartPoint">
-		<Property key="#{ColourDefault}[DEFAULT]"/>
-		<Property key="Left"/>
-		<Property key="Top"/>
-		<Property key="Right"/>
-		<Property key="Bottom"/>
-	</Value>
-
 	<Value name="TextAlign">
 		<Property key="#{ColourDefault}[DEFAULT]"/>
 		<Property key="Default"/>
@@ -123,6 +115,14 @@
 		<Property key="Accelerated"/>
 		<Property key="Slowed"/>
 		<Property key="Jump"/>
+	</Value>
+
+	<Value name="FlowDirection">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="LeftToRight"/>
+		<Property key="RightToLeft"/>
+		<Property key="TopToBottom"/>
+		<Property key="BottomToTop"/>
 	</Value>
 
 </MyGUI>

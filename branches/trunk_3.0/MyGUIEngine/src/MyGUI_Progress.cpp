@@ -43,7 +43,6 @@ namespace MyGUI
 		mAutoPosition(0.0f),
 		mAutoTrack(false),
 		mFillTrack(false),
-		mStartPoint(Align::Left),
 		mClient(nullptr)
 	{
 	}
@@ -75,9 +74,12 @@ namespace MyGUI
 		else mTrackStep = mTrackWidth;
 		iterS = properties.find("TrackFill");
 		if (iterS != properties.end()) mFillTrack = utility::parseBool(iterS->second);
+		iterS = properties.find("FlowDirection");
+		if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
+#ifndef MYGUI_DONT_USE_OBSOLETE
 		iterS = properties.find("StartPoint");
-		if (iterS != properties.end()) setProgressStartPoint(Align::parse(iterS->second));
-
+		if (iterS != properties.end()) _setProgressStartPoint(Align::parse(iterS->second));
+#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	void Progress::shutdownWidgetSkin()
@@ -292,24 +294,10 @@ namespace MyGUI
 
 	void Progress::setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height)
 	{
-		if (mStartPoint.isLeft()) _widget->setCoord(_left, _top, _width, _height);
-		else if (mStartPoint.isRight()) _widget->setCoord(mClient->getWidth() - _left - _width, _top, _width, _height);
-		else if (mStartPoint.isTop()) _widget->setCoord(_top, _left, _height, _width);
-		else if (mStartPoint.isBottom()) _widget->setCoord(_top, mClient->getHeight() - _left - _width, _height, _width);
-	}
-
-	void Progress::setProgressStartPoint(Align _align)
-	{
-		if ((_align == Align::Left) || (_align == Align::Right) || (_align == Align::Top) || (_align == Align::Bottom))
-		{
-			mStartPoint = _align;
-		}
-		else
-		{
-			mStartPoint = Align::Left;
-			MYGUI_LOG(Warning, "Progress bar support only Left, Right, Top or Bottom align values");
-		}
-		updateTrack();
+		if (mFlowDirection == FlowDirection::LeftToRight) _widget->setCoord(_left, _top, _width, _height);
+		else if (mFlowDirection == FlowDirection::RightToLeft) _widget->setCoord(mClient->getWidth() - _left - _width, _top, _width, _height);
+		else if (mFlowDirection == FlowDirection::TopToBottom) _widget->setCoord(_top, _left, _height, _width);
+		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mClient->getHeight() - _left - _width, _height, _width);
 	}
 
 	void Progress::setProperty(const std::string& _key, const std::string& _value)
@@ -317,7 +305,14 @@ namespace MyGUI
 		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
-		else if (_key == "Progress_StartPoint") setProgressStartPoint(utility::parseValue<Align>(_value));
+		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Progress_StartPoint")
+		{
+			MYGUI_LOG(Warning, "Progress_StartPoint is obsolete, use Progress_FlowDirection");
+			_setProgressStartPoint(utility::parseValue<Align>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
 		else
 		{
 			Base::setProperty(_key, _value);
@@ -325,5 +320,51 @@ namespace MyGUI
 		}
 		eventChangeProperty(this, _key, _value);
 	}
+
+	int Progress::getClientWidth()
+	{
+		return mFlowDirection.isHorizontal() ? mClient->getWidth() : mClient->getHeight();
+	}
+
+	int Progress::getClientHeight()
+	{
+		return mFlowDirection.isHorizontal() ? mClient->getHeight() : mClient->getWidth();
+	}
+
+	void Progress::setFlowDirection(FlowDirection _value)
+	{
+		mFlowDirection = _value;
+		updateTrack();
+	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	Align Progress::getProgressStartPoint()
+	{
+		if (mFlowDirection == FlowDirection::RightToLeft)
+			return Align::Right;
+		else if (mFlowDirection == FlowDirection::TopToBottom)
+			return Align::Top;
+		else if (mFlowDirection == FlowDirection::BottomToTop)
+			return Align::Bottom;
+
+		return Align::Left;
+	}
+
+	void Progress::_setProgressStartPoint(Align _value)
+	{
+		if (_value == Align::Right)
+			mFlowDirection = FlowDirection::RightToLeft;
+		else if (_value == Align::Top)
+			mFlowDirection = FlowDirection::TopToBottom;
+		else if (_value == Align::Bottom)
+			mFlowDirection = FlowDirection::BottomToTop;
+		else
+			mFlowDirection = FlowDirection::LeftToRight;
+
+		updateTrack();
+	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
