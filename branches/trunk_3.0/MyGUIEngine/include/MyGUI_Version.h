@@ -32,12 +32,11 @@ namespace MyGUI
 	class MYGUI_EXPORT Version
 	{
 	public:
-		Version() : value(0) { }
-		Version(uint8 _major, uint8 _minor, uint16 _patch) : value((uint32(_major) << 24) + (uint32(_minor) << 16) + uint32(_patch)) { }
-		Version(uint8 _major, uint8 _minor) : value((uint32(_major) << 24) + (uint32(_minor) << 16)) { }
-		explicit Version(const std::string& _value) : value(parse(_value).value) { }
+		Version() : mMajor(0), mMinor(0), mPatch(0) { }
+		Version(int _major, int _minor, int _patch) : mMajor(_major), mMinor(_minor), mPatch(_patch) { }
+		Version(int _major, int _minor) : mMajor(_major), mMinor(_minor), mPatch(0) { }
 
-		friend bool operator < (Version const& a, Version const& b) { return a.getPoorVersion() < b.getPoorVersion(); }
+		friend bool operator < (Version const& a, Version const& b) { return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor); }
 		friend bool operator >= (Version const& a, Version const& b) { return !(a < b); }
 		friend bool operator > (Version const& a, Version const& b) { return (b < a); }
 		friend bool operator <= (Version const& a, Version const& b) { return !(a > b); }
@@ -59,35 +58,30 @@ namespace MyGUI
 			return _stream;
 		}
 
-		uint8 getMajor() const { return uint8((value & 0xFF000000) >> 24); }
-		uint8 getMinor() const { return uint8((value & 0x00FF0000) >> 16); }
-		uint16 getPatch() const { return uint16(value & 0x0000FFFF); }
-
-		uint32 getPoorVersion() const { return value & 0xFFFF0000; }
-		uint32 getFullVersion() const { return value; }
+		int getMajor() const { return mMajor; }
+		int getMinor() const { return mMinor; }
+		int getPatch() const { return mPatch; }
 
 		std::string print() const
 		{
-			if (getPatch() == 0) return utility::toString(getMajor(), ".", getMinor());
-			return utility::toString(getMajor(), ".", getMinor(), ".", getPatch());
+			if (mPatch == 0) return utility::toString(mMajor, ".", mMinor);
+			return utility::toString(mMajor, ".", mMinor, ".", mPatch);
 		}
 
 		static Version parse(const std::string& _value)
 		{
 			const std::vector<std::string>& vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
-			uint8 major = (uint8)utility::parseValue<int>(vec[0]);
-			uint8 minor = vec.size() > 1 ? (uint8)utility::parseValue<int>(vec[1]) : uint8(0);
-			uint16 patch = vec.size() > 2 ? (uint16)utility::parseValue<int>(vec[2]) : uint16(0);
+			int major = utility::parseValue<int>(vec[0]);
+			int minor = vec.size() > 1 ? utility::parseValue<int>(vec[1]) : 0;
+			int patch = vec.size() > 2 ? utility::parseValue<int>(vec[2]) : 0;
 			return Version(major, minor, patch);
 		}
 
 	private:
-		union
-		{
-			uint32 value;
-			uint8 value_data[4];
-		};
+		unsigned mMajor : 8;
+		unsigned mMinor : 8;
+		unsigned mPatch : 16;
 	};
 
 } // namespace MyGUI
