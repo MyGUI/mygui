@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Widgets">
+
+	<Widget name="Progress">
+		<Property key="Skin" value="rtt_MonitorProgress" group="rtt"/>
+		<Property key="Skin" value="rtt_KeyboardProgress" group="rtt"/>
+	</Widget>
+
+	<Widget name="Button">
+		<Property key="Skin" value="rtt_KeyboardLamp" group="rtt"/>
+		<Property key="Skin" value="rtt_KeyboardButton" group="rtt"/>
+	</Widget>
+
+	<Widget name="Edit">
+		<Property key="Skin" value="rtt_MonitorEdit" group="rtt"/>
+	</Widget>
+
+</MyGUI>

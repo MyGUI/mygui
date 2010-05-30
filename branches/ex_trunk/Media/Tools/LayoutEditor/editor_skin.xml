@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin" version="1.1">
+
+  <Skin name = "Editor_StaticText" size = "16 16">
+    <Property key="FontName" value = "Default" />
+    <Property key="AlignText" value = "Default" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
+
+    <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
+  </Skin>
+
+  <Skin name = "Editor_StaticImage" size = "16 16">
+    <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+  </Skin>
+
+  <Skin name = "Editor_PanelEmpty" size = "16 16">
+    <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+  </Skin>
+
+  <Skin name = "ProgressHealthBarTrack" size = "193 49" texture = "progresstrack.png" >
+    <BasisSkin type="MainSkin" offset = "0 0 193 49" align = "Stretch">
+      <State name="normal" offset = "0 0 193 49"/>
+    </BasisSkin>
+  </Skin>
+
+
+  <Skin name = "ProgressHealthBar" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
+    <Property key="TrackSkin" value = "ProgressHealthBarTrack" />
+    <Property key="TrackWidth" value = "86" />
+    <Property key="TrackStep" value = "53" />
+    <Property key="TrackFill" value = "false" />
+
+    <Child type="Widget" skin="Default" offset = "2 1 46 14" align = "Stretch" name = "Client"/>
+  </Skin>
+
+</MyGUI>

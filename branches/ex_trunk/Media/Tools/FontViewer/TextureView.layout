@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="30 520 728 220" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Texture view"/>
+        <Property key="Window_MinSize" value="150 150"/>
+        <Widget type="ScrollView" skin="ScrollView" position="3 3 712 177" align="Stretch">
+            <Property key="Widget_SizePolicy" value="Content"/>
+            <Property key="Widget_Margin" value="3 3 3 3"/>
+            <Widget type="StaticImage" skin="StaticImage" position="0 0 1024 256" align="Stretch">
+                <Property key="Image_Texture" value="core.png"/>
+                <Property key="Image_Coord" value="678 54 1 1"/>
+                <Property key="Image_Tile" value="1 1"/>
+                <Property key="Image_Index" value="0"/>
+                <Property key="Widget_SizePolicy" value="Content"/>
+                <Widget type="StaticImage" skin="StaticImage" position="0 0 10 10" align="Center" name="image_Texture">
+                    <Property key="Widget_SizePolicy" value="Content"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+    <CodeGenaratorSettings>
+        <Property key="PanelName" value=""/>
+        <Property key="IncludeDirectory" value=""/>
+        <Property key="SourceDirectory" value=""/>
+    </CodeGenaratorSettings>
+</MyGUI>

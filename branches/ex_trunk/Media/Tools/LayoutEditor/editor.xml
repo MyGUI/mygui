@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="List">
+
+	<List file="editor_theme.xml"/>
+	<List file="editor_language.xml"/>
+	<List file="core_font.xml"/>
+	<List file="core_resource.xml"/>
+	<List file="core_skin.xml"/>
+	<List file="core_pointer.xml"/>
+	<List file="editor_layer.xml"/>
+
+	<List file="editor_skin.xml"/>
+	<List file="editor_skin_helper.xml"/>
+
+	<List file="editor_settings.xml"/>
+
+</MyGUI>

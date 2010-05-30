@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="List" skin="List" position="352 264 152 144" align="Center" layer="Back"/>
+    <CodeGenaratorSettings>
+        <Property key="PanelName" value="SelectorWindow"/>
+        <Property key="IncludeDirectory" value="E:\Ger\Programming\rigsofrods\contents\contents\source\layouts"/>
+        <Property key="SourceDirectory" value="E:\Ger\Programming\rigsofrods\contents\contents\source\layouts"/>
+    </CodeGenaratorSettings>
+</MyGUI>

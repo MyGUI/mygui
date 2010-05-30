@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowSmallCX" position="20 50 100 102" name="_Main">
+        <Widget type="Button" skin="ButtonRoundBlue" position="87 27 14 14" align="Right Top" name="ConnectionOut">
+            <UserString key="Type" value="PositionOut"/>
+            <UserString key="Direction" value="1 0"/>
+            <UserString key="Name" value="Weight"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="18 26 66 16" align="HStretch Top" layer="Back">
+            <Property key="Text_TextAlign" value="Right VCenter"/>
+            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+            <Property key="Widget_Caption" value="Weight"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
+        <Widget type="HScroll" skin="HSlider" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
+            <Property key="Scroll_MoveToClick" value="true"/>
+            <Property key="Scroll_Range" value="1000"/>
+            <Property key="Scroll_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
+            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+        </Widget>
+    </Widget>
+</MyGUI>
