@@ -57,7 +57,7 @@ namespace diagnostic
 		}
 
 	private:
-		void notifyChangeMouseFocus(MyGUI::WidgetPtr _widget)
+		void notifyChangeMouseFocus(MyGUI::Widget* _widget)
 		{
 			if (mFocusVisible)
 			{
@@ -66,7 +66,7 @@ namespace diagnostic
 			}
 		}
 
-		void notifyChangeKeyFocus(MyGUI::WidgetPtr _widget)
+		void notifyChangeKeyFocus(MyGUI::Widget* _widget)
 		{
 			if (mFocusVisible)
 			{
@@ -149,13 +149,13 @@ namespace diagnostic
 
 	private:
 		bool mFocusVisible;
-		MyGUI::WidgetPtr mMouseHelper;
-		MyGUI::WidgetPtr mKeyHelper;
+		MyGUI::Widget* mMouseHelper;
+		MyGUI::Widget* mKeyHelper;
 
-		MyGUI::WidgetPtr mWidgetMouseFocus;
-		MyGUI::WidgetPtr mWidgetKeyFocus;
-		MyGUI::WidgetPtr mOldMouseFocus;
-		MyGUI::WidgetPtr mOldKeyFocus;
+		MyGUI::Widget* mWidgetMouseFocus;
+		MyGUI::Widget* mWidgetKeyFocus;
+		MyGUI::Widget* mOldMouseFocus;
+		MyGUI::Widget* mOldKeyFocus;
 
 	};
 

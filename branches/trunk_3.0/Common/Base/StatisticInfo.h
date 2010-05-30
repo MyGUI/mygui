@@ -121,7 +121,7 @@ namespace diagnostic
 		}
 
 	private:
-		MyGUI::StaticTextPtr mInfo;
+		MyGUI::StaticText* mInfo;
 		VectorPairString mParams;
 
 	};

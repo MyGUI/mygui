@@ -33,7 +33,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
 	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
 	typedef delegates::CDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
-	typedef delegates::CDelegate3<DDContainer*, WidgetPtr&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
 
 
 	class MYGUI_EXPORT DDContainer :

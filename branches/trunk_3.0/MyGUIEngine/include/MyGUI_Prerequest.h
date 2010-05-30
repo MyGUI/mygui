@@ -112,6 +112,8 @@ namespace MyGUI
 	class ListCtrl;
 	class ListBox;
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
 	typedef Window* WindowPtr;
@@ -137,8 +139,6 @@ namespace MyGUI
 	typedef Canvas* CanvasPtr;
 	typedef ListCtrl* ListCtrlPtr;
 	typedef ListBox* ListBoxPtr;
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
 
 	typedef TabItem Sheet;
 	typedef TabItem* SheetPtr;

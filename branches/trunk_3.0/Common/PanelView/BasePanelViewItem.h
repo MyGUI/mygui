@@ -69,7 +69,7 @@ namespace wraps
 
 	protected:
 		BasePanelViewCell * mPanelCell;
-		MyGUI::WidgetPtr mWidgetClient;
+		MyGUI::Widget* mWidgetClient;
 		std::string mLayout;
 	};
 
