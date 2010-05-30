@@ -29,7 +29,6 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_LayerManager.h"
-#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -42,12 +41,13 @@ namespace MyGUI
 		mButton(nullptr),
 		mList(nullptr),
 		mListShow(false),
-		mMaxHeight(0),
+		mMaxListLength(-1),
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
 		mDropMouse(false),
 		mShowSmooth(false),
-		mManualList(true)
+		mManualList(true),
+		mFlowDirection(FlowDirection::TopToBottom)
 	{
 	}
 
@@ -59,11 +59,14 @@ namespace MyGUI
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
-			MapString::const_iterator iter = properties.find("HeightList");
-			if (iter != properties.end()) mMaxHeight = utility::parseValue<int>(iter->second);
-
+			MapString::const_iterator iter = properties.find("MaxListLength");
+			if (iter != properties.end()) mMaxListLength = utility::parseValue<int>(iter->second);
 			iter = properties.find("ListSmoothShow");
 			if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
+#ifndef MYGUI_DONT_USE_OBSOLETE
+			iter = properties.find("HeightList");
+			if (iter != properties.end()) mMaxListLength = utility::parseValue<int>(iter->second);
+#endif // MYGUI_DONT_USE_OBSOLETE
 		}
 
 		// парсим кнопку
@@ -87,10 +90,6 @@ namespace MyGUI
 			}
 		}
 
-		//OBSOLETE
-		//MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
-
-		//MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
 		mManualList = (mList == nullptr);
 		if (mList == nullptr)
 		{
@@ -109,9 +108,6 @@ namespace MyGUI
 			mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
 			mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 		}
-
-		// корректируем высоту списка
-		//if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
 		if (mWidgetClient != nullptr)
@@ -277,28 +273,12 @@ namespace MyGUI
 	void ComboBox::showList()
 	{
 		// пустой список не показываем
-		if (mList->getItemCount() == 0) return;
+		if (mList->getItemCount() == 0)
+			return;
 
 		mListShow = true;
 
-		int height = mList->getOptimalHeight();
-		if (height > mMaxHeight) height = mMaxHeight;
-
-		// берем глобальные координаты выджета
-		IntCoord coord = this->getAbsoluteCoord();
-
-		//показываем список вверх
-		if ((coord.top + coord.height + height) > RenderManager::getInstance().getViewSize().height)
-		{
-			coord.height = height;
-			coord.top -= coord.height;
-		}
-		// показываем список вниз
-		else
-		{
-			coord.top += coord.height;
-			coord.height = height;
-		}
+		IntCoord coord = calculateListPosition();
 		mList->setCoord(coord);
 
 		if (mShowSmooth)
@@ -410,13 +390,74 @@ namespace MyGUI
 	void ComboBox::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
+		else if (_key == "ComboBox_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		else if (_key == "ComboBox_MaxLength") setMaxListLength(utility::parseValue<int>(_value));
+#ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "ComboBox_AddItem") addItem(_value);
+#endif // MYGUI_DONT_USE_OBSOLETE
 		else
 		{
 			Base::setProperty(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void ComboBox::setFlowDirection(FlowDirection _value)
+	{
+		mFlowDirection = _value;
+	}
+
+	IntCoord ComboBox::calculateListPosition()
+	{
+		int length = 0;
+		if (mFlowDirection.isVertical())
+			length = mList->getOptimalHeight();
+		else
+			length = mMaxListLength;
+
+		if (mMaxListLength > 0 && length > mMaxListLength)
+			length = mMaxListLength;
+
+		// берем глобальные координаты выджета
+		IntCoord coord = getAbsoluteCoord();
+		// размер леера
+		IntSize sizeView = mList->getParentSize();
+
+		if (mFlowDirection == FlowDirection::TopToBottom)
+		{
+			if ((coord.bottom() + length) <= sizeView.height)
+				coord.top += coord.height;
+			else
+				coord.top -= length;
+			coord.height = length;
+		}
+		else if (mFlowDirection == FlowDirection::BottomToTop)
+		{
+			if ((coord.top - length) >= 0)
+				coord.top -= length;
+			else
+				coord.top += coord.height;
+			coord.height = length;
+		}
+		else if (mFlowDirection == FlowDirection::LeftToRight)
+		{
+			if ((coord.right() + length) <= sizeView.width)
+				coord.left += coord.width;
+			else
+				coord.left -= length;
+			coord.width = length;
+		}
+		else if (mFlowDirection == FlowDirection::RightToLeft)
+		{
+			if ((coord.left - length) >= 0)
+				coord.left -= length;
+			else
+				coord.left += coord.width;
+			coord.width = length;
+		}
+
+		return coord;
 	}
 
 } // namespace MyGUI

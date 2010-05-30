@@ -42,6 +42,8 @@
 		<Property key="Skin" value="ComboBox"/>
 
 		<Parameter key="ComboBox_ModeDrop" value="Bool"/>
+		<Parameter key="ComboBox_FlowDirection" value="FlowDirection"/>
+		<Parameter key="ComboBox_MaxLength" value="1 int"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>

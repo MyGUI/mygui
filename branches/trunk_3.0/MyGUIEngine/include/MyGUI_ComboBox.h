@@ -28,6 +28,7 @@
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_FlowDirection.h"
 
 namespace MyGUI
 {
@@ -134,10 +135,13 @@ namespace MyGUI
 		//! Get smooth show of list flag
 		bool getSmoothShow() { return mShowSmooth; }
 
-		//! Get max list height
-		void setMaxListHeight(int _value) { mMaxHeight = _value; }
-		//! Set max list height
-		int getMaxListHeight() { return mMaxHeight; }
+		//! Get max list length
+		void setMaxListLength(int _value) { mMaxListLength = _value; }
+		//! Set max list length
+		int getMaxListLength() { return mMaxListLength; }
+
+		void setFlowDirection(FlowDirection _value);
+		FlowDirection getFlowDirection() { return mFlowDirection; }
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -185,6 +189,11 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
 		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
+		MYGUI_OBSOLETE("use : void ComboBox::setMaxListLength(int _value)")
+		void setMaxListHeight(int _value) { setMaxListLength(_value); }
+		MYGUI_OBSOLETE("use : int ComboBox::getMaxListLength()")
+		int getMaxListHeight() { return getMaxListLength(); }
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
@@ -209,19 +218,21 @@ namespace MyGUI
 		void actionWidgetHide(Widget* _widget);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
+		IntCoord calculateListPosition();
 
 	private:
 		Button* mButton;
 		List* mList;
 
 		bool mListShow;
-		int mMaxHeight;
+		int mMaxListLength;
 		size_t mItemIndex;
 		bool mModeDrop;
 		bool mDropMouse;
 		bool mShowSmooth;
 		bool mManualList;
 
+		FlowDirection mFlowDirection;
 	};
 
 } // namespace MyGUI
