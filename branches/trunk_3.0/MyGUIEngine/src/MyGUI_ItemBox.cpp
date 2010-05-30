@@ -658,9 +658,11 @@ namespace MyGUI
 
 	void ItemBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
+		bool needEvent = !mStartDrop;
 		mouseButtonReleased(_id);
 
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
+		if (needEvent)
+			eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ItemBox::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
