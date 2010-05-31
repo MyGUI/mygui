@@ -30,13 +30,13 @@ namespace MyGUI
 	template <> const char* Singleton<ToolTipManager>::mClassTypeName("ToolTipManager");
 
 	ToolTipManager::ToolTipManager() :
-		mIsInitialise(false),
 		mDelayVisible(0.5f),
 		mOldFocusWidget(nullptr),
 		mToolTipVisible(false),
 		mCurrentTime(0),
 		mOldIndex(ITEM_NONE),
-		mNeedToolTip(false)
+		mNeedToolTip(false),
+		mIsInitialise(false)
 	{
 	}
 

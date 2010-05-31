@@ -165,8 +165,8 @@ namespace MyGUI
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
-		ICroppedRectangle * mCroppedParent;
 		bool mIsMargin;
+		ICroppedRectangle * mCroppedParent;
 	};
 
 } // namespace MyGUI

@@ -27,12 +27,12 @@ namespace MyGUI
 {
 
 	WidgetInput::WidgetInput() :
-		mRootMouseFocus(false),
-		mRootKeyFocus(false),
 		mNeedToolTip(false),
+		mInheritsPick(false),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
-		mInheritsPick(false)
+		mRootMouseFocus(false),
+		mRootKeyFocus(false)
 	{
 	}
 

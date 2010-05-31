@@ -43,6 +43,7 @@ namespace MyGUI
 {
 
 	Widget::Widget() :
+		mWidgetClient(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
@@ -54,7 +55,6 @@ namespace MyGUI
 		mInheritsAlpha(true),
 		mTexture(nullptr),
 		mParent(nullptr),
-		mWidgetClient(nullptr),
 		mWidgetStyle(WidgetStyle::Child),
 		mContainer(nullptr),
 		mAlign(Align::Default),
@@ -107,7 +107,7 @@ namespace MyGUI
 		if (nullptr != mCroppedParent)
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
-		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+		//const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
 
 		initialiseWidgetSkinBase(_info, _coord.size());
 

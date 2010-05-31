@@ -35,7 +35,6 @@ namespace MyGUI
 	template <> const char* Singleton<InputManager>::mClassTypeName("InputManager");
 
 	InputManager::InputManager() :
-		mIsInitialise(false),
 		mWidgetMouseFocus(nullptr),
 		mWidgetKeyFocus(nullptr),
 		mLayerMouseFocus(nullptr),
@@ -46,7 +45,8 @@ namespace MyGUI
 		mHoldChar(0),
 		mFirstPressKey(false),
 		mTimerKey(0.0f),
-		mOldAbsZ(0)
+		mOldAbsZ(0),
+		mIsInitialise(false)
 	{
 	}
 

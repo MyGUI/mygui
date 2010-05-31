@@ -121,8 +121,8 @@ namespace MyGUI
 		mIsAddCursorWidth(true),
 		mShiftText(false),
 		mWordWrap(false),
-		mOldWidth(0),
-		mManualColour(false)
+		mManualColour(false),
+		mOldWidth(0)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
