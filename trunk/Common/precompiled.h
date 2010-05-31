@@ -1,7 +1,0 @@
-#ifdef MYGUI_OGRE_PLATFORM
-//#  define MYGUI_CUSTOM_ALLOCATOR
-#elif  MYGUI_DIRECTX_PLATFORM
-#elif  MYGUI_OPENGL_PLATFORM
-#endif
-
-#include <MyGUI.h>

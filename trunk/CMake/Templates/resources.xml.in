@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Paths>
-  <Path root="true">@MYGUI_MEDIA_DIR@</Path>
-  <Path>@MYGUI_MEDIA_DIR@/MyGUI_Media</Path>
-</Paths>
