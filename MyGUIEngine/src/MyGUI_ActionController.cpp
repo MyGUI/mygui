@@ -48,11 +48,12 @@ namespace MyGUI
 
 		void linearMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _k)
 		{
-			_result.set(_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
-			            _startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
-			            _startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
-			            _startRect.height - int( float(_startRect.height - _destRect.height) * _k )
-			           );
+			_result.set(
+				_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
+				_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
+				_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
+				_startRect.height - int( float(_startRect.height - _destRect.height) * _k )
+				);
 		}
 
 		void inertionalMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)
