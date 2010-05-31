@@ -35,7 +35,7 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	class MYGUI_EXPORT IWidgetFactory
+	/*class MYGUI_EXPORT IWidgetFactory
 	{
 	public:
 		virtual ~IWidgetFactory() { }
@@ -88,7 +88,7 @@ namespace MyGUI
 			}
 		};
 
-	} // namespace factory
+	} // namespace factory*/
 } // namespace MyGUI
 
 #endif // __MYGUI_I_WIDGET_FACTORY_H__
