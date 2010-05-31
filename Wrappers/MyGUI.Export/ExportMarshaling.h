@@ -132,20 +132,6 @@ namespace Export
 		inline static MyGUI::Align From(int _value) { return MyGUI::Align::Enum(_value); }
 	};
 
-	template <> struct Convert< MyGUI::FlowDirection >
-	{
-		typedef int Type;
-		inline static int To(MyGUI::FlowDirection _value) { return *((int*)(&_value)); }
-		inline static MyGUI::FlowDirection From(int _value) { return MyGUI::FlowDirection::Enum(_value); }
-	};
-
-	template <> struct Convert< MyGUI::SizePolicy >
-	{
-		typedef int Type;
-		inline static int To(MyGUI::SizePolicy _value) { return *((int*)(&_value)); }
-		inline static MyGUI::SizePolicy From(int _value) { return MyGUI::SizePolicy::Enum(_value); }
-	};
-
 	template <> struct Convert< MyGUI::DDItemState >
 	{
 		typedef int Type;

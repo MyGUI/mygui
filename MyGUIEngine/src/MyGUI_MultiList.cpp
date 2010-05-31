@@ -46,30 +46,10 @@ namespace MyGUI
 	{
 	}
 
-	void MultiList::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void MultiList::_shutdown()
-	{
-		frameAdvise(false);
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void MultiList::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void MultiList::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -113,6 +93,8 @@ namespace MyGUI
 	{
 		mWidgetClient = nullptr;
 		mClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	//----------------------------------------------------------------------------------//

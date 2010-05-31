@@ -19,92 +19,6 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeWidgetMethod_UpdateArrange
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_UpdateArrange_coordPlace_oldsize( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coordPlace ,
-			Convert<const MyGUI::types::TSize< int > &>::Type _oldsize )
-		{
-			static_cast< MyGUI::Widget * >(_native)->updateArrange(
-				Convert<const MyGUI::types::TCoord< int > &>::From( _coordPlace ) ,
-				Convert<const MyGUI::types::TSize< int > &>::From( _oldsize ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetPaddingHeight
-	{
-		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportWidget_GetPaddingHeight( MyGUI::Widget* _native )
-		{
-			return Convert<int>::To( static_cast< MyGUI::Widget * >(_native)->getPaddingHeight( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetPaddingWidth
-	{
-		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportWidget_GetPaddingWidth( MyGUI::Widget* _native )
-		{
-			return Convert<int>::To( static_cast< MyGUI::Widget * >(_native)->getPaddingWidth( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetMarginHeight
-	{
-		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportWidget_GetMarginHeight( MyGUI::Widget* _native )
-		{
-			return Convert<int>::To( static_cast< MyGUI::Widget * >(_native)->getMarginHeight( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetMarginWidth
-	{
-		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportWidget_GetMarginWidth( MyGUI::Widget* _native )
-		{
-			return Convert<int>::To( static_cast< MyGUI::Widget * >(_native)->getMarginWidth( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetDesiredSize
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportWidget_GetDesiredSize( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TSize< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getDesiredSize( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_UpdateMeasure
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_UpdateMeasure_sizeAvailable( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			static_cast< MyGUI::Widget * >(_native)->updateMeasure(
-				Convert<const MyGUI::types::TSize< int > &>::From( _sizeAvailable ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_InvalidateMeasure
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_InvalidateMeasure( MyGUI::Widget* _native )
-		{
-			static_cast< MyGUI::Widget * >(_native)->invalidateMeasure( );
-		}
-	}
-
-
-
    	namespace ScopeWidgetMethod_SetCaptionWithNewLine
 	{
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaptionWithNewLine_value( MyGUI::Widget* _native,
@@ -379,26 +293,6 @@ namespace Export
    
 
 
-   	namespace ScopeWidgetMethod_GetParentSize
-	{
-		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWidget_GetParentSize( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Widget * >(_native)->getParentSize( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_GetVisualParent
-	{
-		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWidget_GetVisualParent( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::Widget * >(_native)->getVisualParent( ) );
-		}
-	}
-
-
-
    	namespace ScopeWidgetMethod_GetParent
 	{
 		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWidget_GetParent( MyGUI::Widget* _native )
@@ -438,76 +332,6 @@ namespace Export
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->setState(
 				Convert<const std::string &>::From( _value ) ));
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_SizePolicy
-	{
-		MYGUIEXPORT Convert<MyGUI::SizePolicy>::Type MYGUICALL ExportWidget_GetSizePolicy( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::SizePolicy>::To( static_cast< MyGUI::Widget * >(_native)->getSizePolicy( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetSizePolicy( MyGUI::Widget* _native , Convert<MyGUI::SizePolicy>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setSizePolicy( Convert<MyGUI::SizePolicy>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_MaxSize
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportWidget_GetMaxSize( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TSize< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getMaxSize( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetMaxSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_MinSize
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportWidget_GetMinSize( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TSize< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getMinSize( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetMinSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setMinSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_Padding
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TRect< int > &>::Type MYGUICALL ExportWidget_GetPadding( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TRect< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getPadding( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetPadding( MyGUI::Widget* _native , Convert<const MyGUI::types::TRect< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setPadding( Convert<const MyGUI::types::TRect< int > &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_Margin
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TRect< int > &>::Type MYGUICALL ExportWidget_GetMargin( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TRect< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getMargin( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetMargin( MyGUI::Widget* _native , Convert<const MyGUI::types::TRect< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setMargin( Convert<const MyGUI::types::TRect< int > &>::From( _value ) );
 		}
 	}
 

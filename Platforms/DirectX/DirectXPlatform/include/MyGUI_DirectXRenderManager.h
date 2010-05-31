@@ -2,14 +2,12 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #ifndef __MYGUI_DIRECTX_RENDER_MANAGER_H__
 #define __MYGUI_DIRECTX_RENDER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -21,8 +19,7 @@ namespace MyGUI
 
 	class DirectXRenderManager :
 		public RenderManager,
-		public IRenderTarget,
-		public Singleton<DirectXRenderManager>
+		public IRenderTarget
 	{
 	public:
 		DirectXRenderManager();
@@ -30,8 +27,8 @@ namespace MyGUI
 		void initialise(IDirect3DDevice9 *_device);
 		void shutdown();
 
-		static DirectXRenderManager& getInstance() { return Singleton<DirectXRenderManager>::getInstance(); }
-		static DirectXRenderManager* getInstancePtr() { return Singleton<DirectXRenderManager>::getInstancePtr(); }
+		static DirectXRenderManager& getInstance() { return static_cast<DirectXRenderManager&>(Singleton<RenderManager>::getInstance()); }
+		static DirectXRenderManager* getInstancePtr() { return static_cast<DirectXRenderManager*>(Singleton<RenderManager>::getInstancePtr()); }
 
 		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const { return mViewSize; }
@@ -81,6 +78,8 @@ namespace MyGUI
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

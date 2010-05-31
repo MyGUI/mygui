@@ -2,7 +2,6 @@
 	@file
 	@author		George Evmenov
 	@date		07/2009
-	@module
 */
 
 #include "MyGUI_OpenGLRenderManager.h"
@@ -20,9 +19,8 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OpenGLRenderManager>::INSTANCE_TYPE_NAME("OpenGLRenderManager");
-
 	OpenGLRenderManager::OpenGLRenderManager() :
+		mIsInitialise(false),
 		mUpdate(false),
 		mImageLoader(nullptr)
 	{
@@ -30,8 +28,8 @@ namespace MyGUI
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mVertexFormat = VertexColourType::ColourABGR;
 
@@ -40,18 +38,18 @@ namespace MyGUI
 
 		glewInit();
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OpenGLRenderManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -79,7 +77,7 @@ namespace MyGUI
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 		}
 
-		glBindTexture(GL_TEXTURE_2D, texture_id);
+	    glBindTexture(GL_TEXTURE_2D, texture_id);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, buffer_id);
 
@@ -103,7 +101,7 @@ namespace MyGUI
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
+	    glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLRenderManager::begin()
@@ -170,7 +168,9 @@ namespace MyGUI
 	void OpenGLRenderManager::drawOneFrame()
 	{
 		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr) return;
+		if (gui == nullptr)
+			return;
+
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
@@ -206,7 +206,7 @@ namespace MyGUI
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr)
 		{
-			gui->_resizeWindow(mViewSize);
+			gui->resizeWindow(mViewSize);
 			mUpdate = true;
 		}
 	}

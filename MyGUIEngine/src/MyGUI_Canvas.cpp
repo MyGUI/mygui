@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Canvas.h"
+#include "MyGUI_ResourceManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Bitwise.h"
@@ -37,18 +38,6 @@ namespace MyGUI
 		mInvalidateData(false)
 	{
 		mGenTexName = utility::toString( this, "_Canvas" );
-	}
-
-	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-	}
-
-	void Canvas::_shutdown()
-	{
-		_destroyTexture( false );
-
-		Base::_shutdown();
 	}
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
@@ -153,7 +142,6 @@ namespace MyGUI
 		_width = Bitwise::firstPO2From(_width);
 		_height = Bitwise::firstPO2From(_height);
 
-
 		// restore usage and format
 		if ( mTexture != nullptr )
 		{
@@ -205,7 +193,7 @@ namespace MyGUI
 	{
 		void* data = mTexture->lock(_usage);
 
-		mTexData = reinterpret_cast<uint8_t*>(data);
+		mTexData = reinterpret_cast< uint8* >( data );
 
 		return data;
 	}
@@ -213,19 +201,6 @@ namespace MyGUI
 	void Canvas::unlock()
 	{
 		mTexture->unlock();
-	}
-
-	void Canvas::baseChangeWidgetSkin( ResourceSkin* _info )
-	{
-		Base::baseChangeWidgetSkin( _info );
-	}
-
-	void Canvas::initialiseWidgetSkin( ResourceSkin* _info )
-	{
-	}
-
-	void Canvas::shutdownWidgetSkin()
-	{
 	}
 
 	bool Canvas::isTextureSrcSize() const
@@ -285,6 +260,12 @@ namespace MyGUI
 	void Canvas::textureInvalidate(ITexture* _texture)
 	{
 		updateTexture();
+	}
+
+	void Canvas::_setUVSet(const FloatRect& _rect)
+	{
+		if (nullptr != mMainSkin)
+			mMainSkin->_setUVSet(_rect);
 	}
 
 } // namespace MyGUI

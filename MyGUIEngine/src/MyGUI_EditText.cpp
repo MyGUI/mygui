@@ -24,6 +24,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_FontData.h"
@@ -32,10 +33,75 @@
 namespace MyGUI
 {
 
-	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VertexQuad::VertexCount;
+	const size_t VERTEX_IN_QUAD = 6;
+	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
+
+	MYGUI_FORCEINLINE void DrawQuad(
+		MyGUI::Vertex*& _buff,
+		float v_left,
+		float v_top,
+		float v_rignt,
+		float v_bottom,
+		float v_z,
+		MyGUI::uint32 _colour,
+		float t_left,
+		float t_top,
+		float t_right,
+		float t_bottom,
+		size_t& _count)
+	{
+		_buff[0].x = v_left;
+		_buff[0].y = v_top;
+		_buff[0].z = v_z;
+		_buff[0].colour = _colour;
+		_buff[0].u = t_left;
+		_buff[0].v = t_top;
+
+		_buff[1].x = v_left;
+		_buff[1].y = v_bottom;
+		_buff[1].z = v_z;
+		_buff[1].colour = _colour;
+		_buff[1].u = t_left;
+		_buff[1].v = t_bottom;
+
+		_buff[2].x = v_rignt;
+		_buff[2].y = v_top;
+		_buff[2].z = v_z;
+		_buff[2].colour = _colour;
+		_buff[2].u = t_right;
+		_buff[2].v = t_top;
+
+		_buff[3].x = v_rignt;
+		_buff[3].y = v_top;
+		_buff[3].z = v_z;
+		_buff[3].colour = _colour;
+		_buff[3].u = t_right;
+		_buff[3].v = t_top;
+
+		_buff[4].x = v_left;
+		_buff[4].y = v_bottom;
+		_buff[4].z = v_z;
+		_buff[4].colour = _colour;
+		_buff[4].u = t_left;
+		_buff[4].v = t_bottom;
+
+		_buff[5].x = v_rignt;
+		_buff[5].y = v_bottom;
+		_buff[5].z = v_z;
+		_buff[5].colour = _colour;
+		_buff[5].u = t_right;
+		_buff[5].v = t_bottom;
+
+		_buff += VERTEX_IN_QUAD;
+		_count += VERTEX_IN_QUAD;
+	}
 
 	EditText::EditText() :
+		ISubWidgetText(),
 		mEmptyView(false),
+		mCurrentColour(0x00FFFFFF),
+		mInverseColour(0x00000000),
+		mCurrentAlpha(0xFF000000),
 		mTextOutDate(false),
 		mTextAlign(Align::Default),
 		mColour(Colour::White),
@@ -55,13 +121,16 @@ namespace MyGUI
 		mIsAddCursorWidth(true),
 		mShiftText(false),
 		mWordWrap(false),
-		mManualColour(false),
-		mOldWidth(0)
+		mOldWidth(0),
+		mManualColour(false)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
-		mInverseColour = mCurrentColour = ColourARGB::fromColour(mColour, mVertexFormat);
-		mInverseColour.inverseColour();
+		mCurrentColour = texture_utility::toColourARGB(mColour);
+		texture_utility::convertColour(mCurrentColour, mVertexFormat);
+
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 	}
 
 	EditText::~EditText()
@@ -70,23 +139,20 @@ namespace MyGUI
 
 	void EditText::setVisible(bool _visible)
 	{
-		if (mVisible == _visible)
-			return;
-
+		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::_correctView()
 	{
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::_setAlign(const IntSize& _oldsize, bool _update)
 	{
+
 		if (mWordWrap)
 		{
 			// передается старая координата всегда
@@ -147,6 +213,7 @@ namespace MyGUI
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
+
 	}
 
 	void EditText::_updateView()
@@ -168,8 +235,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mNode)
-					mNode->outOfDate(mRenderItem);
+				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
@@ -184,8 +250,7 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setCaption(const UString& _value)
@@ -194,15 +259,13 @@ namespace MyGUI
 		mTextOutDate = true;
 
 		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
-		size_t need = (mCaption.size() * 2 + 2) * VertexQuad::VertexCount;
+		size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
 		if (mCountVertex < need)
 		{
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
-			if (nullptr != mRenderItem)
-				mRenderItem->reallockDrawItem(this, mCountVertex);
+			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 		}
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const UString& EditText::getCaption()
@@ -222,11 +285,14 @@ namespace MyGUI
 			return;
 
 		mColour = _value;
-		mInverseColour.data.colour = mCurrentColour.data.colour = ColourARGB::fromColour(mColour, mVertexFormat).data.colour;
-		mInverseColour.inverseColour();
+		mCurrentColour = texture_utility::toColourARGB(mColour);
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		texture_utility::convertColour(mCurrentColour, mVertexFormat);
+
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
+
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const Colour& EditText::getTextColour()
@@ -236,17 +302,13 @@ namespace MyGUI
 
 	void EditText::setAlpha(float _value)
 	{
-		if (mAlpha == _value)
-			return;
-
+		if (mAlpha == _value) return;
 		mAlpha = _value;
+		mCurrentAlpha = ((uint8)(mAlpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
+		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
-		uint8_t alpha = uint8_t(mAlpha * 255);
-		mCurrentColour.data.alpha = alpha;
-		mInverseColour.data.alpha = alpha;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	float EditText::getAlpha()
@@ -285,8 +347,7 @@ namespace MyGUI
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const std::string& EditText::getFontName()
@@ -298,9 +359,7 @@ namespace MyGUI
 	{
 		mFontHeight = _value;
 		mTextOutDate = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	int EditText::getFontHeight()
@@ -345,9 +404,7 @@ namespace MyGUI
 	{
 		mStartSelect=_start;
 		mEndSelect=_end;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	bool EditText::getSelectBackground()
@@ -357,13 +414,9 @@ namespace MyGUI
 
 	void EditText::setSelectBackground(bool _normal)
 	{
-		if (mBackgroundNormal == _normal)
-			return;
-
+		if (mBackgroundNormal == _normal) return;
 		mBackgroundNormal = _normal;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	bool EditText::isVisibleCursor()
@@ -373,13 +426,9 @@ namespace MyGUI
 
 	void EditText::setVisibleCursor(bool _value)
 	{
-		if (mVisibleCursor == _value)
-			return;
-
+		if (mVisibleCursor == _value) return;
 		mVisibleCursor = _value;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	size_t EditText::getCursorPosition()
@@ -389,21 +438,15 @@ namespace MyGUI
 
 	void EditText::setCursorPosition(size_t _index)
 	{
-		if (mCursorPosition == _index)
-			return;
-
+		if (mCursorPosition == _index) return;
 		mCursorPosition = _index;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setTextAlign(Align _value)
 	{
 		mTextAlign = _value;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	Align EditText::getTextAlign()
@@ -414,23 +457,19 @@ namespace MyGUI
 	IntSize EditText::getTextSize()
 	{
 		// если нуно обновить, или изменились пропорции экрана
-		if (mTextOutDate)
-			updateRawData();
+		if (mTextOutDate) updateRawData();
 
 		IntSize size = mTextView.getViewSize();
 		// плюс размер курсора
 		if (mIsAddCursorWidth)
 			size.width += 2;
-
 		return size;
 	}
 
 	void EditText::setViewOffset(const IntPoint& _point)
 	{
 		mViewOffset = _point;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	IntPoint EditText::getViewOffset()
@@ -440,11 +479,8 @@ namespace MyGUI
 
 	size_t EditText::getCursorPosition(const IntPoint& _point)
 	{
-		if (nullptr == mFont)
-			return 0;
-
-		if (mTextOutDate)
-			updateRawData();
+		if (nullptr == mFont) return 0;
+		if (mTextOutDate) updateRawData();
 
 		IntPoint point = _point;
 		point -= mCroppedParent->getAbsolutePosition();
@@ -456,11 +492,8 @@ namespace MyGUI
 
 	IntCoord EditText::getCursorCoord(size_t _position)
 	{
-		if (nullptr == mFont)
-			return IntCoord();
-
-		if (mTextOutDate)
-			updateRawData();
+		if (nullptr == mFont) return IntCoord();
+		if (mTextOutDate) updateRawData();
 
 		IntPoint point = mTextView.getCursorPoint(_position);
 		point += mCroppedParent->getAbsolutePosition();
@@ -472,29 +505,21 @@ namespace MyGUI
 
 	void EditText::setShiftText(bool _value)
 	{
-		if (mShiftText == _value)
-			return;
-
+		if (mShiftText == _value) return;
 		mShiftText = _value;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setWordWrap(bool _value)
 	{
 		mWordWrap = _value;
 		mTextOutDate = true;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::updateRawData()
 	{
-		if (nullptr == mFont)
-			return;
-
+		if (nullptr == mFont) return;
 		// сбрасывам флаги
 		mTextOutDate = false;
 
@@ -514,26 +539,21 @@ namespace MyGUI
 	{
 		EditTextStateInfo* data = _data->castType<EditTextStateInfo>();
 		if (!mManualColour && data->getColour() != Colour::Zero)
-			setTextColour(data->getColour());
+			_setTextColour(data->getColour());
 		setShiftText(data->getShift());
 	}
 
 	void EditText::doRender()
 	{
-		if (nullptr == mFont)
-			return;
-
-		if (!mVisible || mEmptyView)
-			return;
+		if (nullptr == mFont) return;
+		if (!mVisible || mEmptyView) return;
 
 		bool _update = mRenderItem->getCurrentUpdate();
-		if (_update)
-			mTextOutDate = true;
+		if (_update) mTextOutDate = true;
 
-		if (mTextOutDate)
-			updateRawData();
+		if (mTextOutDate) updateRawData();
 
-		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
@@ -541,9 +561,9 @@ namespace MyGUI
 		size_t vertex_count = 0;
 
 		// текущие цвета
-		ColourARGB colour_current = mCurrentColour;
-		ColourARGB colour = mCurrentColour;
-		ColourARGB colour_inverse = mInverseColour;
+		uint32 colour_current = mCurrentColour;
+		uint32 colour = mCurrentColour;
+		uint32 colour_inverse = mInverseColour;
 
 		GlyphInfo* back_glyph = mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack);
 
@@ -564,22 +584,21 @@ namespace MyGUI
 			{
 				if (sim->isColour())
 				{
-					colour_inverse.data.colour = colour.data.colour = sim->getColour().data.colour;
-					colour_inverse.inverseColour();
+					colour = sim->getColour() | (colour & 0xFF000000);
+					colour_inverse = colour ^ 0x00FFFFFF;
 					continue;
 				}
 
 				// смещение текстуры для фона
 				bool select = !((index >= mEndSelect) || (index < mStartSelect));
 
-				ColourARGB back_colour;
-				back_colour.value = ColourARGB::Zero;
+				uint32 back_colour = 0;
 
 				// выделение символа
 				if (!select || !mInvertSelect)
 				{
 					colour_current = colour;
-					back_colour.data.colour = colour.data.colour;
+					back_colour = colour | 0x00FFFFFF;
 				}
 				else
 				{
@@ -680,16 +699,12 @@ namespace MyGUI
 					if (select)
 					{
 						const FloatRect& background_current = back_glyph->uvRect;
-						quad->set(real_left, real_top, real_right, real_bottom, vertex_z,
-							background_current.left, background_current.top, background_current.left, background_current.top, back_colour);
-						++quad;
-						vertex_count += VertexQuad::VertexCount;
+						DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, back_colour,
+							background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
 					}
 
-					quad->set(real_left, real_top, real_right, real_bottom, vertex_z,
-						texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, colour_current);
-					++quad;
-					vertex_count += VertexQuad::VertexCount;
+					DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_current,
+						texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, vertex_count);
 				}
 
 				left += width;
@@ -804,14 +819,8 @@ namespace MyGUI
 				float real_right = ((info.pixScaleX * (float)(pix_left + result_width) + info.hOffset) * 2) - 1;
 				float real_bottom = - (((info.pixScaleY * (float)(pix_top + result_height) + info.vOffset) * 2) - 1);
 
-				ColourARGB colour_cursor;
-				colour_cursor.value = ColourARGB::White;
-				colour_cursor.data.alpha = colour_current.data.alpha;
-
-				quad->set(real_left, real_top, real_right, real_bottom, vertex_z,
-					texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, colour_cursor);
-				++quad;
-				vertex_count += VertexQuad::VertexCount;
+				DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_current | 0x00FFFFFF,
+					texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, vertex_count);
 			}
 		}
 
@@ -821,13 +830,9 @@ namespace MyGUI
 
 	void EditText::setInvertSelected(bool _value)
 	{
-		if (mInvertSelect == _value)
-			return;
-
+		if (mInvertSelect == _value) return;
 		mInvertSelect = _value;
-
-		if (nullptr != mNode)
-			mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 } // namespace MyGUI

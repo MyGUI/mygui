@@ -28,12 +28,17 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SubWidgetManager : public MyGUI::Singleton<SubWidgetManager>
+	class MYGUI_EXPORT SubWidgetManager :
+		public Singleton<SubWidgetManager>
 	{
 	public:
+		SubWidgetManager();
+
 		void initialise();
 		void shutdown();
 
+	private:
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

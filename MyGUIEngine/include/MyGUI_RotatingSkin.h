@@ -95,7 +95,7 @@ namespace MyGUI
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;
-		ColourARGB mCurrentColour;
+		uint32 mCurrentColour;
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;

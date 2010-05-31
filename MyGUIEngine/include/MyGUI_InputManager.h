@@ -39,8 +39,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT InputManager :
-		public IUnlinkWidget,
-		public MyGUI::Singleton<InputManager>
+		public Singleton<InputManager>,
+		public IUnlinkWidget
 	{
 	public:
 		InputManager();
@@ -116,7 +116,7 @@ namespace MyGUI
 
 		/** Reset mouse capture.
 			For example when we dragging and application
-			lost focus you should call this)
+			lost focus you should call this.
 		*/
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
@@ -142,8 +142,6 @@ namespace MyGUI
 		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
 
-		void updateMouseFocus();
-
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);
 
@@ -157,22 +155,6 @@ namespace MyGUI
 		// сбрасывает клавишу повторения
 		void resetKey();
 
-		void onEventMouseEntry(Widget* _widget, Widget* _old);
-		void onEventMouseLeave(Widget* _widget, Widget* _new);
-		void onEventMouseMove(Widget* _widget, int _x, int _y);
-		void onEventMouseDrag(Widget* _widget, int _x, int _y);
-		void onEventMouseWheel(Widget* _widget, int _delta);
-		void onEventMouseButtonDown(Widget* _widget, int _x, int _y, MouseButton _button);
-		void onEventMouseButtonUp(Widget* _widget, int _x, int _y, MouseButton _button);
-		void onEventMouseButtonClick(Widget* _widget, int _x, int _y, MouseButton _button);
-		void onEventMouseButtonDoubleClick(Widget* _widget, int _x, int _y, MouseButton _button);
-		void onEventGotKeyboardFocus(Widget* _widget, Widget* _old);
-		void onEventLostKeyboardFocus(Widget* _widget, Widget* _new);
-		void onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text);
-		void onEventKeyButtonUp(Widget* _widget, KeyCode _key);
-		void onEventRootMouseFocusChanged(Widget* _widget, bool _focus);
-		void onEventRootKeyboardFocusChanged(Widget* _widget, bool _focus);
-
 	private:
 		// виджеты которым принадлежит фокус
 		Widget* mWidgetMouseFocus;
@@ -181,7 +163,7 @@ namespace MyGUI
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика
-	    Timer mTimer; //used for double click timing
+		Timer mTimer; //used for double click timing
 
 		// нажат ли шифт
 		bool mIsShiftPressed;
@@ -199,6 +181,8 @@ namespace MyGUI
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

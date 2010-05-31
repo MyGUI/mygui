@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2010
-	@module
 */
 #ifndef __BERKELIUM_WIDGET_H__
 #define __BERKELIUM_WIDGET_H__
@@ -33,10 +32,6 @@ namespace MyGUI
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	private:
 		// from WindowDelegate
 		virtual void onAddressBarChanged(Berkelium::Window *win, const char* newURL, size_t newURLSize) { }
@@ -62,7 +57,8 @@ namespace MyGUI
 		virtual void onWidgetPaint(Berkelium::Window *win, Berkelium::Widget *wid, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect) { }
 
 	protected:
-		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		virtual void onMouseDrag(int _left, int _top);
 		virtual void onMouseMove(int _left, int _top);
@@ -75,9 +71,6 @@ namespace MyGUI
 		virtual void onKeyButtonReleased(KeyCode _key);
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void notifyUpdateCanvas(Canvas* _canvas, Canvas::Event _event);
 		void notifyFrameStart(float _time);
 		void update(bool _invalidate);

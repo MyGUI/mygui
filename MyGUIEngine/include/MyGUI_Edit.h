@@ -250,10 +250,6 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -302,35 +298,32 @@ namespace MyGUI
 
 
 	protected:
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
+
+		virtual void onMouseDrag(int _left, int _top);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+
 		// потом убрать все нотифи в сраку
+		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
+		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseButtonDoubleClick(Widget* _sender);
+
 		void notifyScrollChangePosition(VScroll* _sender, size_t _position);
+		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		// обновление представления
 		void updateView();
 		void updateViewWithCursor();
 
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
 		void eraseView();
 
-		virtual void onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args);
-		virtual void onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args);
-		virtual void onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
-
-		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
-		virtual void onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
-
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
-		void selectWord();
-		void mouseDrag(int _left, int _top);
-		void mouseLeftReleased();
-
 		// устанавливает текст
 		void setText(const UString& _text, bool _history);
 		// удаляет все что выделенно
@@ -389,9 +382,6 @@ namespace MyGUI
 		virtual size_t getHScrollPage();
 
 		virtual Align getContentAlign();
-
-		void setCursorVisible(bool _value);
-		void keyButtonPressed(KeyCode _key, Char _text);
 
 	protected:
 		// нажата ли кнопка

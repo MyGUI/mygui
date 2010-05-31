@@ -107,6 +107,62 @@ namespace Export
    
 
 
+   	namespace ScopeWindowMethod_SetMaxSize
+	{
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMaxSize(
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+
+
+
+   	namespace ScopeWindowProperty_MaxSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWindow_GetMaxSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Window * >(_native)->getMaxSize( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWindowMethod_SetMinSize
+	{
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMinSize(
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+
+
+
+   	namespace ScopeWindowProperty_MinSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWindow_GetMinSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Window * >(_native)->getMinSize( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMinSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeWindowMethod_GetCaptionWidget
 	{
 		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWindow_GetCaptionWidget( MyGUI::Widget* _native )

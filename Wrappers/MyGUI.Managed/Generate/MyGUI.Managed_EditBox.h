@@ -301,17 +301,17 @@ namespace MyGUI
 
 
    	public:
-		property Convert<uint32_t>::Type PasswordChar
+		property Convert<unsigned int>::Type PasswordChar
 		{
-			Convert<uint32_t>::Type get( )
+			Convert<unsigned int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<uint32_t>::To( static_cast<ThisType*>(mNative)->getPasswordChar() );
+				return Convert<unsigned int>::To( static_cast<ThisType*>(mNative)->getPasswordChar() );
 			}
-			void set(Convert<uint32_t>::Type _value)
+			void set(Convert<unsigned int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setPasswordChar( Convert<uint32_t>::From(_value) );
+				static_cast<ThisType*>(mNative)->setPasswordChar( Convert<unsigned int>::From(_value) );
 			}
 		}
 	

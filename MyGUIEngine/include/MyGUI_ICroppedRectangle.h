@@ -33,8 +33,7 @@ namespace MyGUI
 	public:
 		ICroppedRectangle() :
 			mIsMargin(false),
-			mCroppedParent(nullptr),
-			mAlign(Align::Default)
+			mCroppedParent(nullptr)
 		{ }
 
 		virtual ~ICroppedRectangle() { }
@@ -42,20 +41,19 @@ namespace MyGUI
 		/** Get parent ICroppedRectangle */
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 
-		/** Set coordinates (position and size) */
-		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
-		/** Get coordinates (position and size) */
-		const IntCoord& getCoord() const { return mCoord; }
-
 		/** Set position */
 		virtual void setPosition(const IntPoint& _value) { mCoord.left = _value.left; mCoord.top = _value.top; }
-		/** Get position */
-		IntPoint getPosition() const { return mCoord.point(); }
-
 		/** Set size */
 		virtual void setSize(const IntSize& _value) { mCoord.width = _value.width; mCoord.height = _value.height; }
+		/** Set coordinates (position and size) */
+		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
+
+		/** Get position */
+		IntPoint getPosition() const { return mCoord.point(); }
 		/** Get size */
 		IntSize getSize() const { return mCoord.size(); }
+		/** Get coordinates (position and size) */
+		const IntCoord& getCoord() const { return mCoord; }
 
 		/** Get position in screen coordinates */
 		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
@@ -68,11 +66,6 @@ namespace MyGUI
 		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
 		/** Get Y in screen coordinates */
 		int getAbsoluteTop() const { return mAbsolutePosition.top; }
-
-		/** Set align */
-		virtual void setAlign(Align _value) { mAlign = _value; }
-		/** Get align */
-		Align getAlign() const { return mAlign; }
 
 		/** Get left x-coordinate */
 		int getLeft() const { return mCoord.left; }
@@ -100,11 +93,6 @@ namespace MyGUI
 		int _getViewWidth() const { return mCoord.width - mMargin.left - mMargin.right; }
 		int _getViewHeight() const { return mCoord.height - mMargin.top - mMargin.bottom; }
 
-		virtual void _updateView() { }
-		virtual void _correctView() { }
-		//virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
-		//virtual void _setAlign(const IntCoord& _oldcoord, bool _update) { }
-
 		void _setCroppedParent(ICroppedRectangle* _parent) { mCroppedParent = _parent; }
 
 		const IntRect& _getMargin() const { return mMargin; }
@@ -114,11 +102,6 @@ namespace MyGUI
 		int _getMarginBottom() const { return mMargin.bottom; }
 
 	protected:
-		bool _checkPoint(int _left, int _top)
-		{
-			return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
-		}
-
 		bool _checkMargin()
 		{
 			bool margin = false;
@@ -178,14 +161,12 @@ namespace MyGUI
 		}
 
 	protected:
-		bool mIsMargin;
 		IntRect mMargin; // перекрытие
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
 		ICroppedRectangle * mCroppedParent;
-		Align mAlign;
-
+		bool mIsMargin;
 	};
 
 } // namespace MyGUI

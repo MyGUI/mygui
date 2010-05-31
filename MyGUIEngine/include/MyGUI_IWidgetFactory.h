@@ -41,7 +41,7 @@ namespace MyGUI
 		virtual ~IWidgetFactory() { }
 
 		virtual const std::string& getTypeName() = 0;
-		virtual Widget* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) = 0;
+		virtual Widget* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name) = 0;
 	};
 
 	namespace factory
@@ -71,7 +71,7 @@ namespace MyGUI
 				return T::getClassTypeName();
 			}
 
-			Widget* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+			Widget* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 			{
 				T* instance = new T(_style, _coord, _align, SkinManager::getInstance().getByName(_skin), _parent, _croppedParent, _creator, _name);
 				return instance;

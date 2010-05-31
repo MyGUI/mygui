@@ -37,7 +37,7 @@ namespace MyGUI
 		ITexture* texture = render.createTexture(_file);
 		texture->loadFromFile(_file);
 
-		uint8_t* buffer = (uint8_t*)texture->lock(TextureUsage::Read);
+		uint8 * buffer = (uint8*)texture->lock(TextureUsage::Read);
 		if (buffer == 0)
 		{
 			render.destroyTexture(texture);

@@ -30,6 +30,7 @@ namespace MyGUI
 	template <> const char* Singleton<ToolTipManager>::mClassTypeName("ToolTipManager");
 
 	ToolTipManager::ToolTipManager() :
+		mIsInitialise(false),
 		mDelayVisible(0.5f),
 		mOldFocusWidget(nullptr),
 		mToolTipVisible(false),
@@ -39,14 +40,17 @@ namespace MyGUI
 	{
 	}
 
-	ToolTipManager::~ToolTipManager()
-	{
-	}
-
 	void ToolTipManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+
+		mDelayVisible = 0.5f;
+		mOldFocusWidget = nullptr;
+		mToolTipVisible = false;
+		mCurrentTime = 0;
+		mOldIndex = ITEM_NONE;
+		mNeedToolTip = false;
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &ToolTipManager::notifyEventFrameStart);
 

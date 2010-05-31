@@ -42,6 +42,11 @@ namespace MyGUI
 		/** Get text region size */
 		IntSize getTextSize();
 
+		/** Set widget caption */
+		virtual void setCaption(const UString& _value);
+		/** Get widget caption */
+		virtual const UString& getCaption();
+
 		/** Set widget text font */
 		virtual void setFontName(const std::string& _value);
 		/** Get widget text font name */
@@ -62,24 +67,15 @@ namespace MyGUI
 		/** Get widget text colour */
 		const Colour& getTextColour();
 
-		/** @copydoc Widget::setCaption(const UString& _value) */
-		virtual void setCaption(const UString& _value);
-
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
+		// устанавливает строку заменив /n на реальный перенос
+		void setCaptionWithNewLine(const std::string& _value);
 
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
-	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 	};
 

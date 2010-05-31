@@ -13,9 +13,6 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::List* main = MyGUI::LayoutManager::getInstance().loadLayout("SelectorWindow.layout")[0]->castType<MyGUI::List>();
-		main->setPosition(200, 200);
-		main->addItem("12345");
 	}
 
 	void DemoKeeper::destroyScene()

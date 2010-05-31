@@ -36,6 +36,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
 
+	FontManager::FontManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void FontManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -54,7 +59,7 @@ namespace MyGUI
 
 	void FontManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

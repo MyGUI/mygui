@@ -101,7 +101,7 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 
 		// регестрируем тип нашего ресурса
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>("Resource");

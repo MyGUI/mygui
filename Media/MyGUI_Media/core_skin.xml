@@ -590,12 +590,12 @@
 
 	<Resource type="ResourceSkin" name = "WordWrapSimple" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="WordWrap" value = "true" />
-		<Child type="Widget" skin="EditClientSimple" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClientSimple" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WordWrap" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="WordWrap" value = "true" />
-		<Child type="Widget" skin="EditClientSimple" offset = "0 0 16 32" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClientSimple" offset = "0 0 16 32" align = "Stretch" name = "Client"/>
 		<Child type="VScroll" skin="VScroll" offset = "17 0 15 32" align = "Right VStretch" name = "VScroll"/>
 	</Resource>
 
@@ -609,7 +609,7 @@
 
 	<Resource type="ResourceSkin" name = "EditStretch" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
 
-		<Child type="Widget" skin="EditClient" offset = "2 3 7 3" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClient" offset = "2 3 7 3" align = "Stretch" name = "Client"/>
 		<Child type="VScroll" skin="VScroll" offset = "10 2 15 5" align = "Right VStretch" name = "VScroll"/>
 		<Child type="HScroll" skin="HScroll" offset = "2 7 8 15" align = "HStretch Bottom" name = "HScroll"/>
 
@@ -682,7 +682,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "Edit" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
-		<Child type="Widget" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
 
 		<BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
 			<State name="disabled" offset = "235 2 10 26"/>
@@ -708,14 +708,14 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "EditEmpty" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
-		<Child type="Widget" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "ComboBox" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="HeightList" value = "250" />
+		<Property key="MaxListLength" value = "250" />
 		<Property key="ListSmoothShow" value = "true" />
 
-		<Child type="Widget" skin="EditClient" offset = "2 1 5 22" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClient" offset = "2 1 5 22" align = "Stretch" name = "Client"/>
 		<Child type="Button" skin="ButtonDown" offset = "9 4 14 12" align = "Right VCenter" name = "Button"/>
 		<Child type="List" style="Popup" skin="List" offset = "0 0 0 0" align = "Default" layer="Popup" name = "List"/>
 
@@ -1071,7 +1071,7 @@
 		<Property key="FadeSkin" value = "MarkerBlack" />
 		<Property key="FadeLayer" value = "FadeMiddle" />
 
-		<Child type="Widget" skin="MessageClient" offset = "10 35 32 -36" align = "Stretch" name = "Text"/>
+		<Child type="StaticText" skin="MessageClient" offset = "10 35 32 -36" align = "Stretch" name = "Text"/>
 		<Child type="StaticImage" skin="MessageIcon" offset = "6 34 50 50" align = "Default" name = "Icon"/>
 
 		<Child type="Button" skin="WindowCaption" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
@@ -1891,7 +1891,7 @@
 	<Resource type="ResourceSkin" name = "EditStretch2" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="WordWrap" value = "true" />
 
-		<Child type="Widget" skin="EditClient" offset = "2 3 22 18" align = "Stretch" name = "Client"/>
+		<Child type="StaticText" skin="EditClient" offset = "2 3 22 18" align = "Stretch" name = "Client"/>
 
 		<BasisSkin type="SubSkin" offset = "0 0 10 8" align = "Left Top">
 			<State name="disabled" offset = "235 2 10 8"/>
@@ -2078,18 +2078,6 @@
 			<State name="normal" offset = "401 188 6 6"/>
 		</BasisSkin>
 
-	</Resource>
-
-	<Resource type="ResourceSkin" name = "EditClientTest" size = "32 32">
-		<Property key="FontName" value = "Default" />
-		<Property key="TextAlign" value = "Default" />
-		<Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
-		<Property key="Pointer" value = "beam" />
-		<BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
-	</Resource>
-
-	<Resource type="ResourceSkin" name = "EditTest" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
-		<Child type="Widget" skin="EditClientTest" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
 	</Resource>
 	
 </MyGUI>

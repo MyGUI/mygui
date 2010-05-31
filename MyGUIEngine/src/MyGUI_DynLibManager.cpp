@@ -21,13 +21,18 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
 
 	template <> const char* Singleton<DynLibManager>::mClassTypeName("DynLibManager");
+
+	DynLibManager::DynLibManager() :
+		mIsInitialise(false)
+	{
+	}
 
 	void DynLibManager::initialise()
 	{
@@ -42,7 +47,7 @@ namespace MyGUI
 
 	void DynLibManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		unloadAll();
@@ -116,5 +121,4 @@ namespace MyGUI
 			mDelayDynLib.clear();
 		}
 	}
-
 }

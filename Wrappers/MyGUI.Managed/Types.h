@@ -7,8 +7,6 @@
 #pragma once
 
 #include "Align.h"
-#include "FlowDirection.h"
-#include "SizePolicy.h"
 #include "Colour.h"
 
 #include "IntSize.h"

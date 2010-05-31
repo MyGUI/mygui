@@ -2,7 +2,6 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #include "MyGUI_DataFileStream.h"
@@ -61,23 +60,26 @@ namespace MyGUI
 		}
 	}
 
-	template <> const char* Singleton<DirectXDataManager>::INSTANCE_TYPE_NAME("DirectXDataManager");
+	DirectXDataManager::DirectXDataManager() :
+		mIsInitialise(false)
+	{
+	}
 
 	void DirectXDataManager::initialise()
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void DirectXDataManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 

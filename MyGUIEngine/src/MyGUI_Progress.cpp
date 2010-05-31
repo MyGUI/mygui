@@ -47,29 +47,10 @@ namespace MyGUI
 	{
 	}
 
-	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Progress::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Progress::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Progress::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
 			if (*(*iter)->_getInternalData<std::string>() == "Client")
@@ -93,18 +74,19 @@ namespace MyGUI
 		else mTrackStep = mTrackWidth;
 		iterS = properties.find("TrackFill");
 		if (iterS != properties.end()) mFillTrack = utility::parseBool(iterS->second);
+		iterS = properties.find("FlowDirection");
+		if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		iterS = properties.find("StartPoint");
 		if (iterS != properties.end()) _setProgressStartPoint(Align::parse(iterS->second));
 #endif // MYGUI_DONT_USE_OBSOLETE
-		iterS = properties.find("FlowDirection");
-		if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
-
 	}
 
 	void Progress::shutdownWidgetSkin()
 	{
 		mClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void Progress::setProgressRange(size_t _range)
@@ -323,6 +305,7 @@ namespace MyGUI
 		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
+		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Progress_StartPoint")
 		{
@@ -330,7 +313,6 @@ namespace MyGUI
 			_setProgressStartPoint(utility::parseValue<Align>(_value));
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 		else
 		{
 			Base::setProperty(_key, _value);

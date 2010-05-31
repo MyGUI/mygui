@@ -145,7 +145,7 @@ namespace wraps
 		/** Get mouse rotation flag */
 		bool getMouseRotation() { return mMouseRotation; }
 
-		virtual void setCanvas(MyGUI::CanvasPtr _value)
+		virtual void setCanvas(MyGUI::Canvas* _value)
 		{
 			RenderBox::setCanvas(_value);
 
@@ -180,7 +180,7 @@ namespace wraps
 		}
 
 	private:
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
 		{
 			if (mMouseRotation)
 			{
@@ -190,7 +190,7 @@ namespace wraps
 			}
 		}
 
-		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MouseButton::Left)
 			{
@@ -203,7 +203,7 @@ namespace wraps
 			}
 		}
 
-		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (MyGUI::MouseButton::Left == _id)
 				mLeftPressed = false;
@@ -307,7 +307,7 @@ namespace wraps
 			}
 		}
 
-		virtual void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
+		virtual void requestUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)
 		{
 			RenderBox::requestUpdateCanvas(_canvas, _event);
 

@@ -26,30 +26,5 @@ namespace MyGUI
 {
 
 	template <> const char* Singleton<RenderManager>::mClassTypeName("RenderManager");
-	/*const std::string getClassTypeName()("RenderManager");
-
-	RenderManager* RenderManager::msInstance = 0;
-
-	RenderManager::RenderManager()
-	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << getClassTypeName() << " is exsist");
-		msInstance = this;
-	}
-
-	RenderManager::~RenderManager()
-	{
-		msInstance = 0;
-	}
-
-	RenderManager* RenderManager::getInstancePtr()
-	{
-		return msInstance;
-	}
-
-	RenderManager& RenderManager::getInstance()
-	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << getClassTypeName() << " was not created");
-		return (*msInstance);
-	}*/
 
 } // namespace MyGUI

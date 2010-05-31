@@ -37,41 +37,6 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   		#region Method OverrideArrange
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportScrollView_OverrideArrange_sizeOld( IntPtr _native ,
-			 ref IntSize _sizeOld );
-
-		public void OverrideArrange(
-			IntSize _sizeOld )
-		{
-			ExportScrollView_OverrideArrange_sizeOld( mNative , 
-				ref _sizeOld );
-		}
-
-		#endregion
-
-
-
-   		#region Method OverrideMeasure
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern IntPtr ExportScrollView_OverrideMeasure_sizeAvailable( IntPtr _native ,
-			 ref IntSize _sizeAvailable );
-
-		public IntSize OverrideMeasure(
-			IntSize _sizeAvailable )
-		{
-			return  (IntSize)Marshal.PtrToStructure(  ExportScrollView_OverrideMeasure_sizeAvailable( mNative , 
-				ref _sizeAvailable )  , typeof(IntSize) )  ;
-		}
-
-		#endregion
-
-
-
    
 
 

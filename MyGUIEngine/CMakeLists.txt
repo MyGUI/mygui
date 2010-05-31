@@ -33,6 +33,12 @@ if (MYGUI_USE_FREETYPE)
 	)
 endif()
 
+# platform specific dependencies
+if (APPLE)
+	include_directories(/usr/local/include /usr/include)
+	target_link_libraries(${PROJECTNAME} ${Carbon_LIBRARY})
+endif ()
+
 # specify a precompiled header to use
 use_precompiled_header(${PROJECTNAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
@@ -42,10 +48,7 @@ use_precompiled_header(${PROJECTNAME}
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})
 
-
-if (NOT APPLE)
-	# install MyGUIEngine headers
-	install(FILES ${HEADER_FILES}
-	  DESTINATION include/MYGUI
-	)
-endif (NOT APPLE)
+# install MyGUIEngine headers
+install(FILES ${HEADER_FILES}
+  DESTINATION include/MYGUI
+)

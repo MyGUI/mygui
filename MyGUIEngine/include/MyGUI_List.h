@@ -23,7 +23,7 @@
 #define __MYGUI_LIST_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 
@@ -203,14 +203,11 @@ namespace MyGUI
 
 	/*internal:*/
 		// дебажная проверка на правильность выравнивания списка
-		void _checkAlign(const std::string& _owner);
+		void _checkAlign();
 
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
-
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -261,7 +258,8 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		void onMouseWheel(int _rel);
 		void onKeyLostFocus(Widget* _new);
@@ -291,8 +289,6 @@ namespace MyGUI
 		void _updateState() { setState(mIsFocus ? "pushed" : "normal"); }
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
 		void _checkMapping(const std::string& _owner);
 
 		Widget* _getClientWidget();
@@ -303,7 +299,7 @@ namespace MyGUI
 		VScroll* mWidgetScroll;
 
 		// наши дети в строках
-		VectorWidgetPtr mWidgetLines;
+		std::vector<Button*> mWidgetLines;
 
 		int mHeightLine; // высота одной строки
 		int mTopIndex; // индекс самого верхнего элемента

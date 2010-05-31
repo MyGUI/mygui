@@ -13,7 +13,6 @@
 #include "MyGUI_RenderTargetInfo.h"
 #include "MyGUI_ISerializable.h"
 #include "MyGUI_VertexData.h"
-#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
@@ -29,7 +28,7 @@ namespace MyGUI
 			VertexCount = 4
 		};
 
-		void set(float _l, float _t, float _r, float _b, float _z, float _u1, float _v1, float _u2, float _v2, ColourARGB _colour)
+		void set(float _l, float _t, float _r, float _b, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)
 		{
 			vertex[CornerLT].set(_l, _t, _z, _u1, _v1, _colour);
 			vertex[CornerRT].set(_r, _t, _z, _u2, _v1, _colour);

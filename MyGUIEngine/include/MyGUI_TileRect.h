@@ -27,7 +27,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ResourceSkin.h"
-#include "MyGUI_ColourARGB.h"
+#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
@@ -64,11 +64,11 @@ namespace MyGUI
 		virtual void _setColour(const Colour& _value);
 
 	protected:
-		//FloatRect mRectTexture;
+		FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;
-		ColourARGB mCurrentColour;
+		uint32 mCurrentColour;
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;

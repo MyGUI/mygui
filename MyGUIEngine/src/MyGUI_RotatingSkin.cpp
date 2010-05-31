@@ -75,11 +75,8 @@ namespace MyGUI
 
 	void RotatingSkin::setAlpha(float _alpha)
 	{
-		uint8_t alpha = (uint8_t)(_alpha*255);
-		if (alpha == mCurrentColour.data.alpha)
-			return;
-
-		mCurrentColour.data.alpha = alpha;
+		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -195,7 +192,9 @@ namespace MyGUI
 
 	void RotatingSkin::_setColour(const Colour& _value)
 	{
-		mCurrentColour.data.colour = ColourARGB::fromColour(_value, mVertexFormat).data.colour;
+		uint32 colour = texture_utility::toColourARGB(_value);
+		texture_utility::convertColour(colour, mVertexFormat);
+		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);

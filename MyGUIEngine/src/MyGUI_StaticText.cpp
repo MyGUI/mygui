@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StaticText.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -29,29 +30,10 @@ namespace MyGUI
 	{
 	}
 
-	void StaticText::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void StaticText::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void StaticText::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void StaticText::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -66,6 +48,7 @@ namespace MyGUI
 
 	void StaticText::shutdownWidgetSkin()
 	{
+		Base::shutdownWidgetSkin();
 	}
 
 	IntCoord StaticText::getTextRegion()
@@ -130,6 +113,8 @@ namespace MyGUI
 		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
 		else if (_key == "Text_FontName") setFontName(_value);
 		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
+		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
+		else if (_key == "Widget_Caption") setCaptionWithNewLine(_value);// FIXME убрать потом
 		else
 		{
 			Base::setProperty(_key, _value);
@@ -138,18 +123,42 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	IntSize StaticText::overrideMeasure(const IntSize& _sizeAvailable)
+	void StaticText::setCaption(const UString& _caption)
 	{
-		if (mText == nullptr)
-			return Base::overrideMeasure(_sizeAvailable);
-
-		return mText->getTextSize() + (getSize() - mText->getSize());
+		if (nullptr != mText)
+			mText->setCaption(_caption);
 	}
 
-	void StaticText::setCaption(const UString& _value)
+	const UString& StaticText::getCaption()
 	{
-		Base::setCaption(_value);
-		invalidateMeasure();
+		if (nullptr == mText)
+		{
+			// FIXME сделать одну пустую строку
+			static UString empty;
+			return empty;
+		}
+		return mText->getCaption();
+	}
+
+	void StaticText::setCaptionWithNewLine(const std::string& _value)
+	{
+		// change '\n' on char 10
+		size_t pos = _value.find("\\n");
+		if (pos == std::string::npos)
+		{
+			setCaption(LanguageManager::getInstance().replaceTags(_value));
+		}
+		else
+		{
+			std::string value(_value);
+			while (pos != std::string::npos)
+			{
+				value[pos++] = '\n';
+				value.erase(pos, 1);
+				pos = value.find("\\n");
+			}
+			setCaption(LanguageManager::getInstance().replaceTags(value));
+		}
 	}
 
 } // namespace MyGUI

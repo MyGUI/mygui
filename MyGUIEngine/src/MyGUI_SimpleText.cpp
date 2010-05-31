@@ -30,7 +30,8 @@
 namespace MyGUI
 {
 
-	SimpleText::SimpleText()
+	SimpleText::SimpleText() :
+		EditText()
 	{
 		mIsAddCursorWidth = false;
 	}
@@ -46,16 +47,12 @@ namespace MyGUI
 	void SimpleText::doRender()
 	{
 		bool _update = mRenderItem->getCurrentUpdate();
-		if (_update)
-			mTextOutDate = true;
+		if (_update) mTextOutDate = true;
 
-		if (nullptr == mFont)
-			return;
-		if (!mVisible || mEmptyView)
-			return;
+		if (nullptr == mFont) return;
+		if (!mVisible || mEmptyView) return;
 
-		if (mTextOutDate)
-			updateRawData();
+		if (mTextOutDate) updateRawData();
 
 		const IntSize& size = mTextView.getViewSize();
 

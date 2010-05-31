@@ -22,7 +22,7 @@ namespace wraps
 		typedef typename CellType::Type DataType;
 
 	public:
-		BaseItemBox(const std::string& _layout, MyGUI::WidgetPtr _parent) : BaseLayout(_layout, _parent)
+		BaseItemBox(const std::string& _layout, MyGUI::Widget* _parent) : BaseLayout(_layout, _parent)
 		{
 			mBoxItems = mMainWidget->castType<MyGUI::ItemBox>();
 			mBoxItems->setUserData(static_cast<BaseLayout*>(this));
@@ -83,50 +83,50 @@ namespace wraps
 		}
 
 	private:
-		void requestCreateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
+		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 		{
 			CellType * cell = new CellType(_item);
 			_item->setUserData(cell);
 			mListCellView.push_back(cell);
 		}
 
-		void requestCoordWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		void requestCoordWidgetItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord & _coord, bool _drop)
 		{
 			CellType::getCellDimension(_sender, _coord, _drop);
 		}
 
-		void requestUpdateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _data)
+		void requestUpdateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo & _data)
 		{
 			CellType * cell = *_item->getUserData<CellType*>();
 			cell->update(_data, *mBoxItems->getItemDataAt<DataType*>(_data.index));
 		}
 
-		void notifyStartDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool & _result)
+		void notifyStartDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo & _info, bool & _result)
 		{
 			eventStartDrag(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyRequestDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool & _result)
+		void notifyRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo & _info, bool & _result)
 		{
 			eventRequestDrop(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyEndDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool _result)
+		void notifyEndDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo & _info, bool _result)
 		{
 			eventDropResult(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyDropState(MyGUI::DDContainerPtr _sender, MyGUI::DDItemState _state)
+		void notifyDropState(MyGUI::DDContainer* _sender, MyGUI::DDItemState _state)
 		{
 			eventChangeDDState(this, _state);
 		}
 
-		void notifyNotifyItem(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
+		void notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData & _info)
 		{
 			eventNotifyItem(this, _info);
 		}
 
-		void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
 		{
 			DataType * data = nullptr;
 			if (_info.type == MyGUI::ToolTipInfo::Show)
@@ -146,13 +146,13 @@ namespace wraps
 
 		MyGUI::delegates::CDelegate3<BaseLayout *, const MyGUI::ToolTipInfo &, DataType *> eventToolTip;
 
-		MyGUI::ItemBoxPtr getItemBox() { return mBoxItems; }
+		MyGUI::ItemBox* getItemBox() { return mBoxItems; }
 
 
 	private:
 		typedef std::vector<CellType*> VectorCellView;
 		VectorCellView mListCellView;
-		MyGUI::ItemBoxPtr mBoxItems;
+		MyGUI::ItemBox* mBoxItems;
 	};
 
 } // namespace wraps

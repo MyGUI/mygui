@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 #ifndef __ENUMERATOR_H__
 #define __ENUMERATOR_H__

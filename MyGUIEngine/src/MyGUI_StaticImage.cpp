@@ -24,6 +24,7 @@
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_RotatingSkin.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextureUtility.h"
 
@@ -41,29 +42,10 @@ namespace MyGUI
 	{
 	}
 
-	void StaticImage::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void StaticImage::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void StaticImage::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void StaticImage::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if ( ! properties.empty() )
@@ -83,6 +65,8 @@ namespace MyGUI
 	void StaticImage::shutdownWidgetSkin()
 	{
 		frameAdvise(false);
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)
@@ -111,8 +95,6 @@ namespace MyGUI
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
-
-		setDesiredSize(mSizeTile);
 	}
 
 	void StaticImage::setImageCoord(const IntCoord& _coord)
@@ -160,23 +142,23 @@ namespace MyGUI
 			recalcIndexes();
 			updateSelectIndex(mIndexSelect);
 		}
-
-		setDesiredSize(mSizeTexture);
 	}
 
 	void StaticImage::recalcIndexes()
 	{
 		mItems.clear();
 
-		if ((mRectImage.right <= mRectImage.left) || (mRectImage.bottom <= mRectImage.top)) return;
-		if ((mSizeTile.width <= 0) || (mSizeTile.height <= 0)) return;
+		if ((mRectImage.right <= mRectImage.left) || (mRectImage.bottom <= mRectImage.top))
+			return;
+		if ((mSizeTile.width <= 0) || (mSizeTile.height <= 0))
+			return;
 
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
 
 		if ((count_h * count_v) > IMAGE_MAX_INDEX)
 		{
-			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTextureName << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
+			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << _getTextureName() << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
 			return;
 		}
 
@@ -376,26 +358,16 @@ namespace MyGUI
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
-	void StaticImage::setDesiredSize(const IntSize& _size)
-	{
-		mNativeImageSize = _size;
-		invalidateMeasure();
-	}
-
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo& _info)
 	{
 		mCurrentTextureName = _info.texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
-
-		IntSize image_size = mSizeTexture;
 
 		mItems.clear();
 
 		if (_info.frames.size() != 0)
 		{
 			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
-
-			image_size = _info.size;
 
 			addItem(IntCoord(*iter, _info.size));
 			setItemFrameRate(0, _info.rate);
@@ -404,12 +376,11 @@ namespace MyGUI
 			{
 				addItemFrame(0, MyGUI::IntCoord(*iter, _info.size));
 			}
+
 		}
 
 		mIndexSelect = 0;
 		updateSelectIndex(mIndexSelect);
-
-		setDesiredSize(image_size);
 	}
 
 	bool StaticImage::setItemResource(const std::string& _name)
@@ -543,12 +514,10 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	IntSize StaticImage::overrideMeasure(const IntSize& _sizeAvailable)
+	void StaticImage::_setUVSet(const FloatRect& _rect)
 	{
-		IntSize result = Base::overrideMeasure(_sizeAvailable);
-		result.width = std::max(result.width, mNativeImageSize.width);
-		result.height = std::max(result.height, mNativeImageSize.height);
-		return result;
+		if (nullptr != mMainSkin)
+			mMainSkin->_setUVSet(_rect);
 	}
 
 } // namespace MyGUI

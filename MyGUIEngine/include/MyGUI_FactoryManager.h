@@ -30,13 +30,22 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FactoryManager : public MyGUI::Singleton<FactoryManager>
+	class MYGUI_EXPORT FactoryManager :
+		public Singleton<FactoryManager>
 	{
 	public:
-		typedef delegates::CDelegate1<IObject*&> Delegate;
+		FactoryManager();
 
 		void initialise();
 		void shutdown();
+
+		typedef delegates::CDelegate1<IObject*&> Delegate;
+		// DESCRIBEME
+		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
+		// DESCRIBEME
+		void unregisterFactory(const std::string& _category, const std::string& _type);
+		// DESCRIBEME
+		void unregisterFactory(const std::string& _category);
 
 		// DESCRIBEME
 		bool isFactoryExist(const std::string& _category, const std::string& _type);
@@ -46,7 +55,6 @@ namespace MyGUI
 		void registerFactory(const std::string& _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
-			RegisterType::CallStaticConstructor<Type>(0);
 		}
 
 		// DESCRIBEME
@@ -54,23 +62,13 @@ namespace MyGUI
 		void registerFactory(const std::string& _category, const std::string& _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
-			RegisterType::CallStaticConstructor<Type>(0);
 		}
 
 		// DESCRIBEME
 		template<typename Type>
 		void unregisterFactory(const std::string& _category)
 		{
-			RegisterType::CallStaticDestructor<Type>(0);
 			unregisterFactory(_category, Type::getClassTypeName());
-		}
-
-		// DESCRIBEME
-		template<typename Type>
-		void unregisterFactory(const std::string& _category, const std::string& _type)
-		{
-			RegisterType::CallStaticDestructor<Type>(0);
-			unregisterFactory(_category, _type);
 		}
 
 		// DESCRIBEME
@@ -79,14 +77,11 @@ namespace MyGUI
 		void destroyObject(IObject* _object);
 
 	private:
-		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
-		void unregisterFactory(const std::string& _category, const std::string& _type);
-		void unregisterFactory(const std::string& _category);
-
-	private:
 		typedef std::map<std::string, Delegate> MapFactoryItem;
 		typedef std::map<std::string, MapFactoryItem> MapRegisterFactoryItem;
 		MapRegisterFactoryItem mRegisterFactoryItems;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

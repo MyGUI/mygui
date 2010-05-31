@@ -18,7 +18,7 @@ namespace wraps
 	{
 	public:
 
-		BasePanelViewCell(const std::string& _layout, MyGUI::WidgetPtr _parent) :
+		BasePanelViewCell(const std::string& _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent),
 			mTextCaption(nullptr),
 			mWidgetClient(nullptr),
@@ -39,12 +39,12 @@ namespace wraps
 			if (mTextCaption) mTextCaption->setCaption(_caption);
 		}
 
-		MyGUI::WidgetPtr getClient()
+		MyGUI::Widget* getClient()
 		{
 			return mWidgetClient ? mWidgetClient : mMainWidget;
 		}
 
-		MyGUI::WidgetPtr getMainWidget()
+		MyGUI::Widget* getMainWidget()
 		{
 			return mMainWidget;
 		}
@@ -79,12 +79,12 @@ namespace wraps
 		}
 
 		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool getVisible() { return mMainWidget->getVisible(); }
 
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 
 	private:
-		void notifyUpdateAction(MyGUI::WidgetPtr _widget)
+		void notifyUpdateAction(MyGUI::Widget* _widget)
 		{
 			eventUpdatePanel(this);
 		}
@@ -121,8 +121,8 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::StaticTextPtr mTextCaption;
-		MyGUI::WidgetPtr mWidgetClient;
+		MyGUI::StaticText* mTextCaption;
+		MyGUI::Widget* mWidgetClient;
 		bool m_minimized;
 
 		int m_minHeight;

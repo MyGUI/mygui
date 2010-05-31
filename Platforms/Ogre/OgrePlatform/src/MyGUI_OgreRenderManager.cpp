@@ -17,9 +17,8 @@
 namespace MyGUI
 {
 
-	//template <> const char* Singleton<OgreRenderManager>::mClassTypeName("OgreRenderManager");
-
 	OgreRenderManager::OgreRenderManager() :
+		mIsInitialise(false),
 		mUpdate(false),
 		mSceneManager(nullptr),
 		mWindow(nullptr),
@@ -30,8 +29,8 @@ namespace MyGUI
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
 		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
@@ -59,14 +58,14 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OgreRenderManager::shutdown()
 	{
-		if (!mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 
@@ -74,7 +73,7 @@ namespace MyGUI
 		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
 
-		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -137,7 +136,7 @@ namespace MyGUI
 		}
 	}
 
-	void OgreRenderManager::setActiveViewport(unsigned short _num)
+	void OgreRenderManager::setActiveViewport(size_t _num)
 	{
 		mActiveViewport = _num;
 
@@ -154,8 +153,11 @@ namespace MyGUI
 	void OgreRenderManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
 	{
 		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr) return;
-		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
+		if (gui == nullptr)
+			return;
+
+		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId)
+			return;
 
 		Ogre::Viewport * viewport = mSceneManager->getCurrentViewport();
 		if (nullptr == viewport
@@ -276,6 +278,7 @@ namespace MyGUI
 		// set-up matrices
 		mRenderSystem->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
 		mRenderSystem->_setViewMatrix(Ogre::Matrix4::IDENTITY);
+
 #if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 		Ogre::OrientationMode orient = mWindow->getViewport(mActiveViewport)->getOrientationMode();
 		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY * Ogre::Quaternion(Ogre::Degree(orient * 90.f), Ogre::Vector3::UNIT_Z));
@@ -322,7 +325,7 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		OgreTexture* texture = new OgreTexture(_name, static_cast<OgreDataManager*>(DataManager::getInstancePtr())->getGroup());
+		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstance().getGroup());
 		mTextures[_name] = texture;
 		return texture;
 	}

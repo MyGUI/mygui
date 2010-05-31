@@ -116,12 +116,12 @@ namespace diagnostic
 		bool getVisible()
 		{
 			if (mInfo)
-				return mInfo->isVisible();
+				return mInfo->getVisible();
 			return false;
 		}
 
 	private:
-		MyGUI::StaticTextPtr mInfo;
+		MyGUI::StaticText* mInfo;
 		VectorPairString mParams;
 
 	};

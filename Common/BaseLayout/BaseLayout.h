@@ -21,7 +21,7 @@ namespace wraps
 		{
 		}
 
-		BaseLayout(const std::string& _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
+		BaseLayout(const std::string& _layout, MyGUI::Widget* _parent = nullptr) : mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
 		}
@@ -32,7 +32,7 @@ namespace wraps
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
 			{
-				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
 				if (nullptr != find)
 				{
 					T * cast = find->castType<T>(false);
@@ -59,7 +59,7 @@ namespace wraps
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
 			{
-				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
 				if (nullptr != find)
 				{
 					_widget = new T(find);
@@ -70,7 +70,7 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
-		void initialise(const std::string& _layout, MyGUI::WidgetPtr _parent = nullptr)
+		void initialise(const std::string& _layout, MyGUI::Widget* _parent = nullptr)
 		{
 			const std::string MAIN_WINDOW = "_Main";
 			mLayoutName = _layout;
@@ -114,7 +114,7 @@ namespace wraps
 		}
 
 		template <typename Type>
-		void initialiseByAttributes(Type* _owner, MyGUI::WidgetPtr _parent = nullptr)
+		void initialiseByAttributes(Type* _owner, MyGUI::Widget* _parent = nullptr)
 		{
 			initialise(attribute::AttributeLayout<Type>::getData(), _parent);
 
@@ -135,7 +135,7 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::WidgetPtr mMainWidget;
+		MyGUI::Widget* mMainWidget;
 
 	private:
 		std::string mPrefix;

@@ -8,7 +8,6 @@
 #define __MYGUI_OGRE_RENDER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-//#include "MyGUI_Singleton.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -25,8 +24,7 @@ namespace MyGUI
 		public IRenderTarget,
 		public Ogre::WindowEventListener,
 		public Ogre::RenderQueueListener,
-		public Ogre::RenderSystem::Listener//,
-		//public Singleton<OgreRenderManager>
+		public Ogre::RenderSystem::Listener
 	{
 	public:
 		OgreRenderManager();
@@ -34,8 +32,8 @@ namespace MyGUI
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
-		//static OgreRenderManager& getInstance() { return Singleton<OgreRenderManager>::getInstance(); }
-		//static OgreRenderManager* getInstancePtr() { return Singleton<OgreRenderManager>::getInstancePtr(); }
+		static OgreRenderManager& getInstance() { return static_cast<OgreRenderManager&>(Singleton<RenderManager>::getInstance()); }
+		static OgreRenderManager* getInstancePtr() { return static_cast<OgreRenderManager*>(Singleton<RenderManager>::getInstancePtr()); }
 
 		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const { return mViewSize; }
@@ -77,10 +75,10 @@ namespace MyGUI
 		void setSceneManager(Ogre::SceneManager* _scene);
 
 		/** Get GUI viewport index */
-		unsigned short getActiveViewport() { return mActiveViewport; }
+		size_t getActiveViewport() { return mActiveViewport; }
 
 		/** Set GUI viewport index */
-		void setActiveViewport(unsigned short _num);
+		void setActiveViewport(size_t _num);
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
@@ -113,7 +111,7 @@ namespace MyGUI
 		Ogre::RenderWindow* mWindow;
 
 		// вьюпорт, с которым работает система
-		unsigned short mActiveViewport;
+		size_t mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
@@ -123,6 +121,8 @@ namespace MyGUI
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

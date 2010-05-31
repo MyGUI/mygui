@@ -32,8 +32,6 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		IntCoord coord;
-
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
@@ -44,19 +42,14 @@ namespace MyGUI
 			if (key == "Point") mPoint = IntPoint::parse(value);
 			else if (key == "Size") mSize = IntSize::parse(value);
 			else if (key == "Texture") mTexture = value;
-			else if (key == "Coord") coord = IntCoord::parse(value);
+			else if (key == "Coord") mTextureCoord = IntCoord::parse(value);
 		}
-
-		mOffset = CoordConverter::convertTextureCoord(
-			coord,
-			texture_utility::getTextureSize(mTexture));
 	}
 
 	void ResourceManualPointer::setImage(StaticImage* _image)
 	{
 		_image->deleteAllItems();
-		_image->_setTextureName(mTexture);
-		_image->_setUVSet(mOffset);
+		_image->setImageInfo(mTexture, mTextureCoord, mTextureCoord.size());
 	}
 
 	void ResourceManualPointer::setPosition(StaticImage* _image, const IntPoint& _point)

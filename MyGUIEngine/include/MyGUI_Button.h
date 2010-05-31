@@ -67,13 +67,11 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 		void _setMouseFocus(bool _focus);
 
 	protected:
-		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);
@@ -87,9 +85,6 @@ namespace MyGUI
 
 	private:
 		void updateButtonState();
-
-		void shutdownWidgetSkin();
-		void initialiseWidgetSkin(ResourceSkin* _info);
 
 	private:
 		// нажата ли кнопка

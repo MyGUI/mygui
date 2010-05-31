@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_WIDGET_EVENT_H__
-#define __MYGUI_WIDGET_EVENT_H__
+#ifndef __MYGUI_WIDGET_INPUT_H__
+#define __MYGUI_WIDGET_INPUT_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
@@ -28,23 +28,10 @@
 #include "MyGUI_WidgetToolTip.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
+#include "MyGUI_MaskPickInfo.h"
 
 namespace MyGUI
 {
-
-	// делегаты для событий виджета
-	typedef delegates::CDelegate1<Widget*> EventHandle_WidgetVoid;
-	typedef delegates::CDelegate2<Widget*, Widget*> EventHandle_WidgetWidget;
-	typedef delegates::CDelegate2<Widget*, bool> EventHandle_WidgetBool;
-	typedef delegates::CDelegate2<Widget*, int> EventHandle_WidgetInt;
-	typedef delegates::CDelegate2<Widget*, size_t> EventHandle_WidgetSizeT;
-	typedef delegates::CDelegate3<Widget*, int, int> EventHandle_WidgetIntInt;
-	typedef delegates::CDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
-	typedef delegates::CDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
-	typedef delegates::CDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
-	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
-	//typedef delegates::CDelegate3<Widget*, Widget*&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
-	typedef delegates::CDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
 
 	/**
 	General information about creating delegate for event :
@@ -70,20 +57,68 @@ namespace MyGUI
 	@endcode
 	*/
 
-	class MYGUI_EXPORT WidgetEvent
+	// делегаты для событий виджета
+	typedef delegates::CDelegate1<Widget*> EventHandle_WidgetVoid;
+	typedef delegates::CDelegate2<Widget*, Widget*> EventHandle_WidgetWidget;
+	typedef delegates::CDelegate2<Widget*, bool> EventHandle_WidgetBool;
+	typedef delegates::CDelegate2<Widget*, int> EventHandle_WidgetInt;
+	typedef delegates::CDelegate2<Widget*, size_t> EventHandle_WidgetSizeT;
+	typedef delegates::CDelegate3<Widget*, int, int> EventHandle_WidgetIntInt;
+	typedef delegates::CDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
+	typedef delegates::CDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
+	typedef delegates::CDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
+	typedef delegates::CDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
+
+	class MYGUI_EXPORT WidgetInput
 	{
-		//friend class InputManager;
-
 	public:
-		virtual ~WidgetEvent() { }
+		WidgetInput();
+		virtual ~WidgetInput() { }
 
-	protected:
-		WidgetEvent() :
-			mWidgetEventSender(0)
-		{
-		}
+		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
+		void setNeedToolTip(bool _value) { mNeedToolTip = _value; }
+		/** Get need tool tip mode flag */
+		bool getNeedToolTip() const { return mNeedToolTip; }
 
-	public:
+		/** Set mouse pointer for this widget */
+		void setPointer(const std::string& _value) { mPointer = _value; }
+		/** Get mouse pointer name for this widget */
+		const std::string& getPointer() { return mPointer; }
+
+		/** Set need key focus flag */
+		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
+		/** Is need key focus
+			If disable this widget won't be reacting on keyboard at all.\n
+			Enabled (true) by default.
+		*/
+		bool getNeedKeyFocus() const { return mNeedKeyFocus; }
+
+		/** Set need mouse focus flag */
+		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
+		/** Is need mouse focus
+			If disable this widget won't be reacting on mouse at all.\n
+			Enabled (true) by default.
+		*/
+		bool getNeedMouseFocus() const { return mNeedMouseFocus; }
+
+		/** Set inherits mode flag
+			This mode makes all child widgets pickable even if widget don't
+			need mouse focus (was set setNeedKeyFocus(false) ).\n
+			Disabled (false) by default.
+		*/
+		void setInheritsPick(bool _value) { mInheritsPick = _value; }
+		/** Get inherits mode flag */
+		bool getInheritsPick() const { return mInheritsPick; }
+
+		/** Set picking mask for widget */
+		void setMaskPick(const std::string& _filename);
+		/** Set picking mask for widget */
+		void setMaskPick(const MaskPickInfo& _info);
+
+		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord);
+
+		bool getRootMouseFocus() { return mRootMouseFocus; }
+		bool getRootKeyFocus() { return mRootKeyFocus; }
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
@@ -204,128 +239,56 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetToolTip eventToolTip;
 
-		/** Event : Extendeble event for special cases or plugins.\n
-			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
-			@param _sender widget that called this event
-			@param _key
-			@param _value
-		*/
-		EventHandle_WidgetStringString eventActionInfo;
-
-		/** Event : Internal request for parent and item index, used for any widget.\n
-			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget*& _container, size_t& _index);
-			@param _sender widget that called this event
-			@param _container parent
-			@param _index of container
-		*/
-		//EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
-
-		/** Event : Widget property changed through setProperty (in code, or from layout)\n
-			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
-			@param _sender widget that called this event
-			@param _key
-			@param _value
-		*/
-		EventHandle_WidgetStringString eventChangeProperty;
-
-
 	/*internal:*/
+		void _riseMouseLostFocus(Widget* _new);
+		void _riseMouseSetFocus(Widget* _old);
+		void _riseMouseDrag(int _left, int _top);
+		void _riseMouseMove(int _left, int _top);
+		void _riseMouseWheel(int _rel);
+		void _riseMouseButtonPressed(int _left, int _top, MouseButton _id);
+		void _riseMouseButtonReleased(int _left, int _top, MouseButton _id);
+		void _riseMouseButtonClick();
+		void _riseMouseButtonDoubleClick();
+		void _riseKeyLostFocus(Widget* _new);
+		void _riseKeySetFocus(Widget* _old);
+		void _riseKeyButtonPressed(KeyCode _key, Char _char);
+		void _riseKeyButtonReleased(KeyCode _key);
+		void _riseMouseChangeRootFocus(bool _focus);
+		void _riseKeyChangeRootFocus(bool _focus);
 
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseLostFocus(Widget* _new)
-		{
-			eventMouseLostFocus(mWidgetEventSender, _new);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseSetFocus(Widget* _old)
-		{
-			eventMouseSetFocus(mWidgetEventSender, _old);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseDrag(int _left, int _top)
-		{
-			eventMouseDrag(mWidgetEventSender, _left, _top);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseMove(int _left, int _top)
-		{
-			eventMouseMove(mWidgetEventSender, _left, _top);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseWheel(int _rel)
-		{
-			eventMouseWheel(mWidgetEventSender, _rel);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id)
-		{
-			eventMouseButtonPressed(mWidgetEventSender, _left, _top, _id);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id)
-		{
-			eventMouseButtonReleased(mWidgetEventSender, _left, _top, _id);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseButtonClick()
-		{
-			eventMouseButtonClick(mWidgetEventSender);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseButtonDoubleClick()
-		{
-			eventMouseButtonDoubleClick(mWidgetEventSender);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onKeyLostFocus(Widget* _new)
-		{
-			eventKeyLostFocus(mWidgetEventSender, _new);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onKeySetFocus(Widget* _old)
-		{
-			eventKeySetFocus(mWidgetEventSender, _old);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onKeyButtonPressed(KeyCode _key, Char _char)
-		{
-			eventKeyButtonPressed(mWidgetEventSender, _key, _char);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onKeyButtonReleased(KeyCode _key)
-		{
-			eventKeyButtonReleased(mWidgetEventSender, _key);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onMouseChangeRootFocus(bool _focus)
-		{
-			eventRootMouseChangeFocus(mWidgetEventSender, _focus);
-		}
-
-		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
-		virtual void onKeyChangeRootFocus(bool _focus)
-		{
-			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
-		}
+		void _setRootMouseFocus(bool _value) { mRootMouseFocus = _value; }
+		void _setRootKeyFocus(bool _value) { mRootKeyFocus = _value; }
 
 	protected:
-		// от чьего имени мы посылаем сообщения
-		Widget* mWidgetEventSender;
+		virtual void onMouseLostFocus(Widget* _new) { }
+		virtual void onMouseSetFocus(Widget* _old) { }
+		virtual void onMouseDrag(int _left, int _top) { }
+		virtual void onMouseMove(int _left, int _top) { }
+		virtual void onMouseWheel(int _rel) { }
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id) { }
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id) { }
+		virtual void onMouseButtonClick() { }
+		virtual void onMouseButtonDoubleClick() { }
+		virtual void onKeyLostFocus(Widget* _new) { }
+		virtual void onKeySetFocus(Widget* _old) { }
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char) { }
+		virtual void onKeyButtonReleased(KeyCode _key) { }
+		virtual void onMouseChangeRootFocus(bool _focus) { }
+		virtual void onKeyChangeRootFocus(bool _focus) { }
+
+	private:
+		std::string mPointer;
+		MaskPickInfo mOwnMaskPickInfo;
+
+		bool mNeedToolTip;
+		bool mInheritsPick;
+		bool mNeedKeyFocus;
+		bool mNeedMouseFocus;
+
+		bool mRootMouseFocus;
+		bool mRootKeyFocus;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_WIDGET_EVENT_H__
+#endif // __MYGUI_WIDGET_INPUT_H__

@@ -24,10 +24,10 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ColourARGB.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_RenderFormat.h"
 #include "MyGUI_IStateInfo.h"
 
 namespace MyGUI
@@ -70,7 +70,7 @@ namespace MyGUI
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;
-		ColourARGB mCurrentColour;
+		uint32 mCurrentColour;
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;

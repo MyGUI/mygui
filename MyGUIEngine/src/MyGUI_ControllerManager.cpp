@@ -34,6 +34,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<ControllerManager>::mClassTypeName("ControllerManager");
 
+	ControllerManager::ControllerManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void ControllerManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -53,7 +58,7 @@ namespace MyGUI
 
 	void ControllerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		const std::string factory_type = "Controller";

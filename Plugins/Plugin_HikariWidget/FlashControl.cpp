@@ -323,7 +323,7 @@ void FlashControl::update()
 	if (isClean)
 		return;
 
-	if (mOwner && !mOwner->isVisible())
+	if (mOwner && !mOwner->getVisible())
 		return;
 
 	// очищаем текстуру
@@ -331,7 +331,7 @@ void FlashControl::update()
 	{
 		if (mOwner)
 		{
-			uint8_t* destBuffer = static_cast<uint8_t*>(mOwner->lock());
+			MyGUI::uint8* destBuffer = static_cast<MyGUI::uint8*>(mOwner->lock());
 			memset(destBuffer, 0, mOwner->getTextureRealWidth() * mOwner->getTextureRealHeight() * 4);
 			mOwner->unlock();
 		}
@@ -430,7 +430,7 @@ void FlashControl::update()
 	
 	if (mOwner)
 	{
-		uint8_t* destBuffer = static_cast<uint8_t*>(mOwner->lock());
+		MyGUI::uint8* destBuffer = static_cast<MyGUI::uint8*>(mOwner->lock());
 		renderBuffer->blitBGR(destBuffer, (int)mOwner->getTextureRealWidth() * 4, 4);
 		mOwner->unlock();
 	}

@@ -41,7 +41,7 @@ namespace demo
 	{
 		createDefaultScene();
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		mMainPanel = new MainPanel();
 		mMainPanel->eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);

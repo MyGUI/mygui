@@ -102,12 +102,9 @@ namespace MyGUI
 		*/
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::Widget* _sender);
@@ -122,19 +119,16 @@ namespace MyGUI
 		const char * getButtonTag(size_t _index);
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
 		IntSize mOffsetText;
-		Widget* mWidgetText;
+		StaticText* mWidgetText;
 
 		std::string mButtonSkin, mButtonType;
 		IntSize mButtonSize, mButtonOffset;
 
-		VectorWidgetPtr mVectorButton;
+		std::vector<Button*> mVectorButton;
 		MessageBoxStyle mInfoOk;
 		MessageBoxStyle mInfoCancel;
 		bool mSmoothShow;

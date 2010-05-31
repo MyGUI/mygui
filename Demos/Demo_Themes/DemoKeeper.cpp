@@ -80,7 +80,7 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Select skin theme in combobox to see default MyGUI themes.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

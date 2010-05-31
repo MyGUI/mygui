@@ -37,6 +37,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<LayerManager>::mClassTypeName("LayerManager");
 
+	LayerManager::LayerManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void LayerManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -54,7 +59,7 @@ namespace MyGUI
 
 	void LayerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager::getInstance().unregisterFactory<SharedLayer>(XML_TYPE);

@@ -2,29 +2,28 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #ifndef __MYGUI_OGRE_DATA_MANAGER_H__
 #define __MYGUI_OGRE_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
 	class DirectXDataManager :
-		public DataManager,
-		public Singleton<DirectXDataManager>
+		public DataManager
 	{
 	public:
+		DirectXDataManager();
+
 		void initialise();
 		void shutdown();
 
-		static DirectXDataManager& getInstance() { return Singleton<DirectXDataManager>::getInstance(); }
-		static DirectXDataManager* getInstancePtr() { return Singleton<DirectXDataManager>::getInstancePtr(); }
+		static DirectXDataManager& getInstance() { return static_cast<DirectXDataManager&>(Singleton<DataManager>::getInstance()); }
+		static DirectXDataManager* getInstancePtr() { return static_cast<DirectXDataManager*>(Singleton<DataManager>::getInstancePtr()); }
 
 		/** @see DataManager::getData(const std::string& _name) */
 		virtual IDataStream* getData(const std::string& _name);
@@ -49,6 +48,8 @@ namespace MyGUI
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
 		VectorArhivInfo mPaths;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

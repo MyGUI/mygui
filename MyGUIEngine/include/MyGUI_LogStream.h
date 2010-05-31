@@ -41,7 +41,7 @@ namespace MyGUI
 		}
 
 		template <typename T>
-		inline LogStream& operator << (T _value)
+		LogStream& operator << (T _value)
 		{
 			mStream << _value;
 			return *this;

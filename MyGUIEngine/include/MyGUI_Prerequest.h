@@ -45,11 +45,15 @@
 	#endif
 #endif
 
+#ifdef max
+#    undef max
+#    undef min
+#endif
+
 namespace MyGUI
 {
 
 	class Gui;
-	class IWidgetCreator;
 
 	// managers
 	class LogManager;
@@ -69,6 +73,7 @@ namespace MyGUI
 	class ResourceManager;
 	class RenderManager;
 	class FactoryManager;
+	class TextureManager;
 	class ToolTipManager;
 
 	class IWidgetFactory;
@@ -80,9 +85,6 @@ namespace MyGUI
 		template <typename T>
 		class BaseWidgetFactory;
 	}
-
-	class IEventCaller;
-	class UIElement;
 
 	class Widget;
 	class Button;
@@ -109,9 +111,8 @@ namespace MyGUI
 	class Canvas;
 	class ListCtrl;
 	class ListBox;
-	class Panel;
-	class StackPanel;
-	class WrapPanel;
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
 
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
@@ -138,8 +139,6 @@ namespace MyGUI
 	typedef Canvas* CanvasPtr;
 	typedef ListCtrl* ListCtrlPtr;
 	typedef ListBox* ListBoxPtr;
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
 
 	typedef TabItem Sheet;
 	typedef TabItem* SheetPtr;

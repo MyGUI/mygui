@@ -6,6 +6,7 @@ include_directories(
 
 include(MyGUI.DirectXPlatform.list)
 
+# setup MyGUIEngine target
 add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.DirectXPlatform MyGUIEngine)

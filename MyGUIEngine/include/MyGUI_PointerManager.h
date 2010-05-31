@@ -25,7 +25,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_IUnlinkWidget.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_IPointer.h"
 
@@ -33,9 +32,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
-		public IUnlinkWidget,
-		public IWidgetCreator,
-		public MyGUI::Singleton<PointerManager>
+		public Singleton<PointerManager>,
+		public IUnlinkWidget
 	{
 	public:
 		PointerManager();
@@ -43,7 +41,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-	public:
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
@@ -92,17 +89,17 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _unlinkWidget(Widget* _widget);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		/*virtual */Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(Widget* _widget);
+		/*virtual */void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
-		virtual void _destroyAllChildWidget();
+		/*virtual */void _destroyAllChildWidget();
 
 		void Update();
 
@@ -124,6 +121,8 @@ namespace MyGUI
 		StaticImage* mMousePointer;
 		IPointer* mPointer;
 		std::string mCurrentMousePointer;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

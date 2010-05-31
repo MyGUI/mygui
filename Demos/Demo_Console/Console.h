@@ -10,11 +10,6 @@
 #include "BaseLayout/BaseLayout.h"
 #include <limits>
 
-#ifdef max
-#	undef max
-#	undef min
-#endif
-
 namespace demo
 {
 
@@ -28,14 +23,12 @@ namespace demo
 		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
 	}
 
-	class Console : public wraps::BaseLayout
+	class Console :
+		public MyGUI::Singleton<Console>,
+		public wraps::BaseLayout
 	{
 	public:
-		static Console * getInstancePtr();
-		static Console & getInstance();
-
 		Console();
-		virtual ~Console();
 
 		void addToConsole(const MyGUI::UString & _line);
 		void addToConsole(const MyGUI::UString & _reason, const MyGUI::UString & _key, const MyGUI::UString & _value)
@@ -68,7 +61,7 @@ namespace demo
 		const MyGUI::UString & getConsoleStringUnknow() { return mStringUnknow; }
 		const MyGUI::UString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool getVisible() { return mMainWidget->getVisible(); }
 		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 
 		template <typename T> bool isAction(T & _result, const MyGUI::UString & _key, const MyGUI::UString & _value, const MyGUI::UString & _format = "")
@@ -102,11 +95,7 @@ namespace demo
 
 		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value);
 
-		void notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item);
-		void notifyDrawItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
-
 	private:
-		MyGUI::ListCtrl* mListBoxHistory;
 		MyGUI::Edit* mListHistory;
 		MyGUI::ComboBox* mComboCommand;
 		MyGUI::Button* mButtonSubmit;
@@ -122,8 +111,6 @@ namespace demo
 
 		// если текущий текст автодополнен
 		bool mAutocomleted;
-
-		std::vector<MyGUI::UString> mLines;
 
 		static Console * m_instance;
 	};

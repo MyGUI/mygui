@@ -40,89 +40,6 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void UpdateArrange(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coordPlace ,
-			Convert<const MyGUI::types::TSize< int > &>::Type _oldsize )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->updateArrange(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_coordPlace) ,
-				Convert<const MyGUI::types::TSize< int > &>::From(_oldsize) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetPaddingHeight( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getPaddingHeight( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetPaddingWidth( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getPaddingWidth( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginHeight( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getMarginHeight( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginWidth( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getMarginWidth( ) );
-		}
-
-
-
-   	public:
-		Convert<const MyGUI::types::TSize< int > &>::Type GetDesiredSize( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::types::TSize< int > &>::To(
-				static_cast<ThisType*>(mNative)->getDesiredSize( ) );
-		}
-
-
-
-   	public:
-		void UpdateMeasure(
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->updateMeasure(
-				Convert<const MyGUI::types::TSize< int > &>::From(_sizeAvailable) );
-		}
-
-
-
-   	public:
-		void InvalidateMeasure( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->invalidateMeasure( );
-		}
-
-
-
-   	public:
 		void SetCaptionWithNewLine(
 			Convert<const std::string &>::Type _value )
 		{
@@ -377,26 +294,6 @@ namespace MyGUI
 
 
    	public:
-		Convert<MyGUI::types::TSize< int >>::Type GetParentSize( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TSize< int >>::To(
-				static_cast<ThisType*>(mNative)->getParentSize( ) );
-		}
-
-
-
-   	public:
-		Convert<MyGUI::Widget *>::Type GetVisualParent( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::Widget *>::To(
-				static_cast<ThisType*>(mNative)->getVisualParent( ) );
-		}
-
-
-
-   	public:
 		Convert<MyGUI::Widget *>::Type GetParent( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -437,91 +334,6 @@ namespace MyGUI
 					Convert<const std::string &>::From(_value) ) );
 		}
 
-
-
-   	public:
-		property Convert<MyGUI::SizePolicy>::Type SizePolicy
-		{
-			Convert<MyGUI::SizePolicy>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::SizePolicy>::To( static_cast<ThisType*>(mNative)->getSizePolicy() );
-			}
-			void set(Convert<MyGUI::SizePolicy>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setSizePolicy( Convert<MyGUI::SizePolicy>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<const MyGUI::types::TSize< int > &>::Type MaxSize
-		{
-			Convert<const MyGUI::types::TSize< int > &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::types::TSize< int > &>::To( static_cast<ThisType*>(mNative)->getMaxSize() );
-			}
-			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<const MyGUI::types::TSize< int > &>::Type MinSize
-		{
-			Convert<const MyGUI::types::TSize< int > &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::types::TSize< int > &>::To( static_cast<ThisType*>(mNative)->getMinSize() );
-			}
-			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMinSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<const MyGUI::types::TRect< int > &>::Type Padding
-		{
-			Convert<const MyGUI::types::TRect< int > &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::types::TRect< int > &>::To( static_cast<ThisType*>(mNative)->getPadding() );
-			}
-			void set(Convert<const MyGUI::types::TRect< int > &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setPadding( Convert<const MyGUI::types::TRect< int > &>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<const MyGUI::types::TRect< int > &>::Type Margin
-		{
-			Convert<const MyGUI::types::TRect< int > &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::types::TRect< int > &>::To( static_cast<ThisType*>(mNative)->getMargin() );
-			}
-			void set(Convert<const MyGUI::types::TRect< int > &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMargin( Convert<const MyGUI::types::TRect< int > &>::From(_value) );
-			}
-		}
-	
 
 
    	public:

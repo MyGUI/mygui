@@ -23,7 +23,7 @@
 #define __MYGUI_WINDOW_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 
@@ -36,7 +36,7 @@ namespace MyGUI
 	typedef delegates::CDelegate1<Window*> EventHandle_WindowPtr;
 
 	class MYGUI_EXPORT Window :
-		public Widget
+		public StaticText // FIXME пока для кэпшена вместо виджета текст
 	{
 		MYGUI_RTTI_DERIVED( Window )
 
@@ -62,7 +62,21 @@ namespace MyGUI
 		virtual const UString& getCaption();
 
 		/** Get window caption widget */
-		Widget* getCaptionWidget() { return mWidgetCaption; }
+		StaticText* getCaptionWidget() { return mWidgetCaption; }
+
+		/** Set minimal possible window size */
+		void setMinSize(const IntSize& _value);
+		/** Set minimal possible window size */
+		void setMinSize(int _width, int _height) { setMinSize(IntSize(_width, _height)); }
+		/** Get minimal possible window size */
+		IntSize getMinSize();
+
+		/** Set maximal possible window size */
+		void setMaxSize(const IntSize& _value);
+		/** Set maximal possible window size */
+		void setMaxSize(int _width, int _height) { setMaxSize(IntSize(_width, _height)); }
+		/** Get maximal possible window size */
+		IntSize getMaxSize();
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -100,10 +114,6 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -115,18 +125,24 @@ namespace MyGUI
 		void showSmooth(bool _reset = false) { setVisibleSmooth(true); }
 		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
 		void hideSmooth() { setVisibleSmooth(false); }
+		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
+		void setMinMax(const IntRect& _minmax) { setMinSize(_minmax.left, _minmax.top); setMaxSize(_minmax.right, _minmax.bottom); }
+		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
+		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { setMinSize(_min_w, _min_h); setMaxSize(_max_w, _max_h); }
+		MYGUI_OBSOLETE("use : IntSize getMinSize() , IntSize getMaxSize()")
+		IntRect getMinMax() { return IntRect(getMinSize().width, getMinSize().height, getMaxSize().width, getMaxSize().height); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		// переопределяем для присвоению клиенту
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
-		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
-		virtual void onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
-
+		void onMouseChangeRootFocus(bool _focus);
+		void onKeyChangeRootFocus(bool _focus);
 		void onMouseDrag(int _left, int _top);
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 
@@ -139,19 +155,14 @@ namespace MyGUI
 
 		void animateStop(Widget* _widget);
 
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
-
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		float getAlphaVisible();
 		void getSnappedCoord(IntCoord& _coord);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		Widget* mWidgetCaption;
+		StaticText* mWidgetCaption;
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;
@@ -162,6 +173,9 @@ namespace MyGUI
 
 		// автоматическое или ручное управление альфой
 		bool mIsAutoAlpha;
+
+		// минимальные и максимальные размеры окна
+		IntRect mMinmax;
 
 		bool mSnap; // прилеплять ли к краям
 

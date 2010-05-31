@@ -99,6 +99,18 @@ namespace MyGUI
 
 
    	public:
+		Convert<bool>::Type SetItemResource(
+			Convert<const MyGUI::Guid &>::Type _id )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->setItemResource(
+					Convert<const MyGUI::Guid &>::From(_id) ) );
+		}
+
+
+
+   	public:
 		Convert<float>::Type GetItemFrameRate(
 			Convert<size_t>::Type _index )
 		{

@@ -37,11 +37,8 @@ namespace MyGUI
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :
+		mIsInitialise(false),
 		layoutParent(nullptr)
-	{
-	}
-
-	LayoutManager::~LayoutManager()
 	{
 	}
 
@@ -60,7 +57,7 @@ namespace MyGUI
 
 	void LayoutManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

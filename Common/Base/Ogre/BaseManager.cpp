@@ -116,10 +116,10 @@ namespace base
 
 		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* l = mSceneManager->createLight("MainLight");
-        l->setType(Ogre::Light::LT_DIRECTIONAL);
+		l->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
 		vec.normalise();
-        l->setDirection(vec);
+		l->setDirection(vec);
 
 		// Load resources
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
@@ -457,7 +457,7 @@ namespace base
 			MyGUI::LayerManager::getInstance().dumpStatisticToLog();
 		}
 
-		// change polygon more
+		// change polygon mode
 		else if (_key == MyGUI::KeyCode::F5)
 		{
 			getCamera()->setPolygonMode(Ogre::PM_SOLID);

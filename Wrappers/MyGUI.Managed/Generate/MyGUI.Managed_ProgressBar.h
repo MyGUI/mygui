@@ -71,17 +71,17 @@ namespace MyGUI
 
 
    	public:
-		property Convert<MyGUI::FlowDirection>::Type FlowDirection
+		property Convert<MyGUI::Align>::Type ProgressStartPoint
 		{
-			Convert<MyGUI::FlowDirection>::Type get( )
+			Convert<MyGUI::Align>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::FlowDirection>::To( static_cast<ThisType*>(mNative)->getFlowDirection() );
+				return Convert<MyGUI::Align>::To( static_cast<ThisType*>(mNative)->getProgressStartPoint() );
 			}
-			void set(Convert<MyGUI::FlowDirection>::Type _value)
+			void set(Convert<MyGUI::Align>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setFlowDirection( Convert<MyGUI::FlowDirection>::From(_value) );
+				static_cast<ThisType*>(mNative)->setProgressStartPoint( Convert<MyGUI::Align>::From(_value) );
 			}
 		}
 	

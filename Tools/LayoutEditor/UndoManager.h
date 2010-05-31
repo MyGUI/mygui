@@ -99,7 +99,6 @@ class UndoManager : public MyGUI::Singleton<UndoManager>
 {
 public:
 	UndoManager();
-	~UndoManager();
 
 public:
 	void initialise(EditorWidgets * ew);

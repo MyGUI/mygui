@@ -47,29 +47,10 @@ namespace MyGUI
 	{
 	}
 
-	void VScroll::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void VScroll::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void VScroll::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void VScroll::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 		mScrollViewPage = 1;
@@ -148,6 +129,8 @@ namespace MyGUI
 		mWidgetTrack = nullptr;
 		mWidgetFirstPart = nullptr;
 		mWidgetSecondPart = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void VScroll::updateTrack()
@@ -168,7 +151,7 @@ namespace MyGUI
 			return;
 		}
 		// если скрыт то покажем
-		if (!mWidgetTrack->isVisible())
+		if (!mWidgetTrack->getVisible())
 		{
 			mWidgetTrack->setVisible(true);
 		}
@@ -370,12 +353,12 @@ namespace MyGUI
 	{
 		if (mScrollRange < 2) return;
 
-		int offset = (int)mScrollPosition;
+		int offset = mScrollPosition;
 		if (_rel < 0) offset += SCROLL_MOUSE_WHEEL;
 		else offset -= SCROLL_MOUSE_WHEEL;
 
 		if (offset < 0) offset = 0;
-		else if (offset > (int)(mScrollRange - 1)) offset = (int)(mScrollRange - 1);
+		else if (offset > (int)(mScrollRange - 1)) offset = mScrollRange - 1;
 
 		if ((size_t)offset != mScrollPosition)
 		{

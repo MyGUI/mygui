@@ -22,14 +22,7 @@
 #ifndef __MYGUI_MACROS_H__
 #define __MYGUI_MACROS_H__
 
-#ifdef max
-#undef max
-#endif
-
-#ifdef min
-#undef min
-#endif
-
+#include "MyGUI_Prerequest.h"
 #include <limits>
 #include <stddef.h>
 
@@ -44,8 +37,6 @@ namespace MyGUI
 	//FIXME заменить на шаблоны
 	#define MYGUI_FLAG_NONE  0
 	#define MYGUI_FLAG(num)  (1<<(num))
-
-	const int MAX_COORD = std::numeric_limits<int>::max();
 
 } // namespace MyGUI
 

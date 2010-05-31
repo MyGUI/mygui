@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 #ifndef __XML_DOCUMENT_H__
 #define __XML_DOCUMENT_H__

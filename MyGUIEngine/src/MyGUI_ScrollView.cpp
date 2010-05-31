@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
 
@@ -41,31 +42,12 @@ namespace MyGUI
 		mContentAlign = Align::Center;
 	}
 
-	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void ScrollView::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void ScrollView::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void ScrollView::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-		// нам нужен фокус клавы
-		//FIXME
+		Base::initialiseWidgetSkin(_info);
+
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
@@ -100,12 +82,6 @@ namespace MyGUI
 		}
 
 		//MYGUI_ASSERT(nullptr != mScrollClient, "Child Widget Client not found in skin (ScrollView must have Client)");
-		if (mScrollClient != nullptr)
-		{
-			mBorderSize.set(mScrollClient->getLeft(), mScrollClient->getTop());
-			mBorderSize.width += getWidth() - ((mVScroll != nullptr) ? mVScroll->getRight() : mScrollClient->getRight());
-			mBorderSize.height += getHeight() - ((mHScroll != nullptr) ? mHScroll->getBottom() : mScrollClient->getBottom());
-		}
 
 		updateView();
 	}
@@ -116,6 +92,8 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mScrollClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void ScrollView::notifyMouseSetFocus(Widget* _sender, Widget* _old)
@@ -160,14 +138,19 @@ namespace MyGUI
 
 	void ScrollView::updateScrollViewState()
 	{
-		if (!isEnabled()) setState("disabled");
+		if (!getEnabled())
+			setState("disabled");
 		else if (mIsPressed)
 		{
-			if (mIsFocus) setState("pushed");
-			else setState("normal_checked");
+			if (mIsFocus)
+				setState("pushed");
+			else
+				setState("normal_checked");
 		}
-		else if (mIsFocus) setState("highlighted");
-		else setState("normal");
+		else if (mIsFocus)
+			setState("highlighted");
+		else
+			setState("normal");
 	}
 
 	void ScrollView::setPosition(const IntPoint& _point)
@@ -180,14 +163,12 @@ namespace MyGUI
 		Base::setSize(_size);
 
 		updateView();
-		updateView();
 	}
 
 	void ScrollView::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
-		updateView();
 		updateView();
 	}
 
@@ -223,7 +204,7 @@ namespace MyGUI
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = (int)mVRange;
+			else if (offset > (int)mVRange) offset = mVRange;
 
 			if (offset != point.top)
 			{
@@ -243,7 +224,7 @@ namespace MyGUI
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = (int)mHRange;
+			else if (offset > (int)mHRange) offset = mHRange;
 
 			if (offset != point.left)
 			{
@@ -324,7 +305,6 @@ namespace MyGUI
 		if (mWidgetClient != nullptr)
 			mWidgetClient->setSize(_value);
 		updateView();
-		//updateView();// разобраться, лечит скролы
 	}
 
 	void ScrollView::setProperty(const std::string& _key, const std::string& _value)
@@ -363,40 +343,6 @@ namespace MyGUI
 	IntSize ScrollView::getCanvasSize()
 	{
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
-	}
-
-	IntSize ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
-	{
-		IntSize result = Base::overrideMeasure(IntSize(MAX_COORD, MAX_COORD));
-
-		mContentSize = result;
-
-		// размеры рамки скрола
-		result += mBorderSize;
-
-		if (_sizeAvailable.width < result.width)
-		{
-			if (mHScroll != nullptr)
-				result.height += mHScroll->getHeight();
-		}
-		if (_sizeAvailable.height < result.height)
-		{
-			if (mVScroll != nullptr)
-				result.width += mVScroll->getWidth();
-		}
-
-		return result;
-	}
-
-	void ScrollView::overrideArrange(const IntSize& _sizeOld)
-	{
-		Base::overrideArrange(_sizeOld);
-
-		if (getSizePolicy() != SizePolicy::Manual)
-		{
-			setCanvasSize(IntSize());
-			setCanvasSize(mContentSize);
-		}
 	}
 
 } // namespace MyGUI

@@ -37,42 +37,7 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   		#region Method OverrideMeasure
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern IntPtr ExportStaticText_OverrideMeasure_sizeAvailable( IntPtr _native ,
-			 ref IntSize _sizeAvailable );
-
-		public IntSize OverrideMeasure(
-			IntSize _sizeAvailable )
-		{
-			return  (IntSize)Marshal.PtrToStructure(  ExportStaticText_OverrideMeasure_sizeAvailable( mNative , 
-				ref _sizeAvailable )  , typeof(IntSize) )  ;
-		}
-
-		#endregion
-
-
-
    
-
-
-   		#region Method SetCaption
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticText_SetCaption_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _value );
-
-		public void SetCaption(
-			string _value )
-		{
-			ExportStaticText_SetCaption_value( mNative , 
-				 _value );
-		}
-
-		#endregion
-
 
 
    		#region Property TextColour

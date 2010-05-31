@@ -40,18 +40,6 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		Convert<MyGUI::types::TSize< int >>::Type OverrideMeasure(
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TSize< int >>::To(
-				static_cast<ThisType*>(mNative)->overrideMeasure(
-					Convert<const MyGUI::types::TSize< int > &>::From(_sizeAvailable) ) );
-		}
-
-
-
-   	public:
 		void SetProperty(
 			Convert<const std::string &>::Type _key ,
 			Convert<const std::string &>::Type _value )
@@ -60,17 +48,6 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setProperty(
 				Convert<const std::string &>::From(_key) ,
 				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		void SetCaption(
-			Convert<const MyGUI::UString &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCaption(
-				Convert<const MyGUI::UString &>::From(_value) );
 		}
 
 

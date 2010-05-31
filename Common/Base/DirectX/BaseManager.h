@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 
 #ifndef __BASE_MANAGER_H__
@@ -80,9 +79,9 @@ namespace base
 		diagnostic::InputFocusInfo* mFocusInfo;
 
 		HWND hWnd;
-	    IDirect3D9 *mD3d;
+		IDirect3D9 *mD3d;
 		IDirect3DDevice9 *mDevice;
-	    D3DPRESENT_PARAMETERS mD3dpp;
+		D3DPRESENT_PARAMETERS mD3dpp;
 		HINSTANCE hInstance;
 
 		bool mExit;

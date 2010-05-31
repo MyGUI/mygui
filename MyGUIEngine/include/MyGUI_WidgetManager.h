@@ -24,7 +24,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_Widget.h"
@@ -36,7 +35,8 @@ namespace MyGUI
 	//OBSOLETE
 	typedef delegates::CDelegate3<Widget*,  const std::string &, const std::string &> ParseDelegate;
 
-	class MYGUI_EXPORT WidgetManager : public MyGUI::Singleton<WidgetManager>
+	class MYGUI_EXPORT WidgetManager :
+		public Singleton<WidgetManager>
 	{
 	public:
 		//OBSOLETE
@@ -45,10 +45,12 @@ namespace MyGUI
 		typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
+		WidgetManager();
+
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);
@@ -67,7 +69,9 @@ namespace MyGUI
 		/** Check if factory with specified widget type exist */
 		bool isFactoryExist(const std::string& _type);
 
-		void _addWidgetToDestroy(Widget* _widget);
+	/*internal:*/
+		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
+		void _deleteWidget(Widget* _widget);
 		void _deleteDelayWidgets();
 
 	/*obsolete:*/
@@ -79,10 +83,6 @@ namespace MyGUI
 		Widget* findWidgetT(const std::string& _name, bool _throw = true);
 		MYGUI_OBSOLETE("")
 		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
-		MYGUI_OBSOLETE("")
-		void registerFactory(IWidgetFactory * _factory);
-		MYGUI_OBSOLETE("")
-		void unregisterFactory(IWidgetFactory * _factory);
 		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(Widget* _widget, const std::string &_key, const std::string &_value) { _parse(_widget, _key, _value); }
 		MYGUI_OBSOLETE("")
@@ -106,24 +106,20 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name, _throw);
 		}
 
-		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
-
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void notifyEventFrameStart(float _time);
 
-	protected:
-		SetWidgetFactory mFactoryList;
-		//MapWidgetPtr mWidgets;
+	private:
+		bool mIsInitialise;
+
 		MapDelegate mDelegates;
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
-		// список виджетов для отписки
-		//VectorWidgetPtr mUnlinkWidgets;
-		// список виджето для удаления
+		// список виджетов для удаления
 		VectorWidgetPtr mDestroyWidgets;
 	};
 

@@ -43,31 +43,12 @@ namespace MyGUI
 	{
 	}
 
-	void List::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void List::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void List::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void List::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-		// нам нужен фокус клавы
-		//FIXME
+		Base::initialiseWidgetSkin(_info);
+
+		// FIXME нам нужен фокус клавы
+		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
@@ -114,6 +95,8 @@ namespace MyGUI
 	{
 		mWidgetScroll = nullptr;
 		mWidgetClient = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void List::onMouseWheel(int _rel)
@@ -293,15 +276,14 @@ namespace MyGUI
 		// если не клиент, то просчитывам
 		}
 		// ячейка может быть скрыта
-		else if (_sender->isVisible())
+		else if (_sender->getVisible())
 		{
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 			_checkMapping("List::notifyMousePressed");
-			_checkAlign("List::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "List::notifyMousePressed");
-//#endif
+#endif
 
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
 
@@ -353,7 +335,7 @@ namespace MyGUI
 
 		if ( (!mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= _getClientWidget()->getLeft()) )
 		{
-			if (mWidgetScroll->isVisible())
+			if (mWidgetScroll->getVisible())
 			{
 				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
@@ -361,7 +343,7 @@ namespace MyGUI
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 		}
-		else if (!mWidgetScroll->isVisible())
+		else if (!mWidgetScroll->getVisible())
 		{
 			if (mWidgetClient != nullptr)
 				mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
@@ -393,7 +375,8 @@ namespace MyGUI
 			while ( (height <= (_getClientWidget()->getHeight() + mHeightLine)) && (mWidgetLines.size() < mItemsInfo.size()) )
 			{
 				// создаем линию
-				Widget* line = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
+				Widget* widget = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
+				Button* line = widget->castType<Button>();
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);
@@ -478,10 +461,9 @@ namespace MyGUI
 		mOldSize.width = mCoord.width;
 		mOldSize.height = mCoord.height;
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::updateLine");
-		_checkAlign("List::updateLine");
-//#endif
+#endif
 
 	}
 
@@ -530,10 +512,9 @@ namespace MyGUI
 			}
 		}
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_redrawItemRange");
-		_checkAlign("List::_redrawItemRange");
-//#endif
+#endif
 
 	}
 
@@ -550,10 +531,9 @@ namespace MyGUI
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_redrawItem");
-		_checkAlign("List::_redrawItem");
-//#endif
+#endif
 
 	}
 
@@ -610,10 +590,9 @@ namespace MyGUI
 			}
 		}
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::insertItemAt");
-		_checkAlign("List::insertItemAt");
-//#endif
+#endif
 
 	}
 
@@ -680,10 +659,9 @@ namespace MyGUI
 			}
 		}
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::removeItemAt");
-		_checkAlign("List::removeItemAt");
-//#endif
+#endif
 
 	}
 
@@ -712,10 +690,9 @@ namespace MyGUI
 		if (index < mWidgetLines.size())
 			static_cast<Button*>(mWidgetLines[index])->setButtonPressed(_select);
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_selectIndex");
-		_checkAlign("List::_selectIndex");
-//#endif
+#endif
 
 	}
 
@@ -734,10 +711,9 @@ namespace MyGUI
 		}
 		notifyScrollChangePosition(nullptr, offset);
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::beginToItemAt");
-		_checkAlign("List::beginToItemAt");
-//#endif
+#endif
 
 	}
 
@@ -791,10 +767,9 @@ namespace MyGUI
 		updateScroll();
 		updateLine(true);
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::removeAllItems");
-		_checkAlign("List::removeAllItems");
-//#endif
+#endif
 
 	}
 
@@ -821,9 +796,9 @@ namespace MyGUI
 	void List::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 
-//#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMouseSetFocus");
-//#endif
+#endif
 
 		mLineActive = *_sender->_getInternalData<size_t>();
 		eventListMouseItemFocus(this, mLineActive);
@@ -916,29 +891,29 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
 			static_cast<Button*>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
-			static_cast<Button*>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
+			static_cast<Button*>(mWidgetLines[pos])->getVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
-	void List::_checkAlign(const std::string& _owner)
+	void List::_checkAlign()
 	{
 		// максимальная высота всех строк
-		int max_height = (int)mItemsInfo.size() * mHeightLine;
+		int max_height = mItemsInfo.size() * mHeightLine;
 		// видимая высота
 		int visible_height = _getClientWidget()->getHeight();
 
 		// все строки помещаются
 		if (visible_height >= max_height)
 		{
-			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0  " << _owner);
-			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0  " << _owner);
+			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0");
+			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0");
 			int height = 0;
 			for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 			{
 				if (pos >= mItemsInfo.size()) break;
-				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height  " << _owner);
+				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height");
 				height += mWidgetLines[pos]->getHeight();
 			}
 		}

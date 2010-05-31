@@ -30,6 +30,7 @@
 
 	<Widget name="Canvas">
 		<Property key="DefaultSkin" value="Canvas"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Canvas"/>
 	</Widget>
@@ -41,12 +42,15 @@
 		<Property key="Skin" value="ComboBox"/>
 
 		<Parameter key="ComboBox_ModeDrop" value="Bool"/>
+		<Parameter key="ComboBox_FlowDirection" value="FlowDirection"/>
+		<Parameter key="ComboBox_MaxLength" value="1 int"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
 	<Widget name="DDContainer">
 		<Property key="DefaultSkin" value="DDContainer"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="DDContainer"/>
 
@@ -89,12 +93,6 @@
 
 		<Property key="Skin" value="HScroll"/>
 		<Property key="Skin" value="HSlider"/>
-
-		<_Parameter key="Scroll_Range" value="1 int"/>
-		<_Parameter key="Scroll_Position" value="1 int"/>
-		<_Parameter key="Scroll_Page" value="1 int"/>
-		<_Parameter key="Scroll_ViewPage" value="1 int"/>
-		<_Parameter key="Scroll_MoveToClick" value="Bool"/>
 	</Widget>
 
 	<Widget name="ItemBox">
@@ -103,20 +101,23 @@
 
 		<Property key="Skin" value="ItemBoxV"/>
 		<Property key="Skin" value="ItemBoxH"/>
-
-		<_Parameter key="DDContainer_NeedDragDrop" value="Bool"/>
 	</Widget>
 
 	<Widget name="List">
 		<Property key="DefaultSkin" value="List"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="List"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="MenuCtrl">
-		<Property key="Base" value="Widget"/>
+	<Widget name="ListBox">
+		<Property key="Base" value="ListCtrl"/>
+	</Widget>
+
+	<Widget name="ListCtrl">
+		<Property key="Base" value="DDContainer"/>
 	</Widget>
 
 	<Widget name="MenuBar">
@@ -128,13 +129,19 @@
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="PopupMenu">
-		<Property key="DefaultSkin" value="PopupMenu"/>
-		<Property key="Base" value="MenuCtrl"/>
+	<Widget name="MenuCtrl">
+		<Property key="Base" value="Widget"/>
+	</Widget>
 
-		<Property key="Skin" value="PopupMenu"/>
+	<Widget name="MenuItem">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="Button"/>
 
-		<Property key="ItemManager" value="true"/>
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="MenuItem_Id" value="String"/>
+		<Parameter key="MenuItem_Type" value="MenuItemType"/>
 	</Widget>
 
 	<Widget name="Message">
@@ -153,12 +160,23 @@
 
 	<Widget name="MultiList">
 		<Property key="DefaultSkin" value="MultiList"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="MultiList"/>
 	</Widget>
 
+	<Widget name="PopupMenu">
+		<Property key="DefaultSkin" value="PopupMenu"/>
+		<Property key="Base" value="MenuCtrl"/>
+
+		<Property key="Skin" value="PopupMenu"/>
+
+		<Property key="ItemManager" value="true"/>
+	</Widget>
+
 	<Widget name="Progress">
 		<Property key="DefaultSkin" value="Progress"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Progress"/>
 		<Property key="Skin" value="ProgressFill"/>
@@ -175,6 +193,7 @@
 
 	<Widget name="ScrollView">
 		<Property key="DefaultSkin" value="ScrollView"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="ScrollView"/>
 		<Property key="Skin" value="ScrollViewEmpty"/>
@@ -190,8 +209,9 @@
 
 	<Widget name="StaticImage">
 		<Property key="DefaultSkin" value="StaticImage"/>
-		<Property key="Skin" value="RotatingSkin"/>
+		<Property key="Base" value="Widget"/>
 
+		<Property key="Skin" value="RotatingSkin"/>
 		<Property key="Skin" value="StaticImage"/>
 
 		<Property key="Parent" value="true"/>
@@ -205,17 +225,18 @@
 		<Parameter key="Image_Resource" value="String"/>
 		<Parameter key="Image_Group" value="String"/>
 		<Parameter key="Image_Name" value="String"/>
-		
 	</Widget>
 
 	<Widget name="StaticText">
 		<Property key="DefaultSkin" value="StaticText"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="StaticText"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
+		<Parameter key="Text_Caption" value="String"/>
 		<Parameter key="Text_TextColour" value="Colour"/>
 		<Parameter key="Text_TextAlign" value="TextAlign"/>
 		<Parameter key="Text_FontName" value="Font"/>
@@ -224,6 +245,7 @@
 
 	<Widget name="Tab">
 		<Property key="DefaultSkin" value="Tab"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Tab"/>
 
@@ -234,8 +256,20 @@
 		<Parameter key="Tab_SmoothShow" value="Bool"/>
 	</Widget>
 
+	<Widget name="TabItem">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="StaticText"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="TabItem_ButtonWidth" value="1 int"/>
+		<Parameter key="TabItem_Select" value="Bool"/>
+	</Widget>
+
 	<Widget name="VScroll">
 		<Property key="DefaultSkin" value="VScroll"/>
+		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="VScroll"/>
 		<Property key="Skin" value="VSlider"/>
@@ -266,7 +300,6 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Widget_Caption" value="String"/>
 		<Parameter key="Widget_Visible" value="Bool"/>
 		<Parameter key="Widget_Alpha" value="alpha"/>
 		<Parameter key="Widget_InheritsAlpha" value="Bool"/>
@@ -278,27 +311,12 @@
 		<Parameter key="Widget_NeedMouse" value="Bool"/>
 		<Parameter key="Widget_Enabled" value="Bool"/>
 		<Parameter key="Widget_NeedToolTip" value="Bool"/>
-
-		<Parameter key="Widget_SizePolicy" value="SizePolicy"/>
-		<Parameter key="Widget_Margin" value="4 int"/>
-		<Parameter key="Widget_Padding" value="4 int"/>
-		<Parameter key="Widget_MinSize" value="2 int"/>
-		<Parameter key="Widget_MaxSize" value="2 int"/>
-
-		<_Parameter key="Widget_eventMouseLostFocus" value="String"/>
-		<_Parameter key="Widget_eventMouseSetFocus" value="String"/>
-		<_Parameter key="Widget_eventMouseDrag" value="String"/>
-		<_Parameter key="Widget_eventMouseMove" value="String"/>
-		<_Parameter key="Widget_eventMouseWheel" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonPressed" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonReleased" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonClick" value="String"/>
-		<_Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
-		<_Parameter key="Widget_eventToolTip" value="String"/>
 	</Widget>
 
 	<Widget name="Window">
 		<Property key="DefaultSkin" value="Window"/>
+		<!-- временно он от статик текста для работы заголовка в редакторе -->
+		<Property key="Base" value="StaticText"/>
 
 		<Property key="Skin" value="Window"/>
 		<Property key="Skin" value="WindowC"/>
@@ -312,55 +330,6 @@
 		<Parameter key="Window_Snap" value="Bool"/>
 		<Parameter key="Window_MinSize" value="2 int"/>
 		<Parameter key="Window_MaxSize" value="2 int"/>
-	</Widget>
-
-	<Widget name="TabItem">
-		<Property key="DefaultSkin" value=""/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Resizeable" value="false"/>
-
-		<Parameter key="TabItem_ButtonWidth" value="1 int"/>
-		<Parameter key="TabItem_Select" value="Bool"/>
-	</Widget>
-
-	<Widget name="MenuItem">
-		<Property key="DefaultSkin" value=""/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Resizeable" value="false"/>
-
-		<Parameter key="MenuItem_Id" value="String"/>
-		<Parameter key="MenuItem_Type" value="MenuItemType"/>
-	</Widget>
-
-	<Widget name="StackPanel">
-		<Property key="DefaultSkin" value="Panel"/>
-
-		<Property key="Skin" value="Panel" name="StackPanel" group="Panels"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Child" value="true"/>
-
-		<Parameter key="StackPanel_Uniform" value="Bool"/>
-		<Parameter key="StackPanel_Spacer" value="1 int"/>
-		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
-	</Widget>
-
-	<Widget name="WrapPanel">
-		<Property key="DefaultSkin" value="Panel"/>
-
-		<Property key="Skin" value="Panel" name="WrapPanel" group="Panels"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Child" value="true"/>
-
-		<Parameter key="StackPanel_HorizontalSpacer" value="1 int"/>
-		<Parameter key="StackPanel_VerticalSpacer" value="1 int"/>
-		<Parameter key="StackPanel_ItemWidth" value="1 int"/>
-		<Parameter key="StackPanel_ItemHeight" value="1 int"/>
-		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
-		<Parameter key="StackPanel_InvertWrap" value="Bool"/>
 	</Widget>
 
 </MyGUI>

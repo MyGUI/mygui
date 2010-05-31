@@ -2,7 +2,6 @@
 	@file
 	@author		George Evmenov
 	@date		07/2009
-	@module
 */
 
 #include "MyGUI_OpenGLTexture.h"

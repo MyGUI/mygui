@@ -86,7 +86,7 @@ namespace MyGUI
 			}
 		};
 
-		/*template <> struct Convert<const MyGUI::Guid&>
+		template <> struct Convert<const MyGUI::Guid&>
 		{
 			typedef System::Guid Type;
 			inline static const System::Guid& To(const MyGUI::Guid& _value)
@@ -97,7 +97,7 @@ namespace MyGUI
 			{
 				return reinterpret_cast<const MyGUI::Guid&>(_value);
 			}
-		};*/
+		};
 
 	} // namespace Managed
 } // namespace MyGUI

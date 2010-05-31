@@ -36,6 +36,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
 
+	ResourceManager::ResourceManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void ResourceManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -53,7 +58,7 @@ namespace MyGUI
 
 	void ResourceManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
@@ -77,16 +82,14 @@ namespace MyGUI
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		//VectorGuid vector_guid;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
 		while (root.next(XML_TYPE))
 		{
 			// парсим атрибуты
-			std::string id, type, name;
+			std::string type, name;
 			root->findAttribute("type", type);
 			root->findAttribute("name", name);
-			root->findAttribute("id", id);
 
 			if (mResources.find(name) != mResources.end())
 			{
@@ -221,7 +224,8 @@ namespace MyGUI
 
 	void ResourceManager::removeResource(IResourcePtr _item)
 	{
-		if (_item == nullptr) return;
+		if (_item == nullptr)
+			return;
 
 		if (!_item->getResourceName().empty())
 		{
@@ -229,6 +233,45 @@ namespace MyGUI
 			if (item != mResources.end())
 				mResources.erase(item);
 		}
+	}
+
+	bool ResourceManager::isExist(const std::string& _name) const
+	{
+		return mResources.find(_name) != mResources.end();
+	}
+
+	IResource* ResourceManager::findByName(const std::string& _name) const
+	{
+		MapResource::const_iterator item = mResources.find(_name);
+		return (item == mResources.end()) ? nullptr : item->second;
+	}
+
+	IResource* ResourceManager::getByName(const std::string& _name, bool _throw) const
+	{
+		IResource* result = findByName(_name);
+		MYGUI_ASSERT(result || !_throw, "Resource '" << _name << "' not found");
+		return result;
+	}
+
+	bool ResourceManager::removeByName(const std::string& _name)
+	{
+		MapResource::const_iterator item = mResources.find(_name);
+		if (item != mResources.end())
+		{
+			delete item->second;
+			mResources.erase(item->first);
+			return true;
+		}
+		return false;
+	}
+
+	void ResourceManager::clear()
+	{
+		for (MapResource::iterator item=mResources.begin(); item!=mResources.end(); ++item)
+		{
+			delete item->second;
+		}
+		mResources.clear();
 	}
 
 } // namespace MyGUI
