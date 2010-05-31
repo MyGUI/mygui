@@ -48,6 +48,12 @@ use_precompiled_header(${PROJECTNAME}
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})
 
+# link Carbon on Mac OS X
+if (APPLE)
+	find_library(CARBON_LIBRARY Carbon)
+	target_link_libraries(${PROJECTNAME} ${CARBON_LIBRARY})
+endif ()
+
 # install MyGUIEngine headers
 install(FILES ${HEADER_FILES}
   DESTINATION include/MYGUI
