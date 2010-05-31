@@ -40,7 +40,7 @@ namespace MyGUI
 			"Log",
 			LogLevel::Info,
 			currentTime,
-			LogStream() 
+			LogStream()
 				<< "Log file created "
 				<< std::setw(2) << std::setfill('0') << currentTime->tm_mday << "."
 				<< std::setw(2) << std::setfill('0') << (currentTime->tm_mon + 1) << "."
