@@ -31,7 +31,6 @@ set (HEADER_FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
-  include/MyGUI_IWidgetFactory.h
   include/MyGUI_Bitwise.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_DataFileStream.h
@@ -400,9 +399,6 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
-)
-SOURCE_GROUP("Header Files\\Widget\\Interfaces" FILES
-  include/MyGUI_IWidgetFactory.h
 )
 SOURCE_GROUP("Header Files\\Widget" FILES
 )

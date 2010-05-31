@@ -52,10 +52,7 @@
 
 namespace MyGUI
 {
-
 	class Gui;
-
-	// managers
 	class LogManager;
 	class InputManager;
 	class SubWidgetManager;
@@ -75,16 +72,6 @@ namespace MyGUI
 	class FactoryManager;
 	class TextureManager;
 	class ToolTipManager;
-
-	//class IWidgetFactory;
-
-	class DynLib;
-
-	namespace factory
-	{
-		template <typename T>
-		class BaseWidgetFactory;
-	}
 
 	class Widget;
 	class Button;
