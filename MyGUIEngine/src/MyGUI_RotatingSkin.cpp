@@ -294,8 +294,10 @@ namespace MyGUI
 				if (i <= size - 1)
 				{
 					FloatPoint point = _getPositionInsideRect(mResultVerticiesPos[i], baseVerticiesPos[0], baseVerticiesPos[1], baseVerticiesPos[3]);
-					mResultVerticiesUV[i] = FloatPoint(baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
-					                                   baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top );
+					mResultVerticiesUV[i] = FloatPoint(
+						baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
+						baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top
+						);
 				}
 				else
 				{

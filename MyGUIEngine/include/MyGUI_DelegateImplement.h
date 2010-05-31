@@ -214,7 +214,7 @@ namespace delegates
 
 		bool empty() const
 		{
-		  for (ConstListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ConstListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if (*iter) return false;
 			}
