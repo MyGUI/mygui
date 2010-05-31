@@ -24,7 +24,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_IWidgetFactory.h"
+#include "MyGUI_SkinManager.h"
 #include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_Button.h"
@@ -115,7 +115,6 @@ namespace MyGUI
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &WidgetManager::notifyEventFrameStart);
 		_deleteDelayWidgets();
 
-		//mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
 
 		FactoryManager::getInstance().unregisterFactory("Widget");
@@ -226,25 +225,9 @@ namespace MyGUI
 
 	void WidgetManager::_parse(Widget* _widget, const std::string &_key, const std::string &_value)
 	{
-		/*MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter == mDelegates.end())*/
-			_widget->setProperty(_key, _value);
-		/*else
-			iter->second(_widget, _key, _value);*/
+		_widget->setProperty(_key, _value);
 	}
 
-	/*ParseDelegate& WidgetManager::registerDelegate(const std::string& _key)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_key);
-		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
-		return (mDelegates[_key] = ParseDelegate());
-	}
-
-	void WidgetManager::unregisterDelegate(const std::string& _key)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter != mDelegates.end()) mDelegates.erase(iter);
-	}*/
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
