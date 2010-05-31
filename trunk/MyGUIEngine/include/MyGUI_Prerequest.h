@@ -76,7 +76,7 @@ namespace MyGUI
 	class TextureManager;
 	class ToolTipManager;
 
-	class IWidgetFactory;
+	//class IWidgetFactory;
 
 	class DynLib;
 

@@ -33,16 +33,16 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CDelegate3<Widget*,  const std::string &, const std::string &> ParseDelegate;
+	//typedef delegates::CDelegate3<Widget*,  const std::string &, const std::string &> ParseDelegate;
 
 	class MYGUI_EXPORT WidgetManager :
 		public Singleton<WidgetManager>
 	{
 	public:
 		//OBSOLETE
-		typedef std::map<std::string, ParseDelegate> MapDelegate;
+		//typedef std::map<std::string, ParseDelegate> MapDelegate;
 		//OBSOLETE
-		typedef std::set<IWidgetFactory*> SetWidgetFactory;
+		//typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
 		WidgetManager();
@@ -85,10 +85,10 @@ namespace MyGUI
 		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(Widget* _widget, const std::string &_key, const std::string &_value) { _parse(_widget, _key, _value); }
-		MYGUI_OBSOLETE("")
-		ParseDelegate& registerDelegate(const std::string& _key);
-		MYGUI_OBSOLETE("")
-		void unregisterDelegate(const std::string& _key);
+		//MYGUI_OBSOLETE("")
+		//ParseDelegate& registerDelegate(const std::string& _key);
+		//MYGUI_OBSOLETE("")
+		//void unregisterDelegate(const std::string& _key);
 
 		template <typename T>
 		MYGUI_OBSOLETE("")
@@ -114,7 +114,7 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 
-		MapDelegate mDelegates;
+		//MapDelegate mDelegates;
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
