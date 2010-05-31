@@ -90,10 +90,15 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin)
 if (WIN32 OR APPLE)
 	if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		# We don't want to install in default system location, install is really for the SDK, so call it that
-		SET(CMAKE_INSTALL_PREFIX
-		"${MYGUI_BINARY_DIR}/sdk" CACHE PATH "MYGUI install prefix" FORCE
-		)
+		if (UNIX)
+			# On Mac OS X and Linux, standard behavior is to install to /usr/local/lib
+			set(CMAKE_INSTALL_PREFIX "/usr/local")
+		elseif (WIN32)
+			# On Windows, we don't want to install in default system location, install is really for the SDK, so call it that
+			SET(CMAKE_INSTALL_PREFIX
+				"${MYGUI_BINARY_DIR}/sdk" CACHE PATH "MYGUI install prefix" FORCE
+			)
+		endif ()
 	endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif(WIN32 OR APPLE)
 
