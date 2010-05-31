@@ -30,9 +30,9 @@ namespace MyGUI
 {
 
 	/**
-	 * Widget wrapper over Texture - shows the texture.
-	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device;
-	 */
+		Widget wrapper over Texture - shows the texture.
+		Implemented: resizing of texture (see TextureResizeMode); recovery after loosing device;
+	*/
 	class MYGUI_EXPORT Canvas :
 		public Widget,
 		public ITextureInvalidateListener
