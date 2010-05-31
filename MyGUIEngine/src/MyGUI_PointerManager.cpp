@@ -45,11 +45,11 @@ namespace MyGUI
 	template <> const char* Singleton<PointerManager>::mClassTypeName("PointerManager");
 
 	PointerManager::PointerManager() :
-		mIsInitialise(false),
 		mVisible(false),
 		mWidgetOwner(nullptr),
 		mMousePointer(nullptr),
-		mPointer(nullptr)
+		mPointer(nullptr),
+		mIsInitialise(false)
 	{
 	}
 

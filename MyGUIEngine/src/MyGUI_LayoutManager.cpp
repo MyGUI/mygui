@@ -37,8 +37,8 @@ namespace MyGUI
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :
-		mIsInitialise(false),
-		layoutParent(nullptr)
+		layoutParent(nullptr),
+		mIsInitialise(false)
 	{
 	}
 

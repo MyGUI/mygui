@@ -345,8 +345,6 @@ namespace MyGUI
 
 	void MenuCtrl::notifyMenuCtrlAccept(MenuItem* _item)
 	{
-		Widget* sender = this;
-
 		eventMenuCtrlAccept(this, _item);
 
 		MenuItem* parent_item = getMenuItemParent();

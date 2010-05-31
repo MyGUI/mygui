@@ -18,12 +18,12 @@ namespace MyGUI
 {
 
 	OgreRenderManager::OgreRenderManager() :
-		mIsInitialise(false),
 		mUpdate(false),
 		mSceneManager(nullptr),
 		mWindow(nullptr),
 		mActiveViewport(0),
-		mRenderSystem(nullptr)
+		mRenderSystem(nullptr),
+		mIsInitialise(false)
 	{
 	}
 

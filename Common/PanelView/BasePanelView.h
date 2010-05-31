@@ -80,7 +80,7 @@ namespace wraps
 			return MyGUI::ITEM_NONE;
 		}
 
-		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->isVisible(); }
+		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->getVisible(); }
 		void setItemShow(BasePanelViewItem * _item, bool _show)
 		{
 			_item->getPanelCell()->setVisible(_show);
