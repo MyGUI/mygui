@@ -1425,7 +1425,7 @@ namespace MyGUI
 
 	void Edit::updateEditState()
 	{
-		if (!getEnabled())
+		/*if (!getEnabled())
 			setState("disabled");
 		else if (mIsPressed)
 		{
@@ -1437,7 +1437,29 @@ namespace MyGUI
 		else if (mIsFocus)
 			setState("highlighted");
 		else
-			setState("normal");
+			setState("normal");*/
+		/*if (mIsPressed)
+		{
+			if (!getEnabled())
+				_setState("selected disabled");
+			else if (mIsMousePressed)
+				_setState("selected down");
+			else if (mIsMouseFocus)
+				_setState("selected over");
+			else
+				_setState("selected normal");
+		}
+		else*/
+		//{
+			if (!getEnabled())
+				setState("disabled");
+			else if (mIsPressed)
+				setState("down");
+			else if (mIsFocus)
+				setState("over");
+			else
+				setState("normal");
+		//}
 	}
 
 	void Edit::setPosition(const IntPoint& _point)
