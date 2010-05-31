@@ -164,6 +164,18 @@ namespace MyGUI
 								else basisStateName = "normal_checked";
 							}
 						}
+						// двойная замена для простоты
+						if (_version < Version(1, 2))
+						{
+							if (basisStateName == "disabled") basisStateName = "disabled";
+							else if (basisStateName == "normal") basisStateName = "normal";
+							else if (basisStateName == "highlighted") basisStateName = "over";
+							else if (basisStateName == "pushed") basisStateName = "down";
+							else if (basisStateName == "disabled_checked") basisStateName = "selected disabled";
+							else if (basisStateName == "normal_checked") basisStateName = "selected normal";
+							else if (basisStateName == "highlighted_checked") basisStateName = "selected over";
+							else if (basisStateName == "pushed_checked") basisStateName = "selected down";
+						}
 
 						// конвертируем инфу о стейте
 						IStateInfo* data = nullptr;

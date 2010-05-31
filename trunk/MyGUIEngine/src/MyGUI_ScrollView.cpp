@@ -138,7 +138,7 @@ namespace MyGUI
 
 	void ScrollView::updateScrollViewState()
 	{
-		if (!getEnabled())
+		/*if (!getEnabled())
 			setState("disabled");
 		else if (mIsPressed)
 		{
@@ -150,7 +150,7 @@ namespace MyGUI
 		else if (mIsFocus)
 			setState("highlighted");
 		else
-			setState("normal");
+			setState("normal");*/
 	}
 
 	void ScrollView::setPosition(const IntPoint& _point)

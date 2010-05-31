@@ -124,31 +124,22 @@ namespace MyGUI
 		if (mIsStateCheck)
 		{
 			if (!getEnabled())
-			{
-				if (!_setState("disabled_checked"))
-					_setState("disabled");
-			}
+				_setState("selected disabled");
 			else if (mIsMousePressed)
-			{
-				if (!_setState("pushed_checked"))
-					_setState("pushed");
-			}
+				_setState("selected down");
 			else if (mIsMouseFocus)
-			{
-				if (!_setState("highlighted_checked"))
-					_setState("pushed");
-			}
+				_setState("selected over");
 			else
-				_setState("normal_checked");
+				_setState("selected normal");
 		}
 		else
 		{
 			if (!getEnabled())
 				_setState("disabled");
 			else if (mIsMousePressed)
-				_setState("pushed");
+				_setState("down");
 			else if (mIsMouseFocus)
-				_setState("highlighted");
+				_setState("over");
 			else
 				_setState("normal");
 		}
