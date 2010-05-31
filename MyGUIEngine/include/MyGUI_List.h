@@ -287,7 +287,7 @@ namespace MyGUI
 		// ищет и выделяет елемент
 		void _selectIndex(size_t _index, bool _select);
 
-		void _updateState() { setState(mIsFocus ? "pushed" : "normal"); }
+		void _updateState() { /*setState(mIsFocus ? "pushed" : "normal");*/ }
 
 	private:
 		void _checkMapping(const std::string& _owner);
