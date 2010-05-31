@@ -13,9 +13,6 @@ UndoManager::UndoManager() :
 	mUnsaved(false)
 {
 }
-UndoManager::~UndoManager()
-{
-}
 
 void UndoManager::initialise(EditorWidgets * _ew)
 {

@@ -48,8 +48,6 @@
 #include "MyGUI_Canvas.h"
 #include "MyGUI_ListCtrl.h"
 #include "MyGUI_ListBox.h"
-#include "MyGUI_Panel.h"
-#include "MyGUI_StackPanel.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
@@ -76,7 +74,6 @@
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_Version.h"
@@ -84,7 +81,6 @@
 #include "MyGUI_WidgetStyle.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_ISerializable.h"
-#include "MyGUI_RenderOut.h"
 
 #include "MyGUI_RawRect.h"
 #include "MyGUI_RotatingSkin.h"

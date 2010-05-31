@@ -6,31 +6,21 @@
 #  OGRE_LIB_DIR, the location of the libraries
 #  OGRE_FOUND, If false, do not try to use OGRE
 
+include(FindPkgMacros)
 
 # Try to find framework first on Mac OS X
 if (APPLE)
-	MACRO (find_framework fwk)
-	find_library(${fwk}_LIBRARY ${fwk})
-	if (${fwk}_LIBRARY)
-		set(${fwk}_FOUND TRUE)
-		set(${fwk}_INCLUDE "${${fwk}_LIBRARY}/Headers")
-	endif (${fwk}_LIBRARY)
-	# Compatibility stuff
-	set(${fwk}_INCLUDE_DIR ${${fwk}_INCLUDE})
-	set(${fwk}_INCLUDE_DIRS ${${fwk}_INCLUDE})
-	set(${fwk}_LIBRARIES ${${fwk}_LIBRARY})
-	ENDMACRO (find_framework)
-
 	find_framework(OGRE)
 endif ()
+
 if (NOT OGRE_FOUND)
 # Then try everything else
 
 	if (MYGUI_STANDALONE_BUILD)
 		CMAKE_POLICY(PUSH)
-		SET(OGRE_INCLUDE_DIR "C:\MYGUIHACK OGRE_HOME MYGUIBRACKETHACK/include" "MYGUIHACK OGRE_SRC MYGUIBRACKETHACK/OgreMain/include" CACHE STRING "")
+		SET(OGRE_INCLUDE_DIR "C:/MYGUIHACK OGRE_HOME MYGUIBRACKETHACK/include" "MYGUIHACK OGRE_SRC MYGUIBRACKETHACK/OgreMain/include" CACHE STRING "")
 		SET(OGRE_LIBRARIES "debug;OgreMain_d;optimized;OgreMain" CACHE STRING "")
-		SET(OGRE_LIB_DIR "C:\MYGUIHACK OGRE_HOME MYGUIBRACKETHACK/lib" "MYGUIHACK OGRE_SRC MYGUIBRACKETHACK/lib" CACHE STRING "")
+		SET(OGRE_LIB_DIR "C:/MYGUIHACK OGRE_HOME MYGUIBRACKETHACK/lib" "MYGUIHACK OGRE_SRC MYGUIBRACKETHACK/lib" CACHE STRING "")
 		SET(OGRE_FOUND TRUE)
 		CMAKE_POLICY(POP)
 	else()

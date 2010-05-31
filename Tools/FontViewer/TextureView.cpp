@@ -11,6 +11,8 @@ namespace demo
 
 	TextureView::TextureView() : BaseLayout("TextureView.layout")
 	{
+		assignWidget(mScrollView, "view_Texture");
+		assignWidget(mImageBack, "image_Back");
 		assignWidget(mImageTexture, "image_Texture");
 	}
 
@@ -22,7 +24,6 @@ namespace demo
 			mImageTexture->setImageTexture("");
 			return;
 		}
-
 		MyGUI::IFont* font = manager.getByName(_value)->castType<MyGUI::IFont>();
 		MyGUI::ITexture* texture = font->getTextureFont();
 		if (texture == nullptr)
@@ -30,8 +31,12 @@ namespace demo
 			mImageTexture->setImageTexture("");
 			return;
 		}
+		const MyGUI::IntSize& size = MyGUI::texture_utility::getTextureSize(texture->getName(), false);
 
 		mImageTexture->setImageTexture(texture->getName());
+		mImageTexture->setCoord(0, 0, size.width, size.height);
+		mImageBack->setCoord(0, 0, size.width, size.height);
+		mScrollView->setCanvasSize(size);
 	}
 
 } // namespace demo

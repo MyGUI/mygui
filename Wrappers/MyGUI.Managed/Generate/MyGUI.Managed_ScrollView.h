@@ -40,29 +40,6 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void OverrideArrange(
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeOld )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->overrideArrange(
-				Convert<const MyGUI::types::TSize< int > &>::From(_sizeOld) );
-		}
-
-
-
-   	public:
-		Convert<MyGUI::types::TSize< int >>::Type OverrideMeasure(
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TSize< int >>::To(
-				static_cast<ThisType*>(mNative)->overrideMeasure(
-					Convert<const MyGUI::types::TSize< int > &>::From(_sizeAvailable) ) );
-		}
-
-
-
-   	public:
 		void SetProperty(
 			Convert<const std::string &>::Type _key ,
 			Convert<const std::string &>::Type _value )

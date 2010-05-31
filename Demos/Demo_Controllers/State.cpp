@@ -90,7 +90,7 @@ namespace demo
 		const float time_diff = 0.3;
 		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
 
-		if (!mMainWidget->isVisible())
+		if (!mMainWidget->getVisible())
 		{
 			mMainWidget->setPosition(-mMainWidget->getWidth(), view.height - mMainWidget->getHeight() - offset);
 			mMainWidget->setVisible(true);
@@ -100,7 +100,7 @@ namespace demo
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, createControllerPosition(point));
 		}
 
-		if (!mButton1->isVisible())
+		if (!mButton1->getVisible())
 		{
 			mButton1->setPosition(view.width, offset);
 			mButton1->setVisible(true);
@@ -111,7 +111,7 @@ namespace demo
 
 		if (mCountTime > time_diff)
 		{
-			if (!mButton2->isVisible())
+			if (!mButton2->getVisible())
 			{
 				mButton2->setPosition(view.width, (mButton2->getHeight() + offset) + offset);
 				mButton2->setVisible(true);
@@ -123,7 +123,7 @@ namespace demo
 
 		if (mCountTime > time_diff*2)
 		{
-			if (!mButton3->isVisible())
+			if (!mButton3->getVisible())
 			{
 				mButton3->setPosition(view.width, (mButton3->getHeight() + offset) * 2 + offset);
 				mButton3->setVisible(true);
@@ -135,7 +135,7 @@ namespace demo
 
 		if (mCountTime > time_diff * 3)
 		{
-			if (!mButton4->isVisible())
+			if (!mButton4->getVisible())
 			{
 				mButton4->setPosition(view.width, (mButton4->getHeight() + offset) * 3 + offset);
 				mButton4->setVisible(true);

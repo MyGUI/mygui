@@ -54,7 +54,7 @@ namespace demo
 	MYGUIEXPORT void MYGUICALL ExportDemo_DebugOut(const char* _str)
 	{
 		assert(instance);
-		MyGUI::MYGUI_OUT(_str);
+		//MyGUI::MYGUI_OUT(_str);
 	}
 
 }

@@ -32,9 +32,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FontManager : public MyGUI::Singleton<FontManager>
+	class MYGUI_EXPORT FontManager :
+		public Singleton<FontManager>
 	{
 	public:
+		FontManager();
+
 		void initialise();
 		void shutdown();
 
@@ -63,6 +66,8 @@ namespace MyGUI
 
 	private:
 		std::string mDefaultName;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

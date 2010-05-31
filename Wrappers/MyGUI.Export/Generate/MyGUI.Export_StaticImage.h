@@ -70,6 +70,18 @@ namespace Export
 
 
 
+   	namespace ScopeStaticImageMethod_SetItemResource
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportStaticImage_SetItemResource_id( MyGUI::Widget* _native,
+			Convert<const MyGUI::Guid &>::Type _id )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::StaticImage * >(_native)->setItemResource(
+				Convert<const MyGUI::Guid &>::From( _id ) ));
+		}
+	}
+
+
+
    	namespace ScopeStaticImageMethod_GetItemFrameRate
 	{
 		MYGUIEXPORT Convert<float>::Type MYGUICALL ExportStaticImage_GetItemFrameRate_index( MyGUI::Widget* _native,

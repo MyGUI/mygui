@@ -123,15 +123,10 @@ namespace demo
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
-	void notifyMouseButtonClick(MyGUI::Widget* _sender)
-	{
-		_sender->setVisible(false);
-	}
-
 	void DemoKeeper::createScene()
 	{
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
 		init(getGUI());
 	}

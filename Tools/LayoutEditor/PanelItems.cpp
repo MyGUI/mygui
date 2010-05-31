@@ -49,7 +49,7 @@ void PanelItems::notifyChangeWidth(int _width)
 {
 	int width = mMainWidget->getClientCoord().width;
 
-	if (mButtonSelect->isVisible())
+	if (mButtonSelect->getVisible())
 	{
 		int one_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 3;
 		mButtonAdd->setSize(one_width, mButtonAdd->getHeight());

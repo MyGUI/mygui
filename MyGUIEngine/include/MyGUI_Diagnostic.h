@@ -74,7 +74,7 @@
 #if MYGUI_DEBUG_MODE == 1
 	#define MYGUI_REGISTER_VALUE(map, value) \
 	{ \
-		/*MYGUI_LOG(Info, "Register value : '" << #value << "' = " << (int)value);*/ \
+		MYGUI_LOG(Info, "Register value : '" << #value << "' = " << (int)value); \
 		map[#value] = value; \
 	}
 	#define MYGUI_DEBUG_ASSERT(exp, dest) MYGUI_ASSERT(exp, dest)
@@ -88,10 +88,10 @@
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	#if MYGUI_COMP_VER == 1310 	// VC++ 7.1
 		#define MYGUI_OBSOLETE_START(text)
-	    #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#else
 		#define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
-	    #define MYGUI_OBSOLETE_END
+		#define MYGUI_OBSOLETE_END
 	#endif
 
 #elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC

@@ -104,6 +104,24 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetItemResource
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportStaticImage_SetItemResource_id( IntPtr _native ,
+			[In] ref Guid _id );
+
+		public bool SetItemResource(
+			Guid _id )
+		{
+			return  ExportStaticImage_SetItemResource_id( mNative , 
+				ref _id )  ;
+		}
+
+		#endregion
+
+
+
    		#region Method GetItemFrameRate
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]

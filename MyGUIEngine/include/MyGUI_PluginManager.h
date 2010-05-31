@@ -34,17 +34,15 @@ namespace MyGUI
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
-	class MYGUI_EXPORT PluginManager : public MyGUI::Singleton<PluginManager>
+	class MYGUI_EXPORT PluginManager :
+		public Singleton<PluginManager>
 	{
 	public:
-		typedef void (*DLL_START_PLUGIN)(void);
-		typedef void (*DLL_STOP_PLUGIN)(void);
+		PluginManager();
 
-	public:
 		void initialise();
 		void shutdown();
 
-	public:
 		//!	Load plugin
 		bool loadPlugin(const std::string& _file);
 
@@ -88,6 +86,7 @@ namespace MyGUI
 		//!	Installed plugins
 		PluginList mPlugins;
 
+		bool mIsInitialise;
 	};
 
 }

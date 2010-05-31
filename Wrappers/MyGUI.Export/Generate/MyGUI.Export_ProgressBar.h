@@ -40,15 +40,15 @@ namespace Export
    
 
 
-   	namespace ScopeProgressBarProperty_FlowDirection
+   	namespace ScopeProgressBarProperty_ProgressStartPoint
 	{
-		MYGUIEXPORT Convert<MyGUI::FlowDirection>::Type MYGUICALL ExportProgressBar_GetFlowDirection( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::Align>::Type MYGUICALL ExportProgressBar_GetProgressStartPoint( MyGUI::Widget* _native )
 		{
-			return Convert<MyGUI::FlowDirection>::To( static_cast< MyGUI::Progress * >(_native)->getFlowDirection( ) );
+			return Convert<MyGUI::Align>::To( static_cast< MyGUI::Progress * >(_native)->getProgressStartPoint( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetFlowDirection( MyGUI::Widget* _native , Convert<MyGUI::FlowDirection>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetProgressStartPoint( MyGUI::Widget* _native , Convert<MyGUI::Align>::Type _value )
 		{
-			static_cast< MyGUI::Progress * >(_native)->setFlowDirection( Convert<MyGUI::FlowDirection>::From( _value ) );
+			static_cast< MyGUI::Progress * >(_native)->setProgressStartPoint( Convert<MyGUI::Align>::From( _value ) );
 		}
 	}
 

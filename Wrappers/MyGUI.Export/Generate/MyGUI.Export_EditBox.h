@@ -234,13 +234,13 @@ namespace Export
 
    	namespace ScopeEditBoxProperty_PasswordChar
 	{
-		MYGUIEXPORT Convert<uint32_t>::Type MYGUICALL ExportEditBox_GetPasswordChar( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<unsigned int>::Type MYGUICALL ExportEditBox_GetPasswordChar( MyGUI::Widget* _native )
 		{
-			return Convert<uint32_t>::To( static_cast< MyGUI::Edit * >(_native)->getPasswordChar( ) );
+			return Convert<unsigned int>::To( static_cast< MyGUI::Edit * >(_native)->getPasswordChar( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEditBox_SetPasswordChar( MyGUI::Widget* _native , Convert<uint32_t>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetPasswordChar( MyGUI::Widget* _native , Convert<unsigned int>::Type _value )
 		{
-			static_cast< MyGUI::Edit * >(_native)->setPasswordChar( Convert<uint32_t>::From( _value ) );
+			static_cast< MyGUI::Edit * >(_native)->setPasswordChar( Convert<unsigned int>::From( _value ) );
 		}
 	}
 

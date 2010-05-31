@@ -9,8 +9,8 @@ namespace TestApp.Sharp
         {
             ProgressBar progress = Gui.Instance.CreateWidget<ProgressBar>("Progress", new IntCoord(620, 220, 200, 16), Align.Default, "Main");
 
-            FlowDirection flow = progress.FlowDirection;
-            progress.FlowDirection = FlowDirection.RightToLeft;
+            Align align = progress.ProgressStartPoint;
+            progress.ProgressStartPoint = Align.Right;
 
             progress.ProgressRange = 100;
             progress.ProgressRange = progress.ProgressRange + 100;

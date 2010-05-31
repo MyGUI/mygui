@@ -97,39 +97,15 @@ namespace MyGUI
         mpSelection(nullptr),
         mnExpandedNodes(0)
     {
+    }
+
+    void TreeControl::initialiseWidgetSkin(ResourceSkin* _info)
+    {
+		Base::initialiseWidgetSkin(_info);
+
+		// FIXME перенесенно из конструктора, проверить смену скина
         mpRoot = new Node(this);
-    }
 
-    void TreeControl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-    {
-        Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-        initialiseWidgetSkin(_info);
-    }
-
-    void TreeControl::_shutdown()
-    {
-		if (mbInvalidated)
-		{
-			Gui::getInstance().eventFrameStart -= newDelegate(this, &TreeControl::notifyFrameEntered);
-		}
-
-        shutdownWidgetSkin();
-
-        delete mpRoot;
-
-		Base::_shutdown();
-    }
-
-    void TreeControl::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)
-    {
-        shutdownWidgetSkin();
-        Widget::baseChangeWidgetSkin(pSkinInformation);
-        initialiseWidgetSkin(pSkinInformation);
-    }
-
-    void TreeControl::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
-    {
 		//FIXME
 		setNeedKeyFocus(true);
 
@@ -154,7 +130,7 @@ namespace MyGUI
         MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
         MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
 
-        const MapString& SkinProperties = pSkinInformation->getProperties();
+        const MapString& SkinProperties = _info->getProperties();
         MapString::const_iterator PropertyIterator = SkinProperties.find("SkinLine");
         if (PropertyIterator != SkinProperties.end())
             mstrSkinLine = PropertyIterator->second;
@@ -177,6 +153,10 @@ namespace MyGUI
     {
         mpWidgetScroll = nullptr;
         mWidgetClient = nullptr;
+		// FIXME перенесенно из деструктора, проверить смену скина
+        delete mpRoot;
+
+		Base::shutdownWidgetSkin();
     }
 
     void TreeControl::setRootVisible(bool bValue)
@@ -272,14 +252,14 @@ namespace MyGUI
 
         if (!mbScrollAlwaysVisible || mnScrollRange <= 0 || mpWidgetScroll->getLeft() <= mWidgetClient->getLeft())
         {
-            if (mpWidgetScroll->isVisible())
+            if (mpWidgetScroll->getVisible())
             {
                 mpWidgetScroll->setVisible(false);
                 mWidgetClient->setSize(mWidgetClient->getWidth() + mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
             }
         }
         else
-        if (!mpWidgetScroll->isVisible())
+        if (!mpWidgetScroll->getVisible())
         {
             mWidgetClient->setSize(mWidgetClient->getWidth() - mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
             mpWidgetScroll->setVisible(true);
@@ -479,7 +459,7 @@ namespace MyGUI
             if (pSender == mWidgetClient)
                 pSelection = nullptr;
             else
-            if (pSender->isVisible())
+            if (pSender->getVisible())
                 pSelection = *pSender->getUserData<Node*>();
 
             setSelection(pSelection);

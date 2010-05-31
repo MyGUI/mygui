@@ -32,9 +32,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget, public MyGUI::Singleton<ControllerManager>
+	class MYGUI_EXPORT ControllerManager :
+		public Singleton<ControllerManager>,
+		public IUnlinkWidget
 	{
 	public:
+		ControllerManager();
+
 		void initialise();
 		void shutdown();
 
@@ -67,6 +71,7 @@ namespace MyGUI
 		typedef std::list<PairControllerItem> ListControllerItem;
 		ListControllerItem mListItem;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -23,8 +23,8 @@
 #define __MYGUI_TOOL_TIP_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_Singleton.h"
 
 namespace MyGUI
 {
@@ -35,7 +35,6 @@ namespace MyGUI
 	{
 	public:
 		ToolTipManager();
-		virtual ~ToolTipManager();
 
 		void initialise();
 		void shutdown();
@@ -65,6 +64,7 @@ namespace MyGUI
 		size_t mOldIndex;
 		bool mNeedToolTip;
 
+		bool mIsInitialise;
 	};
 
 }

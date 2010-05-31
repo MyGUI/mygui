@@ -177,11 +177,10 @@ namespace MyGUI
 		*/
 		EventHandle_ListCtrlPtrCIBNotifyCellDataRef eventNotifyItem;
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	protected:
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
+
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
@@ -190,8 +189,6 @@ namespace MyGUI
 			IntSize size;
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
-
-		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
@@ -205,13 +202,13 @@ namespace MyGUI
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
 		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
 		void notifyMouseWheel(Widget* _sender, int _rel);
+		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 		virtual size_t _getItemIndex(Widget* _item);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
-		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
@@ -236,15 +233,15 @@ namespace MyGUI
 		// ищет и устанавливает подсвеченный айтем
 		void findCurrentActiveItem();
 
+		// запрашиваем у конейтера айтем по позиции мыши
+		virtual size_t _getContainerIndex(const IntPoint& _point);
+
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);
 
 		void _setScrollViewPage(size_t _size) { mScrollViewPage = _size; }
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		size_t calcIndexByWidget(Widget* _widget) { return *_widget->_getInternalData<size_t>(); }
 
 		virtual IntSize getContentSize();
@@ -258,8 +255,6 @@ namespace MyGUI
 
 		Widget* _getClientWidget();
 		const Widget* _getClientWidget() const;
-
-		bool isOurItemWidget(Widget* _widget);
 
 	private:
 		// наши дети в строках

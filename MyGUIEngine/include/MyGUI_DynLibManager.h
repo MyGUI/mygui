@@ -32,9 +32,12 @@ namespace MyGUI
 
 	/*!	\brief Manager of dynamic libraries
 	*/
-	class MYGUI_EXPORT DynLibManager : public MyGUI::Singleton<DynLibManager>
+	class MYGUI_EXPORT DynLibManager :
+		public Singleton<DynLibManager>
 	{
 	public:
+		DynLibManager();
+
 		void initialise();
 		void shutdown();
 
@@ -56,6 +59,8 @@ namespace MyGUI
 		typedef std::map <std::string, DynLib*> StringDynLibMap;
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
+
+		bool mIsInitialise;
 
 		typedef std::vector<DynLib*> VectorDynLib;
 		VectorDynLib mDelayDynLib;

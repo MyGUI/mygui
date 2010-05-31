@@ -48,7 +48,6 @@
     <Compile Include="Types\FloatPoint.cs" />
     <Compile Include="Types\FloatRect.cs" />
     <Compile Include="Types\FloatSize.cs" />
-    <Compile Include="Types\FlowDirection.cs" />
     <Compile Include="Types\IBDrawItemInfo.cs" />
     <Compile Include="Types\IBNotifyItemData.cs" />
     <Compile Include="Types\IntCoord.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="Types\MenuItemType.cs" />
     <Compile Include="Types\MessageBoxStyle.cs" />
     <Compile Include="Types\MouseButton.cs" />
-    <Compile Include="Types\SizePolicy.cs" />
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />

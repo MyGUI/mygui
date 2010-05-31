@@ -106,6 +106,18 @@ macro(findpkg_finish PREFIX)
   endif ()
 endmacro(findpkg_finish)
 
+# Simplified framework finder
+MACRO (find_framework fwk)
+    find_library(${fwk}_LIBRARY ${fwk})
+    if (${fwk}_LIBRARY)
+        set(${fwk}_FOUND TRUE)
+        set(${fwk}_INCLUDE "${${fwk}_LIBRARY}/Headers")
+    endif (${fwk}_LIBRARY)
+    # Compatibility stuff
+    set(${fwk}_INCLUDE_DIR ${${fwk}_INCLUDE})
+    set(${fwk}_INCLUDE_DIRS ${${fwk}_INCLUDE})
+    set(${fwk}_LIBRARIES ${${fwk}_LIBRARY})
+ENDMACRO (find_framework)
 
 # Slightly customised framework finder
 MACRO(findpkg_framework fwk)

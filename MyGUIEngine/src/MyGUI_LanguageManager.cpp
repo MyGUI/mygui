@@ -33,6 +33,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<LanguageManager>::mClassTypeName("LanguageManager");
 
+	LanguageManager::LanguageManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void LanguageManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -46,7 +51,7 @@ namespace MyGUI
 
 	void LanguageManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -181,7 +186,7 @@ namespace MyGUI
 			if (read.empty()) continue;
 
 			// заголовок утф
-			if ((uint8_t)read[0] == 0xEF && read.size() > 2)
+			if ((uint8)read[0] == 0xEF && read.size() > 2)
 			{
 				read.erase(0, 3);
 			}

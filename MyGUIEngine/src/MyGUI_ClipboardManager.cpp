@@ -75,6 +75,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<ClipboardManager>::mClassTypeName("ClipboardManager");
 
+	ClipboardManager::ClipboardManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void ClipboardManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -98,7 +103,7 @@ namespace MyGUI
 
 	void ClipboardManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");

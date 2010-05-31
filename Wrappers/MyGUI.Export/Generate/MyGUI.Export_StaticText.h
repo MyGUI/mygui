@@ -19,31 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeStaticTextMethod_OverrideMeasure
-	{
-		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportStaticText_OverrideMeasure_sizeAvailable( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::StaticText * >(_native)->overrideMeasure(
-				Convert<const MyGUI::types::TSize< int > &>::From( _sizeAvailable ) ));
-		}
-	}
-
-
-
    
-
-
-   	namespace ScopeStaticTextMethod_SetCaption
-	{
-		MYGUIEXPORT void MYGUICALL ExportStaticText_SetCaption_value( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _value )
-		{
-			static_cast< MyGUI::StaticText * >(_native)->setCaption(
-				Convert<const MyGUI::UString &>::From( _value ) );
-		}
-	}
-
 
 
    	namespace ScopeStaticTextProperty_TextColour

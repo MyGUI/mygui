@@ -34,14 +34,16 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayerManager :
-		public IUnlinkWidget,
-		public MyGUI::Singleton<LayerManager>
+		public Singleton<LayerManager>,
+		public IUnlinkWidget
 	{
 	public:
 		typedef std::vector<ILayer*> VectorLayer;
 		typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	public:
+		LayerManager();
+
 		void initialise();
 		void shutdown();
 
@@ -97,6 +99,7 @@ namespace MyGUI
 	private:
 		VectorLayer mLayerNodes;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -32,13 +32,11 @@ namespace plugin
 		bool getStateCheck() { return mIsStateCheck; }
 
 	/*internal:*/
-		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 		void _setMouseFocus(bool _focus);
 
 	protected:
-		virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
+		virtual void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
 
 		virtual void onMouseLostFocus(MyGUI::Widget* _new);
 		virtual void onMouseSetFocus(MyGUI::Widget* _old);
@@ -47,12 +45,8 @@ namespace plugin
 
 		virtual void baseUpdateEnable();
 
-
 	private:
 		void updateButtonState();
-
-		void shutdownWidgetSkin();
-		void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
 
 	private:
 		// нажата ли кнопка

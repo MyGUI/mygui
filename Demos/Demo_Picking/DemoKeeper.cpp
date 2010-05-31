@@ -33,12 +33,14 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->setCaption("Sample of picking mask for widget.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
-		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Center, "Main");
-		image->setSizePolicy(MyGUI::SizePolicy::Content);
+		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
+		const MyGUI::IntSize size(128, 128);
+
+		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");

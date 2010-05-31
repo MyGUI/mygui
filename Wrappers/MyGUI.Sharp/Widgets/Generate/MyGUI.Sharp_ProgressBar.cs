@@ -58,18 +58,18 @@ namespace MyGUI.Sharp
    
 
 
-   		#region Property FlowDirection
+   		#region Property ProgressStartPoint
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
-		private static extern FlowDirection ExportProgressBar_GetFlowDirection( IntPtr _widget );
+		private static extern Align ExportProgressBar_GetProgressStartPoint( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetFlowDirection( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  FlowDirection _value );
+		private static extern void ExportProgressBar_SetProgressStartPoint( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
-		public FlowDirection FlowDirection
+		public Align ProgressStartPoint
 		{
-			get { return  ExportProgressBar_GetFlowDirection( mNative )  ; }
-			set { ExportProgressBar_SetFlowDirection( mNative,  value ); }
+			get { return  ExportProgressBar_GetProgressStartPoint( mNative )  ; }
+			set { ExportProgressBar_SetProgressStartPoint( mNative,  value ); }
 		}
 
 		#endregion

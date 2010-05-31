@@ -45,6 +45,7 @@ namespace MyGUI
 	template <> const char* Singleton<PointerManager>::mClassTypeName("PointerManager");
 
 	PointerManager::PointerManager() :
+		mIsInitialise(false),
 		mVisible(false),
 		mWidgetOwner(nullptr),
 		mMousePointer(nullptr),
@@ -66,6 +67,9 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().registerFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
+		mPointer = nullptr;
+		mMousePointer = nullptr;
+		mWidgetOwner = nullptr;
 		mVisible = true;
 
 		mSkinName = "StaticImage";
@@ -76,7 +80,7 @@ namespace MyGUI
 
 	void PointerManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
@@ -89,8 +93,6 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		mWidgetOwner = nullptr;
-		mMousePointer = nullptr;
-		mPointer = nullptr;
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -241,8 +243,11 @@ namespace MyGUI
 	// создает виджет
 	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, /*this, */_name);
 		mWidgetChild.push_back(widget);
+
+		widget->setAlign(_align);
+
 		// присоединяем виджет с уровню
 		if (!_layer.empty())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
@@ -268,7 +273,7 @@ namespace MyGUI
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 		else
 		{
@@ -290,7 +295,7 @@ namespace MyGUI
 			manager.unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
 
@@ -331,7 +336,7 @@ namespace MyGUI
 
 	void PointerManager::notifyChangeMouseFocus(Widget* _widget)
 	{
-		std::string pointer = _widget == nullptr ? "" : _widget->getPointer();
+		std::string pointer = (_widget == nullptr || !_widget->getEnabled()) ? "" : _widget->getPointer();
 		if (pointer != mCurrentMousePointer)
 		{
 			mCurrentMousePointer = pointer;

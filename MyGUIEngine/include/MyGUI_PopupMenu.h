@@ -36,17 +36,6 @@ namespace MyGUI
 	public:
 		PopupMenu();
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
-	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
-	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 	};
 
 } // namespace MyGUI

@@ -24,7 +24,8 @@ namespace common
 		mEditCurrentFolder->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryAccept);
 		mButtonOpenSave->eventMouseButtonClick = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
 
-		mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
+		mWindow = mMainWidget->castType<MyGUI::Window>();
+		mWindow->eventWindowButtonPressed = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
 		mFileMask = L"*.*";
 		mCurrentFolder = getSystemCurrentFolder();
@@ -55,7 +56,7 @@ namespace common
 
 	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button)
 	{
-		mMainWidget->setCaption(_caption);
+		mWindow->setCaption(_caption);
 		mButtonOpenSave->setCaption(_button);
 	}
 

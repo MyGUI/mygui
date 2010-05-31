@@ -27,11 +27,15 @@ namespace MyGUI
 
 	template <> const char* Singleton<FactoryManager>::mClassTypeName("FactoryManager");
 
+	FactoryManager::FactoryManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void FactoryManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
-
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -39,7 +43,7 @@ namespace MyGUI
 
 	void FactoryManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");

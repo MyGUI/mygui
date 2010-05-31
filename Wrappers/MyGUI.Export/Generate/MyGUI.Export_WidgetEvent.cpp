@@ -197,18 +197,18 @@ namespace Export
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
 			Convert<MyGUI::KeyCode>::Type ,
-			Convert<uint32_t>::Type );
+			Convert<unsigned int>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::Widget * _sender ,
 			MyGUI::KeyCode _key ,
-			uint32_t _char )
+			unsigned int _char )
 		{
 			mExportHandle(
 				Convert<MyGUI::Widget *>::To( _sender ) ,
 				Convert<MyGUI::KeyCode>::To( _key ) ,
-				Convert<uint32_t>::To( _char ) );
+				Convert<unsigned int>::To( _char ) );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyButtonPressed( ExportHandle _delegate )

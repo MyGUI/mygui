@@ -10,12 +10,6 @@
 			<MarshalTypeNameReturn>int</MarshalTypeNameReturn>
 		</TypeInfo>
 
-		<TypeInfo name="int32_t">
-			<TypeName>int</TypeName>
-			<MarshalTypeName>int</MarshalTypeName>
-			<MarshalTypeNameReturn>int</MarshalTypeNameReturn>
-		</TypeInfo>
-
 		<TypeInfo name="float">
 			<TypeName>float</TypeName>
 			<MarshalTypeName>float</MarshalTypeName>
@@ -51,11 +45,6 @@
 			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
 		</TypeInfo>
 
-		<TypeInfo name="uint32_t">
-			<TypeName>uint</TypeName>
-			<MarshalTypeName>uint</MarshalTypeName>
-			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
-		</TypeInfo>
 
 		<TypeInfo name="const MyGUI::UString &amp;">
 			<TypeName>string</TypeName>
@@ -319,22 +308,6 @@
 			<TypeName>Align</TypeName>
 			<MarshalTypeName>Align</MarshalTypeName>
 			<MarshalTypeNameReturn>Align</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
-		</TypeInfo>
-
-		<TypeInfo name="MyGUI::FlowDirection">
-			<TypeName>FlowDirection</TypeName>
-			<MarshalTypeName>FlowDirection</MarshalTypeName>
-			<MarshalTypeNameReturn>FlowDirection</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
-		</TypeInfo>
-
-		<TypeInfo name="MyGUI::SizePolicy">
-			<TypeName>SizePolicy</TypeName>
-			<MarshalTypeName>SizePolicy</MarshalTypeName>
-			<MarshalTypeNameReturn>SizePolicy</MarshalTypeNameReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>

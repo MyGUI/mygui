@@ -30,9 +30,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ClipboardManager : public Singleton<ClipboardManager>
+	class MYGUI_EXPORT ClipboardManager :
+		public Singleton<ClipboardManager>
 	{
 	public:
+		ClipboardManager();
+
 		void initialise();
 		void shutdown();
 
@@ -54,12 +57,13 @@ namespace MyGUI
 		MapString mClipboardData;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	// дискриптор нашего главного окна
-	size_t mHwnd;
-	// строка, которую мы положили в буфер обмена винды
-	UString mPutTextInClipboard;
+		// дескриптор нашего главного окна
+		size_t mHwnd;
+		// строка, которую мы положили в буфер обмена винды
+		UString mPutTextInClipboard;
 #endif
 
+		bool mIsInitialise;
 	};
 
 }

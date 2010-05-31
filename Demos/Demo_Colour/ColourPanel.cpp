@@ -80,16 +80,16 @@ namespace demo
 	{
 		size_t size = 32;
 
-		uint8_t* pDest = static_cast<uint8_t*>(mTexture->lock(MyGUI::TextureUsage::Write));
+		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock(MyGUI::TextureUsage::Write));
 
 		for (size_t j = 0; j < size; j++)
 			for(size_t i = 0; i < size; i++)
 			{
 				float x = (float)i/size;
 				float y = (float)j/size;
-				*pDest++ = uint8_t((1. - y) * (_colour.blue  * x + (1. - x)) * 255); // B
-				*pDest++ = uint8_t((1. - y) * (_colour.green * x + (1. - x)) * 255); // G
-				*pDest++ = uint8_t((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
+				*pDest++ = MyGUI::uint8((1. - y) * (_colour.blue  * x + (1. - x)) * 255); // B
+				*pDest++ = MyGUI::uint8((1. - y) * (_colour.green * x + (1. - x)) * 255); // G
+				*pDest++ = MyGUI::uint8((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
 				*pDest++ = 255; // A
 			}
 

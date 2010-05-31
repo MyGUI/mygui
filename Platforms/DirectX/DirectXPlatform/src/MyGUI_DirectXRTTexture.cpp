@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		12/2009
-	@module
 */
 
 #include "MyGUI_DirectXRTTexture.h"

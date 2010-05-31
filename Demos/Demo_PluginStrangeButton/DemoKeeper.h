@@ -21,7 +21,7 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		MyGUI::Widget* m_button;
+		MyGUI::StaticText* m_button;
 	};
 
 } // namespace demo

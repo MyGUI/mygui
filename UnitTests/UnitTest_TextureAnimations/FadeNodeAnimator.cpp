@@ -67,9 +67,7 @@ namespace demo
 			{
 				float alpha = pow(mAlpha, mSpeed[index]);
 
-				MyGUI::ColourARGB colour;
-				colour.value = MyGUI::ColourARGB::White;
-				colour.data.alpha = uint8_t(alpha * 255);
+				unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
 				_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
 				_data[index].vertex[MyGUI::QuadData::CornerRT].colour = colour;
@@ -104,9 +102,7 @@ namespace demo
 					}
 					float alpha = pow(mAlpha,speed);
 
-					MyGUI::ColourARGB colour;
-					colour.value = MyGUI::ColourARGB::White;
-					colour.data.alpha = uint8_t(alpha * 255);
+					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
 					if ( x < getCountX() && y < getCountY() ) _data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
 					if ( x > 0       && y < getCountY() ) _data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;

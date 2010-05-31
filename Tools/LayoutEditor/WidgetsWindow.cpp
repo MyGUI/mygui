@@ -175,7 +175,8 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 				current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 			}
 
-			current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+			if (current_widget->isType<MyGUI::StaticText>())
+				current_widget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", new_widget_skin));
 		}
 	}
 	else if (creating_status == 2)
@@ -255,7 +256,8 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	// place in parent center
 	const MyGUI::IntCoord size((parent_size.width - width)/2, (parent_size.height - height)/2, width, height);
 	current_widget->setCoord(size);
-	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+	if (current_widget->isType<MyGUI::StaticText>())
+		current_widget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", new_widget_skin));
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 	EditorWidgets::getInstance().add(widgetContainer);

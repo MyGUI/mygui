@@ -16,29 +16,10 @@ namespace MyGUI
     {
     }
 
-    void TreeControlItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+    void TreeControlItem::initialiseWidgetSkin(ResourceSkin* _info)
     {
-        Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+		Base::initialiseWidgetSkin(_info);
 
-        initialiseWidgetSkin(_info);
-    }
-
-    void TreeControlItem::_shutdown()
-    {
-        shutdownWidgetSkin();
-
-		Base::_shutdown();
-    }
-
-    void TreeControlItem::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)
-    {
-        shutdownWidgetSkin();
-        Button::baseChangeWidgetSkin(pSkinInformation);
-        initialiseWidgetSkin(pSkinInformation);
-    }
-
-    void TreeControlItem::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
-    {
         for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
             Widget* pWidget = *WidgetIterator;
@@ -65,7 +46,7 @@ namespace MyGUI
 
         MYGUI_ASSERT(nullptr != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
 
-        const MapString& SkinProperties = pSkinInformation->getProperties();
+        const MapString& SkinProperties = _info->getProperties();
         MapString::const_iterator PropertyIterator = SkinProperties.find("LevelOffset");
         if (PropertyIterator != SkinProperties.end())
             mnLevelOffset = utility::parseInt(PropertyIterator->second);
@@ -74,6 +55,8 @@ namespace MyGUI
     void TreeControlItem::shutdownWidgetSkin()
     {
         mpButtonExpandCollapse = nullptr;
+
+		Base::shutdownWidgetSkin();
     }
 
     void TreeControlItem::notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget)

@@ -63,14 +63,13 @@ namespace MyGUI
 		mLanguageManager(nullptr),
 		mResourceManager(nullptr),
 		mFactoryManager(nullptr),
-		mToolTipManager(nullptr)
+		mToolTipManager(nullptr),
+		mIsInitialise(false)
 	{
 	}
 
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
-		//LogManager::getInstance().registerSection(MYGUI_LOG_SECTION);
-
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
@@ -128,7 +127,7 @@ namespace MyGUI
 
 	void Gui::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		_destroyAllChildWidget();
@@ -172,16 +171,18 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
-
-		//LogManager::getInstance().unregisterSection(MYGUI_LOG_SECTION);
 	}
 
 	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, _name);
 		mWidgetChild.push_back(widget);
+
+		widget->setAlign(_align);
+
 		// присоединяем виджет с уровню
-		if (!_layer.empty()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
+		if (!_layer.empty())
+			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
 
@@ -215,9 +216,12 @@ namespace MyGUI
 			mWidgetManager->unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
-		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
 	}
 
 	// удаляет всех детей
@@ -229,29 +233,35 @@ namespace MyGUI
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
-			//widget->detachWidget();
-
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
-			_deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(widget);
 		}
 	}
 
 	void Gui::destroyWidget(Widget* _widget)
 	{
-		mWidgetManager->destroyWidget(_widget);
+		Widget* parent = _widget->getParent();
+		if (parent != nullptr)
+			parent->_destroyChildWidget(_widget);
+		else
+			_destroyChildWidget(_widget);
 	}
 
-	void Gui::destroyWidgets(VectorWidgetPtr& _widgets)
+	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		mWidgetManager->destroyWidgets(_widgets);
+		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
+			destroyWidget(*iter);
 	}
 
 	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)
 	{
-		mWidgetManager->destroyWidgets(_widgets);
+		VectorWidgetPtr widgets;
+		while (_widgets.next())
+			widgets.push_back(_widgets.current());
+		destroyWidgets(widgets);
 	}
 
 	void Gui::_injectFrameEntered(float _time)
@@ -285,31 +295,80 @@ namespace MyGUI
 
 		// выравниваем рутовые окна
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
-		{
-			(*iter)->updateArrange(IntCoord(0, 0,  mViewSize.width, mViewSize.height), oldViewSize);
-		}
+			(*iter)->_setAlign(oldViewSize, true);
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	bool Gui::injectMouseMove( int _absx, int _absy, int _absz) { return mInputManager->injectMouseMove(_absx, _absy, _absz); }
-	bool Gui::injectMousePress( int _absx, int _absy, MouseButton _id ) { return mInputManager->injectMousePress(_absx, _absy, _id); }
-	bool Gui::injectMouseRelease( int _absx, int _absy, MouseButton _id ) { return mInputManager->injectMouseRelease(_absx, _absy, _id); }
+	bool Gui::injectMouseMove( int _absx, int _absy, int _absz)
+	{
+		return mInputManager->injectMouseMove(_absx, _absy, _absz);
+	}
 
-	bool Gui::injectKeyPress(KeyCode _key, Char _text) { return mInputManager->injectKeyPress(_key, _text); }
-	bool Gui::injectKeyRelease(KeyCode _key) { return mInputManager->injectKeyRelease(_key); }
+	bool Gui::injectMousePress( int _absx, int _absy, MouseButton _id )
+	{
+		return mInputManager->injectMousePress(_absx, _absy, _id);
+	}
 
-	void Gui::hidePointer() { mPointerManager->setVisible(false); }
-	void Gui::showPointer() { mPointerManager->setVisible(true); }
-	bool Gui::isShowPointer() { return mPointerManager->isVisible(); }
-	void Gui::setVisiblePointer(bool _value)	 { mPointerManager->setVisible(_value); }
-	bool Gui::isVisiblePointer() { return mPointerManager->isVisible(); }
+	bool Gui::injectMouseRelease( int _absx, int _absy, MouseButton _id )
+	{
+		return mInputManager->injectMouseRelease(_absx, _absy, _id);
+	}
 
-	bool Gui::load(const std::string& _file) { return mResourceManager->load(_file); }
+	bool Gui::injectKeyPress(KeyCode _key, Char _text)
+	{
+		return mInputManager->injectKeyPress(_key, _text);
+	}
 
-	const IntSize& Gui::getViewSize() const { return RenderManager::getInstance().getViewSize(); }
-	int Gui::getViewWidth() { return RenderManager::getInstance().getViewSize().width; }
-	int Gui::getViewHeight() { return RenderManager::getInstance().getViewSize().height; }
+	bool Gui::injectKeyRelease(KeyCode _key)
+	{
+		return mInputManager->injectKeyRelease(_key);
+	}
+
+	void Gui::hidePointer()
+	{
+		mPointerManager->setVisible(false);
+	}
+
+	void Gui::showPointer()
+	{
+		mPointerManager->setVisible(true);
+	}
+
+	bool Gui::isShowPointer()
+	{
+		return mPointerManager->isVisible();
+	}
+
+	const IntSize& Gui::getViewSize() const
+	{
+		return mViewSize;
+	}
+
+	bool Gui::load(const std::string& _file)
+	{
+		return mResourceManager->load(_file);
+	}
+
+	int Gui::getViewWidth()
+	{
+		return mViewSize.width;
+	}
+
+	int Gui::getViewHeight()
+	{
+		return mViewSize.height;
+	}
+
+	void Gui::setVisiblePointer(bool _value)
+	{
+		mPointerManager->setVisible(_value);
+	}
+
+	bool Gui::isVisiblePointer()
+	{
+		return mPointerManager->isVisible();
+	}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

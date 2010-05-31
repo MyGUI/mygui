@@ -40,7 +40,6 @@ namespace demo
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);
 
 		mMainWidget->setVisible(true);
-
 	}
 
 	void ToolTip::hide()

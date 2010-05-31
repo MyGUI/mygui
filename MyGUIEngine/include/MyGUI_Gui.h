@@ -26,7 +26,6 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_Widget.h"
 
@@ -36,10 +35,11 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
 	class MYGUI_EXPORT Gui :
-		public IWidgetCreator,
-		public IUnlinkWidget,
-		public Singleton<Gui>
+		public Singleton<Gui>,
+		public IUnlinkWidget
 	{
+		friend class WidgetManager;
+
 	public:
 		Gui();
 
@@ -61,7 +61,7 @@ namespace MyGUI
 			@param _coord int coordinates of widget (_left, _top, _width, _height)
 			@param _align widget align (possible values can be found in enum Align)
 			@param _layer layer where widget will be created (all layers usually defined in core.layer file).
-				If your widget will overlap with any other you shoud select _layer with "Overlapped" or similar type.
+				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
 		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
@@ -114,7 +114,7 @@ namespace MyGUI
 		void destroyWidget(Widget* _widget);
 
 		/** Destroy vector of widgets */
-		void destroyWidgets(VectorWidgetPtr& _widgets);
+		void destroyWidgets(const VectorWidgetPtr& _widgets);
 
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
@@ -167,6 +167,9 @@ namespace MyGUI
 			This function is called every frame by renderer.
 		*/
 		void _injectFrameEntered(float _time);
+
+		void _linkChildWidget(Widget* _widget);
+		void _unlinkChildWidget(Widget* _widget);
 
 		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
@@ -224,7 +227,7 @@ namespace MyGUI
 
 	private:
 		// создает виджет
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		/*virtual */Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
@@ -233,13 +236,6 @@ namespace MyGUI
 		void _destroyAllChildWidget();
 
 		virtual void _unlinkWidget(Widget* _widget);
-
-		// добавляет в список виджет
-		virtual void _linkChildWidget(Widget* _widget);
-
-		// удаляет из списка
-		virtual void _unlinkChildWidget(Widget* _widget);
-
 
 	private:
 		// вектор всех детей виджетов
@@ -266,6 +262,7 @@ namespace MyGUI
 		FactoryManager* mFactoryManager;
 		ToolTipManager* mToolTipManager;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

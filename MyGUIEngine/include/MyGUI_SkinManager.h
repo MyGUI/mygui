@@ -32,9 +32,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinManager : public MyGUI::Singleton<SkinManager>
+	class MYGUI_EXPORT SkinManager :
+		public Singleton<SkinManager>
 	{
 	public:
+		SkinManager();
+
 		void initialise();
 		void shutdown();
 
@@ -64,12 +67,13 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void createDefault(const std::string& _value);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		std::string mDefaultName;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

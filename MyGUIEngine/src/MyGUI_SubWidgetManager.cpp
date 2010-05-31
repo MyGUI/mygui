@@ -37,6 +37,11 @@ namespace MyGUI
 
 	template <> const char* Singleton<SubWidgetManager>::mClassTypeName("SubWidgetManager");
 
+	SubWidgetManager::SubWidgetManager() :
+		mIsInitialise(false)
+	{
+	}
+
 	void SubWidgetManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
@@ -66,18 +71,18 @@ namespace MyGUI
 
 	void SubWidgetManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
-		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
-		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
-		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
-		factory.unregisterFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
-		factory.unregisterFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
-		factory.unregisterFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
+		factory.unregisterFactory("BasisSkin/State", "SubSkin");
+		factory.unregisterFactory("BasisSkin/State", "MainSkin");
+		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
+		factory.unregisterFactory("BasisSkin/State", "RawRect");
+		factory.unregisterFactory("BasisSkin/State", "TileRect");
+		factory.unregisterFactory("BasisSkin/State", "EditText");
+		factory.unregisterFactory("BasisSkin/State", "SimpleText");
 
 		factory.unregisterFactory<SubSkin>("BasisSkin");
 		factory.unregisterFactory<MainSkin>("BasisSkin");

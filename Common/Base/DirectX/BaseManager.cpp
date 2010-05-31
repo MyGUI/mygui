@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		05/2009
-	@module
 */
 
 #include "precompiled.h"
@@ -384,11 +383,11 @@ namespace base
 			mD3dpp.BackBufferHeight = _height;
 			HRESULT hr = mDevice->Reset(&mD3dpp);
 
-            if (hr == D3DERR_INVALIDCALL)
-            {
-                MessageBox( NULL, "Call to Reset() failed with D3DERR_INVALIDCALL! ",
-                    "ERROR", MB_OK | MB_ICONEXCLAMATION );
-            }
+			if (hr == D3DERR_INVALIDCALL)
+			{
+				MessageBox( NULL, "Call to Reset() failed with D3DERR_INVALIDCALL! ",
+					"ERROR", MB_OK | MB_ICONEXCLAMATION );
+			}
 
 			if (mPlatform != nullptr)
 				mPlatform->getRenderManagerPtr()->deviceRestore();

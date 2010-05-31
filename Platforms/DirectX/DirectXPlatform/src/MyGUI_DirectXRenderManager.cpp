@@ -2,7 +2,6 @@
 	@file
 	@author		Losev Vasiliy aka bool
 	@date		06/2009
-	@module
 */
 
 #include "MyGUI_DirectXRenderManager.h"
@@ -17,9 +16,8 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<DirectXRenderManager>::INSTANCE_TYPE_NAME("DirectXRenderManager");
-
 	DirectXRenderManager::DirectXRenderManager() :
+		mIsInitialise(false),
 		mpD3DDevice(nullptr),
 		mUpdate(false)
 	{
@@ -27,8 +25,8 @@ namespace MyGUI
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mpD3DDevice = _device;
 
@@ -44,19 +42,19 @@ namespace MyGUI
 
 		mUpdate = false;
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void DirectXRenderManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
-		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 		mpD3DDevice = nullptr;
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -83,7 +81,9 @@ namespace MyGUI
 	void DirectXRenderManager::drawOneFrame()
 	{
 		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr) return;
+		if (gui == nullptr)
+			return;
+
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
@@ -196,7 +196,7 @@ namespace MyGUI
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr)
 		{
-			gui->_resizeWindow(mViewSize);
+			gui->resizeWindow(mViewSize);
 			mUpdate = true;
 		}
 	}

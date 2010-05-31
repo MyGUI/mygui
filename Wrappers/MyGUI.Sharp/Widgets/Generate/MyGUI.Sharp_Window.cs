@@ -186,6 +186,82 @@ namespace MyGUI.Sharp
    
 
 
+   		#region Method SetMaxSize
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_SetMaxSize_width_height( IntPtr _native ,
+			  int _width ,
+			  int _height );
+
+		public void SetMaxSize(
+			int _width ,
+			int _height )
+		{
+			ExportWindow_SetMaxSize_width_height( mNative , 
+				 _width ,
+				 _height );
+		}
+
+		#endregion
+
+
+
+   		#region Property MaxSize
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportWindow_GetMaxSize( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_SetMaxSize( IntPtr _widget,  ref IntSize _value );
+
+		public IntSize MaxSize
+		{
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMaxSize( mNative )  , typeof(IntSize) )  ; }
+			set { ExportWindow_SetMaxSize( mNative, ref value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method SetMinSize
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_SetMinSize_width_height( IntPtr _native ,
+			  int _width ,
+			  int _height );
+
+		public void SetMinSize(
+			int _width ,
+			int _height )
+		{
+			ExportWindow_SetMinSize_width_height( mNative , 
+				 _width ,
+				 _height );
+		}
+
+		#endregion
+
+
+
+   		#region Property MinSize
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportWindow_GetMinSize( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_SetMinSize( IntPtr _widget,  ref IntSize _value );
+
+		public IntSize MinSize
+		{
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMinSize( mNative )  , typeof(IntSize) )  ; }
+			set { ExportWindow_SetMinSize( mNative, ref value ); }
+		}
+
+		#endregion
+
+
+
    		#region Method GetCaptionWidget
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -30,7 +30,6 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_TextView.h"
-#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
@@ -123,8 +122,9 @@ namespace MyGUI
 
 	protected:
 		bool mEmptyView;
-		ColourARGB mCurrentColour;
-		ColourARGB mInverseColour;
+		uint32 mCurrentColour;
+		uint32 mInverseColour;
+		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
 		UString mCaption;

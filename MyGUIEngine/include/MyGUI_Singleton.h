@@ -33,14 +33,10 @@ namespace MyGUI
 	class MYGUI_EXPORT Singleton
 #endif
 	{
-	private:
-		static T* msInstance;
-		static const char* mClassTypeName;
-	protected:
-		bool mIsInitialise;
 	public:
-		Singleton() :
-			mIsInitialise(false)
+		typedef Singleton<T> Base;
+
+		Singleton()
 		{
 			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");
 			msInstance = static_cast<T*>(this);
@@ -57,6 +53,10 @@ namespace MyGUI
 		}
 		static T* getInstancePtr() { return msInstance; }
 		static const char* getClassTypeName() { return mClassTypeName; }
+
+	private:
+		static T* msInstance;
+		static const char* mClassTypeName;
 	};
 
 	template <class T>

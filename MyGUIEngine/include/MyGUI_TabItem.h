@@ -23,14 +23,14 @@
 #define __MYGUI_TAB_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 #include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT TabItem :
-		public Widget
+		public StaticText
 	{
 		MYGUI_RTTI_DERIVED( TabItem )
 
@@ -71,11 +71,10 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	protected:
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
+
 		void setSelected(bool _value);
 
 	private:

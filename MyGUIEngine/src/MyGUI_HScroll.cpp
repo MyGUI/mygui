@@ -32,35 +32,6 @@ namespace MyGUI
 	{
 	}
 
-	void HScroll::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void HScroll::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void HScroll::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void HScroll::initialiseWidgetSkin(ResourceSkin* _info)
-	{
-	}
-
-	void HScroll::shutdownWidgetSkin()
-	{
-	}
-
 	void HScroll::updateTrack()
 	{
 		if (mWidgetTrack == nullptr)
@@ -79,7 +50,7 @@ namespace MyGUI
 			return;
 		}
 		// если скрыт то покажем
-		if (!mWidgetTrack->isVisible())
+		if (!mWidgetTrack->getVisible())
 		{
 			mWidgetTrack->setVisible(true);
 		}

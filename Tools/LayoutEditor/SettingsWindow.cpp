@@ -112,9 +112,11 @@ void SettingsWindow::save(MyGUI::xml::ElementPtr root)
 
 void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 {
-	grid_step = MyGUI::utility::parseInt(_sender->getCaption());
-	if (grid_step <= 0) grid_step = 1;
-	_sender->setCaption(MyGUI::utility::toString(grid_step));
+	MyGUI::StaticText* text = _sender->castType<MyGUI::StaticText>();
+	grid_step = MyGUI::utility::parseInt(text->getCaption());
+	if (grid_step <= 0)
+		grid_step = 1;
+	text->setCaption(MyGUI::utility::toString(grid_step));
 }
 
 void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)

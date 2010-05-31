@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2009
-	@module
 */
 #ifndef __AWESOMIUM_WIDGET_FACTORY_H__
 #define __AWESOMIUM_WIDGET_FACTORY_H__

@@ -31,11 +31,11 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayoutManager : public MyGUI::Singleton<LayoutManager>
+	class MYGUI_EXPORT LayoutManager :
+		public Singleton<LayoutManager>
 	{
 	public:
 		LayoutManager();
-		virtual ~LayoutManager();
 
 		void initialise();
 		void shutdown();
@@ -48,7 +48,7 @@ namespace MyGUI
 		*/
 		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
 
-		/** Unload layout (actually simply deletes vector of widgets returned by loadLayout) */
+		/** Unload layout (actually deletes vector of widgets returned by loadLayout) */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
 	/*obsolete:*/
@@ -74,6 +74,7 @@ namespace MyGUI
 		// префикс при загрузке лейаута
 		Widget* layoutParent;
 
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

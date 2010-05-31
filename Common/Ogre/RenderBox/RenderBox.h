@@ -49,7 +49,7 @@ namespace wraps
 			}
 		}
 
-		virtual void setCanvas(MyGUI::CanvasPtr _value)
+		virtual void setCanvas(MyGUI::Canvas* _value)
 		{
 			destroy();
 
@@ -100,12 +100,12 @@ namespace wraps
 			}
 		}
 
-		void eventPreTextureChanges(MyGUI::CanvasPtr _canvas)
+		void eventPreTextureChanges(MyGUI::Canvas* _canvas)
 		{
 			removeTexture();
 		}
 
-		virtual void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
+		virtual void requestUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)
 		{
 			if (!mCamera)
 				return;
@@ -132,7 +132,7 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::CanvasPtr mCanvas;
+		MyGUI::Canvas* mCanvas;
 		Ogre::Camera* mCamera;
 		Ogre::RenderTarget* mRenderTarget;
 		Ogre::ColourValue mColour;

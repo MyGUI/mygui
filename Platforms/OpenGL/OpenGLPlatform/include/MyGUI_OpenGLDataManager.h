@@ -2,29 +2,28 @@
 	@file
 	@author		George Evmenov
 	@date		07/2009
-	@module
 */
 
 #ifndef __MYGUI_OPENGL_DATA_MANAGER_H__
 #define __MYGUI_OPENGL_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Singleton.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
 	class OpenGLDataManager :
-		public DataManager,
-		public Singleton<OpenGLDataManager>
+		public DataManager
 	{
 	public:
+		OpenGLDataManager();
+
 		void initialise();
 		void shutdown();
 
-		static OpenGLDataManager& getInstance() { return Singleton<OpenGLDataManager>::getInstance(); }
-		static OpenGLDataManager* getInstancePtr() { return Singleton<OpenGLDataManager>::getInstancePtr(); }
+		static OpenGLDataManager& getInstance() { return static_cast<OpenGLDataManager&>(Singleton<DataManager>::getInstance()); }
+		static OpenGLDataManager* getInstancePtr() { return static_cast<OpenGLDataManager*>(Singleton<DataManager>::getInstancePtr()); }
 
 		/** @see DataManager::getData */
 		virtual IDataStream* getData(const std::string& _name);
@@ -49,6 +48,8 @@ namespace MyGUI
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
 		VectorArhivInfo mPaths;
+
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

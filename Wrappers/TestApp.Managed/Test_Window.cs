@@ -15,8 +15,8 @@ namespace TestApp.Sharp
             window.EventWindowButtonPressed += new Window.HandleWindowButtonPressed(window_EventWindowButtonPressed);
 
             window.Snap = !window.Snap;
-            //window.SetMaxSize(1000, 1000);
-            //window.SetMinSize(80, 80);
+            window.SetMaxSize(1000, 1000);
+            window.SetMinSize(80, 80);
 
             IntSize size = window.MaxSize;
             window.MaxSize = new IntSize(1001, 1001);

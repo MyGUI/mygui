@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_ControllerManager.h"
+#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_ResourceSkin.h"
@@ -51,30 +52,10 @@ namespace MyGUI
 	{
 	}
 
-	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Tab::_shutdown()
-	{
-		mShutdown = true;
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Tab::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Tab::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -141,6 +122,9 @@ namespace MyGUI
 		mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 
 		updateBar();
+
+		// FIXME добавленно, так как шетдаун вызывается и при смене скина
+		mShutdown = false;
 	}
 
 	void Tab::shutdownWidgetSkin()
@@ -153,8 +137,11 @@ namespace MyGUI
 		mButtonDecor = nullptr;
 		mItemTemplate = nullptr;
 		mEmptyBarWidget = nullptr;
-	}
+		// FIXME перенесенно из деструктора, может косячить при смене скина
+		mShutdown = true;
 
+		Base::shutdownWidgetSkin();
+	}
 
 	// переопределяем для особого обслуживания страниц
 	Widget* Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
@@ -373,7 +360,7 @@ namespace MyGUI
 		for (size_t pos=0; pos<mItemButton.size(); pos++)
 		{
 			Button* button = mItemButton[count]->castType<Button>();
-			if (button->isVisible())
+			if (button->getVisible())
 			{
 				// корректируем нажатость кнопки
 				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);

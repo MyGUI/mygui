@@ -19,30 +19,6 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeScrollViewMethod_OverrideArrange
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollView_OverrideArrange_sizeOld( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeOld )
-		{
-			static_cast< MyGUI::ScrollView * >(_native)->overrideArrange(
-				Convert<const MyGUI::types::TSize< int > &>::From( _sizeOld ) );
-		}
-	}
-
-
-
-   	namespace ScopeScrollViewMethod_OverrideMeasure
-	{
-		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportScrollView_OverrideMeasure_sizeAvailable( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _sizeAvailable )
-		{
-			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::ScrollView * >(_native)->overrideMeasure(
-				Convert<const MyGUI::types::TSize< int > &>::From( _sizeAvailable ) ));
-		}
-	}
-
-
-
    
 
 

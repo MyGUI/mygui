@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2009
-	@module
 */
 #include "AwesomiumWidget.h"
 #include "MyGUI.h"
@@ -19,24 +18,9 @@ namespace Awesomium
 	{
 	}
 
-	void AwesomiumWidget::_shutdown()
+	void AwesomiumWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
 	{
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
-		mControl->destroy();
-		mControl = 0;
-
-		requestUpdateCanvas = nullptr;
-
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
+		Base::initialiseWidgetSkin(_info);
 
 		mControl = AwesomiumWidgetFactory::getCore()->createWebView(getWidth(), getHeight(), mIsTransparent, true, 90);
 		mControl->setListener(this);
@@ -47,19 +31,15 @@ namespace Awesomium
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 	}
 
-	void AwesomiumWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void AwesomiumWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
-	{
-	}
-
 	void AwesomiumWidget::shutdownWidgetSkin()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
+		mControl->destroy();
+		mControl = 0;
+
+		requestUpdateCanvas = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void AwesomiumWidget::loadURL(const std::string& _url)

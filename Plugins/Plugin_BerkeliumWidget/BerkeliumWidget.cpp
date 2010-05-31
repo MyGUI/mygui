@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2010
-	@module
 */
 #include "BerkeliumWidget.h"
 #include "MyGUI.h"
@@ -18,42 +17,15 @@ namespace MyGUI
 	{
 	}
 
-	void BerkeliumWidget::_shutdown()
+	void BerkeliumWidget::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-		requestUpdateCanvas = nullptr;
-
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void BerkeliumWidget::updateSize()
-	{
-		mOldWidth = std::max(1, getWidth());
-		mOldHeight = std::max(1, getHeight());
-	}
-
-	void BerkeliumWidget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+		Base::initialiseWidgetSkin(_info);
 
 		updateSize();
 
 		createTexture(mOldWidth, mOldHeight, TRM_PT_VIEW_REQUESTED);
 		requestUpdateCanvas = newDelegate(this, &BerkeliumWidget::notifyUpdateCanvas);
 
-		initialiseWidgetSkin(_info);
-	}
-
-	void BerkeliumWidget::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
-	void BerkeliumWidget::initialiseWidgetSkin(ResourceSkin* _info)
-	{
 		mWindow = Berkelium::Window::create();
 
 		updateSize();
@@ -74,6 +46,15 @@ namespace MyGUI
 			delete mWindow;
 			mWindow = nullptr;
 		}
+		requestUpdateCanvas = nullptr;
+
+		Base::shutdownWidgetSkin();
+	}
+
+	void BerkeliumWidget::updateSize()
+	{
+		mOldWidth = std::max(1, getWidth());
+		mOldHeight = std::max(1, getHeight());
 	}
 
 	void BerkeliumWidget::notifyUpdateCanvas(Canvas* _canvas, Canvas::Event _event)

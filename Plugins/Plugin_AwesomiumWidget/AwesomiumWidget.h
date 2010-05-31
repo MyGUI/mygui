@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2009
-	@module
 */
 #ifndef __AWESOMIUM_WIDGET_H__
 #define __AWESOMIUM_WIDGET_H__
@@ -24,7 +23,7 @@ namespace Awesomium
 		// для вызова закрытого конструктора
 		friend class AwesomiumWidgetFactory;
 
-		MYGUI_RTTI_CHILD_HEADER( AwesomiumWidget, Canvas );
+		MYGUI_RTTI_DERIVED( AwesomiumWidget );
 
 	public:
 		AwesomiumWidget();
@@ -37,17 +36,11 @@ namespace Awesomium
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*internal:*/
-		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	protected:
-		virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 	private:
-		void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
 

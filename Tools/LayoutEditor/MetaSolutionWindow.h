@@ -54,7 +54,7 @@ public:
 	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
-	bool isVisible() { return mMainWidget->isVisible(); }
+	bool getVisible() { return mMainWidget->getVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 	
 	void loadList();
@@ -92,7 +92,7 @@ private:
 	typedef std::pair<std::string, std::string> PairString;
 	typedef std::map<std::string, PairString> MapPairString;
 	MapPairString mWidgetType;
-
+	MyGUI::Window* mWindow;
 };
 
 #endif // __META_SOLUTION_WINDOW_H__

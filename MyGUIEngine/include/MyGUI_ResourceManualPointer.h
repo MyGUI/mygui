@@ -45,7 +45,7 @@ namespace MyGUI
 	private:
 		IntPoint mPoint;
 		IntSize mSize;
-		FloatRect mOffset;
+		IntCoord mTextureCoord;
 		std::string mTexture;
 	};
 

@@ -117,17 +117,11 @@ namespace MyGUI
 		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item);
 		void notifyDrawItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
 

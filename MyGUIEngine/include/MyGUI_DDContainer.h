@@ -33,7 +33,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
 	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
 	typedef delegates::CDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
-	typedef delegates::CDelegate3<DDContainer*, WidgetPtr&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
 
 
 	class MYGUI_EXPORT DDContainer :
@@ -99,9 +99,6 @@ namespace MyGUI
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
@@ -119,15 +116,11 @@ namespace MyGUI
 			eventUpdateDropState;
 
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
-
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		virtual void onMouseDrag(int _left, int _top);
 
 		virtual void notifyInvalideDrop(DDContainer* _sender);
-
-		//virtual void _getContainer(Widget*& _container, size_t& _index);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
@@ -138,11 +131,6 @@ namespace MyGUI
 		void mouseButtonPressed(MouseButton _id);
 
 		void endDrop(bool _reset);
-
-	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 
 	protected:
 		bool mDropResult;

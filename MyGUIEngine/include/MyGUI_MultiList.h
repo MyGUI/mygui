@@ -223,10 +223,6 @@ namespace MyGUI
 			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
 		}
 
-	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual void _shutdown();
-
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
@@ -304,7 +300,8 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		void baseChangeWidgetSkin(ResourceSkin* _info);
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownWidgetSkin();
 
 		void notifyListChangePosition(List* _sender, size_t _position);
 		void notifyListChangeFocus(List* _sender, size_t _position);
@@ -327,11 +324,7 @@ namespace MyGUI
 		void updateBackSelected(size_t _index);
 
 	private:
-		void initialiseWidgetSkin(ResourceSkin* _info);
-		void shutdownWidgetSkin();
-
 		void frameEntered(float _frame);
-
 		void frameAdvise(bool _advise);
 
 	private:

@@ -37,29 +37,10 @@ namespace MyGUI
 	{
 	}
 
-	void Button::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
-	{
-		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		initialiseWidgetSkin(_info);
-	}
-
-	void Button::_shutdown()
-	{
-		shutdownWidgetSkin();
-
-		Base::_shutdown();
-	}
-
-	void Button::baseChangeWidgetSkin(ResourceSkin* _info)
-	{
-		shutdownWidgetSkin();
-		Base::baseChangeWidgetSkin(_info);
-		initialiseWidgetSkin(_info);
-	}
-
 	void Button::initialiseWidgetSkin(ResourceSkin* _info)
 	{
+		Base::initialiseWidgetSkin(_info);
+
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
@@ -85,6 +66,8 @@ namespace MyGUI
 	void Button::shutdownWidgetSkin()
 	{
 		mImage = nullptr;
+
+		Base::shutdownWidgetSkin();
 	}
 
 	void Button::onMouseSetFocus(Widget* _old)
@@ -125,12 +108,14 @@ namespace MyGUI
 
 	void Button::setImageIndex(size_t _index)
 	{
-		if (mImage) mImage->setImageIndex(_index);
+		if (mImage)
+			mImage->setImageIndex(_index);
 	}
 
 	size_t Button::getImageIndex()
 	{
-		if (mImage) return mImage->getImageIndex();
+		if (mImage)
+			return mImage->getImageIndex();
 		return ITEM_NONE;
 	}
 
@@ -138,23 +123,42 @@ namespace MyGUI
 	{
 		if (mIsStateCheck)
 		{
-			if (!isEnabled()) { if (!_setState("disabled_checked")) _setState("disabled"); }
-			else if (mIsMousePressed) { if (!_setState("pushed_checked")) _setState("pushed"); }
-			else if (mIsMouseFocus) { if (!_setState("highlighted_checked")) _setState("pushed"); }
-			else _setState("normal_checked");
+			if (!getEnabled())
+			{
+				if (!_setState("disabled_checked"))
+					_setState("disabled");
+			}
+			else if (mIsMousePressed)
+			{
+				if (!_setState("pushed_checked"))
+					_setState("pushed");
+			}
+			else if (mIsMouseFocus)
+			{
+				if (!_setState("highlighted_checked"))
+					_setState("pushed");
+			}
+			else
+				_setState("normal_checked");
 		}
 		else
 		{
-			if (!isEnabled()) _setState("disabled");
-			else if (mIsMousePressed) _setState("pushed");
-			else if (mIsMouseFocus) _setState("highlighted");
-			else _setState("normal");
+			if (!getEnabled())
+				_setState("disabled");
+			else if (mIsMousePressed)
+				_setState("pushed");
+			else if (mIsMouseFocus)
+				_setState("highlighted");
+			else
+				_setState("normal");
 		}
 	}
 
 	void Button::setStateCheck(bool _check)
 	{
-		if (mIsStateCheck == _check) return;
+		if (mIsStateCheck == _check)
+			return;
+
 		mIsStateCheck = _check;
 		updateButtonState();
 	}
@@ -182,7 +186,7 @@ namespace MyGUI
 	void Button::baseUpdateEnable()
 	{
 		updateButtonState();
-		if (!isEnabled())
+		if (!getEnabled())
 		{
 			mIsMouseFocus = false;
 		}

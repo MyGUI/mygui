@@ -277,7 +277,7 @@ namespace MyGUI
 		delegate void HandleKeyButtonPressed(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::KeyCode>::Type _key ,
-			Convert<uint32_t>::Type _char );
+			Convert<unsigned int>::Type _char );
 		event HandleKeyButtonPressed^ EventKeyButtonPressed
 		{
 			void add(HandleKeyButtonPressed^ _value)
@@ -288,11 +288,11 @@ namespace MyGUI
 					static_cast< MyGUI::delegates::IDelegate3<
 						MyGUI::Widget * ,
 						MyGUI::KeyCode ,
-						uint32_t > *>(
+						unsigned int > *>(
 							new Delegate3< HandleKeyButtonPressed^ ,
 							MyGUI::Widget * ,
 							MyGUI::KeyCode ,
-							uint32_t >(mDelegateKeyButtonPressed) );
+							unsigned int >(mDelegateKeyButtonPressed) );
 			}
 			void remove(HandleKeyButtonPressed^ _value)
 			{
@@ -305,11 +305,11 @@ namespace MyGUI
 						static_cast< MyGUI::delegates::IDelegate3<
 							MyGUI::Widget * ,
 							MyGUI::KeyCode ,
-							uint32_t > *>(
+							unsigned int > *>(
 								new Delegate3< HandleKeyButtonPressed^ ,
 									MyGUI::Widget * ,
 									MyGUI::KeyCode ,
-									uint32_t >(mDelegateKeyButtonPressed) );
+									unsigned int >(mDelegateKeyButtonPressed) );
 			}
 		}
 	private:

@@ -55,14 +55,16 @@ namespace MyGUI
 
 		virtual void doRender() = 0;
 
-		virtual void _setAlign(const IntSize& _oldsize, bool _update) { }
-
-		/** Hide or show */
+		virtual void setAlign(Align _value) { mAlign = _value; }
 		virtual void setVisible(bool _value) { mVisible = _value; }
-		/** Return true if visible */
-		bool isVisible() const { return mVisible; }
+
+		virtual void _updateView() { }
+		virtual void _correctView() { }
+
+		virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
 
 	protected:
+		Align mAlign;
 		bool mVisible;
 	};
 
