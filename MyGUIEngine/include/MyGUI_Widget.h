@@ -392,7 +392,7 @@ namespace MyGUI
 		void frameEntered(float _frame);
 
 		void initialiseWidgetSkinBase(ResourceSkin* _info, const IntSize& _size);
-		void shutdownWidgetSkinBase(bool _deep = false);
+		void shutdownWidgetSkinBase(bool _deep);
 
 		void _updateAlpha();
 		void _updateAbsolutePoint();
