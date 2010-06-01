@@ -13,6 +13,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::LayoutManager::getInstance().loadLayout("TestApp.layout");
 	}
 
 	void DemoKeeper::destroyScene()

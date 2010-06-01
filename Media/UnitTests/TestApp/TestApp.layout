@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Overlapped" name="_Main">
+        <Property key="Window_MinMax" value="500 500 1000 1000"/>
+        <Property key="Widget_Caption" value="WindowCSX"/>
+        <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch" layer="Back">
+            <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
+                <Property key="Widget_Caption" value="item1"/>
+                <Widget type="Edit" skin="EditStretch" position="20 14 184 144" layer="Back">
+                    <Property key="Widget_AlignText" value="Center"/>
+                    <Property key="Widget_Caption" value="EditStretch"/>
+                    <Property key="Edit_MultiLine" value="true"/>
+                </Widget>
+                <Widget type="Progress" skin="ProgressFill" position="214 16 400 16" align="HStretch Top" layer="Back">
+                    <Property key="Progress_AutoTrack" value="true"/>
+                </Widget>
+                <Widget type="Button" skin="Button" position="21 167 181 26" layer="Back">
+                    <Property key="Widget_Caption" value="Button"/>
+                </Widget>
+                <Widget type="Button" skin="ButtonSmall" position="214 39 400 21" align="HStretch Top" layer="Back">
+                    <Property key="Widget_Caption" value="ButtonSmall"/>
+                </Widget>
+                <Widget type="Button" skin="CheckBox" position="22 203 178 29" layer="Back">
+                    <Property key="Widget_Caption" value="CheckBox"/>
+                </Widget>
+                <Widget type="Button" skin="RadioBox" position="215 68 176 24" layer="Back">
+                    <Property key="Widget_Caption" value="RadioBox"/>
+                </Widget>
+                <Widget type="Button" skin="ButtonMinusPlus" position="215 100 18 18" layer="Back"/>
+                <Widget type="Button" skin="ButtonV" position="240 100 18 18" layer="Back"/>
+                <Widget type="Button" skin="ButtonLeft" position="16 247 12 14" layer="Back"/>
+                <Widget type="Button" skin="ButtonRight" position="32 247 12 14" layer="Back"/>
+                <Widget type="ComboBox" skin="ComboBox" position="216 127 400 26" align="HStretch Top" layer="Back">
+                    <Property key="Widget_Caption" value="ComboBox"/>
+                    <Property key="ComboBox_AddItem" value="line1"/>
+                    <Property key="ComboBox_AddItem" value="line2"/>
+                    <Property key="ComboBox_AddItem" value="line3"/>
+                    <Property key="ComboBox_AddItem" value="line4"/>
+                    <Property key="ComboBox_AddItem" value="line5"/>
+                    <Property key="ComboBox_AddItem" value="line6"/>
+                    <Property key="ComboBox_AddItem" value="line7"/>
+                    <Property key="ComboBox_AddItem" value="line8"/>
+                    <Property key="ComboBox_AddItem" value="line9"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position="216 167 399 26" align="HStretch Top" layer="Back">
+                    <Property key="Widget_Caption" value="Edit"/>
+                </Widget>
+                <Widget type="Edit" skin="EditStretch" position="16 279 264 190" align="Stretch" layer="Back">
+					<Property key="Text_TextAlign" value="Default"/>
+					<Property key="Edit_WordWrap" value="true"/>
+					<Property key="Edit_MultiLine" value="true"/>
+					<Property key="Widget_Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
+                </Widget>
+                <Widget type="HScroll" skin="HScroll" position="56 247 560 16" align="HStretch Top" layer="Back">
+                    <Property key="Scroll_Range" value="1000"/>
+                    <Property key="Scroll_Position" value="50"/>
+                    <Property key="Scroll_Page" value="1"/>
+                    <Property key="Scroll_ViewPage" value="10"/>
+                </Widget>
+                <Widget type="Button" skin="ButtonUp" position="216 207 14 12" layer="Back"/>
+                <Widget type="Button" skin="ButtonDown" position="240 207 14 12" layer="Back"/>
+                <Widget type="HScroll" skin="HSlider" position="288 279 328 16" align="Right Top" layer="Back">
+                    <Property key="Scroll_Range" value="100"/>
+                    <Property key="Scroll_Position" value="10"/>
+                    <Property key="Scroll_Page" value="1"/>
+                    <Property key="Scroll_ViewPage" value="10"/>
+                </Widget>
+                <Widget type="List" skin="List" position="288 303 329 165" align="Right VStretch" layer="Back">
+                    <Property key="List_AddItem" value="line1"/>
+                    <Property key="List_AddItem" value="line2"/>
+                    <Property key="List_AddItem" value="line3"/>
+                    <Property key="List_AddItem" value="line4"/>
+                    <Property key="List_AddItem" value="line5"/>
+                    <Property key="List_AddItem" value="line6"/>
+                    <Property key="List_AddItem" value="line7"/>
+                    <Property key="List_AddItem" value="line8"/>
+                    <Property key="List_AddItem" value="line9"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
+                <Property key="Widget_Caption" value="item2"/>
+                <Widget type="MenuBar" skin="MenuBar" position="8 7 608 26" align="HStretch Top" layer="Back"/>
+                <Widget type="MultiList" skin="MultiList" position="7 270 222 200" align="Left Bottom" layer="Back"/>
+                <Widget type="Progress" skin="Progress" position="8 245 604 15" align="HStretch Bottom" layer="Back">
+                    <Property key="Progress_AutoTrack" value="true"/>
+                </Widget>
+                <Widget type="ScrollView" skin="ScrollView" position="9 39 312 197" align="Stretch" layer="Back">
+                    <Property key="ScrollView_CanvasSize" value="400 400"/>
+                    <Widget type="Tab" skin="Tab" position="29 53 243 195" layer="Back">
+                        <Widget type="TabItem" skin="Default" position="4 26 234 163" layer="Back">
+                            <Property key="Widget_Caption" value="item1"/>
+                        </Widget>
+                        <Widget type="TabItem" skin="Default" position="4 26 234 163" layer="Back">
+                            <Property key="Widget_Caption" value="item2"/>
+                        </Widget>
+                        <Widget type="TabItem" skin="Default" position="4 26 234 163" layer="Back">
+                            <Property key="Widget_Caption" value="item3"/>
+                        </Widget>
+                    </Widget>
+                </Widget>
+                <Widget type="Tab" skin="Tab" position="240 269 375 201" align="HStretch Bottom" layer="Back">
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item1"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item2"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item3"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item4"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item5"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item6"/>
+                    </Widget>
+                    <Widget type="TabItem" skin="Default" position="4 26 366 169" layer="Back">
+                        <Property key="Widget_Caption" value="item7"/>
+                    </Widget>
+                </Widget>
+                <Widget type="VScroll" skin="VScroll" position="328 40 16 196" align="Right VStretch" layer="Back">
+                    <Property key="Scroll_Range" value="100"/>
+                    <Property key="Scroll_Position" value="10"/>
+                    <Property key="Scroll_Page" value="1"/>
+                    <Property key="Scroll_ViewPage" value="10"/>
+                </Widget>
+                <Widget type="VScroll" skin="VSlider" position="598 41 15 194" align="Right VStretch" layer="Back">
+                    <Property key="Scroll_Range" value="100"/>
+                    <Property key="Scroll_Position" value="10"/>
+                    <Property key="Scroll_Page" value="1"/>
+                    <Property key="Scroll_ViewPage" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelSmall" position="353 40 239 197" align="Right VStretch" layer="Back">
+                    <Widget type="Widget" skin="TileClient" position="3 3 231 189" align="Stretch" layer="Back"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="84 9 232 26" layer="Back" name="Combo"/>
+        <Widget type="StaticText" skin="StaticText" position="12 9 60 23" layer="Back">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Theme"/>
+        </Widget>
+    </Widget>
+</MyGUI>
