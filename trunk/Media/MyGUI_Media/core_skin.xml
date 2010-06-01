@@ -1233,19 +1233,34 @@
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
 
 		<BasisSkin type="SubSkin" offset="0 0 11 26" align="Left VStretch">
+			<State name="disabled" offset="597 2 11 26"/>
 			<State name="normal" offset="597 2 11 26"/>
 			<State name="over" offset="597 33 11 26"/>
 			<State name="down" offset="545 33 11 26"/>
+			<State name="selected disabled" offset="545 2 11 26"/>
+			<State name="selected normal" offset="545 2 11 26"/>
+			<State name="selected over" offset="545 2 11 26"/>
+			<State name="selected down" offset="545 2 11 26"/>
 		</BasisSkin>
 		<BasisSkin type="SubSkin" offset="11 0 26 26" align="Stretch">
+			<State name="disabled" offset="608 2 26 26"/>
 			<State name="normal" offset="608 2 26 26"/>
 			<State name="over" offset="608 33 26 26"/>
 			<State name="down" offset="556 33 26 26"/>
+			<State name="selected disabled" offset="556 2 26 26"/>
+			<State name="selected normal" offset="556 2 26 26"/>
+			<State name="selected over" offset="556 2 26 26"/>
+			<State name="selected down" offset="556 2 26 26"/>
 		</BasisSkin>
 		<BasisSkin type="SubSkin" offset="37 0 14 26" align="Right VStretch">
+			<State name="disabled" offset="634 2 14 26"/>
 			<State name="normal" offset="634 2 14 26"/>
 			<State name="over" offset="634 33 14 26"/>
 			<State name="down" offset="582 33 14 26"/>
+			<State name="selected disabled" offset="582 2 14 26"/>
+			<State name="selected normal" offset="582 2 14 26"/>
+			<State name="selected over" offset="582 2 14 26"/>
+			<State name="selected down" offset="582 2 14 26"/>
 		</BasisSkin>
 
 		<BasisSkin type="SimpleText" offset="10 0 28 21" align="Stretch">
@@ -1253,6 +1268,10 @@
 			<State name="normal" shift = "false"/>
 			<State name="over" shift = "false"/>
 			<State name="down" shift="true"/>
+			<State name="selected disabled" shift = "true"/>
+			<State name="selected normal" shift = "true"/>
+			<State name="selected over" shift = "true"/>
+			<State name="selected down" shift="true"/>
 		</BasisSkin>
 
 	</Resource>
