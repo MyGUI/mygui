@@ -172,7 +172,7 @@ namespace MyGUI
 
 		saveLayerItem();
 
-		shutdownWidgetSkinBase();
+		shutdownWidgetSkinBase(false);
 		initialiseWidgetSkinBase(_info, size);
 
 		restoreLayerItem();
