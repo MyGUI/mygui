@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="256 16 712 572" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Editor Window"/>
+        <UserString key="Info" value="The main containing panel"/>
+    </Widget>
+</MyGUI>

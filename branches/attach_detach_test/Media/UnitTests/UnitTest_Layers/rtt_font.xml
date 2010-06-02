@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceTrueTypeFont" name="font_rtt_Keyboard">
+		<Property key="Source" value="DejaVuSans.ttf"/>
+		<Property key="Size" value="45"/>
+		<Property key="Resolution" value="50"/>
+		<Property key="Antialias" value="false"/>
+		<Property key="SpaceWidth" value="4"/>
+		<Property key="TabWidth" value="8"/>
+		<Property key="CursorWidth" value="2"/>
+		<Property key="Distance" value="6"/>
+		<Property key="OffsetHeight" value="-5"/>
+		<Codes>
+			<Code range="33 126"/>
+		</Codes>
+	</Resource>
+
+</MyGUI>

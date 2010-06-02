@@ -1,0 +1,41 @@
+set (HEADER_FILES
+  Plugin.h
+  FlashControl.h
+  RenderBuffer.h
+  FlashHandler.h
+  FlashSite.h
+  FlashValue.h
+  HikariWidget.h
+  KeyboardHook.h
+  KeyboardHookImpl.h
+)
+set (SOURCE_FILES
+  Plugin.cpp
+  FlashValue.cpp
+  RenderBuffer.cpp
+  FlashControl.cpp
+  HikariWidget.cpp
+  KeyboardHook.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  Plugin.cpp
+  FlashValue.cpp
+  RenderBuffer.cpp
+  FlashControl.cpp
+  HikariWidget.cpp
+  KeyboardHook.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Plugin.h
+  FlashControl.h
+  RenderBuffer.h
+  FlashHandler.h
+  FlashSite.h
+  FlashValue.h
+  HikariWidget.h
+  KeyboardHook.h
+  KeyboardHookImpl.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

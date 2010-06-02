@@ -1,0 +1,39 @@
+<MyGUI type="MetaSolution">
+
+  <MetaForm desc="PanelUserData" layout="PanelUserData.layout" id="{4796fad4-ae16-34fa-a4ae-9f0b8b869bd7}">
+    <MetaWidget name="_Main" type="Widget">
+      <MetaWidget name="editKey" type="EditBox"/>
+      <MetaWidget name="editValue" type="EditBox"/>
+      <MetaWidget name="buttonAdd" type="Button"/>
+      <MetaWidget name="buttonDelete" type="Button"/>
+      <MetaWidget name="multilist" type="MultiList"/>
+    </MetaWidget>
+  </MetaForm>
+
+  <MetaForm desc="TestCreator" layout="TestCreator.layout" id="{8DD12AC2-292E-48db-A967-38FC6F43C186}">
+    <MetaWidget name="_Main" type="Widget">
+      <MetaWidget name="PanelUserData" type="Widget">
+        <MetaLink target="{4796fad4-ae16-34fa-a4ae-9f0b8b869bd7}"/>
+      </MetaWidget>
+    </MetaWidget>
+  </MetaForm>
+  
+	<WidgetType>
+		<Widget name="EditBox" type="Edit" skin="Edit"/>
+		<Widget name="HScrollBar" type="HScroll" skin="HScroll"/>
+		<Widget name="ListBox" type="List" skin="List"/>
+		<Widget name="MessageBox" type="Message" skin="Message"/>
+		<Widget name="MultiListBox" type="MultiList" skin="MultiList"/>
+		<Widget name="ProgressBar" type="Progress" skin="Progress"/>
+		<Widget name="TabBar" type="Tab" skin="Tab"/>
+		<Widget name="VScrollBar" type="VScroll" skin="VScroll"/>
+		<Widget name="ItemBox" type="ItemBoxV" skin="ItemBoxV"/>
+	</WidgetType>
+
+  <UseWidget>
+    <Property key="Skin" value="Edit" group="Edit" />
+    <Property key="Skin" value="ButtonSmall" group="Button" />
+    <Property key="Skin" value="Button" group="Button" />
+  </UseWidget>
+
+</MyGUI>
