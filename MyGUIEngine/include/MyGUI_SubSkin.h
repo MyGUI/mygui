@@ -60,7 +60,7 @@ namespace MyGUI
 		void _updateView();
 		void _correctView();
 
-		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);

@@ -68,7 +68,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void SubSkin::_setAlign(const IntSize& _oldsize, bool _update)
+	void SubSkin::_setAlign(const IntSize& _oldsize/*, bool _update*/)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;

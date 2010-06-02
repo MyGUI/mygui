@@ -64,7 +64,8 @@ namespace MyGUI
 		mTabPrinting(false),
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
-		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
+		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
+		mClientText(nullptr)
 	{
 		mChangeContentByResize = true;
 	}
@@ -110,13 +111,15 @@ namespace MyGUI
 
 		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
 
+		mClientText = getSubWidgetText();
 		if (mWidgetClient != nullptr)
 		{
 			ISubWidgetText* text = mWidgetClient->getSubWidgetText();
-			if (text) mText = text;
+			if (text)
+				mClientText = text;
 		}
 
-		//MYGUI_ASSERT(nullptr != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
+		//MYGUI_ASSERT(nullptr != mClientText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
@@ -130,13 +133,14 @@ namespace MyGUI
 		updateScrollSize();
 
 		// первоначальная инициализация курсора
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
 	void Edit::shutdownWidgetSkin()
 	{
+		mClientText = nullptr;
 		mWidgetClient = nullptr;
 		mVScroll= nullptr;
 		mHScroll = nullptr;
@@ -160,7 +164,7 @@ namespace MyGUI
 
 	void Edit::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		// в статике все недоступно
@@ -168,9 +172,9 @@ namespace MyGUI
 			return;
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed();
-		mCursorPosition = mText->getCursorPosition(point);
-		mText->setCursorPosition(mCursorPosition);
-		mText->setVisibleCursor(true);
+		mCursorPosition = mClientText->getCursorPosition(point);
+		mClientText->setCursorPosition(mCursorPosition);
+		mClientText->setVisibleCursor(true);
 		mCursorTimer = 0;
 		updateSelectText();
 
@@ -185,14 +189,14 @@ namespace MyGUI
 
 	void Edit::notifyMouseDrag(Widget* _sender, int _left, int _top)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		// в статике все недоступно
 		if (mModeStatic) return;
 
 		// останавливаем курсор
-		mText->setVisibleCursor(true);
+		mClientText->setVisibleCursor(true);
 
 		// сбрасываем все таймеры
 		mCursorTimer = 0;
@@ -200,24 +204,24 @@ namespace MyGUI
 
 		size_t Old = mCursorPosition;
 		IntPoint point(_left, _top);
-		mCursorPosition = mText->getCursorPosition(point);
+		mCursorPosition = mClientText->getCursorPosition(point);
 		if (Old == mCursorPosition) return;
 
-		mText->setCursorPosition(mCursorPosition);
+		mClientText->setCursorPosition(mCursorPosition);
 
 		// если не было выделения
 		if (mStartSelect == ITEM_NONE) mStartSelect = Old;
 
 		// меняем выделение
 		mEndSelect = (size_t)mCursorPosition;
-		if (mStartSelect > mEndSelect) mText->setTextSelection(mEndSelect, mStartSelect);
-		else mText->setTextSelection(mStartSelect, mEndSelect);
+		if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
+		else mClientText->setTextSelection(mStartSelect, mEndSelect);
 
 	}
 
 	void Edit::notifyMouseButtonDoubleClick(Widget* _sender)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		// в статике все недоступно
@@ -226,7 +230,7 @@ namespace MyGUI
 
 		const IntPoint& lastPressed = InputManager::getInstance().getLastLeftPressed();
 
-		size_t cursorPosition = mText->getCursorPosition(lastPressed);
+		size_t cursorPosition = mClientText->getCursorPosition(lastPressed);
 		mStartSelect = cursorPosition;
 		mEndSelect = cursorPosition;
 
@@ -247,8 +251,8 @@ namespace MyGUI
 			mEndSelect++;
 		}
 
-		mText->setCursorPosition(mEndSelect);
-		mText->setTextSelection(mStartSelect, mEndSelect);
+		mClientText->setCursorPosition(mEndSelect);
+		mClientText->setTextSelection(mStartSelect, mEndSelect);
 	}
 
 	void Edit::onMouseDrag(int _left, int _top)
@@ -267,12 +271,12 @@ namespace MyGUI
 
 			if (!mModeStatic)
 			{
-				if (mText != nullptr)
+				if (mClientText != nullptr)
 				{
 					mCursorActive = true;
 					Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
-					mText->setVisibleCursor(true);
-					mText->setSelectBackground(true);
+					mClientText->setVisibleCursor(true);
+					mClientText->setSelectBackground(true);
 					mCursorTimer = 0;
 				}
 			}
@@ -288,12 +292,12 @@ namespace MyGUI
 			mIsPressed = false;
 			updateEditState();
 
-			if (mText != nullptr)
+			if (mClientText != nullptr)
 			{
 				mCursorActive = false;
 				Gui::getInstance().eventFrameStart -= newDelegate(this, &Edit::frameEntered);
-				mText->setVisibleCursor(false);
-				mText->setSelectBackground(false);
+				mClientText->setVisibleCursor(false);
+				mClientText->setSelectBackground(false);
 			}
 		}
 
@@ -302,7 +306,7 @@ namespace MyGUI
 
 	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		if (mText == nullptr || mWidgetClient == nullptr)
+		if (mClientText == nullptr || mWidgetClient == nullptr)
 		{
 			Base::onKeyButtonPressed(_key, _char);
 			return;
@@ -317,7 +321,7 @@ namespace MyGUI
 
 		InputManager& input = InputManager::getInstance();
 
-		mText->setVisibleCursor(true);
+		mClientText->setVisibleCursor(true);
 		mCursorTimer = 0.0f;
 
 		if (_key == KeyCode::Escape)
@@ -397,7 +401,7 @@ namespace MyGUI
 			if ((mCursorPosition) < mTextLength)
 			{
 				mCursorPosition ++;
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 			// сбрасываем выделение
@@ -412,7 +416,7 @@ namespace MyGUI
 			if (mCursorPosition != 0)
 			{
 				mCursorPosition --;
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 			// сбрасываем выделение
@@ -424,17 +428,17 @@ namespace MyGUI
 		}
 		else if (_key == KeyCode::ArrowUp)
 		{
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= mText->getFontHeight();
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.top -= mClientText->getFontHeight();
 			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
+			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
 			if ( old == mCursorPosition )
 			{
 				if (mCursorPosition != 0)
 				{
 					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				// сбрасываем выделение
@@ -445,24 +449,24 @@ namespace MyGUI
 			}
 			else
 			{
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 
 		}
 		else if (_key == KeyCode::ArrowDown)
 		{
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += mText->getFontHeight();
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.top += mClientText->getFontHeight();
 			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
+			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
 			if ( old == mCursorPosition )
 			{
 				if (mCursorPosition != mTextLength)
 				{
 					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				// сбрасываем выделение
@@ -473,7 +477,7 @@ namespace MyGUI
 			}
 			else
 			{
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 
@@ -483,13 +487,13 @@ namespace MyGUI
 			// в начало строки
 			if ( !input.isControlPressed())
 			{
-				IntPoint point = mText->getCursorPoint(mCursorPosition);
+				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MIN_POSITION;
 				size_t old = mCursorPosition;
-				mCursorPosition = mText->getCursorPosition(point);
+				mCursorPosition = mClientText->getCursorPosition(point);
 				if ( old != mCursorPosition )
 				{
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				else if (isTextSelection() && !input.isShiftPressed())
@@ -503,7 +507,7 @@ namespace MyGUI
 				if (0 != mCursorPosition)
 				{
 					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				else if (isTextSelection() && !input.isShiftPressed())
@@ -518,13 +522,13 @@ namespace MyGUI
 			// в конец строки
 			if ( !  input.isControlPressed())
 			{
-				IntPoint point = mText->getCursorPoint(mCursorPosition);
+				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MAX_POSITION;
 				size_t old = mCursorPosition;
-				mCursorPosition = mText->getCursorPosition(point);
+				mCursorPosition = mClientText->getCursorPosition(point);
 				if ( old != mCursorPosition )
 				{
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				else if (isTextSelection() && !input.isShiftPressed())
@@ -538,7 +542,7 @@ namespace MyGUI
 				if (mTextLength != mCursorPosition)
 				{
 					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				else if (isTextSelection() && !input.isShiftPressed())
@@ -551,17 +555,17 @@ namespace MyGUI
 		else if (_key == KeyCode::PageUp)
 		{
 			// на размер окна, но не меньше одной строки
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.top -= (mWidgetClient->getHeight() > mClientText->getFontHeight()) ? mWidgetClient->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
+			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
 			if ( old == mCursorPosition )
 			{
 				if (mCursorPosition != 0)
 				{
 					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				// сбрасываем выделение
@@ -572,7 +576,7 @@ namespace MyGUI
 			}
 			else
 			{
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 
@@ -580,17 +584,17 @@ namespace MyGUI
 		else if (_key == KeyCode::PageDown)
 		{
 			// на размер окна, но не меньше одной строки
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.top += (mWidgetClient->getHeight() > mClientText->getFontHeight()) ? mWidgetClient->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
+			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
 			if ( old == mCursorPosition )
 			{
 				if (mCursorPosition != mTextLength)
 				{
 					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
+					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
 				// сбрасываем выделение
@@ -601,7 +605,7 @@ namespace MyGUI
 			}
 			else
 			{
-				mText->setCursorPosition(mCursorPosition);
+				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
 
@@ -677,7 +681,7 @@ namespace MyGUI
 
 	void Edit::frameEntered(float _frame)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		// в статике все недоступно
@@ -690,7 +694,7 @@ namespace MyGUI
 
 			if (mCursorTimer > EDIT_CURSOR_TIMER)
 			{
-				mText->setVisibleCursor(!mText->isVisibleCursor());
+				mClientText->setVisibleCursor(!mClientText->isVisibleCursor());
 				while (mCursorTimer > EDIT_CURSOR_TIMER) mCursorTimer -= EDIT_CURSOR_TIMER;
 			}
 		}
@@ -716,8 +720,8 @@ namespace MyGUI
 				{
 					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) )
 					{
-						point = mText->getCursorPoint(mCursorPosition);
-						point.top -= mText->getFontHeight();
+						point = mClientText->getCursorPoint(mCursorPosition);
+						point.top -= mClientText->getFontHeight();
 						action = true;
 					}
 				}
@@ -726,8 +730,8 @@ namespace MyGUI
 				{
 					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) )
 					{
-						point = mText->getCursorPoint(mCursorPosition);
-						point.top += mText->getFontHeight();
+						point = mClientText->getCursorPoint(mCursorPosition);
+						point.top += mClientText->getFontHeight();
 						action = true;
 					}
 				}
@@ -735,14 +739,14 @@ namespace MyGUI
 				// влево на небольшое расстояние
 				if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) )
 				{
-					point = mText->getCursorPoint(mCursorPosition);
+					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 					action = true;
 				}
 				// вправо на небольшое расстояние
 				else if ( (mouse.left > mWidgetClient->getWidth()) && (mouse.left < (mWidgetClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)) )
 				{
-					point = mText->getCursorPoint(mCursorPosition);
+					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
 					action = true;
 				}
@@ -750,16 +754,16 @@ namespace MyGUI
 				if (action)
 				{
 					size_t old = mCursorPosition;
-					mCursorPosition = mText->getCursorPosition(point);
+					mCursorPosition = mClientText->getCursorPosition(point);
 
 					if ( old != mCursorPosition )
 					{
 
-						mText->setCursorPosition(mCursorPosition);
+						mClientText->setCursorPosition(mCursorPosition);
 
 						mEndSelect = (size_t)mCursorPosition;
-						if (mStartSelect > mEndSelect) mText->setTextSelection(mEndSelect, mStartSelect);
-						else mText->setTextSelection(mStartSelect, mEndSelect);
+						if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
+						else mClientText->setTextSelection(mStartSelect, mEndSelect);
 
 						// пытаемся показать курсор
 						updateViewWithCursor();
@@ -786,8 +790,8 @@ namespace MyGUI
 		mCursorPosition = _index;
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
@@ -799,10 +803,10 @@ namespace MyGUI
 		mStartSelect = _start;
 		mEndSelect = _end;
 
-		if (mText != nullptr)
+		if (mClientText != nullptr)
 		{
-			if (mStartSelect > mEndSelect) mText->setTextSelection(mEndSelect, mStartSelect);
-			else mText->setTextSelection(mStartSelect, mEndSelect);
+			if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
+			else mClientText->setTextSelection(mStartSelect, mEndSelect);
 		}
 
 		if (mCursorPosition == mEndSelect) return;
@@ -810,8 +814,8 @@ namespace MyGUI
 		mCursorPosition = mEndSelect;
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 	}
 
 	bool Edit::deleteTextSelect(bool _history)
@@ -832,8 +836,8 @@ namespace MyGUI
 		if (mStartSelect != ITEM_NONE)
 		{
 			mStartSelect = ITEM_NONE;
-			if (mText != nullptr)
-				mText->setTextSelection(0, 0);
+			if (mClientText != nullptr)
+				mClientText->setTextSelection(0, 0);
 		}
 	}
 
@@ -889,8 +893,8 @@ namespace MyGUI
 		setRealString(text);
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
 		// отсылаем событие о изменении
@@ -933,8 +937,8 @@ namespace MyGUI
 		setRealString(text);
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
 		// отсылаем событие о изменении
@@ -968,7 +972,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString());
 
 		// дефолтный цвет
-		UString colour = mText == nullptr ? "" : TextIterator::convertTagColour(mText->getTextColour());
+		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
 
 		// нужно ли вставлять цвет
 		bool need_colour = true;
@@ -1024,7 +1028,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		UString colour = mText == nullptr ? "" : TextIterator::convertTagColour(mText->getTextColour());
+		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
 
 		// цикл прохода по строке
 		while (iterator.moveNext())
@@ -1098,17 +1102,17 @@ namespace MyGUI
 		mModePassword = _password;
 		if (mModePassword)
 		{
-			if (mText != nullptr)
+			if (mClientText != nullptr)
 			{
-				mPasswordText = mText->getCaption();
-				mText->setCaption(UString(mTextLength, '*'));
+				mPasswordText = mClientText->getCaption();
+				mClientText->setCaption(UString(mTextLength, '*'));
 			}
 		}
 		else
 		{
-			if (mText != nullptr)
+			if (mClientText != nullptr)
 			{
-				mText->setCaption(mPasswordText);
+				mClientText->setCaption(mPasswordText);
 				mPasswordText.clear();
 			}
 		}
@@ -1164,8 +1168,8 @@ namespace MyGUI
 		setRealString(iterator.getText());
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
@@ -1187,7 +1191,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		UString colour = mText == nullptr ? "" : TextIterator::convertTagColour(mText->getTextColour());
+		UString colour = mClientText == nullptr ? "" : TextIterator::convertTagColour(mClientText->getTextColour());
 		// нужен ли тег текста
 		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 		bool need_colour = ( (_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#') );
@@ -1245,8 +1249,8 @@ namespace MyGUI
 		setRealString(iterator.getText());
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
@@ -1344,8 +1348,8 @@ namespace MyGUI
 		setRealString(iterator.getText());
 
 		// обновляем по позиции
-		if (mText != nullptr)
-			mText->setCursorPosition(mCursorPosition);
+		if (mClientText != nullptr)
+			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 	}
 
@@ -1393,9 +1397,9 @@ namespace MyGUI
 	const UString& Edit::getRealString()
 	{
 		if (mModePassword) return mPasswordText;
-		else if (mText == nullptr) return mPasswordText;
+		else if (mClientText == nullptr) return mPasswordText;
 
-		return mText->getCaption();
+		return mClientText->getCaption();
 	}
 
 	void Edit::setRealString(const UString& _caption)
@@ -1403,13 +1407,13 @@ namespace MyGUI
 		if (mModePassword)
 		{
 			mPasswordText = _caption;
-			if (mText != nullptr)
-				mText->setCaption(UString(mTextLength, mCharPassword));
+			if (mClientText != nullptr)
+				mClientText->setCaption(UString(mTextLength, mCharPassword));
 		}
 		else
 		{
-			if (mText != nullptr)
-				mText->setCaption(_caption);
+			if (mClientText != nullptr)
+				mClientText->setCaption(_caption);
 		}
 	}
 
@@ -1418,8 +1422,8 @@ namespace MyGUI
 		mCharPassword = _char;
 		if (mModePassword)
 		{
-			if (mText != nullptr)
-				mText->setCaption(UString(mTextLength, mCharPassword));
+			if (mClientText != nullptr)
+				mClientText->setCaption(UString(mTextLength, mCharPassword));
 		}
 	}
 
@@ -1472,8 +1476,8 @@ namespace MyGUI
 		// если перенос, то сбрасываем размер текста
 		if (mModeWordWrap)
 		{
-			if (mText != nullptr)
-				mText->setWordWrap(true);
+			if (mClientText != nullptr)
+				mClientText->setWordWrap(true);
 		}
 
 		updateView();
@@ -1513,10 +1517,10 @@ namespace MyGUI
 			{
 				// меняем выделение
 				mEndSelect = (size_t)mCursorPosition;
-				if (mText != nullptr)
+				if (mClientText != nullptr)
 				{
-					if (mStartSelect > mEndSelect) mText->setTextSelection(mEndSelect, mStartSelect);
-					else mText->setTextSelection(mStartSelect, mEndSelect);
+					if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
+					else mClientText->setTextSelection(mStartSelect, mEndSelect);
 				}
 
 			}
@@ -1524,8 +1528,8 @@ namespace MyGUI
 			{
 				// сбрасываем шифт
 				mStartSelect = ITEM_NONE;
-				if (mText != nullptr)
-					mText->setTextSelection(0, 0);
+				if (mClientText != nullptr)
+					mClientText->setTextSelection(0, 0);
 			}
 		}
 
@@ -1543,31 +1547,31 @@ namespace MyGUI
 
 	void Edit::notifyScrollChangePosition(VScroll* _sender, size_t _position)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		if (_sender == mVScroll)
 		{
-			IntPoint point = mText->getViewOffset();
+			IntPoint point = mClientText->getViewOffset();
 			point.top = _position;
-			mText->setViewOffset(point);
+			mClientText->setViewOffset(point);
 		}
 		else if (_sender == mHScroll)
 		{
-			IntPoint point = mText->getViewOffset();
+			IntPoint point = mClientText->getViewOffset();
 			point.left = _position;
-			mText->setViewOffset(point);
+			mClientText->setViewOffset(point);
 		}
 	}
 
 	void Edit::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		if (mVRange != 0)
 		{
-			IntPoint point = mText->getViewOffset();
+			IntPoint point = mClientText->getViewOffset();
 			int offset = point.top;
 			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
 			else  offset -= EDIT_MOUSE_WHEEL;
@@ -1580,12 +1584,12 @@ namespace MyGUI
 				point.top = offset;
 				if (mVScroll != nullptr)
 					mVScroll->setScrollPosition(offset);
-				mText->setViewOffset(point);
+				mClientText->setViewOffset(point);
 			}
 		}
 		else if (mHRange != 0)
 		{
-			IntPoint point = mText->getViewOffset();
+			IntPoint point = mClientText->getViewOffset();
 			int offset = point.left;
 			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
 			else  offset -= EDIT_MOUSE_WHEEL;
@@ -1598,7 +1602,7 @@ namespace MyGUI
 				point.left = offset;
 				if (mHScroll != nullptr)
 					mHScroll->setScrollPosition(offset);
-				mText->setViewOffset(point);
+				mClientText->setViewOffset(point);
 			}
 		}
 	}
@@ -1606,8 +1610,8 @@ namespace MyGUI
 	void Edit::setEditWordWrap(bool _value)
 	{
 		mModeWordWrap = _value;
-		if (mText != nullptr)
-			mText->setWordWrap(mModeWordWrap);
+		if (mClientText != nullptr)
+			mClientText->setWordWrap(mModeWordWrap);
 
 		eraseView();
 	}
@@ -1641,19 +1645,19 @@ namespace MyGUI
 
 	void Edit::updateCursorPosition()
 	{
-		if (mText == nullptr || mWidgetClient == nullptr)
+		if (mClientText == nullptr || mWidgetClient == nullptr)
 			return;
 
 		// размер контекста текста
-		IntSize textSize = mText->getTextSize();
+		IntSize textSize = mClientText->getTextSize();
 
 		// текущее смещение контекста текста
-		IntPoint point = mText->getViewOffset();
+		IntPoint point = mClientText->getViewOffset();
 		// расчетное смещение
 		IntPoint offset = point;
 
 		// абсолютные координаты курсора
-		IntRect cursor = mText->getCursorRect(mCursorPosition);
+		IntRect cursor = mClientText->getCursorRect(mCursorPosition);
 		cursor.right ++;
 
 		// абсолютные координаты вью
@@ -1698,7 +1702,7 @@ namespace MyGUI
 
 		if (offset != point)
 		{
-			mText->setViewOffset(offset);
+			mClientText->setViewOffset(offset);
 			// обновить скролы
 			if (mVScroll != nullptr)
 				mVScroll->setScrollPosition(offset.top);
@@ -1709,8 +1713,8 @@ namespace MyGUI
 
 	void Edit::setContentPosition(const IntPoint& _point)
 	{
-		if (mText != nullptr)
-			mText->setViewOffset(_point);
+		if (mClientText != nullptr)
+			mClientText->setViewOffset(_point);
 	}
 
 	IntSize Edit::getViewSize() const
@@ -1720,7 +1724,7 @@ namespace MyGUI
 
 	IntSize Edit::getContentSize()
 	{
-		return mText == nullptr ? IntSize() : mText->getTextSize();
+		return mClientText == nullptr ? IntSize() : mClientText->getTextSize();
 	}
 
 	size_t Edit::getVScrollPage()
@@ -1735,12 +1739,12 @@ namespace MyGUI
 
 	IntPoint Edit::getContentPosition()
 	{
-		return mText == nullptr ? IntPoint() : mText->getViewOffset();
+		return mClientText == nullptr ? IntPoint() : mClientText->getViewOffset();
 	}
 
 	Align Edit::getContentAlign()
 	{
-		return mText == nullptr ? Align::Default : mText->getTextAlign();
+		return mClientText == nullptr ? Align::Default : mClientText->getTextAlign();
 	}
 
 	void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)
@@ -1898,21 +1902,21 @@ namespace MyGUI
 
 	size_t Edit::getVScrollPosition()
 	{
-		return mText == nullptr ? 0 : mText->getViewOffset().top;
+		return mClientText == nullptr ? 0 : mClientText->getViewOffset().top;
 	}
 
 	void Edit::setVScrollPosition(size_t _index)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		if (_index > mVRange)
 			_index = mVRange;
 
-		IntPoint point = mText->getViewOffset();
+		IntPoint point = mClientText->getViewOffset();
 		point.top = _index;
 
-		mText->setViewOffset(point);
+		mClientText->setViewOffset(point);
 		// обновить скролы
 		if (mVScroll != nullptr)
 			mVScroll->setScrollPosition(point.top);
@@ -1925,21 +1929,21 @@ namespace MyGUI
 
 	size_t Edit::getHScrollPosition()
 	{
-		return mText == nullptr ? 0 : mText->getViewOffset().left;
+		return mClientText == nullptr ? 0 : mClientText->getViewOffset().left;
 	}
 
 	void Edit::setHScrollPosition(size_t _index)
 	{
-		if (mText == nullptr)
+		if (mClientText == nullptr)
 			return;
 
 		if (_index > mHRange)
 			_index = mHRange;
 
-		IntPoint point = mText->getViewOffset();
+		IntPoint point = mClientText->getViewOffset();
 		point.left = _index;
 
-		mText->setViewOffset(point);
+		mClientText->setViewOffset(point);
 		// обновить скролы
 		if (mHScroll != nullptr)
 			mHScroll->setScrollPosition(point.left);
@@ -1947,13 +1951,13 @@ namespace MyGUI
 
 	bool Edit::getInvertSelected()
 	{
-		return mText == nullptr ? false : mText->getInvertSelected();
+		return mClientText == nullptr ? false : mClientText->getInvertSelected();
 	}
 
 	void Edit::setInvertSelected(bool _value)
 	{
-		if (mText != nullptr)
-			mText->setInvertSelected(_value);
+		if (mClientText != nullptr)
+			mClientText->setInvertSelected(_value);
 	}
 
 } // namespace MyGUI

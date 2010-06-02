@@ -88,7 +88,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::_setAlign(const IntSize& _oldsize, bool _update)
+	void RotatingSkin::_setAlign(const IntSize& _oldsize/*, bool _update*/)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;

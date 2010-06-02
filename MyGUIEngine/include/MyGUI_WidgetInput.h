@@ -29,6 +29,7 @@
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
 #include "MyGUI_MaskPickInfo.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {

@@ -76,7 +76,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void TileRect::_setAlign(const IntSize& _oldsize, bool _update)
+	void TileRect::_setAlign(const IntSize& _oldsize/*, bool _update*/)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;

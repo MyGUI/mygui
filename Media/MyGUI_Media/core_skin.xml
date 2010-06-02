@@ -1473,6 +1473,10 @@
 			<State name="normal" offset="343 115 1 1"/>
 			<State name="over" offset="306 115 1 1"/>
 			<State name="down" offset="330 115 1 1"/>
+			<State name="selected disabled" offset="318 115 1 1"/>
+			<State name="selected normal" offset="318 115 1 1"/>
+			<State name="selected over" offset="318 115 1 1"/>
+			<State name="selected down" offset="318 115 1 1"/>
 		</BasisSkin>
 
 		<BasisSkin type="SimpleText" offset="2 0 1 5"  align="Stretch">
@@ -1480,6 +1484,10 @@
 			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="over" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="down" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="selected disabled" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="selected normal" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="selected over" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="selected down" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
 		</BasisSkin>
 	</Resource>
 
