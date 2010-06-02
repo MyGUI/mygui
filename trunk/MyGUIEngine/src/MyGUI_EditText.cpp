@@ -150,9 +150,8 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::_setAlign(const IntSize& _oldsize, bool _update)
+	void EditText::_setAlign(const IntSize& _oldsize/*, bool _update*/)
 	{
-
 		if (mWordWrap)
 		{
 			// передается старая координата всегда
@@ -213,7 +212,6 @@ namespace MyGUI
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
-
 	}
 
 	void EditText::_updateView()

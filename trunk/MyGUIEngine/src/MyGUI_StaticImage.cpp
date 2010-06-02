@@ -516,8 +516,8 @@ namespace MyGUI
 
 	void StaticImage::_setUVSet(const FloatRect& _rect)
 	{
-		if (nullptr != mMainSkin)
-			mMainSkin->_setUVSet(_rect);
+		if (nullptr != getSubWidgetMain())
+			getSubWidgetMain()->_setUVSet(_rect);
 	}
 
 } // namespace MyGUI

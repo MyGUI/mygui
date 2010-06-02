@@ -189,18 +189,15 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	bool Button::_setState(const std::string& _value)
+	void Button::_setState(const std::string& _value)
 	{
 		if (mModeImage)
 		{
 			if (mImage)
 				mImage->setItemName(_value);
-
-			setState(_value);
-			return true;
 		}
 
-		return setState(_value);
+		setState(_value);
 	}
 
 	void Button::setImageResource(const std::string& _name)

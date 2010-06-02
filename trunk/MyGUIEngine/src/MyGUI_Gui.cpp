@@ -295,7 +295,7 @@ namespace MyGUI
 
 		// выравниваем рутовые окна
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
-			(*iter)->_setAlign(oldViewSize, true);
+			(*iter)->_setAlign(oldViewSize/*, true*/);
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

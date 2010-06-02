@@ -427,6 +427,7 @@ namespace MyGUI
 		bool mOverflowToTheLeft;
 		size_t mMaxTextLength;
 
+		ISubWidgetText* mClientText;
 	};
 
 } // namespace MyGUI

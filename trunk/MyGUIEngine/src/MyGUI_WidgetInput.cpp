@@ -38,7 +38,9 @@ namespace MyGUI
 
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
-		if (!mOwnMaskPickInfo.load(_filename))
+		if (_filename.empty())
+			mOwnMaskPickInfo = MaskPickInfo();
+		else if (!mOwnMaskPickInfo.load(_filename))
 			MYGUI_LOG(Error, "mask not load '" << _filename << "'");
 	}
 
