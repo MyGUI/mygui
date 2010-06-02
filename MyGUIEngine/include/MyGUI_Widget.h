@@ -209,19 +209,11 @@ namespace MyGUI
 		/** Is widget enabled */
 		bool getEnabled() const { return mEnabled; }
 
-		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
-		//const std::string& getLayerName();
-
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
 		/** Get clien area widget or nullptr if widget don't have client */
 		Widget* getClientWidget() { return mWidgetClient; }
-
-		/** Get text sub widget or nullptr if no text sub widget */
-		//ISubWidgetText * getSubWidgetText() { return mText; }
-		/** Get sub widget of first texture or nullptr if no sub widget with texture */
-		//ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
@@ -270,37 +262,16 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		//void _setUVSet(const FloatRect& _rect);
-
-		//void _setTextureName(const std::string& _texture);
-		//const std::string& _getTextureName();
-
-		//IntCoord _getTextRegion();
-		//IntSize _getTextSize();
-		//void _setFontName(const std::string& _font);
-		//const std::string& _getFontName();
-		//void _setFontHeight(int _height);
-		//int _getFontHeight();
-		//void _setTextAlign(Align _align);
-		//Align _getTextAlign();
-		//void _setTextColour(const Colour& _colour);
-		//const Colour& _getTextColour();
-
 		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
 		void _shutdown();
 
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
 
-		// добавляет в список виджет
-		//void _linkChildWidget(Widget* _widget);
-		// удаляет из списка
-		//void _unlinkChildWidget(Widget* _widget);
-
 		void _setContainer(Widget* _value) { mContainer = _value; }
 		Widget* _getContainer() { return mContainer; }
 
-		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		void _setAlign(const IntSize& _oldsize);
 		bool _checkPoint(int _left, int _top);
 
 	/*obsolete:*/
@@ -310,39 +281,6 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		//MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
-		//void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
-		//MYGUI_OBSOLETE("use : bool getInheritsPick()")
-		//bool isInheritsPeek() { return getInheritsPick(); }
-
-		//MYGUI_OBSOLETE("use : void setMaskPick(const std::string& _filename)")
-		//void setMaskPeek(const std::string& _filename) { setMaskPick(_filename); }
-
-		//MYGUI_OBSOLETE("use : const IntCoord& StaticText::getTextRegion()")
-		//IntCoord getTextCoord() { return _getTextRegion(); }
-		//MYGUI_OBSOLETE("use : IntSize StaticText::getTextSize()")
-		//IntSize getTextSize() { return _getTextSize(); }
-
-		//MYGUI_OBSOLETE("use : void StaticText::setFontName(const std::string& _font)")
-		//void setFontName(const std::string& _font) { _setFontName(_font); }
-		//MYGUI_OBSOLETE("use : const std::string& StaticText::getFontName()")
-		//const std::string& getFontName() { return _getFontName(); }
-
-		//MYGUI_OBSOLETE("use : void StaticText::setFontHeight(int _height)")
-		//void setFontHeight(int _height) { _setFontHeight(_height); }
-		//MYGUI_OBSOLETE("use : int StaticText::getFontHeight()")
-		//int getFontHeight() { return _getFontHeight(); }
-
-		//MYGUI_OBSOLETE("use : void StaticText::setTextAlign(Align _align)")
-		//void setTextAlign(Align _align) { _setTextAlign(_align); }
-		//MYGUI_OBSOLETE("use : Align StaticText::getTextAlign()")
-		//Align getTextAlign() { return _getTextAlign(); }
-
-		//MYGUI_OBSOLETE("use : void StaticText::setTextColour(const Colour& _colour)")
-		//void setTextColour(const Colour& _colour) { _setTextColour(_colour); }
-		//MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
-		//const Colour& getTextColour() { return _getTextColour(); }
 
 		MYGUI_OBSOLETE("use : bool Widget::getEnabled() const")
 		bool isEnabled() const { return getEnabled(); }
@@ -386,13 +324,11 @@ namespace MyGUI
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
-		//void _setCoord(const IntCoord& _coord);
-
 	private:
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkinBase(ResourceSkin* _info/*, const IntSize& _size*/);
-		void shutdownWidgetSkinBase(/*bool _deep*/);
+		void initialiseWidgetSkinBase(ResourceSkin* _info);
+		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();
 		void _updateAbsolutePoint();
@@ -404,17 +340,16 @@ namespace MyGUI
 		void _setInheritsEnable(bool _value);
 		bool _isInheritsEnable() { return mInheritsEnabled; }
 
-		// показывает скрывает все сабскины
-		void _setSubSkinVisible(bool _visible);
-
 		float _getRealAlpha() { return mRealAlpha; }
 
-		//void baseChangeWidgetSkin2(ResourceSkin* _info);
 		void _createChildSkinWidget(ResourceSkin* _info);
 		void _destroyChildSkinWidget();
 
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
+
+		void _linkChildWidget(Widget* _widget);
+		void _unlinkChildWidget(Widget* _widget);
 
 	protected:
 		// клиентская зона окна
@@ -422,28 +357,15 @@ namespace MyGUI
 		// то обязательно проинициализировать Client
 		Widget* mWidgetClient;
 
-		// указатель на окно текста
-		//ISubWidgetText * mText;
-		// указатель на первый не текстовой сабскин
-		//ISubWidgetRect * mMainSkin;
-
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 		// вектор детей скина
 		VectorWidgetPtr mWidgetChildSkin;
 
 	private:
-		// список всех стейтов
-		//MapWidgetStateInfo mStateInfo;
-
-		// вектор всех детей сабскинов
-		//VectorSubWidget mSubSkinChild;
-
 		// доступен ли на виджет
 		bool mEnabled;
 		bool mInheritsEnabled;
-		// скрыты ли все сабскины при выходе за границу
-		bool mSubSkinsVisible;
 		// для иерархического скрытия
 		bool mInheritsVisible;
 		// прозрачность и флаг наследования альфы нашего оверлея
@@ -452,9 +374,6 @@ namespace MyGUI
 		bool mInheritsAlpha;
 		// имя виджета
 		std::string mName;
-
-		//std::string mTextureName;
-		//ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
 		Widget* mParent;

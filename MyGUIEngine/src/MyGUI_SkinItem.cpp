@@ -31,14 +31,15 @@ namespace MyGUI
 	SkinItem::SkinItem() :
 		mTexture(nullptr),
 		mText(nullptr),
-		mMainSkin(nullptr)
+		mMainSkin(nullptr),
+		mSubSkinsVisible(true)
 	{
 	}
 
-	void SkinItem::_setSkinItemAlign(const IntSize& _size/*, bool _invalidate*/)
+	void SkinItem::_setSkinItemAlign(const IntSize& _size)
 	{
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->_setAlign(_size/*, _invalidate*/);
+			(*skin)->_setAlign(_size);
 	}
 
 	void SkinItem::_setSkinItemVisible(bool _value)
@@ -61,6 +62,12 @@ namespace MyGUI
 	{
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->setAlpha(_value);
+	}
+
+	void SkinItem::_correctSkinItemView()
+	{
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->_correctView();
 	}
 
 	void SkinItem::_updateSkinItemView()
@@ -138,8 +145,6 @@ namespace MyGUI
 
 	void SkinItem::_setTextureName(const std::string& _texture)
 	{
-		//if (_texture == mTextureName) return;
-
 		mTextureName = _texture;
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);
 
@@ -149,6 +154,15 @@ namespace MyGUI
 	const std::string& SkinItem::_getTextureName()
 	{
 		return mTextureName;
+	}
+
+	void SkinItem::_setSubSkinVisible(bool _visible)
+	{
+		if (mSubSkinsVisible == _visible)
+			return;
+		mSubSkinsVisible = _visible;
+
+		_updateSkinItemView();
 	}
 
 } // namespace MyGUI
