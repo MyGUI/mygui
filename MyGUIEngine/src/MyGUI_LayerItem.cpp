@@ -91,7 +91,7 @@ namespace MyGUI
 		}
 	}
 
-	/*void LayerItem::saveLayerItem()
+	void LayerItem::saveLayerItem()
 	{
 		mSaveLayerNode = mLayerNode;
 	}
@@ -103,7 +103,7 @@ namespace MyGUI
 		{
 			attachToLayerItemNode(mLayerNode, false);
 		}
-	}*/
+	}
 
 	void LayerItem::attachItemToNode(ILayer* _layer, ILayerNode* _node)
 	{

@@ -48,13 +48,15 @@ namespace MyGUI
 		void _createSkinItem(ResourceSkin* _info);
 		void _deleteSkinItem();
 
-		void _setSkinItemAlign(const IntSize& _size/*, bool _invalidate*/);
+		void _setSkinItemAlign(const IntSize& _size);
 		void _setSkinItemVisible(bool _value);
 		void _setSkinItemColour(const Colour& _value);
 		void _setSkinItemAlpha(float _value);
+		void _correctSkinItemView();
 		void _updateSkinItemView();
 
 		void _setSkinItemState(const std::string& _state);
+		void _setSubSkinVisible(bool _visible);
 
 	private:
 		// вектор всех детей сабскинов
@@ -68,6 +70,8 @@ namespace MyGUI
 
 		std::string mTextureName;
 		ITexture* mTexture;
+
+		bool mSubSkinsVisible;
 	};
 } // namespace MyGUI
 
