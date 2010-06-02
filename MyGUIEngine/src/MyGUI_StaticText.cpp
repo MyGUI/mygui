@@ -53,58 +53,63 @@ namespace MyGUI
 
 	IntCoord StaticText::getTextRegion()
 	{
-		return (nullptr == mText) ? IntCoord() : mText->getCoord();
+		return (nullptr == getSubWidgetText()) ? IntCoord() : getSubWidgetText()->getCoord();
 	}
 
 	IntSize StaticText::getTextSize()
 	{
-		return (nullptr == mText) ? IntSize() : mText->getTextSize();
+		return (nullptr == getSubWidgetText()) ? IntSize() : getSubWidgetText()->getTextSize();
 	}
 
 	void StaticText::setTextAlign(Align _align)
 	{
-		if (mText != nullptr) mText->setTextAlign(_align);
+		if (getSubWidgetText() != nullptr)
+			getSubWidgetText()->setTextAlign(_align);
 	}
 
 	Align StaticText::getTextAlign()
 	{
-		if (mText != nullptr) return mText->getTextAlign();
+		if (getSubWidgetText() != nullptr)
+			return getSubWidgetText()->getTextAlign();
 		return Align::Default;
 	}
 
 	void StaticText::setTextColour(const Colour& _colour)
 	{
-		if (nullptr != mText) mText->setTextColour(_colour);
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setTextColour(_colour);
 	}
 
 	const Colour& StaticText::getTextColour()
 	{
-		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
+		return (nullptr == getSubWidgetText()) ? Colour::Zero : getSubWidgetText()->getTextColour();
 	}
 
 	void StaticText::setFontName(const std::string& _font)
 	{
-		if (nullptr != mText) mText->setFontName(_font);
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setFontName(_font);
 	}
 
 	const std::string& StaticText::getFontName()
 	{
-		if (nullptr == mText)
+		if (nullptr == getSubWidgetText())
 		{
 			static std::string empty;
 			return empty;
 		}
-		return mText->getFontName();
+		return getSubWidgetText()->getFontName();
 	}
 
 	void StaticText::setFontHeight(int _height)
 	{
-		if (nullptr != mText) mText->setFontHeight(_height);
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setFontHeight(_height);
 	}
 
 	int StaticText::getFontHeight()
 	{
-		return (nullptr == mText) ? 0 : mText->getFontHeight();
+		return (nullptr == getSubWidgetText()) ? 0 : getSubWidgetText()->getFontHeight();
 	}
 
 	void StaticText::setProperty(const std::string& _key, const std::string& _value)
@@ -125,19 +130,19 @@ namespace MyGUI
 
 	void StaticText::setCaption(const UString& _caption)
 	{
-		if (nullptr != mText)
-			mText->setCaption(_caption);
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setCaption(_caption);
 	}
 
 	const UString& StaticText::getCaption()
 	{
-		if (nullptr == mText)
+		if (nullptr == getSubWidgetText())
 		{
 			// FIXME сделать одну пустую строку
 			static UString empty;
 			return empty;
 		}
-		return mText->getCaption();
+		return getSubWidgetText()->getCaption();
 	}
 
 	void StaticText::setCaptionWithNewLine(const std::string& _value)

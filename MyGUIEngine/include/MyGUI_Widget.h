@@ -25,13 +25,11 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_ICroppedRectangle.h"
-#include "MyGUI_ISubWidgetRect.h"
-#include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetInput.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
+#include "MyGUI_SkinItem.h"
 
 namespace MyGUI
 {
@@ -41,10 +39,10 @@ namespace MyGUI
 	class MYGUI_EXPORT Widget :
 		public IObject,
 		public ICroppedRectangle,
-		public LayerItem,
 		public UserData,
 		public WidgetInput,
-		public delegates::IDelegateUnlink
+		public delegates::IDelegateUnlink,
+		public SkinItem
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetManager;
@@ -179,7 +177,7 @@ namespace MyGUI
 		bool getInheritsAlpha()  const { return mInheritsAlpha; }
 
 		/** Set widget's state */
-		bool setState(const std::string& _value);
+		void setState(const std::string& _value);
 
 		void setColour(const Colour& _value);
 
@@ -212,7 +210,7 @@ namespace MyGUI
 		bool getEnabled() const { return mEnabled; }
 
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
-		const std::string& getLayerName();
+		//const std::string& getLayerName();
 
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
@@ -221,9 +219,9 @@ namespace MyGUI
 		Widget* getClientWidget() { return mWidgetClient; }
 
 		/** Get text sub widget or nullptr if no text sub widget */
-		ISubWidgetText * getSubWidgetText() { return mText; }
+		//ISubWidgetText * getSubWidgetText() { return mText; }
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
-		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
+		//ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
@@ -274,8 +272,8 @@ namespace MyGUI
 
 		//void _setUVSet(const FloatRect& _rect);
 
-		/*virtual */void _setTextureName(const std::string& _texture);
-		/*virtual */const std::string& _getTextureName();
+		//void _setTextureName(const std::string& _texture);
+		//const std::string& _getTextureName();
 
 		//IntCoord _getTextRegion();
 		//IntSize _getTextSize();
@@ -295,14 +293,14 @@ namespace MyGUI
 		void _destroyChildWidget(Widget* _widget);
 
 		// добавляет в список виджет
-		void _linkChildWidget(Widget* _widget);
+		//void _linkChildWidget(Widget* _widget);
 		// удаляет из списка
-		void _unlinkChildWidget(Widget* _widget);
+		//void _unlinkChildWidget(Widget* _widget);
 
 		void _setContainer(Widget* _value) { mContainer = _value; }
 		Widget* _getContainer() { return mContainer; }
 
-		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
 		bool _checkPoint(int _left, int _top);
 
 	/*obsolete:*/
@@ -388,11 +386,13 @@ namespace MyGUI
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
+		//void _setCoord(const IntCoord& _coord);
+
 	private:
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkinBase(ResourceSkin* _info, const IntSize& _size);
-		void shutdownWidgetSkinBase(bool _deep);
+		void initialiseWidgetSkinBase(ResourceSkin* _info/*, const IntSize& _size*/);
+		void shutdownWidgetSkinBase(/*bool _deep*/);
 
 		void _updateAlpha();
 		void _updateAbsolutePoint();
@@ -409,7 +409,12 @@ namespace MyGUI
 
 		float _getRealAlpha() { return mRealAlpha; }
 
-		void baseChangeWidgetSkin2(ResourceSkin* _info);
+		//void baseChangeWidgetSkin2(ResourceSkin* _info);
+		void _createChildSkinWidget(ResourceSkin* _info);
+		void _destroyChildSkinWidget();
+
+		void _parseSkinProperties(ResourceSkin* _info);
+		void _checkInheristProperties();
 
 	protected:
 		// клиентская зона окна
@@ -418,9 +423,9 @@ namespace MyGUI
 		Widget* mWidgetClient;
 
 		// указатель на окно текста
-		ISubWidgetText * mText;
+		//ISubWidgetText * mText;
 		// указатель на первый не текстовой сабскин
-		ISubWidgetRect * mMainSkin;
+		//ISubWidgetRect * mMainSkin;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
@@ -429,10 +434,10 @@ namespace MyGUI
 
 	private:
 		// список всех стейтов
-		MapWidgetStateInfo mStateInfo;
+		//MapWidgetStateInfo mStateInfo;
 
 		// вектор всех детей сабскинов
-		VectorSubWidget mSubSkinChild;
+		//VectorSubWidget mSubSkinChild;
 
 		// доступен ли на виджет
 		bool mEnabled;
@@ -448,8 +453,8 @@ namespace MyGUI
 		// имя виджета
 		std::string mName;
 
-		std::string mTextureName;
-		ITexture* mTexture;
+		//std::string mTextureName;
+		//ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
 		Widget* mParent;

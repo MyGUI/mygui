@@ -105,12 +105,12 @@ namespace editor
 		const int left = 10;
 		const int text_height = 26;
 
-		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(left, _size.height, 100, text_height), MyGUI::Align::Default);
+		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(left, _size.height, 600, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setTextAlign(MyGUI::Align::Center);
 		text->setCaption(MyGUI::utility::toString("group name : '", _group.name, "' ,  texture : '", _group.texture, "' ,  size : ", _group.size.print()));
-		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
-		text->setSize(size.width + 20, text->getHeight());
+		//MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
+		//text->setSize(size.width + 20, text->getHeight());
 		_size.height += text_height + 20;
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();
@@ -135,10 +135,10 @@ namespace editor
 		image->setItemGroup(_group.name);
 		//image->setItemName(_index.name);
 
-		MyGUI::StaticText* text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
+		MyGUI::StaticText* text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
 		//text->setEditReadOnly(true);
 		//text->setCaption("Animatable group");
-		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
+		//MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		//text->setSize(size.width, text->getHeight());
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();
@@ -158,10 +158,10 @@ namespace editor
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);
 
-		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
+		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setCaption(_index.name);
-		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
+		//MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		//text->setSize(size.width, text->getHeight());
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();

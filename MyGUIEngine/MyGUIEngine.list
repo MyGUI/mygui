@@ -159,6 +159,7 @@ set (HEADER_FILES
   include/MyGUI_ToolTipManager.h
   include/MyGUI_Singleton.h
   include/MyGUI_FlowDirection.h
+  include/MyGUI_SkinItem.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -248,6 +249,7 @@ set (SOURCE_FILES
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
   src/MyGUI_WidgetInput.cpp
+  src/MyGUI_SkinItem.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -294,6 +296,7 @@ SOURCE_GROUP("Source Files\\Core\\LayerItem" FILES
   src/MyGUI_RenderItem.cpp
   src/MyGUI_SharedLayer.cpp
   src/MyGUI_SharedLayerNode.cpp
+  src/MyGUI_SkinItem.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Controller" FILES
   src/MyGUI_ActionController.cpp
@@ -492,6 +495,7 @@ SOURCE_GROUP("Header Files\\Core\\LayerItem" FILES
   include/MyGUI_RenderItem.h
   include/MyGUI_SharedLayer.h
   include/MyGUI_SharedLayerNode.h
+  include/MyGUI_SkinItem.h
 )
 SOURCE_GROUP("Header Files\\Core\\Controller" FILES
   include/MyGUI_ActionController.h

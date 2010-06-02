@@ -56,8 +56,8 @@ namespace MyGUI
 		void addRenderItem(ISubWidget* _item);
 		void removeAllRenderItems();
 
-		void saveLayerItem();
-		void restoreLayerItem();
+		//void saveLayerItem();
+		//void restoreLayerItem();
 
 	protected:
 		void attachToLayerItemNode(ILayerNode* _node, bool _deep);
