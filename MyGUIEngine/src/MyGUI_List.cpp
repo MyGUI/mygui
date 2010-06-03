@@ -38,7 +38,6 @@ namespace MyGUI
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
 		mLineActive(ITEM_NONE),
-		mIsFocus(false),
 		mNeedVisibleScroll(true)
 	{
 	}
@@ -104,22 +103,6 @@ namespace MyGUI
 		notifyMouseWheel(nullptr, _rel);
 
 		Base::onMouseWheel(_rel);
-	}
-
-	void List::onKeySetFocus(Widget* _old)
-	{
-		mIsFocus = true;
-		_updateState();
-
-		Base::onKeySetFocus(_old);
-	}
-
-	void List::onKeyLostFocus(Widget* _new)
-	{
-		mIsFocus = false;
-		_updateState();
-
-		Base::onKeyLostFocus(_new);
 	}
 
 	void List::onKeyButtonPressed(KeyCode _key, Char _char)

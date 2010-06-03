@@ -106,18 +106,12 @@ namespace MyGUI
 		// переопределяем для присвоению холста
 		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
-		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
-		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 		void notifyScrollChangePosition(VScroll* _sender, size_t _position);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
-		virtual void onKeyLostFocus(Widget* _new);
-		virtual void onKeySetFocus(Widget* _old);
-
-		void updateScrollViewState();
 		void updateView();
 
 	private:
@@ -135,7 +129,6 @@ namespace MyGUI
 		virtual Align getContentAlign() { return mContentAlign; }
 
 	protected:
-		bool mIsFocus;
 		bool mIsPressed;
 
 		Widget* mScrollClient;

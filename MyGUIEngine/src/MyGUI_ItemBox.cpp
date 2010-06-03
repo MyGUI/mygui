@@ -250,7 +250,6 @@ namespace MyGUI
 	void ItemBox::onKeySetFocus(Widget* _old)
 	{
 		mIsFocus = true;
-		setState("pushed");
 
 		Base::onKeySetFocus(_old);
 	}
@@ -258,7 +257,6 @@ namespace MyGUI
 	void ItemBox::onKeyLostFocus(Widget* _new)
 	{
 		mIsFocus = false;
-		setState("normal");
 
 		Base::onKeyLostFocus(_new);
 	}

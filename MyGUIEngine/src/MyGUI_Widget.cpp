@@ -316,9 +316,9 @@ namespace MyGUI
 		_updateSkinItemView();
 	}
 
-	void Widget::setState(const std::string& _state)
+	bool Widget::setState(const std::string& _state)
 	{
-		_setSkinItemState(_state);
+		return _setSkinItemState(_state);
 	}
 
 	void Widget::_destroyChildWidget(Widget* _widget)
