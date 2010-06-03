@@ -251,7 +251,6 @@ namespace MyGUI
 	void ListCtrl::onKeySetFocus(Widget* _old)
 	{
 		mIsFocus = true;
-		//setState("pushed");
 
 		Base::onKeySetFocus(_old);
 	}
@@ -259,7 +258,6 @@ namespace MyGUI
 	void ListCtrl::onKeyLostFocus(Widget* _new)
 	{
 		mIsFocus = false;
-		//setState("normal");
 
 		Base::onKeyLostFocus(_new);
 	}

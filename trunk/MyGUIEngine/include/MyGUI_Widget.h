@@ -177,7 +177,7 @@ namespace MyGUI
 		bool getInheritsAlpha()  const { return mInheritsAlpha; }
 
 		/** Set widget's state */
-		void setState(const std::string& _value);
+		bool setState(const std::string& _value);
 
 		void setColour(const Colour& _value);
 

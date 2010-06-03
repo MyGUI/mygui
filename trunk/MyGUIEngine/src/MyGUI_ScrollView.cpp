@@ -33,8 +33,6 @@ namespace MyGUI
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
 	ScrollView::ScrollView() :
-		mIsFocus(false),
-		mIsPressed(false),
 		mScrollClient(nullptr),
 		mContentAlign(Align::Center)
 	{
@@ -56,16 +54,12 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mScrollClient, "widget already assigned");
 				mScrollClient = (*iter);
-				mScrollClient->eventMouseSetFocus = newDelegate(this, &ScrollView::notifyMouseSetFocus);
-				mScrollClient->eventMouseLostFocus = newDelegate(this, &ScrollView::notifyMouseLostFocus);
 				mScrollClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
 				mClient = mScrollClient;
 
 				// создаем холcт, реальный владелец детей
 				mWidgetClient = mScrollClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
-				mWidgetClient->eventMouseSetFocus = newDelegate(this, &ScrollView::notifyMouseSetFocus);
-				mWidgetClient->eventMouseLostFocus = newDelegate(this, &ScrollView::notifyMouseLostFocus);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "VScroll")
 			{
@@ -94,63 +88,6 @@ namespace MyGUI
 		mScrollClient = nullptr;
 
 		Base::shutdownWidgetSkin();
-	}
-
-	void ScrollView::notifyMouseSetFocus(Widget* _sender, Widget* _old)
-	{
-		if ((_old == mScrollClient) || (mIsFocus))
-			return;
-
-		mIsFocus = true;
-		updateScrollViewState();
-	}
-
-	void ScrollView::notifyMouseLostFocus(Widget* _sender, Widget* _new)
-	{
-		if ((_new == mScrollClient) || (!mIsFocus))
-			return;
-
-		mIsFocus = false;
-		updateScrollViewState();
-	}
-
-	void ScrollView::onKeySetFocus(Widget* _old)
-	{
-		if (!mIsPressed)
-		{
-			mIsPressed = true;
-			updateScrollViewState();
-		}
-
-		Base::onKeySetFocus(_old);
-	}
-
-	void ScrollView::onKeyLostFocus(Widget* _new)
-	{
-		if (mIsPressed)
-		{
-			mIsPressed = false;
-			updateScrollViewState();
-		}
-
-		Base::onKeyLostFocus(_new);
-	}
-
-	void ScrollView::updateScrollViewState()
-	{
-		/*if (!getEnabled())
-			setState("disabled");
-		else if (mIsPressed)
-		{
-			if (mIsFocus)
-				setState("pushed");
-			else
-				setState("normal_checked");
-		}
-		else if (mIsFocus)
-			setState("highlighted");
-		else
-			setState("normal");*/
 	}
 
 	void ScrollView::setPosition(const IntPoint& _point)

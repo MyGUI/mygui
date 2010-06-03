@@ -2,6 +2,7 @@
 	@file
 	@author		Albert Semenov
 	@date		26/2009
+	@module
 */
 /*
 	This file is part of MyGUI.
@@ -163,18 +164,6 @@ namespace MyGUI
 								if (new_format) basisStateName = "pushed";
 								else basisStateName = "normal_checked";
 							}
-						}
-						// двойная замена для простоты
-						if (_version < Version(1, 2))
-						{
-							if (basisStateName == "disabled") basisStateName = "disabled";
-							else if (basisStateName == "normal") basisStateName = "normal";
-							else if (basisStateName == "highlighted") basisStateName = "over";
-							else if (basisStateName == "pushed") basisStateName = "down";
-							else if (basisStateName == "disabled_checked") basisStateName = "selected disabled";
-							else if (basisStateName == "normal_checked") basisStateName = "selected normal";
-							else if (basisStateName == "highlighted_checked") basisStateName = "selected over";
-							else if (basisStateName == "pushed_checked") basisStateName = "selected down";
 						}
 
 						// конвертируем инфу о стейте

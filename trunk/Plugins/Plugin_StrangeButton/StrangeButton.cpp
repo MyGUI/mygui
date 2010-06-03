@@ -98,22 +98,31 @@ namespace plugin
 		if (mIsStateCheck)
 		{
 			if (!getEnabled())
-				setState("selected disabled");
+			{
+				if (!setState("disabled_checked"))
+					setState("disabled");
+			}
 			else if (mIsMousePressed)
-				setState("selected down");
+			{
+				if (!setState("pushed_checked"))
+					setState("pushed");
+			}
 			else if (mIsMouseFocus)
-				setState("selected over");
+			{
+				if (!setState("highlighted_checked"))
+					setState("pushed");
+			}
 			else
-				setState("selected normal");
+				setState("normal_checked");
 		}
 		else
 		{
 			if (!getEnabled())
 				setState("disabled");
 			else if (mIsMousePressed)
-				setState("down");
+				setState("pushed");
 			else if (mIsMouseFocus)
-				setState("over");
+				setState("highlighted");
 			else
 				setState("normal");
 		}

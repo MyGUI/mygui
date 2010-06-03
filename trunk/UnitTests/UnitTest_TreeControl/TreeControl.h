@@ -91,8 +91,6 @@ namespace MyGUI
         void notifyFrameEntered(float nTime);
 
         virtual void onMouseWheel(int nValue);
-        virtual void onKeySetFocus(Widget* pWidget);
-        virtual void onKeyLostFocus(Widget* pWidget);
         virtual void onKeyButtonPressed(KeyCode Key, Char Character);
 
     private:
@@ -100,7 +98,6 @@ namespace MyGUI
 
         void validate();
 
-        void updateState();
         void updateScroll();
         void updateItems();
 
