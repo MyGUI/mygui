@@ -37,10 +37,10 @@ namespace MyGUI
 		StaticText();
 
 		/** Get text region coordinate */
-		IntCoord getTextRegion();
+		virtual IntCoord getTextRegion();
 
 		/** Get text region size */
-		IntSize getTextSize();
+		virtual IntSize getTextSize();
 
 		/** Set widget caption */
 		virtual void setCaption(const UString& _value);
