@@ -8,7 +8,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Canvas.h"
-#include "MyGUI_IWidgetFactory.h"
 #include "FlashControl.h"
 
 namespace Hikari

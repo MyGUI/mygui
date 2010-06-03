@@ -43,12 +43,13 @@ namespace plugin
 		Base::onMouseSetFocus(_old);
 		mIsMouseFocus = true;
 
-		if (mText == nullptr) return;
-		std::string s, str = mText->getCaption();
+		if (getSubWidgetText() == nullptr)
+			return;
+		std::string s, str = getSubWidgetText()->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 
-		mText->setCaption(s);
+		getSubWidgetText()->setCaption(s);
 
 		updateButtonState();
 	}
@@ -58,12 +59,14 @@ namespace plugin
 		Base::onMouseLostFocus(_new);
 		mIsMouseFocus = false;
 
-		if (mText == nullptr) return;
-		std::string s, str = mText->getCaption();
+		if (getSubWidgetText() == nullptr)
+			return;
+
+		std::string s, str = getSubWidgetText()->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 		
-		mText->setCaption(s);
+		getSubWidgetText()->setCaption(s);
 
 		updateButtonState();
 	}
