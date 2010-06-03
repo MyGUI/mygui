@@ -233,6 +233,14 @@ namespace MyGUI
 
 		//! @copydoc StaticText::setTextAlign
 		virtual void setTextAlign(Align _value);
+		//! @copydoc StaticText::setTextColour
+		virtual void setTextColour(const Colour& _value);
+
+		//! @copydoc StaticText::getTextRegion
+		virtual IntCoord getTextRegion();
+
+		//! @copydoc StaticText::getTextSize
+		virtual IntSize getTextSize();
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -266,9 +274,6 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		// to avoid hiding base virtual function
-		virtual void setTextColour(const Colour& _colour) { Base::setTextColour(_colour); }
 
 		MYGUI_OBSOLETE("use : void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }

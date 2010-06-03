@@ -1515,12 +1515,37 @@ namespace MyGUI
 		updateViewWithCursor();
 	}
 
-	void Edit::setTextAlign(Align _align)
+	void Edit::setTextAlign(Align _value)
 	{
-		Base::setTextAlign(_align);
+		Base::setTextAlign(_value);
+
+		if (mClientText != nullptr)
+			mClientText->setTextAlign(_value);
 
 		// так как мы сами рулим смещениями
 		updateView();
+	}
+
+	void Edit::setTextColour(const Colour& _value)
+	{
+		Base::setTextColour(_value);
+
+		if (mClientText != nullptr)
+			mClientText->setTextColour(_value);
+	}
+
+	IntCoord Edit::getTextRegion()
+	{
+		if (mClientText != nullptr)
+			return mClientText->getCoord();
+		return Base::getTextRegion();
+	}
+
+	IntSize Edit::getTextSize()
+	{
+		if (mClientText != nullptr)
+			return mClientText->getTextSize();
+		return Base::getTextSize();
 	}
 
 	void Edit::notifyScrollChangePosition(VScroll* _sender, size_t _position)
@@ -1598,12 +1623,18 @@ namespace MyGUI
 	{
 		Base::setFontName(_value);
 
+		if (mClientText != nullptr)
+			mClientText->setFontName(_value);
+
 		eraseView();
 	}
 
 	void Edit::setFontHeight(int _value)
 	{
 		Base::setFontHeight(_value);
+
+		if (mClientText != nullptr)
+			mClientText->setFontHeight(_value);
 
 		eraseView();
 	}
