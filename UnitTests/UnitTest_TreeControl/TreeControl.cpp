@@ -86,7 +86,6 @@ namespace MyGUI
     TreeControl::TreeControl() :
         mpWidgetScroll(nullptr),
         mbScrollAlwaysVisible(true),
-        mbHasFocus(false),
         mbInvalidated(false),
         mbRootVisible(false),
         mnItemHeight(1),
@@ -189,22 +188,6 @@ namespace MyGUI
         notifyMouseWheel(nullptr, nValue);
 
         Widget::onMouseWheel(nValue);
-    }
-
-    void TreeControl::onKeySetFocus(Widget* pWidget)
-    {
-        mbHasFocus = true;
-        updateState();
-
-        Widget::onKeySetFocus(pWidget);
-    }
-
-    void TreeControl::onKeyLostFocus(Widget* pWidget)
-    {
-        mbHasFocus = false;
-        updateState();
-
-        Widget::onKeyLostFocus(pWidget);
     }
 
     void TreeControl::onKeyButtonPressed(KeyCode Key, Char Character)
@@ -437,11 +420,6 @@ namespace MyGUI
         mnTopIndex = ((int)nPosition / mnItemHeight);
 
         invalidate();
-    }
-
-    void TreeControl::updateState()
-    {
-        setState(mbHasFocus ? "pushed" : "normal");
     }
 
     void TreeControl::sendScrollingEvents(size_t nPosition)

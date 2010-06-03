@@ -76,11 +76,11 @@ namespace MyGUI
 			(*skin)->_updateView();
 	}
 
-	void SkinItem::_setSkinItemState(const std::string& _state)
+	bool SkinItem::_setSkinItemState(const std::string& _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end())
-			return;
+			return false;
 
 		size_t index=0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index)
@@ -89,6 +89,7 @@ namespace MyGUI
 			if (data != nullptr)
 				(*skin)->setStateData(data);
 		}
+		return true;
 	}
 
 	void SkinItem::_createSkinItem(ResourceSkin* _info)

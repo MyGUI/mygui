@@ -55,7 +55,7 @@ namespace MyGUI
 		void _correctSkinItemView();
 		void _updateSkinItemView();
 
-		void _setSkinItemState(const std::string& _state);
+		bool _setSkinItemState(const std::string& _state);
 		void _setSubSkinVisible(bool _visible);
 
 	private:

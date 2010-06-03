@@ -80,7 +80,7 @@ namespace MyGUI
 
 		virtual void baseUpdateEnable();
 
-		void _setState(const std::string& _value);
+		bool _setState(const std::string& _value);
 		void setImageResource(const std::string& _name);
 
 	private:

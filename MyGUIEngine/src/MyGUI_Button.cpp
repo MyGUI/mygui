@@ -124,22 +124,31 @@ namespace MyGUI
 		if (mIsStateCheck)
 		{
 			if (!getEnabled())
-				_setState("selected disabled");
+			{
+				if (!_setState("disabled_checked"))
+					_setState("disabled");
+			}
 			else if (mIsMousePressed)
-				_setState("selected down");
+			{
+				if (!_setState("pushed_checked"))
+					_setState("pushed");
+			}
 			else if (mIsMouseFocus)
-				_setState("selected over");
+			{
+				if (!_setState("highlighted_checked"))
+					_setState("pushed");
+			}
 			else
-				_setState("selected normal");
+				_setState("normal_checked");
 		}
 		else
 		{
 			if (!getEnabled())
 				_setState("disabled");
 			else if (mIsMousePressed)
-				_setState("down");
+				_setState("pushed");
 			else if (mIsMouseFocus)
-				_setState("over");
+				_setState("highlighted");
 			else
 				_setState("normal");
 		}
@@ -189,15 +198,18 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void Button::_setState(const std::string& _value)
+	bool Button::_setState(const std::string& _value)
 	{
 		if (mModeImage)
 		{
 			if (mImage)
 				mImage->setItemName(_value);
+
+			setState(_value);
+			return true;
 		}
 
-		setState(_value);
+		return setState(_value);
 	}
 
 	void Button::setImageResource(const std::string& _name)
