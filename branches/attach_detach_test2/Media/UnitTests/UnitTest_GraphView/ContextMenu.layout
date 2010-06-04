@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="PopupMenu" skin="PopupMenu" layer="Popup" name="_Main">
+		<Widget type="MenuItem" skin="PopupMenuLine">
+			<Property key="Widget_Caption" value="SaveGraph"/>
+			<Property key="MenuItem_Id" value="SaveGraph"/>
+		</Widget>
+		<Widget type="MenuItem" skin="PopupMenuLine">
+			<Property key="Widget_Caption" value="LoadGraph"/>
+			<Property key="MenuItem_Id" value="LoadGraph"/>
+		</Widget>
+		<Widget type="MenuItem" skin="PopupMenuLine">
+			<Property key="Widget_Caption" value="ClearGraph"/>
+			<Property key="MenuItem_Id" value="ClearGraph"/>
+		</Widget>
+		<Widget type="MenuItem" skin="PopupMenuSeparator">
+			<Property key="MenuItem_Type" value="Separator"/>
+		</Widget>
+		<Widget type="MenuItem" skin="PopupMenuLine">
+			<Property key="Widget_Caption" value="Controllers"/>
+			<Property key="MenuItem_Type" value="Popup"/>
+			<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="EventController"/>
+					<Property key="MenuItem_Id" value="EventController"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="WeightController"/>
+					<Property key="MenuItem_Id" value="WeightController"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="PositionController"/>
+					<Property key="MenuItem_Id" value="PositionController"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="LoopController"/>
+					<Property key="MenuItem_Id" value="LoopController"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="FadeController"/>
+					<Property key="MenuItem_Id" value="FadeController"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="Group2Controller"/>
+					<Property key="MenuItem_Id" value="Group2Controller"/>
+				</Widget>
+			</Widget>
+		</Widget>
+		<Widget type="MenuItem" skin="PopupMenuLine">
+			<Property key="Widget_Caption" value="States"/>
+			<Property key="MenuItem_Type" value="Popup"/>
+			<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Widget_Caption" value="SkeletonState"/>
+					<Property key="MenuItem_Id" value="SkeletonState"/>
+				</Widget>
+			</Widget>
+		</Widget>
+	</Widget>
+</MyGUI>

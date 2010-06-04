@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="320 160 272 240" align="Left Top" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="#{Settings}"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Widget_Visible" value="false"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 24 96 24">
+            <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="#{Grid_step}"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="104 24 157 24" align="HStretch Top" name="gridEdit">
+            <Property key="Widget_Caption" value="8"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 178 256 24" align="HStretch Bottom" name="buttonOkSettings">
+            <Property key="Widget_Caption" value="Ok"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator3" position="-3 72 272 2" align="HStretch Top"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 0 272 24" align="HStretch Top">
+            <Property key="Text_TextAlign" value="Center"/>
+            <Property key="Widget_Caption" value="#{Editor_settings}"/>
+        </Widget>
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 72 272 24" align="HStretch Top">
+            <Property key="Widget_Caption" value="#{Widgets_list}"/>
+            <Property key="Text_TextAlign" value="Center"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 96 256 24" align="HStretch Top" name="checkShowName">
+            <Property key="Widget_Caption" value="#{Show_widget_name}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 120 256 24" align="HStretch Top" name="checkShowType">
+            <Property key="Widget_Caption" value="#{Show_widget_type}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 144 256 24" align="HStretch Top" name="checkShowSkin">
+            <Property key="Widget_Caption" value="#{Show_widget_skin}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 48 256 24" align="HStretch Top" name="checkEdgeHide">
+            <Property key="Widget_Caption" value="#{Autohide_editor_panels}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

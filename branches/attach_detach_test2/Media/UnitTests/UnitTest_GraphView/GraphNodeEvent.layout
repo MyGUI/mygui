@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowSmallCX" position="20 50 100 86" name="_Main">
+        <Widget type="Button" skin="ButtonRoundGrey" position="87 27 14 14" align="Right Top" name="ConnectionOut">
+            <UserString key="Type" value="EventOut"/>
+            <UserString key="Direction" value="1 0"/>
+            <UserString key="Name" value="Event"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="18 26 66 16" align="HStretch Top" layer="Back">
+            <Property key="Text_TextAlign" value="Right VCenter"/>
+            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+            <Property key="Widget_Caption" value="Event"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
+        <Widget type="Button" skin="ButtonSmall" position="13 54 74 21" align="HStretch Top" layer="Back" name="ButtonEvent">
+            <Property key="Widget_Caption" value="Generate"/>
+            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+        </Widget>
+    </Widget>
+</MyGUI>

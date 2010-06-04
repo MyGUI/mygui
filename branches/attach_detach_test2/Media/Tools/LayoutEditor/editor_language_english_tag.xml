@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="File">File</Tag>
+	<Tag name="Widgets">Widgets</Tag>
+	<Tag name="Load">Load</Tag>
+	<Tag name="Save">Save</Tag>
+	<Tag name="Save_as">Save as...</Tag>
+	<Tag name="Clear">Clear</Tag>
+	<Tag name="Settings">Settings</Tag>
+	<Tag name="Test">#{ColourMenuTest}Test</Tag>
+	<Tag name="Code_Generator">Code generator</Tag>
+	<Tag name="Quit">Quit</Tag>
+
+	<Tag name="Properties">Properties</Tag>
+	<Tag name="Main_properties">Main properties</Tag>
+	<Tag name="Widget_type_propertes">#{widget_type} specific properties</Tag>
+	<Tag name="Properties_not_available">#808080#{widget_type} properties</Tag>
+	<Tag name="Other_properties">Other properties</Tag>
+
+	<Tag name="Add">Add</Tag>
+	<Tag name="Delete">Delete</Tag>
+	<Tag name="Select">Select</Tag>
+
+	<Tag name="Grid_step">Grid step</Tag>
+	<Tag name="Resolution">Resolution</Tag>
+	<Tag name="Full_screen">Full screen</Tag>
+	<Tag name="Screen_properties">Screen properties</Tag>
+	<Tag name="Editor_settings">Editor settings</Tag>
+	<Tag name="Widgets_list">Widgets list</Tag>
+	<Tag name="Show_widget_name">Show widget name</Tag>
+	<Tag name="Show_widget_type">Show widget type</Tag>
+	<Tag name="Show_widget_skin">Show widget skin</Tag>
+	<Tag name="Autohide_editor_panels">Autohide editor panels</Tag>
+
+	<Tag name="Key">Key</Tag>
+	<Tag name="Value">Value</Tag>
+
+	<Tag name="Select_file_name">Select file name</Tag>
+
+	<Tag name="OK">OK</Tag>
+	<Tag name="Cancel">Cancel</Tag>
+	<Tag name="Warning">Warning</Tag>
+	<Tag name="Error">Error</Tag>
+
+	<Tag name="Warn_delete_all_widgets">Are you sure you want to delete all widgets?</Tag>
+	<Tag name="Warn_unsaved_data">You have unsaved changes. Do you want to save it?</Tag>
+
+	<Tag name="to_percents">%</Tag>
+	<Tag name="to_pixels">pixels</Tag>
+</MyGUI>

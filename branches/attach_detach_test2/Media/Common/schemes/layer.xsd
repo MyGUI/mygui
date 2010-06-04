@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Layer" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Layer"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI" type="Root"/>
+	<xs:complexType name="Layer">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="overlapped" type="xs:boolean" default="false"/>
+		<xs:attribute name="pick" type="xs:boolean" default="false"/>
+	</xs:complexType>
+</xs:schema>
