@@ -243,7 +243,7 @@ namespace MyGUI
 	// создает виджет
 	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, /*this, */_name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, nullptr, nullptr, _name);
 		mWidgetChild.push_back(widget);
 
 		widget->setAlign(_align);
@@ -319,7 +319,10 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-			mMousePointer = static_cast<StaticImage*>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
+		{
+			Widget* widget = baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", "");
+			mMousePointer = widget->castType<StaticImage>();
+		}
 	}
 
 	IPointer* PointerManager::getByName(const std::string& _name) const

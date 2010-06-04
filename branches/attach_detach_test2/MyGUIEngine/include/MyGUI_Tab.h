@@ -121,6 +121,8 @@ namespace MyGUI
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
 		TabItem* findItemWith(const UString& _name);
 
+		void swapItems(size_t _index1, size_t _index2);
+
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
@@ -300,8 +302,7 @@ namespace MyGUI
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 		virtual void shutdownWidgetSkin();
 
-		// переопределяем для особого обслуживания страниц
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual void _onChildAdded(Widget* _child);
 
 		void updateBar();
 

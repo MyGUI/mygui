@@ -143,27 +143,41 @@ namespace MyGUI
 		Base::shutdownWidgetSkin();
 	}
 
-	// переопределяем для особого обслуживания страниц
-	Widget* Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	void Tab::_onChildAdded(Widget* _child)
 	{
-		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type))
+		if (_child->isType<TabItem>())
 		{
-			TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", _name));
-			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
-
-			return sheet;
+			_insertItem(ITEM_NONE, _child->getName(), _child->castType<TabItem>(), Any::Null);
+			_child->setCoord(_getWidgetTemplate()->getCoord());
+			_child->setAlign(_getWidgetTemplate()->getAlign());
 		}
-		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", ""));
-		_insertItem(_index, _name, sheet, _data);
+		Widget* widget = baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "");
 
-		return sheet;
+		size_t lastIndex = mItemsInfo.size() - 1;
+		setItemNameAt(lastIndex, _name);
+		setItemDataAt(lastIndex, _data);
+
+		swapItems(_index == ITEM_NONE ? lastIndex : _index, lastIndex);
+
+		return widget->castType<TabItem>();
+	}
+
+	void Tab::swapItems(size_t _index1, size_t _index2)
+	{
+		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "Tab::swapItems");
+		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "Tab::swapItems");
+
+		if (_index1 != _index2)
+		{
+			std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
+			updateBar();
+		}
 	}
 
 	void Tab::setPosition(const IntPoint& _point)
@@ -684,10 +698,10 @@ namespace MyGUI
 		if (_key == "Tab_ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
 		else if (_key == "Tab_ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
 		else if (_key == "Tab_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
-		else if (_key == "Tab_AddItem") addItem(_value);
-		else if (_key == "Tab_SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
+		//else if (_key == "Tab_AddItem") addItem(_value);
+		//else if (_key == "Tab_SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
+/*#ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Tab_AddSheet")
 		{
 			MYGUI_LOG(Warning, "Tab_AddSheet is obsolete, use Tab_AddItem");
@@ -698,7 +712,7 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "Tab_SelectSheet is obsolete, use Tab_SelectItem");
 			setIndexSelected(utility::parseValue<size_t>(_value));
 		}
-#endif // MYGUI_DONT_USE_OBSOLETE
+#endif // MYGUI_DONT_USE_OBSOLETE*/
 
 		else
 		{

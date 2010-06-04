@@ -217,8 +217,7 @@ namespace MyGUI
 		const VectorChildSkinInfo& child = _info->getChild();
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
-			//FIXME - явный вызов
-			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "");
+			Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "", true);
 			widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
@@ -249,16 +248,27 @@ namespace MyGUI
 		mWidgetChildSkin.clear();
 	}
 
-	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */this, _style == WidgetStyle::Popup ? nullptr : this, /*this, */_name);
-		mWidgetChild.push_back(widget);
+		Widget* widget = nullptr;
 
-		widget->setAlign(_align);
+		if (mWidgetClient != nullptr && !_template)
+		{
+			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		}
+		else
+		{
+			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			mWidgetChild.push_back(widget);
 
-		// присоединяем виджет с уровню
-		if (!_layer.empty() && widget->isRootWidget())
-			LayerManager::getInstance().attachToLayerNode(_layer, widget);
+			widget->setAlign(_align);
+
+			// присоединяем виджет с уровню
+			if (!_layer.empty() && widget->isRootWidget())
+				LayerManager::getInstance().attachToLayerNode(_layer, widget);
+		}
+
+		_onChildAdded(widget);
 
 		return widget;
 	}
