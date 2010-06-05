@@ -183,7 +183,7 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget() { return nullptr == mCroppedParent; }
+		bool isRootWidget() { return nullptr == mVisualParent; }
 
 		/** Get parent widget or nullptr if no parent */
 		Widget* getParent() { return mParent; }
@@ -246,6 +246,7 @@ namespace MyGUI
 		*/
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
+		Widget* getVisualParent() { return mVisualParent; }
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
@@ -262,7 +263,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, Widget* _visualParent, const std::string& _name);
 		void _shutdown();
 
 		// удяляет неудачника
@@ -387,6 +388,7 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
+		Widget* mVisualParent;
 	};
 
 } // namespace MyGUI

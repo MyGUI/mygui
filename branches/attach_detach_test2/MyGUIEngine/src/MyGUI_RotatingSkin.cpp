@@ -23,6 +23,7 @@
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
@@ -59,7 +60,7 @@ namespace MyGUI
 
 	IntPoint RotatingSkin::getCenter(bool _local) const
 	{
-		return mCenterPos + (_local ? IntPoint() : mCroppedParent->getAbsolutePosition());
+		return mCenterPos + (_local ? IntPoint() : mVisualParent->getAbsolutePosition());
 	}
 
 	void RotatingSkin::setVisible(bool _visible)
@@ -97,40 +98,40 @@ namespace MyGUI
 		if (mAlign.isHStretch())
 		{
 			// растягиваем
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.width = mCoord.width + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isRight())
 		{
 			// двигаем по правому краю
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.left = mCoord.left + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter())
 		{
 			// выравнивание по горизонтали без растяжения
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
+			mCoord.left = (mVisualParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
 			// растягиваем
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.height = mCoord.height + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isBottom())
 		{
 			// двигаем по нижнему краю
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.top = mCoord.top + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter())
 		{
 			// выравнивание по вертикали без растяжения
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
+			mCoord.top = (mVisualParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
@@ -274,7 +275,7 @@ namespace MyGUI
 
 		// no parent - no cropping
 		int size = RECT_VERTICIES_COUNT;
-		if (nullptr == mCroppedParent->getCroppedParent())
+		if (nullptr == mVisualParent->getVisualParent())
 		{
 			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
 			{
@@ -312,8 +313,8 @@ namespace MyGUI
 		if (mRenderItem && mRenderItem->getRenderTarget())
 		{
 			const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-			float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-			float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+			float vertex_left_base = ((info.pixScaleX * (float)(mVisualParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+			float vertex_top_base = -(((info.pixScaleY * (float)(mVisualParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
 			for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
 			{
@@ -340,11 +341,11 @@ namespace MyGUI
 			resultVerticiesPos[i] = _baseVerticiesPos[i];
 		}
 
-		ICroppedRectangle * parent = mCroppedParent->getCroppedParent();
-		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mCroppedParent->getLeft(), Left);
-		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mCroppedParent->getLeft(), Right);
-		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mCroppedParent->getTop(), Top);
-		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() + parent->_getViewHeight() - mCroppedParent->getTop(), Bottom);
+		ICroppedRectangle* parent = mVisualParent->getVisualParent();
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mVisualParent->getLeft(), Left);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mVisualParent->getLeft(), Right);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mVisualParent->getTop(), Top);
+		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() + parent->_getViewHeight() - mVisualParent->getTop(), Bottom);
 
 		for (size_t i = 0; i < resultVerticiesPos.size(); ++i)
 		{

@@ -28,6 +28,7 @@
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_TextureUtility.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
@@ -85,40 +86,40 @@ namespace MyGUI
 		if (mAlign.isHStretch())
 		{
 			// растягиваем
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.width = mCoord.width + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isRight())
 		{
 			// двигаем по правому краю
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.left = mCoord.left + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter())
 		{
 			// выравнивание по горизонтали без растяжения
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
+			mCoord.left = (mVisualParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
 			// растягиваем
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.height = mCoord.height + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isBottom())
 		{
 			// двигаем по нижнему краю
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.top = mCoord.top + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter())
 		{
 			// выравнивание по вертикали без растяжения
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
+			mCoord.top = (mVisualParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
@@ -134,7 +135,7 @@ namespace MyGUI
 
 	void TileRect::_updateView()
 	{
-		bool margin = _checkMargin();
+		bool margin = _checkMargin(mVisualParent);
 
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
@@ -168,7 +169,7 @@ namespace MyGUI
 		if (margin)
 		{
 			// проверка на полный выход за границу
-			if (_checkOutside())
+			if (_checkOutside(mVisualParent))
 			{
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -209,13 +210,13 @@ namespace MyGUI
 		float vertex_z = info.maximumDepth;
 
 		// абсолютный размер окна
-		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
-		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float window_left = ((info.pixScaleX * (float)(mCoord.left + mVisualParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mVisualParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 
 		// размер вьюпорта
-		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mVisualParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
 		float real_right = real_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mVisualParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float real_bottom = real_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		size_t count = 0;

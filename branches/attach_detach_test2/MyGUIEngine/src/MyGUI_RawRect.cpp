@@ -26,6 +26,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
@@ -106,9 +107,9 @@ namespace MyGUI
 
 		float vertex_z = info.maximumDepth;
 
-		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mVisualParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
 		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
+		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mVisualParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top

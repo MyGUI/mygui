@@ -123,7 +123,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name)
+	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, Widget* _cropeedParent, const std::string& _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)

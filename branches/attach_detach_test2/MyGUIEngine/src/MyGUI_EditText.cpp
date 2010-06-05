@@ -29,6 +29,7 @@
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_FontData.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
@@ -155,7 +156,7 @@ namespace MyGUI
 		if (mWordWrap)
 		{
 			// передается старая координата всегда
-			int width = mCroppedParent->getWidth();
+			int width = mVisualParent->getWidth();
 			if (mOldWidth != width)
 			{
 				mOldWidth = width;
@@ -170,40 +171,40 @@ namespace MyGUI
 		if (mAlign.isHStretch())
 		{
 			// растягиваем
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.width = mCoord.width + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isRight())
 		{
 			// двигаем по правому краю
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
+			mCoord.left = mCoord.left + (mVisualParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter())
 		{
 			// выравнивание по горизонтали без растяжения
-			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
+			mCoord.left = (mVisualParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
 			// растягиваем
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.height = mCoord.height + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isBottom())
 		{
 			// двигаем по нижнему краю
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
+			mCoord.top = mCoord.top + (mVisualParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter())
 		{
 			// выравнивание по вертикали без растяжения
-			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
+			mCoord.top = (mVisualParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
@@ -216,7 +217,7 @@ namespace MyGUI
 
 	void EditText::_updateView()
 	{
-		bool margin = _checkMargin();
+		bool margin = _checkMargin(mVisualParent);
 
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
@@ -227,7 +228,7 @@ namespace MyGUI
 		if (margin)
 		{
 			// проверка на полный выход за границу
-			if (_checkOutside())
+			if (_checkOutside(mVisualParent))
 			{
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -481,7 +482,7 @@ namespace MyGUI
 		if (mTextOutDate) updateRawData();
 
 		IntPoint point = _point;
-		point -= mCroppedParent->getAbsolutePosition();
+		point -= mVisualParent->getAbsolutePosition();
 		point += mViewOffset;
 		point -= mCoord.point();
 
@@ -494,7 +495,7 @@ namespace MyGUI
 		if (mTextOutDate) updateRawData();
 
 		IntPoint point = mTextView.getCursorPoint(_position);
-		point += mCroppedParent->getAbsolutePosition();
+		point += mVisualParent->getAbsolutePosition();
 		point -= mViewOffset;
 		point += mCoord.point();
 
@@ -685,8 +686,8 @@ namespace MyGUI
 
 				if (draw)
 				{
-					int pix_left = mCroppedParent->getAbsoluteLeft() - info.leftOffset + result_left;
-					int pix_top = mCroppedParent->getAbsoluteTop() - info.topOffset + (mShiftText ? 1 : 0) + result_top;
+					int pix_left = mVisualParent->getAbsoluteLeft() - info.leftOffset + result_left;
+					int pix_top = mVisualParent->getAbsoluteTop() - info.topOffset + (mShiftText ? 1 : 0) + result_top;
 
 					float real_left = ((info.pixScaleX * (float)(pix_left) + info.hOffset) * 2) - 1;
 					float real_top = - (((info.pixScaleY * (float)(pix_top) + info.vOffset) * 2) - 1);
@@ -809,8 +810,8 @@ namespace MyGUI
 
 			if (draw)
 			{
-				int pix_left = mCroppedParent->getAbsoluteLeft() - info.leftOffset + result_left;
-				int pix_top = mCroppedParent->getAbsoluteTop() - info.topOffset + (mShiftText ? 1 : 0) + result_top;
+				int pix_left = mVisualParent->getAbsoluteLeft() - info.leftOffset + result_left;
+				int pix_top = mVisualParent->getAbsoluteTop() - info.topOffset + (mShiftText ? 1 : 0) + result_top;
 
 				float real_left = ((info.pixScaleX * (float)(pix_left) + info.hOffset) * 2) - 1;
 				float real_top = - (((info.pixScaleY * (float)(pix_top) + info.vOffset) * 2) - 1);

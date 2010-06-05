@@ -24,6 +24,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
@@ -37,12 +38,12 @@ namespace MyGUI
 	{
 	}
 
-	void MainSkin::_setAlign(const IntSize& _oldsize/*, bool _update*/)
+	void MainSkin::_setAlign(const IntSize& _oldsize)
 	{
-		mCurrentCoord.set(0, 0, mCroppedParent->getWidth(), mCroppedParent->getHeight());
+		mCurrentCoord.set(0, 0, mVisualParent->getWidth(), mVisualParent->getHeight());
 		mAlign = Align::Stretch;
 
-		Base::_setAlign(_oldsize/*, _update*/);
+		Base::_setAlign(_oldsize);
 	}
 
 } // namespace MyGUI

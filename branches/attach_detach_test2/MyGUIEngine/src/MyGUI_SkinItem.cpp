@@ -111,7 +111,7 @@ namespace MyGUI
 				continue;
 
 			ISubWidget* sub = object->castType<ISubWidget>();
-			sub->_setCroppedParent(static_cast<Widget*>(this));
+			sub->_setVisualParent(static_cast<Widget*>(this));
 			sub->setCoord((*iter).coord);
 			sub->setAlign((*iter).align);
 
