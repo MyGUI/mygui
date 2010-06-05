@@ -130,7 +130,7 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		_destroyAllChildWidget();
+		destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
@@ -197,26 +197,21 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	// удяляет неудачника
-	void Gui::_destroyChildWidget(Widget* _widget)
+	void Gui::destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-			// сохраняем указатель
-			MyGUI::Widget* widget = *iter;
-
 			// удаляем из списка
-			*iter = mWidgetChild.back();
-			mWidgetChild.pop_back();
+			mWidgetChild.erase(iter);
 
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(_widget);
 		}
 		else
 		{
@@ -224,30 +219,19 @@ namespace MyGUI
 		}
 	}
 
-	// удаляет всех детей
-	void Gui::_destroyAllChildWidget()
+	void Gui::destroyAllChildWidget()
 	{
 		while (!mWidgetChild.empty())
-		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
-
-			// отписываем от всех
-			mWidgetManager->unlinkFromUnlinkers(widget);
-
-			// и сами удалим, так как его больше в списке нет
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
+			destroyChildWidget(mWidgetChild.front());
 	}
 
 	void Gui::destroyWidget(Widget* _widget)
 	{
 		Widget* parent = _widget->getParent();
 		if (parent != nullptr)
-			parent->_destroyChildWidget(_widget);
+			parent->destroyChildWidget(_widget);
 		else
-			_destroyChildWidget(_widget);
+			destroyChildWidget(_widget);
 	}
 
 	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
@@ -274,7 +258,7 @@ namespace MyGUI
 		eventFrameStart.clear(_widget);
 	}
 
-	void Gui::_linkChildWidget(Widget* _widget)
+	/*void Gui::_linkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
@@ -286,7 +270,7 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
-	}
+	}*/
 
 	void Gui::_resizeWindow(const IntSize& _size)
 	{
@@ -295,7 +279,7 @@ namespace MyGUI
 
 		// выравниваем рутовые окна
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
-			(*iter)->_setAlign(oldViewSize/*, true*/);
+			(*iter)->_setAlign(oldViewSize);
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

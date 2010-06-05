@@ -629,15 +629,13 @@ namespace MyGUI
 	void Tab::removeItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::removeItemAt");
-		this->_destroyChildWidget(mItemsInfo[_index].item);
+		destroyChildWidget(mItemsInfo[_index].item);
 	}
 
 	void Tab::removeAllItems()
 	{
 		while (mItemsInfo.size() > 0)
-		{
-			this->_destroyChildWidget(mItemsInfo.back().item);
-		}
+			destroyChildWidget(mItemsInfo.back().item);
 	}
 
 	ControllerFadeAlpha* Tab::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)

@@ -116,6 +116,31 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 
+		/** Get parent widget or nullptr if no parent */
+		Widget* getParent() { return mParent; }
+
+		IntSize getParentSize();
+
+		/** Get child widgets Enumerator */
+		EnumeratorWidgetPtr getEnumerator();
+
+		/** Get child count */
+		size_t getChildCount();
+
+		/** Get child by index (index from 0 to child_count - 1) */
+		Widget* getChildAt(size_t _index);
+
+		/** Find widget by name (search recursively through all childs starting from this widget) */
+		Widget* findWidget(const std::string& _name);
+
+		/** Destroy child widget or throw exception if this child widget not found */
+		void destroyChildWidget(Widget* _widget);
+
+		/** Destroy all child widgets */
+		void destroyAllChildWidget();
+
+		Widget* getVisualParent() { return mVisualParent; }
+
 		/** Set widget position (position of left top corner) */
 		virtual void setPosition(const IntPoint& _value);
 		/** Set widget size */
@@ -143,6 +168,18 @@ namespace MyGUI
 		void setRealSize(float _width, float _height) { setRealSize(FloatSize(_width, _height)); }
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
+
+		/** Get position in screen coordinates */
+		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
+		/** Get rectangle in screen coordinates */
+		IntRect getAbsoluteRect() const { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
+		/** Get coordinate in screen coordinates */
+		IntCoord getAbsoluteCoord() const { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
+
+		/** Get X in screen coordinates */
+		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
+		/** Get Y in screen coordinates */
+		int getAbsoluteTop() const { return mAbsolutePosition.top; }
 
 		//! Get name of widget
 		const std::string& getName() const { return mName; }
@@ -176,32 +213,6 @@ namespace MyGUI
 		/** Get inherits alpha mode flag */
 		bool getInheritsAlpha()  const { return mInheritsAlpha; }
 
-		/** Set widget's state */
-		bool setState(const std::string& _value);
-
-		void setColour(const Colour& _value);
-
-		// являемся ли мы рутовым виджетом
-		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget() { return nullptr == mVisualParent; }
-
-		/** Get parent widget or nullptr if no parent */
-		Widget* getParent() { return mParent; }
-
-		IntSize getParentSize();
-
-		/** Get child widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator();
-
-		/** Get child count */
-		size_t getChildCount();
-
-		/** Get child by index (index from 0 to child_count - 1) */
-		Widget* getChildAt(size_t _index);
-
-		/** Find widget by name (search recursively through all childs starting from this widget) */
-		Widget* findWidget(const std::string& _name);
-
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _value);
 		/** Enable or disable widget without changing widget's state */
@@ -218,7 +229,7 @@ namespace MyGUI
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
 		*/
-		void detachFromWidget(const std::string& _layer = "");
+		//void detachFromWidget(const std::string& _layer = "");
 
 		/** Attach widget to parent
 			@param _style Child widget type
@@ -226,7 +237,7 @@ namespace MyGUI
 			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
-		void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
+		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
@@ -236,7 +247,7 @@ namespace MyGUI
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
 			see LayerManager::attachToLayerNode
 		*/
-		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
+		//void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
@@ -245,20 +256,6 @@ namespace MyGUI
 			@param _value Value converted to string
 		*/
 		virtual void setProperty(const std::string& _key, const std::string& _value);
-
-		Widget* getVisualParent() { return mVisualParent; }
-
-		/** Get position in screen coordinates */
-		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
-		/** Get rectangle in screen coordinates */
-		IntRect getAbsoluteRect() const { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
-		/** Get coordinate in screen coordinates */
-		IntCoord getAbsoluteCoord() const { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
-
-		/** Get X in screen coordinates */
-		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
-		/** Get Y in screen coordinates */
-		int getAbsoluteTop() const { return mAbsolutePosition.top; }
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
@@ -278,22 +275,16 @@ namespace MyGUI
 		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, Widget* _visualParent, const std::string& _name);
 		void _shutdown();
 
-		// удяляет неудачника
-		void _destroyChildWidget(Widget* _widget);
-
 		void _setContainer(Widget* _value) { mContainer = _value; }
 		Widget* _getContainer() { return mContainer; }
 
 		void _setAlign(const IntSize& _oldsize);
-		bool _checkPoint(int _left, int _top);
+
+		// являемся ли мы рутовым виджетом
+		bool _isRootWidget() { return nullptr == mVisualParent; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		MYGUI_OBSOLETE("use : bool Widget::getEnabled() const")
 		bool isEnabled() const { return getEnabled(); }
@@ -322,9 +313,6 @@ namespace MyGUI
 		// создает виджет
 		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template = false);
 
-		// удаляет всех детей
-		void _destroyAllChildWidget();
-
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
 
@@ -340,8 +328,6 @@ namespace MyGUI
 		virtual void _onChildAdded(Widget* _child) { }
 
 	private:
-		void frameEntered(float _frame);
-
 		void initialiseWidgetSkinBase(ResourceSkin* _info);
 		void shutdownWidgetSkinBase();
 
@@ -363,8 +349,8 @@ namespace MyGUI
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
 
-		void _linkChildWidget(Widget* _widget);
-		void _unlinkChildWidget(Widget* _widget);
+		//void _linkChildWidget(Widget* _widget);
+		//void _unlinkChildWidget(Widget* _widget);
 
 	protected:
 		// клиентская зона окна

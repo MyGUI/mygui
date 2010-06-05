@@ -48,7 +48,7 @@ namespace MyGUI
 			(*skin)->setVisible(_value);
 	}
 
-	void SkinItem::_setSkinItemColour(const Colour& _value)
+	void SkinItem::setColour(const Colour& _value)
 	{
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 		{
@@ -76,7 +76,7 @@ namespace MyGUI
 			(*skin)->_updateView();
 	}
 
-	bool SkinItem::_setSkinItemState(const std::string& _state)
+	bool SkinItem::setState(const std::string& _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end())
@@ -125,7 +125,7 @@ namespace MyGUI
 				mText = sub->castType<ISubWidgetText>(false);
 		}
 
-		_setSkinItemState("normal");
+		setState("normal");
 	}
 
 	void SkinItem::_deleteSkinItem()

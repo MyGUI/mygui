@@ -134,7 +134,7 @@ namespace MyGUI
 	void LayerManager::attachToLayerNode(const std::string& _name, Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
-		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
+		MYGUI_ASSERT(_item->_isRootWidget(), "attached widget must be root");
 
 		// сначала отсоединяем
 		_item->detachFromLayer();

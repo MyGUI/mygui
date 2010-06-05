@@ -57,6 +57,7 @@ namespace MyGUI
 
 	/*internal:*/
 		// Get cropped by parent rectangle coordinates
+		IntCoord _getViewCoord() const { return IntCoord(_getViewLeft(), _getViewTop(), _getViewWidth(), _getViewHeight()); }
 		int _getViewLeft() const { return mCoord.left + mMargin.left; }
 		int _getViewRight() const { return mCoord.right() - mMargin.right; }
 		int _getViewTop() const { return mCoord.top + mMargin.top; }

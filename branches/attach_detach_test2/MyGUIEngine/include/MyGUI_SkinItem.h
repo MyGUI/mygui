@@ -44,18 +44,21 @@ namespace MyGUI
 		void _setTextureName(const std::string& _texture);
 		const std::string& _getTextureName();
 
+		/** Set widget's state */
+		bool setState(const std::string& _value);
+
+		void setColour(const Colour& _value);
+
 	protected:
 		void _createSkinItem(ResourceSkin* _info);
 		void _deleteSkinItem();
 
 		void _setSkinItemAlign(const IntSize& _size);
 		void _setSkinItemVisible(bool _value);
-		void _setSkinItemColour(const Colour& _value);
 		void _setSkinItemAlpha(float _value);
 		void _correctSkinItemView();
 		void _updateSkinItemView();
 
-		bool _setSkinItemState(const std::string& _state);
 		void _setSubSkinVisible(bool _visible);
 
 	private:

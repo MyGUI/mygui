@@ -153,10 +153,10 @@ namespace MyGUI
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(Widget* _widget) { _destroyChildWidget(_widget); }
+		void destroyChildWidget(Widget* _widget);
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget() { _destroyAllChildWidget(); }
+		void destroyAllChildWidget();
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
@@ -168,8 +168,8 @@ namespace MyGUI
 		*/
 		void _injectFrameEntered(float _time);
 
-		void _linkChildWidget(Widget* _widget);
-		void _unlinkChildWidget(Widget* _widget);
+		//void _linkChildWidget(Widget* _widget);
+		//void _unlinkChildWidget(Widget* _widget);
 
 		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
@@ -228,12 +228,6 @@ namespace MyGUI
 	private:
 		// создает виджет
 		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
-
-		// удяляет неудачника
-		void _destroyChildWidget(Widget* _widget);
-
-		// удаляет всех детей
-		void _destroyAllChildWidget();
 
 		virtual void _unlinkWidget(Widget* _widget);
 

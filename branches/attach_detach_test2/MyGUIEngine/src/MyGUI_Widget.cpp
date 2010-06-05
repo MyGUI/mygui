@@ -76,7 +76,7 @@ namespace MyGUI
 		mParent = _parent;
 
 
-#if MYGUI_DEBUG_MODE == 1
+/*#if MYGUI_DEBUG_MODE == 1
 		// проверяем соответсвие входных данных
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
@@ -92,7 +92,7 @@ namespace MyGUI
 			MYGUI_ASSERT(!mVisualParent, "visual must be nullptr");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
-#endif
+#endif*/
 
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
@@ -127,7 +127,7 @@ namespace MyGUI
 
 		shutdownWidgetSkinBase();
 
-		_destroyAllChildWidget();
+		destroyAllChildWidget();
 
 		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
@@ -168,11 +168,12 @@ namespace MyGUI
 		//SAVE
 		const IntSize& _size = mCoord.size();
 
+		//FIXME - явный вызов
 		Widget::setSize(_info->getSize());
 
 		_createSkinItem(_info);
 
-		if (!isRootWidget())
+		if (!_isRootWidget())
 		{
 			// проверяем наследуемую скрытость
 			if ((!mParent->getVisible()) || (!mParent->_isInheritsVisible()))
@@ -231,7 +232,8 @@ namespace MyGUI
 
 		setMaskPick(_info->getMask());
 
-		Widget::setSize(_size);//FIXME - явный вызов
+		//FIXME - явный вызов
+		Widget::setSize(_size);
 	}
 
 	void Widget::shutdownWidgetSkinBase()
@@ -245,7 +247,7 @@ namespace MyGUI
 		{
 			// Добавляем себя чтобы удалилось
 			mWidgetChild.push_back(*iter);
-			_destroyChildWidget(*iter);
+			destroyChildWidget(*iter);
 		}
 		mWidgetChildSkin.clear();
 	}
@@ -266,7 +268,7 @@ namespace MyGUI
 			widget->setAlign(_align);
 
 			// присоединяем виджет с уровню
-			if (!_layer.empty() && widget->isRootWidget())
+			if (!_layer.empty() && widget->_isRootWidget())
 				LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		}
 
@@ -328,30 +330,21 @@ namespace MyGUI
 		_updateSkinItemView();
 	}
 
-	bool Widget::setState(const std::string& _state)
-	{
-		return _setSkinItemState(_state);
-	}
-
-	void Widget::_destroyChildWidget(Widget* _widget)
+	void Widget::destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-			// сохраняем указатель
-			MyGUI::Widget* widget = *iter;
-
 			// удаляем из списка
-			*iter = mWidgetChild.back();
-			mWidgetChild.pop_back();
+			mWidgetChild.erase(iter);
 
 			// отписываем от всех
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
 
 			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(widget);
+			WidgetManager::getInstance()._deleteWidget(_widget);
 		}
 		else
 		{
@@ -359,22 +352,10 @@ namespace MyGUI
 		}
 	}
 
-	// удаляет всех детей
-	void Widget::_destroyAllChildWidget()
+	void Widget::destroyAllChildWidget()
 	{
-		WidgetManager& manager = WidgetManager::getInstance();
 		while (!mWidgetChild.empty())
-		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
-
-			// отписываем от всех
-			manager.unlinkFromUnlinkers(widget);
-
-			// и сами удалим, так как его больше в списке нет
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
+			destroyChildWidget(mWidgetChild.front());
 	}
 
 	IntCoord Widget::getClientCoord()
@@ -421,7 +402,7 @@ namespace MyGUI
 		if (!mEnabled
 			|| !mVisible
 			|| (!getNeedMouseFocus() && !getInheritsPick())
-			|| !_checkPoint(_left, _top)
+			|| !_getViewCoord().inside(IntPoint(_left, _top))
 			// если есть маска, проверяем еще и по маске
 			|| isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
 				return nullptr;
@@ -673,7 +654,7 @@ namespace MyGUI
 		mAlign = _value;
 	}
 
-	void Widget::detachFromWidget(const std::string& _layer)
+	/*void Widget::detachFromWidget(const std::string& _layer)
 	{
 		std::string oldlayer = getLayer() != nullptr ? getLayer()->getName() : "";
 
@@ -843,8 +824,7 @@ namespace MyGUI
 
 		detachFromWidget();
 		attachToWidget(parent, _style, _layer);
-		// ищем леер к которому мы присоедененны
-	}
+	}*/
 
 	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
 	{
@@ -1004,11 +984,6 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setColour(const Colour& _value)
-	{
-		_setSkinItemColour(_value);
-	}
-
 	IntSize Widget::getParentSize()
 	{
 		if (mVisualParent)
@@ -1025,12 +1000,7 @@ namespace MyGUI
 			ToolTipManager::getInstance()._unlinkWidget(this);
 	}
 
-	bool Widget::_checkPoint(int _left, int _top)
-	{
-		return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
-	}
-
-	void Widget::_linkChildWidget(Widget* _widget)
+	/*void Widget::_linkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
@@ -1042,6 +1012,6 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
-	}
+	}*/
 
 } // namespace MyGUI
