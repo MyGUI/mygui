@@ -31,18 +31,8 @@ namespace MyGUI
 	class MYGUI_EXPORT ICroppedRectangle
 	{
 	public:
-		ICroppedRectangle() :
-			mIsMargin(false)
-		{ }
-
+		ICroppedRectangle() { }
 		virtual ~ICroppedRectangle() { }
-
-		/** Set position */
-		virtual void setPosition(const IntPoint& _value) { mCoord.left = _value.left; mCoord.top = _value.top; }
-		/** Set size */
-		virtual void setSize(const IntSize& _value) { mCoord.width = _value.width; mCoord.height = _value.height; }
-		/** Set coordinates (position and size) */
-		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
 
 		/** Get position */
 		IntPoint getPosition() const { return mCoord.point(); }
@@ -78,9 +68,6 @@ namespace MyGUI
 
 
 	/*internal:*/
-		/** True if rectangle is cropped by parent rectangle */
-		bool _isMargin() const { return mIsMargin; }
-
 		// Get cropped by parent rectangle coordinates
 		int _getViewLeft() const { return mCoord.left + mMargin.left; }
 		int _getViewRight() const { return mCoord.right() - mMargin.right; }
@@ -89,7 +76,7 @@ namespace MyGUI
 		int _getViewWidth() const { return mCoord.width - mMargin.left - mMargin.right; }
 		int _getViewHeight() const { return mCoord.height - mMargin.top - mMargin.bottom; }
 
-		const IntRect& _getMargin() const { return mMargin; }
+		const IntRect& _getMarginRect() const { return mMargin; }
 		int _getMarginLeft() const { return mMargin.left; }
 		int _getMarginRight() const { return mMargin.right; }
 		int _getMarginTop() const { return mMargin.top; }
@@ -154,12 +141,11 @@ namespace MyGUI
 				(getTop() > _parent->getHeight() - _parent->mMargin.bottom ) );  // совсем уехали вниз
 		}
 
-	protected:
+	private:
 		IntRect mMargin; // перекрытие
+	protected:
 		IntCoord mCoord; // координаты
 		IntPoint mAbsolutePosition; // обсолютные координаты
-
-		bool mIsMargin;
 	};
 
 } // namespace MyGUI

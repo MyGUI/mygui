@@ -55,7 +55,8 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mVisualParent(nullptr)
+		mVisualParent(nullptr),
+		mIsMargin(false)
 	{
 	}
 
@@ -706,7 +707,7 @@ namespace MyGUI
 					(*widget)->_updateAbsolutePoint();
 
 				// сбрасываем обрезку
-				mMargin.clear();
+				//mMargin.clear();
 
 				_updateView();
 			}

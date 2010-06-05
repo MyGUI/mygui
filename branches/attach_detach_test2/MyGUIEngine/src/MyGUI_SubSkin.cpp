@@ -130,8 +130,8 @@ namespace MyGUI
 
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
-		mCurrentCoord.left = mCoord.left + mMargin.left;
-		mCurrentCoord.top = mCoord.top + mMargin.top;
+		mCurrentCoord.left = mCoord.left + _getMarginLeft();
+		mCurrentCoord.top = mCoord.top + _getMarginTop();
 
 		// вьюпорт стал битым
 		if (margin)
@@ -157,10 +157,10 @@ namespace MyGUI
 			if ( (mCurrentCoord.width > 0) && (mCurrentCoord.height > 0) )
 			{
 				// теперь смещаем текстуру
-				float UV_lft = mMargin.left / (float)mCoord.width;
-				float UV_top = mMargin.top / (float)mCoord.height;
-				float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
-				float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
+				float UV_lft = _getMarginLeft() / (float)mCoord.width;
+				float UV_top = _getMarginTop() / (float)mCoord.height;
+				float UV_rgt = (mCoord.width - _getMarginRight()) / (float)mCoord.width;
+				float UV_btm = (mCoord.height - _getMarginBottom()) / (float)mCoord.height;
 
 				float UV_sizeX = mRectTexture.right - mRectTexture.left;
 				float UV_sizeY = mRectTexture.bottom - mRectTexture.top;
@@ -212,10 +212,10 @@ namespace MyGUI
 		// если обрезаны, то просчитываем с учето обрезки
 		if (mIsMargin)
 		{
-			float UV_lft = mMargin.left / (float)mCoord.width;
-			float UV_top = mMargin.top / (float)mCoord.height;
-			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
-			float UV_btm = (mCoord.height - mMargin.bottom) / (float)mCoord.height;
+			float UV_lft = _getMarginLeft() / (float)mCoord.width;
+			float UV_top = _getMarginTop() / (float)mCoord.height;
+			float UV_rgt = (mCoord.width - _getMarginRight()) / (float)mCoord.width;
+			float UV_btm = (mCoord.height - _getMarginBottom()) / (float)mCoord.height;
 
 			float UV_sizeX = mRectTexture.right - mRectTexture.left;
 			float UV_sizeY = mRectTexture.bottom - mRectTexture.top;

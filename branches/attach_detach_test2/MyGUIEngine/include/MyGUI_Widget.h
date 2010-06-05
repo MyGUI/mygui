@@ -389,6 +389,7 @@ namespace MyGUI
 		Align mAlign;
 		bool mVisible;
 		Widget* mVisualParent;
+		bool mIsMargin;
 	};
 
 } // namespace MyGUI

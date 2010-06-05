@@ -43,7 +43,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidget )
 
 	public:
-		ISubWidget() : mVisible(true), mVisualParent(nullptr)  { }
+		ISubWidget() : mVisible(true), mVisualParent(nullptr), mIsMargin(false)  { }
 		virtual ~ISubWidget() { }
 
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node) = 0;
@@ -57,6 +57,7 @@ namespace MyGUI
 
 		virtual void setAlign(Align _value) { mAlign = _value; }
 		virtual void setVisible(bool _value) { mVisible = _value; }
+		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }
@@ -69,6 +70,7 @@ namespace MyGUI
 		Align mAlign;
 		bool mVisible;
 		Widget* mVisualParent;
+		bool mIsMargin;
 	};
 
 } // namespace MyGUI

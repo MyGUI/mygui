@@ -139,8 +139,8 @@ namespace MyGUI
 
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
-		mCurrentCoord.left = mCoord.left + mMargin.left;
-		mCurrentCoord.top = mCoord.top + mMargin.top;
+		mCurrentCoord.left = mCoord.left + _getMarginLeft();
+		mCurrentCoord.top = mCoord.top + _getMarginTop();
 		mCurrentCoord.width = _getViewWidth();
 		mCurrentCoord.height = _getViewHeight();
 
