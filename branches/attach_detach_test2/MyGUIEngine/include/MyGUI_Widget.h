@@ -248,6 +248,18 @@ namespace MyGUI
 
 		Widget* getVisualParent() { return mVisualParent; }
 
+		/** Get position in screen coordinates */
+		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
+		/** Get rectangle in screen coordinates */
+		IntRect getAbsoluteRect() const { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
+		/** Get coordinate in screen coordinates */
+		IntCoord getAbsoluteCoord() const { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
+
+		/** Get X in screen coordinates */
+		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
+		/** Get Y in screen coordinates */
+		int getAbsoluteTop() const { return mAbsolutePosition.top; }
+
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
 			@param _sender widget that called this event
@@ -390,6 +402,7 @@ namespace MyGUI
 		bool mVisible;
 		Widget* mVisualParent;
 		bool mIsMargin;
+		IntPoint mAbsolutePosition; // обсолютные координаты
 	};
 
 } // namespace MyGUI

@@ -41,18 +41,6 @@ namespace MyGUI
 		/** Get coordinates (position and size) */
 		const IntCoord& getCoord() const { return mCoord; }
 
-		/** Get position in screen coordinates */
-		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
-		/** Get rectangle in screen coordinates */
-		IntRect getAbsoluteRect() const { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
-		/** Get coordinate in screen coordinates */
-		IntCoord getAbsoluteCoord() const { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
-
-		/** Get X in screen coordinates */
-		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
-		/** Get Y in screen coordinates */
-		int getAbsoluteTop() const { return mAbsolutePosition.top; }
-
 		/** Get left x-coordinate */
 		int getLeft() const { return mCoord.left; }
 		/** Get right x-coordinate */
@@ -145,7 +133,6 @@ namespace MyGUI
 		IntRect mMargin; // перекрытие
 	protected:
 		IntCoord mCoord; // координаты
-		IntPoint mAbsolutePosition; // обсолютные координаты
 	};
 
 } // namespace MyGUI
