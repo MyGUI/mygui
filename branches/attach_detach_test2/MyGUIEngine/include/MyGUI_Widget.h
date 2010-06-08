@@ -240,7 +240,7 @@ namespace MyGUI
 		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
-		void changeWidgetSkin(const std::string& _skinname);
+		//void changeWidgetSkin(const std::string& _skinname);
 
 		/** Set widget style.
 			@param _layer Attach to specified layer (if any)

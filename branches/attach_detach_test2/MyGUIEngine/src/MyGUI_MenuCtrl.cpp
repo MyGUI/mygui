@@ -324,7 +324,8 @@ namespace MyGUI
 
 		// при смене скина дите отпишется
 		mChangeChildSkin = true;
-		info.item->changeWidgetSkin(getSkinByType(_type));
+		//FIXME
+		//info.item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
 		setButtonImageIndex(info.item, getIconIndexByType(_type ));

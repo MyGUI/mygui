@@ -147,7 +147,7 @@ namespace MyGUI
 		mVisualParent = nullptr;
 	}
 
-	void Widget::changeWidgetSkin(const std::string& _skinname)
+	/*void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
 		ResourceSkin* _info = SkinManager::getInstance().getByName(_skinname);
 
@@ -161,7 +161,7 @@ namespace MyGUI
 		restoreLayerItem();
 
 		initialiseWidgetSkin(_info);
-	}
+	}*/
 
 	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info)
 	{
