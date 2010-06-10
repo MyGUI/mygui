@@ -72,7 +72,6 @@ namespace MyGUI
 		MapWidgetStateInfo mStateInfo;
 
 		std::string mTextureName;
-		ITexture* mTexture;
 
 		bool mSubSkinsVisible;
 	};

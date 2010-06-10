@@ -122,7 +122,8 @@ namespace MyGUI
 		Widget* old_mouse_focus = mWidgetMouseFocus;
 
 		// ищем активное окно
-		Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+		ILayerItem* layerItem = LayerManager::getInstance().getItemFromPoint(_absx, _absy);
+		Widget* item = layerItem != nullptr ? layerItem->castType<Widget>(false) : nullptr;
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item)
@@ -314,8 +315,10 @@ namespace MyGUI
 					else
 					{
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
-						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-						if ( item == mWidgetMouseFocus)
+						ILayerItem* layerItem = LayerManager::getInstance().getItemFromPoint(_absx, _absy);
+						Widget* item = layerItem != nullptr ? layerItem->castType<Widget>(false) : nullptr;
+
+						if (item == mWidgetMouseFocus)
 						{
 							mWidgetMouseFocus->_riseMouseButtonClick();
 						}

@@ -37,7 +37,6 @@ namespace MyGUI
 	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
 
 	class MYGUI_EXPORT Widget :
-		public IObject,
 		public ICroppedRectangle,
 		public UserData,
 		public WidgetInput,
@@ -323,7 +322,7 @@ namespace MyGUI
 
 		// наследуемся он LayerInfo
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
-		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+		//virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 		virtual void _onChildAdded(Widget* _child) { }
 

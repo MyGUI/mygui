@@ -32,19 +32,21 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayerItem : public ILayerItem
+	class MYGUI_EXPORT LayerItem :
+		public ILayerItem
 	{
 	public:
 		LayerItem();
 		virtual ~LayerItem() { }
 
 	public:
-		ILayer* getLayer() { return mLayer; }
-
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
 		virtual void detachFromLayer();
 		virtual void upLayerItem();
 
+		ILayer* getLayer() { return mLayer; }
+
+	protected:
 		void setRenderItemTexture(ITexture* _texture);
 
 		void addChildItem(LayerItem* _item);
@@ -59,7 +61,6 @@ namespace MyGUI
 		void saveLayerItem();
 		void restoreLayerItem();
 
-	protected:
 		void attachToLayerItemNode(ILayerNode* _node, bool _deep);
 		void detachFromLayerItemNode(bool _deep);
 

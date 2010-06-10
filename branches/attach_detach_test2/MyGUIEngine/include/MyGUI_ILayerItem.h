@@ -30,18 +30,19 @@ namespace MyGUI
 	class ILayer;
 	class ILayerNode;
 
-	class MYGUI_EXPORT ILayerItem
+	class MYGUI_EXPORT ILayerItem :
+		public IObject
 	{
+		MYGUI_RTTI_DERIVED( ILayerItem )
+
 	public:
 		virtual ~ILayerItem() { }
 
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top) = 0;
-		virtual const IntCoord& getLayerItemCoord() = 0;
 
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node) = 0;
 		virtual void detachFromLayer() = 0;
 		virtual void upLayerItem() = 0;
-
 	};
 
 } // namespace MyGUI

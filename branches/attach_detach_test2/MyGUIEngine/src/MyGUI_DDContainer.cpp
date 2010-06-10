@@ -130,7 +130,8 @@ namespace MyGUI
 
 		// делаем запрос, над кем наша мыша
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
-		Widget* item = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
+		ILayerItem* layerItem = LayerManager::getInstance().getItemFromPoint(point.left, point.top);
+		Widget* item = layerItem != nullptr ? layerItem->castType<Widget>(false) : nullptr;
 
 		updateDropItems();
 

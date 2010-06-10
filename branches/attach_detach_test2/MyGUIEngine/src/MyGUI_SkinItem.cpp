@@ -29,7 +29,6 @@
 namespace MyGUI
 {
 	SkinItem::SkinItem() :
-		mTexture(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mSubSkinsVisible(true)
@@ -98,9 +97,9 @@ namespace MyGUI
 
 		// все что с текстурой можно тоже перенести в скин айтем и setRenderItemTexture
 		mTextureName = _info->getTextureName();
-		mTexture = RenderManager::getInstance().getTexture(mTextureName);
+		ITexture* texture = RenderManager::getInstance().getTexture(mTextureName);
 
-		setRenderItemTexture(mTexture);
+		setRenderItemTexture(texture);
 
 		// загружаем кирпичики виджета
 		FactoryManager& factory = FactoryManager::getInstance();
@@ -130,8 +129,6 @@ namespace MyGUI
 
 	void SkinItem::_deleteSkinItem()
 	{
-		mTexture = nullptr;
-
 		mStateInfo.clear();
 
 		removeAllRenderItems();
@@ -147,9 +144,9 @@ namespace MyGUI
 	void SkinItem::_setTextureName(const std::string& _texture)
 	{
 		mTextureName = _texture;
-		mTexture = RenderManager::getInstance().getTexture(mTextureName);
+		ITexture* texture = RenderManager::getInstance().getTexture(mTextureName);
 
-		setRenderItemTexture(mTexture);
+		setRenderItemTexture(texture);
 	}
 
 	const std::string& SkinItem::_getTextureName()

@@ -47,20 +47,20 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Attach widget to specific layer
+		/** Attach item to specific layer
 			@param _name Layer name
-			@param _item Widget pointer
+			@param _item ILayerItem pointer
 		*/
-		void attachToLayerNode(const std::string& _name, Widget* _item);
-		/** Detach widget from layer
-			@param _item Widget pointer
+		void attachToLayerNode(const std::string& _name, ILayerItem* _item);
+		/** Detach item from layer
+			@param _item ILayerItem pointer
 		*/
-		void detachFromLayer(Widget* _item);
+		void detachFromLayer(ILayerItem* _item);
 
-		/** Up widget to be on top of its layer
-			@param _item Widget pointer
+		/** Up item to be on top of its layer
+			@param _item ILayerItem pointer
 		*/
-		void upLayerItem(Widget* _item);
+		void upLayerItem(ILayerItem* _item);
 
 		/** Check is layer exist */
 		bool isExist(const std::string& _name) const;
@@ -70,8 +70,8 @@ namespace MyGUI
 		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
-		/** Get top visible and enabled widget at specified position */
-		Widget* getWidgetFromPoint(int _left, int _top);
+		/** Get top visible and enabled item at specified position */
+		ILayerItem* getItemFromPoint(int _left, int _top);
 
 		/** Render all layers to specified target */
 		void renderToTarget(IRenderTarget* _target, bool _update);
