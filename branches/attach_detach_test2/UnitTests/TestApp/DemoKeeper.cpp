@@ -2,6 +2,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "Widget.h"
+#include "Gui.h"
 
 namespace demo
 {
@@ -15,12 +16,17 @@ namespace demo
 	{
 		MyGUI::LayoutManager::getInstance().loadLayout("TestApp.layout");
 
-		Widget* widget = new Widget();
-		widget->changeSkin("1");
-		Widget* widget2 = widget->createWidget("1");
-		widget->destroyChild(widget2);
+		Gui* gui = new Gui();
+
+		Widget* widget = Gui::getInstance().createWidget("");
+
 		widget->changeSkin("");
-		delete widget;
+		Widget* widget2 = widget->createWidget("1");
+		widget->changeSkin("1");
+		widget->destroyChild(widget2);
+
+		Gui::getInstance().destroyChild(widget);
+		delete gui;
 	}
 
 	void DemoKeeper::destroyScene()
