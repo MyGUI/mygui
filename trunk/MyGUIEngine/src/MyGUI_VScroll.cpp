@@ -28,6 +28,7 @@
 namespace MyGUI
 {
 
+	// FIXME - move to widget property
 	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
 	VScroll::VScroll() :
