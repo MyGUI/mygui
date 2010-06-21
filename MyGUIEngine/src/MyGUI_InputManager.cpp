@@ -133,7 +133,7 @@ namespace MyGUI
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-					mWidgetMouseFocus->_riseMouseMove(_absx, _absy);
+					mWidgetMouseFocus->_riseMouseMove(point.left, point.top);
 				}
 			}
 			return isFocus;
