@@ -110,7 +110,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 			}
 		}
 
-		if (widget_type->base.empty()) widget_type->base = "Widget";
+		if (widget_type->base.empty() && widget_type->name != "Widget") widget_type->base = "Widget";
 
 	}
 }
