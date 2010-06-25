@@ -64,8 +64,8 @@ private:
 	std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> mPropertiesElement;
 
 	PanelMainProperties * mPanelMainProperties;
-	PanelProperties * mPanelTypeProperties;
-	PanelProperties * mPanelGeneralProperties;
+	static const int MaxBaseTypesCount = 5;
+	PanelProperties* mPanelsTypeProperties[MaxBaseTypesCount];
 	PanelItems * mPanelItems;
 	PanelUserData * mPanelUserData;
 	PanelControllers * mPanelControllers;

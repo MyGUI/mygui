@@ -22,8 +22,7 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	enum PropertiesGroup { TYPE_PROPERTIES, WIDGET_PROPERTIES };
-	void update(MyGUI::Widget* _current_widget, PropertiesGroup _group);
+	void update(MyGUI::Widget* _current_widget, WidgetStyle* _widgetType);
 
 	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 	EventHandle_EventCreatePair eventCreatePair;

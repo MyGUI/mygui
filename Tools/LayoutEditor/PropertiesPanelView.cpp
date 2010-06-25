@@ -41,13 +41,12 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 	mPanelMainProperties->eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
 
-	mPanelTypeProperties = new PanelProperties();
-	mPanelView->addItem(mPanelTypeProperties);
-	mPanelTypeProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-
-	mPanelGeneralProperties = new PanelProperties();
-	mPanelView->addItem(mPanelGeneralProperties);
-	mPanelGeneralProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+	for (int i = 0; i < MaxBaseTypesCount; ++i)
+	{
+		mPanelsTypeProperties[i] = new PanelProperties();
+		mPanelView->addItem(mPanelsTypeProperties[i]);
+		mPanelsTypeProperties[i]->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+	}
 
 	mPanelItems = new PanelItems();
 	mPanelView->addItem(mPanelItems);
@@ -61,8 +60,10 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
 
 	mPanels.push_back(mPanelMainProperties);
-	mPanels.push_back(mPanelTypeProperties);
-	mPanels.push_back(mPanelGeneralProperties);
+	for (int i = 0; i < MaxBaseTypesCount; ++i)
+	{
+		mPanels.push_back(mPanelsTypeProperties[i]);
+	}
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
 	mPanels.push_back(mPanelControllers);
@@ -82,8 +83,10 @@ PropertiesPanelView::~PropertiesPanelView()
 {
 	mPanelView->removeAllItems();
 	delete mPanelMainProperties;
-	delete mPanelTypeProperties;
-	delete mPanelGeneralProperties;
+	for (int i = 0; i < MaxBaseTypesCount; ++i)
+	{
+		delete mPanelsTypeProperties[i];
+	}
 	delete mPanelItems;
 	delete mPanelUserData;
 	delete mPanelControllers;
@@ -288,10 +291,21 @@ void PropertiesPanelView::update(MyGUI::Widget* _current_widget)
 
 		mPairsCounter = 0;
 		mPanelMainProperties->update(_current_widget);
-		mPairsCounter = 0;
-		mPanelTypeProperties->update(_current_widget, PanelProperties::TYPE_PROPERTIES);
-		mPairsCounter = 0;
-		mPanelGeneralProperties->update(_current_widget, PanelProperties::WIDGET_PROPERTIES);
+
+		WidgetStyle * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+		for (int i = 0; i < MaxBaseTypesCount; ++i)
+		{
+			mPairsCounter = 0;
+			mPanelsTypeProperties[i]->update(_current_widget, widgetType);
+			if (widgetType && !widgetType->base.empty())
+			{
+				widgetType = WidgetTypes::getInstance().find(widgetType->base);
+			}
+			else
+			{
+				widgetType = nullptr;
+			}
+		}
 		mPanelItems->update(_current_widget);
 		mPanelUserData->update(_current_widget);
 		mPairsCounter = 0;
