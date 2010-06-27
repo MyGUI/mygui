@@ -20,10 +20,6 @@ endif ()
 
 add_definitions(-DMYGUI_BUILD)
 
-if (WIN32)
-	add_definitions(-DNOMINMAX)
-endif ()
-
 # setup MyGUIEngine target
 add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
