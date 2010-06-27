@@ -17,6 +17,10 @@ namespace demo
 
 	namespace formates
 	{
+#ifdef max
+#	undef max
+#	undef min
+#endif
 		template<typename T> inline std::string format() { return MyGUI::utility::toString("[ ", std::numeric_limits<T>::min(), " | ", std::numeric_limits<T>::max(), " ]"); }
 		template<> inline std::string format<bool>() { return "[ true | false ]"; }
 		template<> inline std::string format<float>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<float>::max(), " | ", std::numeric_limits<float>::max(), " ]"); }

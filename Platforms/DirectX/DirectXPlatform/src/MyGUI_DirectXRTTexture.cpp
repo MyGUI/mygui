@@ -29,8 +29,8 @@ namespace MyGUI
 		mRenderTargetInfo.hOffset = -0.5f / float(width);
 		mRenderTargetInfo.vOffset = -0.5f / float(height);
 		mRenderTargetInfo.aspectCoef = float(height) / float(width);
-		mRenderTargetInfo.pixScaleX = 1.0 / float(width);
-		mRenderTargetInfo.pixScaleY = 1.0 / float(height);
+		mRenderTargetInfo.pixScaleX = 1.0f / float(width);
+		mRenderTargetInfo.pixScaleY = 1.0f / float(height);
 	}
 
 	DirectXRTTexture::~DirectXRTTexture()

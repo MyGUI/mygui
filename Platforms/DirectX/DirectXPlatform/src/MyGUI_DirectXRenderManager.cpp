@@ -190,13 +190,13 @@ namespace MyGUI
 		mInfo.hOffset = -0.5f / float(mViewSize.width);
 		mInfo.vOffset = -0.5f / float(mViewSize.height);
 		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-		mInfo.pixScaleX = 1.0 / float(mViewSize.width);
-		mInfo.pixScaleY = 1.0 / float(mViewSize.height);
+		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
+		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
 
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr)
 		{
-			gui->resizeWindow(mViewSize);
+			gui->_resizeWindow(mViewSize);
 			mUpdate = true;
 		}
 	}
