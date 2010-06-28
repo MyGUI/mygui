@@ -29,9 +29,9 @@
 namespace MyGUI
 {
 	SkinItem::SkinItem() :
-		mTexture(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
+		mTexture(nullptr),
 		mSubSkinsVisible(true)
 	{
 	}
