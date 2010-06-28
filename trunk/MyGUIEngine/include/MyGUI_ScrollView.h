@@ -129,8 +129,6 @@ namespace MyGUI
 		virtual Align getContentAlign() { return mContentAlign; }
 
 	protected:
-		bool mIsPressed;
-
 		Widget* mScrollClient;
 		Align mContentAlign;
 
