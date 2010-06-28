@@ -84,7 +84,7 @@ namespace MyGUI
 		/** Set mouse pointer for this widget */
 		void setPointer(const std::string& _value) { mPointer = _value; }
 		/** Get mouse pointer name for this widget */
-		const std::string& getPointer() { return mPointer; }
+		const std::string& getPointer() const { return mPointer; }
 
 		/** Set need key focus flag */
 		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
@@ -118,8 +118,8 @@ namespace MyGUI
 
 		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord);
 
-		bool getRootMouseFocus() { return mRootMouseFocus; }
-		bool getRootKeyFocus() { return mRootKeyFocus; }
+		bool getRootMouseFocus() const { return mRootMouseFocus; }
+		bool getRootKeyFocus() const { return mRootKeyFocus; }
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
