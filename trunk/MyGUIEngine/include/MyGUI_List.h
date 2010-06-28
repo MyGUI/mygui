@@ -312,7 +312,6 @@ namespace MyGUI
 		VectorItemInfo mItemsInfo;
 
 		// имеем ли мы фокус ввода
-		bool mIsFocus;
 		bool mNeedVisibleScroll;
 
 		IntSize mOldSize;

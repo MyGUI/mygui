@@ -101,7 +101,7 @@ namespace MyGUI
 				0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0
-				};
+			};
 
 			mViewSize.clear();
 
@@ -343,7 +343,7 @@ namespace MyGUI
 
 		const IntSize& getViewSize() const { return mViewSize; }
 		size_t getTextLength() const { return mLength; }
-		const VectorLineInfo& getData() { return mLineInfo; }
+		const VectorLineInfo& getData() const { return mLineInfo; }
 
 	private:
 		IntSize mViewSize;
