@@ -55,12 +55,12 @@ namespace MyGUI
 	protected:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)
 		{
-			mResourceName = _node->findAttribute("name");
+			_node->findAttribute("name", mResourceName);
 		}
 
 		virtual ~IResource() { }
 
-	private:
+	protected:
 		std::string mResourceName;
 	};
 
