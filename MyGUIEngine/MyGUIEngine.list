@@ -78,6 +78,7 @@ set (HEADER_FILES
   include/MyGUI_IVertexBuffer.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
+  include/MyGUI_Singleton.h
   include/MyGUI_BiIndexBase.h
   include/MyGUI_ScrollViewBase.h
   include/MyGUI_WidgetInput.h
@@ -99,6 +100,7 @@ set (HEADER_FILES
   include/MyGUI_RenderItem.h
   include/MyGUI_SharedLayer.h
   include/MyGUI_SharedLayerNode.h
+  include/MyGUI_SkinItem.h
   include/MyGUI_ILayer.h
   include/MyGUI_ILayerItem.h
   include/MyGUI_ILayerNode.h
@@ -110,6 +112,7 @@ set (HEADER_FILES
   include/MyGUI_ControllerPosition.h
   include/MyGUI_ResourceImageSet.h
   include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceLayout.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
   include/MyGUI_ResourceSkin.h
@@ -126,9 +129,10 @@ set (HEADER_FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_FlowDirection.h
   include/MyGUI_ImageInfo.h
-  include/MyGUI_MouseButton.h
   include/MyGUI_KeyCode.h
+  include/MyGUI_MouseButton.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
@@ -155,11 +159,8 @@ set (HEADER_FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_WidgetManager.h
   include/MyGUI_ToolTipManager.h
-  include/MyGUI_Singleton.h
-  include/MyGUI_FlowDirection.h
-  include/MyGUI_SkinItem.h
+  include/MyGUI_WidgetManager.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -200,6 +201,7 @@ set (SOURCE_FILES
   src/MyGUI_RenderItem.cpp
   src/MyGUI_SharedLayer.cpp
   src/MyGUI_SharedLayerNode.cpp
+  src/MyGUI_SkinItem.cpp
   src/MyGUI_ActionController.cpp
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
@@ -207,8 +209,10 @@ set (SOURCE_FILES
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
   src/MyGUI_ScrollViewBase.cpp
+  src/MyGUI_WidgetInput.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceLayout.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
   src/MyGUI_ResourceSkin.cpp
@@ -233,8 +237,8 @@ set (SOURCE_FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_WidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
+  src/MyGUI_WidgetManager.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
@@ -248,8 +252,6 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
-  src/MyGUI_WidgetInput.cpp
-  src/MyGUI_SkinItem.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -318,6 +320,7 @@ SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceLayout.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
   src/MyGUI_ResourceSkin.cpp
@@ -345,8 +348,8 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_WidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
+  src/MyGUI_WidgetManager.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
 )
@@ -519,6 +522,7 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
 SOURCE_GROUP("Header Files\\Core\\Resource" FILES
   include/MyGUI_ResourceImageSet.h
   include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceLayout.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
   include/MyGUI_ResourceSkin.h
@@ -529,9 +533,10 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_FlowDirection.h
   include/MyGUI_ImageInfo.h
-  include/MyGUI_MouseButton.h
   include/MyGUI_KeyCode.h
+  include/MyGUI_MouseButton.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
@@ -541,7 +546,6 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
-  include/MyGUI_FlowDirection.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
@@ -561,8 +565,8 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_WidgetManager.h
   include/MyGUI_ToolTipManager.h
+  include/MyGUI_WidgetManager.h
 )
 SOURCE_GROUP("Header Files\\Core" FILES
 )
