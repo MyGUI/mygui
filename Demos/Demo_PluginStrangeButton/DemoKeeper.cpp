@@ -19,7 +19,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();

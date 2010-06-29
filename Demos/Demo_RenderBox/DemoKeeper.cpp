@@ -34,7 +34,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		createDefaultScene();
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
 
 		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
