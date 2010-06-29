@@ -26,7 +26,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Sample colour picker implementation. Select text in Edit and then select colour to colour selected part of text.");
 
 		MyGUI::ResourceManager::getInstance().load("colour_slider_skin.xml");
