@@ -26,7 +26,7 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_Gui.h"
+#include "MyGUI_ResourceLayout.h"
 
 namespace MyGUI
 {
@@ -46,34 +46,25 @@ namespace MyGUI
 			@param _parent widget to load on
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
+		VectorWidgetPtr loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
 
 		/** Unload layout (actually deletes vector of widgets returned by loadLayout) */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
+		/** Get ResourceLayout by name */
+		ResourceLayout* getByName(const std::string& _name, bool _throw = true) const;
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
-		VectorWidgetPtr& load(const std::string& _file) { return loadLayout(_file); }
+		VectorWidgetPtr load(const std::string& _file) { return loadLayout(_file); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		void parseLayout(VectorWidgetPtr& _widgets, xml::ElementPtr _root);
-		void parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, Widget* _parent);
-
 	private:
-		// для возврата последней загрузки
-		VectorWidgetPtr mVectorWidgetPtr;
-
-		// префикс при загрузке лейаута
-		std::string layoutPrefix;
-		// префикс при загрузке лейаута
-		Widget* layoutParent;
-
 		bool mIsInitialise;
 	};
 
