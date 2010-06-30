@@ -25,7 +25,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
-		MyGUI::ResourceManager::getInstance().load("Layers.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Layers.layout");
 	}
 
 	void DemoKeeper::destroyScene()

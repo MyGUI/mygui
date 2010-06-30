@@ -24,7 +24,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
 
