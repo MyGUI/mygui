@@ -215,7 +215,7 @@ namespace demo
 
 		gRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 #else
-		MyGUI::ResourceManager::getInstance().load("Wallpaper0.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
 #endif
 	}
 
