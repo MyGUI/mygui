@@ -62,7 +62,7 @@ void CodeGenerator::printWidgetDeclaration(WidgetContainer* _container, std::ofs
 		MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
 		lm.addUserTag("Widget_Name", _container->name);
 		lm.addUserTag("Widget_Type", _container->type);
-		for (StringPairs::iterator iterS = mTemplateStrings.begin(); iterS != mTemplateStrings.end(); ++iterS)
+		for (MyGUI::MapString::iterator iterS = mTemplateStrings.begin(); iterS != mTemplateStrings.end(); ++iterS)
 		{
 			lm.addUserTag(iterS->first, lm.replaceTags(iterS->second));
 		}
@@ -90,7 +90,7 @@ void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 	lm.addUserTag("Source_Directory", sourceDirectory);
 	lm.addUserTag("Uppercase_Panel_Name", stringToUpperCase(panelName));
 
-	for (StringPairs::iterator iter = mTemplateFiles.begin(); iter != mTemplateFiles.end(); ++iter)
+	for (MyGUI::MapString::iterator iter = mTemplateFiles.begin(); iter != mTemplateFiles.end(); ++iter)
 	{
 		std::ifstream input_file(MyGUI::DataManager::getInstance().getDataPath(iter->first).c_str());
 		std::ofstream output_file(lm.replaceTags(iter->second).asUTF8_c_str());

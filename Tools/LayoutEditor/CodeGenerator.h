@@ -28,8 +28,6 @@ private:
 	void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 	void notifyGeneratePressed(MyGUI::Widget* _sender);
 private:
-	typedef std::map<std::string, std::string> StringPairs;
-
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
 	MyGUI::Edit* mPanelNameEdit;
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mSourceDirectoryEdit, "SourceDirectory");
@@ -39,8 +37,8 @@ private:
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mGenerateButton, "Generate");
 	MyGUI::Button* mGenerateButton;
 
-	StringPairs mTemplateFiles;
-	StringPairs mTemplateStrings;
+	MyGUI::MapString mTemplateFiles;
+	MyGUI::MapString mTemplateStrings;
 
 	std::string mPanelName;
 	std::string mIncludeDirectory;
