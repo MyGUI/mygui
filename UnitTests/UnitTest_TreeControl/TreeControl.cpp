@@ -94,6 +94,7 @@ namespace MyGUI
         mnTopOffset(0),
         mnFocusIndex(ITEM_NONE),
         mpSelection(nullptr),
+		mpRoot(nullptr),
         mnExpandedNodes(0)
     {
     }
