@@ -73,7 +73,7 @@ namespace base
 
 		void addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive);
 
-	private:
+	protected:
 		MyGUI::Gui* mGUI;
 		MyGUI::OgrePlatform* mPlatform;
 		diagnostic::StatisticInfo* mInfo;

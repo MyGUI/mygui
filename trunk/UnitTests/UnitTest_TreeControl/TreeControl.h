@@ -108,7 +108,6 @@ namespace MyGUI
         VectorTreeItemPtr mItemWidgets;
         UString mstrSkinLine;
         bool mbScrollAlwaysVisible;
-        bool mbHasFocus;
         bool mbInvalidated;
         bool mbRootVisible;
         int mnItemHeight;
