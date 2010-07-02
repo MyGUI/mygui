@@ -154,10 +154,24 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_sample(${PROJECTNAME})
 	
+	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
 		Common
 	)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+	endif()
+	target_link_libraries(${PROJECTNAME}
+		MyGUIEngine
+	)
+
 	if (APPLE)
 		find_library(CF_LIBRARY CoreFoundation)
 		find_library(IOKIT_LIBRARY IOKit)

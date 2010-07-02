@@ -12,7 +12,9 @@
 
 extern const int PropertyItemHeight = 22;
 
-PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
+PanelMainProperties::PanelMainProperties() :
+	BasePanelViewItem("PanelMainProperties.layout"),
+	mButtonRelativePosition(nullptr),
 	current_widget(nullptr)
 {
 }
