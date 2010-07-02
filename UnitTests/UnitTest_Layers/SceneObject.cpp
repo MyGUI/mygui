@@ -49,7 +49,7 @@ namespace demo
 	{
 		bool added_shared = false;
 		size_t current_offset = 0;
-		size_t shared_offset = 0;
+		//size_t shared_offset = 0;
 		size_t next_offset = 0;
 		size_t index_offset = 0;
 
@@ -102,7 +102,7 @@ namespace demo
 				if(submesh->useSharedVertices)
 				{
 					added_shared = true;
-					shared_offset = current_offset;
+					//shared_offset = current_offset;
 				}
 
 				const Ogre::VertexElement* coordElem =
