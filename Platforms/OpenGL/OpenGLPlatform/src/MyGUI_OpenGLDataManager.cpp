@@ -12,6 +12,8 @@
 namespace MyGUI
 {
 
+	template <> const char* Singleton<OpenGLDataManager>::mClassTypeName("OpenGLDataManager");
+
 	OpenGLDataManager::OpenGLDataManager() :
 		mIsInitialise(false)
 	{

@@ -24,15 +24,19 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IDataStream.h"
-#include "MyGUI_Singleton.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT DataManager :
-		public Singleton<DataManager>
+	class MYGUI_EXPORT DataManager
 	{
 	public:
+		DataManager();
+		virtual ~DataManager() = 0;
+
+		static DataManager& getInstance();
+		static DataManager* getInstancePtr();
+
 		/** Get data stream from specified resource name.
 			@param _name Resource name (usually file name).
 		*/
@@ -54,6 +58,9 @@ namespace MyGUI
 			For example getDataPath("My.layout") might return "C:\path\to\project\data\My.layout"
 		*/
 		virtual const std::string& getDataPath(const std::string& _name) = 0;
+
+	private:
+		static DataManager* msInstance;
 	};
 
 } // namespace MyGUI

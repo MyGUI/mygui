@@ -17,6 +17,8 @@
 namespace MyGUI
 {
 
+	template <> const char* Singleton<OgreRenderManager>::mClassTypeName("OgreRenderManager");
+
 	OgreRenderManager::OgreRenderManager() :
 		mUpdate(false),
 		mSceneManager(nullptr),
