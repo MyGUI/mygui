@@ -60,6 +60,8 @@ namespace MyGUI
 		}
 	}
 
+	template <> const char* Singleton<DirectXDataManager>::mClassTypeName("DirectXDataManager");
+
 	DirectXDataManager::DirectXDataManager() :
 		mIsInitialise(false)
 	{
