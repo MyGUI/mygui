@@ -56,6 +56,7 @@ namespace MyGUI
 
 	private:
 		static T* msInstance;
+	protected:
 		static const char* mClassTypeName;
 	};
 
