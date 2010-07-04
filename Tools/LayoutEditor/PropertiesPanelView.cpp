@@ -625,7 +625,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 	}
 
 	// если такое св-во было, то заменим (или удалим если стерли) значение
-	for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action)
 		{
@@ -636,7 +636,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 	}
 
 	// если такого свойства не было раньше, то сохраняем
-	if (!value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	if (!value.empty()) widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
 }
 
 std::string PropertiesPanelView::splitString(std::string& str, char separator)

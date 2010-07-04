@@ -20,10 +20,10 @@ EditorWidgets::~EditorWidgets()
 {
 }
 
-void MapSet(VectorStringPairs & _map, const std::string &_key, const std::string &_value)
+void MapSet(MyGUI::VectorStringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = false;
-	for (VectorStringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
+	for (MyGUI::VectorStringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -33,13 +33,13 @@ void MapSet(VectorStringPairs & _map, const std::string &_key, const std::string
 	}
 	if (!find)
 	{
-		_map.push_back(std::make_pair(_key, _value));
+		_map.push_back(MyGUI::PairString(_key, _value));
 	}
 }
 
-VectorStringPairs::iterator MapFind(VectorStringPairs & _map, const std::string &_key)
+MyGUI::VectorStringPairs::iterator MapFind(MyGUI::VectorStringPairs & _map, const std::string &_key)
 {
-	VectorStringPairs::iterator iter = _map.begin();
+	MyGUI::VectorStringPairs::iterator iter = _map.begin();
 	for (; iter!=_map.end(); ++iter)
 	{
 		if (iter->first == _key) break;
@@ -47,9 +47,9 @@ VectorStringPairs::iterator MapFind(VectorStringPairs & _map, const std::string 
 	return iter;
 }
 
-void MapErase(VectorStringPairs & _map, const std::string &_key)
+void MapErase(MyGUI::VectorStringPairs & _map, const std::string &_key)
 {
-	for (VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
+	for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
@@ -373,15 +373,15 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 			// и пытаемся парсить свойство
 			if ( tryToApplyProperty(container->widget, key, value, _test) == false ) continue;
 
-			container->mProperty.push_back(std::make_pair(key, value));
+			container->mProperty.push_back(MyGUI::PairString(key, value));
 		}
 		else if (widget->getName() == "UserString")
 		{
 			// парсим атрибуты
 			if (!widget->findAttribute("key", key)) continue;
 			if (!widget->findAttribute("value", value)) continue;
-			//container->mUserString.insert(std::make_pair(key, value));
-			container->mUserString.push_back(std::make_pair(key, value));
+			//container->mUserString.insert(MyGUI::PairString(key, value));
+			container->mUserString.push_back(MyGUI::PairString(key, value));
 		}
 		else if (widget->getName() == "Controller")
 		{
@@ -463,14 +463,14 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 	if ("" != _container->layer) node->addAttribute("layer", _container->layer);
 	if ("" != _container->name) node->addAttribute("name", _container->name);
 
-	for (VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
+	for (MyGUI::VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
 	}
 
-	for (VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+	for (MyGUI::VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttribute("key", iter->first);

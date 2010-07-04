@@ -34,7 +34,7 @@ void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, const std::strin
 	{
 		std::string templateFile = file->findAttribute("template");
 		std::string outputFile = file->findAttribute("out_file");
-		mTemplateFiles.insert(PairString(templateFile, outputFile));
+		mTemplateFiles.insert(MyGUI::PairString(templateFile, outputFile));
 	}
 
 	MyGUI::xml::ElementEnumerator string = _node->getElementEnumerator();
@@ -42,7 +42,7 @@ void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, const std::strin
 	{
 		std::string key = string->findAttribute("key");
 		std::string value = string->findAttribute("value");
-		mTemplateStrings.insert(PairString(key, value));
+		mTemplateStrings.insert(MyGUI::PairString(key, value));
 	}
 }
 
