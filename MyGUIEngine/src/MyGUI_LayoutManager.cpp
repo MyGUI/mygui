@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_FactoryManager.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_WidgetManager.h"
 
@@ -28,6 +29,7 @@ namespace MyGUI
 {
 
 	const std::string XML_TYPE("Layout");
+	const std::string XML_TYPE_RESOURCE("Resource");
 
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
@@ -42,6 +44,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
+		FactoryManager::getInstance().registerFactory<ResourceLayout>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -53,6 +56,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		FactoryManager::getInstance().unregisterFactory<ResourceLayout>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -75,7 +79,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT(resource != nullptr, "Layout '" << _file << "' couldn't be loaded");
 
-		return resource->create(_prefix, _parent);
+		return resource->createLayout(_prefix, _parent);
 	}
 
 	void LayoutManager::unloadLayout(VectorWidgetPtr& _widgets)
