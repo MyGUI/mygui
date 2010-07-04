@@ -14,7 +14,8 @@ struct ControllerInfo
 
 struct WidgetContainer
 {
-	WidgetContainer():
+	WidgetContainer() :
+		widget(nullptr),
 		relative_mode(false)
 	{ }
 	WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = ""):

@@ -24,6 +24,7 @@ public:
 		x(0),
 		y(0),
 		selectDepth(0),
+		current_widget(false),
 		recreate(false),
 		mModeSaveDialog(false),
 		testMode(false),
@@ -33,10 +34,14 @@ public:
 		mWidgetsWindow(nullptr),
 		mMetaSolutionWindow(nullptr),
 		mCodeGenerator(nullptr),
+		mOpenSaveFileDialog(nullptr),
 		ew(nullptr),
 		wt(nullptr),
 		um(nullptr),
-		mGroupMessage(nullptr)
+		mGroupMessage(nullptr),
+		bar(nullptr),
+		mPopupMenuFile(nullptr),
+		mPopupMenuWidgets(nullptr)
 	{ }
 	virtual ~EditorState() { }
 

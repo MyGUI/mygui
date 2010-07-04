@@ -12,12 +12,18 @@
 
 PanelUserData::PanelUserData() :
 	BasePanelViewItem("PanelUserData.layout"),
-	mEditLeft(nullptr),
-	mEditRight(nullptr),
-	mEditSpace(nullptr),
-	mButtonLeft(nullptr),
-	mButtonRight(nullptr),
-	mButtonSpace(nullptr)
+	mEditKey(nullptr),
+	mEditValue(nullptr),
+	mButtonAdd(nullptr),
+	mButtonDelete(nullptr),
+	mMultilist(nullptr),
+	current_widget(nullptr),
+	mEditLeft(0),
+	mEditRight(0),
+	mEditSpace(0),
+	mButtonLeft(0),
+	mButtonRight(0),
+	mButtonSpace(0)
 {
 }
 

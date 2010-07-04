@@ -10,6 +10,11 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		m_button(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
