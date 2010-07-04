@@ -53,6 +53,8 @@ namespace MyGUI
 
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::vector<std::string> VectorString;
+	typedef std::pair<std::string, std::string> PairString;
+	typedef std::vector<PairString> VectorStringPairs;
 
 	typedef char int8;
 	typedef short int16;
