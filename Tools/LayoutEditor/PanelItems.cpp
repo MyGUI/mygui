@@ -15,9 +15,15 @@
 
 PanelItems::PanelItems() :
 	BasePanelViewItem("PanelItems.layout"),
-	mButtonLeft(nullptr),
-	mButtonRight(nullptr),
-	mButtonSpace(nullptr)
+	mEdit(nullptr),
+	mList(nullptr),
+	mButtonAdd(nullptr),
+	mButtonDelete(nullptr),
+	mButtonSelect(nullptr),
+	current_widget(nullptr),
+	mButtonLeft(0),
+	mButtonRight(0),
+	mButtonSpace(0)
 {
 }
 
