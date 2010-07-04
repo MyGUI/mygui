@@ -105,7 +105,7 @@ void PanelItems::addSheetToTab(MyGUI::Widget* _tab, std::string _caption)
 	MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
 	MyGUI::TabItem* sheet = tab->addItem(_caption);
 	WidgetContainer * wc = new WidgetContainer("TabItem", "", sheet, "");
-	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
+	if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Widget_Caption", _caption));
 	EditorWidgets::getInstance().add(wc);
 }
 
@@ -138,7 +138,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 			else
 			{
 				widgetContainer->widget->setProperty(action, _value);
-				widgetContainer->mProperty.push_back(std::make_pair(action, _value));
+				widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
 			}
 		}
 		else
@@ -156,7 +156,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 			else
 			{
 				int index = 0;
-				for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 				{
 					if (iterProperty->first == action)
 					{
@@ -196,7 +196,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 		}
 		else
 		{
-			for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
 				if (iterProperty->first == action)
 				{
@@ -280,7 +280,7 @@ void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	int index = 0;
-	for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+	for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
 		if (iterProperty->first == action)
 		{

@@ -89,8 +89,7 @@ private:
 
 	std::vector<MetaForm*> mMetaForms;
 
-	typedef std::pair<std::string, std::string> PairString;
-	typedef std::map<std::string, PairString> MapPairString;
+	typedef std::map<std::string, MyGUI::PairString> MapPairString;
 	MapPairString mWidgetType;
 	MyGUI::Window* mWindow;
 };

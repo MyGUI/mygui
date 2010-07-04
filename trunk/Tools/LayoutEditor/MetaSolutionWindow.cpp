@@ -165,7 +165,7 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 			while (meta_widget.next("Widget"))
 			{
 				mWidgetType[meta_widget->findAttribute("name")] =
-					PairString(meta_widget->findAttribute("type"), meta_widget->findAttribute("skin"));
+					MyGUI::PairString(meta_widget->findAttribute("type"), meta_widget->findAttribute("skin"));
 			}
 		}
 		else if (meta_node->getName() == "Widget")

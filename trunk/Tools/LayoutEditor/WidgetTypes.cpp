@@ -105,8 +105,8 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 			{
 				if (!field->findAttribute("key", key)) continue;
 				if (!field->findAttribute("value", value)) continue;
-				//widget_type->parameter.insert(std::make_pair(key, value));
-				widget_type->parameter.push_back(std::make_pair(key, value));
+				//widget_type->parameter.insert(MyGUI::PairString(key, value));
+				widget_type->parameter.push_back(MyGUI::PairString(key, value));
 			}
 		}
 

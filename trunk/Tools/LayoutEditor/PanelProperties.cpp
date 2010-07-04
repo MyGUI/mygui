@@ -26,10 +26,10 @@ size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer *
 {
 	size_t count = widgetType->parameter.size();
 
-	for (VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+	for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 	{
 		std::string value = "";
-		for (VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
 			if (iterProperty->first == iter->first)
 			{
