@@ -122,6 +122,7 @@ set (HEADER_FILES
   include/MyGUI_IResource.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_FontData.h
+  include/MyGUI_LayoutData.h
   include/MyGUI_MaskPickInfo.h
   include/MyGUI_SubWidgetBinding.h
   include/MyGUI_SubWidgetInfo.h
@@ -515,6 +516,7 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Interface" FILES
 SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_FontData.h
+  include/MyGUI_LayoutData.h
   include/MyGUI_MaskPickInfo.h
   include/MyGUI_SubWidgetBinding.h
   include/MyGUI_SubWidgetInfo.h
