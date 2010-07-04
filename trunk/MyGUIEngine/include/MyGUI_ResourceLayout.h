@@ -24,29 +24,35 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
+#include "MyGUI_LayoutData.h"
 
 namespace MyGUI
 {
 
-	// вспомогательный класс для инициализации одного скина
+	/** ResourceLayout is resource that contain full layout info, used for creating widgets. */
 	class MYGUI_EXPORT ResourceLayout :
 		public IResource
 	{
 		MYGUI_RTTI_DERIVED( ResourceLayout )
 
 	public:
+		ResourceLayout();
+
 		ResourceLayout(xml::ElementPtr _node, const std::string& _file);
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
 		/** Create widgets described in layout */
-		VectorWidgetPtr& create(const std::string& _prefix = "", Widget* _parent = nullptr);
+		VectorWidgetPtr& createLayout(const std::string& _prefix = "", Widget* _parent = nullptr);
 
 	private:
-		void parseLayout(VectorWidgetPtr* _widgets, xml::ElementPtr _root, const std::string& _prefix, Widget* _parent);
-		void parseWidget(VectorWidgetPtr* _widgets, xml::ElementEnumerator& _widget, Widget* _parent, const std::string& _prefix);
+		// xml -> widget info
+		WidgetInfo parseWidget(xml::ElementEnumerator& _widget);
+		// widget info -> Widget
+		Widget* createWidget(const WidgetInfo& _widgetInfo, Widget* _parent, const std::string& _prefix);
 
-		xml::ElementPtr mXmlNode;
+	private:
+		LayoutData mLayoutData;
 	};
 
 } // namespace MyGUI

@@ -50,6 +50,7 @@ namespace MyGUI
 			params[_key] = _value;
 		}
 
+		// FIXME remove this? never used
 		std::string findValue(const std::string& _key) const
 		{
 			MapString::const_iterator iter = params.find(_key);

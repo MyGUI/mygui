@@ -30,71 +30,54 @@
 namespace MyGUI
 {
 
-	ResourceLayout::ResourceLayout(xml::ElementPtr _node, const std::string& _fileName) :
-		mXmlNode(_node->createCopy())
+	ResourceLayout::ResourceLayout()
 	{
+	}
+
+	ResourceLayout::ResourceLayout(xml::ElementPtr _node, const std::string& _fileName)
+	{
+		// FIXME hardcoded version
+		deserialization(_node, Version(1, 0, 0));
 		mResourceName = _fileName;
 	}
 
 	void ResourceLayout::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
-	}
 
-	VectorWidgetPtr& ResourceLayout::create(const std::string& _prefix, Widget* _parent)
-	{
-		static VectorWidgetPtr widgets;
-		widgets.clear();
-		parseLayout(&widgets, mXmlNode, _prefix, _parent);
-		return widgets;
-	}
-
-	void ResourceLayout::parseLayout(VectorWidgetPtr* _widgets, xml::ElementPtr _root, const std::string& _prefix, Widget* _parent)
-	{
-#if MYGUI_DEBUG_MODE == 1
-		MYGUI_LOG(Info, "Create layout '" << mResourceName << "'");
-#endif
+		mLayoutData.rootWidgets.clear();
 		// берем детей и крутимся
-		xml::ElementEnumerator widget = _root->getElementEnumerator();
-		while (widget.next("Widget")) parseWidget(_widgets, widget, _parent, _prefix);
+		xml::ElementEnumerator widget = _node->getElementEnumerator();
+		while (widget.next("Widget")) mLayoutData.rootWidgets.push_back(parseWidget(widget));
 	}
 
-	void ResourceLayout::parseWidget(VectorWidgetPtr* _widgets, xml::ElementEnumerator& _widget, Widget* _parent, const std::string& _prefix)
+	WidgetInfo ResourceLayout::parseWidget(xml::ElementEnumerator& _widget)
 	{
-		// парсим атрибуты виджета
-		std::string widgetType, widgetSkin, widgetName, widgetLayer, tmp;
+		WidgetInfo widgetInfo;
 
-		_widget->findAttribute("type", widgetType);
-		_widget->findAttribute("skin", widgetSkin);
-		_widget->findAttribute("layer", widgetLayer);
+		std::string tmp;
 
-		Align align = Align::Default;
-		if (_widget->findAttribute("align", tmp)) align = Align::parse(tmp);
+		_widget->findAttribute("type", widgetInfo.type);
+		_widget->findAttribute("skin", widgetInfo.skin);
+		_widget->findAttribute("layer", widgetInfo.layer);
 
-		_widget->findAttribute("name", widgetName);
-		if (!widgetName.empty()) widgetName = _prefix + widgetName;
+		if (_widget->findAttribute("align", tmp)) widgetInfo.align = Align::parse(tmp);
 
-		WidgetStyle style = WidgetStyle::Child;
-		if (_widget->findAttribute("style", tmp)) style = WidgetStyle::parse(tmp);
-		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+		_widget->findAttribute("name", widgetInfo.name);
+
+		if (_widget->findAttribute("style", tmp)) widgetInfo.style = WidgetStyle::parse(tmp);
 
 		IntCoord coord;
-		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
+		if (_widget->findAttribute("position", tmp))
+		{
+			widgetInfo.intCoord = IntCoord::parse(tmp);
+			widgetInfo.positionType = WidgetInfo::Pixels;
+		}
 		else if (_widget->findAttribute("position_real", tmp))
 		{
-			if (_parent == nullptr || style == WidgetStyle::Popup)
-				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), RenderManager::getInstance().getViewSize());
-			else
-				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), _parent->getClientCoord().size());
+			widgetInfo.floatCoord = FloatCoord::parse(tmp);
+			widgetInfo.positionType = WidgetInfo::Relative;
 		}
-
-		Widget* wid;
-		if (nullptr == _parent)
-			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
-		else
-			wid = _parent->createWidgetT(style, widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
-
-		if (_widgets != nullptr) _widgets->push_back(wid);
 
 		// берем детей и крутимся
 		xml::ElementEnumerator node = _widget->getElementEnumerator();
@@ -102,36 +85,103 @@ namespace MyGUI
 		{
 			if (node->getName() == "Widget")
 			{
-				parseWidget(nullptr, node, wid, _prefix);
+				widgetInfo.childWidgetsInfo.push_back(parseWidget(node));
 			}
 			else if (node->getName() == "Property")
 			{
-				wid->setProperty(node->findAttribute("key"), node->findAttribute("value"));
+				widgetInfo.properties[node->findAttribute("key")] = node->findAttribute("value");
 			}
 			else if (node->getName() == "UserString")
 			{
-				wid->setUserString(node->findAttribute("key"), node->findAttribute("value"));
+				widgetInfo.userStrings[node->findAttribute("key")] = node->findAttribute("value");
 			}
 			else if (node->getName() == "Controller")
 			{
-				const std::string& type = node->findAttribute("type");
-				MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(type);
-				if (item)
+				ControllerInfo controllerInfo;
+				controllerInfo.type = node->findAttribute("type");
+
+				xml::ElementEnumerator prop = node->getElementEnumerator();
+				while (prop.next("Property"))
 				{
-					xml::ElementEnumerator prop = node->getElementEnumerator();
-					while (prop.next("Property"))
-					{
-						item->setProperty(prop->findAttribute("key"), prop->findAttribute("value"));
-					}
-					MyGUI::ControllerManager::getInstance().addItem(wid, item);
-				}
-				else
-				{
-					MYGUI_LOG(Warning, "Controller '" << type << "' not found");
+					controllerInfo.properties[prop->findAttribute("key")] = prop->findAttribute("value");
 				}
 			}
-
 		}
+
+		return widgetInfo;
+	}
+
+	VectorWidgetPtr& ResourceLayout::createLayout(const std::string& _prefix, Widget* _parent)
+	{
+		static VectorWidgetPtr widgets;
+		widgets.clear();
+		for (std::vector<WidgetInfo>::iterator iter = mLayoutData.rootWidgets.begin(); iter != mLayoutData.rootWidgets.end(); ++iter)
+		{
+			widgets.push_back(createWidget(*iter, _parent, _prefix));
+		}
+		
+		return widgets;
+	}
+
+	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, Widget* _parent, const std::string& _prefix)
+	{
+		std::string widgetName = _widgetInfo.name;
+		WidgetStyle style = _widgetInfo.style;
+		std::string widgetLayer = _widgetInfo.layer;
+
+		if (!widgetName.empty()) widgetName = _prefix + widgetName;
+
+		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+
+		IntCoord coord;
+		if (_widgetInfo.positionType == WidgetInfo::Pixels) coord = _widgetInfo.intCoord;
+		else if (_widgetInfo.positionType == WidgetInfo::Relative)
+		{
+			if (_parent == nullptr || style == WidgetStyle::Popup)
+				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, RenderManager::getInstance().getViewSize());
+			else
+				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, _parent->getClientCoord().size());
+		}
+
+		Widget* wid;
+		if (nullptr == _parent)
+			wid = Gui::getInstance().createWidgetT(_widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+		else
+			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+
+		for (MapString::const_iterator iter = _widgetInfo.properties.begin(); iter != _widgetInfo.properties.end(); ++iter)
+		{
+			wid->setProperty(iter->first, iter->second);
+		}
+
+		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
+		{
+			wid->setProperty(iter->first, iter->second);
+		}
+
+		for (std::vector<WidgetInfo>::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
+		{
+			createWidget(*iter, wid, _prefix);
+		}
+
+		for (std::vector<ControllerInfo>::const_iterator iter = _widgetInfo.controllers.begin(); iter != _widgetInfo.controllers.end(); ++iter)
+		{
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(iter->type);
+			if (item)
+			{
+				for (MapString::const_iterator iterProp = iter->properties.begin(); iterProp != iter->properties.end(); ++iterProp)
+				{
+					item->setProperty(iterProp->first, iterProp->second);
+				}
+				MyGUI::ControllerManager::getInstance().addItem(wid, item);
+			}
+			else
+			{
+					MYGUI_LOG(Warning, "Controller '" << iter->type << "' not found");
+			}
+		}
+
+		return wid;
 	}
 
 } // namespace MyGUI
