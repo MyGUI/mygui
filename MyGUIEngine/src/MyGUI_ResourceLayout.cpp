@@ -89,7 +89,7 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Property")
 			{
-				widgetInfo.properties[node->findAttribute("key")] = node->findAttribute("value");
+				widgetInfo.properties.push_back(PairString(node->findAttribute("key"), node->findAttribute("value")));
 			}
 			else if (node->getName() == "UserString")
 			{
@@ -149,14 +149,14 @@ namespace MyGUI
 		else
 			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
 
-		for (MapString::const_iterator iter = _widgetInfo.properties.begin(); iter != _widgetInfo.properties.end(); ++iter)
+		for (VectorStringPairs::const_iterator iter = _widgetInfo.properties.begin(); iter != _widgetInfo.properties.end(); ++iter)
 		{
 			wid->setProperty(iter->first, iter->second);
 		}
 
 		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
 		{
-			wid->setProperty(iter->first, iter->second);
+			wid->setUserString(iter->first, iter->second);
 		}
 
 		for (std::vector<WidgetInfo>::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
