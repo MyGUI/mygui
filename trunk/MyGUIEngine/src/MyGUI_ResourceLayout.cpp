@@ -127,7 +127,7 @@ namespace MyGUI
 				}
 				else
 				{
-					//LOG
+					MYGUI_LOG(Warning, "Controller '" << type << "' not found");
 				}
 			}
 

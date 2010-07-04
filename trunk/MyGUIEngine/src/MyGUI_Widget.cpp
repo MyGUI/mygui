@@ -899,7 +899,7 @@ namespace MyGUI
 		else if (_key == "Widget_Pointer") setPointer(_value);
 		else
 		{
-			MYGUI_LOG(Warning, "Property " << _key << " not found");
+			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found");
 			return;
 		}
 
