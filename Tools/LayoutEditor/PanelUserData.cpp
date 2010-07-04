@@ -60,7 +60,7 @@ void PanelUserData::update(MyGUI::Widget* _current_widget)
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 	mMultilist->removeAllItems();
-	for (VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
+	for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
 	{
 		mMultilist->addItem(iterProperty->first);
 		mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, iterProperty->second);

@@ -4,9 +4,9 @@
 #include <sstream>
 #include "WidgetContainer.h"
 
-void MapSet(VectorStringPairs & _map, const std::string &_key, const std::string &_value);
-VectorStringPairs::iterator MapFind(VectorStringPairs & _map, const std::string &_key);
-void MapErase(VectorStringPairs & _map, const std::string &_key);
+void MapSet(MyGUI::VectorStringPairs & _map, const std::string &_key, const std::string &_value);
+MyGUI::VectorStringPairs::iterator MapFind(MyGUI::VectorStringPairs & _map, const std::string &_key);
+void MapErase(MyGUI::VectorStringPairs & _map, const std::string &_key);
 
 // это можно в методы гуи занести
 MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* _widget);

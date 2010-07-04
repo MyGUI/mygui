@@ -2,10 +2,6 @@
 #define __WIDGET_CONTAINER_H__
 
 #include "MyGUI.h"
-//#include <Ogre.h>
-
-typedef std::pair<std::string, std::string> PairString;
-typedef std::vector<PairString> VectorStringPairs;
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
@@ -32,8 +28,8 @@ struct WidgetContainer
 
 	MyGUI::Widget* widget;
 	std::vector<WidgetContainer*> childContainers;
-	VectorStringPairs mProperty;
-	VectorStringPairs mUserString;
+	MyGUI::VectorStringPairs mProperty;
+	MyGUI::VectorStringPairs mUserString;
 	std::vector<ControllerInfo*> mController;
 	std::string type;
 	std::string skin;
