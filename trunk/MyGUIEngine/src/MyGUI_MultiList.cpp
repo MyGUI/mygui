@@ -107,7 +107,7 @@ namespace MyGUI
 		// скрываем у крайнего скролл
 		if (!mVectorColumnInfo.empty())
 			mVectorColumnInfo.back().list->setScrollVisible(false);
-		else mSortColumnIndex = 0;
+		else mSortColumnIndex = ITEM_NONE;
 
 		ColumnInfo column;
 		column.width = _width < 0 ? 0 : _width;
@@ -184,7 +184,7 @@ namespace MyGUI
 		}
 		else
 		{
-			mSortColumnIndex = 0;
+			mSortColumnIndex = ITEM_NONE;
 			mSortUp = true;
 			sortList();
 		}
