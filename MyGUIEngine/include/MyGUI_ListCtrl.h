@@ -133,15 +133,15 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 
-	/*event:*/
-		/** Event : request for creating new item
+	/*events:*/
+		/** Event : Request for creating new item.\n
 			signature : void method(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 		*/
 		EventHandle_ListCtrlPtrWidgetPtr requestCreateWidgetItem;
 
-		/** Event : request for item redraw
+		/** Event : Request for item redraw.\n
 			signature : void method(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 			@param _sender widget that called this event
 			@param _item widget item pointer
@@ -149,28 +149,28 @@ namespace MyGUI
 		*/
 		EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
-		/** Event : doubleclick or enter pressed on item
+		/** Event : Doubleclick or enter pressed on item.\n
 			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventSelectItemAccept;
 
-		/** Event : position of selected item was changed
+		/** Event : Position of selected item was changed.\n
 			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventChangeItemPosition;
 
-		/** Event : click on item
+		/** Event : Click on item.\n
 			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventMouseItemActivate;
 
-		/** Event : notify about event in item widget
+		/** Event : Notify about event in item widget.\n
 			signature : void method(MyGUI::ListCtrl* _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
