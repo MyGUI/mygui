@@ -66,7 +66,7 @@ namespace MyGUI
 		/** Get pointer resource */
 		IPointer* getByName(const std::string& _name) const;
 
-	/*event:*/
+	/*events:*/
 		/** Event : Mouse pointer has been changed.\n
 			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer

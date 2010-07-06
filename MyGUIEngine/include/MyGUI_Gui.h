@@ -174,8 +174,8 @@ namespace MyGUI
 		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
 
-	/*event:*/
-		/** Multidelegate for GUI per frame call.\n
+	/*events:*/
+		/** Event : Multidelegate. GUI per frame call.\n
 			signature : void method(float _time)\n
 			@param _time Time elapsed since last frame
 		*/

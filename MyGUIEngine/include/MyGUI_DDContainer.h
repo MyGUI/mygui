@@ -54,8 +54,8 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*event:*/
-		/** Event : request for start drag
+	/*events:*/
+		/** Event : Request for start drag.\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 			@param _sender widget that called this event
 			@param _info information about DDContainers
@@ -63,7 +63,7 @@ namespace MyGUI
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventStartDrag;
 
-		/** Event : request for start drag (moving mouse over container, but not dropped yet)
+		/** Event : Request for start drop (moving mouse over container, but not dropped yet).\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 			@param _sender widget that called this event
 			@param _info information about DDContainers
@@ -71,7 +71,7 @@ namespace MyGUI
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventRequestDrop;
 
-		/** Event : end drag (drop)
+		/** Event : End drag (drop).\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
 			@param _sender widget that called this event
 			@param _info information about DDContainers
@@ -79,14 +79,14 @@ namespace MyGUI
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBool eventDropResult;
 
-		/** Event : drag'n'drop state changed
+		/** Event : Drag'n'drop state changed.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::DDItemState _state)
 			@param _sender widget that called this event
 			@param _state new state
 		*/
 		EventHandle_EventHandle_DDContainerPtrDDItemState eventChangeDDState;
 
-		/** Event : [not used] request widget for dragging
+		/** Event : [not used] Request widget for dragging.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget*& _item, MyGUI::IntCoord& _dimension)
 			@param _sender widget that called this event
 			@param _item write widget pointer here
@@ -99,14 +99,14 @@ namespace MyGUI
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
-		/** Event : внутреннее событие, невалидна информация для контейнера
+		/** Event : [Internal event] невалидна информация для контейнера.\n
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, delegates::CDelegate1<DDContainer*> >
 			_eventInvalideContainer;
 
-		/** Event : !!обновить виджеты дропа DD_FIXME наверное internal
+		/** Event : [Internal event] !!обновить виджеты дропа DD_FIXME наверное internal.\n
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget* _item, const MyGUI::DDWidgetState& _state)
 			@param _sender widget that called this event
 			@param _items

@@ -240,7 +240,7 @@ namespace MyGUI
 		MenuItem* getMenuItemParent() { return mOwner; }
 
 
-	/*event:*/
+	/*events:*/
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)\n
 			@param _sender widget that called this event

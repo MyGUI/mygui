@@ -223,7 +223,7 @@ namespace MyGUI
 			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
 		}
 
-	/*event:*/
+	/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
 			@param _sender widget that called this event
