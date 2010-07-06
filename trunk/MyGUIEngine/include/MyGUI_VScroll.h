@@ -103,7 +103,7 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*event:*/
+	/*events:*/
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::VScroll* _sender, size_t _position)\n
 			@param _sender widget that called this event

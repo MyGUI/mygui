@@ -166,7 +166,7 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*event:*/
+	/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event

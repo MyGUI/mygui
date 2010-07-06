@@ -161,8 +161,8 @@ namespace MyGUI
 		/// Returns default GUI texture format
 		static PixelFormat getDefaultTextureFormat() { return PixelFormat::R8G8B8A8; }
 
-	/*event:*/
-		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
+	/*events:*/
+		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas.\n
 			signature : void method(MyGUI::Canvas* _canvas)\n
 			@param _canvas, which will be updated
 		*/

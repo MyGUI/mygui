@@ -100,7 +100,7 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-	/*event:*/
+	/*events:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::Window* _sender, const std::string& _name)
 			@param _sender widget that called this event
