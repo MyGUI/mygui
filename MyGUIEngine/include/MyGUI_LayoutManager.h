@@ -53,6 +53,16 @@ namespace MyGUI
 
 		/** Get ResourceLayout by name */
 		ResourceLayout* getByName(const std::string& _name, bool _throw = true) const;
+
+		typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> AddUserStringDelegate;
+		/** Event : Multidelegate. UserString was added from layout.\n
+			signature : void method(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
+			@param _widget Widget that got new UserString.
+			@param _key UserString key.
+			@param _key UserString value.
+			@note Happens only when UserString was loaded from layout, but not when it was added in code.
+		*/
+		AddUserStringDelegate eventAddUserString;
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

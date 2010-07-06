@@ -24,6 +24,7 @@
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ControllerManager.h"
+#include "MyGUI_LayoutManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Gui.h"
 
@@ -157,6 +158,7 @@ namespace MyGUI
 		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
 		{
 			wid->setUserString(iter->first, iter->second);
+			LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
 		}
 
 		for (std::vector<WidgetInfo>::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
