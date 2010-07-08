@@ -14,14 +14,12 @@ namespace demo
 		MYGUI_ASSERT(mChilds.empty(), "not clear");
 	}
 
-	Widget* Gui::createWidget(const std::string& _skin)
+	Widget* Gui::createChild()
 	{
 		Widget* widget = new Widget();
 		widget->initialise();
 
-		widget->createSkin(_skin);
-
-		mChilds.push_back(widget);
+		attachWidget(widget);
 
 		return widget;
 	}
@@ -34,15 +32,8 @@ namespace demo
 
 	void Gui::destroyChild(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
-		if (item != mChilds.end())
-		{
-			mChilds.erase(item);
-		}
-		else
-		{
-			MYGUI_EXCEPT("widget not found");
-		}
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+		detachWidget(_widget);
 
 		_widget->shutdown();
 		delete _widget;
@@ -59,4 +50,38 @@ namespace demo
 		return mChilds.at(_index);
 	}
 
+	void Gui::detachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		removeChild(_widget);
+	}
+
+	void Gui::attachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		addChild(_widget);
+	}
+
+	void Gui::addChild(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
+		mChilds.push_back(_widget);
+		//_child->mParent = this;
+	}
+
+	void Gui::removeChild(Widget* _widget)
+	{
+		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
+		if (item != mChilds.end())
+		{
+			mChilds.erase(item);
+			//_child->mParent = nullptr;
+		}
+		else
+		{
+			MYGUI_EXCEPT("widget not found");
+		}
+	}
 }

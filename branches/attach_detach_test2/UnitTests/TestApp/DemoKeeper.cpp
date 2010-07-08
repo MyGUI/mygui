@@ -18,14 +18,15 @@ namespace demo
 
 		Gui* gui = new Gui();
 
-		Widget* widget = Gui::getInstance().createWidget("");
+		Widget* widget = Gui::getInstance().createChild();
 
 		widget->changeSkin("");
-		Widget* widget2 = widget->createWidget("1");
+		Widget* widget2 = widget->createChild();
 		widget->changeSkin("1");
 		widget->destroyChild(widget2);
 
 		Gui::getInstance().destroyChild(widget);
+
 		delete gui;
 	}
 

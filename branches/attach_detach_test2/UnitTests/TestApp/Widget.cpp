@@ -29,15 +29,12 @@ namespace demo
 		destroySkin();
 	}
 
-	Widget* Widget::createWidget(const std::string& _skin)
+	Widget* Widget::createChild()
 	{
 		Widget* widget = new Widget();
 		widget->initialise();
 
-		widget->createSkin(_skin);
-
-		addChild(widget);
-		addVisualChildToClient(widget);
+		attachWidget(widget);
 
 		return widget;
 	}
@@ -54,20 +51,20 @@ namespace demo
 			addVisualChildToClient(*item);
 	}
 
-	void Widget::addVisualChildToClient(Widget* _child)
+	void Widget::addVisualChildToClient(Widget* _widget)
 	{
 		if (mClient != nullptr)
-			mClient->addVisualChild(_child);
+			mClient->addVisualChild(_widget);
 		else
-			addVisualChild(_child);
+			addVisualChild(_widget);
 	}
 
-	void Widget::removeVisualChildFromClient(Widget* _child)
+	void Widget::removeVisualChildFromClient(Widget* _widget)
 	{
 		if (mClient != nullptr)
-			mClient->removeVisualChild(_child);
+			mClient->removeVisualChild(_widget);
 		else
-			removeVisualChild(_child);
+			removeVisualChild(_widget);
 	}
 
 	void Widget::destroySkin()
@@ -115,31 +112,32 @@ namespace demo
 
 	void Widget::destroyChild(Widget* _widget)
 	{
-		removeChild(_widget);
-		removeVisualChildFromClient(_widget);
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		detachWidget(_widget);
 
 		_widget->shutdown();
 		delete _widget;
 	}
 
-	void Widget::addVisualChild(Widget* _child)
+	void Widget::addVisualChild(Widget* _widget)
 	{
-		MYGUI_ASSERT(_child->getVisualParent() == nullptr, "allready added");
-		mVisualChilds.push_back(_child);
-		_child->mVisualParent = this;
+		MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
+		mVisualChilds.push_back(_widget);
+		_widget->mVisualParent = this;
 
-		onVisualChildAdded(_child);
+		onVisualChildAdded(_widget);
 	}
 
-	void Widget::removeVisualChild(Widget* _child)
+	void Widget::removeVisualChild(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _child);
+		VectorWidgetPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
 		if (item != mVisualChilds.end())
 		{
 			mVisualChilds.erase(item);
-			_child->mVisualParent = nullptr;
+			_widget->mVisualParent = nullptr;
 
-			onVisualChildRemoved(_child);
+			onVisualChildRemoved(_widget);
 		}
 		else
 		{
@@ -147,24 +145,20 @@ namespace demo
 		}
 	}
 
-	void Widget::addChild(Widget* _child)
+	void Widget::addChild(Widget* _widget)
 	{
-		MYGUI_ASSERT(_child->getParent() == nullptr, "allready added");
-		mChilds.push_back(_child);
-		_child->mParent = this;
-
-		onChildAdded(_child);
+		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
+		mChilds.push_back(_widget);
+		_widget->mParent = this;
 	}
 
-	void Widget::removeChild(Widget* _child)
+	void Widget::removeChild(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _child);
+		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
 		if (item != mChilds.end())
 		{
 			mChilds.erase(item);
-			_child->mParent = nullptr;
-
-			onChildRemoved(_child);
+			_widget->mParent = nullptr;
 		}
 		else
 		{
@@ -181,6 +175,22 @@ namespace demo
 	{
 		MYGUI_ASSERT(_index < mChilds.size(), "index out of range");
 		return mChilds.at(_index);
+	}
+
+	void Widget::detachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		removeChild(_widget);
+		removeVisualChildFromClient(_widget);
+	}
+
+	void Widget::attachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		addChild(_widget);
+		addVisualChildToClient(_widget);
 	}
 
 }

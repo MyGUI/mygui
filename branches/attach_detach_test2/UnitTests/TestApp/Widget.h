@@ -16,17 +16,20 @@ namespace demo
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(const std::string& _skin);
+		Widget* createChild();
 		void destroyChild(Widget* _widget);
 		void destroyAllChilds();
 
-		void changeSkin(const std::string& _skin);
-
-		Widget* getParent() { return mParent; }
 		size_t getChildCount();
 		Widget* getChild(size_t _index);
 
+		void detachWidget(Widget* _child);
+		void attachWidget(Widget* _child);
+
+		Widget* getParent() { return mParent; }
 		Widget* getVisualParent() { return mVisualParent; }
+
+		void changeSkin(const std::string& _skin);
 
 	protected:
 		Widget();
@@ -35,20 +38,19 @@ namespace demo
 		virtual void onVisualChildAdded(Widget* _child) { }
 		virtual void onVisualChildRemoved(Widget* _child) { }
 
-		virtual void onChildAdded(Widget* _child) { }
-		virtual void onChildRemoved(Widget* _child) { }
-
 		virtual void onDestroySkin() { }
 		virtual void onCreateSkin(const std::string& _skin) { }
 
 	private:
-		void addVisualChild(Widget* _child);
-		void removeVisualChild(Widget* _child);
-		void addChild(Widget* _child);
-		void removeChild(Widget* _child);
+		void addVisualChild(Widget* _widget);
+		void removeVisualChild(Widget* _widget);
 
-		void addVisualChildToClient(Widget* _child);
-		void removeVisualChildFromClient(Widget* _child);
+		void addChild(Widget* _widget);
+		void removeChild(Widget* _widget);
+
+		void addVisualChildToClient(Widget* _widget);
+		void removeVisualChildFromClient(Widget* _widget);
+
 		void destroySkin();
 		void createSkin(const std::string& _skin);
 

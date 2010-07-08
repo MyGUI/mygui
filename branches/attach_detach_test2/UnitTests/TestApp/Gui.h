@@ -12,12 +12,19 @@ namespace demo
 		Gui();
 		~Gui();
 
-		Widget* createWidget(const std::string& _skin);
+		Widget* createChild();
 		void destroyChild(Widget* _widget);
 		void destroyAllChilds();
 
 		size_t getChildCount();
 		Widget* getChild(size_t _index);
+
+		void detachWidget(Widget* _widget);
+		void attachWidget(Widget* _widget);
+
+	private:
+		void addChild(Widget* _widget);
+		void removeChild(Widget* _widget);
 
 	private:
 		VectorWidgetPtr mChilds;
