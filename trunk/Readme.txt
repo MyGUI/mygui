@@ -1,4 +1,2 @@
-Use CMake for all IDEs and platforms! :)
-
-All other build systems might exist, but probably deprecated.
-
+There you can find basic information about how to build MyGUI:
+	http://www.ogre3d.org/tikiwiki/MyGUI+Compiling
