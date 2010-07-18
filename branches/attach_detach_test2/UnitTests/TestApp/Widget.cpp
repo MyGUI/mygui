@@ -6,7 +6,8 @@ namespace demo
 	Widget::Widget() :
 		mVisualParent(nullptr),
 		mParent(nullptr),
-		mClient(nullptr)
+		mClient(nullptr),
+		mParentContainer(nullptr)
 	{
 	}
 
@@ -89,21 +90,6 @@ namespace demo
 		mClient = nullptr;
 	}
 
-	void Widget::createSkin(const std::string& _skin)
-	{
-		if (_skin != "")
-		{
-			Widget* widget = new Widget();
-			widget->createSkin("");
-
-			addVisualChild(widget);
-
-			mClient = widget;
-		}
-
-		onCreateSkin(_skin);
-	}
-
 	void Widget::destroyAllChilds()
 	{
 		while (!mChilds.empty())
@@ -120,9 +106,25 @@ namespace demo
 		delete _widget;
 	}
 
+	void Widget::createSkin(const std::string& _skin)
+	{
+		if (_skin != "")
+		{
+			Widget* widget = new Widget();
+			widget->createSkin("");
+
+			addVisualChild(widget);
+
+			mClient = widget;
+		}
+
+		onCreateSkin(_skin);
+	}
+
 	void Widget::addVisualChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
+
 		mVisualChilds.push_back(_widget);
 		_widget->mVisualParent = this;
 
@@ -148,8 +150,11 @@ namespace demo
 	void Widget::addChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
+		MYGUI_ASSERT(_widget->getParentContainer() == nullptr, "allready added");
+
 		mChilds.push_back(_widget);
 		_widget->mParent = this;
+		_widget->mParentContainer = this;
 	}
 
 	void Widget::removeChild(Widget* _widget)
@@ -159,6 +164,7 @@ namespace demo
 		{
 			mChilds.erase(item);
 			_widget->mParent = nullptr;
+			_widget->mParentContainer = nullptr;
 		}
 		else
 		{

@@ -173,34 +173,8 @@ namespace MyGUI
 
 		_createSkinItem(_info);
 
-		if (!_isRootWidget())
-		{
-			// проверяем наследуемую скрытость
-			if ((!mParent->getVisible()) || (!mParent->_isInheritsVisible()))
-			{
-				bool value = false;
-				mInheritsVisible = value;
-
-				_setSkinItemVisible(value);
-
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-					(*widget)->_setInheritsVisible(value);
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-					(*widget)->_setInheritsVisible(value);
-			}
-
-			// проверяем наследуемый дизейбл
-			if ((!mParent->getEnabled()) || (!mParent->_isInheritsEnable()))
-			{
-				bool value = false;
-				mInheritsEnabled = false;
-
-				for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-					(*iter)->_setInheritsEnable(value);
-				for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-					(*iter)->_setInheritsEnable(value);
-			}
-		}
+		_updateVisible();
+		_updateEnabled();
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
@@ -912,7 +886,9 @@ namespace MyGUI
 			return;
 		mVisible = _value;
 
-		if (mInheritsVisible)
+		_updateVisible();
+
+		/*if (mInheritsVisible)
 		{
 			_setSkinItemVisible(_value);
 
@@ -920,10 +896,10 @@ namespace MyGUI
 				(*widget)->_setInheritsVisible(_value);
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 				(*widget)->_setInheritsVisible(_value);
-		}
+		}*/
 	}
 
-	void Widget::_setInheritsVisible(bool _value)
+	/*void Widget::_setInheritsVisible(bool _value)
 	{
 		if (mInheritsVisible == _value)
 			return;
@@ -938,7 +914,7 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 				(*widget)->_setInheritsVisible(_value);
 		}
-	}
+	}*/
 
 	void Widget::setEnabled(bool _value)
 	{
@@ -946,7 +922,9 @@ namespace MyGUI
 			return;
 		mEnabled = _value;
 
-		if (mInheritsEnabled)
+		_updateEnabled();
+
+		/*if (mInheritsEnabled)
 		{
 			for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
 				(*iter)->_setInheritsEnable(_value);
@@ -959,10 +937,10 @@ namespace MyGUI
 		if (!mEnabled)
 		{
 			InputManager::getInstance().unlinkWidget(this);
-		}
+		}*/
 	}
 
-	void Widget::_setInheritsEnable(bool _value)
+	/*void Widget::_setInheritsEnable(bool _value)
 	{
 		if (mInheritsEnabled == _value)
 			return;
@@ -982,7 +960,7 @@ namespace MyGUI
 		{
 			InputManager::getInstance().unlinkWidget(this);
 		}
-	}
+	}*/
 
 	IntSize Widget::getParentSize()
 	{
@@ -1013,5 +991,34 @@ namespace MyGUI
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
 	}*/
+
+	void Widget::_updateVisible()
+	{
+		mInheritsVisible = mParent == nullptr || (mParent->getVisible() && mParent->_isInheritsVisible());
+		bool value = mVisible && mInheritsVisible;
+
+		_setSkinItemVisible(value);
+
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+			(*iter)->_updateVisible();
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+			(*iter)->_updateVisible();
+	}
+
+	void Widget::_updateEnabled()
+	{
+		mInheritsEnabled = mParent == nullptr || (mParent->getEnabled() && mParent->_isInheritsEnable());
+		bool value = mEnabled && mInheritsEnabled;
+
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+			(*iter)->_updateEnabled();
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+			(*iter)->_updateEnabled();
+
+		baseUpdateEnable();
+
+		if (!value)
+			InputManager::getInstance().unlinkWidget(this);
+	}
 
 } // namespace MyGUI

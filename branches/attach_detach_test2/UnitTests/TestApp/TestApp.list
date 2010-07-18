@@ -2,11 +2,14 @@ set (HEADER_FILES
   DemoKeeper.h
   Gui.h
   Widget.h
+  Skinable.h
+  WidgetContainer.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
   Gui.cpp
   Widget.cpp
+  Skinable.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

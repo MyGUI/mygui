@@ -67,8 +67,11 @@ namespace demo
 	void Gui::addChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
+		MYGUI_ASSERT(_widget->getParentContainer() == nullptr, "allready added");
+
 		mChilds.push_back(_widget);
 		//_child->mParent = this;
+		_widget->mParentContainer = this;
 	}
 
 	void Gui::removeChild(Widget* _widget)
@@ -78,6 +81,7 @@ namespace demo
 		{
 			mChilds.erase(item);
 			//_child->mParent = nullptr;
+			_widget->mParentContainer = nullptr;
 		}
 		else
 		{

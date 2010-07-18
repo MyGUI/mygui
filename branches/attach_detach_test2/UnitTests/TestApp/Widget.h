@@ -1,14 +1,16 @@
 #pragma once
 
 #include <MyGUI.h>
+#include "WidgetContainer.h"
+#include "Skinable.h"
 
 namespace demo
 {
-	class Widget;
-	typedef std::vector<Widget*> VectorWidgetPtr;
 	class Gui;
 
-	class Widget
+	class Widget :
+		public WidgetContainer,
+		public Skinable
 	{
 		friend class Gui;
 
@@ -23,23 +25,18 @@ namespace demo
 		size_t getChildCount();
 		Widget* getChild(size_t _index);
 
-		void detachWidget(Widget* _child);
-		void attachWidget(Widget* _child);
+		virtual void detachWidget(Widget* _child);
+		virtual void attachWidget(Widget* _child);
 
 		Widget* getParent() { return mParent; }
 		Widget* getVisualParent() { return mVisualParent; }
+		WidgetContainer* getParentContainer() { return mParentContainer; }
 
 		void changeSkin(const std::string& _skin);
 
 	protected:
 		Widget();
 		virtual ~Widget();
-
-		virtual void onVisualChildAdded(Widget* _child) { }
-		virtual void onVisualChildRemoved(Widget* _child) { }
-
-		virtual void onDestroySkin() { }
-		virtual void onCreateSkin(const std::string& _skin) { }
 
 	private:
 		void addVisualChild(Widget* _widget);
@@ -59,6 +56,7 @@ namespace demo
 		VectorWidgetPtr mVisualChilds;
 		
 		Widget* mParent;
+		WidgetContainer* mParentContainer;
 		VectorWidgetPtr mChilds;
 
 		Widget* mClient;

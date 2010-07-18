@@ -6,7 +6,8 @@
 namespace demo
 {
 	class Gui :
-		public MyGUI::Singleton<Gui>
+		public MyGUI::Singleton<Gui>,
+		public WidgetContainer
 	{
 	public:
 		Gui();
@@ -19,8 +20,8 @@ namespace demo
 		size_t getChildCount();
 		Widget* getChild(size_t _index);
 
-		void detachWidget(Widget* _widget);
-		void attachWidget(Widget* _widget);
+		virtual void detachWidget(Widget* _widget);
+		virtual void attachWidget(Widget* _widget);
 
 	private:
 		void addChild(Widget* _widget);

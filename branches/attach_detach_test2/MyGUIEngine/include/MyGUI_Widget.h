@@ -331,13 +331,15 @@ namespace MyGUI
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();
+		void _updateVisible();
+		void _updateEnabled();
 		void _updateAbsolutePoint();
 
 		// для внутреннего использования
-		void _setInheritsVisible(bool _value);
+		//void _setInheritsVisible(bool _value);
 		bool _isInheritsVisible() { return mInheritsVisible; }
 
-		void _setInheritsEnable(bool _value);
+		//void _setInheritsEnable(bool _value);
 		bool _isInheritsEnable() { return mInheritsEnabled; }
 
 		float _getRealAlpha() { return mRealAlpha; }
