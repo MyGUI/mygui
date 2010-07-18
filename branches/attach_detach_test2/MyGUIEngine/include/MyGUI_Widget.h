@@ -180,6 +180,8 @@ namespace MyGUI
 		/** Get Y in screen coordinates */
 		int getAbsoluteTop() const { return mAbsolutePosition.top; }
 
+		//! Set name of widget
+		void setName(const std::string& _value) { mName = _value; }
 		//! Get name of widget
 		const std::string& getName() const { return mName; }
 
@@ -271,7 +273,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, Widget* _visualParent, const std::string& _name);
+		void _initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent, Widget* _visualParent);
 		void _shutdown();
 
 		void _setContainer(Widget* _value) { mContainer = _value; }

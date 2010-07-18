@@ -40,7 +40,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, Widget* _cropeedParent, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, Widget* _parent, Widget* _cropeedParent);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);

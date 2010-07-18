@@ -64,13 +64,9 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, Widget* _visualParent, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent, Widget* _visualParent)
 	{
-		mCoord = _coord;
-
-		mAlign = Align::Default;
 		mWidgetStyle = _style;
-		mName = _name;
 
 		mVisualParent = _visualParent;
 		mParent = _parent;
@@ -183,7 +179,7 @@ namespace MyGUI
 		}
 		else
 		{
-			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, this, _style == WidgetStyle::Popup ? nullptr : this);
 
 			if (_template)
 				mWidgetChildSkin.push_back(widget);
@@ -191,6 +187,8 @@ namespace MyGUI
 				mWidgetChild.push_back(widget);
 
 			widget->setAlign(_align);
+			widget->setName(_name);
+			widget->setCoord(_coord);
 
 			// присоединяем виджет с уровню
 			if (!_layer.empty() && widget->_isRootWidget())
