@@ -335,11 +335,7 @@ namespace MyGUI
 		void _updateEnabled();
 		void _updateAbsolutePoint();
 
-		// для внутреннего использования
-		//void _setInheritsVisible(bool _value);
 		bool _isInheritsVisible() { return mInheritsVisible; }
-
-		//void _setInheritsEnable(bool _value);
 		bool _isInheritsEnable() { return mInheritsEnabled; }
 
 		float _getRealAlpha() { return mRealAlpha; }
@@ -352,6 +348,10 @@ namespace MyGUI
 
 		//void _linkChildWidget(Widget* _widget);
 		//void _unlinkChildWidget(Widget* _widget);
+		void _destroyChildWidget(Widget* _widget, VectorWidgetPtr& _childs);
+
+		void attachVisual();
+		void detachVisual();
 
 	protected:
 		// клиентская зона окна
