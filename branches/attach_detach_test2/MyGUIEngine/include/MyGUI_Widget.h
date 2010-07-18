@@ -273,7 +273,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent, Widget* _visualParent);
+		void _initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent);
 		void _shutdown();
 
 		void _setContainer(Widget* _value) { mContainer = _value; }

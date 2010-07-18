@@ -64,12 +64,14 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent, Widget* _visualParent)
+	void Widget::_initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent)
 	{
 		mWidgetStyle = _style;
 
-		mVisualParent = _visualParent;
+		mVisualParent = mWidgetStyle == WidgetStyle::Popup ? nullptr : _parent;
 		mParent = _parent;
+
+		initialiseWidgetSkinBase(_info);
 
 
 #if MYGUI_DEBUG_MODE == 1
@@ -90,15 +92,13 @@ namespace MyGUI
 		}
 #endif
 
-		// корректируем абсолютные координаты
-		_updateAbsolutePoint();
-
-		initialiseWidgetSkinBase(_info);
-
 		attachVisual();
 
 		// витр метод для наследников
 		initialiseWidgetSkin(_info);
+
+		// корректируем абсолютные координаты (корректировать при атаче)
+		_updateAbsolutePoint();
 	}
 
 	void Widget::_shutdown()
@@ -179,7 +179,7 @@ namespace MyGUI
 		}
 		else
 		{
-			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, this, _style == WidgetStyle::Popup ? nullptr : this);
+			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, this);
 
 			if (_template)
 				mWidgetChildSkin.push_back(widget);
