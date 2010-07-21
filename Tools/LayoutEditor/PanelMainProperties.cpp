@@ -24,7 +24,7 @@ void PanelMainProperties::initialise()
 	mPanelCell->setCaption(localise("Main_properties"));
 
 	assignWidget(mButtonRelativePosition, "buttonRelativePosition");
-	mButtonRelativePosition->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
+	mButtonRelativePosition->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
 }
 
 void PanelMainProperties::shutdown()

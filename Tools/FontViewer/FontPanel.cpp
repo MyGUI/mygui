@@ -29,8 +29,8 @@ namespace demo
 		assignWidget(mButtonSave, "button_Save");
 
 		mComboAntialias->setIndexSelected(1);
-		mButtonGenerate->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
-		mButtonSave->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
+		mButtonGenerate->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
+		mButtonSave->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 
 		mFontName = "FontName";
 		mFontHeight = 0;

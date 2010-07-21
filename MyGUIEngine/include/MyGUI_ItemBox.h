@@ -35,8 +35,8 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ItemBox*, Widget*> EventHandle_ItemBoxPtrWidgetPtr;
 	typedef delegates::CDelegate3<ItemBox*, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
 	typedef delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
-	typedef delegates::CDelegate2<ItemBox*, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
+	typedef delegates::CMultiDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
+	typedef delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ItemBox :
 		public DDContainer,

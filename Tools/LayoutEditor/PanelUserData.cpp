@@ -37,11 +37,11 @@ void PanelUserData::initialise()
 	assignWidget(mButtonDelete, "buttonDelete");
 	assignWidget(mMultilist, "multilist");
 
-	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelUserData::notifyAddUserData);
-	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelUserData::notifyDeleteUserData);
-	mEditKey->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
-	mEditValue->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
-	mMultilist->eventListChangePosition = MyGUI::newDelegate(this, &PanelUserData::notifySelectUserDataItem);
+	mButtonAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelUserData::notifyAddUserData);
+	mButtonDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelUserData::notifyDeleteUserData);
+	mEditKey->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
+	mEditValue->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
+	mMultilist->eventListChangePosition += MyGUI::newDelegate(this, &PanelUserData::notifySelectUserDataItem);
 
 	mMultilist->addColumn(localise("Key"), 1);
 	mMultilist->addColumn(localise("Value"), 1);

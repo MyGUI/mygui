@@ -29,14 +29,14 @@ namespace demo
 		assignWidget(mLine, "Line");
 		assignBase(mBox, "Box");
 
-		mSliderRed->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
-		mSliderGreen->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
-		mSliderBlue->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
+		mSliderRed->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
+		mSliderGreen->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
+		mSliderBlue->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
 
 		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 
-		mAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &ColourWindow::notifyMouseButtonClick);
-		mLine->eventEditSelectAccept = MyGUI::newDelegate(this, &ColourWindow::notifyEditSelectAccept);
+		mAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourWindow::notifyMouseButtonClick);
+		mLine->eventEditSelectAccept += MyGUI::newDelegate(this, &ColourWindow::notifyEditSelectAccept);
 
 		if (_parent)
 		{

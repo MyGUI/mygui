@@ -59,16 +59,16 @@ namespace MyGUI
 	*/
 
 	// делегаты для событий виджета
-	typedef delegates::CDelegate1<Widget*> EventHandle_WidgetVoid;
-	typedef delegates::CDelegate2<Widget*, Widget*> EventHandle_WidgetWidget;
-	typedef delegates::CDelegate2<Widget*, bool> EventHandle_WidgetBool;
-	typedef delegates::CDelegate2<Widget*, int> EventHandle_WidgetInt;
-	typedef delegates::CDelegate2<Widget*, size_t> EventHandle_WidgetSizeT;
-	typedef delegates::CDelegate3<Widget*, int, int> EventHandle_WidgetIntInt;
-	typedef delegates::CDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
-	typedef delegates::CDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
-	typedef delegates::CDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
-	typedef delegates::CDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
+	typedef delegates::CMultiDelegate1<Widget*> EventHandle_WidgetVoid;
+	typedef delegates::CMultiDelegate2<Widget*, Widget*> EventHandle_WidgetWidget;
+	typedef delegates::CMultiDelegate2<Widget*, bool> EventHandle_WidgetBool;
+	typedef delegates::CMultiDelegate2<Widget*, int> EventHandle_WidgetInt;
+	typedef delegates::CMultiDelegate2<Widget*, size_t> EventHandle_WidgetSizeT;
+	typedef delegates::CMultiDelegate3<Widget*, int, int> EventHandle_WidgetIntInt;
+	typedef delegates::CMultiDelegate4<Widget*, int, int, MouseButton> EventHandle_WidgetIntIntButton;
+	typedef delegates::CMultiDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
+	typedef delegates::CMultiDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
+	typedef delegates::CMultiDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
 
 	class MYGUI_EXPORT WidgetInput
 	{

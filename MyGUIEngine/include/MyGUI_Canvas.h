@@ -58,8 +58,8 @@ namespace MyGUI
 			bool requested;
 		};
 
-		typedef delegates::CDelegate1<Canvas*> EventInfo_Canvas;
-		typedef delegates::CDelegate2<Canvas*, Event> EventInfo_CanvasEvent;
+		typedef delegates::CMultiDelegate1<Canvas*> EventHandle_CanvasPtr;
+		typedef delegates::CDelegate2<Canvas*, Event> EventHandle_CanvasPtrEvent;
 
 		//FIXME
 		/**
@@ -166,14 +166,14 @@ namespace MyGUI
 			signature : void method(MyGUI::Canvas* _canvas)\n
 			@param _canvas, which will be updated
 		*/
-		EventInfo_Canvas eventPreTextureChanges;
+		EventHandle_CanvasPtr eventPreTextureChanges;
 
 		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
 			signature : void method(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)\n
 			@param _canvas, which needs to update
 			@param _event
 		*/
-		EventInfo_CanvasEvent requestUpdateCanvas;
+		EventHandle_CanvasPtrEvent requestUpdateCanvas;
 
 	protected:
 		/// Destroys texture

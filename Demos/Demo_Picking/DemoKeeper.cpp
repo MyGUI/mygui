@@ -45,8 +45,8 @@ namespace demo
 		image->setItemGroup("States");
 		image->setItemName("Normal");
 
-		image->eventMouseSetFocus = MyGUI::newDelegate(notifyMouseSetFocus);
-		image->eventMouseLostFocus = MyGUI::newDelegate(notifyMouseLostFocus);
+		image->eventMouseSetFocus += MyGUI::newDelegate(notifyMouseSetFocus);
+		image->eventMouseLostFocus += MyGUI::newDelegate(notifyMouseLostFocus);
 
 		image->setMaskPick("Crystal_Clear_Butterfly_Pick.png");
 	}

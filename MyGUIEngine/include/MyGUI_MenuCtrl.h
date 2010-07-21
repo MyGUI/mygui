@@ -34,8 +34,8 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<MenuCtrl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
-	typedef delegates::CDelegate1<MenuCtrl*> EventHandle_MenuCtrlPtr;
+	typedef delegates::CMultiDelegate2<MenuCtrl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
+	typedef delegates::CMultiDelegate1<MenuCtrl*> EventHandle_MenuCtrlPtr;
 
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget

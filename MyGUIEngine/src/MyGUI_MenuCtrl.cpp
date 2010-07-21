@@ -512,9 +512,9 @@ namespace MyGUI
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, _getClientWidget()->getWidth(), mHeightLine);
-		_item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
-		_item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
-		_item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
+		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
+		_item->eventMouseButtonClick += newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
+		_item->eventMouseSetFocus += newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
 
 		setButtonImageIndex(_item, getIconIndexByType(_type ));
 
@@ -567,7 +567,7 @@ namespace MyGUI
 			}
 
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-			controller->eventPostAction = newDelegate(action::actionWidgetShow);
+			controller->eventPostAction += newDelegate(action::actionWidgetShow);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
@@ -575,7 +575,7 @@ namespace MyGUI
 			setEnabledSilent(false);
 
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			controller->eventPostAction += newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 	}

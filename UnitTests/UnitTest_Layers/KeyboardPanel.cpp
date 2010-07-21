@@ -16,10 +16,10 @@ namespace demo
 
 		mMainWidget->setPosition(0, 0);
 
-		mButtonEngine->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
-		mButtonGun->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
-		mButtonAmmo->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
-		mButtonArmor->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
+		mButtonEngine->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
+		mButtonGun->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
+		mButtonAmmo->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
+		mButtonArmor->eventMouseButtonClick += MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
 
 		CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(mMainWidget->getUserString("Command")));
 	}

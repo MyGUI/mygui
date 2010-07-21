@@ -18,14 +18,14 @@ namespace common
 		assignWidget(mEditCurrentFolder, "EditCurrentFolder");
 		assignWidget(mButtonOpenSave, "ButtonOpenSave");
 
-		mListFiles->eventListChangePosition = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
-		mListFiles->eventListSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
-		mEditFileName->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
-		mEditCurrentFolder->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryAccept);
-		mButtonOpenSave->eventMouseButtonClick = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
+		mListFiles->eventListChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
+		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
+		mEditFileName->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
+		mEditCurrentFolder->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryAccept);
+		mButtonOpenSave->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
 
 		mWindow = mMainWidget->castType<MyGUI::Window>();
-		mWindow->eventWindowButtonPressed = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
+		mWindow->eventWindowButtonPressed += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
 		mFileMask = L"*.*";
 		mCurrentFolder = getSystemCurrentFolder();

@@ -17,7 +17,7 @@ namespace editor
 		assignWidget(mEditFileName, "edit_FileName");
 
 		mMultiList->addColumn("name", mMultiList->getClientCoord().width);
-		mMultiList->eventListChangePosition = MyGUI::newDelegate(this, &View::notifyListChangePosition);
+		mMultiList->eventListChangePosition += MyGUI::newDelegate(this, &View::notifyListChangePosition);
 
 		initialiseImages();
 
@@ -29,7 +29,7 @@ namespace editor
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 		{
-			window->eventWindowChangeCoord = MyGUI::newDelegate(this, &View::notifyWindowChangeCoord);
+			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &View::notifyWindowChangeCoord);
 		}
 	}
 

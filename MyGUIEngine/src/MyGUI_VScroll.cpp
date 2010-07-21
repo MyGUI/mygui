@@ -62,39 +62,39 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
 				mWidgetStart = (*iter)->castType<Button>();
-				mWidgetStart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetStart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
+				mWidgetStart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetStart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "End")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetEnd, "widget already assigned");
 				mWidgetEnd = (*iter)->castType<Button>();
-				mWidgetEnd->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetEnd->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
+				mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetEnd->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Track")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetTrack, "widget already assigned");
 				mWidgetTrack = (*iter)->castType<Button>();
-				mWidgetTrack->eventMouseDrag = newDelegate(this, &VScroll::notifyMouseDrag);
-				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
-				mWidgetTrack->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
+				mWidgetTrack->eventMouseDrag += newDelegate(this, &VScroll::notifyMouseDrag);
+				mWidgetTrack->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetTrack->eventMouseButtonReleased += newDelegate(this, &VScroll::notifyMouseReleased);
+				mWidgetTrack->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 				mWidgetTrack->setVisible(false);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "FirstPart")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
 				mWidgetFirstPart = (*iter)->castType<Button>();
-				mWidgetFirstPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetFirstPart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
+				mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetFirstPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "SecondPart")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetSecondPart, "widget already assigned");
 				mWidgetSecondPart = (*iter)->castType<Button>();
-				mWidgetSecondPart->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetSecondPart->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
+				mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+				mWidgetSecondPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 			}
 		}
 

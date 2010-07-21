@@ -96,9 +96,9 @@ namespace demo
 		box1->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box1->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box1->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
-		box1->eventStartDrag = MyGUI::newDelegate(eventStartDrag);
-		box1->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
-		box1->eventDropResult = MyGUI::newDelegate(eventDropResult);
+		box1->eventStartDrag += MyGUI::newDelegate(eventStartDrag);
+		box1->eventRequestDrop += MyGUI::newDelegate(eventRequestDrop);
+		box1->eventDropResult += MyGUI::newDelegate(eventDropResult);
 
 		box1->addItem((int)101);
 		box1->addItem((int)43);
@@ -108,9 +108,9 @@ namespace demo
 		box2->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box2->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box2->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
-		box2->eventStartDrag = MyGUI::newDelegate(eventStartDrag);
-		box2->eventRequestDrop = MyGUI::newDelegate(eventRequestDrop);
-		box2->eventDropResult = MyGUI::newDelegate(eventDropResult);
+		box2->eventStartDrag += MyGUI::newDelegate(eventStartDrag);
+		box2->eventRequestDrop += MyGUI::newDelegate(eventRequestDrop);
+		box2->eventDropResult += MyGUI::newDelegate(eventDropResult);
 
 		box2->addItem((int)14);
 		box2->addItem((int)273);

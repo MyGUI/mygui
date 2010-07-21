@@ -30,9 +30,9 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
-	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
-	typedef delegates::CDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
+	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
+	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
+	typedef delegates::CMultiDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
 	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
 
 
@@ -103,7 +103,7 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainer* _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, delegates::CDelegate1<DDContainer*> >
+		delegates::CMultiDelegate1<DDContainer*>
 			_eventInvalideContainer;
 
 		/** Event : [Internal event] !!обновить виджеты дропа DD_FIXME наверное internal.\n
@@ -112,7 +112,7 @@ namespace MyGUI
 			@param _items
 			@param _state
 		*/
-		delegates::CDelegate3<DDContainer*, Widget*, const DDWidgetState&>
+		delegates::CMultiDelegate3<DDContainer*, Widget*, const DDWidgetState&>
 			eventUpdateDropState;
 
 	protected:

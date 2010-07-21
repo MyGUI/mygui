@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<List*, size_t> EventHandle_ListPtrSizeT;
+	typedef delegates::CMultiDelegate2<List*, size_t> EventHandle_ListPtrSizeT;
 
 	class MYGUI_EXPORT List :
 		public Widget

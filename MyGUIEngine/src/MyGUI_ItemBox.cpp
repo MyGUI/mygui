@@ -73,21 +73,21 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
 				mVScroll = (*iter)->castType<VScroll>();
-				mVScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
+				mVScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			if (*(*iter)->_getInternalData<std::string>() == "HScroll")
 			{
 				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
 				mHScroll = (*iter)->castType<HScroll>();
-				mHScroll->eventScrollChangePosition = newDelegate(this, &ItemBox::notifyScrollChangePosition);
+				mHScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Client")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
-				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-				mWidgetClient->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+				mWidgetClient->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
+				mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+				mWidgetClient->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 				mClient = mWidgetClient;
 			}
 		}
@@ -219,15 +219,15 @@ namespace MyGUI
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
 
-			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-			item->eventRootMouseChangeFocus = newDelegate(this, &ItemBox::notifyRootMouseChangeFocus);
-			item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
-			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
+			item->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
+			item->eventRootMouseChangeFocus += newDelegate(this, &ItemBox::notifyRootMouseChangeFocus);
+			item->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			item->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			item->eventMouseButtonDoubleClick += newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
+			item->eventMouseDrag += newDelegate(this, &ItemBox::notifyMouseDrag);
 			item->_setContainer(this);
-			item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
-			item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
+			item->eventKeyButtonPressed += newDelegate(this, &ItemBox::notifyKeyButtonPressed);
+			item->eventKeyButtonReleased += newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
 			item->_setInternalData((size_t)mVectorItems.size());
 

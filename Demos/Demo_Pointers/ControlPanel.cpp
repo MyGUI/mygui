@@ -17,9 +17,9 @@ namespace demo
 		const MyGUI::IntSize& size = mMainWidget->getParentSize();
 		mMainWidget->setPosition(10, size.height - 10 - mMainWidget->getHeight());
 
-		mBusy->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
-		mRepair->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
-		mAttack->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
+		mBusy->eventMouseButtonClick += MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
+		mRepair->eventMouseButtonClick += MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
+		mAttack->eventMouseButtonClick += MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
 	}
 
 	void ControlPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)

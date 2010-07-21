@@ -115,15 +115,15 @@ namespace MyGUI
             {
                 MYGUI_DEBUG_ASSERT(!mpWidgetScroll, "widget already assigned");
                 mpWidgetScroll = (*WidgetIterator)->castType<VScroll>();
-                mpWidgetScroll->eventScrollChangePosition = newDelegate(this, &TreeControl::notifyScrollChangePosition);
-                mpWidgetScroll->eventMouseButtonPressed = newDelegate(this, &TreeControl::notifyMousePressed);
+                mpWidgetScroll->eventScrollChangePosition += newDelegate(this, &TreeControl::notifyScrollChangePosition);
+                mpWidgetScroll->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
             }
             else
             if (*(*WidgetIterator)->_getInternalData<std::string>() == "Client")
             {
                 MYGUI_DEBUG_ASSERT(!mWidgetClient, "widget already assigned");
                 mWidgetClient = (*WidgetIterator);
-                mWidgetClient->eventMouseButtonPressed = newDelegate(this, &TreeControl::notifyMousePressed);
+                mWidgetClient->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
             }
         }
 
@@ -270,13 +270,13 @@ namespace MyGUI
                 mnItemHeight,
                 Align::Top | Align::HStretch);
 
-            pItem->eventMouseButtonPressed = newDelegate(this, &TreeControl::notifyMousePressed);
-            pItem->eventMouseButtonDoubleClick = newDelegate(this, &TreeControl::notifyMouseDoubleClick);
-            pItem->eventMouseWheel = newDelegate(this, &TreeControl::notifyMouseWheel);
-            pItem->eventMouseSetFocus = newDelegate(this, &TreeControl::notifyMouseSetFocus);
-            pItem->eventMouseLostFocus = newDelegate(this, &TreeControl::notifyMouseLostFocus);
+            pItem->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
+            pItem->eventMouseButtonDoubleClick += newDelegate(this, &TreeControl::notifyMouseDoubleClick);
+            pItem->eventMouseWheel += newDelegate(this, &TreeControl::notifyMouseWheel);
+            pItem->eventMouseSetFocus += newDelegate(this, &TreeControl::notifyMouseSetFocus);
+            pItem->eventMouseLostFocus += newDelegate(this, &TreeControl::notifyMouseLostFocus);
             pItem->_setInternalData((size_t)mItemWidgets.size());
-            pItem->getButtonExpandCollapse()->eventMouseButtonClick = newDelegate(this, &TreeControl::notifyExpandCollapse);
+            pItem->getButtonExpandCollapse()->eventMouseButtonClick += newDelegate(this, &TreeControl::notifyExpandCollapse);
 
             mItemWidgets.push_back(pItem);
 

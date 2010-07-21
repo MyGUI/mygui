@@ -223,7 +223,7 @@ void EditorState::createMainMenu()
 	//FIXME
 	mPopupMenuWidgets->setPopupAccept(true);
 
-	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+	bar->eventMenuCtrlAccept += newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
 	interfaceWidgets.push_back(bar);
 }
@@ -708,7 +708,7 @@ void EditorState::notifyLoad()
 			MyGUI::MessageBoxStyle::IconWarning |
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
-		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmLoadMessage);
+		message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyConfirmLoadMessage);
 		message->setUserString("FileName", fileName);
 		return;
 	}
@@ -771,7 +771,7 @@ void EditorState::notifyEndTest()
 void EditorState::notifyClear()
 {
 	MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
-	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyClearMessage);
+	message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyClearMessage);
 }
 
 void EditorState::notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
@@ -809,7 +809,7 @@ void EditorState::notifyQuit()
 			MyGUI::MessageBoxStyle::IconWarning |
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
-		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmQuitMessage);
+		message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyConfirmQuitMessage);
 		message->setUserString("FileName", fileName);
 		return;
 	}
@@ -922,7 +922,7 @@ void EditorState::notifyWidgetsUpdate()
 	bool print_skin = mSettingsWindow->getShowSkin();
 
 	mPopupMenuWidgets->removeAllItems();
-	mPopupMenuWidgets->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+	mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
@@ -940,7 +940,7 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 	if (submenu)
 	{
 		MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
-		child->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+		child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 		child->setPopupAccept(true);
 
 		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )

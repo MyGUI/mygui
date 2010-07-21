@@ -32,7 +32,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate1<Edit*> EventHandle_EditPtr;
+	typedef delegates::CMultiDelegate1<Edit*> EventHandle_EditPtr;
 
 	class MYGUI_EXPORT Edit :
 		public StaticText,
