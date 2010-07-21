@@ -96,14 +96,14 @@ namespace wraps
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
 				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
-				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
+				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 			else
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
 				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
-				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
+				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 		}

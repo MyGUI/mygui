@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
+	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
 
 	class MYGUI_EXPORT ComboBox :
 		public Edit

@@ -33,7 +33,7 @@ SampleLayout * mSampleLayout;
 SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 {
 	assignWidget(mpResourcesTree, "ResourcesTree");
-	mpResourcesTree->eventTreeNodePrepare = newDelegate(this, &SampleLayout::notifyTreeNodePrepare);
+	mpResourcesTree->eventTreeNodePrepare += newDelegate(this, &SampleLayout::notifyTreeNodePrepare);
 
 
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();

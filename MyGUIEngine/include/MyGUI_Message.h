@@ -32,7 +32,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<Message*, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
+	typedef delegates::CMultiDelegate2<Message*, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
 
 	class MYGUI_EXPORT Message :
 		public Window

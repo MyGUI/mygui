@@ -18,10 +18,10 @@ namespace demo
 		assignWidget(mButtonQuit, "Quit");
 		assignWidget(mComboCreate, "CreateObject");
 
-		mButtonNew->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
-		mButtonLoad->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
-		mButtonQuit->eventMouseButtonClick = MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
-		mComboCreate->eventComboAccept = MyGUI::newDelegate(this, &MainPanel::notifyComboAccept);
+		mButtonNew->eventMouseButtonClick += MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mButtonLoad->eventMouseButtonClick += MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mButtonQuit->eventMouseButtonClick += MyGUI::newDelegate(this, &MainPanel::notifyMouseButtonClick);
+		mComboCreate->eventComboAccept += MyGUI::newDelegate(this, &MainPanel::notifyComboAccept);
 	}
 
 	void MainPanel::addObject(const MyGUI::UString & _name)

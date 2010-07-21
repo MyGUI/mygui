@@ -14,7 +14,7 @@ const std::string TemplateName = "BaseLayoutCPP.xml";
 CodeGenerator::CodeGenerator()
 {
 	initialiseByAttributes(this);
-	mGenerateButton->eventMouseButtonClick = MyGUI::newDelegate(this, &CodeGenerator::notifyGeneratePressed);
+	mGenerateButton->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyGeneratePressed);
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("LECodeTemplate") = MyGUI::newDelegate(this, &CodeGenerator::parseTemplate);
 	MyGUI::ResourceManager::getInstance().load(TemplateName);

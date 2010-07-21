@@ -16,16 +16,16 @@ namespace demo
 		mCurrentColour = MyGUI::Colour::Green;
 		mBaseColour = MyGUI::Colour::Green;
 
-		mColourRect->eventMouseButtonPressed = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
-		mColourRect->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
-		mImageColourPicker->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
-		mScrollRange->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePosition);
+		mColourRect->eventMouseButtonPressed += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
+		mColourRect->eventMouseDrag += MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
+		mImageColourPicker->eventMouseDrag += MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
+		mScrollRange->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePosition);
 
-		mEditRed->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
-		mEditGreen->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
-		mEditBlue->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+		mEditRed->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+		mEditGreen->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+		mEditBlue->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 
-		mOk->eventMouseButtonClick = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
+		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
 
 		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 0, 1));

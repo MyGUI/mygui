@@ -45,7 +45,7 @@ namespace demo
 			mTime = 0;
 			mCurrentPosition = 0;
 
-			_widget->eventChangeProperty = MyGUI::newDelegate(this, &ControllerSmoothCaption::notifyChangeProperty);
+			_widget->eventChangeProperty += MyGUI::newDelegate(this, &ControllerSmoothCaption::notifyChangeProperty);
 		}
 
 		void update(MyGUI::Widget* _widget)

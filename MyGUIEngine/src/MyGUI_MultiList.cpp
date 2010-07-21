@@ -113,13 +113,13 @@ namespace MyGUI
 		column.width = _width < 0 ? 0 : _width;
 
 		column.list = mClient->createWidget<List>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
-		column.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
-		column.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
-		column.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
-		column.list->eventListSelectAccept = newDelegate(this, &MultiList::notifyListSelectAccept);
+		column.list->eventListChangePosition += newDelegate(this, &MultiList::notifyListChangePosition);
+		column.list->eventListMouseItemFocus += newDelegate(this, &MultiList::notifyListChangeFocus);
+		column.list->eventListChangeScroll += newDelegate(this, &MultiList::notifyListChangeScrollPosition);
+		column.list->eventListSelectAccept += newDelegate(this, &MultiList::notifyListSelectAccept);
 
 		column.button = mClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
-		column.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
+		column.button->eventMouseButtonClick += newDelegate(this, &MultiList::notifyButtonClick);
 		column.name = _name;
 		column.data = _data;
 

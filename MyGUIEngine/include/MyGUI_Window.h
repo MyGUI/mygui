@@ -31,9 +31,10 @@ namespace MyGUI
 {
 
 	// OBSOLETE
-	typedef delegates::CDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
-	typedef delegates::CDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
-	typedef delegates::CDelegate1<Window*> EventHandle_WindowPtr;
+	typedef delegates::CMultiDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
+
+	typedef delegates::CMultiDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
+	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
 	class MYGUI_EXPORT Window :
 		public StaticText // FIXME пока для кэпшена вместо виджета текст

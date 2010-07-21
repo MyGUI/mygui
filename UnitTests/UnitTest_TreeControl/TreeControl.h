@@ -19,8 +19,8 @@ namespace MyGUI
     public:
         class Node;
 
-        typedef delegates::CDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
-        typedef delegates::CDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
+        typedef delegates::CMultiDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
+        typedef delegates::CMultiDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
 
         class Node : public GenericNode<Node, TreeControl>
         {

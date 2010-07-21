@@ -136,7 +136,7 @@ namespace MyGUI
 
 		Widget* widget = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 		Button* button = widget->castType<Button>();
-		button->eventMouseButtonClick = newDelegate(this, &Message::notifyButtonClick);
+		button->eventMouseButtonClick += newDelegate(this, &Message::notifyButtonClick);
 		button->setCaption(_name);
 		button->_setInternalData(info);
 		mVectorButton.push_back(button);
@@ -221,7 +221,7 @@ namespace MyGUI
 			if (mSmoothShow)
 			{
 				ControllerFadeAlpha* controller = createControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
-				controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
+				controller->eventPostAction += newDelegate(action::actionWidgetDestroy);
 				ControllerManager::getInstance().addItem(mWidgetFade, controller);
 			}
 			else

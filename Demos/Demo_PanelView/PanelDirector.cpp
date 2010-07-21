@@ -21,9 +21,9 @@ namespace demo
 		assignWidget(mCheckShowDynamic, "check_Dynamic");
 		assignWidget(mComboCount, "combo_Count");
 
-		mCheckShowStatic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
-		mCheckShowDynamic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
-		mComboCount->eventComboAccept = MyGUI::newDelegate(this, &PanelDirector::notifyComboAccept);
+		mCheckShowStatic->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
+		mCheckShowDynamic->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
+		mComboCount->eventComboAccept += MyGUI::newDelegate(this, &PanelDirector::notifyComboAccept);
 		mComboCount->setIndexSelected(4);
 	}
 

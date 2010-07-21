@@ -34,8 +34,8 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<ListCtrl*, Widget*> EventHandle_ListCtrlPtrWidgetPtr;
 	typedef delegates::CDelegate4<ListCtrl*, Widget*, const IBDrawItemInfo &, IntCoord&> EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CDelegate2<ListCtrl*, size_t> EventHandle_ListCtrlPtrSizeT;
-	typedef delegates::CDelegate2<ListCtrl*, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
+	typedef delegates::CMultiDelegate2<ListCtrl*, size_t> EventHandle_ListCtrlPtrSizeT;
+	typedef delegates::CMultiDelegate2<ListCtrl*, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ListCtrl :
 		public DDContainer,

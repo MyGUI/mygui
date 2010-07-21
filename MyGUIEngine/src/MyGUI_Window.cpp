@@ -83,8 +83,8 @@ namespace MyGUI
 				if (main_move)
 				{
 					(*iter)->setUserString("Scale", "1 1 0 0");
-					(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-					(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+					(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+					(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 				}
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
@@ -93,18 +93,18 @@ namespace MyGUI
 				mWidgetCaption = (*iter)->castType<StaticText>(false);
 				if (mWidgetCaption != nullptr)
 				{
-					mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-					mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+					mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+					mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 				}
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Button")
 			{
-				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
+				(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Action")
 			{
-				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
-				(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+				(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+				(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 			}
 		}
 
@@ -315,7 +315,7 @@ namespace MyGUI
 	void Window::destroySmooth()
 	{
 		ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
+		controller->eventPostAction += newDelegate(action::actionWidgetDestroy);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
@@ -372,14 +372,14 @@ namespace MyGUI
 				Base::setVisible(true);
 			}
 			ControllerFadeAlpha * controller = createControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
-			controller->eventPostAction = newDelegate(this, &Window::animateStop);
+			controller->eventPostAction += newDelegate(this, &Window::animateStop);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
 		{
 			setEnabledSilent(false);
 			ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			controller->eventPostAction += newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 	}

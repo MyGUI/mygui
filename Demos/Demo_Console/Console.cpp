@@ -19,7 +19,7 @@ namespace demo
 		assignWidget(mButtonSubmit, "button_Submit");
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
+		if (window != nullptr) window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
 
 		mStringCurrent = mMainWidget->getUserString("Current");
 		mStringError = mMainWidget->getUserString("Error");
@@ -29,9 +29,9 @@ namespace demo
 
 		mAutocomleted = false;
 
-		mComboCommand->eventComboAccept = newDelegate(this, &Console::notifyComboAccept);
-		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
-		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
+		mComboCommand->eventComboAccept += newDelegate(this, &Console::notifyComboAccept);
+		mComboCommand->eventKeyButtonPressed += newDelegate(this, &Console::notifyButtonPressed);
+		mButtonSubmit->eventMouseButtonClick += newDelegate(this, &Console::notifyMouseButtonClick);
 		mListHistory->setOverflowToTheLeft(true);
 
 		mMainWidget->setVisible(false);

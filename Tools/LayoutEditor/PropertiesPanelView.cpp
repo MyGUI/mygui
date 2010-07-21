@@ -32,7 +32,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 	if (window != nullptr)
 	{
-		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
+		window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 		mOldSize = window->getSize();
 	}
 
@@ -72,9 +72,9 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
-	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
-	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
-	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
+	current_widget_rectangle->eventWindowChangeCoord += newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
+	current_widget_rectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
+	current_widget_rectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
 	arrow_move = false;
 }
@@ -406,20 +406,20 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 		if (widget_for_type == PropertyType_Edit)
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange += newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
 		else if (widget_for_type == PropertyType_ComboBox)
 		{
 			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
+			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
 		}
 		else if (widget_for_type == PropertyType_EditAcceptOnly)
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
 
 		if (mPropertiesElement[_window].size() < mPairsCounter)

@@ -34,7 +34,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
+	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
 
 	class MYGUI_EXPORT Widget :
 		public IObject,

@@ -76,17 +76,17 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
 				mButton = (*iter)->castType<Button>();
-				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
+				mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "List")
 			{
 				MYGUI_DEBUG_ASSERT( ! mList, "widget already assigned");
 				mList = (*iter)->castType<List>();
 				mList->setVisible(false);
-				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
-				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-				mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
-				mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
+				mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
+				mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
+				mList->eventListMouseItemActivate += newDelegate(this, &ComboBox::notifyListMouseItemActivate);
+				mList->eventListChangePosition += newDelegate(this, &ComboBox::notifyListChangePosition);
 			}
 		}
 
@@ -103,21 +103,21 @@ namespace MyGUI
 			mWidgetChild.pop_back();
 
 			mList->setVisible(false);
-			mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
-			mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-			mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
-			mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
+			mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
+			mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
+			mList->eventListMouseItemActivate += newDelegate(this, &ComboBox::notifyListMouseItemActivate);
+			mList->eventListChangePosition += newDelegate(this, &ComboBox::notifyListChangePosition);
 		}
 
 		// подписываем дочерние классы на скролл
 		if (mWidgetClient != nullptr)
 		{
-			mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
-			mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+			mWidgetClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
+			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
 		}
 
 		// подписываемся на изменения текста
-		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);
+		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
 
 	void ComboBox::shutdownWidgetSkin()
@@ -307,7 +307,7 @@ namespace MyGUI
 		if (mShowSmooth)
 		{
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
-			controller->eventPostAction = newDelegate(this, &ComboBox::actionWidgetHide);
+			controller->eventPostAction += newDelegate(this, &ComboBox::actionWidgetHide);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else

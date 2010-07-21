@@ -19,10 +19,10 @@ MetaSolutionWindow::MetaSolutionWindow() :
 	assignWidget(mListTree, "ListTree");
 
 	mWindow = mMainWidget->castType<MyGUI::Window>();
-	mWindow->eventWindowButtonPressed = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
+	mWindow->eventWindowButtonPressed += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
 
-	mListTree->eventListSelectAccept = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListSelectAccept);
-	mListTree->eventListChangePosition = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListChangePosition);
+	mListTree->eventListSelectAccept += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListSelectAccept);
+	mListTree->eventListChangePosition += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListChangePosition);
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("MetaSolution") = MyGUI::newDelegate(this, &MetaSolutionWindow::parseMetaSolution);
 }

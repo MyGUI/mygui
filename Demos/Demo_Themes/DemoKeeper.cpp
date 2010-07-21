@@ -47,7 +47,7 @@ namespace demo
 		mComboSkins->addItem("black & orange");
 
 		mComboSkins->setIndexSelected(_index);
-		mComboSkins->eventComboAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
+		mComboSkins->eventComboAccept += MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
 	}
 
 	void DemoKeeper::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)

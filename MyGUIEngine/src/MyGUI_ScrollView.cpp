@@ -54,24 +54,24 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mScrollClient, "widget already assigned");
 				mScrollClient = (*iter);
-				mScrollClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
+				mScrollClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 				mClient = mScrollClient;
 
 				// создаем холcт, реальный владелец детей
 				mWidgetClient = mScrollClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
-				mWidgetClient->eventMouseWheel = newDelegate(this, &ScrollView::notifyMouseWheel);
+				mWidgetClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "VScroll")
 			{
 				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
 				mVScroll = (*iter)->castType<VScroll>();
-				mVScroll->eventScrollChangePosition = newDelegate(this, &ScrollView::notifyScrollChangePosition);
+				mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "HScroll")
 			{
 				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
 				mHScroll = (*iter)->castType<HScroll>();
-				mHScroll->eventScrollChangePosition = newDelegate(this, &ScrollView::notifyScrollChangePosition);
+				mHScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
 			}
 		}
 

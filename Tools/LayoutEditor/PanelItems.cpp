@@ -36,11 +36,11 @@ void PanelItems::initialise()
 	assignWidget(mButtonAdd, "buttonAdd");
 	assignWidget(mButtonDelete, "buttonDelete");
 	assignWidget(mButtonSelect, "buttonSelect");
-	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifyAddItem);
-	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifyDeleteItem);
-	mButtonSelect->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifySelectSheet);
-	mEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelItems::notifyUpdateItem);
-	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
+	mButtonAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifyAddItem);
+	mButtonDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifyDeleteItem);
+	mButtonSelect->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifySelectSheet);
+	mEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelItems::notifyUpdateItem);
+	mList->eventListChangePosition += MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
 
 	mButtonLeft = mButtonAdd->getLeft();
 	mButtonRight = mMainWidget->getWidth() - mButtonSelect->getRight();

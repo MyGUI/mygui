@@ -31,13 +31,13 @@ namespace wraps
 			mBoxItems->requestCoordItem = MyGUI::newDelegate(this, &BaseItemBox::requestCoordWidgetItem);
 			mBoxItems->requestDrawItem = MyGUI::newDelegate(this, &BaseItemBox::requestUpdateWidgetItem);
 
-			mBoxItems->eventStartDrag = MyGUI::newDelegate(this, &BaseItemBox::notifyStartDrop);
-			mBoxItems->eventRequestDrop = MyGUI::newDelegate(this, &BaseItemBox::notifyRequestDrop);
-			mBoxItems->eventDropResult = MyGUI::newDelegate(this, &BaseItemBox::notifyEndDrop);
-			mBoxItems->eventChangeDDState = MyGUI::newDelegate(this, &BaseItemBox::notifyDropState);
-			mBoxItems->eventNotifyItem = MyGUI::newDelegate(this, &BaseItemBox::notifyNotifyItem);
+			mBoxItems->eventStartDrag += MyGUI::newDelegate(this, &BaseItemBox::notifyStartDrop);
+			mBoxItems->eventRequestDrop += MyGUI::newDelegate(this, &BaseItemBox::notifyRequestDrop);
+			mBoxItems->eventDropResult += MyGUI::newDelegate(this, &BaseItemBox::notifyEndDrop);
+			mBoxItems->eventChangeDDState += MyGUI::newDelegate(this, &BaseItemBox::notifyDropState);
+			mBoxItems->eventNotifyItem += MyGUI::newDelegate(this, &BaseItemBox::notifyNotifyItem);
 
-			mBoxItems->eventToolTip = MyGUI::newDelegate(this, &BaseItemBox::notifyToolTip);
+			mBoxItems->eventToolTip += MyGUI::newDelegate(this, &BaseItemBox::notifyToolTip);
 		}
 
 		virtual ~BaseItemBox()
@@ -46,13 +46,13 @@ namespace wraps
 			mBoxItems->requestCoordItem = nullptr;
 			mBoxItems->requestDrawItem = nullptr;
 
-			mBoxItems->eventStartDrag = nullptr;
-			mBoxItems->eventRequestDrop = nullptr;
-			mBoxItems->eventDropResult = nullptr;
-			mBoxItems->eventChangeDDState = nullptr;
-			mBoxItems->eventNotifyItem = nullptr;
+			mBoxItems->eventStartDrag -= MyGUI::newDelegate(this, &BaseItemBox::notifyStartDrop);
+			mBoxItems->eventRequestDrop -= MyGUI::newDelegate(this, &BaseItemBox::notifyRequestDrop);
+			mBoxItems->eventDropResult -= MyGUI::newDelegate(this, &BaseItemBox::notifyEndDrop);
+			mBoxItems->eventChangeDDState -= MyGUI::newDelegate(this, &BaseItemBox::notifyDropState);
+			mBoxItems->eventNotifyItem -= MyGUI::newDelegate(this, &BaseItemBox::notifyNotifyItem);
 
-			mBoxItems->eventToolTip = nullptr;
+			mBoxItems->eventToolTip -= MyGUI::newDelegate(this, &BaseItemBox::notifyToolTip);
 
 			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter)
 			{

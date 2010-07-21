@@ -75,10 +75,10 @@ void WidgetsWindow::initialise()
 			button->setUserString("width", MyGUI::utility::toString(skinDefaultSize.width));
 			button->setUserString("height", MyGUI::utility::toString(skinDefaultSize.height));
 
-			button->eventMouseButtonClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
-			button->eventMouseButtonDoubleClick = MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetTypeDoubleclick);
+			button->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
+			button->eventMouseButtonDoubleClick += MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetTypeDoubleclick);
 			button->setNeedToolTip(true);
-			button->eventToolTip = MyGUI::newDelegate(this, &WidgetsWindow::notifyToolTip);
+			button->eventToolTip += MyGUI::newDelegate(this, &WidgetsWindow::notifyToolTip);
 			i++;
 		}
 		mMaxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, mMaxLines);
