@@ -9,8 +9,6 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-//#include <Ogre.h>
-
 extern const int PropertyItemHeight;
 
 class PanelItems : public wraps::BasePanelViewItem

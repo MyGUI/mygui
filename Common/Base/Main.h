@@ -9,8 +9,6 @@
 #define BASEMAIN_H__
 
 #include "precompiled.h"
-
-#include "Main.h"
  
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
