@@ -62,7 +62,7 @@ public:
 
 	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> EventInfo_UString;
 	EventInfo_UString eventLoadFile;
-	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
+	MyGUI::delegates::CDelegate1<MyGUI::Widget*> eventSelectWidget;
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 private:
