@@ -70,7 +70,7 @@ namespace demo
 	void DemoKeeper::createNewWindow()
 	{
 		MyGUI::Window* widget = MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
-		widget->eventWindowButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
+		widget->eventWindowButtonPressed += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
 
 		mWidgets.insert(widget);
 	}

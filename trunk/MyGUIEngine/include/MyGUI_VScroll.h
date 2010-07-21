@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
+	typedef delegates::CMultiDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll :
 		public Widget

@@ -22,7 +22,7 @@ namespace demo
 			MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 			if (window != nullptr)
 			{
-				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
+				window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
 				mOldSize = window->getSize();
 			}
 		}

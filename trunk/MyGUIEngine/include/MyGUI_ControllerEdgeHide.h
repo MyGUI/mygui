@@ -68,7 +68,7 @@ namespace MyGUI
 
 		void recalculateTime(Widget* _widget);
 
-		delegates::CDelegate1<Widget*> eventPostAction;
+		delegates::CMultiDelegate1<Widget*> eventPostAction;
 
 		float mTime;
 		int mRemainPixels;

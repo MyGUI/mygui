@@ -81,21 +81,21 @@ namespace MyGUI
 				MYGUI_DEBUG_ASSERT( ! mButtonLeft, "widget already assigned");
 				mButtonLeft = (*iter)->castType<Button>();
 				mButtonLeft->setVisible(false);
-				mButtonLeft->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
+				mButtonLeft->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Right")
 			{
 				MYGUI_DEBUG_ASSERT( ! mButtonRight, "widget already assigned");
 				mButtonRight = (*iter)->castType<Button>();
 				mButtonRight->setVisible(false);
-				mButtonRight->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
+				mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "List")
 			{
 				MYGUI_DEBUG_ASSERT( ! mButtonList, "widget already assigned");
 				mButtonList = (*iter)->castType<Button>();
 				mButtonList->setVisible(false);
-				mButtonList->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedButtonEvent);
+				mButtonList->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "ButtonDecor")
 			{
@@ -513,7 +513,7 @@ namespace MyGUI
 		else
 		{
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, false);
-			controller->eventPostAction = newDelegate(this, &Tab::actionWidgetHide);
+			controller->eventPostAction += newDelegate(this, &Tab::actionWidgetHide);
 			ControllerManager::getInstance().addItem(_item, controller);
 		}
 	}
@@ -521,7 +521,7 @@ namespace MyGUI
 	void Tab::_createItemButton()
 	{
 		Button* button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
-		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
+		button->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedBarButtonEvent);
 		button->_setInternalData(mItemButton.size()); // порядковый номер
 		mItemButton.push_back(button);
 	}

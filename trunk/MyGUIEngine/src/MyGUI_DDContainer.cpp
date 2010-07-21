@@ -157,7 +157,8 @@ namespace MyGUI
 
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainer*>(receiver);
-				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
+				mReseiverContainer->_eventInvalideContainer.clear();
+				mReseiverContainer->_eventInvalideContainer += newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
 				mDropInfo.set(this, mDropSenderIndex, mReseiverContainer, receiver_index);

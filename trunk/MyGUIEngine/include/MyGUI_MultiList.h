@@ -33,10 +33,10 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CDelegate5<Widget*, size_t, const UString &, const UString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
+	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString &, const UString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
 
 	typedef delegates::CDelegate5<MultiList*, size_t, const UString &, const UString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
-	typedef delegates::CDelegate2<MultiList*, size_t> EventHandle_MultiListPtrSizeT;
+	typedef delegates::CMultiDelegate2<MultiList*, size_t> EventHandle_MultiListPtrSizeT;
 
 	class MYGUI_EXPORT MultiList :
 		public Widget,

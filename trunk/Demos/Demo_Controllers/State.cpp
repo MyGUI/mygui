@@ -26,10 +26,10 @@ namespace demo
 		mButton3->setVisible(false);
 		mButton4->setVisible(false);
 
-		mButton1->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
-		mButton2->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
-		mButton3->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
-		mButton4->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton1->eventMouseButtonClick += MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton2->eventMouseButtonClick += MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton3->eventMouseButtonClick += MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton4->eventMouseButtonClick += MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
 	}
 
 	State::~State()
@@ -143,7 +143,7 @@ namespace demo
 				MyGUI::IntPoint point(view.width - mButton4->getWidth() - offset, (mButton4->getHeight() + offset) * 3 + offset);
 				MyGUI::ControllerPosition* controller = createControllerPosition(point);
 				MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
-				controller->eventPostAction = MyGUI::newDelegate(this, &State::notifyPostAction);
+				controller->eventPostAction += MyGUI::newDelegate(this, &State::notifyPostAction);
 			}
 
 			FrameAdvise(false);

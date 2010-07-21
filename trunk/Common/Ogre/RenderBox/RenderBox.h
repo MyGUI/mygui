@@ -55,7 +55,7 @@ namespace wraps
 
 			mCanvas = _value;
 			mCanvas->createTexture(MyGUI::Canvas::TRM_PT_VIEW_ALL, MyGUI::TextureUsage::RenderTarget);
-			mCanvas->eventPreTextureChanges = MyGUI::newDelegate(this, &RenderBox::eventPreTextureChanges);
+			mCanvas->eventPreTextureChanges += MyGUI::newDelegate(this, &RenderBox::eventPreTextureChanges);
 			mCanvas->requestUpdateCanvas = MyGUI::newDelegate(this, &RenderBox::requestUpdateCanvas);
 
 			mCanvas->updateTexture();
@@ -65,7 +65,7 @@ namespace wraps
 		{
 			if (mCanvas)
 			{
-				mCanvas->eventPreTextureChanges = nullptr;
+				mCanvas->eventPreTextureChanges -= MyGUI::newDelegate(this, &RenderBox::eventPreTextureChanges);
 				mCanvas->requestUpdateCanvas = nullptr;
 				mCanvas->destroyTexture();
 				mCanvas = nullptr;

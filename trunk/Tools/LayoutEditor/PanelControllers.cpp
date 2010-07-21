@@ -31,9 +31,9 @@ void PanelControllers::initialise()
 	assignWidget(mButtonDelete, "buttonDelete");
 	assignWidget(mList, "list");
 
-	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelControllers::notifyAdd);
-	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelControllers::notifyDelete);
-	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelControllers::notifySelectItem);
+	mButtonAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelControllers::notifyAdd);
+	mButtonDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelControllers::notifyDelete);
+	mList->eventListChangePosition += MyGUI::newDelegate(this, &PanelControllers::notifySelectItem);
 
 	mButtonLeft = mButtonAdd->getLeft();
 	mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();

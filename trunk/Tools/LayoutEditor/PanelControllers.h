@@ -23,8 +23,9 @@ public:
 	void update(MyGUI::Widget* _current_widget);
 
 	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+	typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
 	EventHandle_EventCreatePair eventCreatePair;
-	MyGUI::EventHandle_WidgetVoid eventHidePairs;
+	EventHandle_WidgetVoid eventHidePairs;
 private:
 	virtual void notifyChangeWidth(int _width);
 

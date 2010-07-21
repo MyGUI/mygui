@@ -50,7 +50,7 @@ namespace demo
 			MyGUI::Progress* progress = _widget->castType<MyGUI::Progress>(false);
 			if (progress != nullptr)
 			{
-				_widget->eventChangeProperty = MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
+				_widget->eventChangeProperty += MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
 			}
 		}
 

@@ -56,14 +56,14 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
 				mWidgetScroll = (*iter)->castType<VScroll>();
-				mWidgetScroll->eventScrollChangePosition = newDelegate(this, &List::notifyScrollChangePosition);
-				mWidgetScroll->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+				mWidgetScroll->eventScrollChangePosition += newDelegate(this, &List::notifyScrollChangePosition);
+				mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Client")
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
-				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
+				mWidgetClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
 			}
 		}
 		//MYGUI_ASSERT(nullptr != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
@@ -361,11 +361,11 @@ namespace MyGUI
 				Widget* widget = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
 				Button* line = widget->castType<Button>();
 				// подписываемся на всякие там события
-				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
-				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);
-				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
-				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
-				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
+				line->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+				line->eventMouseButtonDoubleClick += newDelegate(this, &List::notifyMouseDoubleClick);
+				line->eventMouseWheel += newDelegate(this, &List::notifyMouseWheel);
+				line->eventMouseSetFocus += newDelegate(this, &List::notifyMouseSetFocus);
+				line->eventMouseLostFocus += newDelegate(this, &List::notifyMouseLostFocus);
 				// присваиваем порядковый номер, для простоты просчета
 				line->_setInternalData((size_t)mWidgetLines.size());
 				// и сохраняем

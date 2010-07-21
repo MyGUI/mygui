@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<Tab*, size_t> EventHandle_TabPtrSizeT;
+	typedef delegates::CMultiDelegate2<Tab*, size_t> EventHandle_TabPtrSizeT;
 
 	class MYGUI_EXPORT Tab :
 		public Widget

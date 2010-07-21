@@ -315,6 +315,14 @@ namespace delegates
 			return *this;
 		}
 
+		MYGUI_OBSOLETE("use : operator += ")
+		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & operator=(IDelegate* _delegate)
+		{
+			clear();
+			*this += _delegate;
+			return *this;
+		}
+
 	private:
 		void safe_clear(ListDelegate& _delegates)
 		{

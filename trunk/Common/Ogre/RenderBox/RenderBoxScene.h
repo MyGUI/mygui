@@ -149,9 +149,9 @@ namespace wraps
 		{
 			RenderBox::setCanvas(_value);
 
-			mCanvas->eventMouseDrag = newDelegate(this, &RenderBoxScene::notifyMouseDrag);
-			mCanvas->eventMouseButtonPressed = newDelegate(this, &RenderBoxScene::notifyMouseButtonPressed);
-			mCanvas->eventMouseButtonReleased = newDelegate(this, &RenderBoxScene::notifyMouseButtonReleased);
+			mCanvas->eventMouseDrag += newDelegate(this, &RenderBoxScene::notifyMouseDrag);
+			mCanvas->eventMouseButtonPressed += newDelegate(this, &RenderBoxScene::notifyMouseButtonPressed);
+			mCanvas->eventMouseButtonReleased += newDelegate(this, &RenderBoxScene::notifyMouseButtonReleased);
 
 			createScene();
 		}
@@ -164,9 +164,9 @@ namespace wraps
 			{
 				frameAdvise(false);
 
-				mCanvas->eventMouseDrag = nullptr;
-				mCanvas->eventMouseButtonPressed = nullptr;
-				mCanvas->eventMouseButtonReleased = nullptr;
+				mCanvas->eventMouseDrag -= newDelegate(this, &RenderBoxScene::notifyMouseDrag);
+				mCanvas->eventMouseButtonPressed -= newDelegate(this, &RenderBoxScene::notifyMouseButtonPressed);
+				mCanvas->eventMouseButtonReleased -= newDelegate(this, &RenderBoxScene::notifyMouseButtonReleased);
 				mCanvas = nullptr;
 
 				Ogre::Root* root = Ogre::Root::getSingletonPtr();

@@ -30,9 +30,9 @@ namespace MyGUI
                 MYGUI_DEBUG_ASSERT(!mpButtonExpandCollapse, "widget already assigned");
                 mpButtonExpandCollapse = pWidget->castType<Button>();
 
-                pWidget->eventMouseSetFocus = newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
-                pWidget->eventMouseLostFocus = newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
-                pWidget->eventMouseWheel = newDelegate(this, &TreeControlItem::notifyMouseWheel);
+                pWidget->eventMouseSetFocus += newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
+                pWidget->eventMouseLostFocus += newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
+                pWidget->eventMouseWheel += newDelegate(this, &TreeControlItem::notifyMouseWheel);
             }
             else
                 pWidget->setInheritsPick(true);

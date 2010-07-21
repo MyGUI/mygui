@@ -28,8 +28,8 @@ public:
 
 	int getCreatingStatus() { return creating_status; }
 
-	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
-	MyGUI::EventHandle_WidgetToolTip eventToolTip;
+	MyGUI::delegates::CDelegate1<MyGUI::Widget*> eventSelectWidget;
+	MyGUI::delegates::CDelegate2<MyGUI::Widget*, const MyGUI::ToolTipInfo& > eventToolTip;
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
