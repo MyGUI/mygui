@@ -675,31 +675,6 @@ namespace MyGUI
 		_updateVisible();
 	}
 
-	void Widget::setEnabled(bool _value)
-	{
-		if (mEnabled == _value)
-			return;
-		mEnabled = _value;
-
-		_updateEnabled();
-	}
-
-	IntSize Widget::getParentSize()
-	{
-		if (mVisualParent)
-			return static_cast<Widget*>(mVisualParent)->getSize();
-		if (getLayer())
-			return getLayer()->getSize();
-
-		return RenderManager::getInstance().getViewSize();
-	}
-
-	void Widget::_resetContainer(bool _updateOnly)
-	{
-		if (getNeedToolTip())
-			ToolTipManager::getInstance()._unlinkWidget(this);
-	}
-
 	void Widget::_updateVisible()
 	{
 		mInheritsVisible = mParent == nullptr || (mParent->getVisible() && mParent->_isInheritsVisible());
@@ -711,6 +686,15 @@ namespace MyGUI
 			(*iter)->_updateVisible();
 		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
 			(*iter)->_updateVisible();
+	}
+
+	void Widget::setEnabled(bool _value)
+	{
+		if (mEnabled == _value)
+			return;
+		mEnabled = _value;
+
+		_updateEnabled();
 	}
 
 	void Widget::_updateEnabled()
@@ -727,6 +711,22 @@ namespace MyGUI
 
 		if (!value)
 			InputManager::getInstance().unlinkWidget(this);
+	}
+
+	IntSize Widget::getParentSize()
+	{
+		if (mVisualParent)
+			return static_cast<Widget*>(mVisualParent)->getSize();
+		if (getLayer())
+			return getLayer()->getSize();
+
+		return RenderManager::getInstance().getViewSize();
+	}
+
+	void Widget::_resetContainer(bool _updateOnly)
+	{
+		if (getNeedToolTip())
+			ToolTipManager::getInstance()._unlinkWidget(this);
 	}
 
 	void Widget::attachVisual()
