@@ -23,10 +23,9 @@
 #define __MYGUI_ROTATING_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ICroppedRectangle.h"
-#include "MyGUI_SubSkin.h"
+#include "MyGUI_ISubWidgetRect.h"
+#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
@@ -65,10 +64,10 @@ namespace MyGUI
 		virtual void doRender();
 
 	/*internal:*/
-		void _updateView();
-		void _correctView();
+		virtual void _updateView();
+		virtual void _correctView();
 
-		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
