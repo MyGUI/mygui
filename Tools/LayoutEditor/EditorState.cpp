@@ -222,6 +222,7 @@ void EditorState::createMainMenu()
 	mPopupMenuWidgets = menu_widget->createItemChild();
 	//FIXME
 	mPopupMenuWidgets->setPopupAccept(true);
+	mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 	bar->eventMenuCtrlAccept += newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
@@ -922,8 +923,6 @@ void EditorState::notifyWidgetsUpdate()
 	bool print_skin = mSettingsWindow->getShowSkin();
 
 	mPopupMenuWidgets->removeAllItems();
-	mPopupMenuWidgets->eventMenuCtrlAccept.clear();
-	mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
@@ -941,7 +940,6 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 	if (submenu)
 	{
 		MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
-		child->eventMenuCtrlAccept.clear();
 		child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 		child->setPopupAccept(true);
 
