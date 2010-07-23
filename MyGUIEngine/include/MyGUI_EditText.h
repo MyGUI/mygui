@@ -111,11 +111,11 @@ namespace MyGUI
 
 		virtual void setStateData(IStateInfo * _data);
 
-		void _updateView();
-		void _correctView();
-
 	/*internal:*/
-		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _updateView();
+		virtual void _correctView();
+
+		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
 
 	private:
 		void _setTextColour(const Colour& _value);
