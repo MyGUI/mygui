@@ -64,7 +64,7 @@ namespace MyGUI
 		virtual void _setColour(const Colour& _value);
 
 	protected:
-		FloatRect mRectTexture;
+		//FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;

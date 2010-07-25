@@ -2,6 +2,12 @@
 
 <MyGUI type="Resource" version="1.1">
 
+	<Resource type="ResourceSkin" name = "PolygonalSkin" size = "19 19" texture = "#{MyGUI_Theme_Texture}">
+		<BasisSkin type="PolygonalSkin" offset = "0 0 19 19" align = "Stretch">
+			<State name="normal" offset = "2 2 21 21"/>
+		</BasisSkin>
+	</Resource>
+
 	<Resource type="ResourceSkin" name = "RotatingSkin" size = "16 16" texture = "#{MyGUI_Theme_Texture}">
 		<BasisSkin type="RotatingSkin" offset = "0 0 16 16" align = "Stretch"/>
 	</Resource>
