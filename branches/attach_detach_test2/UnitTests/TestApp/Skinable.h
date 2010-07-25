@@ -2,9 +2,9 @@
 
 #include <MyGUI.h>
 
-namespace demo
+namespace MyGUI
 {
-	class Widget;
+	class Control;
 
 	class Skinable
 	{
@@ -12,17 +12,11 @@ namespace demo
 		Skinable();
 		virtual ~Skinable();
 
-		MyGUI::WidgetStyle getWidgetStyle();
-		void setWidgetStyle(MyGUI::WidgetStyle _value);
-
 	protected:
-		void onVisualChildAdded(Widget* _child);
-		void onVisualChildRemoved(Widget* _child);
+		void onVisualChildAdded(Control* _child);
+		void onVisualChildRemoved(Control* _child);
 
 		void onDestroySkin();
-		void onCreateSkin(const std::string& _skin);
-
-	private:
-		MyGUI::WidgetStyle mWidgetStyle;
+		void onCreateSkin(ResourceSkin* _info);
 	};
 }

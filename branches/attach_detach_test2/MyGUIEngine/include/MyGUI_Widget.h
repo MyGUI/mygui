@@ -138,8 +138,6 @@ namespace MyGUI
 		/** Destroy all child widgets */
 		void destroyAllChildWidget();
 
-		Widget* getVisualParent() { return mVisualParent; }
-
 		/** Set widget position (position of left top corner) */
 		virtual void setPosition(const IntPoint& _value);
 		/** Set widget size */
@@ -241,7 +239,7 @@ namespace MyGUI
 		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
-		//void changeWidgetSkin(const std::string& _skinname);
+		void changeWidgetSkin(const std::string& _skinName);
 
 		/** Set widget style.
 			@param _layer Attach to specified layer (if any)
@@ -257,6 +255,8 @@ namespace MyGUI
 			@param _value Value converted to string
 		*/
 		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+		bool getNeedCropped();
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
@@ -280,9 +280,6 @@ namespace MyGUI
 		Widget* _getContainer() { return mContainer; }
 
 		void _setAlign(const IntSize& _oldsize);
-
-		// являемся ли мы рутовым виджетом
-		bool _isRootWidget() { return nullptr == mVisualParent; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -389,7 +386,6 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
-		Widget* mVisualParent;
 		bool mIsMargin;
 		IntPoint mAbsolutePosition; // обсолютные координаты
 	};

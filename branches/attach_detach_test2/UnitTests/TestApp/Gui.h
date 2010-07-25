@@ -3,31 +3,31 @@
 #include <MyGUI.h>
 #include "Widget.h"
 
-namespace demo
+namespace MyGUI
 {
-	class Gui :
-		public MyGUI::Singleton<Gui>,
-		public WidgetContainer
+	class Gui2 :
+		public Singleton<Gui2>,
+		public ControlContainer
 	{
 	public:
-		Gui();
-		~Gui();
+		Gui2();
+		~Gui2();
 
-		Widget* createChild();
-		void destroyChild(Widget* _widget);
+		Control* createChild();
+		void destroyChild(Control* _widget);
 		void destroyAllChilds();
 
 		size_t getChildCount();
-		Widget* getChild(size_t _index);
+		Control* getChild(size_t _index);
 
-		virtual void detachWidget(Widget* _widget);
-		virtual void attachWidget(Widget* _widget);
-
-	private:
-		void addChild(Widget* _widget);
-		void removeChild(Widget* _widget);
+		virtual void detachControl(Control* _widget);
+		virtual void attachControl(Control* _widget);
 
 	private:
-		VectorWidgetPtr mChilds;
+		void addChild(Control* _widget);
+		void removeChild(Control* _widget);
+
+	private:
+		VectorControlPtr mChilds;
 	};
 }

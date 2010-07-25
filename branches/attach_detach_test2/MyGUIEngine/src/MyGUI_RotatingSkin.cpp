@@ -275,7 +275,7 @@ namespace MyGUI
 
 		// no parent - no cropping
 		int size = RECT_VERTICIES_COUNT;
-		if (nullptr == mVisualParent->getVisualParent())
+		if (!mVisualParent->getNeedCropped())
 		{
 			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
 			{
@@ -341,7 +341,7 @@ namespace MyGUI
 			resultVerticiesPos[i] = _baseVerticiesPos[i];
 		}
 
-		ICroppedRectangle* parent = mVisualParent->getVisualParent();
+		ICroppedRectangle* parent = mVisualParent->getParent();
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mVisualParent->getLeft(), Left);
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mVisualParent->getLeft(), Right);
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mVisualParent->getTop(), Top);

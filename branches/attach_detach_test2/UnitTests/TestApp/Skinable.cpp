@@ -2,10 +2,9 @@
 #include "Skinable.h"
 #include "Widget.h"
 
-namespace demo
+namespace MyGUI
 {
-	Skinable::Skinable() :
-		mWidgetStyle(MyGUI::WidgetStyle::Child)
+	Skinable::Skinable()
 	{
 	}
 
@@ -13,11 +12,11 @@ namespace demo
 	{
 	}
 
-	void Skinable::onVisualChildAdded(Widget* _child)
+	void Skinable::onVisualChildAdded(Control* _child)
 	{
 	}
 
-	void Skinable::onVisualChildRemoved(Widget* _child)
+	void Skinable::onVisualChildRemoved(Control* _child)
 	{
 	}
 
@@ -25,18 +24,8 @@ namespace demo
 	{
 	}
 
-	void Skinable::onCreateSkin(const std::string& _skin)
+	void Skinable::onCreateSkin(ResourceSkin* _info)
 	{
-	}
-
-	MyGUI::WidgetStyle Skinable::getWidgetStyle()
-	{
-		return mWidgetStyle;
-	}
-
-	void Skinable::setWidgetStyle(MyGUI::WidgetStyle _value)
-	{
-		mWidgetStyle = _value;
 	}
 
 }

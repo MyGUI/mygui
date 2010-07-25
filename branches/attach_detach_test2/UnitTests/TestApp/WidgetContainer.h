@@ -2,17 +2,17 @@
 
 #include <vector>
 
-namespace demo
+namespace MyGUI
 {
-	class Widget;
-	typedef std::vector<Widget*> VectorWidgetPtr;
+	class Control;
+	typedef std::vector<Control*> VectorControlPtr;
 
-	class WidgetContainer
+	class ControlContainer
 	{
 	public:
-		virtual ~WidgetContainer() { }
+		virtual ~ControlContainer() { }
 
-		virtual void detachWidget(Widget* _widget) = 0;
-		virtual void attachWidget(Widget* _widget) = 0;
+		virtual void detachControl(Control* _widget) = 0;
+		virtual void attachControl(Control* _widget) = 0;
 	};
 }

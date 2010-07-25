@@ -14,20 +14,26 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::LayoutManager::getInstance().loadLayout("TestApp.layout");
+		MyGUI::Widget* widgetTest = MyGUI::LayoutManager::getInstance().loadLayout("TestApp.layout").at(0)->findWidget("Button");
+		//widgetTest->changeWidgetSkin("Button");
+		//MyGUI::LayerManager::getInstance().attachToLayerNode("Overlapped", widgetTest);
 
-		Gui* gui = new Gui();
+		/*MyGUI::Gui2* gui = new MyGUI::Gui2();
 
-		Widget* widget = Gui::getInstance().createChild();
-
+		MyGUI::Control* widget = MyGUI::Gui2::getInstance().createChild();
 		widget->changeSkin("");
-		Widget* widget2 = widget->createChild();
-		widget->changeSkin("1");
+		widget->setCoord(MyGUI::IntCoord(10, 10, 100, 100));
+
+		MyGUI::Control* widget2 = widget->createChild();
+		widget2->setCoord(MyGUI::IntCoord(10, 10, 50, 50));
+
+		widget->changeSkin("WindowC");
+
 		widget->destroyChild(widget2);
 
-		Gui::getInstance().destroyChild(widget);
+		MyGUI::Gui2::getInstance().destroyChild(widget);
 
-		delete gui;
+		delete gui;*/
 	}
 
 	void DemoKeeper::destroyScene()

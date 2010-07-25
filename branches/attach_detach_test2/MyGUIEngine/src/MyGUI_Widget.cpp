@@ -55,7 +55,6 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mVisualParent(nullptr),
 		mIsMargin(false)
 	{
 	}
@@ -68,7 +67,6 @@ namespace MyGUI
 	{
 		mWidgetStyle = _style;
 
-		mVisualParent = mWidgetStyle == WidgetStyle::Popup ? nullptr : _parent;
 		mParent = _parent;
 
 		initialiseWidgetSkinBase(_info);
@@ -78,16 +76,13 @@ namespace MyGUI
 		// проверяем соответсвие входных данных
 		if (mWidgetStyle == WidgetStyle::Child)
 		{
-			MYGUI_ASSERT(mVisualParent, "must be visual");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
 		else if (mWidgetStyle == WidgetStyle::Overlapped)
 		{
-			MYGUI_ASSERT((mParent == nullptr) == (mVisualParent == nullptr), "error visual");
 		}
 		else if (mWidgetStyle == WidgetStyle::Popup)
 		{
-			MYGUI_ASSERT(!mVisualParent, "visual must be nullptr");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
 #endif
@@ -113,7 +108,6 @@ namespace MyGUI
 		destroyAllChildWidget();
 
 		mParent = nullptr;
-		mVisualParent = nullptr;
 	}
 
 	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info)
@@ -191,7 +185,7 @@ namespace MyGUI
 			widget->setCoord(_coord);
 
 			// присоединяем виджет с уровню
-			if (!_layer.empty() && widget->_isRootWidget())
+			if (!_layer.empty() && !widget->getNeedCropped())
 				LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		}
 
@@ -202,13 +196,13 @@ namespace MyGUI
 
 	void Widget::_updateView()
 	{
-		bool margin = mVisualParent ? _checkMargin(mVisualParent) : false;
+		bool margin = getNeedCropped() ? _checkMargin(mParent) : false;
 
 		// вьюпорт стал битым
 		if (margin)
 		{
 			// проверка на полный выход за границу
-			if (_checkOutside(mVisualParent))
+			if (_checkOutside(mParent))
 			{
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -356,8 +350,8 @@ namespace MyGUI
 
 	void Widget::_updateAbsolutePoint()
 	{
-		if (mVisualParent)
-			mAbsolutePosition = mVisualParent->getAbsolutePosition() + mCoord.point();
+		if (getNeedCropped())
+			mAbsolutePosition = mParent->getAbsolutePosition() + mCoord.point();
 		else
 			mAbsolutePosition = mCoord.point();
 
@@ -403,17 +397,17 @@ namespace MyGUI
 
 	void Widget::setRealPosition(const FloatPoint& _point)
 	{
-		setPosition(CoordConverter::convertFromRelative(_point, mVisualParent == nullptr ? RenderManager::getInstance().getViewSize() : mVisualParent->getSize()));
+		setPosition(CoordConverter::convertFromRelative(_point, getParentSize()));
 	}
 
 	void Widget::setRealSize(const FloatSize& _size)
 	{
-		setSize(CoordConverter::convertFromRelative(_size, mVisualParent == nullptr ? RenderManager::getInstance().getViewSize() : mVisualParent->getSize()));
+		setSize(CoordConverter::convertFromRelative(_size, getParentSize()));
 	}
 
 	void Widget::setRealCoord(const FloatCoord& _coord)
 	{
-		setCoord(CoordConverter::convertFromRelative(_coord, mVisualParent == nullptr ? RenderManager::getInstance().getViewSize() : mVisualParent->getSize()));
+		setCoord(CoordConverter::convertFromRelative(_coord, getParentSize()));
 	}
 
 	void Widget::_setAlign(const IntSize& _oldsize)
@@ -504,12 +498,12 @@ namespace MyGUI
 		bool visible = true;
 
 		// обновляем выравнивание
-		bool margin = mVisualParent ? _checkMargin(mVisualParent) : false;
+		bool margin = getNeedCropped() ? _checkMargin(mParent) : false;
 
 		if (margin)
 		{
 			// проверка на полный выход за границу
-			if (_checkOutside(mVisualParent))
+			if (_checkOutside(mParent))
 			{
 				// скрываем
 				visible = false;
@@ -547,12 +541,12 @@ namespace MyGUI
 		bool visible = true;
 
 		// обновляем выравнивание
-		bool margin = mVisualParent ? _checkMargin(mVisualParent) : false;
+		bool margin = getNeedCropped() ? _checkMargin(mParent) : false;
 
 		if (margin)
 		{
 			// проверка на полный выход за границу
-			if (_checkOutside(mVisualParent))
+			if (_checkOutside(mParent))
 			{
 				// скрываем
 				visible = false;
@@ -715,8 +709,8 @@ namespace MyGUI
 
 	IntSize Widget::getParentSize()
 	{
-		if (mVisualParent)
-			return static_cast<Widget*>(mVisualParent)->getSize();
+		if (getNeedCropped())
+			return mParent->getSize();
 		if (getLayer())
 			return getLayer()->getSize();
 
@@ -775,22 +769,6 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
-	}*/
-
-	/*void Widget::changeWidgetSkin(const std::string& _skinname)
-	{
-		ResourceSkin* _info = SkinManager::getInstance().getByName(_skinname);
-
-		shutdownWidgetSkin();
-
-		saveLayerItem();
-
-		shutdownWidgetSkinBase();
-		initialiseWidgetSkinBase(_info);
-
-		restoreLayerItem();
-
-		initialiseWidgetSkin(_info);
 	}*/
 
 	/*void Widget::detachFromWidget(const std::string& _layer)
@@ -964,5 +942,26 @@ namespace MyGUI
 		detachFromWidget();
 		attachToWidget(parent, _style, _layer);
 	}*/
+
+	void Widget::changeWidgetSkin(const std::string& _skinName)
+	{
+		ResourceSkin* info = SkinManager::getInstance().getByName(_skinName);
+
+		/*shutdownWidgetSkin();
+
+		saveLayerItem();
+
+		shutdownWidgetSkinBase();
+		initialiseWidgetSkinBase(info);
+
+		restoreLayerItem();
+
+		initialiseWidgetSkin(info);*/
+	}
+
+	bool Widget::getNeedCropped()
+	{
+		return (mWidgetStyle != WidgetStyle::Popup && mParent != nullptr);
+	}
 
 } // namespace MyGUI

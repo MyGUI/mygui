@@ -4,61 +4,65 @@
 #include "WidgetContainer.h"
 #include "Skinable.h"
 
-namespace demo
+namespace MyGUI
 {
-	class Gui;
+	class Gui2;
 
-	class Widget :
-		public WidgetContainer,
+	class Control :
+		public ControlContainer,
 		public Skinable
 	{
-		friend class Gui;
+		friend class Gui2;
 
 	public:
 		void initialise();
 		void shutdown();
 
-		Widget* createChild();
-		void destroyChild(Widget* _widget);
+		Control* createChild();
+		void destroyChild(Control* _widget);
 		void destroyAllChilds();
 
 		size_t getChildCount();
-		Widget* getChild(size_t _index);
+		Control* getChild(size_t _index);
 
-		virtual void detachWidget(Widget* _child);
-		virtual void attachWidget(Widget* _child);
+		virtual void detachControl(Control* _child);
+		virtual void attachControl(Control* _child);
 
-		Widget* getParent() { return mParent; }
-		Widget* getVisualParent() { return mVisualParent; }
-		WidgetContainer* getParentContainer() { return mParentContainer; }
+		Control* getParent() { return mParent; }
+		//Control* getVisualParent() { return mVisualParent; }
+		ControlContainer* getParentContainer() { return mParentContainer; }
 
-		void changeSkin(const std::string& _skin);
+		void changeSkin(const std::string& _skinName);
+
+		void setCoord(const IntCoord& _value);
 
 	protected:
-		Widget();
-		virtual ~Widget();
+		Control();
+		virtual ~Control();
 
 	private:
-		void addVisualChild(Widget* _widget);
-		void removeVisualChild(Widget* _widget);
+		void addVisualChild(Control* _widget);
+		void removeVisualChild(Control* _widget);
 
-		void addChild(Widget* _widget);
-		void removeChild(Widget* _widget);
+		void addChild(Control* _widget);
+		void removeChild(Control* _widget);
 
-		void addVisualChildToClient(Widget* _widget);
-		void removeVisualChildFromClient(Widget* _widget);
+		void addVisualChildToClient(Control* _widget);
+		void removeVisualChildFromClient(Control* _widget);
 
 		void destroySkin();
-		void createSkin(const std::string& _skin);
+		void createSkin(ResourceSkin* _info);
 
 	private:
-		Widget* mVisualParent;
-		VectorWidgetPtr mVisualChilds;
+		Control* mVisualParent;
+		VectorControlPtr mVisualChilds;
 		
-		Widget* mParent;
-		WidgetContainer* mParentContainer;
-		VectorWidgetPtr mChilds;
+		Control* mParent;
+		ControlContainer* mParentContainer;
+		VectorControlPtr mChilds;
 
-		Widget* mClient;
+		Control* mClient;
+
+		IntCoord mCoord;
 	};
 }

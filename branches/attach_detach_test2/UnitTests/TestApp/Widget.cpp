@@ -1,9 +1,9 @@
 
 #include "Widget.h"
 
-namespace demo
+namespace MyGUI
 {
-	Widget::Widget() :
+	Control::Control() :
 		mVisualParent(nullptr),
 		mParent(nullptr),
 		mClient(nullptr),
@@ -11,7 +11,7 @@ namespace demo
 	{
 	}
 
-	Widget::~Widget()
+	Control::~Control()
 	{
 		MYGUI_ASSERT(mVisualParent == nullptr, "not clear");
 		MYGUI_ASSERT(mVisualChilds.empty(), "not clear");
@@ -20,39 +20,27 @@ namespace demo
 		MYGUI_ASSERT(mClient == nullptr, "not clear");
 	}
 
-	void Widget::initialise()
+	void Control::initialise()
 	{
 	}
 
-	void Widget::shutdown()
+	void Control::shutdown()
 	{
 		destroyAllChilds();
 		destroySkin();
 	}
 
-	Widget* Widget::createChild()
+	Control* Control::createChild()
 	{
-		Widget* widget = new Widget();
+		Control* widget = new Control();
 		widget->initialise();
 
-		attachWidget(widget);
+		attachControl(widget);
 
 		return widget;
 	}
 
-	void Widget::changeSkin(const std::string& _skin)
-	{
-		for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-			removeVisualChildFromClient(*item);
-
-		destroySkin();
-		createSkin(_skin);
-
-		for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-			addVisualChildToClient(*item);
-	}
-
-	void Widget::addVisualChildToClient(Widget* _widget)
+	void Control::addVisualChildToClient(Control* _widget)
 	{
 		if (mClient != nullptr)
 			mClient->addVisualChild(_widget);
@@ -60,7 +48,7 @@ namespace demo
 			addVisualChild(_widget);
 	}
 
-	void Widget::removeVisualChildFromClient(Widget* _widget)
+	void Control::removeVisualChildFromClient(Control* _widget)
 	{
 		if (mClient != nullptr)
 			mClient->removeVisualChild(_widget);
@@ -68,20 +56,33 @@ namespace demo
 			removeVisualChild(_widget);
 	}
 
-	void Widget::destroySkin()
+	void Control::changeSkin(const std::string& _skinName)
+	{
+		for (VectorControlPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+			removeVisualChildFromClient(*item);
+
+		destroySkin();
+		ResourceSkin* info = SkinManager::getInstance().getByName(_skinName);
+		createSkin(info);
+
+		for (VectorControlPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+			addVisualChildToClient(*item);
+	}
+
+	void Control::destroySkin()
 	{
 		onDestroySkin();
 
-		VectorWidgetPtr skinWidgets;
-		for (VectorWidgetPtr::iterator item=mVisualChilds.begin(); item!=mVisualChilds.end(); ++item)
+		VectorControlPtr skinControls;
+		for (VectorControlPtr::iterator item=mVisualChilds.begin(); item!=mVisualChilds.end(); ++item)
 		{
 			// если виджет есть в логических детях, значит не скин
 			if (std::find(mChilds.begin(), mChilds.end(), *item) == mChilds.end())
-				skinWidgets.push_back(*item);
+				skinControls.push_back(*item);
 		}
-		for (VectorWidgetPtr::iterator item=skinWidgets.begin(); item!=skinWidgets.end(); ++item)
+		for (VectorControlPtr::iterator item=skinControls.begin(); item!=skinControls.end(); ++item)
 		{
-			Widget* widget = *item;
+			Control* widget = *item;
 			removeVisualChild(widget);
 
 			widget->shutdown();
@@ -90,40 +91,44 @@ namespace demo
 		mClient = nullptr;
 	}
 
-	void Widget::destroyAllChilds()
+	void Control::createSkin(ResourceSkin* _info)
+	{
+		// создаем детей скина
+		const VectorChildSkinInfo& child = _info->getChild();
+		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
+		{
+			Control* widget = new Control();
+			widget->changeSkin(iter->skin);
+			widget->setCoord(iter->coord);
+
+			addVisualChild(widget);
+
+			if (iter->name == "Client")
+				mClient = widget;
+		}
+
+		onCreateSkin(_info);
+	}
+
+	void Control::destroyAllChilds()
 	{
 		while (!mChilds.empty())
 			destroyChild(mChilds.back());
 	}
 
-	void Widget::destroyChild(Widget* _widget)
+	void Control::destroyChild(Control* _widget)
 	{
 		MYGUI_ASSERT(_widget != nullptr, "null referense");
 
-		detachWidget(_widget);
+		detachControl(_widget);
 
 		_widget->shutdown();
 		delete _widget;
 	}
 
-	void Widget::createSkin(const std::string& _skin)
+	void Control::addVisualChild(Control* _widget)
 	{
-		if (_skin != "")
-		{
-			Widget* widget = new Widget();
-			widget->createSkin("");
-
-			addVisualChild(widget);
-
-			mClient = widget;
-		}
-
-		onCreateSkin(_skin);
-	}
-
-	void Widget::addVisualChild(Widget* _widget)
-	{
-		MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
+		//MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
 
 		mVisualChilds.push_back(_widget);
 		_widget->mVisualParent = this;
@@ -131,9 +136,9 @@ namespace demo
 		onVisualChildAdded(_widget);
 	}
 
-	void Widget::removeVisualChild(Widget* _widget)
+	void Control::removeVisualChild(Control* _widget)
 	{
-		VectorWidgetPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
+		VectorControlPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
 		if (item != mVisualChilds.end())
 		{
 			mVisualChilds.erase(item);
@@ -147,7 +152,7 @@ namespace demo
 		}
 	}
 
-	void Widget::addChild(Widget* _widget)
+	void Control::addChild(Control* _widget)
 	{
 		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
 		MYGUI_ASSERT(_widget->getParentContainer() == nullptr, "allready added");
@@ -157,9 +162,9 @@ namespace demo
 		_widget->mParentContainer = this;
 	}
 
-	void Widget::removeChild(Widget* _widget)
+	void Control::removeChild(Control* _widget)
 	{
-		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
+		VectorControlPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
 		if (item != mChilds.end())
 		{
 			mChilds.erase(item);
@@ -172,18 +177,18 @@ namespace demo
 		}
 	}
 
-	size_t Widget::getChildCount()
+	size_t Control::getChildCount()
 	{
 		return mChilds.size();
 	}
 
-	Widget* Widget::getChild(size_t _index)
+	Control* Control::getChild(size_t _index)
 	{
 		MYGUI_ASSERT(_index < mChilds.size(), "index out of range");
 		return mChilds.at(_index);
 	}
 
-	void Widget::detachWidget(Widget* _widget)
+	void Control::detachControl(Control* _widget)
 	{
 		MYGUI_ASSERT(_widget != nullptr, "null referense");
 
@@ -191,7 +196,7 @@ namespace demo
 		removeVisualChildFromClient(_widget);
 	}
 
-	void Widget::attachWidget(Widget* _widget)
+	void Control::attachControl(Control* _widget)
 	{
 		MYGUI_ASSERT(_widget != nullptr, "null referense");
 
@@ -199,4 +204,8 @@ namespace demo
 		addVisualChildToClient(_widget);
 	}
 
+	void Control::setCoord(const IntCoord& _value)
+	{
+		mCoord = _value;
+	}
 }
