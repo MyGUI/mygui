@@ -85,6 +85,7 @@ set (HEADER_FILES
   include/MyGUI_WidgetUserData.h
   include/MyGUI_EditText.h
   include/MyGUI_MainSkin.h
+  include/MyGUI_PolygonalSkin.h
   include/MyGUI_RawRect.h
   include/MyGUI_RotatingSkin.h
   include/MyGUI_SimpleText.h
@@ -191,6 +192,7 @@ set (SOURCE_FILES
   src/MyGUI_Window.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
+  src/MyGUI_PolygonalSkin.cpp
   src/MyGUI_RawRect.cpp
   src/MyGUI_RotatingSkin.cpp
   src/MyGUI_SimpleText.cpp
@@ -286,6 +288,7 @@ SOURCE_GROUP("Source Files\\Widget" FILES
 SOURCE_GROUP("Source Files\\Core\\SubWidget" FILES
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
+  src/MyGUI_PolygonalSkin.cpp
   src/MyGUI_RawRect.cpp
   src/MyGUI_RotatingSkin.cpp
   src/MyGUI_SimpleText.cpp
@@ -480,6 +483,7 @@ SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES
 SOURCE_GROUP("Header Files\\Core\\SubWidget" FILES
   include/MyGUI_EditText.h
   include/MyGUI_MainSkin.h
+  include/MyGUI_PolygonalSkin.h
   include/MyGUI_RawRect.h
   include/MyGUI_RotatingSkin.h
   include/MyGUI_SimpleText.h
