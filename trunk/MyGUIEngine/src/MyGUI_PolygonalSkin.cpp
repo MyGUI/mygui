@@ -28,6 +28,7 @@ namespace MyGUI
 {
 
 	PolygonalSkin::PolygonalSkin() :
+		mGeometryOutdated(false),
 		mLineWidth(1.0f),
 		mLineLength(0.0f),
 		mVertexCount(0),
@@ -71,13 +72,13 @@ namespace MyGUI
 			point = *iter;
 		}
 
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setWidth(float _width)
 	{
 		mLineWidth = _width;
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setVisible(bool _visible)
@@ -86,7 +87,7 @@ namespace MyGUI
 			return;
 
 		mVisible = _visible;
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -103,7 +104,7 @@ namespace MyGUI
 
 	void PolygonalSkin::_correctView()
 	{
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -166,7 +167,7 @@ namespace MyGUI
 	{
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -200,6 +201,12 @@ namespace MyGUI
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
 		float vertex_z = info.maximumDepth;
+
+		if (mGeometryOutdated)
+		{
+			_rebuildGeometry();
+			mGeometryOutdated = false;
+		}
 
 		if (mVertexCount != 0)
 		{
@@ -238,6 +245,8 @@ namespace MyGUI
 	void PolygonalSkin::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
+		
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -310,17 +319,14 @@ namespace MyGUI
 		mResultVerticiesUV.push_back(baseVerticiesUV[2]);
 
 		// now calculate widget base offset and then resulting position in screen coordinates
-		if (mRenderItem && mRenderItem->getRenderTarget())
-		{
-			const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-			float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-			float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
-			for (size_t i = 0; i < mResultVerticiesPos.size(); ++i)
-			{
-				mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
-				mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
-			}
+		for (size_t i = 0; i < mResultVerticiesPos.size(); ++i)
+		{
+			mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
+			mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
 		}
 	}
 
