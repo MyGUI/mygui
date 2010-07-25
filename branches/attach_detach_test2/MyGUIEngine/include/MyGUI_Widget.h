@@ -352,6 +352,12 @@ namespace MyGUI
 		void attachVisual();
 		void detachVisual();
 
+		void detachLogicalChilds();
+		void attachLogicalChilds();
+
+		void destroySkin();
+		void createSkin(ResourceSkin* _info);
+
 	protected:
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе

@@ -138,8 +138,7 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="ComboBox" skin="ComboBox" position="84 9 232 26" name="Combo">
-			<Property key="ComboBox_AddItem" value="line1"/>
+        <Widget type="Button" skin="Button" position="84 9 232 26" name="Button">
 		</Widget>
 		<Widget type="StaticText" skin="StaticText" position="12 9 60 23">
             <Property key="Widget_AlignText" value="Right VCenter"/>

@@ -15,7 +15,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::Widget* widgetTest = MyGUI::LayoutManager::getInstance().loadLayout("TestApp.layout").at(0)->findWidget("Button");
-		//widgetTest->changeWidgetSkin("Button");
+		widgetTest->changeWidgetSkin("Edit");
 		//MyGUI::LayerManager::getInstance().attachToLayerNode("Overlapped", widgetTest);
 
 		/*MyGUI::Gui2* gui = new MyGUI::Gui2();

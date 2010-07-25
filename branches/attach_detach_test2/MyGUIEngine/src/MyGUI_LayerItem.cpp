@@ -29,7 +29,7 @@ namespace MyGUI
 	LayerItem::LayerItem() :
 		mLayer(nullptr),
 		mLayerNode(nullptr),
-		mSaveLayerNode(nullptr),
+		//mSaveLayerNode(nullptr),
 		mTexture(nullptr)
 	{
 	}
@@ -93,7 +93,7 @@ namespace MyGUI
 		}
 	}
 
-	void LayerItem::saveLayerItem()
+	/*void LayerItem::saveLayerItem()
 	{
 		mSaveLayerNode = mLayerNode;
 	}
@@ -105,7 +105,7 @@ namespace MyGUI
 		{
 			attachToLayerItemNode(mLayerNode, false);
 		}
-	}
+	}*/
 
 	void LayerItem::attachItemToNode(ILayer* _layer, ILayerNode* _node)
 	{

@@ -58,8 +58,8 @@ namespace MyGUI
 		void addRenderItem(ISubWidget* _item);
 		void removeAllRenderItems();
 
-		void saveLayerItem();
-		void restoreLayerItem();
+		//void saveLayerItem();
+		//void restoreLayerItem();
 
 		void attachToLayerItemNode(ILayerNode* _node, bool _deep);
 		void detachFromLayerItemNode(bool _deep);
@@ -69,7 +69,7 @@ namespace MyGUI
 		ILayer* mLayer;
 		// конкретный айтем находящийся в слое
 		ILayerNode * mLayerNode;
-		ILayerNode * mSaveLayerNode;
+		//ILayerNode * mSaveLayerNode;
 
 		typedef std::vector<LayerItem*> VectorLayerItem;
 		// список наших детей айтемов

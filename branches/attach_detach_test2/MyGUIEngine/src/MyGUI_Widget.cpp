@@ -66,44 +66,14 @@ namespace MyGUI
 	void Widget::_initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent)
 	{
 		mWidgetStyle = _style;
-
 		mParent = _parent;
 
-		initialiseWidgetSkinBase(_info);
-
-
-#if MYGUI_DEBUG_MODE == 1
-		// проверяем соответсвие входных данных
-		if (mWidgetStyle == WidgetStyle::Child)
-		{
-			MYGUI_ASSERT(mParent, "must be parent");
-		}
-		else if (mWidgetStyle == WidgetStyle::Overlapped)
-		{
-		}
-		else if (mWidgetStyle == WidgetStyle::Popup)
-		{
-			MYGUI_ASSERT(mParent, "must be parent");
-		}
-#endif
-
-		attachVisual();
-
-		// витр метод для наследников
-		initialiseWidgetSkin(_info);
-
-		// корректируем абсолютные координаты (корректировать при атаче)
-		_updateAbsolutePoint();
+		createSkin(_info);
 	}
 
 	void Widget::_shutdown()
 	{
-		// витр метод для наследников
-		shutdownWidgetSkin();
-
-		detachVisual();
-
-		shutdownWidgetSkinBase();
+		destroySkin();
 
 		destroyAllChildWidget();
 
@@ -947,21 +917,46 @@ namespace MyGUI
 	{
 		ResourceSkin* info = SkinManager::getInstance().getByName(_skinName);
 
-		/*shutdownWidgetSkin();
+		detachLogicalChilds();
 
-		saveLayerItem();
+		destroySkin();
 
-		shutdownWidgetSkinBase();
-		initialiseWidgetSkinBase(info);
+		createSkin(info);
 
-		restoreLayerItem();
-
-		initialiseWidgetSkin(info);*/
+		attachLogicalChilds();
 	}
 
 	bool Widget::getNeedCropped()
 	{
 		return (mWidgetStyle != WidgetStyle::Popup && mParent != nullptr);
+	}
+
+	void Widget::detachLogicalChilds()
+	{
+	}
+
+	void Widget::attachLogicalChilds()
+	{
+	}
+
+	void Widget::destroySkin()
+	{
+		shutdownWidgetSkin();
+
+		detachVisual();
+
+		shutdownWidgetSkinBase();
+	}
+
+	void Widget::createSkin(ResourceSkin* _info)
+	{
+		initialiseWidgetSkinBase(_info);
+
+		attachVisual();
+
+		initialiseWidgetSkin(_info);
+
+		_updateAbsolutePoint();
 	}
 
 } // namespace MyGUI
