@@ -32,16 +32,15 @@ namespace demo
 		MyGUI::ISubWidget * main = widget->getSubWidgetMain();
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
-		polygonalSkin->setWidth(4.0f);
+		polygonalSkin->setWidth(8.0f);
 
-		linePoints.push_back(MyGUI::FloatPoint(70, 70));
-		linePoints.push_back(MyGUI::FloatPoint(10, 10));
+		//linePoints.push_back(MyGUI::FloatPoint(70, 70));
+		//linePoints.push_back(MyGUI::FloatPoint(10, 10));
 		polygonalSkin->setPoints(linePoints);
 	}
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		
 		linePoints.push_back(MyGUI::FloatPoint((float)_absx - widget->getAbsoluteLeft(), (float)_absy - widget->getAbsoluteTop()));
 		polygonalSkin->setPoints(linePoints);
 		if (_id == MyGUI::MouseButton::Right)
