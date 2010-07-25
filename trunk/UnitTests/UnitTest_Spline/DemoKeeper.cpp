@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		George Evmenov
-	@date		02/2010
+	@date		07/2010
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
@@ -10,8 +10,9 @@
 namespace demo
 {
 
-	MyGUI::StaticImage * image;
-	MyGUI::RotatingSkin * rotato;
+	std::vector<MyGUI::FloatPoint> linePoints;
+	MyGUI::PolygonalSkin* polygonalSkin;
+	MyGUI::Widget* widget;
 
 	void DemoKeeper::setupResources()
 	{
@@ -22,29 +23,35 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Move mouse to rotate skin. Right mouse click to set new center.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("PolygonalSkin (aka line).");
 
 		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 
-		image = window->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
-		image->setImageTexture("wallpaper0.png");
+		widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 400), MyGUI::Align::Default);
 
-		MyGUI::ISubWidget * main = image->getSubWidgetMain();
-		rotato = main->castType<MyGUI::RotatingSkin>();
+		MyGUI::ISubWidget * main = widget->getSubWidgetMain();
+		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
+
+		polygonalSkin->setWidth(4.0f);
+
+		linePoints.push_back(MyGUI::FloatPoint(70, 70));
+		linePoints.push_back(MyGUI::FloatPoint(10, 10));
+		polygonalSkin->setPoints(linePoints);
 	}
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
+		
+		linePoints.push_back(MyGUI::FloatPoint((float)_absx - widget->getAbsoluteLeft(), (float)_absy - widget->getAbsoluteTop()));
+		polygonalSkin->setPoints(linePoints);
 		if (_id == MyGUI::MouseButton::Right)
-			rotato->setCenter(MyGUI::IntPoint(_absx, _absy) - image->getAbsolutePosition());
+			linePoints.clear();
 
 		base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		rotato->setAngle(atan2((float)_absx - rotato->getCenter(false).left, -(float)_absy + rotato->getCenter(false).top));
-
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
 

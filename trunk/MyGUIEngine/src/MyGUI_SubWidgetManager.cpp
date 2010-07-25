@@ -26,6 +26,7 @@
 
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_MainSkin.h"
+#include "MyGUI_PolygonalSkin.h"
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_EditText.h"
@@ -51,6 +52,7 @@ namespace MyGUI
 
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
+		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "PolygonalSkin");
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
 		factory.registerFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
@@ -59,6 +61,7 @@ namespace MyGUI
 
 		factory.registerFactory<SubSkin>("BasisSkin");
 		factory.registerFactory<MainSkin>("BasisSkin");
+		factory.registerFactory<PolygonalSkin>("BasisSkin");
 		factory.registerFactory<RotatingSkin>("BasisSkin");
 		factory.registerFactory<RawRect>("BasisSkin");
 		factory.registerFactory<TileRect>("BasisSkin");
@@ -78,6 +81,7 @@ namespace MyGUI
 
 		factory.unregisterFactory("BasisSkin/State", "SubSkin");
 		factory.unregisterFactory("BasisSkin/State", "MainSkin");
+		factory.unregisterFactory("BasisSkin/State", "PolygonalSkin");
 		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
 		factory.unregisterFactory("BasisSkin/State", "RawRect");
 		factory.unregisterFactory("BasisSkin/State", "TileRect");
@@ -86,6 +90,7 @@ namespace MyGUI
 
 		factory.unregisterFactory<SubSkin>("BasisSkin");
 		factory.unregisterFactory<MainSkin>("BasisSkin");
+		factory.unregisterFactory<PolygonalSkin>("BasisSkin");
 		factory.unregisterFactory<RotatingSkin>("BasisSkin");
 		factory.unregisterFactory<RawRect>("BasisSkin");
 		factory.unregisterFactory<TileRect>("BasisSkin");
