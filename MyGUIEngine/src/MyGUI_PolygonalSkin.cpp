@@ -27,12 +27,10 @@
 namespace MyGUI
 {
 
-	const size_t POLYGONAL_CHAIN_VERTEX_COUNT = 2 * VertexQuad::VertexCount;
-
 	PolygonalSkin::PolygonalSkin() :
 		mLineWidth(1.0f),
 		mLineLength(0.0f),
-		mVertexCount(POLYGONAL_CHAIN_VERTEX_COUNT),
+		mVertexCount(0),
 		mEmptyView(false),
 		mNode(nullptr),
 		mRenderItem(nullptr)
@@ -88,6 +86,7 @@ namespace MyGUI
 			return;
 
 		mVisible = _visible;
+		_rebuildGeometry();
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -104,6 +103,8 @@ namespace MyGUI
 
 	void PolygonalSkin::_correctView()
 	{
+		_rebuildGeometry();
+
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
 	}
@@ -200,17 +201,20 @@ namespace MyGUI
 
 		float vertex_z = info.maximumDepth;
 
-		// set verticies as tristrip
-		size_t triangles = mResultVerticiesPos.size() - 2;
-		bool odd = false;
-		for (size_t i = 0; i < triangles; ++i)
+		if (mVertexCount != 0)
 		{
-			int j = i + (odd ? 2 : 1);
-			int k = i + (odd ? 1 : 2);
-			verticies[3*i    ].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
-			verticies[3*i + 1].set(mResultVerticiesPos[j].left, mResultVerticiesPos[j].top, vertex_z, mResultVerticiesUV[j].left, mResultVerticiesUV[j].top, mCurrentColour);
-			verticies[3*i + 2].set(mResultVerticiesPos[k].left, mResultVerticiesPos[k].top, vertex_z, mResultVerticiesUV[k].left, mResultVerticiesUV[k].top, mCurrentColour);
-			odd = !odd;
+			// set verticies as tristrip
+			size_t triangles = mResultVerticiesPos.size() - 2;
+			bool odd = false;
+			for (size_t i = 0; i < triangles; ++i)
+			{
+				int j = i + (odd ? 2 : 1);
+				int k = i + (odd ? 1 : 2);
+				verticies[3*i    ].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
+				verticies[3*i + 1].set(mResultVerticiesPos[j].left, mResultVerticiesPos[j].top, vertex_z, mResultVerticiesUV[j].left, mResultVerticiesUV[j].top, mCurrentColour);
+				verticies[3*i + 2].set(mResultVerticiesPos[k].left, mResultVerticiesPos[k].top, vertex_z, mResultVerticiesUV[k].left, mResultVerticiesUV[k].top, mCurrentColour);
+				odd = !odd;
+			}
 		}
 
 		mRenderItem->setLastVertexCount(mVertexCount);
@@ -280,7 +284,17 @@ namespace MyGUI
 			currentLength += len(mLinePoints[i-1].left - mLinePoints[i].left,  mLinePoints[i-1].top - mLinePoints[i].top);
 
 			// getting normal between previous and next point
-			normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i+1]);
+			//normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i+1]);
+			normal = _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+
+			// check orientation
+			FloatPoint lineDir = mLinePoints[i+1] - mLinePoints[i-1];
+			if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
+			{
+				normal.left = -normal.left;
+				normal.top = -normal.top;
+			}
+
 			mResultVerticiesPos.push_back(mLinePoints[i] + normal);
 			mResultVerticiesPos.push_back(mLinePoints[i] - normal);
 			FloatPoint UVoffset(currentLength / mLineLength * vectorU.left, currentLength / mLineLength * vectorU.top);
@@ -315,27 +329,52 @@ namespace MyGUI
 		// dy, -dx
 		FloatPoint result(_point1.top - _point2.top, -(_point1.left - _point2.left));
 		// normalise
-		float length = len(result.top, -result.left);
+		float length = len(result.top, result.left);
 		result.left /= length;
 		result.top /= length;
-		result.left *= mLineWidth;
-		result.top *= mLineWidth;
+		result.left *= mLineWidth/2;
+		result.top *= mLineWidth/2;
 		return result;
 	}
 
 	FloatPoint PolygonalSkin::_getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3)
 	{
-		// dy, -dx
-		FloatPoint result = (_point1 + _point2);
+		/*
+		// median
+		FloatPoint result = FloatPoint() - (_point1 + _point2);
 		result.left /= 2;
 		result.top /= 2;
-		result -= _point3;
+		result += _point3;
 		// normalise
-		float length = len(result.top, -result.left);
+		float length = len(result.top, result.left);
 		result.left /= length;
 		result.top /= length;
-		result.left *= mLineWidth;
-		result.top *= mLineWidth;
+		result.left *= mLineWidth/2;
+		result.top *= mLineWidth/2;
+		return result;
+		*/
+
+		// bisectrix
+		FloatPoint line1 = _point3 - _point1;
+		FloatPoint line2 = _point3 - _point2;
+		float length = len(line1.top, line1.left);
+		line1.left /= length;
+		line1.top /= length;
+		length = len(line2.top, line2.left);
+		line2.left /= length;
+		line2.top /= length;
+		FloatPoint result = line1 + line2;
+		// normalise
+		length = len(result.top, result.left);
+		result.left /= length;
+		result.top /= length;
+
+		float cos = result.left*line1.left + result.top*line1.top;
+		float angle = acos(cos);
+		float width = mLineWidth/2 / sin(angle);
+
+		result.left *= width;
+		result.top *= width;
 		return result;
 	}
 
