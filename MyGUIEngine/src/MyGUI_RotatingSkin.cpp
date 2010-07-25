@@ -28,6 +28,7 @@ namespace MyGUI
 {
 
 	RotatingSkin::RotatingSkin() :
+		mGeometryOutdated(false),
 		mAngle(0.0f),
 		mEmptyView(false),
 		mNode(nullptr),
@@ -42,7 +43,7 @@ namespace MyGUI
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -51,7 +52,7 @@ namespace MyGUI
 	void RotatingSkin::setCenter(const IntPoint &_center)
 	{
 		mCenterPos = _center;
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -68,6 +69,7 @@ namespace MyGUI
 			return;
 
 		mVisible = _visible;
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -84,6 +86,8 @@ namespace MyGUI
 
 	void RotatingSkin::_correctView()
 	{
+		mGeometryOutdated = true;
+
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
 	}
@@ -145,7 +149,7 @@ namespace MyGUI
 	{
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
-		_rebuildGeometry();
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -180,6 +184,12 @@ namespace MyGUI
 
 		float vertex_z = info.maximumDepth;
 
+		if (mGeometryOutdated)
+		{
+			_rebuildGeometry();
+			mGeometryOutdated = false;
+		}
+
 		for (int i = 1; i < GEOMETRY_VERTICIES_TOTAL_COUNT - 1; ++i)
 		{
 			verticies[3*i - 3].set(mResultVerticiesPos[0].left, mResultVerticiesPos[0].top, vertex_z, mResultVerticiesUV[0].left, mResultVerticiesUV[0].top, mCurrentColour);
@@ -208,6 +218,8 @@ namespace MyGUI
 	void RotatingSkin::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
+
+		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -245,16 +257,14 @@ namespace MyGUI
 
 		// calculate rotated postions of uncropped rectangle verticies (relative to parent)
 		FloatPoint baseVerticiesPos[RECT_VERTICIES_COUNT];
-		if (mRenderItem && mRenderItem->getRenderTarget())
-		{
-			int offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
-			int offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
 
-			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
-			{
-				baseVerticiesPos[i].left = offsetX + cos(-mAngle + baseAngles[i]) * baseDistances[i];
-				baseVerticiesPos[i].top = offsetY - sin(-mAngle + baseAngles[i]) * baseDistances[i];
-			}
+		int offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
+		int offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
+
+		for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+		{
+			baseVerticiesPos[i].left = offsetX + cos(-mAngle + baseAngles[i]) * baseDistances[i];
+			baseVerticiesPos[i].top = offsetY - sin(-mAngle + baseAngles[i]) * baseDistances[i];
 		}
 
 		// base texture coordinates
@@ -309,24 +319,21 @@ namespace MyGUI
 
 
 		// now calculate widget base offset and then resulting position in screen coordinates
-		if (mRenderItem && mRenderItem->getRenderTarget())
-		{
-			const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-			float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-			float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
-			for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
+		for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
+		{
+			if (i <= size - 1)
 			{
-				if (i <= size - 1)
-				{
-					mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
-					mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
-				}
-				else
-				{
-					// all unused verticies is equal to last used
-					mResultVerticiesPos[i] = mResultVerticiesPos[size - 1];
-				}
+				mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
+				mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
+			}
+			else
+			{
+				// all unused verticies is equal to last used
+				mResultVerticiesPos[i] = mResultVerticiesPos[size - 1];
 			}
 		}
 	}

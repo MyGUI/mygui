@@ -81,6 +81,7 @@ namespace MyGUI
 		// get point position relative to rectangle
 		FloatPoint _getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2);
 	private:
+		bool mGeometryOutdated;
 
 		float mAngle;
 		IntPoint mCenterPos;

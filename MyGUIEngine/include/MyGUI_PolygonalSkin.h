@@ -71,6 +71,7 @@ namespace MyGUI
 		FloatPoint _getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3);
 
 	private:
+		bool mGeometryOutdated;
 
 		float mLineWidth;
 		std::vector<FloatPoint> mLinePoints;
