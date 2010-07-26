@@ -214,16 +214,10 @@ namespace MyGUI
 		if (mVertexCount != 0)
 		{
 			// set verticies as tristrip
-			size_t triangles = mResultVerticiesPos.size() - 2;
-			bool odd = false;
-			for (size_t i = 0; i < triangles; ++i)
+			size_t size = mResultVerticiesPos.size();
+			for (size_t i = 0; i < size; ++i)
 			{
-				int j = i + (odd ? 2 : 1);
-				int k = i + (odd ? 1 : 2);
-				verticies[3*i    ].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
-				verticies[3*i + 1].set(mResultVerticiesPos[j].left, mResultVerticiesPos[j].top, vertex_z, mResultVerticiesUV[j].left, mResultVerticiesUV[j].top, mCurrentColour);
-				verticies[3*i + 2].set(mResultVerticiesPos[k].left, mResultVerticiesPos[k].top, vertex_z, mResultVerticiesUV[k].left, mResultVerticiesUV[k].top, mCurrentColour);
-				odd = !odd;
+				verticies[i].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
 			}
 		}
 
@@ -284,15 +278,12 @@ namespace MyGUI
 		mResultVerticiesUV.clear();
 		// add first two verticies
 		FloatPoint normal = _getPerpendicular(mLinePoints[0], mLinePoints[1]);
-		mResultVerticiesPos.push_back(mLinePoints[0] + normal);
-		mResultVerticiesPos.push_back(mLinePoints[0] - normal);
-		mResultVerticiesUV.push_back(baseVerticiesUV[0]);
-		mResultVerticiesUV.push_back(baseVerticiesUV[3]);
 
-		size_t count = 6;
-
+		FloatPoint points[2] = {mLinePoints[0] + normal, mLinePoints[0] - normal};
+		FloatPoint pointsUV[2] = {baseVerticiesUV[0], baseVerticiesUV[3]};
 		// add other verticies
 		float currentLength = 0.0f;
+		size_t count = 0;
 		for (size_t i = 1; i < mLinePoints.size(); ++i)
 		{
 			currentLength += len(mLinePoints[i-1].left - mLinePoints[i].left,  mLinePoints[i-1].top - mLinePoints[i].top);
@@ -303,19 +294,42 @@ namespace MyGUI
 			else
 				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
 
+			bool edge = false;
+			if (normal == FloatPoint())
+			{
+				edge = true;
+				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
+			}
+
 			// check orientation
 			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i-1];
-			if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
+			if ((lineDir.left * normal.top - lineDir.top * normal.left < 0) /*^ edge*/)
 			{
 				normal.left = -normal.left;
 				normal.top = -normal.top;
 			}
 
-			mResultVerticiesPos.push_back(mLinePoints[i] + normal);
-			mResultVerticiesPos.push_back(mLinePoints[i] - normal);
 			FloatPoint UVoffset(currentLength / mLineLength * vectorU.left, currentLength / mLineLength * vectorU.top);
+
+			mResultVerticiesPos.push_back(points[0]);
+			mResultVerticiesPos.push_back(points[1]);
+			mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+			mResultVerticiesUV.push_back(pointsUV[0]);
+			mResultVerticiesUV.push_back(pointsUV[1]);
 			mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+
+			mResultVerticiesPos.push_back(points[1]);
+			mResultVerticiesPos.push_back(mLinePoints[i] - normal);
+			mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+			mResultVerticiesUV.push_back(pointsUV[1]);
 			mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
+			mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+
+			points[edge ? 1 : 0] = mLinePoints[i] + normal;
+			points[edge ? 0 : 1] = mLinePoints[i] - normal;
+			pointsUV[0] = baseVerticiesUV[0] + UVoffset;
+			pointsUV[1] = baseVerticiesUV[3] + UVoffset;
+
 			count +=6;
 		}
 
@@ -353,21 +367,6 @@ namespace MyGUI
 
 	FloatPoint PolygonalSkin::_getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3)
 	{
-		/*
-		// median
-		FloatPoint result = FloatPoint() - (_point1 + _point2);
-		result.left /= 2;
-		result.top /= 2;
-		result += _point3;
-		// normalise
-		float length = len(result.top, result.left);
-		result.left /= length;
-		result.top /= length;
-		result.left *= mLineWidth/2;
-		result.top *= mLineWidth/2;
-		return result;
-		*/
-
 		// bisectrix
 		FloatPoint line1 = _point3 - _point1;
 		FloatPoint line2 = _point3 - _point2;
@@ -385,9 +384,12 @@ namespace MyGUI
 
 		float cos = result.left*line1.left + result.top*line1.top;
 		float angle = acos(cos);
-		if (fabs(angle) < 1e-6 || fabs(sin(angle)) < 1.0f / 8.0f) return _getPerpendicular(_point1, _point3);//return FloatPoint();
-		float width = mLineWidth/2 / sin(angle);
 
+		// too sharp angle
+		if (fabs(angle) < 0.2f)
+			return FloatPoint();
+
+		float width = mLineWidth/2 / sin(angle);
 		result.left *= width;
 		result.top *= width;
 		return result;
