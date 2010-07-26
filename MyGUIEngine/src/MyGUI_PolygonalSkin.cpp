@@ -379,6 +379,10 @@ namespace MyGUI
 		FloatPoint result = line1 + line2;
 		// normalise
 		length = len(result.top, result.left);
+		if (length < 1e-6)
+		{
+			return _getPerpendicular(_point1, _point2);
+		}
 		result.left /= length;
 		result.top /= length;
 
