@@ -2,9 +2,9 @@
 
 <MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceSkin" name = "PolygonalSkin" size = "12 19" texture = "#{MyGUI_Theme_Texture}">
-		<BasisSkin type="PolygonalSkin" offset = "0 0 12 19" align = "Stretch">
-			<State name="normal" offset = "4 2 16 21"/>
+	<Resource type="ResourceSkin" name = "PolygonalSkin" size = "8 10" texture = "#{MyGUI_Theme_Texture}">
+		<BasisSkin type="PolygonalSkin" offset = "0 0 8 10" align = "Stretch">
+			<State name="normal" offset = "675 145 8 10"/>
 		</BasisSkin>
 	</Resource>
 
