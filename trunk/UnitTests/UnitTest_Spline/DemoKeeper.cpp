@@ -26,16 +26,22 @@ namespace demo
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("PolygonalSkin (aka line).");
 
 		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
+		window->setCaption("Click Me!");
 
 		widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 400), MyGUI::Align::Default);
 
 		MyGUI::ISubWidget * main = widget->getSubWidgetMain();
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
-		polygonalSkin->setWidth(8.0f);
+		polygonalSkin->setWidth(4.0f);
 
-		//linePoints.push_back(MyGUI::FloatPoint(70, 70));
-		//linePoints.push_back(MyGUI::FloatPoint(10, 10));
+		linePoints.push_back(MyGUI::FloatPoint(10, 10));
+		linePoints.push_back(MyGUI::FloatPoint(20, 22));
+		linePoints.push_back(MyGUI::FloatPoint(30, 36));
+		linePoints.push_back(MyGUI::FloatPoint(40, 52));
+		linePoints.push_back(MyGUI::FloatPoint(50, 70));
+		linePoints.push_back(MyGUI::FloatPoint(60, 90));
+
 		polygonalSkin->setPoints(linePoints);
 	}
 
