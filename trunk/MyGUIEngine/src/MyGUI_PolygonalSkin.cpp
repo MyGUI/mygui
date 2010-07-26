@@ -46,39 +46,42 @@ namespace MyGUI
 
 	void PolygonalSkin::setPoints(const std::vector<FloatPoint>& _points)
 	{
-		mLinePoints = _points;
-		
-		if (mLinePoints.size() < 2)
+		if (_points.size() < 2)
 		{
 			mVertexCount = 0;
 			mResultVerticiesPos.clear();
 			mResultVerticiesUV.clear();
+			mLinePoints = _points;
 			return;
 		}
 
-		// нужно больше вершин
-		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount;
-		if (count > mVertexCount)
-		{
-			mVertexCount = count;
-			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
-		}
+		std::vector<FloatPoint> finalPoints;
+		finalPoints.reserve(_points.size());
 
 		mLineLength = 0.0f;
-		FloatPoint point = mLinePoints[0];
-		for (std::vector<FloatPoint>::iterator iter = mLinePoints.begin() + 1; iter != mLinePoints.end(); ++iter)
+		FloatPoint point = _points[0];
+		finalPoints.push_back(point);
+		for (std::vector<FloatPoint>::const_iterator iter = _points.begin() + 1; iter != _points.end(); ++iter)
 		{
-			mLineLength += len(iter->left - point.left, iter->top - point.top);
-			point = *iter;
+			if (point != *iter)
+			{
+				finalPoints.push_back(*iter);
+				mLineLength += len(iter->left - point.left, iter->top - point.top);
+				point = *iter;
+			}
 		}
 
-		mGeometryOutdated = true;
+		mLinePoints = finalPoints;
+
+		_rebuildGeometry();
+		//mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setWidth(float _width)
 	{
 		mLineWidth = _width;
-		mGeometryOutdated = true;
+		_rebuildGeometry();
+		//mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setVisible(bool _visible)
@@ -258,6 +261,7 @@ namespace MyGUI
 		const float M_PI = 3.141593f;
 #endif
 		if (mLinePoints.size() < 2) return;
+		if (!mRenderItem || !mRenderItem->getRenderTarget()) return;
 
 		// using mCurrentCoord as rectangle where we draw polygons
 
@@ -285,19 +289,22 @@ namespace MyGUI
 		mResultVerticiesUV.push_back(baseVerticiesUV[0]);
 		mResultVerticiesUV.push_back(baseVerticiesUV[3]);
 
+		size_t count = 6;
+
 		// add other verticies
 		float currentLength = 0.0f;
-		size_t i;
-		for (i = 1; i < mLinePoints.size() - 1; ++i)
+		for (size_t i = 1; i < mLinePoints.size(); ++i)
 		{
 			currentLength += len(mLinePoints[i-1].left - mLinePoints[i].left,  mLinePoints[i-1].top - mLinePoints[i].top);
 
 			// getting normal between previous and next point
-			//normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i+1]);
-			normal = _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+			if (i != mLinePoints.size() - 1)
+				normal = _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+			else
+				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
 
 			// check orientation
-			FloatPoint lineDir = mLinePoints[i+1] - mLinePoints[i-1];
+			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i-1];
 			if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
 			{
 				normal.left = -normal.left;
@@ -309,14 +316,8 @@ namespace MyGUI
 			FloatPoint UVoffset(currentLength / mLineLength * vectorU.left, currentLength / mLineLength * vectorU.top);
 			mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
 			mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
+			count +=6;
 		}
-
-		// add last two verticies
-		normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
-		mResultVerticiesPos.push_back(mLinePoints[i] + normal);
-		mResultVerticiesPos.push_back(mLinePoints[i] - normal);
-		mResultVerticiesUV.push_back(baseVerticiesUV[1]);
-		mResultVerticiesUV.push_back(baseVerticiesUV[2]);
 
 		// now calculate widget base offset and then resulting position in screen coordinates
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
@@ -327,6 +328,13 @@ namespace MyGUI
 		{
 			mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
 			mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
+		}
+
+		// нужно больше вершин
+		if (count > mVertexCount)
+		{
+			mVertexCount = count;
+			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
 		}
 	}
 
@@ -377,6 +385,7 @@ namespace MyGUI
 
 		float cos = result.left*line1.left + result.top*line1.top;
 		float angle = acos(cos);
+		if (fabs(angle) < 1e-6 || fabs(sin(angle)) < 1.0f / 8.0f) return _getPerpendicular(_point1, _point3);//return FloatPoint();
 		float width = mLineWidth/2 / sin(angle);
 
 		result.left *= width;
