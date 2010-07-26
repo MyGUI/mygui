@@ -73,15 +73,23 @@ namespace MyGUI
 
 		mLinePoints = finalPoints;
 
+		// нужно больше вершин
+		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount;
+		if (count > mVertexCount)
+		{
+			mVertexCount = count;
+			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
+		}
+
+		mGeometryOutdated = true;
 		_rebuildGeometry();
-		//mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setWidth(float _width)
 	{
 		mLineWidth = _width;
+		mGeometryOutdated = true;
 		_rebuildGeometry();
-		//mGeometryOutdated = true;
 	}
 
 	void PolygonalSkin::setVisible(bool _visible)
@@ -208,7 +216,6 @@ namespace MyGUI
 		if (mGeometryOutdated)
 		{
 			_rebuildGeometry();
-			mGeometryOutdated = false;
 		}
 
 		if (mVertexCount != 0)
@@ -256,6 +263,8 @@ namespace MyGUI
 #endif
 		if (mLinePoints.size() < 2) return;
 		if (!mRenderItem || !mRenderItem->getRenderTarget()) return;
+		
+		mGeometryOutdated = false;
 
 		// using mCurrentCoord as rectangle where we draw polygons
 
@@ -283,7 +292,6 @@ namespace MyGUI
 		FloatPoint pointsUV[2] = {baseVerticiesUV[0], baseVerticiesUV[3]};
 		// add other verticies
 		float currentLength = 0.0f;
-		size_t count = 0;
 		for (size_t i = 1; i < mLinePoints.size(); ++i)
 		{
 			currentLength += len(mLinePoints[i-1].left - mLinePoints[i].left,  mLinePoints[i-1].top - mLinePoints[i].top);
@@ -329,8 +337,6 @@ namespace MyGUI
 			points[edge ? 0 : 1] = mLinePoints[i] - normal;
 			pointsUV[0] = baseVerticiesUV[0] + UVoffset;
 			pointsUV[1] = baseVerticiesUV[3] + UVoffset;
-
-			count +=6;
 		}
 
 		// now calculate widget base offset and then resulting position in screen coordinates
@@ -342,13 +348,6 @@ namespace MyGUI
 		{
 			mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
 			mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
-		}
-
-		// нужно больше вершин
-		if (count > mVertexCount)
-		{
-			mVertexCount = count;
-			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
 		}
 	}
 
