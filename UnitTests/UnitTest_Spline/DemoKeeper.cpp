@@ -14,6 +14,19 @@ namespace demo
 	MyGUI::PolygonalSkin* polygonalSkin;
 	MyGUI::Widget* widget;
 
+	void makeBezier(const std::vector<MyGUI::FloatPoint>& _points, size_t _pointsNumber)
+	{
+		linePoints.clear();
+		for (int i = 0; i < _pointsNumber; ++i)
+		{
+			float t = float(i)/(_pointsNumber - 1);
+			float left = _points[0].left*pow(1-t, 3) + 3*_points[1].left*pow(1-t, 2)*t + 3*_points[2].left*(1-t)*t*t + t*t*t*_points[3].left;
+			float top = _points[0].top *pow(1-t, 3) + 3*_points[1].top *pow(1-t, 2)*t + 3*_points[2].top *(1-t)*t*t + t*t*t*_points[3].top;
+			MyGUI::FloatPoint point(left, top);
+			linePoints.push_back(point);
+		}
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -35,12 +48,12 @@ namespace demo
 
 		polygonalSkin->setWidth(4.0f);
 
-		linePoints.push_back(MyGUI::FloatPoint(10, 10));
-		linePoints.push_back(MyGUI::FloatPoint(20, 22));
-		linePoints.push_back(MyGUI::FloatPoint(30, 36));
-		linePoints.push_back(MyGUI::FloatPoint(40, 52));
-		linePoints.push_back(MyGUI::FloatPoint(50, 70));
-		linePoints.push_back(MyGUI::FloatPoint(60, 90));
+		std::vector<MyGUI::FloatPoint> points;
+		points.push_back(MyGUI::FloatPoint(10, 10));
+		points.push_back(MyGUI::FloatPoint(40, 10));
+		points.push_back(MyGUI::FloatPoint(40, 80));
+		points.push_back(MyGUI::FloatPoint(70, 80));
+		makeBezier(points, 16);
 
 		polygonalSkin->setPoints(linePoints);
 	}
