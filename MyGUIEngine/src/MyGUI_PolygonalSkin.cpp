@@ -73,23 +73,20 @@ namespace MyGUI
 
 		mLinePoints = finalPoints;
 
-		// нужно больше вершин
 		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount;
-		if (count > mVertexCount)
+		if (count != mVertexCount)
 		{
 			mVertexCount = count;
 			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
 		}
 
-		mGeometryOutdated = true;
-		_rebuildGeometry();
+		_updateView();
 	}
 
 	void PolygonalSkin::setWidth(float _width)
 	{
 		mLineWidth = _width;
-		mGeometryOutdated = true;
-		_rebuildGeometry();
+		_updateView();
 	}
 
 	void PolygonalSkin::setVisible(bool _visible)
@@ -311,7 +308,7 @@ namespace MyGUI
 
 			// check orientation
 			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i-1];
-			if ((lineDir.left * normal.top - lineDir.top * normal.left < 0) /*^ edge*/)
+			if ((lineDir.left * normal.top - lineDir.top * normal.left < 0))
 			{
 				normal.left = -normal.left;
 				normal.top = -normal.top;
