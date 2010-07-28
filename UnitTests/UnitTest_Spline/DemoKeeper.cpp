@@ -27,6 +27,22 @@ namespace demo
 		}
 	}
 
+	void notifyPointMove(MyGUI::Window* _sender)
+	{
+
+		std::vector<MyGUI::FloatPoint> points;
+		points.push_back(MyGUI::FloatPoint(10, 10));
+		points.push_back(MyGUI::FloatPoint(40, 10));
+		points.push_back(MyGUI::FloatPoint(40, 80));
+		points.push_back(MyGUI::FloatPoint(70, 80));
+		makeBezier(points, 16);
+		//linePoints.clear();
+		linePoints.push_back(MyGUI::FloatPoint(100, 10));
+		linePoints.push_back(MyGUI::FloatPoint(_sender->getLeft() - 2, _sender->getTop() - 2));
+		linePoints.push_back(MyGUI::FloatPoint(100, 100));
+		polygonalSkin->setPoints(linePoints);
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -41,21 +57,22 @@ namespace demo
 		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 		window->setCaption("Click Me!");
 
+
+		// create widget with skin that contain specific sub skin - PolygonalSkin
 		widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 400), MyGUI::Align::Default);
 
+		// get main subskin
 		MyGUI::ISubWidget * main = widget->getSubWidgetMain();
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
-		polygonalSkin->setWidth(4.0f);
-
-		std::vector<MyGUI::FloatPoint> points;
-		points.push_back(MyGUI::FloatPoint(10, 10));
-		points.push_back(MyGUI::FloatPoint(40, 10));
-		points.push_back(MyGUI::FloatPoint(40, 80));
-		points.push_back(MyGUI::FloatPoint(70, 80));
-		makeBezier(points, 16);
-
+		// set PolygonalSkin properties and points
+		polygonalSkin->setWidth(8.0f);
 		polygonalSkin->setPoints(linePoints);
+
+
+		MyGUI::Window* point = window->createWidget<MyGUI::Window>("Window", MyGUI::IntCoord(140, 30, 16, 16), MyGUI::Align::Default);
+		point->eventWindowChangeCoord += newDelegate(notifyPointMove);
+		notifyPointMove(point);
 	}
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
