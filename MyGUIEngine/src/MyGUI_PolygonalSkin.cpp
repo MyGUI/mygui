@@ -303,7 +303,7 @@ namespace MyGUI
 				edge = true;
 				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
 			}
-			else if (len(normal.left, normal.top) > mLineWidth * 2)
+			else if (len(normal.left, normal.top) > mLineWidth * 1.5)
 			{
 				sharp = true;
 				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
@@ -341,9 +341,12 @@ namespace MyGUI
 			if (sharp)
 			{
 				normal =  _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+
+				float sharpness = len(normal.left, normal.top) / mLineWidth;
+
 				float length = len(normal.left, normal.top);
-				normal.left *= 2 * mLineWidth / length;
-				normal.top *= 2 * mLineWidth / length;
+				normal.left *= 2 * mLineWidth / length /(sharpness - 0.5f);
+				normal.top *= 2 * mLineWidth / length /(sharpness - 0.5f);
 				
 				// check orientation
 				lineDir = mLinePoints[i] - mLinePoints[i-1];
@@ -368,20 +371,6 @@ namespace MyGUI
 					normal2.left = -normal2.left;
 					normal2.top = -normal2.top;
 				}
-
-				/*mResultVerticiesPos.push_back(points[0]);
-				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
-				mResultVerticiesPos.push_back(mLinePoints[i] - normal);
-				mResultVerticiesUV.push_back(pointsUV[0]);
-				mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
-				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
-
-				mResultVerticiesPos.push_back(mLinePoints[i] + normal2);
-				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
-				mResultVerticiesPos.push_back(mLinePoints[i] - normal);
-				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
-				mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
-				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);*/
 
 				FloatPoint UVcenter((baseVerticiesUV[0].left + baseVerticiesUV[3].left)/2, (baseVerticiesUV[0].top + baseVerticiesUV[3].top)/2);
 				mResultVerticiesPos.push_back(points[0]);
