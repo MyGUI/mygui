@@ -66,7 +66,7 @@ namespace demo
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
 		// set PolygonalSkin properties and points
-		polygonalSkin->setWidth(8.0f);
+		polygonalSkin->setWidth(32.0f);
 		polygonalSkin->setPoints(linePoints);
 
 
