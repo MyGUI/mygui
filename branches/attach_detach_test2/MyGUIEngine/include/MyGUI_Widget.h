@@ -309,7 +309,7 @@ namespace MyGUI
 		void _updateView(); // обновления себя и детей
 
 		// создает виджет
-		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template = false);
+		Widget* createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template = false);
 
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
@@ -350,11 +350,17 @@ namespace MyGUI
 		void attachVisual();
 		void detachVisual();
 
-		//void detachLogicalChilds();
-		//void attachLogicalChilds();
+		void detachLogicalChilds();
+		void attachLogicalChilds();
 
 		void destroySkin();
 		void createSkin();
+
+		void addVisualChildToClient(Widget* _widget);
+		void removeVisualChildFromClient(Widget* _widget);
+
+		void addVisualChild(Widget* _widget);
+		void removeVisualChild(Widget* _widget);
 
 	protected:
 		// клиентская зона окна
@@ -362,10 +368,15 @@ namespace MyGUI
 		// то обязательно проинициализировать Client
 		Widget* mWidgetClient;
 
+		// наш отец в иерархии виджетов
+		Widget* mParent;
 		// вектор всех детей виджетов
-		VectorWidgetPtr mWidgetChild;
+		VectorWidgetPtr mChilds;
+
+		// наш отец в иерархии виджетов
+		Widget* mVisualParent;
 		// вектор детей скина
-		VectorWidgetPtr mWidgetChildSkin;
+		VectorWidgetPtr mVisualChilds;
 
 	private:
 		// доступен ли на виджет
@@ -379,9 +390,6 @@ namespace MyGUI
 		bool mInheritsAlpha;
 		// имя виджета
 		std::string mName;
-
-		// наш отец в иерархии виджетов
-		Widget* mParent;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;

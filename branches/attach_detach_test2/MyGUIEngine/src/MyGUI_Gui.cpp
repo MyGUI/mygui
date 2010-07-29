@@ -173,10 +173,10 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr);
-		mWidgetChild.push_back(widget);
+		mChilds.push_back(widget);
 
 		widget->setWidgetStyle(_style);
 		widget->setAlign(_align);
@@ -190,7 +190,7 @@ namespace MyGUI
 
 	Widget* Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mChilds.begin(); iter!=mChilds.end(); ++iter)
 		{
 			Widget* widget = (*iter)->findWidget(_name);
 			if (widget != nullptr) return widget;
@@ -203,11 +203,11 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end())
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		if (iter != mChilds.end())
 		{
 			// удаляем из списка
-			mWidgetChild.erase(iter);
+			mChilds.erase(iter);
 
 			// отписываем от всех
 			mWidgetManager->unlinkFromUnlinkers(_widget);
@@ -223,8 +223,8 @@ namespace MyGUI
 
 	void Gui::destroyAllChildWidget()
 	{
-		while (!mWidgetChild.empty())
-			destroyChildWidget(mWidgetChild.front());
+		while (!mChilds.empty())
+			destroyChildWidget(mChilds.front());
 	}
 
 	void Gui::destroyWidget(Widget* _widget)
@@ -262,16 +262,16 @@ namespace MyGUI
 
 	/*void Gui::_linkChildWidget(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
-		mWidgetChild.push_back(_widget);
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		MYGUI_ASSERT(iter == mChilds.end(), "widget already exist");
+		mChilds.push_back(_widget);
 	}
 
 	void Gui::_unlinkChildWidget(Widget* _widget)
 	{
-		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
-		mWidgetChild.erase(iter);
+		VectorWidgetPtr::iterator iter = std::remove(mChilds.begin(), mChilds.end(), _widget);
+		MYGUI_ASSERT(iter != mChilds.end(), "widget not found");
+		mChilds.erase(iter);
 	}*/
 
 	void Gui::_resizeWindow(const IntSize& _size)
@@ -280,7 +280,7 @@ namespace MyGUI
 		mViewSize = _size;
 
 		// выравниваем рутовые окна
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mChilds.begin(); iter!=mChilds.end(); ++iter)
 			(*iter)->_setAlign(oldViewSize);
 	}
 

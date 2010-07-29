@@ -182,7 +182,7 @@ namespace MyGUI
 		ILayerNode* node = mLayerNode;
 		if (node)
 		{
-			//for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
+			//for (VectorWidgetPtr::iterator widget = mVisualChilds.begin(); widget != mVisualChilds.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
 			for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
 			{
 				(*skin)->destroyDrawItem();

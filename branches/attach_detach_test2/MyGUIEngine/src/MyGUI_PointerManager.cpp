@@ -241,10 +241,10 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* PointerManager::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr);
-		mWidgetChild.push_back(widget);
+		mChilds.push_back(widget);
 
 		widget->setWidgetStyle(_style);
 		widget->setAlign(_align);
@@ -261,15 +261,15 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end())
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		if (iter != mChilds.end())
 		{
 			// сохраняем указатель
 			MyGUI::Widget* widget = *iter;
 
 			// удаляем из списка
-			*iter = mWidgetChild.back();
-			mWidgetChild.pop_back();
+			*iter = mChilds.back();
+			mChilds.pop_back();
 
 			// отписываем от всех
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
@@ -287,11 +287,11 @@ namespace MyGUI
 	void PointerManager::_destroyAllChildWidget()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
-		while (!mWidgetChild.empty())
+		while (!mChilds.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
-			Widget* widget = mWidgetChild.back();
-			mWidgetChild.pop_back();
+			Widget* widget = mChilds.back();
+			mChilds.pop_back();
 
 			// отписываем от всех
 			manager.unlinkFromUnlinkers(widget);
@@ -322,7 +322,7 @@ namespace MyGUI
 	{
 		if (mMousePointer == nullptr)
 		{
-			Widget* widget = baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", "");
+			Widget* widget = createWidgetImpl(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", "");
 			mMousePointer = widget->castType<StaticImage>();
 		}
 	}

@@ -69,7 +69,7 @@ namespace MyGUI
 			if (iter != properties.end()) mEmptySkinName = iter->second;
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter=mVisualChilds.begin(); iter!=mVisualChilds.end(); ++iter)
 		{
 			if (*(*iter)->_getInternalData<std::string>() == "Bar")
 			{
@@ -157,7 +157,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		Widget* widget = baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "");
+		Widget* widget = createWidgetImpl(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "");
 
 		size_t lastIndex = mItemsInfo.size() - 1;
 		setItemNameAt(lastIndex, _name);

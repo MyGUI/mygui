@@ -70,7 +70,7 @@ namespace MyGUI
 		}
 
 		// парсим кнопку
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter=mVisualChilds.begin(); iter!=mVisualChilds.end(); ++iter)
 		{
 			if (*(*iter)->_getInternalData<std::string>() == "Button")
 			{
@@ -100,7 +100,7 @@ namespace MyGUI
 			iter = properties.find("ListLayer");
 			if (iter != properties.end()) list_layer = iter->second;
 			mList = createWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
-			mWidgetChild.pop_back();
+			mChilds.pop_back();
 
 			mList->setVisible(false);
 			mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
@@ -124,7 +124,7 @@ namespace MyGUI
 	{
 		if (mManualList)
 		{
-			mWidgetChild.push_back(mList);
+			mChilds.push_back(mList);
 			WidgetManager::getInstance().destroyWidget(mList);
 		}
 		mList = nullptr;

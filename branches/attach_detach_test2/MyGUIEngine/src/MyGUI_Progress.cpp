@@ -51,7 +51,7 @@ namespace MyGUI
 	{
 		Base::initialiseWidgetSkin(_info);
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter=mVisualChilds.begin(); iter!=mVisualChilds.end(); ++iter)
 		{
 			if (*(*iter)->_getInternalData<std::string>() == "Client")
 			{

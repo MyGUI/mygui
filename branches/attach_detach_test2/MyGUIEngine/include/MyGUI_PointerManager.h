@@ -93,7 +93,7 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет
-		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		Widget* createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
@@ -109,7 +109,7 @@ namespace MyGUI
 
 	private:
 		// вектор всех детей виджетов
-		VectorWidgetPtr mWidgetChild;
+		VectorWidgetPtr mChilds;
 
 		std::string mDefaultName;
 		IntPoint mPoint;
