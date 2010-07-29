@@ -63,12 +63,11 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent)
+	void Widget::_initialise(Widget* _parent)
 	{
-		mWidgetStyle = _style;
 		mParent = _parent;
 
-		createSkin(_info);
+		createSkin();
 	}
 
 	void Widget::_shutdown()
@@ -143,20 +142,19 @@ namespace MyGUI
 		}
 		else
 		{
-			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, this);
+			widget = WidgetManager::getInstance().createWidget(_type, this);
 
 			if (_template)
 				mWidgetChildSkin.push_back(widget);
 			else
 				mWidgetChild.push_back(widget);
 
+			widget->setWidgetStyle(_style);
 			widget->setAlign(_align);
 			widget->setName(_name);
 			widget->setCoord(_coord);
-
-			// присоединяем виджет с уровню
-			if (!_layer.empty() && !widget->getNeedCropped())
-				LayerManager::getInstance().attachToLayerNode(_layer, widget);
+			widget->setSkinName(_skin);
+			widget->setLayerName(_layer);
 		}
 
 		_onChildAdded(widget);
@@ -898,32 +896,34 @@ namespace MyGUI
 		}
 
 		_updateAlpha();
-	}
+	}*/
 
-	void Widget::setWidgetStyle(WidgetStyle _style, const std::string& _layer)
+	void Widget::setWidgetStyle(WidgetStyle _style)
 	{
 		if (_style == mWidgetStyle)
 			return;
-		if (nullptr == getParent())
-			return;
-
-		Widget* parent = mParent;
-
-		detachFromWidget();
-		attachToWidget(parent, _style, _layer);
-	}*/
-
-	void Widget::changeWidgetSkin(const std::string& _skinName)
-	{
-		ResourceSkin* info = SkinManager::getInstance().getByName(_skinName);
-
-		detachLogicalChilds();
 
 		destroySkin();
 
-		createSkin(info);
+		mWidgetStyle = _style;
 
-		attachLogicalChilds();
+		createSkin();
+	}
+
+	void Widget::setSkinName(const std::string& _value)
+	{
+		if (_value == mSkinName)
+			return;
+
+		//detachLogicalChilds();
+
+		destroySkin();
+
+		mSkinName = _value;
+
+		createSkin();
+
+		//attachLogicalChilds();
 	}
 
 	bool Widget::getNeedCropped()
@@ -931,16 +931,18 @@ namespace MyGUI
 		return (mWidgetStyle != WidgetStyle::Popup && mParent != nullptr);
 	}
 
-	void Widget::detachLogicalChilds()
+	/*void Widget::detachLogicalChilds()
 	{
 	}
 
 	void Widget::attachLogicalChilds()
 	{
-	}
+	}*/
 
 	void Widget::destroySkin()
 	{
+		detachFromLayer();
+
 		shutdownWidgetSkin();
 
 		detachVisual();
@@ -948,15 +950,32 @@ namespace MyGUI
 		shutdownWidgetSkinBase();
 	}
 
-	void Widget::createSkin(ResourceSkin* _info)
+	void Widget::createSkin()
 	{
-		initialiseWidgetSkinBase(_info);
+		ResourceSkin* info = SkinManager::getInstance().getByName(mSkinName);
+
+		initialiseWidgetSkinBase(info);
 
 		attachVisual();
 
-		initialiseWidgetSkin(_info);
+		initialiseWidgetSkin(info);
 
 		_updateAbsolutePoint();
+
+		if (!mLayerName.empty() && !getNeedCropped())
+			LayerManager::getInstance().attachToLayerNode(mLayerName, this);
+	}
+
+	void Widget::setLayerName(const std::string& _value)
+	{
+		if (_value == mLayerName)
+			return;
+
+		destroySkin();
+
+		mLayerName = _value;
+
+		createSkin();
 	}
 
 } // namespace MyGUI

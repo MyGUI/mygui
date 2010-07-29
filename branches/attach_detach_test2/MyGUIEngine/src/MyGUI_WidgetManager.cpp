@@ -123,14 +123,13 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, Widget* _parent)
+	Widget* WidgetManager::createWidget(const std::string& _type, Widget* _parent)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)
 		{
 			Widget* widget = object->castType<Widget>();
-			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin);
-			widget->_initialise(_style, skin, _parent);
+			widget->_initialise(_parent);
 
 			return widget;
 		}

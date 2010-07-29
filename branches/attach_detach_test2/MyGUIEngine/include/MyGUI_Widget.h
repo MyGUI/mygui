@@ -238,17 +238,17 @@ namespace MyGUI
 		*/
 		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
+		const std::string& getSkinName() const { return mSkinName; }
 		/** Change widget skin */
-		void changeWidgetSkin(const std::string& _skinName);
+		void setSkinName(const std::string& _value);
 
-		/** Set widget style.
-			@param _layer Attach to specified layer (if any)
-			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
-			see LayerManager::attachToLayerNode
-		*/
-		//void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
+		/** Set widget style. */
+		void setWidgetStyle(WidgetStyle _style);
 		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
+
+		const std::string& getLayerName() { return mLayerName; }
+		void setLayerName(const std::string& _value);
 
 		/** Set any widget property
 			@param _key Property name (for example Widget_Alpha or Edit_MultiLine)
@@ -273,7 +273,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(WidgetStyle _style, ResourceSkin* _info, Widget* _parent);
+		void _initialise(Widget* _parent);
 		void _shutdown();
 
 		void _setContainer(Widget* _value) { mContainer = _value; }
@@ -345,18 +345,16 @@ namespace MyGUI
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
 
-		//void _linkChildWidget(Widget* _widget);
-		//void _unlinkChildWidget(Widget* _widget);
 		void _destroyChildWidget(Widget* _widget, VectorWidgetPtr& _childs);
 
 		void attachVisual();
 		void detachVisual();
 
-		void detachLogicalChilds();
-		void attachLogicalChilds();
+		//void detachLogicalChilds();
+		//void attachLogicalChilds();
 
 		void destroySkin();
-		void createSkin(ResourceSkin* _info);
+		void createSkin();
 
 	protected:
 		// клиентская зона окна
@@ -394,6 +392,9 @@ namespace MyGUI
 		bool mVisible;
 		bool mIsMargin;
 		IntPoint mAbsolutePosition; // обсолютные координаты
+
+		std::string mSkinName;
+		std::string mLayerName;
 	};
 
 } // namespace MyGUI

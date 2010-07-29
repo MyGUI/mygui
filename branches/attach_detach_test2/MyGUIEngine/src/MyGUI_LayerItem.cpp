@@ -29,7 +29,6 @@ namespace MyGUI
 	LayerItem::LayerItem() :
 		mLayer(nullptr),
 		mLayerNode(nullptr),
-		//mSaveLayerNode(nullptr),
 		mTexture(nullptr)
 	{
 	}
@@ -38,9 +37,7 @@ namespace MyGUI
 	{
 		mLayerItems.push_back(_item);
 		if (mLayerNode != nullptr)
-		{
 			_item->attachToLayerItemNode(mLayerNode, false);
-		}
 	}
 
 	void LayerItem::removeChildItem(LayerItem* _item)
@@ -93,20 +90,6 @@ namespace MyGUI
 		}
 	}
 
-	/*void LayerItem::saveLayerItem()
-	{
-		mSaveLayerNode = mLayerNode;
-	}
-
-	void LayerItem::restoreLayerItem()
-	{
-		mLayerNode = mSaveLayerNode;
-		if (mLayerNode)
-		{
-			attachToLayerItemNode(mLayerNode, false);
-		}
-	}*/
-
 	void LayerItem::attachItemToNode(ILayer* _layer, ILayerNode* _node)
 	{
 		mLayer = _layer;
@@ -121,8 +104,10 @@ namespace MyGUI
 		if (nullptr == mLayer)
 			return;
 
+		if (nullptr == mLayerNode)
+			return;
 		// такого быть не должно
-		MYGUI_ASSERT(mLayerNode, "_item->mLayerNode == nullptr");
+		//MYGUI_ASSERT(mLayerNode, "_item->mLayerNode == nullptr");
 
 		// отписываемся от пиккинга
 		mLayerNode->detachLayerItem(this);

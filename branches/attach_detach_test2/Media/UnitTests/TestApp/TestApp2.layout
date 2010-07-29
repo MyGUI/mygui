@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Button" skin="Button" position="80 80 672 600" layer="Overlapped" name="Test">
+    <Widget type="Button" skin="Button" position="80 80 672 600" layer="Overlapped" name="Button">
     </Widget>
 </MyGUI>
