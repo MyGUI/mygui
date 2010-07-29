@@ -73,8 +73,8 @@ namespace MyGUI
 
 		mLinePoints = finalPoints;
 
-		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount;
-		if (count != mVertexCount)
+		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount * 2;
+		if (count > mVertexCount)
 		{
 			mVertexCount = count;
 			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mVertexCount);
@@ -215,17 +215,14 @@ namespace MyGUI
 			_rebuildGeometry();
 		}
 
-		if (mVertexCount != 0)
+		size_t size = mResultVerticiesPos.size();
+
+		for (size_t i = 0; i < size; ++i)
 		{
-			// set verticies as tristrip
-			size_t size = mResultVerticiesPos.size();
-			for (size_t i = 0; i < size; ++i)
-			{
-				verticies[i].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
-			}
+			verticies[i].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
 		}
 
-		mRenderItem->setLastVertexCount(mVertexCount);
+		mRenderItem->setLastVertexCount(size);
 	}
 
 	void PolygonalSkin::_setColour(const Colour& _value)
@@ -300,15 +297,21 @@ namespace MyGUI
 				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
 
 			bool edge = false;
-			if (normal == FloatPoint())
+			bool sharp = false;
+			if (normal == FloatPoint() /*|| len(normal.left, normal.top) > mLineWidth * 2*/)
 			{
 				edge = true;
+				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
+			}
+			else if (len(normal.left, normal.top) > mLineWidth * 2)
+			{
+				sharp = true;
 				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
 			}
 
 			// check orientation
 			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i-1];
-			if ((lineDir.left * normal.top - lineDir.top * normal.left < 0))
+			if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
 			{
 				normal.left = -normal.left;
 				normal.top = -normal.top;
@@ -334,6 +337,72 @@ namespace MyGUI
 			points[edge ? 0 : 1] = mLinePoints[i] - normal;
 			pointsUV[0] = baseVerticiesUV[0] + UVoffset;
 			pointsUV[1] = baseVerticiesUV[3] + UVoffset;
+
+			if (sharp)
+			{
+				normal =  _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+				float length = len(normal.left, normal.top);
+				normal.left *= 2 * mLineWidth / length;
+				normal.top *= 2 * mLineWidth / length;
+				
+				// check orientation
+				lineDir = mLinePoints[i] - mLinePoints[i-1];
+				if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
+				{
+					normal.left = -normal.left;
+					normal.top = -normal.top;
+				}
+				FloatPoint lineDir1 = mLinePoints[i] - mLinePoints[i-1];
+				FloatPoint lineDir2 = mLinePoints[i+1] - mLinePoints[i];
+				if (lineDir1.left * lineDir2.top - lineDir1.top * lineDir2.left > 0)
+				{
+					normal.left = -normal.left;
+					normal.top = -normal.top;
+				}
+
+				// check orientation
+				FloatPoint normal2 = _getPerpendicular(mLinePoints[i], mLinePoints[i+1]);
+				lineDir = mLinePoints[i-1] - mLinePoints[i];
+				if ((lineDir.left * normal2.top - lineDir.top * normal2.left < 0))
+				{
+					normal2.left = -normal2.left;
+					normal2.top = -normal2.top;
+				}
+
+				/*mResultVerticiesPos.push_back(points[0]);
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+				mResultVerticiesPos.push_back(mLinePoints[i] - normal);
+				mResultVerticiesUV.push_back(pointsUV[0]);
+				mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal2);
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+				mResultVerticiesPos.push_back(mLinePoints[i] - normal);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+				mResultVerticiesUV.push_back(baseVerticiesUV[3] + UVoffset);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);*/
+
+				FloatPoint UVcenter((baseVerticiesUV[0].left + baseVerticiesUV[3].left)/2, (baseVerticiesUV[0].top + baseVerticiesUV[3].top)/2);
+				mResultVerticiesPos.push_back(points[0]);
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+				mResultVerticiesPos.push_back(mLinePoints[i]);
+				mResultVerticiesUV.push_back(pointsUV[0]);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+				mResultVerticiesUV.push_back(UVcenter + UVoffset);
+
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
+				mResultVerticiesPos.push_back(mLinePoints[i] + normal2);
+				mResultVerticiesPos.push_back(mLinePoints[i]);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+				mResultVerticiesUV.push_back(baseVerticiesUV[0] + UVoffset);
+				mResultVerticiesUV.push_back(UVcenter + UVoffset);
+
+				points[0] = mLinePoints[i] + normal2;
+				points[1] = mLinePoints[i] - normal2;
+				pointsUV[0] = baseVerticiesUV[0] + UVoffset;
+				pointsUV[1] = baseVerticiesUV[3] + UVoffset;
+			}
 		}
 
 		// now calculate widget base offset and then resulting position in screen coordinates
@@ -386,7 +455,7 @@ namespace MyGUI
 		float angle = acos(cos);
 
 		// too sharp angle
-		if (fabs(angle) < 0.2f)
+		if (fabs(angle) < 1e-6 /*< 0.2f*/)
 			return FloatPoint();
 
 		float width = mLineWidth/2 / sin(angle);
