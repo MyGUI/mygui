@@ -46,7 +46,7 @@ namespace MyGUI
 	{
 		try
 		{
-			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup);
+			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup, true);
 			OgreDataStream* data = new OgreDataStream(stream);
 
 			return data;
