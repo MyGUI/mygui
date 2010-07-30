@@ -161,6 +161,19 @@ namespace MyGUI
 		_onChildAdded(widget);
 
 		return widget;
+
+		/*Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr); 
+
+		widget->setWidgetStyle(_style);
+		widget->setAlign(_align);
+		widget->setName(_name);
+		widget->setCoord(_coord);
+		widget->setSkinName(_skin);
+		widget->setLayerName(_layer);
+
+		attachWidget(widget);
+
+		return widget;*/
 	}
 
 	void Widget::_updateView()
@@ -731,18 +744,6 @@ namespace MyGUI
 		return (mWidgetStyle != WidgetStyle::Popup && mParent != nullptr);
 	}
 
-	void Widget::detachLogicalChilds()
-	{
-		for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-			removeVisualChildFromClient(*item);
-	}
-
-	void Widget::attachLogicalChilds()
-	{
-		for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-			addVisualChildToClient(*item);
-	}
-
 	void Widget::destroySkin()
 	{
 		detachLogicalChilds();
@@ -810,7 +811,19 @@ namespace MyGUI
 		createSkin();
 	}
 
-	void Widget::addVisualChildToClient(Widget* _widget)
+	void Widget::detachLogicalChilds()
+	{
+		/*for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+			removeVisualChildFromClient(*item);*/
+	}
+
+	void Widget::attachLogicalChilds()
+	{
+		/*for (VectorWidgetPtr::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+			addVisualChildToClient(*item);*/
+	}
+
+	/*void Widget::addVisualChildToClient(Widget* _widget)
 	{
 		if (mWidgetClient != nullptr)
 			mWidgetClient->addVisualChild(_widget);
@@ -830,15 +843,15 @@ namespace MyGUI
 	{
 		//MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
 
-		/*mVisualChilds.push_back(_widget);
-		_widget->mVisualParent = this;*/
+		mVisualChilds.push_back(_widget);
+		_widget->mVisualParent = this;
 
 		//onVisualChildAdded(_widget);
 	}
 
 	void Widget::removeVisualChild(Widget* _widget)
 	{
-		/*VectorControlPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
+		VectorWidgetPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
 		if (item != mVisualChilds.end())
 		{
 			mVisualChilds.erase(item);
@@ -849,7 +862,48 @@ namespace MyGUI
 		else
 		{
 			MYGUI_EXCEPT("widget not found");
-		}*/
+		}
 	}
+
+	void Widget::attachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		addChild(_widget);
+		addVisualChildToClient(_widget);
+	}
+
+	void Widget::detachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget != nullptr, "null referense");
+
+		removeChild(_widget);
+		removeVisualChildFromClient(_widget);
+	}
+
+	void Widget::addChild(Widget* _widget)
+	{
+		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
+		//MYGUI_ASSERT(_widget->getParentContainer() == nullptr, "allready added");
+
+		mChilds.push_back(_widget);
+		_widget->mParent = this;
+		//_widget->mParentContainer = this;
+	}
+
+	void Widget::removeChild(Widget* _widget)
+	{
+		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
+		if (item != mChilds.end())
+		{
+			mChilds.erase(item);
+			_widget->mParent = nullptr;
+			//_widget->mParentContainer = nullptr;
+		}
+		else
+		{
+			MYGUI_EXCEPT("widget not found");
+		}
+	}*/
 
 } // namespace MyGUI

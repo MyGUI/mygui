@@ -229,6 +229,7 @@ namespace MyGUI
 			@param _layer Attach to specified layer (if any)
 		*/
 		//void detachFromWidget(const std::string& _layer = "");
+		//void detachWidget(Widget* _widget);
 
 		/** Attach widget to parent
 			@param _style Child widget type
@@ -237,6 +238,7 @@ namespace MyGUI
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
 		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
+		//void attachWidget(Widget* _widget);
 
 		const std::string& getSkinName() const { return mSkinName; }
 		/** Change widget skin */
@@ -350,17 +352,20 @@ namespace MyGUI
 		void attachVisual();
 		void detachVisual();
 
-		void detachLogicalChilds();
-		void attachLogicalChilds();
-
 		void destroySkin();
 		void createSkin();
 
-		void addVisualChildToClient(Widget* _widget);
+		void detachLogicalChilds();
+		void attachLogicalChilds();
+
+		/*void addVisualChildToClient(Widget* _widget);
 		void removeVisualChildFromClient(Widget* _widget);
 
 		void addVisualChild(Widget* _widget);
 		void removeVisualChild(Widget* _widget);
+
+		void addChild(Widget* _widget);
+		void removeChild(Widget* _widget);*/
 
 	protected:
 		// клиентская зона окна
