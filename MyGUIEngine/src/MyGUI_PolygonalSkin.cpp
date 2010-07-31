@@ -252,9 +252,6 @@ namespace MyGUI
 
 	void PolygonalSkin::_rebuildGeometry()
 	{
-#ifndef M_PI
-		const float M_PI = 3.141593f;
-#endif
 		if (mLinePoints.size() < 2) return;
 		if (!mRenderItem || !mRenderItem->getRenderTarget()) return;
 		
