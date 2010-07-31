@@ -17,7 +17,7 @@ namespace demo
 	void makeBezier(const std::vector<MyGUI::FloatPoint>& _points, size_t _pointsNumber)
 	{
 		linePoints.clear();
-		for (int i = 0; i < _pointsNumber; ++i)
+		for (size_t i = 0; i < _pointsNumber; ++i)
 		{
 			float t = float(i)/(_pointsNumber - 1);
 			float left = _points[0].left*pow(1-t, 3) + 3*_points[1].left*pow(1-t, 2)*t + 3*_points[2].left*(1-t)*t*t + t*t*t*_points[3].left;
@@ -38,7 +38,7 @@ namespace demo
 		makeBezier(points, 16);
 		//linePoints.clear();
 		linePoints.push_back(MyGUI::FloatPoint(100, 10));
-		linePoints.push_back(MyGUI::FloatPoint(_sender->getLeft() - 2, _sender->getTop() - 2));
+		linePoints.push_back(MyGUI::FloatPoint(_sender->getLeft() - 2.0f, _sender->getTop() - 2.0f));
 		linePoints.push_back(MyGUI::FloatPoint(100, 100));
 		polygonalSkin->setPoints(linePoints);
 	}
@@ -66,7 +66,7 @@ namespace demo
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
 		// set PolygonalSkin properties and points
-		polygonalSkin->setWidth(32.0f);
+		polygonalSkin->setWidth(8.0f);
 		polygonalSkin->setPoints(linePoints);
 
 
