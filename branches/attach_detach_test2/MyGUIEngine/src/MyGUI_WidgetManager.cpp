@@ -123,13 +123,13 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(const std::string& _type, Widget* _parent)
+	Widget* WidgetManager::createWidget(const std::string& _type)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)
 		{
 			Widget* widget = object->castType<Widget>();
-			widget->_initialise(_parent);
+			widget->_initialise();
 
 			return widget;
 		}
@@ -140,17 +140,29 @@ namespace MyGUI
 
 	void WidgetManager::destroyWidget(Widget* _widget)
 	{
-		Gui::getInstance().destroyWidget(_widget);
+		WidgetContainer* container = _widget->getWidgetContainer();
+		if (container != nullptr)
+			container->detachChild(_widget);
+
+		_deleteWidget2(_widget);
 	}
 
 	void WidgetManager::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		Gui::getInstance().destroyWidgets(_widgets);
+		VectorWidgetPtr widgets(_widgets);
+
+		for (VectorWidgetPtr::const_iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+			destroyWidget(*iter);
 	}
 
 	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr _widgets)
 	{
-		Gui::getInstance().destroyWidgets(_widgets);
+		VectorWidgetPtr widgets;
+		while (_widgets.next())
+			widgets.push_back(_widgets.current());
+
+		for (VectorWidgetPtr::const_iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+			destroyWidget(*iter);
 	}
 
 	void WidgetManager::registerUnlinker(IUnlinkWidget * _unlink)
@@ -228,5 +240,14 @@ namespace MyGUI
 	}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	void WidgetManager::_deleteWidget2(Widget* _widget)
+	{
+		_widget->_shutdown();
+
+		unlinkFromUnlinkers(_widget);
+
+		mDestroyWidgets.push_back(_widget);
+	}
 
 } // namespace MyGUI

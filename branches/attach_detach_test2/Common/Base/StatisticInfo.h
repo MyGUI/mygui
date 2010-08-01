@@ -36,7 +36,7 @@ namespace diagnostic
 		{
 			if (mInfo)
 			{
-				MyGUI::Gui::getInstance().destroyChildWidget(mInfo);
+				MyGUI::Gui::getInstance().destroyChild(mInfo);
 				mInfo = nullptr;
 			}
 		}

@@ -40,7 +40,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		Widget* createWidget(const std::string& _type, Widget* _parent);
+		Widget* createWidget(const std::string& _type);
 
 		/** Destroy _widget */
 		void destroyWidget(Widget* _widget);
@@ -63,6 +63,7 @@ namespace MyGUI
 		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
 		void _deleteWidget(Widget* _widget);
 		void _deleteDelayWidgets();
+		void _deleteWidget2(Widget* _widget);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

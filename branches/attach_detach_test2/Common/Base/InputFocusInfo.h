@@ -37,9 +37,9 @@ namespace diagnostic
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InputFocusInfo::notifyFrameStart);
 
 			if (mKeyHelper != nullptr)
-				MyGUI::Gui::getInstance().destroyWidget(mKeyHelper);
+				MyGUI::Gui::getInstance().destroyChild(mKeyHelper);
 			if (mMouseHelper != nullptr)
-				MyGUI::Gui::getInstance().destroyWidget(mMouseHelper);
+				MyGUI::Gui::getInstance().destroyChild(mMouseHelper);
 		}
 
 		bool getFocusVisible() { return mFocusVisible; }

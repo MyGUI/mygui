@@ -90,7 +90,7 @@ namespace MyGUI
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
 		// удаляем все виджеты
-		_destroyAllChildWidget();
+		destroyAllChilds();
 
 		mWidgetOwner = nullptr;
 
@@ -240,67 +240,6 @@ namespace MyGUI
 		setPointer(mDefaultName, nullptr);
 	}
 
-	// создает виджет
-	Widget* PointerManager::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
-	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr);
-		mChilds.push_back(widget);
-
-		widget->setWidgetStyle(_style);
-		widget->setAlign(_align);
-		widget->setName(_name);
-		widget->setCoord(_coord);
-		widget->setSkinName(_skin);
-		widget->setLayerName(_layer);
-
-		return widget;
-	}
-
-	// удяляет неудачника
-	void PointerManager::_destroyChildWidget(Widget* _widget)
-	{
-		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-
-		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
-		if (iter != mChilds.end())
-		{
-			// сохраняем указатель
-			MyGUI::Widget* widget = *iter;
-
-			// удаляем из списка
-			*iter = mChilds.back();
-			mChilds.pop_back();
-
-			// отписываем от всех
-			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
-
-			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
-	// удаляет всех детей
-	void PointerManager::_destroyAllChildWidget()
-	{
-		WidgetManager& manager = WidgetManager::getInstance();
-		while (!mChilds.empty())
-		{
-			// сразу себя отписывем, иначе вложенной удаление убивает все
-			Widget* widget = mChilds.back();
-			mChilds.pop_back();
-
-			// отписываем от всех
-			manager.unlinkFromUnlinkers(widget);
-
-			// и сами удалим, так как его больше в списке нет
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-	}
-
 	void PointerManager::setDeafultPointer(const std::string& _value)
 	{
 		Update();
@@ -371,5 +310,70 @@ namespace MyGUI
 	}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	void PointerManager::detachChild(Widget* _widget)
+	{
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(_widget->getAttached(), "already detached");
+
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		if (iter != mChilds.end())
+		{
+			_widget->_destroySkin();
+
+			_widget->_setParent(nullptr);
+			_widget->_setWidgetContainer(nullptr);
+			mChilds.erase(iter);
+
+			_widget->_createSkin();
+		}
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
+	}
+
+	void PointerManager::attachChild(Widget* _widget)
+	{
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(!_widget->getAttached(), "already attached");
+
+		_widget->_destroySkin();
+
+		_widget->_setParent(nullptr);
+		_widget->_setWidgetContainer(this);
+		mChilds.push_back(_widget);
+
+		_widget->_createSkin();
+	}
+
+	Widget* PointerManager::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		Widget* widget = WidgetManager::getInstance().createWidget(_type);
+
+		widget->setWidgetStyle(_style);
+		widget->setAlign(_align);
+		widget->setName(_name);
+		widget->setCoord(_coord);
+		widget->setSkinName(_skin);
+		widget->setLayerName(_layer);
+
+		attachChild(widget);
+
+		return widget;
+	}
+
+	void PointerManager::destroyChild(Widget* _widget)
+	{
+		detachChild(_widget);
+
+		WidgetManager::getInstance()._deleteWidget2(_widget);
+	}
+
+	void PointerManager::destroyAllChilds()
+	{
+		while (!mChilds.empty())
+			destroyChild(mChilds.front());
+	}
 
 } // namespace MyGUI

@@ -33,7 +33,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT PointerManager :
 		public Singleton<PointerManager>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public WidgetContainer
 	{
 	public:
 		PointerManager();
@@ -66,6 +67,12 @@ namespace MyGUI
 		/** Get pointer resource */
 		IPointer* getByName(const std::string& _name) const;
 
+		/** Detach child widget */
+		virtual void detachChild(Widget* _widget);
+
+		/** Attach child widget */
+		virtual void attachChild(Widget* _widget);
+
 	/*event:*/
 		/** Event : Mouse pointer has been changed.\n
 			signature : void method(const std::string& _pointerName)\n
@@ -95,11 +102,8 @@ namespace MyGUI
 		// создает виджет
 		Widget* createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
-		// удяляет неудачника
-		void _destroyChildWidget(Widget* _widget);
-
-		// удаляет всех детей
-		void _destroyAllChildWidget();
+		void destroyAllChilds();
+		void destroyChild(Widget* _widget);
 
 		void Update();
 

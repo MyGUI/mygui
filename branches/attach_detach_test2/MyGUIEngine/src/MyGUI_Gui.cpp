@@ -130,7 +130,7 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		destroyAllChildWidget();
+		destroyAllChilds();
 
 		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
@@ -173,21 +173,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* Gui::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
-	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr);
-		mChilds.push_back(widget);
-
-		widget->setWidgetStyle(_style);
-		widget->setAlign(_align);
-		widget->setName(_name);
-		widget->setCoord(_coord);
-		widget->setSkinName(_skin);
-		widget->setLayerName(_layer);
-
-		return widget;
-	}
-
 	Widget* Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
 		for (VectorWidgetPtr::iterator iter = mChilds.begin(); iter!=mChilds.end(); ++iter)
@@ -199,55 +184,17 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void Gui::destroyChildWidget(Widget* _widget)
-	{
-		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-
-		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
-		if (iter != mChilds.end())
-		{
-			// удаляем из списка
-			mChilds.erase(iter);
-
-			// отписываем от всех
-			mWidgetManager->unlinkFromUnlinkers(_widget);
-
-			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(_widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
-	void Gui::destroyAllChildWidget()
+	void Gui::destroyAllChilds()
 	{
 		while (!mChilds.empty())
-			destroyChildWidget(mChilds.front());
+			destroyChild(mChilds.front());
 	}
 
-	void Gui::destroyWidget(Widget* _widget)
+	void Gui::destroyChild(Widget* _widget)
 	{
-		Widget* parent = _widget->getParent();
-		if (parent != nullptr)
-			parent->destroyChildWidget(_widget);
-		else
-			destroyChildWidget(_widget);
-	}
+		detachChild(_widget);
 
-	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
-	{
-		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
-			destroyWidget(*iter);
-	}
-
-	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)
-	{
-		VectorWidgetPtr widgets;
-		while (_widgets.next())
-			widgets.push_back(_widgets.current());
-		destroyWidgets(widgets);
+		WidgetManager::getInstance()._deleteWidget2(_widget);
 	}
 
 	void Gui::_injectFrameEntered(float _time)
@@ -259,20 +206,6 @@ namespace MyGUI
 	{
 		eventFrameStart.clear(_widget);
 	}
-
-	/*void Gui::_linkChildWidget(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
-		MYGUI_ASSERT(iter == mChilds.end(), "widget already exist");
-		mChilds.push_back(_widget);
-	}
-
-	void Gui::_unlinkChildWidget(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator iter = std::remove(mChilds.begin(), mChilds.end(), _widget);
-		MYGUI_ASSERT(iter != mChilds.end(), "widget not found");
-		mChilds.erase(iter);
-	}*/
 
 	void Gui::_resizeWindow(const IntSize& _size)
 	{
@@ -356,10 +289,12 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
-	void Gui::detachWidget(Widget* _widget)
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+	void Gui::detachChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-		MYGUI_ASSERT(_widget->getWidgetAttached(), "already detached");
+		MYGUI_ASSERT(_widget->getAttached(), "already detached");
 
 		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
 		if (iter != mChilds.end())
@@ -378,10 +313,10 @@ namespace MyGUI
 		}
 	}
 
-	void Gui::attachWidget(Widget* _widget)
+	void Gui::attachChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-		MYGUI_ASSERT(!_widget->getWidgetAttached(), "already attached");
+		MYGUI_ASSERT(!_widget->getAttached(), "already attached");
 
 		_widget->_destroySkin();
 
@@ -392,6 +327,20 @@ namespace MyGUI
 		_widget->_createSkin();
 	}
 
-#endif // MYGUI_DONT_USE_OBSOLETE
+	Widget* Gui::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		Widget* widget = WidgetManager::getInstance().createWidget(_type);
+
+		widget->setWidgetStyle(_style);
+		widget->setAlign(_align);
+		widget->setName(_name);
+		widget->setCoord(_coord);
+		widget->setSkinName(_skin);
+		widget->setLayerName(_layer);
+
+		attachChild(widget);
+
+		return widget;
+	}
 
 } // namespace MyGUI

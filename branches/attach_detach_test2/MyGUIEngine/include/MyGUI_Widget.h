@@ -134,10 +134,10 @@ namespace MyGUI
 		Widget* findWidget(const std::string& _name);
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(Widget* _widget);
+		void destroyChild(Widget* _widget);
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget();
+		void destroyAllChilds();
 
 		/** Set widget position (position of left top corner) */
 		virtual void setPosition(const IntPoint& _value);
@@ -226,13 +226,13 @@ namespace MyGUI
 		/** Get clien area widget or nullptr if widget don't have client */
 		Widget* getClientWidget() { return mWidgetClient; }
 
-		/** Detach widget */
-		virtual void detachWidget(Widget* _widget);
+		/** Detach child widget */
+		virtual void detachChild(Widget* _widget);
 
-		/** Attach widget */
-		virtual void attachWidget(Widget* _widget);
+		/** Attach child widget */
+		virtual void attachChild(Widget* _widget);
 
-		bool getWidgetAttached();
+		bool getAttached();
 
 		const std::string& getSkinName() const { return mSkinName; }
 		/** Change widget skin */
@@ -271,7 +271,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(Widget* _parent);
+		void _initialise();
 		void _shutdown();
 
 		void _setContainer(Widget* _value) { mContainer = _value; }
@@ -349,7 +349,7 @@ namespace MyGUI
 		void _parseSkinProperties(ResourceSkin* _info);
 		void _checkInheristProperties();
 
-		void _destroyChildWidget(Widget* _widget, VectorWidgetPtr& _childs);
+		void destroyVisualChildWidget(Widget* _widget);
 
 		void attachVisual();
 		void detachVisual();
@@ -357,14 +357,11 @@ namespace MyGUI
 		void detachLogicalChilds();
 		void attachLogicalChilds();
 
-		/*void addVisualChildToClient(Widget* _widget);
+		void attachVisualChild(Widget* _widget);
+		void detachVisualChild(Widget* _widget);
+
+		void addVisualChildToClient(Widget* _widget);
 		void removeVisualChildFromClient(Widget* _widget);
-
-		void addVisualChild(Widget* _widget);
-		void removeVisualChild(Widget* _widget);
-
-		void addChild(Widget* _widget);
-		void removeChild(Widget* _widget);*/
 
 	protected:
 		// клиентская зона окна

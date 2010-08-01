@@ -17,9 +17,9 @@ namespace demo
 		MyGUI::Widget* widgetTest = MyGUI::LayoutManager::getInstance().loadLayout("TestApp3.layout").at(0)->findWidget("Button");
 
 		MyGUI::WidgetContainer* parent = widgetTest->getWidgetContainer();
-		parent->detachWidget(widgetTest);
-		MyGUI::Gui::getInstance().attachWidget(widgetTest);
-		//parent->attachWidget(widgetTest);
+		parent->detachChild(widgetTest);
+		MyGUI::Gui::getInstance().attachChild(widgetTest);
+		//parent->attachChild(widgetTest);
 		//widgetTest->setWidgetStyle(MyGUI::WidgetStyle::Popup);
 		//widgetTest->setLayerName("Overlapped");
 		//MyGUI::LayerManager::getInstance().attachToLayerNode("Overlapped", widgetTest);

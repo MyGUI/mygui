@@ -65,11 +65,8 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(Widget* _parent)
+	void Widget::_initialise()
 	{
-		mParent = _parent;
-		mWidgetContainer = _parent;
-
 		_createSkin();
 	}
 
@@ -77,7 +74,7 @@ namespace MyGUI
 	{
 		_destroySkin();
 
-		destroyAllChildWidget();
+		destroyAllChilds();
 
 		mParent = nullptr;
 		mWidgetContainer = nullptr;
@@ -133,37 +130,7 @@ namespace MyGUI
 
 		// удаляем виджеты чтобы ли в скине
 		while (!mVisualChilds.empty())
-			_destroyChildWidget(mVisualChilds.front(), mVisualChilds);
-	}
-
-	Widget* Widget::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template)
-	{
-		Widget* widget = nullptr;
-
-		/*if (mWidgetClient != nullptr && !_template)
-		{
-			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
-		}
-		else*/
-		{
-			widget = WidgetManager::getInstance().createWidget(_type, this);
-
-			if (_template)
-				mVisualChilds.push_back(widget);
-			else
-				mChilds.push_back(widget);
-
-			widget->setWidgetStyle(_style);
-			widget->setAlign(_align);
-			widget->setName(_name);
-			widget->setCoord(_coord);
-			widget->setSkinName(_skin);
-			widget->setLayerName(_layer);
-		}
-
-		_onChildAdded(widget);
-
-		return widget;
+			destroyVisualChildWidget(mVisualChilds.front());
 	}
 
 	void Widget::_updateView()
@@ -212,39 +179,6 @@ namespace MyGUI
 			(*widget)->_updateView();
 
 		_updateSkinItemView();
-	}
-
-	void Widget::_destroyChildWidget(Widget* _widget, VectorWidgetPtr& _childs)
-	{
-		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-
-		VectorWidgetPtr::iterator iter = std::find(_childs.begin(), _childs.end(), _widget);
-		if (iter != _childs.end())
-		{
-			// удаляем из списка
-			_childs.erase(iter);
-
-			// отписываем от всех
-			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
-
-			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(_widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
-	void Widget::destroyChildWidget(Widget* _widget)
-	{
-		_destroyChildWidget(_widget, mChilds);
-	}
-
-	void Widget::destroyAllChildWidget()
-	{
-		while (!mChilds.empty())
-			destroyChildWidget(mChilds.front());
 	}
 
 	IntCoord Widget::getClientCoord()
@@ -813,10 +747,10 @@ namespace MyGUI
 			addVisualChildToClient(*item);*/
 	}
 
-	void Widget::detachWidget(Widget* _widget)
+	void Widget::detachChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-		MYGUI_ASSERT(_widget->getWidgetAttached(), "already detached");
+		MYGUI_ASSERT(_widget->getAttached(), "already detached");
 
 		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
 		if (iter != mChilds.end())
@@ -835,10 +769,10 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::attachWidget(Widget* _widget)
+	void Widget::attachChild(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-		MYGUI_ASSERT(!_widget->getWidgetAttached(), "already attached");
+		MYGUI_ASSERT(!_widget->getAttached(), "already attached");
 
 		_widget->_destroySkin();
 
@@ -849,7 +783,7 @@ namespace MyGUI
 		_widget->_createSkin();
 	}
 
-	bool Widget::getWidgetAttached()
+	bool Widget::getAttached()
 	{
 		return getWidgetContainer() != nullptr;
 	}
@@ -862,6 +796,93 @@ namespace MyGUI
 	void Widget::_setWidgetContainer(WidgetContainer* _container)
 	{
 		mWidgetContainer = _container;
+	}
+
+	Widget* Widget::createWidgetImpl(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template)
+	{
+		Widget* widget = WidgetManager::getInstance().createWidget(_type);
+
+		widget->setWidgetStyle(_style);
+		widget->setAlign(_align);
+		widget->setName(_name);
+		widget->setCoord(_coord);
+		widget->setSkinName(_skin);
+		widget->setLayerName(_layer);
+
+		if (_template)
+			attachVisualChild(widget);
+		else
+			attachChild(widget);
+
+		_onChildAdded(widget);
+
+		return widget;
+	}
+
+	void Widget::destroyVisualChildWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+
+		VectorWidgetPtr::iterator iter = std::find(mVisualChilds.begin(), mVisualChilds.end(), _widget);
+		if (iter != mVisualChilds.end())
+		{
+			// удаляем из списка
+			mVisualChilds.erase(iter);
+
+			// отписываем от всех
+			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
+
+			// непосредственное удаление
+			WidgetManager::getInstance()._deleteWidget(_widget);
+		}
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
+	}
+
+	void Widget::destroyChild(Widget* _widget)
+	{
+		detachChild(_widget);
+
+		WidgetManager::getInstance()._deleteWidget2(_widget);
+	}
+
+	void Widget::destroyAllChilds()
+	{
+		while (!mChilds.empty())
+			destroyChild(mChilds.front());
+	}
+
+	void Widget::attachVisualChild(Widget* _widget)
+	{
+		_widget->_destroySkin();
+
+		_widget->_setParent(this);
+		_widget->_setWidgetContainer(this);
+		mVisualChilds.push_back(_widget);
+
+		_widget->_createSkin();
+	}
+
+	void Widget::detachVisualChild(Widget* _widget)
+	{
+	}
+
+	void Widget::addVisualChildToClient(Widget* _widget)
+	{
+		if (mWidgetClient != nullptr)
+			mWidgetClient->attachVisualChild(_widget);
+		else
+			attachVisualChild(_widget);
+	}
+
+	void Widget::removeVisualChildFromClient(Widget* _widget)
+	{
+		if (mWidgetClient != nullptr)
+			mWidgetClient->detachVisualChild(_widget);
+		else
+			detachVisualChild(_widget);
 	}
 
 } // namespace MyGUI

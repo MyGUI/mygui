@@ -40,8 +40,8 @@ namespace MyGUI
 	public:
 		virtual ~WidgetContainer() { }
 
-		virtual void detachWidget(Widget* _widget) = 0;
-		virtual void attachWidget(Widget* _widget) = 0;
+		virtual void detachChild(Widget* _widget) = 0;
+		virtual void attachChild(Widget* _widget) = 0;
 	};
 
 } // namespace MyGUI

@@ -111,15 +111,6 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
-		/** Destroy any created widget */
-		void destroyWidget(Widget* _widget);
-
-		/** Destroy vector of widgets */
-		void destroyWidgets(const VectorWidgetPtr& _widgets);
-
-		/** Destroy Enumerator of widgets */
-		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
-
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
@@ -154,22 +145,21 @@ namespace MyGUI
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(Widget* _widget);
+		void destroyChild(Widget* _widget);
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget();
+		void destroyAllChilds();
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mChilds); }
 
-		/** Detach widget */
-		virtual void detachWidget(Widget* _widget);
+		/** Detach child widget */
+		virtual void detachChild(Widget* _widget);
 
-		/** Attach widget */
-		virtual void attachWidget(Widget* _widget);
+		/** Attach child widget */
+		virtual void attachChild(Widget* _widget);
 
 	/*internal:*/
-
 		/** Inject frame entered event (called be renderer, do not call it manually).
 			This function is called every frame by renderer.
 		*/
@@ -187,9 +177,6 @@ namespace MyGUI
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr& _widgets) { destroyWidgets(_widgets); }
 
 		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
 		void hidePointer();
