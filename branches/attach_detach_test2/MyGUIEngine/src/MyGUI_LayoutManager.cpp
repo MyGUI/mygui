@@ -120,7 +120,7 @@ namespace MyGUI
 
 		WidgetStyle style = WidgetStyle::Child;
 		if (_widget->findAttribute("style", tmp)) style = WidgetStyle::parse(tmp);
-		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+		//if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
 
 		IntCoord coord;
 		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);

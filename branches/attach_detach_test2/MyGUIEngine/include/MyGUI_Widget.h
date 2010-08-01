@@ -41,7 +41,8 @@ namespace MyGUI
 		public UserData,
 		public WidgetInput,
 		public delegates::IDelegateUnlink,
-		public SkinItem
+		public SkinItem,
+		public WidgetContainer
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetManager;
@@ -225,20 +226,13 @@ namespace MyGUI
 		/** Get clien area widget or nullptr if widget don't have client */
 		Widget* getClientWidget() { return mWidgetClient; }
 
-		/** Detach widget from widgets hierarchy
-			@param _layer Attach to specified layer (if any)
-		*/
-		//void detachFromWidget(const std::string& _layer = "");
-		//void detachWidget(Widget* _widget);
+		/** Detach widget */
+		virtual void detachWidget(Widget* _widget);
 
-		/** Attach widget to parent
-			@param _style Child widget type
-			@param _layer Attach to specified layer (if any)
-			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
-				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
-		*/
-		//void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
-		//void attachWidget(Widget* _widget);
+		/** Attach widget */
+		virtual void attachWidget(Widget* _widget);
+
+		bool getWidgetAttached();
 
 		const std::string& getSkinName() const { return mSkinName; }
 		/** Change widget skin */
@@ -259,6 +253,8 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 		bool getNeedCropped();
+
+		WidgetContainer* getWidgetContainer() { return mWidgetContainer; }
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
@@ -282,6 +278,12 @@ namespace MyGUI
 		Widget* _getContainer() { return mContainer; }
 
 		void _setAlign(const IntSize& _oldsize);
+
+		void _destroySkin();
+		void _createSkin();
+
+		void _setParent(Widget* _parent);
+		void _setWidgetContainer(WidgetContainer* _container);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -352,9 +354,6 @@ namespace MyGUI
 		void attachVisual();
 		void detachVisual();
 
-		void destroySkin();
-		void createSkin();
-
 		void detachLogicalChilds();
 		void attachLogicalChilds();
 
@@ -379,7 +378,7 @@ namespace MyGUI
 		VectorWidgetPtr mChilds;
 
 		// наш отец в иерархии виджетов
-		Widget* mVisualParent;
+		//Widget* mVisualParent;
 		// вектор детей скина
 		VectorWidgetPtr mVisualChilds;
 
@@ -400,6 +399,7 @@ namespace MyGUI
 		WidgetStyle mWidgetStyle;
 
 		Widget* mContainer;
+		WidgetContainer* mWidgetContainer;
 
 		Align mAlign;
 		bool mVisible;

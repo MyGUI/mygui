@@ -76,7 +76,9 @@
                     <Property key="List_AddItem" value="line9"/>
                 </Widget>
             </Widget>
-        <Widget type="Button" skin="Button" position="84 9 232 26" name="Button">
+        <Widget style="Popup" type="Button" skin="Button" position="84 9 232 26" layer="Overlapped" name="Button">
+			<Widget type="Button" skin="Button" position="10 10 100 10">
+			</Widget>
 		</Widget>
 		<Widget type="StaticText" skin="StaticText" position="12 9 60 23">
             <Property key="Widget_AlignText" value="Right VCenter"/>

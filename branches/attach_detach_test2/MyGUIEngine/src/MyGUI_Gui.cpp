@@ -356,6 +356,42 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
+	void Gui::detachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(_widget->getWidgetAttached(), "already detached");
+
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		if (iter != mChilds.end())
+		{
+			_widget->_destroySkin();
+
+			_widget->_setParent(nullptr);
+			_widget->_setWidgetContainer(nullptr);
+			mChilds.erase(iter);
+
+			_widget->_createSkin();
+		}
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
+	}
+
+	void Gui::attachWidget(Widget* _widget)
+	{
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(!_widget->getWidgetAttached(), "already attached");
+
+		_widget->_destroySkin();
+
+		_widget->_setParent(nullptr);
+		_widget->_setWidgetContainer(this);
+		mChilds.push_back(_widget);
+
+		_widget->_createSkin();
+	}
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

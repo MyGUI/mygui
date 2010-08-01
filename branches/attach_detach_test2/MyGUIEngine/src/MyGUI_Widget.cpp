@@ -51,12 +51,13 @@ namespace MyGUI
 		mRealAlpha(ALPHA_MAX),
 		mInheritsAlpha(true),
 		mParent(nullptr),
-		mVisualParent(nullptr),
+		//mVisualParent(nullptr),
 		mWidgetStyle(WidgetStyle::Child),
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mIsMargin(false)
+		mIsMargin(false),
+		mWidgetContainer(nullptr)
 	{
 	}
 
@@ -67,17 +68,19 @@ namespace MyGUI
 	void Widget::_initialise(Widget* _parent)
 	{
 		mParent = _parent;
+		mWidgetContainer = _parent;
 
-		createSkin();
+		_createSkin();
 	}
 
 	void Widget::_shutdown()
 	{
-		destroySkin();
+		_destroySkin();
 
 		destroyAllChildWidget();
 
 		mParent = nullptr;
+		mWidgetContainer = nullptr;
 	}
 
 	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info)
@@ -137,11 +140,11 @@ namespace MyGUI
 	{
 		Widget* widget = nullptr;
 
-		if (mWidgetClient != nullptr && !_template)
+		/*if (mWidgetClient != nullptr && !_template)
 		{
 			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		}
-		else
+		else*/
 		{
 			widget = WidgetManager::getInstance().createWidget(_type, this);
 
@@ -161,19 +164,6 @@ namespace MyGUI
 		_onChildAdded(widget);
 
 		return widget;
-
-		/*Widget* widget = WidgetManager::getInstance().createWidget(_type, nullptr); 
-
-		widget->setWidgetStyle(_style);
-		widget->setAlign(_align);
-		widget->setName(_name);
-		widget->setCoord(_coord);
-		widget->setSkinName(_skin);
-		widget->setLayerName(_layer);
-
-		attachWidget(widget);
-
-		return widget;*/
 	}
 
 	void Widget::_updateView()
@@ -364,9 +354,9 @@ namespace MyGUI
 		if (_name == mName)
 			return this;
 
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		/*MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
-			return mWidgetClient->findWidget(_name);
+			return mWidgetClient->findWidget(_name);*/
 
 		for (VectorWidgetPtr::iterator widget = mChilds.begin(); widget != mChilds.end(); ++widget)
 		{
@@ -744,7 +734,7 @@ namespace MyGUI
 		return (mWidgetStyle != WidgetStyle::Popup && mParent != nullptr);
 	}
 
-	void Widget::destroySkin()
+	void Widget::_destroySkin()
 	{
 		detachLogicalChilds();
 
@@ -757,7 +747,7 @@ namespace MyGUI
 		shutdownWidgetSkinBase();
 	}
 
-	void Widget::createSkin()
+	void Widget::_createSkin()
 	{
 		ResourceSkin* info = SkinManager::getInstance().getByName(mSkinName);
 
@@ -780,11 +770,11 @@ namespace MyGUI
 		if (_style == mWidgetStyle)
 			return;
 
-		destroySkin();
+		_destroySkin();
 
 		mWidgetStyle = _style;
 
-		createSkin();
+		_createSkin();
 	}
 
 	void Widget::setSkinName(const std::string& _value)
@@ -792,11 +782,11 @@ namespace MyGUI
 		if (_value == mSkinName)
 			return;
 
-		destroySkin();
+		_destroySkin();
 
 		mSkinName = _value;
 
-		createSkin();
+		_createSkin();
 	}
 
 	void Widget::setLayerName(const std::string& _value)
@@ -804,11 +794,11 @@ namespace MyGUI
 		if (_value == mLayerName)
 			return;
 
-		destroySkin();
+		_destroySkin();
 
 		mLayerName = _value;
 
-		createSkin();
+		_createSkin();
 	}
 
 	void Widget::detachLogicalChilds()
@@ -823,87 +813,55 @@ namespace MyGUI
 			addVisualChildToClient(*item);*/
 	}
 
-	/*void Widget::addVisualChildToClient(Widget* _widget)
+	void Widget::detachWidget(Widget* _widget)
 	{
-		if (mWidgetClient != nullptr)
-			mWidgetClient->addVisualChild(_widget);
-		else
-			addVisualChild(_widget);
-	}
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(_widget->getWidgetAttached(), "already detached");
 
-	void Widget::removeVisualChildFromClient(Widget* _widget)
-	{
-		if (mWidgetClient != nullptr)
-			mWidgetClient->removeVisualChild(_widget);
-		else
-			removeVisualChild(_widget);
-	}
-
-	void Widget::addVisualChild(Widget* _widget)
-	{
-		//MYGUI_ASSERT(_widget->getVisualParent() == nullptr, "allready added");
-
-		mVisualChilds.push_back(_widget);
-		_widget->mVisualParent = this;
-
-		//onVisualChildAdded(_widget);
-	}
-
-	void Widget::removeVisualChild(Widget* _widget)
-	{
-		VectorWidgetPtr::iterator item = std::remove(mVisualChilds.begin(), mVisualChilds.end(), _widget);
-		if (item != mVisualChilds.end())
+		VectorWidgetPtr::iterator iter = std::find(mChilds.begin(), mChilds.end(), _widget);
+		if (iter != mChilds.end())
 		{
-			mVisualChilds.erase(item);
-			_widget->mVisualParent = nullptr;
+			_widget->_destroySkin();
 
-			//onVisualChildRemoved(_widget);
+			_widget->_setParent(nullptr);
+			_widget->_setWidgetContainer(nullptr);
+			mChilds.erase(iter);
+
+			_widget->_createSkin();
 		}
 		else
 		{
-			MYGUI_EXCEPT("widget not found");
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 		}
 	}
 
 	void Widget::attachWidget(Widget* _widget)
 	{
-		MYGUI_ASSERT(_widget != nullptr, "null referense");
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(!_widget->getWidgetAttached(), "already attached");
 
-		addChild(_widget);
-		addVisualChildToClient(_widget);
-	}
+		_widget->_destroySkin();
 
-	void Widget::detachWidget(Widget* _widget)
-	{
-		MYGUI_ASSERT(_widget != nullptr, "null referense");
-
-		removeChild(_widget);
-		removeVisualChildFromClient(_widget);
-	}
-
-	void Widget::addChild(Widget* _widget)
-	{
-		MYGUI_ASSERT(_widget->getParent() == nullptr, "allready added");
-		//MYGUI_ASSERT(_widget->getParentContainer() == nullptr, "allready added");
-
+		_widget->_setParent(this);
+		_widget->_setWidgetContainer(this);
 		mChilds.push_back(_widget);
-		_widget->mParent = this;
-		//_widget->mParentContainer = this;
+
+		_widget->_createSkin();
 	}
 
-	void Widget::removeChild(Widget* _widget)
+	bool Widget::getWidgetAttached()
 	{
-		VectorWidgetPtr::iterator item = std::remove(mChilds.begin(), mChilds.end(), _widget);
-		if (item != mChilds.end())
-		{
-			mChilds.erase(item);
-			_widget->mParent = nullptr;
-			//_widget->mParentContainer = nullptr;
-		}
-		else
-		{
-			MYGUI_EXCEPT("widget not found");
-		}
-	}*/
+		return getWidgetContainer() != nullptr;
+	}
+
+	void Widget::_setParent(Widget* _parent)
+	{
+		mParent = _parent;
+	}
+
+	void Widget::_setWidgetContainer(WidgetContainer* _container)
+	{
+		mWidgetContainer = _container;
+	}
 
 } // namespace MyGUI

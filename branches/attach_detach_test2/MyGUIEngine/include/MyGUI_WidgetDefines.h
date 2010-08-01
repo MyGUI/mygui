@@ -35,6 +35,15 @@ namespace MyGUI
 	typedef std::map<std::string, Widget*> MapWidgetPtr;
 	typedef Enumerator<VectorWidgetPtr> EnumeratorWidgetPtr;
 
+	class WidgetContainer
+	{
+	public:
+		virtual ~WidgetContainer() { }
+
+		virtual void detachWidget(Widget* _widget) = 0;
+		virtual void attachWidget(Widget* _widget) = 0;
+	};
+
 } // namespace MyGUI
 
 #endif // __MYGUI_WIDGET_DEFINES_H__

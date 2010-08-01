@@ -36,7 +36,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Gui :
 		public Singleton<Gui>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public WidgetContainer
 	{
 		friend class WidgetManager;
 
@@ -161,15 +162,18 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mChilds); }
 
+		/** Detach widget */
+		virtual void detachWidget(Widget* _widget);
+
+		/** Attach widget */
+		virtual void attachWidget(Widget* _widget);
+
 	/*internal:*/
 
 		/** Inject frame entered event (called be renderer, do not call it manually).
 			This function is called every frame by renderer.
 		*/
 		void _injectFrameEntered(float _time);
-
-		//void _linkChildWidget(Widget* _widget);
-		//void _unlinkChildWidget(Widget* _widget);
 
 		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
