@@ -18,6 +18,20 @@ namespace tools
 	public:
 		TextFieldControl();
 		virtual ~TextFieldControl();
+
+		void setCaption(const MyGUI::UString& _value);
+
+		void setTextField(const MyGUI::UString& _value);
+		const MyGUI::UString& getTextField();
+
+	private:
+		void notifyOk(MyGUI::Widget* _sender);
+		void notifyCancel(MyGUI::Widget* _sender);
+
+	private:
+		MyGUI::StaticText* mText;
+		MyGUI::Button* mOk;
+		MyGUI::Button* mCancel;
 	};
 
 } // namespace tools
