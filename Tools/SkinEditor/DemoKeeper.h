@@ -7,6 +7,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
+#include "MainPane.h"
 
 namespace demo
 {
@@ -21,6 +22,9 @@ namespace demo
 
 	private:
 		virtual void setupResources();
+
+	private:
+		tools::MainPane* mMainPane;
 	};
 
 } // namespace demo
