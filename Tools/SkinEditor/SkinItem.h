@@ -6,7 +6,8 @@
 #ifndef __SKIN_ITEM_H__
 #define __SKIN_ITEM_H__
 
-#include "BaseManager.h"
+#include <MyGUI.h>
+#include "PropertySet.h"
 
 namespace tools
 {
@@ -20,8 +21,11 @@ namespace tools
 		const MyGUI::UString& getName();
 		void setName(const MyGUI::UString& _value);
 
+		PropertySet* getPropertySet();
+
 	private:
 		MyGUI::UString mName;
+		PropertySet* mPropertySet;
 	};
 
 } // namespace tools

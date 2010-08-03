@@ -6,7 +6,6 @@
 #ifndef __MAIN_PANE_H__
 #define __MAIN_PANE_H__
 
-#include "BaseManager.h"
 #include "BaseLayout/BaseLayout.h"
 #include "SkinControl.h"
 

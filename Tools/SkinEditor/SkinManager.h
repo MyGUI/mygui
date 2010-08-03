@@ -6,7 +6,6 @@
 #ifndef __SKIN_MANAGER_H__
 #define __SKIN_MANAGER_H__
 
-#include "BaseManager.h"
 #include "SkinItem.h"
 
 namespace tools
