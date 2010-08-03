@@ -6,7 +6,6 @@
 #ifndef __TEXT_FIELD_CONTROL_H__
 #define __TEXT_FIELD_CONTROL_H__
 
-#include "BaseManager.h"
 #include "BaseLayout/BaseLayout.h"
 
 namespace tools

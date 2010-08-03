@@ -1,0 +1,92 @@
+/*!
+	@file
+	@author		Albert Semenov
+	@date		08/2010
+*/
+#include "precompiled.h"
+#include "PropertySet.h"
+
+namespace tools
+{
+
+	PropertySet::PropertySet()
+	{
+	}
+
+	PropertySet::~PropertySet()
+	{
+		destroyAllChilds();
+	}
+
+	Property* PropertySet::createChild(const MyGUI::UString& _name, const MyGUI::UString& _type)
+	{
+		Property* item = new Property(_name, _type);
+
+		mChilds.push_back(item);
+		advise(item);
+
+		return item;
+	}
+
+	void PropertySet::destroyChild(Property* _item)
+	{
+		MYGUI_ASSERT(_item != nullptr, "null reference");
+
+		VectorProperty::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
+		if (item != mChilds.end())
+		{
+			unadvise(*item);
+
+			delete *item;
+			mChilds.erase(item);
+		}
+		else
+		{
+			MYGUI_EXCEPT("item not found");
+		}
+	}
+
+	void PropertySet::destroyChild(const MyGUI::UString& _name)
+	{
+		Property* item = getChild(_name);
+		destroyChild(item);
+	}
+
+	void PropertySet::destroyAllChilds()
+	{
+		while (!mChilds.empty())
+			destroyChild(mChilds.back());
+	}
+
+	Property* PropertySet::getChild(const MyGUI::UString& _name)
+	{
+		for (VectorProperty::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+		{
+			if ((*item)->getName() == _name)
+				return *item;
+		}
+
+		return nullptr;
+	}
+
+	EnumeratorProperty PropertySet::getChildsEnumerator()
+	{
+		return EnumeratorProperty(mChilds);
+	}
+
+	void PropertySet::advise(Property* _item)
+	{
+		_item->eventChangeProperty += MyGUI::newDelegate(this, &PropertySet::notifyChangeProperty);
+	}
+
+	void PropertySet::unadvise(Property* _item)
+	{
+		_item->eventChangeProperty -= MyGUI::newDelegate(this, &PropertySet::notifyChangeProperty);
+	}
+
+	void PropertySet::notifyChangeProperty(Property* _item, const MyGUI::UString& _owner)
+	{
+		eventChangeProperty(_item, _owner);
+	}
+
+} // namespace tools

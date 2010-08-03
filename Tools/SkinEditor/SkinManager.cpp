@@ -67,6 +67,12 @@ namespace tools
 		destroyChild(item);
 	}
 
+	void SkinManager::destroyAllChilds()
+	{
+		while (!mChilds.empty())
+			destroyChild(mChilds.back());
+	}
+
 	SkinItem* SkinManager::getChild(const MyGUI::UString& _name)
 	{
 		for (VectorSkinItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
@@ -76,12 +82,6 @@ namespace tools
 		}
 
 		return nullptr;
-	}
-
-	void SkinManager::destroyAllChilds()
-	{
-		while (!mChilds.empty())
-			destroyChild(mChilds.back());
 	}
 
 	EnumeratorSkinItem SkinManager::getChildsEnumerator()
