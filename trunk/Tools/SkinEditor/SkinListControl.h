@@ -18,6 +18,20 @@ namespace tools
 	public:
 		SkinListControl(MyGUI::Widget* _parent);
 		virtual ~SkinListControl();
+
+	private:
+		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyCreate(MyGUI::Widget* _sender);
+		void notifyRename(MyGUI::Widget* _sender);
+		void notifyDelete(MyGUI::Widget* _sender);
+
+		void UpdateList();
+
+	private:
+		MyGUI::List* mList;
+		MyGUI::Button* mCreate;
+		MyGUI::Button* mRename;
+		MyGUI::Button* mDelete;
 	};
 
 } // namespace tools
