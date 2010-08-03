@@ -9,12 +9,17 @@
 namespace tools
 {
 
-	SkinItem::SkinItem()
+	SkinItem::SkinItem() :
+		mPropertySet(nullptr)
 	{
+		mPropertySet = new PropertySet();
+		mPropertySet->createChild("texture", "Texture");
+		mPropertySet->createChild("size", "IntSize");
 	}
 
 	SkinItem::~SkinItem()
 	{
+		delete mPropertySet;
 	}
 
 	const MyGUI::UString& SkinItem::getName()
@@ -25,6 +30,11 @@ namespace tools
 	void SkinItem::setName(const MyGUI::UString& _value)
 	{
 		mName = _value;
+	}
+
+	PropertySet* SkinItem::getPropertySet()
+	{
+		return mPropertySet;
 	}
 
 } // namespace tools

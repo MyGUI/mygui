@@ -6,7 +6,6 @@
 #ifndef __SKIN_LIST_CONTROL_H__
 #define __SKIN_LIST_CONTROL_H__
 
-#include "BaseManager.h"
 #include "BaseLayout/BaseLayout.h"
 #include "TextFieldControl.h"
 #include "SkinItem.h"
