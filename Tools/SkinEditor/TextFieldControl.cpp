@@ -10,7 +10,7 @@ namespace tools
 {
 
 	TextFieldControl::TextFieldControl() :
-		wraps::BaseLayout("TextFieldControl.layout"),
+		wraps::BaseLayout("TextField.layout"),
 		mText(nullptr),
 		mOk(nullptr),
 		mCancel(nullptr)
@@ -21,20 +21,32 @@ namespace tools
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
+		mText->eventEditSelectAccept += MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
 	TextFieldControl::~TextFieldControl()
 	{
 		mOk->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
+		mText->eventEditSelectAccept -= MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
 	void TextFieldControl::notifyOk(MyGUI::Widget* _sender)
 	{
+		eventResult(true);
 	}
 
 	void TextFieldControl::notifyCancel(MyGUI::Widget* _sender)
 	{
+		eventResult(false);
 	}
 
 	void TextFieldControl::setCaption(const MyGUI::UString& _value)
@@ -52,6 +64,38 @@ namespace tools
 	const MyGUI::UString& TextFieldControl::getTextField()
 	{
 		return mText->getCaption();
+	}
+
+	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName)
+	{
+		if (_buttonName == "close")
+			eventResult(false);
+	}
+
+	void TextFieldControl::show()
+	{
+		mMainWidget->setVisible(true);
+		MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+
+		mText->setTextSelection(0, mText->getTextLength());
+
+		MyGUI::InputManager::getInstance().setKeyFocusWidget(mText);
+	}
+
+	void TextFieldControl::hide()
+	{
+		MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+		mMainWidget->setVisible(false);
+	}
+
+	void TextFieldControl::setUserData(MyGUI::Any _data)
+	{
+		mMainWidget->setUserData(_data);
+	}
+
+	void TextFieldControl::notifyTextAccept(MyGUI::Edit* _sender)
+	{
+		eventResult(true);
 	}
 
 } // namespace tools

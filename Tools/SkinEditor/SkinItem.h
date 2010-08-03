@@ -17,11 +17,11 @@ namespace tools
 		SkinItem();
 		~SkinItem();
 
-		const std::string& getName();
-		void setName(const std::string& _value);
+		const MyGUI::UString& getName();
+		void setName(const MyGUI::UString& _value);
 
 	private:
-		std::string mName;
+		MyGUI::UString mName;
 	};
 
 } // namespace tools

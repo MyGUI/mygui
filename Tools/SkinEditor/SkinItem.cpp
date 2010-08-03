@@ -17,12 +17,12 @@ namespace tools
 	{
 	}
 
-	const std::string& SkinItem::getName()
+	const MyGUI::UString& SkinItem::getName()
 	{
 		return mName;
 	}
 
-	void SkinItem::setName(const std::string& _value)
+	void SkinItem::setName(const MyGUI::UString& _value)
 	{
 		mName = _value;
 	}
