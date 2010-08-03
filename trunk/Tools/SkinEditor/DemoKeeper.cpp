@@ -11,7 +11,8 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper()
+	DemoKeeper::DemoKeeper() :
+		mMainPane(nullptr)
 	{
 	}
 
@@ -19,19 +20,21 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
-
 		tools::SkinManager* skinManager = new tools::SkinManager();
 		skinManager->initialise();
+
+		mMainPane = new tools::MainPane();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		delete mMainPane;
+		mMainPane = nullptr;
+
 		tools::SkinManager* skinManager = tools::SkinManager::getInstancePtr();
 		skinManager->shutdown();
 		delete skinManager;
