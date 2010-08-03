@@ -1,15 +1,23 @@
 set (HEADER_FILES
   DemoKeeper.h
+  SkinItem.h
+  SkinManager.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
+  SkinItem.cpp
+  SkinManager.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
+  SkinItem.cpp
+  SkinManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
+  SkinItem.h
+  SkinManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
