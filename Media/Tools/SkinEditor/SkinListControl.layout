@@ -2,6 +2,15 @@
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 352 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="List" skin="List" position="0 0 352 464" align="Stretch" name="List"/>
+        <Widget type="List" skin="List" position="0 0 352 424" align="Stretch" name="List"/>
+        <Widget type="Button" skin="Button" position="0 440 112 24" align="Left Bottom" name="Create">
+            <Property key="Widget_Caption" value="Create"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="120 440 112 24" align="HCenter Bottom" name="Rename">
+            <Property key="Widget_Caption" value="Rename"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="240 440 112 24" align="Right Bottom" name="Delete">
+            <Property key="Widget_Caption" value="Delete"/>
+        </Widget>
     </Widget>
 </MyGUI>
