@@ -29,7 +29,7 @@ namespace tools
 		destroyAllChilds();
 	}
 
-	SkinItem* SkinManager::createChild(const std::string& _name)
+	SkinItem* SkinManager::createChild(const MyGUI::UString& _name)
 	{
 		SkinItem* item = new SkinItem();
 		item->setName(_name);
@@ -61,13 +61,13 @@ namespace tools
 		}
 	}
 
-	void SkinManager::destroyChild(const std::string& _name)
+	void SkinManager::destroyChild(const MyGUI::UString& _name)
 	{
 		SkinItem* item = getChild(_name);
 		destroyChild(item);
 	}
 
-	SkinItem* SkinManager::getChild(const std::string& _name)
+	SkinItem* SkinManager::getChild(const MyGUI::UString& _name)
 	{
 		for (VectorSkinItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
 		{
