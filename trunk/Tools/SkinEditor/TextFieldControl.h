@@ -12,6 +12,8 @@
 namespace tools
 {
 
+	typedef MyGUI::delegates::CDelegate1<bool> EventHandle_TextFieldResult;
+
 	class TextFieldControl :
 		public wraps::BaseLayout
 	{
@@ -24,12 +26,27 @@ namespace tools
 		void setTextField(const MyGUI::UString& _value);
 		const MyGUI::UString& getTextField();
 
+		void show();
+		void hide();
+
+		void setUserData(MyGUI::Any _data);
+
+		template <typename ValueType>
+		ValueType * getUserData(bool _throw = true)
+		{
+			return mMainWidget->getUserData<ValueType>(_throw);
+		}
+
+		EventHandle_TextFieldResult eventResult;
+
 	private:
 		void notifyOk(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName);
+		void notifyTextAccept(MyGUI::Edit* _sender);
 
 	private:
-		MyGUI::StaticText* mText;
+		MyGUI::Edit* mText;
 		MyGUI::Button* mOk;
 		MyGUI::Button* mCancel;
 	};

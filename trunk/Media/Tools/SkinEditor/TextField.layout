@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCSX" position="24 56 280 112" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCSX" position="24 56 280 112" align="Stretch" layer="Popup" name="_Main">
         <Property key="Window_MinSize" value="280 112"/>
         <Property key="Window_MaxSize" value="280 112"/>
         <UserString key="SnapTo" value="Center"/>

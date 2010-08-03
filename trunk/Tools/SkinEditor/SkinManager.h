@@ -27,15 +27,15 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		SkinItem* createChild(const std::string& _name);
+		SkinItem* createChild(const MyGUI::UString& _name);
 
 		void destroyChild(SkinItem* _item);
 
-		void destroyChild(const std::string& _name);
+		void destroyChild(const MyGUI::UString& _name);
 
 		void destroyAllChilds();
 
-		SkinItem* getChild(const std::string& _name);
+		SkinItem* getChild(const MyGUI::UString& _name);
 
 		EnumeratorSkinItem getChildsEnumerator();
 

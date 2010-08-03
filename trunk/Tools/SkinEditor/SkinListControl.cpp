@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "SkinListControl.h"
 #include "SkinManager.h"
+#include <limits>
 
 namespace tools
 {
@@ -15,7 +16,8 @@ namespace tools
 		mList(nullptr),
 		mCreate(nullptr),
 		mRename(nullptr),
-		mDelete(nullptr)
+		mDelete(nullptr),
+		mTextFieldControl(nullptr)
 	{
 		assignWidget(mList, "List");
 		assignWidget(mCreate, "Create");
@@ -30,10 +32,12 @@ namespace tools
 
 	SkinListControl::~SkinListControl()
 	{
+		hideTextField();
+
 		mCreate->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
-		//mList->eventListChangePosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangePosition);
+		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangePosition);
 	}
 
 	void SkinListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
@@ -48,14 +52,14 @@ namespace tools
 
 	void SkinListControl::notifyCreate(MyGUI::Widget* _sender)
 	{
-		SkinItem* item = SkinManager::getInstance().createChild("");
-		item->setName(MyGUI::utility::toString((int)item));
-
-		UpdateList();
+		showTextField(nullptr);
 	}
 
 	void SkinListControl::notifyRename(MyGUI::Widget* _sender)
 	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+			showTextField(item);
 	}
 
 	void SkinListControl::notifyDelete(MyGUI::Widget* _sender)
@@ -63,13 +67,35 @@ namespace tools
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
+			// выделяем следующий за удаляемым
+			SkinItem* prev = nullptr;
+			SkinItem* next = nullptr;
+
+			EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+			while (items.next())
+			{
+				SkinItem* current = items.current();
+				if (current == item)
+				{
+					if (items.next())
+						next = items.current();
+					break;
+				}
+				prev = current;
+			}
+
+			if (next != nullptr)
+				SkinManager::getInstance().setItemSelected(next);
+			else if (prev != nullptr)
+				SkinManager::getInstance().setItemSelected(prev);
+
 			SkinManager::getInstance().destroyChild(item);
 
-			UpdateList();
+			updateList();
 		}
 	}
 
-	void SkinListControl::UpdateList()
+	void SkinListControl::updateList()
 	{
 		mList->setIndexSelected(MyGUI::ITEM_NONE);
 		mList->removeAllItems();
@@ -88,6 +114,87 @@ namespace tools
 			if (item == selectedItem)
 				mList->setIndexSelected(index);
 		}
+	}
+
+	void SkinListControl::hideTextField()
+	{
+		if (mTextFieldControl != nullptr)
+		{
+			mTextFieldControl->hide();
+
+			mTextFieldControl->eventResult = nullptr;
+
+			delete mTextFieldControl;
+			mTextFieldControl = nullptr;
+		}
+	}
+
+	void SkinListControl::showTextField(SkinItem* _item)
+	{
+		hideTextField();
+
+		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->setCaption(_item == nullptr ? "Create" : "Rename");
+		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
+		mTextFieldControl->setUserData(_item);
+		mTextFieldControl->show();
+
+		mTextFieldControl->eventResult = MyGUI::newDelegate(this, &SkinListControl::notifyTextFieldResult);
+	}
+
+	MyGUI::UString SkinListControl::getNextFreeName()
+	{
+		MyGUI::UString pattern = "SkinName";
+
+		for (size_t index=0; index<std::numeric_limits<size_t>::max(); index++)
+		{
+			MyGUI::UString name = MyGUI::utility::toString(pattern, index);
+			bool find = false;
+
+			EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+			while (items.next())
+			{
+				SkinItem* item = items.current();
+				if (item->getName() == name)
+				{
+					find = true;
+					break;
+				}
+			}
+
+			if (!find)
+				return name;
+		}
+
+		return "";
+	}
+
+	void SkinListControl::notifyTextFieldResult(bool _result)
+	{
+		if (_result)
+		{
+			SkinItem* item = *mTextFieldControl->getUserData<SkinItem*>();
+			if (item != nullptr)
+				renameItem(item, mTextFieldControl->getTextField());
+			else
+				createItem(mTextFieldControl->getTextField());
+		}
+
+		hideTextField();
+	}
+
+	void SkinListControl::renameItem(SkinItem* _item, const MyGUI::UString& _value)
+	{
+		_item->setName(_value);
+		updateList();
+	}
+
+	void SkinListControl::createItem(const MyGUI::UString& _value)
+	{
+		SkinItem* item = SkinManager::getInstance().createChild(_value);
+		SkinManager::getInstance().setItemSelected(item);
+
+		updateList();
 	}
 
 } // namespace tools

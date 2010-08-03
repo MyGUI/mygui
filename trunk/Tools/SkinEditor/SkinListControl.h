@@ -8,6 +8,8 @@
 
 #include "BaseManager.h"
 #include "BaseLayout/BaseLayout.h"
+#include "TextFieldControl.h"
+#include "SkinItem.h"
 
 namespace tools
 {
@@ -24,14 +26,25 @@ namespace tools
 		void notifyCreate(MyGUI::Widget* _sender);
 		void notifyRename(MyGUI::Widget* _sender);
 		void notifyDelete(MyGUI::Widget* _sender);
+		void notifyTextFieldResult(bool _result);
 
-		void UpdateList();
+		void updateList();
+
+		void hideTextField();
+		void showTextField(SkinItem* _item);
+
+		MyGUI::UString getNextFreeName();
+
+		void renameItem(SkinItem* _item, const MyGUI::UString& _value);
+		void createItem(const MyGUI::UString& _value);
 
 	private:
 		MyGUI::List* mList;
 		MyGUI::Button* mCreate;
 		MyGUI::Button* mRename;
 		MyGUI::Button* mDelete;
+
+		TextFieldControl* mTextFieldControl;
 	};
 
 } // namespace tools
