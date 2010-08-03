@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
+#include "SkinManager.h"
 
 namespace demo
 {
@@ -24,10 +25,16 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
+
+		tools::SkinManager* skinManager = new tools::SkinManager();
+		skinManager->initialise();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		tools::SkinManager* skinManager = tools::SkinManager::getInstancePtr();
+		skinManager->shutdown();
+		delete skinManager;
 	}
 
 } // namespace demo
