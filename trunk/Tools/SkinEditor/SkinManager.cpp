@@ -11,7 +11,8 @@ template <> const char* MyGUI::Singleton<tools::SkinManager>::mClassTypeName("Sk
 namespace tools
 {
 
-	SkinManager::SkinManager()
+	SkinManager::SkinManager() :
+		mItemSelected(nullptr)
 	{
 	}
 
@@ -45,6 +46,12 @@ namespace tools
 		VectorSkinItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
 		if (item != mChilds.end())
 		{
+			if (*item == mItemSelected)
+			{
+				mItemSelected = nullptr;
+				eventChangeSelection();
+			}
+
 			delete *item;
 			mChilds.erase(item);
 		}
@@ -80,6 +87,17 @@ namespace tools
 	EnumeratorSkinItem SkinManager::getChildsEnumerator()
 	{
 		return EnumeratorSkinItem(mChilds);
+	}
+
+	SkinItem* SkinManager::getItemSelected()
+	{
+		return mItemSelected;
+	}
+	
+	void SkinManager::setItemSelected(SkinItem* _value)
+	{
+		mItemSelected = _value;
+		eventChangeSelection();
 	}
 
 } // namespace tools
