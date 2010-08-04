@@ -7,7 +7,7 @@
                 <Property key="Text_Caption" value="Coords"/>
                 <Property key="Text_TextAlign" value="Left Bottom"/>
             </Widget>
-            <Widget type="Edit" skin="Edit" position="8 32 232 26" align="HStretch Top" name="Coords"/>
+            <Widget type="Edit" skin="Edit" position="8 32 232 26" align="HStretch Top" name="Coord"/>
             <Widget type="StaticText" skin="StaticText" position="8 64 232 24" align="HStretch Top">
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Texture"/>
