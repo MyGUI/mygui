@@ -26,6 +26,7 @@ namespace tools
 		void notifyRename(MyGUI::Widget* _sender);
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifyTextFieldResult(bool _result);
+		void notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style);
 
 		void updateList();
 
