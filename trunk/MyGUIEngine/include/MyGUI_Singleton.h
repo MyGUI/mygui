@@ -60,9 +60,6 @@ namespace MyGUI
 		static const char* mClassTypeName;
 	};
 
-	template <class T>
-	T* Singleton<T>::msInstance = nullptr;
-
 } // namespace MyGUI
 
 #endif // __MYGUI_SINGLETON_H__

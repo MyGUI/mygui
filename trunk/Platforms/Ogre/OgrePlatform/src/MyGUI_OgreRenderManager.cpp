@@ -17,6 +17,7 @@
 namespace MyGUI
 {
 
+	template <> OgreRenderManager* Singleton<OgreRenderManager>::msInstance = nullptr;
 	template <> const char* Singleton<OgreRenderManager>::mClassTypeName("OgreRenderManager");
 
 	OgreRenderManager::OgreRenderManager() :

@@ -34,6 +34,7 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
+	template <> FontManager* Singleton<FontManager>::msInstance = nullptr;
 	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
 
 	FontManager::FontManager() :

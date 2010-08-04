@@ -31,6 +31,7 @@ namespace MyGUI
 	const std::string XML_TYPE("Layout");
 	const std::string XML_TYPE_RESOURCE("Resource");
 
+	template <> LayoutManager* Singleton<LayoutManager>::msInstance = nullptr;
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :

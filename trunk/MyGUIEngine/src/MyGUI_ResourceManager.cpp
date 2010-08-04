@@ -34,6 +34,7 @@ namespace MyGUI
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LIST("List");
 
+	template <> ResourceManager* Singleton<ResourceManager>::msInstance = nullptr;
 	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
 
 	ResourceManager::ResourceManager() :

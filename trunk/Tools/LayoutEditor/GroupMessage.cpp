@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "GroupMessage.h"
 
+template <> GroupMessage* MyGUI::Singleton<GroupMessage>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<GroupMessage>::mClassTypeName("GroupMessage");
 
 void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type)
