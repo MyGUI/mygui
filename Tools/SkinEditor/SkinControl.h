@@ -9,6 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "SkinListControl.h"
 #include "SkinPropertyControl.h"
+#include "SkinTextureControl.h"
 
 namespace tools
 {
@@ -23,6 +24,7 @@ namespace tools
 	private:
 		SkinListControl* mSkinListControl;
 		SkinPropertyControl* mSkinPropertyControl;
+		SkinTextureControl* mSkinTextureControl;
 	};
 
 } // namespace tools
