@@ -17,15 +17,17 @@ namespace tools
 		mTexture(nullptr),
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
+		mRegionSelectorControl(nullptr),
 		mCurrentSkin(nullptr),
 		mScale(nullptr),
-		mScaleValue(100)
+		mScaleValue(1)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackgroundColour, "BackgroundColour");
 		assignWidget(mBackground, "Background");
 		assignWidget(mScale, "Scale");
+		assignBase(mRegionSelectorControl, "Texture");
 
 		fillColours(mBackgroundColour);
 		mBackgroundColour->eventComboChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
@@ -36,11 +38,15 @@ namespace tools
 		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeSelection);
 		advice();
 
+		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
+
 		updateAllProperties();
 	}
 
 	SkinTextureControl::~SkinTextureControl()
 	{
+		mRegionSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
+
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 
@@ -81,15 +87,15 @@ namespace tools
 		{
 			if (_sender->getName() == "Texture")
 				updateTexture();
-			//else if (_sender->getName() == "Coord")
-			//	updateCoord();
+			else if (_sender->getName() == "Coord")
+				updateCoord();
 		}
 	}
 
 	void SkinTextureControl::updateAllProperties()
 	{
 		updateTexture();
-		//updateCoord();
+		updateCoord();
 	}
 
 	void SkinTextureControl::updateTexture()
@@ -107,6 +113,30 @@ namespace tools
 		mTexture->setImageTexture(texture);
 
 		updateScale();
+	}
+
+	void SkinTextureControl::updateCoord()
+	{
+		MyGUI::UString value;
+
+		if (mCurrentSkin != nullptr)
+		{
+			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			if (prop != nullptr)
+				value = prop->getValue();
+		}
+
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
+		{
+			mCoordValue = coord;
+			mRegionSelectorControl->setVisible(true);
+			updateRegionCoord();
+		}
+		else
+		{
+			mRegionSelectorControl->setVisible(false);
+		}
 	}
 
 	void SkinTextureControl::fillColours(MyGUI::ComboBox* _combo)
@@ -178,6 +208,24 @@ namespace tools
 		double height = (double)mTextureSize.height * mScaleValue;
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
+		mRegionSelectorControl->setScale(mScaleValue);
+	}
+
+	void SkinTextureControl::updateRegionCoord()
+	{
+		mRegionSelectorControl->setCoord(mCoordValue);
+	}
+
+	void SkinTextureControl::notifyChangePosition()
+	{
+		mCoordValue = mRegionSelectorControl->getCoord();
+
+		if (mCurrentSkin != nullptr)
+		{
+			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			if (prop != nullptr)
+				prop->setValue(mCoordValue.print(), mTypeName);
+		}
 	}
 
 } // namespace tools

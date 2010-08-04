@@ -14,7 +14,7 @@ namespace tools
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Texture", "Texture");
-		mPropertySet->createChild("Coord", "IntCoord");
+		mPropertySet->createChild("Coord", "IntCoord", "0 0 32 32");
 	}
 
 	SkinItem::~SkinItem()
