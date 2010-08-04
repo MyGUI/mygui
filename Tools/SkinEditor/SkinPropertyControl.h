@@ -18,6 +18,11 @@ namespace tools
 		SkinPropertyControl(MyGUI::Widget* _parent);
 		virtual ~SkinPropertyControl();
 
+	private:
+		void fillTextures();
+
+	private:
+		MyGUI::ComboBox* mTextures;
 	};
 
 } // namespace tools
