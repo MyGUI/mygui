@@ -10,6 +10,7 @@ set (HEADER_FILES
   PropertySet.h
   SkinPropertyControl.h
   SkinTextureControl.h
+  MyGUI_FilterNoneSkin.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -23,6 +24,7 @@ set (SOURCE_FILES
   PropertySet.cpp
   SkinPropertyControl.cpp
   SkinTextureControl.cpp
+  MyGUI_FilterNoneSkin.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -37,6 +39,7 @@ SOURCE_GROUP("Source Files" FILES
   PropertySet.cpp
   SkinPropertyControl.cpp
   SkinTextureControl.cpp
+  MyGUI_FilterNoneSkin.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -50,6 +53,7 @@ SOURCE_GROUP("Header Files" FILES
   PropertySet.h
   SkinPropertyControl.h
   SkinTextureControl.h
+  MyGUI_FilterNoneSkin.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
