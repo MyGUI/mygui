@@ -13,8 +13,8 @@ namespace tools
 		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
-		mPropertySet->createChild("texture", "Texture");
-		mPropertySet->createChild("size", "IntSize");
+		mPropertySet->createChild("Texture", "Texture");
+		mPropertySet->createChild("Coord", "IntCoord");
 	}
 
 	SkinItem::~SkinItem()
