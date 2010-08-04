@@ -18,9 +18,10 @@ namespace tools
 		destroyAllChilds();
 	}
 
-	Property* PropertySet::createChild(const MyGUI::UString& _name, const MyGUI::UString& _type)
+	Property* PropertySet::createChild(const MyGUI::UString& _name, const MyGUI::UString& _type, const MyGUI::UString& _value)
 	{
 		Property* item = new Property(_name, _type);
+		item->setValue(_value, "");
 
 		mChilds.push_back(item);
 		advise(item);

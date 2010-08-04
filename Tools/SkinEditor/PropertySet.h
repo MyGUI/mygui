@@ -21,7 +21,7 @@ namespace tools
 		PropertySet();
 		~PropertySet();
 
-		Property* createChild(const MyGUI::UString& _name, const MyGUI::UString& _type);
+		Property* createChild(const MyGUI::UString& _name, const MyGUI::UString& _type, const MyGUI::UString& _value = "");
 
 		void destroyChild(Property* _item);
 
