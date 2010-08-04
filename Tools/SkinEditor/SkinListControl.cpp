@@ -67,6 +67,21 @@ namespace tools
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Внимание",
+				L"Вы уверены?",
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
+		}
+	}
+
+	void SkinListControl::notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style)
+	{
+		if (_style == MyGUI::MessageBoxStyle::Yes)
+		{
+			SkinItem* item = SkinManager::getInstance().getItemSelected();
+
 			// выделяем следующий за удаляемым
 			SkinItem* prev = nullptr;
 			SkinItem* next = nullptr;
