@@ -26,7 +26,8 @@ namespace MyGUI
 		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
-		mTextureFilter(Ogre::FO_LINEAR)
+		mTextureFilter(Ogre::FO_LINEAR),
+		mTexture(nullptr)
 	{
 	}
 
@@ -261,16 +262,22 @@ namespace MyGUI
 
 	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		if (_texture)
+		if (mTexture != _texture)
 		{
-			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+			mTexture = _texture;
 
-			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
-			if (!texture_ptr.isNull())
+			if (_texture)
 			{
-				// в OpenGL фильтрация сбрасывается после смены текстуры
-				mRenderSystem->_setTextureUnitFiltering(0, mTextureFilter, mTextureFilter, Ogre::FO_NONE);
-				mRenderSystem->_setTexture(0, true, texture_ptr);
+				OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+
+				Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
+				if (!texture_ptr.isNull())
+				{
+					// в OpenGL фильтрация сбрасывается после смены текстуры
+					//mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
+					mRenderSystem->_setTextureUnitFiltering(0, mTextureFilter, mTextureFilter, Ogre::FO_NONE);
+					mRenderSystem->_setTexture(0, true, texture_ptr);
+				}
 			}
 		}
 		
@@ -322,6 +329,8 @@ namespace MyGUI
 
 		// enable alpha blending
 		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
+
+		mTexture = nullptr;
 	}
 
 	void OgreRenderManager::end()
