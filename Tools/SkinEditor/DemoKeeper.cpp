@@ -7,6 +7,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "SkinManager.h"
+#include "MyGUI_FilterNoneSkin.h"
 
 namespace demo
 {
@@ -24,6 +25,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+
 		MyGUI::ResourceManager::getInstance().load("BackgroundTile.xml");
 
 		tools::SkinManager* skinManager = new tools::SkinManager();
@@ -40,6 +43,8 @@ namespace demo
 		tools::SkinManager* skinManager = tools::SkinManager::getInstancePtr();
 		skinManager->shutdown();
 		delete skinManager;
+
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
 
 } // namespace demo

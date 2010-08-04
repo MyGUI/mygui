@@ -8,7 +8,7 @@
             <Widget type="Widget" skin="BackgroundTile" position="0 0 256 256" align="Stretch">
                 <Widget type="Widget" skin="MarkerWhite" position="0 0 256 256" align="Stretch" name="Background">
                     <Property key="Widget_Alpha" value="0.5"/>
-                    <Widget type="StaticImage" skin="StaticImage" position="0 0 256 256" align="Stretch" name="Texture">
+                    <Widget type="StaticImage" skin="StaticImageFilterNone" position="0 0 256 256" align="Stretch" name="Texture">
                         <Property key="Widget_InheritsAlpha" value="false"/>
                     </Widget>
                 </Widget>
