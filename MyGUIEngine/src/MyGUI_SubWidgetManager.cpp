@@ -36,6 +36,7 @@
 namespace MyGUI
 {
 
+	template <> SubWidgetManager* Singleton<SubWidgetManager>::msInstance = nullptr;
 	template <> const char* Singleton<SubWidgetManager>::mClassTypeName("SubWidgetManager");
 
 	SubWidgetManager::SubWidgetManager() :

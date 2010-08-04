@@ -31,6 +31,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Plugin");
 
+	template <> PluginManager* Singleton<PluginManager>::msInstance = nullptr;
 	template <> const char* Singleton<PluginManager>::mClassTypeName("PluginManager");
 
 	PluginManager::PluginManager() :

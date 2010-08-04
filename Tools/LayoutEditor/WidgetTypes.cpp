@@ -3,6 +3,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
+template <> WidgetTypes* MyGUI::Singleton<WidgetTypes>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<WidgetTypes>::mClassTypeName("WidgetTypes");
 
 void WidgetTypes::initialise()

@@ -15,6 +15,7 @@
 namespace MyGUI
 {
 
+	template <> OgreDataManager* Singleton<OgreDataManager>::msInstance = nullptr;
 	template <> const char* Singleton<OgreDataManager>::mClassTypeName("OgreDataManager");
 
 	OgreDataManager::OgreDataManager() :
