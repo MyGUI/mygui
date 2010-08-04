@@ -37,6 +37,7 @@ namespace MyGUI
 	const std::string XML_TYPE_RESOURCE("Resource");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
+	template <> SkinManager* Singleton<SkinManager>::msInstance = nullptr;
 	template <> const char* Singleton<SkinManager>::mClassTypeName("SkinManager");
 
 	SkinManager::SkinManager() :

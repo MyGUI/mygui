@@ -3,6 +3,7 @@
 
 const int UNDO_COUNT = 64;
 
+template <> UndoManager* MyGUI::Singleton<UndoManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<UndoManager>::mClassTypeName("UndoManager");
 
 UndoManager::UndoManager() :

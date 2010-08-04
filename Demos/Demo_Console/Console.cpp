@@ -7,6 +7,7 @@
 #include "Console.h"
 
 // внутри неймспейса demo почему то не линкуется, даже если указать абсолютные пути
+template <> demo::Console* MyGUI::Singleton<demo::Console>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<demo::Console>::mClassTypeName("Console");
 
 namespace demo
