@@ -12,7 +12,9 @@
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Texture"/>
             </Widget>
-            <Widget type="ComboBox" skin="ComboBox" position="8 88 232 26" align="HStretch Top" name="Textures"/>
+            <Widget type="ComboBox" skin="ComboBox" position="8 88 232 26" align="HStretch Top" name="Textures">
+                <Property key="ComboBox_ModeDrop" value="true"/>
+            </Widget>
         </Widget>
     </Widget>
 </MyGUI>
