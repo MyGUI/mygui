@@ -129,6 +129,7 @@ namespace MyGUI
 
 		bool mIsInitialise;
 		Ogre::FilterOptions mTextureFilter;
+		ITexture* mTexture;
 	};
 
 } // namespace MyGUI

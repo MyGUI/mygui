@@ -54,6 +54,9 @@ namespace MyGUI
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		OgreRenderManager::getInstance().setTextureFilter(Ogre::FO_NONE);
+		Ogre::RenderSystem* renderSystem = OgreRenderManager::getInstance().getRenderSystem();
+		if (renderSystem != nullptr)
+			renderSystem->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
 #endif
 	}
 
@@ -61,6 +64,9 @@ namespace MyGUI
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		OgreRenderManager::getInstance().setTextureFilter(Ogre::FO_LINEAR);
+		Ogre::RenderSystem* renderSystem = OgreRenderManager::getInstance().getRenderSystem();
+		if (renderSystem != nullptr)
+			renderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 #endif
 	}
 
