@@ -44,33 +44,35 @@ namespace tools
 
 	void RegionSelectorControl::updateCoord()
 	{
-		int left = mCoordValue.left * (int)mScaleValue;
-		int top = mCoordValue.top * (int)mScaleValue;
-		int width = mCoordValue.width * (int)mScaleValue;
-		int height = mCoordValue.height * (int)mScaleValue;
+		double left = (double)mCoordValue.left * mScaleValue;
+		double top = (double)mCoordValue.top * mScaleValue;
+		double width = (double)mCoordValue.width * mScaleValue;
+		double height = (double)mCoordValue.height * mScaleValue;
 
-		mMainWidget->setCoord(MyGUI::IntCoord(left, top, width, height));
+		mMainWidget->setCoord(MyGUI::IntCoord((int)left, (int)top, (int)width, (int)height));
 	}
 
 	void RegionSelectorControl::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
 		MyGUI::IntCoord coord = _sender->getCoord();
 
-		/*double left = (int)((double)coord.left / mScaleValue);
-		double top = (int)((double)coord.top / mScaleValue);
-		double right = (int)((double)coord.right() / mScaleValue);
-		double bottom = (int)((double)coord.bottom() / mScaleValue);
+		double left = (double)coord.left / mScaleValue;
+		double top = (double)coord.top / mScaleValue;
+		double right = (double)coord.right() / mScaleValue;
+		double bottom = (double)coord.bottom() / mScaleValue;
 
 		mCoordValue = MyGUI::IntCoord((int)left, (int)top, (int)(right - left), (int)(bottom - top));
 
-		left = left * mScaleValue;
-		top = top * mScaleValue;
-		right = right * mScaleValue;
-		bottom = bottom * mScaleValue;
+		updateCoord();
+
+		/*left = (double)mCoordValue.left * mScaleValue;
+		top = (double)mCoordValue.top * mScaleValue;
+		right = (double)mCoordValue.right() * mScaleValue;
+		bottom = (double)mCoordValue.bottom() * mScaleValue;
 
 		mMainWidget->setCoord(MyGUI::IntCoord((int)left, (int)top, (int)(right - left), (int)(bottom - top)));*/
 
-		double left = (int)((double)coord.left / mScaleValue);
+		/*double left = (int)((double)coord.left / mScaleValue);
 		double top = (int)((double)coord.top / mScaleValue);
 		double width = (int)((double)coord.width / mScaleValue);
 		double height = (int)((double)coord.height / mScaleValue);
@@ -82,7 +84,7 @@ namespace tools
 		width = width * mScaleValue;
 		height = height * mScaleValue;
 
-		mMainWidget->setCoord(MyGUI::IntCoord((int)left, (int)top, (int)width, (int)height));
+		mMainWidget->setCoord(MyGUI::IntCoord((int)left, (int)top, (int)width, (int)height));*/
 
 		eventChangePosition();
 	}
