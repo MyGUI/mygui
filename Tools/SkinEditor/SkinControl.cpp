@@ -11,9 +11,11 @@ namespace tools
 
 	SkinControl::SkinControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinControl.layout", _parent),
-		mSkinListControl(nullptr)
+		mSkinListControl(nullptr),
+		mSkinPropertyControl(nullptr)
 	{
 		assignBase(mSkinListControl, "SkinListControl");
+		assignBase(mSkinPropertyControl, "SkinPropertyControl");
 	}
 
 	SkinControl::~SkinControl()

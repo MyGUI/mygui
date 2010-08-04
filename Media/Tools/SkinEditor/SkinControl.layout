@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Widget" skin="PanelEmpty" position="16 40 712 464" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 696 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="PanelEmpty" position="8 8 248 446" align="Left VStretch" name="SkinListControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="448 8 240 448" align="Right VStretch" name="SkinPropertyControl"/>
     </Widget>
 </MyGUI>
