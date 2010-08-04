@@ -25,7 +25,8 @@ namespace MyGUI
 		mWindow(nullptr),
 		mActiveViewport(0),
 		mRenderSystem(nullptr),
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mTextureFilter(Ogre::FO_LINEAR)
 	{
 	}
 
@@ -102,6 +103,11 @@ namespace MyGUI
 
 			updateRenderInfo();
 		}
+	}
+
+	Ogre::RenderSystem* OgreRenderManager::getRenderSystem()
+	{
+		return mRenderSystem;
 	}
 
 	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
@@ -263,7 +269,7 @@ namespace MyGUI
 			if (!texture_ptr.isNull())
 			{
 				// в OpenGL фильтрация сбрасывается после смены текстуры
-				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+				mRenderSystem->_setTextureUnitFiltering(0, mTextureFilter, mTextureFilter, Ogre::FO_NONE);
 				mRenderSystem->_setTexture(0, true, texture_ptr);
 			}
 		}
@@ -302,7 +308,7 @@ namespace MyGUI
 		// initialise texture settings
 		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
 		mRenderSystem->_setTextureCoordSet(0, 0);
-		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+		mRenderSystem->_setTextureUnitFiltering(0, mTextureFilter, mTextureFilter, Ogre::FO_NONE);
 		mRenderSystem->_setTextureAddressingMode(0, mTextureAddressMode);
 		mRenderSystem->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
 #if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
@@ -375,6 +381,11 @@ namespace MyGUI
 			delete item->second;
 		}
 		mTextures.clear();
+	}
+
+	void OgreRenderManager::setTextureFilter(Ogre::FilterOptions _value)
+	{
+		mTextureFilter = _value;
 	}
 
 #if MYGUI_DEBUG_MODE == 1

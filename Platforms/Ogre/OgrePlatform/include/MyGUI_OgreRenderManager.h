@@ -70,6 +70,7 @@ namespace MyGUI
 		virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
 		void setRenderSystem(Ogre::RenderSystem* _render);
+		Ogre::RenderSystem* getRenderSystem();
 
 		void setRenderWindow(Ogre::RenderWindow* _window);
 
@@ -83,6 +84,8 @@ namespace MyGUI
 		void setActiveViewport(size_t _num);
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
+
+		void setTextureFilter(Ogre::FilterOptions _value);
 
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture);
@@ -125,6 +128,7 @@ namespace MyGUI
 		MapTexture mTextures;
 
 		bool mIsInitialise;
+		Ogre::FilterOptions mTextureFilter;
 	};
 
 } // namespace MyGUI
