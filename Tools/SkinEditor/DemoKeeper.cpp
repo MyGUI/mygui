@@ -24,6 +24,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::ResourceManager::getInstance().load("BackgroundTile.xml");
+
 		tools::SkinManager* skinManager = new tools::SkinManager();
 		skinManager->initialise();
 
