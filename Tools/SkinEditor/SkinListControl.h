@@ -33,6 +33,8 @@ namespace tools
 		void showTextField(SkinItem* _item);
 
 		MyGUI::UString getNextFreeName();
+		bool isNameExist(const MyGUI::UString& _value);
+		size_t getNameCount(const MyGUI::UString& _value);
 
 		void renameItem(SkinItem* _item, const MyGUI::UString& _value);
 		void createItem(const MyGUI::UString& _value);
