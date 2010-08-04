@@ -27,7 +27,7 @@ namespace demo
 	{
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
-		MyGUI::ResourceManager::getInstance().load("BackgroundTile.xml");
+		MyGUI::ResourceManager::getInstance().load("SE_skins.xml");
 
 		tools::SkinManager* skinManager = new tools::SkinManager();
 		skinManager->initialise();
