@@ -34,14 +34,20 @@ namespace tools
 		void fillColours(MyGUI::ComboBox* _combo);
 		void updateColour(MyGUI::ComboBox* _sender);
 
+		void fillScale();
+		void updateScale();
+
 	private:
 		MyGUI::ScrollView* mView;
 		MyGUI::StaticImage* mTexture;
 		MyGUI::ComboBox* mBackgroundColour;
 		MyGUI::Widget* mBackground;
+		MyGUI::ComboBox* mScale;
 
 		SkinItem* mCurrentSkin;
 		MyGUI::UString mTypeName;
+		double mScaleValue;
+		MyGUI::IntSize mTextureSize;
 	};
 
 } // namespace tools
