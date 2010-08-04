@@ -97,7 +97,20 @@ namespace MyGUI
 			}
 #endif
 			// непосредственный рендринг
-			_target->doRender(mVertexBuffer, mTexture, mCountVertex);
+			if (mSeparate)
+			{
+				for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+					(*iter).first->preRender();
+
+				_target->doRender(mVertexBuffer, mTexture, mCountVertex);
+
+				for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+					(*iter).first->postRender();
+			}
+			else
+			{
+				_target->doRender(mVertexBuffer, mTexture, mCountVertex);
+			}
 		}
 	}
 
@@ -191,6 +204,16 @@ namespace MyGUI
 		bool result = mCompression;
 		mCompression = false;
 		return result;
+	}
+
+	void RenderItem::setSeparate(bool _value)
+	{
+		mSeparate = _value;
+	}
+
+	bool RenderItem::getSeparate()
+	{
+		return mSeparate;
 	}
 
 } // namespace MyGUI

@@ -77,6 +77,8 @@ namespace MyGUI
 
 		ILayerNode* mNode;
 		RenderItem* mRenderItem;
+
+		bool mSeparate;
 	};
 
 } // namespace MyGUI
