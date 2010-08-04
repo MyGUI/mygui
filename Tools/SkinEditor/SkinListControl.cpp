@@ -108,7 +108,12 @@ namespace tools
 			size_t index = mList->getItemCount();
 
 			SkinItem* item = items.current();
-			mList->addItem(item->getName());
+
+			size_t count = getNameCount(item->getName());
+			if (count == 1)
+				mList->addItem(item->getName());
+			else
+				mList->addItem("#FF0000" + item->getName());
 
 			mList->setItemDataAt(index, item);
 			if (item == selectedItem)
@@ -149,24 +154,36 @@ namespace tools
 		for (size_t index=0; index<std::numeric_limits<size_t>::max(); index++)
 		{
 			MyGUI::UString name = MyGUI::utility::toString(pattern, index);
-			bool find = false;
-
-			EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
-			while (items.next())
-			{
-				SkinItem* item = items.current();
-				if (item->getName() == name)
-				{
-					find = true;
-					break;
-				}
-			}
-
-			if (!find)
+			if (!isNameExist(name))
 				return name;
 		}
 
 		return "";
+	}
+
+	bool SkinListControl::isNameExist(const MyGUI::UString& _value)
+	{
+		EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+		while (items.next())
+		{
+			SkinItem* item = items.current();
+			if (item->getName() == _value)
+				return true;
+		}
+		return false;
+	}
+
+	size_t SkinListControl::getNameCount(const MyGUI::UString& _value)
+	{
+		size_t result = 0;
+		EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+		while (items.next())
+		{
+			SkinItem* item = items.current();
+			if (item->getName() == _value)
+				++result;
+		}
+		return result;
 	}
 
 	void SkinListControl::notifyTextFieldResult(bool _result)
