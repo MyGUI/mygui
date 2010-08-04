@@ -12,20 +12,26 @@ namespace tools
 
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinTextureControl.layout", _parent),
+		mTypeName("SkinTextureControl"),
 		mView(nullptr),
 		mTexture(nullptr),
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mCurrentSkin(nullptr),
-		mTypeName("SkinTextureControl")
+		mScale(nullptr),
+		mScaleValue(100)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackgroundColour, "BackgroundColour");
 		assignWidget(mBackground, "Background");
+		assignWidget(mScale, "Scale");
 
 		fillColours(mBackgroundColour);
 		mBackgroundColour->eventComboChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
+
+		fillScale();
+		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 
 		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeSelection);
 		advice();
@@ -36,6 +42,7 @@ namespace tools
 	SkinTextureControl::~SkinTextureControl()
 	{
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
+		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 
 		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeSelection);
 		unadvice();
@@ -96,10 +103,10 @@ namespace tools
 				texture = prop->getValue();
 		}
 
-		MyGUI::IntSize size = MyGUI::texture_utility::getTextureSize(texture);
-
+		mTextureSize = MyGUI::texture_utility::getTextureSize(texture);
 		mTexture->setImageTexture(texture);
-		mView->setCanvasSize(size);
+
+		updateScale();
 	}
 
 	void SkinTextureControl::fillColours(MyGUI::ComboBox* _combo)
@@ -135,6 +142,42 @@ namespace tools
 				mBackground->setAlpha(colour.alpha);
 			}
 		}
+		else if (_sender == mScale)
+		{
+			size_t index = mScale->getIndexSelected();
+			if (index != MyGUI::ITEM_NONE)
+			{
+				mScaleValue = *mScale->getItemDataAt<double>(index);
+				updateScale();
+			}
+		}
+	}
+
+	void SkinTextureControl::fillScale()
+	{
+		mScale->removeAllItems();
+
+		mScale->addItem("50 %", (double)0.5);
+		mScale->addItem("100 %", (double)1);
+		mScale->addItem("200 %", (double)2);
+		mScale->addItem("400 %", (double)4);
+		mScale->addItem("800 %", (double)8);
+		mScale->addItem("1600 %", (double)16);
+
+		size_t index = 1;
+
+		mScale->setIndexSelected(index);
+		mScaleValue = *mScale->getItemDataAt<double>(index);
+
+		updateScale();
+	}
+
+	void SkinTextureControl::updateScale()
+	{
+		double width = (double)mTextureSize.width * mScaleValue;
+		double height = (double)mTextureSize.height * mScaleValue;
+
+		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
 	}
 
 } // namespace tools
