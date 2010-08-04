@@ -150,7 +150,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::_setAlign(const IntSize& _oldsize/*, bool _update*/)
+	void EditText::_setAlign(const IntSize& _oldsize)
 	{
 		if (mWordWrap)
 		{
@@ -341,7 +341,7 @@ namespace MyGUI
 		// если есть текстура, то приаттачиваемся
 		if (nullptr != mTexture && nullptr != mNode)
 		{
-			mRenderItem = mNode->addToRenderItem(mTexture, this);
+			mRenderItem = mNode->addToRenderItem(mTexture, false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -373,7 +373,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			mRenderItem = mNode->addToRenderItem(mTexture, this);
+			mRenderItem = mNode->addToRenderItem(mTexture, false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}

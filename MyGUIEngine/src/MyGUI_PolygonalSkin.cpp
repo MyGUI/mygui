@@ -186,7 +186,7 @@ namespace MyGUI
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
 		mNode = _node;
-		mRenderItem = mNode->addToRenderItem(_texture, this);
+		mRenderItem = mNode->addToRenderItem(_texture, true, false);
 		mRenderItem->addDrawItem(this, mVertexCount);
 	}
 

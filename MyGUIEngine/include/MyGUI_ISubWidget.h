@@ -61,7 +61,10 @@ namespace MyGUI
 		virtual void _updateView() { }
 		virtual void _correctView() { }
 
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/)  { }
+		virtual void _setAlign(const IntSize& _oldsize)  { }
+
+		virtual void preRender() { }
+		virtual void postRender() { }
 
 	protected:
 		Align mAlign;

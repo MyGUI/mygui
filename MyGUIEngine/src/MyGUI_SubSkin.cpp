@@ -37,7 +37,8 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
-		mRenderItem(nullptr)
+		mRenderItem(nullptr),
+		mSeparate(false)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
@@ -68,7 +69,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void SubSkin::_setAlign(const IntSize& _oldsize/*, bool _update*/)
+	void SubSkin::_setAlign(const IntSize& _oldsize)
 	{
 		// необходимо разобраться
 		bool need_update = true;//_update;
@@ -191,7 +192,7 @@ namespace MyGUI
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
 		mNode = _node;
-		mRenderItem = mNode->addToRenderItem(_texture, this);
+		mRenderItem = mNode->addToRenderItem(_texture, true, mSeparate);
 		mRenderItem->addDrawItem(this, VertexQuad::VertexCount);
 	}
 
