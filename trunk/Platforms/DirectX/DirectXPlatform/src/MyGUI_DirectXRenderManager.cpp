@@ -16,8 +16,6 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<DirectXRenderManager>::mClassTypeName("DirectXRenderManager");
-
 	DirectXRenderManager::DirectXRenderManager() :
 		mIsInitialise(false),
 		mpD3DDevice(nullptr),

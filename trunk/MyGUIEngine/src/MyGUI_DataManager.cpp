@@ -25,30 +25,7 @@
 namespace MyGUI
 {
 
-	const std::string classTypeName("DataManager");
-
-	DataManager* DataManager::msInstance = nullptr;
-
-	DataManager::DataManager()
-	{
-		MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << classTypeName << " already exsist");
-		msInstance = this;
-	}
-
-	DataManager::~DataManager()
-	{
-		msInstance = nullptr;
-	}
-
-	DataManager* DataManager::getInstancePtr()
-	{
-		return msInstance;
-	}
-
-	DataManager& DataManager::getInstance()
-	{
-		MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << classTypeName << " was not created");
-		return (*msInstance);
-	}
+	template <> DataManager* Singleton<DataManager>::msInstance = nullptr;
+	template <> const char* Singleton<DataManager>::mClassTypeName("DataManager");
 
 } // namespace MyGUI
