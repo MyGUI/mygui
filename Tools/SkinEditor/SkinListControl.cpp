@@ -52,7 +52,8 @@ namespace tools
 
 	void SkinListControl::notifyCreate(MyGUI::Widget* _sender)
 	{
-		showTextField(nullptr);
+		//showTextField(nullptr);
+		createItem(getNextFreeName());
 	}
 
 	void SkinListControl::notifyRename(MyGUI::Widget* _sender)
