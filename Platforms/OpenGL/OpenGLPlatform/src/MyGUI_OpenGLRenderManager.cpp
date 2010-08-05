@@ -19,8 +19,6 @@
 namespace MyGUI
 {
 
-	template <> const char* Singleton<OpenGLRenderManager>::mClassTypeName("OpenGLRenderManager");
-
 	OpenGLRenderManager::OpenGLRenderManager() :
 		mIsInitialise(false),
 		mUpdate(false),
