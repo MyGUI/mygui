@@ -35,6 +35,7 @@ namespace tools
 
 	private:
 		MyGUI::IntCoord mCoordValue;
+		MyGUI::IntCoord mCoordReal;
 		double mScaleValue;
 	};
 
