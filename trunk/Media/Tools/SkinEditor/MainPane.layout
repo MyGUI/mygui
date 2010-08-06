@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Tab" skin="Tab" position_real="0 0 1 1" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Tab" skin="Tab" position="42 66 526 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabItem" skin="" position="4 26 1015 736">
+        <Widget type="TabItem" skin="" position="4 26 517 334">
             <Property key="Widget_Caption" value="Skin"/>
-            <Widget type="Widget" skin="PanelEmpty" position="0 0 1015 736" align="Stretch" name="SkinControl"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="SkinControl"/>
         </Widget>
-        <Widget type="TabItem" skin="" position="4 26 1015 736">
-            <Property key="Widget_Caption" value="BasisSkin"/>
+        <Widget type="TabItem" skin="" position="4 26 517 334">
+            <Property key="Widget_Caption" value="States"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="StatesControl"/>
         </Widget>
     </Widget>
 </MyGUI>
