@@ -24,6 +24,7 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
+		void notifyChangePropertyState(Property* _sender, const MyGUI::UString& _owner);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 
 		void notifyChangePosition();
@@ -35,6 +36,10 @@ namespace tools
 		void updateTexture();
 		void updateCoord();
 
+		void updateAllStateProperties();
+		void updateVisible();
+		void updatePosition();
+
 		void fillColours(MyGUI::ComboBox* _combo);
 		void updateColour(MyGUI::ComboBox* _sender);
 
@@ -42,6 +47,10 @@ namespace tools
 		void updateScale();
 
 		void updateRegionCoord();
+
+		void notifyStateChangeSelection();
+		void adviceState();
+		void unadviceState();
 
 	private:
 		MyGUI::ScrollView* mView;
@@ -53,6 +62,7 @@ namespace tools
 		RegionSelectorControl2* mRegionSelectorControl;
 
 		SkinItem* mCurrentSkin;
+		StateItem* mCurrentState;
 		MyGUI::UString mTypeName;
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;

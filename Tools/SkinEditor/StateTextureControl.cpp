@@ -19,6 +19,7 @@ namespace tools
 		mBackground(nullptr),
 		mRegionSelectorControl(nullptr),
 		mCurrentSkin(nullptr),
+		mCurrentState(nullptr),
 		mScale(nullptr),
 		mScaleValue(1)
 	{
@@ -60,13 +61,17 @@ namespace tools
 		advice();
 
 		updateAllProperties();
+		updateAllStateProperties();
 	}
 
 	void StateTextureControl::unadvice()
 	{
 		if (mCurrentSkin != nullptr)
 		{
+			unadviceState();
+
 			mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
+			mCurrentSkin->eventChangeSelection -= MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
 			mCurrentSkin = nullptr;
 		}
 	}
@@ -78,7 +83,86 @@ namespace tools
 		if (mCurrentSkin != nullptr)
 		{
 			mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
+			mCurrentSkin->eventChangeSelection += MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
+
+			adviceState();
 		}
+	}
+
+	void StateTextureControl::adviceState()
+	{
+		mCurrentState = mCurrentSkin->getItemSelected();
+		if (mCurrentState != nullptr)
+		{
+			mCurrentState->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePropertyState);
+		}
+	}
+
+	void StateTextureControl::unadviceState()
+	{
+		if (mCurrentState != nullptr)
+		{
+			mCurrentState->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePropertyState);
+			mCurrentState = nullptr;
+		}
+	}
+
+	void StateTextureControl::notifyChangePropertyState(Property* _sender, const MyGUI::UString& _owner)
+	{
+		if (_owner != mTypeName)
+		{
+			if (_sender->getName() == "Visible")
+				updateVisible();
+			else if (_sender->getName() == "Position")
+				updatePosition();
+		}
+	}
+
+	void StateTextureControl::updateAllStateProperties()
+	{
+		updateVisible();
+		updatePosition();
+	}
+
+	void StateTextureControl::updateVisible()
+	{
+		MyGUI::UString visible;
+
+		if (mCurrentState != nullptr)
+		{
+			Property* prop = mCurrentState->getPropertySet()->getChild("Visible");
+			if (prop != nullptr)
+				visible = prop->getValue();
+		}
+
+		mRegionSelectorControl->setVisible(visible == "True");
+	}
+
+	void StateTextureControl::updatePosition()
+	{
+		MyGUI::UString value;
+
+		if (mCurrentState != nullptr)
+		{
+			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
+			if (prop != nullptr)
+				value = prop->getValue();
+		}
+
+		MyGUI::IntPoint position;
+		if (MyGUI::utility::parseComplex(value, position.left, position.top))
+		{
+			mRegionSelectorControl->setPosition(position);
+		}
+	}
+
+	void StateTextureControl::notifyStateChangeSelection()
+	{
+		unadviceState();
+		adviceState();
+
+		updateAllProperties();
+		updateAllStateProperties();
 	}
 
 	void StateTextureControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
@@ -218,14 +302,14 @@ namespace tools
 
 	void StateTextureControl::notifyChangePosition()
 	{
-		/*mCoordValue = mRegionSelectorControl->getCoord();
+		MyGUI::IntPoint point = mRegionSelectorControl->getPosition();
 
-		/*if (mCurrentSkin != nullptr)
+		if (mCurrentState != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
-				prop->setValue(mCoordValue.print(), mTypeName);
-		}*/
+				prop->setValue(point.print(), mTypeName);
+		}
 	}
 
 } // namespace tools
