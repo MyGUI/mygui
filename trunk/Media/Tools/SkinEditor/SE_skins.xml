@@ -16,5 +16,16 @@
 		<BasisSkin type="FilterNone" offset = "0 0 16 16"/>
 	</Resource>
 
+	<Resource type="ResourceSkin" name = "StretchRectangle2" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+		<Property key="MainMove" value = "true" />
+
+		<Child type="Widget" skin="MarkerGreen" offset = "0 0 50 1" align = "HStretch Top"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "0 49 50 1" align = "HStretch Bottom"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "Left VStretch"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
+
+	</Resource>
+	
 </MyGUI>
 
