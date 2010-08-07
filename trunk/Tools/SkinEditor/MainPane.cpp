@@ -11,9 +11,11 @@ namespace tools
 
 	MainPane::MainPane() :
 		wraps::BaseLayout("MainPane.layout"),
-		mSkinControl(nullptr)
+		mSkinControl(nullptr),
+		mStatesControl(nullptr)
 	{
 		assignBase(mSkinControl, "SkinControl");
+		assignBase(mStatesControl, "StatesControl");
 	}
 
 	MainPane::~MainPane()
