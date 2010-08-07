@@ -14,7 +14,7 @@ namespace tools
 	typedef std::vector<SkinItem*> VectorSkinItem;
 	typedef MyGUI::Enumerator<VectorSkinItem> EnumeratorSkinItem;
 
-	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangeSelection;
+	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_SkinChangeSelection;
 
 	class SkinManager :
 		public MyGUI::Singleton<SkinManager>
@@ -41,7 +41,7 @@ namespace tools
 		SkinItem* getItemSelected();
 		void setItemSelected(SkinItem* _value);
 
-		EventHandle_ChangeSelection eventChangeSelection;
+		EventHandle_SkinChangeSelection eventChangeSelection;
 
 	private:
 		VectorSkinItem mChilds;

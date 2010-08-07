@@ -8,6 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinControl.h"
+#include "StatesControl.h"
 
 namespace tools
 {
@@ -20,6 +21,7 @@ namespace tools
 
 	private:
 		SkinControl* mSkinControl;
+		StatesControl* mStatesControl;
 	};
 
 } // namespace tools
