@@ -90,13 +90,18 @@ namespace tools
 
 	void StatesListControl::updateList()
 	{
+		mList->setIndexSelected(MyGUI::ITEM_NONE);
 		mList->removeAllItems();
 
 		if (mCurrentSkin != nullptr)
 		{
+			StateItem* selectedItem = mCurrentSkin->getItemSelected();
+
 			EnumeratorStateItem states = mCurrentSkin->getChildsEnumerator();
 			while (states.next())
 			{
+				size_t index = mList->getItemCount();
+
 				StateItem* item = states.current();
 
 				Property* prop = item->getPropertySet()->getChild("Visible");
@@ -104,16 +109,20 @@ namespace tools
 					mList->addItem("#808080" + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
+
+				if (item == selectedItem)
+					mList->setIndexSelected(index);
 			}
 		}
 	}
 
 	bool StatesListControl::isValueTrue(const MyGUI::UString& _value)
 	{
-		bool result = true;
+		return (_value == "True");
+		/*bool result = true;
 		if (!MyGUI::utility::parseComplex<bool>(_value, result))
 			return false;
-		return result;
+		return result;*/
 	}
 
 } // namespace tools

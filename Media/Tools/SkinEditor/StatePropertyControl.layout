@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel" position="0 0 248 464" align="Stretch">
+            <Widget type="StaticText" skin="StaticText" position="8 8 232 24" align="HStretch Top">
+                <Property key="Text_Caption" value="Position"/>
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Edit" skin="Edit" position="8 32 232 26" align="HStretch Top" name="Position"/>
+            <Widget type="StaticText" skin="StaticText" position="8 64 232 24" align="HStretch Top">
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+                <Property key="Text_Caption" value="Visible"/>
+            </Widget>
+            <Widget type="ComboBox" skin="ComboBox" position="8 88 232 26" align="HStretch Top" name="Visible">
+                <Property key="ComboBox_ModeDrop" value="true"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

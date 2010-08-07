@@ -13,8 +13,8 @@ namespace tools
 		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
-		mPropertySet->createChild("Visible", "Bool", "true");
-		mPropertySet->createChild("Coord", "IntCoord", "0 0 32 32");
+		mPropertySet->createChild("Visible", "Bool", "True");
+		mPropertySet->createChild("Position", "IntPoint", "0 0");
 	}
 
 	StateItem::~StateItem()
