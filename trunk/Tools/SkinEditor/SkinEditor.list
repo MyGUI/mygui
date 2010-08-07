@@ -15,6 +15,7 @@ set (HEADER_FILES
   StatesControl.h
   StatesListControl.h
   StateItem.h
+  StatePropertyControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -33,6 +34,7 @@ set (SOURCE_FILES
   StatesControl.cpp
   StatesListControl.cpp
   StateItem.cpp
+  StatePropertyControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -52,6 +54,7 @@ SOURCE_GROUP("Source Files" FILES
   StatesControl.cpp
   StatesListControl.cpp
   StateItem.cpp
+  StatePropertyControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -70,6 +73,7 @@ SOURCE_GROUP("Header Files" FILES
   StatesControl.h
   StatesListControl.h
   StateItem.h
+  StatePropertyControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
