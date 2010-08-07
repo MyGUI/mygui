@@ -12,12 +12,12 @@ namespace tools
 	StatesControl::StatesControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("StatesControl.layout", _parent),
 		mStatesListControl(nullptr),
-		mStatePropertyControl(nullptr)//,
-		//mSkinTextureControl(nullptr)
+		mStatePropertyControl(nullptr),
+		mStateTextureControl(nullptr)
 	{
 		assignBase(mStatesListControl, "StatesListControl");
 		assignBase(mStatePropertyControl, "StatePropertyControl");
-		//assignBase(mSkinTextureControl, "SkinTextureControl");
+		assignBase(mStateTextureControl, "StateTextureControl");
 	}
 
 	StatesControl::~StatesControl()

@@ -4,5 +4,6 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="PanelEmpty" position="8 8 248 447" align="Left VStretch" name="StatesListControl"/>
         <Widget type="Widget" skin="PanelEmpty" position="448 8 240 447" align="Right VStretch" name="StatePropertyControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="264 8 176 447" align="Stretch" name="StateTextureControl"/>
     </Widget>
 </MyGUI>

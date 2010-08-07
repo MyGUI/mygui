@@ -12,10 +12,12 @@ set (HEADER_FILES
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
+  RegionSelectorControl2.h
   StatesControl.h
   StatesListControl.h
   StateItem.h
   StatePropertyControl.h
+  StateTextureControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -31,10 +33,12 @@ set (SOURCE_FILES
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
+  RegionSelectorControl2.cpp
   StatesControl.cpp
   StatesListControl.cpp
   StateItem.cpp
   StatePropertyControl.cpp
+  StateTextureControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -51,10 +55,12 @@ SOURCE_GROUP("Source Files" FILES
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
+  RegionSelectorControl2.cpp
   StatesControl.cpp
   StatesListControl.cpp
   StateItem.cpp
   StatePropertyControl.cpp
+  StateTextureControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -70,10 +76,12 @@ SOURCE_GROUP("Header Files" FILES
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
+  RegionSelectorControl2.h
   StatesControl.h
   StatesListControl.h
   StateItem.h
   StatePropertyControl.h
+  StateTextureControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
