@@ -27,12 +27,14 @@ namespace tools
 		PropertySet* getPropertySet();
 
 		ItemHolder<StateItem>& getStates() { return mStates; }
+		ItemHolder<SeparatorItem>& getSeparators() { return mSeparators; }
 
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
 
 		ItemHolder<StateItem> mStates;
+		ItemHolder<SeparatorItem> mSeparators;
 	};
 
 } // namespace tools
