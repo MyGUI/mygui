@@ -4,34 +4,34 @@
 	@date		08/2010
 */
 #include "precompiled.h"
-#include "StatesListControl.h"
+#include "SeparatorListControl.h"
 #include "SkinManager.h"
 
 namespace tools
 {
 
-	StatesListControl::StatesListControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("StatesListControl.layout", _parent),
+	SeparatorListControl::SeparatorListControl(MyGUI::Widget* _parent) :
+		wraps::BaseLayout("SeparatorListControl.layout", _parent),
 		mList(nullptr),
 		mCurrentSkin(nullptr)
 	{
 		assignWidget(mList, "List");
 
-		mList->eventListChangePosition += MyGUI::newDelegate(this, &StatesListControl::notifyChangePosition);
+		mList->eventListChangePosition += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &StatesListControl::notifyChangeSelection);
+		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeSelection);
 		advice();
 	}
 
-	StatesListControl::~StatesListControl()
+	SeparatorListControl::~SeparatorListControl()
 	{
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &StatesListControl::notifyChangeSelection);
+		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeSelection);
 		unadvice();
 
-		mList->eventListChangePosition -= MyGUI::newDelegate(this, &StatesListControl::notifyChangePosition);
+		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
 	}
 
-	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
+	void SeparatorListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
 	{
 		if (mCurrentSkin != nullptr)
 		{
@@ -44,13 +44,13 @@ namespace tools
 		}
 	}
 
-	void StatesListControl::notifyChangeSelection()
+	void SeparatorListControl::notifyChangeSelection()
 	{
 		unadvice();
 		advice();
 	}
 
-	void StatesListControl::unadvice()
+	void SeparatorListControl::unadvice()
 	{
 		if (mCurrentSkin != nullptr)
 		{
@@ -58,7 +58,7 @@ namespace tools
 			while (states.next())
 			{
 				StateItem* item = states.current();
-				item->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StatesListControl::notifyChangeProperty);
+				item->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
 			}
 
 			mCurrentSkin = nullptr;
@@ -66,7 +66,7 @@ namespace tools
 		}
 	}
 
-	void StatesListControl::advice()
+	void SeparatorListControl::advice()
 	{
 		mCurrentSkin = SkinManager::getInstance().getItemSelected();
 
@@ -76,19 +76,19 @@ namespace tools
 			while (states.next())
 			{
 				StateItem* item = states.current();
-				item->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StatesListControl::notifyChangeProperty);
+				item->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
 			}
 
 			updateList();
 		}
 	}
 
-	void StatesListControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _value)
+	void SeparatorListControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _value)
 	{
 		updateList();
 	}
 
-	void StatesListControl::updateList()
+	void SeparatorListControl::updateList()
 	{
 		mList->setIndexSelected(MyGUI::ITEM_NONE);
 		mList->removeAllItems();
@@ -116,13 +116,9 @@ namespace tools
 		}
 	}
 
-	bool StatesListControl::isValueTrue(const MyGUI::UString& _value)
+	bool SeparatorListControl::isValueTrue(const MyGUI::UString& _value)
 	{
 		return (_value == "True");
-		/*bool result = true;
-		if (!MyGUI::utility::parseComplex<bool>(_value, result))
-			return false;
-		return result;*/
 	}
 
 } // namespace tools

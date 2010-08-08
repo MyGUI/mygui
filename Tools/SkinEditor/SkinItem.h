@@ -29,30 +29,30 @@ namespace tools
 
 		PropertySet* getPropertySet();
 
-		StateItem* getChild(const MyGUI::UString& _name);
+		StateItem* getState(const MyGUI::UString& _name);
 
-		EnumeratorStateItem getChildsEnumerator();
+		EnumeratorStateItem getStatesEnumerator();
 
-		StateItem* getItemSelected();
-		void setItemSelected(StateItem* _value);
+		StateItem* getStateSelected();
+		void setStateSelected(StateItem* _value);
 
-		EventHandle_StateChangeSelection eventChangeSelection;
+		EventHandle_StateChangeSelection eventStateChangeSelection;
 
 	private:
-		StateItem* createChild(const MyGUI::UString& _name);
+		StateItem* createState(const MyGUI::UString& _name);
 
-		void destroyChild(StateItem* _item);
+		void destroyState(StateItem* _item);
 
-		void destroyChild(const MyGUI::UString& _name);
+		void destroyState(const MyGUI::UString& _name);
 
-		void destroyAllChilds();
+		void destroyAllStates();
 
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
 
-		VectorStateItem mChilds;
-		StateItem* mItemSelected;
+		VectorStateItem mStates;
+		StateItem* mStateSelected;
 	};
 
 } // namespace tools
