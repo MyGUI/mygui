@@ -7,7 +7,7 @@
 #define __STATES_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "StatesListControl.h"
+#include "StateListControl.h"
 #include "StatePropertyControl.h"
 #include "StateTextureControl.h"
 

@@ -4,7 +4,7 @@
 	@date		08/2010
 */
 #include "precompiled.h"
-#include "StatesListControl.h"
+#include "StateListControl.h"
 #include "SkinManager.h"
 
 namespace tools
