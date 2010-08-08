@@ -36,16 +36,16 @@ namespace tools
 
 		SeparatorItem* separator = nullptr;
 		separator = mSeparators.createChild();
-		separator->setName("left horizontal");
+		separator->setName("top horizontal");
 		separator->setHorizontal(true);
 		separator = mSeparators.createChild();
-		separator->setName("right horizontal");
+		separator->setName("bottom horizontal");
 		separator->setHorizontal(true);
 		separator = mSeparators.createChild();
-		separator->setName("top vertical");
+		separator->setName("left vertical");
 		separator->setHorizontal(false);
 		separator = mSeparators.createChild();
-		separator->setName("bottom vertical");
+		separator->setName("right vertical");
 		separator->setHorizontal(false);
 	}
 
