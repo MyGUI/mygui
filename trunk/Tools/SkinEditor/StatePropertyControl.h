@@ -10,6 +10,7 @@
 #include "Property.h"
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
+#include "PropertyBoolControl.h"
 
 namespace tools
 {
@@ -29,21 +30,16 @@ namespace tools
 		virtual void updateStateProperties();
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
 
-		void fillVisibleBox();
-
-		void updateVisible();
 		void updatePosition();
-
-		size_t getComboIndex(const MyGUI::UString& _name);
 
 		bool isPositionValidate();
 		MyGUI::UString getClearPositionValue();
 		void setColourPosition(bool _validate);
 
 	private:
-		MyGUI::ComboBox* mVisible;
 		MyGUI::Edit* mPosition;
 		MyGUI::UString mTypeName;
+		PropertyBoolControl* mPropertyBoolControl;
 	};
 
 } // namespace tools
