@@ -51,5 +51,35 @@
 		<Child type="Widget" skin="MarkerBlack" offset = "49 1 1 48" align = "Right VStretch"/>
 	</Resource>
 
+	<Resource type="ResourceSkin" name = "StretchRectangleHorzBlack" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="Pointer" value = "size_horz" />
+		<BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+			<State name="normal" offset = "678 54 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name = "StretchRectangleVertBlack" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="Pointer" value = "size_vert" />
+		<BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+			<State name="normal" offset = "678 54 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name = "HorizontalSeparatorBlack" size = "50 1" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+
+		<Child type="Button" skin="StretchRectangleVertBlack" offset = "0 0 50 1" align = "HStretch Top" name = "Action" >
+			<Property key="Scale" value = "0 1 0 0"/>
+		</Child>
+	</Resource>
+
+	<Resource type="ResourceSkin" name = "VerticalSeparatorBlack" size = "1 50" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+
+		<Child type="Widget" skin="StretchRectangleHorzBlack" offset = "0 0 1 50" align = "Left VStretch" name = "Action" >
+			<Property key="Scale" value = "1 0 0 0"/>
+		</Child >
+	</Resource>
+
 </MyGUI>
 
