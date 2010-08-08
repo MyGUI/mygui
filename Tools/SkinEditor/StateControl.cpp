@@ -15,7 +15,7 @@ namespace tools
 		mStatePropertyControl(nullptr),
 		mStateTextureControl(nullptr)
 	{
-		assignBase(mStatesListControl, "StatesListControl");
+		assignBase(mStatesListControl, "StateListControl");
 		assignBase(mStatePropertyControl, "StatePropertyControl");
 		assignBase(mStateTextureControl, "StateTextureControl");
 	}

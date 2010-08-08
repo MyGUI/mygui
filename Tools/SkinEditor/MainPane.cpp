@@ -15,7 +15,7 @@ namespace tools
 		mStatesControl(nullptr)
 	{
 		assignBase(mSkinControl, "SkinControl");
-		assignBase(mStatesControl, "StatesControl");
+		assignBase(mStatesControl, "StateControl");
 		assignBase(mSeparatorControl, "SeparatorControl");
 	}
 
