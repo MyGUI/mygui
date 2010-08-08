@@ -23,6 +23,8 @@ set (HEADER_FILES
   SeparatorControl.h
   ItemHolder.h
   PropertyAdvisor.h
+  PropertyControl.h
+  PropertyBoolControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -47,6 +49,8 @@ set (SOURCE_FILES
   SeparatorItem.cpp
   SeparatorListControl.cpp
   SeparatorControl.cpp
+  PropertyControl.cpp
+  PropertyBoolControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -72,6 +76,8 @@ SOURCE_GROUP("Source Files" FILES
   SeparatorItem.cpp
   SeparatorListControl.cpp
   SeparatorControl.cpp
+  PropertyControl.cpp
+  PropertyBoolControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -98,6 +104,8 @@ SOURCE_GROUP("Header Files" FILES
   SeparatorControl.h
   ItemHolder.h
   PropertyAdvisor.h
+  PropertyControl.h
+  PropertyBoolControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
