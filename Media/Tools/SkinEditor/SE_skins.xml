@@ -16,7 +16,7 @@
 		<BasisSkin type="FilterNone" offset = "0 0 16 16"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name = "StretchRectangle2" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name = "PositionRectangle" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="ToStick" value = "false" />
 		<Property key="MainMove" value = "true" />
 
@@ -26,6 +26,22 @@
 		<Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
 
 	</Resource>
-	
+
+	<Resource type="ResourceSkin" name = "HorizontalSeparator" size = "50 1" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+
+		<Child type="Widget" skin="StretchRectangleHorz" offset = "0 0 50 1" align = "HStretch Top">
+			<Property key="Scale" value = "0 1 0 0"/>
+		</Child >
+	</Resource>
+
+	<Resource type="ResourceSkin" name = "VerticalSeparator" size = "1 50" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+
+		<Child type="Widget" skin="StretchRectangleVert" offset = "0 0 1 50" align = "Left VStretch">
+			<Property key="Scale" value = "1 0 0 0"/>
+		</Child >
+	</Resource>
+
 </MyGUI>
 
