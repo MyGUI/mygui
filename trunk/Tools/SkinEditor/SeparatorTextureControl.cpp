@@ -10,12 +10,9 @@ namespace tools
 {
 
 	SeparatorTextureControl::SeparatorTextureControl(MyGUI::Widget* _parent) :
-		TextureControl(_parent)
+		TextureControl(_parent),
+		mTextureVisible(false)
 	{
-		//mTextureName = "core.png";
-		//mTextureRegion = MyGUI::IntCoord(2, 2, 21, 21);
-
-		//updateTextureControl();
 		initialiseAdvisor();
 	}
 
@@ -26,7 +23,7 @@ namespace tools
 
 	void SeparatorTextureControl::updateTextureControl()
 	{
-		if (!mTextureName.empty() && getCurrentSkin() != nullptr && getCurrentState() != nullptr)
+		if (mTextureVisible && !mTextureName.empty() && getCurrentSkin() != nullptr && getCurrentState() != nullptr)
 		{
 			setTextureName(mTextureName);
 			setTextureRegion(mTextureRegion);
@@ -54,12 +51,15 @@ namespace tools
 	void SeparatorTextureControl::updateStateProperties()
 	{
 		updateRegionPosition();
+		updateTextureVisible();
 	}
 
 	void SeparatorTextureControl::updateStateProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_sender->getName() == "Position")
 			updateRegionPosition();
+		else if (_sender->getName() == "Visible")
+			updateTextureVisible();
 	}
 
 	void SeparatorTextureControl::updateTextureName()
@@ -108,6 +108,20 @@ namespace tools
 				mTextureRegion.left = position.left;
 				mTextureRegion.top = position.top;
 			}
+		}
+
+		updateTextureControl();
+	}
+
+	void SeparatorTextureControl::updateTextureVisible()
+	{
+		mTextureVisible = false;
+
+		if (getCurrentState() != nullptr)
+		{
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
+			if (prop != nullptr)
+				mTextureVisible = prop->getValue() == "True";
 		}
 
 		updateTextureControl();
