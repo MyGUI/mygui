@@ -14,9 +14,7 @@ namespace tools
 		wraps::BaseLayout("StatePropertyControl.layout", _parent),
 		mTypeName("StatePropertyControl"),
 		mVisible(nullptr),
-		mPosition(nullptr),
-		mCurrentSkin(nullptr),
-		mCurrentState(nullptr)
+		mPosition(nullptr)
 	{
 		assignWidget(mVisible, "Visible");
 		assignWidget(mPosition, "Position");
@@ -26,19 +24,15 @@ namespace tools
 
 		fillVisibleBox();
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &StatePropertyControl::notifyChangeSelection);
-		advice();
-
-		updateAllProperties();
+		initialiseAdvisor();
 	}
 
 	StatePropertyControl::~StatePropertyControl()
 	{
+		shutdownAdvisor();
+
 		mVisible->eventComboChangePosition -= MyGUI::newDelegate(this, &StatePropertyControl::notifyComboChangePosition);
 		mPosition->eventEditTextChange -= MyGUI::newDelegate(this, &StatePropertyControl::notifyEditTextChange);
-
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &StatePropertyControl::notifyChangeSelection);
-		unadvice();
 	}
 
 	void StatePropertyControl::fillVisibleBox()
@@ -48,64 +42,7 @@ namespace tools
 		mVisible->addItem("False");
 	}
 
-	void StatePropertyControl::notifyChangeSelection()
-	{
-		unadvice();
-		advice();
-
-		updateAllProperties();
-	}
-
-	void StatePropertyControl::unadvice()
-	{
-		if (mCurrentSkin != nullptr)
-		{
-			unadviceState();
-
-			mCurrentSkin->eventStateChangeSelection -= MyGUI::newDelegate(this, &StatePropertyControl::notifyStateChangeSelection);
-			mCurrentSkin = nullptr;
-		}
-	}
-
-	void StatePropertyControl::advice()
-	{
-		mCurrentSkin = SkinManager::getInstance().getItemSelected();
-
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->eventStateChangeSelection += MyGUI::newDelegate(this, &StatePropertyControl::notifyStateChangeSelection);
-
-			adviceState();
-		}
-	}
-
-	void StatePropertyControl::adviceState()
-	{
-		mCurrentState = mCurrentSkin->getStateSelected();
-		if (mCurrentState != nullptr)
-		{
-			mCurrentState->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StatePropertyControl::notifyChangeProperty);
-		}
-	}
-
-	void StatePropertyControl::unadviceState()
-	{
-		if (mCurrentState != nullptr)
-		{
-			mCurrentState->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StatePropertyControl::notifyChangeProperty);
-			mCurrentState = nullptr;
-		}
-	}
-
-	void StatePropertyControl::notifyStateChangeSelection()
-	{
-		unadviceState();
-		adviceState();
-
-		updateAllProperties();
-	}
-
-	void StatePropertyControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
+	void StatePropertyControl::updateStateProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_owner != mTypeName)
 		{
@@ -116,7 +53,7 @@ namespace tools
 		}
 	}
 
-	void StatePropertyControl::updateAllProperties()
+	void StatePropertyControl::updateStateProperties()
 	{
 		updateVisible();
 		updatePosition();
@@ -126,11 +63,11 @@ namespace tools
 	{
 		size_t index = MyGUI::ITEM_NONE;
 
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
 			MyGUI::UString visible;
 
-			Property* prop = mCurrentState->getPropertySet()->getChild("Visible");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
 			if (prop != nullptr)
 				visible = prop->getValue();
 
@@ -159,9 +96,9 @@ namespace tools
 
 	void StatePropertyControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Visible");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
 			if (prop != nullptr)
 			{
 				if (_index != MyGUI::ITEM_NONE)
@@ -176,9 +113,9 @@ namespace tools
 	{
 		MyGUI::UString value;
 
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
 				value = prop->getValue();
 		}
@@ -191,9 +128,9 @@ namespace tools
 
 	void StatePropertyControl::notifyEditTextChange(MyGUI::Edit* _sender)
 	{
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
 			{
 				bool validate = isPositionValidate();

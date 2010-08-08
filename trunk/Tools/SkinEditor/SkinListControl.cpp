@@ -87,7 +87,7 @@ namespace tools
 			SkinItem* prev = nullptr;
 			SkinItem* next = nullptr;
 
-			EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+			ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
 			while (items.next())
 			{
 				SkinItem* current = items.current();
@@ -118,7 +118,7 @@ namespace tools
 
 		SkinItem* selectedItem = SkinManager::getInstance().getItemSelected();
 
-		EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
 		while (items.next())
 		{
 			size_t index = mList->getItemCount();
@@ -179,7 +179,7 @@ namespace tools
 
 	bool SkinListControl::isNameExist(const MyGUI::UString& _value)
 	{
-		EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
 		while (items.next())
 		{
 			SkinItem* item = items.current();
@@ -192,7 +192,7 @@ namespace tools
 	size_t SkinListControl::getNameCount(const MyGUI::UString& _value)
 	{
 		size_t result = 0;
-		EnumeratorSkinItem items = SkinManager::getInstance().getChildsEnumerator();
+		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
 		while (items.next())
 		{
 			SkinItem* item = items.current();
@@ -224,7 +224,8 @@ namespace tools
 
 	void SkinListControl::createItem(const MyGUI::UString& _value)
 	{
-		SkinItem* item = SkinManager::getInstance().createChild(_value);
+		SkinItem* item = SkinManager::getInstance().createChild();
+		item->setName(_value);
 		SkinManager::getInstance().setItemSelected(item);
 
 		updateList();

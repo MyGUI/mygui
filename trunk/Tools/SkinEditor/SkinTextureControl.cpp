@@ -18,7 +18,6 @@ namespace tools
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mRegionSelectorControl(nullptr),
-		mCurrentSkin(nullptr),
 		mScale(nullptr),
 		mScaleValue(1)
 	{
@@ -35,53 +34,22 @@ namespace tools
 		fillScale();
 		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeSelection);
-		advice();
-
 		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
 
-		updateAllProperties();
+		initialiseAdvisor();
 	}
 
 	SkinTextureControl::~SkinTextureControl()
 	{
+		shutdownAdvisor();
+
 		mRegionSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
 
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
 		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyComboChangePosition);
-
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeSelection);
-		unadvice();
 	}
 
-	void SkinTextureControl::notifyChangeSelection()
-	{
-		unadvice();
-		advice();
-
-		updateAllProperties();
-	}
-
-	void SkinTextureControl::unadvice()
-	{
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeProperty);
-			mCurrentSkin = nullptr;
-		}
-	}
-
-	void SkinTextureControl::advice()
-	{
-		mCurrentSkin = SkinManager::getInstance().getItemSelected();
-
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangeProperty);
-		}
-	}
-
-	void SkinTextureControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
+	void SkinTextureControl::updateSkinProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_owner != mTypeName)
 		{
@@ -92,7 +60,7 @@ namespace tools
 		}
 	}
 
-	void SkinTextureControl::updateAllProperties()
+	void SkinTextureControl::updateSkinProperties()
 	{
 		updateTexture();
 		updateCoord();
@@ -102,9 +70,9 @@ namespace tools
 	{
 		MyGUI::UString texture;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Texture");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
 			if (prop != nullptr)
 				texture = prop->getValue();
 		}
@@ -119,9 +87,9 @@ namespace tools
 	{
 		MyGUI::UString value;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
 			if (prop != nullptr)
 				value = prop->getValue();
 		}
@@ -220,9 +188,9 @@ namespace tools
 	{
 		mCoordValue = mRegionSelectorControl->getCoord();
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
 			if (prop != nullptr)
 				prop->setValue(mCoordValue.print(), mTypeName);
 		}

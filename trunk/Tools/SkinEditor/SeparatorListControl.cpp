@@ -40,7 +40,7 @@ namespace tools
 			if (_index != MyGUI::ITEM_NONE)
 				item = *mList->getItemDataAt<StateItem*>(_index);
 
-			mCurrentSkin->setStateSelected(item);
+			mCurrentSkin->getStates().setItemSelected(item);
 		}
 	}
 
@@ -54,7 +54,7 @@ namespace tools
 	{
 		if (mCurrentSkin != nullptr)
 		{
-			EnumeratorStateItem states = mCurrentSkin->getStatesEnumerator();
+			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
 			while (states.next())
 			{
 				StateItem* item = states.current();
@@ -72,7 +72,7 @@ namespace tools
 
 		if (mCurrentSkin != nullptr)
 		{
-			EnumeratorStateItem states = mCurrentSkin->getStatesEnumerator();
+			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
 			while (states.next())
 			{
 				StateItem* item = states.current();
@@ -95,9 +95,9 @@ namespace tools
 
 		if (mCurrentSkin != nullptr)
 		{
-			StateItem* selectedItem = mCurrentSkin->getStateSelected();
+			StateItem* selectedItem = mCurrentSkin->getStates().getItemSelected();
 
-			EnumeratorStateItem states = mCurrentSkin->getStatesEnumerator();
+			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
 			while (states.next())
 			{
 				size_t index = mList->getItemCount();
