@@ -42,5 +42,14 @@
 		</Child >
 	</Resource>
 
+	<Resource type="ResourceSkin" name = "PositionRectangleBlack" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+
+		<Child type="Widget" skin="MarkerBlack" offset = "0 0 50 1" align = "HStretch Top"/>
+		<Child type="Widget" skin="MarkerBlack" offset = "0 49 50 1" align = "HStretch Bottom"/>
+		<Child type="Widget" skin="MarkerBlack" offset = "0 1 1 48" align = "Left VStretch"/>
+		<Child type="Widget" skin="MarkerBlack" offset = "49 1 1 48" align = "Right VStretch"/>
+	</Resource>
+
 </MyGUI>
 
