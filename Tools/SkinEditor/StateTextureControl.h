@@ -10,33 +10,32 @@
 #include "Property.h"
 #include "SkinItem.h"
 #include "RegionSelectorControl2.h"
+#include "PropertyAdvisor.h"
 
 namespace tools
 {
 
 	class StateTextureControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public PropertyAdvisor
 	{
 	public:
 		StateTextureControl(MyGUI::Widget* _parent);
 		virtual ~StateTextureControl();
 
 	private:
-		void notifyChangeSelection();
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
-		void notifyChangePropertyState(Property* _sender, const MyGUI::UString& _owner);
+		void notifyChangePosition();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 
-		void notifyChangePosition();
+		virtual void updateSkinProperties();
+		virtual void updateStateProperties();
 
-		void unadvice();
-		void advice();
+		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
 
-		void updateAllProperties();
 		void updateTexture();
 		void updateCoord();
 
-		void updateAllStateProperties();
 		void updateVisible();
 		void updatePosition();
 
@@ -48,10 +47,6 @@ namespace tools
 
 		void updateRegionCoord();
 
-		void notifyStateChangeSelection();
-		void adviceState();
-		void unadviceState();
-
 	private:
 		MyGUI::ScrollView* mView;
 		MyGUI::StaticImage* mTexture;
@@ -61,13 +56,10 @@ namespace tools
 
 		RegionSelectorControl2* mRegionSelectorControl;
 
-		SkinItem* mCurrentSkin;
-		StateItem* mCurrentState;
 		MyGUI::UString mTypeName;
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;
 		MyGUI::IntCoord mCoordValue;
-
 	};
 
 } // namespace tools

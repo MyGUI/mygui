@@ -8,12 +8,14 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinItem.h"
+#include "PropertyAdvisor.h"
 
 namespace tools
 {
 
 	class StatesListControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public PropertyAdvisor
 	{
 	public:
 		StatesListControl(MyGUI::Widget* _parent);
@@ -22,10 +24,9 @@ namespace tools
 	private:
 		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
 		void notifyChangeSelection();
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _value);
 
-		void advice();
-		void unadvice();
+		virtual void updateStateProperties();
+		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _value);
 
 		void updateList();
 
@@ -33,8 +34,6 @@ namespace tools
 
 	private:
 		MyGUI::List* mList;
-
-		SkinItem* mCurrentSkin;
 	};
 
 } // namespace tools

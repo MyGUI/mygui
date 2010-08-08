@@ -9,32 +9,27 @@
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
 #include "SkinItem.h"
+#include "PropertyAdvisor.h"
 
 namespace tools
 {
 
 	class StatePropertyControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public PropertyAdvisor
 	{
 	public:
 		StatePropertyControl(MyGUI::Widget* _parent);
 		virtual ~StatePropertyControl();
 
 	private:
-		void notifyChangeSelection();
-		void notifyStateChangeSelection();
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyEditTextChange(MyGUI::Edit* _sender);
 
+		virtual void updateStateProperties();
+		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
+
 		void fillVisibleBox();
-
-		void unadvice();
-		void advice();
-		void unadviceState();
-		void adviceState();
-
-		void updateAllProperties();
 
 		void updateVisible();
 		void updatePosition();
@@ -48,8 +43,6 @@ namespace tools
 	private:
 		MyGUI::ComboBox* mVisible;
 		MyGUI::Edit* mPosition;
-		SkinItem* mCurrentSkin;
-		StateItem* mCurrentState;
 		MyGUI::UString mTypeName;
 	};
 

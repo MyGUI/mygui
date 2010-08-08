@@ -14,8 +14,7 @@ namespace tools
 		wraps::BaseLayout("SkinPropertyControl.layout", _parent),
 		mTypeName("SkinPropertyControl"),
 		mTextures(nullptr),
-		mCoord(nullptr),
-		mCurrentSkin(nullptr)
+		mCoord(nullptr)
 	{
 		assignWidget(mTextures, "Textures");
 		assignWidget(mCoord, "Coord");
@@ -25,19 +24,15 @@ namespace tools
 
 		fillTextures();
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SkinPropertyControl::notifyChangeSelection);
-		advice();
-
-		updateAllProperties();
+		initialiseAdvisor();
 	}
 
 	SkinPropertyControl::~SkinPropertyControl()
 	{
+		shutdownAdvisor();
+
 		mTextures->eventComboChangePosition -= MyGUI::newDelegate(this, &SkinPropertyControl::notifyComboChangePosition);
 		mCoord->eventEditTextChange -= MyGUI::newDelegate(this, &SkinPropertyControl::notifyEditTextChange);
-
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &SkinPropertyControl::notifyChangeSelection);
-		unadvice();
 	}
 
 	void SkinPropertyControl::fillTextures()
@@ -53,34 +48,7 @@ namespace tools
 			mTextures->addItem(*iter);
 	}
 
-	void SkinPropertyControl::notifyChangeSelection()
-	{
-		unadvice();
-		advice();
-
-		updateAllProperties();
-	}
-
-	void SkinPropertyControl::unadvice()
-	{
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &SkinPropertyControl::notifyChangeProperty);
-			mCurrentSkin = nullptr;
-		}
-	}
-
-	void SkinPropertyControl::advice()
-	{
-		mCurrentSkin = SkinManager::getInstance().getItemSelected();
-
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &SkinPropertyControl::notifyChangeProperty);
-		}
-	}
-
-	void SkinPropertyControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
+	void SkinPropertyControl::updateSkinProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_owner != mTypeName)
 		{
@@ -91,7 +59,7 @@ namespace tools
 		}
 	}
 
-	void SkinPropertyControl::updateAllProperties()
+	void SkinPropertyControl::updateSkinProperties()
 	{
 		updateTexture();
 		updateCoord();
@@ -101,11 +69,11 @@ namespace tools
 	{
 		size_t index = MyGUI::ITEM_NONE;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
 			MyGUI::UString texture;
 
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Texture");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
 			if (prop != nullptr)
 				texture = prop->getValue();
 
@@ -134,9 +102,9 @@ namespace tools
 
 	void SkinPropertyControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Texture");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
 			if (prop != nullptr)
 			{
 				if (_index != MyGUI::ITEM_NONE)
@@ -151,9 +119,9 @@ namespace tools
 	{
 		MyGUI::UString value;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
 			if (prop != nullptr)
 				value = prop->getValue();
 		}
@@ -166,9 +134,9 @@ namespace tools
 
 	void SkinPropertyControl::notifyEditTextChange(MyGUI::Edit* _sender)
 	{
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
 			if (prop != nullptr)
 			{
 				bool validate = isCoordValidate();
