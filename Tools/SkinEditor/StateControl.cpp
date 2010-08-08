@@ -4,7 +4,7 @@
 	@date		08/2010
 */
 #include "precompiled.h"
-#include "StatesControl.h"
+#include "StateControl.h"
 
 namespace tools
 {

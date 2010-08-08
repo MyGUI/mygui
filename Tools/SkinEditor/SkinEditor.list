@@ -13,8 +13,8 @@ set (HEADER_FILES
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
   RegionSelectorControl2.h
-  StatesControl.h
-  StatesListControl.h
+  StateControl.h
+  StateListControl.h
   StateItem.h
   StatePropertyControl.h
   StateTextureControl.h
@@ -37,8 +37,8 @@ set (SOURCE_FILES
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
   RegionSelectorControl2.cpp
-  StatesControl.cpp
-  StatesListControl.cpp
+  StateControl.cpp
+  StateListControl.cpp
   StateItem.cpp
   StatePropertyControl.cpp
   StateTextureControl.cpp
@@ -62,8 +62,8 @@ SOURCE_GROUP("Source Files" FILES
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
   RegionSelectorControl2.cpp
-  StatesControl.cpp
-  StatesListControl.cpp
+  StateControl.cpp
+  StateListControl.cpp
   StateItem.cpp
   StatePropertyControl.cpp
   StateTextureControl.cpp
@@ -86,8 +86,8 @@ SOURCE_GROUP("Header Files" FILES
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
   RegionSelectorControl2.h
-  StatesControl.h
-  StatesListControl.h
+  StateControl.h
+  StateListControl.h
   StateItem.h
   StatePropertyControl.h
   StateTextureControl.h
