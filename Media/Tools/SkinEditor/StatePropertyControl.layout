@@ -12,8 +12,7 @@
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Visible"/>
             </Widget>
-            <Widget type="ComboBox" skin="ComboBox" position="8 88 232 26" align="HStretch Top" name="Visible">
-                <Property key="ComboBox_ModeDrop" value="true"/>
+            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible">
             </Widget>
         </Widget>
     </Widget>
