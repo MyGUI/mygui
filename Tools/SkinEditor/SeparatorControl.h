@@ -8,7 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SeparatorListControl.h"
-//#include "StatePropertyControl.h"
+#include "SeparatorPropertyControl.h"
 //#include "StateTextureControl.h"
 
 namespace tools
@@ -23,7 +23,7 @@ namespace tools
 
 	private:
 		SeparatorListControl* mSeparatorListControl;
-		//StatePropertyControl* mStatePropertyControl;
+		SeparatorPropertyControl* mSeparatorPropertyControl;
 		//StateTextureControl* mStateTextureControl;
 	};
 

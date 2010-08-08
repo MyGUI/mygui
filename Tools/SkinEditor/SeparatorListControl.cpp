@@ -35,12 +35,12 @@ namespace tools
 	{
 		if (mCurrentSkin != nullptr)
 		{
-			StateItem* item = nullptr;
+			SeparatorItem* item = nullptr;
 
 			if (_index != MyGUI::ITEM_NONE)
-				item = *mList->getItemDataAt<StateItem*>(_index);
+				item = *mList->getItemDataAt<SeparatorItem*>(_index);
 
-			mCurrentSkin->getStates().setItemSelected(item);
+			mCurrentSkin->getSeparators().setItemSelected(item);
 		}
 	}
 
@@ -54,10 +54,10 @@ namespace tools
 	{
 		if (mCurrentSkin != nullptr)
 		{
-			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
-			while (states.next())
+			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
+			while (separators.next())
 			{
-				StateItem* item = states.current();
+				SeparatorItem* item = separators.current();
 				item->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
 			}
 
@@ -72,10 +72,10 @@ namespace tools
 
 		if (mCurrentSkin != nullptr)
 		{
-			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
-			while (states.next())
+			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
+			while (separators.next())
 			{
-				StateItem* item = states.current();
+				SeparatorItem* item = separators.current();
 				item->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
 			}
 
@@ -95,14 +95,14 @@ namespace tools
 
 		if (mCurrentSkin != nullptr)
 		{
-			StateItem* selectedItem = mCurrentSkin->getStates().getItemSelected();
+			SeparatorItem* selectedItem = mCurrentSkin->getSeparators().getItemSelected();
 
-			ItemHolder<StateItem>::EnumeratorItem states = mCurrentSkin->getStates().getChildsEnumerator();
-			while (states.next())
+			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
+			while (separators.next())
 			{
 				size_t index = mList->getItemCount();
 
-				StateItem* item = states.current();
+				SeparatorItem* item = separators.current();
 
 				Property* prop = item->getPropertySet()->getChild("Visible");
 				if (prop != nullptr && !isValueTrue(prop->getValue()))

@@ -11,12 +11,12 @@ namespace tools
 
 	SeparatorControl::SeparatorControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SeparatorControl.layout", _parent),
-		mSeparatorListControl(nullptr)//,
-		//mStatePropertyControl(nullptr),
+		mSeparatorListControl(nullptr),
+		mSeparatorPropertyControl(nullptr)//,
 		//mStateTextureControl(nullptr)
 	{
 		assignBase(mSeparatorListControl, "SeparatorListControl");
-		//assignBase(mStatePropertyControl, "StatePropertyControl");
+		assignBase(mSeparatorPropertyControl, "SeparatorPropertyControl");
 		//assignBase(mStateTextureControl, "StateTextureControl");
 	}
 
