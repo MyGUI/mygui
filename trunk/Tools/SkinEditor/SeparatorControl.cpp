@@ -10,7 +10,7 @@ namespace tools
 {
 
 	SeparatorControl::SeparatorControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SeparatorsControl.layout", _parent),
+		wraps::BaseLayout("SeparatorControl.layout", _parent),
 		mSeparatorListControl(nullptr)//,
 		//mStatePropertyControl(nullptr),
 		//mStateTextureControl(nullptr)
