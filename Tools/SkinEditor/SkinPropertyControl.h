@@ -10,6 +10,8 @@
 #include "Property.h"
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
+#include "PropertyInt4Control.h"
+#include "PropertyTexturesControl.h"
 
 namespace tools
 {
@@ -23,27 +25,11 @@ namespace tools
 		virtual ~SkinPropertyControl();
 
 	private:
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyEditTextChange(MyGUI::Edit* _sender);
-
 		virtual void updateSkinProperties();
-		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
-
-		void fillTextures();
-
-		void updateTexture();
-		void updateCoord();
-
-		size_t getComboIndex(const MyGUI::UString& _name);
-
-		bool isCoordValidate();
-		MyGUI::UString getClearCoordValue();
-		void setColourCoord(bool _validate);
 
 	private:
-		MyGUI::ComboBox* mTextures;
-		MyGUI::Edit* mCoord;
-		MyGUI::UString mTypeName;
+		PropertyInt4Control* mPropertyCoordControl;
+		PropertyTexturesControl* mPropertyTexturesControl;
 	};
 
 } // namespace tools

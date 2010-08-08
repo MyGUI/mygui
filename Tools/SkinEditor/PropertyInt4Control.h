@@ -24,6 +24,11 @@ namespace tools
 		virtual void updateProperty();
 
 	private:
+		void notifyEditTextChange(MyGUI::Edit* _sender);
+
+		bool isValidate();
+		MyGUI::UString getClearValue();
+		void setColour(bool _validate);
 
 	private:
 		MyGUI::Edit* mEdit;

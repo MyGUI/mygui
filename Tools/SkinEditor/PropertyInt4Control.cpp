@@ -15,10 +15,12 @@ namespace tools
 	{
 		assignWidget(mEdit, "Edit");
 
+		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
 	PropertyInt4Control::~PropertyInt4Control()
 	{
+		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
 	void PropertyInt4Control::updateProperty()
@@ -27,26 +29,68 @@ namespace tools
 		if (prop != nullptr)
 		{
 			mEdit->setEnabled(true);
-			//size_t index = getComboIndex(prop->getValue());
-			//mComboBox->setIndexSelected(index);
+			mEdit->setCaption(prop->getValue());
+
+			bool validate = isValidate();
+			setColour(validate);
 		}
 		else
 		{
-			//mComboBox->setIndexSelected(MyGUI::ITEM_NONE);
+			mEdit->setCaption("");
 			mEdit->setEnabled(false);
 		}
 	}
 
-	/*void PropertyInt4Control::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
+	void PropertyInt4Control::notifyEditTextChange(MyGUI::Edit* _sender)
 	{
 		Property* prop = getProperty();
 		if (prop != nullptr)
 		{
-			if (_index != MyGUI::ITEM_NONE)
-				prop->setValue(mComboBox->getItemNameAt(_index), getTypeName());
-			else
-				prop->setValue("", getTypeName());
+			bool validate = isValidate();
+			if (validate)
+				prop->setValue(getClearValue(), getTypeName());
+
+			setColour(validate);
 		}
-	}*/
+	}
+
+	bool PropertyInt4Control::isValidate()
+	{
+		MyGUI::UString value = mEdit->getOnlyText();
+
+		int value1 = 0;
+		int value2 = 0;
+		int value3 = 0;
+		int value4 = 0;
+		if (!MyGUI::utility::parseComplex(value, value1, value2, value3, value4))
+			return false;
+
+		return true;
+	}
+
+	MyGUI::UString PropertyInt4Control::getClearValue()
+	{
+		MyGUI::UString value = mEdit->getOnlyText();
+
+		int value1 = 0;
+		int value2 = 0;
+		int value3 = 0;
+		int value4 = 0;
+		if (MyGUI::utility::parseComplex(value, value1, value2, value3, value4))
+			return MyGUI::utility::toString(value1, " ", value2, " ", value3, " ", value4);
+
+		return "";
+	}
+
+	void PropertyInt4Control::setColour(bool _validate)
+	{
+		MyGUI::UString value = mEdit->getOnlyText();
+		if (!_validate)
+			value = "#FF0000" + value;
+
+		size_t index = mEdit->getTextCursor();
+		mEdit->setCaption(value);
+		mEdit->setTextCursor(index);
+	}
 
 } // namespace tools
