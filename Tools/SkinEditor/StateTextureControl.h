@@ -9,7 +9,7 @@
 #include "TextureControl.h"
 #include "Property.h"
 #include "SkinItem.h"
-#include "RegionSelectorControl2.h"
+#include "PositionSelectorControl.h"
 #include "PropertyAdvisor.h"
 
 namespace tools
@@ -42,7 +42,7 @@ namespace tools
 		void updateRegionCoord();
 
 	private:
-		RegionSelectorControl2* mRegionSelectorControl;
+		PositionSelectorControl* mRegionSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
