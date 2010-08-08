@@ -11,25 +11,25 @@ namespace tools
 
 	SkinItem::SkinItem() :
 		mPropertySet(nullptr),
-		mItemSelected(nullptr)
+		mStateSelected(nullptr)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Texture", "Texture");
 		mPropertySet->createChild("Coord", "IntCoord", "0 0 32 32");
 
-		createChild("disabled");
-		createChild("normal");
-		createChild("over");
-		createChild("pressed");
-		createChild("selected disabled");
-		createChild("selected normal");
-		createChild("selected over");
-		createChild("selected pressed");
+		createState("disabled");
+		createState("normal");
+		createState("over");
+		createState("pressed");
+		createState("selected disabled");
+		createState("selected normal");
+		createState("selected over");
+		createState("selected pressed");
 	}
 
 	SkinItem::~SkinItem()
 	{
-		destroyAllChilds();
+		destroyAllStates();
 
 		delete mPropertySet;
 	}
@@ -49,31 +49,31 @@ namespace tools
 		return mPropertySet;
 	}
 
-	StateItem* SkinItem::createChild(const MyGUI::UString& _name)
+	StateItem* SkinItem::createState(const MyGUI::UString& _name)
 	{
 		StateItem* item = new StateItem();
 		item->setName(_name);
 
-		mChilds.push_back(item);
+		mStates.push_back(item);
 
 		return item;
 	}
 
-	void SkinItem::destroyChild(StateItem* _item)
+	void SkinItem::destroyState(StateItem* _item)
 	{
 		MYGUI_ASSERT(_item != nullptr, "null reference");
 
-		VectorStateItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
-		if (item != mChilds.end())
+		VectorStateItem::iterator item = std::find(mStates.begin(), mStates.end(), _item);
+		if (item != mStates.end())
 		{
-			if (*item == mItemSelected)
+			if (*item == mStateSelected)
 			{
-				mItemSelected = nullptr;
-				eventChangeSelection();
+				mStateSelected = nullptr;
+				eventStateChangeSelection();
 			}
 
 			delete *item;
-			mChilds.erase(item);
+			mStates.erase(item);
 		}
 		else
 		{
@@ -81,21 +81,21 @@ namespace tools
 		}
 	}
 
-	void SkinItem::destroyChild(const MyGUI::UString& _name)
+	void SkinItem::destroyState(const MyGUI::UString& _name)
 	{
-		StateItem* item = getChild(_name);
-		destroyChild(item);
+		StateItem* item = getState(_name);
+		destroyState(item);
 	}
 
-	void SkinItem::destroyAllChilds()
+	void SkinItem::destroyAllStates()
 	{
-		while (!mChilds.empty())
-			destroyChild(mChilds.back());
+		while (!mStates.empty())
+			destroyState(mStates.back());
 	}
 
-	StateItem* SkinItem::getChild(const MyGUI::UString& _name)
+	StateItem* SkinItem::getState(const MyGUI::UString& _name)
 	{
-		for (VectorStateItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+		for (VectorStateItem::iterator item=mStates.begin(); item!=mStates.end(); ++item)
 		{
 			if ((*item)->getName() == _name)
 				return *item;
@@ -104,20 +104,20 @@ namespace tools
 		return nullptr;
 	}
 
-	EnumeratorStateItem SkinItem::getChildsEnumerator()
+	EnumeratorStateItem SkinItem::getStatesEnumerator()
 	{
-		return EnumeratorStateItem(mChilds);
+		return EnumeratorStateItem(mStates);
 	}
 
-	StateItem* SkinItem::getItemSelected()
+	StateItem* SkinItem::getStateSelected()
 	{
-		return mItemSelected;
+		return mStateSelected;
 	}
 
-	void SkinItem::setItemSelected(StateItem* _value)
+	void SkinItem::setStateSelected(StateItem* _value)
 	{
-		mItemSelected = _value;
-		eventChangeSelection();
+		mStateSelected = _value;
+		eventStateChangeSelection();
 	}
 
 } // namespace tools

@@ -18,6 +18,9 @@ set (HEADER_FILES
   StateItem.h
   StatePropertyControl.h
   StateTextureControl.h
+  SeparatorItem.h
+  SeparatorListControl.h
+  SeparatorControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -39,6 +42,9 @@ set (SOURCE_FILES
   StateItem.cpp
   StatePropertyControl.cpp
   StateTextureControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -61,6 +67,9 @@ SOURCE_GROUP("Source Files" FILES
   StateItem.cpp
   StatePropertyControl.cpp
   StateTextureControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -82,6 +91,9 @@ SOURCE_GROUP("Header Files" FILES
   StateItem.h
   StatePropertyControl.h
   StateTextureControl.h
+  SeparatorItem.h
+  SeparatorListControl.h
+  SeparatorControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

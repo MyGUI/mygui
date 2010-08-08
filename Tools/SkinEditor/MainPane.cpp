@@ -16,6 +16,7 @@ namespace tools
 	{
 		assignBase(mSkinControl, "SkinControl");
 		assignBase(mStatesControl, "StatesControl");
+		assignBase(mSeparatorControl, "SeparatorControl");
 	}
 
 	MainPane::~MainPane()
