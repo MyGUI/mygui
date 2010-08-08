@@ -6,7 +6,7 @@
 #ifndef __STATE_TEXTURE_CONTROL_H__
 #define __STATE_TEXTURE_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#include "TextureControl.h"
 #include "Property.h"
 #include "SkinItem.h"
 #include "RegionSelectorControl2.h"
@@ -16,7 +16,7 @@ namespace tools
 {
 
 	class StateTextureControl :
-		public wraps::BaseLayout,
+		public TextureControl,
 		public PropertyAdvisor
 	{
 	public:
@@ -39,26 +39,12 @@ namespace tools
 		void updateVisible();
 		void updatePosition();
 
-		void fillColours(MyGUI::ComboBox* _combo);
-		void updateColour(MyGUI::ComboBox* _sender);
-
-		void fillScale();
-		void updateScale();
-
 		void updateRegionCoord();
 
 	private:
-		MyGUI::ScrollView* mView;
-		MyGUI::StaticImage* mTexture;
-		MyGUI::ComboBox* mBackgroundColour;
-		MyGUI::Widget* mBackground;
-		MyGUI::ComboBox* mScale;
-
 		RegionSelectorControl2* mRegionSelectorControl;
 
 		MyGUI::UString mTypeName;
-		double mScaleValue;
-		MyGUI::IntSize mTextureSize;
 		MyGUI::IntCoord mCoordValue;
 	};
 
