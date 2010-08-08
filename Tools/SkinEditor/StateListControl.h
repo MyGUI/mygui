@@ -23,7 +23,6 @@ namespace tools
 
 	private:
 		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
-		void notifyChangeSelection();
 
 		virtual void updateStateProperties();
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _value);

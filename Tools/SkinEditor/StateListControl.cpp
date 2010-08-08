@@ -43,7 +43,8 @@ namespace tools
 
 	void StatesListControl::updateStateProperty(Property* _sender, const MyGUI::UString& _value)
 	{
-		updateList();
+		if (_sender->getName() == "Visible")
+			updateList();
 	}
 
 	void StatesListControl::updateStateProperties()
