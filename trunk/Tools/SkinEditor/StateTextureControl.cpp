@@ -71,7 +71,7 @@ namespace tools
 			unadviceState();
 
 			mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
-			mCurrentSkin->eventChangeSelection -= MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
+			mCurrentSkin->eventStateChangeSelection -= MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
 			mCurrentSkin = nullptr;
 		}
 	}
@@ -83,7 +83,7 @@ namespace tools
 		if (mCurrentSkin != nullptr)
 		{
 			mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
-			mCurrentSkin->eventChangeSelection += MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
+			mCurrentSkin->eventStateChangeSelection += MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
 
 			adviceState();
 		}
@@ -91,7 +91,7 @@ namespace tools
 
 	void StateTextureControl::adviceState()
 	{
-		mCurrentState = mCurrentSkin->getItemSelected();
+		mCurrentState = mCurrentSkin->getStateSelected();
 		if (mCurrentState != nullptr)
 		{
 			mCurrentState->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePropertyState);
