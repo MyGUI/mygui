@@ -35,6 +35,8 @@ namespace tools
 		{
 			assignBase(_control, "Texture");
 			mSelectors.push_back(_control);
+
+			_control->setScale(mScaleValue);
 		}
 
 	private:

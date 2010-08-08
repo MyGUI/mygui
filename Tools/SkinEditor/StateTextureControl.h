@@ -11,6 +11,7 @@
 #include "SkinItem.h"
 #include "PositionSelectorControl.h"
 #include "PropertyAdvisor.h"
+#include "PositionSelectorBlackControl.h"
 
 namespace tools
 {
@@ -41,11 +42,17 @@ namespace tools
 
 		void updateRegionCoord();
 
+		void updateUnselectedStates();
+		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
+		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
+
 	private:
 		PositionSelectorControl* mRegionSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
+
+		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 	};
 
 } // namespace tools
