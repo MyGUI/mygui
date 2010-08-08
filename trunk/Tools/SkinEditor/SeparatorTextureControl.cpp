@@ -13,7 +13,8 @@ namespace tools
 		TextureControl(_parent),
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
-		mVerticalSelectorControl(nullptr)
+		mVerticalSelectorControl(nullptr),
+		mHorizontal(false)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -47,8 +48,8 @@ namespace tools
 
 	void SeparatorTextureControl::updateSeparatorProperties()
 	{
-		updatePosition();
 		updateVisible();
+		updatePosition();
 	}
 
 	void SeparatorTextureControl::updateTextureControl()
@@ -159,6 +160,23 @@ namespace tools
 
 	void SeparatorTextureControl::updatePosition()
 	{
+		MyGUI::UString value;
+
+		if (getCurrentSeparator() != nullptr)
+		{
+			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Position");
+			if (prop != nullptr)
+				value = prop->getValue();
+		}
+
+		int position = 0;
+		if (MyGUI::utility::parseComplex(value, position))
+		{
+			if (mHorizontal)
+				mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, position, mTextureRegion.width, 1));
+			else
+				mVerticalSelectorControl->setCoord(MyGUI::IntCoord(position, 0, 1, mTextureRegion.height));
+		}
 	}
 
 	void SeparatorTextureControl::updateVisible()
@@ -174,9 +192,15 @@ namespace tools
 				if (prop->getValue() == "True")
 				{
 					if (getCurrentSeparator()->getHorizontal())
+					{
 						mHorizontalSelectorControl->setVisible(true);
+						mHorizontal = true;
+					}
 					else
+					{
 						mVerticalSelectorControl->setVisible(true);
+						mHorizontal = false;
+					}
 				}
 			}
 		}
@@ -184,6 +208,18 @@ namespace tools
 
 	void SeparatorTextureControl::notifyChangePosition()
 	{
+		int position = 0;
+		if (mHorizontal)
+			position = mHorizontalSelectorControl->getPosition().top;
+		else
+			position = mVerticalSelectorControl->getPosition().left;
+
+		if (getCurrentSeparator() != nullptr)
+		{
+			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Position");
+			if (prop != nullptr)
+				prop->setValue(MyGUI::utility::toString(position), mTypeName);
+		}
 	}
 
 } // namespace tools

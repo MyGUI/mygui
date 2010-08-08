@@ -51,6 +51,7 @@ namespace tools
 
 		HorizontalSelectorControl* mHorizontalSelectorControl;
 		VerticalSelectorControl* mVerticalSelectorControl;
+		bool mHorizontal;
 	};
 
 } // namespace tools
