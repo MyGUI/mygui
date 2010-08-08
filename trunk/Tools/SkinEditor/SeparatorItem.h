@@ -21,11 +21,16 @@ namespace tools
 		const MyGUI::UString& getName();
 		void setName(const MyGUI::UString& _value);
 
+		bool getHorizontal();
+		void setHorizontal(bool _value);
+
+
 		PropertySet* getPropertySet();
 
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
+		bool mHorizontal;
 	};
 
 } // namespace tools

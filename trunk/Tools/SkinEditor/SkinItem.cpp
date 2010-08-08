@@ -37,12 +37,16 @@ namespace tools
 		SeparatorItem* separator = nullptr;
 		separator = mSeparators.createChild();
 		separator->setName("left horizontal");
+		separator->setHorizontal(true);
 		separator = mSeparators.createChild();
 		separator->setName("right horizontal");
+		separator->setHorizontal(true);
 		separator = mSeparators.createChild();
 		separator->setName("top vertical");
+		separator->setHorizontal(false);
 		separator = mSeparators.createChild();
 		separator->setName("bottom vertical");
+		separator->setHorizontal(false);
 	}
 
 	SkinItem::~SkinItem()
