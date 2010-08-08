@@ -4,53 +4,59 @@
 	@date		08/2010
 */
 #include "precompiled.h"
-#include "RegionSelectorControl2.h"
+#include "SelectorControl.h"
 
 namespace tools
 {
 
-	RegionSelectorControl2::RegionSelectorControl2(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("RegionSelectorControl2.layout", _parent),
+	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
+		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1)
 	{
 		mCoordReal = mMainWidget->getCoord();
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &RegionSelectorControl2::notifyWindowChangeCoord);
+			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 	}
 
-	RegionSelectorControl2::~RegionSelectorControl2()
+	SelectorControl::~SelectorControl()
 	{
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &RegionSelectorControl2::notifyWindowChangeCoord);
+			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 	}
 
-	void RegionSelectorControl2::setVisible(bool _value)
+	void SelectorControl::setVisible(bool _value)
 	{
 		mMainWidget->setVisible(_value);
 	}
 
-	void RegionSelectorControl2::setSize(const MyGUI::IntSize& _value)
+	void SelectorControl::setSize(const MyGUI::IntSize& _value)
 	{
 		mCoordValue = _value;
 		updateCoord();
 	}
 
-	void RegionSelectorControl2::setPosition(const MyGUI::IntPoint& _value)
+	void SelectorControl::setPosition(const MyGUI::IntPoint& _value)
 	{
 		mCoordValue = _value;
 		updateCoord();
 	}
 
-	void RegionSelectorControl2::setScale(double _value)
+	void SelectorControl::setCoord(const MyGUI::IntCoord& _value)
+	{
+		mCoordValue = _value;
+		updateCoord();
+	}
+
+	void SelectorControl::setScale(double _value)
 	{
 		mScaleValue = _value;
 		updateCoord();
 	}
 
-	void RegionSelectorControl2::updateCoord()
+	void SelectorControl::updateCoord()
 	{
 		mCoordReal.left = (int)((double)mCoordValue.left * mScaleValue);
 		mCoordReal.top = (int)((double)mCoordValue.top * mScaleValue);
@@ -60,7 +66,7 @@ namespace tools
 		mMainWidget->setCoord(mCoordReal);
 	}
 
-	void RegionSelectorControl2::notifyWindowChangeCoord(MyGUI::Window* _sender)
+	void SelectorControl::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
 		MyGUI::IntCoord coord = _sender->getCoord();
 
@@ -82,9 +88,19 @@ namespace tools
 		eventChangePosition();
 	}
 
-	MyGUI::IntPoint RegionSelectorControl2::getPosition()
+	MyGUI::IntPoint SelectorControl::getPosition()
 	{
 		return mCoordValue.point();
+	}
+
+	MyGUI::IntSize SelectorControl::getSize()
+	{
+		return mCoordValue.size();
+	}
+
+	const MyGUI::IntCoord& SelectorControl::getCoord()
+	{
+		return mCoordValue;
 	}
 
 } // namespace tools
