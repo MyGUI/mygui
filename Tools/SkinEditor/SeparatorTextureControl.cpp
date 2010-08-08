@@ -11,14 +11,44 @@ namespace tools
 
 	SeparatorTextureControl::SeparatorTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
-		mTextureVisible(false)
+		mTextureVisible(false),
+		mHorizontalSelectorControl(nullptr),
+		mVerticalSelectorControl(nullptr)
 	{
+		mTypeName = MyGUI::utility::toString((int)this);
+
+		addSelectorControl(mHorizontalSelectorControl);
+		addSelectorControl(mVerticalSelectorControl);
+
+		mHorizontalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
+		mVerticalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
+
 		initialiseAdvisor();
 	}
 
 	SeparatorTextureControl::~SeparatorTextureControl()
 	{
 		shutdownAdvisor();
+
+		mHorizontalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
+		mVerticalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
+	}
+
+	void SeparatorTextureControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
+	{
+		if (_owner != mTypeName)
+		{
+			if (_sender->getName() == "Position")
+				updatePosition();
+			else if (_sender->getName() == "Visible")
+				updateVisible();
+		}
+	}
+
+	void SeparatorTextureControl::updateSeparatorProperties()
+	{
+		updatePosition();
+		updateVisible();
 	}
 
 	void SeparatorTextureControl::updateTextureControl()
@@ -125,6 +155,35 @@ namespace tools
 		}
 
 		updateTextureControl();
+	}
+
+	void SeparatorTextureControl::updatePosition()
+	{
+	}
+
+	void SeparatorTextureControl::updateVisible()
+	{
+		mHorizontalSelectorControl->setVisible(false);
+		mVerticalSelectorControl->setVisible(false);
+
+		if (getCurrentSeparator() != nullptr)
+		{
+			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Visible");
+			if (prop != nullptr)
+			{
+				if (prop->getValue() == "True")
+				{
+					if (getCurrentSeparator()->getHorizontal())
+						mHorizontalSelectorControl->setVisible(true);
+					else
+						mVerticalSelectorControl->setVisible(true);
+				}
+			}
+		}
+	}
+
+	void SeparatorTextureControl::notifyChangePosition()
+	{
 	}
 
 } // namespace tools

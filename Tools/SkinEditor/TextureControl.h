@@ -11,6 +11,7 @@
 #include "SkinItem.h"
 #include "RegionSelectorControl.h"
 #include "PropertyAdvisor.h"
+#include "SelectorControl.h"
 
 namespace tools
 {
@@ -28,6 +29,13 @@ namespace tools
 
 		void setTextureRegion(const MyGUI::IntCoord& _value);
 		const MyGUI::IntCoord& getTextureRegion();
+
+		template<typename T>
+		void addSelectorControl(T * & _control)
+		{
+			assignBase(_control, "Texture");
+			mSelectors.push_back(_control);
+		}
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -55,6 +63,8 @@ namespace tools
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;
 		MyGUI::IntCoord mTextureRegion;
+
+		std::vector<SelectorControl*> mSelectors;
 	};
 
 } // namespace tools
