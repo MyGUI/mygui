@@ -172,7 +172,12 @@ namespace tools
 						Property* prop2 = item->getPropertySet()->getChild("Position");
 						if (prop2 != nullptr)
 						{
-							addCoord(coords, prop->getValue(), prop2->getValue());
+							Property* prop3 = item->getPropertySet()->getChild("Visible");
+							if (prop3 != nullptr)
+							{
+								if (prop3->getValue() == "True")
+									addCoord(coords, prop->getValue(), prop2->getValue());
+							}
 						}
 					}
 				}
