@@ -11,6 +11,7 @@
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
 #include "PropertyBoolControl.h"
+#include "PropertyInt2Control.h"
 
 namespace tools
 {
@@ -24,22 +25,11 @@ namespace tools
 		virtual ~StatePropertyControl();
 
 	private:
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyEditTextChange(MyGUI::Edit* _sender);
-
 		virtual void updateStateProperties();
-		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
-
-		void updatePosition();
-
-		bool isPositionValidate();
-		MyGUI::UString getClearPositionValue();
-		void setColourPosition(bool _validate);
 
 	private:
-		MyGUI::Edit* mPosition;
-		MyGUI::UString mTypeName;
-		PropertyBoolControl* mPropertyBoolControl;
+		PropertyBoolControl* mPropertyVisibleControl;
+		PropertyInt2Control* mPropertyPositionControl;
 	};
 
 } // namespace tools
