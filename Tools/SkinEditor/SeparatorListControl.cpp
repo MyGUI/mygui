@@ -12,78 +12,42 @@ namespace tools
 
 	SeparatorListControl::SeparatorListControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SeparatorListControl.layout", _parent),
-		mList(nullptr),
-		mCurrentSkin(nullptr)
+		mList(nullptr)
 	{
 		assignWidget(mList, "List");
 
 		mList->eventListChangePosition += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeSelection);
-		advice();
+		initialiseAdvisor();
 	}
 
 	SeparatorListControl::~SeparatorListControl()
 	{
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeSelection);
-		unadvice();
+		shutdownAdvisor();
 
 		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
 	}
 
 	void SeparatorListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
 	{
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
 			SeparatorItem* item = nullptr;
 
 			if (_index != MyGUI::ITEM_NONE)
 				item = *mList->getItemDataAt<SeparatorItem*>(_index);
 
-			mCurrentSkin->getSeparators().setItemSelected(item);
+			getCurrentSkin()->getSeparators().setItemSelected(item);
 		}
 	}
 
-	void SeparatorListControl::notifyChangeSelection()
+	void SeparatorListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _value)
 	{
-		unadvice();
-		advice();
-	}
-
-	void SeparatorListControl::unadvice()
-	{
-		if (mCurrentSkin != nullptr)
-		{
-			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
-			while (separators.next())
-			{
-				SeparatorItem* item = separators.current();
-				item->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
-			}
-
-			mCurrentSkin = nullptr;
+		if (_sender->getName() == "Visible")
 			updateList();
-		}
 	}
 
-	void SeparatorListControl::advice()
-	{
-		mCurrentSkin = SkinManager::getInstance().getItemSelected();
-
-		if (mCurrentSkin != nullptr)
-		{
-			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
-			while (separators.next())
-			{
-				SeparatorItem* item = separators.current();
-				item->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangeProperty);
-			}
-
-			updateList();
-		}
-	}
-
-	void SeparatorListControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _value)
+	void SeparatorListControl::updateSeparatorProperties()
 	{
 		updateList();
 	}
@@ -93,11 +57,11 @@ namespace tools
 		mList->setIndexSelected(MyGUI::ITEM_NONE);
 		mList->removeAllItems();
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			SeparatorItem* selectedItem = mCurrentSkin->getSeparators().getItemSelected();
+			SeparatorItem* selectedItem = getCurrentSkin()->getSeparators().getItemSelected();
 
-			ItemHolder<SeparatorItem>::EnumeratorItem separators = mCurrentSkin->getSeparators().getChildsEnumerator();
+			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
 			while (separators.next())
 			{
 				size_t index = mList->getItemCount();
