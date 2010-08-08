@@ -30,6 +30,8 @@ set (HEADER_FILES
   PropertyIntControl.h
   PropertyTexturesControl.h
   SeparatorPropertyControl.h
+  TextureControl.h
+  SeparatorTextureControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -61,6 +63,8 @@ set (SOURCE_FILES
   PropertyIntControl.cpp
   PropertyTexturesControl.cpp
   SeparatorPropertyControl.cpp
+  TextureControl.cpp
+  SeparatorTextureControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -93,6 +97,8 @@ SOURCE_GROUP("Source Files" FILES
   PropertyIntControl.cpp
   PropertyTexturesControl.cpp
   SeparatorPropertyControl.cpp
+  TextureControl.cpp
+  SeparatorTextureControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -126,6 +132,8 @@ SOURCE_GROUP("Header Files" FILES
   PropertyIntControl.h
   PropertyTexturesControl.h
   SeparatorPropertyControl.h
+  TextureControl.h
+  SeparatorTextureControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
