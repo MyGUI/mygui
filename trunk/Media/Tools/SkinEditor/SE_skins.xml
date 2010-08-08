@@ -24,21 +24,20 @@
 		<Child type="Widget" skin="MarkerGreen" offset = "0 49 50 1" align = "HStretch Bottom"/>
 		<Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "Left VStretch"/>
 		<Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
-
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "HorizontalSeparator" size = "50 1" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="ToStick" value = "false" />
 
-		<Child type="Widget" skin="StretchRectangleHorz" offset = "0 0 50 1" align = "HStretch Top">
+		<Child type="Button" skin="StretchRectangleVert" offset = "0 0 50 1" align = "HStretch Top" name = "Action" >
 			<Property key="Scale" value = "0 1 0 0"/>
-		</Child >
+		</Child>
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "VerticalSeparator" size = "1 50" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="ToStick" value = "false" />
 
-		<Child type="Widget" skin="StretchRectangleVert" offset = "0 0 1 50" align = "Left VStretch">
+		<Child type="Widget" skin="StretchRectangleHorz" offset = "0 0 1 50" align = "Left VStretch" name = "Action" >
 			<Property key="Scale" value = "1 0 0 0"/>
 		</Child >
 	</Resource>
