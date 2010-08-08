@@ -8,7 +8,7 @@
         </Widget>
         <Widget type="TabItem" skin="" position="4 26 517 334">
             <Property key="Widget_Caption" value="States"/>
-            <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="StatesControl"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="StateControl"/>
         </Widget>
         <Widget type="TabItem" skin="" position="4 26 517 334">
             <Property key="Widget_Caption" value="Separators"/>
