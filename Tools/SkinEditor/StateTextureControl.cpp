@@ -18,8 +18,6 @@ namespace tools
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mRegionSelectorControl(nullptr),
-		mCurrentSkin(nullptr),
-		mCurrentState(nullptr),
 		mScale(nullptr),
 		mScaleValue(1)
 	{
@@ -36,101 +34,28 @@ namespace tools
 		fillScale();
 		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyComboChangePosition);
 
-		SkinManager::getInstance().eventChangeSelection += MyGUI::newDelegate(this, &StateTextureControl::notifyChangeSelection);
-		advice();
-
 		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 
-		updateAllProperties();
+		initialiseAdvisor();
 	}
 
 	StateTextureControl::~StateTextureControl()
 	{
+		shutdownAdvisor();
+
 		mRegionSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyComboChangePosition);
 		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyComboChangePosition);
-
-		SkinManager::getInstance().eventChangeSelection -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangeSelection);
-		unadvice();
-	}
-
-	void StateTextureControl::notifyChangeSelection()
-	{
-		unadvice();
-		advice();
-
-		updateAllProperties();
-		updateAllStateProperties();
-	}
-
-	void StateTextureControl::unadvice()
-	{
-		if (mCurrentSkin != nullptr)
-		{
-			unadviceState();
-
-			mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
-			mCurrentSkin->eventStateChangeSelection -= MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
-			mCurrentSkin = nullptr;
-		}
-	}
-
-	void StateTextureControl::advice()
-	{
-		mCurrentSkin = SkinManager::getInstance().getItemSelected();
-
-		if (mCurrentSkin != nullptr)
-		{
-			mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangeProperty);
-			mCurrentSkin->eventStateChangeSelection += MyGUI::newDelegate(this, &StateTextureControl::notifyStateChangeSelection);
-
-			adviceState();
-		}
-	}
-
-	void StateTextureControl::adviceState()
-	{
-		mCurrentState = mCurrentSkin->getStateSelected();
-		if (mCurrentState != nullptr)
-		{
-			mCurrentState->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePropertyState);
-		}
-	}
-
-	void StateTextureControl::unadviceState()
-	{
-		if (mCurrentState != nullptr)
-		{
-			mCurrentState->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePropertyState);
-			mCurrentState = nullptr;
-		}
-	}
-
-	void StateTextureControl::notifyChangePropertyState(Property* _sender, const MyGUI::UString& _owner)
-	{
-		if (_owner != mTypeName)
-		{
-			if (_sender->getName() == "Visible")
-				updateVisible();
-			else if (_sender->getName() == "Position")
-				updatePosition();
-		}
-	}
-
-	void StateTextureControl::updateAllStateProperties()
-	{
-		updateVisible();
-		updatePosition();
 	}
 
 	void StateTextureControl::updateVisible()
 	{
 		MyGUI::UString visible;
 
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Visible");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
 			if (prop != nullptr)
 				visible = prop->getValue();
 		}
@@ -142,9 +67,9 @@ namespace tools
 	{
 		MyGUI::UString value;
 
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
 				value = prop->getValue();
 		}
@@ -156,39 +81,13 @@ namespace tools
 		}
 	}
 
-	void StateTextureControl::notifyStateChangeSelection()
-	{
-		unadviceState();
-		adviceState();
-
-		updateAllProperties();
-		updateAllStateProperties();
-	}
-
-	void StateTextureControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
-	{
-		if (_owner != mTypeName)
-		{
-			if (_sender->getName() == "Texture")
-				updateTexture();
-			else if (_sender->getName() == "Coord")
-				updateCoord();
-		}
-	}
-
-	void StateTextureControl::updateAllProperties()
-	{
-		updateTexture();
-		updateCoord();
-	}
-
 	void StateTextureControl::updateTexture()
 	{
 		MyGUI::UString texture;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Texture");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
 			if (prop != nullptr)
 				texture = prop->getValue();
 		}
@@ -203,9 +102,9 @@ namespace tools
 	{
 		MyGUI::UString value;
 
-		if (mCurrentSkin != nullptr)
+		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = mCurrentSkin->getPropertySet()->getChild("Coord");
+			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
 			if (prop != nullptr)
 				value = prop->getValue();
 		}
@@ -304,11 +203,45 @@ namespace tools
 	{
 		MyGUI::IntPoint point = mRegionSelectorControl->getPosition();
 
-		if (mCurrentState != nullptr)
+		if (getCurrentState() != nullptr)
 		{
-			Property* prop = mCurrentState->getPropertySet()->getChild("Position");
+			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
 				prop->setValue(point.print(), mTypeName);
+		}
+	}
+
+	void StateTextureControl::updateSkinProperties()
+	{
+		updateTexture();
+		updateCoord();
+	}
+
+	void StateTextureControl::updateStateProperties()
+	{
+		updateVisible();
+		updatePosition();
+	}
+
+	void StateTextureControl::updateSkinProperty(Property* _sender, const MyGUI::UString& _owner)
+	{
+		if (_owner != mTypeName)
+		{
+			if (_sender->getName() == "Texture")
+				updateTexture();
+			else if (_sender->getName() == "Coord")
+				updateCoord();
+		}
+	}
+
+	void StateTextureControl::updateStateProperty(Property* _sender, const MyGUI::UString& _owner)
+	{
+		if (_owner != mTypeName)
+		{
+			if (_sender->getName() == "Visible")
+				updateVisible();
+			else if (_sender->getName() == "Position")
+				updatePosition();
 		}
 	}
 

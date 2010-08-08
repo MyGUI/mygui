@@ -9,29 +9,27 @@
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
 #include "SkinItem.h"
+#include "PropertyAdvisor.h"
 
 namespace tools
 {
 
 	class SkinPropertyControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public PropertyAdvisor
 	{
 	public:
 		SkinPropertyControl(MyGUI::Widget* _parent);
 		virtual ~SkinPropertyControl();
 
 	private:
-		void notifyChangeSelection();
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyEditTextChange(MyGUI::Edit* _sender);
 
+		virtual void updateSkinProperties();
+		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
+
 		void fillTextures();
-
-		void unadvice();
-		void advice();
-
-		void updateAllProperties();
 
 		void updateTexture();
 		void updateCoord();
@@ -45,7 +43,6 @@ namespace tools
 	private:
 		MyGUI::ComboBox* mTextures;
 		MyGUI::Edit* mCoord;
-		SkinItem* mCurrentSkin;
 		MyGUI::UString mTypeName;
 	};
 

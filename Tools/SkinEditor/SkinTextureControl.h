@@ -10,12 +10,14 @@
 #include "Property.h"
 #include "SkinItem.h"
 #include "RegionSelectorControl.h"
+#include "PropertyAdvisor.h"
 
 namespace tools
 {
 
 	class SkinTextureControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public PropertyAdvisor
 	{
 	public:
 		SkinTextureControl(MyGUI::Widget* _parent);
@@ -23,15 +25,13 @@ namespace tools
 
 	private:
 		void notifyChangeSelection();
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+
+		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateSkinProperties();
 
 		void notifyChangePosition();
 
-		void unadvice();
-		void advice();
-
-		void updateAllProperties();
 		void updateTexture();
 		void updateCoord();
 
@@ -52,7 +52,6 @@ namespace tools
 
 		RegionSelectorControl* mRegionSelectorControl;
 
-		SkinItem* mCurrentSkin;
 		MyGUI::UString mTypeName;
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;

@@ -21,6 +21,8 @@ set (HEADER_FILES
   SeparatorItem.h
   SeparatorListControl.h
   SeparatorControl.h
+  ItemHolder.h
+  PropertyAdvisor.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -94,6 +96,8 @@ SOURCE_GROUP("Header Files" FILES
   SeparatorItem.h
   SeparatorListControl.h
   SeparatorControl.h
+  ItemHolder.h
+  PropertyAdvisor.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

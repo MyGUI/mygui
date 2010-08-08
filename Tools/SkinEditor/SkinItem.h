@@ -9,14 +9,11 @@
 #include <MyGUI.h>
 #include "PropertySet.h"
 #include "StateItem.h"
+#include "SeparatorItem.h"
+#include "ItemHolder.h"
 
 namespace tools
 {
-
-	typedef std::vector<StateItem*> VectorStateItem;
-	typedef MyGUI::Enumerator<VectorStateItem> EnumeratorStateItem;
-
-	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_StateChangeSelection;
 
 	class SkinItem
 	{
@@ -29,30 +26,13 @@ namespace tools
 
 		PropertySet* getPropertySet();
 
-		StateItem* getState(const MyGUI::UString& _name);
-
-		EnumeratorStateItem getStatesEnumerator();
-
-		StateItem* getStateSelected();
-		void setStateSelected(StateItem* _value);
-
-		EventHandle_StateChangeSelection eventStateChangeSelection;
-
-	private:
-		StateItem* createState(const MyGUI::UString& _name);
-
-		void destroyState(StateItem* _item);
-
-		void destroyState(const MyGUI::UString& _name);
-
-		void destroyAllStates();
+		ItemHolder<StateItem>& getStates() { return mStates; }
 
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
 
-		VectorStateItem mStates;
-		StateItem* mStateSelected;
+		ItemHolder<StateItem> mStates;
 	};
 
 } // namespace tools
