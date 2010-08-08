@@ -12,10 +12,11 @@ namespace tools
 
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
-		mTypeName("SkinTextureControl"),
 		mRegionSelectorControl(nullptr)
 	{
-		assignBase(mRegionSelectorControl, "Texture");
+		mTypeName = MyGUI::utility::toString((int)this);
+
+		addSelectorControl(mRegionSelectorControl);
 
 		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
 

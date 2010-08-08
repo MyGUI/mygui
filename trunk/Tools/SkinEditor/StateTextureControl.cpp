@@ -12,10 +12,11 @@ namespace tools
 
 	StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
-		mTypeName("StateTextureControl"),
 		mRegionSelectorControl(nullptr)
 	{
-		assignBase(mRegionSelectorControl, "Texture");
+		mTypeName = MyGUI::utility::toString((int)this);
+
+		addSelectorControl(mRegionSelectorControl);
 
 		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 

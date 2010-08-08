@@ -107,6 +107,9 @@ namespace tools
 		double height = (double)mTextureRegion.height * mScaleValue;
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
+
+		for (std::vector<SelectorControl*>::iterator item=mSelectors.begin(); item!=mSelectors.end(); ++item)
+			(*item)->setScale(mScaleValue);
 	}
 
 	void TextureControl::setTextureName(const MyGUI::UString& _value)
@@ -138,6 +141,5 @@ namespace tools
 	{
 		return mTextureRegion;
 	}
-
 
 } // namespace tools
