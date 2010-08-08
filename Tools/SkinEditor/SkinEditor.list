@@ -13,6 +13,8 @@ set (HEADER_FILES
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
   PositionSelectorControl.h
+  HorizontalSelectorControl.h
+  VerticalSelectorControl.h
   StateControl.h
   StateListControl.h
   StateItem.h
@@ -49,6 +51,8 @@ set (SOURCE_FILES
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
   PositionSelectorControl.cpp
+  HorizontalSelectorControl.cpp
+  VerticalSelectorControl.cpp
   StateControl.cpp
   StateListControl.cpp
   StateItem.cpp
@@ -84,6 +88,8 @@ SOURCE_GROUP("Source Files" FILES
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
   PositionSelectorControl.cpp
+  HorizontalSelectorControl.cpp
+  VerticalSelectorControl.cpp
   StateControl.cpp
   StateListControl.cpp
   StateItem.cpp
@@ -118,6 +124,8 @@ SOURCE_GROUP("Header Files" FILES
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
   PositionSelectorControl.h
+  HorizontalSelectorControl.h
+  VerticalSelectorControl.h
   StateControl.h
   StateListControl.h
   StateItem.h
