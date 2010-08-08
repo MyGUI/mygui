@@ -12,7 +12,7 @@ set (HEADER_FILES
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
-  RegionSelectorControl2.h
+  PositionSelectorControl.h
   StateControl.h
   StateListControl.h
   StateItem.h
@@ -32,6 +32,7 @@ set (HEADER_FILES
   SeparatorPropertyControl.h
   TextureControl.h
   SeparatorTextureControl.h
+  SelectorControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -47,7 +48,7 @@ set (SOURCE_FILES
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
-  RegionSelectorControl2.cpp
+  PositionSelectorControl.cpp
   StateControl.cpp
   StateListControl.cpp
   StateItem.cpp
@@ -65,6 +66,7 @@ set (SOURCE_FILES
   SeparatorPropertyControl.cpp
   TextureControl.cpp
   SeparatorTextureControl.cpp
+  SelectorControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -81,7 +83,7 @@ SOURCE_GROUP("Source Files" FILES
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
   RegionSelectorControl.cpp
-  RegionSelectorControl2.cpp
+  PositionSelectorControl.cpp
   StateControl.cpp
   StateListControl.cpp
   StateItem.cpp
@@ -99,6 +101,7 @@ SOURCE_GROUP("Source Files" FILES
   SeparatorPropertyControl.cpp
   TextureControl.cpp
   SeparatorTextureControl.cpp
+  SelectorControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -114,7 +117,7 @@ SOURCE_GROUP("Header Files" FILES
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
   RegionSelectorControl.h
-  RegionSelectorControl2.h
+  PositionSelectorControl.h
   StateControl.h
   StateListControl.h
   StateItem.h
@@ -134,6 +137,7 @@ SOURCE_GROUP("Header Files" FILES
   SeparatorPropertyControl.h
   TextureControl.h
   SeparatorTextureControl.h
+  SelectorControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

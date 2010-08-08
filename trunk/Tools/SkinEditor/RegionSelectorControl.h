@@ -6,37 +6,17 @@
 #ifndef __REGION_SELECTOR_CONTROL_H__
 #define __REGION_SELECTOR_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#include "SelectorControl.h"
 
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
-
 	class RegionSelectorControl :
-		public wraps::BaseLayout
+		public SelectorControl
 	{
 	public:
 		RegionSelectorControl(MyGUI::Widget* _parent);
 		virtual ~RegionSelectorControl();
-
-		void setVisible(bool _value);
-		void setScale(double _value);
-
-		void setCoord(const MyGUI::IntCoord& _value);
-		const MyGUI::IntCoord& getCoord();
-
-		EventHandle_ChangePosition eventChangePosition;
-
-	private:
-		void notifyWindowChangeCoord(MyGUI::Window* _sender);
-
-		void updateCoord();
-
-	private:
-		MyGUI::IntCoord mCoordValue;
-		MyGUI::IntCoord mCoordReal;
-		double mScaleValue;
 	};
 
 } // namespace tools
