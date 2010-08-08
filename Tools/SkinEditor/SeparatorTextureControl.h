@@ -32,10 +32,12 @@ namespace tools
 		void updateTextureName();
 		void updateRegionSize();
 		void updateRegionPosition();
+		void updateTextureVisible();
 
 	private:
 		MyGUI::UString mTextureName;
 		MyGUI::IntCoord mTextureRegion;
+		bool mTextureVisible;
 	};
 
 } // namespace tools
