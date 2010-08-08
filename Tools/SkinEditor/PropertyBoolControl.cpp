@@ -10,7 +10,7 @@ namespace tools
 {
 
 	PropertyBoolControl::PropertyBoolControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyBoolControl.layout", _parent),
+		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
 		mComboBox(nullptr)
 	{
 		assignWidget(mComboBox, "ComboBox");
