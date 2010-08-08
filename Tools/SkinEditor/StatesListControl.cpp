@@ -11,7 +11,7 @@ namespace tools
 {
 
 	StatesListControl::StatesListControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("StatesListControl.layout", _parent),
+		wraps::BaseLayout("StateListControl.layout", _parent),
 		mList(nullptr),
 		mCurrentSkin(nullptr)
 	{
