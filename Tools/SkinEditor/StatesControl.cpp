@@ -10,7 +10,7 @@ namespace tools
 {
 
 	StatesControl::StatesControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("StatesControl.layout", _parent),
+		wraps::BaseLayout("StateControl.layout", _parent),
 		mStatesListControl(nullptr),
 		mStatePropertyControl(nullptr),
 		mStateTextureControl(nullptr)
