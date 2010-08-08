@@ -12,10 +12,10 @@ namespace tools
 
 	SkinPropertyControl::SkinPropertyControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinPropertyControl.layout", _parent),
+		mTypeName("SkinPropertyControl"),
 		mTextures(nullptr),
 		mCoord(nullptr),
-		mCurrentSkin(nullptr),
-		mTypeName("SkinPropertyControl")
+		mCurrentSkin(nullptr)
 	{
 		assignWidget(mTextures, "Textures");
 		assignWidget(mCoord, "Coord");

@@ -8,7 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinControl.h"
-#include "StatesControl.h"
+#include "StateControl.h"
 #include "SeparatorControl.h"
 
 namespace tools
