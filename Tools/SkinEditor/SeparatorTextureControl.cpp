@@ -18,6 +18,11 @@ namespace tools
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
+		// сразу рисуем рамки для стейтов
+		std::vector<int> coordsHor(2);
+		std::vector<int> coordsVert(2);
+		drawUnselectedStates(coordsHor, coordsVert);
+
 		addSelectorControl(mHorizontalSelectorControl);
 		addSelectorControl(mVerticalSelectorControl);
 
@@ -50,6 +55,8 @@ namespace tools
 	{
 		updateVisible();
 		updatePosition();
+
+		updateUnselectedStates();
 	}
 
 	void SeparatorTextureControl::updateTextureControl()
@@ -123,6 +130,8 @@ namespace tools
 		}
 
 		updateTextureControl();
+
+		updateUnselectedStates();
 	}
 
 	void SeparatorTextureControl::updateRegionPosition()
@@ -186,21 +195,17 @@ namespace tools
 
 		if (getCurrentSeparator() != nullptr)
 		{
+			mHorizontal = getCurrentSeparator()->getHorizontal();
+
 			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Visible");
 			if (prop != nullptr)
 			{
 				if (prop->getValue() == "True")
 				{
 					if (getCurrentSeparator()->getHorizontal())
-					{
 						mHorizontalSelectorControl->setVisible(true);
-						mHorizontal = true;
-					}
 					else
-					{
 						mVerticalSelectorControl->setVisible(true);
-						mHorizontal = false;
-					}
 				}
 			}
 		}
@@ -219,6 +224,107 @@ namespace tools
 			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Position");
 			if (prop != nullptr)
 				prop->setValue(MyGUI::utility::toString(position), mTypeName);
+		}
+	}
+
+	void SeparatorTextureControl::updateUnselectedStates()
+	{
+		std::vector<int> coordsHor;
+		std::vector<int> coordsVert;
+
+		if (getCurrentSkin() != nullptr)
+		{
+			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
+			while (separators.next())
+			{
+				SeparatorItem* item = separators.current();
+				if (item != getCurrentSkin()->getSeparators().getItemSelected())
+				{
+					Property* prop2 = item->getPropertySet()->getChild("Position");
+					if (prop2 != nullptr)
+					{
+						Property* prop3 = item->getPropertySet()->getChild("Visible");
+						if (prop3 != nullptr)
+						{
+							if (prop3->getValue() == "True")
+								addCoord(coordsHor, coordsVert, item->getHorizontal(), prop2->getValue());
+						}
+					}
+				}
+			}
+		}
+
+		drawUnselectedStates(coordsHor, coordsVert);
+	}
+
+	void SeparatorTextureControl::addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, bool _horizont, const MyGUI::UString& _position)
+	{
+		int position;
+		if (MyGUI::utility::parseComplex(_position, position))
+		{
+			if (_horizont)
+			{
+				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
+				{
+					if ((*item) == position)
+						return;
+				}
+				_coordsHor.push_back(position);
+			}
+			else
+			{
+				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
+				{
+					if ((*item) == position)
+						return;
+				}
+				_coordsVert.push_back(position);
+			}
+		}
+	}
+
+	void SeparatorTextureControl::drawUnselectedStates(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert)
+	{
+		while (_coordsHor.size() > mHorizontalBlackSelectors.size())
+		{
+			HorizontalSelectorBlackControl* selector = nullptr;
+			addSelectorControl(selector);
+
+			mHorizontalBlackSelectors.push_back(selector);
+		}
+
+		for (size_t index=0; index<mHorizontalBlackSelectors.size(); ++index)
+		{
+			if (index < _coordsHor.size())
+			{
+				mHorizontalBlackSelectors[index]->setVisible(true);
+				mHorizontalBlackSelectors[index]->setCoord(MyGUI::IntCoord(0, _coordsHor[index], mTextureRegion.width, 1));
+			}
+			else
+			{
+				mHorizontalBlackSelectors[index]->setVisible(false);
+			}
+		}
+
+		while (_coordsVert.size() > mVerticalBlackSelectors.size())
+		{
+			VerticalSelectorBlackControl* selector = nullptr;
+			addSelectorControl(selector);
+
+			mVerticalBlackSelectors.push_back(selector);
+		}
+
+		for (size_t index=0; index<mVerticalBlackSelectors.size(); ++index)
+		{
+			if (index < _coordsVert.size())
+			{
+				mVerticalBlackSelectors[index]->setVisible(true);
+				mVerticalBlackSelectors[index]->setCoord(MyGUI::IntCoord(_coordsVert[index], 0, 1, mTextureRegion.height));
+			}
+			else
+			{
+				mVerticalBlackSelectors[index]->setVisible(false);
+			}
 		}
 	}
 
