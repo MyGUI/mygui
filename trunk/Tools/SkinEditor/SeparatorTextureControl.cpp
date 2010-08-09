@@ -104,11 +104,7 @@ namespace tools
 	{
 		mTextureName = "";
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
-			if (prop != nullptr)
-				mTextureName = prop->getValue();
-		}
+			mTextureName = getCurrentSkin()->getPropertySet()->getPropertyValue("Texture");
 
 		updateTextureControl();
 	}
@@ -120,13 +116,9 @@ namespace tools
 
 		if (getCurrentSkin() != nullptr)
 		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
-			if (prop != nullptr)
-			{
-				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(prop->getValue());
-				mTextureRegion.width = coord.width;
-				mTextureRegion.height = coord.height;
-			}
+			MyGUI::IntCoord coord = MyGUI::IntCoord::parse(getCurrentSkin()->getPropertySet()->getPropertyValue("Coord"));
+			mTextureRegion.width = coord.width;
+			mTextureRegion.height = coord.height;
 		}
 
 		updateTextureControl();
@@ -141,13 +133,9 @@ namespace tools
 
 		if (getCurrentState() != nullptr)
 		{
-			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
-			if (prop != nullptr)
-			{
-				MyGUI::IntPoint position = MyGUI::IntPoint::parse(prop->getValue());
-				mTextureRegion.left = position.left;
-				mTextureRegion.top = position.top;
-			}
+			MyGUI::IntPoint position = MyGUI::IntPoint::parse(getCurrentState()->getPropertySet()->getPropertyValue("Position"));
+			mTextureRegion.left = position.left;
+			mTextureRegion.top = position.top;
 		}
 
 		updateTextureControl();
@@ -158,11 +146,7 @@ namespace tools
 		mTextureVisible = false;
 
 		if (getCurrentState() != nullptr)
-		{
-			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
-			if (prop != nullptr)
-				mTextureVisible = prop->getValue() == "True";
-		}
+			mTextureVisible = getCurrentState()->getPropertySet()->getPropertyValue("Visible") == "True";
 
 		updateTextureControl();
 	}
@@ -172,11 +156,7 @@ namespace tools
 		MyGUI::UString value;
 
 		if (getCurrentSeparator() != nullptr)
-		{
-			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Position");
-			if (prop != nullptr)
-				value = prop->getValue();
-		}
+			value = getCurrentSeparator()->getPropertySet()->getPropertyValue("Position");
 
 		int position = 0;
 		if (MyGUI::utility::parseComplex(value, position))
@@ -197,16 +177,12 @@ namespace tools
 		{
 			mHorizontal = getCurrentSeparator()->getHorizontal();
 
-			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Visible");
-			if (prop != nullptr)
+			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
 			{
-				if (prop->getValue() == "True")
-				{
-					if (getCurrentSeparator()->getHorizontal())
-						mHorizontalSelectorControl->setVisible(true);
-					else
-						mVerticalSelectorControl->setVisible(true);
-				}
+				if (getCurrentSeparator()->getHorizontal())
+					mHorizontalSelectorControl->setVisible(true);
+				else
+					mVerticalSelectorControl->setVisible(true);
 			}
 		}
 	}
@@ -220,11 +196,7 @@ namespace tools
 			position = mVerticalSelectorControl->getPosition().left;
 
 		if (getCurrentSeparator() != nullptr)
-		{
-			Property* prop = getCurrentSeparator()->getPropertySet()->getChild("Position");
-			if (prop != nullptr)
-				prop->setValue(MyGUI::utility::toString(position), mTypeName);
-		}
+			getCurrentSeparator()->getPropertySet()->setPropertyValue("Position", MyGUI::utility::toString(position), mTypeName);
 	}
 
 	void SeparatorTextureControl::updateUnselectedStates()
@@ -240,16 +212,9 @@ namespace tools
 				SeparatorItem* item = separators.current();
 				if (item != getCurrentSkin()->getSeparators().getItemSelected())
 				{
-					Property* prop2 = item->getPropertySet()->getChild("Position");
-					if (prop2 != nullptr)
-					{
-						Property* prop3 = item->getPropertySet()->getChild("Visible");
-						if (prop3 != nullptr)
-						{
-							if (prop3->getValue() == "True")
-								addCoord(coordsHor, coordsVert, item->getHorizontal(), prop2->getValue());
-						}
-					}
+					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
+						addCoord(coordsHor, coordsVert, item->getHorizontal(),
+							item->getPropertySet()->getPropertyValue("Position"));
 				}
 			}
 		}
