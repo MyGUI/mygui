@@ -52,11 +52,7 @@ namespace tools
 		MyGUI::UString texture;
 
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
-			if (prop != nullptr)
-				texture = prop->getValue();
-		}
+			texture = getCurrentSkin()->getPropertySet()->getPropertyValue("Texture");
 
 		setTextureName(texture);
 	}
@@ -66,11 +62,7 @@ namespace tools
 		MyGUI::UString value;
 
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
-			if (prop != nullptr)
-				value = prop->getValue();
-		}
+			value = getCurrentSkin()->getPropertySet()->getPropertyValue("Coord");
 
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
@@ -95,11 +87,7 @@ namespace tools
 		mCoordValue = mRegionSelectorControl->getCoord();
 
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
-			if (prop != nullptr)
-				prop->setValue(mCoordValue.print(), mTypeName);
-		}
+			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
 	}
 
 } // namespace tools

@@ -25,11 +25,11 @@ namespace tools
 
 	void PropertyIntControl::updateProperty()
 	{
-		Property* prop = getProperty();
-		if (prop != nullptr)
+		Property* proper = getProperty();
+		if (proper != nullptr)
 		{
 			mEdit->setEnabled(true);
-			mEdit->setCaption(prop->getValue());
+			mEdit->setCaption(proper->getValue());
 
 			bool validate = isValidate();
 			setColour(validate);
@@ -43,12 +43,12 @@ namespace tools
 
 	void PropertyIntControl::notifyEditTextChange(MyGUI::Edit* _sender)
 	{
-		Property* prop = getProperty();
-		if (prop != nullptr)
+		Property* proper = getProperty();
+		if (proper != nullptr)
 		{
 			bool validate = isValidate();
 			if (validate)
-				prop->setValue(getClearValue(), getTypeName());
+				proper->setValue(getClearValue(), getTypeName());
 
 			setColour(validate);
 		}

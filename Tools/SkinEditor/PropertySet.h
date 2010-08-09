@@ -35,6 +35,9 @@ namespace tools
 
 		EventHandle_ChangeProperty eventChangeProperty;
 
+		void setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _value, const MyGUI::UString& _owner);
+		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName);
+
 	private:
 		void advise(Property* _item);
 		void unadvise(Property* _item);
