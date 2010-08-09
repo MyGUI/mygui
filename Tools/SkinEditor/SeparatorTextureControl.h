@@ -10,6 +10,8 @@
 #include "PropertyAdvisor.h"
 #include "HorizontalSelectorControl.h"
 #include "VerticalSelectorControl.h"
+#include "HorizontalSelectorBlackControl.h"
+#include "VerticalSelectorBlackControl.h"
 
 namespace tools
 {
@@ -43,6 +45,10 @@ namespace tools
 		void updatePosition();
 		void updateVisible();
 
+		void updateUnselectedStates();
+		void addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, bool _horizont, const MyGUI::UString& _position);
+		void drawUnselectedStates(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert);
+
 	private:
 		MyGUI::UString mTextureName;
 		MyGUI::IntCoord mTextureRegion;
@@ -52,6 +58,9 @@ namespace tools
 		HorizontalSelectorControl* mHorizontalSelectorControl;
 		VerticalSelectorControl* mVerticalSelectorControl;
 		bool mHorizontal;
+
+		std::vector<HorizontalSelectorBlackControl*> mHorizontalBlackSelectors;
+		std::vector<VerticalSelectorBlackControl*> mVerticalBlackSelectors;
 	};
 
 } // namespace tools

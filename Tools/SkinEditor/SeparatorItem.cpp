@@ -14,7 +14,7 @@ namespace tools
 		mHorizontal(false)
 	{
 		mPropertySet = new PropertySet();
-		mPropertySet->createChild("Visible", "Bool", "True");
+		mPropertySet->createChild("Visible", "Bool", "False");
 		mPropertySet->createChild("Position", "Int", "0");
 	}
 

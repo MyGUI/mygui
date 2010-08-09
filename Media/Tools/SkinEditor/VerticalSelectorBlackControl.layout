@@ -2,5 +2,6 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="VerticalSeparatorBlack" position="32 56 136 112" align="Default" layer="Popup" name="_Main">
         <Property key="Widget_Alpha" value="0.5"/>
+        <Property key="Widget_NeedMouse" value="false"/>
     </Widget>
 </MyGUI>
