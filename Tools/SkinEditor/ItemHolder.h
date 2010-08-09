@@ -40,7 +40,7 @@ namespace tools
 
 		void destroyChild(T* _item)
 		{
-			VectorItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
+			typename VectorItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
 			if (item != mChilds.end())
 			{
 				if (*item == mItemSelected)
