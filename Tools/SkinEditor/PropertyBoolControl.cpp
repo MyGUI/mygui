@@ -28,11 +28,11 @@ namespace tools
 
 	void PropertyBoolControl::updateProperty()
 	{
-		Property* prop = getProperty();
-		if (prop != nullptr)
+		Property* proper = getProperty();
+		if (proper != nullptr)
 		{
 			mComboBox->setEnabled(true);
-			size_t index = getComboIndex(prop->getValue());
+			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}
 		else
@@ -44,13 +44,13 @@ namespace tools
 
 	void PropertyBoolControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		Property* prop = getProperty();
-		if (prop != nullptr)
+		Property* proper = getProperty();
+		if (proper != nullptr)
 		{
 			if (_index != MyGUI::ITEM_NONE)
-				prop->setValue(mComboBox->getItemNameAt(_index), getTypeName());
+				proper->setValue(mComboBox->getItemNameAt(_index), getTypeName());
 			else
-				prop->setValue("", getTypeName());
+				proper->setValue("", getTypeName());
 		}
 	}
 

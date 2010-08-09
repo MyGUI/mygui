@@ -90,4 +90,21 @@ namespace tools
 		eventChangeProperty(_item, _owner);
 	}
 
+	void PropertySet::setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _value, const MyGUI::UString& _owner)
+	{
+		Property* proper = getChild(_propertyName);
+		if (proper != nullptr)
+			proper->setValue(_value, _owner);
+	}
+
+	const MyGUI::UString& PropertySet::getPropertyValue(const MyGUI::UString& _propertyName)
+	{
+		Property* proper = getChild(_propertyName);
+		if (proper != nullptr)
+			return proper->getValue();
+
+		static MyGUI::UString empty;
+		return empty;
+	}
+
 } // namespace tools

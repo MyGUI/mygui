@@ -39,11 +39,7 @@ namespace tools
 		MyGUI::UString visible;
 
 		if (getCurrentState() != nullptr)
-		{
-			Property* prop = getCurrentState()->getPropertySet()->getChild("Visible");
-			if (prop != nullptr)
-				visible = prop->getValue();
-		}
+			visible = getCurrentState()->getPropertySet()->getPropertyValue("Visible");
 
 		mRegionSelectorControl->setVisible(visible == "True");
 	}
@@ -53,11 +49,7 @@ namespace tools
 		MyGUI::UString value;
 
 		if (getCurrentState() != nullptr)
-		{
-			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
-			if (prop != nullptr)
-				value = prop->getValue();
-		}
+			value = getCurrentState()->getPropertySet()->getPropertyValue("Position");
 
 		MyGUI::IntPoint position;
 		if (MyGUI::utility::parseComplex(value, position.left, position.top))
@@ -71,11 +63,7 @@ namespace tools
 		MyGUI::UString texture;
 
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Texture");
-			if (prop != nullptr)
-				texture = prop->getValue();
-		}
+			texture = getCurrentSkin()->getPropertySet()->getPropertyValue("Texture");
 
 		setTextureName(texture);
 	}
@@ -85,11 +73,7 @@ namespace tools
 		MyGUI::UString value;
 
 		if (getCurrentSkin() != nullptr)
-		{
-			Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
-			if (prop != nullptr)
-				value = prop->getValue();
-		}
+			value = getCurrentSkin()->getPropertySet()->getPropertyValue("Coord");
 
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
@@ -111,11 +95,7 @@ namespace tools
 		MyGUI::IntPoint point = mRegionSelectorControl->getPosition();
 
 		if (getCurrentState() != nullptr)
-		{
-			Property* prop = getCurrentState()->getPropertySet()->getChild("Position");
-			if (prop != nullptr)
-				prop->setValue(point.print(), mTypeName);
-		}
+			getCurrentState()->getPropertySet()->setPropertyValue("Position", point.print(), mTypeName);
 	}
 
 	void StateTextureControl::updateSkinProperties()
@@ -166,20 +146,10 @@ namespace tools
 				StateItem* item = states.current();
 				if (item != getCurrentSkin()->getStates().getItemSelected())
 				{
-					Property* prop = getCurrentSkin()->getPropertySet()->getChild("Coord");
-					if (prop != nullptr)
-					{
-						Property* prop2 = item->getPropertySet()->getChild("Position");
-						if (prop2 != nullptr)
-						{
-							Property* prop3 = item->getPropertySet()->getChild("Visible");
-							if (prop3 != nullptr)
-							{
-								if (prop3->getValue() == "True")
-									addCoord(coords, prop->getValue(), prop2->getValue());
-							}
-						}
-					}
+					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
+						addCoord(coords,
+							getCurrentSkin()->getPropertySet()->getPropertyValue("Coord"),
+							item->getPropertySet()->getPropertyValue("Position"));
 				}
 			}
 		}

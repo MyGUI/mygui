@@ -29,8 +29,6 @@ namespace tools
 
 		void updateList();
 
-		bool isValueTrue(const MyGUI::UString& _value);
-
 	private:
 		MyGUI::List* mList;
 	};

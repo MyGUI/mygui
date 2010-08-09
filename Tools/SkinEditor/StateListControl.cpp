@@ -68,8 +68,7 @@ namespace tools
 
 				StateItem* item = states.current();
 
-				Property* prop = item->getPropertySet()->getChild("Visible");
-				if (prop != nullptr && !isValueTrue(prop->getValue()))
+				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
 					mList->addItem("#808080" + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
@@ -78,11 +77,6 @@ namespace tools
 					mList->setIndexSelected(index);
 			}
 		}
-	}
-
-	bool StatesListControl::isValueTrue(const MyGUI::UString& _value)
-	{
-		return (_value == "True");
 	}
 
 } // namespace tools
