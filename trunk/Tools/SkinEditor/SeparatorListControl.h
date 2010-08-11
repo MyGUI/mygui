@@ -28,9 +28,12 @@ namespace tools
 		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _value);
 
 		void updateList();
+		//void updateRegionEnabled();
+		//bool isSeparatorVisible(MyGUI::Align _value);
 
 	private:
 		MyGUI::List* mList;
+		MyGUI::UString mTypeName;
 	};
 
 } // namespace tools

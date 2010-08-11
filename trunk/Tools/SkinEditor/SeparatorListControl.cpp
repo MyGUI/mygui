@@ -14,6 +14,8 @@ namespace tools
 		wraps::BaseLayout("SeparatorListControl.layout", _parent),
 		mList(nullptr)
 	{
+		mTypeName = MyGUI::utility::toString((int)this);
+
 		assignWidget(mList, "List");
 
 		mList->eventListChangePosition += MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
@@ -76,7 +78,45 @@ namespace tools
 				if (item == selectedItem)
 					mList->setIndexSelected(index);
 			}
+
+			//updateRegionEnabled();
 		}
 	}
+
+	/*void SeparatorListControl::updateRegionEnabled()
+	{
+		ItemHolder<RegionItem>::EnumeratorItem regions = getCurrentSkin()->getRegions().getChildsEnumerator();
+		while (regions.next())
+		{
+			bool enabled = true;
+			RegionItem* item = regions.current();
+			MyGUI::Align separator = item->getSeparator();
+
+			if (separator.isLeft() && isSeparatorVisible(MyGUI::Align::Left))
+				enabled = false;
+			if (separator.isRight() && isSeparatorVisible(MyGUI::Align::Right))
+				enabled = false;
+			if (separator.isTop() && isSeparatorVisible(MyGUI::Align::Top))
+				enabled = false;
+			if (separator.isBottom() && isSeparatorVisible(MyGUI::Align::Bottom))
+				enabled = false;
+
+			item->getPropertySet()->setPropertyValue("Enabled", enabled ? "True" : "False", mTypeName);
+		}
+	}
+
+	bool SeparatorListControl::isSeparatorVisible(MyGUI::Align _value)
+	{
+		ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
+		while (separators.next())
+		{
+			SeparatorItem* item = separators.current();
+
+			if (item->getCorner() == _value)
+				return item->getPropertySet()->getPropertyValue("Visible") == "True";
+		}
+
+		return true;
+	}*/
 
 } // namespace tools
