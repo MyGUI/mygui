@@ -12,13 +12,13 @@ namespace tools
 
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
-		mRegionSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
-		addSelectorControl(mRegionSelectorControl);
+		addSelectorControl(mAreaSelectorControl);
 
-		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
 
 		initialiseAdvisor();
 	}
@@ -27,7 +27,7 @@ namespace tools
 	{
 		shutdownAdvisor();
 
-		mRegionSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
 	}
 
 	void SkinTextureControl::updateSkinProperty(Property* _sender, const MyGUI::UString& _owner)
@@ -68,23 +68,23 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
 		{
 			mCoordValue = coord;
-			mRegionSelectorControl->setVisible(true);
+			mAreaSelectorControl->setVisible(true);
 			updateRegionCoord();
 		}
 		else
 		{
-			mRegionSelectorControl->setVisible(false);
+			mAreaSelectorControl->setVisible(false);
 		}
 	}
 
 	void SkinTextureControl::updateRegionCoord()
 	{
-		mRegionSelectorControl->setCoord(mCoordValue);
+		mAreaSelectorControl->setCoord(mCoordValue);
 	}
 
 	void SkinTextureControl::notifyChangePosition()
 	{
-		mCoordValue = mRegionSelectorControl->getCoord();
+		mCoordValue = mAreaSelectorControl->getCoord();
 
 		if (getCurrentSkin() != nullptr)
 			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);

@@ -9,7 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
 #include "SkinItem.h"
-#include "RegionSelectorControl.h"
+#include "AreaSelectorControl.h"
 #include "PropertyAdvisor.h"
 #include "SelectorControl.h"
 
