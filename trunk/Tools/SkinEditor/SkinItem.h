@@ -10,6 +10,7 @@
 #include "PropertySet.h"
 #include "StateItem.h"
 #include "SeparatorItem.h"
+#include "RegionItem.h"
 #include "ItemHolder.h"
 
 namespace tools
@@ -28,6 +29,7 @@ namespace tools
 
 		ItemHolder<StateItem>& getStates() { return mStates; }
 		ItemHolder<SeparatorItem>& getSeparators() { return mSeparators; }
+		ItemHolder<RegionItem>& getRegions() { return mRegions; }
 
 	private:
 		MyGUI::UString mName;
@@ -35,6 +37,7 @@ namespace tools
 
 		ItemHolder<StateItem> mStates;
 		ItemHolder<SeparatorItem> mSeparators;
+		ItemHolder<RegionItem> mRegions;
 	};
 
 } // namespace tools
