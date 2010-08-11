@@ -47,7 +47,7 @@ namespace tools
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 	private:
-		PositionSelectorControl* mRegionSelectorControl;
+		PositionSelectorControl* mAreaSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;

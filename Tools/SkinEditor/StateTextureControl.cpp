@@ -12,7 +12,7 @@ namespace tools
 
 	StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
-		mRegionSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -20,9 +20,9 @@ namespace tools
 		std::vector<MyGUI::IntCoord> coords(8);
 		drawUnselectedStates(coords);
 
-		addSelectorControl(mRegionSelectorControl);
+		addSelectorControl(mAreaSelectorControl);
 
-		mRegionSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 
 		initialiseAdvisor();
 	}
@@ -31,7 +31,7 @@ namespace tools
 	{
 		shutdownAdvisor();
 
-		mRegionSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 	}
 
 	void StateTextureControl::updateVisible()
@@ -41,7 +41,7 @@ namespace tools
 		if (getCurrentState() != nullptr)
 			visible = getCurrentState()->getPropertySet()->getPropertyValue("Visible");
 
-		mRegionSelectorControl->setVisible(visible == "True");
+		mAreaSelectorControl->setVisible(visible == "True");
 	}
 
 	void StateTextureControl::updatePosition()
@@ -54,7 +54,7 @@ namespace tools
 		MyGUI::IntPoint position;
 		if (MyGUI::utility::parseComplex(value, position.left, position.top))
 		{
-			mRegionSelectorControl->setPosition(position);
+			mAreaSelectorControl->setPosition(position);
 		}
 	}
 
@@ -85,14 +85,14 @@ namespace tools
 
 	void StateTextureControl::updateRegionCoord()
 	{
-		mRegionSelectorControl->setSize(mCoordValue.size());
+		mAreaSelectorControl->setSize(mCoordValue.size());
 
 		updateUnselectedStates();
 	}
 
 	void StateTextureControl::notifyChangePosition()
 	{
-		MyGUI::IntPoint point = mRegionSelectorControl->getPosition();
+		MyGUI::IntPoint point = mAreaSelectorControl->getPosition();
 
 		if (getCurrentState() != nullptr)
 			getCurrentState()->getPropertySet()->setPropertyValue("Position", point.print(), mTypeName);

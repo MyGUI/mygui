@@ -11,7 +11,7 @@ set (HEADER_FILES
   SkinPropertyControl.h
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
-  RegionSelectorControl.h
+  AreaSelectorControl.h
   PositionSelectorControl.h
   PositionSelectorBlackControl.h
   HorizontalSelectorControl.h
@@ -55,7 +55,7 @@ set (SOURCE_FILES
   SkinPropertyControl.cpp
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
-  RegionSelectorControl.cpp
+  AreaSelectorControl.cpp
   PositionSelectorControl.cpp
   PositionSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
@@ -98,7 +98,7 @@ SOURCE_GROUP("Source Files" FILES
   SkinPropertyControl.cpp
   SkinTextureControl.cpp
   MyGUI_FilterNoneSkin.cpp
-  RegionSelectorControl.cpp
+  AreaSelectorControl.cpp
   PositionSelectorControl.cpp
   PositionSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
@@ -140,7 +140,7 @@ SOURCE_GROUP("Header Files" FILES
   SkinPropertyControl.h
   SkinTextureControl.h
   MyGUI_FilterNoneSkin.h
-  RegionSelectorControl.h
+  AreaSelectorControl.h
   PositionSelectorControl.h
   PositionSelectorBlackControl.h
   HorizontalSelectorControl.h
