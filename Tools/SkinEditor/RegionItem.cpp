@@ -18,7 +18,7 @@ namespace tools
 		mPropertySet->createChild("Visible", "Bool", "True");
 		mPropertySet->createChild("Enabled", "Bool", "True");
 		mPropertySet->createChild("Align", "Align", "Default");
-		mPropertySet->createChild("Type", "RegionType", "Texture");
+		mPropertySet->createChild("RegionType", "RegionType", "SubSkin");
 	}
 
 	RegionItem::~RegionItem()

@@ -15,12 +15,14 @@ namespace tools
 		mPropertyPositionControl(nullptr),
 		mPropertyVisibleControl(nullptr),
 		mPropertyEnabledControl(nullptr),
-		mPropertyAlignControl(nullptr)
+		mPropertyAlignControl(nullptr),
+		mPropertyRegionTypeControl(nullptr)
 	{
 		assignBase(mPropertyPositionControl, "PropertyPosition");
 		assignBase(mPropertyVisibleControl, "PropertyVisible");
 		assignBase(mPropertyEnabledControl, "PropertyEnabled");
 		assignBase(mPropertyAlignControl, "PropertyAlign");
+		assignBase(mPropertyRegionTypeControl, "PropertyRegionType");
 
 		initialiseAdvisor();
 	}
@@ -37,6 +39,7 @@ namespace tools
 		mPropertyVisibleControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Visible") : nullptr);
 		mPropertyEnabledControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Enabled") : nullptr);
 		mPropertyAlignControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Align") : nullptr);
+		mPropertyRegionTypeControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("RegionType") : nullptr);
 	}
 
 } // namespace tools
