@@ -44,6 +44,7 @@ set (HEADER_FILES
   RegionControl.h
   RegionListControl.h
   RegionPropertyControl.h
+  RegionTextureControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -89,6 +90,7 @@ set (SOURCE_FILES
   RegionControl.cpp
   RegionListControl.cpp
   RegionPropertyControl.cpp
+  RegionTextureControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -135,6 +137,7 @@ SOURCE_GROUP("Source Files" FILES
   RegionControl.cpp
   RegionListControl.cpp
   RegionPropertyControl.cpp
+  RegionTextureControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -182,6 +185,7 @@ SOURCE_GROUP("Header Files" FILES
   RegionControl.h
   RegionListControl.h
   RegionPropertyControl.h
+  RegionTextureControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
