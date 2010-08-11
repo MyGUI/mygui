@@ -10,11 +10,13 @@
 #include "SkinControl.h"
 #include "StateControl.h"
 #include "SeparatorControl.h"
+#include "RegionControl.h"
 
 namespace tools
 {
 
-	class MainPane : public wraps::BaseLayout
+	class MainPane :
+		public wraps::BaseLayout
 	{
 	public:
 		MainPane();
@@ -24,6 +26,7 @@ namespace tools
 		SkinControl* mSkinControl;
 		StatesControl* mStatesControl;
 		SeparatorControl* mSeparatorControl;
+		RegionControl* mRegionControl;
 	};
 
 } // namespace tools
