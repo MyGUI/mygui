@@ -25,12 +25,19 @@ namespace tools
 		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
 
 		virtual void updateRegionProperties();
-		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _value);
+		virtual void updateSeparatorProperties();
+
+		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
 
 		void updateList();
+		void updateRegionEnabled();
+
+		bool isSeparatorVisible(MyGUI::Align _value);
 
 	private:
 		MyGUI::List* mList;
+		MyGUI::UString mTypeName;
 	};
 
 } // namespace tools
