@@ -26,12 +26,16 @@ namespace tools
 		const MyGUI::UString& getName();
 		const MyGUI::UString& getType();
 
+		bool getReadOnly();
+		void setReadOnly(bool _value);
+
 		EventHandle_ChangeProperty eventChangeProperty;
 
 	private:
 		MyGUI::UString mName;
 		MyGUI::UString mType;
 		MyGUI::UString mValue;
+		bool mReadOnly;
 	};
 
 } // namespace tools

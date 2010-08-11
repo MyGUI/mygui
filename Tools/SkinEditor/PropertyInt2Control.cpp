@@ -28,7 +28,7 @@ namespace tools
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			mEdit->setEnabled(true);
+			mEdit->setEnabled(!proper->getReadOnly());
 			mEdit->setCaption(proper->getValue());
 
 			bool validate = isValidate();
