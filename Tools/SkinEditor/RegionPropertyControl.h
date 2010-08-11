@@ -10,8 +10,9 @@
 #include "Property.h"
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
-#include "PropertyBoolControl.h"
 #include "PropertyInt4Control.h"
+#include "PropertyBoolControl.h"
+#include "PropertyAlignControl.h"
 
 namespace tools
 {
@@ -28,8 +29,10 @@ namespace tools
 		virtual void updateRegionProperties();
 
 	private:
-		PropertyBoolControl* mPropertyVisibleControl;
 		PropertyInt4Control* mPropertyPositionControl;
+		PropertyBoolControl* mPropertyVisibleControl;
+		PropertyBoolControl* mPropertyEnabledControl;
+		PropertyAlignControl* mPropertyAlignControl;
 	};
 
 } // namespace tools

@@ -17,6 +17,8 @@ namespace tools
 		mPropertySet->createChild("Position", "IntCoord", "0 0 32 32");
 		mPropertySet->createChild("Visible", "Bool", "True");
 		mPropertySet->createChild("Enabled", "Bool", "True");
+		mPropertySet->createChild("Align", "Align", "Default");
+		mPropertySet->createChild("Type", "RegionType", "Texture");
 	}
 
 	RegionItem::~RegionItem()
