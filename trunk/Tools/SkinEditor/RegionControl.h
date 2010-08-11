@@ -9,7 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "RegionListControl.h"
 #include "RegionPropertyControl.h"
-//#include "RegionTextureControl.h"
+#include "RegionTextureControl.h"
 
 namespace tools
 {
@@ -24,7 +24,7 @@ namespace tools
 	private:
 		RegionListControl* mRegionListControl;
 		RegionPropertyControl* mRegionPropertyControl;
-		//RegionTextureControl* mRegionTextureControl;
+		RegionTextureControl* mRegionTextureControl;
 	};
 
 } // namespace tools

@@ -12,8 +12,8 @@ namespace tools
 	RegionControl::RegionControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("RegionControl.layout", _parent),
 		mRegionListControl(nullptr),
-		mRegionPropertyControl(nullptr)//,
-		//mRegionTextureControl(nullptr)
+		mRegionPropertyControl(nullptr),
+		mRegionTextureControl(nullptr)
 	{
 		assignBase(mRegionListControl, "RegionListControl");
 		assignBase(mRegionPropertyControl, "RegionPropertyControl");
