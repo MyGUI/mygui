@@ -11,7 +11,7 @@ namespace tools
 
 	SeparatorItem::SeparatorItem() :
 		mPropertySet(nullptr),
-		mHorizontal(false)
+		mCorner(MyGUI::Align::Center)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Visible", "Bool", "False");
@@ -38,14 +38,14 @@ namespace tools
 		return mPropertySet;
 	}
 
-	bool SeparatorItem::getHorizontal()
+	MyGUI::Align SeparatorItem::getCorner()
 	{
-		return mHorizontal;
+		return mCorner;
 	}
 
-	void SeparatorItem::setHorizontal(bool _value)
+	void SeparatorItem::setCorner(MyGUI::Align _value)
 	{
-		mHorizontal = _value;
+		mCorner = _value;
 	}
 
 } // namespace tools

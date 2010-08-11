@@ -175,11 +175,11 @@ namespace tools
 
 		if (getCurrentSeparator() != nullptr)
 		{
-			mHorizontal = getCurrentSeparator()->getHorizontal();
+			mHorizontal = getCurrentSeparator()->getCorner() == MyGUI::Align::Left || getCurrentSeparator()->getCorner() == MyGUI::Align::Right;
 
 			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
 			{
-				if (getCurrentSeparator()->getHorizontal())
+				if (mHorizontal)
 					mHorizontalSelectorControl->setVisible(true);
 				else
 					mVerticalSelectorControl->setVisible(true);
@@ -213,8 +213,11 @@ namespace tools
 				if (item != getCurrentSkin()->getSeparators().getItemSelected())
 				{
 					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
-						addCoord(coordsHor, coordsVert, item->getHorizontal(),
+					{
+						bool horizontal =item->getCorner() == MyGUI::Align::Left || item->getCorner() == MyGUI::Align::Right;
+						addCoord(coordsHor, coordsVert, horizontal,
 							item->getPropertySet()->getPropertyValue("Position"));
+					}
 				}
 			}
 		}

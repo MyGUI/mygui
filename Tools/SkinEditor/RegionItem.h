@@ -23,9 +23,13 @@ namespace tools
 
 		PropertySet* getPropertySet();
 
+		MyGUI::Align getSeparator() { return mSeparator; }
+		void setSeparator(MyGUI::Align _value) { mSeparator = _value; }
+
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
+		MyGUI::Align mSeparator;
 	};
 
 } // namespace tools

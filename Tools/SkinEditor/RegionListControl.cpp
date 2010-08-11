@@ -61,12 +61,12 @@ namespace tools
 		{
 			RegionItem* selectedItem = getCurrentSkin()->getRegions().getItemSelected();
 
-			ItemHolder<RegionItem>::EnumeratorItem separators = getCurrentSkin()->getRegions().getChildsEnumerator();
-			while (separators.next())
+			ItemHolder<RegionItem>::EnumeratorItem regions = getCurrentSkin()->getRegions().getChildsEnumerator();
+			while (regions.next())
 			{
 				size_t index = mList->getItemCount();
 
-				RegionItem* item = separators.current();
+				RegionItem* item = regions.current();
 
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True"
 					|| item->getPropertySet()->getPropertyValue("Enabled") != "True")

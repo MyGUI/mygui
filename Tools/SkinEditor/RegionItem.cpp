@@ -10,7 +10,8 @@ namespace tools
 {
 
 	RegionItem::RegionItem() :
-		mPropertySet(nullptr)
+		mPropertySet(nullptr),
+		mSeparator(MyGUI::Align::Center)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Enabled", "Bool", "True");
