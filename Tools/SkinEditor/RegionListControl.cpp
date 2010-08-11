@@ -68,9 +68,10 @@ namespace tools
 
 				RegionItem* item = regions.current();
 
-				if (item->getPropertySet()->getPropertyValue("Visible") != "True"
-					|| item->getPropertySet()->getPropertyValue("Enabled") != "True")
-						mList->addItem("#808080" + item->getName(), item);
+				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
+				bool enabled = item->getPropertySet()->getPropertyValue("Enabled") == "True";
+				if (!visible || !enabled)
+					mList->addItem("#808080" + item->getName() + ((!enabled) ? " [disabled]" : ""), item);
 				else
 					mList->addItem(item->getName(), item);
 
