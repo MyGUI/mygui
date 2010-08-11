@@ -38,6 +38,8 @@ namespace tools
 		void setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _value, const MyGUI::UString& _owner);
 		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName);
 
+		void setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value);
+
 	private:
 		void advise(Property* _item);
 		void unadvise(Property* _item);

@@ -107,4 +107,11 @@ namespace tools
 		return empty;
 	}
 
+	void PropertySet::setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value)
+	{
+		Property* proper = getChild(_propertyName);
+		if (proper != nullptr)
+			proper->setReadOnly(_value);
+	}
+
 } // namespace tools

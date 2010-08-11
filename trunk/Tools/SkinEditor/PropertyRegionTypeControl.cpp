@@ -36,7 +36,7 @@ namespace tools
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			mComboBox->setEnabled(true);
+			mComboBox->setEnabled(!proper->getReadOnly());
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}

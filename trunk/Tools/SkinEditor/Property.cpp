@@ -11,7 +11,8 @@ namespace tools
 
 	Property::Property(const MyGUI::UString& _name, const MyGUI::UString& _type) :
 		mName(_name),
-		mType(_type)
+		mType(_type),
+		mReadOnly(false)
 	{
 	}
 
@@ -38,6 +39,16 @@ namespace tools
 	{
 		mValue = _value;
 		eventChangeProperty(this, _owner);
+	}
+
+	bool Property::getReadOnly()
+	{
+		return mReadOnly;
+	}
+
+	void Property::setReadOnly(bool _value)
+	{
+		mReadOnly = _value;
 	}
 
 } // namespace tools
