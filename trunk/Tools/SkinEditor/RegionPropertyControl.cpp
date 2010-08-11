@@ -11,10 +11,16 @@ namespace tools
 {
 
 	RegionPropertyControl::RegionPropertyControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("RegionPropertyControl.layout", _parent)
+		wraps::BaseLayout("RegionPropertyControl.layout", _parent),
+		mPropertyPositionControl(nullptr),
+		mPropertyVisibleControl(nullptr),
+		mPropertyEnabledControl(nullptr),
+		mPropertyAlignControl(nullptr)
 	{
-		assignBase(mPropertyVisibleControl, "PropertyVisible");
 		assignBase(mPropertyPositionControl, "PropertyPosition");
+		assignBase(mPropertyVisibleControl, "PropertyVisible");
+		assignBase(mPropertyEnabledControl, "PropertyEnabled");
+		assignBase(mPropertyAlignControl, "PropertyAlign");
 
 		initialiseAdvisor();
 	}
@@ -27,8 +33,10 @@ namespace tools
 	void RegionPropertyControl::updateRegionProperties()
 	{
 		RegionItem* separator = getCurrentRegion();
-		mPropertyVisibleControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Visible") : nullptr);
 		mPropertyPositionControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Position") : nullptr);
+		mPropertyVisibleControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Visible") : nullptr);
+		mPropertyEnabledControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Enabled") : nullptr);
+		mPropertyAlignControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Align") : nullptr);
 	}
 
 } // namespace tools

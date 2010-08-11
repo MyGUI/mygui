@@ -71,7 +71,7 @@ namespace tools
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
 				bool enabled = item->getPropertySet()->getPropertyValue("Enabled") == "True";
 				if (!visible || !enabled)
-					mList->addItem("#808080" + item->getName() + ((!enabled) ? " [disabled]" : ""), item);
+					mList->addItem("#808080" + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 
