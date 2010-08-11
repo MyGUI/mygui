@@ -175,7 +175,7 @@ namespace tools
 
 		if (getCurrentSeparator() != nullptr)
 		{
-			mHorizontal = getCurrentSeparator()->getCorner() == MyGUI::Align::Left || getCurrentSeparator()->getCorner() == MyGUI::Align::Right;
+			mHorizontal = getCurrentSeparator()->getCorner() == MyGUI::Align::Top || getCurrentSeparator()->getCorner() == MyGUI::Align::Bottom;
 
 			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
 			{
@@ -214,7 +214,7 @@ namespace tools
 				{
 					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
 					{
-						bool horizontal =item->getCorner() == MyGUI::Align::Left || item->getCorner() == MyGUI::Align::Right;
+						bool horizontal =item->getCorner() == MyGUI::Align::Top || item->getCorner() == MyGUI::Align::Bottom;
 						addCoord(coordsHor, coordsVert, horizontal,
 							item->getPropertySet()->getPropertyValue("Position"));
 					}
