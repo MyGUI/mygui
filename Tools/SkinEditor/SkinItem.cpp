@@ -49,36 +49,86 @@ namespace tools
 		separator->setCorner(MyGUI::Align::Right);
 
 		RegionItem* region = nullptr;
+
 		region = mRegions.createChild();
 		region->setName("Left Top");
 		region->setSeparator(MyGUI::Align::Left | MyGUI::Align::Top);
+		region->getPropertySet()->setPropertyValue("Align", "Left Top", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Top");
 		region->setSeparator(MyGUI::Align::Top);
+		region->getPropertySet()->setPropertyValue("Align", "HStretch Top", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Right Top");
 		region->setSeparator(MyGUI::Align::Right | MyGUI::Align::Top);
+		region->getPropertySet()->setPropertyValue("Align", "Right Top", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Right");
 		region->setSeparator(MyGUI::Align::Right);
+		region->getPropertySet()->setPropertyValue("Align", "Right VStretch", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Right Bottom");
 		region->setSeparator(MyGUI::Align::Right | MyGUI::Align::Bottom);
+		region->getPropertySet()->setPropertyValue("Align", "Right Bottom", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Bottom");
 		region->setSeparator(MyGUI::Align::Bottom);
+		region->getPropertySet()->setPropertyValue("Align", "HStretch Bottom", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Left Bottom");
 		region->setSeparator(MyGUI::Align::Left | MyGUI::Align::Bottom);
+		region->getPropertySet()->setPropertyValue("Align", "Left Bottom", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Left");
 		region->setSeparator(MyGUI::Align::Left);
+		region->getPropertySet()->setPropertyValue("Align", "Left VStretch", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Center");
 		region->setSeparator(MyGUI::Align::Center);
+		region->getPropertySet()->setPropertyValue("Align", "Stretch", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
+		region->getPropertySet()->setPropertyReadOnly("Position", true);
+		region->getPropertySet()->setPropertyReadOnly("Align", true);
+
 		region = mRegions.createChild();
 		region->setName("Text");
 		region->setSeparator(MyGUI::Align::Center);
+		region->getPropertySet()->setPropertyValue("Align", "Stretch", "");
+		region->getPropertySet()->setPropertyValue("RegionType", "EditText", "");
+		region->getPropertySet()->setPropertyValue("Visible", "False", "");
+		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
 	}
 
 	SkinItem::~SkinItem()
