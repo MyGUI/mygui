@@ -11,13 +11,13 @@ namespace tools
 
 	RegionControl::RegionControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("RegionControl.layout", _parent),
-		mRegionListControl(nullptr)//,
-		//mSkinPropertyControl(nullptr),
-		//mSkinTextureControl(nullptr)
+		mRegionListControl(nullptr),
+		mRegionPropertyControl(nullptr)//,
+		//mRegionTextureControl(nullptr)
 	{
 		assignBase(mRegionListControl, "RegionListControl");
-		//assignBase(mSkinPropertyControl, "SkinPropertyControl");
-		//assignBase(mSkinTextureControl, "SkinTextureControl");
+		assignBase(mRegionPropertyControl, "RegionPropertyControl");
+		//assignBase(mRegionTextureControl, "RegionTextureControl");
 	}
 
 	RegionControl::~RegionControl()

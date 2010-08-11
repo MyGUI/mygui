@@ -8,8 +8,8 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "RegionListControl.h"
-//#include "SkinPropertyControl.h"
-//#include "SkinTextureControl.h"
+#include "RegionPropertyControl.h"
+//#include "RegionTextureControl.h"
 
 namespace tools
 {
@@ -23,8 +23,8 @@ namespace tools
 
 	private:
 		RegionListControl* mRegionListControl;
-		//SkinPropertyControl* mSkinPropertyControl;
-		//SkinTextureControl* mSkinTextureControl;
+		RegionPropertyControl* mRegionPropertyControl;
+		//RegionTextureControl* mRegionTextureControl;
 	};
 
 } // namespace tools

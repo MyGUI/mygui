@@ -14,8 +14,9 @@ namespace tools
 		mSeparator(MyGUI::Align::Center)
 	{
 		mPropertySet = new PropertySet();
-		mPropertySet->createChild("Enabled", "Bool", "True");
+		mPropertySet->createChild("Position", "IntCoord", "0 0 32 32");
 		mPropertySet->createChild("Visible", "Bool", "True");
+		mPropertySet->createChild("Enabled", "Bool", "True");
 	}
 
 	RegionItem::~RegionItem()
