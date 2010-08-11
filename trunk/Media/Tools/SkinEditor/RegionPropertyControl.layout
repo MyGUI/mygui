@@ -27,7 +27,7 @@
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Type"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 256 224 26" align="HStretch Top" name="PropertyType"/>
+            <Widget type="Widget" skin="PanelEmpty" position="8 256 224 26" align="HStretch Top" name="PropertyRegionType"/>
         </Widget>
     </Widget>
 </MyGUI>

@@ -13,6 +13,7 @@
 #include "PropertyInt4Control.h"
 #include "PropertyBoolControl.h"
 #include "PropertyAlignControl.h"
+#include "PropertyRegionTypeControl.h"
 
 namespace tools
 {
@@ -33,6 +34,7 @@ namespace tools
 		PropertyBoolControl* mPropertyVisibleControl;
 		PropertyBoolControl* mPropertyEnabledControl;
 		PropertyAlignControl* mPropertyAlignControl;
+		PropertyRegionTypeControl* mPropertyRegionTypeControl;
 	};
 
 } // namespace tools
