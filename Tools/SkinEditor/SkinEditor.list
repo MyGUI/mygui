@@ -30,6 +30,7 @@ set (HEADER_FILES
   PropertyAdvisor.h
   PropertyControl.h
   PropertyBoolControl.h
+  PropertyAlignControl.h
   PropertyInt4Control.h
   PropertyInt2Control.h
   PropertyIntControl.h
@@ -73,6 +74,7 @@ set (SOURCE_FILES
   SeparatorControl.cpp
   PropertyControl.cpp
   PropertyBoolControl.cpp
+  PropertyAlignControl.cpp
   PropertyInt4Control.cpp
   PropertyInt2Control.cpp
   PropertyIntControl.cpp
@@ -117,6 +119,7 @@ SOURCE_GROUP("Source Files" FILES
   SeparatorControl.cpp
   PropertyControl.cpp
   PropertyBoolControl.cpp
+  PropertyAlignControl.cpp
   PropertyInt4Control.cpp
   PropertyInt2Control.cpp
   PropertyIntControl.cpp
@@ -162,6 +165,7 @@ SOURCE_GROUP("Header Files" FILES
   PropertyAdvisor.h
   PropertyControl.h
   PropertyBoolControl.h
+  PropertyAlignControl.h
   PropertyInt4Control.h
   PropertyInt2Control.h
   PropertyIntControl.h

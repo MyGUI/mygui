@@ -1,18 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 240 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Widget" skin="Panel" position="0 0 248 464" align="Stretch">
-            <Widget type="StaticText" skin="StaticText" position="8 8 232 24" align="HStretch Top">
+        <Widget type="Widget" skin="Panel" position="0 0 240 464" align="Stretch">
+            <Widget type="StaticText" skin="StaticText" position="8 8 224 24" align="HStretch Top">
                 <Property key="Text_Caption" value="Position"/>
                 <Property key="Text_TextAlign" value="Left Bottom"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 32 232 26" align="HStretch Top" name="PropertyPosition"/>
-            <Widget type="StaticText" skin="StaticText" position="8 64 232 24" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="8 32 224 26" align="HStretch Top" name="PropertyPosition"/>
+            <Widget type="StaticText" skin="StaticText" position="8 64 224 24" align="HStretch Top">
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Visible"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="Widget" skin="PanelEmpty" position="8 88 224 26" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="StaticText" skin="StaticText" position="8 120 224 24" align="HStretch Top">
+                <Property key="Text_Caption" value="Enabled"/>
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 144 224 26" align="HStretch Top" name="PropertyEnabled"/>
+            <Widget type="StaticText" skin="StaticText" position="8 176 224 24" align="HStretch Top">
+                <Property key="Text_Caption" value="Align"/>
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 200 224 26" align="HStretch Top" name="PropertyAlign"/>
+            <Widget type="StaticText" skin="StaticText" position="8 232 224 24" align="HStretch Top">
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+                <Property key="Text_Caption" value="Type"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 256 224 26" align="HStretch Top" name="PropertyType"/>
         </Widget>
     </Widget>
 </MyGUI>
