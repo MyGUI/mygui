@@ -3,7 +3,7 @@
     <Widget type="Tab" skin="Tab" position="42 66 526 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="TabItem" skin="" position="4 26 517 334">
-            <Property key="Widget_Caption" value="Skin"/>
+            <Property key="Widget_Caption" value="Skins"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="SkinControl"/>
         </Widget>
         <Widget type="TabItem" skin="" position="4 26 517 334">
@@ -13,6 +13,10 @@
         <Widget type="TabItem" skin="" position="4 26 517 334">
             <Property key="Widget_Caption" value="Separators"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="SeparatorControl"/>
+        </Widget>
+        <Widget type="TabItem" skin="" position="4 26 517 334">
+            <Property key="Widget_Caption" value="Regions"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 517 334" align="Stretch" name="RegionControl"/>
         </Widget>
     </Widget>
 </MyGUI>

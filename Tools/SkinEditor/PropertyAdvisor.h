@@ -18,7 +18,8 @@ namespace tools
 		PropertyAdvisor() :
 			mCurrentSkin(nullptr),
 			mCurrentState(nullptr),
-			mCurrentSeparator(nullptr)
+			mCurrentSeparator(nullptr),
+			mCurrentRegion(nullptr)
 		{
 		}
 
@@ -34,6 +35,7 @@ namespace tools
 			updateSkinProperties();
 			updateStateProperties();
 			updateSeparatorProperties();
+			updateRegionProperties();
 		}
 
 		void shutdownAdvisor()
@@ -45,14 +47,17 @@ namespace tools
 		virtual void updateSkinProperties() { }
 		virtual void updateStateProperties() { }
 		virtual void updateSeparatorProperties() { }
+		virtual void updateRegionProperties() { }
 
 		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner) { }
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner) { }
 		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner) { }
+		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner) { }
 
 		SkinItem* getCurrentSkin() { return mCurrentSkin; }
 		StateItem* getCurrentState() { return mCurrentState; }
 		SeparatorItem* getCurrentSeparator() { return mCurrentSeparator; }
+		RegionItem* getCurrentRegion() { return mCurrentRegion; }
 
 	private:
 		void notifySkinChangeSelection()
@@ -63,6 +68,7 @@ namespace tools
 			updateSkinProperties();
 			updateStateProperties();
 			updateSeparatorProperties();
+			updateRegionProperties();
 		}
 
 		void unadviceSkin()
@@ -71,10 +77,12 @@ namespace tools
 			{
 				unadviceState();
 				unadviceSeparator();
+				unadviceRegion();
 
 				mCurrentSkin->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &PropertyAdvisor::updateSkinProperty);
 				mCurrentSkin->getStates().eventChangeSelection -= MyGUI::newDelegate(this, &PropertyAdvisor::notifyStateChangeSelection);
 				mCurrentSkin->getSeparators().eventChangeSelection -= MyGUI::newDelegate(this, &PropertyAdvisor::notifySeparatorChangeSelection);
+				mCurrentSkin->getRegions().eventChangeSelection -= MyGUI::newDelegate(this, &PropertyAdvisor::notifyRegionChangeSelection);
 				mCurrentSkin = nullptr;
 			}
 		}
@@ -85,12 +93,14 @@ namespace tools
 
 			if (mCurrentSkin != nullptr)
 			{
+				mCurrentSkin->getRegions().eventChangeSelection += MyGUI::newDelegate(this, &PropertyAdvisor::notifyRegionChangeSelection);
 				mCurrentSkin->getSeparators().eventChangeSelection += MyGUI::newDelegate(this, &PropertyAdvisor::notifySeparatorChangeSelection);
 				mCurrentSkin->getStates().eventChangeSelection += MyGUI::newDelegate(this, &PropertyAdvisor::notifyStateChangeSelection);
 				mCurrentSkin->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &PropertyAdvisor::updateSkinProperty);
 
 				adviceState();
 				adviceSeparator();
+				adviceRegion();
 			}
 		}
 
@@ -146,10 +156,37 @@ namespace tools
 			}
 		}
 
+		void notifyRegionChangeSelection()
+		{
+			unadviceRegion();
+			adviceRegion();
+
+			updateRegionProperties();
+		}
+
+		void adviceRegion()
+		{
+			mCurrentRegion = mCurrentSkin->getRegions().getItemSelected();
+			if (mCurrentRegion != nullptr)
+			{
+				mCurrentRegion->getPropertySet()->eventChangeProperty += MyGUI::newDelegate(this, &PropertyAdvisor::updateRegionProperty);
+			}
+		}
+
+		void unadviceRegion()
+		{
+			if (mCurrentRegion != nullptr)
+			{
+				mCurrentRegion->getPropertySet()->eventChangeProperty -= MyGUI::newDelegate(this, &PropertyAdvisor::updateRegionProperty);
+				mCurrentRegion = nullptr;
+			}
+		}
+
 	private:
 		SkinItem* mCurrentSkin;
 		StateItem* mCurrentState;
 		SeparatorItem* mCurrentSeparator;
+		RegionItem* mCurrentRegion;
 	};
 
 } // namespace tools

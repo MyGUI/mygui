@@ -38,6 +38,9 @@ set (HEADER_FILES
   TextureControl.h
   SeparatorTextureControl.h
   SelectorControl.h
+  RegionItem.h
+  RegionControl.h
+  RegionListControl.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -77,6 +80,9 @@ set (SOURCE_FILES
   TextureControl.cpp
   SeparatorTextureControl.cpp
   SelectorControl.cpp
+  RegionItem.cpp
+  RegionControl.cpp
+  RegionListControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -117,6 +123,9 @@ SOURCE_GROUP("Source Files" FILES
   TextureControl.cpp
   SeparatorTextureControl.cpp
   SelectorControl.cpp
+  RegionItem.cpp
+  RegionControl.cpp
+  RegionListControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -158,6 +167,9 @@ SOURCE_GROUP("Header Files" FILES
   TextureControl.h
   SeparatorTextureControl.h
   SelectorControl.h
+  RegionItem.h
+  RegionControl.h
+  RegionListControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
