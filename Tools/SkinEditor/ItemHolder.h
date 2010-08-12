@@ -35,6 +35,9 @@ namespace tools
 		{
 			T* item = new T();
 			mChilds.push_back(item);
+
+			eventChangeList();
+
 			return item;
 		}
 
@@ -56,12 +59,20 @@ namespace tools
 			{
 				MYGUI_EXCEPT("item not found");
 			}
+
+			eventChangeList();
 		}
 
 		void destroyAllChilds()
 		{
-			while (!mChilds.empty())
-				destroyChild(mChilds.back());
+			if (mItemSelected != nullptr)
+				setItemSelected(nullptr);
+
+			for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+				delete *item;
+			mChilds.clear();
+
+			eventChangeList();
 		}
 
 		EnumeratorItem getChildsEnumerator()
@@ -81,6 +92,7 @@ namespace tools
 		}
 
 		EventHandle_ChangeSelection eventChangeSelection;
+		EventHandle_ChangeSelection eventChangeList;
 
 	private:
 		VectorItem mChilds;

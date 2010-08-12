@@ -177,4 +177,37 @@ namespace tools
 		return mPropertySet;
 	}
 
+	void SkinItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		_node->createChild("Name", mName);
+
+		ItemHolder<StateItem>::EnumeratorItem stateItems = mStates.getChildsEnumerator();
+		while (stateItems.next())
+		{
+			MyGUI::xml::Element* node = _node->createChild("StateItem");
+			stateItems->serialization(node, _version);
+		}
+
+		ItemHolder<SeparatorItem>::EnumeratorItem separatorItems = mSeparators.getChildsEnumerator();
+		while (separatorItems.next())
+		{
+			MyGUI::xml::Element* node = _node->createChild("SeparatorItem");
+			separatorItems->serialization(node, _version);
+		}
+
+		ItemHolder<RegionItem>::EnumeratorItem regionItems = mRegions.getChildsEnumerator();
+		while (regionItems.next())
+		{
+			MyGUI::xml::Element* node = _node->createChild("RegionItem");
+			regionItems->serialization(node, _version);
+		}
+
+		MyGUI::xml::Element* node = _node->createChild("PropertySet");
+		mPropertySet->serialization(node, _version);
+	}
+
+	void SkinItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

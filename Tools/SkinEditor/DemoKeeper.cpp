@@ -7,6 +7,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "SkinManager.h"
+#include "ActionManager.h"
 #include "MyGUI_FilterNoneSkin.h"
 
 namespace demo
@@ -32,6 +33,9 @@ namespace demo
 		tools::SkinManager* skinManager = new tools::SkinManager();
 		skinManager->initialise();
 
+		tools::ActionManager* actionManager = new tools::ActionManager();
+		actionManager->initialise();
+
 		mMainPane = new tools::MainPane();
 	}
 
@@ -39,6 +43,10 @@ namespace demo
 	{
 		delete mMainPane;
 		mMainPane = nullptr;
+
+		tools::ActionManager* actionManager = tools::ActionManager::getInstancePtr();
+		actionManager->shutdown();
+		delete actionManager;
 
 		tools::SkinManager* skinManager = tools::SkinManager::getInstancePtr();
 		skinManager->shutdown();
