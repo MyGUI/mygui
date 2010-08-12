@@ -26,18 +26,29 @@ namespace tools
 
 		virtual void updateRegionProperties();
 		virtual void updateSeparatorProperties();
+		virtual void updateSkinProperties();
 
 		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 
 		void updateList();
+
+		void updateCoord();
+
 		void updateRegionEnabled();
+		void updateRegionPosition();
 
 		bool isSeparatorVisible(MyGUI::Align _value);
+		int getSeparatorPosition(MyGUI::Align _value);
+
+		RegionItem* getRegion(MyGUI::Align _align);
 
 	private:
 		MyGUI::List* mList;
 		MyGUI::UString mTypeName;
+
+		MyGUI::IntCoord mCoordValue;
 	};
 
 } // namespace tools
