@@ -208,6 +208,37 @@ namespace tools
 
 	void SkinItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
+		mName = _node->findAttribute("name");
+
+		mStates.destroyAllChilds();
+		mSeparators.destroyAllChilds();
+		mRegions.destroyAllChilds();
+
+		MyGUI::xml::ElementEnumerator nodes = _node->getElementEnumerator();
+		while (nodes.next())
+		{
+			MyGUI::xml::Element* node = nodes.current();
+
+			if (node->getName() == "PropertySet")
+			{
+				mPropertySet->deserialization(node, _version);
+			}
+			else if (node->getName() == "StateItem")
+			{
+				StateItem* item = mStates.createChild();
+				item->deserialization(node, _version);
+			}
+			else if (node->getName() == "SeparatorItem")
+			{
+				SeparatorItem* item = mSeparators.createChild();
+				item->deserialization(node, _version);
+			}
+			else if (node->getName() == "RegionItem")
+			{
+				RegionItem* item = mRegions.createChild();
+				item->deserialization(node, _version);
+			}
+		}
 	}
 
 } // namespace tools
