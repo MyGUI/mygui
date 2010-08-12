@@ -39,6 +39,8 @@ namespace tools
 
 	void StateItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
+		_node->addAttribute("name", mName);
+
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
 		mPropertySet->serialization(node, _version);
 	}

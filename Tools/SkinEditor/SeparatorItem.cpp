@@ -50,7 +50,7 @@ namespace tools
 
 	void SeparatorItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		_node->createChild("Name", mName);
+		_node->addAttribute("name", mName);
 		_node->createChild("Corner", mCorner.print());
 
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
