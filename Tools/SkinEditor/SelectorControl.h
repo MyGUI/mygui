@@ -22,6 +22,7 @@ namespace tools
 
 		void setVisible(bool _value);
 		void setScale(double _value);
+		void setEnabled(bool _value);
 
 		void setPosition(const MyGUI::IntPoint& _value);
 		void setSize(const MyGUI::IntSize& _value);

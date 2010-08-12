@@ -39,6 +39,7 @@ namespace tools
 		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName);
 
 		void setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value);
+		bool getPropertyReadOnly(const MyGUI::UString& _propertyName);
 
 	private:
 		void advise(Property* _item);
