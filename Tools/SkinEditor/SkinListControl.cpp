@@ -28,10 +28,14 @@ namespace tools
 		mCreate->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
+
+		SkinManager::getInstance().eventChangeList += MyGUI::newDelegate(this, &SkinListControl::notifyChangeList);
 	}
 
 	SkinListControl::~SkinListControl()
 	{
+		SkinManager::getInstance().eventChangeList -= MyGUI::newDelegate(this, &SkinListControl::notifyChangeList);
+
 		hideTextField();
 
 		mCreate->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
@@ -228,6 +232,11 @@ namespace tools
 		item->setName(_value);
 		SkinManager::getInstance().setItemSelected(item);
 
+		updateList();
+	}
+
+	void SkinListControl::notifyChangeList()
+	{
 		updateList();
 	}
 
