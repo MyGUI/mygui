@@ -17,7 +17,7 @@ namespace tools
 	{
 		assignBase(mRegionListControl, "RegionListControl");
 		assignBase(mRegionPropertyControl, "RegionPropertyControl");
-		//assignBase(mRegionTextureControl, "RegionTextureControl");
+		assignBase(mRegionTextureControl, "RegionTextureControl");
 	}
 
 	RegionControl::~RegionControl()

@@ -12,22 +12,22 @@ namespace tools
 	RegionTextureControl::RegionTextureControl(MyGUI::Widget* _parent) :
 		TextureControl(_parent),
 		mTextureVisible(false),
-		mHorizontalSelectorControl(nullptr),
-		mVerticalSelectorControl(nullptr),
-		mHorizontal(false)
+		mAreaSelectorControl(nullptr),
+		mPositionSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
 		// сразу рисуем рамки для стейтов
-		std::vector<int> coordsHor(2);
-		std::vector<int> coordsVert(2);
-		drawUnselectedStates(coordsHor, coordsVert);
+		//std::vector<int> coordsHor(2);
+		//std::vector<int> coordsVert(2);
+		//drawUnselectedStates(coordsHor, coordsVert);
 
-		addSelectorControl(mHorizontalSelectorControl);
-		addSelectorControl(mVerticalSelectorControl);
+		addSelectorControl(mAreaSelectorControl);
+		addSelectorControl(mPositionSelectorControl);
 
-		mHorizontalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
-		mVerticalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
+		mPositionSelectorControl->setEnabled(false);
+
+		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
 
 		initialiseAdvisor();
 	}
@@ -36,11 +36,10 @@ namespace tools
 	{
 		shutdownAdvisor();
 
-		mHorizontalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
-		mVerticalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
 	}
 
-	void RegionTextureControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
+	void RegionTextureControl::updateRegionProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_owner != mTypeName)
 		{
@@ -48,15 +47,17 @@ namespace tools
 				updatePosition();
 			else if (_sender->getName() == "Visible")
 				updateVisible();
+			else if (_sender->getName() == "Enabled")
+				updateVisible();
 		}
 	}
 
-	void RegionTextureControl::updateSeparatorProperties()
+	void RegionTextureControl::updateRegionProperties()
 	{
 		updateVisible();
 		updatePosition();
 
-		updateUnselectedStates();
+		//updateUnselectedStates();
 	}
 
 	void RegionTextureControl::updateTextureControl()
@@ -123,7 +124,7 @@ namespace tools
 
 		updateTextureControl();
 
-		updateUnselectedStates();
+		//updateUnselectedStates();
 	}
 
 	void RegionTextureControl::updateRegionPosition()
@@ -151,55 +152,7 @@ namespace tools
 		updateTextureControl();
 	}
 
-	void RegionTextureControl::updatePosition()
-	{
-		MyGUI::UString value;
-
-		if (getCurrentSeparator() != nullptr)
-			value = getCurrentSeparator()->getPropertySet()->getPropertyValue("Position");
-
-		int position = 0;
-		if (MyGUI::utility::parseComplex(value, position))
-		{
-			if (mHorizontal)
-				mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, position, mTextureRegion.width, 1));
-			else
-				mVerticalSelectorControl->setCoord(MyGUI::IntCoord(position, 0, 1, mTextureRegion.height));
-		}
-	}
-
-	void RegionTextureControl::updateVisible()
-	{
-		mHorizontalSelectorControl->setVisible(false);
-		mVerticalSelectorControl->setVisible(false);
-
-		if (getCurrentSeparator() != nullptr)
-		{
-			mHorizontal = getCurrentSeparator()->getCorner() == MyGUI::Align::Top || getCurrentSeparator()->getCorner() == MyGUI::Align::Bottom;
-
-			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
-			{
-				if (mHorizontal)
-					mHorizontalSelectorControl->setVisible(true);
-				else
-					mVerticalSelectorControl->setVisible(true);
-			}
-		}
-	}
-
-	void RegionTextureControl::notifyChangePosition()
-	{
-		int position = 0;
-		if (mHorizontal)
-			position = mHorizontalSelectorControl->getPosition().top;
-		else
-			position = mVerticalSelectorControl->getPosition().left;
-
-		if (getCurrentSeparator() != nullptr)
-			getCurrentSeparator()->getPropertySet()->setPropertyValue("Position", MyGUI::utility::toString(position), mTypeName);
-	}
-
-	void RegionTextureControl::updateUnselectedStates()
+	/*void RegionTextureControl::updateUnselectedStates()
 	{
 		std::vector<int> coordsHor;
 		std::vector<int> coordsVert;
@@ -294,6 +247,49 @@ namespace tools
 				mVerticalBlackSelectors[index]->setVisible(false);
 			}
 		}
+	}*/
+
+	void RegionTextureControl::updatePosition()
+	{
+		MyGUI::UString value;
+
+		if (getCurrentRegion() != nullptr)
+			value = getCurrentRegion()->getPropertySet()->getPropertyValue("Position");
+
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
+		{
+			mAreaSelectorControl->setCoord(coord);
+			mPositionSelectorControl->setCoord(coord);
+		}
+	}
+
+	void RegionTextureControl::updateVisible()
+	{
+		mAreaSelectorControl->setVisible(false);
+		mPositionSelectorControl->setVisible(false);
+
+		if (getCurrentRegion() != nullptr)
+		{
+			if (getCurrentRegion()->getPropertySet()->getPropertyValue("Visible") == "True")
+			{
+				if (getCurrentRegion()->getPropertySet()->getPropertyValue("Enabled") == "True")
+				{
+					if (!getCurrentRegion()->getPropertySet()->getPropertyReadOnly("Position"))
+						mAreaSelectorControl->setVisible(true);
+					else
+						mPositionSelectorControl->setVisible(true);
+				}
+			}
+		}
+	}
+
+	void RegionTextureControl::notifyChangePosition()
+	{
+		MyGUI::IntCoord coord = mAreaSelectorControl->getCoord();
+
+		if (getCurrentRegion() != nullptr)
+			getCurrentRegion()->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 	}
 
 } // namespace tools

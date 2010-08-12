@@ -103,4 +103,9 @@ namespace tools
 		return mCoordValue;
 	}
 
+	void SelectorControl::setEnabled(bool _value)
+	{
+		mMainWidget->setNeedMouseFocus(_value);
+	}
+
 } // namespace tools

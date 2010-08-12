@@ -8,10 +8,9 @@
 
 #include "TextureControl.h"
 #include "PropertyAdvisor.h"
-#include "HorizontalSelectorControl.h"
-#include "VerticalSelectorControl.h"
-#include "HorizontalSelectorBlackControl.h"
-#include "VerticalSelectorBlackControl.h"
+#include "AreaSelectorControl.h"
+#include "PositionSelectorControl.h"
+#include "PositionSelectorBlackControl.h"
 
 namespace tools
 {
@@ -27,11 +26,11 @@ namespace tools
 	protected:
 		virtual void updateSkinProperties();
 		virtual void updateStateProperties();
-		virtual void updateSeparatorProperties();
+		virtual void updateRegionProperties();
 
 		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
-		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
 
 	private:
 		void notifyChangePosition();
@@ -46,8 +45,8 @@ namespace tools
 		void updateVisible();
 
 		void updateUnselectedStates();
-		void addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, bool _horizont, const MyGUI::UString& _position);
-		void drawUnselectedStates(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert);
+		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
+		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 	private:
 		MyGUI::UString mTextureName;
@@ -55,12 +54,10 @@ namespace tools
 		bool mTextureVisible;
 		MyGUI::UString mTypeName;
 
-		HorizontalSelectorControl* mHorizontalSelectorControl;
-		VerticalSelectorControl* mVerticalSelectorControl;
-		bool mHorizontal;
+		AreaSelectorControl* mAreaSelectorControl;
+		PositionSelectorControl* mPositionSelectorControl;
 
-		std::vector<HorizontalSelectorBlackControl*> mHorizontalBlackSelectors;
-		std::vector<VerticalSelectorBlackControl*> mVerticalBlackSelectors;
+		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 	};
 
 } // namespace tools
