@@ -179,7 +179,7 @@ namespace tools
 
 	void SkinItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		_node->createChild("Name", mName);
+		_node->addAttribute("name", mName);
 
 		ItemHolder<StateItem>::EnumeratorItem stateItems = mStates.getChildsEnumerator();
 		while (stateItems.next())

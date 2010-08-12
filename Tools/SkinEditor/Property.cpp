@@ -53,10 +53,10 @@ namespace tools
 
 	void Property::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		_node->createChild("Name", mName);
-		_node->createChild("Type", mType);
-		_node->createChild("Value", mValue);
-		_node->createChild("ReadOnly", mReadOnly ? "True" : "False");
+		_node->addAttribute("name", mName);
+		_node->addAttribute("type", mType);
+		_node->addAttribute("read_only", mReadOnly ? "True" : "False");
+		_node->setContent(mValue);
 	}
 
 	void Property::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)

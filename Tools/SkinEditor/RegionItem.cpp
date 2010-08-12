@@ -43,7 +43,7 @@ namespace tools
 
 	void RegionItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		_node->createChild("Name", mName);
+		_node->addAttribute("name", mName);
 		_node->createChild("Separator", mSeparator.print());
 
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
