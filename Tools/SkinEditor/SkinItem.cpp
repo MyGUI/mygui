@@ -17,6 +17,7 @@ namespace tools
 		mPropertySet->createChild("Coord", "IntCoord", "0 0 32 32");
 
 		StateItem* skin = nullptr;
+
 		skin = mStates.createChild();
 		skin->setName("Disabled");
 		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
@@ -49,19 +50,29 @@ namespace tools
 		skin->setName("Selected Pressed");
 		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
 
+
 		SeparatorItem* separator = nullptr;
+
 		separator = mSeparators.createChild();
 		separator->setName("Top");
 		separator->setCorner(MyGUI::Align::Top);
+		separator->getPropertySet()->setPropertyValue("Position", "8", "");
+
 		separator = mSeparators.createChild();
 		separator->setName("Bottom");
 		separator->setCorner(MyGUI::Align::Bottom);
+		separator->getPropertySet()->setPropertyValue("Position", "24", "");
+
 		separator = mSeparators.createChild();
 		separator->setName("Left");
 		separator->setCorner(MyGUI::Align::Left);
+		separator->getPropertySet()->setPropertyValue("Position", "8", "");
+
 		separator = mSeparators.createChild();
 		separator->setName("Right");
 		separator->setCorner(MyGUI::Align::Right);
+		separator->getPropertySet()->setPropertyValue("Position", "24", "");
+
 
 		RegionItem* region = nullptr;
 
