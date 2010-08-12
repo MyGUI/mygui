@@ -68,11 +68,14 @@ namespace tools
 			if (mItemSelected != nullptr)
 				setItemSelected(nullptr);
 
-			for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-				delete *item;
-			mChilds.clear();
+			if (!mChilds.empty())
+			{
+				for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+					delete *item;
+				mChilds.clear();
 
-			eventChangeList();
+				eventChangeList();
+			}
 		}
 
 		EnumeratorItem getChildsEnumerator()

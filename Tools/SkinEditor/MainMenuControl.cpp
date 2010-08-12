@@ -48,12 +48,22 @@ namespace tools
 
 	void MainMenuControl::commandLoad()
 	{
-		/*if (ActionManager::getInstance().hasChanges())
+		SkinManager::getInstance().clear();
+
+		MyGUI::xml::Document doc;
+		if (doc.open(std::string("test.xml")))
 		{
+			MyGUI::xml::Element* root = doc.getRoot();
+			if (root->getName() == "Root")
+			{
+				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
+				while (nodes.next("SkinManager"))
+				{
+					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
+					break;
+				}
+			}
 		}
-		else
-		{
-		}*/
 	}
 
 	void MainMenuControl::commandSave()
