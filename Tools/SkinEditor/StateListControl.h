@@ -23,14 +23,23 @@ namespace tools
 
 	private:
 		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 
 		virtual void updateStateProperties();
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
 
+		virtual void updateSkinProperties();
+
 		void updateList();
 
+		void fillStatePreset();
+
+		void updatePreset();
+
 	private:
+		MyGUI::UString mTypeName;
 		MyGUI::List* mList;
+		MyGUI::ComboBox* mStatePreset;
 	};
 
 } // namespace tools
