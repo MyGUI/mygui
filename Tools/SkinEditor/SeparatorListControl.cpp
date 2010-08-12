@@ -134,6 +134,9 @@ namespace tools
 			++index;
 		}
 
+		// для обновления пропертей
+		getCurrentSkin()->getSeparators().setItemSelected(nullptr);
+
 		updateList();
 	}
 
