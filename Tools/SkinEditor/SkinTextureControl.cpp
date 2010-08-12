@@ -67,8 +67,9 @@ namespace tools
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
 		{
-			mCoordValue = coord;
 			mAreaSelectorControl->setVisible(true);
+
+			mCoordValue = coord;
 			updateRegionCoord();
 		}
 		else

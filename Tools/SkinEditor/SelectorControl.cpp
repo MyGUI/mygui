@@ -11,17 +11,22 @@ namespace tools
 
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
-		mScaleValue(1)
+		mScaleValue(1),
+		mPositionChanged(false)
 	{
 		mCoordReal = mMainWidget->getCoord();
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
+
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 	}
 
 	SelectorControl::~SelectorControl()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
+
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
@@ -68,6 +73,8 @@ namespace tools
 
 	void SelectorControl::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
+		mPositionChanged = true;
+
 		MyGUI::IntCoord coord = _sender->getCoord();
 
 		mCoordValue.left = (int)((double)coord.left / mScaleValue);
@@ -84,8 +91,6 @@ namespace tools
 			mCoordValue.height = (int)((double)coord.height / mScaleValue);
 
 		updateCoord();
-
-		eventChangePosition();
 	}
 
 	MyGUI::IntPoint SelectorControl::getPosition()
@@ -106,6 +111,15 @@ namespace tools
 	void SelectorControl::setEnabled(bool _value)
 	{
 		mMainWidget->setNeedMouseFocus(_value);
+	}
+
+	void SelectorControl::notifyFrameStart(float _time)
+	{
+		if (mPositionChanged)
+		{
+			eventChangePosition();
+			mPositionChanged = false;
+		}
 	}
 
 } // namespace tools
