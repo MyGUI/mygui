@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  Binary.h
   DemoKeeper.h
   SkinItem.h
   SkinManager.h
@@ -140,6 +141,7 @@ SOURCE_GROUP("Source Files" FILES
   RegionTextureControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  Binary.h
   DemoKeeper.h
   SkinItem.h
   SkinManager.h
