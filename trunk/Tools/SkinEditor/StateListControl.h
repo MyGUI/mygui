@@ -39,7 +39,7 @@ namespace tools
 	private:
 		MyGUI::UString mTypeName;
 		MyGUI::List* mList;
-		MyGUI::ComboBox* mStatePreset;
+		MyGUI::ComboBox* mPresets;
 	};
 
 } // namespace tools
