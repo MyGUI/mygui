@@ -6,31 +6,31 @@
 #include "precompiled.h"
 #include "StateListControl.h"
 #include "SkinManager.h"
+#include "Binary.h"
 
 namespace tools
 {
 	enum PresetEnum
 	{
-		PresetCustom,
-		PresetNormalOnly,
-		PresetFirst4States,
-		PresetAllStates
+		PresetNormalOnly = Binary<10>::value,
+		PresetFirst4States = Binary<1111>::value,
+		PresetAllStates = Binary<11111111>::value
 	};
 
 	StatesListControl::StatesListControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("StateListControl.layout", _parent),
 		mList(nullptr),
-		mStatePreset(nullptr)
+		mPresets(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
 		assignWidget(mList, "List");
-		assignWidget(mStatePreset, "StatePreset");
+		assignWidget(mPresets, "StatePreset");
 
 		fillStatePreset();
 
 		mList->eventListChangePosition += MyGUI::newDelegate(this, &StatesListControl::notifyChangePosition);
-		mStatePreset->eventComboChangePosition += MyGUI::newDelegate(this, &StatesListControl::notifyComboChangePosition);
+		mPresets->eventComboChangePosition += MyGUI::newDelegate(this, &StatesListControl::notifyComboChangePosition);
 
 		initialiseAdvisor();
 	}
@@ -40,15 +40,15 @@ namespace tools
 		shutdownAdvisor();
 
 		mList->eventListChangePosition -= MyGUI::newDelegate(this, &StatesListControl::notifyChangePosition);
-		mStatePreset->eventComboChangePosition -= MyGUI::newDelegate(this, &StatesListControl::notifyComboChangePosition);
+		mPresets->eventComboChangePosition -= MyGUI::newDelegate(this, &StatesListControl::notifyComboChangePosition);
 	}
 
 	void StatesListControl::fillStatePreset()
 	{
-		mStatePreset->addItem("Custom", PresetCustom);
-		mStatePreset->addItem("Normal only", PresetNormalOnly);
-		mStatePreset->addItem("First 4 states", PresetFirst4States);
-		mStatePreset->addItem("All states", PresetAllStates);
+		mPresets->removeAllItems();
+		mPresets->addItem("Normal only", PresetNormalOnly);
+		mPresets->addItem("First 4 states", PresetFirst4States);
+		mPresets->addItem("All states", PresetAllStates);
 	}
 
 	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
@@ -120,55 +120,15 @@ namespace tools
 
 		PresetEnum preset = *_sender->getItemDataAt<PresetEnum>(_index);
 
-		if (preset == PresetCustom)
-			return;
-
-		//selectPreset(preset);
-
-		if (preset == PresetNormalOnly)
+		size_t index = 0;
+		ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
+		while (states.next())
 		{
-			StateItem* selectedItem = getCurrentSkin()->getStates().getItemSelected();
+			StateItem* item = states.current();
+			MyGUI::UString value = ((preset & (1 << index)) != 0) ? "True" : "False";
+			item->getPropertySet()->setPropertyValue("Visible", value, mTypeName);
 
-			size_t index = 0;
-			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
-			while (states.next())
-			{
-				StateItem* item = states.current();
-				MyGUI::UString value = index == 1 ? "True" : "False";
-				item->getPropertySet()->setPropertyValue("Visible", value, mTypeName);
-
-				++index;
-			}
-		}
-		else if (preset == PresetFirst4States)
-		{
-			StateItem* selectedItem = getCurrentSkin()->getStates().getItemSelected();
-
-			size_t index = 0;
-			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
-			while (states.next())
-			{
-				StateItem* item = states.current();
-				MyGUI::UString value = index < 4 ? "True" : "False";
-				item->getPropertySet()->setPropertyValue("Visible", value, mTypeName);
-
-				++index;
-			}
-		}
-		else if (preset == PresetAllStates)
-		{
-			StateItem* selectedItem = getCurrentSkin()->getStates().getItemSelected();
-
-			size_t index = 0;
-			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
-			while (states.next())
-			{
-				StateItem* item = states.current();
-				MyGUI::UString value = "True";
-				item->getPropertySet()->setPropertyValue("Visible", value, mTypeName);
-
-				++index;
-			}
+			++index;
 		}
 
 		updateList();
@@ -176,48 +136,44 @@ namespace tools
 
 	void StatesListControl::updatePreset()
 	{
-		mStatePreset->setEnabled(getCurrentSkin() != nullptr);
+		mPresets->setEnabled(getCurrentSkin() != nullptr);
 
 		if (getCurrentSkin() != nullptr)
 		{
-			PresetEnum currentPresent = PresetCustom;
-			MyGUI::UString result;
+			int currentPreset = 0;
+			int index = 0;
 
 			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
 			while (states.next())
 			{
 				StateItem* item = states.current();
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
-				result.append(visible ? "1" : "0");
-			}
+				if (visible)
+					currentPreset |= (1 << index);
 
-			if (result == "01000000")
-				currentPresent = PresetNormalOnly;
-			else if (result == "11110000")
-				currentPresent = PresetFirst4States;
-			else if (result == "11111111")
-				currentPresent = PresetAllStates;
+				++ index;
+			}
 
 			size_t indexSelected = MyGUI::ITEM_NONE;
 
-			size_t count = mStatePreset->getItemCount();
+			size_t count = mPresets->getItemCount();
 			for (size_t index=0; index<count; ++index)
 			{
-				PresetEnum preset = *mStatePreset->getItemDataAt<PresetEnum>(index);
-				if (preset == currentPresent)
+				PresetEnum preset = *mPresets->getItemDataAt<PresetEnum>(index);
+				if (preset == currentPreset)
 				{
 					indexSelected = index;
 					break;
 				}
 			}
 
-			mStatePreset->setIndexSelected(indexSelected);
+			mPresets->setIndexSelected(indexSelected);
 
-			mStatePreset->setEnabled(true);
+			mPresets->setEnabled(true);
 		}
 		else
 		{
-			mStatePreset->setEnabled(false);
+			mPresets->setEnabled(false);
 		}
 
 	}
