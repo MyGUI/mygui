@@ -36,6 +36,7 @@ namespace tools
 
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
+		void notifyFrameStart(float _time);
 
 		void updateCoord();
 
@@ -43,6 +44,7 @@ namespace tools
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::IntCoord mCoordReal;
 		double mScaleValue;
+		bool mPositionChanged;
 	};
 
 } // namespace tools

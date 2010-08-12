@@ -40,7 +40,7 @@ namespace tools
 		void updateVisible();
 		void updatePosition();
 
-		void updateRegionCoord();
+		void updateSelectorsSize();
 
 		void updateUnselectedStates();
 		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
@@ -50,7 +50,7 @@ namespace tools
 		PositionSelectorControl* mAreaSelectorControl;
 
 		MyGUI::UString mTypeName;
-		MyGUI::IntCoord mCoordValue;
+		MyGUI::IntSize mSizeValue;
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 	};
