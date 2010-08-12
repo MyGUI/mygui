@@ -27,10 +27,12 @@ namespace tools
 		virtual void updateSkinProperties();
 		virtual void updateStateProperties();
 		virtual void updateRegionProperties();
+		virtual void updateSeparatorProperties();
 
 		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
+		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
 
 	private:
 		void notifyChangePosition();
