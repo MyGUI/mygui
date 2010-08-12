@@ -45,7 +45,7 @@ namespace tools
 		void updateVisible();
 
 		void updateUnselectedStates();
-		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
+		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord);
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 	private:

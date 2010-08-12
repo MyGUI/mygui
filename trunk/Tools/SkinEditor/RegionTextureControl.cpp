@@ -18,9 +18,8 @@ namespace tools
 		mTypeName = MyGUI::utility::toString((int)this);
 
 		// сразу рисуем рамки для стейтов
-		//std::vector<int> coordsHor(2);
-		//std::vector<int> coordsVert(2);
-		//drawUnselectedStates(coordsHor, coordsVert);
+		std::vector<MyGUI::IntCoord> coords(10);
+		drawUnselectedStates(coords);
 
 		addSelectorControl(mAreaSelectorControl);
 		addSelectorControl(mPositionSelectorControl);
@@ -57,7 +56,7 @@ namespace tools
 		updateVisible();
 		updatePosition();
 
-		//updateUnselectedStates();
+		updateUnselectedStates();
 	}
 
 	void RegionTextureControl::updateTextureControl()
@@ -124,7 +123,7 @@ namespace tools
 
 		updateTextureControl();
 
-		//updateUnselectedStates();
+		updateUnselectedStates();
 	}
 
 	void RegionTextureControl::updateRegionPosition()
@@ -151,103 +150,6 @@ namespace tools
 
 		updateTextureControl();
 	}
-
-	/*void RegionTextureControl::updateUnselectedStates()
-	{
-		std::vector<int> coordsHor;
-		std::vector<int> coordsVert;
-
-		if (getCurrentSkin() != nullptr)
-		{
-			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
-			while (separators.next())
-			{
-				SeparatorItem* item = separators.current();
-				if (item != getCurrentSkin()->getSeparators().getItemSelected())
-				{
-					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
-					{
-						bool horizontal =item->getCorner() == MyGUI::Align::Top || item->getCorner() == MyGUI::Align::Bottom;
-						addCoord(coordsHor, coordsVert, horizontal,
-							item->getPropertySet()->getPropertyValue("Position"));
-					}
-				}
-			}
-		}
-
-		drawUnselectedStates(coordsHor, coordsVert);
-	}
-
-	void RegionTextureControl::addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, bool _horizont, const MyGUI::UString& _position)
-	{
-		int position;
-		if (MyGUI::utility::parseComplex(_position, position))
-		{
-			if (_horizont)
-			{
-				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
-				{
-					if ((*item) == position)
-						return;
-				}
-				_coordsHor.push_back(position);
-			}
-			else
-			{
-				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
-				{
-					if ((*item) == position)
-						return;
-				}
-				_coordsVert.push_back(position);
-			}
-		}
-	}
-
-	void RegionTextureControl::drawUnselectedStates(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert)
-	{
-		while (_coordsHor.size() > mHorizontalBlackSelectors.size())
-		{
-			HorizontalSelectorBlackControl* selector = nullptr;
-			addSelectorControl(selector);
-
-			mHorizontalBlackSelectors.push_back(selector);
-		}
-
-		for (size_t index=0; index<mHorizontalBlackSelectors.size(); ++index)
-		{
-			if (index < _coordsHor.size())
-			{
-				mHorizontalBlackSelectors[index]->setVisible(true);
-				mHorizontalBlackSelectors[index]->setCoord(MyGUI::IntCoord(0, _coordsHor[index], mTextureRegion.width, 1));
-			}
-			else
-			{
-				mHorizontalBlackSelectors[index]->setVisible(false);
-			}
-		}
-
-		while (_coordsVert.size() > mVerticalBlackSelectors.size())
-		{
-			VerticalSelectorBlackControl* selector = nullptr;
-			addSelectorControl(selector);
-
-			mVerticalBlackSelectors.push_back(selector);
-		}
-
-		for (size_t index=0; index<mVerticalBlackSelectors.size(); ++index)
-		{
-			if (index < _coordsVert.size())
-			{
-				mVerticalBlackSelectors[index]->setVisible(true);
-				mVerticalBlackSelectors[index]->setCoord(MyGUI::IntCoord(_coordsVert[index], 0, 1, mTextureRegion.height));
-			}
-			else
-			{
-				mVerticalBlackSelectors[index]->setVisible(false);
-			}
-		}
-	}*/
 
 	void RegionTextureControl::updatePosition()
 	{
@@ -290,6 +192,71 @@ namespace tools
 
 		if (getCurrentRegion() != nullptr)
 			getCurrentRegion()->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
+	}
+
+	void RegionTextureControl::updateUnselectedStates()
+	{
+		std::vector<MyGUI::IntCoord> coords;
+
+		if (getCurrentSkin() != nullptr)
+		{
+			ItemHolder<RegionItem>::EnumeratorItem regions = getCurrentSkin()->getRegions().getChildsEnumerator();
+			while (regions.next())
+			{
+				RegionItem* item = regions.current();
+				if (item != getCurrentSkin()->getRegions().getItemSelected())
+				{
+					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
+					{
+						if (item->getPropertySet()->getPropertyValue("Enabled") == "True")
+						{
+							addCoord(coords, item->getPropertySet()->getPropertyValue("Position"));
+						}
+					}
+				}
+			}
+		}
+
+		drawUnselectedStates(coords);
+	}
+
+	void RegionTextureControl::addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord)
+	{
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(_coord, coord.left, coord.top, coord.width, coord.height))
+		{
+			for (std::vector<MyGUI::IntCoord>::iterator item=_coords.begin(); item!=_coords.end(); ++item)
+			{
+				if ((*item) == coord)
+					return;
+			}
+
+			_coords.push_back(coord);
+		}
+	}
+
+	void RegionTextureControl::drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords)
+	{
+		while (_coords.size() > mBlackSelectors.size())
+		{
+			PositionSelectorBlackControl* selector = nullptr;
+			addSelectorControl(selector);
+
+			mBlackSelectors.push_back(selector);
+		}
+
+		for (size_t index=0; index<mBlackSelectors.size(); ++index)
+		{
+			if (index < _coords.size())
+			{
+				mBlackSelectors[index]->setVisible(true);
+				mBlackSelectors[index]->setCoord(_coords[index]);
+			}
+			else
+			{
+				mBlackSelectors[index]->setVisible(false);
+			}
+		}
 	}
 
 } // namespace tools
