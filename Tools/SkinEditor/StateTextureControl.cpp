@@ -78,14 +78,17 @@ namespace tools
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
 		{
-			mCoordValue = coord;
-			updateRegionCoord();
+			if (mSizeValue != coord.size())
+			{
+				mSizeValue = coord.size();
+				updateSelectorsSize();
+			}
 		}
 	}
 
-	void StateTextureControl::updateRegionCoord()
+	void StateTextureControl::updateSelectorsSize()
 	{
-		mAreaSelectorControl->setSize(mCoordValue.size());
+		mAreaSelectorControl->setSize(mSizeValue);
 
 		updateUnselectedStates();
 	}
