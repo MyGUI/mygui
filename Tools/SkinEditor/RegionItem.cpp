@@ -10,8 +10,7 @@ namespace tools
 {
 
 	RegionItem::RegionItem() :
-		mPropertySet(nullptr),
-		mSeparator(MyGUI::Align::Center)
+		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Position", "IntCoord", "0 0 32 32");
@@ -19,6 +18,7 @@ namespace tools
 		mPropertySet->createChild("Enabled", "Bool", "True");
 		mPropertySet->createChild("Align", "Align", "Default");
 		mPropertySet->createChild("RegionType", "RegionType", "SubSkin");
+		mPropertySet->createChild("Separator", "", "Center");
 	}
 
 	RegionItem::~RegionItem()
@@ -36,6 +36,16 @@ namespace tools
 		mName = _value;
 	}
 
+	MyGUI::Align RegionItem::getSeparator()
+	{
+		return MyGUI::Align::parse(mPropertySet->getPropertyValue("Separator"));
+	}
+
+	void RegionItem::setSeparator(MyGUI::Align _value)
+	{
+		mPropertySet->setPropertyValue("Separator", _value.print(), "");
+	}
+
 	PropertySet* RegionItem::getPropertySet()
 	{
 		return mPropertySet;
@@ -44,7 +54,6 @@ namespace tools
 	void RegionItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		_node->addAttribute("name", mName);
-		_node->createChild("Separator", mSeparator.print());
 
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
 		mPropertySet->serialization(node, _version);
@@ -62,10 +71,6 @@ namespace tools
 			if (node->getName() == "PropertySet")
 			{
 				mPropertySet->deserialization(node, _version);
-			}
-			else if (node->getName() == "Separator")
-			{
-				mSeparator = MyGUI::Align::parse(node->getContent());
 			}
 		}
 	}
