@@ -16,7 +16,7 @@ namespace tools
 		SeparatorPresetScale = Binary<0>::value,
 		SeparatorPreset9Slice = Binary<1111>::value,
 		SeparatorPreset3SliceHorScale = Binary<1100>::value,
-		SeparatorPreset3SliceVertScale = Binary<11>::value,
+		SeparatorPreset3SliceVertScale = Binary<11>::value
 	};
 
 	SeparatorListControl::SeparatorListControl(MyGUI::Widget* _parent) :
