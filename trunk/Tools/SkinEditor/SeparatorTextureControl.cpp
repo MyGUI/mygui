@@ -47,7 +47,10 @@ namespace tools
 			if (_sender->getName() == "Position")
 				updatePosition();
 			else if (_sender->getName() == "Visible")
+			{
 				updateVisible();
+				updateUnselectedStates();
+			}
 		}
 	}
 
