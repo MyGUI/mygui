@@ -33,7 +33,6 @@ namespace tools
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
-		MyGUI::Align mCorner;
 	};
 
 } // namespace tools

@@ -24,8 +24,8 @@ namespace tools
 
 		PropertySet* getPropertySet();
 
-		MyGUI::Align getSeparator() { return mSeparator; }
-		void setSeparator(MyGUI::Align _value) { mSeparator = _value; }
+		MyGUI::Align getSeparator();
+		void setSeparator(MyGUI::Align _value);
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
@@ -33,7 +33,6 @@ namespace tools
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
-		MyGUI::Align mSeparator;
 	};
 
 } // namespace tools

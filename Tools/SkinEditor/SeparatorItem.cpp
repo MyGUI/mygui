@@ -10,12 +10,12 @@ namespace tools
 {
 
 	SeparatorItem::SeparatorItem() :
-		mPropertySet(nullptr),
-		mCorner(MyGUI::Align::Center)
+		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Visible", "Bool", "False");
 		mPropertySet->createChild("Position", "Int", "0");
+		mPropertySet->createChild("Corner", "", "Center");
 	}
 
 	SeparatorItem::~SeparatorItem()
@@ -40,18 +40,17 @@ namespace tools
 
 	MyGUI::Align SeparatorItem::getCorner()
 	{
-		return mCorner;
+		return MyGUI::Align::parse(mPropertySet->getPropertyValue("Corner"));
 	}
 
 	void SeparatorItem::setCorner(MyGUI::Align _value)
 	{
-		mCorner = _value;
+		mPropertySet->setPropertyValue("Corner", _value.print(), "");
 	}
 
 	void SeparatorItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		_node->addAttribute("name", mName);
-		_node->createChild("Corner", mCorner.print());
 
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
 		mPropertySet->serialization(node, _version);
@@ -69,10 +68,6 @@ namespace tools
 			if (node->getName() == "PropertySet")
 			{
 				mPropertySet->deserialization(node, _version);
-			}
-			else if (node->getName() == "Corner")
-			{
-				mCorner = MyGUI::Align::parse(node->getContent());
 			}
 		}
 	}
