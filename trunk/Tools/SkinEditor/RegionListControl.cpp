@@ -41,7 +41,7 @@ namespace tools
 		}
 	}
 
-	void RegionListControl::updateRegionProperty(Property* _sender, const MyGUI::UString& _value)
+	void RegionListControl::updateRegionProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_sender->getName() == "Visible" || _sender->getName() == "Enabled")
 			updateList();
@@ -86,7 +86,7 @@ namespace tools
 		updateRegionEnabled();
 	}
 
-	void RegionListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _value)
+	void RegionListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_sender->getName() == "Visible")
 			updateRegionEnabled();

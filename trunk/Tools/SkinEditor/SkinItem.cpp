@@ -19,20 +19,35 @@ namespace tools
 		StateItem* skin = nullptr;
 		skin = mStates.createChild();
 		skin->setName("Disabled");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Normal");
+		skin->getPropertySet()->setPropertyValue("Visible", "True", "");
+
 		skin = mStates.createChild();
 		skin->setName("Over");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Pressed");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Selected Disabled");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Selected Normal");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Selected Over");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
+
 		skin = mStates.createChild();
 		skin->setName("Selected Pressed");
+		skin->getPropertySet()->setPropertyValue("Visible", "False", "");
 
 		SeparatorItem* separator = nullptr;
 		separator = mSeparators.createChild();

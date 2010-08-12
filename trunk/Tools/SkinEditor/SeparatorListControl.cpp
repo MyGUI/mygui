@@ -41,7 +41,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _value)
+	void SeparatorListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
 		if (_sender->getName() == "Visible")
 			updateList();
