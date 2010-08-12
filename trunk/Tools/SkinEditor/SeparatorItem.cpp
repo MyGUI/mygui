@@ -48,4 +48,17 @@ namespace tools
 		mCorner = _value;
 	}
 
+	void SeparatorItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		_node->createChild("Name", mName);
+		_node->createChild("Corner", mCorner.print());
+
+		MyGUI::xml::Element* node = _node->createChild("PropertySet");
+		mPropertySet->serialization(node, _version);
+	}
+
+	void SeparatorItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

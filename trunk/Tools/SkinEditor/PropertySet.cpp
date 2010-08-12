@@ -123,4 +123,18 @@ namespace tools
 		return true;
 	}
 
+	void PropertySet::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		EnumeratorProperty properties = getChildsEnumerator();
+		while (properties.next())
+		{
+			MyGUI::xml::Element* node = _node->createChild("Property");
+			properties->serialization(node, _version);
+		}
+	}
+
+	void PropertySet::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

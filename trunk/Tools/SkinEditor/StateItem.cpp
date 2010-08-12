@@ -37,4 +37,14 @@ namespace tools
 		return mPropertySet;
 	}
 
+	void StateItem::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		MyGUI::xml::Element* node = _node->createChild("PropertySet");
+		mPropertySet->serialization(node, _version);
+	}
+
+	void StateItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

@@ -14,7 +14,8 @@ namespace tools
 	class Property;
 	typedef MyGUI::delegates::CMultiDelegate2<Property*, const MyGUI::UString&> EventHandle_ChangeProperty;
 
-	class Property
+	class Property :
+		public MyGUI::ISerializable
 	{
 	public:
 		Property(const MyGUI::UString& _name, const MyGUI::UString& _type);
@@ -30,6 +31,9 @@ namespace tools
 		void setReadOnly(bool _value);
 
 		EventHandle_ChangeProperty eventChangeProperty;
+
+		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		MyGUI::UString mName;

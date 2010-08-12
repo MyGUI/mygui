@@ -14,7 +14,8 @@ namespace tools
 
 	class SkinManager :
 		public MyGUI::Singleton<SkinManager>,
-		public ItemHolder<SkinItem>
+		public ItemHolder<SkinItem>,
+		public MyGUI::ISerializable
 	{
 	public:
 		SkinManager();
@@ -22,6 +23,11 @@ namespace tools
 
 		void initialise();
 		void shutdown();
+
+		void clear();
+
+		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 	};
 
 } // namespace tools

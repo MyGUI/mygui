@@ -11,6 +11,7 @@
 #include "StateControl.h"
 #include "SeparatorControl.h"
 #include "RegionControl.h"
+#include "MainMenuControl.h"
 
 namespace tools
 {
@@ -27,6 +28,7 @@ namespace tools
 		StatesControl* mStatesControl;
 		SeparatorControl* mSeparatorControl;
 		RegionControl* mRegionControl;
+		MainMenuControl* mMainMenuControl;
 	};
 
 } // namespace tools

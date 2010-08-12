@@ -15,7 +15,8 @@ namespace tools
 	typedef std::vector<Property*> VectorProperty;
 	typedef MyGUI::Enumerator<VectorProperty> EnumeratorProperty;
 
-	class PropertySet
+	class PropertySet :
+		public MyGUI::ISerializable
 	{
 	public:
 		PropertySet();
@@ -40,6 +41,9 @@ namespace tools
 
 		void setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value);
 		bool getPropertyReadOnly(const MyGUI::UString& _propertyName);
+
+		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		void advise(Property* _item);

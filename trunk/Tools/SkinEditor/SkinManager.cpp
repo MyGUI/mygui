@@ -29,4 +29,23 @@ namespace tools
 		destroyAllChilds();
 	}
 
+	void SkinManager::clear()
+	{
+		destroyAllChilds();
+	}
+
+	void SkinManager::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		ItemHolder<SkinItem>::EnumeratorItem items = getChildsEnumerator();
+		while (items.next())
+		{
+			MyGUI::xml::Element* node = _node->createChild("SkinItem");
+			items->serialization(node, _version);
+		}
+	}
+
+	void SkinManager::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

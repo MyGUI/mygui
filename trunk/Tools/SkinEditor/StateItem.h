@@ -12,7 +12,8 @@
 namespace tools
 {
 
-	class StateItem
+	class StateItem :
+		public MyGUI::ISerializable
 	{
 	public:
 		StateItem();
@@ -22,6 +23,9 @@ namespace tools
 		void setName(const MyGUI::UString& _value);
 
 		PropertySet* getPropertySet();
+
+		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		MyGUI::UString mName;

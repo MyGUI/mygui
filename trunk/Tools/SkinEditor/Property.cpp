@@ -51,4 +51,16 @@ namespace tools
 		mReadOnly = _value;
 	}
 
+	void Property::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		_node->createChild("Name", mName);
+		_node->createChild("Type", mType);
+		_node->createChild("Value", mValue);
+		_node->createChild("ReadOnly", mReadOnly ? "True" : "False");
+	}
+
+	void Property::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+	}
+
 } // namespace tools

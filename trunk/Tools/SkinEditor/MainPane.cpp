@@ -14,12 +14,14 @@ namespace tools
 		mSkinControl(nullptr),
 		mStatesControl(nullptr),
 		mSeparatorControl(nullptr),
-		mRegionControl(nullptr)
+		mRegionControl(nullptr),
+		mMainMenuControl(nullptr)
 	{
 		assignBase(mSkinControl, "SkinControl");
 		assignBase(mStatesControl, "StateControl");
 		assignBase(mSeparatorControl, "SeparatorControl");
 		assignBase(mRegionControl, "RegionControl");
+		assignBase(mMainMenuControl, "MainMenuControl");
 	}
 
 	MainPane::~MainPane()

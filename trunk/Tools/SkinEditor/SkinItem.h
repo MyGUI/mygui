@@ -16,7 +16,8 @@
 namespace tools
 {
 
-	class SkinItem
+	class SkinItem :
+		public MyGUI::ISerializable
 	{
 	public:
 		SkinItem();
@@ -30,6 +31,9 @@ namespace tools
 		ItemHolder<StateItem>& getStates() { return mStates; }
 		ItemHolder<SeparatorItem>& getSeparators() { return mSeparators; }
 		ItemHolder<RegionItem>& getRegions() { return mRegions; }
+
+		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		MyGUI::UString mName;
