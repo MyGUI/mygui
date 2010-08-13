@@ -41,6 +41,9 @@ namespace tools
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
 
 		void notifyChangePosition();
 
@@ -67,6 +70,8 @@ namespace tools
 		MyGUI::IntCoord mTextureRegion;
 
 		std::vector<SelectorControl*> mSelectors;
+
+		bool mRightMousePressed;
 	};
 
 } // namespace tools
