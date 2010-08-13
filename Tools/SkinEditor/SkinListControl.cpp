@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "SkinListControl.h"
 #include "SkinManager.h"
+#include "ActionManager.h"
 #include <limits>
 
 namespace tools
@@ -112,6 +113,8 @@ namespace tools
 			SkinManager::getInstance().destroyChild(item);
 
 			updateList();
+
+			ActionManager::getInstance().setChanges(true);
 		}
 	}
 
@@ -224,6 +227,8 @@ namespace tools
 	{
 		_item->setName(_value);
 		updateList();
+
+		ActionManager::getInstance().setChanges(true);
 	}
 
 	void SkinListControl::createItem(const MyGUI::UString& _value)
@@ -233,6 +238,8 @@ namespace tools
 		SkinManager::getInstance().setItemSelected(item);
 
 		updateList();
+
+		ActionManager::getInstance().setChanges(true);
 	}
 
 	void SkinListControl::notifyChangeList()

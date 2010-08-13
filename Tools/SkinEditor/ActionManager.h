@@ -21,7 +21,11 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		bool hasChanges();
+		bool getChanges();
+		void setChanges(bool _value);
+
+	private:
+		bool mChanges;
 	};
 
 } // namespace tools

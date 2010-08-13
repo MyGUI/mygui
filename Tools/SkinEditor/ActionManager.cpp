@@ -12,7 +12,8 @@ template <> const char* MyGUI::Singleton<tools::ActionManager>::mClassTypeName("
 namespace tools
 {
 
-	ActionManager::ActionManager()
+	ActionManager::ActionManager() :
+		mChanges(false)
 	{
 	}
 
@@ -28,9 +29,14 @@ namespace tools
 	{
 	}
 
-	bool ActionManager::hasChanges()
+	bool ActionManager::getChanges()
 	{
-		return true;
+		return mChanges;
+	}
+
+	void ActionManager::setChanges(bool _value)
+	{
+		mChanges = _value;
 	}
 
 } // namespace tools

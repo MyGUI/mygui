@@ -135,8 +135,6 @@ namespace tools
 
 	void PropertySet::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		destroyAllChilds();
-
 		MyGUI::xml::ElementEnumerator nodes = _node->getElementEnumerator();
 		while (nodes.next())
 		{
@@ -144,8 +142,9 @@ namespace tools
 
 			if (node->getName() == "Property")
 			{
-				Property* proper = createChild("", "", "");
-				proper->deserialization(node, _version);
+				Property* proper = getChild(node->findAttribute("name"));
+				if (proper != nullptr)
+					proper->deserialization(node, _version);
 			}
 		}
 	}
