@@ -17,7 +17,8 @@ namespace tools
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mScale(nullptr),
-		mScaleValue(1)
+		mScaleValue(1),
+		mRightMousePressed(false)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
@@ -30,10 +31,18 @@ namespace tools
 
 		fillScale();
 		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
+
+		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 	}
 
 	TextureControl::~TextureControl()
 	{
+		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
+
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
 		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
 	}
@@ -140,6 +149,35 @@ namespace tools
 	const MyGUI::IntCoord& TextureControl::getTextureRegion()
 	{
 		return mTextureRegion;
+	}
+
+	void TextureControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		/*if (_id == MyGUI::MouseButton::Left)
+		{
+			mRightMousePressed = true;
+			mTexture->setPointer("hand");
+			MyGUI::PointerManager::getInstance().setPointer("hand");
+			MyGUI::PointerManager::getInstance().eventChangeMousePointer("hand");
+		}*/
+	}
+
+	void TextureControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		/*if (_id == MyGUI::MouseButton::Left)
+		{
+			if (mRightMousePressed)
+			{
+				mRightMousePressed = false;
+				mTexture->setPointer("arrow");
+				MyGUI::PointerManager::getInstance().setPointer("arrow");
+				MyGUI::PointerManager::getInstance().eventChangeMousePointer("arrow");
+			}
+		}*/
+	}
+
+	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	{
 	}
 
 } // namespace tools
