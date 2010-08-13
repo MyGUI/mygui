@@ -11,6 +11,12 @@
 namespace tools
 {
 
+	/*enum MenuCommand
+	{
+		MenuCommandClear,
+		MenuCommandLoad
+	};*/
+
 	class MainMenuControl :
 		public wraps::BaseLayout
 	{
@@ -20,6 +26,8 @@ namespace tools
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+		//void notifyMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void commandLoad();
 		void commandSave();
@@ -27,12 +35,16 @@ namespace tools
 		void commandClear();
 		void commandQuit();
 
-		/*void hideMessageBox();
-		void showMessageBox();*/
+		//void showMessageBox(MenuCommand _command, const MyGUI::UString& _text);
+
+		//void save(const MyGUI::UString& _fileName);
+		void clear();
+		void showLoadWindow();
+		void save();
 
 	private:
 		MyGUI::MenuBar* mMainMenu;
-		//MyGUI::Message* mMessageBox;
+		MyGUI::UString mFileName;
 	};
 
 } // namespace tools

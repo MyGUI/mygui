@@ -46,12 +46,15 @@ namespace tools
 
 	void SkinManager::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-		destroyAllChilds();
+		if (getItemSelected() != nullptr)
+			setItemSelected(nullptr);
+
+		destroyAllChilds(false);
 
 		MyGUI::xml::ElementEnumerator nodes = _node->getElementEnumerator();
 		while (nodes.next("SkinItem"))
 		{
-			SkinItem* item = createChild();
+			SkinItem* item = createChild(false);
 			item->deserialization(nodes.current(), _version);
 		}
 

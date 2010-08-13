@@ -5,6 +5,7 @@
 */
 #include "precompiled.h"
 #include "Property.h"
+#include "ActionManager.h"
 
 namespace tools
 {
@@ -39,6 +40,8 @@ namespace tools
 	{
 		mValue = _value;
 		eventChangeProperty(this, _owner);
+
+		ActionManager::getInstance().setChanges(true);
 	}
 
 	bool Property::getReadOnly()

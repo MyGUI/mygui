@@ -33,49 +33,17 @@ namespace tools
 
 		T* createChild()
 		{
-			T* item = new T();
-			mChilds.push_back(item);
-
-			eventChangeList();
-
-			return item;
+			return createChild(true);
 		}
 
 		void destroyChild(T* _item)
 		{
-			typename VectorItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
-			if (item != mChilds.end())
-			{
-				if (*item == mItemSelected)
-				{
-					mItemSelected = nullptr;
-					eventChangeSelection();
-				}
-
-				delete *item;
-				mChilds.erase(item);
-			}
-			else
-			{
-				MYGUI_EXCEPT("item not found");
-			}
-
-			eventChangeList();
+			destroyChild(_item, true);
 		}
 
 		void destroyAllChilds()
 		{
-			if (mItemSelected != nullptr)
-				setItemSelected(nullptr);
-
-			if (!mChilds.empty())
-			{
-				for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
-					delete *item;
-				mChilds.clear();
-
-				eventChangeList();
-			}
+			destroyAllChilds(true);
 		}
 
 		EnumeratorItem getChildsEnumerator()
@@ -96,6 +64,57 @@ namespace tools
 
 		EventHandle_ChangeSelection eventChangeSelection;
 		EventHandle_ChangeSelection eventChangeList;
+
+	protected:
+		T* createChild(bool _event)
+		{
+			T* item = new T();
+			mChilds.push_back(item);
+
+			if (_event)
+				eventChangeList();
+
+			return item;
+		}
+
+		void destroyAllChilds(bool _event)
+		{
+			if (getItemSelected() != nullptr)
+				setItemSelected(nullptr);
+
+			if (!mChilds.empty())
+			{
+				for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+					delete *item;
+				mChilds.clear();
+
+				if (_event)
+					eventChangeList();
+			}
+		}
+
+		void destroyChild(T* _item, bool _event)
+		{
+			typename VectorItem::iterator item = std::find(mChilds.begin(), mChilds.end(), _item);
+			if (item != mChilds.end())
+			{
+				if (*item == mItemSelected)
+				{
+					mItemSelected = nullptr;
+					eventChangeSelection();
+				}
+
+				delete *item;
+				mChilds.erase(item);
+			}
+			else
+			{
+				MYGUI_EXCEPT("item not found");
+			}
+
+			if (_event)
+				eventChangeList();
+		}
 
 	private:
 		VectorItem mChilds;
