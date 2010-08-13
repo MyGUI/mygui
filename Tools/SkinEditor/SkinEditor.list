@@ -48,6 +48,7 @@ set (HEADER_FILES
   RegionTextureControl.h
   ActionManager.h
   MainMenuControl.h
+  OpenSaveFileDialog.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -96,6 +97,7 @@ set (SOURCE_FILES
   RegionTextureControl.cpp
   ActionManager.cpp
   MainMenuControl.cpp
+  OpenSaveFileDialog.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -145,6 +147,7 @@ SOURCE_GROUP("Source Files" FILES
   RegionTextureControl.cpp
   ActionManager.cpp
   MainMenuControl.cpp
+  OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -196,6 +199,7 @@ SOURCE_GROUP("Header Files" FILES
   RegionTextureControl.h
   ActionManager.h
   MainMenuControl.h
+  OpenSaveFileDialog.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
