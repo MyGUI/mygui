@@ -5,21 +5,16 @@
 */
 #include "precompiled.h"
 #include "MainMenuControl.h"
-//#include "ActionManager.h"
+#include "ActionManager.h"
 #include "SkinManager.h"
 
 namespace tools
 {
 
-	/*enum MenuCommand
-	{
-		MenuCommandClear
-	};*/
-
 	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("MainMenuControl.layout", _parent),
-		mMainMenu(nullptr)//,
-		//mMessageBox(nullptr)
+		mMainMenu(nullptr),
+		mFileName("test.xml")
 	{
 		assignWidget(mMainMenu, "MainMenu");
 
@@ -48,36 +43,57 @@ namespace tools
 
 	void MainMenuControl::commandLoad()
 	{
-		SkinManager::getInstance().clear();
-
-		MyGUI::xml::Document doc;
-		if (doc.open(std::string("test.xml")))
+		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "Root")
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Внимание",
+				L"Сохранить изменения?",
+				MyGUI::MessageBoxStyle::IconQuest
+					| MyGUI::MessageBoxStyle::Yes
+					| MyGUI::MessageBoxStyle::No
+					| MyGUI::MessageBoxStyle::Cancel);
+			//message->setUserData(MenuCommandLoad);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResultLoad);
+		}
+		else
+		{
+			showLoadWindow();
+		}
+
+		/*if (ActionManager::getInstance().getChanges())
+		{
+		}
+		else
+		{
+			//load();
+			SkinManager::getInstance().clear();
+
+			MyGUI::xml::Document doc;
+			if (doc.open(std::string("test.xml")))
 			{
-				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
-				while (nodes.next("SkinManager"))
+				MyGUI::xml::Element* root = doc.getRoot();
+				if (root->getName() == "Root")
 				{
-					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
-					break;
+					MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
+					while (nodes.next("SkinManager"))
+					{
+						SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
+						break;
+					}
 				}
 			}
-		}
+		}*/
 	}
 
 	void MainMenuControl::commandSave()
 	{
-		MyGUI::xml::Document doc;
-		doc.open(std::string("test.xml"));
-		doc.clear();
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+		if (ActionManager::getInstance().getChanges())
+		{
+			save();
 
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-		doc.save(std::string("test.xml"));
+			ActionManager::getInstance().setChanges(false);
+		}
 	}
 
 	void MainMenuControl::commandSaveAs()
@@ -86,24 +102,98 @@ namespace tools
 
 	void MainMenuControl::commandClear()
 	{
-		SkinManager::getInstance().clear();
-		/*if (ActionManager::getInstance().hasChanges())
-		{
-			showMessageBox(MenuCommandClear, "Вы уверены что хотите все тут удалить?");
-		}*/
+		/*if (ActionManager::getInstance().getChanges())
+			showMessageBox(MenuCommandClear, L"Вы уверены что хотите все тут удалить?");
+		else
+			clear();*/
 	}
 
 	void MainMenuControl::commandQuit()
 	{
 	}
 
-	/*void MainMenuControl::hideMessageBox()
+	/*void MainMenuControl::save(const MyGUI::UString& _fileName)
 	{
+		MyGUI::xml::Document doc;
+		doc.open(_fileName);
+		doc.clear();
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+
+		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+
+		doc.save(_fileName);
 	}
 
 	void MainMenuControl::showMessageBox(MenuCommand _command, const MyGUI::UString& _text)
 	{
-		hideMessageBox();
+		MyGUI::Message* message = MyGUI::Message::createMessageBox(
+			"Message",
+			L"Внимание",
+			L"Вы уверены?",
+			MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
+		message->setUserData(_command);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResult);
+	}
+
+	void MainMenuControl::notifyMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			MenuCommand command = *_sender->getUserData<MenuCommand>();
+			if (command == MenuCommandClear)
+				clear();
+		}
+	}
+
+	void MainMenuControl::clear()
+	{
+		SkinManager::getInstance().clear();
 	}*/
+
+	void MainMenuControl::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Cancel)
+		{
+		}
+		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			clear();
+
+			showLoadWindow();
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			clear();
+
+			showLoadWindow();
+		}
+	}
+
+	void MainMenuControl::showLoadWindow()
+	{
+	}
+
+	void MainMenuControl::save()
+	{
+		MyGUI::xml::Document doc;
+		doc.open(mFileName);
+		doc.clear();
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+
+		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+
+		doc.save(mFileName);
+	}
+
+	void MainMenuControl::clear()
+	{
+		SkinManager::getInstance().clear();
+		ActionManager::getInstance().setChanges(false);
+	}
 
 } // namespace tools
