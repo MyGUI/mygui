@@ -11,7 +11,9 @@
 namespace common
 {
 
-	OpenSaveFileDialog::OpenSaveFileDialog() : BaseLayout("OpenSaveFileDialog.layout")
+	OpenSaveFileDialog::OpenSaveFileDialog() :
+		BaseLayout("OpenSaveFileDialog.layout"),
+		mModeSave(false)
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -29,6 +31,8 @@ namespace common
 
 		mFileMask = L"*.*";
 		mCurrentFolder = getSystemCurrentFolder();
+
+		mMainWidget->setVisible(false);
 
 		update();
 	}
@@ -154,6 +158,24 @@ namespace common
 		mFileMask = _value;
 
 		update();
+	}
+
+	void OpenSaveFileDialog::setVisible(bool _value)
+	{
+		if (mMainWidget->getVisible() != _value)
+		{
+			mMainWidget->setVisible(_value);
+
+			if (_value)
+				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+			else
+				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+		}
+	}
+
+	bool OpenSaveFileDialog::getVisible()
+	{
+		return mMainWidget->getVisible();
 	}
 
 } // namespace common

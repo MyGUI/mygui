@@ -12,7 +12,9 @@
 namespace demo
 {
 
-	class DemoKeeper : public base::BaseManager
+	class DemoKeeper :
+		public base::BaseManager,
+		public MyGUI::Singleton<DemoKeeper>
 	{
 	public:
 		DemoKeeper();

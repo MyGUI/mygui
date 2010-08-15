@@ -49,6 +49,7 @@ set (HEADER_FILES
   ActionManager.h
   MainMenuControl.h
   OpenSaveFileDialog.h
+  MainWindowManager.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -98,6 +99,7 @@ set (SOURCE_FILES
   ActionManager.cpp
   MainMenuControl.cpp
   OpenSaveFileDialog.cpp
+  MainWindowManager.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -148,6 +150,7 @@ SOURCE_GROUP("Source Files" FILES
   ActionManager.cpp
   MainMenuControl.cpp
   OpenSaveFileDialog.cpp
+  MainWindowManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -200,6 +203,7 @@ SOURCE_GROUP("Header Files" FILES
   ActionManager.h
   MainMenuControl.h
   OpenSaveFileDialog.h
+  MainWindowManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
