@@ -5,264 +5,32 @@
 */
 #include "precompiled.h"
 #include "MainMenuControl.h"
-#include "ActionManager.h"
-#include "SkinManager.h"
-#include "DemoKeeper.h"
-#include "FileSystemInfo/FileSystemInfo.h"
+#include "CommandManager.h"
 
 namespace tools
 {
 
 	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("MainMenuControl.layout", _parent),
-		mMainMenu(nullptr),
-		mOpenSaveFileDialog(nullptr)
+		mMainMenu(nullptr)
 	{
 		assignWidget(mMainMenu, "MainMenu");
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
-
-		mOpenSaveFileDialog = new common::OpenSaveFileDialog();
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &MainMenuControl::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
 	}
 
 	MainMenuControl::~MainMenuControl()
 	{
-		mOpenSaveFileDialog->eventEndDialog = nullptr;
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
-
 		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 	}
 
 	void MainMenuControl::notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 	{
 		const std::string& command = _item->getItemId();
-		if (command == "File/Load")
-			commandLoad();
-		else if (command == "File/Save")
-			commandSave();
-		else if (command == "File/SaveAs")
-			commandSaveAs();
-		else if (command == "File/Clear")
-			commandClear();
-		else if (command == "File/Quit")
-			commandQuit();
-	}
-
-	void MainMenuControl::commandLoad()
-	{
-		if (ActionManager::getInstance().getChanges())
+		if (command.size() > 8 && command.substr(0, 8) == "Command_")
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResultLoad);
+			CommandManager::getInstance().executeCommand(command);
 		}
-		else
-		{
-			showLoadWindow();
-		}
-	}
-
-	void MainMenuControl::commandSave()
-	{
-		if (ActionManager::getInstance().getChanges())
-		{
-			if (mFileName.empty())
-				showSaveAsWindow();
-			else
-				save();
-		}
-	}
-
-	void MainMenuControl::commandSaveAs()
-	{
-		showSaveAsWindow();
-	}
-
-	void MainMenuControl::commandClear()
-	{
-		if (ActionManager::getInstance().getChanges())
-		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResultClear);
-		}
-		else
-		{
-			clear();
-		}
-	}
-
-	void MainMenuControl::commandQuit()
-	{
-	}
-
-	void MainMenuControl::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-
-			showLoadWindow();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-
-			showLoadWindow();
-		}
-	}
-
-	void MainMenuControl::showLoadWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo("Load", "Load");
-		mOpenSaveFileDialog->setModeSave(false);
-		mOpenSaveFileDialog->setVisible(true);
-	}
-
-	void MainMenuControl::save()
-	{
-		if (mFileName != "")
-		{
-			MyGUI::xml::Document doc;
-			doc.createDeclaration();
-			MyGUI::xml::Element* root = doc.createRoot("Root");
-			MyGUI::xml::Element* skins = root->createChild("SkinManager");
-
-			SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-			doc.save(mFileName);
-
-			ActionManager::getInstance().setChanges(false);
-		}
-		else
-		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Ошибка",
-				L"Не указано имя файла",
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
-		}
-	}
-
-	void MainMenuControl::clear()
-	{
-		SkinManager::getInstance().clear();
-		ActionManager::getInstance().setChanges(false);
-
-		mFileName = "";
-		updateWidgetCaption();
-	}
-
-	void MainMenuControl::notifyEndDialog(bool _result)
-	{
-		if (_result)
-		{
-			mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-
-			if (mOpenSaveFileDialog->getModeSave())
-				save();
-			else
-				load();
-
-			updateWidgetCaption();
-		}
-
-		mOpenSaveFileDialog->setVisible(false);
-	}
-
-	void MainMenuControl::load()
-	{
-		SkinManager::getInstance().clear();
-
-		MyGUI::xml::Document doc;
-		if (doc.open(mFileName))
-		{
-			bool result = false;
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "Root")
-			{
-				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
-				while (nodes.next("SkinManager"))
-				{
-					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
-					result = true;
-					break;
-				}
-			}
-
-			if (!result)
-			{
-				MyGUI::UString text = L"Файл '" + mFileName + L"' не соответсвует формату.";
-				MyGUI::Message* message = MyGUI::Message::createMessageBox(
-					"Message",
-					L"Ошибка",
-					text,
-					MyGUI::MessageBoxStyle::IconError
-						| MyGUI::MessageBoxStyle::Yes);
-
-				mFileName = "";
-				updateWidgetCaption();
-			}
-		}
-		else
-		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Ошибка",
-				doc.getLastError(),
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
-		}
-
-		ActionManager::getInstance().setChanges(false);
-	}
-
-	void MainMenuControl::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-		}
-	}
-
-	void MainMenuControl::showSaveAsWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo("SaveAs", "Save");
-		mOpenSaveFileDialog->setModeSave(true);
-		mOpenSaveFileDialog->setVisible(true);
-	}
-
-	void MainMenuControl::updateWidgetCaption()
-	{
-		demo::DemoKeeper::getInstance().setFileName(mFileName);
 	}
 
 } // namespace tools

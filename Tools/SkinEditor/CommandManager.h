@@ -11,6 +11,8 @@
 namespace tools
 {
 
+	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> CommandDelegate;
+
 	class CommandManager :
 		public MyGUI::Singleton<CommandManager>
 	{
@@ -21,7 +23,13 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void ExecuteCommand(const MyGUI::UString& _command);
+		void registerCommand(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate);
+
+		void executeCommand(const MyGUI::UString& _command);
+
+	private:
+		typedef std::map<MyGUI::UString, CommandDelegate> MapDelegate;
+		MapDelegate mDelegates;
 	};
 
 } // namespace tools
