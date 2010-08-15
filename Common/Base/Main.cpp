@@ -5,7 +5,7 @@
 	@module
 */
 
-#include "precompiled.h"
+/*#include "precompiled.h"
 #include "DemoKeeper.h"
 
 #if WIN32
@@ -49,4 +49,4 @@ int main(int argc, char **argv)
 
 #ifdef __cplusplus
 }
-#endif
+#endif*/

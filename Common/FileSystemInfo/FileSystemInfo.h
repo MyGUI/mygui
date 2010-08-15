@@ -33,7 +33,7 @@ namespace common
 	inline bool isAbsolutePath(const wchar_t* path)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (isalpha(path[0]) && path[1] == ':')
+		if (IsCharAlphaW(path[0]) && path[1] == ':')
 			return true;
 	#endif
 		return path[0] == '/' || path[0] == '\\';

@@ -254,12 +254,12 @@ namespace base
 		}
 	}
 
-	void BaseManager::setWindowCaption(const std::string & _text)
+	void BaseManager::setWindowCaption(const std::wstring & _text)
 	{
-		SetWindowText(hWnd, _text.c_str());
+		SetWindowTextW(hWnd, _text.c_str());
 	}
 
-	void BaseManager::prepare(int argc, char **argv)
+	void BaseManager::prepare()
 	{
 	}
 
