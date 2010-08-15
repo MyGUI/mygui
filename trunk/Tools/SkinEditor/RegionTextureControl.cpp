@@ -266,7 +266,7 @@ namespace tools
 
 	void RegionTextureControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
-		if (_sender->getName() == "Visible")
+		if (_sender->getName() == "Visible" || _sender->getName() == "Position")
 			updateUnselectedStates();
 	}
 
