@@ -75,7 +75,10 @@ namespace tools
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
-			save();
+			if (mFileName.empty())
+				showSaveAsWindow();
+			else
+				save();
 		}
 	}
 
@@ -210,7 +213,7 @@ namespace tools
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
 				L"Ошибка",
-				MyGUI::utility::toString(L"Ошибка открытия файла '", mFileName, L"'"),
+				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
 		}
