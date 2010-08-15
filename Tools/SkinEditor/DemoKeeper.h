@@ -22,11 +22,20 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
+		virtual void onFileDrop(const std::wstring& _filename);
+		virtual bool onWinodwClose(size_t _handle);
+
+		void setChanges(bool _value);
+		void setFileName(const MyGUI::UString& _value);
+
 	private:
 		virtual void setupResources();
+		void updateCaption();
 
 	private:
 		tools::MainPane* mMainPane;
+		bool mChanges;
+		MyGUI::UString mFileName;
 	};
 
 } // namespace demo
