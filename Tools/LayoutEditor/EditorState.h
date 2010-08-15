@@ -55,8 +55,8 @@ public:
 	virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 	virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
-	virtual void prepare(int argc, char **argv);
-	virtual void onFileDrop(const std::string& _filename);
+	virtual void prepare();
+	virtual void onFileDrop(const std::wstring& _filename);
 	virtual bool onWinodwClose(size_t _handle);
 
 //===================================================================================
@@ -161,7 +161,7 @@ private:
 	MyGUI::MenuCtrl* mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 
-	std::vector<std::string> mParams;
+	std::vector<std::wstring> mParams;
 	std::string mLocale;
 };
 #endif // __EDITOR_STATE_H__
