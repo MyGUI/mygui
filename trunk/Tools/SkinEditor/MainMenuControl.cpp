@@ -197,6 +197,7 @@ namespace tools
 		MyGUI::xml::Document doc;
 		if (doc.open(mFileName))
 		{
+			bool result = false;
 			MyGUI::xml::Element* root = doc.getRoot();
 			if (root->getName() == "Root")
 			{
@@ -204,8 +205,23 @@ namespace tools
 				while (nodes.next("SkinManager"))
 				{
 					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
+					result = true;
 					break;
 				}
+			}
+
+			if (!result)
+			{
+				MyGUI::UString text = L"Файл '" + mFileName + L"' не соответсвует формату.";
+				MyGUI::Message* message = MyGUI::Message::createMessageBox(
+					"Message",
+					L"Ошибка",
+					text,
+					MyGUI::MessageBoxStyle::IconError
+						| MyGUI::MessageBoxStyle::Yes);
+
+				mFileName = "";
+				updateWidgetCaption();
 			}
 		}
 		else
