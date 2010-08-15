@@ -7,6 +7,7 @@
 #include "MainMenuControl.h"
 #include "ActionManager.h"
 #include "SkinManager.h"
+#include "MainWindowManager.h"
 
 namespace tools
 {
@@ -14,15 +15,23 @@ namespace tools
 	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("MainMenuControl.layout", _parent),
 		mMainMenu(nullptr),
-		mFileName("test.xml")
+		mOpenSaveFileDialog(nullptr)
 	{
 		assignWidget(mMainMenu, "MainMenu");
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
+
+		mOpenSaveFileDialog = new common::OpenSaveFileDialog();
+		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &MainMenuControl::notifyEndDialog);
+		mOpenSaveFileDialog->setFileMask("*.xml");
 	}
 
 	MainMenuControl::~MainMenuControl()
 	{
+		mOpenSaveFileDialog->eventEndDialog = nullptr;
+		delete mOpenSaveFileDialog;
+		mOpenSaveFileDialog = nullptr;
+
 		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 	}
 
@@ -53,37 +62,12 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			//message->setUserData(MenuCommandLoad);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResultLoad);
 		}
 		else
 		{
 			showLoadWindow();
 		}
-
-		/*if (ActionManager::getInstance().getChanges())
-		{
-		}
-		else
-		{
-			//load();
-			SkinManager::getInstance().clear();
-
-			MyGUI::xml::Document doc;
-			if (doc.open(std::string("test.xml")))
-			{
-				MyGUI::xml::Element* root = doc.getRoot();
-				if (root->getName() == "Root")
-				{
-					MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
-					while (nodes.next("SkinManager"))
-					{
-						SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
-						break;
-					}
-				}
-			}
-		}*/
 	}
 
 	void MainMenuControl::commandSave()
@@ -91,66 +75,37 @@ namespace tools
 		if (ActionManager::getInstance().getChanges())
 		{
 			save();
-
-			ActionManager::getInstance().setChanges(false);
 		}
 	}
 
 	void MainMenuControl::commandSaveAs()
 	{
+		showSaveAsWindow();
 	}
 
 	void MainMenuControl::commandClear()
 	{
-		/*if (ActionManager::getInstance().getChanges())
-			showMessageBox(MenuCommandClear, L"Вы уверены что хотите все тут удалить?");
+		if (ActionManager::getInstance().getChanges())
+		{
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Внимание",
+				L"Сохранить изменения?",
+				MyGUI::MessageBoxStyle::IconQuest
+					| MyGUI::MessageBoxStyle::Yes
+					| MyGUI::MessageBoxStyle::No
+					| MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResultClear);
+		}
 		else
-			clear();*/
+		{
+			clear();
+		}
 	}
 
 	void MainMenuControl::commandQuit()
 	{
 	}
-
-	/*void MainMenuControl::save(const MyGUI::UString& _fileName)
-	{
-		MyGUI::xml::Document doc;
-		doc.open(_fileName);
-		doc.clear();
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
-
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-		doc.save(_fileName);
-	}
-
-	void MainMenuControl::showMessageBox(MenuCommand _command, const MyGUI::UString& _text)
-	{
-		MyGUI::Message* message = MyGUI::Message::createMessageBox(
-			"Message",
-			L"Внимание",
-			L"Вы уверены?",
-			MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
-		message->setUserData(_command);
-		message->eventMessageBoxResult += MyGUI::newDelegate(this, &MainMenuControl::notifyMessageBoxResult);
-	}
-
-	void MainMenuControl::notifyMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			MenuCommand command = *_sender->getUserData<MenuCommand>();
-			if (command == MenuCommandClear)
-				clear();
-		}
-	}
-
-	void MainMenuControl::clear()
-	{
-		SkinManager::getInstance().clear();
-	}*/
 
 	void MainMenuControl::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
@@ -174,26 +129,124 @@ namespace tools
 
 	void MainMenuControl::showLoadWindow()
 	{
+		mOpenSaveFileDialog->setDialogInfo("Load", "Load");
+		mOpenSaveFileDialog->setModeSave(false);
+		mOpenSaveFileDialog->setVisible(true);
 	}
 
 	void MainMenuControl::save()
 	{
-		MyGUI::xml::Document doc;
-		doc.open(mFileName);
-		doc.clear();
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+		if (mFileName != "")
+		{
+			MyGUI::xml::Document doc;
+			doc.createDeclaration();
+			MyGUI::xml::Element* root = doc.createRoot("Root");
+			MyGUI::xml::Element* skins = root->createChild("SkinManager");
 
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+			SkinManager::getInstance().serialization(skins, MyGUI::Version());
 
-		doc.save(mFileName);
+			doc.save(mFileName);
+
+			ActionManager::getInstance().setChanges(false);
+		}
+		else
+		{
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Ошибка",
+				L"Не указано имя файла",
+				MyGUI::MessageBoxStyle::IconError
+					| MyGUI::MessageBoxStyle::Yes);
+		}
 	}
 
 	void MainMenuControl::clear()
 	{
 		SkinManager::getInstance().clear();
 		ActionManager::getInstance().setChanges(false);
+
+		mFileName = "";
+		updateWidgetCaption();
+	}
+
+	void MainMenuControl::notifyEndDialog(bool _result)
+	{
+		if (_result)
+		{
+			if (mOpenSaveFileDialog->getModeSave())
+			{
+				mFileName = mOpenSaveFileDialog->getFileName();
+				save();
+			}
+			else
+			{
+				mFileName = mOpenSaveFileDialog->getFileName();
+				load();
+			}
+
+			updateWidgetCaption();
+		}
+
+		mOpenSaveFileDialog->setVisible(false);
+	}
+
+	void MainMenuControl::load()
+	{
+		SkinManager::getInstance().clear();
+
+		MyGUI::xml::Document doc;
+		if (doc.open(mFileName))
+		{
+			MyGUI::xml::Element* root = doc.getRoot();
+			if (root->getName() == "Root")
+			{
+				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
+				while (nodes.next("SkinManager"))
+				{
+					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
+					break;
+				}
+			}
+		}
+		else
+		{
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Ошибка",
+				MyGUI::utility::toString(L"Ошибка открытия файла '", mFileName, L"'"),
+				MyGUI::MessageBoxStyle::IconError
+					| MyGUI::MessageBoxStyle::Yes);
+		}
+
+		ActionManager::getInstance().setChanges(false);
+	}
+
+	void MainMenuControl::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Cancel)
+		{
+		}
+		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			clear();
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			clear();
+		}
+	}
+
+	void MainMenuControl::showSaveAsWindow()
+	{
+		mOpenSaveFileDialog->setDialogInfo("SaveAs", "Save");
+		mOpenSaveFileDialog->setModeSave(true);
+		mOpenSaveFileDialog->setVisible(true);
+	}
+
+	void MainMenuControl::updateWidgetCaption()
+	{
+		MainWindowManager::getInstance().setFileName(mFileName);
 	}
 
 } // namespace tools

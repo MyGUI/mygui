@@ -12,7 +12,8 @@
 namespace common
 {
 
-	class OpenSaveFileDialog : public wraps::BaseLayout
+	class OpenSaveFileDialog :
+		public wraps::BaseLayout
 	{
 	public:
 		typedef MyGUI::delegates::CDelegate1<bool> EventHandle_Result;
@@ -31,8 +32,11 @@ namespace common
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const { return mFileName; }
 
-		void setVisible(bool _value) { mMainWidget->setVisible(_value); }
-		bool getVisible() { return mMainWidget->getVisible(); }
+		void setVisible(bool _value);
+		bool getVisible();
+
+		bool getModeSave() { return mModeSave; }
+		void setModeSave(bool _value) { mModeSave = _value; }
 
 		EventHandle_Result eventEndDialog;
 
@@ -57,6 +61,8 @@ namespace common
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
 		MyGUI::UString mFileMask;
+
+		bool mModeSave;
 	};
 
 } // namespace common

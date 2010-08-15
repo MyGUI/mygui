@@ -7,15 +7,10 @@
 #define __MAIN_MENU_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "OpenSaveFileDialog.h"
 
 namespace tools
 {
-
-	/*enum MenuCommand
-	{
-		MenuCommandClear,
-		MenuCommandLoad
-	};*/
 
 	class MainMenuControl :
 		public wraps::BaseLayout
@@ -26,8 +21,10 @@ namespace tools
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
-		//void notifyMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+
+		void notifyEndDialog(bool _result);
 
 		void commandLoad();
 		void commandSave();
@@ -35,16 +32,19 @@ namespace tools
 		void commandClear();
 		void commandQuit();
 
-		//void showMessageBox(MenuCommand _command, const MyGUI::UString& _text);
-
-		//void save(const MyGUI::UString& _fileName);
 		void clear();
-		void showLoadWindow();
 		void save();
+		void load();
+
+		void showLoadWindow();
+		void showSaveAsWindow();
+
+		void updateWidgetCaption();
 
 	private:
 		MyGUI::MenuBar* mMainMenu;
 		MyGUI::UString mFileName;
+		common::OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
 } // namespace tools

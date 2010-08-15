@@ -8,7 +8,11 @@
 #include "Base/Main.h"
 #include "SkinManager.h"
 #include "ActionManager.h"
+#include "MainWindowManager.h"
 #include "MyGUI_FilterNoneSkin.h"
+
+template <> demo::DemoKeeper* MyGUI::Singleton<demo::DemoKeeper>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<demo::DemoKeeper>::mClassTypeName("DemoKeeper");
 
 namespace demo
 {
@@ -36,6 +40,9 @@ namespace demo
 		tools::ActionManager* actionManager = new tools::ActionManager();
 		actionManager->initialise();
 
+		tools::MainWindowManager* mainWindowManager = new tools::MainWindowManager();
+		mainWindowManager->initialise();
+
 		mMainPane = new tools::MainPane();
 	}
 
@@ -43,6 +50,10 @@ namespace demo
 	{
 		delete mMainPane;
 		mMainPane = nullptr;
+
+		tools::MainWindowManager* mainWindowManager = tools::MainWindowManager::getInstancePtr();
+		mainWindowManager->shutdown();
+		delete mainWindowManager;
 
 		tools::ActionManager* actionManager = tools::ActionManager::getInstancePtr();
 		actionManager->shutdown();
