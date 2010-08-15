@@ -45,7 +45,12 @@ namespace tools
 
 	void MainWindowManager::updateCaption()
 	{
-		demo::DemoKeeper::getInstance().setWindowCaption(MyGUI::utility::toString("Skin editor - '", mFileName.empty() ? "unnamed" : mFileName, "' ", mChanges ? "*" : ""));
+		std::wstring result = L"Skin editor - '";
+		result += mFileName.empty() ? L"unnamed" : mFileName;
+		result += L"' ";
+		result += mChanges ? L"*" : L"";
+
+		demo::DemoKeeper::getInstance().setWindowCaption(result);
 	}
 
 } // namespace tools
