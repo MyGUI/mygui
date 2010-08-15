@@ -7,6 +7,7 @@
 #include "Base/Main.h"
 #include "GroupMessage.h"
 #include "CodeGenerator.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -143,7 +144,7 @@ void EditorState::createScene()
 	}
 
 	// загружаем файлы которые были в командной строке
-	for (std::vector<std::string>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+	for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 	{
 		saveOrLoadLayout(false, false, iter->c_str());
 	}
@@ -796,7 +797,7 @@ void EditorState::clear(bool _clearName)
 	selectDepth = 0;
 
 	if (_clearName)
-		setWindowCaption("MyGUI Layout Editor");
+		setWindowCaption(L"MyGUI Layout Editor");
 }
 
 void EditorState::notifyQuit()
@@ -1035,7 +1036,7 @@ void EditorState::notifyOpenSaveEndDialog(bool _result)
 {
 	if (_result)
 	{
-		MyGUI::UString file = mOpenSaveFileDialog->getCurrentFolder() + L"/" + mOpenSaveFileDialog->getFileName();
+		MyGUI::UString file = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 		saveOrLoadLayout(mModeSaveDialog, false, file);
 	}
 	else
@@ -1074,7 +1075,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 		(!Save && ew->load(_file)) )
 	{
 		fileName = _file;
-		setWindowCaption(_file + " - MyGUI Layout Editor");
+		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
 		recentFiles.push_back(_file);
 
 		mOpenSaveFileDialog->setVisible(false);
@@ -1097,7 +1098,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 	return false;
 }
 
-void EditorState::prepare(int argc, char **argv)
+void EditorState::prepare()
 {
 	// устанавливаем локаль из переменной окружения
 	// без этого не будут открываться наши файлы
@@ -1108,24 +1109,25 @@ void EditorState::prepare(int argc, char **argv)
 	else if (mLocale == "en") mLocale = "English";
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	// при дропе файл может быть запущен в любой дирректории
-	char buff[MAX_PATH];
-	::GetModuleFileNameA(0, buff, MAX_PATH);
 
-	std::string dir = buff;
-	size_t pos = dir.find_last_of("\\/");
+	// при дропе файл может быть запущен в любой дирректории
+	wchar_t buff[MAX_PATH];
+	::GetModuleFileNameW(0, buff, MAX_PATH);
+
+	std::wstring dir = buff;
+	size_t pos = dir.find_last_of(L"\\/");
 	if (pos != dir.npos)
 	{
 		// устанавливаем правильную дирректорию
-		::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
+		::SetCurrentDirectoryW(dir.substr(0, pos+1).c_str());
 	}
 
 	// имена могут содержать пробелы, необходимо
 	//склеивать и проверять файлы на существование
-	std::ifstream stream;
-	std::string tmp;
-	std::string delims = " ";
-	std::string source = *argv;
+	std::wifstream stream;
+	std::wstring tmp;
+	std::wstring delims = L" ";
+	std::wstring source = GetCommandLineW();
 	size_t start = source.find_first_not_of(delims);
 	while (start != source.npos)
 	{
@@ -1137,7 +1139,7 @@ void EditorState::prepare(int argc, char **argv)
 			// имена могут быть в ковычках
 			if (tmp.size() > 2)
 			{
-				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
 				{
 					tmp = tmp.substr(1, tmp.size()-2);
 				}
@@ -1146,7 +1148,9 @@ void EditorState::prepare(int argc, char **argv)
 			stream.open(tmp.c_str());
 			if (stream.is_open())
 			{
-				mParams.push_back(tmp);
+				if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
+					mParams.push_back(tmp);
+
 				tmp.clear();
 				stream.close();
 			}
@@ -1160,7 +1164,7 @@ void EditorState::prepare(int argc, char **argv)
 			// имена могут быть в ковычках
 			if (tmp.size() > 2)
 			{
-				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
 				{
 					tmp = tmp.substr(1, tmp.size()-2);
 				}
@@ -1169,7 +1173,9 @@ void EditorState::prepare(int argc, char **argv)
 			stream.open(tmp.c_str());
 			if (stream.is_open())
 			{
-				mParams.push_back(tmp);
+				if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
+					mParams.push_back(tmp);
+
 				tmp.clear();
 				stream.close();
 			}
@@ -1184,7 +1190,7 @@ void EditorState::prepare(int argc, char **argv)
 #endif
 }
 
-void EditorState::onFileDrop(const std::string& _filename)
+void EditorState::onFileDrop(const std::wstring& _filename)
 {
 	saveOrLoadLayout(false, false, _filename);
 }
