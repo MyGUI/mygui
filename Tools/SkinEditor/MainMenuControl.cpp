@@ -7,7 +7,7 @@
 #include "MainMenuControl.h"
 #include "ActionManager.h"
 #include "SkinManager.h"
-#include "MainWindowManager.h"
+#include "DemoKeeper.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
 namespace tools
@@ -262,7 +262,7 @@ namespace tools
 
 	void MainMenuControl::updateWidgetCaption()
 	{
-		MainWindowManager::getInstance().setFileName(mFileName);
+		demo::DemoKeeper::getInstance().setFileName(mFileName);
 	}
 
 } // namespace tools
