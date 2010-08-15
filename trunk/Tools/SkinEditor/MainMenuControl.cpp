@@ -8,6 +8,7 @@
 #include "ActionManager.h"
 #include "SkinManager.h"
 #include "MainWindowManager.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 
 namespace tools
 {
@@ -173,16 +174,12 @@ namespace tools
 	{
 		if (_result)
 		{
+			mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+
 			if (mOpenSaveFileDialog->getModeSave())
-			{
-				mFileName = mOpenSaveFileDialog->getFileName();
 				save();
-			}
 			else
-			{
-				mFileName = mOpenSaveFileDialog->getFileName();
 				load();
-			}
 
 			updateWidgetCaption();
 		}

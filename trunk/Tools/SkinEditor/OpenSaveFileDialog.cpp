@@ -167,9 +167,14 @@ namespace common
 			mMainWidget->setVisible(_value);
 
 			if (_value)
+			{
+				update();
 				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+			}
 			else
+			{
 				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+			}
 		}
 	}
 
