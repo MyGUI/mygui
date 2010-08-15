@@ -8,6 +8,7 @@
 
 #include "BaseManager.h"
 #include "MainPane.h"
+#include "OpenSaveFileDialog.h"
 
 namespace demo
 {
@@ -26,9 +27,26 @@ namespace demo
 		virtual bool onWinodwClose(size_t _handle);
 
 		void setChanges(bool _value);
-		void setFileName(const MyGUI::UString& _value);
 
 	private:
+		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+
+		void notifyEndDialog(bool _result);
+
+		void commandLoad(const MyGUI::UString & _commandName);
+		void commandSave(const MyGUI::UString & _commandName);
+		void commandSaveAs(const MyGUI::UString & _commandName);
+		void commandClear(const MyGUI::UString & _commandName);
+		void commandQuit(const MyGUI::UString & _commandName);
+
+		void clear();
+		void save();
+		void load();
+
+		void showLoadWindow();
+		void showSaveAsWindow();
+
 		virtual void setupResources();
 		void updateCaption();
 
@@ -36,6 +54,7 @@ namespace demo
 		tools::MainPane* mMainPane;
 		bool mChanges;
 		MyGUI::UString mFileName;
+		common::OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
 } // namespace demo

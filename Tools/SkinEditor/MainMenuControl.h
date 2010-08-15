@@ -7,7 +7,6 @@
 #define __MAIN_MENU_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "OpenSaveFileDialog.h"
 
 namespace tools
 {
@@ -21,30 +20,9 @@ namespace tools
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
-		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-
-		void notifyEndDialog(bool _result);
-
-		void commandLoad();
-		void commandSave();
-		void commandSaveAs();
-		void commandClear();
-		void commandQuit();
-
-		void clear();
-		void save();
-		void load();
-
-		void showLoadWindow();
-		void showSaveAsWindow();
-
-		void updateWidgetCaption();
 
 	private:
 		MyGUI::MenuBar* mMainMenu;
-		MyGUI::UString mFileName;
-		common::OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
 } // namespace tools
