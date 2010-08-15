@@ -9,27 +9,27 @@
 				<Property key="MenuItem_Id" value="File"/>
 				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="Load"/>
-						<Property key="MenuItem_Id" value="File/Load"/>
+						<Property key="Widget_Caption" value="Load ..."/>
+						<Property key="MenuItem_Id" value="Command_FileLoad"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Widget_Caption" value="Save"/>
-						<Property key="MenuItem_Id" value="File/Save"/>
+						<Property key="MenuItem_Id" value="Command_FileSave"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="Save_as"/>
-						<Property key="MenuItem_Id" value="File/SaveAs"/>
+						<Property key="Widget_Caption" value="Save as ..."/>
+						<Property key="MenuItem_Id" value="Command_FileSaveAs"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Widget_Caption" value="Clear"/>
-						<Property key="MenuItem_Id" value="File/Clear"/>
+						<Property key="MenuItem_Id" value="Command_ClearAll"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
 						<Property key="MenuItem_Type" value="Separator"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Widget_Caption" value="Quit"/>
-						<Property key="MenuItem_Id" value="File/Quit"/>
+						<Property key="MenuItem_Id" value="Command_QuitApp"/>
 					</Widget>
 				</Widget>
 			</Widget>
