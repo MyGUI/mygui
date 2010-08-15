@@ -38,10 +38,13 @@ namespace tools
 
 	void Property::setValue(const MyGUI::UString& _value, const MyGUI::UString& _owner)
 	{
-		mValue = _value;
-		eventChangeProperty(this, _owner);
+		if (mValue != _value)
+		{
+			mValue = _value;
+			eventChangeProperty(this, _owner);
 
-		ActionManager::getInstance().setChanges(true);
+			ActionManager::getInstance().setChanges(true);
+		}
 	}
 
 	bool Property::getReadOnly()
