@@ -21,7 +21,9 @@ namespace demo
 	DemoKeeper::DemoKeeper() :
 		mMainPane(nullptr),
 		mChanges(false),
-		mOpenSaveFileDialog(nullptr)
+		mOpenSaveFileDialog(nullptr),
+		mDefaultFileName("unnamed.xml"),
+		mFileName("unnamed.xml")
 	{
 	}
 
@@ -91,7 +93,8 @@ namespace demo
 
 	bool DemoKeeper::onWinodwClose(size_t _handle)
 	{
-		return true;
+		tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
+		return false;
 	}
 
 	void DemoKeeper::setChanges(bool _value)
@@ -103,7 +106,7 @@ namespace demo
 	void DemoKeeper::updateCaption()
 	{
 		std::wstring result = L"Skin editor - '";
-		result += mFileName.empty() ? L"unnamed" : mFileName;
+		result += mFileName;
 		result += L"' ";
 		result += mChanges ? L"*" : L"";
 
@@ -134,10 +137,7 @@ namespace demo
 	{
 		if (tools::ActionManager::getInstance().getChanges())
 		{
-			if (mFileName.empty())
-				showSaveAsWindow();
-			else
-				save();
+			save();
 		}
 	}
 
@@ -168,6 +168,22 @@ namespace demo
 
 	void DemoKeeper::commandQuit(const MyGUI::UString & _commandName)
 	{
+		if (mChanges)
+		{
+			MyGUI::Message* message = MyGUI::Message::createMessageBox(
+				"Message",
+				L"Внимание",
+				L"Сохранить изменения?",
+				MyGUI::MessageBoxStyle::IconQuest
+					| MyGUI::MessageBoxStyle::Yes
+					| MyGUI::MessageBoxStyle::No
+					| MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultQuit);
+		}
+		else
+		{
+			quit();
+		}
 	}
 
 	void DemoKeeper::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
@@ -199,28 +215,16 @@ namespace demo
 
 	void DemoKeeper::save()
 	{
-		if (mFileName != "")
-		{
-			MyGUI::xml::Document doc;
-			doc.createDeclaration();
-			MyGUI::xml::Element* root = doc.createRoot("Root");
-			MyGUI::xml::Element* skins = root->createChild("SkinManager");
+		MyGUI::xml::Document doc;
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+		MyGUI::xml::Element* skins = root->createChild("SkinManager");
 
-			tools::SkinManager::getInstance().serialization(skins, MyGUI::Version());
+		tools::SkinManager::getInstance().serialization(skins, MyGUI::Version());
 
-			doc.save(mFileName);
+		doc.save(mFileName);
 
-			tools::ActionManager::getInstance().setChanges(false);
-		}
-		else
-		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Ошибка",
-				L"Не указано имя файла",
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
-		}
+		tools::ActionManager::getInstance().setChanges(false);
 	}
 
 	void DemoKeeper::clear()
@@ -228,7 +232,7 @@ namespace demo
 		tools::SkinManager::getInstance().clear();
 		tools::ActionManager::getInstance().setChanges(false);
 
-		mFileName = "";
+		mFileName = mDefaultFileName;
 		updateCaption();
 	}
 
@@ -279,7 +283,7 @@ namespace demo
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
 
-				mFileName = "";
+				mFileName = mDefaultFileName;
 				updateCaption();
 			}
 		}
@@ -317,6 +321,22 @@ namespace demo
 		mOpenSaveFileDialog->setDialogInfo("SaveAs", "Save");
 		mOpenSaveFileDialog->setModeSave(true);
 		mOpenSaveFileDialog->setVisible(true);
+	}
+
+	void DemoKeeper::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Cancel)
+		{
+		}
+		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			quit();
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			quit();
+		}
 	}
 
 } // namespace demo

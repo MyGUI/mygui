@@ -31,6 +31,7 @@ namespace demo
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(bool _result);
 
@@ -54,6 +55,7 @@ namespace demo
 		tools::MainPane* mMainPane;
 		bool mChanges;
 		MyGUI::UString mFileName;
+		MyGUI::UString mDefaultFileName;
 		common::OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
