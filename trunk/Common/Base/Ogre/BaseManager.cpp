@@ -335,16 +335,16 @@ namespace base
 		destroyInput();
 	}
 
-	void BaseManager::setWindowCaption(const std::string& _text)
+	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		size_t handle = 0;
 		mWindow->getCustomAttribute("WINDOW", &handle);
-		::SetWindowTextA((HWND)handle, _text.c_str());
+		::SetWindowTextW((HWND)handle, _text.c_str());
 	#endif
 	}
 
-	void BaseManager::prepare(int argc, char **argv)
+	void BaseManager::prepare()
 	{
 	}
 

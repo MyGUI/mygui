@@ -29,13 +29,13 @@ namespace base
 		BaseManager();
 		virtual ~BaseManager();
 
-		virtual void prepare(int argc, char **argv); // инициализация коммандной строки
+		virtual void prepare(); // инициализация коммандной строки
 		bool create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 		void quit() { mExit = true; }
 
-		void setWindowCaption(const std::string& _text);
+		void setWindowCaption(const std::wstring& _text);
 		void createDefaultScene() { }
 
 		MyGUI::Gui* getGUI() { return mGUI; }

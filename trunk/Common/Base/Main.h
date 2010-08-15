@@ -25,15 +25,15 @@
 #endif
 
 // simple shortcut
-#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(argc, argv); }
+#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
 
 template <class AppClass>
-int startApp(int argc, char **argv)
+int startApp()
 {
 	try
 	{
 		AppClass * app = new AppClass();
-		app->prepare(argc, argv);
+		app->prepare();
 		if (app->create())
 		{
 			app->run();
