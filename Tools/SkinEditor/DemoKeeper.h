@@ -28,6 +28,9 @@ namespace demo
 
 		void setChanges(bool _value);
 
+	protected:
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
