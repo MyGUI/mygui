@@ -493,7 +493,7 @@ namespace demo
 				MyGUI::xml::Element* region = _to->createChild("Region");
 				MyGUI::IntCoord regionCoord;
 
-				MyGUI::UString typeValue;
+				MyGUI::UString regionTypeValue;
 				MyGUI::UString regionOffsetValue;
 				MyGUI::UString alignValue;
 
@@ -510,7 +510,7 @@ namespace demo
 						{
 							if (name == "RegionType")
 							{
-								typeValue = propertyNode->getContent();
+								regionTypeValue = propertyNode->getContent();
 							}
 							else if (name == "Position")
 							{
@@ -524,7 +524,7 @@ namespace demo
 						}
 					}
 
-					region->addAttribute("type", typeValue);
+					region->addAttribute("type", regionTypeValue);
 					region->addAttribute("offset", regionOffsetValue);
 					region->addAttribute("align", alignValue);
 
@@ -560,6 +560,8 @@ namespace demo
 						MyGUI::xml::Element* state = region->createChild("State");
 
 						MyGUI::UString stateOffsetValue;
+						MyGUI::UString textColourValue;
+						MyGUI::UString textShiftValue;
 
 						propertySetNodes = stateNodes->getElementEnumerator();
 						while (propertySetNodes.next("PropertySet"))
@@ -577,13 +579,29 @@ namespace demo
 										MyGUI::IntCoord coord = regionCoord + MyGUI::IntPoint::parse(propertyNode->getContent());
 										stateOffsetValue = coord.print();
 									}
+									else if (name == "TextColour")
+									{
+										textColourValue = propertyNode->getContent();
+									}
+									else if (name == "TextShift")
+									{
+										textShiftValue = propertyNode->getContent();
+									}
 								}
 							}
 							break;
 						}
 
 						state->addAttribute("name", stateNodes->findAttribute("name"));
-						state->addAttribute("offset", stateOffsetValue);
+						if (regionTypeValue == "SimpleText" || regionTypeValue == "EditText")
+						{
+							state->addAttribute("colour", textColourValue);
+							state->addAttribute("shift", textShiftValue);
+						}
+						else
+						{
+							state->addAttribute("offset", stateOffsetValue);
+						}
 					}
 					break;
 				}

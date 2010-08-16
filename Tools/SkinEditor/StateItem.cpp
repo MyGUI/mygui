@@ -15,6 +15,8 @@ namespace tools
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Visible", "Bool", "True");
 		mPropertySet->createChild("Position", "IntPoint", "0 0");
+		mPropertySet->createChild("TextColour", "Colour", "0 0 0");
+		mPropertySet->createChild("TextShift", "Int", "0");
 	}
 
 	StateItem::~StateItem()
