@@ -28,7 +28,7 @@ namespace tools
 	{
 		SeparatorItem* separator = getCurrentSeparator();
 		mPropertyVisibleControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Visible") : nullptr);
-		mPropertyPositionControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Position") : nullptr);
+		mPropertyPositionControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Offset") : nullptr);
 	}
 
 } // namespace tools

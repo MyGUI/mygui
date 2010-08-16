@@ -14,7 +14,7 @@ namespace tools
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Visible", "Bool", "False");
-		mPropertySet->createChild("Position", "Int", "0");
+		mPropertySet->createChild("Offset", "Int", "0");
 		mPropertySet->createChild("Corner", "", "Center");
 	}
 

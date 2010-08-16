@@ -89,7 +89,7 @@ namespace tools
 
 	void RegionListControl::updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner)
 	{
-		if (_sender->getName() == "Visible" || _sender->getName() == "Position" )
+		if (_sender->getName() == "Visible" || _sender->getName() == "Offset" )
 		{
 			updateRegionEnabled();
 			updateRegionPosition();
@@ -162,9 +162,9 @@ namespace tools
 		bool bottomVisible = isSeparatorVisible(MyGUI::Align::Bottom);
 
 		int leftPosition = leftVisible ? getSeparatorPosition(MyGUI::Align::Left) : 0;
-		int rightPosition = rightVisible ? getSeparatorPosition(MyGUI::Align::Right) : mCoordValue.width;
+		int rightPosition = rightVisible ? getSeparatorPosition(MyGUI::Align::Right) : 0;
 		int topPosition = topVisible ? getSeparatorPosition(MyGUI::Align::Top) : 0;
-		int bottomPosition = bottomVisible ? getSeparatorPosition(MyGUI::Align::Bottom) : mCoordValue.height;
+		int bottomPosition = bottomVisible ? getSeparatorPosition(MyGUI::Align::Bottom) : 0;
 
 		RegionItem* item = nullptr;
 
@@ -178,56 +178,56 @@ namespace tools
 		item = getRegion(MyGUI::Align::Right | MyGUI::Align::Top);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(rightPosition, 0, mCoordValue.width - rightPosition, topPosition);
+			MyGUI::IntCoord coord(mCoordValue.width - rightPosition, 0, rightPosition, topPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Right | MyGUI::Align::Bottom);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(rightPosition, bottomPosition, mCoordValue.width - rightPosition, mCoordValue.height - bottomPosition);
+			MyGUI::IntCoord coord(mCoordValue.width - rightPosition, mCoordValue.height - bottomPosition, rightPosition, bottomPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Left | MyGUI::Align::Bottom);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(0, bottomPosition, leftPosition, mCoordValue.height - bottomPosition);
+			MyGUI::IntCoord coord(0, mCoordValue.height - bottomPosition, leftPosition, bottomPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Left);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(0, topPosition, leftPosition, bottomPosition - topPosition);
+			MyGUI::IntCoord coord(0, topPosition, leftPosition, mCoordValue.height - topPosition - bottomPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Top);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(leftPosition, 0, rightPosition - leftPosition, topPosition);
+			MyGUI::IntCoord coord(leftPosition, 0, mCoordValue.width - rightPosition - leftPosition, topPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Right);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(rightPosition, topPosition, mCoordValue.width - rightPosition, bottomPosition - topPosition);
+			MyGUI::IntCoord coord(mCoordValue.width - rightPosition, topPosition, rightPosition, mCoordValue.height - topPosition - bottomPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Bottom);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(leftPosition, bottomPosition, rightPosition - leftPosition, mCoordValue.height - bottomPosition);
+			MyGUI::IntCoord coord(leftPosition, mCoordValue.height - bottomPosition, mCoordValue.width - rightPosition - leftPosition, mCoordValue.height - bottomPosition - topPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
 		item = getRegion(MyGUI::Align::Center);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(leftPosition, topPosition, rightPosition - leftPosition, bottomPosition - topPosition);
+			MyGUI::IntCoord coord(leftPosition, topPosition, mCoordValue.width - rightPosition - leftPosition, mCoordValue.height - bottomPosition - topPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 	}
@@ -254,7 +254,7 @@ namespace tools
 			SeparatorItem* item = separators.current();
 
 			if (item->getCorner() == _value)
-				return MyGUI::utility::parseInt(item->getPropertySet()->getPropertyValue("Position"));
+				return MyGUI::utility::parseInt(item->getPropertySet()->getPropertyValue("Offset"));
 		}
 
 		return 0;
