@@ -19,10 +19,6 @@
                 <Property key="Widget_Caption" value="Regions"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="RegionControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 517 302">
-                <Property key="Widget_Caption" value="Options"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="OptionControl"/>
-            </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="0 0 526 26" align="HStretch Top" name="MainMenuControl"/>
     </Widget>

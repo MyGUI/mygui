@@ -15,15 +15,13 @@ namespace tools
 		mStatesControl(nullptr),
 		mSeparatorControl(nullptr),
 		mRegionControl(nullptr),
-		mMainMenuControl(nullptr),
-		mOptionControl(nullptr)
+		mMainMenuControl(nullptr)
 	{
 		assignBase(mSkinControl, "SkinControl");
 		assignBase(mStatesControl, "StateControl");
 		assignBase(mSeparatorControl, "SeparatorControl");
 		assignBase(mRegionControl, "RegionControl");
 		assignBase(mMainMenuControl, "MainMenuControl");
-		assignBase(mOptionControl, "OptionControl");
 	}
 
 	MainPane::~MainPane()
