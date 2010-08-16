@@ -35,8 +35,8 @@ namespace common
 		void setVisible(bool _value);
 		bool getVisible();
 
-		bool getModeSave() { return mModeSave; }
-		void setModeSave(bool _value) { mModeSave = _value; }
+		const MyGUI::UString& getMode() { return mMode; }
+		void setMode(const MyGUI::UString& _value) { mMode = _value; }
 
 		EventHandle_Result eventEndDialog;
 
@@ -62,7 +62,7 @@ namespace common
 		MyGUI::UString mFileName;
 		MyGUI::UString mFileMask;
 
-		bool mModeSave;
+		MyGUI::UString mMode;
 	};
 
 } // namespace common
