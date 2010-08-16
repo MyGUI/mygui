@@ -57,6 +57,7 @@ namespace demo
 		tools::CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &DemoKeeper::commandLoad));
 		tools::CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &DemoKeeper::commandSave));
 		tools::CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &DemoKeeper::commandSaveAs));
+		tools::CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &DemoKeeper::commandExport));
 		tools::CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &DemoKeeper::commandClear));
 		tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &DemoKeeper::commandQuit));
 
@@ -151,6 +152,11 @@ namespace demo
 		showSaveAsWindow();
 	}
 
+	void DemoKeeper::commandExport(const MyGUI::UString & _commandName)
+	{
+		showExportWindow();
+	}
+
 	void DemoKeeper::commandClear(const MyGUI::UString & _commandName)
 	{
 		if (tools::ActionManager::getInstance().getChanges())
@@ -214,7 +220,7 @@ namespace demo
 	void DemoKeeper::showLoadWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo("Load", "Load");
-		mOpenSaveFileDialog->setModeSave(false);
+		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->setVisible(true);
 	}
 
@@ -245,14 +251,24 @@ namespace demo
 	{
 		if (_result)
 		{
-			mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-
-			if (mOpenSaveFileDialog->getModeSave())
+			if (mOpenSaveFileDialog->getMode() == "SaveAs")
+			{
+				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 				save();
-			else
+				updateCaption();
+			}
+			else if (mOpenSaveFileDialog->getMode() == "Load")
+			{
+				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 				load();
+				updateCaption();
+			}
+			else if (mOpenSaveFileDialog->getMode() == "Export")
+			{
+				MyGUI::UString fileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+				exportSkin(fileName);
+			}
 
-			updateCaption();
 		}
 
 		mOpenSaveFileDialog->setVisible(false);
@@ -324,7 +340,14 @@ namespace demo
 	void DemoKeeper::showSaveAsWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo("SaveAs", "Save");
-		mOpenSaveFileDialog->setModeSave(true);
+		mOpenSaveFileDialog->setMode("SaveAs");
+		mOpenSaveFileDialog->setVisible(true);
+	}
+
+	void DemoKeeper::showExportWindow()
+	{
+		mOpenSaveFileDialog->setDialogInfo("Export", "Save");
+		mOpenSaveFileDialog->setMode("Export");
 		mOpenSaveFileDialog->setVisible(true);
 	}
 
@@ -373,6 +396,200 @@ namespace demo
 		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
+	}
+
+	void DemoKeeper::exportSkin(const MyGUI::UString& _fileName)
+	{
+		MyGUI::xml::Document doc;
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+
+		tools::SkinManager::getInstance().serialization(root, MyGUI::Version());
+
+		MyGUI::xml::Document docOut;
+		docOut.createDeclaration();
+		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
+		rootOut->addAttribute("type", "Resource");
+		rootOut->addAttribute("version", "1.2");
+
+		MyGUI::xml::ElementEnumerator skins = root->getElementEnumerator();
+		while (skins.next())
+			convertSkin(skins.current(), rootOut->createChild("Resource"));
+
+		docOut.save(_fileName);
+	}
+
+	void DemoKeeper::convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to)
+	{
+		_to->addAttribute("type", "ResourceSkin");
+		_to->addAttribute("name", _from->findAttribute("name"));
+
+		MyGUI::xml::ElementEnumerator nodes = _from->getElementEnumerator();
+		while (nodes.next())
+		{
+			MyGUI::UString coordValue;
+			MyGUI::UString textureValue;
+
+			MyGUI::xml::Element* node = nodes.current();
+			if (node->getName() == "PropertySet")
+			{
+				MyGUI::xml::ElementEnumerator propertyNodes = node->getElementEnumerator();
+				while (propertyNodes.next("Property"))
+				{
+					MyGUI::xml::Element* propertyNode = propertyNodes.current();
+
+					std::string name;
+					if (propertyNode->findAttribute("name", name))
+					{
+						if (name == "Coord")
+						{
+							MyGUI::IntCoord coord = MyGUI::IntCoord::parse(propertyNode->getContent());
+							coordValue = coord.size().print();
+						}
+						else if (name == "Texture")
+						{
+							textureValue = propertyNode->getContent();
+						}
+					}
+				}
+
+				_to->addAttribute("size", coordValue);
+				_to->addAttribute("texture", textureValue);
+
+				break;
+			}
+			else if (node->getName() == "RegionItem")
+			{
+				bool regionVisible = true;
+
+				MyGUI::xml::ElementEnumerator regionNodes = node->getElementEnumerator();
+				while (regionNodes.next("PropertySet"))
+				{
+					MyGUI::xml::ElementEnumerator propertyNodes = regionNodes->getElementEnumerator();
+					while (propertyNodes.next("Property"))
+					{
+						MyGUI::xml::Element* propertyNode = propertyNodes.current();
+
+						std::string name;
+						if (propertyNode->findAttribute("name", name))
+						{
+							if (name == "Visible")
+							{
+								if (propertyNode->getContent() != "True")
+									regionVisible = false;
+							}
+							else if (name == "Enabled")
+							{
+								if (propertyNode->getContent() != "True")
+									regionVisible = false;
+							}
+						}
+					}
+					break;
+				}
+
+				if (!regionVisible)
+					continue;
+
+				MyGUI::xml::Element* region = _to->createChild("Region");
+				MyGUI::IntCoord regionCoord;
+
+				MyGUI::UString typeValue;
+				MyGUI::UString regionOffsetValue;
+				MyGUI::UString alignValue;
+
+				regionNodes = node->getElementEnumerator();
+				while (regionNodes.next("PropertySet"))
+				{
+					MyGUI::xml::ElementEnumerator propertyNodes = regionNodes->getElementEnumerator();
+					while (propertyNodes.next("Property"))
+					{
+						MyGUI::xml::Element* propertyNode = propertyNodes.current();
+
+						std::string name;
+						if (propertyNode->findAttribute("name", name))
+						{
+							if (name == "RegionType")
+							{
+								typeValue = propertyNode->getContent();
+							}
+							else if (name == "Position")
+							{
+								regionCoord = MyGUI::IntCoord::parse(propertyNode->getContent());
+								regionOffsetValue = regionCoord.print();
+							}
+							else if (name == "Align")
+							{
+								alignValue = propertyNode->getContent();
+							}
+						}
+					}
+
+					region->addAttribute("type", typeValue);
+					region->addAttribute("offset", regionOffsetValue);
+					region->addAttribute("align", alignValue);
+
+					MyGUI::xml::ElementEnumerator stateNodes = _from->getElementEnumerator();
+					while (stateNodes.next("StateItem"))
+					{
+						bool stateVisible = true;
+
+						MyGUI::xml::ElementEnumerator propertySetNodes = stateNodes->getElementEnumerator();
+						while (propertySetNodes.next("PropertySet"))
+						{
+							MyGUI::xml::ElementEnumerator propertyNodes = propertySetNodes->getElementEnumerator();
+							while (propertyNodes.next("Property"))
+							{
+								MyGUI::xml::Element* propertyNode = propertyNodes.current();
+
+								std::string name;
+								if (propertyNode->findAttribute("name", name))
+								{
+									if (name == "Visible")
+									{
+										if (propertyNode->getContent() != "True")
+											stateVisible = false;
+									}
+								}
+							}
+							break;
+						}
+
+						if (!stateVisible)
+							continue;
+
+						MyGUI::xml::Element* state = region->createChild("State");
+
+						MyGUI::UString stateOffsetValue;
+
+						propertySetNodes = stateNodes->getElementEnumerator();
+						while (propertySetNodes.next("PropertySet"))
+						{
+							MyGUI::xml::ElementEnumerator propertyNodes = propertySetNodes->getElementEnumerator();
+							while (propertyNodes.next("Property"))
+							{
+								MyGUI::xml::Element* propertyNode = propertyNodes.current();
+
+								std::string name;
+								if (propertyNode->findAttribute("name", name))
+								{
+									if (name == "Position")
+									{
+										MyGUI::IntCoord coord = regionCoord + MyGUI::IntPoint::parse(propertyNode->getContent());
+										stateOffsetValue = coord.print();
+									}
+								}
+							}
+							break;
+						}
+
+						state->addAttribute("name", stateNodes->findAttribute("name"));
+						state->addAttribute("offset", stateOffsetValue);
+					}
+					break;
+				}
+			}
+		}
+		
 	}
 
 } // namespace demo
