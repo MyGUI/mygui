@@ -41,15 +41,19 @@ namespace demo
 		void commandLoad(const MyGUI::UString & _commandName);
 		void commandSave(const MyGUI::UString & _commandName);
 		void commandSaveAs(const MyGUI::UString & _commandName);
+		void commandExport(const MyGUI::UString & _commandName);
 		void commandClear(const MyGUI::UString & _commandName);
 		void commandQuit(const MyGUI::UString & _commandName);
 
 		void clear();
 		void save();
 		void load();
+		void exportSkin(const MyGUI::UString& _fileName);
+		void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
 
 		void showLoadWindow();
 		void showSaveAsWindow();
+		void showExportWindow();
 
 		virtual void setupResources();
 		void updateCaption();
