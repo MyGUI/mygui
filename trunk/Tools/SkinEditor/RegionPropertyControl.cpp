@@ -34,12 +34,12 @@ namespace tools
 
 	void RegionPropertyControl::updateRegionProperties()
 	{
-		RegionItem* separator = getCurrentRegion();
-		mPropertyPositionControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Position") : nullptr);
-		mPropertyVisibleControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Visible") : nullptr);
-		mPropertyEnabledControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Enabled") : nullptr);
-		mPropertyAlignControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("Align") : nullptr);
-		mPropertyRegionTypeControl->setProperty(separator != nullptr ? separator->getPropertySet()->getChild("RegionType") : nullptr);
+		RegionItem* region = getCurrentRegion();
+		mPropertyPositionControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Position") : nullptr);
+		mPropertyVisibleControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Visible") : nullptr);
+		mPropertyEnabledControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Enabled") : nullptr);
+		mPropertyAlignControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Align") : nullptr);
+		mPropertyRegionTypeControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("RegionType") : nullptr);
 	}
 
 } // namespace tools
