@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 600 160" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="List" skin="List" position="0 24 476 136" align="Stretch" name="List"/>
+        <Widget type="Button" skin="Button" position="480 62 120 26" align="Right Top" name="Delete">
+            <Property key="Widget_Caption" value="Delete"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="480 24 120 26" align="Right Top" name="Add">
+            <Property key="Widget_Caption" value="Add"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="0 0 360 24">
+            <Property key="Widget_Caption" value="Paths for resources (need restart)"/>
+        </Widget>
+    </Widget>
+</MyGUI>
