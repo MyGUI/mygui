@@ -339,6 +339,27 @@ namespace demo
 		}
 	}
 
+	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	{
+		if (MyGUI::Gui::getInstancePtr() == nullptr)
+			return;
+
+		if (_key == MyGUI::KeyCode::Escape)
+		{
+			if (MyGUI::InputManager::getInstance().isModalAny())
+			{
+				mOpenSaveFileDialog->eventEndDialog(false);
+			}
+			else
+			{
+				tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
+			}
+			return;
+		}
+
+		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
+	}
+
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)

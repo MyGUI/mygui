@@ -170,6 +170,11 @@ namespace common
 			{
 				update();
 				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+
+				MyGUI::IntSize windowSize = mMainWidget->getSize();
+				MyGUI::IntSize parentSize = mMainWidget->getParentSize();
+
+				mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 			}
 			else
 			{
