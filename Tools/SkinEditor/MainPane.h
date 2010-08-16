@@ -12,7 +12,6 @@
 #include "SeparatorControl.h"
 #include "RegionControl.h"
 #include "MainMenuControl.h"
-#include "OptionControl.h"
 
 namespace tools
 {
@@ -30,7 +29,6 @@ namespace tools
 		SeparatorControl* mSeparatorControl;
 		RegionControl* mRegionControl;
 		MainMenuControl* mMainMenuControl;
-		OptionControl* mOptionControl;
 	};
 
 } // namespace tools

@@ -93,6 +93,11 @@ namespace demo
 
 	bool DemoKeeper::onWinodwClose(size_t _handle)
 	{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	if (::IsIconic((HWND)_handle))
+		ShowWindow((HWND)_handle, SW_SHOWNORMAL);
+#endif
+
 		tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;
 	}
@@ -354,6 +359,16 @@ namespace demo
 			{
 				tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
 			}
+			return;
+		}
+
+		if (MyGUI::InputManager::getInstance().isControlPressed())
+		{
+			if (_key == MyGUI::KeyCode::O || _key == MyGUI::KeyCode::L)
+				tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
+			else if (_key == MyGUI::KeyCode::S)
+				tools::CommandManager::getInstance().executeCommand("Command_FileSave");
+
 			return;
 		}
 
