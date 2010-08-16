@@ -524,6 +524,20 @@ namespace demo
 						}
 					}
 
+					bool tileHor = true;
+					bool tileVer = true;
+
+					if (regionTypeValue == "TileRect Hor")
+					{
+						regionTypeValue = "TileRect";
+						tileVer = false;
+					}
+					else if (regionTypeValue == "TileRect Ver")
+					{
+						regionTypeValue = "TileRect";
+						tileHor = false;
+					}
+
 					region->addAttribute("type", regionTypeValue);
 					region->addAttribute("offset", regionOffsetValue);
 					region->addAttribute("align", alignValue);
@@ -592,7 +606,9 @@ namespace demo
 							break;
 						}
 
-						state->addAttribute("name", stateNodes->findAttribute("name"));
+						MyGUI::UString stateNameValue = stateNodes->findAttribute("name");
+						state->addAttribute("name", stateNameValue);
+
 						if (regionTypeValue == "SimpleText" || regionTypeValue == "EditText")
 						{
 							state->addAttribute("colour", textColourValue);
@@ -601,6 +617,22 @@ namespace demo
 						else
 						{
 							state->addAttribute("offset", stateOffsetValue);
+
+							if (stateNameValue == "Normal")
+							{
+								if (regionTypeValue == "TileRect")
+								{
+									MyGUI::xml::Element* prop = state->createChild("Property");
+									prop->addAttribute("key", "TileSize");
+									prop->addAttribute("value", regionCoord.size().print());
+									prop = state->createChild("Property");
+									prop->addAttribute("key", "TileH");
+									prop->addAttribute("value", MyGUI::utility::toString(tileHor));
+									prop = state->createChild("Property");
+									prop->addAttribute("key", "TileV");
+									prop->addAttribute("value", MyGUI::utility::toString(tileVer));
+								}
+							}
 						}
 					}
 					break;
