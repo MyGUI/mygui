@@ -13,8 +13,7 @@ namespace tools
 		TextureControl(_parent),
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
-		mVerticalSelectorControl(nullptr),
-		mHorizontal(false)
+		mVerticalSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -44,7 +43,7 @@ namespace tools
 	{
 		if (_owner != mTypeName)
 		{
-			if (_sender->getName() == "Position")
+			if (_sender->getName() == "Offset")
 				updatePosition();
 			else if (_sender->getName() == "Visible")
 			{
@@ -156,18 +155,23 @@ namespace tools
 
 	void SeparatorTextureControl::updatePosition()
 	{
-		MyGUI::UString value;
-
 		if (getCurrentSeparator() != nullptr)
-			value = getCurrentSeparator()->getPropertySet()->getPropertyValue("Position");
-
-		int position = 0;
-		if (MyGUI::utility::parseComplex(value, position))
 		{
-			if (mHorizontal)
-				mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, position, mTextureRegion.width, 1));
-			else
-				mVerticalSelectorControl->setCoord(MyGUI::IntCoord(position, 0, 1, mTextureRegion.height));
+			MyGUI::UString value = getCurrentSeparator()->getPropertySet()->getPropertyValue("Offset");
+			MyGUI::Align corner = getCurrentSeparator()->getCorner();
+
+			int offset = 0;
+			if (MyGUI::utility::parseComplex(value, offset))
+			{
+				if (corner.isTop())
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, offset, mTextureRegion.width, 1));
+				else if (corner.isLeft())
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(offset, 0, 1, mTextureRegion.height));
+				else if (corner.isBottom())
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mTextureRegion.height - offset, mTextureRegion.width, 1));
+				else if (corner.isRight())
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mTextureRegion.width - offset, 0, 1, mTextureRegion.height));
+			}
 		}
 	}
 
@@ -178,11 +182,11 @@ namespace tools
 
 		if (getCurrentSeparator() != nullptr)
 		{
-			mHorizontal = getCurrentSeparator()->getCorner() == MyGUI::Align::Top || getCurrentSeparator()->getCorner() == MyGUI::Align::Bottom;
+			MyGUI::Align corner = getCurrentSeparator()->getCorner();
 
 			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
 			{
-				if (mHorizontal)
+				if (corner.isTop() || corner.isBottom())
 					mHorizontalSelectorControl->setVisible(true);
 				else
 					mVerticalSelectorControl->setVisible(true);
@@ -192,14 +196,23 @@ namespace tools
 
 	void SeparatorTextureControl::notifyChangePosition()
 	{
-		int position = 0;
-		if (mHorizontal)
-			position = mHorizontalSelectorControl->getPosition().top;
-		else
-			position = mVerticalSelectorControl->getPosition().left;
-
 		if (getCurrentSeparator() != nullptr)
-			getCurrentSeparator()->getPropertySet()->setPropertyValue("Position", MyGUI::utility::toString(position), mTypeName);
+		{
+			MyGUI::Align corner = getCurrentSeparator()->getCorner();
+
+			if (corner.isTop())
+				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
+					MyGUI::utility::toString(mHorizontalSelectorControl->getPosition().top), mTypeName);
+			else if (corner.isLeft())
+				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
+					MyGUI::utility::toString(mVerticalSelectorControl->getPosition().left), mTypeName);
+			else if (corner.isBottom())
+				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
+					MyGUI::utility::toString(mTextureRegion.height - mHorizontalSelectorControl->getPosition().top), mTypeName);
+			else if (corner.isRight())
+				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
+					MyGUI::utility::toString(mTextureRegion.width -  mVerticalSelectorControl->getPosition().left), mTypeName);
+		}
 	}
 
 	void SeparatorTextureControl::updateUnselectedStates()
@@ -217,9 +230,10 @@ namespace tools
 				{
 					if (item->getPropertySet()->getPropertyValue("Visible") == "True")
 					{
-						bool horizontal =item->getCorner() == MyGUI::Align::Top || item->getCorner() == MyGUI::Align::Bottom;
-						addCoord(coordsHor, coordsVert, horizontal,
-							item->getPropertySet()->getPropertyValue("Position"));
+						MyGUI::Align corner = item->getCorner();
+
+						addCoord(coordsHor, coordsVert, corner,
+							item->getPropertySet()->getPropertyValue("Offset"));
 					}
 				}
 			}
@@ -228,28 +242,46 @@ namespace tools
 		drawUnselectedStates(coordsHor, coordsVert);
 	}
 
-	void SeparatorTextureControl::addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, bool _horizont, const MyGUI::UString& _position)
+	void SeparatorTextureControl::addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, MyGUI::Align _corner, const MyGUI::UString& _position)
 	{
-		int position;
-		if (MyGUI::utility::parseComplex(_position, position))
+		int offset = 0;
+		if (MyGUI::utility::parseComplex(_position, offset))
 		{
-			if (_horizont)
+			if (_corner.isTop())
 			{
 				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
 				{
-					if ((*item) == position)
+					if ((*item) == offset)
 						return;
 				}
-				_coordsHor.push_back(position);
+				_coordsHor.push_back(offset);
 			}
-			else
+			else if (_corner.isLeft())
 			{
 				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
 				{
-					if ((*item) == position)
+					if ((*item) == offset)
 						return;
 				}
-				_coordsVert.push_back(position);
+				_coordsVert.push_back(offset);
+			}
+			else if (_corner.isBottom())
+			{
+				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
+				{
+					if ((*item) == (mTextureRegion.height - offset))
+						return;
+				}
+				_coordsHor.push_back(mTextureRegion.height - offset);
+			}
+			else if (_corner.isRight())
+			{
+				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
+				{
+					if ((*item) == (mTextureRegion.width - offset))
+						return;
+				}
+				_coordsVert.push_back(mTextureRegion.width - offset);
 			}
 		}
 	}
