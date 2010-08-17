@@ -37,6 +37,7 @@ set (HEADER_FILES
   PropertyIntControl.h
   PropertyRegionTypeControl.h
   PropertyTexturesControl.h
+  PropertyColourControl.h
   SeparatorPropertyControl.h
   TextureControl.h
   SeparatorTextureControl.h
@@ -89,6 +90,7 @@ set (SOURCE_FILES
   PropertyIntControl.cpp
   PropertyRegionTypeControl.cpp
   PropertyTexturesControl.cpp
+  PropertyColourControl.cpp
   SeparatorPropertyControl.cpp
   TextureControl.cpp
   SeparatorTextureControl.cpp
@@ -142,6 +144,7 @@ SOURCE_GROUP("Source Files" FILES
   PropertyIntControl.cpp
   PropertyRegionTypeControl.cpp
   PropertyTexturesControl.cpp
+  PropertyColourControl.cpp
   SeparatorPropertyControl.cpp
   TextureControl.cpp
   SeparatorTextureControl.cpp
@@ -197,6 +200,7 @@ SOURCE_GROUP("Header Files" FILES
   PropertyIntControl.h
   PropertyRegionTypeControl.h
   PropertyTexturesControl.h
+  PropertyColourControl.h
   SeparatorPropertyControl.h
   TextureControl.h
   SeparatorTextureControl.h

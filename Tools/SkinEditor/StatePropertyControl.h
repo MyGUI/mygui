@@ -12,6 +12,8 @@
 #include "PropertyAdvisor.h"
 #include "PropertyBoolControl.h"
 #include "PropertyInt2Control.h"
+#include "PropertyIntControl.h"
+#include "PropertyColourControl.h"
 
 namespace tools
 {
@@ -30,6 +32,8 @@ namespace tools
 	private:
 		PropertyBoolControl* mPropertyVisibleControl;
 		PropertyInt2Control* mPropertyPositionControl;
+		PropertyColourControl* mPropertyColourControl;
+		PropertyIntControl* mPropertyOffsetControl;
 	};
 
 } // namespace tools
