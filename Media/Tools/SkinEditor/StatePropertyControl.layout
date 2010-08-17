@@ -12,8 +12,17 @@
                 <Property key="Text_TextAlign" value="Left Bottom"/>
                 <Property key="Text_Caption" value="Visible"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible">
+            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="StaticText" skin="StaticText" position="8 120 232 24" align="HStretch Top">
+                <Property key="Text_Caption" value="Text colour"/>
+                <Property key="Text_TextAlign" value="Left Bottom"/>
             </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 144 232 26" align="HStretch Top" name="PropertyTextColour"/>
+            <Widget type="StaticText" skin="StaticText" position="8 176 232 24" align="HStretch Top">
+                <Property key="Text_Caption" value="Text offset"/>
+                <Property key="Text_TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 200 232 26" align="HStretch Top" name="PropertyTextOffset"/>
         </Widget>
     </Widget>
 </MyGUI>
