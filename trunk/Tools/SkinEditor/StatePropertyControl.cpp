@@ -11,10 +11,16 @@ namespace tools
 {
 
 	StatePropertyControl::StatePropertyControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("StatePropertyControl.layout", _parent)
+		wraps::BaseLayout("StatePropertyControl.layout", _parent),
+		mPropertyVisibleControl(nullptr),
+		mPropertyPositionControl(nullptr),
+		mPropertyColourControl(nullptr),
+		mPropertyOffsetControl(nullptr)
 	{
 		assignBase(mPropertyVisibleControl, "PropertyVisible");
 		assignBase(mPropertyPositionControl, "PropertyPosition");
+		assignBase(mPropertyColourControl, "PropertyTextColour");
+		assignBase(mPropertyOffsetControl, "PropertyTextOffset");
 
 		initialiseAdvisor();
 	}
@@ -29,6 +35,8 @@ namespace tools
 		StateItem* state = getCurrentState();
 		mPropertyVisibleControl->setProperty(state != nullptr ? state->getPropertySet()->getChild("Visible") : nullptr);
 		mPropertyPositionControl->setProperty(state != nullptr ? state->getPropertySet()->getChild("Position") : nullptr);
+		mPropertyColourControl->setProperty(state != nullptr ? state->getPropertySet()->getChild("TextColour") : nullptr);
+		mPropertyOffsetControl->setProperty(state != nullptr ? state->getPropertySet()->getChild("TextShift") : nullptr);
 	}
 
 } // namespace tools
