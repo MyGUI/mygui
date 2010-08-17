@@ -31,7 +31,7 @@ namespace MyGUI
 	Button::Button() :
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
-		mIsStateCheck(false),
+		mStateSelected(false),
 		mImage(nullptr),
 		mModeImage(false)
 	{
@@ -45,12 +45,16 @@ namespace MyGUI
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
-			MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(utility::parseValue<bool>(iter->second));
-			iter = properties.find("StateCheck");
-			if (iter != properties.end()) setStateCheck(utility::parseValue<bool>(iter->second));
+			MapString::const_iterator iter = properties.find("StateSelected");
+			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
 			iter = properties.find("ModeImage");
 			if (iter != properties.end()) setModeImage(utility::parseValue<bool>(iter->second));
+#ifndef MYGUI_DONT_USE_OBSOLETE
+			iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
+			iter = properties.find("StateCheck");
+			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
+#endif // MYGUI_DONT_USE_OBSOLETE
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
@@ -121,7 +125,7 @@ namespace MyGUI
 
 	void Button::updateButtonState()
 	{
-		if (mIsStateCheck)
+		if (mStateSelected)
 		{
 			if (!getEnabled())
 			{
@@ -154,12 +158,12 @@ namespace MyGUI
 		}
 	}
 
-	void Button::setStateCheck(bool _check)
+	void Button::setStateSelected(bool _check)
 	{
-		if (mIsStateCheck == _check)
+		if (mStateSelected == _check)
 			return;
 
-		mIsStateCheck = _check;
+		mStateSelected = _check;
 		updateButtonState();
 	}
 
@@ -171,10 +175,13 @@ namespace MyGUI
 
 	void Button::setProperty(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{Button, Button_Pressed, bool} Set pressed state.
-		if (_key == "Button_Pressed") setButtonPressed(utility::parseValue<bool>(_value));
+		/// @wproperty{Button, Button_StateSelected, bool} Set state selected.
+		if (_key == "Button_StateSelected") setStateSelected(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ImageResource") setImageResource(_value);
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Button_Pressed") setStateSelected(utility::parseValue<bool>(_value));
+#endif // MYGUI_DONT_USE_OBSOLETE
 		else
 		{
 			Base::setProperty(_key, _value);

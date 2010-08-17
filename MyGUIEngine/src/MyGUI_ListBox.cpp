@@ -82,7 +82,7 @@ namespace MyGUI
 			_coord.set(0, 0, size.width, size.height);
 		}
 
-		text->setButtonPressed(_info.select);
+		text->setStateSelected(_info.select);
 		text->_setMouseFocus(_info.active);
 	}
 
