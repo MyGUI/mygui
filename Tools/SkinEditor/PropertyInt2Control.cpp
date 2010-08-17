@@ -82,7 +82,7 @@ namespace tools
 	{
 		MyGUI::UString value = mEdit->getOnlyText();
 		if (!_validate)
-			value = "#FF0000" + value;
+			value = MyGUI::LanguageManager::getInstance().replaceTags("#{ColourError}") + value;
 
 		size_t index = mEdit->getTextCursor();
 		mEdit->setCaption(value);
