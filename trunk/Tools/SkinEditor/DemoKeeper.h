@@ -31,6 +31,8 @@ namespace tools
 
 		void registerMessageBox(MyGUI::Message* _message);
 
+		static void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
+
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
@@ -55,7 +57,6 @@ namespace tools
 		void save();
 		void load();
 		void exportSkin(const MyGUI::UString& _fileName);
-		void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
 
 		void showLoadWindow();
 		void showSaveAsWindow();

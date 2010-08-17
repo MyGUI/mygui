@@ -681,6 +681,7 @@ namespace tools
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
+			mTestWindow->setSkinItem(item);
 			mTestWindow->setVisible(true);
 		}
 	}
