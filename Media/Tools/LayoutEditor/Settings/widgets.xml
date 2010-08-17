@@ -23,7 +23,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Button_Pressed" value="Bool"/>
+		<Parameter key="Button_StateSelected" value="Bool"/>
 		<Parameter key="Button_ModeImage" value="Bool"/>
 		<Parameter key="Button_ImageResource" value="String"/>
 	</Widget>
