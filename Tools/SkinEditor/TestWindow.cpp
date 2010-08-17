@@ -5,7 +5,7 @@
 */
 #include "precompiled.h"
 #include "TestWindow.h"
-#include "DemoKeeper.h"
+#include "ExportManager.h"
 
 namespace tools
 {
@@ -125,7 +125,7 @@ namespace tools
 		rootOut->addAttribute("version", "1.2");
 		MyGUI::xml::Element* resourceNode = rootOut->createChild("Resource");
 
-		DemoKeeper::convertSkin(root, resourceNode);
+		ExportManager::getInstance().convertSkin(root, resourceNode);
 
 		doc.save(MyGUI::UString("test1.xml"));
 		docOut.save(MyGUI::UString("test2.xml"));
