@@ -113,11 +113,15 @@ namespace tools
 	void PropertyColourControl::setColour(bool _validate)
 	{
 		MyGUI::UString value = mEdit->getOnlyText();
-		if (!_validate)
-			value = "#FF0000" + value;
 
 		size_t index = mEdit->getTextCursor();
-		mEdit->setCaption(value);
+
+		mEdit->setOnlyText(value);
+		if (!_validate)
+		{
+			mEdit->setCaption("#FF0000" + mEdit->getCaption());
+		}
+
 		mEdit->setTextCursor(index);
 	}
 
