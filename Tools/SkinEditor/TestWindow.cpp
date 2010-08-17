@@ -81,6 +81,9 @@ namespace tools
 		generateSkin();
 
 		mSkinButton = mBackgroundControl->getCanvas()->createWidget<MyGUI::Button>(mSkinName, MyGUI::IntCoord(0, 0, canvasSize.width, canvasSize.height), MyGUI::Align::Stretch);
+		mSkinButton->setFontName("Default");
+		mSkinButton->setTextAlign(MyGUI::Align::Center);
+		mSkinButton->setCaption("Caption");
 		mSkinButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyMouseButtonPressed);
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord ::parse(mSkinItem->getPropertySet()->getPropertyValue("Coord"));
@@ -122,13 +125,14 @@ namespace tools
 		docOut.createDeclaration();
 		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
 		rootOut->addAttribute("type", "Resource");
-		rootOut->addAttribute("version", "1.2");
+		rootOut->addAttribute("version", "1.1");
 		MyGUI::xml::Element* resourceNode = rootOut->createChild("Resource");
 
 		ExportManager::getInstance().convertSkin(root, resourceNode);
 
-		doc.save(MyGUI::UString("test1.xml"));
-		docOut.save(MyGUI::UString("test2.xml"));
+		resourceNode->setAttribute("name", mSkinName);
+
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(rootOut, "", MyGUI::Version(1, 1, 0));
 	}
 
  } // namespace tools

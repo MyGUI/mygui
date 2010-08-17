@@ -78,7 +78,7 @@ namespace tools
 		docOut.createDeclaration();
 		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
 		rootOut->addAttribute("type", "Resource");
-		rootOut->addAttribute("version", "1.2");
+		rootOut->addAttribute("version", "1.1");
 
 		MyGUI::xml::ElementEnumerator skins = root->getElementEnumerator();
 		while (skins.next())
@@ -159,7 +159,7 @@ namespace tools
 				if (!regionVisible)
 					continue;
 
-				MyGUI::xml::Element* region = _to->createChild("Region");
+				MyGUI::xml::Element* region = _to->createChild("BasisSkin");
 				MyGUI::IntCoord regionCoord;
 
 				MyGUI::UString regionTypeValue;
@@ -276,7 +276,7 @@ namespace tools
 						}
 
 						MyGUI::UString stateNameValue = stateNodes->findAttribute("name");
-						state->addAttribute("name", stateNameValue);
+						state->addAttribute("name", convertStateName(stateNameValue));
 
 						if (regionTypeValue == "SimpleText" || regionTypeValue == "EditText")
 						{
@@ -308,6 +308,28 @@ namespace tools
 				}
 			}
 		}
+	}
+
+	MyGUI::UString ExportManager::convertStateName(const MyGUI::UString& _value)
+	{
+		if (_value == "Disabled")
+			return "disabled";
+		if (_value == "Normal")
+			return "normal";
+		if (_value == "Over")
+			return "highlighted";
+		if (_value == "Pressed")
+			return "pushed";
+
+		if (_value == "Selected Disabled")
+			return "disabled_checked";
+		if (_value == "Selected Normal")
+			return "normal_checked";
+		if (_value == "Selected Over")
+			return "highlighted_checked";
+		if (_value == "Selected Pressed")
+			return "pushed_checked";
+		return _value;
 	}
 
 } // namespace tools
