@@ -41,7 +41,7 @@ namespace tools
 
 		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 
-		mColourPanel = new demo::ColourPanel();
+		mColourPanel = new ColourPanel();
 		mColourPanel->setVisible(false);
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &TextureControl::notifyEndDialog);
 	}
@@ -199,7 +199,7 @@ namespace tools
 		mColourPanel->setVisible(true);
 	}
 
-	void TextureControl::notifyEndDialog(wraps::BaseLayout* _sender, bool _result)
+	void TextureControl::notifyEndDialog(Dialog* _sender, bool _result)
 	{
 		if (_result)
 		{
