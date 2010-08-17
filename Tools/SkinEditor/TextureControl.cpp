@@ -18,13 +18,16 @@ namespace tools
 		mBackground(nullptr),
 		mScale(nullptr),
 		mScaleValue(1),
-		mRightMousePressed(false)
+		mRightMousePressed(false),
+		mBackgroundButton(nullptr),
+		mColourPanel(nullptr)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackgroundColour, "BackgroundColour");
 		assignWidget(mBackground, "Background");
 		assignWidget(mScale, "Scale");
+		assignWidget(mBackgroundButton, "BackgroundColourButton");
 
 		fillColours(mBackgroundColour);
 		mBackgroundColour->eventComboChangePosition += MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
@@ -35,10 +38,21 @@ namespace tools
 		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
 		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
+
+		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
+
+		mColourPanel = new demo::ColourPanel();
+		mColourPanel->setVisible(false);
+		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &TextureControl::notifyEndDialog);
 	}
 
 	TextureControl::~TextureControl()
 	{
+		delete mColourPanel;
+		mColourPanel = nullptr;
+
+		mBackgroundButton->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
+
 		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
 		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
@@ -75,9 +89,8 @@ namespace tools
 			size_t index = mBackgroundColour->getIndexSelected();
 			if (index != MyGUI::ITEM_NONE)
 			{
-				MyGUI::Colour colour = *mBackgroundColour->getItemDataAt<MyGUI::Colour>(index);
-				mBackground->setColour(colour);
-				mBackground->setAlpha(colour.alpha);
+				mCurrentColour = *mBackgroundColour->getItemDataAt<MyGUI::Colour>(index);
+				updateColours();
 			}
 		}
 		else if (_sender == mScale)
@@ -178,6 +191,33 @@ namespace tools
 
 	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
 	{
+	}
+
+	void TextureControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		mColourPanel->setColour(mCurrentColour);
+		mColourPanel->setVisible(true);
+	}
+
+	void TextureControl::notifyEndDialog(wraps::BaseLayout* _sender, bool _result)
+	{
+		if (_result)
+		{
+			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
+			mCurrentColour = mColourPanel->getColour();
+			mCurrentColour.alpha = 1;
+			updateColours();
+		}
+
+		mColourPanel->setVisible(false);
+	}
+
+	void TextureControl::updateColours()
+	{
+		mBackground->setColour(mCurrentColour);
+		mBackground->setAlpha(mCurrentColour.alpha);
+		mBackgroundButton->setColour(mCurrentColour);
+		mBackgroundButton->setAlpha(mCurrentColour.alpha);
 	}
 
 } // namespace tools
