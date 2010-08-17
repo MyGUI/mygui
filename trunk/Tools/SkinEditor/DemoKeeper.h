@@ -31,7 +31,7 @@ namespace tools
 
 		void registerMessageBox(MyGUI::Message* _message);
 
-		static void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
+		//static void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
 
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
@@ -49,24 +49,24 @@ namespace tools
 		void commandSave(const MyGUI::UString & _commandName);
 		void commandSaveAs(const MyGUI::UString & _commandName);
 		void commandClear(const MyGUI::UString & _commandName);
-		void commandExport(const MyGUI::UString & _commandName);
+		//void commandExport(const MyGUI::UString & _commandName);
 		void commandTest(const MyGUI::UString & _commandName);
 		void commandQuit(const MyGUI::UString & _commandName);
 
 		void clear();
 		void save();
 		void load();
-		void exportSkin(const MyGUI::UString& _fileName);
+		//void exportSkin(const MyGUI::UString& _fileName);
 
 		void showLoadWindow();
 		void showSaveAsWindow();
-		void showExportWindow();
+		//void showExportWindow();
 
 		virtual void setupResources();
 		void updateCaption();
 
 	private:
-		tools::MainPane* mMainPane;
+		MainPane* mMainPane;
 		bool mChanges;
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
