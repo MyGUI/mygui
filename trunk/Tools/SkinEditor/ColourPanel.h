@@ -8,17 +8,16 @@
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
+#include "Dialog.h"
 
-namespace demo
+namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public Dialog
 	{
-	public:
-		typedef MyGUI::delegates::CDelegate2<wraps::BaseLayout*, bool> EventHandle_Result;
-
 	public:
 		ColourPanel();
 		virtual ~ColourPanel();
@@ -26,10 +25,8 @@ namespace demo
 		void setColour(const MyGUI::Colour& _colour);
 		const MyGUI::Colour& getColour() { return mCurrentColour; }
 
-		void setVisible(bool _value);
-		bool getVisible();
-
-		EventHandle_Result eventEndDialog;
+		virtual void setVisible(bool _value);
+		virtual bool getVisible();
 
 	private:
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
@@ -90,6 +87,6 @@ namespace demo
 		MyGUI::UString mTextureName;
 	};
 
-} // namespace demo
+} // namespace tools
 
 #endif // __COLOUR_PANEL_H__

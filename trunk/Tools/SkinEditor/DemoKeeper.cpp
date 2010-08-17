@@ -12,10 +12,10 @@
 #include "MyGUI_FilterNoneSkin.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
-template <> demo::DemoKeeper* MyGUI::Singleton<demo::DemoKeeper>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<demo::DemoKeeper>::mClassTypeName("DemoKeeper");
+template <> tools::DemoKeeper* MyGUI::Singleton<tools::DemoKeeper>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::DemoKeeper>::mClassTypeName("DemoKeeper");
 
-namespace demo
+namespace tools
 {
 
 	DemoKeeper::DemoKeeper() :
@@ -51,7 +51,7 @@ namespace demo
 
 		mMainPane = new tools::MainPane();
 
-		mOpenSaveFileDialog = new common::OpenSaveFileDialog();
+		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
 
@@ -248,7 +248,7 @@ namespace demo
 		updateCaption();
 	}
 
-	void DemoKeeper::notifyEndDialog(wraps::BaseLayout* _sender, bool _result)
+	void DemoKeeper::notifyEndDialog(Dialog* _sender, bool _result)
 	{
 		if (_result)
 		{
@@ -375,10 +375,9 @@ namespace demo
 
 		if (_key == MyGUI::KeyCode::Escape)
 		{
-			if (MyGUI::InputManager::getInstance().isModalAny())
+			if (Dialog::getAnyDialog())
 			{
-				// FIXME тут может быть любой ваще
-				mOpenSaveFileDialog->eventEndDialog(nullptr, false);
+				Dialog::endTopDialog();
 			}
 			else
 			{
@@ -644,6 +643,6 @@ namespace demo
 		
 	}
 
-} // namespace demo
+} // namespace tools
 
-MYGUI_APP(demo::DemoKeeper)
+MYGUI_APP(tools::DemoKeeper)

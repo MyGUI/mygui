@@ -48,7 +48,7 @@ namespace tools
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void notifyChangePosition();
-		void notifyEndDialog(wraps::BaseLayout* _sender, bool _result);
+		void notifyEndDialog(Dialog* _sender, bool _result);
 
 		void updateTexture();
 		void updateCoord();
@@ -70,7 +70,7 @@ namespace tools
 		MyGUI::ComboBox* mScale;
 		MyGUI::Widget* mBackgroundButton;
 
-		demo::ColourPanel* mColourPanel;
+		ColourPanel* mColourPanel;
 
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;

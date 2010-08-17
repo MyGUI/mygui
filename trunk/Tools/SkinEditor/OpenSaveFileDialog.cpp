@@ -8,7 +8,7 @@
 
 #include "FileSystemInfo/FileSystemInfo.h"
 
-namespace common
+namespace tools
 {
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
@@ -29,7 +29,7 @@ namespace common
 		mWindow->eventWindowButtonPressed += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
 		mFileMask = L"*.*";
-		mCurrentFolder = getSystemCurrentFolder();
+		mCurrentFolder = common::getSystemCurrentFolder();
 
 		mMainWidget->setVisible(false);
 
@@ -71,7 +71,7 @@ namespace common
 		}
 		else
 		{
-			FileInfo info = *_sender->getItemDataAt<FileInfo>(_index);
+			common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 			if (!info.folder)
 				mEditFileName->setCaption(info.name);
 		}
@@ -81,7 +81,7 @@ namespace common
 	{
 		if (_index == MyGUI::ITEM_NONE) return;
 
-		FileInfo info = *_sender->getItemDataAt<FileInfo>(_index);
+		common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
 		if (info.folder)
 		{
 			if (info.name == L"..")
@@ -94,7 +94,7 @@ namespace common
 			}
 			else
 			{
-				mCurrentFolder = concatenatePath (mCurrentFolder.asWStr(), info.name);
+				mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
 			}
 
 			update();
@@ -114,7 +114,7 @@ namespace common
 
 	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
 	{
-		mCurrentFolder = _folder.empty() ? MyGUI::UString(getSystemCurrentFolder()) : _folder;
+		mCurrentFolder = _folder.empty() ? MyGUI::UString(common::getSystemCurrentFolder()) : _folder;
 
 		update();
 	}
@@ -126,10 +126,10 @@ namespace common
 		mListFiles->removeAllItems();
 
 		// add all folders first
-		VectorFileInfo infos;
+		common::VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
 
-		for(VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+		for(common::VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
 		{
 			if ((*item).folder)
 				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
@@ -139,7 +139,7 @@ namespace common
 		infos.clear();
 		getSystemFileList(infos, mCurrentFolder, mFileMask);
 
-		for(VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+		for(common::VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
 		{
 			if (!(*item).folder)
 				mListFiles->addItem((*item).name, *item);
@@ -167,8 +167,10 @@ namespace common
 
 			if (_value)
 			{
-				update();
 				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+				addDialog(this);
+
+				update();
 
 				MyGUI::IntSize windowSize = mMainWidget->getSize();
 				MyGUI::IntSize parentSize = mMainWidget->getParentSize();
@@ -178,6 +180,7 @@ namespace common
 			else
 			{
 				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+				removeDialog(this);
 			}
 		}
 	}
@@ -187,4 +190,4 @@ namespace common
 		return mMainWidget->getVisible();
 	}
 
-} // namespace common
+} // namespace tools
