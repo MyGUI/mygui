@@ -21,12 +21,19 @@
 						<Property key="MenuItem_Id" value="Command_FileSaveAs"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Widget_Caption" value="Clear"/>
+						<Property key="MenuItem_Id" value="Command_ClearAll"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator">
+						<Property key="MenuItem_Type" value="Separator"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Widget_Caption" value="Export ..."/>
 						<Property key="MenuItem_Id" value="Command_FileExport"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="Clear"/>
-						<Property key="MenuItem_Id" value="Command_ClearAll"/>
+						<Property key="Widget_Caption" value="Test"/>
+						<Property key="MenuItem_Id" value="Command_Test"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
 						<Property key="MenuItem_Type" value="Separator"/>
