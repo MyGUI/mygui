@@ -260,7 +260,7 @@ namespace MyGUI
 			button->setVisible(true);
 
 			// корректируем нажатость кнопки
-			button->setButtonPressed(pos == mIndexSelect);
+			button->setStateSelected(pos == mIndexSelect);
 
 			if (button->getCaption() != info.name)
 				button->setCaption(info.name);
@@ -363,7 +363,7 @@ namespace MyGUI
 			if (button->getVisible())
 			{
 				// корректируем нажатость кнопки
-				button->setButtonPressed((pos + mStartIndex) == mIndexSelect);
+				button->setStateSelected((pos + mStartIndex) == mIndexSelect);
 			}
 			count ++;
 		}

@@ -418,13 +418,13 @@ namespace MyGUI
 				if (!mMenuDropMode || mIsMenuDrop)
 				{
 					item->setItemChildVisible(true);
-					item->setButtonPressed(true);
+					item->setStateSelected(true);
 				}
 			}
 			else
 			{
 				item->setItemChildVisible(false);
-				item->setButtonPressed(false);
+				item->setStateSelected(false);
 			}
 		}
 	}
@@ -447,7 +447,7 @@ namespace MyGUI
 			{
 				if (item->getItemType() == MenuItemType::Popup)
 				{
-					item->setButtonPressed(false);
+					item->setStateSelected(false);
 					item->setItemChildVisible(false);
 					mIsMenuDrop = false;
 				}
@@ -457,7 +457,7 @@ namespace MyGUI
 				if (item->getItemType() == MenuItemType::Popup)
 				{
 					mIsMenuDrop = true;
-					item->setButtonPressed(true);
+					item->setStateSelected(true);
 					item->setItemChildVisible(true);
 					InputManager::getInstance().setKeyFocusWidget(item);
 				}
