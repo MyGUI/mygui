@@ -55,6 +55,7 @@ set (HEADER_FILES
   Dialog.h
   TestWindow.h
   BackgroundControl.h
+  ExportManager.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -110,6 +111,7 @@ set (SOURCE_FILES
   Dialog.cpp
   TestWindow.cpp
   BackgroundControl.cpp
+  ExportManager.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -166,6 +168,7 @@ SOURCE_GROUP("Source Files" FILES
   Dialog.cpp
   TestWindow.cpp
   BackgroundControl.cpp
+  ExportManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -224,6 +227,7 @@ SOURCE_GROUP("Header Files" FILES
   Dialog.h
   TestWindow.h
   BackgroundControl.h
+  ExportManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
