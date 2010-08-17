@@ -9,6 +9,7 @@
 #include "BaseManager.h"
 #include "MainPane.h"
 #include "OpenSaveFileDialog.h"
+#include "TestWindow.h"
 
 namespace tools
 {
@@ -40,12 +41,14 @@ namespace tools
 		void notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyEndDialogTest(Dialog* _sender, bool _result);
 
 		void commandLoad(const MyGUI::UString & _commandName);
 		void commandSave(const MyGUI::UString & _commandName);
 		void commandSaveAs(const MyGUI::UString & _commandName);
-		void commandExport(const MyGUI::UString & _commandName);
 		void commandClear(const MyGUI::UString & _commandName);
+		void commandExport(const MyGUI::UString & _commandName);
+		void commandTest(const MyGUI::UString & _commandName);
 		void commandQuit(const MyGUI::UString & _commandName);
 
 		void clear();
@@ -66,7 +69,10 @@ namespace tools
 		bool mChanges;
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
+
 		OpenSaveFileDialog* mOpenSaveFileDialog;
+		TestWindow* mTestWindow;
+
 		MyGUI::Message* mMessageBox;
 	};
 

@@ -53,6 +53,7 @@ set (HEADER_FILES
   CommandManager.h
   ColourPanel.h
   Dialog.h
+  TestWindow.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -106,6 +107,7 @@ set (SOURCE_FILES
   CommandManager.cpp
   ColourPanel.cpp
   Dialog.cpp
+  TestWindow.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -160,6 +162,7 @@ SOURCE_GROUP("Source Files" FILES
   CommandManager.cpp
   ColourPanel.cpp
   Dialog.cpp
+  TestWindow.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -216,6 +219,7 @@ SOURCE_GROUP("Header Files" FILES
   CommandManager.h
   ColourPanel.h
   Dialog.h
+  TestWindow.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

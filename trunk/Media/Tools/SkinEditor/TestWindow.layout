@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="120 128 427 311" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Test window"/>
+        <Property key="Window_MinSize" value="100 100"/>
+    </Widget>
+</MyGUI>
