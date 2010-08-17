@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 384 272" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel" position="0 30 384 242" align="Stretch">
+            <Widget type="Widget" skin="BackgroundTile" position="3 3 376 234" align="Stretch">
+                <Widget type="Widget" skin="MarkerWhite" position="0 0 376 234" align="Stretch" name="Background">
+                    <Widget type="Widget" skin="PanelEmpty" position="64 64 248 106" align="Stretch" name="Canvas">
+                        <Property key="Widget_InheritsAlpha" value="false"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="0 0 355 26" align="HStretch Top" name="BackgroundColour">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="Widget" skin="Panel" position="357 0 26 26" align="Right Top">
+            <Widget type="Widget" skin="MarkerWhite" position="2 2 20 20" name="BackgroundColourButton"/>
+        </Widget>
+    </Widget>
+</MyGUI>
