@@ -76,8 +76,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Вы уверены?",
+				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningDeleteSkin}"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 			DemoKeeper::getInstance().registerMessageBox(message);
@@ -138,7 +138,7 @@ namespace tools
 			if (count == 1)
 				mList->addItem(item->getName());
 			else
-				mList->addItem("#FF0000" + item->getName());
+				mList->addItem(MyGUI::LanguageManager::getInstance().replaceTags("#{ColourError}") + item->getName());
 
 			mList->setItemDataAt(index, item);
 			if (item == selectedItem)
@@ -164,7 +164,7 @@ namespace tools
 		hideTextField();
 
 		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->setCaption(_item == nullptr ? "Create" : "Rename");
+		mTextFieldControl->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{CaptionEnterName}"));
 		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
 		mTextFieldControl->setUserData(_item);
 		mTextFieldControl->show();
@@ -174,7 +174,7 @@ namespace tools
 
 	MyGUI::UString SkinListControl::getNextFreeName()
 	{
-		MyGUI::UString pattern = "SkinName";
+		MyGUI::UString pattern = "SkinName ";
 
 		for (size_t index=0; index<std::numeric_limits<size_t>::max(); index++)
 		{

@@ -34,14 +34,15 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
+		setResourceFilename("editor.xml");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+		if (!mLocale.empty())
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
 
-		MyGUI::ResourceManager::getInstance().load("SE_skins.xml");
-		MyGUI::ResourceManager::getInstance().load("colour_slider_skin.xml");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		CommandManager* commandManager = new CommandManager();
 		commandManager->initialise();
@@ -105,6 +106,19 @@ namespace tools
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
 
+	void DemoKeeper::prepare()
+	{
+		// устанавливаем локаль из переменной окружения
+		// без этого не будут открываться наши файлы
+		mLocale = ::setlocale( LC_ALL, "" );
+		// erase everything after '_' to get language name
+		mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
+		if (mLocale == "ru")
+			mLocale = "Russian";
+		else if (mLocale == "en")
+			mLocale = "English";
+	}
+
 	void DemoKeeper::onFileDrop(const std::wstring& _filename)
 	{
 	}
@@ -142,8 +156,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
+				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -176,8 +190,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
+				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -209,8 +223,8 @@ namespace tools
 				{
 					MyGUI::Message* message = MyGUI::Message::createMessageBox(
 						"Message",
-						L"Внимание",
-						L"Сохранить изменения?",
+						MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
+						MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
 						MyGUI::MessageBoxStyle::IconQuest
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
@@ -322,7 +336,7 @@ namespace tools
 				MyGUI::UString text = L"Файл '" + mFileName + L"' не соответсвует формату.";
 				MyGUI::Message* message = MyGUI::Message::createMessageBox(
 					"Message",
-					L"Ошибка",
+					MyGUI::LanguageManager::getInstance().replaceTags("#{Error}"),
 					text,
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
@@ -336,7 +350,7 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Ошибка",
+				MyGUI::LanguageManager::getInstance().replaceTags("#{Error}"),
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);

@@ -2,16 +2,15 @@
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="List" skin="List" position="0 0 248 424" align="Stretch" name="List"/>
-        <Widget type="Button" skin="Button" position="0 440 80 24" align="Left Bottom" name="Create">
-            <Property key="Widget_Caption" value="Create"/>
+        <Widget type="List" skin="List" position="0 0 248 368" align="Stretch" name="List"/>
+        <Widget type="Button" skin="Button" position="0 377 248 24" align="HStretch Bottom" name="Create">
+            <Property key="Text_Caption" value="#{Create}"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="84 440 80 24" align="HCenter Bottom" name="Rename">
-            <Property key="Widget_Caption" value="Rename"/>
-            <Property key="Text_Caption" value="Rename"/>
+        <Widget type="Button" skin="Button" position="0 409 248 24" align="HStretch Bottom" name="Rename">
+            <Property key="Text_Caption" value="#{Rename}"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="168 440 80 24" align="Right Bottom" name="Delete">
-            <Property key="Widget_Caption" value="Delete"/>
+        <Widget type="Button" skin="Button" position="0 440 248 24" align="HStretch Bottom" name="Delete">
+            <Property key="Text_Caption" value="#{Delete}"/>
         </Widget>
     </Widget>
 </MyGUI>
