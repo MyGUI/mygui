@@ -8,6 +8,7 @@
 #include "SkinManager.h"
 #include "ActionManager.h"
 #include <limits>
+#include "DemoKeeper.h"
 
 namespace tools
 {
@@ -79,6 +80,7 @@ namespace tools
 				L"Вы уверены?",
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
+			DemoKeeper::getInstance().registerMessageBox(message);
 		}
 	}
 

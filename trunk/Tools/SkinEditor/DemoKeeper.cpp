@@ -23,7 +23,8 @@ namespace tools
 		mChanges(false),
 		mOpenSaveFileDialog(nullptr),
 		mDefaultFileName("unnamed.xml"),
-		mFileName("unnamed.xml")
+		mFileName("unnamed.xml"),
+		mMessageBox(nullptr)
 	{
 	}
 
@@ -133,6 +134,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultLoad);
+			registerMessageBox(message);
 		}
 		else
 		{
@@ -171,6 +173,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultClear);
+			registerMessageBox(message);
 		}
 		else
 		{
@@ -180,21 +183,36 @@ namespace tools
 
 	void DemoKeeper::commandQuit(const MyGUI::UString & _commandName)
 	{
-		if (mChanges)
+		if (Dialog::getAnyDialog())
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultQuit);
+			Dialog::endTopDialog();
 		}
 		else
 		{
-			quit();
+			if (mMessageBox != nullptr)
+			{
+				mMessageBox->endMessage(MyGUI::MessageBoxStyle::Cancel);
+			}
+			else
+			{
+				if (mChanges)
+				{
+					MyGUI::Message* message = MyGUI::Message::createMessageBox(
+						"Message",
+						L"Внимание",
+						L"Сохранить изменения?",
+						MyGUI::MessageBoxStyle::IconQuest
+							| MyGUI::MessageBoxStyle::Yes
+							| MyGUI::MessageBoxStyle::No
+							| MyGUI::MessageBoxStyle::Cancel);
+					message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultQuit);
+					registerMessageBox(message);
+				}
+				else
+				{
+					quit();
+				}
+			}
 		}
 	}
 
@@ -304,6 +322,7 @@ namespace tools
 					text,
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
+				registerMessageBox(message);
 
 				mFileName = mDefaultFileName;
 				updateCaption();
@@ -317,6 +336,7 @@ namespace tools
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
+			registerMessageBox(message);
 		}
 
 		tools::ActionManager::getInstance().setChanges(false);
@@ -375,14 +395,7 @@ namespace tools
 
 		if (_key == MyGUI::KeyCode::Escape)
 		{
-			if (Dialog::getAnyDialog())
-			{
-				Dialog::endTopDialog();
-			}
-			else
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
-			}
+			tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
 			return;
 		}
 
@@ -641,6 +654,18 @@ namespace tools
 			}
 		}
 		
+	}
+
+	void DemoKeeper::registerMessageBox(MyGUI::Message* _message)
+	{
+		MYGUI_ASSERT(mMessageBox == nullptr, "Message box already registred");
+		mMessageBox = _message;
+		mMessageBox->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifMessageBoxResultRegister);
+	}
+
+	void DemoKeeper::notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		mMessageBox = nullptr;
 	}
 
 } // namespace tools
