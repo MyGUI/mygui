@@ -1,4 +1,4 @@
-/*!
+п»ї/*!
 	@file
 	@author		Albert Semenov
 	@date		08/2010
@@ -142,8 +142,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
+				L"Р’РЅРёРјР°РЅРёРµ",
+				L"РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ?",
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -176,8 +176,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Сохранить изменения?",
+				L"Р’РЅРёРјР°РЅРёРµ",
+				L"РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ?",
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -209,8 +209,8 @@ namespace tools
 				{
 					MyGUI::Message* message = MyGUI::Message::createMessageBox(
 						"Message",
-						L"Внимание",
-						L"Сохранить изменения?",
+						L"Р’РЅРёРјР°РЅРёРµ",
+						L"РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ?",
 						MyGUI::MessageBoxStyle::IconQuest
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
@@ -319,10 +319,10 @@ namespace tools
 
 			if (!result)
 			{
-				MyGUI::UString text = L"Файл '" + mFileName + L"' не соответсвует формату.";
+				MyGUI::UString text = L"Р¤Р°Р№Р» '" + mFileName + L"' РЅРµ СЃРѕРѕС‚РІРµС‚СЃРІСѓРµС‚ С„РѕСЂРјР°С‚Сѓ.";
 				MyGUI::Message* message = MyGUI::Message::createMessageBox(
 					"Message",
-					L"Ошибка",
+					L"РћС€РёР±РєР°",
 					text,
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
@@ -336,7 +336,7 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Ошибка",
+				L"РћС€РёР±РєР°",
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
