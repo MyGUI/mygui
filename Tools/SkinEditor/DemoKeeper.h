@@ -10,7 +10,7 @@
 #include "MainPane.h"
 #include "OpenSaveFileDialog.h"
 
-namespace demo
+namespace tools
 {
 
 	class DemoKeeper :
@@ -36,7 +36,7 @@ namespace demo
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-		void notifyEndDialog(wraps::BaseLayout* _sender, bool _result);
+		void notifyEndDialog(Dialog* _sender, bool _result);
 
 		void commandLoad(const MyGUI::UString & _commandName);
 		void commandSave(const MyGUI::UString & _commandName);
@@ -63,9 +63,9 @@ namespace demo
 		bool mChanges;
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
-		common::OpenSaveFileDialog* mOpenSaveFileDialog;
+		OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
-} // namespace demo
+} // namespace tools
 
 #endif // __DEMO_KEEPER_H__

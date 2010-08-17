@@ -8,16 +8,15 @@
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
+#include "Dialog.h"
 
-namespace common
+namespace tools
 {
 
 	class OpenSaveFileDialog :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public Dialog
 	{
-	public:
-		typedef MyGUI::delegates::CDelegate2<wraps::BaseLayout*, bool> EventHandle_Result;
-
 	public:
 		OpenSaveFileDialog();
 
@@ -32,13 +31,11 @@ namespace common
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const { return mFileName; }
 
-		void setVisible(bool _value);
-		bool getVisible();
+		virtual void setVisible(bool _value);
+		virtual bool getVisible();
 
 		const MyGUI::UString& getMode() { return mMode; }
 		void setMode(const MyGUI::UString& _value) { mMode = _value; }
-
-		EventHandle_Result eventEndDialog;
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
@@ -65,6 +62,6 @@ namespace common
 		MyGUI::UString mMode;
 	};
 
-} // namespace common
+} // namespace tools
 
 #endif // __OPEN_SAVE_FILE_DIALOG_H__

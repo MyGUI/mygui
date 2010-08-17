@@ -6,7 +6,7 @@
 #include "precompiled.h"
 #include "ColourPanel.h"
 
-namespace demo
+namespace tools
 {
 
 	ColourPanel::ColourPanel()
@@ -40,6 +40,8 @@ namespace demo
 		mColourRange.push_back(MyGUI::Colour(0, 1, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
 		mColourRange.push_back(mColourRange[0]);
+
+		mMainWidget->setVisible(false);
 
 		createTexture();
 
@@ -295,6 +297,7 @@ namespace demo
 			if (_value)
 			{
 				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+				addDialog(this);
 
 				MyGUI::IntSize windowSize = mMainWidget->getSize();
 				MyGUI::IntSize parentSize = mMainWidget->getParentSize();
@@ -304,6 +307,7 @@ namespace demo
 			else
 			{
 				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+				removeDialog(this);
 			}
 		}
 	}
@@ -328,4 +332,4 @@ namespace demo
 		eventEndDialog(this, false);
 	}
 
- } // namespace demo
+ } // namespace tools

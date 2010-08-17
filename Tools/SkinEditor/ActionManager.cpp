@@ -40,7 +40,7 @@ namespace tools
 		if (mChanges != _value)
 		{
 			mChanges = _value;
-			demo::DemoKeeper::getInstance().setChanges(mChanges);
+			DemoKeeper::getInstance().setChanges(mChanges);
 		}
 	}
 

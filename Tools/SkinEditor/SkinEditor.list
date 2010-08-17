@@ -51,6 +51,7 @@ set (HEADER_FILES
   OpenSaveFileDialog.h
   CommandManager.h
   ColourPanel.h
+  Dialog.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -102,6 +103,7 @@ set (SOURCE_FILES
   OpenSaveFileDialog.cpp
   CommandManager.cpp
   ColourPanel.cpp
+  Dialog.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -154,6 +156,7 @@ SOURCE_GROUP("Source Files" FILES
   OpenSaveFileDialog.cpp
   CommandManager.cpp
   ColourPanel.cpp
+  Dialog.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -208,6 +211,7 @@ SOURCE_GROUP("Header Files" FILES
   OpenSaveFileDialog.h
   CommandManager.h
   ColourPanel.h
+  Dialog.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
