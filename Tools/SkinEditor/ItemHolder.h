@@ -84,7 +84,7 @@ namespace tools
 
 			if (!mChilds.empty())
 			{
-				for (VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+				for (typename VectorItem::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
 					delete *item;
 				mChilds.clear();
 
