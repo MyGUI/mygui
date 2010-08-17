@@ -39,7 +39,7 @@ namespace common
 	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		if (_name == "close")
-			eventEndDialog(false);
+			eventEndDialog(this, false);
 	}
 
 	void OpenSaveFileDialog::notifyDirectoryAccept(MyGUI::Edit* _sender)
@@ -109,7 +109,7 @@ namespace common
 	{
 		mFileName = mEditFileName->getCaption();
 		if (!mFileName.empty())
-			eventEndDialog(true);
+			eventEndDialog(this, true);
 	}
 
 	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
