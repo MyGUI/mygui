@@ -29,6 +29,7 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void showExportWindow();
 		void commandExport(const MyGUI::UString & _commandName);
+		MyGUI::UString convertStateName(const MyGUI::UString& _value);
 
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;

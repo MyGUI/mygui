@@ -16,6 +16,7 @@ namespace tools
 		assignWidget(mComboBox, "ComboBox");
 
 		mComboBox->addItem("EditText");
+		mComboBox->addItem("SimpleText");
 
 		mComboBox->addItem("SubSkin");
 
