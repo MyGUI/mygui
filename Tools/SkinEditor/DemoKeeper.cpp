@@ -24,7 +24,8 @@ namespace tools
 		mOpenSaveFileDialog(nullptr),
 		mDefaultFileName("unnamed.xml"),
 		mFileName("unnamed.xml"),
-		mMessageBox(nullptr)
+		mMessageBox(nullptr),
+		mTestWindow(nullptr)
 	{
 	}
 
@@ -56,11 +57,15 @@ namespace tools
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
 
+		mTestWindow = new TestWindow();
+		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialogTest);
+
 		tools::CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &DemoKeeper::commandLoad));
 		tools::CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &DemoKeeper::commandSave));
 		tools::CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &DemoKeeper::commandSaveAs));
-		tools::CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &DemoKeeper::commandExport));
 		tools::CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &DemoKeeper::commandClear));
+		tools::CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &DemoKeeper::commandExport));
+		tools::CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &DemoKeeper::commandTest));
 		tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &DemoKeeper::commandQuit));
 
 		updateCaption();
@@ -68,6 +73,9 @@ namespace tools
 
 	void DemoKeeper::destroyScene()
 	{
+		delete mTestWindow;
+		mTestWindow = nullptr;
+
 		mOpenSaveFileDialog->eventEndDialog = nullptr;
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
@@ -666,6 +674,20 @@ namespace tools
 	void DemoKeeper::notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		mMessageBox = nullptr;
+	}
+
+	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
+	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+		{
+			mTestWindow->setVisible(true);
+		}
+	}
+
+	void DemoKeeper::notifyEndDialogTest(Dialog* _sender, bool _result)
+	{
+		_sender->setVisible(false);
 	}
 
 } // namespace tools
