@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Albert Semenov
 	@date		08/2010
