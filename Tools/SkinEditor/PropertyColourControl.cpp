@@ -214,21 +214,10 @@ namespace tools
 			mCurrentColour = mColourPanel->getColour();
 			mCurrentColour.alpha = 1;
 
-			//mColour->setColour(mCurrentColour);
-			//mColour->setAlpha(mCurrentColour.alpha);
-
 			Property* proper = getProperty();
 			if (proper != nullptr)
 				proper->setValue(mCurrentColour.print(), ""); // чтобы мы обновили поле
 		}
 	}
-
-	/*void TextureControl::updateColours()
-	{
-		//mBackground->setColour(mCurrentColour);
-		//mBackground->setAlpha(mCurrentColour.alpha);
-		mColour->setColour(mCurrentColour);
-		mColour->setAlpha(mCurrentColour.alpha);
-	}*/
 
 } // namespace tools
