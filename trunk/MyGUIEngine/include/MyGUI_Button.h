@@ -36,16 +36,10 @@ namespace MyGUI
 	public:
 		Button();
 
-		//! OLD Set button check state
-		void setButtonPressed(bool _value) { setStateCheck(_value); }
-		//! OLD Get buton check
-		bool getButtonPressed() { return getStateCheck(); }
-
-		//! Set button check state
-		void setStateCheck(bool _value);
-
-		//! Get buton check
-		bool getStateCheck() { return mIsStateCheck; }
+		//! Set button selected state
+		void setStateSelected(bool _value);
+		//! Get buton selected
+		bool getStateSelected() { return mStateSelected; }
 
 		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _value);
@@ -65,6 +59,20 @@ namespace MyGUI
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Button::setStateSelected(bool _value)")
+		void setButtonPressed(bool _value) { setStateSelected(_value); }
+		MYGUI_OBSOLETE("use : bool Button::getStateSelected()")
+		bool getButtonPressed() { return getStateSelected(); }
+		MYGUI_OBSOLETE("use : void Button::setStateSelected(bool _value)")
+		void setStateCheck(bool _value) { setStateSelected(_value); }
+		MYGUI_OBSOLETE("use : bool Button::getStateSelected()")
+		bool getStateCheck() { return getStateSelected(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);
@@ -92,7 +100,7 @@ namespace MyGUI
 		// в фокусе ли кнопка
 		bool mIsMouseFocus;
 		// статус кнопки нажата или нет
-		bool mIsStateCheck;
+		bool mStateSelected;
 
 		StaticImage* mImage;
 		bool mModeImage;

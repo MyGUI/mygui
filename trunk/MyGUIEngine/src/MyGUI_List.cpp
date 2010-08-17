@@ -479,7 +479,7 @@ namespace MyGUI
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
 			// если нужно выделить ,то выделим
-			static_cast<Button*>(mWidgetLines[pos])->setButtonPressed(index == mIndexSelect);
+			static_cast<Button*>(mWidgetLines[pos])->setStateSelected(index == mIndexSelect);
 		}
 
 		// если цикл весь прошли, то ставим максимальную линию
@@ -489,7 +489,7 @@ namespace MyGUI
 			//Widget* focus = InputManager::getInstance().getMouseFocusWidget();
 			for (; pos<mWidgetLines.size(); pos++)
 			{
-				static_cast<Button*>(mWidgetLines[pos])->setButtonPressed(false);
+				static_cast<Button*>(mWidgetLines[pos])->setStateSelected(false);
 				static_cast<Button*>(mWidgetLines[pos])->setVisible(false);
 				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
 			}
@@ -671,7 +671,7 @@ namespace MyGUI
 
 		size_t index = _index - mTopIndex;
 		if (index < mWidgetLines.size())
-			static_cast<Button*>(mWidgetLines[index])->setButtonPressed(_select);
+			static_cast<Button*>(mWidgetLines[index])->setStateSelected(_select);
 
 #if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_selectIndex");
@@ -873,7 +873,7 @@ namespace MyGUI
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
-			static_cast<Button*>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
+			static_cast<Button*>(mWidgetLines[pos])->getStateSelected() ? count_pressed ++ : 0;
 			static_cast<Button*>(mWidgetLines[pos])->getVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
