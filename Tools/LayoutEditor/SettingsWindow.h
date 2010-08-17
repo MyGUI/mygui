@@ -19,14 +19,14 @@ public:
 	int getGridStep();
 	void setGridStep();
 
-	bool getShowName() { return mCheckShowName->getButtonPressed(); }
-	bool getShowType() { return mCheckShowType->getButtonPressed(); }
-	bool getShowSkin() { return mCheckShowSkin->getButtonPressed(); }
-	bool getEdgeHide() { return mCheckEdgeHide->getButtonPressed(); }
-	void setShowName(bool _pressed) { mCheckShowName->setButtonPressed(_pressed); }
-	void setShowType(bool _pressed) { mCheckShowType->setButtonPressed(_pressed); }
-	void setShowSkin(bool _pressed) { mCheckShowSkin->setButtonPressed(_pressed); }
-	void setEdgeHide(bool _pressed) { mCheckEdgeHide->setButtonPressed(_pressed); }
+	bool getShowName() { return mCheckShowName->getStateSelected(); }
+	bool getShowType() { return mCheckShowType->getStateSelected(); }
+	bool getShowSkin() { return mCheckShowSkin->getStateSelected(); }
+	bool getEdgeHide() { return mCheckEdgeHide->getStateSelected(); }
+	void setShowName(bool _pressed) { mCheckShowName->setStateSelected(_pressed); }
+	void setShowType(bool _pressed) { mCheckShowType->setStateSelected(_pressed); }
+	void setShowSkin(bool _pressed) { mCheckShowSkin->setStateSelected(_pressed); }
+	void setEdgeHide(bool _pressed) { mCheckEdgeHide->setStateSelected(_pressed); }
 
 	typedef MyGUI::delegates::CDelegate0 EventInfo;
 	EventInfo eventWidgetsUpdate;
