@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="File">Файл</Tag>
+	<Tag name="Load">Открыть</Tag>
+	<Tag name="Save">Сохранить</Tag>
+	<Tag name="Save_as">Сохранить как...</Tag>
+	<Tag name="Clear">Очистить</Tag>
+	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
+	<Tag name="Export">Экспорт</Tag>
+	<Tag name="Quit">Выход</Tag>
+
+	<Tag name="Create">Создать</Tag>
+	<Tag name="Delete">Удалить</Tag>
+	<Tag name="Rename">Переименовать</Tag>
+
+	<Tag name="OK">Ок</Tag>
+	<Tag name="Ok">Ок</Tag>
+	<Tag name="Cancel">Отмена</Tag>
+	<Tag name="Warning">Внимание</Tag>
+	<Tag name="Error">Ошибка</Tag>
+
+	<Tag name="CaptionEnterName">Введите имя</Tag>
+	
+	<Tag name="WarningUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
+	<Tag name="WarningDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
+
+</MyGUI>

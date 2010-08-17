@@ -17,6 +17,9 @@ namespace tools
 		assignWidget(mMainMenu, "MainMenu");
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
+
+		MyGUI::MenuItem* item = mMainMenu->getItemById("File")->getItemChild()->getItemById("Command_Test");
+		item->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(item->getCaption()));
 	}
 
 	MainMenuControl::~MainMenuControl()
