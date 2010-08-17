@@ -27,7 +27,7 @@
 		virtual void setMinimized(bool _minimized)
 		{
 			wraps::BasePanelViewCell::setMinimized(_minimized);
-			mButtonMinimize->setButtonPressed(isMinimized());
+			mButtonMinimize->setStateSelected(isMinimized());
 		}
 
 	private:

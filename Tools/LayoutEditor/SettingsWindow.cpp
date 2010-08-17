@@ -139,6 +139,6 @@ void SettingsWindow::notifyOkSettings(MyGUI::Widget* _sender)
 void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
 {
 	MyGUI::Button* checkbox = _sender->castType<MyGUI::Button>();
-	checkbox->setButtonPressed(!checkbox->getButtonPressed());
+	checkbox->setStateSelected(!checkbox->getStateSelected());
 	eventWidgetsUpdate();
 }

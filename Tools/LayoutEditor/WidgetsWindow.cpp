@@ -199,7 +199,7 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 			EditorWidgets::getInstance().add(widgetContainer);
 			current_widget = nullptr;
 			eventSelectWidget(widgetContainer->widget);
-			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 			new_widget_type = "";
 			new_widget_skin = "";
 			UndoManager::getInstance().addValue();
@@ -208,7 +208,7 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 		{
 			// не удалось создать, т.к. размер нулевой
 			if ((creating_status > 1) && current_widget) MyGUI::WidgetManager::getInstance().destroyWidget(current_widget);
-			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 			new_widget_type = "";
 			new_widget_skin = "";
 			if (creating_status == 2) EditorWidgets::getInstance().global_counter--;
@@ -221,7 +221,7 @@ void WidgetsWindow::notifySelectWidgetType(MyGUI::Widget* _sender)
 {
 	new_widget_type = _sender->getUserString("widget");
 	new_widget_skin = _sender->getUserString("skin");
-	_sender->castType<MyGUI::Button>()->setButtonPressed(true);
+	_sender->castType<MyGUI::Button>()->setStateSelected(true);
 }
 
 void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
@@ -263,7 +263,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	EditorWidgets::getInstance().add(widgetContainer);
 	current_widget = nullptr;
 	eventSelectWidget(widgetContainer->widget);
-	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 	new_widget_type = "";
 	new_widget_skin = "";
 
