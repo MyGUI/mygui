@@ -16,7 +16,7 @@ namespace common
 		public wraps::BaseLayout
 	{
 	public:
-		typedef MyGUI::delegates::CDelegate1<bool> EventHandle_Result;
+		typedef MyGUI::delegates::CDelegate2<wraps::BaseLayout*, bool> EventHandle_Result;
 
 	public:
 		OpenSaveFileDialog();

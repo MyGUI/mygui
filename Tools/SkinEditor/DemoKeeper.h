@@ -36,7 +36,7 @@ namespace demo
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-		void notifyEndDialog(bool _result);
+		void notifyEndDialog(wraps::BaseLayout* _sender, bool _result);
 
 		void commandLoad(const MyGUI::UString & _commandName);
 		void commandSave(const MyGUI::UString & _commandName);

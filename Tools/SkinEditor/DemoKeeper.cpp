@@ -38,6 +38,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		MyGUI::ResourceManager::getInstance().load("SE_skins.xml");
+		MyGUI::ResourceManager::getInstance().load("colour_slider_skin.xml");
 
 		tools::CommandManager* commandManager = new tools::CommandManager();
 		commandManager->initialise();
@@ -247,7 +248,7 @@ namespace demo
 		updateCaption();
 	}
 
-	void DemoKeeper::notifyEndDialog(bool _result)
+	void DemoKeeper::notifyEndDialog(wraps::BaseLayout* _sender, bool _result)
 	{
 		if (_result)
 		{
@@ -376,7 +377,8 @@ namespace demo
 		{
 			if (MyGUI::InputManager::getInstance().isModalAny())
 			{
-				mOpenSaveFileDialog->eventEndDialog(false);
+				// FIXME тут может быть любой ваще
+				mOpenSaveFileDialog->eventEndDialog(nullptr, false);
 			}
 			else
 			{
