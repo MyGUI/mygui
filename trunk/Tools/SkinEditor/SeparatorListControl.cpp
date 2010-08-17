@@ -134,7 +134,7 @@ namespace tools
 			++index;
 		}
 
-		// для обновления пропертей
+		// РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕРїРµСЂС‚РµР№
 		getCurrentSkin()->getSeparators().setItemSelected(nullptr);
 
 		updateList();

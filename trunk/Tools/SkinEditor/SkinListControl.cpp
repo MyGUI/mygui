@@ -1,4 +1,4 @@
-/*!
+п»ї/*!
 	@file
 	@author		Albert Semenov
 	@date		08/2010
@@ -76,8 +76,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				L"Внимание",
-				L"Вы уверены?",
+				L"Р’РЅРёРјР°РЅРёРµ",
+				L"Р’С‹ СѓРІРµСЂРµРЅС‹?",
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 			DemoKeeper::getInstance().registerMessageBox(message);
@@ -90,7 +90,7 @@ namespace tools
 		{
 			SkinItem* item = SkinManager::getInstance().getItemSelected();
 
-			// выделяем следующий за удаляемым
+			// РІС‹РґРµР»СЏРµРј СЃР»РµРґСѓСЋС‰РёР№ Р·Р° СѓРґР°Р»СЏРµРјС‹Рј
 			SkinItem* prev = nullptr;
 			SkinItem* next = nullptr;
 
