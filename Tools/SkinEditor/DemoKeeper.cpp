@@ -22,11 +22,11 @@ namespace tools
 	DemoKeeper::DemoKeeper() :
 		mMainPane(nullptr),
 		mChanges(false),
-		mOpenSaveFileDialog(nullptr),
-		mDefaultFileName("unnamed.xml"),
 		mFileName("unnamed.xml"),
-		mMessageBox(nullptr),
-		mTestWindow(nullptr)
+		mDefaultFileName("unnamed.xml"),
+		mOpenSaveFileDialog(nullptr),
+		mTestWindow(nullptr),
+		mMessageBox(nullptr)
 	{
 	}
 
