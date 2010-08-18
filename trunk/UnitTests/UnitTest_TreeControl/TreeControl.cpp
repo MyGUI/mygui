@@ -359,12 +359,12 @@ namespace MyGUI
                 pItem->setCaption(pNode->getText());
                 pItem->setLevel(nLevel);
                 pItem->setPosition(IntPoint(0, nOffset));
-                pItem->setButtonPressed(pNode == mpSelection);
+                pItem->setStateSelected(pNode == mpSelection);
                 pItem->setUserData(pNode);
 
                 Button* pButtonExpandCollapse = pItem->getButtonExpandCollapse();
                 pButtonExpandCollapse->setVisible(pNode->hasChildren());
-                pButtonExpandCollapse->setButtonPressed(!pNode->isExpanded());
+                pButtonExpandCollapse->setStateSelected(!pNode->isExpanded());
 
                 StaticImage* pIcon = pItem->getIcon();
                 if (pIcon)
@@ -400,7 +400,7 @@ namespace MyGUI
         {
             for (; nItem < mItemWidgets.size(); ++nItem)
             {
-                mItemWidgets[nItem]->setButtonPressed(false);
+                mItemWidgets[nItem]->setStateSelected(false);
                 mItemWidgets[nItem]->setVisible(false);
             }
         }
