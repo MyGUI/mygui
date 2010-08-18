@@ -1,49 +1,85 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
 	<Tag name="File">File</Tag>
-	<Tag name="Widgets">Widgets</Tag>
 	<Tag name="Load">Load</Tag>
 	<Tag name="Save">Save</Tag>
-	<Tag name="Save_as">Save as...</Tag>
+	<Tag name="Save_as">Save as</Tag>
 	<Tag name="Clear">Clear</Tag>
-	<Tag name="Settings">Settings</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
-	<Tag name="Code_Generator">Code generator</Tag>
+	<Tag name="Export">Export</Tag>
 	<Tag name="Quit">Quit</Tag>
 
-	<Tag name="Properties">Properties</Tag>
-	<Tag name="Main_properties">Main properties</Tag>
-	<Tag name="Widget_type_propertes">#{widget_type} specific properties</Tag>
-	<Tag name="Properties_not_available">#808080#{widget_type} properties</Tag>
-
-	<Tag name="Add">Add</Tag>
+	<Tag name="Create">Create</Tag>
 	<Tag name="Delete">Delete</Tag>
-	<Tag name="Select">Select</Tag>
-
-	<Tag name="Grid_step">Grid step</Tag>
-	<Tag name="Resolution">Resolution</Tag>
-	<Tag name="Full_screen">Full screen</Tag>
-	<Tag name="Screen_properties">Screen properties</Tag>
-	<Tag name="Editor_settings">Editor settings</Tag>
-	<Tag name="Widgets_list">Widgets list</Tag>
-	<Tag name="Show_widget_name">Show widget name</Tag>
-	<Tag name="Show_widget_type">Show widget type</Tag>
-	<Tag name="Show_widget_skin">Show widget skin</Tag>
-	<Tag name="Autohide_editor_panels">Autohide editor panels</Tag>
-
-	<Tag name="Key">Key</Tag>
-	<Tag name="Value">Value</Tag>
-
-	<Tag name="Select_file_name">Select file name</Tag>
+	<Tag name="Rename">Rename</Tag>
 
 	<Tag name="OK">OK</Tag>
+	<Tag name="Ok">Ok</Tag>
 	<Tag name="Cancel">Cancel</Tag>
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
 
-	<Tag name="Warn_delete_all_widgets">Are you sure you want to delete all widgets?</Tag>
-	<Tag name="Warn_unsaved_data">You have unsaved changes. Do you want to save it?</Tag>
+	<Tag name="CaptionMainWindow">Skin editor - '#{SE_CurrentFileName}' #{SE_HasChanged}</Tag>
+	<Tag name="CaptionEnterName">Enter name</Tag>
+	<Tag name="CaptionOpenFile">Open file</Tag>
+	<Tag name="CaptionSaveFile">Save file</Tag>
+	<Tag name="CaptionColourPicker">Colour picker</Tag>
+	<Tag name="CaptionTestWindow">Test</Tag>
 
-	<Tag name="to_percents">%</Tag>
-	<Tag name="to_pixels">pixels</Tag>
+	<Tag name="ButtonOpenFile">Open</Tag>
+	<Tag name="ButtonSaveFile">Save</Tag>
+
+	<Tag name="PropertyRegionCoords">Coords</Tag>
+	<Tag name="PropertyRegionVisible">Visible</Tag>
+	<Tag name="PropertyRegionEnabled">Enabled</Tag>
+	<Tag name="PropertyRegionAlign">Align</Tag>
+	<Tag name="PropertyRegionType">Region type</Tag>
+
+	<Tag name="PropertySeparatorOffset">Offset</Tag>
+	<Tag name="PropertySeparatorVisible">Visible</Tag>
+
+	<Tag name="PropertySkinCoords">Coords</Tag>
+	<Tag name="PropertySkinTexture">Texture</Tag>
+
+	<Tag name="PropertyStatePosition">Position</Tag>
+	<Tag name="PropertyStateVisible">Visible</Tag>
+	<Tag name="PropertyStateTextColour">Text colour</Tag>
+	<Tag name="PropertyStateTextOffset">Text shift</Tag>
+
+	<Tag name="TabSkins">Skins</Tag>
+	<Tag name="TabStates">States</Tag>
+	<Tag name="TabSeparators">Separators</Tag>
+	<Tag name="TabRegions">Regions</Tag>
+
+	<Tag name="ColourZero">Zero</Tag>
+	<Tag name="ColourBlack">Black</Tag>
+	<Tag name="ColourWhite">White</Tag>
+	<Tag name="ColourRed">Red</Tag>
+	<Tag name="ColourGreen">Green</Tag>
+	<Tag name="ColourBlue">Blue</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
+
+	<Tag name="PresetRegionOneScale">One scale region</Tag>
+	<Tag name="PresetRegion9Grid">9 regions grid</Tag>
+	<Tag name="PresetRegion3Hor">3 regions horizontal scale</Tag>
+	<Tag name="PresetRegion3Vert">3 regions vertical scale</Tag>
+
+	<Tag name="PresetStateOnlyNormal">Normal only</Tag>
+	<Tag name="PresetStateFirst4">First 4 states</Tag>
+	<Tag name="PresetStateAll">All states</Tag>
+
+	<Tag name="TextScale">Scale</Tag>
+	<Tag name="TextBackgroundColour">Back colour</Tag>
+
+	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
+	<Tag name="MessageDeleteSkin">Are you sure you want to delete skin?</Tag>
+	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{SE_CurrentFileName}'#{\n}have incorrect format.</Tag>
+
+	<Tag name="SkinNamePattern">Skin name #{SE_SkinNameIndex}</Tag>
 </MyGUI>
