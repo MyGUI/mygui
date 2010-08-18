@@ -215,8 +215,8 @@ void EditorState::createMainMenu()
 	}
 
 	//хак, для меню тест двойная замена
-	MyGUI::MenuItem* menu_item_test = mPopupMenuFile->getItemById("File/Test");
-	menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
+	//MyGUI::MenuItem* menu_item_test = mPopupMenuFile->getItemById("File/Test");
+	//menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
 
 	// меню для виджетов
 	MyGUI::MenuItem* menu_widget = bar->getItemById("Widgets");
@@ -999,17 +999,20 @@ std::string EditorState::getDescriptionString(MyGUI::Widget* _widget, bool _prin
 		}
 		else
 		{
+			// FIXME my.name тут можно всю строку как формат сделать с тегами
 			name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
 		}
 	}
 
 	if (_print_type)
 	{
+		// FIXME my.name тут можно всю строку как формат сделать с тегами
 		type = "#{ColourMenuType}[" + _widget->getTypeName() + "] ";
 	}
 
 	if (_print_skin)
 	{
+		// FIXME my.name тут можно всю строку как формат сделать с тегами
 		skin = "#{ColourMenuSkin}" + widgetContainer->skin + " ";
 	}
 	return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
