@@ -77,7 +77,7 @@ namespace tools
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
 				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningDeleteSkin}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageDeleteSkin}"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 			DemoKeeper::getInstance().registerMessageBox(message);
