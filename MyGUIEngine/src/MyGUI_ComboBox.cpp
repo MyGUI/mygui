@@ -387,22 +387,6 @@ namespace MyGUI
 		return mList->findItemIndexWith(_name);
 	}
 
-	void ComboBox::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
-		else if (_key == "ComboBox_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
-		else if (_key == "ComboBox_MaxLength") setMaxListLength(utility::parseValue<int>(_value));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "ComboBox_AddItem") addItem(_value);
-#endif // MYGUI_DONT_USE_OBSOLETE
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	void ComboBox::setFlowDirection(FlowDirection _value)
 	{
 		mFlowDirection = _value;
@@ -458,6 +442,22 @@ namespace MyGUI
 		}
 
 		return coord;
+	}
+
+	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
+		else if (_key == "ComboBox_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		else if (_key == "ComboBox_MaxLength") setMaxListLength(utility::parseValue<int>(_value));
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "ComboBox_AddItem") addItem(_value);
+#endif // MYGUI_DONT_USE_OBSOLETE
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

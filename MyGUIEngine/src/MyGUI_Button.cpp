@@ -173,23 +173,6 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void Button::setProperty(const std::string& _key, const std::string& _value)
-	{
-		/// @wproperty{Button, Button_StateSelected, bool} Set state selected.
-		if (_key == "Button_StateSelected") setStateSelected(utility::parseValue<bool>(_value));
-		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
-		else if (_key == "Button_ImageResource") setImageResource(_value);
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Button_Pressed") setStateSelected(utility::parseValue<bool>(_value));
-#endif // MYGUI_DONT_USE_OBSOLETE
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	void Button::baseUpdateEnable()
 	{
 		updateButtonState();
@@ -224,6 +207,23 @@ namespace MyGUI
 		if (mImage)
 			mImage->setItemResource(_name);
 		updateButtonState();
+	}
+
+	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		/// @wproperty{Button, Button_StateSelected, bool} Set state selected.
+		if (_key == "Button_StateSelected") setStateSelected(utility::parseValue<bool>(_value));
+		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
+		else if (_key == "Button_ImageResource") setImageResource(_value);
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Button_Pressed") setStateSelected(utility::parseValue<bool>(_value));
+#endif // MYGUI_DONT_USE_OBSOLETE
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

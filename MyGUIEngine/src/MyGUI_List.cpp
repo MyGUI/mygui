@@ -916,17 +916,6 @@ namespace MyGUI
 		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
 	}
 
-	void List::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "List_AddItem") addItem(_value);
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	Widget* List::_getClientWidget()
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
@@ -935,6 +924,17 @@ namespace MyGUI
 	const Widget* List::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	void List::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "List_AddItem") addItem(_value);
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

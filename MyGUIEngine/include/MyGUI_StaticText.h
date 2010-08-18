@@ -67,9 +67,6 @@ namespace MyGUI
 		/** Get widget text colour */
 		const Colour& getTextColour();
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
 
@@ -77,6 +74,7 @@ namespace MyGUI
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 		virtual void shutdownWidgetSkin();
 
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 	};
 
 } // namespace MyGUI

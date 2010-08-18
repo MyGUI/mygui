@@ -98,9 +98,6 @@ namespace MyGUI
 		/** Enable or disable snap to borders mode */
 		void setSnap(bool _value) { mSnap = _value; }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::Window* _sender, const std::string& _name)
@@ -155,6 +152,8 @@ namespace MyGUI
 		void updateAlpha();
 
 		void animateStop(Widget* _widget);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		float getAlphaVisible();

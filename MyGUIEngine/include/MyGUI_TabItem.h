@@ -44,44 +44,12 @@ namespace MyGUI
 
 		//! Set button width
 		void setButtonWidth(int _value = DEFAULT);
-		//! Get button width
-		//int getButtonWidth();
-
-		//! Replace an item name
-		/*void setItemName(const UString& _value);
-		//! Get item name
-		const UString& getItemName();
-
-		//! Replace an item name
-		void setItemData(Any _value);
-
-		//! Get item data
-		template <typename ValueType>
-		ValueType * getItemData(bool _throw = true)
-		{
-			if (getParent() == nullptr)
-				return nullptr;
-			return getParent()->getItemData<ValueType>(this, _throw);
-		}
-
-		//! Select sheet
-		void setItemSelected();
-
-		//! Remove item
-		void removeItem();*/
-
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 		virtual void shutdownWidgetSkin();
 
-		//void setSelected(bool _value);
-
-	//private:
-		//Tab* mOwner;
-
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 	};
 
 } // namespace MyGUI

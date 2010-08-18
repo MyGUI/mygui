@@ -418,7 +418,7 @@ namespace MyGUI
 		return IntSize(mMinmax.right, mMinmax.bottom);
 	}
 
-	void Window::setProperty(const std::string& _key, const std::string& _value)
+	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Window_AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
 		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
@@ -437,7 +437,7 @@ namespace MyGUI
 
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);

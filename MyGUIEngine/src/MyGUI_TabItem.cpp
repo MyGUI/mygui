@@ -117,7 +117,7 @@ namespace MyGUI
 			getParent()->removeItem(this);
 	}*/
 
-	void TabItem::setProperty(const std::string& _key, const std::string& _value)
+	void TabItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "TabItem_ButtonWidth") setButtonWidth(utility::parseValue<int>(_value));
 		/*else if (_key == "TabItem_Select") setSelected(utility::parseValue<bool>(_value));
@@ -137,7 +137,7 @@ namespace MyGUI
 
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);

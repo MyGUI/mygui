@@ -300,27 +300,6 @@ namespace MyGUI
 		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mClient->getHeight() - _left - _width, _height, _width);
 	}
 
-	void Progress::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
-		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
-		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
-		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Progress_StartPoint")
-		{
-			MYGUI_LOG(Warning, "Progress_StartPoint is obsolete, use Progress_FlowDirection");
-			_setProgressStartPoint(utility::parseValue<Align>(_value));
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	int Progress::getClientWidth()
 	{
 		return mFlowDirection.isHorizontal() ? mClient->getWidth() : mClient->getHeight();
@@ -366,5 +345,26 @@ namespace MyGUI
 	}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	void Progress::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
+		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
+		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Progress_StartPoint")
+		{
+			MYGUI_LOG(Warning, "Progress_StartPoint is obsolete, use Progress_FlowDirection");
+			_setProgressStartPoint(utility::parseValue<Align>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
+	}
 
 } // namespace MyGUI
