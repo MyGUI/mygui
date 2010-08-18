@@ -100,9 +100,6 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::VScroll* _sender, size_t _position)\n
@@ -135,6 +132,8 @@ namespace MyGUI
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);
 		void notifyMouseWheel(Widget* _sender, int _rel);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	protected:
 		// наши кнопки

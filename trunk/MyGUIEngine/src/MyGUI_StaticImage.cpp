@@ -497,7 +497,13 @@ namespace MyGUI
 		if (mIndexSelect != _index) updateSelectIndex(_index);
 	}
 
-	void StaticImage::setProperty(const std::string& _key, const std::string& _value)
+	void StaticImage::_setUVSet(const FloatRect& _rect)
+	{
+		if (nullptr != getSubWidgetMain())
+			getSubWidgetMain()->_setUVSet(_rect);
+	}
+
+	void StaticImage::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Image_Texture") setImageTexture(_value);
 		else if (_key == "Image_Coord") setImageCoord(utility::parseValue<IntCoord>(_value));
@@ -508,16 +514,10 @@ namespace MyGUI
 		else if (_key == "Image_Name") setItemName(_value);
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}
-
-	void StaticImage::_setUVSet(const FloatRect& _rect)
-	{
-		if (nullptr != getSubWidgetMain())
-			getSubWidgetMain()->_setUVSet(_rect);
 	}
 
 } // namespace MyGUI

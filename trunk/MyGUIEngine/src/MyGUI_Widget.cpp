@@ -116,6 +116,7 @@ namespace MyGUI
 
 		// витр метод для наследников
 		initialiseWidgetSkin(_info);
+		setSkinProperty(_info);
 	}
 
 	void Widget::_shutdown()
@@ -159,6 +160,7 @@ namespace MyGUI
 		restoreLayerItem();
 
 		initialiseWidgetSkin(_info);
+		setSkinProperty(_info);
 	}
 
 	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info)
@@ -218,7 +220,7 @@ namespace MyGUI
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
 			//FIXME - явный вызов
-			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "");
+			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name);
 			widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
@@ -879,33 +881,6 @@ namespace MyGUI
 		return mWidgetChild[_index];
 	}
 
-	void Widget::setProperty(const std::string& _key, const std::string& _value)
-	{
-		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
-		if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
-		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Alpha") setAlpha(utility::parseValue<float>(_value));
-		else if (_key == "Widget_Colour") setColour(utility::parseValue<Colour>(_value));
-		else if (_key == "Widget_InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_MaskPick") setMaskPick(_value);
-		else if (_key == "Widget_State") setState(_value);
-		else if (_key == "Widget_NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Pointer") setPointer(_value);
-		else
-		{
-			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found");
-			return;
-		}
-
-		eventChangeProperty(this, _key, _value);
-	}
-
 	void Widget::baseUpdateEnable()
 	{
 		if (mEnabled)
@@ -1030,6 +1005,53 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
+	}
+
+	void Widget::shutdownWidgetSkin()
+	{
+	}
+
+	void Widget::initialiseWidgetSkin(ResourceSkin* _info)
+	{
+	}
+
+	void Widget::setSkinProperty(ResourceSkin* _info)
+	{
+		const MapString& properties = _info->getProperties();
+		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
+			setProperty((*item).first, (*item).second);
+	}
+
+	void Widget::setProperty(const std::string& _key, const std::string& _value)
+	{
+		setPropertyOverride(_key, _value);
+	}
+
+	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
+		if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
+		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Alpha") setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Widget_Colour") setColour(utility::parseValue<Colour>(_value));
+		else if (_key == "Widget_InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_MaskPick") setMaskPick(_value);
+		else if (_key == "Widget_State") setState(_value);
+		else if (_key == "Widget_NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Pointer") setPointer(_value);
+		else
+		{
+			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found");
+			return;
+		}
+
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

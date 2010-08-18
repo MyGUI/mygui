@@ -679,7 +679,17 @@ namespace MyGUI
 		return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr;
 	}
 
-	void Tab::setProperty(const std::string& _key, const std::string& _value)
+	Widget* Tab::_getWidgetTemplate()
+	{
+		return mItemTemplate == nullptr ? this : mItemTemplate;
+	}
+
+	Widget* Tab::_getWidgetBar()
+	{
+		return mWidgetBar == nullptr ? this : mWidgetBar;
+	}
+
+	void Tab::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Tab_ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
 		else if (_key == "Tab_ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
@@ -702,20 +712,10 @@ namespace MyGUI
 
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}
-
-	Widget* Tab::_getWidgetTemplate()
-	{
-		return mItemTemplate == nullptr ? this : mItemTemplate;
-	}
-
-	Widget* Tab::_getWidgetBar()
-	{
-		return mWidgetBar == nullptr ? this : mWidgetBar;
 	}
 
 } // namespace MyGUI

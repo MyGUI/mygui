@@ -77,9 +77,6 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord();
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -113,6 +110,8 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		void updateView();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		// размер данных

@@ -1866,44 +1866,6 @@ namespace MyGUI
 		updateView();
 	}
 
-	void Edit::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "Edit_CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
-		else if (_key == "Edit_TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
-		else if (_key == "Edit_ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_Password") setEditPassword(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_PasswordChar") setPasswordChar(_value);
-		else if (_key == "Edit_MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
-		else if (_key == "Edit_OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_Static") setEditStatic(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Edit_ShowVScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll");
-			setVisibleVScroll(utility::parseValue<bool>(_value));
-		}
-		else if (_key == "Edit_ShowHScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll");
-			setVisibleHScroll(utility::parseValue<bool>(_value));
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE
-
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	size_t Edit::getVScrollRange()
 	{
 		return mVRange + 1;
@@ -1967,6 +1929,44 @@ namespace MyGUI
 	{
 		if (mClientText != nullptr)
 			mClientText->setInvertSelected(_value);
+	}
+
+	void Edit::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Edit_CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
+		else if (_key == "Edit_TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
+		else if (_key == "Edit_ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_Password") setEditPassword(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_PasswordChar") setPasswordChar(_value);
+		else if (_key == "Edit_MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
+		else if (_key == "Edit_OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_Static") setEditStatic(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Edit_ShowVScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll");
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+		}
+		else if (_key == "Edit_ShowHScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll");
+			setVisibleHScroll(utility::parseValue<bool>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

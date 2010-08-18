@@ -419,7 +419,7 @@ namespace MyGUI
 		_destroyMessage(mInfoCancel);
 	}
 
-	void Message::setProperty(const std::string& _key, const std::string& _value)
+	void Message::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Message_Caption") setCaption(_value);
 		else if (_key == "Message_Message") setMessageText(_value);
@@ -430,7 +430,7 @@ namespace MyGUI
 		else if (_key == "Message_Fade") setWindowFade(utility::parseValue<bool>(_value));
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);

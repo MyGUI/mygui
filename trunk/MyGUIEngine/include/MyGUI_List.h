@@ -163,9 +163,6 @@ namespace MyGUI
 		//! Return optimal height to fit all items in List
 		int getOptimalHeight();
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::List* _sender, size_t _index)\n
@@ -284,6 +281,8 @@ namespace MyGUI
 
 		// ищет и выделяет елемент
 		void _selectIndex(size_t _index, bool _select);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void _checkMapping(const std::string& _owner);

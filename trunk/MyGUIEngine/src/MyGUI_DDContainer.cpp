@@ -264,12 +264,12 @@ namespace MyGUI
 		mouseDrag();
 	}
 
-	void DDContainer::setProperty(const std::string& _key, const std::string& _value)
+	void DDContainer::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "DDContainer_NeedDragDrop") setNeedDragDrop(utility::parseValue<bool>(_value));
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);

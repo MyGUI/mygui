@@ -70,9 +70,6 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -91,6 +88,8 @@ namespace MyGUI
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 		virtual void shutdownWidgetSkin();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void frameEntered(float _time);

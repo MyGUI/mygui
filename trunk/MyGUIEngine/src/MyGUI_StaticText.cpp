@@ -112,22 +112,6 @@ namespace MyGUI
 		return (nullptr == getSubWidgetText()) ? 0 : getSubWidgetText()->getFontHeight();
 	}
 
-	void StaticText::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "Text_TextColour") setTextColour(utility::parseValue<Colour>(_value));
-		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
-		else if (_key == "Text_FontName") setFontName(_value);
-		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
-		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
-		else if (_key == "Widget_Caption") setCaptionWithNewLine(_value);// FIXME убрать потом
-		else
-		{
-			Base::setProperty(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 	void StaticText::setCaption(const UString& _caption)
 	{
 		if (nullptr != getSubWidgetText())
@@ -164,6 +148,22 @@ namespace MyGUI
 			}
 			setCaption(LanguageManager::getInstance().replaceTags(value));
 		}
+	}
+
+	void StaticText::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Text_TextColour") setTextColour(utility::parseValue<Colour>(_value));
+		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
+		else if (_key == "Text_FontName") setFontName(_value);
+		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
+		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
+		else if (_key == "Widget_Caption") setCaptionWithNewLine(_value);// FIXME убрать потом
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

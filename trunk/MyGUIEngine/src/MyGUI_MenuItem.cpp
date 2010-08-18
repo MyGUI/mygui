@@ -134,13 +134,13 @@ namespace MyGUI
 		return mOwner->getItemChild(this);
 	}
 
-	void MenuItem::setProperty(const std::string& _key, const std::string& _value)
+	void MenuItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "MenuItem_Id") setItemId(_value);
 		else if (_key == "MenuItem_Type") setItemType(utility::parseValue<MenuItemType>(_value));
 		else
 		{
-			Base::setProperty(_key, _value);
+			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);

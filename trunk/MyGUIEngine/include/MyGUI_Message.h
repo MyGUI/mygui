@@ -90,10 +90,6 @@ namespace MyGUI
 			const std::string& _button3 = "",
 			const std::string& _button4 = "");
 
-
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)\n
@@ -117,6 +113,8 @@ namespace MyGUI
 		const char * getIconName(size_t _index);
 		const char * getButtonName(size_t _index);
 		const char * getButtonTag(size_t _index);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);

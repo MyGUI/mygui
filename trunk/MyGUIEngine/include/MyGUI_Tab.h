@@ -231,9 +231,6 @@ namespace MyGUI
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() { return mSmoothShow; }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::Tab* _sender, size_t _index)\n
@@ -318,6 +315,8 @@ namespace MyGUI
 
 		// вкладка при удалении уведомляет таб
 		void _notifyDeleteItem(TabItem* _item);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void actionWidgetHide(Widget* _widget);

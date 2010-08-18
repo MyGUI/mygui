@@ -51,9 +51,6 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Request for start drag.\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
@@ -131,6 +128,8 @@ namespace MyGUI
 		void mouseButtonPressed(MouseButton _id);
 
 		void endDrop(bool _reset);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	protected:
 		bool mDropResult;
