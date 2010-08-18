@@ -35,13 +35,13 @@ namespace demo
 	{
 		if (_sender == mCheckShowStatic)
 		{
-			mCheckShowStatic->setButtonPressed( ! mCheckShowStatic->getButtonPressed());
-			eventChangePanels(EVENT_SHOW_STATIC, (size_t)mCheckShowStatic->getButtonPressed());
+			mCheckShowStatic->setStateSelected( ! mCheckShowStatic->getStateSelected());
+			eventChangePanels(EVENT_SHOW_STATIC, (size_t)mCheckShowStatic->getStateSelected());
 		}
 		else if (_sender == mCheckShowDynamic)
 		{
-			mCheckShowDynamic->setButtonPressed( ! mCheckShowDynamic->getButtonPressed());
-			eventChangePanels(EVENT_SHOW_DYNAMIC, (size_t)mCheckShowDynamic->getButtonPressed());
+			mCheckShowDynamic->setStateSelected( ! mCheckShowDynamic->getStateSelected());
+			eventChangePanels(EVENT_SHOW_DYNAMIC, (size_t)mCheckShowDynamic->getStateSelected());
 		}
 	}
 

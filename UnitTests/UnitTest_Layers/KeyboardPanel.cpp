@@ -31,19 +31,19 @@ namespace demo
 	void KeyboardPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
-		bool selected = button->getButtonPressed();
+		bool selected = button->getStateSelected();
 		if (selected)
 		{
-			button->setButtonPressed(false);
+			button->setStateSelected(false);
 			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(mMainWidget->getUserString("Command")));
 		}
 		else
 		{
-			mButtonEngine->setButtonPressed(false);
-			mButtonGun->setButtonPressed(false);
-			mButtonAmmo->setButtonPressed(false);
-			mButtonArmor->setButtonPressed(false);
-			button->setButtonPressed(true);
+			mButtonEngine->setStateSelected(false);
+			mButtonGun->setStateSelected(false);
+			mButtonAmmo->setStateSelected(false);
+			mButtonArmor->setStateSelected(false);
+			button->setStateSelected(true);
 			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(button->getUserString("Command")));
 		}
 	}

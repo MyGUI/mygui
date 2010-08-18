@@ -163,6 +163,7 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_BackwardCompatibility.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -255,6 +256,7 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
+  src/MyGUI_BackwardCompatibility.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -317,6 +319,7 @@ SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
+  src/MyGUI_BackwardCompatibility.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
   src/MyGUI_MaskPickInfo.cpp
@@ -473,6 +476,7 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_WidgetDefines.h
+  include/MyGUI_BackwardCompatibility.h
 )
 SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES
   include/MyGUI_IStateInfo.h

@@ -24,12 +24,14 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_StaticText.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT Button :
-		public StaticText
+		public StaticText,
+		public ButtonObsolete
 	{
 		MYGUI_RTTI_DERIVED( Button )
 
@@ -56,20 +58,6 @@ namespace MyGUI
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImage* getStaticImage() { return mImage; }
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Button::setStateSelected(bool _value)")
-		void setButtonPressed(bool _value) { setStateSelected(_value); }
-		MYGUI_OBSOLETE("use : bool Button::getStateSelected()")
-		bool getButtonPressed() { return getStateSelected(); }
-		MYGUI_OBSOLETE("use : void Button::setStateSelected(bool _value)")
-		void setStateCheck(bool _value) { setStateSelected(_value); }
-		MYGUI_OBSOLETE("use : bool Button::getStateSelected()")
-		bool getStateCheck() { return getStateSelected(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);
