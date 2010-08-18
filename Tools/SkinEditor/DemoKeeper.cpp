@@ -12,6 +12,7 @@
 #include "ExportManager.h"
 #include "MyGUI_FilterNoneSkin.h"
 #include "FileSystemInfo/FileSystemInfo.h"
+#include "Localise.h"
 
 template <> tools::DemoKeeper* MyGUI::Singleton<tools::DemoKeeper>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::DemoKeeper>::mClassTypeName("DemoKeeper");
@@ -39,8 +40,8 @@ namespace tools
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::LanguageManager::getInstance().addUserTag("\\n", "\n");
-		MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+		addUserTag("\\n", "\n");
+		addUserTag("SE_CurrentFileName", mFileName);
 
 		if (!mLocale.empty())
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
@@ -159,8 +160,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
+				replaceTags("#{Warning}"),
+				replaceTags("#{MessageUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -193,8 +194,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
+				replaceTags("#{Warning}"),
+				replaceTags("#{MessageUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -226,8 +227,8 @@ namespace tools
 				{
 					MyGUI::Message* message = MyGUI::Message::createMessageBox(
 						"Message",
-						MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-						MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
+						replaceTags("#{Warning}"),
+						replaceTags("#{MessageUnsavedData}"),
 						MyGUI::MessageBoxStyle::IconQuest
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
@@ -290,7 +291,7 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 
 		mFileName = mDefaultFileName;
-		MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+		addUserTag("SE_CurrentFileName", mFileName);
 
 		updateCaption();
 	}
@@ -302,7 +303,7 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("SE_CurrentFileName", mFileName);
 
 				save();
 				updateCaption();
@@ -310,7 +311,7 @@ namespace tools
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("SE_CurrentFileName", mFileName);
 
 				load();
 				updateCaption();
@@ -342,19 +343,16 @@ namespace tools
 
 			if (!result)
 			{
-				MyGUI::UString text = MyGUI::LanguageManager::getInstance().replaceTags("#{MessageIncorrectFileFormat}");
-				text = MyGUI::LanguageManager::getInstance().replaceTags(text);
-
 				MyGUI::Message* message = MyGUI::Message::createMessageBox(
 					"Message",
-					MyGUI::LanguageManager::getInstance().replaceTags("#{Error}"),
-					text,
+					replaceTags("#{Error}"),
+					replaceTags("#{MessageIncorrectFileFormat}"),
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
 				registerMessageBox(message);
 
 				mFileName = mDefaultFileName;
-				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("SE_CurrentFileName", mFileName);
 
 				updateCaption();
 			}
@@ -363,7 +361,7 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				MyGUI::LanguageManager::getInstance().replaceTags("#{Error}"),
+				replaceTags("#{Error}"),
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);

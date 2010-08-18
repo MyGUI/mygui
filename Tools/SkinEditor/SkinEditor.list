@@ -56,6 +56,7 @@ set (HEADER_FILES
   TestWindow.h
   BackgroundControl.h
   ExportManager.h
+  Localise.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -228,6 +229,7 @@ SOURCE_GROUP("Header Files" FILES
   TestWindow.h
   BackgroundControl.h
   ExportManager.h
+  Localise.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
