@@ -89,6 +89,8 @@ namespace MyGUI
 		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
 
+		UString replaceTagsPass(const UString& _line, bool& _replaceResult);
+
 	private:
 		typedef std::map<UString, UString> MapLanguageString;
 
