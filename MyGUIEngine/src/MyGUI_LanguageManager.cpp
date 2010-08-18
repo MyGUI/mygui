@@ -211,99 +211,15 @@ namespace MyGUI
 
 	UString LanguageManager::replaceTags(const UString& _line)
 	{
-		// вот хз, что быстрее, итераторы или математика указателей,
-		// для непонятно какого размера одного символа UTF8
-		UString line(_line);
+		UString result(_line);
 
-		if (mMapLanguage.empty() && mUserMapLanguage.empty())
-			return _line;
-
-		UString::iterator end = line.end();
-		for (UString::iterator iter=line.begin(); iter!=end; )
+		bool replace = false;
+		do
 		{
-			if (*iter == '#')
-			{
-				++iter;
-				if (iter == end)
-				{
-					return line;
-				}
-				else
-				{
-					if (*iter != '{')
-					{
-						++iter;
-						continue;
-					}
-					UString::iterator iter2 = iter;
-					++iter2;
-					while (true)
-					{
-						if (iter2 == end) return line;
-						if (*iter2 == '}')
-						{
-							size_t start = iter - line.begin();
-							size_t len = (iter2 - line.begin()) - start - 1;
-							const UString& tag = line.substr(start + 1, len);
-							UString replacement;
+			result = replaceTagsPass(result, replace);
+		} while (replace);
 
-							bool find = true;
-							// try to find in loaded from resources language strings
-							MapLanguageString::iterator replace = mMapLanguage.find(tag);
-							if (replace != mMapLanguage.end())
-							{
-								replacement = replace->second;
-							}
-							else
-							{
-								// try to find in user language strings
-								replace = mUserMapLanguage.find(tag);
-								if (replace != mUserMapLanguage.end())
-								{
-									find = true;
-									replacement = replace->second;
-								}
-								else
-								{
-									find = false;
-								}
-							}
-
-							// try to ask user if event assigned or use #{_tag} instead
-							if (!find)
-							{
-								if (!eventRequestTag.empty())
-								{
-									eventRequestTag(tag, replacement);
-								}
-								else
-								{
-									iter = line.insert(iter, '#') + size_t(len + 2);
-									end = line.end();
-									break;
-								}
-							}
-
-							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
-							size_t pos = iter - line.begin();
-							line.insert(pos, replacement);
-							iter = line.begin() + pos + replacement.length();
-							end = line.end();
-							if (iter == end) return line;
-							break;
-
-						}
-						++iter2;
-					}
-				}
-			}
-			else
-			{
-				++iter;
-			}
-		}
-
-		return line;
+		return result;
 	}
 
 	UString LanguageManager::getTag(const UString& _tag)
@@ -347,5 +263,108 @@ namespace MyGUI
 	}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	UString LanguageManager::replaceTagsPass(const UString& _line, bool& _replaceResult)
+	{
+		_replaceResult = false;
+
+		// вот хз, что быстрее, итераторы или математика указателей,
+		// для непонятно какого размера одного символа UTF8
+		UString line(_line);
+
+		if (mMapLanguage.empty() && mUserMapLanguage.empty())
+			return _line;
+
+		UString::iterator end = line.end();
+		for (UString::iterator iter=line.begin(); iter!=end; )
+		{
+			if (*iter == '#')
+			{
+				++iter;
+				if (iter == end)
+				{
+					return line;
+				}
+				else
+				{
+					if (*iter != '{')
+					{
+						++iter;
+						continue;
+					}
+					UString::iterator iter2 = iter;
+					++iter2;
+
+					while (true)
+					{
+						if (iter2 == end)
+							return line;
+
+						if (*iter2 == '}')
+						{
+							size_t start = iter - line.begin();
+							size_t len = (iter2 - line.begin()) - start - 1;
+							const UString& tag = line.substr(start + 1, len);
+							UString replacement;
+
+							bool find = true;
+							// try to find in loaded from resources language strings
+							MapLanguageString::iterator replace = mMapLanguage.find(tag);
+							if (replace != mMapLanguage.end())
+							{
+								replacement = replace->second;
+							}
+							else
+							{
+								// try to find in user language strings
+								replace = mUserMapLanguage.find(tag);
+								if (replace != mUserMapLanguage.end())
+								{
+									replacement = replace->second;
+								}
+								else
+								{
+									find = false;
+								}
+							}
+
+							// try to ask user if event assigned or use #{_tag} instead
+							if (!find)
+							{
+								if (!eventRequestTag.empty())
+								{
+									eventRequestTag(tag, replacement);
+								}
+								else
+								{
+									iter = line.insert(iter, '#') + size_t(len + 2);
+									end = line.end();
+									break;
+								}
+							}
+
+							_replaceResult = true;
+
+							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
+							size_t pos = iter - line.begin();
+							line.insert(pos, replacement);
+							iter = line.begin() + pos + replacement.length();
+							end = line.end();
+							if (iter == end)
+								return line;
+							break;
+						}
+						++iter2;
+					}
+				}
+			}
+			else
+			{
+				++iter;
+			}
+		}
+
+		return line;
+	}
 
 } // namespace MyGUI
