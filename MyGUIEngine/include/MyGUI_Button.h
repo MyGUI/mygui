@@ -57,9 +57,6 @@ namespace MyGUI
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImage* getStaticImage() { return mImage; }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -90,6 +87,8 @@ namespace MyGUI
 
 		bool _setState(const std::string& _value);
 		void setImageResource(const std::string& _name);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void updateButtonState();

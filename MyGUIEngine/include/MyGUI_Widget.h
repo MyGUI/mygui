@@ -244,7 +244,7 @@ namespace MyGUI
 			@param _key Property name (for example Widget_Alpha or Edit_MultiLine)
 			@param _value Value converted to string
 		*/
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		void setProperty(const std::string& _key, const std::string& _value);
 
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
@@ -301,8 +301,8 @@ namespace MyGUI
 		// все создание только через фабрику
 		virtual ~Widget();
 
-		virtual void shutdownWidgetSkin() { }
-		virtual void initialiseWidgetSkin(ResourceSkin* _info) { }
+		virtual void shutdownWidgetSkin();
+		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 
 		void _updateView(); // обновления себя и детей
 
@@ -323,6 +323,34 @@ namespace MyGUI
 		// наследуемся он LayerInfo
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+
+		template <typename T>
+		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true)
+		{
+			_widget = nullptr;
+			for (MyGUI::VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+			{
+				MyGUI::Widget* find = (*iter)->findWidget(_name);
+				if (nullptr != find)
+				{
+					T * cast = find->castType<T>(false);
+					if (nullptr != cast)
+					{
+						_widget = cast;
+					}
+					else if (_throw)
+					{
+							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
+							<< "' source name = '" << find->getName()
+							<< "' source type = '" << find->getTypeName() << "'");
+					}
+					return;
+				}
+			}
+			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "'");
+		}
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void frameEntered(float _frame);
@@ -350,6 +378,8 @@ namespace MyGUI
 
 		void _linkChildWidget(Widget* _widget);
 		void _unlinkChildWidget(Widget* _widget);
+
+		void setSkinProperty(ResourceSkin* _info);
 
 	protected:
 		// клиентская зона окна

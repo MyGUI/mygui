@@ -188,12 +188,11 @@ namespace MyGUI
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
 		virtual void shutdownWidgetSkin();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void frameEntered(float _frame);

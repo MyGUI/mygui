@@ -143,9 +143,6 @@ namespace MyGUI
 		void setFlowDirection(FlowDirection _value);
 		FlowDirection getFlowDirection() { return mFlowDirection; }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
@@ -201,6 +198,8 @@ namespace MyGUI
 		virtual void shutdownWidgetSkin();
 
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);

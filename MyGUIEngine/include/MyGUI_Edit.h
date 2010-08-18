@@ -242,9 +242,6 @@ namespace MyGUI
 		//! @copydoc StaticText::getTextSize
 		virtual IntSize getTextSize();
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	/*events:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::Edit* _sender)
@@ -327,6 +324,8 @@ namespace MyGUI
 		void updateViewWithCursor();
 
 		void eraseView();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		// устанавливает текст
