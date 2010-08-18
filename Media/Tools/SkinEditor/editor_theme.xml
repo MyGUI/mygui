@@ -2,20 +2,6 @@
 
 <MyGUI type="Language">
 
-	<!--Language>
-		<Info>
-			<Source>core_theme_tag.xml</Source>
-			<Source>editor_theme_tag.xml</Source>
-		</Info>
-	</Language-->
-
-	<!--Language>
-		<Info>
-			<Source>core_theme_black_blue_tag.xml</Source>
-			<Source>editor_theme_black_blue_tag.xml</Source>
-		</Info>
-	</Language-->
-
 	<Language>
 		<Info>
 			<Source>core_theme_black_orange_tag.xml</Source>
