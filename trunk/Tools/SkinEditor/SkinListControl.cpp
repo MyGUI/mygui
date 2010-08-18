@@ -9,6 +9,7 @@
 #include "ActionManager.h"
 #include <limits>
 #include "DemoKeeper.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -76,8 +77,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageDeleteSkin}"),
+				replaceTags("#{Warning}"),
+				replaceTags("#{MessageDeleteSkin}"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 			DemoKeeper::getInstance().registerMessageBox(message);
@@ -138,7 +139,7 @@ namespace tools
 			if (count == 1)
 				mList->addItem(item->getName());
 			else
-				mList->addItem(MyGUI::LanguageManager::getInstance().replaceTags("#{ColourError}") + item->getName());
+				mList->addItem(replaceTags("#{ColourError}") + item->getName());
 
 			mList->setItemDataAt(index, item);
 			if (item == selectedItem)
@@ -164,7 +165,7 @@ namespace tools
 		hideTextField();
 
 		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{CaptionEnterName}"));
+		mTextFieldControl->setCaption(replaceTags("#{CaptionEnterName}"));
 		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
 		mTextFieldControl->setUserData(_item);
 		mTextFieldControl->show();
