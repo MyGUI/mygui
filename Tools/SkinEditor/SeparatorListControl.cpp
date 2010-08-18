@@ -7,6 +7,7 @@
 #include "SeparatorListControl.h"
 #include "SkinManager.h"
 #include "Binary.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -94,7 +95,7 @@ namespace tools
 				SeparatorItem* item = separators.current();
 
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem("#808080" + item->getName(), item);
+					mList->addItem(replaceTags("#{ColourDisabled}") + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 
@@ -107,10 +108,10 @@ namespace tools
 	void SeparatorListControl::fillPresets()
 	{
 		mPresets->removeAllItems();
-		mPresets->addItem("One scale region", SeparatorPresetScale);
-		mPresets->addItem("9 Regions grid", SeparatorPreset9Slice);
-		mPresets->addItem("3 Regions horizontal scale", SeparatorPreset3SliceHorScale);
-		mPresets->addItem("3 Regions vertical scale", SeparatorPreset3SliceVertScale);
+		mPresets->addItem(replaceTags("#{PresetRegionOneScale}"), SeparatorPresetScale);
+		mPresets->addItem(replaceTags("#{PresetRegion9Grid}"), SeparatorPreset9Slice);
+		mPresets->addItem(replaceTags("#{PresetRegion3Hor}"), SeparatorPreset3SliceHorScale);
+		mPresets->addItem(replaceTags("#{PresetRegion3Vert}"), SeparatorPreset3SliceVertScale);
 	}
 
 	void SeparatorListControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)

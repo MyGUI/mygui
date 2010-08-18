@@ -7,6 +7,7 @@
 #include "StateListControl.h"
 #include "SkinManager.h"
 #include "Binary.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -46,9 +47,9 @@ namespace tools
 	void StatesListControl::fillStatePreset()
 	{
 		mPresets->removeAllItems();
-		mPresets->addItem("Normal only", PresetNormalOnly);
-		mPresets->addItem("First 4 states", PresetFirst4States);
-		mPresets->addItem("All states", PresetAllStates);
+		mPresets->addItem(replaceTags("#{PresetStateOnlyNormal}"), PresetNormalOnly);
+		mPresets->addItem(replaceTags("#{PresetStateFirst4}"), PresetFirst4States);
+		mPresets->addItem(replaceTags("#{PresetStateAll}"), PresetAllStates);
 	}
 
 	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
@@ -100,7 +101,7 @@ namespace tools
 				StateItem* item = states.current();
 
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem("#808080" + item->getName(), item);
+					mList->addItem(replaceTags("#{ColourDisabled}") + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 

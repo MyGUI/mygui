@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "TextureControl.h"
 #include "SkinManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -18,7 +19,6 @@ namespace tools
 		mBackground(nullptr),
 		mScale(nullptr),
 		mScaleValue(1),
-		mRightMousePressed(false),
 		mBackgroundButton(nullptr),
 		mColourPanel(nullptr)
 	{
@@ -35,10 +35,6 @@ namespace tools
 		fillScale();
 		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
 
-		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-
 		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 
 		mColourPanel = new ColourPanel();
@@ -53,10 +49,6 @@ namespace tools
 
 		mBackgroundButton->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 
-		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-
 		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
 		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureControl::notifyComboChangePosition);
 	}
@@ -65,12 +57,12 @@ namespace tools
 	{
 		_combo->removeAllItems();
 
-		_combo->addItem("Zero", MyGUI::Colour::Zero);
-		_combo->addItem("Black", MyGUI::Colour::Black);
-		_combo->addItem("White", MyGUI::Colour::White);
-		_combo->addItem("Red", MyGUI::Colour::Red);
-		_combo->addItem("Green", MyGUI::Colour::Green);
-		_combo->addItem("Blue", MyGUI::Colour::Blue);
+		_combo->addItem(replaceTags("#{ColourZero}"), MyGUI::Colour::Zero);
+		_combo->addItem(replaceTags("#{ColourBlack}"), MyGUI::Colour::Black);
+		_combo->addItem(replaceTags("#{ColourWhite}"), MyGUI::Colour::White);
+		_combo->addItem(replaceTags("#{ColourRed}"), MyGUI::Colour::Red);
+		_combo->addItem(replaceTags("#{ColourGreen}"), MyGUI::Colour::Green);
+		_combo->addItem(replaceTags("#{ColourBlue}"), MyGUI::Colour::Blue);
 
 		_combo->setIndexSelected(0);
 
@@ -108,12 +100,12 @@ namespace tools
 	{
 		mScale->removeAllItems();
 
-		mScale->addItem("50 %", (double)0.5);
-		mScale->addItem("100 %", (double)1);
-		mScale->addItem("200 %", (double)2);
-		mScale->addItem("400 %", (double)4);
-		mScale->addItem("800 %", (double)8);
-		mScale->addItem("1600 %", (double)16);
+		mScale->addItem(replaceTags("#{Scale50}"), (double)0.5);
+		mScale->addItem(replaceTags("#{Scale100}"), (double)1);
+		mScale->addItem(replaceTags("#{Scale200}"), (double)2);
+		mScale->addItem(replaceTags("#{Scale400}"), (double)4);
+		mScale->addItem(replaceTags("#{Scale800}"), (double)8);
+		mScale->addItem(replaceTags("#{Scale1600}"), (double)16);
 
 		size_t index = 1;
 
@@ -162,35 +154,6 @@ namespace tools
 	const MyGUI::IntCoord& TextureControl::getTextureRegion()
 	{
 		return mTextureRegion;
-	}
-
-	void TextureControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
-	{
-		/*if (_id == MyGUI::MouseButton::Left)
-		{
-			mRightMousePressed = true;
-			mTexture->setPointer("hand");
-			MyGUI::PointerManager::getInstance().setPointer("hand");
-			MyGUI::PointerManager::getInstance().eventChangeMousePointer("hand");
-		}*/
-	}
-
-	void TextureControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
-	{
-		/*if (_id == MyGUI::MouseButton::Left)
-		{
-			if (mRightMousePressed)
-			{
-				mRightMousePressed = false;
-				mTexture->setPointer("arrow");
-				MyGUI::PointerManager::getInstance().setPointer("arrow");
-				MyGUI::PointerManager::getInstance().eventChangeMousePointer("arrow");
-			}
-		}*/
-	}
-
-	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
-	{
 	}
 
 	void TextureControl::notifyMouseButtonClick(MyGUI::Widget* _sender)

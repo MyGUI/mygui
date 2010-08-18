@@ -146,12 +146,8 @@ namespace tools
 
 	void DemoKeeper::updateCaption()
 	{
-		std::wstring result = L"Skin editor - '";
-		result += mFileName;
-		result += L"' ";
-		result += mChanges ? L"*" : L"";
-
-		setWindowCaption(result);
+		addUserTag("SE_HasChanged", mChanges ? "*" : "");
+		setWindowCaption(replaceTags("#{CaptionMainWindow}"));
 	}
 
 	void DemoKeeper::commandLoad(const MyGUI::UString & _commandName)
@@ -266,7 +262,7 @@ namespace tools
 
 	void DemoKeeper::showLoadWindow()
 	{
-		mOpenSaveFileDialog->setDialogInfo("Load", "Load");
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("#{CaptionOpenFile}"), replaceTags("#{ButtonOpenFile}"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->setVisible(true);
 	}
@@ -389,7 +385,7 @@ namespace tools
 
 	void DemoKeeper::showSaveAsWindow()
 	{
-		mOpenSaveFileDialog->setDialogInfo("SaveAs", "Save");
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("#{CaptionSaveFile}"), replaceTags("#{ButtonSaveFile}"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->setVisible(true);
 	}
