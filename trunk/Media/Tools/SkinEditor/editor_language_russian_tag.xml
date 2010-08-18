@@ -19,10 +19,67 @@
 	<Tag name="Warning">Внимание</Tag>
 	<Tag name="Error">Ошибка</Tag>
 
+	<Tag name="CaptionMainWindow">Редактор скинов - '#{SE_CurrentFileName}' #{SE_HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
-	
+	<Tag name="CaptionOpenFile">Открытие файла</Tag>
+	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
+	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
+	<Tag name="CaptionTestWindow">Тестирование</Tag>
+
+	<Tag name="ButtonOpenFile">Открыть</Tag>
+	<Tag name="ButtonSaveFile">Сохранить</Tag>
+
+	<Tag name="PropertyRegionCoords">Координаты</Tag>
+	<Tag name="PropertyRegionVisible">Видимость</Tag>
+	<Tag name="PropertyRegionEnabled">Доступность</Tag>
+	<Tag name="PropertyRegionAlign">Выравнивание</Tag>
+	<Tag name="PropertyRegionType">Тип региона</Tag>
+
+	<Tag name="PropertySeparatorOffset">Смещение</Tag>
+	<Tag name="PropertySeparatorVisible">Видимость</Tag>
+
+	<Tag name="PropertySkinCoords">Координаты</Tag>
+	<Tag name="PropertySkinTexture">Текстура</Tag>
+
+	<Tag name="PropertyStatePosition">Положение</Tag>
+	<Tag name="PropertyStateVisible">Видимость</Tag>
+	<Tag name="PropertyStateTextColour">Цвет текста</Tag>
+	<Tag name="PropertyStateTextOffset">Сдвиг текста</Tag>
+
+	<Tag name="TabSkins">Скины</Tag>
+	<Tag name="TabStates">Состояния</Tag>
+	<Tag name="TabSeparators">Разделители</Tag>
+	<Tag name="TabRegions">Регионы</Tag>
+
+	<Tag name="ColourZero">Нет цвета</Tag>
+	<Tag name="ColourBlack">Черный</Tag>
+	<Tag name="ColourWhite">Белый</Tag>
+	<Tag name="ColourRed">Красный</Tag>
+	<Tag name="ColourGreen">Зеленый</Tag>
+	<Tag name="ColourBlue">Синий</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
+
+	<Tag name="PresetRegionOneScale">Один регион</Tag>
+	<Tag name="PresetRegion9Grid">9 регионов - решетка</Tag>
+	<Tag name="PresetRegion3Hor">3 региона - горизонтальный масштаб</Tag>
+	<Tag name="PresetRegion3Vert">3 региона - вертикальный масштаб</Tag>
+
+	<Tag name="PresetStateOnlyNormal">Только обычное состояние</Tag>
+	<Tag name="PresetStateFirst4">Первые 4 состояния</Tag>
+	<Tag name="PresetStateAll">Все состояния</Tag>
+
+	<Tag name="TextScale">Масштаб</Tag>
+	<Tag name="TextBackgroundColour">Цвет фона</Tag>
+
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
 	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{SE_CurrentFileName}'#{\n}не соответствует формату.</Tag>
 
+	<Tag name="SkinNamePattern">Имя скина #{SE_SkinNameIndex}</Tag>
 </MyGUI>

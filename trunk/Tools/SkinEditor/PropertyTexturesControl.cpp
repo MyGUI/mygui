@@ -15,10 +15,12 @@ namespace tools
 	{
 		assignWidget(mComboBox, "ComboBox");
 
+		// FIXME потом вынести в загружаемые настройки
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
 		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
 			mComboBox->addItem(*iter);
 
+		// FIXME потом вынести в загружаемые настройки
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
 		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
 			mComboBox->addItem(*iter);

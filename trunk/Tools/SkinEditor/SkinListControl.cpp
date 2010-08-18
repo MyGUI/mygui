@@ -175,11 +175,10 @@ namespace tools
 
 	MyGUI::UString SkinListControl::getNextFreeName()
 	{
-		MyGUI::UString pattern = "SkinName ";
-
 		for (size_t index=0; index<std::numeric_limits<size_t>::max(); index++)
 		{
-			MyGUI::UString name = MyGUI::utility::toString(pattern, index);
+			addUserTag("SE_SkinNameIndex", MyGUI::utility::toString(index));
+			MyGUI::UString name = replaceTags("#{SkinNamePattern}");
 			if (!isNameExist(name))
 				return name;
 		}

@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "BackgroundControl.h"
 #include "SkinManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -47,12 +48,12 @@ namespace tools
 	{
 		_combo->removeAllItems();
 
-		_combo->addItem("Zero", MyGUI::Colour::Zero);
-		_combo->addItem("Black", MyGUI::Colour::Black);
-		_combo->addItem("White", MyGUI::Colour::White);
-		_combo->addItem("Red", MyGUI::Colour::Red);
-		_combo->addItem("Green", MyGUI::Colour::Green);
-		_combo->addItem("Blue", MyGUI::Colour::Blue);
+		_combo->addItem(replaceTags("#{ColourZero}"), MyGUI::Colour::Zero);
+		_combo->addItem(replaceTags("#{ColourBlack}"), MyGUI::Colour::Black);
+		_combo->addItem(replaceTags("#{ColourWhite}"), MyGUI::Colour::White);
+		_combo->addItem(replaceTags("#{ColourRed}"), MyGUI::Colour::Red);
+		_combo->addItem(replaceTags("#{ColourGreen}"), MyGUI::Colour::Green);
+		_combo->addItem(replaceTags("#{ColourBlue}"), MyGUI::Colour::Blue);
 
 		_combo->setIndexSelected(0);
 
