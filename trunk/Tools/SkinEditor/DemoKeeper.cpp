@@ -39,6 +39,9 @@ namespace tools
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::LanguageManager::getInstance().addUserTag("\\n", "\n");
+		MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+
 		if (!mLocale.empty())
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
 
@@ -157,7 +160,7 @@ namespace tools
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
 				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -191,7 +194,7 @@ namespace tools
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
 				MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-				MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
+				MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -224,7 +227,7 @@ namespace tools
 					MyGUI::Message* message = MyGUI::Message::createMessageBox(
 						"Message",
 						MyGUI::LanguageManager::getInstance().replaceTags("#{Warning}"),
-						MyGUI::LanguageManager::getInstance().replaceTags("#{WarningUnsavedData}"),
+						MyGUI::LanguageManager::getInstance().replaceTags("#{MessageUnsavedData}"),
 						MyGUI::MessageBoxStyle::IconQuest
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
@@ -287,6 +290,8 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 
 		mFileName = mDefaultFileName;
+		MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+
 		updateCaption();
 	}
 
@@ -297,12 +302,16 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+
 				save();
 				updateCaption();
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+
 				load();
 				updateCaption();
 			}
@@ -333,7 +342,9 @@ namespace tools
 
 			if (!result)
 			{
-				MyGUI::UString text = L"Файл '" + mFileName + L"' не соответсвует формату.";
+				MyGUI::UString text = MyGUI::LanguageManager::getInstance().replaceTags("#{MessageIncorrectFileFormat}");
+				text = MyGUI::LanguageManager::getInstance().replaceTags(text);
+
 				MyGUI::Message* message = MyGUI::Message::createMessageBox(
 					"Message",
 					MyGUI::LanguageManager::getInstance().replaceTags("#{Error}"),
@@ -343,6 +354,8 @@ namespace tools
 				registerMessageBox(message);
 
 				mFileName = mDefaultFileName;
+				MyGUI::LanguageManager::getInstance().addUserTag("SE_CurrentFileName", mFileName);
+
 				updateCaption();
 			}
 		}
