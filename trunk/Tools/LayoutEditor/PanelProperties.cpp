@@ -58,7 +58,7 @@ void PanelProperties::update(MyGUI::Widget* _current_widget, WidgetStyle* _widge
 
 	MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _widgetType->name);
 
-	mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(localise("Widget_type_propertes")));
+	mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{Widget_type_propertes}"));
 
 	size_t count = AddParametrs(_widgetType, widgetContainer, y);
 
