@@ -152,7 +152,7 @@ namespace tools
 		region->setName("Text");
 		region->setSeparator(MyGUI::Align::Center);
 		region->getPropertySet()->setPropertyValue("Align", "Stretch", "");
-		region->getPropertySet()->setPropertyValue("RegionType", "EditText", "");
+		region->getPropertySet()->setPropertyValue("RegionType", "SimpleText", "");
 		region->getPropertySet()->setPropertyValue("Visible", "False", "");
 		region->getPropertySet()->setPropertyReadOnly("Enabled", true);
 	}
