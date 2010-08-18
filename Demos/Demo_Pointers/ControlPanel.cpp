@@ -27,8 +27,8 @@ namespace demo
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
 		std::string context = button->getUserString("Context");
 
-		bool pressed = button->getButtonPressed();
-		button->setButtonPressed(!pressed);
+		bool pressed = button->getStateSelected();
+		button->setStateSelected(!pressed);
 		if (pressed)
 			mPointerContextManager->removeContext(context);
 		else
@@ -37,17 +37,17 @@ namespace demo
 		// сбрасываем радио
 		if (button == mRepair)
 		{
-			if (mAttack->getButtonPressed())
+			if (mAttack->getStateSelected())
 			{
-				mAttack->setButtonPressed(false);
+				mAttack->setStateSelected(false);
 				mPointerContextManager->removeContext(mAttack->getUserString("Context"));
 			}
 		}
 		else if (button == mAttack)
 		{
-			if (mRepair->getButtonPressed())
+			if (mRepair->getStateSelected())
 			{
-				mRepair->setButtonPressed(false);
+				mRepair->setStateSelected(false);
 				mPointerContextManager->removeContext(mRepair->getUserString("Context"));
 			}
 		}

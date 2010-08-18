@@ -29,6 +29,7 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_FlowDirection.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -36,7 +37,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
 
 	class MYGUI_EXPORT ComboBox :
-		public Edit
+		public Edit,
+		public ComboBoxObsolete
 	{
 		MYGUI_RTTI_DERIVED( ComboBox )
 
@@ -157,41 +159,6 @@ namespace MyGUI
 			@param _index of new position
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT> eventComboChangePosition;
-
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void ComboBox::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const UString& _name)")
-		void insertItem(size_t _index, const UString& _name) { insertItemAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const UString& _name)")
-		void setItem(size_t _index, const UString& _item) { setItemNameAt(_index, _item); }
-		MYGUI_OBSOLETE("use : const UString& ComboBox::getItemNameAt(size_t _index)")
-		const UString& getItem(size_t _index) { return getItemNameAt(_index); }
-		MYGUI_OBSOLETE("use : void ComboBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void ComboBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
-		size_t getItemSelect() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void void ComboBox::clearIndexSelected()")
-		void resetItemSelect() { clearIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
-		void setItemSelect(size_t _index) { setIndexSelected(_index); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::setMaxListLength(int _value)")
-		void setMaxListHeight(int _value) { setMaxListLength(_value); }
-		MYGUI_OBSOLETE("use : int ComboBox::getMaxListLength()")
-		int getMaxListHeight() { return getMaxListLength(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
