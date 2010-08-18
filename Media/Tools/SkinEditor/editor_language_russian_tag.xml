@@ -21,7 +21,8 @@
 
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	
-	<Tag name="WarningUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
-	<Tag name="WarningDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
+	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
+	<Tag name="MessageDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
+	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{SE_CurrentFileName}'#{\n}не соответствует формату.</Tag>
 
 </MyGUI>
