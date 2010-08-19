@@ -35,7 +35,7 @@ namespace MyGUI
 		Base::initialiseWidgetSkin(_info);
 
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
@@ -43,7 +43,7 @@ namespace MyGUI
 			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseInt(iter->second));
 			if ((iter = properties.find("TextAlign")) != properties.end()) setTextAlign(Align::parse(iter->second));
 			if ((iter = properties.find("TextColour")) != properties.end()) setTextColour(Colour::parse(iter->second));
-		}
+		}*/
 	}
 
 	void StaticText::shutdownWidgetSkin()
@@ -152,11 +152,11 @@ namespace MyGUI
 
 	void StaticText::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Text_TextColour") setTextColour(utility::parseValue<Colour>(_value));
-		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
-		else if (_key == "Text_FontName") setFontName(_value);
-		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
-		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
+		if (_key == "TextColour") setTextColour(utility::parseValue<Colour>(_value));
+		else if (_key == "TextAlign") setTextAlign(utility::parseValue<Align>(_value));
+		else if (_key == "FontName") setFontName(_value);
+		else if (_key == "FontHeight") setFontHeight(utility::parseValue<int>(_value));
+		else if (_key == "Caption") setCaptionWithNewLine(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

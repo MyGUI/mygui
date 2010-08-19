@@ -256,10 +256,10 @@ namespace MyGUI
 
 	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ScrollView_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
-		else if (_key == "ScrollView_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "ScrollView_CanvasAlign") setCanvasAlign(utility::parseValue<Align>(_value));
-		else if (_key == "ScrollView_CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
+		if (_key == "VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "CanvasAlign") setCanvasAlign(utility::parseValue<Align>(_value));
+		else if (_key == "CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

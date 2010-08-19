@@ -446,9 +446,9 @@ namespace MyGUI
 
 	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
-		else if (_key == "ComboBox_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
-		else if (_key == "ComboBox_MaxLength") setMaxListLength(utility::parseValue<int>(_value));
+		if (_key == "ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
+		else if (_key == "FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		else if (_key == "MaxLength") setMaxListLength(utility::parseValue<int>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

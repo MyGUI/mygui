@@ -483,6 +483,49 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "Image_Name is deprecated, use Image_ImageName" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Image_ImageName";
 		}
+		else if (_key == "MenuItem_Id")
+		{
+			MYGUI_LOG(Warning, "MenuItem_Id is deprecated, use MenuItem_MenuItemId" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "MenuItem_MenuItemId";
+		}
+		else if (_key == "MenuItem_Type")
+		{
+			MYGUI_LOG(Warning, "MenuItem_Type is deprecated, use MenuItem_MenuItemType" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "MenuItem_MenuItemType";
+		}
+		else if (_key == "ImageRect")
+		{
+			MYGUI_LOG(Warning, "ImageRect is deprecated, use ImageCoord" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "ImageCoord";
+			IntRect rect = IntRect::parse(_value);
+			IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
+			_value = coord.print();
+		}
+		else if (_key == "StartPoint")
+		{
+			MYGUI_LOG(Warning, "StartPoint is deprecated, use FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "FlowDirection";
+
+			Align align = utility::parseValue<Align>(_value);
+			if (align == Align::Right)
+				_value = FlowDirection(FlowDirection::RightToLeft).print();
+			else if (align == Align::Top)
+				_value = FlowDirection(FlowDirection::TopToBottom).print();
+			else if (align == Align::Bottom)
+				_value =  FlowDirection(FlowDirection::BottomToTop).print();
+			else
+				_value = FlowDirection(FlowDirection::LeftToRight).print();
+		}
+		else if (_key == "ButtonPressed")
+		{
+			MYGUI_LOG(Warning, "ButtonPressed is deprecated, use StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "StateSelected";
+		}
+		else if (_key == "StateCheck")
+		{
+			MYGUI_LOG(Warning, "StateCheck is deprecated, use StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "StateSelected";
+		}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return true;

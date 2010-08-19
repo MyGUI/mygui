@@ -420,10 +420,10 @@ namespace MyGUI
 
 	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Window_AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
-		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
-		else if (_key == "Window_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "Window_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
+		if (_key == "AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "Snap") setSnap(utility::parseValue<bool>(_value));
+		else if (_key == "MinSize") setMinSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
