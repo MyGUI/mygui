@@ -42,7 +42,7 @@ namespace MyGUI
 		Base::initialiseWidgetSkin(_info);
 
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("StateSelected");
@@ -55,7 +55,7 @@ namespace MyGUI
 			iter = properties.find("StateCheck");
 			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
 #endif // MYGUI_DONT_USE_OBSOLETE
-		}
+		}*/
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -212,9 +212,9 @@ namespace MyGUI
 	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{Button, Button_StateSelected, bool} Set state selected.
-		if (_key == "Button_StateSelected") setStateSelected(utility::parseValue<bool>(_value));
-		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
-		else if (_key == "Button_ImageResource") setImageResource(_value);
+		if (_key == "StateSelected") setStateSelected(utility::parseValue<bool>(_value));
+		else if (_key == "ModeImage") setModeImage(utility::parseValue<bool>(_value));
+		else if (_key == "ImageResource") setImageResource(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

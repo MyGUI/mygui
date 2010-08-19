@@ -164,6 +164,7 @@ set (HEADER_FILES
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
   include/MyGUI_BackwardCompatibility.h
+  include/MyGUI_DeprecatedTypes.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -477,6 +478,7 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_RenderFormat.h
   include/MyGUI_WidgetDefines.h
   include/MyGUI_BackwardCompatibility.h
+  include/MyGUI_DeprecatedTypes.h
 )
 SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES
   include/MyGUI_IStateInfo.h

@@ -85,7 +85,6 @@ namespace MyGUI
 		int getClientHeight();
 
 		void setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height);
-		void _setProgressStartPoint(Align _value);
 
 	private:
 		std::string mTrackSkin;
