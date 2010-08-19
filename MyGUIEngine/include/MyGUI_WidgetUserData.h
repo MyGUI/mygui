@@ -97,7 +97,7 @@ namespace MyGUI
 		}
 
 	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
+/*#ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : template <typename ValueType> ValueType * UserData::getUserData(bool _throw)")
 		void * getUserData()
@@ -105,7 +105,7 @@ namespace MyGUI
 			return mUserData.castUnsafe();
 		}
 
-#endif // MYGUI_DONT_USE_OBSOLETE
+#endif // MYGUI_DONT_USE_OBSOLETE*/
 
 	private:
 		// пользовательские данные
