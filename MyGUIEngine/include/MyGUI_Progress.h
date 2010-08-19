@@ -31,7 +31,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT Progress :
-		public Widget
+		public Widget,
+		public WidgetObsolete<Progress>
 	{
 		MYGUI_RTTI_DERIVED( Progress )
 
@@ -69,21 +70,6 @@ namespace MyGUI
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : void Progress::setFlowDirection(FlowDirection _value)")
-		void setProgressStartPoint(Align _value) { _setProgressStartPoint(_value); }
-		MYGUI_OBSOLETE("use : FlowDirection Progress::getFlowDirection()")
-		Align getProgressStartPoint();
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

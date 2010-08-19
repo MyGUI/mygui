@@ -40,7 +40,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT MultiList :
 		public Widget,
-		public BiIndexBase
+		public BiIndexBase,
+		public WidgetObsolete<MultiList>
 	{
 		MYGUI_RTTI_DERIVED( MultiList )
 
@@ -247,57 +248,6 @@ namespace MyGUI
 			@param _less Comparsion result (write your value here)
 		*/
 		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : size_t MultiList::getIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void MultiList::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void MultiList::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : size_t MultiList::findSubItemWith(size_t _column, const UString& _name)")
-		size_t findItem(size_t _column, const UString& _name) { return findSubItemWith(_column, _name); }
-		MYGUI_OBSOLETE("use : const UString& MultiList::getSubItemNameAt(size_t _column, size_t _index)")
-		const UString& getSubItem(size_t _column, size_t _index) { return getSubItemNameAt(_column, _index); }
-		MYGUI_OBSOLETE("use : void MultiList::setSubItemNameAt(size_t _column, size_t _index, const UString& _name)")
-		void setSubItem(size_t _column, size_t _index, const UString& _name) { setSubItemNameAt(_column, _index, _name); }
-		MYGUI_OBSOLETE("use : void MultiList::removeColumnAt(size_t _column)")
-		void deleteColumn(size_t _column) { removeColumnAt(_column); }
-		MYGUI_OBSOLETE("use : void MultiList::removeAllColumns()")
-		void deleteAllColumns() { removeAllColumns(); }
-		MYGUI_OBSOLETE("use : int MultiList::getColumnWidthAt(size_t _column)")
-		int getColumnWidth(size_t _column) { return getColumnWidthAt(_column); }
-		MYGUI_OBSOLETE("use : const UString& MultiList::getColumnNameAt(size_t _column)")
-		const UString& getColumnName(size_t _column) { return getColumnNameAt(_column); }
-		MYGUI_OBSOLETE("use : void MultiList::setColumnWidthAt(size_t _column, int _width)")
-		void setColumnWidth(size_t _column, int _width) { setColumnWidthAt(_column, _width); }
-		MYGUI_OBSOLETE("use : void MultiList::addColumn(const UString& _name, int _width, Any _data)")
-		void addColumn(int _width, const UString& _name) { addColumn(_name, _width); }
-		MYGUI_OBSOLETE("use : void MultiList::setColumnNameAt(size_t _column, const UString& _name)")
-		void setColumnName(size_t _column, const UString& _name) { setColumnNameAt(_column, _name); }
-		MYGUI_OBSOLETE("use : void MultiList::insertColumnAt(size_t _column, const UString& _name, int _width, Any _data)")
-		void insertColumn(size_t _column, int _width, const UString& _name) { insertColumnAt(_column, _name, _width); }
-		MYGUI_OBSOLETE("use : size_t MultiList::getIndexSelected()")
-		size_t getItemSelect() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void MultiList::clearIndexSelected()")
-		void resetItemSelect() { clearIndexSelected(); }
-		MYGUI_OBSOLETE("use : void MultiList::setIndexSelected(size_t _index)")
-		void setItemSelect(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void MultiList::insertItemAt(size_t _index, const UString& _name, Any _data)")
-		void insertItem(size_t _index, const UString& _name) { insertItemAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void MultiList::setItemNameAt(size_t _index, const UString& _name)")
-		void setItem(size_t _index, const UString& _name) { setItemNameAt(_index, _name); }
-		MYGUI_OBSOLETE("use : const UString& MultiList::getItemNameAt(size_t _index)")
-		const UString& getItem(size_t _index) { return getItemNameAt(_index); }
-		MYGUI_OBSOLETE("use : void MultiList::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void MultiList::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

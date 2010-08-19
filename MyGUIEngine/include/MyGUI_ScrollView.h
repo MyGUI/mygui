@@ -31,7 +31,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ScrollView :
 		public Widget,
-		protected ScrollViewBase
+		protected ScrollViewBase,
+		public WidgetObsolete<ScrollView>
 	{
 		MYGUI_RTTI_DERIVED( ScrollView )
 
@@ -76,25 +77,6 @@ namespace MyGUI
 
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : void ScrollView::setVisibleVScroll(bool _visible)")
-		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleVScroll()")
-		bool isShowVScroll() { return isVisibleVScroll(); }
-		MYGUI_OBSOLETE("use : void ScrollView::setVisibleHScroll(bool _visible)")
-		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleHScroll()")
-		bool isShowHScroll() { return isVisibleHScroll(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

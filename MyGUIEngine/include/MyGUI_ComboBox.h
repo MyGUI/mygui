@@ -29,7 +29,6 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_FlowDirection.h"
-#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -38,7 +37,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ComboBox :
 		public Edit,
-		public ComboBoxObsolete
+		public WidgetObsolete<ComboBox>
 	{
 		MYGUI_RTTI_DERIVED( ComboBox )
 
