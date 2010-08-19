@@ -45,6 +45,8 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
+#include "MyGUI_SkinManager.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -300,6 +302,16 @@ namespace MyGUI
 	size_t MemberObsolete<ResourceManager>::getResourceCount() { return static_cast<ResourceManager*>(this)->getCount(); }
 	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw) { return static_cast<ResourceManager*>(this)->getByName(_name, _throw); }
 
+	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name) { return static_cast<SkinManager*>(this)->getByName(_name); }
+	bool MemberObsolete<SkinManager>::load(const std::string& _file) { return ResourceManager::getInstance().load(_file); }
+
+
+	void MemberObsolete<WidgetManager>::destroyWidgetsVector(VectorWidgetPtr &_widgets) { static_cast<WidgetManager*>(this)->destroyWidgets(_widgets); }
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, bool _throw) { return Gui::getInstance().findWidgetT(_name, _throw); }
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw) { return Gui::getInstance().findWidgetT(_name, _prefix, _throw); }
+	void MemberObsolete<WidgetManager>::parse(Widget* _widget, const std::string &_key, const std::string &_value) { _widget->setProperty(_key, _value); }
+	Widget* MemberObsolete<WidgetManager>::__findWidgetT(const std::string& _name, bool _throw) { return findWidgetT(_name, _throw); }
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
@@ -307,7 +319,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (_key == "Progress_StartPoint")
 		{
-			MYGUI_LOG(Warning, "Progress_StartPoint is obsolete, use Progress_FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Progress_StartPoint is deprecated, use Progress_FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Progress_FlowDirection";
 
 			Align align = utility::parseValue<Align>(_value);
@@ -322,12 +334,12 @@ namespace MyGUI
 		}
 		else if (_key == "Button_Pressed")
 		{
-			MYGUI_LOG(Warning, "Button_Pressed is obsolete, use Button_StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Button_Pressed is deprecated, use Button_StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Button_StateSelected";
 		}
 		else if (_key == "ComboBox_AddItem")
 		{
-			MYGUI_LOG(Warning, "ComboBox_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "ComboBox_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			ComboBox* box = _owner->castType<ComboBox>(false);
 			if (box != nullptr)
 				box->addItem(_value);
@@ -335,17 +347,17 @@ namespace MyGUI
 		}
 		else if (_key == "Edit_ShowVScroll")
 		{
-			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Edit_ShowVScroll is deprecated, use Edit_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Edit_VisibleVScroll";
 		}
 		else if (_key == "Edit_ShowHScroll")
 		{
-			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Edit_ShowHScroll is deprecated, use Edit_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Edit_VisibleHScroll";
 		}
 		else if (_key == "List_AddItem")
 		{
-			MYGUI_LOG(Warning, "List_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "List_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			List* box = _owner->castType<List>(false);
 			if (box != nullptr)
 				box->addItem(_value);
@@ -353,22 +365,22 @@ namespace MyGUI
 		}
 		else if (_key == "ScrollView_VScroll")
 		{
-			MYGUI_LOG(Warning, "ScrollView_VScroll is obsolete, use ScrollView_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "ScrollView_VScroll is deprecated, use ScrollView_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "ScrollView_VisibleVScroll";
 		}
 		else if (_key == "ScrollView_HScroll")
 		{
-			MYGUI_LOG(Warning, "ScrollView_HScroll is obsolete, use ScrollView_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "ScrollView_HScroll is deprecated, use ScrollView_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "ScrollView_VisibleHScroll";
 		}
 		else if (_key == "Widget_Caption")
 		{
-			MYGUI_LOG(Warning, "Widget_Caption is obsolete, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Widget_Caption is deprecated, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Text_Caption";
 		}
 		else if (_key == "Tab_AddSheet")
 		{
-			MYGUI_LOG(Warning, "Tab_AddSheet is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Tab_AddSheet is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			Tab* box = _owner->castType<Tab>(false);
 			if (box != nullptr)
 				box->addItem(_value);
@@ -376,7 +388,7 @@ namespace MyGUI
 		}
 		else if (_key == "Tab_AddItem")
 		{
-			MYGUI_LOG(Warning, "Tab_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Tab_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			Tab* box = _owner->castType<Tab>(false);
 			if (box != nullptr)
 				box->addItem(_value);
@@ -384,12 +396,12 @@ namespace MyGUI
 		}
 		else if (_key == "Tab_SelectSheet")
 		{
-			MYGUI_LOG(Warning, "Tab_SelectSheet is obsolete, use Tab_SelectItem" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Tab_SelectSheet is deprecated, use Tab_SelectItem" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Tab_SelectItem";
 		}
 		else if (_key == "Window_MinMax")
 		{
-			MYGUI_LOG(Warning, "Window_MinMax is obsolete, use Window_MinSize or Window_MaxSize" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, "Window_MinMax is deprecated, use Window_MinSize or Window_MaxSize" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			Window* box = _owner->castType<Window>(false);
 			if (box != nullptr)
 			{
