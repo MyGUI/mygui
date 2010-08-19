@@ -373,7 +373,7 @@ namespace MyGUI
 	void VScroll::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Scroll_Range") setScrollRange(utility::parseValue<size_t>(_value));
-		else if (_key == "Scroll_Position") setScrollPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "Scroll_RangePosition") setScrollPosition(utility::parseValue<size_t>(_value));
 		else if (_key == "Scroll_Page") setScrollPage(utility::parseValue<size_t>(_value));
 		else if (_key == "Scroll_ViewPage") setScrollViewPage(utility::parseValue<size_t>(_value));
 		else if (_key == "Scroll_MoveToClick") setMoveToClick(utility::parseValue<bool>(_value));

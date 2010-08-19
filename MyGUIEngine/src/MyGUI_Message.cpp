@@ -421,11 +421,9 @@ namespace MyGUI
 
 	void Message::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Message_Caption") setCaption(_value);
-		else if (_key == "Message_Message") setMessageText(_value);
+		if (_key == "Message_MessageText") setMessageText(_value);
 		else if (_key == "Message_Modal") setMessageModal(utility::parseValue<bool>(_value));
-		else if (_key == "Message_Button") setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
-		else if (_key == "Message_AddButton") addButtonName(_value);
+		else if (_key == "Message_MessageButton") setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
 		else if (_key == "Message_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
 		else if (_key == "Message_Fade") setWindowFade(utility::parseValue<bool>(_value));
 		else

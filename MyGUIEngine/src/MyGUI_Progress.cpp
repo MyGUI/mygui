@@ -337,7 +337,7 @@ namespace MyGUI
 	void Progress::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
-		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "Progress_RangePosition") setProgressPosition(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
 		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 		else
