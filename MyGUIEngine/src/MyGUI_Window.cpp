@@ -424,17 +424,6 @@ namespace MyGUI
 		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
 		else if (_key == "Window_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
 		else if (_key == "Window_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Window_MinMax")
-		{
-			IntRect rect = IntRect::parse(_value);
-			setMinSize(rect.left, rect.top);
-			setMaxSize(rect.right, rect.bottom);
-			MYGUI_LOG(Warning, "Window_MinMax is obsolete, use Window_MinSize or Window_MaxSize");
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

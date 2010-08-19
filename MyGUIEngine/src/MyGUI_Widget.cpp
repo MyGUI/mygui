@@ -38,6 +38,7 @@
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ToolTipManager.h"
+#include "MyGUI_LayoutManager.h"
 
 namespace MyGUI
 {
@@ -1017,14 +1018,18 @@ namespace MyGUI
 
 	void Widget::setSkinProperty(ResourceSkin* _info)
 	{
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
-			setProperty((*item).first, (*item).second);
+			setProperty((*item).first, (*item).second);*/
 	}
 
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
 	{
-		setPropertyOverride(_key, _value);
+		std::string key = _key;
+		std::string value = _value;
+
+		if (BackwardCompatibility::checkProperty(this, key, value))
+			setPropertyOverride(key, value);
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
@@ -1047,7 +1052,7 @@ namespace MyGUI
 		else if (_key == "Widget_Pointer") setPointer(_value);
 		else
 		{
-			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found");
+			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			return;
 		}
 

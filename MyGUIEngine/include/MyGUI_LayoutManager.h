@@ -63,6 +63,9 @@ namespace MyGUI
 			@note Happens only when UserString was loaded from layout, but not when it was added in code.
 		*/
 		AddUserStringDelegate eventAddUserString;
+
+		const std::string& getCurrentLayout();
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -76,6 +79,7 @@ namespace MyGUI
 
 	private:
 		bool mIsInitialise;
+		std::string mCurrentLayoutName;
 	};
 
 } // namespace MyGUI

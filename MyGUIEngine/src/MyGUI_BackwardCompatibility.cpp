@@ -35,6 +35,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
+#include "MyGUI_LayoutManager.h"
 
 namespace MyGUI
 {
@@ -252,5 +253,107 @@ namespace MyGUI
 	IntRect WidgetObsolete<Window>::getMinMax() { return IntRect(static_cast<Window*>(this)->getMinSize().width, static_cast<Window*>(this)->getMinSize().height, static_cast<Window*>(this)->getMaxSize().width, static_cast<Window*>(this)->getMaxSize().height); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		if (_key == "Progress_StartPoint")
+		{
+			MYGUI_LOG(Warning, "Progress_StartPoint is obsolete, use Progress_FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Progress_FlowDirection";
+
+			Align align = utility::parseValue<Align>(_value);
+			if (align == Align::Right)
+				_value = FlowDirection(FlowDirection::RightToLeft).print();
+			else if (align == Align::Top)
+				_value = FlowDirection(FlowDirection::TopToBottom).print();
+			else if (align == Align::Bottom)
+				_value =  FlowDirection(FlowDirection::BottomToTop).print();
+			else
+				_value = FlowDirection(FlowDirection::LeftToRight).print();
+		}
+		else if (_key == "Button_Pressed")
+		{
+			MYGUI_LOG(Warning, "Button_Pressed is obsolete, use Button_StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Button_StateSelected";
+		}
+		else if (_key == "ComboBox_AddItem")
+		{
+			MYGUI_LOG(Warning, "ComboBox_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			ComboBox* box = _owner->castType<ComboBox>(false);
+			if (box != nullptr)
+				box->addItem(_value);
+			return false;
+		}
+		else if (_key == "Edit_ShowVScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Edit_VisibleVScroll";
+		}
+		else if (_key == "Edit_ShowHScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Edit_VisibleHScroll";
+		}
+		else if (_key == "List_AddItem")
+		{
+			MYGUI_LOG(Warning, "List_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			List* box = _owner->castType<List>(false);
+			if (box != nullptr)
+				box->addItem(_value);
+			return false;
+		}
+		else if (_key == "ScrollView_VScroll")
+		{
+			MYGUI_LOG(Warning, "ScrollView_VScroll is obsolete, use ScrollView_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "ScrollView_VisibleVScroll";
+		}
+		else if (_key == "ScrollView_HScroll")
+		{
+			MYGUI_LOG(Warning, "ScrollView_HScroll is obsolete, use ScrollView_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "ScrollView_VisibleHScroll";
+		}
+		else if (_key == "Widget_Caption")
+		{
+			MYGUI_LOG(Warning, "Widget_Caption is obsolete, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Text_Caption";
+		}
+		else if (_key == "Tab_AddSheet")
+		{
+			MYGUI_LOG(Warning, "Tab_AddSheet is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			Tab* box = _owner->castType<Tab>(false);
+			if (box != nullptr)
+				box->addItem(_value);
+			return false;
+		}
+		else if (_key == "Tab_AddItem")
+		{
+			MYGUI_LOG(Warning, "Tab_AddItem is obsolete" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			Tab* box = _owner->castType<Tab>(false);
+			if (box != nullptr)
+				box->addItem(_value);
+			return false;
+		}
+		else if (_key == "Tab_SelectSheet")
+		{
+			MYGUI_LOG(Warning, "Tab_SelectSheet is obsolete, use Tab_SelectItem" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Tab_SelectItem";
+		}
+		else if (_key == "Window_MinMax")
+		{
+			MYGUI_LOG(Warning, "Window_MinMax is obsolete, use Window_MinSize or Window_MaxSize" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			Window* box = _owner->castType<Window>(false);
+			if (box != nullptr)
+			{
+				IntRect rect = IntRect::parse(_value);
+				box->setMinSize(rect.left, rect.top);
+				box->setMaxSize(rect.right, rect.bottom);
+			}
+			return false;
+		}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return true;
+	}
 
 } // namespace MyGUI

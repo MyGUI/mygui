@@ -260,20 +260,6 @@ namespace MyGUI
 		else if (_key == "ScrollView_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
 		else if (_key == "ScrollView_CanvasAlign") setCanvasAlign(utility::parseValue<Align>(_value));
 		else if (_key == "ScrollView_CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "ScrollView_VScroll")
-		{
-			MYGUI_LOG(Warning, "ScrollView_VScroll is obsolete, use ScrollView_VisibleVScroll");
-			setVisibleVScroll(utility::parseValue<bool>(_value));
-		}
-		else if (_key == "ScrollView_HScroll")
-		{
-			MYGUI_LOG(Warning, "ScrollView_HScroll is obsolete, use ScrollView_VisibleHScroll");
-			setVisibleHScroll(utility::parseValue<bool>(_value));
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

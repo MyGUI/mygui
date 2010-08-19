@@ -71,6 +71,8 @@ namespace MyGUI
 
 	VectorWidgetPtr LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)
 	{
+		mCurrentLayoutName = _file;
+
 		ResourceLayout* resource = getByName(_file, false);
 		if (!resource)
 		{
@@ -80,7 +82,11 @@ namespace MyGUI
 
 		MYGUI_ASSERT(resource != nullptr, "Layout '" << _file << "' couldn't be loaded");
 
-		return resource->createLayout(_prefix, _parent);
+		VectorWidgetPtr result =  resource->createLayout(_prefix, _parent);
+
+		mCurrentLayoutName = "";
+
+		return result;
 	}
 
 	void LayoutManager::unloadLayout(VectorWidgetPtr& _widgets)
@@ -99,6 +105,11 @@ namespace MyGUI
 
 		MYGUI_ASSERT(!_throw, "ResourceLayout '" << _name << "' not found");
 		return nullptr;
+	}
+
+	const std::string& LayoutManager::getCurrentLayout()
+	{
+		return mCurrentLayoutName;
 	}
 
 } // namespace MyGUI

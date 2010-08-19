@@ -926,15 +926,4 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}
 
-	void List::setPropertyOverride(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "List_AddItem") addItem(_value);
-		else
-		{
-			Base::setPropertyOverride(_key, _value);
-			return;
-		}
-		eventChangeProperty(this, _key, _value);
-	}
-
 } // namespace MyGUI
