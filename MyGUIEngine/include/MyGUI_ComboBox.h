@@ -37,7 +37,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ComboBox :
 		public Edit,
-		public WidgetObsolete<ComboBox>
+		public MemberObsolete<ComboBox>
 	{
 		MYGUI_RTTI_DERIVED( ComboBox )
 

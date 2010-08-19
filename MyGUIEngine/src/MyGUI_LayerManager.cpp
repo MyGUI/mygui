@@ -252,13 +252,4 @@ namespace MyGUI
 		MYGUI_LOG(Info, spacer);
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool LayerManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 } // namespace MyGUI

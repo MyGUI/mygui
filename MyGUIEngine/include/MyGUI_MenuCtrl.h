@@ -39,7 +39,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget,
-		public WidgetObsolete<MenuCtrl>
+		public MemberObsolete<MenuCtrl>
 	{
 		MYGUI_RTTI_DERIVED( MenuCtrl )
 

@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Progress :
 		public Widget,
-		public WidgetObsolete<Progress>
+		public MemberObsolete<Progress>
 	{
 		MYGUI_RTTI_DERIVED( Progress )
 

@@ -37,7 +37,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Edit :
 		public StaticText,
 		public ScrollViewBase,
-		public WidgetObsolete<Edit>
+		public MemberObsolete<Edit>
 	{
 		MYGUI_RTTI_DERIVED( Edit )
 

@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ScrollView :
 		public Widget,
 		protected ScrollViewBase,
-		public WidgetObsolete<ScrollView>
+		public MemberObsolete<ScrollView>
 	{
 		MYGUI_RTTI_DERIVED( ScrollView )
 

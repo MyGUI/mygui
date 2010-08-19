@@ -28,12 +28,14 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT FontManager :
-		public Singleton<FontManager>
+		public Singleton<FontManager>,
+		public MemberObsolete<FontManager>
 	{
 	public:
 		FontManager();
@@ -52,14 +54,6 @@ namespace MyGUI
 
 		/** Get font resource */
 		IFont* getByName(const std::string& _name) const;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

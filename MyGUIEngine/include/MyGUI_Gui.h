@@ -28,6 +28,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -36,7 +37,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Gui :
 		public Singleton<Gui>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public MemberObsolete<Gui>
 	{
 		friend class WidgetManager;
 
@@ -181,53 +183,9 @@ namespace MyGUI
 		*/
 		FrameEventDelegate eventFrameStart;
 
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr& _widgets) { destroyWidgets(_widgets); }
-
-		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
-		void hidePointer();
-		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
-		void showPointer();
-		MYGUI_OBSOLETE("use : bool Gui::isVisiblePointer()")
-		bool isShowPointer();
-		MYGUI_OBSOLETE("called be renderer, do not call it manually")
-		void injectFrameEntered(float _time) { }
-
-		MYGUI_OBSOLETE("use : void Gui::getViewSize().width")
-		int getViewWidth();
-		MYGUI_OBSOLETE("use : void Gui::getViewSize().height")
-		int getViewHeight();
-
-		MYGUI_OBSOLETE("use : bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)")
-		bool injectMouseMove(int _absx, int _absy, int _absz);
-		MYGUI_OBSOLETE("use : bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)")
-		bool injectMousePress(int _absx, int _absy, MouseButton _id);
-		MYGUI_OBSOLETE("use : bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)")
-		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
-		MYGUI_OBSOLETE("use : bool InputManager::injectKeyPress(KeyCode _key, Char _text = 0)")
-		bool injectKeyPress(KeyCode _key, Char _text = 0);
-		MYGUI_OBSOLETE("use : bool InputManager::injectKeyRelease(KeyCode _key)")
-		bool injectKeyRelease(KeyCode _key);
-
-		MYGUI_OBSOLETE("use : void PointerManager::setVisible(_value)")
-		void setVisiblePointer(bool _value);
-		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
-		bool isVisiblePointer();
-
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-		MYGUI_OBSOLETE("use : const IntSize& RenderManager::getViewSize() const")
-		const IntSize& getViewSize() const;
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	private:
 		// создает виджет
-		/*virtual */Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);

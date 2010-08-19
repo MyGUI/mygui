@@ -38,7 +38,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Window :
 		public StaticText, // FIXME пока для кэпшена вместо виджета текст
-		public WidgetObsolete<Window>
+		public MemberObsolete<Window>
 	{
 		MYGUI_RTTI_DERIVED( Window )
 

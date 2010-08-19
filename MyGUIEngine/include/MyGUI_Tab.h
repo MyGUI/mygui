@@ -35,7 +35,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Tab :
 		public Widget,
-		public WidgetObsolete<Tab>
+		public MemberObsolete<Tab>
 	{
 		// для уведобления об удалении
 		//FIXME
