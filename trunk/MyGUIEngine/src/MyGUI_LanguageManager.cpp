@@ -255,15 +255,6 @@ namespace MyGUI
 		return loadLanguage(_file, true);
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool LanguageManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	UString LanguageManager::replaceTagsPass(const UString& _line, bool& _replaceResult)
 	{
 		_replaceResult = false;

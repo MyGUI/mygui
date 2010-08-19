@@ -30,7 +30,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Button :
 		public StaticText,
-		public WidgetObsolete<Button>
+		public MemberObsolete<Button>
 	{
 		MYGUI_RTTI_DERIVED( Button )
 

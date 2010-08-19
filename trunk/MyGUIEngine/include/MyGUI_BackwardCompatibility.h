@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 	template <typename Type>
-	class WidgetObsolete
+	class MemberObsolete
 	{
 	public:
 	};
@@ -36,7 +36,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 	template <>
-	class WidgetObsolete<Button>
+	class MemberObsolete<Button>
 	{
 	public:
 		MYGUI_OBSOLETE("use : void Button::setStateSelected(bool _value)")
@@ -50,7 +50,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<ComboBox>
+	class MemberObsolete<ComboBox>
 	{
 	public:
 		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
@@ -84,7 +84,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<Edit>
+	class MemberObsolete<Edit>
 	{
 	public:
 		MYGUI_OBSOLETE("use : void Edit::setVisibleVScroll(bool _visible)")
@@ -120,7 +120,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<ItemBox>
+	class MemberObsolete<ItemBox>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -157,7 +157,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<List>
+	class MemberObsolete<List>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -205,7 +205,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<MenuCtrl>
+	class MemberObsolete<MenuCtrl>
 	{
 	public:
 		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
@@ -226,7 +226,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<MenuItem>
+	class MemberObsolete<MenuItem>
 	{
 	public:
 		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
@@ -236,7 +236,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<MultiList>
+	class MemberObsolete<MultiList>
 	{
 	public:
 		MYGUI_OBSOLETE("use : size_t MultiList::getIndexSelected()")
@@ -287,7 +287,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<Progress>
+	class MemberObsolete<Progress>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -302,7 +302,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<ScrollView>
+	class MemberObsolete<ScrollView>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -321,7 +321,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<Tab>
+	class MemberObsolete<Tab>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -375,7 +375,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<VScroll>
+	class MemberObsolete<VScroll>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -385,7 +385,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<Widget>
+	class MemberObsolete<Widget>
 	{
 	public:
 		//MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -408,7 +408,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class WidgetObsolete<Window>
+	class MemberObsolete<Window>
 	{
 	public:
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
@@ -426,6 +426,114 @@ namespace MyGUI
 		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h);
 		MYGUI_OBSOLETE("use : IntSize getMinSize() , IntSize getMaxSize()")
 		IntRect getMinMax();
+	};
+
+	template <>
+	class MemberObsolete<FontManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<Gui>
+	{
+	public:
+		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
+		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
+
+		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
+		void hidePointer();
+		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
+		void showPointer();
+		MYGUI_OBSOLETE("use : bool Gui::isVisiblePointer()")
+		bool isShowPointer();
+		MYGUI_OBSOLETE("called be renderer, do not call it manually")
+		void injectFrameEntered(float _time) { }
+
+		MYGUI_OBSOLETE("use : void Gui::getViewSize().width")
+		int getViewWidth();
+		MYGUI_OBSOLETE("use : void Gui::getViewSize().height")
+		int getViewHeight();
+
+		MYGUI_OBSOLETE("use : bool InputManager::injectMouseMove(int _absx, int _absy, int _absz)")
+		bool injectMouseMove(int _absx, int _absy, int _absz);
+		MYGUI_OBSOLETE("use : bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)")
+		bool injectMousePress(int _absx, int _absy, MouseButton _id);
+		MYGUI_OBSOLETE("use : bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)")
+		bool injectMouseRelease(int _absx, int _absy, MouseButton _id);
+		MYGUI_OBSOLETE("use : bool InputManager::injectKeyPress(KeyCode _key, Char _text = 0)")
+		bool injectKeyPress(KeyCode _key, Char _text = 0);
+		MYGUI_OBSOLETE("use : bool InputManager::injectKeyRelease(KeyCode _key)")
+		bool injectKeyRelease(KeyCode _key);
+
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(_value)")
+		void setVisiblePointer(bool _value);
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
+		bool isVisiblePointer();
+
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+
+		MYGUI_OBSOLETE("use : const IntSize& RenderManager::getViewSize() const")
+		const IntSize& getViewSize();
+	};
+
+	template <>
+	class MemberObsolete<LanguageManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<LayerManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<LayoutManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
+		VectorWidgetPtr load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<PluginManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<PointerManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void show();
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void hide();
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
+		bool isShow();
+		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
+		bool load(const std::string& _file);
+	};
+
+	template <>
+	class MemberObsolete<ResourceManager>
+	{
+	public:
+		MYGUI_OBSOLETE("use : size_t ResourceManager::getCount()")
+		size_t getResourceCount();
+		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
+		IResourcePtr getResource(const std::string& _name, bool _throw = true);
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE

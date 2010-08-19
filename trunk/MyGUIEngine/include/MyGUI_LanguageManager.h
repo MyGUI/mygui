@@ -26,12 +26,14 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LanguageManager :
-		public Singleton<LanguageManager>
+		public Singleton<LanguageManager>,
+		public MemberObsolete<LanguageManager>
 	{
 	public:
 		LanguageManager();
@@ -73,14 +75,6 @@ namespace MyGUI
 			@note If this event is empty and _tag not found - "#{_tag}" used by default.
 		*/
 		delegates::CDelegate2<const UString&, UString&> eventRequestTag;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

@@ -29,6 +29,7 @@
 #include "MyGUI_Version.h"
 #include "MyGUI_DynLib.h"
 #include <set>
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -36,7 +37,8 @@ namespace MyGUI
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
 	class MYGUI_EXPORT PluginManager :
-		public Singleton<PluginManager>
+		public Singleton<PluginManager>,
+		public MemberObsolete<PluginManager>
 	{
 	public:
 		PluginManager();
@@ -62,14 +64,6 @@ namespace MyGUI
 
 		//!	Unload all plugins
 		void unloadAllPlugins();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

@@ -41,7 +41,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MultiList :
 		public Widget,
 		public BiIndexBase,
-		public WidgetObsolete<MultiList>
+		public MemberObsolete<MultiList>
 	{
 		MYGUI_RTTI_DERIVED( MultiList )
 

@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT List :
 		public Widget,
-		public WidgetObsolete<List>
+		public MemberObsolete<List>
 	{
 		MYGUI_RTTI_DERIVED( List )
 

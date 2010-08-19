@@ -222,13 +222,4 @@ namespace MyGUI
 		return result ? result->castType<IFont>(false) : nullptr;
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool FontManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 } // namespace MyGUI
