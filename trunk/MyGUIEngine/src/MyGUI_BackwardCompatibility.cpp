@@ -35,6 +35,8 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
+#include "MyGUI_TabItem.h"
+#include "MyGUI_Canvas.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_ResourceManager.h"
@@ -47,6 +49,7 @@
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -310,7 +313,7 @@ namespace MyGUI
 	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, bool _throw) { return Gui::getInstance().findWidgetT(_name, _throw); }
 	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw) { return Gui::getInstance().findWidgetT(_name, _prefix, _throw); }
 	void MemberObsolete<WidgetManager>::parse(Widget* _widget, const std::string &_key, const std::string &_value) { _widget->setProperty(_key, _value); }
-	//Widget* MemberObsolete<WidgetManager>::__findWidgetT(const std::string& _name, bool _throw) { return Gui::getInstance().findWidgetT(_name, _throw); }
+
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -414,6 +417,22 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return true;
+	}
+
+	void BackwardCompatibility::initialise()
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		FactoryManager& factory = FactoryManager::getInstance();
+
+		factory.registerFactory<RenderBox>("Widget");
+		factory.registerFactory<Sheet>("Widget");
+#endif // MYGUI_DONT_USE_OBSOLETE
+	}
+
+	void BackwardCompatibility::shutdown()
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 } // namespace MyGUI

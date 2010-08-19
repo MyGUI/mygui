@@ -96,17 +96,6 @@ namespace MyGUI
 			return mInternalData.castType<ValueType>(_throw);
 		}
 
-	/*obsolete:*/
-/*#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : template <typename ValueType> ValueType * UserData::getUserData(bool _throw)")
-		void * getUserData()
-		{
-			return mUserData.castUnsafe();
-		}
-
-#endif // MYGUI_DONT_USE_OBSOLETE*/
-
 	private:
 		// пользовательские данные
 		MapString mMapUserString;

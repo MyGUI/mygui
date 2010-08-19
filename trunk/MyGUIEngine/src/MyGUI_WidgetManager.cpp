@@ -97,11 +97,6 @@ namespace MyGUI
 		factory.registerFactory<Widget>("Widget");
 		factory.registerFactory<Window>("Widget");
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		factory.registerFactory<RenderBox>("Widget");
-		factory.registerFactory<Sheet>("Widget");
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 		Gui::getInstance().eventFrameStart += newDelegate(this, &WidgetManager::notifyEventFrameStart);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");

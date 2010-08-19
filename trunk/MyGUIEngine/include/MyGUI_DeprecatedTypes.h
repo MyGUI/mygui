@@ -24,6 +24,11 @@
 
 namespace MyGUI
 {
+	template <typename Type>
+	class MemberObsolete
+	{
+	public:
+	};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

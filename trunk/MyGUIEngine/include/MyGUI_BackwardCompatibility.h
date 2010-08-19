@@ -34,11 +34,6 @@
 
 namespace MyGUI
 {
-	template <typename Type>
-	class MemberObsolete
-	{
-	public:
-	};
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -565,24 +560,6 @@ namespace MyGUI
 		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(Widget* _widget, const std::string &_key, const std::string &_value);
-
-		//Widget* __findWidgetT(const std::string& _name, bool _throw = true);
-
-		/*template <typename T>
-		MYGUI_OBSOLETE(" is deprecated")
-		T* findWidget(const std::string& _name, bool _throw = true)
-		{
-			Widget* widget = __findWidgetT(_name, _throw);
-			if (nullptr == widget) return nullptr;
-			return widget->castType<T>(_throw);
-		}
-
-		template <typename T>
-		MYGUI_OBSOLETE(" is deprecated")
-		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
-		{
-			return findWidget<T>(_prefix + _name, _throw);
-		}*/
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE
@@ -591,6 +568,8 @@ namespace MyGUI
 	{
 	public:
 		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
+		static void initialise();
+		static void shutdown();
 	};
 
 } // namespace MyGUI
