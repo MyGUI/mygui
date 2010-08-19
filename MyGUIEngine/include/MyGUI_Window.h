@@ -37,7 +37,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
 	class MYGUI_EXPORT Window :
-		public StaticText // FIXME пока для кэпшена вместо виджета текст
+		public StaticText, // FIXME пока для кэпшена вместо виджета текст
+		public WidgetObsolete<Window>
 	{
 		MYGUI_RTTI_DERIVED( Window )
 
@@ -111,26 +112,6 @@ namespace MyGUI
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
-		void showSmooth(bool _reset = false) { setVisibleSmooth(true); }
-		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
-		void hideSmooth() { setVisibleSmooth(false); }
-		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
-		void setMinMax(const IntRect& _minmax) { setMinSize(_minmax.left, _minmax.top); setMaxSize(_minmax.right, _minmax.bottom); }
-		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
-		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { setMinSize(_min_w, _min_h); setMaxSize(_max_w, _max_h); }
-		MYGUI_OBSOLETE("use : IntSize getMinSize() , IntSize getMaxSize()")
-		IntRect getMinMax() { return IntRect(getMinSize().width, getMinSize().height, getMaxSize().width, getMaxSize().height); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

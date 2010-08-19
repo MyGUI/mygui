@@ -30,7 +30,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT MenuItem :
-		public Button
+		public Button,
+		public WidgetObsolete<MenuItem>
 	{
 		MYGUI_RTTI_DERIVED( MenuItem )
 
@@ -89,16 +90,6 @@ namespace MyGUI
 
 		/** Get child item (submenu) */
 		MenuCtrl* getItemChild();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
-		void showItemChild() { setItemChildVisible(true); }
-		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
-		void hideItemChild() { setItemChildVisible(false); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

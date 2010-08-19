@@ -24,14 +24,13 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_StaticText.h"
-#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT Button :
 		public StaticText,
-		public ButtonObsolete
+		public WidgetObsolete<Button>
 	{
 		MYGUI_RTTI_DERIVED( Button )
 

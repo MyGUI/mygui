@@ -38,7 +38,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<MenuCtrl*> EventHandle_MenuCtrlPtr;
 
 	class MYGUI_EXPORT MenuCtrl :
-		public Widget
+		public Widget,
+		public WidgetObsolete<MenuCtrl>
 	{
 		MYGUI_RTTI_DERIVED( MenuCtrl )
 
@@ -259,27 +260,6 @@ namespace MyGUI
 		void _notifyDeleteItem(MenuItem* _item);
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
-		void showMenu() { setVisible(true); }
-		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
-		void hideMenu() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool Widget::getVisible()")
-		bool isShowMenu() { return getVisible(); }
-
-		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
-		void showItemChildAt(size_t _index) { setItemChildVisibleAt(_index, true); }
-		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItem* _item, bool _visible)")
-		void showItemChild(MenuItem* _item) { setItemChildVisible(_item, true); }
-		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
-		void hideItemChildAt(size_t _index) { setItemChildVisibleAt(_index, false); }
-		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItem* _item, bool _visible)")
-		void hideItemChild(MenuItem* _item) { setItemChildVisible(_item, false); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

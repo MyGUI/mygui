@@ -36,7 +36,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Edit :
 		public StaticText,
-		public ScrollViewBase
+		public ScrollViewBase,
+		public WidgetObsolete<Edit>
 	{
 		MYGUI_RTTI_DERIVED( Edit )
 
@@ -254,50 +255,6 @@ namespace MyGUI
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Edit::setVisibleVScroll(bool _visible)")
-		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool Edit::isVisibleVScroll()")
-		bool isShowVScroll() { return isVisibleVScroll(); }
-		MYGUI_OBSOLETE("use : void Edit::setVisibleHScroll(bool _visible)")
-		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool Edit::isVisibleHScroll()")
-		bool isShowHScroll() { return isVisibleHScroll(); }
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
-		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
-
-		MYGUI_OBSOLETE("use : size_t Edit::getTextSelectionStart() , size_t getTextSelectionEnd()")
-		void getTextSelect(size_t& _start, size_t& _end);
-
-		MYGUI_OBSOLETE("use : UString Edit::getTextInterval(size_t _start, size_t _count)")
-		UString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
-
-		MYGUI_OBSOLETE("use : void Edit::setTextSelection(size_t _start, size_t _end)")
-		void setTextSelect(size_t _start, size_t _end) { setTextSelection(_start, _end); }
-
-		MYGUI_OBSOLETE("use : void Edit::deleteTextSelection()")
-		void deleteTextSelect() { deleteTextSelection(); }
-
-		MYGUI_OBSOLETE("use : UString Edit::getTextSelection()")
-		UString getSelectedText() { return getTextSelection(); }
-
-		MYGUI_OBSOLETE("use : bool Edit::isTextSelection()")
-		bool isTextSelect() { return isTextSelection(); }
-
-		MYGUI_OBSOLETE("use : void Edit::setTextSelectionColour(const Colour& _colour)")
-		void setTextSelectColour(const Colour& _colour) { setTextSelectionColour(_colour); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

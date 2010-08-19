@@ -30,6 +30,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_SkinItem.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -42,7 +43,8 @@ namespace MyGUI
 		public UserData,
 		public WidgetInput,
 		public delegates::IDelegateUnlink,
-		public SkinItem
+		public SkinItem,
+		public WidgetObsolete<Widget>
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetManager;
@@ -273,29 +275,6 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _oldsize);
 		bool _checkPoint(int _left, int _top);
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : bool Widget::getEnabled() const")
-		bool isEnabled() const { return getEnabled(); }
-		MYGUI_OBSOLETE("use : bool Widget::getInheritsAlpha() const")
-		bool isInheritsAlpha() const { return getInheritsAlpha(); }
-		MYGUI_OBSOLETE("use : bool Widget::getNeedKeyFocus() const")
-		bool isNeedKeyFocus() const { return getNeedKeyFocus(); }
-		MYGUI_OBSOLETE("use : bool Widget::getNeedMouseFocus() const")
-		bool isNeedMouseFocus() const { return getNeedMouseFocus(); }
-		MYGUI_OBSOLETE("use : bool Widget::getInheritsPick() const")
-		bool isInheritsPick() const { return getInheritsPick(); }
-		MYGUI_OBSOLETE("use : bool Widget::getVisible() const")
-		bool isVisible() const { return getVisible(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		// все создание только через фабрику
