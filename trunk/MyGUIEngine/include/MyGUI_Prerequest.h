@@ -94,41 +94,6 @@ namespace MyGUI
 	class ListCtrl;
 	class ListBox;
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	typedef Widget* WidgetPtr;
-	typedef Button* ButtonPtr;
-	typedef Window* WindowPtr;
-	typedef List* ListPtr;
-	typedef HScroll* HScrollPtr;
-	typedef VScroll* VScrollPtr;
-	typedef Edit* EditPtr;
-	typedef ComboBox* ComboBoxPtr;
-	typedef StaticText* StaticTextPtr;
-	typedef Tab* TabPtr;
-	typedef TabItem* TabItemPtr;
-	typedef Progress* ProgressPtr;
-	typedef ItemBox* ItemBoxPtr;
-	typedef MultiList* MultiListPtr;
-	typedef StaticImage* StaticImagePtr;
-	typedef Message* MessagePtr;
-	typedef MenuCtrl* MenuCtrlPtr;
-	typedef MenuItem* MenuItemPtr;
-	typedef PopupMenu* PopupMenuPtr;
-	typedef MenuBar* MenuBarPtr;
-	typedef ScrollView* ScrollViewPtr;
-	typedef DDContainer* DDContainerPtr;
-	typedef Canvas* CanvasPtr;
-	typedef ListCtrl* ListCtrlPtr;
-	typedef ListBox* ListBoxPtr;
-
-	typedef TabItem Sheet;
-	typedef TabItem* SheetPtr;
-	typedef Canvas RenderBox;
-	typedef Canvas* RenderBoxPtr;
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	// Define version
 	#define MYGUI_VERSION_MAJOR 3
 	#define MYGUI_VERSION_MINOR 1
@@ -163,5 +128,7 @@ namespace MyGUI
 #endif
 
 } // namespace MyGUI
+
+#include "MyGUI_DeprecatedTypes.h"
 
 #endif // __MYGUI_PREREQUEST_H__
