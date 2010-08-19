@@ -40,7 +40,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ItemBox :
 		public DDContainer,
-		protected ScrollViewBase
+		protected ScrollViewBase,
+		public WidgetObsolete<ItemBox>
 	{
 		MYGUI_RTTI_DERIVED( ItemBox )
 
@@ -189,44 +190,6 @@ namespace MyGUI
 			@param _info info about item notify
 		*/
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : size_t ItemBox::getItemIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : void ItemBox::insertItemAt(size_t _index, Any _data)")
-		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
-		MYGUI_OBSOLETE("use : void ItemBox::setItemDataAt(size_t _index, Any _data)")
-		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
-		MYGUI_OBSOLETE("use : void ItemBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void ItemBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-		MYGUI_OBSOLETE("use : size_t ItemBox::getIndexSelected()")
-		size_t getItemSelect() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
-		void resetItemSelect() { clearIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
-		void setItemSelect(size_t _index) { setIndexSelected(_index); }
-
-		MYGUI_OBSOLETE("use : Widget* ItemBox::getWidgetDrag()")
-		Widget* getWidgetDrop() { return getWidgetDrag(); }
-		MYGUI_OBSOLETE("use : void ItemBox::resetDrag()")
-		void resetDrop() { resetDrag(); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

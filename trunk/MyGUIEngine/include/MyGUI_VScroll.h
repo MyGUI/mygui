@@ -32,7 +32,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll :
-		public Widget
+		public Widget,
+		public WidgetObsolete<VScroll>
 	{
 		MYGUI_RTTI_DERIVED( VScroll )
 
@@ -107,17 +108,6 @@ namespace MyGUI
 			@param _position - new tracker position
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
-
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

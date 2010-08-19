@@ -318,18 +318,6 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	Align Progress::getProgressStartPoint()
-	{
-		if (mFlowDirection == FlowDirection::RightToLeft)
-			return Align::Right;
-		else if (mFlowDirection == FlowDirection::TopToBottom)
-			return Align::Top;
-		else if (mFlowDirection == FlowDirection::BottomToTop)
-			return Align::Bottom;
-
-		return Align::Left;
-	}
-
 	void Progress::_setProgressStartPoint(Align _value)
 	{
 		if (_value == Align::Right)

@@ -34,7 +34,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<Tab*, size_t> EventHandle_TabPtrSizeT;
 
 	class MYGUI_EXPORT Tab :
-		public Widget
+		public Widget,
+		public WidgetObsolete<Tab>
 	{
 		// для уведобления об удалении
 		//FIXME
@@ -238,60 +239,6 @@ namespace MyGUI
 			@param _index Index of selected sheet
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : int Tab::getButtonWidthAt(size_t _index)")
-		int getSheetButtonWidthIndex(size_t _index) { return getButtonWidthAt(_index); }
-		MYGUI_OBSOLETE("use : int Tab::getButtonWidth(TabItem* _item)")
-		int getSheetButtonWidth(TabItem* _sheet) { return getButtonWidth(_sheet); }
-		MYGUI_OBSOLETE("use : void Tab::setButtonWidthAt(size_t _index, int _width)")
-		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT) { setButtonWidthAt(_index, _width); }
-		MYGUI_OBSOLETE("use : void Tab::setButtonWidth(TabItem* _item, int _width)")
-		void setSheetButtonWidth(TabItem* _sheet, int _width = DEFAULT) { setButtonWidth(_sheet, _width); }
-		MYGUI_OBSOLETE("use : void Tab::beginToItemAt(size_t _index)")
-		void showBarButton(size_t _index) { beginToItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::beginToItemSelected()")
-		void showBarSelectButton() { beginToItemSelected(); }
-		MYGUI_OBSOLETE("use : size_t Tab::getItemCount()")
-		size_t getSheetCount() { return getItemCount(); }
-		MYGUI_OBSOLETE("use : const UString& Tab::getItemName(TabItem* _item)")
-		const UString& getSheetName(TabItem* _sheet) { return getItemName(_sheet); }
-		MYGUI_OBSOLETE("use : const UString& Tab::getItemNameAt(size_t _index)")
-		const UString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
-		MYGUI_OBSOLETE("use : TabItem* Tab::getItemAt(size_t _index)")
-		TabItem* getSheet(size_t _index) { return getItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const UString& _name)")
-		void setSheetNameIndex(size_t _index, const UString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItem* _item, const UString& _name)")
-		void setSheetName(TabItem* _sheet, const UString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
-		MYGUI_OBSOLETE("use : TabItem* Tab::addItem(const UString& _name, Any _data)")
-		TabItem* addSheet(const UString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
-		MYGUI_OBSOLETE("use : TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)")
-		TabItem* insertSheet(size_t _index, const UString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void Tab::removeItemAt(size_t _index)")
-		void removeSheetIndex(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::removeItem(TabItem* _item)")
-		void removeSheet(TabItem* _sheet) { removeItem(_sheet); }
-		MYGUI_OBSOLETE("use : void Tab::setIndexSelected(size_t _index)")
-		void selectSheetIndex(size_t _index, bool _smooth = true) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void Tab::setItemSelected(TabItem* _item)")
-		void selectSheet(TabItem* _sheet, bool _smooth = true) { setItemSelected(_sheet); }
-		MYGUI_OBSOLETE("use : size_t Tab::getIndexSelected()")
-		size_t getSelectSheetIndex() { return getIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : size_t Widget::getIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void Widget::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);

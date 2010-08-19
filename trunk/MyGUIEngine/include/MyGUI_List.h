@@ -33,7 +33,8 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<List*, size_t> EventHandle_ListPtrSizeT;
 
 	class MYGUI_EXPORT List :
-		public Widget
+		public Widget,
+		public WidgetObsolete<List>
 	{
 		MYGUI_RTTI_DERIVED( List )
 
@@ -206,54 +207,6 @@ namespace MyGUI
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : void List::insertItemAt(size_t _index, const UString& _name)")
-		void insertItem(size_t _index, const UString& _item) { insertItemAt(_index, _item); }
-		MYGUI_OBSOLETE("use : void List::setItemNameAt(size_t _index, const UString& _name)")
-		void setItem(size_t _index, const UString& _item) { setItemNameAt(_index, _item); }
-		MYGUI_OBSOLETE("use : const UString& List::getItemNameAt(size_t _index)")
-		const UString& getItem(size_t _index) { return getItemNameAt(_index); }
-		MYGUI_OBSOLETE("use : void List::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void List::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-		MYGUI_OBSOLETE("use : size_t List::findItemIndexWith(const UString& _name)")
-		size_t findItem(const UString& _item) { return findItemIndexWith(_item); }
-		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
-		size_t getItemSelect() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
-		void resetItemSelect() { clearIndexSelected(); }
-		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
-		void setItemSelect(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void List::beginToItemAt(size_t _index)")
-		void beginToIndex(size_t _index) { beginToItemAt(_index); }
-		MYGUI_OBSOLETE("use : void List::beginToItemFirst()")
-		void beginToStart() { beginToItemFirst(); }
-		MYGUI_OBSOLETE("use : void List::beginToItemLast()")
-		void beginToEnd() { beginToItemLast(); }
-		MYGUI_OBSOLETE("use : void List::beginToItemSelected()")
-		void beginToSelect() { beginToItemSelected(); }
-		MYGUI_OBSOLETE("use : bool List::isItemVisibleAt(size_t _index, bool _fill)")
-		bool isItemVisible(size_t _index, bool _fill = true) { return isItemVisibleAt(_index, _fill); }
-		MYGUI_OBSOLETE("use : bool List::isItemSelectedVisible(bool _fill)")
-		bool isItemSelectVisible(bool _fill = true) { return isItemSelectedVisible(_fill); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		virtual void initialiseWidgetSkin(ResourceSkin* _info);
