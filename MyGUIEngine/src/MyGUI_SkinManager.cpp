@@ -132,13 +132,4 @@ namespace MyGUI
 		mDefaultName = _value;
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool SkinManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 } // namespace MyGUI
