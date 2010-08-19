@@ -157,7 +157,6 @@ namespace MyGUI
 		else if (_key == "Text_FontName") setFontName(_value);
 		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
 		else if (_key == "Text_Caption") setCaptionWithNewLine(_value);
-		else if (_key == "Widget_Caption") setCaptionWithNewLine(_value);// FIXME убрать потом
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

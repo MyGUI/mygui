@@ -25,8 +25,7 @@
 namespace MyGUI
 {
 
-	TabItem::TabItem()// :
-		//mOwner(nullptr)
+	TabItem::TabItem()
 	{
 	}
 
@@ -46,12 +45,6 @@ namespace MyGUI
 
 		Base::shutdownWidgetSkin();
 	}
-
-	/*void TabItem::setSelected(bool _value)
-	{
-		if (_value)
-			setItemSelected();
-	}*/
 
 	void TabItem::setCaption(const UString& _value)
 	{
@@ -77,64 +70,9 @@ namespace MyGUI
 			owner->setButtonWidth(this, _width);
 	}
 
-	/*int TabItem::getButtonWidth()
-	{
-		if (getParent() != nullptr)
-			return getParent()->getButtonWidth(this);
-		return 0;
-	}
-
-	const UString& TabItem::getItemName()
-	{
-		if (getParent() != nullptr)
-			return getParent()->getItemName(this);
-		//FIXME
-		static UString empty;
-		return empty;
-	}
-
-	void TabItem::setItemName(const UString& _name)
-	{
-		if (getParent() != nullptr)
-			getParent()->setItemName(this, _name);
-	}
-
-	void TabItem::setItemData(Any _data)
-	{
-		if (getParent() != nullptr)
-			getParent()->setItemData(this, _data);
-	}
-
-	void TabItem::setItemSelected()
-	{
-		if (getParent() != nullptr)
-			(getParent()->setItemSelected(this);
-	}
-
-	void TabItem::removeItem()
-	{
-		if (getParent() != nullptr)
-			getParent()->removeItem(this);
-	}*/
-
 	void TabItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "TabItem_ButtonWidth") setButtonWidth(utility::parseValue<int>(_value));
-		/*else if (_key == "TabItem_Select") setSelected(utility::parseValue<bool>(_value));
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Sheet_ButtonWidth")
-		{
-			MYGUI_LOG(Warning, "Sheet_ButtonWidth is obsolete, use TabItem_ButtonWidth");
-			setButtonWidth(utility::parseValue<int>(_value));
-		}
-		else if (_key == "Sheet_Select")
-		{
-			MYGUI_LOG(Warning, "Sheet_Select is obsolete, use TabItem_Select");
-			setSelected(utility::parseValue<bool>(_value));
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE*/
-
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

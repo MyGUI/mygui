@@ -235,8 +235,6 @@ namespace MyGUI
 		// ищет и выделяет елемент
 		void _selectIndex(size_t _index, bool _select);
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
-
 	private:
 		void _checkMapping(const std::string& _owner);
 
