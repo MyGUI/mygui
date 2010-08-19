@@ -215,9 +215,6 @@ namespace MyGUI
 		if (_key == "Button_StateSelected") setStateSelected(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ImageResource") setImageResource(_value);
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Button_Pressed") setStateSelected(utility::parseValue<bool>(_value));
-#endif // MYGUI_DONT_USE_OBSOLETE
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

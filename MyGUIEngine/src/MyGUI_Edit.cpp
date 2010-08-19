@@ -1947,20 +1947,6 @@ namespace MyGUI
 		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
 		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
 		else if (_key == "Edit_InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
-
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Edit_ShowVScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll");
-			setVisibleVScroll(utility::parseValue<bool>(_value));
-		}
-		else if (_key == "Edit_ShowHScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll");
-			setVisibleHScroll(utility::parseValue<bool>(_value));
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

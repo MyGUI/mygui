@@ -430,6 +430,12 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+	class BackwardCompatibility
+	{
+	public:
+		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
+	};
+
 } // namespace MyGUI
 
 #endif // __MYGUI_BACKWARD_COMPATIBILITY_H__

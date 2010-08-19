@@ -449,9 +449,6 @@ namespace MyGUI
 		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
 		else if (_key == "ComboBox_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 		else if (_key == "ComboBox_MaxLength") setMaxListLength(utility::parseValue<int>(_value));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "ComboBox_AddItem") addItem(_value);
-#endif // MYGUI_DONT_USE_OBSOLETE
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
