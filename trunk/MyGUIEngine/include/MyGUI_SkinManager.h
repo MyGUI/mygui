@@ -28,12 +28,14 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT SkinManager :
-		public Singleton<SkinManager>
+		public Singleton<SkinManager>,
+		public MemberObsolete<SkinManager>
 	{
 	public:
 		SkinManager();
@@ -55,16 +57,6 @@ namespace MyGUI
 			Default skin used when creating widget with skin that doesn't exist.
 		*/
 		void setDefaultSkin(const std::string& _value);
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
-		ResourceSkin* getSkin(const std::string& _name) const { return getByName(_name); }
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void createDefault(const std::string& _value);

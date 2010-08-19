@@ -28,11 +28,13 @@
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_Widget.h"
 #include <set>
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 	class MYGUI_EXPORT WidgetManager :
-		public Singleton<WidgetManager>
+		public Singleton<WidgetManager>,
+		public MemberObsolete<WidgetManager>
 	{
 	public:
 		WidgetManager();
@@ -60,39 +62,8 @@ namespace MyGUI
 		bool isFactoryExist(const std::string& _type);
 
 	/*internal:*/
-		void _parse(Widget* _widget, const std::string &_key, const std::string &_value);
 		void _deleteWidget(Widget* _widget);
 		void _deleteDelayWidgets();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
-		MYGUI_OBSOLETE("")
-		Widget* findWidgetT(const std::string& _name, bool _throw = true);
-		MYGUI_OBSOLETE("")
-		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
-		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
-		void parse(Widget* _widget, const std::string &_key, const std::string &_value) { _parse(_widget, _key, _value); }
-
-		template <typename T>
-		MYGUI_OBSOLETE("")
-		T* findWidget(const std::string& _name, bool _throw = true)
-		{
-			Widget* widget = findWidgetT(_name, _throw);
-			if (nullptr == widget) return nullptr;
-			return widget->castType<T>(_throw);
-		}
-
-		template <typename T>
-		MYGUI_OBSOLETE("")
-		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
-		{
-			return findWidget<T>(_prefix + _name, _throw);
-		}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void notifyEventFrameStart(float _time);
