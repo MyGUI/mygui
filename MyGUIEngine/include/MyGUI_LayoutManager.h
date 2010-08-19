@@ -27,12 +27,14 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ResourceLayout.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayoutManager :
-		public Singleton<LayoutManager>
+		public Singleton<LayoutManager>,
+		public MemberObsolete<LayoutManager>
 	{
 	public:
 		LayoutManager();
@@ -65,14 +67,6 @@ namespace MyGUI
 		AddUserStringDelegate eventAddUserString;
 
 		const std::string& getCurrentLayout();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
-		VectorWidgetPtr load(const std::string& _file) { return loadLayout(_file); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

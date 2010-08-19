@@ -28,12 +28,14 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceManager :
-		public Singleton<ResourceManager>
+		public Singleton<ResourceManager>,
+		public MemberObsolete<ResourceManager>
 	{
 	public:
 		ResourceManager();
@@ -80,16 +82,6 @@ namespace MyGUI
 		EnumeratorPtr getEnumerator() const { return EnumeratorPtr(mResources); }
 
 		size_t getCount() { return mResources.size(); }
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : size_t ResourceManager::getCount()")
-		size_t getResourceCount() { return getCount(); }
-		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
-		IResourcePtr getResource(const std::string& _name, bool _throw = true) { return getByName(_name, _throw); }
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);

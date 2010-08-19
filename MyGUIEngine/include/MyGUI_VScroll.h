@@ -33,7 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT VScroll :
 		public Widget,
-		public WidgetObsolete<VScroll>
+		public MemberObsolete<VScroll>
 	{
 		MYGUI_RTTI_DERIVED( VScroll )
 

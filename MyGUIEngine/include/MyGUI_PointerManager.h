@@ -27,13 +27,15 @@
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_IPointer.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
 		public Singleton<PointerManager>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public MemberObsolete<PointerManager>
 	{
 	public:
 		PointerManager();
@@ -74,32 +76,18 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string &>
 			eventChangeMousePointer;
 
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
-		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
-		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
-		bool isShow() { return isVisible(); }
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	private:
 		void _unlinkWidget(Widget* _widget);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет
-		/*virtual */Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		/*virtual */void _destroyChildWidget(Widget* _widget);
+		void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
-		/*virtual */void _destroyAllChildWidget();
+		void _destroyAllChildWidget();
 
 		void Update();
 

@@ -44,7 +44,7 @@ namespace MyGUI
 		public WidgetInput,
 		public delegates::IDelegateUnlink,
 		public SkinItem,
-		public WidgetObsolete<Widget>
+		public MemberObsolete<Widget>
 	{
 		// для вызова закрытых деструкторов
 		friend class WidgetManager;

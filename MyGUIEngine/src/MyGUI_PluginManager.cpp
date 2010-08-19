@@ -181,13 +181,4 @@ namespace MyGUI
 			unloadPlugin((*mLibs.begin()).first);
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool PluginManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 } // namespace MyGUI

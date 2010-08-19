@@ -359,13 +359,4 @@ namespace MyGUI
 		setPointer(_name, nullptr);
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	bool PointerManager::load(const std::string& _file)
-	{
-		return ResourceManager::getInstance().load(_file);
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 } // namespace MyGUI

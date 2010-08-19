@@ -29,13 +29,15 @@
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_ILayer.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayerManager :
 		public Singleton<LayerManager>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public MemberObsolete<LayerManager>
 	{
 	public:
 		typedef std::vector<ILayer*> VectorLayer;
@@ -78,14 +80,6 @@ namespace MyGUI
 
 		/** Collect and dump statistic about layers and batches into log. */
 		virtual void dumpStatisticToLog();
-
-	/*obsolete:*/
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-		MYGUI_OBSOLETE("use : bool ResourceManager::load(const std::string& _file)")
-		bool load(const std::string& _file);
-
-#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
