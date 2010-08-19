@@ -117,10 +117,13 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() == false ) mResourceManager->load(_core);
+		if ( _core.empty() == false )
+			mResourceManager->load(_core);
 
 		mViewSize = RenderManager::getInstance().getViewSize();
 		_resizeWindow(mViewSize);
+
+		BackwardCompatibility::initialise();
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -130,6 +133,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+
+		BackwardCompatibility::shutdown();
 
 		_destroyAllChildWidget();
 
