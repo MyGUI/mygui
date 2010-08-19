@@ -566,9 +566,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(Widget* _widget, const std::string &_key, const std::string &_value);
 
-		Widget* __findWidgetT(const std::string& _name, bool _throw = true);
+		//Widget* __findWidgetT(const std::string& _name, bool _throw = true);
 
-		template <typename T>
+		/*template <typename T>
 		MYGUI_OBSOLETE(" is deprecated")
 		T* findWidget(const std::string& _name, bool _throw = true)
 		{
@@ -582,7 +582,7 @@ namespace MyGUI
 		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);
-		}
+		}*/
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE
