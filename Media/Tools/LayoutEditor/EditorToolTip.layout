@@ -7,7 +7,7 @@
         <Widget type="Edit" skin="WordWrapSimple" position="3 3 394 92" align="Stretch" name="Text">
           <Property key="Edit_Static" value="true"/>
           <Property key="Edit_WordWrap" value="true"/>
-          <Property key="Widget_Caption" value="[Tool Tip Info]"/>
+          <Property key="Text_Caption" value="[Tool Tip Info]"/>
             <Property key="Text_TextAlign" value="Left Top"/>
         </Widget>
     </Widget>
