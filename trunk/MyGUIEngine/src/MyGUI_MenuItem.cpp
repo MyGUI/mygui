@@ -136,8 +136,8 @@ namespace MyGUI
 
 	void MenuItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "MenuItem_Id") setItemId(_value);
-		else if (_key == "MenuItem_Type") setItemType(utility::parseValue<MenuItemType>(_value));
+		if (_key == "MenuItemId") setItemId(_value);
+		else if (_key == "MenuItemType") setItemType(utility::parseValue<MenuItemType>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

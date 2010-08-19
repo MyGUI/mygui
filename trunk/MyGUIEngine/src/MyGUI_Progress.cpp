@@ -74,12 +74,12 @@ namespace MyGUI
 		else mTrackStep = mTrackWidth;
 		iterS = properties.find("TrackFill");
 		if (iterS != properties.end()) mFillTrack = utility::parseBool(iterS->second);
-		iterS = properties.find("FlowDirection");
-		if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		iterS = properties.find("StartPoint");
-		if (iterS != properties.end()) _setProgressStartPoint(Align::parse(iterS->second));
-#endif // MYGUI_DONT_USE_OBSOLETE
+		//iterS = properties.find("FlowDirection");
+		//if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
+//#ifndef MYGUI_DONT_USE_OBSOLETE
+//		iterS = properties.find("StartPoint");
+//		if (iterS != properties.end()) _setProgressStartPoint(Align::parse(iterS->second));
+//#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	void Progress::shutdownWidgetSkin()
@@ -316,30 +316,12 @@ namespace MyGUI
 		updateTrack();
 	}
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
-
-	void Progress::_setProgressStartPoint(Align _value)
-	{
-		if (_value == Align::Right)
-			mFlowDirection = FlowDirection::RightToLeft;
-		else if (_value == Align::Top)
-			mFlowDirection = FlowDirection::TopToBottom;
-		else if (_value == Align::Bottom)
-			mFlowDirection = FlowDirection::BottomToTop;
-		else
-			mFlowDirection = FlowDirection::LeftToRight;
-
-		updateTrack();
-	}
-
-#endif // MYGUI_DONT_USE_OBSOLETE
-
 	void Progress::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
-		else if (_key == "Progress_RangePosition") setProgressPosition(utility::parseValue<size_t>(_value));
-		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
-		else if (_key == "Progress_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		if (_key == "Range") setProgressRange(utility::parseValue<size_t>(_value));
+		else if (_key == "RangePosition") setProgressPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
+		else if (_key == "FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

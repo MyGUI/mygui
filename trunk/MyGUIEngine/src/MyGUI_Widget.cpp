@@ -203,7 +203,7 @@ namespace MyGUI
 		}
 
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
@@ -211,7 +211,7 @@ namespace MyGUI
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseValue<bool>(iter->second));
 			if ((iter = properties.find("Pointer")) != properties.end()) setPointer(iter->second);
 			if ((iter = properties.find("Visible")) != properties.end()) setVisible(utility::parseValue<bool>(iter->second));
-		}
+		}*/
 
 		// выставляем альфу, корректировка по отцу автоматически
 		_updateAlpha();
@@ -1018,9 +1018,9 @@ namespace MyGUI
 
 	void Widget::setSkinProperty(ResourceSkin* _info)
 	{
-		/*const MapString& properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
-			setProperty((*item).first, (*item).second);*/
+			setProperty((*item).first, (*item).second);
 	}
 
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
@@ -1029,27 +1029,36 @@ namespace MyGUI
 		std::string value = _value;
 
 		if (BackwardCompatibility::checkProperty(this, key, value))
+		{
+			size_t index = key.find("_");
+			if (index != std::string::npos)
+			{
+				MYGUI_LOG(Warning, "Widget property '" << key << "' have type prefix" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				key = key.substr(index + 1);
+			}
+
 			setPropertyOverride(key, value);
+		}
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
-		if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
-		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Alpha") setAlpha(utility::parseValue<float>(_value));
-		else if (_key == "Widget_Colour") setColour(utility::parseValue<Colour>(_value));
-		else if (_key == "Widget_InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_MaskPick") setMaskPick(_value);
-		else if (_key == "Widget_State") setState(_value);
-		else if (_key == "Widget_NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
-		else if (_key == "Widget_Pointer") setPointer(_value);
+		if (_key == "Position") setPosition(utility::parseValue<IntPoint>(_value));
+		else if (_key == "Size") setSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Coord") setCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Visible") setVisible(utility::parseValue<bool>(_value));
+		else if (_key == "Alpha") setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Colour") setColour(utility::parseValue<Colour>(_value));
+		else if (_key == "InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
+		else if (_key == "MaskPick") setMaskPick(_value);
+		else if (_key == "State") setState(_value);
+		else if (_key == "NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
+		else if (_key == "NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Enabled") setEnabled(utility::parseValue<bool>(_value));
+		else if (_key == "NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
+		else if (_key == "Pointer") setPointer(_value);
 		else
 		{
 			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");

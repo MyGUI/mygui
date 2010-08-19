@@ -691,10 +691,10 @@ namespace MyGUI
 
 	void Tab::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Tab_ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
-		else if (_key == "Tab_ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
-		else if (_key == "Tab_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
-		else if (_key == "Tab_SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
+		if (_key == "ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
+		else if (_key == "ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
+		else if (_key == "SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

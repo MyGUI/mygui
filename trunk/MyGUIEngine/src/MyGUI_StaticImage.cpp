@@ -47,7 +47,7 @@ namespace MyGUI
 		Base::initialiseWidgetSkin(_info);
 
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		if ( ! properties.empty() )
 		{
 			MapString::const_iterator iter = properties.end();
@@ -59,7 +59,7 @@ namespace MyGUI
 			if ((iter = properties.find("ImageResource")) != properties.end()) setItemResource(iter->second);
 			if ((iter = properties.find("ImageGroup")) != properties.end()) setItemGroup(iter->second);
 			if ((iter = properties.find("ImageName")) != properties.end()) setItemName(iter->second);
-		}
+		}*/
 	}
 
 	void StaticImage::shutdownWidgetSkin()
@@ -505,13 +505,13 @@ namespace MyGUI
 
 	void StaticImage::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Image_ImageTexture") setImageTexture(_value);
-		else if (_key == "Image_ImageRegion") setImageCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "Image_ImageTile") setImageTile(utility::parseValue<IntSize>(_value));
-		else if (_key == "Image_ImageIndex") setItemSelect(utility::parseValue<size_t>(_value));
-		else if (_key == "Image_ImageResource") setItemResource(_value);
-		else if (_key == "Image_ImageGroup") setItemGroup(_value);
-		else if (_key == "Image_ImageName") setItemName(_value);
+		if (_key == "ImageTexture") setImageTexture(_value);
+		else if (_key == "ImageRegion") setImageCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "ImageTile") setImageTile(utility::parseValue<IntSize>(_value));
+		else if (_key == "ImageIndex") setItemSelect(utility::parseValue<size_t>(_value));
+		else if (_key == "ImageResource") setItemResource(_value);
+		else if (_key == "ImageGroup") setItemGroup(_value);
+		else if (_key == "ImageName") setItemName(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

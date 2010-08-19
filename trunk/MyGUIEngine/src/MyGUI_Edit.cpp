@@ -122,13 +122,13 @@ namespace MyGUI
 		//MYGUI_ASSERT(nullptr != mClientText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
+		/*const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("WordWrap")) != properties.end()) setEditWordWrap(utility::parseValue<bool>(iter->second));
 			else if ((iter = properties.find("InvertSelected")) != properties.end()) setInvertSelected(utility::parseValue<bool>(iter->second));
-		}
+		}*/
 
 		updateScrollSize();
 
@@ -1933,20 +1933,20 @@ namespace MyGUI
 
 	void Edit::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Edit_CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
-		else if (_key == "Edit_TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
-		else if (_key == "Edit_ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_Password") setEditPassword(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_PasswordChar") setPasswordChar(_value);
-		else if (_key == "Edit_MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
-		else if (_key == "Edit_OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_Static") setEditStatic(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
-		else if (_key == "Edit_InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
+		if (_key == "CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
+		else if (_key == "TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
+		else if (_key == "ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
+		else if (_key == "Password") setEditPassword(utility::parseValue<bool>(_value));
+		else if (_key == "MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
+		else if (_key == "PasswordChar") setPasswordChar(_value);
+		else if (_key == "MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
+		else if (_key == "OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
+		else if (_key == "Static") setEditStatic(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
+		else if (_key == "TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
+		else if (_key == "InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
