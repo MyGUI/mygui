@@ -505,13 +505,13 @@ namespace MyGUI
 
 	void StaticImage::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Image_Texture") setImageTexture(_value);
-		else if (_key == "Image_Coord") setImageCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "Image_Tile") setImageTile(utility::parseValue<IntSize>(_value));
-		else if (_key == "Image_Index") setItemSelect(utility::parseValue<size_t>(_value));
-		else if (_key == "Image_Resource") setItemResource(_value);
-		else if (_key == "Image_Group") setItemGroup(_value);
-		else if (_key == "Image_Name") setItemName(_value);
+		if (_key == "Image_ImageTexture") setImageTexture(_value);
+		else if (_key == "Image_ImageRegion") setImageCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Image_ImageTile") setImageTile(utility::parseValue<IntSize>(_value));
+		else if (_key == "Image_ImageIndex") setItemSelect(utility::parseValue<size_t>(_value));
+		else if (_key == "Image_ImageResource") setItemResource(_value);
+		else if (_key == "Image_ImageGroup") setItemGroup(_value);
+		else if (_key == "Image_ImageName") setItemName(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
