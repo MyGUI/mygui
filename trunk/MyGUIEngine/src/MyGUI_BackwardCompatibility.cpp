@@ -37,6 +37,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Canvas.h"
+#include "MyGUI_Message.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_ResourceManager.h"
@@ -413,6 +414,74 @@ namespace MyGUI
 				box->setMaxSize(rect.right, rect.bottom);
 			}
 			return false;
+		}
+		else if (_key == "Message_AddButton")
+		{
+			MYGUI_LOG(Warning, "Message_AddButton is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			Message* box = _owner->castType<Message>(false);
+			if (box != nullptr)
+				box->addButtonName(_value);
+			return false;
+		}
+		else if (_key == "Progress_Position")
+		{
+			MYGUI_LOG(Warning, "Progress_Position is deprecated, use Progress_RangePosition" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Progress_RangePosition";
+		}
+		else if (_key == "Scroll_Position")
+		{
+			MYGUI_LOG(Warning, "Scroll_Position is deprecated, use Scroll_RangePosition" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Scroll_RangePosition";
+		}
+		else if (_key == "Message_Message")
+		{
+			MYGUI_LOG(Warning, "Message_Message is deprecated, use Message_MessageText" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Message_MessageText";
+		}
+		else if (_key == "Message_Button")
+		{
+			MYGUI_LOG(Warning, "Message_Button is deprecated, use Message_MessageButton" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Message_MessageButton";
+		}
+		else if (_key == "Message_Caption")
+		{
+			MYGUI_LOG(Warning, "Message_Caption is deprecated, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Text_Caption";
+		}
+		else if (_key == "Image_Texture")
+		{
+			MYGUI_LOG(Warning, "Image_Texture is deprecated, use Image_ImageTexture" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageTexture";
+		}
+		else if (_key == "Image_Coord")
+		{
+			MYGUI_LOG(Warning, "Image_Coord is deprecated, use Image_ImageRegion" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageRegion";
+		}
+		else if (_key == "Image_Tile")
+		{
+			MYGUI_LOG(Warning, "Image_Tile is deprecated, use Image_ImageTile" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageTile";
+		}
+		else if (_key == "Image_Index")
+		{
+			MYGUI_LOG(Warning, "Image_Index is deprecated, use Image_ImageIndex" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageIndex";
+		}
+		else if (_key == "Image_Resource")
+		{
+			MYGUI_LOG(Warning, "Image_Resource is deprecated, use Image_ImageResource" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageResource";
+		}
+		else if (_key == "Image_Group")
+		{
+			MYGUI_LOG(Warning, "Image_Group is deprecated, use Image_ImageGroup" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageGroup";
+		}
+		else if (_key == "Image_Name")
+		{
+			MYGUI_LOG(Warning, "Image_Name is deprecated, use Image_ImageName" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = "Image_ImageName";
 		}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
