@@ -3,12 +3,12 @@
 <!-- this parameters will be ignored in edit mode-->
 
 <MyGUI type="IgnoreParameters">
-	<Parameter key="Message_Modal"/>
-	<Parameter key="Window_AutoAlpha"/>
-	<Parameter key="Window_Snap"/>
-	<Parameter key="Widget_NeedMouse"/>
-	<Parameter key="Widget_InheritsPick"/>
-	<Parameter key="Widget_MaskPeek"/>
-	<Parameter key="Widget_Visible"/>
-	<Parameter key="Widget_Enabled"/>
+	<Parameter key="Modal"/>
+	<Parameter key="AutoAlpha"/>
+	<Parameter key="Snap"/>
+	<Parameter key="NeedMouse"/>
+	<Parameter key="InheritsPick"/>
+	<Parameter key="MaskPeek"/>
+	<Parameter key="Visible"/>
+	<Parameter key="Enabled"/>
 </MyGUI>
