@@ -175,7 +175,7 @@ namespace tools
 
 	MyGUI::UString SkinListControl::getNextFreeName()
 	{
-		for (size_t index=0; index<std::numeric_limits<size_t>::max(); index++)
+		for (size_t index=0; index<(std::numeric_limits<size_t>::max)(); index++)
 		{
 			addUserTag("SE_SkinNameIndex", MyGUI::utility::toString(index));
 			MyGUI::UString name = replaceTags("#{SkinNamePattern}");
