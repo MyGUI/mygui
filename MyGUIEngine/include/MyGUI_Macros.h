@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	const size_t ITEM_NONE = std::numeric_limits<size_t>::max();
+	const size_t ITEM_NONE = (std::numeric_limits<size_t>::max)();
 	const int DEFAULT = -1;
 	const float ALPHA_MAX = 1.0f;
 	const float ALPHA_MIN = 0.0f;
