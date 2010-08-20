@@ -16,9 +16,9 @@ namespace MyGUI
     {
     }
 
-    void TreeControlItem::initialiseWidgetSkin(ResourceSkin* _info)
+    void TreeControlItem::initialiseOverride()
     {
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
         for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
@@ -46,17 +46,15 @@ namespace MyGUI
 
         MYGUI_ASSERT(nullptr != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
 
-        const MapString& SkinProperties = _info->getProperties();
-        MapString::const_iterator PropertyIterator = SkinProperties.find("LevelOffset");
-        if (PropertyIterator != SkinProperties.end())
-            mnLevelOffset = utility::parseInt(PropertyIterator->second);
+		if (isUserString("LevelOffset"))
+			mnLevelOffset = utility::parseValue<int>(getUserString("LevelOffset"));
     }
 
-    void TreeControlItem::shutdownWidgetSkin()
+    void TreeControlItem::shutdownOverride()
     {
         mpButtonExpandCollapse = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
     }
 
     void TreeControlItem::notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget)

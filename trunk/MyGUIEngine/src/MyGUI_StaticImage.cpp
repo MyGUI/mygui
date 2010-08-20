@@ -42,31 +42,11 @@ namespace MyGUI
 	{
 	}
 
-	void StaticImage::initialiseWidgetSkin(ResourceSkin* _info)
-	{
-		Base::initialiseWidgetSkin(_info);
-
-		// парсим свойства
-		/*const MapString& properties = _info->getProperties();
-		if ( ! properties.empty() )
-		{
-			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("ImageTexture")) != properties.end()) setImageTexture(iter->second);
-			if ((iter = properties.find("ImageRect")) != properties.end()) setImageRect(IntRect::parse(iter->second));
-			if ((iter = properties.find("ImageCoord")) != properties.end()) setImageCoord(IntCoord::parse(iter->second));
-			if ((iter = properties.find("ImageTile")) != properties.end()) setImageTile(IntSize::parse(iter->second));
-			if ((iter = properties.find("ImageIndex")) != properties.end()) setImageIndex(utility::parseInt(iter->second));
-			if ((iter = properties.find("ImageResource")) != properties.end()) setItemResource(iter->second);
-			if ((iter = properties.find("ImageGroup")) != properties.end()) setItemGroup(iter->second);
-			if ((iter = properties.find("ImageName")) != properties.end()) setItemName(iter->second);
-		}*/
-	}
-
-	void StaticImage::shutdownWidgetSkin()
+	void StaticImage::shutdownOverride()
 	{
 		frameAdvise(false);
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)

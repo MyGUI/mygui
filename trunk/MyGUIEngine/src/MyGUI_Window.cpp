@@ -48,56 +48,44 @@ namespace MyGUI
 	{
 	}
 
-	void Window::initialiseWidgetSkin(ResourceSkin* _info)
+	void Window::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME нам нужен фокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
 		// дефолтные размеры
 		mMinmax.set(0, 0, 3000, 3000);
 
 		bool main_move = false;
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
+		if (isUserString("MainMove"))
 		{
-			//MapString::const_iterator iter = properties.find("Snap");
-			//if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
-			MapString::const_iterator iter = properties.find("MainMove");
-			if (iter != properties.end())
+			setUserString("Scale", "1 1 0 0");
+			main_move = true;
+		}
+
+		assignWidget(mWidgetClient, "Client", false);
+		if (mWidgetClient != nullptr)
+		{
+			if (main_move)
 			{
-				setUserString("Scale", "1 1 0 0");
-				main_move = true;
+				mWidgetClient->setUserString("Scale", "1 1 0 0");
+				mWidgetClient->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+				mWidgetClient->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 			}
+		}
+
+		assignWidget(mWidgetCaption, "Caption", false);
+		if (mWidgetCaption != nullptr)
+		{
+			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
-				mWidgetClient = (*iter);
-				if (main_move)
-				{
-					(*iter)->setUserString("Scale", "1 1 0 0");
-					(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-					(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-				}
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetCaption, "widget already assigned");
-				mWidgetCaption = (*iter)->castType<StaticText>(false);
-				if (mWidgetCaption != nullptr)
-				{
-					mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-					mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-				}
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Button")
+			if (*(*iter)->_getInternalData<std::string>() == "Button")
 			{
 				(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
@@ -107,15 +95,14 @@ namespace MyGUI
 				(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 			}
 		}
-
 	}
 
-	void Window::shutdownWidgetSkin()
+	void Window::shutdownOverride()
 	{
 		mWidgetClient = nullptr;
 		mWidgetCaption = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	// переопределяем для присвоению клиенту

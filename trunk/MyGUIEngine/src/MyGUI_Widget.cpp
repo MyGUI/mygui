@@ -116,14 +116,14 @@ namespace MyGUI
 		}
 
 		// витр метод для наследников
-		initialiseWidgetSkin(_info);
+		initialiseOverride();
 		setSkinProperty(_info);
 	}
 
 	void Widget::_shutdown()
 	{
 		// витр метод для наследников
-		shutdownWidgetSkin();
+		shutdownOverride();
 
 		shutdownWidgetSkinBase();
 
@@ -151,7 +151,7 @@ namespace MyGUI
 	{
 		ResourceSkin* _info = SkinManager::getInstance().getByName(_skinname);
 
-		shutdownWidgetSkin();
+		shutdownOverride();
 
 		saveLayerItem();
 
@@ -160,7 +160,7 @@ namespace MyGUI
 
 		restoreLayerItem();
 
-		initialiseWidgetSkin(_info);
+		initialiseOverride();
 		setSkinProperty(_info);
 	}
 
@@ -212,6 +212,12 @@ namespace MyGUI
 			if ((iter = properties.find("Pointer")) != properties.end()) setPointer(iter->second);
 			if ((iter = properties.find("Visible")) != properties.end()) setVisible(utility::parseValue<bool>(iter->second));
 		}*/
+		const MapString& properties = _info->getProperties();
+		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
+		{
+			if (BackwardCompatibility::isIgnoreProperty((*item).first))
+				setUserString((*item).first, (*item).second);
+		}
 
 		// выставляем альфу, корректировка по отцу автоматически
 		_updateAlpha();
@@ -231,7 +237,7 @@ namespace MyGUI
 			mWidgetChild.pop_back();
 		}
 
-		setMaskPick(_info->getMask());
+		//setMaskPick(_info->getMask());
 
 		Widget::setSize(_size);//FIXME - явный вызов
 	}
@@ -1008,11 +1014,11 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	void Widget::shutdownWidgetSkin()
+	void Widget::shutdownOverride()
 	{
 	}
 
-	void Widget::initialiseWidgetSkin(ResourceSkin* _info)
+	void Widget::initialiseOverride()
 	{
 	}
 

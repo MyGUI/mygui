@@ -280,8 +280,8 @@ namespace MyGUI
 		// все создание только через фабрику
 		virtual ~Widget();
 
-		virtual void shutdownWidgetSkin();
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
+		virtual void shutdownOverride();
+		virtual void initialiseOverride();
 
 		void _updateView(); // обновления себя и детей
 

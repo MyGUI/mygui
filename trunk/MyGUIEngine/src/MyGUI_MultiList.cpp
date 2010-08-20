@@ -46,55 +46,49 @@ namespace MyGUI
 	{
 	}
 
-	void MultiList::initialiseWidgetSkin(ResourceSkin* _info)
+	void MultiList::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
+		std::string skinButtonEmpty;
+
+		if (isUserString("SkinButton"))
+			mSkinButton = getUserString("SkinButton");
+		if (isUserString("SkinList"))
+			mSkinList = getUserString("SkinList");
+		if (isUserString("SkinButtonEmpty"))
+			skinButtonEmpty = getUserString("SkinButtonEmpty");
+		if (isUserString("SkinSeparator"))
+			mSkinSeparator = getUserString("SkinSeparator");
+		if (isUserString("HeightButton"))
+			mHeightButton = utility::parseValue<int>(getUserString("HeightButton"));
+		if (isUserString("WidthSeparator"))
+			mWidthSeparator = utility::parseValue<int>(getUserString("WidthSeparator"));
+
+		if (mHeightButton < 0)
+			mHeightButton = 0;
+
+		if (!skinButtonEmpty.empty())
+			mButtonMain = mClient->createWidget<Button>(skinButtonEmpty,
+				IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
+
+		assignWidget(mWidgetClient, "Client", false);
+		if (mWidgetClient != nullptr)
 		{
-			MapString::const_iterator iter = properties.find("SkinButton");
-			if (iter != properties.end()) mSkinButton = iter->second;
-			iter = properties.find("HeightButton");
-			if (iter != properties.end()) mHeightButton = utility::parseInt(iter->second);
-			if (mHeightButton < 0) mHeightButton = 0;
-
-			iter = properties.find("SkinList");
-			if (iter != properties.end()) mSkinList = iter->second;
-
-			iter = properties.find("SkinButtonEmpty");
-			if (iter != properties.end())
-			{
-				mButtonMain = mClient->createWidget<Button>(iter->second,
-					IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
-			}
-
-			iter = properties.find("WidthSeparator");
-			if (iter != properties.end()) mWidthSeparator = utility::parseInt(iter->second);
-			iter = properties.find("SkinSeparator");
-			if (iter != properties.end()) mSkinSeparator = iter->second;
+			mClient = mWidgetClient;
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mClient, "widget already assigned");
-				mClient = (*iter);
-				mWidgetClient = (*iter); // чтобы размер возвращался клиентской зоны
-			}
-		}
-		// мона и без клиента
-		if (nullptr == mClient) mClient = this;
+		// FIXME мона и без клиента
+		if (nullptr == mClient)
+			mClient = this;
 	}
 
-	void MultiList::shutdownWidgetSkin()
+	void MultiList::shutdownOverride()
 	{
 		mWidgetClient = nullptr;
 		mClient = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	//----------------------------------------------------------------------------------//

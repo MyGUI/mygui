@@ -43,7 +43,8 @@
 
 		<Parameter key="ModeDrop" value="Bool"/>
 		<Parameter key="FlowDirection" value="FlowDirection"/>
-		<Parameter key="MaxLength" value="1 int"/>
+		<Parameter key="MaxListLength" value="1 int"/>
+		<Parameter key="SmoothShow" value="Bool"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>

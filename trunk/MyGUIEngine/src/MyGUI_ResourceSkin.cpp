@@ -58,12 +58,7 @@ namespace MyGUI
 
 		// проверяем маску
 		if (_node->findAttribute("mask", tmp))
-		{
-			if (!loadMask(tmp))
-			{
-				MYGUI_LOG(Error, "Skin: mask not load '" << tmp << "'");
-			}
-		}
+			addProperty("MaskPick", tmp);
 
 		// берем детей и крутимся, цикл с саб скинами
 		xml::ElementEnumerator basis = _node->getElementEnumerator();
@@ -209,11 +204,6 @@ namespace MyGUI
 	void ResourceSkin::addChild(const ChildSkinInfo& _child)
 	{
 		mChilds.push_back(_child);
-	}
-
-	bool ResourceSkin::loadMask(const std::string& _file)
-	{
-		return mMaskPeek.load(_file);
 	}
 
 	void ResourceSkin::clear()

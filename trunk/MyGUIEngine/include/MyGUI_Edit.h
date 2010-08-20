@@ -257,8 +257,8 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		virtual void onMouseDrag(int _left, int _top);
 		virtual void onKeyLostFocus(Widget* _new);

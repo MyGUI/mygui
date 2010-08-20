@@ -78,8 +78,8 @@ namespace MyGUI
         EventHandle_TreeControlPtrSizeT eventTreeScrolled;
 
     protected:
-        virtual void initialiseWidgetSkin(ResourceSkin* _info);
-        virtual void shutdownWidgetSkin();
+        virtual void initialiseOverride();
+        virtual void shutdownOverride();
 
         void notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID);
         void notifyMouseWheel(Widget* pSender, int nValue);

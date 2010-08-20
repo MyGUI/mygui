@@ -99,8 +99,8 @@ namespace MyGUI
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::Widget* _sender);

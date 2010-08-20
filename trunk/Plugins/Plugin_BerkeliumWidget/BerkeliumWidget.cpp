@@ -17,9 +17,9 @@ namespace MyGUI
 	{
 	}
 
-	void BerkeliumWidget::initialiseWidgetSkin(ResourceSkin* _info)
+	void BerkeliumWidget::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		updateSize();
 
@@ -37,7 +37,7 @@ namespace MyGUI
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BerkeliumWidget::notifyFrameStart);
 	}
 
-	void BerkeliumWidget::shutdownWidgetSkin()
+	void BerkeliumWidget::shutdownOverride()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BerkeliumWidget::notifyFrameStart);
 
@@ -48,7 +48,7 @@ namespace MyGUI
 		}
 		requestUpdateCanvas = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void BerkeliumWidget::updateSize()

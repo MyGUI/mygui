@@ -18,9 +18,9 @@ namespace Awesomium
 	{
 	}
 
-	void AwesomiumWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
+	void AwesomiumWidget::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		mControl = AwesomiumWidgetFactory::getCore()->createWebView(getWidth(), getHeight(), mIsTransparent, true, 90);
 		mControl->setListener(this);
@@ -31,7 +31,7 @@ namespace Awesomium
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 	}
 
-	void AwesomiumWidget::shutdownWidgetSkin()
+	void AwesomiumWidget::shutdownOverride()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 		mControl->destroy();
@@ -39,7 +39,7 @@ namespace Awesomium
 
 		requestUpdateCanvas = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void AwesomiumWidget::loadURL(const std::string& _url)

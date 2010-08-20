@@ -16,9 +16,9 @@ namespace Hikari
 	{
 	}
 
-	void HikariWidget::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
+	void HikariWidget::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		createTexture(TRM_PT_VIEW_REQUESTED);
 		requestUpdateCanvas = newDelegate(this, &HikariWidget::notifyUpdateCanvas);
@@ -29,7 +29,7 @@ namespace Hikari
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 	}
 
-	void HikariWidget::shutdownWidgetSkin()
+	void HikariWidget::shutdownOverride()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
 
@@ -37,7 +37,7 @@ namespace Hikari
 		delete mControl;
 		mControl = 0;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void HikariWidget::notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)

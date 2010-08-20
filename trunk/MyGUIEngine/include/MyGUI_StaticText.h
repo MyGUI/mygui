@@ -71,9 +71,6 @@ namespace MyGUI
 		void setCaptionWithNewLine(const std::string& _value);
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
-
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 	};
 

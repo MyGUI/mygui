@@ -99,9 +99,9 @@ namespace MyGUI
     {
     }
 
-    void TreeControl::initialiseWidgetSkin(ResourceSkin* _info)
+    void TreeControl::initialiseOverride()
     {
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME перенесенно из конструктора, проверить смену скина
         mpRoot = new Node(this);
@@ -130,15 +130,12 @@ namespace MyGUI
         MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
         MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
 
-        const MapString& SkinProperties = _info->getProperties();
-        MapString::const_iterator PropertyIterator = SkinProperties.find("SkinLine");
-        if (PropertyIterator != SkinProperties.end())
-            mstrSkinLine = PropertyIterator->second;
-        MYGUI_ASSERT(!mstrSkinLine.empty(), "SkinLine property not found (TreeControl must have SkinLine property)");
+		if (isUserString("SkinLine"))
+			mstrSkinLine = getUserString("SkinLine");
+		if (isUserString("HeightLine"))
+			mnItemHeight = utility::parseValue<int>(getUserString("HeightLine"));
 
-        PropertyIterator = SkinProperties.find("HeightLine");
-        if (PropertyIterator != SkinProperties.end())
-            mnItemHeight = utility::parseInt(PropertyIterator->second);
+		MYGUI_ASSERT(!mstrSkinLine.empty(), "SkinLine property not found (TreeControl must have SkinLine property)");
 
         if (mnItemHeight < 1)
             mnItemHeight = 1;
@@ -149,14 +146,14 @@ namespace MyGUI
         invalidate();
     }
 
-    void TreeControl::shutdownWidgetSkin()
+    void TreeControl::shutdownOverride()
     {
         mpWidgetScroll = nullptr;
         mWidgetClient = nullptr;
 		// FIXME перенесенно из деструктора, проверить смену скина
         delete mpRoot;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
     }
 
     void TreeControl::setRootVisible(bool bValue)

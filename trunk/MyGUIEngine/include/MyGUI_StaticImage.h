@@ -189,8 +189,7 @@ namespace MyGUI
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void shutdownOverride();
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
@@ -224,7 +223,6 @@ namespace MyGUI
 		std::string mItemName;
 		std::string mItemGroup;
 		std::string mCurrentTextureName;
-
 	};
 
 } // namespace MyGUI

@@ -40,54 +40,47 @@ namespace MyGUI
 		mContentAlign = Align::Center;
 	}
 
-	void ScrollView::initialiseWidgetSkin(ResourceSkin* _info)
+	void ScrollView::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME нам нужен фокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		assignWidget(mScrollClient, "Client", false);
+		if (mScrollClient != nullptr)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mScrollClient, "widget already assigned");
-				mScrollClient = (*iter);
-				mScrollClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-				mClient = mScrollClient;
+			mScrollClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
+			mClient = mScrollClient;
 
-				// создаем холcт, реальный владелец детей
-				mWidgetClient = mScrollClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
-				mWidgetClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "VScroll")
-			{
-				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
-				mVScroll = (*iter)->castType<VScroll>();
-				mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "HScroll")
-			{
-				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
-				mHScroll = (*iter)->castType<HScroll>();
-				mHScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
-			}
+			// создаем холcт, реальный владелец детей
+			mWidgetClient = mScrollClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
+			mWidgetClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		}
 
-		//MYGUI_ASSERT(nullptr != mScrollClient, "Child Widget Client not found in skin (ScrollView must have Client)");
+		assignWidget(mVScroll, "VScroll", false);
+		if (mVScroll != nullptr)
+		{
+			mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
+		}
+
+		assignWidget(mHScroll, "HScroll", false);
+		if (mHScroll != nullptr)
+		{
+			mHScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
+		}
 
 		updateView();
 	}
 
-	void ScrollView::shutdownWidgetSkin()
+	void ScrollView::shutdownOverride()
 	{
 		mWidgetClient = nullptr;
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mScrollClient = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void ScrollView::setPosition(const IntPoint& _point)

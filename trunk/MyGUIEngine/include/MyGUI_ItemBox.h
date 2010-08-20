@@ -192,8 +192,8 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		struct ItemDataInfo
 		{

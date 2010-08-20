@@ -26,8 +26,8 @@ namespace MyGUI
         void setLevel(size_t nLevel);
 
     protected:
-        virtual void initialiseWidgetSkin(ResourceSkin* _info);
-        virtual void shutdownWidgetSkin();
+        virtual void initialiseOverride();
+        virtual void shutdownOverride();
 
         void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
         void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);

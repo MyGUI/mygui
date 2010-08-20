@@ -55,9 +55,9 @@ namespace MyGUI
 	{
 	}
 
-	void MenuCtrl::initialiseWidgetSkin(ResourceSkin* _info)
+	void MenuCtrl::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// инициализируем овнера
 		Widget* parent = getParent();
@@ -76,67 +76,46 @@ namespace MyGUI
 		}
 
 		// FIXME нам нужен фокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
-				mWidgetClient = (*iter);
-			}
-		}
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
+		assignWidget(mWidgetClient, "Client", false);
 
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		MapString::const_iterator iterS = properties.find("SkinLine");
-		if (iterS != properties.end()) mSkinLine = iterS->second;
-		//MYGUI_ASSERT(!mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
+		if (isUserString("SkinLine"))
+			mSkinLine = getUserString("SkinLine");
+		if (isUserString("HeightLine"))
+			mHeightLine = utility::parseValue<int>(getUserString("HeightLine"));
+		if (isUserString("SeparatorHeight"))
+			mSeparatorHeight = utility::parseValue<int>(getUserString("SeparatorHeight"));
+		if (isUserString("SubmenuImageSize"))
+			mSubmenuImageSize = utility::parseValue<int>(getUserString("SubmenuImageSize"));
+		if (isUserString("DistanceButton"))
+			mDistanceButton = utility::parseValue<int>(getUserString("DistanceButton"));
+		if (isUserString("AlignVert"))
+			mAlignVert = utility::parseValue<bool>(getUserString("AlignVert"));
+		if (isUserString("SeparatorSkin"))
+			mSeparatorSkin = getUserString("SeparatorSkin");
+		if (isUserString("SubMenuSkin"))
+			mSubMenuSkin = getUserString("SubMenuSkin");
+		if (isUserString("SubMenuLayer"))
+			mSubMenuLayer = getUserString("SubMenuLayer");
 
-		iterS = properties.find("HeightLine");
-		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
 		if (mHeightLine < 1)
-		{
-			MYGUI_LOG(Warning, "MenuCtrl HeightLine can't be less thah 1. Set to 1.");
 			mHeightLine = 1;
-		}
 
-		iterS = properties.find("SeparatorHeight");
-		if (iterS != properties.end()) mSeparatorHeight = utility::parseInt(iterS->second);
-		iterS = properties.find("SeparatorSkin");
-		if (iterS != properties.end()) mSeparatorSkin = iterS->second;
-
-		iterS = properties.find("SubmenuImageSize");
-		if (iterS != properties.end()) mSubmenuImageSize = utility::parseInt(iterS->second);
-
-		iterS = properties.find("SubMenuSkin");
-		if (iterS != properties.end()) mSubMenuSkin = iterS->second;
-		//MYGUI_ASSERT(!mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
-
-		iterS = properties.find("SubMenuLayer");
-		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
-		//MYGUI_ASSERT(!mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
-
-		iterS = properties.find("AlignVert");
-		if (iterS != properties.end()) mAlignVert = utility::parseBool(iterS->second);
-		iterS = properties.find("DistanceButton");
-		if (iterS != properties.end()) mDistanceButton = utility::parseInt(iterS->second);
-
-		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
+		if (mSeparatorHeight < 1)
+			mSeparatorHeight = mHeightLine;
 
 		// FIXME добавленно, так как шетдаун вызывается и при смене скина
 		mShutdown = false;
 	}
 
-	void MenuCtrl::shutdownWidgetSkin()
+	void MenuCtrl::shutdownOverride()
 	{
 		mWidgetClient = nullptr;
 		// FIXME перенесенно из деструктора, может косячить при смене скина
 		mShutdown = true;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)

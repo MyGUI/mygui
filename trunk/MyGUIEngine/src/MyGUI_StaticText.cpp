@@ -30,27 +30,6 @@ namespace MyGUI
 	{
 	}
 
-	void StaticText::initialiseWidgetSkin(ResourceSkin* _info)
-	{
-		Base::initialiseWidgetSkin(_info);
-
-		// парсим свойства
-		/*const MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseInt(iter->second));
-			if ((iter = properties.find("TextAlign")) != properties.end()) setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("TextColour")) != properties.end()) setTextColour(Colour::parse(iter->second));
-		}*/
-	}
-
-	void StaticText::shutdownWidgetSkin()
-	{
-		Base::shutdownWidgetSkin();
-	}
-
 	IntCoord StaticText::getTextRegion()
 	{
 		return (nullptr == getSubWidgetText()) ? IntCoord() : getSubWidgetText()->getCoord();
