@@ -80,7 +80,7 @@ namespace MyGUI
 		//    size
 		inline size_type max_size() const
 		{
-			return std::numeric_limits<size_type>::max() / sizeof(T);
+			return (std::numeric_limits<size_type>::max)() / sizeof(T);
 		}
 
 		//    construction/destruction
