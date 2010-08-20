@@ -18,34 +18,34 @@
             <UserString key="Direction" value="1 0"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="18 141 113 16" align="HStretch Bottom" layer="Back">
-            <Property key="Text_TextAlign" value="Left VCenter"/>
-            <Property key="Widget_Caption" value="Вход 2"/>
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="Вход 2"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="18 123 113 16" align="HStretch Bottom" layer="Back">
-            <Property key="Text_TextAlign" value="Left VCenter"/>
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Widget_Caption" value="Вход 1"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="Caption" value="Вход 1"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="18 26 113 16" align="HStretch Top" layer="Back">
-            <Property key="Text_TextAlign" value="Right VCenter"/>
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Widget_Caption" value="Выход 1"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="Caption" value="Выход 1"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="18 44 113 16" align="HStretch Top" layer="Back">
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Text_TextAlign" value="Right VCenter"/>
-            <Property key="Widget_Caption" value="Выход 2"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="Caption" value="Выход 2"/>
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 64 117 2" align="HStretch Top" layer="Back"/>
         <Widget type="Widget" skin="Separator4" position="14 118 117 2" align="HStretch Bottom" layer="Back"/>
         <Widget type="Edit" skin="Edit" position="13 72 121 20" align="HStretch Top" layer="Back">
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Widget_Caption" value="Object"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="Caption" value="Object"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="13 94 121 20" align="HStretch Top" layer="Back">
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Widget_Caption" value="Walk"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="Caption" value="Walk"/>
         </Widget>
     </Widget>
 </MyGUI>

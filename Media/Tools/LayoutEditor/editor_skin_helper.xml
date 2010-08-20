@@ -36,7 +36,7 @@
 
 	<Skin name="StaticText" size="16 16" texture="core_debug.png">
 		<Property key="FontName" value="Default"/>
-		<Property key="AlignText" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
 		<Property key="Colour" value="1 1 1"/>
 
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">

@@ -31,6 +31,8 @@
 #include "MyGUI_Macros.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IResource.h"
+#include <map>
+#include <set>
 
 namespace MyGUI
 {
@@ -570,6 +572,12 @@ namespace MyGUI
 		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
 		static void initialise();
 		static void shutdown();
+
+	private:
+		typedef std::map<std::string, std::string> MapString;
+		typedef std::set<std::string> SetString;
+		static MapString mPropertyRename;
+		static SetString mPropertyIgnore;
 	};
 
 } // namespace MyGUI

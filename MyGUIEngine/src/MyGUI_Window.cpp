@@ -64,9 +64,9 @@ namespace MyGUI
 		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
-			MapString::const_iterator iter = properties.find("Snap");
-			if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
-			iter = properties.find("MainMove");
+			//MapString::const_iterator iter = properties.find("Snap");
+			//if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
+			MapString::const_iterator iter = properties.find("MainMove");
 			if (iter != properties.end())
 			{
 				setUserString("Scale", "1 1 0 0");
