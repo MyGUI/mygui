@@ -202,16 +202,6 @@ namespace MyGUI
 			}
 		}
 
-		// парсим свойства
-		/*const MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseValue<bool>(iter->second));
-			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseValue<bool>(iter->second));
-			if ((iter = properties.find("Pointer")) != properties.end()) setPointer(iter->second);
-			if ((iter = properties.find("Visible")) != properties.end()) setVisible(utility::parseValue<bool>(iter->second));
-		}*/
 		const MapString& properties = _info->getProperties();
 		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
 		{
@@ -236,8 +226,6 @@ namespace MyGUI
 			mWidgetChildSkin.push_back(widget);
 			mWidgetChild.pop_back();
 		}
-
-		//setMaskPick(_info->getMask());
 
 		Widget::setSize(_size);//FIXME - явный вызов
 	}
