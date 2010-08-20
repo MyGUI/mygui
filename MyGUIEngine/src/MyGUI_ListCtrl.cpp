@@ -45,48 +45,37 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void ListCtrl::initialiseWidgetSkin(ResourceSkin* _info)
+	void ListCtrl::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME нам нужен фокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
+
 		mDragLayer = "DragAndDrop";
 
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
+		if (isUserString("DragLayer"))
+			mDragLayer = getUserString("DragLayer");
+
+		assignWidget(mWidgetClient, "Client", false);
+		if (mWidgetClient != nullptr)
 		{
-			MapString::const_iterator iter = properties.end();
-			iter = properties.find("DragLayer");
-			if (iter != properties.end()) mDragLayer = iter->second;
+			mWidgetClient->eventMouseWheel += newDelegate(this, &ListCtrl::notifyMouseWheel);
+			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
+			mClient = mWidgetClient;
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		assignWidget(mVScroll, "VScroll", false);
+		if (mVScroll != nullptr)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "VScroll")
-			{
-				MYGUI_DEBUG_ASSERT( ! mVScroll, "widget already assigned");
-				mVScroll = (*iter)->castType<VScroll>();
-				mVScroll->eventScrollChangePosition += newDelegate(this, &ListCtrl::notifyScrollChangePosition);
-			}
-			if (*(*iter)->_getInternalData<std::string>() == "HScroll")
-			{
-				MYGUI_DEBUG_ASSERT( ! mHScroll, "widget already assigned");
-				mHScroll = (*iter)->castType<HScroll>();
-				mHScroll->eventScrollChangePosition += newDelegate(this, &ListCtrl::notifyScrollChangePosition);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
-				mWidgetClient = (*iter);
-				mWidgetClient->eventMouseWheel += newDelegate(this, &ListCtrl::notifyMouseWheel);
-				mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
-				mClient = mWidgetClient;
-			}
+			mVScroll->eventScrollChangePosition += newDelegate(this, &ListCtrl::notifyScrollChangePosition);
 		}
-		// сли нет скрола, то клиенская зона не обязательно
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ListCtrl must have Client) skin ='" << _info->getSkinName() << "'");
+
+		assignWidget(mHScroll, "HScroll", false);
+		if (mHScroll != nullptr)
+		{
+			mHScroll->eventScrollChangePosition += newDelegate(this, &ListCtrl::notifyScrollChangePosition);
+		}
 
 		// подписываем клиент для драгэндропа
 		_getClientWidget()->_setContainer(this);
@@ -94,14 +83,14 @@ namespace MyGUI
 		updateFromResize();
 	}
 
-	void ListCtrl::shutdownWidgetSkin()
+	void ListCtrl::shutdownOverride()
 	{
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mClient = nullptr;
 		mWidgetClient = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	size_t ListCtrl::getHScrollPage()

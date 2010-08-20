@@ -52,71 +52,67 @@ namespace MyGUI
 	{
 	}
 
-	void Tab::initialiseWidgetSkin(ResourceSkin* _info)
+	void Tab::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
+		if (isUserString("OffsetBar"))
+			mOffsetTab = utility::parseValue<int>(getUserString("OffsetBar"));
+		if (isUserString("ButtonSkin"))
+			mButtonSkinName = getUserString("ButtonSkin");
+		if (isUserString("EmptyBarSkin"))
+			mEmptySkinName = getUserString("EmptyBarSkin");
+
+		assignWidget(mWidgetBar, "Bar", false);
+
+		assignWidget(mButtonLeft, "Left", false);
+		if (mButtonLeft != nullptr)
 		{
-			MapString::const_iterator iter = properties.find("OffsetBar");
-			if (iter != properties.end()) mOffsetTab = utility::parseInt(iter->second);
-
-			iter = properties.find("ButtonSkin");
-			if (iter != properties.end()) mButtonSkinName = iter->second;
-			iter = properties.find("EmptyBarSkin");
-			if (iter != properties.end()) mEmptySkinName = iter->second;
+			mButtonLeft->setVisible(false);
+			mButtonLeft->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		assignWidget(mButtonRight, "Right", false);
+		if (mButtonRight != nullptr)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Bar")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetBar, "widget already assigned");
-				mWidgetBar = (*iter);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Left")
-			{
-				MYGUI_DEBUG_ASSERT( ! mButtonLeft, "widget already assigned");
-				mButtonLeft = (*iter)->castType<Button>();
-				mButtonLeft->setVisible(false);
-				mButtonLeft->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Right")
-			{
-				MYGUI_DEBUG_ASSERT( ! mButtonRight, "widget already assigned");
-				mButtonRight = (*iter)->castType<Button>();
-				mButtonRight->setVisible(false);
-				mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "List")
-			{
-				MYGUI_DEBUG_ASSERT( ! mButtonList, "widget already assigned");
-				mButtonList = (*iter)->castType<Button>();
-				mButtonList->setVisible(false);
-				mButtonList->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "ButtonDecor")
-			{
-				MYGUI_DEBUG_ASSERT( ! mButtonDecor, "widget already assigned");
-				mButtonDecor = *iter;
-				mButtonDecor->setVisible(false);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "ShowPatch")
-			{
-				mWidgetsPatch.push_back((*iter));
-				(*iter)->setVisible(false);
-			}
-			else if ((*(*iter)->_getInternalData<std::string>() == "Sheet") || (*(*iter)->_getInternalData<std::string>() == "TabItem"))
-			{
-				MYGUI_DEBUG_ASSERT( ! mItemTemplate, "widget already assigned");
-				mItemTemplate = (*iter);
-				mItemTemplate->setVisible(false);
-			}
+			mButtonRight->setVisible(false);
+			mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
-		//MYGUI_ASSERT(nullptr != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
-		//MYGUI_ASSERT(nullptr != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
+
+		assignWidget(mButtonRight, "List", false);
+		if (mButtonList != nullptr)
+		{
+			mButtonList->setVisible(false);
+			mButtonList->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
+		}
+
+		assignWidget(mButtonDecor, "ButtonDecor", false);
+		if (mButtonDecor != nullptr)
+		{
+			mButtonDecor->setVisible(false);
+		}
+
+		assignWidget(mItemTemplate, "TabItem", false);
+		if (mItemTemplate != nullptr)
+		{
+			mItemTemplate->setVisible(false);
+		}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		assignWidget(mItemTemplate, "Sheet", false);
+		if (mItemTemplate != nullptr)
+		{
+			mItemTemplate->setVisible(false);
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		Widget* showPatch = nullptr;
+		assignWidget(showPatch, "ShowPatch", false);
+		if (showPatch != nullptr)
+		{
+			mWidgetsPatch.push_back(showPatch);
+			showPatch->setVisible(false);
+		}
 
 		// создаем виджет, носитель скина пустоты бара
 		mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
@@ -127,7 +123,7 @@ namespace MyGUI
 		mShutdown = false;
 	}
 
-	void Tab::shutdownWidgetSkin()
+	void Tab::shutdownOverride()
 	{
 		mWidgetsPatch.clear();
 		mWidgetBar = nullptr;
@@ -140,7 +136,7 @@ namespace MyGUI
 		// FIXME перенесенно из деструктора, может косячить при смене скина
 		mShutdown = true;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	// переопределяем для особого обслуживания страниц

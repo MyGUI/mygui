@@ -37,41 +37,18 @@ namespace MyGUI
 	{
 	}
 
-	void Button::initialiseWidgetSkin(ResourceSkin* _info)
+	void Button::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		// парсим свойства
-		/*const MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MapString::const_iterator iter = properties.find("StateSelected");
-			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
-			iter = properties.find("ModeImage");
-			if (iter != properties.end()) setModeImage(utility::parseValue<bool>(iter->second));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-			iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
-			iter = properties.find("StateCheck");
-			if (iter != properties.end()) setStateSelected(utility::parseValue<bool>(iter->second));
-#endif // MYGUI_DONT_USE_OBSOLETE
-		}*/
-
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "Image")
-			{
-				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
-				mImage = (*iter)->castType<StaticImage>();
-			}
-		}
+		assignWidget(mImage, "Image", false);
 	}
 
-	void Button::shutdownWidgetSkin()
+	void Button::shutdownOverride()
 	{
 		mImage = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void Button::onMouseSetFocus(Widget* _old)

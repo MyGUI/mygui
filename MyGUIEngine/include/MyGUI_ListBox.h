@@ -118,8 +118,8 @@ namespace MyGUI
 
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 	private:
 		void notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item);

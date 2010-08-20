@@ -250,8 +250,8 @@ namespace MyGUI
 		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		void notifyListChangePosition(List* _sender, size_t _position);
 		void notifyListChangeFocus(List* _sender, size_t _position);

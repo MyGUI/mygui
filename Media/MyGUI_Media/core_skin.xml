@@ -718,7 +718,7 @@
 
 	<Resource type="ResourceSkin" name = "ComboBox" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="HeightList" value = "250" />
-		<Property key="ListSmoothShow" value = "true" />
+		<Property key="SmoothShow" value = "true" />
 
 		<Child type="StaticText" skin="EditClient" offset = "2 1 5 22" align = "Stretch" name = "Client"/>
 		<Child type="Button" skin="ButtonDown" offset = "9 4 14 12" align = "Right VCenter" name = "Button"/>

@@ -572,12 +572,15 @@ namespace MyGUI
 		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
 		static void initialise();
 		static void shutdown();
+		static bool isIgnoreProperty(const std::string& _key);
 
 	private:
+#ifndef MYGUI_DONT_USE_OBSOLETE
 		typedef std::map<std::string, std::string> MapString;
 		typedef std::set<std::string> SetString;
 		static MapString mPropertyRename;
 		static SetString mPropertyIgnore;
+#endif // MYGUI_DONT_USE_OBSOLETE
 	};
 
 } // namespace MyGUI

@@ -48,82 +48,62 @@ namespace MyGUI
 	{
 	}
 
-	void VScroll::initialiseWidgetSkin(ResourceSkin* _info)
+	void VScroll::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 		mScrollViewPage = 1;
+		mMinTrackSize = 0;
+		mSkinRangeStart = 0;
+		mSkinRangeEnd = 0;
 
-		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		assignWidget(mWidgetStart, "Start", false);
+		if (mWidgetStart != nullptr)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Start")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetStart, "widget already assigned");
-				mWidgetStart = (*iter)->castType<Button>();
-				mWidgetStart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetStart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "End")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetEnd, "widget already assigned");
-				mWidgetEnd = (*iter)->castType<Button>();
-				mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetEnd->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Track")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetTrack, "widget already assigned");
-				mWidgetTrack = (*iter)->castType<Button>();
-				mWidgetTrack->eventMouseDrag += newDelegate(this, &VScroll::notifyMouseDrag);
-				mWidgetTrack->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetTrack->eventMouseButtonReleased += newDelegate(this, &VScroll::notifyMouseReleased);
-				mWidgetTrack->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
-				mWidgetTrack->setVisible(false);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "FirstPart")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
-				mWidgetFirstPart = (*iter)->castType<Button>();
-				mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetFirstPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "SecondPart")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetSecondPart, "widget already assigned");
-				mWidgetSecondPart = (*iter)->castType<Button>();
-				mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
-				mWidgetSecondPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
-			}
+			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+			mWidgetStart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 		}
 
-		// slider don't have buttons
-		//MYGUI_ASSERT(nullptr != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
-
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		MapString::const_iterator iter = properties.find("TrackRangeMargins");
-		if (iter != properties.end())
+		assignWidget(mWidgetEnd, "End", false);
+		if (mWidgetEnd != nullptr)
 		{
-			IntSize range = IntSize::parse(iter->second);
-			mSkinRangeStart = range.width;
-			mSkinRangeEnd = range.height;
+			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+			mWidgetEnd->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 		}
-		else
-		{
-			mSkinRangeStart = 0;
-			mSkinRangeEnd = 0;
-		}
-		iter = properties.find("MinTrackSize");
-		if (iter != properties.end()) mMinTrackSize = utility::parseInt(iter->second);
-		else mMinTrackSize = 0;
 
-		//iter = properties.find("MoveToClick");
-		//if (iter != properties.end()) mMoveToClick = utility::parseBool(iter->second);
+		assignWidget(mWidgetTrack, "Track", false);
+		if (mWidgetTrack)
+		{
+			mWidgetTrack->eventMouseDrag += newDelegate(this, &VScroll::notifyMouseDrag);
+			mWidgetTrack->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+			mWidgetTrack->eventMouseButtonReleased += newDelegate(this, &VScroll::notifyMouseReleased);
+			mWidgetTrack->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
+			mWidgetTrack->setVisible(false);
+		}
+
+		assignWidget(mWidgetFirstPart, "FirstPart", false);
+		if (mWidgetFirstPart != nullptr)
+		{
+			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
+		}
+
+		assignWidget(mWidgetSecondPart, "SecondPart", false);
+		if (mWidgetSecondPart != nullptr)
+		{
+			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
+			mWidgetSecondPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
+		}
+
+		if (isUserString("MinTrackSize"))
+			mMinTrackSize = utility::parseValue<int>(getUserString("MinTrackSize"));
+		if (isUserString("TrackRangeMargins"))
+			utility::parseComplex<size_t>(getUserString("TrackRangeMargins"), mSkinRangeStart, mSkinRangeEnd);
 	}
 
-	void VScroll::shutdownWidgetSkin()
+	void VScroll::shutdownOverride()
 	{
 		mWidgetStart = nullptr;
 		mWidgetEnd = nullptr;
@@ -131,7 +111,7 @@ namespace MyGUI
 		mWidgetFirstPart = nullptr;
 		mWidgetSecondPart = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void VScroll::updateTrack()

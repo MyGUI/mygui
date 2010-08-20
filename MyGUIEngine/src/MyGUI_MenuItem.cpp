@@ -30,9 +30,9 @@ namespace MyGUI
 	{
 	}
 
-	void MenuItem::initialiseWidgetSkin(ResourceSkin* _info)
+	void MenuItem::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME проверить смену скина ибо должно один раз вызываться
 		Widget* parent = getParent();
@@ -48,16 +48,15 @@ namespace MyGUI
 		mOwner = parent->castType<MenuCtrl>();
 
 		//FIXME нам нуженфокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 	}
 
-	void MenuItem::shutdownWidgetSkin()
+	void MenuItem::shutdownOverride()
 	{
 		// FIXME проверить смену скина ибо должно один раз вызываться
 		mOwner->_notifyDeleteItem(this);
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	Widget* MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)

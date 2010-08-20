@@ -52,64 +52,45 @@ namespace MyGUI
 	{
 	}
 
-	void Message::initialiseWidgetSkin(ResourceSkin* _info)
+	void Message::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		// парсим виджет для текста
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		assignWidget(mWidgetText, "Text", false);
+		if (mWidgetText != nullptr)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Text")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
-				mWidgetText = (*iter)->castType<StaticText>(false);
-				if (mWidgetText != nullptr)
-				{
-					mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
-					mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
-				}
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Icon")
-			{
-				MYGUI_DEBUG_ASSERT( ! mIcon, "widget already assigned");
-				mIcon = (*iter)->castType<StaticImage>();
-			}
+			mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
+			mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 		}
-		//MYGUI_ASSERT(nullptr != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
 
+		assignWidget(mIcon, "Icon", false);
 		if (mIcon != nullptr)
 		{
 			mLeftOffset2 = mIcon->getRight() + 3;
 		}
 
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MapString::const_iterator iter = properties.find("ButtonSkin");
-			if (iter != properties.end()) mButtonSkin = iter->second;
-			iter = properties.find("ButtonType");
-			if (iter != properties.end()) mButtonType = iter->second;
-			iter = properties.find("ButtonSize");
-			if (iter != properties.end()) mButtonSize = IntSize::parse(iter->second);
-			iter = properties.find("ButtonOffset");
-			if (iter != properties.end()) mButtonOffset = IntSize::parse(iter->second);
-			iter = properties.find("DefaultLayer");
-			if (iter != properties.end()) mDefaultLayer = iter->second;
-			iter = properties.find("FadeSkin");
-			if (iter != properties.end()) mFadeSkin = iter->second;
-			iter = properties.find("FadeLayer");
-			if (iter != properties.end()) mFadeLayer = iter->second;
-		}
-
+		if (isUserString("ButtonSkin"))
+			mButtonSkin = getUserString("ButtonSkin");
+		if (isUserString("ButtonType"))
+			mButtonType = getUserString("ButtonType");
+		if (isUserString("DefaultLayer"))
+			mDefaultLayer = getUserString("DefaultLayer");
+		if (isUserString("FadeSkin"))
+			mFadeSkin = getUserString("FadeSkin");
+		if (isUserString("FadeLayer"))
+			mFadeLayer = getUserString("FadeLayer");
+		if (isUserString("ButtonSize"))
+			mButtonSize = IntSize::parse(getUserString("ButtonSize"));
+		if (isUserString("ButtonOffset"))
+			mButtonOffset = IntSize::parse(getUserString("ButtonOffset"));
 	}
 
-	void Message::shutdownWidgetSkin()
+	void Message::shutdownOverride()
 	{
 		mWidgetText = nullptr;
 		mIcon = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void Message::setMessageText(const UString& _message)

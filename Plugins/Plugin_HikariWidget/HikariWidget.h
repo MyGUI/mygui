@@ -143,8 +143,8 @@ namespace Hikari
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
-		virtual void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 	private:
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);

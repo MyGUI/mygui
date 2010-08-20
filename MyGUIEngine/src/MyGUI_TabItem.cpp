@@ -29,21 +29,21 @@ namespace MyGUI
 	{
 	}
 
-	void TabItem::initialiseWidgetSkin(ResourceSkin* _info)
+	void TabItem::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME проверить смену скина ибо должно один раз вызываться
 		//mOwner = getParent()->castType<Tab>();
 	}
 
-	void TabItem::shutdownWidgetSkin()
+	void TabItem::shutdownOverride()
 	{
 		Tab* owner = getParent() != nullptr ? getParent()->castType<Tab>(false) : nullptr;
 		if (owner != nullptr)
 			owner->_notifyDeleteItem(this);
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void TabItem::setCaption(const UString& _value)

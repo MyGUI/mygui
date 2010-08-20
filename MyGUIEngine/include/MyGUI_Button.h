@@ -62,8 +62,8 @@ namespace MyGUI
 		void _setMouseFocus(bool _focus);
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);

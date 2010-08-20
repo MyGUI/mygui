@@ -110,8 +110,8 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		virtual void updateTrack();
 		virtual void TrackMove(int _left, int _top);

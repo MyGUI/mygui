@@ -209,8 +209,8 @@ namespace MyGUI
 		void _sendEventChangeScroll(size_t _position);
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		void onMouseWheel(int _rel);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
