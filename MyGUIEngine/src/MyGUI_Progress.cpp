@@ -47,46 +47,39 @@ namespace MyGUI
 	{
 	}
 
-	void Progress::initialiseWidgetSkin(ResourceSkin* _info)
+	void Progress::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mClient, "widget already assigned");
-				mClient = (*iter);
-			}
-		}
-		if (nullptr == mClient) mClient = this;
+		assignWidget(mClient, "Client", false);
 
-		const MapString& properties = _info->getProperties();
-		MapString::const_iterator iterS = properties.find("TrackSkin");
-		if (iterS != properties.end()) mTrackSkin = iterS->second;
-		iterS = properties.find("TrackWidth");
-		if (iterS != properties.end()) mTrackWidth = utility::parseInt(iterS->second);
-		iterS = properties.find("TrackMin");
-		if (iterS != properties.end()) mTrackMin = utility::parseInt(iterS->second);
-		if (1 > mTrackWidth) mTrackWidth = 1;
-		iterS = properties.find("TrackStep");
-		if (iterS != properties.end()) mTrackStep = utility::parseInt(iterS->second);
-		else mTrackStep = mTrackWidth;
-		iterS = properties.find("TrackFill");
-		if (iterS != properties.end()) mFillTrack = utility::parseBool(iterS->second);
-		//iterS = properties.find("FlowDirection");
-		//if (iterS != properties.end()) setFlowDirection(utility::parseValue<FlowDirection>(iterS->second));
-//#ifndef MYGUI_DONT_USE_OBSOLETE
-//		iterS = properties.find("StartPoint");
-//		if (iterS != properties.end()) _setProgressStartPoint(Align::parse(iterS->second));
-//#endif // MYGUI_DONT_USE_OBSOLETE
+		// FIXME
+		if (nullptr == mClient)
+			mClient = this;
+
+		if (isUserString("TrackSkin"))
+			mTrackSkin = getUserString("TrackSkin");
+		if (isUserString("TrackWidth"))
+			mTrackWidth = utility::parseValue<int>(getUserString("TrackWidth"));
+		if (isUserString("TrackMin"))
+			mTrackMin = utility::parseValue<int>(getUserString("TrackMin"));
+		if (isUserString("TrackStep"))
+			mTrackStep = utility::parseValue<int>(getUserString("TrackStep"));
+		if (isUserString("TrackFill"))
+			mFillTrack = utility::parseValue<bool>(getUserString("TrackFill"));
+
+		if (!isUserString("TrackStep"))
+			mTrackStep = mTrackWidth;
+
+		if (1 > mTrackWidth)
+			mTrackWidth = 1;
 	}
 
-	void Progress::shutdownWidgetSkin()
+	void Progress::shutdownOverride()
 	{
 		mClient = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void Progress::setProgressRange(size_t _range)

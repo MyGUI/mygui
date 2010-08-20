@@ -46,8 +46,8 @@ namespace MyGUI
 		void setButtonWidth(int _value = DEFAULT);
 
 	protected:
-		virtual void initialiseWidgetSkin(ResourceSkin* _info);
-		virtual void shutdownWidgetSkin();
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 	};

@@ -344,6 +344,15 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+	bool BackwardCompatibility::isIgnoreProperty(const std::string& _key)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
+			return true;
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return false;
+	}
+
 	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -464,10 +473,10 @@ namespace MyGUI
 		mPropertyRename["MenuItem_Type"] = "MenuItemType";
 		mPropertyRename["AlignText"] = "TextAlign";
 		mPropertyRename["ToStick"] = "Snap";
+		mPropertyRename["ListSmoothShow"] = "SmoothShow";
+		mPropertyRename["HeightList"] = "MaxListLength";
+		mPropertyRename["Combo_MaxLength"] = "MaxListLength";
 
-		mPropertyIgnore.insert("MaxListLength");
-		mPropertyIgnore.insert("ListSmoothShow");
-		mPropertyIgnore.insert("HeightList");
 		mPropertyIgnore.insert("AlignVert");
 		mPropertyIgnore.insert("DragLayer");
 		mPropertyIgnore.insert("SkinLine");

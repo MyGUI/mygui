@@ -33,29 +33,24 @@ namespace MyGUI
 		requestDrawItem = MyGUI::newDelegate(this, &ListBox::notifyDrawItem);
 	}
 
-	void ListBox::initialiseWidgetSkin(ResourceSkin* _info)
+	void ListBox::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		mHeightLine = 20;
 		mChangeContentByResize = false;
 
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MapString::const_iterator iter = properties.end();
-			iter = properties.find("SkinLine");
-			if (iter != properties.end()) mSkinLine = iter->second;
-			iter = properties.find("HeightLine");
-			if (iter != properties.end()) mHeightLine = utility::parseInt(iter->second);
-		}
+		if (isUserString("SkinLine"))
+			mSkinLine = getUserString("SkinLine");
+		if (isUserString("HeightLine"))
+			mHeightLine = utility::parseValue<int>(getUserString("HeightLine"));
 
 		_setScrollViewPage(mHeightLine);
 	}
 
-	void ListBox::shutdownWidgetSkin()
+	void ListBox::shutdownOverride()
 	{
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void ListBox::notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item)

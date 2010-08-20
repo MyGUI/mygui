@@ -42,46 +42,34 @@ namespace MyGUI
 	{
 	}
 
-	void List::initialiseWidgetSkin(ResourceSkin* _info)
+	void List::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
 		// FIXME нам нужен фокус клавы
-		//mNeedKeyFocus = true;
 		setNeedKeyFocus(true);
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "VScroll")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetScroll, "widget already assigned");
-				mWidgetScroll = (*iter)->castType<VScroll>();
-				mWidgetScroll->eventScrollChangePosition += newDelegate(this, &List::notifyScrollChangePosition);
-				mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Client")
-			{
-				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
-				mWidgetClient = (*iter);
-				mWidgetClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
-			}
-		}
-		//MYGUI_ASSERT(nullptr != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
-
 		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		MapString::const_iterator iterS = properties.find("SkinLine");
-		if (iterS != properties.end()) mSkinLine = iterS->second;
-		//MYGUI_ASSERT(!mSkinLine.empty(), "SkinLine property not found (List must have SkinLine property)");
+		if (isUserString("SkinLine"))
+			mSkinLine = getUserString("SkinLine");
 
-		iterS = properties.find("HeightLine");
-		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
-		if (mHeightLine < 1) mHeightLine = 1;
+		if (isUserString("HeightLine"))
+			mHeightLine = utility::parseInt(getUserString("HeightLine"));
 
+		if (mHeightLine < 1)
+			mHeightLine = 1;
 
+		assignWidget(mWidgetClient, "Client", false);
+		if (mWidgetClient != nullptr)
+		{
+			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+		}
+
+		assignWidget(mWidgetScroll, "VScroll", false);
 		if (mWidgetScroll != nullptr)
 		{
+			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &List::notifyScrollChangePosition);
+			mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
 			mWidgetScroll->setScrollPage((size_t)mHeightLine);
 			mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 		}
@@ -90,12 +78,12 @@ namespace MyGUI
 		updateLine();
 	}
 
-	void List::shutdownWidgetSkin()
+	void List::shutdownOverride()
 	{
 		mWidgetScroll = nullptr;
 		mWidgetClient = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void List::onMouseWheel(int _rel)

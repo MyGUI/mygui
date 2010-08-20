@@ -18,24 +18,14 @@ namespace plugin
 	{
 	}
 
-	void StrangeButton::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
+	void StrangeButton::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
-
-		// парсим свойства
-		const MyGUI::MapString& properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
-			iter = properties.find("StateCheck");
-			if (iter != properties.end()) setStateCheck(MyGUI::utility::parseBool(iter->second));
-		}
+		Base::initialiseOverride();
 	}
 
-	void StrangeButton::shutdownWidgetSkin()
+	void StrangeButton::shutdownOverride()
 	{
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void StrangeButton::onMouseSetFocus(MyGUI::Widget* _old)

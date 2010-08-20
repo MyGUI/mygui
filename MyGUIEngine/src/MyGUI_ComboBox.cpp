@@ -51,57 +51,30 @@ namespace MyGUI
 	{
 	}
 
-	void ComboBox::initialiseWidgetSkin(ResourceSkin* _info)
+	void ComboBox::initialiseOverride()
 	{
-		Base::initialiseWidgetSkin(_info);
+		Base::initialiseOverride();
 
-		// парсим свойства
-		const MapString& properties = _info->getProperties();
-		if (!properties.empty())
+		assignWidget(mButton, "Button", false);
+		if (mButton != nullptr)
 		{
-			MapString::const_iterator iter = properties.find("MaxListLength");
-			if (iter != properties.end()) mMaxListLength = utility::parseValue<int>(iter->second);
-			iter = properties.find("ListSmoothShow");
-			if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
-#ifndef MYGUI_DONT_USE_OBSOLETE
-			iter = properties.find("HeightList");
-			if (iter != properties.end()) mMaxListLength = utility::parseValue<int>(iter->second);
-#endif // MYGUI_DONT_USE_OBSOLETE
+			mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
 		}
 
-		// парсим кнопку
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
-		{
-			if (*(*iter)->_getInternalData<std::string>() == "Button")
-			{
-				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
-				mButton = (*iter)->castType<Button>();
-				mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "List")
-			{
-				MYGUI_DEBUG_ASSERT( ! mList, "widget already assigned");
-				mList = (*iter)->castType<List>();
-				mList->setVisible(false);
-				mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
-				mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
-				mList->eventListMouseItemActivate += newDelegate(this, &ComboBox::notifyListMouseItemActivate);
-				mList->eventListChangePosition += newDelegate(this, &ComboBox::notifyListChangePosition);
-			}
-		}
+		assignWidget(mList, "List", false);
 
 		mManualList = (mList == nullptr);
 		if (mList == nullptr)
 		{
-			std::string list_skin;
-			MapString::const_iterator iter = properties.find("ListSkin");
-			if (iter != properties.end()) list_skin = iter->second;
-			std::string list_layer;
-			iter = properties.find("ListLayer");
-			if (iter != properties.end()) list_layer = iter->second;
+			std::string list_skin = getUserString("ListSkin");
+			std::string list_layer = getUserString("ListLayer");
+
 			mList = createWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
 			mWidgetChild.pop_back();
+		}
 
+		if (mList != nullptr)
+		{
 			mList->setVisible(false);
 			mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
 			mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
@@ -120,7 +93,7 @@ namespace MyGUI
 		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
 	}
 
-	void ComboBox::shutdownWidgetSkin()
+	void ComboBox::shutdownOverride()
 	{
 		if (mManualList)
 		{
@@ -130,7 +103,7 @@ namespace MyGUI
 		mList = nullptr;
 		mButton = nullptr;
 
-		Base::shutdownWidgetSkin();
+		Base::shutdownOverride();
 	}
 
 	void ComboBox::notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
@@ -448,7 +421,8 @@ namespace MyGUI
 	{
 		if (_key == "ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
 		else if (_key == "FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
-		else if (_key == "MaxLength") setMaxListLength(utility::parseValue<int>(_value));
+		else if (_key == "MaxListLength") setMaxListLength(utility::parseValue<int>(_value));
+		else if (_key == "SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

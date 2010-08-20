@@ -35,8 +35,8 @@ namespace plugin
 		void _setMouseFocus(bool _focus);
 
 	protected:
-		virtual void shutdownWidgetSkin();
-		virtual void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
 		virtual void onMouseLostFocus(MyGUI::Widget* _new);
 		virtual void onMouseSetFocus(MyGUI::Widget* _old);
