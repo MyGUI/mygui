@@ -4,43 +4,43 @@
 		<UserString key="SnapTo" value="Stretch"/>
 		<Widget type="MenuBar" skin="MenuBar" position="0 0 300 26" align="Stretch" name="MainMenu">
 			<Widget type="MenuItem" skin="MenuBarButton">
-				<Property key="Widget_Caption" value="#{File}"/>
-				<Property key="MenuItem_Type" value="Popup"/>
-				<Property key="MenuItem_Id" value="File"/>
+				<Property key="Caption" value="#{File}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="File"/>
 				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Load}"/>
-						<Property key="MenuItem_Id" value="Command_FileLoad"/>
+						<Property key="Caption" value="#{Load}"/>
+						<Property key="MenuItemId" value="Command_FileLoad"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Save}"/>
-						<Property key="MenuItem_Id" value="Command_FileSave"/>
+						<Property key="Caption" value="#{Save}"/>
+						<Property key="MenuItemId" value="Command_FileSave"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Save_as}"/>
-						<Property key="MenuItem_Id" value="Command_FileSaveAs"/>
+						<Property key="Caption" value="#{Save_as}"/>
+						<Property key="MenuItemId" value="Command_FileSaveAs"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Clear}"/>
-						<Property key="MenuItem_Id" value="Command_ClearAll"/>
+						<Property key="Caption" value="#{Clear}"/>
+						<Property key="MenuItemId" value="Command_ClearAll"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
-						<Property key="MenuItem_Type" value="Separator"/>
+						<Property key="MenuItemType" value="Separator"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Export}"/>
-						<Property key="MenuItem_Id" value="Command_FileExport"/>
+						<Property key="Caption" value="#{Export}"/>
+						<Property key="MenuItemId" value="Command_FileExport"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Test}"/>
-						<Property key="MenuItem_Id" value="Command_Test"/>
+						<Property key="Caption" value="#{Test}"/>
+						<Property key="MenuItemId" value="Command_Test"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
-						<Property key="MenuItem_Type" value="Separator"/>
+						<Property key="MenuItemType" value="Separator"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Widget_Caption" value="#{Quit}"/>
-						<Property key="MenuItem_Id" value="Command_QuitApp"/>
+						<Property key="Caption" value="#{Quit}"/>
+						<Property key="MenuItemId" value="Command_QuitApp"/>
 					</Widget>
 				</Widget>
 			</Widget>

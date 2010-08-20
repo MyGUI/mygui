@@ -318,213 +318,113 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	std::string convertAlignToDirection(const std::string& _value)
+	{
+		Align align = utility::parseValue<Align>(_value);
+		if (align == Align::Right)
+			return FlowDirection(FlowDirection::RightToLeft).print();
+		else if (align == Align::Top)
+			return FlowDirection(FlowDirection::TopToBottom).print();
+		else if (align == Align::Bottom)
+			return FlowDirection(FlowDirection::BottomToTop).print();
+		return FlowDirection(FlowDirection::LeftToRight).print();
+	}
+
+	std::string convertRectToCoord(const std::string& _value)
+	{
+		IntRect rect = IntRect::parse(_value);
+		IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
+		return coord.print();
+	}
+
+	BackwardCompatibility::MapString BackwardCompatibility::mPropertyRename;
+	BackwardCompatibility::SetString BackwardCompatibility::mPropertyIgnore;
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	bool BackwardCompatibility::checkProperty(Widget* _owner, std::string& _key, std::string& _value)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		if (_key == "Progress_StartPoint")
+		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
+			return false;
+
+		MapString::iterator item = mPropertyRename.find(_key);
+		if (item != mPropertyRename.end())
+		{
+			MYGUI_LOG(Warning, (*item).first << " is deprecated, use " << (*item).second << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			_key = (*item).second;
+		}
+		else if (_key == "Progress_StartPoint")
 		{
 			MYGUI_LOG(Warning, "Progress_StartPoint is deprecated, use Progress_FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "Progress_FlowDirection";
-
-			Align align = utility::parseValue<Align>(_value);
-			if (align == Align::Right)
-				_value = FlowDirection(FlowDirection::RightToLeft).print();
-			else if (align == Align::Top)
-				_value = FlowDirection(FlowDirection::TopToBottom).print();
-			else if (align == Align::Bottom)
-				_value =  FlowDirection(FlowDirection::BottomToTop).print();
-			else
-				_value = FlowDirection(FlowDirection::LeftToRight).print();
-		}
-		else if (_key == "Button_Pressed")
-		{
-			MYGUI_LOG(Warning, "Button_Pressed is deprecated, use Button_StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Button_StateSelected";
+			_value = convertAlignToDirection(_value);
 		}
 		else if (_key == "ComboBox_AddItem")
 		{
 			MYGUI_LOG(Warning, "ComboBox_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			ComboBox* box = _owner->castType<ComboBox>(false);
-			if (box != nullptr)
-				box->addItem(_value);
+			ComboBox* widget = _owner->castType<ComboBox>(false);
+			if (widget != nullptr)
+				widget->addItem(_value);
 			return false;
-		}
-		else if (_key == "Edit_ShowVScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowVScroll is deprecated, use Edit_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Edit_VisibleVScroll";
-		}
-		else if (_key == "Edit_ShowHScroll")
-		{
-			MYGUI_LOG(Warning, "Edit_ShowHScroll is deprecated, use Edit_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Edit_VisibleHScroll";
 		}
 		else if (_key == "List_AddItem")
 		{
 			MYGUI_LOG(Warning, "List_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			List* box = _owner->castType<List>(false);
-			if (box != nullptr)
-				box->addItem(_value);
+			List* widget = _owner->castType<List>(false);
+			if (widget != nullptr)
+				widget->addItem(_value);
 			return false;
-		}
-		else if (_key == "ScrollView_VScroll")
-		{
-			MYGUI_LOG(Warning, "ScrollView_VScroll is deprecated, use ScrollView_VisibleVScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "ScrollView_VisibleVScroll";
-		}
-		else if (_key == "ScrollView_HScroll")
-		{
-			MYGUI_LOG(Warning, "ScrollView_HScroll is deprecated, use ScrollView_VisibleHScroll" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "ScrollView_VisibleHScroll";
-		}
-		else if (_key == "Widget_Caption")
-		{
-			MYGUI_LOG(Warning, "Widget_Caption is deprecated, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Text_Caption";
 		}
 		else if (_key == "Tab_AddSheet")
 		{
 			MYGUI_LOG(Warning, "Tab_AddSheet is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Tab* box = _owner->castType<Tab>(false);
-			if (box != nullptr)
-				box->addItem(_value);
+			Tab* widget = _owner->castType<Tab>(false);
+			if (widget != nullptr)
+				widget->addItem(_value);
 			return false;
 		}
 		else if (_key == "Tab_AddItem")
 		{
 			MYGUI_LOG(Warning, "Tab_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Tab* box = _owner->castType<Tab>(false);
-			if (box != nullptr)
-				box->addItem(_value);
+			Tab* widget = _owner->castType<Tab>(false);
+			if (widget != nullptr)
+				widget->addItem(_value);
 			return false;
-		}
-		else if (_key == "Tab_SelectSheet")
-		{
-			MYGUI_LOG(Warning, "Tab_SelectSheet is deprecated, use Tab_SelectItem" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Tab_SelectItem";
 		}
 		else if (_key == "Window_MinMax")
 		{
 			MYGUI_LOG(Warning, "Window_MinMax is deprecated, use Window_MinSize or Window_MaxSize" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Window* box = _owner->castType<Window>(false);
-			if (box != nullptr)
+			Window* widget = _owner->castType<Window>(false);
+			if (widget != nullptr)
 			{
 				IntRect rect = IntRect::parse(_value);
-				box->setMinSize(rect.left, rect.top);
-				box->setMaxSize(rect.right, rect.bottom);
+				widget->setMinSize(rect.left, rect.top);
+				widget->setMaxSize(rect.right, rect.bottom);
 			}
 			return false;
 		}
 		else if (_key == "Message_AddButton")
 		{
 			MYGUI_LOG(Warning, "Message_AddButton is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Message* box = _owner->castType<Message>(false);
-			if (box != nullptr)
-				box->addButtonName(_value);
+			Message* widget = _owner->castType<Message>(false);
+			if (widget != nullptr)
+				widget->addButtonName(_value);
 			return false;
-		}
-		else if (_key == "Progress_Position")
-		{
-			MYGUI_LOG(Warning, "Progress_Position is deprecated, use Progress_RangePosition" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Progress_RangePosition";
-		}
-		else if (_key == "Scroll_Position")
-		{
-			MYGUI_LOG(Warning, "Scroll_Position is deprecated, use Scroll_RangePosition" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Scroll_RangePosition";
-		}
-		else if (_key == "Message_Message")
-		{
-			MYGUI_LOG(Warning, "Message_Message is deprecated, use Message_MessageText" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Message_MessageText";
-		}
-		else if (_key == "Message_Button")
-		{
-			MYGUI_LOG(Warning, "Message_Button is deprecated, use Message_MessageButton" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Message_MessageButton";
-		}
-		else if (_key == "Message_Caption")
-		{
-			MYGUI_LOG(Warning, "Message_Caption is deprecated, use Text_Caption" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Text_Caption";
-		}
-		else if (_key == "Image_Texture")
-		{
-			MYGUI_LOG(Warning, "Image_Texture is deprecated, use Image_ImageTexture" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageTexture";
-		}
-		else if (_key == "Image_Coord")
-		{
-			MYGUI_LOG(Warning, "Image_Coord is deprecated, use Image_ImageRegion" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageRegion";
-		}
-		else if (_key == "Image_Tile")
-		{
-			MYGUI_LOG(Warning, "Image_Tile is deprecated, use Image_ImageTile" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageTile";
-		}
-		else if (_key == "Image_Index")
-		{
-			MYGUI_LOG(Warning, "Image_Index is deprecated, use Image_ImageIndex" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageIndex";
-		}
-		else if (_key == "Image_Resource")
-		{
-			MYGUI_LOG(Warning, "Image_Resource is deprecated, use Image_ImageResource" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageResource";
-		}
-		else if (_key == "Image_Group")
-		{
-			MYGUI_LOG(Warning, "Image_Group is deprecated, use Image_ImageGroup" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageGroup";
-		}
-		else if (_key == "Image_Name")
-		{
-			MYGUI_LOG(Warning, "Image_Name is deprecated, use Image_ImageName" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "Image_ImageName";
-		}
-		else if (_key == "MenuItem_Id")
-		{
-			MYGUI_LOG(Warning, "MenuItem_Id is deprecated, use MenuItem_MenuItemId" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "MenuItem_MenuItemId";
-		}
-		else if (_key == "MenuItem_Type")
-		{
-			MYGUI_LOG(Warning, "MenuItem_Type is deprecated, use MenuItem_MenuItemType" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "MenuItem_MenuItemType";
 		}
 		else if (_key == "ImageRect")
 		{
 			MYGUI_LOG(Warning, "ImageRect is deprecated, use ImageCoord" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "ImageCoord";
-			IntRect rect = IntRect::parse(_value);
-			IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
-			_value = coord.print();
+			_value = convertRectToCoord(_value);
 		}
 		else if (_key == "StartPoint")
 		{
 			MYGUI_LOG(Warning, "StartPoint is deprecated, use FlowDirection" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			_key = "FlowDirection";
-
-			Align align = utility::parseValue<Align>(_value);
-			if (align == Align::Right)
-				_value = FlowDirection(FlowDirection::RightToLeft).print();
-			else if (align == Align::Top)
-				_value = FlowDirection(FlowDirection::TopToBottom).print();
-			else if (align == Align::Bottom)
-				_value =  FlowDirection(FlowDirection::BottomToTop).print();
-			else
-				_value = FlowDirection(FlowDirection::LeftToRight).print();
-		}
-		else if (_key == "ButtonPressed")
-		{
-			MYGUI_LOG(Warning, "ButtonPressed is deprecated, use StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "StateSelected";
-		}
-		else if (_key == "StateCheck")
-		{
-			MYGUI_LOG(Warning, "StateCheck is deprecated, use StateSelected" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			_key = "StateSelected";
+			_value = convertAlignToDirection(_value);
 		}
 
 #endif // MYGUI_DONT_USE_OBSOLETE
@@ -538,12 +438,80 @@ namespace MyGUI
 
 		factory.registerFactory<RenderBox>("Widget");
 		factory.registerFactory<Sheet>("Widget");
+
+		mPropertyRename["Button_Pressed"] = "StateSelected";
+		mPropertyRename["ButtonPressed"] = "StateSelected";
+		mPropertyRename["StateCheck"] = "StateSelected";
+		mPropertyRename["Edit_ShowVScroll"] = "VisibleVScroll";
+		mPropertyRename["ScrollView_VScroll"] = "VisibleVScroll";
+		mPropertyRename["Edit_ShowHScroll"] = "VisibleHScroll";
+		mPropertyRename["ScrollView_HScroll"] = "VisibleHScroll";
+		mPropertyRename["Widget_Caption"] = "Caption";
+		mPropertyRename["Message_Caption"] = "Caption";
+		mPropertyRename["Progress_Position"] = "RangePosition";
+		mPropertyRename["Scroll_Position"] = "RangePosition";
+		mPropertyRename["Tab_SelectSheet"] = "SelectItem";
+		mPropertyRename["Message_Message"] = "MessageText";
+		mPropertyRename["Message_Button"] = "MessageButton";
+		mPropertyRename["Image_Texture"] = "ImageTexture";
+		mPropertyRename["Image_Coord"] = "ImageRegion";
+		mPropertyRename["Image_Tile"] = "ImageTile";
+		mPropertyRename["Image_Index"] = "ImageIndex";
+		mPropertyRename["Image_Resource"] = "ImageResource";
+		mPropertyRename["Image_Group"] = "ImageGroup";
+		mPropertyRename["Image_Name"] = "ImageName";
+		mPropertyRename["MenuItem_Id"] = "MenuItemId";
+		mPropertyRename["MenuItem_Type"] = "MenuItemType";
+		mPropertyRename["AlignText"] = "TextAlign";
+		mPropertyRename["ToStick"] = "Snap";
+
+		mPropertyIgnore.insert("MaxListLength");
+		mPropertyIgnore.insert("ListSmoothShow");
+		mPropertyIgnore.insert("HeightList");
+		mPropertyIgnore.insert("AlignVert");
+		mPropertyIgnore.insert("DragLayer");
+		mPropertyIgnore.insert("SkinLine");
+		mPropertyIgnore.insert("HeightLine");
+		mPropertyIgnore.insert("SkinLine");
+		mPropertyIgnore.insert("HeightLine");
+		mPropertyIgnore.insert("SeparatorHeight");
+		mPropertyIgnore.insert("SeparatorSkin");
+		mPropertyIgnore.insert("SubmenuImageSize");
+		mPropertyIgnore.insert("SubMenuSkin");
+		mPropertyIgnore.insert("SubMenuLayer");
+		mPropertyIgnore.insert("AlignVert");
+		mPropertyIgnore.insert("DistanceButton");
+		mPropertyIgnore.insert("ButtonSkin");
+		mPropertyIgnore.insert("ButtonType");
+		mPropertyIgnore.insert("ButtonSize");
+		mPropertyIgnore.insert("ButtonOffset");
+		mPropertyIgnore.insert("DefaultLayer");
+		mPropertyIgnore.insert("FadeSkin");
+		mPropertyIgnore.insert("FadeLayer");
+		mPropertyIgnore.insert("SkinButton");
+		mPropertyIgnore.insert("HeightButton");
+		mPropertyIgnore.insert("SkinList");
+		mPropertyIgnore.insert("SkinButtonEmpty");
+		mPropertyIgnore.insert("WidthSeparator");
+		mPropertyIgnore.insert("SkinSeparator");
+		mPropertyIgnore.insert("TrackSkin");
+		mPropertyIgnore.insert("TrackWidth");
+		mPropertyIgnore.insert("TrackMin");
+		mPropertyIgnore.insert("TrackStep");
+		mPropertyIgnore.insert("TrackFill");
+		mPropertyIgnore.insert("OffsetBar");
+		mPropertyIgnore.insert("ButtonSkin");
+		mPropertyIgnore.insert("EmptyBarSkin");
+		mPropertyIgnore.insert("TrackRangeMargins");
+		mPropertyIgnore.insert("MinTrackSize");
+		mPropertyIgnore.insert("MainMove");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	void BackwardCompatibility::shutdown()
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
+		mPropertyRename.clear();
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

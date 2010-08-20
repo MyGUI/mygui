@@ -2,8 +2,8 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowSmallCX" position="20 50 110 122" name="_Main">
         <Widget type="ComboBox" skin="ComboBox" position="14 25 83 20" align="HStretch Top" layer="Back" name="ComboStates">
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="ComboBox_ModeDrop" value="true"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 45 109 14" align="HStretch Bottom">
             <Widget type="Widget" skin="Separator4" position="14 6 79 2" align="HStretch VCenter"/>
@@ -15,9 +15,9 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 94 14" align="HStretch VCenter" name="StartValue">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Start"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Start"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 73 109 14" align="HStretch Bottom">
@@ -27,9 +27,9 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 94 14" align="HStretch VCenter" name="StopValue">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Stop"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Stop"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 87 109 14" align="HStretch Bottom">
@@ -39,14 +39,14 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 57 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Position"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Position"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="72 0 37 14" align="Right VCenter" name="PositionValue">
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Widget_Caption" value="0.5"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Caption" value="0.5"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 101 109 14" align="HStretch Bottom">
@@ -56,14 +56,14 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 57 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Weight"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Weight"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="72 0 37 14" align="Right VCenter" name="WeightValue">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="0.5"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="0.5"/>
             </Widget>
         </Widget>
     </Widget>

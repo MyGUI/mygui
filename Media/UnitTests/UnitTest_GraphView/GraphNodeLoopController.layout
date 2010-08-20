@@ -8,9 +8,9 @@
                 <UserString key="Name" value="Start"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="0 0 92 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Right VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Start"/>
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Start"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 37 109 14" align="HStretch Top">
@@ -20,9 +20,9 @@
                 <UserString key="Name" value="Stop"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="0 0 92 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Right VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Stop"/>
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Stop"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 51 109 14" align="HStretch Top">
@@ -32,9 +32,9 @@
                 <UserString key="Name" value="Position"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="0 0 92 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Right VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Position"/>
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Position"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 65 109 14" align="HStretch Top">
@@ -44,9 +44,9 @@
                 <UserString key="Name" value="Weight"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="0 0 92 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Right VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Weight"/>
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Weight"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 79 109 14" align="HStretch Top">
@@ -59,9 +59,9 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 94 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Start"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Start"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 107 109 14" align="HStretch Bottom">
@@ -71,9 +71,9 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 94 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Stop"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Stop"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 121 109 14" align="HStretch Bottom">
@@ -83,9 +83,9 @@
                 <UserString key="Direction" value="-1 0"/>
             </Widget>
             <Widget type="StaticText" skin="StaticText" position="15 0 94 14" align="HStretch VCenter">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
-                <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-                <Property key="Widget_Caption" value="Weight"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="Caption" value="Weight"/>
             </Widget>
         </Widget>
     </Widget>

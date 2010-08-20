@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="40 72 672 424" layer="Overlapped" name="_Main">
-		<Property key="Widget_Alpha" value="0.2"/>
-		<Property key="Widget_Caption" value="GraphView"/>
+		<Property key="Alpha" value="0.2"/>
+		<Property key="Caption" value="GraphView"/>
 		<Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 662 387" align="Stretch" name="ScrollView">
-			<Property key="ScrollView_CanvasAlign" value="Default"/>
+			<Property key="CanvasAlign" value="Default"/>
 			<Widget type="Canvas" skin="Canvas" position="0 0 100 100" align="Stretch" name="Canvas">
-				<Property key="Widget_InheritsAlpha" value="false"/>
+				<Property key="InheritsAlpha" value="false"/>
 			</Widget>
 		</Widget>
     </Widget>

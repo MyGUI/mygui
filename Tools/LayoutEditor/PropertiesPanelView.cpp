@@ -391,12 +391,12 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 	}
 	std::string prop = _property;
 	// trim widget name
-	std::string::iterator iterS;
-	iterS = std::find(prop.begin(), prop.end(), '_');
-	if (iterS != prop.end()) prop.erase(prop.begin(), ++iterS);
+	//std::string::iterator iterS;
+	//iterS = std::find(prop.begin(), prop.end(), '_');
+	//if (iterS != prop.end()) prop.erase(prop.begin(), ++iterS);
 
-	size_t idx = prop.find_last_of(' ');
-	if (idx != std::string::npos) prop = prop.substr(idx);
+	//size_t idx = prop.find_last_of(' ');
+	//if (idx != std::string::npos) prop = prop.substr(idx);
 
 	text->setCaption(prop);
 
