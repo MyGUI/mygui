@@ -79,7 +79,7 @@ namespace MyGUI
 			mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
 
-		assignWidget(mButtonRight, "List", false);
+		assignWidget(mButtonList, "List", false);
 		if (mButtonList != nullptr)
 		{
 			mButtonList->setVisible(false);

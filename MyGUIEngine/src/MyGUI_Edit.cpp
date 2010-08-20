@@ -123,8 +123,9 @@ namespace MyGUI
 
 	void Edit::shutdownOverride()
 	{
-		mClientText = nullptr;
+		mClient = nullptr;
 		mWidgetClient = nullptr;
+		mClientText = nullptr;
 		mVScroll= nullptr;
 		mHScroll = nullptr;
 
