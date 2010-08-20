@@ -341,10 +341,10 @@ namespace MyGUI
 		void _updateAbsolutePoint();
 
 		// для внутреннего использования
-		void _setInheritsVisible(bool _value);
+		void _updateVisible();
 		bool _isInheritsVisible() { return mInheritsVisible; }
 
-		void _setInheritsEnable(bool _value);
+		void _updateEnabled();
 		bool _isInheritsEnable() { return mInheritsEnabled; }
 
 		float _getRealAlpha() { return mRealAlpha; }
