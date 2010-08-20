@@ -4,9 +4,9 @@
 		<Widget type="Edit" skin="WordWrapSimple" position="10 10 380 108" align="Stretch" name="Text">
 		</Widget>
 		<Widget type="StaticImage" skin="StaticImage" style="Popup" position="0 0 48 48" align="Default" layer="Back">
-			<Property key="Image_Resource" value="pic_CoreMessageIcon"/>
-			<Property key="Image_Group" value="Icons"/>
-			<Property key="Image_Name" value="Quest"/>
+			<Property key="ImageResource" value="pic_CoreMessageIcon"/>
+			<Property key="ImageGroup" value="Icons"/>
+			<Property key="ImageName" value="Quest"/>
 		</Widget>
 		<Controller type="ControllerEdgeHide">
 			<Property key="Time" value="0.5"/>

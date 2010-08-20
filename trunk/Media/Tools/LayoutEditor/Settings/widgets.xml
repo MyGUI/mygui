@@ -23,9 +23,9 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Button_StateSelected" value="Bool"/>
-		<Parameter key="Button_ModeImage" value="Bool"/>
-		<Parameter key="Button_ImageResource" value="String"/>
+		<Parameter key="StateSelected" value="Bool"/>
+		<Parameter key="ModeImage" value="Bool"/>
+		<Parameter key="ImageResource" value="String"/>
 	</Widget>
 
 	<Widget name="Canvas">
@@ -41,9 +41,9 @@
 
 		<Property key="Skin" value="ComboBox"/>
 
-		<Parameter key="ComboBox_ModeDrop" value="Bool"/>
-		<Parameter key="ComboBox_FlowDirection" value="FlowDirection"/>
-		<Parameter key="ComboBox_MaxLength" value="1 int"/>
+		<Parameter key="ModeDrop" value="Bool"/>
+		<Parameter key="FlowDirection" value="FlowDirection"/>
+		<Parameter key="MaxLength" value="1 int"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>
@@ -72,19 +72,20 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Edit_CursorPosition" value="2 int"/>
-		<Parameter key="Edit_TextSelect" value="2 int"/>
-		<Parameter key="Edit_ReadOnly" value="Bool"/>
-		<Parameter key="Edit_Password" value="Bool"/>
-		<Parameter key="Edit_MultiLine" value="Bool"/>
-		<Parameter key="Edit_PasswordChar" value="String"/>
-		<Parameter key="Edit_MaxTextLength" value="1 int"/>
-		<Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
-		<Parameter key="Edit_Static" value="Bool"/>
-		<Parameter key="Edit_WordWrap" value="Bool"/>
-		<Parameter key="Edit_TabPrinting" value="Bool"/>
-		<Parameter key="Edit_VisibleVScroll" value="Bool"/>
-		<Parameter key="Edit_VisibleHScroll" value="Bool"/>
+		<Parameter key="CursorPosition" value="2 int"/>
+		<Parameter key="TextSelect" value="2 int"/>
+		<Parameter key="ReadOnly" value="Bool"/>
+		<Parameter key="Password" value="Bool"/>
+		<Parameter key="MultiLine" value="Bool"/>
+		<Parameter key="PasswordChar" value="String"/>
+		<Parameter key="MaxTextLength" value="1 int"/>
+		<Parameter key="OverflowToTheLeft" value="Bool"/>
+		<Parameter key="Static" value="Bool"/>
+		<Parameter key="VisibleVScroll" value="Bool"/>
+		<Parameter key="VisibleHScroll" value="Bool"/>
+		<Parameter key="WordWrap" value="Bool"/>
+		<Parameter key="TabPrinting" value="Bool"/>
+		<Parameter key="InvertSelected" value="Bool"/>
 	</Widget>
 
 	<Widget name="HScroll">
@@ -140,8 +141,8 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
 
-		<Parameter key="MenuItem_Id" value="String"/>
-		<Parameter key="MenuItem_Type" value="MenuItemType"/>
+		<Parameter key="MenuItemId" value="String"/>
+		<Parameter key="MenuItemType" value="MenuItemType"/>
 	</Widget>
 
 	<Widget name="Message">
@@ -150,12 +151,10 @@
 
 		<Property key="Skin" value="Message" group="Other"/>
 
-		<Parameter key="Message_Caption" value="String"/>
-		<Parameter key="Message_Message" value="String"/>
-		<Parameter key="Message_Modal" value="Bool"/>
-		<Parameter key="Message_Button" value="MessageButton"/>
-		<Parameter key="Message_SmoothShow" value="Bool"/>
-		<Parameter key="Message_Fade" value="Bool"/>
+		<Parameter key="MessageText" value="String"/>
+		<Parameter key="Modal" value="Bool"/>
+		<Parameter key="MessageButton" value="MessageButton"/>
+		<Parameter key="MessageSmoothShow" value="Bool"/>
 	</Widget>
 
 	<Widget name="MultiList">
@@ -185,10 +184,10 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Progress_Range" value="1 int"/>
-		<Parameter key="Progress_Position" value="1 int"/>
-		<Parameter key="Progress_AutoTrack" value="Bool"/>
-		<Parameter key="Progress_FlowDirection" value="FlowDirection"/>
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="AutoTrack" value="Bool"/>
+		<Parameter key="FlowDirection" value="FlowDirection"/>
 	</Widget>
 
 	<Widget name="ScrollView">
@@ -201,10 +200,10 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="ScrollView_VisibleVScroll" value="Bool"/>
-		<Parameter key="ScrollView_VisibleHScroll" value="Bool"/>
-		<Parameter key="ScrollView_CanvasAlign" value="CanvasAlign"/>
-		<Parameter key="ScrollView_CanvasSize" value="2 int"/>
+		<Parameter key="VisibleVScroll" value="Bool"/>
+		<Parameter key="VisibleHScroll" value="Bool"/>
+		<Parameter key="CanvasAlign" value="CanvasAlign"/>
+		<Parameter key="CanvasSize" value="2 int"/>
 	</Widget>
 
 	<Widget name="StaticImage">
@@ -217,14 +216,14 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Image_Texture" value="FileName"/>
-		<Parameter key="Image_Coord" value="4 int"/>
-		<Parameter key="Image_Tile" value="2 int"/>
-		<Parameter key="Image_Index" value="1 int"/>
+		<Parameter key="ImageTexture" value="FileName"/>
+		<Parameter key="ImageCoord" value="4 int"/>
+		<Parameter key="ImageTile" value="2 int"/>
+		<Parameter key="ImageIndex" value="1 int"/>
 
-		<Parameter key="Image_Resource" value="String"/>
-		<Parameter key="Image_Group" value="String"/>
-		<Parameter key="Image_Name" value="String"/>
+		<Parameter key="ImageResource" value="String"/>
+		<Parameter key="ImageGroup" value="String"/>
+		<Parameter key="ImageName" value="String"/>
 	</Widget>
 
 	<Widget name="StaticText">
@@ -236,11 +235,11 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Text_Caption" value="String"/>
-		<Parameter key="Text_TextColour" value="Colour"/>
-		<Parameter key="Text_TextAlign" value="TextAlign"/>
-		<Parameter key="Text_FontName" value="Font"/>
-		<Parameter key="Text_FontHeight" value="1 int"/>
+		<Parameter key="Caption" value="String"/>
+		<Parameter key="TextColour" value="Colour"/>
+		<Parameter key="TextAlign" value="TextAlign"/>
+		<Parameter key="FontName" value="Font"/>
+		<Parameter key="FontHeight" value="1 int"/>
 	</Widget>
 
 	<Widget name="Tab">
@@ -251,9 +250,9 @@
 
 		<Property key="ItemManager" value="true"/>
 
-		<Parameter key="Tab_ButtonWidth" value="1 int"/>
-		<Parameter key="Tab_ButtonAutoWidth" value="Bool"/>
-		<Parameter key="Tab_SmoothShow" value="Bool"/>
+		<Parameter key="ButtonWidth" value="1 int"/>
+		<Parameter key="ButtonAutoWidth" value="Bool"/>
+		<Parameter key="SmoothShow" value="Bool"/>
 	</Widget>
 
 	<Widget name="TabItem">
@@ -262,9 +261,6 @@
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
-
-		<Parameter key="TabItem_ButtonWidth" value="1 int"/>
-		<Parameter key="TabItem_Select" value="Bool"/>
 	</Widget>
 
 	<Widget name="VScroll">
@@ -277,11 +273,11 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Scroll_Range" value="1 int"/>
-		<Parameter key="Scroll_Position" value="1 int"/>
-		<Parameter key="Scroll_Page" value="1 int"/>
-		<Parameter key="Scroll_ViewPage" value="1 int"/>
-		<Parameter key="Scroll_MoveToClick" value="Bool"/>
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="Page" value="1 int"/>
+		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="MoveToClick" value="Bool"/>
 	</Widget>
 
 	<Widget name="Widget">
@@ -300,17 +296,16 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="Widget_Visible" value="Bool"/>
-		<Parameter key="Widget_Alpha" value="alpha"/>
-		<Parameter key="Widget_InheritsAlpha" value="Bool"/>
-		<Parameter key="Widget_InheritsPick" value="Bool"/>
-		<Parameter key="Widget_MaskPick" value="FileName"/>
-		<Parameter key="Widget_State" value="String"/>
-		<Parameter key="Widget_Colour" value="Colour"/>
-		<Parameter key="Widget_NeedKey" value="Bool"/>
-		<Parameter key="Widget_NeedMouse" value="Bool"/>
-		<Parameter key="Widget_Enabled" value="Bool"/>
-		<Parameter key="Widget_NeedToolTip" value="Bool"/>
+		<Parameter key="Visible" value="Bool"/>
+		<Parameter key="Alpha" value="alpha"/>
+		<Parameter key="InheritsAlpha" value="Bool"/>
+		<Parameter key="InheritsPick" value="Bool"/>
+		<Parameter key="MaskPick" value="FileName"/>
+		<Parameter key="Colour" value="Colour"/>
+		<Parameter key="NeedKey" value="Bool"/>
+		<Parameter key="NeedMouse" value="Bool"/>
+		<Parameter key="Enabled" value="Bool"/>
+		<Parameter key="NeedToolTip" value="Bool"/>
 	</Widget>
 
 	<Widget name="Window">
@@ -326,10 +321,10 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="false"/>
 
-		<Parameter key="Window_AutoAlpha" value="Bool"/>
-		<Parameter key="Window_Snap" value="Bool"/>
-		<Parameter key="Window_MinSize" value="2 int"/>
-		<Parameter key="Window_MaxSize" value="2 int"/>
+		<Parameter key="AutoAlpha" value="Bool"/>
+		<Parameter key="Snap" value="Bool"/>
+		<Parameter key="MinSize" value="2 int"/>
+		<Parameter key="MaxSize" value="2 int"/>
 	</Widget>
 
 </MyGUI>

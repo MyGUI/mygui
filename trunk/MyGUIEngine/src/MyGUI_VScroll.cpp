@@ -119,8 +119,8 @@ namespace MyGUI
 		if (iter != properties.end()) mMinTrackSize = utility::parseInt(iter->second);
 		else mMinTrackSize = 0;
 
-		iter = properties.find("MoveToClick");
-		if (iter != properties.end()) mMoveToClick = utility::parseBool(iter->second);
+		//iter = properties.find("MoveToClick");
+		//if (iter != properties.end()) mMoveToClick = utility::parseBool(iter->second);
 	}
 
 	void VScroll::shutdownWidgetSkin()

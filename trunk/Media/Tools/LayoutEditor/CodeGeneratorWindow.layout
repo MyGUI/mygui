@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowC" position="88 78 304 274" align="Left Bottom" layer="Overlapped" name="_Main">
-        <Property key="Text_Caption" value="#{Widgets}"/>
-        <Property key="Window_Snap" value="true"/>
-        <Property key="Widget_Visible" value="false"/>
+        <Property key="Caption" value="#{Widgets}"/>
+        <Property key="Snap" value="true"/>
+        <Property key="Visible" value="false"/>
         <Widget type="StaticText" skin="StaticText" position="0 40 128 32">
-            <Property key="Text_Caption" value="Panel name"/>
-            <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="Panel name"/>
+            <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="128 40 167 32" align="HStretch Top" name="PanelName"/>
         <Widget type="StaticText" skin="StaticText" position="0 80 128 32">
-            <Property key="Text_Caption" value="Include directory"/>
-            <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="Include directory"/>
+            <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="0 112 128 32">
-            <Property key="Text_Caption" value="Source directory"/>
-            <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="Source directory"/>
+            <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="128 112 167 32" align="HStretch Top" name="SourceDirectory"/>
         <Widget type="Edit" skin="Edit" position="128 80 167 32" align="HStretch Top" name="IncludeDirectory"/>
         <Widget type="Button" skin="Button" position="8 200 280 32" name="Generate">
-            <Property key="Text_Caption" value="Generate"/>
+            <Property key="Caption" value="Generate"/>
         </Widget>
         <Widget type="ComboBox" skin="ComboBox" position="0 0 296 32">
-            <Property key="Text_Caption" value="Not implemented template selector"/>
-            <Property key="ComboBox_ModeDrop" value="true"/>
+            <Property key="Caption" value="Not implemented template selector"/>
+            <Property key="ModeDrop" value="true"/>
         </Widget>
     </Widget>
 </MyGUI>

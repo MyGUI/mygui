@@ -3,33 +3,33 @@
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="ScrollView" skin="ScrollView" position="0 55 248 409" align="Stretch" name="View">
-            <Property key="ScrollView_CanvasAlign" value="Center"/>
-            <Property key="ScrollView_CanvasSize" value="256 256"/>
+            <Property key="CanvasAlign" value="Center"/>
+            <Property key="CanvasSize" value="256 256"/>
             <Widget type="Widget" skin="BackgroundTile" position="0 0 256 256" align="Stretch">
                 <Widget type="Widget" skin="MarkerWhite" position="0 0 256 256" align="Stretch" name="Background">
-                    <Property key="Widget_Alpha" value="0.5"/>
+                    <Property key="Alpha" value="0.5"/>
                     <Widget type="StaticImage" skin="StaticImageFilterNone" position="0 0 256 256" align="Stretch" name="Texture">
-                        <Property key="Widget_InheritsAlpha" value="false"/>
+                        <Property key="InheritsAlpha" value="false"/>
                     </Widget>
                 </Widget>
             </Widget>
         </Widget>
         <Widget type="ComboBox" skin="ComboBox" position="88 0 131 26" align="HStretch Top" name="BackgroundColour">
-            <Property key="ComboBox_ModeDrop" value="true"/>
+            <Property key="ModeDrop" value="true"/>
         </Widget>
         <Widget type="ComboBox" skin="ComboBox" position="88 27 160 26" align="HStretch Top" name="Scale">
-            <Property key="ComboBox_ModeDrop" value="true"/>
+            <Property key="ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="Panel" position="221 0 26 26" align="Right Top">
             <Widget type="Widget" skin="MarkerWhite" position="2 2 20 20" name="BackgroundColourButton"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="0 27 88 26">
-            <Property key="Widget_Caption" value="#{TextScale}"/>
-            <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{TextScale}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="0 0 88 26">
-            <Property key="Text_TextAlign" value="Left VCenter"/>
-            <Property key="Widget_Caption" value="#{TextBackgroundColour}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{TextBackgroundColour}"/>
         </Widget>
     </Widget>
 </MyGUI>

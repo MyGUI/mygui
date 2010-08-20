@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="16 48 720 576" layer="Overlapped" name="_Main">
-        <Property key="Widget_Caption" value="StaticImage demo"/>
-        <Property key="Window_MinSize" value="456 432"/>
+        <Property key="Caption" value="StaticImage demo"/>
+        <Property key="MinSize" value="456 432"/>
         <Widget type="ScrollView" skin="ScrollView" position="5 262 701 271" align="Stretch" name="view_Image">
-            <Property key="ScrollView_CanvasAlign" value="Default"/>
+            <Property key="CanvasAlign" value="Default"/>
         </Widget>
         <Widget type="MultiList" skin="MultiList" position="5 5 701 195" align="HStretch Top" layer="Back" name="multi_List"/>
         <Widget type="Edit" skin="Edit" position="5 204 700 26" layer="Back" name="edit_ResourceName">
-            <Property key="Edit_ReadOnly" value="true"/>
+            <Property key="ReadOnly" value="true"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="5 233 701 26" align="HStretch Top" layer="Back" name="edit_FileName"/>
     </Widget>

@@ -225,7 +225,6 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "StretchRectangle" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "false" />
 		<Property key="MainMove" value = "true" />
 
 		<Child type="Widget" skin="MarkerGreen" offset = "0 0 50 1" align = "HStretch Top"/>
@@ -823,7 +822,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "Window" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowCaptionDisable" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -861,7 +860,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowC" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowCaption" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -899,7 +898,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowCS" size = "68 49" texture = "#{MyGUI_Theme_Texture}">
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowCaption" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -944,7 +943,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowCSX" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowCaptionSmall" offset = "0 0 40 28" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -996,7 +995,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowCSMX" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowCaptionSmall" offset = "0 0 21 28" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -1068,7 +1067,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "Message" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 		<Property key="ButtonSkin" value = "Button" />
 		<Property key="ButtonType" value = "Button" />
 		<Property key="ButtonSize" value = "100 26" />
@@ -2005,7 +2004,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowSmallC" size = "75 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowSmallCaption" offset = "6 0 64 18" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>
@@ -2044,7 +2043,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "WindowSmallCX" size = "75 49" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="ToStick" value = "true" />
+		<Property key="Snap" value = "true" />
 
 		<Child type="Button" skin="WindowSmallCaption" offset = "6 0 64 18" align = "HStretch Top" name = "Caption">
 			<Property key="Scale" value = "1 1 0 0"/>

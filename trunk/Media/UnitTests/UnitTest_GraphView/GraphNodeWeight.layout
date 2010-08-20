@@ -7,20 +7,20 @@
             <UserString key="Name" value="Weight"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="18 26 66 16" align="HStretch Top" layer="Back">
-            <Property key="Text_TextAlign" value="Right VCenter"/>
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
-            <Property key="Widget_Caption" value="Weight"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="Caption" value="Weight"/>
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
         <Widget type="HScroll" skin="HSlider" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
-            <Property key="Scroll_MoveToClick" value="true"/>
-            <Property key="Scroll_Range" value="1000"/>
-            <Property key="Scroll_Position" value="0"/>
-            <Property key="Scroll_Page" value="1"/>
-            <Property key="Scroll_ViewPage" value="1"/>
+            <Property key="MoveToClick" value="true"/>
+            <Property key="Range" value="1000"/>
+            <Property key="RangePosition" value="0"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
-            <Property key="Text_FontName" value="font_DejaVuSans.14"/>
+            <Property key="FontName" value="font_DejaVuSans.14"/>
         </Widget>
     </Widget>
 </MyGUI>
