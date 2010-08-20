@@ -53,7 +53,6 @@ namespace MyGUI
 
 		assignWidget(mClient, "Client", false);
 
-		// FIXME
 		if (nullptr == mClient)
 			mClient = this;
 

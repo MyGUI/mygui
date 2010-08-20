@@ -78,7 +78,6 @@ namespace MyGUI
 			mClient = mWidgetClient;
 		}
 
-		// FIXME мона и без клиента
 		if (nullptr == mClient)
 			mClient = this;
 	}
