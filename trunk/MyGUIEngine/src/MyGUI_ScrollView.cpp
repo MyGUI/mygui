@@ -79,6 +79,7 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mScrollClient = nullptr;
+		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}

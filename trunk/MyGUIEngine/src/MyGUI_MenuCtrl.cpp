@@ -111,7 +111,6 @@ namespace MyGUI
 
 	void MenuCtrl::shutdownOverride()
 	{
-		mWidgetClient = nullptr;
 		// FIXME перенесенно из деструктора, может косячить при смене скина
 		mShutdown = true;
 
