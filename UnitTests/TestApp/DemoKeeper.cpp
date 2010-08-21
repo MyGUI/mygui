@@ -16,7 +16,8 @@ namespace demo
 		MyGUI::VectorWidgetPtr layout = MyGUI::LayoutManager::getInstance().loadLayout("TestApp2.layout");
 		MyGUI::LayoutManager::getInstance().unloadLayout(layout);
 
-		MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("TestApp2.layout", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::Button* button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("TestApp2.layout", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		button->setCaption("Test");
 	}
 
 	void DemoKeeper::destroyScene()
