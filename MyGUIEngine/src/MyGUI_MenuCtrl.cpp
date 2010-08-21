@@ -78,7 +78,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 
 		if (isUserString("SkinLine"))
 			mSkinLine = getUserString("SkinLine");

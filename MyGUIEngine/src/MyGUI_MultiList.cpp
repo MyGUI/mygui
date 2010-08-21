@@ -72,7 +72,7 @@ namespace MyGUI
 			mButtonMain = mClient->createWidget<Button>(skinButtonEmpty,
 				IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 		if (mWidgetClient != nullptr)
 		{
 			mClient = mWidgetClient;

@@ -65,7 +65,7 @@ namespace MyGUI
 			main_move = true;
 		}
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 		if (mWidgetClient != nullptr)
 		{
 			if (main_move)
@@ -76,24 +76,24 @@ namespace MyGUI
 			}
 		}
 
-		assignWidget(mWidgetCaption, "Caption", false);
+		assignWidget(mWidgetCaption, "Caption");
 		if (mWidgetCaption != nullptr)
 		{
 			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		VectorWidgetPtr buttons = getSkinWidgetsByName("Button");
+		for (VectorWidgetPtr::iterator iter=buttons.begin(); iter!=buttons.end(); ++iter)
 		{
-			if (*(*iter)->_getInternalData<std::string>() == "Button")
-			{
-				(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
-			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Action")
-			{
-				(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-				(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-			}
+			(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
+		}
+
+		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
+		for (VectorWidgetPtr::iterator iter=actions.begin(); iter!=actions.end(); ++iter)
+		{
+			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 	}
 

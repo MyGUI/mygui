@@ -51,7 +51,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		assignWidget(mClient, "Client", false);
+		assignWidget(mClient, "Client");
 
 		if (nullptr == mClient)
 			mClient = this;
