@@ -82,12 +82,11 @@ namespace MyGUI
 		}
 
 		// подписываем дочерние классы на скролл
-		// тут почему то без инициализации было
-		/*if (mWidgetClient != nullptr)
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
-		}*/
+			mClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
+			mClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
+		}
 
 		// подписываемся на изменения текста
 		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
