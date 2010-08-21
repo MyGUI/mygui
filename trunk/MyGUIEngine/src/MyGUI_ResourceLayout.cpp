@@ -162,7 +162,8 @@ namespace MyGUI
 		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
 		{
 			wid->setUserString(iter->first, iter->second);
-			LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
+			if (!_template)
+				LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
 		}
 
 		for (VectorWidgetInfo::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)

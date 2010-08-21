@@ -334,7 +334,7 @@ namespace MyGUI
 	private:
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkinBase(ResourceSkin* _info, ResourceLayout* _templateInfo);
+		const WidgetInfo* initialiseWidgetSkinBase(ResourceSkin* _info, ResourceLayout* _templateInfo);
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();

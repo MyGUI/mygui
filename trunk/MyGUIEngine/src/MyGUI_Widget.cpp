@@ -107,7 +107,7 @@ namespace MyGUI
 		if (nullptr != mCroppedParent)
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
-		initialiseWidgetSkinBase(skinInfo, templateInfo);
+		const WidgetInfo* root = initialiseWidgetSkinBase(skinInfo, templateInfo);
 
 		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
@@ -128,6 +128,14 @@ namespace MyGUI
 
 		if (skinInfo != nullptr)
 			setSkinProperty(skinInfo);
+
+		if (root != nullptr)
+		{
+			for (VectorStringPairs::const_iterator iter = root->properties.begin(); iter != root->properties.end(); ++iter)
+			{
+				setProperty(iter->first, iter->second);
+			}
+		}
 	}
 
 	void Widget::_shutdown()
@@ -172,7 +180,7 @@ namespace MyGUI
 		saveLayerItem();
 
 		shutdownWidgetSkinBase();
-		initialiseWidgetSkinBase(skinInfo, templateInfo);
+		const WidgetInfo* root = initialiseWidgetSkinBase(skinInfo, templateInfo);
 
 		restoreLayerItem();
 
@@ -180,9 +188,17 @@ namespace MyGUI
 
 		if (skinInfo != nullptr)
 			setSkinProperty(skinInfo);
+
+		if (root != nullptr)
+		{
+			for (VectorStringPairs::const_iterator iter = root->properties.begin(); iter != root->properties.end(); ++iter)
+			{
+				setProperty(iter->first, iter->second);
+			}
+		}
 	}
 
-	void Widget::initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo)
+	const WidgetInfo* Widget::initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo)
 	{
 		const WidgetInfo* root  = nullptr;
 		bool skinOnly = false;
@@ -244,6 +260,11 @@ namespace MyGUI
 			//FIXME - явный вызов
 			Widget::setSize(root->intCoord.size());
 
+			for (MapString::const_iterator iter = root->userStrings.begin(); iter != root->userStrings.end(); ++iter)
+			{
+				setUserString(iter->first, iter->second);
+			}
+
 			for (VectorWidgetInfo::const_iterator iter = root->childWidgetsInfo.begin(); iter != root->childWidgetsInfo.end(); ++iter)
 			{
 				_templateInfo->createWidget(*iter, "", this, true);
@@ -252,6 +273,8 @@ namespace MyGUI
 
 		//FIXME - явный вызов
 		Widget::setSize(_size);
+
+		return root;
 	}
 
 	void Widget::shutdownWidgetSkinBase()
