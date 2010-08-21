@@ -63,7 +63,7 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 		if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
@@ -72,13 +72,13 @@ namespace MyGUI
 			mClient = mWidgetClient;
 		}
 
-		assignWidget(mVScroll, "VScroll", false);
+		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 		}
 
-		assignWidget(mHScroll, "HScroll", false);
+		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
 			mHScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);

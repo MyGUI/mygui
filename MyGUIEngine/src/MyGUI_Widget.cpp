@@ -217,6 +217,8 @@ namespace MyGUI
 			_destroyChildWidget(*iter);
 		}
 		mWidgetChildSkin.clear();
+
+		mWidgetClient = nullptr;
 	}
 
 	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
@@ -985,6 +987,26 @@ namespace MyGUI
 
 			setPropertyOverride(key, value);
 		}
+	}
+
+	VectorWidgetPtr Widget::getSkinWidgetsByName(const std::string& _name)
+	{
+		VectorWidgetPtr result;
+
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			Widget* find = (*iter)->findWidget(_name);
+			if (nullptr != find)
+				result.push_back(find);
+		}
+
+		return result;
+	}
+
+	void Widget::destroySkinWidget(Widget* _widget)
+	{
+		mWidgetChild.push_back(_widget);
+		WidgetManager::getInstance().destroyWidget(_widget);
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)

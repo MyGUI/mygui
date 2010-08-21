@@ -55,13 +55,13 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		assignWidget(mButton, "Button", false);
+		assignWidget(mButton, "Button");
 		if (mButton != nullptr)
 		{
 			mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
 		}
 
-		assignWidget(mList, "List", false);
+		assignWidget(mList, "List");
 
 		mManualList = (mList == nullptr);
 		if (mList == nullptr)
@@ -69,8 +69,7 @@ namespace MyGUI
 			std::string list_skin = getUserString("ListSkin");
 			std::string list_layer = getUserString("ListLayer");
 
-			mList = createWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
-			mWidgetChild.pop_back();
+			mList = createSkinWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
 		}
 
 		if (mList != nullptr)
@@ -97,8 +96,7 @@ namespace MyGUI
 	{
 		if (mManualList)
 		{
-			mWidgetChild.push_back(mList);
-			WidgetManager::getInstance().destroyWidget(mList);
+			destroySkinWidget(mList);
 		}
 		mList = nullptr;
 		mButton = nullptr;

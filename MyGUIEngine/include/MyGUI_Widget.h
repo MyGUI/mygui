@@ -304,30 +304,30 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 		template <typename T>
-		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true)
+		void assignWidget(T * & _widget, const std::string& _name)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 			{
-				MyGUI::Widget* find = (*iter)->findWidget(_name);
+				Widget* find = (*iter)->findWidget(_name);
 				if (nullptr != find)
 				{
-					T * cast = find->castType<T>(false);
-					if (nullptr != cast)
-					{
-						_widget = cast;
-					}
-					else if (_throw)
-					{
-							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
-							<< "' source name = '" << find->getName()
-							<< "' source type = '" << find->getTypeName() << "'");
-					}
-					return;
+					_widget = find->castType<T>(false);
+					break;
 				}
 			}
-			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "'");
 		}
+
+		VectorWidgetPtr getSkinWidgetsByName(const std::string& _name);
+
+		template <typename T>
+		T* createSkinWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
+		{
+			T* result = static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
+			mWidgetChild.pop_back();
+			return result;
+		}
+		void destroySkinWidget(Widget* _widget);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
@@ -366,12 +366,13 @@ namespace MyGUI
 		// то обязательно проинициализировать Client
 		Widget* mWidgetClient;
 
+	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
+
 		// вектор детей скина
 		VectorWidgetPtr mWidgetChildSkin;
 
-	private:
 		// доступен ли на виджет
 		bool mEnabled;
 		bool mInheritsEnabled;

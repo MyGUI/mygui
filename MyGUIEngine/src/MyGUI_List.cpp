@@ -59,13 +59,13 @@ namespace MyGUI
 		if (mHeightLine < 1)
 			mHeightLine = 1;
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 		if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
 		}
 
-		assignWidget(mWidgetScroll, "VScroll", false);
+		assignWidget(mWidgetScroll, "VScroll");
 		if (mWidgetScroll != nullptr)
 		{
 			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &List::notifyScrollChangePosition);

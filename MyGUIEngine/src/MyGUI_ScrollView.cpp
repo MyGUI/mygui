@@ -47,7 +47,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mScrollClient, "Client", false);
+		assignWidget(mScrollClient, "Client");
 		if (mScrollClient != nullptr)
 		{
 			mScrollClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
@@ -58,13 +58,13 @@ namespace MyGUI
 			mWidgetClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		}
 
-		assignWidget(mVScroll, "VScroll", false);
+		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
 		}
 
-		assignWidget(mHScroll, "HScroll", false);
+		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
 			mHScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
