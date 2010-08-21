@@ -190,14 +190,14 @@ namespace MyGUI
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
 			//FIXME - явный вызов
-			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name);
-			widget->_setInternalData(iter->name);
+			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
+			//widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
 				widget->setUserString(prop->first, prop->second);
 			// для детей скина свой список
-			mWidgetChildSkin.push_back(widget);
-			mWidgetChild.pop_back();
+			//mWidgetChildSkin.push_back(widget);
+			//mWidgetChild.pop_back();
 		}
 
 		Widget::setSize(_size);//FIXME - явный вызов
@@ -221,16 +221,35 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 	}
 
-	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template)
 	{
-		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */this, _style == WidgetStyle::Popup ? nullptr : this, /*this, */_name);
-		mWidgetChild.push_back(widget);
+		Widget* widget = nullptr;
+
+		if (_template)
+		{
+			widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+			mWidgetChildSkin.push_back(widget);
+		}
+		else
+		{
+			if (mWidgetClient != nullptr)
+			{
+				return mWidgetClient->baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, _template);
+			}
+			else
+			{
+				widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
+				mWidgetChild.push_back(widget);
+			}
+		}
 
 		widget->setAlign(_align);
 
 		// присоединяем виджет с уровню
 		if (!_layer.empty() && widget->isRootWidget())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
+
+		onWidgetCreated(widget);
 
 		return widget;
 	}
@@ -808,7 +827,7 @@ namespace MyGUI
 
 	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
 	{
-		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
+		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name, false);
 	}
 
 	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name)
@@ -823,7 +842,7 @@ namespace MyGUI
 
 	Widget* Widget::createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, false);
 	}
 
 	EnumeratorWidgetPtr Widget::getEnumerator()
@@ -1007,6 +1026,10 @@ namespace MyGUI
 	{
 		mWidgetChild.push_back(_widget);
 		WidgetManager::getInstance().destroyWidget(_widget);
+	}
+
+	void Widget::onWidgetCreated(Widget* _widget)
+	{
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)

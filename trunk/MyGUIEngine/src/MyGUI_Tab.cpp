@@ -139,24 +139,25 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	// переопределяем для особого обслуживания страниц
-	Widget* Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	void Tab::onWidgetCreated(Widget* _widget)
 	{
-		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type))
-		{
-			TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", _name));
-			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
+		Base::onWidgetCreated(_widget);
 
-			return sheet;
+		TabItem* child = _widget->castType<TabItem>(false);
+		if (child != nullptr)
+		{
+			child->setCoord(_getWidgetTemplate()->getCoord());
+			child->setAlign(_getWidgetTemplate()->getAlign());
+
+			_insertItem(ITEM_NONE, "", child, Any::Null);
 		}
-		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", ""));
+		TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false));
 		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;

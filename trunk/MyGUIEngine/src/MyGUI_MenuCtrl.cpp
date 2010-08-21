@@ -117,7 +117,7 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	/*Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		Widget* widget = nullptr;
 		if (mWidgetClient != nullptr)
@@ -125,12 +125,18 @@ namespace MyGUI
 		else
 			widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 
-		MenuItem* child = widget->castType<MenuItem>(false);
-		if (child)
+		return widget;
+	}*/
+
+	void MenuCtrl::onWidgetCreated(Widget* _widget)
+	{
+		Base::onWidgetCreated(_widget);
+
+		MenuItem* child = _widget->castType<MenuItem>(false);
+		if (child != nullptr)
 		{
 			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
 		}
-		return widget;
 	}
 
 	MenuItem* MenuCtrl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)

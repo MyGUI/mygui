@@ -118,6 +118,7 @@ namespace MyGUI
         Node* mpSelection;
         Node* mpRoot;
         size_t mnExpandedNodes;
+        int mnLevelOffset;
     };
 
 
