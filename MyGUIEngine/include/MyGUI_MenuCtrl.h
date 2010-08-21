@@ -266,9 +266,11 @@ namespace MyGUI
 		virtual void shutdownOverride();
 
 		// переопределяем для особого обслуживания
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		//virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		virtual void onKeyChangeRootFocus(bool _focus);
+
+		virtual void onWidgetCreated(Widget* _widget);
 
 	private:
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);

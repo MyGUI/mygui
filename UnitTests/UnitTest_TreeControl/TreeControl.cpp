@@ -95,7 +95,8 @@ namespace MyGUI
         mnFocusIndex(ITEM_NONE),
         mpSelection(nullptr),
 		mpRoot(nullptr),
-        mnExpandedNodes(0)
+        mnExpandedNodes(0),
+		mnLevelOffset(0)
     {
     }
 
@@ -109,23 +110,18 @@ namespace MyGUI
 		//FIXME
 		setNeedKeyFocus(true);
 
-        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
-        {
-			if (*(*WidgetIterator)->_getInternalData<std::string>() == "VScroll")
-            {
-                MYGUI_DEBUG_ASSERT(!mpWidgetScroll, "widget already assigned");
-                mpWidgetScroll = (*WidgetIterator)->castType<VScroll>();
-                mpWidgetScroll->eventScrollChangePosition += newDelegate(this, &TreeControl::notifyScrollChangePosition);
-                mpWidgetScroll->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
-            }
-            else
-            if (*(*WidgetIterator)->_getInternalData<std::string>() == "Client")
-            {
-                MYGUI_DEBUG_ASSERT(!mWidgetClient, "widget already assigned");
-                mWidgetClient = (*WidgetIterator);
-                mWidgetClient->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
-            }
-        }
+		assignWidget(mpWidgetScroll, "VScroll");
+		if (mpWidgetScroll != nullptr)
+		{
+            mpWidgetScroll->eventScrollChangePosition += newDelegate(this, &TreeControl::notifyScrollChangePosition);
+            mpWidgetScroll->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
+		}
+
+		assignWidget(mWidgetClient, "Client");
+		if (mWidgetClient != nullptr)
+		{
+			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
+		}
 
         MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
         MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
@@ -134,6 +130,8 @@ namespace MyGUI
 			mstrSkinLine = getUserString("SkinLine");
 		if (isUserString("HeightLine"))
 			mnItemHeight = utility::parseValue<int>(getUserString("HeightLine"));
+		if (isUserString("LevelOffset"))
+			mnLevelOffset = utility::parseValue<int>(getUserString("LevelOffset"));
 
 		MYGUI_ASSERT(!mstrSkinLine.empty(), "SkinLine property not found (TreeControl must have SkinLine property)");
 
@@ -354,8 +352,7 @@ namespace MyGUI
                 TreeControlItem* pItem = mItemWidgets[nItem];
                 pItem->setVisible(true);
                 pItem->setCaption(pNode->getText());
-                pItem->setLevel(nLevel);
-                pItem->setPosition(IntPoint(0, nOffset));
+                pItem->setPosition(IntPoint(nLevel * mnLevelOffset, nOffset));
                 pItem->setStateSelected(pNode == mpSelection);
                 pItem->setUserData(pNode);
 

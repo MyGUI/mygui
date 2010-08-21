@@ -244,9 +244,6 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		// переопределяем для особого обслуживания страниц
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
-
 		void updateBar();
 
 		void notifyPressedButtonEvent(MyGUI::Widget* _sender);
@@ -262,6 +259,8 @@ namespace MyGUI
 
 		// вкладка при удалении уведомляет таб
 		void _notifyDeleteItem(TabItem* _item);
+
+		virtual void onWidgetCreated(Widget* _widget);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

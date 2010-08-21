@@ -514,6 +514,7 @@ namespace MyGUI
 		mPropertyIgnore.insert("TrackRangeMargins");
 		mPropertyIgnore.insert("MinTrackSize");
 		mPropertyIgnore.insert("MainMove");
+		mPropertyIgnore.insert("LevelOffset");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
