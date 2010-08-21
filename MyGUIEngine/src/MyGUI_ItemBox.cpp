@@ -63,13 +63,13 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			mWidgetClient->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			mClient = mWidgetClient;
+			mClient->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
+			mClient->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			mClient->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+			setWidgetClient(mClient);
 		}
 
 		assignWidget(mVScroll, "VScroll");
@@ -85,8 +85,8 @@ namespace MyGUI
 		}
 
 		// подписываем клиент для драгэндропа
-		if (mWidgetClient != nullptr)
-			mWidgetClient->_setContainer(this);
+		if (mClient != nullptr)
+			mClient->_setContainer(this);
 
 		requestItemSize();
 
@@ -99,7 +99,6 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mClient = nullptr;
-		mWidgetClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -828,7 +827,7 @@ namespace MyGUI
 		return mContentPosition;
 	}
 
-	IntSize ItemBox::getViewSize() const
+	IntSize ItemBox::getViewSize()
 	{
 		return _getClientWidget()->getSize();
 	}
@@ -860,12 +859,7 @@ namespace MyGUI
 
 	Widget* ItemBox::_getClientWidget()
 	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
-	}
-
-	const Widget* ItemBox::_getClientWidget() const
-	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
+		return mClient == nullptr ? this : mClient;
 	}
 
 } // namespace MyGUI

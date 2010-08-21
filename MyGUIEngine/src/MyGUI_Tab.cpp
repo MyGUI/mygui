@@ -157,10 +157,27 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false));
-		_insertItem(_index, _name, sheet, _data);
+		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false);
 
-		return sheet;
+		size_t lastIndex = mItemsInfo.size() - 1;
+		setItemNameAt(lastIndex, _name);
+		setItemDataAt(lastIndex, _data);
+
+		swapItems(_index == ITEM_NONE ? lastIndex : _index, lastIndex);
+
+		return widget->castType<TabItem>();
+	}
+
+	void Tab::swapItems(size_t _index1, size_t _index2)
+	{
+		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "Tab::swapItems");
+		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "Tab::swapItems");
+
+		if (_index1 != _index2)
+		{
+			std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
+			updateBar();
+		}
 	}
 
 	void Tab::setPosition(const IntPoint& _point)

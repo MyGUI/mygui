@@ -82,9 +82,6 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		// переопределяем для присвоению холста
-		//virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
-
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
@@ -102,7 +99,7 @@ namespace MyGUI
 		virtual IntPoint getContentPosition();
 		virtual void setContentPosition(const IntPoint& _point);
 		// размер окна, через которые видно данные
-		virtual IntSize getViewSize() const;
+		virtual IntSize getViewSize();
 		// размер на который прокручиваются данные при щелчке по скролу
 		virtual size_t getVScrollPage();
 		virtual size_t getHScrollPage();
@@ -110,9 +107,8 @@ namespace MyGUI
 		virtual Align getContentAlign() { return mContentAlign; }
 
 	protected:
-		Widget* mScrollClient;
 		Align mContentAlign;
-
+		Widget* mRealClient;
 	};
 
 } // namespace MyGUI

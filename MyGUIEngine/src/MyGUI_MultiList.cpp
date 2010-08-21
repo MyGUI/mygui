@@ -72,10 +72,10 @@ namespace MyGUI
 			mButtonMain = mClient->createWidget<Button>(skinButtonEmpty,
 				IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mClient = mWidgetClient;
+			setWidgetClient(mClient);
 		}
 
 		if (nullptr == mClient)
@@ -84,7 +84,6 @@ namespace MyGUI
 
 	void MultiList::shutdownOverride()
 	{
-		mWidgetClient = nullptr;
 		mClient = nullptr;
 
 		Base::shutdownOverride();

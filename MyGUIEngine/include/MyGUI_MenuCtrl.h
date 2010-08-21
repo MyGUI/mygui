@@ -307,7 +307,6 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 		Widget* _getClientWidget();
-		const Widget* _getClientWidget() const;
 
 	protected:
 		bool mHideByAccept;
@@ -340,6 +339,7 @@ namespace MyGUI
 		bool mAnimateSmooth;
 
 		bool mChangeChildSkin;
+		Widget* mClient;
 	};
 
 } // namespace MyGUI
