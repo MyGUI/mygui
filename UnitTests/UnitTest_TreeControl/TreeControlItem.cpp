@@ -11,8 +11,7 @@ namespace MyGUI
 {
     TreeControlItem::TreeControlItem() :
         mpButtonExpandCollapse(nullptr),
-        mpIcon(nullptr),
-        mnLevelOffset(16)
+        mpIcon(nullptr)
     {
     }
 
@@ -20,34 +19,17 @@ namespace MyGUI
     {
 		Base::initialiseOverride();
 
-        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
-        {
-            Widget* pWidget = *WidgetIterator;
-            pWidget->setUserData(pWidget->getPosition().left);
+		assignWidget(mpButtonExpandCollapse, "ButtonExpandCollapse");
+		if (mpButtonExpandCollapse != nullptr)
+		{
+            mpButtonExpandCollapse->eventMouseSetFocus += newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
+            mpButtonExpandCollapse->eventMouseLostFocus += newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
+            mpButtonExpandCollapse->eventMouseWheel += newDelegate(this, &TreeControlItem::notifyMouseWheel);
+		}
 
-			if (*(pWidget->_getInternalData<std::string>()) == "ButtonExpandCollapse")
-            {
-                MYGUI_DEBUG_ASSERT(!mpButtonExpandCollapse, "widget already assigned");
-                mpButtonExpandCollapse = pWidget->castType<Button>();
-
-                pWidget->eventMouseSetFocus += newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
-                pWidget->eventMouseLostFocus += newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
-                pWidget->eventMouseWheel += newDelegate(this, &TreeControlItem::notifyMouseWheel);
-            }
-            else
-                pWidget->setInheritsPick(true);
-
-            if (*(pWidget->_getInternalData<std::string>()) == "Image")
-            {
-                MYGUI_DEBUG_ASSERT(!mpIcon, "widget already assigned");
-                mpIcon = pWidget->castType<StaticImage>();
-            }
-        }
+		assignWidget(mpIcon, "Image");
 
         MYGUI_ASSERT(nullptr != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
-
-		if (isUserString("LevelOffset"))
-			mnLevelOffset = utility::parseValue<int>(getUserString("LevelOffset"));
     }
 
     void TreeControlItem::shutdownOverride()
@@ -78,19 +60,5 @@ namespace MyGUI
     TreeControl::Node* TreeControlItem::getNode() const
     {
         return *(const_cast<TreeControlItem*>(this)->getUserData<TreeControl::Node*>());
-    }
-
-    void TreeControlItem::setLevel(size_t nLevel)
-    {
-        int nOffset = (mnLevelOffset * nLevel);
-        getSubWidgetText()->setViewOffset(IntPoint(-nOffset, 0));
-
-        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
-        {
-            Widget* pWidget = *WidgetIterator;
-            pWidget->setPosition(IntPoint(
-                *(pWidget->getUserData<int>()) + nOffset,
-                pWidget->getPosition().top));
-        }
     }
 }

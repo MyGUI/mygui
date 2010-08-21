@@ -286,7 +286,7 @@ namespace MyGUI
 		void _updateView(); // обновления себя и детей
 
 		// создает виджет
-		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name, bool _template);
 
 		// удаляет всех детей
 		void _destroyAllChildWidget();
@@ -323,11 +323,13 @@ namespace MyGUI
 		template <typename T>
 		T* createSkinWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
 		{
-			T* result = static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
-			mWidgetChild.pop_back();
+			T* result = static_cast<T*>(baseCreateWidget(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name, true));
+			//mWidgetChild.pop_back();
 			return result;
 		}
 		void destroySkinWidget(Widget* _widget);
+
+		virtual void onWidgetCreated(Widget* _widget);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

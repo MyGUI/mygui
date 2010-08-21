@@ -59,12 +59,15 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	Widget* MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	void MenuItem::onWidgetCreated(Widget* _widget)
 	{
-		Widget* widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
-		MenuCtrl* child = widget->castType<MenuCtrl>(false);
-		if (child) mOwner->_wrapItemChild(this, child);
-		return widget;
+		Base::onWidgetCreated(_widget);
+
+		MenuCtrl* child = _widget->castType<MenuCtrl>(false);
+		if (child != nullptr)
+		{
+			mOwner->_wrapItemChild(this, child);
+		}
 	}
 
 	void MenuItem::setCaption(const UString& _value)

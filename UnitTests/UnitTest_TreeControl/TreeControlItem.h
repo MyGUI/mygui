@@ -23,8 +23,6 @@ namespace MyGUI
         Button* getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
         StaticImage* getIcon() const  { return mpIcon; }
 
-        void setLevel(size_t nLevel);
-
     protected:
         virtual void initialiseOverride();
         virtual void shutdownOverride();
@@ -36,7 +34,7 @@ namespace MyGUI
     private:
         Button* mpButtonExpandCollapse;
         StaticImage* mpIcon;
-        int mnLevelOffset;
+        //int mnLevelOffset;
     };
 
 }
