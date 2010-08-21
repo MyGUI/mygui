@@ -13,10 +13,11 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::VectorWidgetPtr layout = MyGUI::LayoutManager::getInstance().loadLayout("TestApp2.layout");
-		MyGUI::LayoutManager::getInstance().unloadLayout(layout);
+		MyGUI::ResourceManager::getInstance().load("TestApp2.xml");
+		//MyGUI::VectorWidgetPtr layout = MyGUI::LayoutManager::getInstance().loadLayout("TestApp2.layout");
+		//MyGUI::LayoutManager::getInstance().unloadLayout(layout);
 
-		MyGUI::Button* button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("TestApp2.layout", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::Button* button = MyGUI::Gui::getInstance().createWidget<MyGUI::Button>("TestApp2", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
 		button->setCaption("Test");
 	}
 
