@@ -17,22 +17,35 @@ const std::wstring userSettingsFile = L"le_user_settings.xml";
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
-void eventInfo(MyGUI::Widget* _sender, const std::string& _key, const std::string& _event)
+EditorState::EditorState() :
+	mLastClickX(0),
+	mLastClickY(0),
+	mSelectDepth(0),
+	mCurrentWidget(false),
+	mRecreate(false),
+	mModeSaveDialog(false),
+	mTestMode(false),
+	mToolTip(nullptr),
+	mPropertiesPanelView(nullptr),
+	mSettingsWindow(nullptr),
+	mWidgetsWindow(nullptr),
+	mMetaSolutionWindow(nullptr),
+	mCodeGenerator(nullptr),
+	mOpenSaveFileDialog(nullptr),
+	mEditorWidgets(nullptr),
+	mWidgetTypes(nullptr),
+	mUndoManager(nullptr),
+	mGroupMessage(nullptr),
+	mBar(nullptr),
+	mPopupMenuFile(nullptr),
+	mPopupMenuWidgets(nullptr)
 {
-	//MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
 
-template<typename Type>
-class PtrHolder
+EditorState::~EditorState()
 {
-public:
-	PtrHolder(Type* _data) : mData(_data) { }
-	~PtrHolder() { delete mData; }
-private:
-	Type* mData;
-};
+}
 
-//===================================================================================
 void EditorState::setupResources()
 {
 	base::BaseManager::setupResources();
@@ -55,47 +68,45 @@ void EditorState::createScene()
 	// if you want to test LanguageManager uncomment next line
 	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
-	testMode = false;
+	mTestMode = false;
 
-	wt = new WidgetTypes();
-	wt->initialise();
-	ew = new EditorWidgets();
-	ew->initialise();
-	um = new UndoManager();
-	um->initialise(ew);
+	mWidgetTypes = new WidgetTypes();
+	mWidgetTypes->initialise();
+	mEditorWidgets = new EditorWidgets();
+	mEditorWidgets->initialise();
+	mUndoManager = new UndoManager();
+	mUndoManager->initialise(mEditorWidgets);
 	mGroupMessage = new GroupMessage();
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 	mToolTip = new EditorToolTip();
-	//MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));
-	//MyGUI::DelegateManager::getInstance().addDelegate("eventEditorToolTip", MyGUI::newDelegate(this, &EditorState::notifyToolTip));
 
-	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
+	mInterfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// settings window
 	mSettingsWindow = new SettingsWindow();
 	mSettingsWindow->eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
-	interfaceWidgets.push_back(mSettingsWindow->getMainWidget());
+	mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
 	mPropertiesPanelView = new PropertiesPanelView();
 	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
+	mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 	mWidgetsWindow = new WidgetsWindow();
 	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
 	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
-	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
+	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
-	interfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
+	mInterfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
 	mCodeGenerator = new CodeGenerator();
-	interfaceWidgets.push_back(mCodeGenerator->getMainWidget());
-	ew->setCodeGenerator(mCodeGenerator);
+	mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
+	mEditorWidgets->setCodeGenerator(mCodeGenerator);
 
 	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
@@ -111,9 +122,9 @@ void EditorState::createScene()
 	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
 	widget->setCoord(
 		widget->getParentSize().width - widget->getSize().width,
-		bar->getHeight(),
+		mBar->getHeight(),
 		widget->getSize().width,
-		widget->getParentSize().height - bar->getHeight()
+		widget->getParentSize().height - mBar->getHeight()
 		);
 
 	// после загрузки настроек инициализируем
@@ -121,7 +132,7 @@ void EditorState::createScene()
 
 	if (mSettingsWindow->getEdgeHide())
 	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 		{
 			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
 			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
@@ -138,7 +149,7 @@ void EditorState::createScene()
 
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
-	for (std::vector<MyGUI::UString>::iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+	for (std::vector<MyGUI::UString>::iterator iter = mAdditionalPaths.begin(); iter != mAdditionalPaths.end(); ++iter)
 	{
 		addResourceLocation(*iter);
 	}
@@ -161,17 +172,17 @@ void EditorState::destroyScene()
 
 	delete mGroupMessage;
 
-	um->shutdown();
-	delete um;
-	um = nullptr;
+	mUndoManager->shutdown();
+	delete mUndoManager;
+	mUndoManager = nullptr;
 
-	ew->shutdown();
-	delete ew;
-	ew = nullptr;
+	mEditorWidgets->shutdown();
+	delete mEditorWidgets;
+	mEditorWidgets = nullptr;
 
-	wt->shutdown();
-	delete wt;
-	wt = nullptr;
+	mWidgetTypes->shutdown();
+	delete mWidgetTypes;
+	mWidgetTypes = nullptr;
 
 	delete mToolTip;
 	mToolTip = nullptr;
@@ -196,17 +207,17 @@ void EditorState::createMainMenu()
 {
 	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
-	bar = menu_items[0]->castType<MyGUI::MenuBar>();
-	bar->setCoord(0, 0, bar->getParentSize().width, bar->getHeight());
+	mBar = menu_items[0]->castType<MyGUI::MenuBar>();
+	mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
 
 	// главное меню
-	MyGUI::MenuItem* menu_file = bar->getItemById("File");
+	MyGUI::MenuItem* menu_file = mBar->getItemById("File");
 	mPopupMenuFile = menu_file->getItemChild();
 	// список последних открытых файлов
-	if (recentFiles.size())
+	if (mRecentFiles.size())
 	{
 		MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("File/Quit");
-		for (std::vector<MyGUI::UString>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
+		for (std::vector<MyGUI::UString>::reverse_iterator iter = mRecentFiles.rbegin(); iter != mRecentFiles.rend(); ++iter)
 		{
 			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
 		}
@@ -214,20 +225,16 @@ void EditorState::createMainMenu()
 		mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
 	}
 
-	//хак, для меню тест двойная замена
-	//MyGUI::MenuItem* menu_item_test = mPopupMenuFile->getItemById("File/Test");
-	//menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
-
 	// меню для виджетов
-	MyGUI::MenuItem* menu_widget = bar->getItemById("Widgets");
+	MyGUI::MenuItem* menu_widget = mBar->getItemById("Widgets");
 	mPopupMenuWidgets = menu_widget->createItemChild();
 	//FIXME
 	mPopupMenuWidgets->setPopupAccept(true);
 	mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
-	bar->eventMenuCtrlAccept += newDelegate(this, &EditorState::notifyPopupMenuAccept);
+	mBar->eventMenuCtrlAccept += newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
-	interfaceWidgets.push_back(bar);
+	mInterfaceWidgets.push_back(mBar);
 }
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
@@ -246,7 +253,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuIte
 		}
 		else if (id == "File/SaveAs")
 		{
-			setModeSaveLoadDialog(true, fileName);
+			setModeSaveLoadDialog(true, mFileName);
 		}
 		else if (id == "File/Clear")
 		{
@@ -278,7 +285,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuIte
 //===================================================================================
 void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
-	if (testMode)
+	if (mTestMode)
 	{
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 		return;
@@ -286,11 +293,11 @@ void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 
 	// drop select depth if we moved mouse
 	const int DIST = 2;
-	if ((abs(x - _absx) > DIST) || (abs(y - _absy) > DIST))
+	if ((abs(mLastClickX - _absx) > DIST) || (abs(mLastClickY - _absy) > DIST))
 	{
-		selectDepth = 0;
-		x = _absx;
-		y = _absy;
+		mSelectDepth = 0;
+		mLastClickX = _absx;
+		mLastClickY = _absy;
 	}
 
 	// align to grid if shift not pressed
@@ -313,7 +320,7 @@ void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 //===================================================================================
 void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 {
-	if (testMode)
+	if (mTestMode)
 	{
 		return base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
@@ -354,21 +361,21 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	if (nullptr != item)
 	{
 		// find widget registered as container
-		while ((nullptr == ew->find(item)) && (nullptr != item)) item = item->getParent();
+		while ((nullptr == mEditorWidgets->find(item)) && (nullptr != item)) item = item->getParent();
 		MyGUI::Widget* oldItem = item;
 
 		// try to selectin depth
-		int depth = selectDepth;
+		int depth = mSelectDepth;
 		while (depth && (nullptr != item))
 		{
 			item = item->getParent();
-			while ((nullptr == ew->find(item)) && (nullptr != item)) item = item->getParent();
+			while ((nullptr == mEditorWidgets->find(item)) && (nullptr != item)) item = item->getParent();
 			depth--;
 		}
 		if (nullptr == item)
 		{
 			item = oldItem;
-			selectDepth = 0;
+			mSelectDepth = 0;
 		}
 
 		// found widget
@@ -393,7 +400,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	}
 
 	// вернем прямоугольник
-	if (current_widget && mWidgetsWindow->getCreatingStatus() == 0)
+	if (mCurrentWidget && mWidgetsWindow->getCreatingStatus() == 0)
 	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 	}
@@ -407,8 +414,8 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 //===================================================================================
 void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 {
-	selectDepth++;
-	if (testMode)
+	mSelectDepth++;
+	if (mTestMode)
 	{
 		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 		return;
@@ -435,7 +442,7 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 		mWidgetsWindow->finishNewWidget(x2, y2);
 	}
 
-	um->dropLastProperty();
+	mUndoManager->dropLastProperty();
 
 	base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
@@ -444,7 +451,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 {
 	MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
-	if (testMode)
+	if (mTestMode)
 	{
 		if (input.isModalAny() == false)
 		{
@@ -486,12 +493,12 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 				notifySave();
 			else if (_key == MyGUI::KeyCode::Z)
 			{
-				um->undo();
+				mUndoManager->undo();
 				notifySelectWidget(nullptr);
 			}
 			else if ((_key == MyGUI::KeyCode::Y) || ((input.isShiftPressed()) && (_key == MyGUI::KeyCode::Z)))
 			{
-				um->redo();
+				mUndoManager->redo();
 				notifySelectWidget(nullptr);
 			}
 			else if (_key == MyGUI::KeyCode::T)
@@ -523,7 +530,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 //===================================================================================
 void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 {
-	if (testMode)
+	if (mTestMode)
 	{
 		return base::BaseManager::injectKeyRelease(_key);
 	}
@@ -535,32 +542,21 @@ void EditorState::notifyFrameStarted(float _time)
 {
 	GroupMessage::getInstance().showMessages();
 
-	if (ew->widgets_changed)
+	if (mEditorWidgets->widgets_changed)
 	{
 		notifyWidgetsUpdate();
-		ew->widgets_changed = false;
+		mEditorWidgets->widgets_changed = false;
 	}
 
-	if (recreate)
+	if (mRecreate)
 	{
-		recreate = false;
+		mRecreate = false;
 		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
 	//return base::BaseManager::frameStarted(evt);
 	//return true;
 }
-//===================================================================================
-/*void EditorState::windowResize()
-{
-	if (testMode)
-		return;
-
-	// force update
-	MyGUI::Widget* current_widget1 = current_widget;
-	current_widget = nullptr;
-	notifySelectWidget(current_widget1);
-}*/
 //===================================================================================
 bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 {
@@ -590,12 +586,10 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 	MyGUI::xml::Document doc;
 	if (_internal)
 	{
-		MyGUI::IDataStream* data = MyGUI::DataManager::getInstance().getData(_fileName);
-		if (data)
+		MyGUI::DataStreamHolder data = MyGUI::DataManager::getInstance().getData(_fileName);
+		if (data.getData() != nullptr)
 		{
-			PtrHolder<MyGUI::IDataStream> holder = PtrHolder<MyGUI::IDataStream>(data);
-
-			if (!doc.open(data))
+			if (!doc.open(data.getData()))
 			{
 				MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 				return;
@@ -642,13 +636,13 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 				{
 					std::string name;
 					if (!field->findAttribute("name", name)) continue;
-					recentFiles.push_back(name);
+					mRecentFiles.push_back(name);
 				}
 				else if (field->getName() == "AdditionalPath")
 				{
 					std::string name;
 					if (!field->findAttribute("name", name)) continue;
-					additionalPaths.push_back(name);
+					mAdditionalPaths.push_back(name);
 				}
 			}
 		}
@@ -670,23 +664,22 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName)
 	mMetaSolutionWindow->save(root);
 
 	// cleanup for duplicates
-
-	std::reverse(recentFiles.begin(), recentFiles.end());
-	for (size_t i = 0; i < recentFiles.size(); ++i)
-		recentFiles.erase(std::remove(recentFiles.begin() + i + 1, recentFiles.end(), recentFiles[i]), recentFiles.end());
+	std::reverse(mRecentFiles.begin(), mRecentFiles.end());
+	for (size_t i = 0; i < mRecentFiles.size(); ++i)
+		mRecentFiles.erase(std::remove(mRecentFiles.begin() + i + 1, mRecentFiles.end(), mRecentFiles[i]), mRecentFiles.end());
 
 	// remove old files
-	while (recentFiles.size() > MAX_RECENT_FILES)
-		recentFiles.pop_back();
-	std::reverse(recentFiles.begin(), recentFiles.end());
+	while (mRecentFiles.size() > MAX_RECENT_FILES)
+		mRecentFiles.pop_back();
+	std::reverse(mRecentFiles.begin(), mRecentFiles.end());
 
-	for (std::vector<MyGUI::UString>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
+	for (std::vector<MyGUI::UString>::iterator iter = mRecentFiles.begin(); iter != mRecentFiles.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
 		nodeProp->addAttribute("name", *iter);
 	}
 
-	for (std::vector<MyGUI::UString>::iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+	for (std::vector<MyGUI::UString>::iterator iter = mAdditionalPaths.begin(); iter != mAdditionalPaths.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = root->createChild("AdditionalPath");
 		nodeProp->addAttribute("name", *iter);
@@ -701,7 +694,7 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName)
 
 void EditorState::notifyLoad()
 {
-	if (um->isUnsaved())
+	if (mUndoManager->isUnsaved())
 	{
 		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
@@ -711,22 +704,22 @@ void EditorState::notifyLoad()
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
 		message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyConfirmLoadMessage);
-		message->setUserString("FileName", fileName);
+		message->setUserString("FileName", mFileName);
 		return;
 	}
 
-	setModeSaveLoadDialog(false, fileName);
+	setModeSaveLoadDialog(false, mFileName);
 }
 
 bool EditorState::notifySave()
 {
-	if (fileName != "")
+	if (mFileName != "")
 	{
-		return saveOrLoadLayout(true, false, fileName);
+		return saveOrLoadLayout(true, false, mFileName);
 	}
 	else
 	{
-		setModeSaveLoadDialog(true, fileName);
+		setModeSaveLoadDialog(true, mFileName);
 		return false;
 	}
 }
@@ -739,11 +732,11 @@ void EditorState::notifySettings()
 
 void EditorState::notifyTest()
 {
-	testLayout = ew->savexmlDocument();
-	ew->clear();
+	mTestLayout = mEditorWidgets->savexmlDocument();
+	mEditorWidgets->clear();
 	notifySelectWidget(nullptr);
 
-	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 	{
 		if ((*iter)->getVisible())
 		{
@@ -752,27 +745,32 @@ void EditorState::notifyTest()
 		}
 	}
 
-	ew->loadxmlDocument(testLayout, true);
-	testMode = true;
+	mEditorWidgets->loadxmlDocument(mTestLayout, true);
+	mTestMode = true;
 }
 
 void EditorState::notifyEndTest()
 {
-	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 	{
 		if ((*iter)->getUserString("WasVisible") == "true")
 		{
 			(*iter)->setVisible(true);
 		}
 	}
-	testMode = false;
+	mTestMode = false;
 	clear(false);
-	ew->loadxmlDocument(testLayout);
+	mEditorWidgets->loadxmlDocument(mTestLayout);
 }
 
 void EditorState::notifyClear()
 {
-	MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
+	MyGUI::Message* message = MyGUI::Message::createMessageBox(
+		"Message",
+		localise("Warning"),
+		localise("Warn_delete_all_widgets"),
+		MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No
+		);
 	message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyClearMessage);
 }
 
@@ -787,14 +785,15 @@ void EditorState::notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxS
 void EditorState::clear(bool _clearName)
 {
 	mWidgetsWindow->clearNewWidget();
-	recreate = false;
-	if (_clearName) fileName = "";
-	testMode = false;
-	ew->clear();
+	mRecreate = false;
+	if (_clearName)
+		mFileName = "";
+	mTestMode = false;
+	mEditorWidgets->clear();
 	notifySelectWidget(nullptr);
-	um->shutdown();
-	um->initialise(ew);
-	selectDepth = 0;
+	mUndoManager->shutdown();
+	mUndoManager->initialise(mEditorWidgets);
+	mSelectDepth = 0;
 
 	if (_clearName)
 		setWindowCaption(L"MyGUI Layout Editor");
@@ -802,7 +801,7 @@ void EditorState::clear(bool _clearName)
 
 void EditorState::notifyQuit()
 {
-	if (um->isUnsaved())
+	if (mUndoManager->isUnsaved())
 	{
 		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
@@ -812,7 +811,7 @@ void EditorState::notifyQuit()
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
 		message->eventMessageBoxResult += newDelegate(this, &EditorState::notifyConfirmQuitMessage);
-		message->setUserString("FileName", fileName);
+		message->setUserString("FileName", mFileName);
 		return;
 	}
 
@@ -900,12 +899,12 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::Messa
 	{
 		if (notifySave())
 		{
-			setModeSaveLoadDialog(false, fileName);
+			setModeSaveLoadDialog(false, mFileName);
 		}
 	}
 	else if ( _result == MyGUI::MessageBoxStyle::No )
 	{
-		setModeSaveLoadDialog(false, fileName);
+		setModeSaveLoadDialog(false, mFileName);
 	}
 	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
 	{
@@ -925,7 +924,7 @@ void EditorState::notifyWidgetsUpdate()
 
 	mPopupMenuWidgets->removeAllItems();
 
-	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
+	for (std::vector<WidgetContainer*>::iterator iter = mEditorWidgets->widgets.begin(); iter != mEditorWidgets->widgets.end(); ++iter )
 	{
 		createWidgetPopup(*iter, mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
@@ -959,9 +958,9 @@ void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem*
 
 void EditorState::notifySelectWidget(MyGUI::Widget* _sender)
 {
-	if (_sender == current_widget)
+	if (_sender == mCurrentWidget)
 	{
-		if (current_widget)
+		if (mCurrentWidget)
 		{
 			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
@@ -969,7 +968,7 @@ void EditorState::notifySelectWidget(MyGUI::Widget* _sender)
 		return;
 	}
 
-	current_widget = _sender;
+	mCurrentWidget = _sender;
 
 	mPropertiesPanelView->update(_sender);
 	mWidgetsWindow->update(_sender);
@@ -982,7 +981,7 @@ std::string EditorState::getDescriptionString(MyGUI::Widget* _widget, bool _prin
 	std::string type = "";
 	std::string skin = "";
 
-	WidgetContainer * widgetContainer = ew->find(_widget);
+	WidgetContainer * widgetContainer = mEditorWidgets->find(_widget);
 	if (_print_name)
 	{
 		if (widgetContainer->name.empty())
@@ -1074,23 +1073,23 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 {
 	if (!Save) clear();
 
-	if ( (Save && ew->save(_file)) ||
-		(!Save && ew->load(_file)) )
+	if ( (Save && mEditorWidgets->save(_file)) ||
+		(!Save && mEditorWidgets->load(_file)) )
 	{
-		fileName = _file;
+		mFileName = _file;
 		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		recentFiles.push_back(_file);
+		mRecentFiles.push_back(_file);
 
 		mOpenSaveFileDialog->setVisible(false);
 
-		um->addValue();
-		um->setUnsaved(false);
+		mUndoManager->addValue();
+		mUndoManager->setUnsaved(false);
 		return true;
 	}
 	else if (!Silent)
 	{
 		std::string saveLoad = Save ? localise("Save") : localise("Load");
-		/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox(
+		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
 			"Failed to " + saveLoad + " file '" + _file + "'",
@@ -1207,6 +1206,16 @@ bool EditorState::onWinodwClose(size_t _handle)
 
 	notifyQuit();
 	return false;
+}
+
+int EditorState::toGrid(int _x)
+{
+	return _x / grid_step * grid_step;
+}
+
+void EditorState::notifyRecreate()
+{
+	mRecreate = true;
 }
 
 MYGUI_APP(EditorState)
