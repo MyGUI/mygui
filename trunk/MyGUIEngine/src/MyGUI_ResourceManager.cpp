@@ -140,26 +140,19 @@ namespace MyGUI
 
 	bool ResourceManager::_loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance)
 	{
-		IDataStream* data = DataManager::getInstance().getData(_file);
-		if (data == nullptr)
+		DataStreamHolder data = DataManager::getInstance().getData(_file);
+		if (data.getData() == nullptr)
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', not found");
 			return false;
 		}
 
 		xml::Document doc;
-		if (!doc.open(data))
+		if (!doc.open(data.getData()))
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
-
-			// FIXME
-			delete data;
-
 			return false;
 		}
-
-		// FIXME
-		delete data;
 
 		xml::ElementPtr root = doc.getRoot();
 		if ( (nullptr == root) || (root->getName() != "MyGUI") )

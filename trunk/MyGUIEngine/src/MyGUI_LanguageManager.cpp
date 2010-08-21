@@ -140,19 +140,18 @@ namespace MyGUI
 
 	bool LanguageManager::loadLanguage(const std::string& _file, bool _user)
 	{
-		IDataStream* data = DataManager::getInstance().getData(_file);
-		if (data == nullptr)
+		DataStreamHolder data = DataManager::getInstance().getData(_file);
+		if (data.getData() == nullptr)
 		{
 			MYGUI_LOG(Error, "file '" << _file << "' not found");
 			return false;
 		}
 
 		if (_file.find(".xml") != std::string::npos)
-			_loadLanguageXML(data, _user);
+			_loadLanguageXML(data.getData(), _user);
 		else
-			_loadLanguage(data, _user);
+			_loadLanguage(data.getData(), _user);
 
-		delete data;
 		return true;
 	}
 
