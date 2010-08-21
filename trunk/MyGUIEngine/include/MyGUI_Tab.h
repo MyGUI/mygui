@@ -122,6 +122,7 @@ namespace MyGUI
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
 		TabItem* findItemWith(const UString& _name);
 
+		void swapItems(size_t _index1, size_t _index2);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями

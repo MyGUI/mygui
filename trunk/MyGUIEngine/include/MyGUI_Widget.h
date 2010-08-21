@@ -324,12 +324,13 @@ namespace MyGUI
 		T* createSkinWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
 		{
 			T* result = static_cast<T*>(baseCreateWidget(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name, true));
-			//mWidgetChild.pop_back();
 			return result;
 		}
 		void destroySkinWidget(Widget* _widget);
 
 		virtual void onWidgetCreated(Widget* _widget);
+
+		void setWidgetClient(Widget* _widget);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
@@ -362,13 +363,12 @@ namespace MyGUI
 
 		void setSkinProperty(ResourceSkin* _info);
 
-	protected:
+	private:
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе
 		// то обязательно проинициализировать Client
 		Widget* mWidgetClient;
 
-	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 

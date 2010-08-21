@@ -337,7 +337,7 @@ namespace MyGUI
 		virtual IntPoint getContentPosition();
 		virtual void setContentPosition(const IntPoint& _point);
 		// размер окна, через которые видно данные
-		virtual IntSize getViewSize() const;
+		virtual IntSize getViewSize();
 		// размер на который прокручиваются данные при щелчке по скролу
 		virtual size_t getVScrollPage();
 		virtual size_t getHScrollPage();

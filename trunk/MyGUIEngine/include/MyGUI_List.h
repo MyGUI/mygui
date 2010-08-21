@@ -239,7 +239,6 @@ namespace MyGUI
 		void _checkMapping(const std::string& _owner);
 
 		Widget* _getClientWidget();
-		const Widget* _getClientWidget() const;
 
 	private:
 		std::string mSkinLine;
@@ -266,6 +265,7 @@ namespace MyGUI
 
 		IntSize mOldSize;
 
+		Widget* mClient;
 	};
 
 } // namespace MyGUI

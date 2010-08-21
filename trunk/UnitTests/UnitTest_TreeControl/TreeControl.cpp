@@ -96,7 +96,8 @@ namespace MyGUI
         mpSelection(nullptr),
 		mpRoot(nullptr),
         mnExpandedNodes(0),
-		mnLevelOffset(0)
+		mnLevelOffset(0),
+		mClient(nullptr)
     {
     }
 
@@ -117,14 +118,15 @@ namespace MyGUI
             mpWidgetScroll->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
 		}
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
+			mClient->eventMouseButtonPressed += newDelegate(this, &TreeControl::notifyMousePressed);
+			setWidgetClient(mClient);
 		}
 
         MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
-        MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
+        MYGUI_ASSERT(nullptr != mClient, "Child Widget Client not found in skin (TreeControl must have Client)");
 
 		if (isUserString("SkinLine"))
 			mstrSkinLine = getUserString("SkinLine");
@@ -147,7 +149,7 @@ namespace MyGUI
     void TreeControl::shutdownOverride()
     {
         mpWidgetScroll = nullptr;
-        mWidgetClient = nullptr;
+        mClient = nullptr;
 		// FIXME перенесенно из деструктора, проверить смену скина
         delete mpRoot;
 
@@ -227,27 +229,27 @@ namespace MyGUI
 
     void TreeControl::updateScroll()
     {
-        mnScrollRange = (mnItemHeight * (int)mnExpandedNodes) - mWidgetClient->getHeight();
+        mnScrollRange = (mnItemHeight * (int)mnExpandedNodes) - mClient->getHeight();
 
-        if (!mbScrollAlwaysVisible || mnScrollRange <= 0 || mpWidgetScroll->getLeft() <= mWidgetClient->getLeft())
+        if (!mbScrollAlwaysVisible || mnScrollRange <= 0 || mpWidgetScroll->getLeft() <= mClient->getLeft())
         {
             if (mpWidgetScroll->getVisible())
             {
                 mpWidgetScroll->setVisible(false);
-                mWidgetClient->setSize(mWidgetClient->getWidth() + mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
+                mClient->setSize(mClient->getWidth() + mpWidgetScroll->getWidth(), mClient->getHeight());
             }
         }
         else
         if (!mpWidgetScroll->getVisible())
         {
-            mWidgetClient->setSize(mWidgetClient->getWidth() - mpWidgetScroll->getWidth(), mWidgetClient->getHeight());
+            mClient->setSize(mClient->getWidth() - mpWidgetScroll->getWidth(), mClient->getHeight());
             mpWidgetScroll->setVisible(true);
         }
 
         mpWidgetScroll->setScrollRange(mnScrollRange + 1);
 
         if (mnExpandedNodes)
-            mpWidgetScroll->setTrackSize(mpWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mnItemHeight / mnExpandedNodes);
+            mpWidgetScroll->setTrackSize(mpWidgetScroll->getLineSize() * mClient->getHeight() / mnItemHeight / mnExpandedNodes);
     }
 
     void TreeControl::updateItems()
@@ -255,13 +257,13 @@ namespace MyGUI
         int nPosition = mnTopIndex * mnItemHeight + mnTopOffset;
 
         int nHeight = (int)mItemWidgets.size() * mnItemHeight - mnTopOffset;
-        while ((nHeight <= (mWidgetClient->getHeight() + mnItemHeight)) && mItemWidgets.size() < mnExpandedNodes)
+        while ((nHeight <= (mClient->getHeight() + mnItemHeight)) && mItemWidgets.size() < mnExpandedNodes)
         {
-            TreeControlItem* pItem = mWidgetClient->createWidget<TreeControlItem>(
+            TreeControlItem* pItem = mClient->createWidget<TreeControlItem>(
                 mstrSkinLine,
                 0,
                 nHeight,
-                mWidgetClient->getWidth(),
+                mClient->getWidth(),
                 mnItemHeight,
                 Align::Top | Align::HStretch);
 
@@ -291,8 +293,8 @@ namespace MyGUI
             }
             else
             {
-                int nCount = mWidgetClient->getHeight() / mnItemHeight;
-                mnTopOffset = mnItemHeight - (mWidgetClient->getHeight() % mnItemHeight);
+                int nCount = mClient->getHeight() / mnItemHeight;
+                mnTopOffset = mnItemHeight - (mClient->getHeight() % mnItemHeight);
 
                 if (mnTopOffset == mnItemHeight)
                 {
@@ -346,7 +348,11 @@ namespace MyGUI
             
             if (nIndex >= (size_t)mnTopIndex)
             {
-                if (nIndex >= mnExpandedNodes || mItemWidgets[nItem]->getTop() > mWidgetClient->getHeight())
+				// FIXME проверка вставлена так как падает индекс айтема больше чем всего айтемов
+				if (nItem >= mItemWidgets.size())
+					break;
+
+                if (nIndex >= mnExpandedNodes || mItemWidgets[nItem]->getTop() > mClient->getHeight())
                     break;
 
                 TreeControlItem* pItem = mItemWidgets[nItem];
@@ -429,7 +435,7 @@ namespace MyGUI
         if ((nID == MouseButton::Left || nID == MouseButton::Right) && pSender != mpWidgetScroll)
         {
             Node* pSelection = mpSelection;
-            if (pSender == mWidgetClient)
+            if (pSender == mClient)
                 pSelection = nullptr;
             else
             if (pSender->getVisible())
@@ -482,7 +488,7 @@ namespace MyGUI
 
     void TreeControl::notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget)
     {
-        if (!pNextWidget || (pNextWidget->getParent() != mWidgetClient))
+        if (!pNextWidget || (pNextWidget->getParent() != mClient))
         {
             mnFocusIndex = ITEM_NONE;
             eventTreeNodeMouseLostFocus(this, nullptr);

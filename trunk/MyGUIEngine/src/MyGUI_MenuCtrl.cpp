@@ -51,7 +51,8 @@ namespace MyGUI
 		mPopupAccept(false),
 		mOwner(nullptr),
 		mAnimateSmooth(false),
-		mChangeChildSkin(false)
+		mChangeChildSkin(false),
+		mClient(nullptr)
 	{
 	}
 
@@ -78,7 +79,11 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mWidgetClient, "Client");
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
+		{
+			setWidgetClient(mClient);
+		}
 
 		if (isUserString("SkinLine"))
 			mSkinLine = getUserString("SkinLine");
@@ -653,12 +658,7 @@ namespace MyGUI
 
 	Widget* MenuCtrl::_getClientWidget()
 	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
-	}
-
-	const Widget* MenuCtrl::_getClientWidget() const
-	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
+		return mClient == nullptr ? this : mClient;
 	}
 
 } // namespace MyGUI

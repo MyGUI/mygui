@@ -189,15 +189,10 @@ namespace MyGUI
 		const VectorChildSkinInfo& child = _info->getChild();
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
-			//FIXME - явный вызов
-			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
-			//widget->_setInternalData(iter->name);
+			Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
 				widget->setUserString(prop->first, prop->second);
-			// для детей скина свой список
-			//mWidgetChildSkin.push_back(widget);
-			//mWidgetChild.pop_back();
 		}
 
 		Widget::setSize(_size);//FIXME - явный вызов
@@ -234,7 +229,9 @@ namespace MyGUI
 		{
 			if (mWidgetClient != nullptr)
 			{
-				return mWidgetClient->baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, _template);
+				widget = mWidgetClient->baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, _template);
+				onWidgetCreated(widget);
+				return widget;
 			}
 			else
 			{
@@ -1030,6 +1027,11 @@ namespace MyGUI
 
 	void Widget::onWidgetCreated(Widget* _widget)
 	{
+	}
+
+	void Widget::setWidgetClient(Widget* _widget)
+	{
+		mWidgetClient = _widget;
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
