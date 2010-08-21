@@ -42,17 +42,20 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
+		const VectorWidgetInfo& getLayoutData() { return mLayoutData; }
+
 		/** Create widgets described in layout */
-		VectorWidgetPtr& createLayout(const std::string& _prefix = "", Widget* _parent = nullptr);
+		VectorWidgetPtr createLayout(const std::string& _prefix = "", Widget* _parent = nullptr);
+
+		// widget info -> Widget
+		Widget* createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix = "", Widget* _parent = nullptr, bool _template = false);
 
 	private:
 		// xml -> widget info
 		WidgetInfo parseWidget(xml::ElementEnumerator& _widget);
-		// widget info -> Widget
-		Widget* createWidget(const WidgetInfo& _widgetInfo, Widget* _parent, const std::string& _prefix);
 
 	private:
-		LayoutData mLayoutData;
+		VectorWidgetInfo mLayoutData;
 	};
 
 } // namespace MyGUI

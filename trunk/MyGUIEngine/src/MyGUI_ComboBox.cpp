@@ -69,7 +69,7 @@ namespace MyGUI
 			std::string list_skin = getUserString("ListSkin");
 			std::string list_layer = getUserString("ListLayer");
 
-			mList = createSkinWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
+			mList = static_cast<List*>(_createSkinWidget(WidgetStyle::Popup, List::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
 		}
 
 		if (mList != nullptr)

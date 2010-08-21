@@ -22,9 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_Button.h"
@@ -125,8 +123,7 @@ namespace MyGUI
 		if (object != nullptr)
 		{
 			Widget* widget = object->castType<Widget>();
-			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin);
-			widget->_initialise(_style, _coord, skin, _parent, _cropeedParent, _name);
+			widget->_initialise(_style, _coord, _skin, _parent, _cropeedParent, _name);
 
 			return widget;
 		}

@@ -63,8 +63,16 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
 	{
+		ResourceSkin* skinInfo = nullptr;
+		ResourceLayout* templateInfo = nullptr;
+
+		if (LayoutManager::getInstance().isExist(_skinName))
+			templateInfo = LayoutManager::getInstance().getByName(_skinName);
+		else
+			skinInfo = SkinManager::getInstance().getByName(_skinName);
+
 		mCoord = _coord;
 
 		mAlign = Align::Default;
@@ -99,7 +107,7 @@ namespace MyGUI
 		if (nullptr != mCroppedParent)
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
-		initialiseWidgetSkinBase(_info);
+		initialiseWidgetSkinBase(skinInfo, templateInfo);
 
 		// дочернее окно обыкновенное
 		if (mWidgetStyle == WidgetStyle::Child)
@@ -117,7 +125,9 @@ namespace MyGUI
 
 		// витр метод для наследников
 		initialiseOverride();
-		setSkinProperty(_info);
+
+		if (skinInfo != nullptr)
+			setSkinProperty(skinInfo);
 	}
 
 	void Widget::_shutdown()
@@ -147,55 +157,101 @@ namespace MyGUI
 		mCroppedParent = nullptr;
 	}
 
-	void Widget::changeWidgetSkin(const std::string& _skinname)
+	void Widget::changeWidgetSkin(const std::string& _skinName)
 	{
-		ResourceSkin* _info = SkinManager::getInstance().getByName(_skinname);
+		ResourceSkin* skinInfo = nullptr;
+		ResourceLayout* templateInfo = nullptr;
+
+		if (LayoutManager::getInstance().isExist(_skinName))
+			templateInfo = LayoutManager::getInstance().getByName(_skinName);
+		else
+			skinInfo = SkinManager::getInstance().getByName(_skinName);
 
 		shutdownOverride();
 
 		saveLayerItem();
 
 		shutdownWidgetSkinBase();
-		initialiseWidgetSkinBase(_info);
+		initialiseWidgetSkinBase(skinInfo, templateInfo);
 
 		restoreLayerItem();
 
 		initialiseOverride();
-		setSkinProperty(_info);
+
+		if (skinInfo != nullptr)
+			setSkinProperty(skinInfo);
 	}
 
-	void Widget::initialiseWidgetSkinBase(ResourceSkin* _info)
+	void Widget::initialiseWidgetSkinBase(ResourceSkin* _skinInfo, ResourceLayout* _templateInfo)
 	{
+		const WidgetInfo* root  = nullptr;
+		bool skinOnly = false;
+
+		if (_skinInfo == nullptr)
+		{
+			skinOnly = true;
+			std::string skinName;
+
+			const VectorWidgetInfo& data = _templateInfo->getLayoutData();
+			for (VectorWidgetInfo::const_iterator item=data.begin(); item!=data.end(); ++item)
+			{
+				if ((*item).name == "Root")
+				{
+					skinName = (*item).skin;
+					root = &(*item);
+					break;
+				}
+			}
+
+			_skinInfo = SkinManager::getInstance().getByName(skinName);
+		}
+
 		//SAVE
 		const IntSize& _size = mCoord.size();
 
-		Widget::setSize(_info->getSize());
+		//FIXME - явный вызов
+		Widget::setSize(_skinInfo->getSize());
 
-		_createSkinItem(_info);
-
-		const MapString& properties = _info->getProperties();
-		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
-		{
-			if (BackwardCompatibility::isIgnoreProperty((*item).first))
-				setUserString((*item).first, (*item).second);
-		}
+		_createSkinItem(_skinInfo);
 
 		// выставляем альфу, корректировка по отцу автоматически
 		_updateAlpha();
 		_updateEnabled();
 		_updateVisible();
 
-		// создаем детей скина
-		const VectorChildSkinInfo& child = _info->getChild();
-		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
+		if (!skinOnly)
 		{
-			Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
-			// заполняем UserString пропертями
-			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
-				widget->setUserString(prop->first, prop->second);
+			const MapString& properties = _skinInfo->getProperties();
+			for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
+			{
+				if (BackwardCompatibility::isIgnoreProperty((*item).first))
+					setUserString((*item).first, (*item).second);
+			}
+
+			// создаем детей скина
+			const VectorChildSkinInfo& child = _skinInfo->getChild();
+			for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
+			{
+				Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
+				// заполняем UserString пропертями
+				for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
+					widget->setUserString(prop->first, prop->second);
+			}
 		}
 
-		Widget::setSize(_size);//FIXME - явный вызов
+		if (root != nullptr)
+		{
+			//FIXME - явный вызов
+			Widget::setSize(root->intCoord.size());
+
+			for (VectorWidgetInfo::const_iterator iter = root->childWidgetsInfo.begin(); iter != root->childWidgetsInfo.end(); ++iter)
+			{
+				_templateInfo->createWidget(*iter, "", this, true);
+			}
+		}
+
+		//FIXME - явный вызов
+		Widget::setSize(_size);
 	}
 
 	void Widget::shutdownWidgetSkinBase()
@@ -1032,6 +1088,11 @@ namespace MyGUI
 	void Widget::setWidgetClient(Widget* _widget)
 	{
 		mWidgetClient = _widget;
+	}
+
+	Widget* Widget::_createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, true);
 	}
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)

@@ -46,10 +46,11 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		mLayoutData.rootWidgets.clear();
-		// берем детей и крутимся
+		mLayoutData.clear();
+
 		xml::ElementEnumerator widget = _node->getElementEnumerator();
-		while (widget.next("Widget")) mLayoutData.rootWidgets.push_back(parseWidget(widget));
+		while (widget.next("Widget"))
+			mLayoutData.push_back(parseWidget(widget));
 	}
 
 	WidgetInfo ResourceLayout::parseWidget(xml::ElementEnumerator& _widget)
@@ -112,19 +113,20 @@ namespace MyGUI
 		return widgetInfo;
 	}
 
-	VectorWidgetPtr& ResourceLayout::createLayout(const std::string& _prefix, Widget* _parent)
+	VectorWidgetPtr ResourceLayout::createLayout(const std::string& _prefix, Widget* _parent)
 	{
-		static VectorWidgetPtr widgets;
-		widgets.clear();
-		for (std::vector<WidgetInfo>::iterator iter = mLayoutData.rootWidgets.begin(); iter != mLayoutData.rootWidgets.end(); ++iter)
+		VectorWidgetPtr widgets;
+
+		for (VectorWidgetInfo::iterator iter=mLayoutData.begin(); iter!=mLayoutData.end(); ++iter)
 		{
-			widgets.push_back(createWidget(*iter, _parent, _prefix));
+			Widget* widget = createWidget(*iter, _prefix, _parent);
+			widgets.push_back(widget);
 		}
 		
 		return widgets;
 	}
 
-	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, Widget* _parent, const std::string& _prefix)
+	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix, Widget* _parent, bool _template)
 	{
 		std::string widgetName = _widgetInfo.name;
 		WidgetStyle style = _widgetInfo.style;
@@ -147,6 +149,8 @@ namespace MyGUI
 		Widget* wid;
 		if (nullptr == _parent)
 			wid = Gui::getInstance().createWidgetT(_widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
+		else if (_template)
+			wid = _parent->_createSkinWidget(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
 		else
 			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
 
@@ -161,9 +165,9 @@ namespace MyGUI
 			LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
 		}
 
-		for (std::vector<WidgetInfo>::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
+		for (VectorWidgetInfo::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
 		{
-			createWidget(*iter, wid, _prefix);
+			createWidget(*iter, _prefix, wid);
 		}
 
 		for (std::vector<ControllerInfo>::const_iterator iter = _widgetInfo.controllers.begin(); iter != _widgetInfo.controllers.end(); ++iter)
@@ -179,7 +183,7 @@ namespace MyGUI
 			}
 			else
 			{
-					MYGUI_LOG(Warning, "Controller '" << iter->type << "' not found");
+				MYGUI_LOG(Warning, "Controller '" << iter->type << "' not found");
 			}
 		}
 
