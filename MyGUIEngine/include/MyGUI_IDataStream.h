@@ -37,7 +37,16 @@ namespace MyGUI
 		virtual size_t size() = 0;
 		virtual void readline(std::string& _source, Char _delim = '\n') = 0;
 		virtual size_t read(void* _buf, size_t _count) = 0;
+	};
 
+	class DataStreamHolder
+	{
+	public:
+		DataStreamHolder(IDataStream* _data) : mData(_data) { }
+		~DataStreamHolder() { delete mData; }
+		IDataStream* getData() { return mData; }
+	private:
+		IDataStream* mData;
 	};
 
 } // namespace MyGUI
