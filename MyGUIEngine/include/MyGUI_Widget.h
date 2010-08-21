@@ -28,6 +28,7 @@
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetInput.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_ResourceLayout.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_SkinItem.h"
 #include "MyGUI_BackwardCompatibility.h"
@@ -231,7 +232,7 @@ namespace MyGUI
 		void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
-		void changeWidgetSkin(const std::string& _skinname);
+		void changeWidgetSkin(const std::string& _skinName);
 
 		/** Set widget style.
 			@param _layer Attach to specified layer (if any)
@@ -264,7 +265,7 @@ namespace MyGUI
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
 
-		void _initialise(WidgetStyle _style, const IntCoord& _coord, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		void _initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
 		void _shutdown();
 
 		// удяляет неудачника
@@ -275,6 +276,8 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _oldsize);
 		bool _checkPoint(int _left, int _top);
+
+		Widget* _createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
 
 	protected:
 		// все создание только через фабрику
@@ -320,12 +323,6 @@ namespace MyGUI
 
 		VectorWidgetPtr getSkinWidgetsByName(const std::string& _name);
 
-		template <typename T>
-		T* createSkinWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
-		{
-			T* result = static_cast<T*>(baseCreateWidget(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name, true));
-			return result;
-		}
 		void destroySkinWidget(Widget* _widget);
 
 		virtual void onWidgetCreated(Widget* _widget);
@@ -337,7 +334,7 @@ namespace MyGUI
 	private:
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkinBase(ResourceSkin* _info);
+		void initialiseWidgetSkinBase(ResourceSkin* _info, ResourceLayout* _templateInfo);
 		void shutdownWidgetSkinBase();
 
 		void _updateAlpha();

@@ -124,7 +124,8 @@ namespace MyGUI
 
 	bool SkinManager::isExist(const std::string& _name) const
 	{
-		return ResourceManager::getInstance().isExist(_name);
+		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		return (result != nullptr) && (result->isType<ResourceSkin>());
 	}
 
 	void SkinManager::setDefaultSkin(const std::string& _value)
