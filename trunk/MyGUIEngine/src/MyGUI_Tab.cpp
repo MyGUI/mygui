@@ -63,43 +63,43 @@ namespace MyGUI
 		if (isUserString("EmptyBarSkin"))
 			mEmptySkinName = getUserString("EmptyBarSkin");
 
-		assignWidget(mWidgetBar, "Bar", false);
+		assignWidget(mWidgetBar, "Bar");
 
-		assignWidget(mButtonLeft, "Left", false);
+		assignWidget(mButtonLeft, "Left");
 		if (mButtonLeft != nullptr)
 		{
 			mButtonLeft->setVisible(false);
 			mButtonLeft->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
 
-		assignWidget(mButtonRight, "Right", false);
+		assignWidget(mButtonRight, "Right");
 		if (mButtonRight != nullptr)
 		{
 			mButtonRight->setVisible(false);
 			mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
 
-		assignWidget(mButtonList, "List", false);
+		assignWidget(mButtonList, "List");
 		if (mButtonList != nullptr)
 		{
 			mButtonList->setVisible(false);
 			mButtonList->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
 		}
 
-		assignWidget(mButtonDecor, "ButtonDecor", false);
+		assignWidget(mButtonDecor, "ButtonDecor");
 		if (mButtonDecor != nullptr)
 		{
 			mButtonDecor->setVisible(false);
 		}
 
-		assignWidget(mItemTemplate, "TabItem", false);
+		assignWidget(mItemTemplate, "TabItem");
 		if (mItemTemplate != nullptr)
 		{
 			mItemTemplate->setVisible(false);
 		}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		assignWidget(mItemTemplate, "Sheet", false);
+		assignWidget(mItemTemplate, "Sheet");
 		if (mItemTemplate != nullptr)
 		{
 			mItemTemplate->setVisible(false);
@@ -107,7 +107,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 		Widget* showPatch = nullptr;
-		assignWidget(showPatch, "ShowPatch", false);
+		assignWidget(showPatch, "ShowPatch");
 		if (showPatch != nullptr)
 		{
 			mWidgetsPatch.push_back(showPatch);

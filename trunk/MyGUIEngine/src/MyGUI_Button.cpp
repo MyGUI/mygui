@@ -41,7 +41,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		assignWidget(mImage, "Image", false);
+		assignWidget(mImage, "Image");
 	}
 
 	void Button::shutdownOverride()

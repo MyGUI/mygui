@@ -56,14 +56,14 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		assignWidget(mWidgetText, "Text", false);
+		assignWidget(mWidgetText, "Text");
 		if (mWidgetText != nullptr)
 		{
 			mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
 			mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 		}
 
-		assignWidget(mIcon, "Icon", false);
+		assignWidget(mIcon, "Icon");
 		if (mIcon != nullptr)
 		{
 			mLeftOffset2 = mIcon->getRight() + 3;

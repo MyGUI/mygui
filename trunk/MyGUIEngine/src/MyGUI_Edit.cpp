@@ -79,7 +79,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mWidgetClient, "Client", false);
+		assignWidget(mWidgetClient, "Client");
 		if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->eventMouseSetFocus += newDelegate(this, &Edit::notifyMouseSetFocus);
@@ -92,13 +92,13 @@ namespace MyGUI
 			mClient = mWidgetClient;
 		}
 
-		assignWidget(mVScroll, "VScroll", false);
+		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &Edit::notifyScrollChangePosition);
 		}
 
-		assignWidget(mHScroll, "HScroll", false);
+		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
 			mHScroll->eventScrollChangePosition += newDelegate(this, &Edit::notifyScrollChangePosition);

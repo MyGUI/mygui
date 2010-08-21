@@ -59,21 +59,21 @@ namespace MyGUI
 		mSkinRangeStart = 0;
 		mSkinRangeEnd = 0;
 
-		assignWidget(mWidgetStart, "Start", false);
+		assignWidget(mWidgetStart, "Start");
 		if (mWidgetStart != nullptr)
 		{
 			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
 			mWidgetStart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 		}
 
-		assignWidget(mWidgetEnd, "End", false);
+		assignWidget(mWidgetEnd, "End");
 		if (mWidgetEnd != nullptr)
 		{
 			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
 			mWidgetEnd->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 		}
 
-		assignWidget(mWidgetTrack, "Track", false);
+		assignWidget(mWidgetTrack, "Track");
 		if (mWidgetTrack)
 		{
 			mWidgetTrack->eventMouseDrag += newDelegate(this, &VScroll::notifyMouseDrag);
@@ -83,14 +83,14 @@ namespace MyGUI
 			mWidgetTrack->setVisible(false);
 		}
 
-		assignWidget(mWidgetFirstPart, "FirstPart", false);
+		assignWidget(mWidgetFirstPart, "FirstPart");
 		if (mWidgetFirstPart != nullptr)
 		{
 			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
 			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &VScroll::notifyMouseWheel);
 		}
 
-		assignWidget(mWidgetSecondPart, "SecondPart", false);
+		assignWidget(mWidgetSecondPart, "SecondPart");
 		if (mWidgetSecondPart != nullptr)
 		{
 			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &VScroll::notifyMousePressed);
