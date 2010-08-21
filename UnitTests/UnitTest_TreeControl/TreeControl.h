@@ -119,6 +119,8 @@ namespace MyGUI
         Node* mpRoot;
         size_t mnExpandedNodes;
         int mnLevelOffset;
+
+		Widget* mClient;
     };
 
 

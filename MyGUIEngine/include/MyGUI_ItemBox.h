@@ -259,7 +259,7 @@ namespace MyGUI
 
 		virtual IntSize getContentSize();
 		virtual IntPoint getContentPosition();
-		virtual IntSize getViewSize() const;
+		virtual IntSize getViewSize();
 		virtual void eraseContent();
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();
@@ -268,7 +268,6 @@ namespace MyGUI
 
 		IntRect _getClientAbsoluteRect();
 		Widget* _getClientWidget();
-		const Widget* _getClientWidget() const;
 
 	private:
 		// наши дети в строках

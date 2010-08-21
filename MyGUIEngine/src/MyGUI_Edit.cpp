@@ -79,17 +79,17 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseSetFocus += newDelegate(this, &Edit::notifyMouseSetFocus);
-			mWidgetClient->eventMouseLostFocus += newDelegate(this, &Edit::notifyMouseLostFocus);
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &Edit::notifyMousePressed);
-			mWidgetClient->eventMouseButtonReleased += newDelegate(this, &Edit::notifyMouseReleased);
-			mWidgetClient->eventMouseDrag += newDelegate(this, &Edit::notifyMouseDrag);
-			mWidgetClient->eventMouseButtonDoubleClick += newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
-			mWidgetClient->eventMouseWheel += newDelegate(this, &Edit::notifyMouseWheel);
-			mClient = mWidgetClient;
+			mClient->eventMouseSetFocus += newDelegate(this, &Edit::notifyMouseSetFocus);
+			mClient->eventMouseLostFocus += newDelegate(this, &Edit::notifyMouseLostFocus);
+			mClient->eventMouseButtonPressed += newDelegate(this, &Edit::notifyMousePressed);
+			mClient->eventMouseButtonReleased += newDelegate(this, &Edit::notifyMouseReleased);
+			mClient->eventMouseDrag += newDelegate(this, &Edit::notifyMouseDrag);
+			mClient->eventMouseButtonDoubleClick += newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
+			mClient->eventMouseWheel += newDelegate(this, &Edit::notifyMouseWheel);
+			setWidgetClient(mClient);
 		}
 
 		assignWidget(mVScroll, "VScroll");
@@ -105,9 +105,9 @@ namespace MyGUI
 		}
 
 		mClientText = getSubWidgetText();
-		if (mWidgetClient != nullptr)
+		if (mClient != nullptr)
 		{
-			ISubWidgetText* text = mWidgetClient->getSubWidgetText();
+			ISubWidgetText* text = mClient->getSubWidgetText();
 			if (text)
 				mClientText = text;
 		}
@@ -124,7 +124,6 @@ namespace MyGUI
 	void Edit::shutdownOverride()
 	{
 		mClient = nullptr;
-		mWidgetClient = nullptr;
 		mClientText = nullptr;
 		mVScroll= nullptr;
 		mHScroll = nullptr;
@@ -134,14 +133,18 @@ namespace MyGUI
 
 	void Edit::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
-		if ( (_old == mWidgetClient) || (mIsFocus) ) return;
+		if ((_old == mClient) || (mIsFocus))
+			return;
+
 		mIsFocus = true;
 		updateEditState();
 	}
 
 	void Edit::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
-		if ( (_new == mWidgetClient) || (!mIsFocus) ) return;
+		if ((_new == mClient) || (!mIsFocus))
+			return;
+
 		mIsFocus = false;
 		updateEditState();
 	}
@@ -290,7 +293,7 @@ namespace MyGUI
 
 	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		if (mClientText == nullptr || mWidgetClient == nullptr)
+		if (mClientText == nullptr || mClient == nullptr)
 		{
 			Base::onKeyButtonPressed(_key, _char);
 			return;
@@ -540,7 +543,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetClient->getHeight() > mClientText->getFontHeight()) ? mWidgetClient->getHeight() : mClientText->getFontHeight();
+			point.top -= (mClient->getHeight() > mClientText->getFontHeight()) ? mClient->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
@@ -569,7 +572,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetClient->getHeight() > mClientText->getFontHeight()) ? mWidgetClient->getHeight() : mClientText->getFontHeight();
+			point.top += (mClient->getHeight() > mClientText->getFontHeight()) ? mClient->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
@@ -692,7 +695,7 @@ namespace MyGUI
 			{
 
 				IntPoint mouse = InputManager::getInstance().getMousePositionByLayer();
-				const IntRect& view = mWidgetClient->getAbsoluteRect();
+				const IntRect& view = mClient->getAbsoluteRect();
 				mouse.left -= view.left;
 				mouse.top -= view.top;
 				IntPoint point;
@@ -700,9 +703,9 @@ namespace MyGUI
 				bool action = false;
 
 				// вверх на одну строчку
-				if ( (mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE) )
+				if ((mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE))
 				{
-					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) )
+					if ((mouse.left > 0) && (mouse.left <= mClient->getWidth()))
 					{
 						point = mClientText->getCursorPoint(mCursorPosition);
 						point.top -= mClientText->getFontHeight();
@@ -710,9 +713,9 @@ namespace MyGUI
 					}
 				}
 				// вниз на одну строчку
-				else if ( (mouse.top > mWidgetClient->getHeight()) && (mouse.top < (mWidgetClient->getHeight() + EDIT_ACTION_MOUSE_ZONE)) )
+				else if ((mouse.top > mClient->getHeight()) && (mouse.top < (mClient->getHeight() + EDIT_ACTION_MOUSE_ZONE)))
 				{
-					if ( (mouse.left > 0) && (mouse.left <= mWidgetClient->getWidth()) )
+					if ((mouse.left > 0) && (mouse.left <= mClient->getWidth()))
 					{
 						point = mClientText->getCursorPoint(mCursorPosition);
 						point.top += mClientText->getFontHeight();
@@ -721,14 +724,14 @@ namespace MyGUI
 				}
 
 				// влево на небольшое расстояние
-				if ( (mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE) )
+				if ((mouse.left < 0) && (mouse.left > -EDIT_ACTION_MOUSE_ZONE))
 				{
 					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left -= (int)EDIT_OFFSET_HORZ_CURSOR;
 					action = true;
 				}
 				// вправо на небольшое расстояние
-				else if ( (mouse.left > mWidgetClient->getWidth()) && (mouse.left < (mWidgetClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)) )
+				else if ((mouse.left > mClient->getWidth()) && (mouse.left < (mClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)))
 				{
 					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
@@ -742,7 +745,6 @@ namespace MyGUI
 
 					if ( old != mCursorPosition )
 					{
-
 						mClientText->setCursorPosition(mCursorPosition);
 
 						mEndSelect = (size_t)mCursorPosition;
@@ -752,12 +754,15 @@ namespace MyGUI
 						// пытаемся показать курсор
 						updateViewWithCursor();
 					}
-
 				}
 				// если в зону не попадает то сбрасываем
-				else mActionMouseTimer = 0;
+				else
+				{
+					mActionMouseTimer = 0;
+				}
 
-				while (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER) mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER;
+				while (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER)
+					mActionMouseTimer -= EDIT_ACTION_MOUSE_TIMER;
 			}
 
 		} // if (mMouseLeftPressed)
@@ -769,20 +774,27 @@ namespace MyGUI
 		resetSelect();
 
 		// новая позиция
-		if (_index > mTextLength) _index = mTextLength;
-		if (mCursorPosition == _index) return;
+		if (_index > mTextLength)
+			_index = mTextLength;
+
+		if (mCursorPosition == _index)
+			return;
+
 		mCursorPosition = _index;
 
 		// обновляем по позиции
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
+
 		updateSelectText();
 	}
 
 	void Edit::setTextSelection(size_t _start, size_t _end)
 	{
-		if (_start > mTextLength) _start = mTextLength;
-		if (_end > mTextLength) _end = mTextLength;
+		if (_start > mTextLength)
+			_start = mTextLength;
+		if (_end > mTextLength)
+			_end = mTextLength;
 
 		mStartSelect = _start;
 		mEndSelect = _end;
@@ -1638,7 +1650,7 @@ namespace MyGUI
 
 	void Edit::updateCursorPosition()
 	{
-		if (mClientText == nullptr || mWidgetClient == nullptr)
+		if (mClientText == nullptr || mClient == nullptr)
 			return;
 
 		// размер контекста текста
@@ -1654,7 +1666,7 @@ namespace MyGUI
 		cursor.right ++;
 
 		// абсолютные координаты вью
-		const IntRect& view = mWidgetClient->getAbsoluteRect();
+		const IntRect& view = mClient->getAbsoluteRect();
 
 		// проверяем и показываем курсор
 		if (!view.inside(cursor))
@@ -1710,9 +1722,9 @@ namespace MyGUI
 			mClientText->setViewOffset(_point);
 	}
 
-	IntSize Edit::getViewSize() const
+	IntSize Edit::getViewSize()
 	{
-		return mWidgetClient == nullptr ? getSize() : mWidgetClient->getSize();
+		return mClient == nullptr ? getSize() : mClient->getSize();
 	}
 
 	IntSize Edit::getContentSize()
@@ -1826,10 +1838,12 @@ namespace MyGUI
 		mModeStatic = _static;
 		resetSelect();
 
-		if (mWidgetClient != nullptr)
+		if (mClient != nullptr)
 		{
-			if (mModeStatic) mWidgetClient->setPointer("");
-			else mWidgetClient->setPointer(mOriginalPointer);
+			if (mModeStatic)
+				mClient->setPointer("");
+			else
+				mClient->setPointer(mOriginalPointer);
 		}
 	}
 

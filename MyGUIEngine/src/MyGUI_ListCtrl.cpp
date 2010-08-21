@@ -57,12 +57,12 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseWheel += newDelegate(this, &ListCtrl::notifyMouseWheel);
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
-			mClient = mWidgetClient;
+			mClient->eventMouseWheel += newDelegate(this, &ListCtrl::notifyMouseWheel);
+			mClient->eventMouseButtonPressed += newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
+			setWidgetClient(mClient);
 		}
 
 		assignWidget(mVScroll, "VScroll");
@@ -88,7 +88,6 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mClient = nullptr;
-		mWidgetClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -825,7 +824,7 @@ namespace MyGUI
 		return mContentPosition;
 	}
 
-	IntSize ListCtrl::getViewSize() const
+	IntSize ListCtrl::getViewSize()
 	{
 		return _getClientWidget()->getSize();
 	}
@@ -843,12 +842,7 @@ namespace MyGUI
 
 	Widget* ListCtrl::_getClientWidget()
 	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
-	}
-
-	const Widget* ListCtrl::_getClientWidget() const
-	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
+		return mClient == nullptr ? this : mClient;
 	}
 
 } // namespace MyGUI

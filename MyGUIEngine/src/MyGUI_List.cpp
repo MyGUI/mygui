@@ -38,7 +38,8 @@ namespace MyGUI
 		mLastRedrawLine(0),
 		mIndexSelect(ITEM_NONE),
 		mLineActive(ITEM_NONE),
-		mNeedVisibleScroll(true)
+		mNeedVisibleScroll(true),
+		mClient(nullptr)
 	{
 	}
 
@@ -59,10 +60,11 @@ namespace MyGUI
 		if (mHeightLine < 1)
 			mHeightLine = 1;
 
-		assignWidget(mWidgetClient, "Client");
-		if (mWidgetClient != nullptr)
+		assignWidget(mClient, "Client");
+		if (mClient != nullptr)
 		{
-			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+			mClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+			setWidgetClient(mClient);
 		}
 
 		assignWidget(mWidgetScroll, "VScroll");
@@ -81,7 +83,7 @@ namespace MyGUI
 	void List::shutdownOverride()
 	{
 		mWidgetScroll = nullptr;
-		mWidgetClient = nullptr;
+		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -310,14 +312,14 @@ namespace MyGUI
 			{
 				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
-				if (mWidgetClient != nullptr)
-					mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+				if (mClient != nullptr)
+					mClient->setSize(mClient->getWidth() + mWidgetScroll->getWidth(), mClient->getHeight());
 			}
 		}
 		else if (!mWidgetScroll->getVisible())
 		{
-			if (mWidgetClient != nullptr)
-				mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
+			if (mClient != nullptr)
+				mClient->setSize(mClient->getWidth() - mWidgetScroll->getWidth(), mClient->getHeight());
 			mWidgetScroll->setVisible(true);
 		}
 
@@ -906,12 +908,7 @@ namespace MyGUI
 
 	Widget* List::_getClientWidget()
 	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
-	}
-
-	const Widget* List::_getClientWidget() const
-	{
-		return mWidgetClient == nullptr ? this : mWidgetClient;
+		return mClient == nullptr ? this : mClient;
 	}
 
 } // namespace MyGUI

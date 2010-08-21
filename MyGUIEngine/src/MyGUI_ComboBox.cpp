@@ -82,11 +82,12 @@ namespace MyGUI
 		}
 
 		// подписываем дочерние классы на скролл
-		if (mWidgetClient != nullptr)
+		// тут почему то без инициализации было
+		/*if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
 			mWidgetClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
-		}
+		}*/
 
 		// подписываемся на изменения текста
 		eventEditTextChange += newDelegate(this, &ComboBox::notifyEditTextChange);
@@ -120,10 +121,14 @@ namespace MyGUI
 		{
 			mDropMouse = false;
 			Widget* focus = InputManager::getInstance().getMouseFocusWidget();
+
 			// кнопка сама уберет список
-			if (focus == mButton) return;
+			if (focus == mButton)
+				return;
+
 			// в режиме дропа все окна учавствуют
-			if ( (mModeDrop) && (focus == mWidgetClient) ) return;
+			if ((mModeDrop) && (focus == mClient))
+				return;
 		}
 
 		hideList();
