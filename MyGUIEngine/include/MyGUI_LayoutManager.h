@@ -56,6 +56,9 @@ namespace MyGUI
 		/** Get ResourceLayout by name */
 		ResourceLayout* getByName(const std::string& _name, bool _throw = true) const;
 
+		/** Check if skin with specified name exist */
+		bool isExist(const std::string& _name) const;
+
 		typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> AddUserStringDelegate;
 		/** Event : Multidelegate. UserString was added from layout.\n
 			signature : void method(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)

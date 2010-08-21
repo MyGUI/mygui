@@ -61,11 +61,7 @@ namespace MyGUI
 		FloatCoord floatCoord;
 	};
 
-	struct MYGUI_EXPORT LayoutData
-	{
-		std::vector<WidgetInfo> rootWidgets;
-	};
-
+	typedef std::vector<WidgetInfo> VectorWidgetInfo;
 
 } // namespace MyGUI
 

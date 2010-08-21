@@ -96,12 +96,17 @@ namespace MyGUI
 
 	ResourceLayout* LayoutManager::getByName(const std::string& _name, bool _throw) const
 	{
-		IResource* result = nullptr;
-		if (!_name.empty())
-			result = ResourceManager::getInstance().getByName(_name, false);
+		IResource* result = ResourceManager::getInstance().getByName(_name, false);
 
-		if (result)
-			return result->castType<ResourceLayout>(false);
+		if (result != nullptr)
+		{
+			ResourceLayout* resource = result->castType<ResourceLayout>(false);
+			if (resource == nullptr)
+			{
+				MYGUI_ASSERT(!_throw, "Resource '" << _name << "' is not ResourceLayout type");
+			}
+			return resource;
+		}
 
 		MYGUI_ASSERT(!_throw, "ResourceLayout '" << _name << "' not found");
 		return nullptr;
@@ -110,6 +115,11 @@ namespace MyGUI
 	const std::string& LayoutManager::getCurrentLayout()
 	{
 		return mCurrentLayoutName;
+	}
+
+	bool LayoutManager::isExist(const std::string& _name) const
+	{
+		return getByName(_name, false) != nullptr;
 	}
 
 } // namespace MyGUI
