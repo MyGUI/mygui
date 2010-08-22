@@ -61,9 +61,6 @@ private:
 	void clear(bool _clearName = true);
 	void notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-	// menu mBar
-	void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
-	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 
@@ -75,10 +72,6 @@ private:
 
 	void setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filename);
 
-	std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
-
-	void createMainMenu();
-	void notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
 	void notifyFrameStarted(float _time);
 
 	int toGrid(int _x);
@@ -87,7 +80,7 @@ private:
 	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 
 	void solutionUpdate();
-	void widgetsUpdate();
+	void notifyChangeWidgets();
 
 	void commandLoad(const MyGUI::UString& _commandName);
 	void commandSave(const MyGUI::UString& _commandName);
@@ -98,7 +91,6 @@ private:
 	void commandSettings(const MyGUI::UString& _commandName);
 	void commandCodeGenerator(const MyGUI::UString& _commandName);
 	void commandRecentFiles(const MyGUI::UString& _commandName);
-	void commandWidgetsUpdate(const MyGUI::UString& _commandName);
 
 private:
 	// last click for depth selecting
@@ -131,11 +123,6 @@ private:
 	WidgetTypes * mWidgetTypes;
 	UndoManager * mUndoManager;
 	GroupMessage * mGroupMessage;
-
-	MyGUI::MenuBar* mBar;
-	MyGUI::MenuCtrl* mPopupMenuFile;
-	MyGUI::MenuCtrl* mPopupMenuWidgets;
-	std::vector<MyGUI::PopupMenu::ItemInfo> mWidgetMenus;
 
 	std::vector<std::wstring> mParams;
 	std::string mLocale;
