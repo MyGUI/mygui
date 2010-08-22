@@ -35,7 +35,7 @@ namespace tools
 
 	void MainMenuControl::createMainMenu()
 	{
-		MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("interface_menu.layout");
+		MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("MainMenuControl.layout");
 		MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 		mBar = menu_items[0]->castType<MyGUI::MenuBar>();
 		mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
