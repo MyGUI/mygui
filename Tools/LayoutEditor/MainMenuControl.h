@@ -8,6 +8,8 @@
 
 #include <MyGUI.h>
 
+struct WidgetContainer;
+
 namespace tools
 {
 
@@ -16,6 +18,26 @@ namespace tools
 	public:
 		MainMenuControl();
 		virtual ~MainMenuControl();
+
+		MyGUI::Widget* getMainWidget() { return mBar; }
+
+	private:
+		void createMainMenu();
+		void notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+
+		void widgetsUpdate();
+		void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+		void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+		std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
+
+		void notifyChangeWidgets();
+		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
+
+	private:
+		MyGUI::MenuBar* mBar;
+		MyGUI::MenuCtrl* mPopupMenuFile;
+		MyGUI::MenuCtrl* mPopupMenuWidgets;
+		std::vector<MyGUI::PopupMenu::ItemInfo> mWidgetMenus;
 	};
 
 } // namespace tools

@@ -34,9 +34,6 @@ EditorState::EditorState() :
 	mWidgetTypes(nullptr),
 	mUndoManager(nullptr),
 	mGroupMessage(nullptr),
-	mBar(nullptr),
-	mPopupMenuFile(nullptr),
-	mPopupMenuWidgets(nullptr),
 	mMainMenuControl(nullptr)
 {
 }
@@ -56,7 +53,7 @@ void EditorState::setupResources()
 	addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	setResourceFilename("editor.xml");
 }
-//===================================================================================
+
 void EditorState::createScene()
 {
 	new tools::SettingsManager();
@@ -103,12 +100,10 @@ void EditorState::createScene()
 
 	mWidgetsWindow = new WidgetsWindow();
 	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
-	//mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
-	//mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	mInterfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
 	mCodeGenerator = new CodeGenerator();
@@ -120,10 +115,8 @@ void EditorState::createScene()
 	mOpenSaveFileDialog->setFileMask("*.layout");
 	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyOpenSaveEndDialog);
 
-	// создание меню
-	createMainMenu();
-
 	mMainMenuControl = new tools::MainMenuControl();
+	mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
 
 	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
 	widget->setCoord(
@@ -166,7 +159,6 @@ void EditorState::createScene()
 	tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 	tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-	tools::CommandManager::getInstance().registerCommand("WidgetsUpdate", MyGUI::newDelegate(this, &EditorState::commandWidgetsUpdate));
 
 	// загружаем файлы которые были в командной строке
 	for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
@@ -177,10 +169,12 @@ void EditorState::createScene()
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 	tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
+	EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
 }
 
 void EditorState::destroyScene()
 {
+	EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
 	tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
@@ -233,91 +227,6 @@ void EditorState::destroyScene()
 	delete tools::SettingsManager::getInstancePtr();
 }
 
-void EditorState::createMainMenu()
-{
-	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("interface_menu.layout");
-	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
-	mBar = menu_items[0]->castType<MyGUI::MenuBar>();
-	mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
-
-	// главное меню
-	MyGUI::MenuItem* menu_file = mBar->getItemById("File");
-	mPopupMenuFile = menu_file->getItemChild();
-
-	// список последних открытых файлов
-	const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
-	if (!recentFiles.empty())
-	{
-		MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("File/Quit");
-		for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
-		{
-			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
-		}
-		// если есть файлы, то еще один сепаратор
-		mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
-	}
-
-	// меню для виджетов
-	MyGUI::MenuItem* menu_widget = mBar->getItemById("Widgets");
-	mPopupMenuWidgets = menu_widget->createItemChild();
-	//FIXME
-	mPopupMenuWidgets->setPopupAccept(true);
-	mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
-
-	mBar->eventMenuCtrlAccept += newDelegate(this, &EditorState::notifyPopupMenuAccept);
-
-	mInterfaceWidgets.push_back(mBar);
-}
-
-void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
-{
-	MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
-	if (data != nullptr)
-		tools::CommandManager::getInstance().setCommandData(*data);
-
-	if (mPopupMenuFile == _item->getMenuCtrlParent())
-	{
-		std::string id = _item->getItemId();
-
-		if (id == "File/Load")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
-		}
-		else if (id == "File/Save")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_FileSave");
-		}
-		else if (id == "File/SaveAs")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_FileSaveAs");
-		}
-		else if (id == "File/Clear")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_ClearAll");
-		}
-		else if (id == "File/Settings")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_Settings");
-		}
-		else if (id == "File/Test")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_Test");
-		}
-		else if (id == "File/Code_Generator")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_CodeGenerator");
-		}
-		else if (id == "File/RecentFiles")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_RecentFiles");
-		}
-		else if (id == "File/Quit")
-		{
-			tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
-		}
-	}
-}
-//===================================================================================
 void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
 	if (mTestMode)
@@ -352,7 +261,7 @@ void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 
 	base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 }
-//===================================================================================
+
 void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	if (mTestMode)
@@ -448,7 +357,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 
 	//base::BaseManager::injectMousePress(_absx, _absy, _id);
 }
-//===================================================================================
+
 void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	mSelectDepth++;
@@ -483,7 +392,7 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 
 	base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
-//===================================================================================
+
 void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 {
 	MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
@@ -561,7 +470,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	//base::BaseManager::injectKeyPress(_key, _text);
 }
-//===================================================================================
+
 void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 {
 	if (mTestMode)
@@ -571,7 +480,7 @@ void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 
 	return base::BaseManager::injectKeyRelease(_key);
 }
-//===================================================================================
+
 void EditorState::notifyFrameStarted(float _time)
 {
 	GroupMessage::getInstance().showMessages();
@@ -584,19 +493,10 @@ void EditorState::notifyFrameStarted(float _time)
 	}
 }
 
-void EditorState::commandWidgetsUpdate(const MyGUI::UString& _commandName)
-{
-	solutionUpdate();
-	widgetsUpdate();
-}
-
 void EditorState::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
 {
 	if (_sectionName == "SettingsWindow")
-	{
 		solutionUpdate();
-		widgetsUpdate();
-	}
 }
 
 void EditorState::notifyLoad()
@@ -826,88 +726,6 @@ void EditorState::solutionUpdate()
 {
 	if (mMetaSolutionWindow->getVisible())
 		mMetaSolutionWindow->updateList();
-}
-
-void EditorState::widgetsUpdate()
-{
-	bool print_name = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowName");
-	bool print_type = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType");
-	bool print_skin = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin");
-
-	mPopupMenuWidgets->removeAllItems();
-
-	for (std::vector<WidgetContainer*>::iterator iter = mEditorWidgets->widgets.begin(); iter != mEditorWidgets->widgets.end(); ++iter )
-	{
-		createWidgetPopup(*iter, mPopupMenuWidgets, print_name, print_type, print_skin);
-	}
-}
-
-void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
-{
-	bool submenu = !_container->childContainers.empty();
-
-	_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
-	_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
-
-	if (submenu)
-	{
-		MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
-		child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
-		child->setPopupAccept(true);
-
-		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
-		{
-			createWidgetPopup(*iter, child, _print_name, _print_type, _print_skin);
-		}
-	}
-}
-
-void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
-{
-	MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
-	tools::WidgetSelectorManager::getInstance().setSelectedWidget(widget);
-}
-
-std::string EditorState::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
-{
-	std::string name = "";
-	std::string type = "";
-	std::string skin = "";
-
-	WidgetContainer * widgetContainer = mEditorWidgets->find(_widget);
-	if (_print_name)
-	{
-		if (widgetContainer->name.empty())
-		{
-			// trim "LayoutEditorWidget_"
-			/*name = _widget->getName();
-			if (0 == strncmp("LayoutEditorWidget_", name.c_str(), 19))
-			{
-					std::string::iterator iter = std::find(name.begin(), name.end(), '_');
-					if (iter != name.end()) name.erase(name.begin(), ++iter);
-					name = "#{ColourMenuName}" + name;
-			}
-			name = "#{ColourMenuName}[" + name + "] ";*/
-		}
-		else
-		{
-			// FIXME my.name тут можно всю строку как формат сделать с тегами
-			name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
-		}
-	}
-
-	if (_print_type)
-	{
-		// FIXME my.name тут можно всю строку как формат сделать с тегами
-		type = "#{ColourMenuType}[" + _widget->getTypeName() + "] ";
-	}
-
-	if (_print_skin)
-	{
-		// FIXME my.name тут можно всю строку как формат сделать с тегами
-		skin = "#{ColourMenuSkin}" + widgetContainer->skin + " ";
-	}
-	return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
 }
 
 void EditorState::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
@@ -1170,6 +988,11 @@ void EditorState::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
 	}
 
 	mCurrentWidget = _current_widget;
+}
+
+void EditorState::notifyChangeWidgets()
+{
+	solutionUpdate();
 }
 
 MYGUI_APP(EditorState)
