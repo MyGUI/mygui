@@ -92,6 +92,7 @@ private:
 	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 
 	void solutionUpdate();
+	void widgetsUpdate();
 
 	void commandLoad(const MyGUI::UString& _commandName);
 	void commandSave(const MyGUI::UString& _commandName);
@@ -106,10 +107,10 @@ private:
 
 private:
 	// recent files
-	static const size_t MAX_RECENT_FILES = 8;
-	std::vector<MyGUI::UString> mRecentFiles;
+	//static const size_t MAX_RECENT_FILES = 8;
+	//std::vector<MyGUI::UString> mRecentFiles;
 
-	std::vector<MyGUI::UString> mAdditionalPaths;
+	//std::vector<MyGUI::UString> mAdditionalPaths;
 
 	// last click for depth selecting
 	int mLastClickX;

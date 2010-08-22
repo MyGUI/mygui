@@ -9,6 +9,7 @@
 #include "CodeGenerator.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
+#include "SettingsManager.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -62,8 +63,11 @@ void EditorState::setupResources()
 //===================================================================================
 void EditorState::createScene()
 {
-	tools::CommandManager* commandManager = new tools::CommandManager();
-	commandManager->initialise();
+	new tools::SettingsManager();
+	tools::SettingsManager::getInstancePtr()->initialise();
+
+	new tools::CommandManager();
+	tools::CommandManager::getInstancePtr()->initialise();
 
 	getStatisticInfo()->setVisible(false);
 
@@ -156,10 +160,9 @@ void EditorState::createScene()
 
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
-	for (std::vector<MyGUI::UString>::iterator iter = mAdditionalPaths.begin(); iter != mAdditionalPaths.end(); ++iter)
-	{
+	const tools::VectorUString& additionalPaths = tools::SettingsManager::getInstance().getAdditionalPaths();
+	for (tools::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 		addResourceLocation(*iter);
-	}
 
 	tools::CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 	tools::CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
@@ -223,9 +226,11 @@ void EditorState::destroyScene()
 	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
 
-	tools::CommandManager* commandManager = tools::CommandManager::getInstancePtr();
-	commandManager->shutdown();
-	delete commandManager;
+	tools::CommandManager::getInstancePtr()->shutdown();
+	delete tools::CommandManager::getInstancePtr();
+
+	tools::SettingsManager::getInstancePtr()->shutdown();
+	delete tools::SettingsManager::getInstancePtr();
 }
 
 void EditorState::createMainMenu()
@@ -238,11 +243,13 @@ void EditorState::createMainMenu()
 	// главное меню
 	MyGUI::MenuItem* menu_file = mBar->getItemById("File");
 	mPopupMenuFile = menu_file->getItemChild();
+
 	// список последних открытых файлов
-	if (mRecentFiles.size())
+	const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
+	if (!recentFiles.empty())
 	{
 		MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("File/Quit");
-		for (std::vector<MyGUI::UString>::reverse_iterator iter = mRecentFiles.rbegin(); iter != mRecentFiles.rend(); ++iter)
+		for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
 		{
 			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
 		}
@@ -577,7 +584,13 @@ void EditorState::notifyFrameStarted(float _time)
 void EditorState::commandWidgetsUpdate(const MyGUI::UString& _commandName)
 {
 	solutionUpdate();
-	notifyWidgetsUpdate();
+	widgetsUpdate();
+}
+
+void EditorState::notifyWidgetsUpdate()
+{
+	solutionUpdate();
+	widgetsUpdate();
 }
 
 bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
@@ -654,7 +667,7 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 						mMetaSolutionWindow->load(field);
 					}
 				}
-				else if (field->getName() == "RecentFile")
+				/*else if (field->getName() == "RecentFile")
 				{
 					std::string name;
 					if (!field->findAttribute("name", name)) continue;
@@ -665,7 +678,7 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 					std::string name;
 					if (!field->findAttribute("name", name)) continue;
 					mAdditionalPaths.push_back(name);
-				}
+				}*/
 			}
 		}
 	}
@@ -686,7 +699,7 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName)
 	mMetaSolutionWindow->save(root);
 
 	// cleanup for duplicates
-	std::reverse(mRecentFiles.begin(), mRecentFiles.end());
+	/*std::reverse(mRecentFiles.begin(), mRecentFiles.end());
 	for (size_t i = 0; i < mRecentFiles.size(); ++i)
 		mRecentFiles.erase(std::remove(mRecentFiles.begin() + i + 1, mRecentFiles.end(), mRecentFiles[i]), mRecentFiles.end());
 
@@ -705,7 +718,7 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName)
 	{
 		MyGUI::xml::ElementPtr nodeProp = root->createChild("AdditionalPath");
 		nodeProp->addAttribute("name", *iter);
-	}
+	}*/
 
 	if (!doc.save(_fileName))
 	{
@@ -941,7 +954,7 @@ void EditorState::solutionUpdate()
 		mMetaSolutionWindow->updateList();
 }
 
-void EditorState::notifyWidgetsUpdate()
+void EditorState::widgetsUpdate()
 {
 	bool print_name = SettingsWindow::getInstance().getShowName();
 	bool print_type = SettingsWindow::getInstance().getShowType();
@@ -1104,7 +1117,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 	{
 		mFileName = _file;
 		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		mRecentFiles.push_back(_file);
+		tools::SettingsManager::getInstance().addRecentFile(_file);
 
 		mOpenSaveFileDialog->setVisible(false);
 
