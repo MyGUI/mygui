@@ -6,14 +6,11 @@
 #include "UndoManager.h"
 #include "Base/Main.h"
 #include "GroupMessage.h"
-#include "CodeGenerator.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
 
-const float POSITION_CONTROLLER_TIME = 0.5f;
-const int HIDE_REMAIN_PIXELS = 3;
 const int BAR_HEIGHT = 30;
 
 EditorState::EditorState() :
@@ -27,10 +24,6 @@ EditorState::EditorState() :
 	mWidgetsWindow(nullptr),
 	mCodeGenerator(nullptr),
 	mOpenSaveFileDialog(nullptr),
-	mEditorWidgets(nullptr),
-	mWidgetTypes(nullptr),
-	mUndoManager(nullptr),
-	mGroupMessage(nullptr),
 	mMainMenuControl(nullptr)
 {
 }
@@ -72,13 +65,16 @@ void EditorState::createScene()
 
 	mTestMode = false;
 
-	mWidgetTypes = new WidgetTypes();
-	mWidgetTypes->initialise();
-	mEditorWidgets = new EditorWidgets();
-	mEditorWidgets->initialise();
-	mUndoManager = new UndoManager();
-	mUndoManager->initialise(mEditorWidgets);
-	mGroupMessage = new GroupMessage();
+	new WidgetTypes();
+	WidgetTypes::getInstance().initialise();
+
+	new EditorWidgets();
+	EditorWidgets::getInstance().initialise();
+
+	new UndoManager();
+	UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
+
+	new GroupMessage();
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
@@ -99,7 +95,7 @@ void EditorState::createScene()
 
 	mCodeGenerator = new CodeGenerator();
 	mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
-	mEditorWidgets->setCodeGenerator(mCodeGenerator);
+	EditorWidgets::getInstance().setCodeGenerator(mCodeGenerator);
 
 	mOpenSaveFileDialog = new tools::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
@@ -119,21 +115,6 @@ void EditorState::createScene()
 
 	// после загрузки настроек инициализируем
 	mWidgetsWindow->initialise();
-
-	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
-	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-
-			controller->setTime(POSITION_CONTROLLER_TIME);
-			controller->setRemainPixels(HIDE_REMAIN_PIXELS);
-			controller->setShadowSize(3);
-
-			MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
-		}
-	}
 
 	clear();
 
@@ -170,19 +151,16 @@ void EditorState::destroyScene()
 	delete mPropertiesPanelView;
 	mPropertiesPanelView = nullptr;
 
-	delete mGroupMessage;
+	delete GroupMessage::getInstancePtr();
 
-	mUndoManager->shutdown();
-	delete mUndoManager;
-	mUndoManager = nullptr;
+	UndoManager::getInstance().shutdown();
+	delete UndoManager::getInstancePtr();
 
-	mEditorWidgets->shutdown();
-	delete mEditorWidgets;
-	mEditorWidgets = nullptr;
+	EditorWidgets::getInstance().shutdown();
+	delete EditorWidgets::getInstancePtr();
 
-	mWidgetTypes->shutdown();
-	delete mWidgetTypes;
-	mWidgetTypes = nullptr;
+	WidgetTypes::getInstance().shutdown();
+	delete WidgetTypes::getInstancePtr();
 
 	delete mSettingsWindow;
 	mSettingsWindow = nullptr;
@@ -284,7 +262,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	if (nullptr != item)
 	{
 		// find widget registered as container
-		while ((nullptr == mEditorWidgets->find(item)) && (nullptr != item)) item = item->getParent();
+		while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item)) item = item->getParent();
 		MyGUI::Widget* oldItem = item;
 
 		// try to selectin depth
@@ -292,7 +270,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 		while (depth && (nullptr != item))
 		{
 			item = item->getParent();
-			while ((nullptr == mEditorWidgets->find(item)) && (nullptr != item)) item = item->getParent();
+			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item)) item = item->getParent();
 			depth--;
 		}
 		if (nullptr == item)
@@ -367,7 +345,7 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 		mWidgetsWindow->finishNewWidget(x2, y2);
 	}
 
-	mUndoManager->dropLastProperty();
+	UndoManager::getInstance().dropLastProperty();
 
 	base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
@@ -415,12 +393,12 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			tools::CommandManager::getInstance().executeCommand("Command_FileSave");
 			else if (_key == MyGUI::KeyCode::Z)
 			{
-				mUndoManager->undo();
+				UndoManager::getInstance().undo();
 				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			}
 			else if ((_key == MyGUI::KeyCode::Y) || ((input.isShiftPressed()) && (_key == MyGUI::KeyCode::Z)))
 			{
-				mUndoManager->redo();
+				UndoManager::getInstance().redo();
 				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			}
 			else if (_key == MyGUI::KeyCode::T)
@@ -474,7 +452,7 @@ void EditorState::notifyFrameStarted(float _time)
 
 void EditorState::notifyLoad()
 {
-	if (mUndoManager->isUnsaved())
+	if (UndoManager::getInstance().isUnsaved())
 	{
 		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
@@ -512,8 +490,8 @@ void EditorState::notifySettings()
 
 void EditorState::notifyTest()
 {
-	mTestLayout = mEditorWidgets->savexmlDocument();
-	mEditorWidgets->clear();
+	mTestLayout = EditorWidgets::getInstance().savexmlDocument();
+	EditorWidgets::getInstance().clear();
 	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
 	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
@@ -525,7 +503,7 @@ void EditorState::notifyTest()
 		}
 	}
 
-	mEditorWidgets->loadxmlDocument(mTestLayout, true);
+	EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
 	mTestMode = true;
 }
 
@@ -540,7 +518,7 @@ void EditorState::notifyEndTest()
 	}
 	mTestMode = false;
 	clear(false);
-	mEditorWidgets->loadxmlDocument(mTestLayout);
+	EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
 }
 
 void EditorState::notifyClear()
@@ -569,12 +547,12 @@ void EditorState::clear(bool _clearName)
 	if (_clearName)
 		mFileName = "";
 	mTestMode = false;
-	mEditorWidgets->clear();
+	EditorWidgets::getInstance().clear();
 
 	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
-	mUndoManager->shutdown();
-	mUndoManager->initialise(mEditorWidgets);
+	UndoManager::getInstance().shutdown();
+	UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 	mSelectDepth = 0;
 
 	if (_clearName)
@@ -583,7 +561,7 @@ void EditorState::clear(bool _clearName)
 
 void EditorState::notifyQuit()
 {
-	if (mUndoManager->isUnsaved())
+	if (UndoManager::getInstance().isUnsaved())
 	{
 		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
@@ -700,8 +678,8 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 {
 	if (!Save) clear();
 
-	if ( (Save && mEditorWidgets->save(_file)) ||
-		(!Save && mEditorWidgets->load(_file)) )
+	if ( (Save && EditorWidgets::getInstance().save(_file)) ||
+		(!Save && EditorWidgets::getInstance().load(_file)) )
 	{
 		mFileName = _file;
 		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
@@ -709,8 +687,8 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 
 		mOpenSaveFileDialog->setVisible(false);
 
-		mUndoManager->addValue();
-		mUndoManager->setUnsaved(false);
+		UndoManager::getInstance().addValue();
+		UndoManager::getInstance().setUnsaved(false);
 		return true;
 	}
 	else if (!Silent)

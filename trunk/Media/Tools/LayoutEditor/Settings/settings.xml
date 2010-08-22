@@ -12,4 +12,9 @@
         <Property key="widgetsButtonHeight" value="24"/>
         <Property key="widgetsButtonsInOneLine" value="5"/>
     </WidgetsWindow>
+	<Settings>
+		<Property key="EdgeHideTime" value="0.5"/>
+		<Property key="EdgeHideRemainPixels" value="3"/>
+		<Property key="EdgeHideShadowSize" value="3"/>
+	</Settings>
 </MyGUI>
