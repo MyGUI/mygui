@@ -5,7 +5,7 @@
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
-#include "MetaSolutionWindow.h"
+//#include "MetaSolutionWindow.h"
 #include "OpenSaveFileDialog.h"
 #include "MainMenuControl.h"
 
@@ -59,13 +59,13 @@ private:
 	void clear(bool _clearName = true);
 	void notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-	void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
+	//void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 	void notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result);
 
 	void notifyRecreate();
 
-	bool isMetaSolution(const MyGUI::UString& _fileName);
+	//bool isMetaSolution(const MyGUI::UString& _fileName);
 
 	void clearWidgetWindow();
 
@@ -75,8 +75,8 @@ private:
 
 	int toGrid(int _x);
 
-	void solutionUpdate();
-	void notifyChangeWidgets();
+	//void solutionUpdate();
+	//void notifyChangeWidgets();
 
 	void commandLoad(const MyGUI::UString& _commandName);
 	void commandSave(const MyGUI::UString& _commandName);
@@ -107,7 +107,7 @@ private:
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
-	MetaSolutionWindow * mMetaSolutionWindow;
+	//MetaSolutionWindow * mMetaSolutionWindow;
 	CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 
