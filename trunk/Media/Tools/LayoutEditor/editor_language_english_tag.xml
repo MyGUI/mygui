@@ -9,6 +9,7 @@
 	<Tag name="Settings">Settings</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
 	<Tag name="Code_Generator">Code generator</Tag>
+	<Tag name="RecentFiles">Recent Files </Tag>
 	<Tag name="Quit">Quit</Tag>
 
 	<Tag name="Properties">Properties</Tag>
@@ -52,4 +53,6 @@
 	<Tag name="LE_PatternWidgetName">#{ColourMenuName}'#{LE_WidgetName}' </Tag>
 	<Tag name="LE_PatternWidgetType">#{ColourMenuType}[#{LE_WidgetType}] </Tag>
 	<Tag name="LE_PatternWidgetSkin">#{ColourMenuSkin}#{LE_WidgetSkin} </Tag>
+
+	<Tag name="LE_FormatRecentFile">#{LE_IndexRecentFile}: #{LE_RecentFile}</Tag>
 </MyGUI>

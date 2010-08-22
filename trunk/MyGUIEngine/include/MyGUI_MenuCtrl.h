@@ -165,6 +165,9 @@ namespace MyGUI
 		/** Get item by id */
 		MenuItem* getItemById(const std::string& _id);
 
+		/** Find item by id */
+		MenuItem* findItemById(const std::string& _id, bool _recursive = false);
+
 		/** Get item index by id */
 		size_t getItemIndexById(const std::string& _id);
 		//------------------------------------------------------------------------------//

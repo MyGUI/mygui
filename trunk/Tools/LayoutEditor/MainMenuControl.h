@@ -36,7 +36,6 @@ namespace tools
 		void setEdgeHideController();
 	private:
 		MyGUI::MenuBar* mBar;
-		MyGUI::MenuCtrl* mPopupMenuFile;
 		MyGUI::MenuCtrl* mPopupMenuWidgets;
 		std::vector<MyGUI::PopupMenu::ItemInfo> mWidgetMenus;
 	};

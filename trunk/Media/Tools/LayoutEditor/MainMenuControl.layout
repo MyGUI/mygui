@@ -41,6 +41,15 @@
 					<Property key="MenuItemType" value="Separator"/>
 				</Widget>
 				<Widget type="MenuItem" skin="PopupMenuLine">
+					<Property key="Caption" value="#{RecentFiles}"/>
+					<Property key="MenuItemType" value="Popup"/>
+					<Property key="MenuItemId" value="RecentFiles"/>
+					<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuSeparator">
+					<Property key="MenuItemType" value="Separator"/>
+				</Widget>
+				<Widget type="MenuItem" skin="PopupMenuLine">
 					<Property key="Caption" value="#{Quit}"/>
 					<Property key="MenuItemId" value="Command_QuitApp"/>
 				</Widget>
@@ -50,6 +59,7 @@
 			<Property key="Caption" value="#{Widgets}"/>
 			<Property key="MenuItemType" value="Popup"/>
 			<Property key="MenuItemId" value="Widgets"/>
+			<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
 		</Widget>
 	</Widget>
 </MyGUI>
