@@ -70,6 +70,8 @@ SettingsWindow::SettingsWindow() :
 	setShowType(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType"));
 	setShowSkin(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin"));
 	setEdgeHide(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"));
+
+	mMainWidget->setVisible(false);
 }
 
 SettingsWindow::~SettingsWindow()
@@ -113,4 +115,33 @@ void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
 	checkbox->setStateSelected(!checkbox->getStateSelected());
 
 	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", _sender->getUserString("PropertyName"), checkbox->getStateSelected());
+}
+
+void SettingsWindow::setVisible(bool _value)
+{
+	if (mMainWidget->getVisible() != _value)
+	{
+		mMainWidget->setVisible(_value);
+
+		if (_value)
+		{
+			MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+			addDialog(this);
+
+			MyGUI::IntSize windowSize = mMainWidget->getSize();
+			MyGUI::IntSize parentSize = mMainWidget->getParentSize();
+
+			mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+		}
+		else
+		{
+			MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+			removeDialog(this);
+		}
+	}
+}
+
+bool SettingsWindow::getVisible()
+{
+	return mMainWidget->getVisible();
 }

@@ -20,7 +20,6 @@ EditorState::EditorState() :
 	mLastClickX(0),
 	mLastClickY(0),
 	mSelectDepth(0),
-	mCurrentWidget(false),
 	mRecreate(false),
 	mTestMode(false),
 	mPropertiesPanelView(nullptr),
@@ -88,6 +87,7 @@ void EditorState::createScene()
 
 	// settings window
 	mSettingsWindow = new SettingsWindow();
+	mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 	mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
@@ -165,14 +165,12 @@ void EditorState::createScene()
 
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 	tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
-	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
 	EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
 }
 
 void EditorState::destroyScene()
 {
 	EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
-	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
 	tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
@@ -340,7 +338,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	}
 
 	// вернем прямоугольник
-	if (mCurrentWidget && mWidgetsWindow->getCreatingStatus() == 0)
+	if (tools::WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && mWidgetsWindow->getCreatingStatus() == 0)
 	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 	}
@@ -722,6 +720,11 @@ void EditorState::solutionUpdate()
 		mMetaSolutionWindow->updateList();
 }
 
+void EditorState::notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result)
+{
+	_dialog->setVisible(false);
+}
+
 void EditorState::notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result)
 {
 	if (_result)
@@ -730,10 +733,8 @@ void EditorState::notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result)
 		bool save = mOpenSaveFileDialog->getMode() == "Save";
 		saveOrLoadLayout(save, false, file);
 	}
-	else
-	{
-		mOpenSaveFileDialog->setVisible(false);
-	}
+
+	mOpenSaveFileDialog->setVisible(false);
 }
 
 void EditorState::setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filename)
@@ -950,21 +951,6 @@ void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
 	saveOrLoadLayout(false, false, tools::CommandManager::getInstance().getCommandData());
-}
-
-void EditorState::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
-{
-	if (_current_widget == mCurrentWidget)
-	{
-		if (mCurrentWidget != nullptr)
-		{
-			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
-		}
-		return;
-	}
-
-	mCurrentWidget = _current_widget;
 }
 
 void EditorState::notifyChangeWidgets()
