@@ -10,10 +10,10 @@
 #include "WidgetSelectorManager.h"
 #include "WidgetContainer.h"
 #include "EditorWidgets.h"
+#include "Localise.h"
 
 namespace tools
 {
-
 	MainMenuControl::MainMenuControl() :
 		mBar(nullptr),
 		mPopupMenuFile(nullptr),
@@ -125,35 +125,17 @@ namespace tools
 
 	std::string MainMenuControl::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
 	{
-		std::string name = "";
-		std::string type = "";
-		std::string skin = "";
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_widget);
-		if (_print_name)
-		{
-			if (widgetContainer->name.empty())
-			{
-			}
-			else
-			{
-				// FIXME my.name тут можно всю строку как формат сделать с тегами
-				name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
-			}
-		}
+		addUserTag("LE_WidgetName", _print_name ? widgetContainer->name : "");
+		addUserTag("LE_WidgetType", _print_type ? _widget->getTypeName() : "");
+		addUserTag("LE_WidgetSkin", _print_skin ? widgetContainer->skin : "");
 
-		if (_print_type)
-		{
-			// FIXME my.name тут можно всю строку как формат сделать с тегами
-			type = "#{ColourMenuType}[" + _widget->getTypeName() + "] ";
-		}
+		addUserTag("LE_FormatWidgetName", (_print_name && !widgetContainer->name.empty()) ? "#{LE_PatternWidgetName}" : "");
+		addUserTag("LE_FormatWidgetType", _print_type ? "#{LE_PatternWidgetType}" : "");
+		addUserTag("LE_FormatWidgetSkin", _print_skin ? "#{LE_PatternWidgetSkin}" : "");
 
-		if (_print_skin)
-		{
-			// FIXME my.name тут можно всю строку как формат сделать с тегами
-			skin = "#{ColourMenuSkin}" + widgetContainer->skin + " ";
-		}
-		return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
+		return replaceTags("LE_MenuItemWidgetInfo");
 	}
 
 	void MainMenuControl::notifyChangeWidgets()
