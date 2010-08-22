@@ -13,6 +13,7 @@
 #include "Parse.h"
 #include "GroupMessage.h"
 #include "SettingsManager.h"
+#include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
@@ -84,6 +85,7 @@ PropertiesPanelView::PropertiesPanelView() :
 	setEdgeHideController();
 
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+	tools::CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertiesPanelView::commandToggleRelativeMode));
 }
 
 PropertiesPanelView::~PropertiesPanelView()
@@ -694,4 +696,9 @@ void PropertiesPanelView::setEdgeHideController()
 
 		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 	}
+}
+
+void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName)
+{
+	toggleRelativeMode();
 }
