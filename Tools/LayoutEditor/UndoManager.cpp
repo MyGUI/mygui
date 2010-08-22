@@ -1,5 +1,7 @@
 #include "precompiled.h"
 #include "UndoManager.h"
+#include "CommandManager.h"
+#include "WidgetSelectorManager.h"
 
 const int UNDO_COUNT = 64;
 
@@ -21,6 +23,9 @@ void UndoManager::initialise(EditorWidgets * _ew)
 	last_property = PR_DEFAULT;
 	ew = _ew;
 	mUnsaved = false;
+
+	tools::CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &UndoManager::commandUndo));
+	tools::CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &UndoManager::commandRedo));
 }
 
 void UndoManager::shutdown()
@@ -80,4 +85,16 @@ void UndoManager::addValue(int _property)
 	if ( operations.IsFull() ) delete operations.Back();
 	operations.Push( ew->savexmlDocument() );
 	pos = 0;
+}
+
+void UndoManager::commandUndo(const MyGUI::UString& _commandName)
+{
+	undo();
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+}
+
+void UndoManager::commandRedo(const MyGUI::UString& _commandName)
+{
+	redo();
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 }

@@ -54,6 +54,8 @@ private:
 
 	void setEdgeHideController();
 
+	void commandToggleRelativeMode(const MyGUI::UString& _commandName);
+
 private:
 	MyGUI::IntSize mOldSize;
 	PanelView* mPanelView;

@@ -73,6 +73,8 @@ private:
 	void commandSettings(const MyGUI::UString& _commandName);
 	void commandCodeGenerator(const MyGUI::UString& _commandName);
 	void commandRecentFiles(const MyGUI::UString& _commandName);
+	void commandStatisticInfo(const MyGUI::UString& _commandName);
+	void commandFocusVisible(const MyGUI::UString& _commandName);
 
 private:
 	// last click for depth selecting

@@ -10,6 +10,7 @@
 #include "CommandManager.h"
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
+#include "HotKeyManager.h"
 
 const int BAR_HEIGHT = 30;
 
@@ -54,6 +55,9 @@ void EditorState::createScene()
 
 	new tools::WidgetSelectorManager();
 	tools::WidgetSelectorManager::getInstance().initialise();
+
+	new tools::HotKeyManager();
+	tools::HotKeyManager::getInstance().initialise();
 
 	getStatisticInfo()->setVisible(false);
 
@@ -131,6 +135,8 @@ void EditorState::createScene()
 	tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 	tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
+	tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
+	tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
 
 	// загружаем файлы которые были в командной строке
 	for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
@@ -173,6 +179,9 @@ void EditorState::destroyScene()
 
 	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
+
+	tools::HotKeyManager::getInstance().shutdown();
+	delete tools::HotKeyManager::getInstancePtr();
 
 	tools::WidgetSelectorManager::getInstance().shutdown();
 	delete tools::WidgetSelectorManager::getInstancePtr();
@@ -376,56 +385,17 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		else if (_key == MyGUI::KeyCode::Return)
 			tools::Dialog::endTopDialog(true);
 	}
+	else if (_key == MyGUI::KeyCode::Escape)
+	{
+		notifyQuit();
+		return;
+	}
 	else
 	{
-		if (_key == MyGUI::KeyCode::Escape)
-		{
-			notifyQuit();
-			return;
-		}
-
-		if (input.isControlPressed())
-		{
-			if (_key == MyGUI::KeyCode::O
-				|| _key == MyGUI::KeyCode::L)
-				tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
-			else if (_key == MyGUI::KeyCode::S)
-				tools::CommandManager::getInstance().executeCommand("Command_FileSave");
-			else if (_key == MyGUI::KeyCode::Z)
-			{
-				UndoManager::getInstance().undo();
-				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-			}
-			else if ((_key == MyGUI::KeyCode::Y) || ((input.isShiftPressed()) && (_key == MyGUI::KeyCode::Z)))
-			{
-				UndoManager::getInstance().redo();
-				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-			}
-			else if (_key == MyGUI::KeyCode::T)
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_Test");
-				return;
-			}
-			else if (_key == MyGUI::KeyCode::R)
-			{
-				mPropertiesPanelView->toggleRelativeMode();
-				return;
-			}
-			else if (_key == MyGUI::KeyCode::F11)
-			{
-				getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
-				return;
-			}
-			else if (_key == MyGUI::KeyCode::F12)
-			{
-				getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
-				return;
-			}
-		}
+		tools::HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key);
 	}
 
 	MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
-	//base::BaseManager::injectKeyPress(_key, _text);
 }
 
 void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
@@ -433,6 +403,19 @@ void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 	if (mTestMode)
 	{
 		return base::BaseManager::injectKeyRelease(_key);
+	}
+
+	MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
+
+	if (tools::Dialog::getAnyDialog())
+	{
+	}
+	else if (_key == MyGUI::KeyCode::Escape)
+	{
+	}
+	else
+	{
+		tools::HotKeyManager::getInstance().onKeyEvent(false, input.isShiftPressed(), input.isControlPressed(), _key);
 	}
 
 	return base::BaseManager::injectKeyRelease(_key);
@@ -861,6 +844,16 @@ void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
 	saveOrLoadLayout(false, false, tools::CommandManager::getInstance().getCommandData());
+}
+
+void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
+{
+	getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
+}
+
+void EditorState::commandFocusVisible(const MyGUI::UString& _commandName)
+{
+	getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
 }
 
 MYGUI_APP(EditorState)

@@ -4,6 +4,7 @@
 	<List file="widgets.xml"/>
 	<List file="values.xml"/>
 	<List file="ignore.xml"/>
+	<List file="hotkeys.xml"/>
 
 	<!-- это для подключения плагинов -->
 	<List file="editor_plugin.xml"/>
