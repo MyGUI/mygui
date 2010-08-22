@@ -9,7 +9,8 @@
 namespace tools
 {
 
-	ColourPanel::ColourPanel()
+	ColourPanel::ColourPanel() :
+		Dialog()
 	{
 		initialiseByAttributes(this);
 		mTextureName = MyGUI::utility::toString((int)this, "_ColourGradient");
@@ -288,33 +289,16 @@ namespace tools
 		else return _colour.alpha;
 	}
 
-	void ColourPanel::setVisible(bool _value)
+	void ColourPanel::onDoModal()
 	{
-		if (mMainWidget->getVisible() != _value)
-		{
-			mMainWidget->setVisible(_value);
+		MyGUI::IntSize windowSize = mMainWidget->getSize();
+		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-			if (_value)
-			{
-				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
-				addDialog(this);
-
-				MyGUI::IntSize windowSize = mMainWidget->getSize();
-				MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-				mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
-			}
-			else
-			{
-				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
-				removeDialog(this);
-			}
-		}
+		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 	}
 
-	bool ColourPanel::getVisible()
+	void ColourPanel::onEndModal()
 	{
-		return mMainWidget->getVisible();
 	}
 
 	void ColourPanel::notifyMouseButtonClickCancel(MyGUI::Widget* _sender)

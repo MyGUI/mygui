@@ -38,7 +38,6 @@ namespace tools
 		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 
 		mColourPanel = new ColourPanel();
-		mColourPanel->setVisible(false);
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &TextureControl::notifyEndDialog);
 	}
 
@@ -159,7 +158,7 @@ namespace tools
 	void TextureControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		mColourPanel->setColour(mCurrentColour);
-		mColourPanel->setVisible(true);
+		mColourPanel->doModal();
 	}
 
 	void TextureControl::notifyEndDialog(Dialog* _sender, bool _result)
@@ -172,7 +171,7 @@ namespace tools
 			updateColours();
 		}
 
-		mColourPanel->setVisible(false);
+		mColourPanel->endModal();
 	}
 
 	void TextureControl::updateColours()

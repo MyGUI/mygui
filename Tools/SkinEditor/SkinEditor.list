@@ -58,6 +58,7 @@ set (HEADER_FILES
   ExportManager.h
   Localise.h
   MessageBoxManager.h
+  DialogManager.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
@@ -116,6 +117,7 @@ set (SOURCE_FILES
   BackgroundControl.cpp
   ExportManager.cpp
   MessageBoxManager.cpp
+  DialogManager.cpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

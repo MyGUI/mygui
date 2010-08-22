@@ -7,7 +7,6 @@
 #define __COLOUR_PANEL_H__
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
 
 namespace tools
@@ -15,7 +14,6 @@ namespace tools
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
-		public wraps::BaseLayout,
 		public Dialog
 	{
 	public:
@@ -25,8 +23,9 @@ namespace tools
 		void setColour(const MyGUI::Colour& _colour);
 		const MyGUI::Colour& getColour() { return mCurrentColour; }
 
-		virtual void setVisible(bool _value);
-		virtual bool getVisible();
+	protected:
+		virtual void onDoModal();
+		virtual void onEndModal();
 
 	private:
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
