@@ -11,11 +11,6 @@
 #include "CommandManager.h"
 #include "SettingsManager.h"
 
-const std::string LogSection = "LayoutEditor";
-
-const std::wstring settingsFile = L"settings.xml";
-const std::wstring userSettingsFile = L"le_user_settings.xml";
-
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 const int BAR_HEIGHT = 30;
@@ -64,7 +59,7 @@ void EditorState::setupResources()
 void EditorState::createScene()
 {
 	new tools::SettingsManager();
-	tools::SettingsManager::getInstancePtr()->initialise();
+	tools::SettingsManager::getInstance().initialise();
 
 	new tools::CommandManager();
 	tools::CommandManager::getInstancePtr()->initialise();
@@ -95,7 +90,6 @@ void EditorState::createScene()
 
 	// settings window
 	mSettingsWindow = new SettingsWindow();
-	mSettingsWindow->eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
@@ -122,9 +116,6 @@ void EditorState::createScene()
 	mOpenSaveFileDialog->setFileMask("*.layout");
 	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyOpenSaveEndDialog);
 
-	loadSettings(settingsFile, true);
-	loadSettings(userSettingsFile, false);
-
 	// создание меню
 	createMainMenu();
 
@@ -141,7 +132,7 @@ void EditorState::createScene()
 	// после загрузки настроек инициализируем
 	mWidgetsWindow->initialise();
 
-	if (mSettingsWindow->getEdgeHide())
+	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 		{
@@ -157,8 +148,6 @@ void EditorState::createScene()
 	}
 
 	clear();
-
-	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 	const tools::VectorUString& additionalPaths = tools::SettingsManager::getInstance().getAdditionalPaths();
 	for (tools::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
@@ -180,13 +169,15 @@ void EditorState::createScene()
 	{
 		saveOrLoadLayout(false, false, iter->c_str());
 	}
+
+	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+	tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 }
 
 void EditorState::destroyScene()
 {
+	tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
-
-	saveSettings(userSettingsFile);
 
 	delete mMainMenuControl;
 	mMainMenuControl = nullptr;
@@ -587,10 +578,13 @@ void EditorState::commandWidgetsUpdate(const MyGUI::UString& _commandName)
 	widgetsUpdate();
 }
 
-void EditorState::notifyWidgetsUpdate()
+void EditorState::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
 {
-	solutionUpdate();
-	widgetsUpdate();
+	if (_sectionName == "SettingsWindow")
+	{
+		solutionUpdate();
+		widgetsUpdate();
+	}
 }
 
 bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
@@ -612,119 +606,6 @@ bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 		}
 	}
 	return false;
-}
-//===================================================================================
-void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
-{
-	std::string _instance = "Editor";
-
-	MyGUI::xml::Document doc;
-	if (_internal)
-	{
-		MyGUI::DataStreamHolder data = MyGUI::DataManager::getInstance().getData(_fileName);
-		if (data.getData() != nullptr)
-		{
-			if (!doc.open(data.getData()))
-			{
-				MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-				return;
-			}
-		}
-	}
-	else
-	{
-		if (!doc.open(_fileName))
-		{
-			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-			return;
-		}
-	}
-
-	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if (!root || (root->getName() != "MyGUI"))
-	{
-		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
-		return;
-	}
-
-	std::string type;
-	if (root->findAttribute("type", type))
-	{
-		if (type == "Settings")
-		{
-			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator field = root->getElementEnumerator();
-			while (field.next())
-			{
-				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
-				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
-				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
-				else if (field->getName() == "MetaSolutionWindow")
-				{
-					if (isNeedSolutionLoad(field))
-					{
-						clearWidgetWindow();
-						mMetaSolutionWindow->load(field);
-					}
-				}
-				/*else if (field->getName() == "RecentFile")
-				{
-					std::string name;
-					if (!field->findAttribute("name", name)) continue;
-					mRecentFiles.push_back(name);
-				}
-				else if (field->getName() == "AdditionalPath")
-				{
-					std::string name;
-					if (!field->findAttribute("name", name)) continue;
-					mAdditionalPaths.push_back(name);
-				}*/
-			}
-		}
-	}
-}
-
-void EditorState::saveSettings(const MyGUI::UString& _fileName)
-{
-	std::string _instance = "Editor";
-
-	MyGUI::xml::Document doc;
-	doc.createDeclaration();
-	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
-	root->addAttribute("type", "Settings");
-
-	mPropertiesPanelView->save(root);
-	mSettingsWindow->save(root);
-	mWidgetsWindow->save(root);
-	mMetaSolutionWindow->save(root);
-
-	// cleanup for duplicates
-	/*std::reverse(mRecentFiles.begin(), mRecentFiles.end());
-	for (size_t i = 0; i < mRecentFiles.size(); ++i)
-		mRecentFiles.erase(std::remove(mRecentFiles.begin() + i + 1, mRecentFiles.end(), mRecentFiles[i]), mRecentFiles.end());
-
-	// remove old files
-	while (mRecentFiles.size() > MAX_RECENT_FILES)
-		mRecentFiles.pop_back();
-	std::reverse(mRecentFiles.begin(), mRecentFiles.end());
-
-	for (std::vector<MyGUI::UString>::iterator iter = mRecentFiles.begin(); iter != mRecentFiles.end(); ++iter)
-	{
-		MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
-		nodeProp->addAttribute("name", *iter);
-	}
-
-	for (std::vector<MyGUI::UString>::iterator iter = mAdditionalPaths.begin(); iter != mAdditionalPaths.end(); ++iter)
-	{
-		MyGUI::xml::ElementPtr nodeProp = root->createChild("AdditionalPath");
-		nodeProp->addAttribute("name", *iter);
-	}*/
-
-	if (!doc.save(_fileName))
-	{
-		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-		return;
-	}
 }
 
 void EditorState::notifyLoad()
@@ -956,9 +837,9 @@ void EditorState::solutionUpdate()
 
 void EditorState::widgetsUpdate()
 {
-	bool print_name = SettingsWindow::getInstance().getShowName();
-	bool print_type = SettingsWindow::getInstance().getShowType();
-	bool print_skin = SettingsWindow::getInstance().getShowSkin();
+	bool print_name = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowName");
+	bool print_type = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType");
+	bool print_skin = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin");
 
 	mPopupMenuWidgets->removeAllItems();
 
