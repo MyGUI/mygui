@@ -542,7 +542,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 		if (goodData)
 		{
 			widgetContainer->name = value;
-			ew->widgets_changed = true;
+			ew->invalidateWidgets();
 		}
 		return;
 	}

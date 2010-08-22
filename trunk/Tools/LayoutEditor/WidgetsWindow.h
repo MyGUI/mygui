@@ -8,7 +8,8 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class WidgetsWindow : public wraps::BaseLayout
+class WidgetsWindow :
+	public wraps::BaseLayout
 {
 public:
 	WidgetsWindow();

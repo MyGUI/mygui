@@ -8,7 +8,9 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class SettingsWindow : public wraps::BaseLayout
+class SettingsWindow :
+	public wraps::BaseLayout,
+	public MyGUI::Singleton<SettingsWindow>
 {
 public:
 	SettingsWindow();

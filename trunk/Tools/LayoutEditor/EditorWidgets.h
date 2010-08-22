@@ -13,7 +13,8 @@ MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::
 
 class CodeGenerator;
 
-class EditorWidgets : public MyGUI::Singleton<EditorWidgets>
+class EditorWidgets :
+	public MyGUI::Singleton<EditorWidgets>
 {
 public:
 	EditorWidgets();
@@ -37,9 +38,11 @@ public:
 
 	bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test = false);
 
+	void invalidateWidgets();
+
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
-	bool widgets_changed;
+
 private:
 	WidgetContainer * _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
@@ -47,9 +50,11 @@ private:
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);
 
 	void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+	void notifyFrameStarted(float _time);
 
+private:
+	bool widgets_changed;
 	std::vector<std::string> ignore_parameters;
-
 	CodeGenerator* mCodeGenerator;
 };
 

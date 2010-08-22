@@ -5,6 +5,7 @@
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
 #include "CodeGenerator.h"
+#include "CommandManager.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -17,6 +18,7 @@ EditorWidgets::EditorWidgets() :
 	mCodeGenerator(nullptr)
 {
 }
+
 EditorWidgets::~EditorWidgets()
 {
 }
@@ -79,10 +81,14 @@ void EditorWidgets::initialise()
 	widgets_changed = true;
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
+
+	MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 }
 
 void EditorWidgets::shutdown()
 {
+	MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
+
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter) delete *iter;
 	widgets.clear();
 }
@@ -499,4 +505,18 @@ void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std
 		std::string name = parameter->findAttribute("key");
 		ignore_parameters.push_back(name);
 	}
+}
+
+void EditorWidgets::notifyFrameStarted(float _time)
+{
+	if (widgets_changed)
+	{
+		widgets_changed = false;
+		tools::CommandManager::getInstance().executeCommand("WidgetsUpdate");
+	}
+}
+
+void EditorWidgets::invalidateWidgets()
+{
+	widgets_changed = true;
 }

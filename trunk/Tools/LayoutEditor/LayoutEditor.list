@@ -23,6 +23,8 @@ set (HEADER_FILES
   GroupMessage.h
   CodeGenerator.h
   Dialog.h
+  CommandManager.h
+  MainMenuControl.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -46,6 +48,8 @@ set (SOURCE_FILES
   GroupMessage.cpp
   CodeGenerator.cpp
   Dialog.cpp
+  CommandManager.cpp
+  MainMenuControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp

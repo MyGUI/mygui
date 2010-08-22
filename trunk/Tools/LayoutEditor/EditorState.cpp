@@ -8,6 +8,7 @@
 #include "GroupMessage.h"
 #include "CodeGenerator.h"
 #include "FileSystemInfo/FileSystemInfo.h"
+#include "CommandManager.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -16,6 +17,7 @@ const std::wstring userSettingsFile = L"le_user_settings.xml";
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
+const int BAR_HEIGHT = 30;
 
 EditorState::EditorState() :
 	mLastClickX(0),
@@ -37,7 +39,8 @@ EditorState::EditorState() :
 	mGroupMessage(nullptr),
 	mBar(nullptr),
 	mPopupMenuFile(nullptr),
-	mPopupMenuWidgets(nullptr)
+	mPopupMenuWidgets(nullptr),
+	mMainMenuControl(nullptr)
 {
 }
 
@@ -59,6 +62,9 @@ void EditorState::setupResources()
 //===================================================================================
 void EditorState::createScene()
 {
+	tools::CommandManager* commandManager = new tools::CommandManager();
+	commandManager->initialise();
+
 	getStatisticInfo()->setVisible(false);
 
 	// set locale language if it was taken from OS
@@ -118,12 +124,14 @@ void EditorState::createScene()
 	// создание меню
 	createMainMenu();
 
+	mMainMenuControl = new tools::MainMenuControl();
+
 	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
 	widget->setCoord(
 		widget->getParentSize().width - widget->getSize().width,
-		mBar->getHeight(),
+		BAR_HEIGHT,
 		widget->getSize().width,
-		widget->getParentSize().height - mBar->getHeight()
+		widget->getParentSize().height - BAR_HEIGHT
 		);
 
 	// после загрузки настроек инициализируем
@@ -153,6 +161,17 @@ void EditorState::createScene()
 		addResourceLocation(*iter);
 	}
 
+	tools::CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
+	tools::CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
+	tools::CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
+	tools::CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
+	tools::CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
+	tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuit));
+	tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
+	tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
+	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
+	tools::CommandManager::getInstance().registerCommand("WidgetsUpdate", MyGUI::newDelegate(this, &EditorState::commandWidgetsUpdate));
+
 	// загружаем файлы которые были в командной строке
 	for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 	{
@@ -165,6 +184,9 @@ void EditorState::destroyScene()
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 	saveSettings(userSettingsFile);
+
+	delete mMainMenuControl;
+	mMainMenuControl = nullptr;
 
 	delete mPropertiesPanelView;
 	mPropertiesPanelView = nullptr;
@@ -200,6 +222,10 @@ void EditorState::destroyScene()
 
 	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
+
+	tools::CommandManager* commandManager = tools::CommandManager::getInstancePtr();
+	commandManager->shutdown();
+	delete commandManager;
 }
 
 void EditorState::createMainMenu()
@@ -238,49 +264,52 @@ void EditorState::createMainMenu()
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 {
+	MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
+	if (data != nullptr)
+		tools::CommandManager::getInstance().setCommandData(*data);
+
 	if (mPopupMenuFile == _item->getMenuCtrlParent())
 	{
 		std::string id = _item->getItemId();
 
 		if (id == "File/Load")
 		{
-			notifyLoad();
+			tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
 		}
 		else if (id == "File/Save")
 		{
-			notifySave();
+			tools::CommandManager::getInstance().executeCommand("Command_FileSave");
 		}
 		else if (id == "File/SaveAs")
 		{
-			setModeSaveLoadDialog(true, mFileName);
+			tools::CommandManager::getInstance().executeCommand("Command_FileSaveAs");
 		}
 		else if (id == "File/Clear")
 		{
-			notifyClear();
+			tools::CommandManager::getInstance().executeCommand("Command_ClearAll");
 		}
 		else if (id == "File/Settings")
 		{
-			notifySettings();
+			tools::CommandManager::getInstance().executeCommand("Command_Settings");
 		}
 		else if (id == "File/Test")
 		{
-			notifyTest();
+			tools::CommandManager::getInstance().executeCommand("Command_Test");
 		}
 		else if (id == "File/Code_Generator")
 		{
-			mCodeGenerator->getMainWidget()->setVisible(true);
+			tools::CommandManager::getInstance().executeCommand("Command_CodeGenerator");
 		}
 		else if (id == "File/RecentFiles")
 		{
-			saveOrLoadLayout(false, false, *_item->getItemData<MyGUI::UString>());
+			tools::CommandManager::getInstance().executeCommand("Command_RecentFiles");
 		}
 		else if (id == "File/Quit")
 		{
-			notifyQuit();
+			tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
 		}
 	}
 }
-
 //===================================================================================
 void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
@@ -484,9 +513,9 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		{
 			if (_key == MyGUI::KeyCode::O
 				|| _key == MyGUI::KeyCode::L)
-				notifyLoad();
+				tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
 			else if (_key == MyGUI::KeyCode::S)
-				notifySave();
+			tools::CommandManager::getInstance().executeCommand("Command_FileSave");
 			else if (_key == MyGUI::KeyCode::Z)
 			{
 				mUndoManager->undo();
@@ -538,22 +567,19 @@ void EditorState::notifyFrameStarted(float _time)
 {
 	GroupMessage::getInstance().showMessages();
 
-	if (mEditorWidgets->widgets_changed)
-	{
-		notifyWidgetsUpdate();
-		mEditorWidgets->widgets_changed = false;
-	}
-
 	if (mRecreate)
 	{
 		mRecreate = false;
 		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
-
-	//return base::BaseManager::frameStarted(evt);
-	//return true;
 }
-//===================================================================================
+
+void EditorState::commandWidgetsUpdate(const MyGUI::UString& _commandName)
+{
+	solutionUpdate();
+	notifyWidgetsUpdate();
+}
+
 bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
@@ -909,14 +935,17 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::Messa
 	*/
 }
 
-void EditorState::notifyWidgetsUpdate()
+void EditorState::solutionUpdate()
 {
 	if (mMetaSolutionWindow->getVisible())
 		mMetaSolutionWindow->updateList();
+}
 
-	bool print_name = mSettingsWindow->getShowName();
-	bool print_type = mSettingsWindow->getShowType();
-	bool print_skin = mSettingsWindow->getShowSkin();
+void EditorState::notifyWidgetsUpdate()
+{
+	bool print_name = SettingsWindow::getInstance().getShowName();
+	bool print_type = SettingsWindow::getInstance().getShowType();
+	bool print_skin = SettingsWindow::getInstance().getShowSkin();
 
 	mPopupMenuWidgets->removeAllItems();
 
@@ -1213,6 +1242,51 @@ int EditorState::toGrid(int _x)
 void EditorState::notifyRecreate()
 {
 	mRecreate = true;
+}
+
+void EditorState::commandLoad(const MyGUI::UString& _commandName)
+{
+	notifyLoad();
+}
+
+void EditorState::commandSave(const MyGUI::UString& _commandName)
+{
+	notifySave();
+}
+
+void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
+{
+	setModeSaveLoadDialog(true, mFileName);
+}
+
+void EditorState::commandClear(const MyGUI::UString& _commandName)
+{
+	notifyClear();
+}
+
+void EditorState::commandTest(const MyGUI::UString& _commandName)
+{
+	notifyTest();
+}
+
+void EditorState::commandQuit(const MyGUI::UString& _commandName)
+{
+	notifyQuit();
+}
+
+void EditorState::commandSettings(const MyGUI::UString& _commandName)
+{
+	notifySettings();
+}
+
+void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
+{
+	mCodeGenerator->getMainWidget()->setVisible(true);
+}
+
+void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
+{
+	saveOrLoadLayout(false, false, tools::CommandManager::getInstance().getCommandData());
 }
 
 MYGUI_APP(EditorState)

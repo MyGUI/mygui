@@ -8,6 +8,8 @@
 #include "WidgetsWindow.h"
 #include "MetaSolutionWindow.h"
 #include "OpenSaveFileDialog.h"
+#include "MainMenuControl.h"
+
 
 class EditorWidgets;
 class WidgetTypes;
@@ -89,6 +91,19 @@ private:
 	// tooltips
 	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 
+	void solutionUpdate();
+
+	void commandLoad(const MyGUI::UString& _commandName);
+	void commandSave(const MyGUI::UString& _commandName);
+	void commandSaveAs(const MyGUI::UString& _commandName);
+	void commandClear(const MyGUI::UString& _commandName);
+	void commandTest(const MyGUI::UString& _commandName);
+	void commandQuit(const MyGUI::UString& _commandName);
+	void commandSettings(const MyGUI::UString& _commandName);
+	void commandCodeGenerator(const MyGUI::UString& _commandName);
+	void commandRecentFiles(const MyGUI::UString& _commandName);
+	void commandWidgetsUpdate(const MyGUI::UString& _commandName);
+
 private:
 	// recent files
 	static const size_t MAX_RECENT_FILES = 8;
@@ -134,5 +149,7 @@ private:
 
 	std::vector<std::wstring> mParams;
 	std::string mLocale;
+
+	tools::MainMenuControl* mMainMenuControl;
 };
 #endif // __EDITOR_STATE_H__
