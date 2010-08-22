@@ -5,7 +5,6 @@
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
-//#include "MetaSolutionWindow.h"
 #include "OpenSaveFileDialog.h"
 #include "MainMenuControl.h"
 
