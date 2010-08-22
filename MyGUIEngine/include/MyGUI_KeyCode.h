@@ -181,8 +181,13 @@ namespace MyGUI
 
 		KeyCode(Enum _value = None) : value(_value) { }
 
-		friend bool operator == (KeyCode const& a, KeyCode const& b) { return a.value == b.value; }
-		friend bool operator != (KeyCode const& a, KeyCode const& b) { return a.value != b.value; }
+		friend bool operator < (KeyCode const& a, KeyCode const& b) { return (a.value < b.value); }
+		friend bool operator >= (KeyCode const& a, KeyCode const& b) { return !(a < b); }
+		friend bool operator > (KeyCode const& a, KeyCode const& b) { return (b < a); }
+		friend bool operator <= (KeyCode const& a, KeyCode const& b) { return !(a > b); }
+
+		friend bool operator == (KeyCode const& a, KeyCode const& b) { return !(a < b) && !(a > b); }
+		friend bool operator != (KeyCode const& a, KeyCode const& b) { return !(a == b); }
 
 		int toValue() const { return (int)value; }
 
