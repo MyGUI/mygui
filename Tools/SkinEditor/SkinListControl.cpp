@@ -8,8 +8,8 @@
 #include "SkinManager.h"
 #include "ActionManager.h"
 #include <limits>
-#include "DemoKeeper.h"
 #include "Localise.h"
+#include "MessageBoxManager.h"
 
 namespace tools
 {
@@ -75,13 +75,11 @@ namespace tools
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageDeleteSkin"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
-			DemoKeeper::getInstance().registerMessageBox(message);
 		}
 	}
 
