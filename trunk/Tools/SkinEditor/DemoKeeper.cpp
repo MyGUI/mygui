@@ -13,6 +13,7 @@
 #include "MyGUI_FilterNoneSkin.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
+#include "MessageBoxManager.h"
 
 template <> tools::DemoKeeper* MyGUI::Singleton<tools::DemoKeeper>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::DemoKeeper>::mClassTypeName("DemoKeeper");
@@ -26,8 +27,7 @@ namespace tools
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
 		mOpenSaveFileDialog(nullptr),
-		mTestWindow(nullptr),
-		mMessageBox(nullptr)
+		mTestWindow(nullptr)
 	{
 	}
 
@@ -48,17 +48,20 @@ namespace tools
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
-		CommandManager* commandManager = new CommandManager();
-		commandManager->initialise();
+		new CommandManager();
+		CommandManager::getInstance().initialise();
 
-		SkinManager* skinManager = new SkinManager();
-		skinManager->initialise();
+		new SkinManager();
+		SkinManager::getInstance().initialise();
 
-		ActionManager* actionManager = new ActionManager();
-		actionManager->initialise();
+		new ActionManager();
+		ActionManager::getInstance().initialise();
 
-		ExportManager* exportManager = new ExportManager();
-		exportManager->initialise();
+		new ExportManager();
+		ExportManager::getInstance().initialise();
+
+		new MessageBoxManager();
+		MessageBoxManager::getInstance().initialise();
 
 		mMainPane = new MainPane();
 
@@ -91,21 +94,20 @@ namespace tools
 		delete mMainPane;
 		mMainPane = nullptr;
 
-		ExportManager* exportManager = ExportManager::getInstancePtr();
-		exportManager->shutdown();
-		delete exportManager;
+		MessageBoxManager::getInstance().shutdown();
+		delete MessageBoxManager::getInstancePtr();
 
-		ActionManager* actionManager = ActionManager::getInstancePtr();
-		actionManager->shutdown();
-		delete actionManager;
+		ExportManager::getInstance().shutdown();
+		delete ExportManager::getInstancePtr();
 
-		SkinManager* skinManager = SkinManager::getInstancePtr();
-		skinManager->shutdown();
-		delete skinManager;
+		ActionManager::getInstance().shutdown();
+		delete ActionManager::getInstancePtr();
 
-		CommandManager* commandManager = CommandManager::getInstancePtr();
-		commandManager->shutdown();
-		delete commandManager;
+		SkinManager::getInstance().shutdown();
+		delete SkinManager::getInstancePtr();
+
+		CommandManager::getInstance().shutdown();
+		delete CommandManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
@@ -154,8 +156,7 @@ namespace tools
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
 				MyGUI::MessageBoxStyle::IconQuest
@@ -163,7 +164,6 @@ namespace tools
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultLoad);
-			registerMessageBox(message);
 		}
 		else
 		{
@@ -188,8 +188,7 @@ namespace tools
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
 				MyGUI::MessageBoxStyle::IconQuest
@@ -197,7 +196,6 @@ namespace tools
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultClear);
-			registerMessageBox(message);
 		}
 		else
 		{
@@ -213,16 +211,15 @@ namespace tools
 		}
 		else
 		{
-			if (mMessageBox != nullptr)
+			if (MessageBoxManager::getInstance().hasAny())
 			{
-				mMessageBox->endMessage(MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
 			}
 			else
 			{
 				if (mChanges)
 				{
-					MyGUI::Message* message = MyGUI::Message::createMessageBox(
-						"Message",
+					MyGUI::Message* message = MessageBoxManager::getInstance().create(
 						replaceTags("Warning"),
 						replaceTags("MessageUnsavedData"),
 						MyGUI::MessageBoxStyle::IconQuest
@@ -230,7 +227,6 @@ namespace tools
 							| MyGUI::MessageBoxStyle::No
 							| MyGUI::MessageBoxStyle::Cancel);
 					message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultQuit);
-					registerMessageBox(message);
 				}
 				else
 				{
@@ -339,13 +335,11 @@ namespace tools
 
 			if (!result)
 			{
-				MyGUI::Message* message = MyGUI::Message::createMessageBox(
-					"Message",
+				MyGUI::Message* message = MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					replaceTags("MessageIncorrectFileFormat"),
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
-				registerMessageBox(message);
 
 				mFileName = mDefaultFileName;
 				addUserTag("SE_CurrentFileName", mFileName);
@@ -355,13 +349,11 @@ namespace tools
 		}
 		else
 		{
-			MyGUI::Message* message = MyGUI::Message::createMessageBox(
-				"Message",
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
-			registerMessageBox(message);
 		}
 
 		ActionManager::getInstance().setChanges(false);
@@ -428,18 +420,6 @@ namespace tools
 		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
-	}
-
-	void DemoKeeper::registerMessageBox(MyGUI::Message* _message)
-	{
-		MYGUI_ASSERT(mMessageBox == nullptr, "Message box already registred");
-		mMessageBox = _message;
-		mMessageBox->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifMessageBoxResultRegister);
-	}
-
-	void DemoKeeper::notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		mMessageBox = nullptr;
 	}
 
 	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
