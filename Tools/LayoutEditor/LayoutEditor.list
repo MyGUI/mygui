@@ -22,6 +22,7 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
+  Dialog.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -44,6 +45,7 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
+  Dialog.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
@@ -88,6 +90,8 @@ SOURCE_GROUP("Panels" FILES
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
   OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
+  Dialog.h
+  Dialog.cpp
 )
 SOURCE_GROUP("Windows" FILES
   MetaSolutionWindow.h

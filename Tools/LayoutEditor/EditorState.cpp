@@ -23,7 +23,6 @@ EditorState::EditorState() :
 	mSelectDepth(0),
 	mCurrentWidget(false),
 	mRecreate(false),
-	mModeSaveDialog(false),
 	mTestMode(false),
 	mToolTip(nullptr),
 	mPropertiesPanelView(nullptr),
@@ -108,7 +107,7 @@ void EditorState::createScene()
 	mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
 	mEditorWidgets->setCodeGenerator(mCodeGenerator);
 
-	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
+	mOpenSaveFileDialog = new tools::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
 	mOpenSaveFileDialog->setFileMask("*.layout");
 	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyOpenSaveEndDialog);
@@ -466,15 +465,12 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		return;
 	}
 
-	if (input.isModalAny())
+	if (tools::Dialog::getAnyDialog())
 	{
-		if (mOpenSaveFileDialog->getVisible())
-		{
-			if (_key == MyGUI::KeyCode::Escape)
-				mOpenSaveFileDialog->eventEndDialog(false);
-			else if (_key == MyGUI::KeyCode::Return)
-				mOpenSaveFileDialog->eventEndDialog(true);
-		}
+		if (_key == MyGUI::KeyCode::Escape)
+			tools::Dialog::endTopDialog(false);
+		else if (_key == MyGUI::KeyCode::Return)
+			tools::Dialog::endTopDialog(true);
 	}
 	else
 	{
@@ -1034,12 +1030,13 @@ void EditorState::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo
 	}
 }
 
-void EditorState::notifyOpenSaveEndDialog(bool _result)
+void EditorState::notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result)
 {
 	if (_result)
 	{
 		MyGUI::UString file = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-		saveOrLoadLayout(mModeSaveDialog, false, file);
+		bool save = mOpenSaveFileDialog->getMode() == "Save";
+		saveOrLoadLayout(save, false, file);
 	}
 	else
 	{
@@ -1066,7 +1063,7 @@ void EditorState::setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filen
 	}
 
 	mOpenSaveFileDialog->setVisible(true);
-	mModeSaveDialog = _save;
+	mOpenSaveFileDialog->setMode(_save ? "Save" : "Load");
 }
 
 bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString& _file)
