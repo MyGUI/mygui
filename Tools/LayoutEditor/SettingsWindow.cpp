@@ -6,13 +6,12 @@
 
 #include "precompiled.h"
 #include "SettingsWindow.h"
-//#include "BasisManager.h"
+#include "SettingsManager.h"
+
 extern int grid_step;//FIXME_HOOK
 
-template <> SettingsWindow* MyGUI::Singleton<SettingsWindow>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<SettingsWindow>::mClassTypeName("SettingsWindow");
-
-SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
+SettingsWindow::SettingsWindow() :
+	BaseLayout("SettingsWindow.layout")
 {
 	assignWidget(mGridEdit, "gridEdit");
 	assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -55,62 +54,31 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 	mComboboxFullscreen->setIndexSelected(selectedIdx);*/
 
 	mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+	mCheckShowName->setUserString("PropertyName", "ShowName");
+
 	mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+	mCheckShowType->setUserString("PropertyName", "ShowType");
+
 	mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+	mCheckShowSkin->setUserString("PropertyName", "ShowSkin");
+
 	mCheckEdgeHide->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+	mCheckEdgeHide->setUserString("PropertyName", "EdgeHide");
+
+	grid_step = tools::SettingsManager::getInstance().getPropertyValue<int>("SettingsWindow", "Grid");
+	setShowName(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowName"));
+	setShowType(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType"));
+	setShowSkin(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin"));
+	setEdgeHide(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"));
 }
 
-void SettingsWindow::load(MyGUI::xml::ElementEnumerator _field)
+SettingsWindow::~SettingsWindow()
 {
-	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next())
-	{
-		std::string key, value;
-
-		if (field->getName() == "Property")
-		{
-			if (!field->findAttribute("key", key)) continue;
-			if (!field->findAttribute("value", value)) continue;
-
-			if (key == "Grid")
-				grid_step = MyGUI::utility::parseInt(value);
-			else if (key == "ShowName")
-				setShowName(MyGUI::utility::parseBool(value));
-			else if (key == "ShowType")
-				setShowType(MyGUI::utility::parseBool(value));
-			else if (key == "ShowSkin")
-				setShowSkin(MyGUI::utility::parseBool(value));
-			else if (key == "EdgeHide")
-				setEdgeHide(MyGUI::utility::parseBool(value));
-		}
-	}
-
-	if (grid_step <= 0) grid_step = 1;
-	mGridEdit->setCaption(MyGUI::utility::toString(grid_step));
-}
-
-void SettingsWindow::save(MyGUI::xml::ElementPtr root)
-{
-	root = root->createChild("SettingsWindow");
-	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "Grid");
-	nodeProp->addAttribute("value", grid_step);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "ShowName");
-	nodeProp->addAttribute("value", getShowName());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "ShowType");
-	nodeProp->addAttribute("value", getShowType());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "ShowSkin");
-	nodeProp->addAttribute("value", getShowSkin());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "EdgeHide");
-	nodeProp->addAttribute("value", getEdgeHide());
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "Grid", grid_step);
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowName", getShowName());
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowType", getShowType());
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowSkin", getShowSkin());
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "EdgeHide", getEdgeHide());
 }
 
 void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
@@ -143,5 +111,6 @@ void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
 {
 	MyGUI::Button* checkbox = _sender->castType<MyGUI::Button>();
 	checkbox->setStateSelected(!checkbox->getStateSelected());
-	eventWidgetsUpdate();
+
+	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", _sender->getUserString("PropertyName"), checkbox->getStateSelected());
 }

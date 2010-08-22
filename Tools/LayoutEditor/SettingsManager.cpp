@@ -102,6 +102,19 @@ namespace tools
 						if (!field->findAttribute("name", name)) continue;
 						mAdditionalPaths.push_back(name);
 					}
+					else
+					{
+						std::string key, value;
+
+						MyGUI::xml::ElementEnumerator properties = field->getElementEnumerator();
+						while (properties.next("Property"))
+						{
+							if (!properties->findAttribute("key", key)) continue;
+							if (!properties->findAttribute("value", value)) continue;
+
+							setProperty(field->getName(), key, value, false);
+						}
+					}
 				}
 			}
 		}
@@ -116,10 +129,18 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Settings");
 
-		/*mPropertiesPanelView->save(root);
-		mSettingsWindow->save(root);
-		mWidgetsWindow->save(root);
-		mMetaSolutionWindow->save(root);*/
+		for (MapSection::const_iterator section=mSections.begin(); section!=mSections.end(); ++section)
+		{
+			MyGUI::xml::Element* sectionNode = root->createChild((*section).first);
+
+			const MapUString& properties = (*section).second;
+			for (MapUString::const_iterator prop=properties.begin(); prop!=properties.end(); ++prop)
+			{
+				MyGUI::xml::Element* propertyNode = sectionNode->createChild("Property");
+				propertyNode->addAttribute("key", (*prop).first);
+				propertyNode->addAttribute("value", (*prop).second);
+			}
+		}
 
 		// cleanup for duplicates
 		std::reverse(mRecentFiles.begin(), mRecentFiles.end());
@@ -153,6 +174,41 @@ namespace tools
 	void SettingsManager::addRecentFile(const MyGUI::UString& _fileName)
 	{
 		mRecentFiles.push_back(_fileName);
+	}
+
+	void SettingsManager::setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
+	{
+		setProperty(_sectionName, _propertyName, _propertyValue, true);
+	}
+
+	void SettingsManager::setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue, bool _event)
+	{
+		MapSection::iterator sectionIter = mSections.find(_sectionName);
+		if (sectionIter == mSections.end())
+			sectionIter = mSections.insert(std::make_pair(_sectionName, MapUString())).first;
+
+		MapUString& section = (*sectionIter).second;
+		MapUString::iterator propertyIter = section.find(_propertyName);
+		if (propertyIter == section.end())
+			section.insert(std::make_pair(_propertyName, _propertyValue));
+		else
+			(*propertyIter).second = _propertyValue;
+
+		eventSettingsChanged(_sectionName, _propertyName);
+	}
+
+	MyGUI::UString SettingsManager::getProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
+	{
+		MapSection::const_iterator sectionIter = mSections.find(_sectionName);
+		if (sectionIter != mSections.end())
+		{
+			const MapUString& section = (*sectionIter).second;
+			MapUString::const_iterator propertyIter = section.find(_propertyName);
+			if (propertyIter != section.end())
+				return (*propertyIter).second;
+		}
+
+		return "";
 	}
 
 } // namespace tools

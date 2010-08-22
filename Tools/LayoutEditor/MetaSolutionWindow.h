@@ -44,14 +44,13 @@ struct MetaForm
 	bool mCollapsed;
 };
 
-class MetaSolutionWindow : public wraps::BaseLayout
+class MetaSolutionWindow :
+	public wraps::BaseLayout
 {
 public:
 	MetaSolutionWindow();
-	~MetaSolutionWindow();
+	virtual ~MetaSolutionWindow();
 
-	void load(MyGUI::xml::ElementEnumerator _field);
-	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
 	bool getVisible() { return mMainWidget->getVisible(); }

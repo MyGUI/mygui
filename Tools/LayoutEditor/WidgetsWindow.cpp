@@ -9,13 +9,34 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
+#include "SettingsManager.h"
 
 const int MARGIN = 2;
 
-WidgetsWindow::WidgetsWindow() : BaseLayout("WidgetsWindow.layout")
+WidgetsWindow::WidgetsWindow() :
+	BaseLayout("WidgetsWindow.layout")
 {
 	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");
+
+	widgetsButtonWidth = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonWidth"));
+	widgetsButtonHeight = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonHeight"));
+	widgetsButtonsInOneLine = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonsInOneLine"));
+	skinSheetName = tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "lastSkinGroup");
+}
+
+WidgetsWindow::~WidgetsWindow()
+{
+	size_t sheet_index = mTabSkins->getIndexSelected();
+	if (sheet_index != MyGUI::ITEM_NONE)
+		skinSheetName = mTabSkins->getItemNameAt(sheet_index);
+	else
+		skinSheetName = "";
+
+	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonWidth", MyGUI::utility::toString(widgetsButtonWidth));
+	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonHeight", MyGUI::utility::toString(widgetsButtonHeight));
+	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonsInOneLine", MyGUI::utility::toString(widgetsButtonsInOneLine));
+	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "lastSkinGroup", skinSheetName);
 }
 
 void WidgetsWindow::updateSize()
@@ -85,48 +106,6 @@ void WidgetsWindow::initialise()
 	}
 
 	updateSize();
-}
-
-void WidgetsWindow::load(MyGUI::xml::ElementEnumerator _field)
-{
-	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next())
-	{
-		std::string key, value;
-
-		if (field->getName() == "Property")
-		{
-			if (!field->findAttribute("key", key)) continue;
-			if (!field->findAttribute("value", value)) continue;
-
-			if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
-			else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
-			else if (key == "widgetsButtonsInOneLine") widgetsButtonsInOneLine = MyGUI::utility::parseInt(value);
-			else if (key == "lastSkinGroup") skinSheetName = value;
-		}
-	}
-}
-
-void WidgetsWindow::save(MyGUI::xml::ElementPtr root)
-{
-	root = root->createChild("WidgetsWindow");
-	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "widgetsButtonWidth");
-	nodeProp->addAttribute("value", widgetsButtonWidth);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "widgetsButtonHeight");
-	nodeProp->addAttribute("value", widgetsButtonHeight);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "widgetsButtonsInOneLine");
-	nodeProp->addAttribute("value", widgetsButtonsInOneLine);
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "lastSkinGroup");
-	size_t sheet_index = mTabSkins->getIndexSelected();
-	if (sheet_index != MyGUI::ITEM_NONE)
-		nodeProp->addAttribute("value", mTabSkins->getItemNameAt(sheet_index));
 }
 
 void WidgetsWindow::clearNewWidget()
