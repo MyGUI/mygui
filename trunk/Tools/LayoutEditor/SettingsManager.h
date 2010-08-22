@@ -52,6 +52,8 @@ namespace tools
 
 		void setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue, bool _event);
 
+		bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
+
 	private:
 		std::vector<MyGUI::UString> mRecentFiles;
 		std::vector<MyGUI::UString> mAdditionalPaths;

@@ -25,12 +25,9 @@ public:
 	PropertiesPanelView();
 	virtual ~PropertiesPanelView();
 
-	void update(MyGUI::Widget* _current_widget);
-
 	// widget editing
 	void notifyRectangleResize(MyGUI::Window* _sender);
 	void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
-
 
 	void hideWidgetsPairs(MyGUI::Widget* _window);
 	void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
@@ -45,6 +42,7 @@ public:
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 private:
+	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
 	void notifyWindowChangeCoord(MyGUI::Window* _sender);
 	bool checkType(MyGUI::Edit* _edit, const std::string& _type);
 	void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);

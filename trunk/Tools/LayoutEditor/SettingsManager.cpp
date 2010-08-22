@@ -171,6 +171,27 @@ namespace tools
 		}
 	}
 
+	/*bool SettingsManager::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
+	{
+		MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+		while (field.next())
+		{
+			std::string key, value;
+
+			if (field->getName() == "Property")
+			{
+				if (!field->findAttribute("key", key)) continue;
+				if (!field->findAttribute("value", value)) continue;
+
+				if (key == "MetaSolutionName")
+				{
+					return !value.empty();
+				}
+			}
+		}
+		return false;
+	}*/
+
 	void SettingsManager::addRecentFile(const MyGUI::UString& _fileName)
 	{
 		mRecentFiles.push_back(_fileName);
