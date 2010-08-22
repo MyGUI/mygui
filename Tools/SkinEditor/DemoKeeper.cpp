@@ -28,7 +28,8 @@ namespace tools
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
 		mOpenSaveFileDialog(nullptr),
-		mTestWindow(nullptr)
+		mTestWindow(nullptr),
+		mMessageBoxFadeControl(nullptr)
 	{
 	}
 
@@ -41,6 +42,8 @@ namespace tools
 
 	void DemoKeeper::createScene()
 	{
+		getStatisticInfo()->setVisible(false);
+
 		addUserTag("\\n", "\n");
 		addUserTag("SE_CurrentFileName", mFileName);
 
@@ -68,6 +71,7 @@ namespace tools
 		DialogManager::getInstance().initialise();
 
 		mMainPane = new MainPane();
+		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
@@ -97,6 +101,9 @@ namespace tools
 
 		delete mMainPane;
 		mMainPane = nullptr;
+
+		delete mMessageBoxFadeControl;
+		mMessageBoxFadeControl = nullptr;
 
 		DialogManager::getInstance().shutdown();
 		delete DialogManager::getInstancePtr();
