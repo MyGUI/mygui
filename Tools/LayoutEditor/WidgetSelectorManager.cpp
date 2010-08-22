@@ -36,7 +36,8 @@ namespace tools
 
 	void WidgetSelectorManager::setSelectedWidget(MyGUI::Widget* _value)
 	{
-		if (_value != mCurrentWidget)
+		// некоторые обновл€ют кей фокус
+		//if (_value != mCurrentWidget)
 		{
 			mCurrentWidget = _value;
 			eventChangeSelectedWidget(mCurrentWidget);
