@@ -65,7 +65,7 @@ private:
 	void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsUpdate();
-	void notifyOpenSaveEndDialog(bool _result);
+	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 
 	void notifySelectWidget(MyGUI::Widget* _sender);
 
@@ -105,8 +105,6 @@ private:
 	// drop select after skin change
 	bool mRecreate;
 
-	bool mModeSaveDialog;
-
 	// last loaded/saved file name
 	MyGUI::UString mFileName;
 
@@ -121,7 +119,7 @@ private:
 	WidgetsWindow * mWidgetsWindow;
 	MetaSolutionWindow * mMetaSolutionWindow;
 	CodeGenerator * mCodeGenerator;
-	common::OpenSaveFileDialog* mOpenSaveFileDialog;
+	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 
 
 	EditorWidgets * mEditorWidgets;
