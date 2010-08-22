@@ -7,16 +7,10 @@
 #include "WidgetsWindow.h"
 #include "OpenSaveFileDialog.h"
 #include "MainMenuControl.h"
+#include "CodeGenerator.h"
 
-
-class EditorWidgets;
-class WidgetTypes;
-class UndoManager;
-struct WidgetContainer;
-class GroupMessage;
-class CodeGenerator;
-
-class EditorState : public base::BaseManager
+class EditorState :
+	public base::BaseManager
 {
 public:
 	EditorState();
@@ -102,12 +96,6 @@ private:
 	WidgetsWindow * mWidgetsWindow;
 	CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
-
-
-	EditorWidgets * mEditorWidgets;
-	WidgetTypes * mWidgetTypes;
-	UndoManager * mUndoManager;
-	GroupMessage * mGroupMessage;
 
 	std::vector<std::wstring> mParams;
 	std::string mLocale;

@@ -81,6 +81,8 @@ PropertiesPanelView::PropertiesPanelView() :
 
 	arrow_move = false;
 
+	setEdgeHideController();
+
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 }
 
@@ -677,4 +679,19 @@ void PropertiesPanelView::notifyForceApplyProperties(MyGUI::Edit* _sender)
 void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 {
 	notifyApplyProperties(_sender, true);
+}
+
+void PropertiesPanelView::setEdgeHideController()
+{
+	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+	{
+		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+		MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+
+		controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
+		controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
+		controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+
+		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
+	}
 }

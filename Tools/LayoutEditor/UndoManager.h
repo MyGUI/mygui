@@ -95,7 +95,9 @@ private:
 };
 
 enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
-class UndoManager : public MyGUI::Singleton<UndoManager>
+
+class UndoManager :
+	public MyGUI::Singleton<UndoManager>
 {
 public:
 	UndoManager();
