@@ -150,7 +150,7 @@ namespace tools
 		setWindowCaption(replaceTags("#{CaptionMainWindow}"));
 	}
 
-	void DemoKeeper::commandLoad(const MyGUI::UString & _commandName)
+	void DemoKeeper::commandLoad(const MyGUI::UString& _commandName)
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
@@ -171,7 +171,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandSave(const MyGUI::UString & _commandName)
+	void DemoKeeper::commandSave(const MyGUI::UString& _commandName)
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
@@ -179,12 +179,12 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandSaveAs(const MyGUI::UString & _commandName)
+	void DemoKeeper::commandSaveAs(const MyGUI::UString& _commandName)
 	{
 		showSaveAsWindow();
 	}
 
-	void DemoKeeper::commandClear(const MyGUI::UString & _commandName)
+	void DemoKeeper::commandClear(const MyGUI::UString& _commandName)
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
@@ -205,7 +205,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandQuit(const MyGUI::UString & _commandName)
+	void DemoKeeper::commandQuit(const MyGUI::UString& _commandName)
 	{
 		if (Dialog::getAnyDialog())
 		{
