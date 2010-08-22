@@ -7,6 +7,7 @@
 #define __WIDGETS_WINDOW_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "EditorToolTip.h"
 
 class WidgetsWindow :
 	public wraps::BaseLayout
@@ -26,13 +27,11 @@ public:
 
 	int getCreatingStatus() { return creating_status; }
 
-	MyGUI::delegates::CDelegate2<MyGUI::Widget*, const MyGUI::ToolTipInfo& > eventToolTip;
-
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 private:
 	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
-	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info) { eventToolTip(_sender, _info); }
+	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 	void notifySelectWidgetType(MyGUI::Widget* _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
 
@@ -47,6 +46,8 @@ private:
 	std::string skinSheetName;
 
 	MyGUI::Widget* current_widget;
+
+	EditorToolTip*  mToolTip;
 
 	// info for new widget
 	int x1, y1, x2, y2;
