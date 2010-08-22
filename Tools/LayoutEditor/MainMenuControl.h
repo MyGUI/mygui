@@ -33,6 +33,7 @@ namespace tools
 		void notifyChangeWidgets();
 		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 
+		void setEdgeHideController();
 	private:
 		MyGUI::MenuBar* mBar;
 		MyGUI::MenuCtrl* mPopupMenuFile;

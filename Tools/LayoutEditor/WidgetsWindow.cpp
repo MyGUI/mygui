@@ -28,6 +28,8 @@ WidgetsWindow::WidgetsWindow() :
 
 	mToolTip = new EditorToolTip();
 
+	setEdgeHideController();
+
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
 }
 
@@ -289,5 +291,20 @@ void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipIn
 	else if (_info.type == MyGUI::ToolTipInfo::Move)
 	{
 		mToolTip->move(_info.point);
+	}
+}
+
+void WidgetsWindow::setEdgeHideController()
+{
+	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+	{
+		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+		MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+
+		controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
+		controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
+		controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+
+		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 	}
 }

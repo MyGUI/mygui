@@ -36,6 +36,7 @@ private:
 	void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
 
 	void updateSize();
+	void setEdgeHideController();
 
 private:
 	MyGUI::Tab* mTabSkins;

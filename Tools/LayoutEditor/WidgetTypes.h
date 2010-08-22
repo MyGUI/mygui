@@ -37,7 +37,8 @@ struct PossibleValue{
 	std::vector<std::string> values;
 };
 
-class WidgetTypes : public MyGUI::Singleton<WidgetTypes>
+class WidgetTypes :
+	public MyGUI::Singleton<WidgetTypes>
 {
 public:
 	void initialise();

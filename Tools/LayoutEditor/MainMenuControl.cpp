@@ -23,6 +23,8 @@ namespace tools
 
 		tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
+
+		setEdgeHideController();
 	}
 
 	MainMenuControl::~MainMenuControl()
@@ -199,6 +201,21 @@ namespace tools
 		if (_sectionName == "SettingsWindow")
 		{
 			widgetsUpdate();
+		}
+	}
+
+	void MainMenuControl::setEdgeHideController()
+	{
+		if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+		{
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+
+			controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
+			controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
+			controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+
+			MyGUI::ControllerManager::getInstance().addItem(mBar, controller);
 		}
 	}
 
