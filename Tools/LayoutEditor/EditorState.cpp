@@ -317,12 +317,13 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 
 void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 {
-	mSelectDepth++;
 	if (mTestMode)
 	{
 		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 		return;
 	}
+
+	mSelectDepth++;
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
@@ -356,16 +357,15 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 
 	if (mTestMode)
 	{
-		if (input.isModalAny() == false)
+		if (_key == MyGUI::KeyCode::Escape)
 		{
-			if (_key == MyGUI::KeyCode::Escape)
+			if (input.isModalAny() == false)
 			{
 				notifyEndTest();
 			}
 		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
-		//base::BaseManager::injectKeyPress(_key, _text);
 		return;
 	}
 
@@ -390,7 +390,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 				|| _key == MyGUI::KeyCode::L)
 				tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
 			else if (_key == MyGUI::KeyCode::S)
-			tools::CommandManager::getInstance().executeCommand("Command_FileSave");
+				tools::CommandManager::getInstance().executeCommand("Command_FileSave");
 			else if (_key == MyGUI::KeyCode::Z)
 			{
 				UndoManager::getInstance().undo();
@@ -403,7 +403,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			}
 			else if (_key == MyGUI::KeyCode::T)
 			{
-				notifyTest();
+				tools::CommandManager::getInstance().executeCommand("Command_Test");
 				return;
 			}
 			else if (_key == MyGUI::KeyCode::R)
@@ -486,25 +486,6 @@ void EditorState::notifySettings()
 {
 	mSettingsWindow->setVisible(true);
 	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow->getMainWidget());
-}
-
-void EditorState::notifyTest()
-{
-	mTestLayout = EditorWidgets::getInstance().savexmlDocument();
-	EditorWidgets::getInstance().clear();
-	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-
-	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-	{
-		if ((*iter)->getVisible())
-		{
-			(*iter)->setUserString("WasVisible", "true");
-			(*iter)->setVisible(false);
-		}
-	}
-
-	EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
-	mTestMode = true;
 }
 
 void EditorState::notifyEndTest()
@@ -845,7 +826,21 @@ void EditorState::commandClear(const MyGUI::UString& _commandName)
 
 void EditorState::commandTest(const MyGUI::UString& _commandName)
 {
-	notifyTest();
+	mTestLayout = EditorWidgets::getInstance().savexmlDocument();
+	EditorWidgets::getInstance().clear();
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
+	{
+		if ((*iter)->getVisible())
+		{
+			(*iter)->setUserString("WasVisible", "true");
+			(*iter)->setVisible(false);
+		}
+	}
+
+	EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
+	mTestMode = true;
 }
 
 void EditorState::commandQuit(const MyGUI::UString& _commandName)
