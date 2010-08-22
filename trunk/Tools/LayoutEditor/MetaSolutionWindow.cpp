@@ -32,7 +32,7 @@ MetaSolutionWindow::~MetaSolutionWindow()
 	closeMetaSolution();
 }
 
-void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
+/*void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
 	while (field.next())
@@ -47,7 +47,7 @@ void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 			if (key == "MetaSolutionName")
 			{
 				mMetaSolutionName = value;
-				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName/*, ""*/);
+				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName);
 			}
 			//else if (key == "key2") ;//do sth
 		}
@@ -60,11 +60,7 @@ void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
 	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "MetaSolutionName");
 	nodeProp->addAttribute("value", mMetaSolutionName);
-
-	/*nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "ShowName");
-	nodeProp->addAttribute("value", getShowName());*/
-}
+}*/
 
 void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name)
 {

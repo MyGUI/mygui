@@ -18,14 +18,13 @@
 
 extern int grid_step;//FIXME_HOOK
 
-class PropertiesPanelView : public wraps::BaseLayout
+class PropertiesPanelView :
+	public wraps::BaseLayout
 {
 public:
 	PropertiesPanelView();
 	virtual ~PropertiesPanelView();
 
-	void load(MyGUI::xml::ElementEnumerator field);
-	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::Widget* _current_widget);
 
 	// widget editing

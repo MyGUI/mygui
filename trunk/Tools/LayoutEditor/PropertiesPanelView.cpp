@@ -12,6 +12,7 @@
 #include "UndoManager.h"
 #include "Parse.h"
 #include "GroupMessage.h"
+#include "SettingsManager.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
@@ -22,7 +23,8 @@ const std::string DEFAULT_STRING = "[DEFAULT]";
 std::string DEFAULT_VALUE;
 std::string ERROR_VALUE;
 
-PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.layout")
+PropertiesPanelView::PropertiesPanelView() :
+	BaseLayout("PropertiesPanelView.layout")
 {
 	DEFAULT_VALUE = localise("ColourDefault") + DEFAULT_STRING;
 	ERROR_VALUE = localise("ColourError");
@@ -102,7 +104,7 @@ void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	}
 }
 
-void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
+/*void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
 	VectorPanel::iterator iter = mPanels.begin();
@@ -135,7 +137,7 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 		nodeProp->addAttribute("key", MyGUI::utility::toString("Panel","Minimized"));
 		nodeProp->addAttribute("value", (*iter)->getPanelCell()->isMinimized());
 	}
-}
+}*/
 
 void PropertiesPanelView::notifyRectangleResize(MyGUI::Window* _sender)
 {

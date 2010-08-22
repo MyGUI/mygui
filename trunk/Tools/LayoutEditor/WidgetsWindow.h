@@ -13,11 +13,10 @@ class WidgetsWindow :
 {
 public:
 	WidgetsWindow();
+	virtual ~WidgetsWindow();
 
 	void initialise();
 
-	void load(MyGUI::xml::ElementEnumerator field);
-	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
 	void clearAllSheets();

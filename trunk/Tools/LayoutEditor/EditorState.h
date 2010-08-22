@@ -54,9 +54,6 @@ public:
 	void loadFile(const std::wstring& _file);
 
 private:
-	void loadSettings(const MyGUI::UString& _fileName, bool _internal);
-	void saveSettings(const MyGUI::UString& _fileName);
-
 	void notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	void notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
@@ -66,7 +63,7 @@ private:
 	// menu mBar
 	void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
-	void notifyWidgetsUpdate();
+	void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 
 	void notifySelectWidget(MyGUI::Widget* _sender);
@@ -106,12 +103,6 @@ private:
 	void commandWidgetsUpdate(const MyGUI::UString& _commandName);
 
 private:
-	// recent files
-	//static const size_t MAX_RECENT_FILES = 8;
-	//std::vector<MyGUI::UString> mRecentFiles;
-
-	//std::vector<MyGUI::UString> mAdditionalPaths;
-
 	// last click for depth selecting
 	int mLastClickX;
 	int mLastClickY;
