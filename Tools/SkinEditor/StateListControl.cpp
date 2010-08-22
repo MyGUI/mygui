@@ -47,9 +47,9 @@ namespace tools
 	void StatesListControl::fillStatePreset()
 	{
 		mPresets->removeAllItems();
-		mPresets->addItem(replaceTags("#{PresetStateOnlyNormal}"), PresetNormalOnly);
-		mPresets->addItem(replaceTags("#{PresetStateFirst4}"), PresetFirst4States);
-		mPresets->addItem(replaceTags("#{PresetStateAll}"), PresetAllStates);
+		mPresets->addItem(replaceTags("PresetStateOnlyNormal"), PresetNormalOnly);
+		mPresets->addItem(replaceTags("PresetStateFirst4"), PresetFirst4States);
+		mPresets->addItem(replaceTags("PresetStateAll"), PresetAllStates);
 	}
 
 	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
@@ -101,7 +101,7 @@ namespace tools
 				StateItem* item = states.current();
 
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem(replaceTags("#{ColourDisabled}") + item->getName(), item);
+					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 

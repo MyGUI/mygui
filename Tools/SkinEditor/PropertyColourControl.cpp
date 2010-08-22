@@ -119,7 +119,7 @@ namespace tools
 		mEdit->setOnlyText(value);
 		if (!_validate)
 		{
-			mEdit->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{ColourError}") + mEdit->getCaption());
+			mEdit->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("ColourError") + mEdit->getCaption());
 		}
 
 		mEdit->setTextCursor(index);
