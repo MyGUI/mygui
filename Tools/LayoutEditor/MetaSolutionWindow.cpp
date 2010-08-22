@@ -9,6 +9,7 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "WidgetTypes.h"
+#include "WidgetSelectorManager.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -25,10 +26,14 @@ MetaSolutionWindow::MetaSolutionWindow() :
 	mListTree->eventListChangePosition += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListChangePosition);
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("MetaSolution") = MyGUI::newDelegate(this, &MetaSolutionWindow::parseMetaSolution);
+
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
 }
 
 MetaSolutionWindow::~MetaSolutionWindow()
 {
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
+
 	closeMetaSolution();
 }
 
@@ -117,7 +122,7 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::List* _sender, size_t _
 		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
 		if (container)
 		{
-			eventSelectWidget(container->widget);
+			tools::WidgetSelectorManager::getInstance().setSelectedWidget(container->widget);
 		}
 	}
 }
@@ -389,9 +394,15 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, _parent, _widget->mName);
 	EditorWidgets::getInstance().add(widgetContainer);
-	eventSelectWidget(widgetContainer->widget);
+
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
 
 	UndoManager::getInstance().addValue();
 
 	return _parent;
+}
+
+void MetaSolutionWindow::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
+{
+	current_widget = _current_widget;
 }

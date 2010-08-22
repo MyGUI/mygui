@@ -10,6 +10,7 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 #include "SettingsManager.h"
+#include "WidgetSelectorManager.h"
 
 const int MARGIN = 2;
 
@@ -23,10 +24,14 @@ WidgetsWindow::WidgetsWindow() :
 	widgetsButtonHeight = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonHeight"));
 	widgetsButtonsInOneLine = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonsInOneLine"));
 	skinSheetName = tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "lastSkinGroup");
+
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
 }
 
 WidgetsWindow::~WidgetsWindow()
 {
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
+
 	size_t sheet_index = mTabSkins->getIndexSelected();
 	if (sheet_index != MyGUI::ITEM_NONE)
 		skinSheetName = mTabSkins->getItemNameAt(sheet_index);
@@ -177,7 +182,9 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 			WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 			EditorWidgets::getInstance().add(widgetContainer);
 			current_widget = nullptr;
-			eventSelectWidget(widgetContainer->widget);
+
+			tools::WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
+
 			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 			new_widget_type = "";
 			new_widget_skin = "";
@@ -241,7 +248,9 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 	EditorWidgets::getInstance().add(widgetContainer);
 	current_widget = nullptr;
-	eventSelectWidget(widgetContainer->widget);
+
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
+
 	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 	new_widget_type = "";
 	new_widget_skin = "";
@@ -253,4 +262,9 @@ void WidgetsWindow::clearAllSheets()
 {
 	mTabSkins->removeAllItems();
 	updateSize();
+}
+
+void WidgetsWindow::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
+{
+	current_widget = _current_widget;
 }

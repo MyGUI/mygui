@@ -54,6 +54,7 @@ public:
 	void loadFile(const std::wstring& _file);
 
 private:
+	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
 	void notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	void notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
@@ -66,11 +67,8 @@ private:
 	void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 
-	void notifySelectWidget(MyGUI::Widget* _sender);
-
 	void notifyRecreate();
 
-	bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
 	bool isMetaSolution(const MyGUI::UString& _fileName);
 
 	void clearWidgetWindow();

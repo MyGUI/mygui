@@ -13,6 +13,7 @@
 #include "Parse.h"
 #include "GroupMessage.h"
 #include "SettingsManager.h"
+#include "WidgetSelectorManager.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
@@ -79,10 +80,14 @@ PropertiesPanelView::PropertiesPanelView() :
 	current_widget_rectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
 	arrow_move = false;
+
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 }
 
 PropertiesPanelView::~PropertiesPanelView()
 {
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+
 	mPanelView->removeAllItems();
 	delete mPanelMainProperties;
 	for (int i = 0; i < MaxBaseTypesCount; ++i)
@@ -198,7 +203,8 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGU
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
 	if (MyGUI::KeyCode::Tab == _key)
 	{
-		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
+		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab"))
+			notifyChangeSelectedWidget(current_widget->getParent());
 		if (current_widget && current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
@@ -243,7 +249,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGU
 	}
 }
 
-void PropertiesPanelView::update(MyGUI::Widget* _current_widget)
+void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
 {
 	current_widget = _current_widget;
 
