@@ -45,12 +45,12 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
 
-		void commandLoad(const MyGUI::UString & _commandName);
-		void commandSave(const MyGUI::UString & _commandName);
-		void commandSaveAs(const MyGUI::UString & _commandName);
-		void commandClear(const MyGUI::UString & _commandName);
-		void commandTest(const MyGUI::UString & _commandName);
-		void commandQuit(const MyGUI::UString & _commandName);
+		void commandLoad(const MyGUI::UString& _commandName);
+		void commandSave(const MyGUI::UString& _commandName);
+		void commandSaveAs(const MyGUI::UString& _commandName);
+		void commandClear(const MyGUI::UString& _commandName);
+		void commandTest(const MyGUI::UString& _commandName);
+		void commandQuit(const MyGUI::UString& _commandName);
 
 		void clear();
 		void save();

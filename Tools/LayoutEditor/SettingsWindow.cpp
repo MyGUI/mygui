@@ -9,6 +9,9 @@
 //#include "BasisManager.h"
 extern int grid_step;//FIXME_HOOK
 
+template <> SettingsWindow* MyGUI::Singleton<SettingsWindow>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<SettingsWindow>::mClassTypeName("SettingsWindow");
+
 SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 {
 	assignWidget(mGridEdit, "gridEdit");
