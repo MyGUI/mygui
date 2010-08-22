@@ -29,6 +29,7 @@ set (HEADER_FILES
   WidgetSelectorManager.h
   HotKeyManager.h
   HotKeyCommand.h
+  Localise.h
 )
 set (SOURCE_FILES
   EditorState.cpp
