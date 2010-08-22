@@ -31,8 +31,6 @@ namespace tools
 
 		void setChanges(bool _value);
 
-		void registerMessageBox(MyGUI::Message* _message);
-
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
@@ -40,7 +38,6 @@ namespace tools
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
@@ -71,7 +68,6 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TestWindow* mTestWindow;
 
-		MyGUI::Message* mMessageBox;
 		std::string mLocale;
 	};
 
