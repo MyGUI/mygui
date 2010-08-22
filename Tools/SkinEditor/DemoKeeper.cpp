@@ -147,7 +147,7 @@ namespace tools
 	void DemoKeeper::updateCaption()
 	{
 		addUserTag("SE_HasChanged", mChanges ? "*" : "");
-		setWindowCaption(replaceTags("#{CaptionMainWindow}"));
+		setWindowCaption(replaceTags("CaptionMainWindow"));
 	}
 
 	void DemoKeeper::commandLoad(const MyGUI::UString& _commandName)
@@ -156,8 +156,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				replaceTags("#{Warning}"),
-				replaceTags("#{MessageUnsavedData}"),
+				replaceTags("Warning"),
+				replaceTags("MessageUnsavedData"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -190,8 +190,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				replaceTags("#{Warning}"),
-				replaceTags("#{MessageUnsavedData}"),
+				replaceTags("Warning"),
+				replaceTags("MessageUnsavedData"),
 				MyGUI::MessageBoxStyle::IconQuest
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
@@ -223,8 +223,8 @@ namespace tools
 				{
 					MyGUI::Message* message = MyGUI::Message::createMessageBox(
 						"Message",
-						replaceTags("#{Warning}"),
-						replaceTags("#{MessageUnsavedData}"),
+						replaceTags("Warning"),
+						replaceTags("MessageUnsavedData"),
 						MyGUI::MessageBoxStyle::IconQuest
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
@@ -262,7 +262,7 @@ namespace tools
 
 	void DemoKeeper::showLoadWindow()
 	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("#{CaptionOpenFile}"), replaceTags("#{ButtonOpenFile}"));
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->setVisible(true);
 	}
@@ -341,8 +341,8 @@ namespace tools
 			{
 				MyGUI::Message* message = MyGUI::Message::createMessageBox(
 					"Message",
-					replaceTags("#{Error}"),
-					replaceTags("#{MessageIncorrectFileFormat}"),
+					replaceTags("Error"),
+					replaceTags("MessageIncorrectFileFormat"),
 					MyGUI::MessageBoxStyle::IconError
 						| MyGUI::MessageBoxStyle::Yes);
 				registerMessageBox(message);
@@ -357,7 +357,7 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				replaceTags("#{Error}"),
+				replaceTags("Error"),
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
@@ -385,7 +385,7 @@ namespace tools
 
 	void DemoKeeper::showSaveAsWindow()
 	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("#{CaptionSaveFile}"), replaceTags("#{ButtonSaveFile}"));
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->setVisible(true);
 	}

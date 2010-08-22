@@ -57,12 +57,12 @@ namespace tools
 	{
 		_combo->removeAllItems();
 
-		_combo->addItem(replaceTags("#{ColourZero}"), MyGUI::Colour::Zero);
-		_combo->addItem(replaceTags("#{ColourBlack}"), MyGUI::Colour::Black);
-		_combo->addItem(replaceTags("#{ColourWhite}"), MyGUI::Colour::White);
-		_combo->addItem(replaceTags("#{ColourRed}"), MyGUI::Colour::Red);
-		_combo->addItem(replaceTags("#{ColourGreen}"), MyGUI::Colour::Green);
-		_combo->addItem(replaceTags("#{ColourBlue}"), MyGUI::Colour::Blue);
+		_combo->addItem(replaceTags("ColourZero"), MyGUI::Colour::Zero);
+		_combo->addItem(replaceTags("ColourBlack"), MyGUI::Colour::Black);
+		_combo->addItem(replaceTags("ColourWhite"), MyGUI::Colour::White);
+		_combo->addItem(replaceTags("ColourRed"), MyGUI::Colour::Red);
+		_combo->addItem(replaceTags("ColourGreen"), MyGUI::Colour::Green);
+		_combo->addItem(replaceTags("ColourBlue"), MyGUI::Colour::Blue);
 
 		_combo->setIndexSelected(0);
 
@@ -100,12 +100,12 @@ namespace tools
 	{
 		mScale->removeAllItems();
 
-		mScale->addItem(replaceTags("#{Scale50}"), (double)0.5);
-		mScale->addItem(replaceTags("#{Scale100}"), (double)1);
-		mScale->addItem(replaceTags("#{Scale200}"), (double)2);
-		mScale->addItem(replaceTags("#{Scale400}"), (double)4);
-		mScale->addItem(replaceTags("#{Scale800}"), (double)8);
-		mScale->addItem(replaceTags("#{Scale1600}"), (double)16);
+		mScale->addItem(replaceTags("Scale50"), (double)0.5);
+		mScale->addItem(replaceTags("Scale100"), (double)1);
+		mScale->addItem(replaceTags("Scale200"), (double)2);
+		mScale->addItem(replaceTags("Scale400"), (double)4);
+		mScale->addItem(replaceTags("Scale800"), (double)8);
+		mScale->addItem(replaceTags("Scale1600"), (double)16);
 
 		size_t index = 1;
 

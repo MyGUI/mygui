@@ -95,7 +95,7 @@ namespace tools
 				SeparatorItem* item = separators.current();
 
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem(replaceTags("#{ColourDisabled}") + item->getName(), item);
+					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 
@@ -108,10 +108,10 @@ namespace tools
 	void SeparatorListControl::fillPresets()
 	{
 		mPresets->removeAllItems();
-		mPresets->addItem(replaceTags("#{PresetRegionOneScale}"), SeparatorPresetScale);
-		mPresets->addItem(replaceTags("#{PresetRegion9Grid}"), SeparatorPreset9Slice);
-		mPresets->addItem(replaceTags("#{PresetRegion3Hor}"), SeparatorPreset3SliceHorScale);
-		mPresets->addItem(replaceTags("#{PresetRegion3Vert}"), SeparatorPreset3SliceVertScale);
+		mPresets->addItem(replaceTags("PresetRegionOneScale"), SeparatorPresetScale);
+		mPresets->addItem(replaceTags("PresetRegion9Grid"), SeparatorPreset9Slice);
+		mPresets->addItem(replaceTags("PresetRegion3Hor"), SeparatorPreset3SliceHorScale);
+		mPresets->addItem(replaceTags("PresetRegion3Vert"), SeparatorPreset3SliceVertScale);
 	}
 
 	void SeparatorListControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)

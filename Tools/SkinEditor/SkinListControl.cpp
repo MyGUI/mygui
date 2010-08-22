@@ -77,8 +77,8 @@ namespace tools
 		{
 			MyGUI::Message* message = MyGUI::Message::createMessageBox(
 				"Message",
-				replaceTags("#{Warning}"),
-				replaceTags("#{MessageDeleteSkin}"),
+				replaceTags("Warning"),
+				replaceTags("MessageDeleteSkin"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 			DemoKeeper::getInstance().registerMessageBox(message);
@@ -139,7 +139,7 @@ namespace tools
 			if (count == 1)
 				mList->addItem(item->getName());
 			else
-				mList->addItem(replaceTags("#{ColourError}") + item->getName());
+				mList->addItem(replaceTags("ColourError") + item->getName());
 
 			mList->setItemDataAt(index, item);
 			if (item == selectedItem)
@@ -165,7 +165,7 @@ namespace tools
 		hideTextField();
 
 		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->setCaption(replaceTags("#{CaptionEnterName}"));
+		mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
 		mTextFieldControl->setUserData(_item);
 		mTextFieldControl->show();
@@ -178,7 +178,7 @@ namespace tools
 		for (size_t index=0; index<(std::numeric_limits<size_t>::max)(); index++)
 		{
 			addUserTag("SE_SkinNameIndex", MyGUI::utility::toString(index));
-			MyGUI::UString name = replaceTags("#{SkinNamePattern}");
+			MyGUI::UString name = replaceTags("SkinNamePattern");
 			if (!isNameExist(name))
 				return name;
 		}
