@@ -53,7 +53,6 @@ public:
 	void loadFile(const std::wstring& _file);
 
 private:
-	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
 	void notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	void notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
@@ -62,6 +61,7 @@ private:
 
 	void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
+	void notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result);
 
 	void notifyRecreate();
 
@@ -94,7 +94,6 @@ private:
 	int mLastClickY;
 	int mSelectDepth;
 
-	MyGUI::Widget* mCurrentWidget;
 	// drop select after skin change
 	bool mRecreate;
 

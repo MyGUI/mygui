@@ -7,16 +7,20 @@
 #define __SETTINGS_WINDOW_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "Dialog.h"
 
 class SettingsWindow :
-	public wraps::BaseLayout
+	public wraps::BaseLayout,
+	public tools::Dialog
 {
 public:
 	SettingsWindow();
 	virtual ~SettingsWindow();
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
-	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
+
+	virtual void setVisible(bool _value);
+	virtual bool getVisible();
 
 private:
 	int getGridStep();
