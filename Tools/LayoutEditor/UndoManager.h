@@ -116,6 +116,10 @@ public:
 	void setUnsaved(bool _unsaved) { mUnsaved = _unsaved; }
 
 private:
+	void commandUndo(const MyGUI::UString& _commandName);
+	void commandRedo(const MyGUI::UString& _commandName);
+
+private:
 	// position in the bufer (0 - newest element)
 	size_t pos;
 	MyGUI::xml::Document last_condition;
