@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __MESSAGE_BOX_CONTROL_H__
-#define __MESSAGE_BOX_CONTROL_H__
+#ifndef __MESSAGE_BOX_MANAGER_H__
+#define __MESSAGE_BOX_MANAGER_H__
 
 #include <MyGUI.h>
 
@@ -36,4 +36,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __MESSAGE_BOX_CONTROL_H__
+#endif // __MESSAGE_BOX_MANAGER_H__

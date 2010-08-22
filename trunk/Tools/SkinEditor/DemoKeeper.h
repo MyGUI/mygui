@@ -10,6 +10,7 @@
 #include "MainPane.h"
 #include "OpenSaveFileDialog.h"
 #include "TestWindow.h"
+#include "MessageBoxFadeControl.h"
 
 namespace tools
 {
@@ -67,6 +68,7 @@ namespace tools
 
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TestWindow* mTestWindow;
+		MessageBoxFadeControl* mMessageBoxFadeControl;
 
 		std::string mLocale;
 	};
