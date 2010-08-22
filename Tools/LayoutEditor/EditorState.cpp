@@ -47,6 +47,8 @@ void EditorState::setupResources()
 
 void EditorState::createScene()
 {
+	getStatisticInfo()->setVisible(false);
+
 	new tools::SettingsManager();
 	tools::SettingsManager::getInstance().initialise();
 
@@ -58,8 +60,6 @@ void EditorState::createScene()
 
 	new tools::HotKeyManager();
 	tools::HotKeyManager::getInstance().initialise();
-
-	getStatisticInfo()->setVisible(false);
 
 	// set locale language if it was taken from OS
 	if (!mLocale.empty())
