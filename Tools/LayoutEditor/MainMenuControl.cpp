@@ -48,10 +48,10 @@ namespace tools
 		const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
 		if (!recentFiles.empty())
 		{
-			MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("File/Quit");
+			MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("Command_QuitApp");
 			for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
 			{
-				mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
+				mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "Command_RecentFiles",  *iter);
 			}
 			// если есть файлы, то еще один сепаратор
 			mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
@@ -65,8 +65,6 @@ namespace tools
 		mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
 
 		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControl::notifyPopupMenuAccept);
-
-		//mInterfaceWidgets.push_back(mBar);
 	}
 
 	void MainMenuControl::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
@@ -77,43 +75,10 @@ namespace tools
 
 		if (mPopupMenuFile == _item->getMenuCtrlParent())
 		{
-			std::string id = _item->getItemId();
-
-			if (id == "File/Load")
+			const std::string& command = _item->getItemId();
+			if (command.size() > 8 && command.substr(0, 8) == "Command_")
 			{
-				tools::CommandManager::getInstance().executeCommand("Command_FileLoad");
-			}
-			else if (id == "File/Save")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_FileSave");
-			}
-			else if (id == "File/SaveAs")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_FileSaveAs");
-			}
-			else if (id == "File/Clear")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_ClearAll");
-			}
-			else if (id == "File/Settings")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_Settings");
-			}
-			else if (id == "File/Test")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_Test");
-			}
-			else if (id == "File/Code_Generator")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_CodeGenerator");
-			}
-			else if (id == "File/RecentFiles")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_RecentFiles");
-			}
-			else if (id == "File/Quit")
-			{
-				tools::CommandManager::getInstance().executeCommand("Command_QuitApp");
+				tools::CommandManager::getInstance().executeCommand(command);
 			}
 		}
 	}
