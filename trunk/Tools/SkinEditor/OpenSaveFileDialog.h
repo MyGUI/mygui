@@ -7,14 +7,12 @@
 #define __OPEN_SAVE_FILE_DIALOG_H__
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
 
 namespace tools
 {
 
 	class OpenSaveFileDialog :
-		public wraps::BaseLayout,
 		public Dialog
 	{
 	public:
@@ -31,11 +29,12 @@ namespace tools
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const { return mFileName; }
 
-		virtual void setVisible(bool _value);
-		virtual bool getVisible();
-
 		const MyGUI::UString& getMode() { return mMode; }
 		void setMode(const MyGUI::UString& _value) { mMode = _value; }
+
+	protected:
+		virtual void onDoModal();
+		virtual void onEndModal();
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);

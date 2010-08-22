@@ -30,7 +30,6 @@ namespace tools
 		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &BackgroundControl::notifyMouseButtonClick);
 
 		mColourPanel = new ColourPanel();
-		mColourPanel->setVisible(false);
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &BackgroundControl::notifyEndDialog);
 	}
 
@@ -78,7 +77,7 @@ namespace tools
 	void BackgroundControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		mColourPanel->setColour(mCurrentColour);
-		mColourPanel->setVisible(true);
+		mColourPanel->doModal();
 	}
 
 	void BackgroundControl::notifyEndDialog(Dialog* _sender, bool _result)
@@ -91,7 +90,7 @@ namespace tools
 			updateColours();
 		}
 
-		mColourPanel->setVisible(false);
+		mColourPanel->endModal();
 	}
 
 	void BackgroundControl::updateColours()

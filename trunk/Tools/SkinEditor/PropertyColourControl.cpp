@@ -22,7 +22,6 @@ namespace tools
 		mColour->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyColourControl::notifyMouseButtonClick);
 
 		mColourPanel = new ColourPanel();
-		mColourPanel->setVisible(false);
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &PropertyColourControl::notifyEndDialog);
 	}
 
@@ -206,12 +205,12 @@ namespace tools
 	void PropertyColourControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		mColourPanel->setColour(mCurrentColour);
-		mColourPanel->setVisible(true);
+		mColourPanel->doModal();
 	}
 
 	void PropertyColourControl::notifyEndDialog(Dialog* _sender, bool _result)
 	{
-		mColourPanel->setVisible(false);
+		mColourPanel->endModal();
 
 		if (_result)
 		{

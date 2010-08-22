@@ -14,6 +14,7 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
 #include "MessageBoxManager.h"
+#include "DialogManager.h"
 
 template <> tools::DemoKeeper* MyGUI::Singleton<tools::DemoKeeper>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::DemoKeeper>::mClassTypeName("DemoKeeper");
@@ -63,6 +64,9 @@ namespace tools
 		new MessageBoxManager();
 		MessageBoxManager::getInstance().initialise();
 
+		new DialogManager();
+		DialogManager::getInstance().initialise();
+
 		mMainPane = new MainPane();
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
@@ -93,6 +97,9 @@ namespace tools
 
 		delete mMainPane;
 		mMainPane = nullptr;
+
+		DialogManager::getInstance().shutdown();
+		delete DialogManager::getInstancePtr();
 
 		MessageBoxManager::getInstance().shutdown();
 		delete MessageBoxManager::getInstancePtr();
@@ -205,9 +212,9 @@ namespace tools
 
 	void DemoKeeper::commandQuit(const MyGUI::UString& _commandName)
 	{
-		if (Dialog::getAnyDialog())
+		if (DialogManager::getInstance().getAnyDialog())
 		{
-			Dialog::endTopDialog();
+			DialogManager::getInstance().endTopDialog();
 		}
 		else
 		{
@@ -260,7 +267,7 @@ namespace tools
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
-		mOpenSaveFileDialog->setVisible(true);
+		mOpenSaveFileDialog->doModal();
 	}
 
 	void DemoKeeper::save()
@@ -310,7 +317,7 @@ namespace tools
 			}
 		}
 
-		mOpenSaveFileDialog->setVisible(false);
+		mOpenSaveFileDialog->endModal();
 	}
 
 	void DemoKeeper::load()
@@ -379,7 +386,7 @@ namespace tools
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
-		mOpenSaveFileDialog->setVisible(true);
+		mOpenSaveFileDialog->doModal();
 	}
 
 	void DemoKeeper::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
@@ -428,13 +435,13 @@ namespace tools
 		if (item != nullptr)
 		{
 			mTestWindow->setSkinItem(item);
-			mTestWindow->setVisible(true);
+			mTestWindow->doModal();
 		}
 	}
 
 	void DemoKeeper::notifyEndDialogTest(Dialog* _sender, bool _result)
 	{
-		_sender->setVisible(false);
+		_sender->endModal();
 	}
 
 } // namespace tools

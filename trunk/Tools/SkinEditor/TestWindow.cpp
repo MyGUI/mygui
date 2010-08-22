@@ -11,7 +11,7 @@ namespace tools
 {
 
 	TestWindow::TestWindow() :
-		wraps::BaseLayout("TestWindow.layout"),
+		Dialog("TestWindow.layout"),
 		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
 		mSkinButton(nullptr),
@@ -33,32 +33,14 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 	}
 
-	void TestWindow::setVisible(bool _value)
+	void TestWindow::onDoModal()
 	{
-		if (mMainWidget->getVisible() != _value)
-		{
-			mMainWidget->setVisible(_value);
-
-			if (_value)
-			{
-				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
-				addDialog(this);
-
-				createSkin();
-			}
-			else
-			{
-				deleteSkin();
-
-				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
-				removeDialog(this);
-			}
-		}
+		createSkin();
 	}
 
-	bool TestWindow::getVisible()
+	void TestWindow::onEndModal()
 	{
-		return mMainWidget->getVisible();
+		deleteSkin();
 	}
 
 	void TestWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)

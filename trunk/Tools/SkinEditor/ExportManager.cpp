@@ -49,7 +49,7 @@ namespace tools
 	{
 		mOpenSaveFileDialog->setDialogInfo("Export", "Save");
 		mOpenSaveFileDialog->setMode("Export");
-		mOpenSaveFileDialog->setVisible(true);
+		mOpenSaveFileDialog->doModal();
 	}
 
 	void ExportManager::notifyEndDialog(Dialog* _sender, bool _result)
@@ -64,7 +64,7 @@ namespace tools
 
 		}
 
-		mOpenSaveFileDialog->setVisible(false);
+		mOpenSaveFileDialog->endModal();
 	}
 
 	void ExportManager::exportSkin(const MyGUI::UString& _fileName)
