@@ -13,6 +13,8 @@ MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::
 
 class CodeGenerator;
 
+typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
+
 class EditorWidgets :
 	public MyGUI::Singleton<EditorWidgets>
 {
@@ -42,6 +44,8 @@ public:
 
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
+
+	Event_ChangeWidgets eventChangeWidgets;
 
 private:
 	WidgetContainer * _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);

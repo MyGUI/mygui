@@ -1,11 +1,9 @@
 #include "precompiled.h"
 #include "Common.h"
 #include "EditorWidgets.h"
-//#include "BasisManager.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
 #include "CodeGenerator.h"
-#include "CommandManager.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -512,7 +510,7 @@ void EditorWidgets::notifyFrameStarted(float _time)
 	if (widgets_changed)
 	{
 		widgets_changed = false;
-		tools::CommandManager::getInstance().executeCommand("WidgetsUpdate");
+		eventChangeWidgets();
 	}
 }
 
