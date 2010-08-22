@@ -2,7 +2,6 @@
 #define __EDITOR_STATE_H__
 
 #include "BaseManager.h"
-#include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
@@ -76,9 +75,6 @@ private:
 
 	int toGrid(int _x);
 
-	// tooltips
-	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
-
 	void solutionUpdate();
 	void notifyChangeWidgets();
 
@@ -108,8 +104,6 @@ private:
 	bool mTestMode;
 	MyGUI::VectorWidgetPtr mInterfaceWidgets;
 	MyGUI::xml::Document * mTestLayout;
-
-	EditorToolTip * mToolTip;
 
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;

@@ -23,7 +23,6 @@ EditorState::EditorState() :
 	mCurrentWidget(false),
 	mRecreate(false),
 	mTestMode(false),
-	mToolTip(nullptr),
 	mPropertiesPanelView(nullptr),
 	mSettingsWindow(nullptr),
 	mWidgetsWindow(nullptr),
@@ -85,8 +84,6 @@ void EditorState::createScene()
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-	mToolTip = new EditorToolTip();
-
 	mInterfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// settings window
@@ -99,7 +96,7 @@ void EditorState::createScene()
 	mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 	mWidgetsWindow = new WidgetsWindow();
-	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
+	//mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
 	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 	mMetaSolutionWindow = new MetaSolutionWindow();
@@ -198,9 +195,6 @@ void EditorState::destroyScene()
 	mWidgetTypes->shutdown();
 	delete mWidgetTypes;
 	mWidgetTypes = nullptr;
-
-	delete mToolTip;
-	mToolTip = nullptr;
 
 	delete mSettingsWindow;
 	mSettingsWindow = nullptr;
@@ -726,23 +720,6 @@ void EditorState::solutionUpdate()
 {
 	if (mMetaSolutionWindow->getVisible())
 		mMetaSolutionWindow->updateList();
-}
-
-void EditorState::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
-{
-	if (_info.type == MyGUI::ToolTipInfo::Show)
-	{
-		mToolTip->show(_sender);
-		mToolTip->move(_info.point);
-	}
-	else if (_info.type == MyGUI::ToolTipInfo::Hide)
-	{
-		mToolTip->hide();
-	}
-	else if (_info.type == MyGUI::ToolTipInfo::Move)
-	{
-		mToolTip->move(_info.point);
-	}
 }
 
 void EditorState::notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result)
