@@ -26,6 +26,7 @@ set (HEADER_FILES
   CommandManager.h
   MainMenuControl.h
   SettingsManager.h
+  WidgetSelectorManager.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -52,6 +53,7 @@ set (SOURCE_FILES
   CommandManager.cpp
   MainMenuControl.cpp
   SettingsManager.cpp
+  WidgetSelectorManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp

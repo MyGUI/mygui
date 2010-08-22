@@ -17,8 +17,6 @@ public:
 
 	void initialise();
 
-	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
-
 	void clearAllSheets();
 
 	void clearNewWidget();
@@ -28,12 +26,12 @@ public:
 
 	int getCreatingStatus() { return creating_status; }
 
-	MyGUI::delegates::CDelegate1<MyGUI::Widget*> eventSelectWidget;
 	MyGUI::delegates::CDelegate2<MyGUI::Widget*, const MyGUI::ToolTipInfo& > eventToolTip;
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 private:
+	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
 	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info) { eventToolTip(_sender, _info); }
 	void notifySelectWidgetType(MyGUI::Widget* _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);

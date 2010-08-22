@@ -10,6 +10,7 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
+#include "WidgetSelectorManager.h"
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
@@ -62,7 +63,10 @@ void EditorState::createScene()
 	tools::SettingsManager::getInstance().initialise();
 
 	new tools::CommandManager();
-	tools::CommandManager::getInstancePtr()->initialise();
+	tools::CommandManager::getInstance().initialise();
+
+	new tools::WidgetSelectorManager();
+	tools::WidgetSelectorManager::getInstance().initialise();
 
 	getStatisticInfo()->setVisible(false);
 
@@ -99,12 +103,12 @@ void EditorState::createScene()
 
 	mWidgetsWindow = new WidgetsWindow();
 	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
-	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	//mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
-	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	//mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	mInterfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
 	mCodeGenerator = new CodeGenerator();
@@ -172,10 +176,12 @@ void EditorState::createScene()
 
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 	tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
 }
 
 void EditorState::destroyScene()
 {
+	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &EditorState::notifyChangeSelectedWidget);
 	tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
@@ -217,10 +223,13 @@ void EditorState::destroyScene()
 	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
 
-	tools::CommandManager::getInstancePtr()->shutdown();
+	tools::WidgetSelectorManager::getInstance().shutdown();
+	delete tools::WidgetSelectorManager::getInstancePtr();
+
+	tools::CommandManager::getInstance().shutdown();
 	delete tools::CommandManager::getInstancePtr();
 
-	tools::SettingsManager::getInstancePtr()->shutdown();
+	tools::SettingsManager::getInstance().shutdown();
 	delete tools::SettingsManager::getInstancePtr();
 }
 
@@ -407,7 +416,8 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 		// found widget
 		if (nullptr != item)
 		{
-			notifySelectWidget(item);
+			tools::WidgetSelectorManager::getInstance().setSelectedWidget(item);
+
 			if (mWidgetsWindow->getCreatingStatus() != 1)
 			{
 				//FIXME
@@ -422,7 +432,8 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		//FIXME
 		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
-		notifySelectWidget(nullptr);
+
+		tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 	}
 
 	// вернем прямоугольник
@@ -517,12 +528,12 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			else if (_key == MyGUI::KeyCode::Z)
 			{
 				mUndoManager->undo();
-				notifySelectWidget(nullptr);
+				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			}
 			else if ((_key == MyGUI::KeyCode::Y) || ((input.isShiftPressed()) && (_key == MyGUI::KeyCode::Z)))
 			{
 				mUndoManager->redo();
-				notifySelectWidget(nullptr);
+				tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			}
 			else if (_key == MyGUI::KeyCode::T)
 			{
@@ -568,7 +579,8 @@ void EditorState::notifyFrameStarted(float _time)
 	if (mRecreate)
 	{
 		mRecreate = false;
-		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
+		// виджет пересоздался, теперь никто незнает его адреса :)
+		tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 	}
 }
 
@@ -585,27 +597,6 @@ void EditorState::notifySettingsChanged(const MyGUI::UString& _sectionName, cons
 		solutionUpdate();
 		widgetsUpdate();
 	}
-}
-
-bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
-{
-	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next())
-	{
-		std::string key, value;
-
-		if (field->getName() == "Property")
-		{
-			if (!field->findAttribute("key", key)) continue;
-			if (!field->findAttribute("value", value)) continue;
-
-			if (key == "MetaSolutionName")
-			{
-				return !value.empty();
-			}
-		}
-	}
-	return false;
 }
 
 void EditorState::notifyLoad()
@@ -650,7 +641,7 @@ void EditorState::notifyTest()
 {
 	mTestLayout = mEditorWidgets->savexmlDocument();
 	mEditorWidgets->clear();
-	notifySelectWidget(nullptr);
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
 	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 	{
@@ -706,7 +697,9 @@ void EditorState::clear(bool _clearName)
 		mFileName = "";
 	mTestMode = false;
 	mEditorWidgets->clear();
-	notifySelectWidget(nullptr);
+
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
 	mUndoManager->shutdown();
 	mUndoManager->initialise(mEditorWidgets);
 	mSelectDepth = 0;
@@ -872,26 +865,7 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 {
 	MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
-	notifySelectWidget(widget);
-}
-
-void EditorState::notifySelectWidget(MyGUI::Widget* _sender)
-{
-	if (_sender == mCurrentWidget)
-	{
-		if (mCurrentWidget)
-		{
-			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
-		}
-		return;
-	}
-
-	mCurrentWidget = _sender;
-
-	mPropertiesPanelView->update(_sender);
-	mWidgetsWindow->update(_sender);
-	mMetaSolutionWindow->update(_sender);
+	tools::WidgetSelectorManager::getInstance().setSelectedWidget(widget);
 }
 
 std::string EditorState::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
@@ -1181,6 +1155,21 @@ void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
 	saveOrLoadLayout(false, false, tools::CommandManager::getInstance().getCommandData());
+}
+
+void EditorState::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
+{
+	if (_current_widget == mCurrentWidget)
+	{
+		if (mCurrentWidget != nullptr)
+		{
+			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
+			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
+		}
+		return;
+	}
+
+	mCurrentWidget = _current_widget;
 }
 
 MYGUI_APP(EditorState)

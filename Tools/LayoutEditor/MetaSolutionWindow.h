@@ -51,8 +51,6 @@ public:
 	MetaSolutionWindow();
 	virtual ~MetaSolutionWindow();
 
-	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
-
 	bool getVisible() { return mMainWidget->getVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 	
@@ -61,10 +59,11 @@ public:
 
 	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> EventInfo_UString;
 	EventInfo_UString eventLoadFile;
-	MyGUI::delegates::CDelegate1<MyGUI::Widget*> eventSelectWidget;
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
+
 private:
+	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
 	void notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name);
 
 	void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
