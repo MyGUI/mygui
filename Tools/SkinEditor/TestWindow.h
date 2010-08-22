@@ -7,7 +7,6 @@
 #define __TEST_WINDOW_H__
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
 #include "BackgroundControl.h"
 #include "SkinItem.h"
@@ -16,17 +15,17 @@ namespace tools
 {
 
 	class TestWindow :
-		public wraps::BaseLayout,
 		public Dialog
 	{
 	public:
 		TestWindow();
 		virtual ~TestWindow();
 
-		virtual void setVisible(bool _value);
-		virtual bool getVisible();
-
 		void setSkinItem(SkinItem* _item);
+
+	protected:
+		virtual void onDoModal();
+		virtual void onEndModal();
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
