@@ -25,7 +25,7 @@ EditorState::EditorState() :
 	mPropertiesPanelView(nullptr),
 	mSettingsWindow(nullptr),
 	mWidgetsWindow(nullptr),
-	mMetaSolutionWindow(nullptr),
+	//mMetaSolutionWindow(nullptr),
 	mCodeGenerator(nullptr),
 	mOpenSaveFileDialog(nullptr),
 	mEditorWidgets(nullptr),
@@ -99,9 +99,9 @@ void EditorState::createScene()
 	//mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
 	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
-	mMetaSolutionWindow = new MetaSolutionWindow();
-	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
-	mInterfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
+	//mMetaSolutionWindow = new MetaSolutionWindow();
+	//mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
+	//mInterfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
 	mCodeGenerator = new CodeGenerator();
 	mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
@@ -164,14 +164,14 @@ void EditorState::createScene()
 	}
 
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
-	tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
-	EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
+	//tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
+	//EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
 }
 
 void EditorState::destroyScene()
 {
-	EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
-	tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
+	//EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &EditorState::notifyChangeWidgets);
+	//tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 	delete mMainMenuControl;
@@ -200,8 +200,8 @@ void EditorState::destroyScene()
 	delete mCodeGenerator;
 	mCodeGenerator = nullptr;
 
-	delete mMetaSolutionWindow;
-	mMetaSolutionWindow = nullptr;
+	//delete mMetaSolutionWindow;
+	//mMetaSolutionWindow = nullptr;
 
 	delete mWidgetsWindow;
 	mWidgetsWindow = nullptr;
@@ -485,11 +485,11 @@ void EditorState::notifyFrameStarted(float _time)
 	}
 }
 
-void EditorState::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
+/*void EditorState::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
 {
 	if (_sectionName == "SettingsWindow")
 		solutionUpdate();
-}
+}*/
 
 void EditorState::notifyLoad()
 {
@@ -642,7 +642,7 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::Messa
 	*/
 }
 
-bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
+/*bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 {
 	MyGUI::xml::Document doc;
 	if (!doc.open(_fileName))
@@ -666,7 +666,7 @@ bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 	}
 
 	return false;
-}
+}*/
 
 void EditorState::clearWidgetWindow()
 {
@@ -677,21 +677,21 @@ void EditorState::clearWidgetWindow()
 void EditorState::loadFile(const std::wstring& _file)
 {
 	// если солюшен, то очищаем
-	bool solution = isMetaSolution(MyGUI::UString(_file).asUTF8_c_str());
+	/*bool solution = isMetaSolution(MyGUI::UString(_file).asUTF8_c_str());
 	if (solution)
 	{
 		clearWidgetWindow();
-	}
+	}*/
 
 	if (!saveOrLoadLayout(false, true, MyGUI::UString(_file).asUTF8_c_str()))
 	{
 		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str()/*, ""*/);
 	}
 
-	if (solution)
+	/*if (solution)
 	{
 		this->mWidgetsWindow->initialise();
-	}
+	}*/
 }
 
 void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
@@ -714,11 +714,11 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::Messa
 	*/
 }
 
-void EditorState::solutionUpdate()
+/*void EditorState::solutionUpdate()
 {
 	if (mMetaSolutionWindow->getVisible())
 		mMetaSolutionWindow->updateList();
-}
+}*/
 
 void EditorState::notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result)
 {
@@ -953,9 +953,9 @@ void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 	saveOrLoadLayout(false, false, tools::CommandManager::getInstance().getCommandData());
 }
 
-void EditorState::notifyChangeWidgets()
+/*void EditorState::notifyChangeWidgets()
 {
 	solutionUpdate();
-}
+}*/
 
 MYGUI_APP(EditorState)

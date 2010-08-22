@@ -6,7 +6,7 @@
 #ifndef __META_SOLUTION_WINDOW_H__
 #define __META_SOLUTION_WINDOW_H__
 
-#include "BaseLayout/BaseLayout.h"
+/*#include "BaseLayout/BaseLayout.h"
 
 struct MetaWidget
 {
@@ -90,6 +90,6 @@ private:
 	typedef std::map<std::string, MyGUI::PairString> MapPairString;
 	MapPairString mWidgetType;
 	MyGUI::Window* mWindow;
-};
+};*/
 
 #endif // __META_SOLUTION_WINDOW_H__

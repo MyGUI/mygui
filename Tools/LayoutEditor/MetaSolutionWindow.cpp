@@ -5,8 +5,7 @@
 */
 #include "precompiled.h"
 #include "MetaSolutionWindow.h"
-//#include "BasisManager.h"
-#include "EditorWidgets.h"
+/*#include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "WidgetTypes.h"
 #include "WidgetSelectorManager.h"
@@ -36,36 +35,6 @@ MetaSolutionWindow::~MetaSolutionWindow()
 
 	closeMetaSolution();
 }
-
-/*void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
-{
-	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next())
-	{
-		std::string key, value;
-
-		if (field->getName() == "Property")
-		{
-			if (!field->findAttribute("key", key)) continue;
-			if (!field->findAttribute("value", value)) continue;
-
-			if (key == "MetaSolutionName")
-			{
-				mMetaSolutionName = value;
-				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName);
-			}
-			//else if (key == "key2") ;//do sth
-		}
-	}
-}
-
-void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
-{
-	root = root->createChild("MetaSolutionWindow");
-	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "MetaSolutionName");
-	nodeProp->addAttribute("value", mMetaSolutionName);
-}*/
 
 void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name)
 {
@@ -406,3 +375,4 @@ void MetaSolutionWindow::notifyChangeSelectedWidget(MyGUI::Widget* _current_widg
 {
 	current_widget = _current_widget;
 }
+*/
