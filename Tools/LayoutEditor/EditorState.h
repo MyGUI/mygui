@@ -59,13 +59,10 @@ private:
 	void clear(bool _clearName = true);
 	void notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-	//void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
 	void notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result);
 
 	void notifyRecreate();
-
-	//bool isMetaSolution(const MyGUI::UString& _fileName);
 
 	void clearWidgetWindow();
 
@@ -74,9 +71,6 @@ private:
 	void notifyFrameStarted(float _time);
 
 	int toGrid(int _x);
-
-	//void solutionUpdate();
-	//void notifyChangeWidgets();
 
 	void commandLoad(const MyGUI::UString& _commandName);
 	void commandSave(const MyGUI::UString& _commandName);
@@ -107,7 +101,6 @@ private:
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
-	//MetaSolutionWindow * mMetaSolutionWindow;
 	CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 
