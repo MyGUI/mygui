@@ -48,12 +48,12 @@ namespace tools
 	{
 		_combo->removeAllItems();
 
-		_combo->addItem(replaceTags("#{ColourZero}"), MyGUI::Colour::Zero);
-		_combo->addItem(replaceTags("#{ColourBlack}"), MyGUI::Colour::Black);
-		_combo->addItem(replaceTags("#{ColourWhite}"), MyGUI::Colour::White);
-		_combo->addItem(replaceTags("#{ColourRed}"), MyGUI::Colour::Red);
-		_combo->addItem(replaceTags("#{ColourGreen}"), MyGUI::Colour::Green);
-		_combo->addItem(replaceTags("#{ColourBlue}"), MyGUI::Colour::Blue);
+		_combo->addItem(replaceTags("ColourZero"), MyGUI::Colour::Zero);
+		_combo->addItem(replaceTags("ColourBlack"), MyGUI::Colour::Black);
+		_combo->addItem(replaceTags("ColourWhite"), MyGUI::Colour::White);
+		_combo->addItem(replaceTags("ColourRed"), MyGUI::Colour::Red);
+		_combo->addItem(replaceTags("ColourGreen"), MyGUI::Colour::Green);
+		_combo->addItem(replaceTags("ColourBlue"), MyGUI::Colour::Blue);
 
 		_combo->setIndexSelected(0);
 

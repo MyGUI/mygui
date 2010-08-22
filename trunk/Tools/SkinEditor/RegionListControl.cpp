@@ -72,7 +72,7 @@ namespace tools
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
 				bool enabled = item->getPropertySet()->getPropertyValue("Enabled") == "True";
 				if (!visible || !enabled)
-					mList->addItem(replaceTags("#{ColourDisabled}") + item->getName(), item);
+					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
 				else
 					mList->addItem(item->getName(), item);
 

@@ -7,7 +7,7 @@ namespace tools
 {
 	inline MyGUI::UString replaceTags(const MyGUI::UString& _text)
 	{
-		return MyGUI::LanguageManager::getInstance().replaceTags(_text);
+		return MyGUI::LanguageManager::getInstance().replaceTags(MyGUI::utility::toString("#{", _text, "}"));
 	}
 	inline void addUserTag(const MyGUI::UString& _tagText, const MyGUI::UString& _replaceText)
 	{
