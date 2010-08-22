@@ -16,7 +16,6 @@ namespace tools
 {
 	MainMenuControl::MainMenuControl() :
 		mBar(nullptr),
-		mPopupMenuFile(nullptr),
 		mPopupMenuWidgets(nullptr)
 	{
 		createMainMenu();
@@ -40,29 +39,25 @@ namespace tools
 		mBar = menu_items[0]->castType<MyGUI::MenuBar>();
 		mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
 
-		// главное меню
-		MyGUI::MenuItem* menu_file = mBar->getItemById("File");
-		mPopupMenuFile = menu_file->getItemChild();
-
-		// список последних открытых файлов
-		const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
-		if (!recentFiles.empty())
+		MyGUI::MenuItem* recentFilesMenu = mBar->findItemById("RecentFiles", true);
+		if (recentFilesMenu != nullptr)
 		{
-			MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("Command_QuitApp");
-			for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
+			// список последних открытых файлов
+			const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
+			if (!recentFiles.empty())
 			{
-				mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "Command_RecentFiles",  *iter);
+				size_t index = 1;
+				for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
+				{
+					addUserTag("LE_IndexRecentFile", MyGUI::utility::toString(index));
+					addUserTag("LE_RecentFile", *iter);
+					recentFilesMenu->getItemChild()->addItem(replaceTags("LE_FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+				}
 			}
-			// если есть файлы, то еще один сепаратор
-			mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
 		}
 
 		// меню для виджетов
-		MyGUI::MenuItem* menu_widget = mBar->getItemById("Widgets");
-		mPopupMenuWidgets = menu_widget->createItemChild();
-		//FIXME
-		mPopupMenuWidgets->setPopupAccept(true);
-		mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
+		mPopupMenuWidgets = mBar->findItemById("Widgets", true)->getItemChild();
 
 		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControl::notifyPopupMenuAccept);
 	}
@@ -73,13 +68,10 @@ namespace tools
 		if (data != nullptr)
 			tools::CommandManager::getInstance().setCommandData(*data);
 
-		if (mPopupMenuFile == _item->getMenuCtrlParent())
+		const std::string& command = _item->getItemId();
+		if (command.size() > 8 && command.substr(0, 8) == "Command_")
 		{
-			const std::string& command = _item->getItemId();
-			if (command.size() > 8 && command.substr(0, 8) == "Command_")
-			{
-				tools::CommandManager::getInstance().executeCommand(command);
-			}
+			tools::CommandManager::getInstance().executeCommand(command);
 		}
 	}
 

@@ -638,6 +638,23 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
 	}
 
+	MenuItem* MenuCtrl::findItemById(const std::string& _id, bool _recursive)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].id == _id)
+				return mItemsInfo[pos].item;
+
+			if (_recursive && mItemsInfo[pos].submenu != nullptr)
+			{
+				MenuItem* find = mItemsInfo[pos].submenu->findItemById(_id, _recursive);
+				if (find != nullptr)
+					return find;
+			}
+		}
+		return nullptr;
+	}
+
 	size_t MenuCtrl::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
