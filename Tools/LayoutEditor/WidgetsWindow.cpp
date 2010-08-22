@@ -15,7 +15,8 @@
 const int MARGIN = 2;
 
 WidgetsWindow::WidgetsWindow() :
-	BaseLayout("WidgetsWindow.layout")
+	BaseLayout("WidgetsWindow.layout"),
+	mToolTip(nullptr)
 {
 	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");
@@ -25,12 +26,17 @@ WidgetsWindow::WidgetsWindow() :
 	widgetsButtonsInOneLine = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonsInOneLine"));
 	skinSheetName = tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "lastSkinGroup");
 
+	mToolTip = new EditorToolTip();
+
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
 }
 
 WidgetsWindow::~WidgetsWindow()
 {
 	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
+
+	delete mToolTip;
+	mToolTip = nullptr;
 
 	size_t sheet_index = mTabSkins->getIndexSelected();
 	if (sheet_index != MyGUI::ITEM_NONE)
@@ -267,4 +273,21 @@ void WidgetsWindow::clearAllSheets()
 void WidgetsWindow::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
 {
 	current_widget = _current_widget;
+}
+
+void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
+{
+	if (_info.type == MyGUI::ToolTipInfo::Show)
+	{
+		mToolTip->show(_sender);
+		mToolTip->move(_info.point);
+	}
+	else if (_info.type == MyGUI::ToolTipInfo::Hide)
+	{
+		mToolTip->hide();
+	}
+	else if (_info.type == MyGUI::ToolTipInfo::Move)
+	{
+		mToolTip->move(_info.point);
+	}
 }
