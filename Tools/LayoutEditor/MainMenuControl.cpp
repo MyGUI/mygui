@@ -59,6 +59,10 @@ namespace tools
 		// меню для виджетов
 		mPopupMenuWidgets = mBar->findItemById("Widgets", true)->getItemChild();
 
+		//FIXME
+		mPopupMenuWidgets->setPopupAccept(true);
+		mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
+
 		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControl::notifyPopupMenuAccept);
 	}
 
