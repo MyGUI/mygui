@@ -388,10 +388,7 @@ namespace tools
 
 	void DemoKeeper::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
@@ -408,10 +405,7 @@ namespace tools
 
 	void DemoKeeper::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
@@ -540,10 +534,7 @@ namespace tools
 
 	void DemoKeeper::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
@@ -563,10 +554,7 @@ namespace tools
 
 	void DemoKeeper::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Cancel)
-		{
-		}
-		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
 			quit();
@@ -610,17 +598,6 @@ namespace tools
 
 		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
 			input.injectKeyPress(_key, _text);
-	}
-
-	void DemoKeeper::injectKeyRelease(MyGUI::KeyCode _key)
-	{
-		if (MyGUI::Gui::getInstancePtr() == nullptr)
-			return;
-
-		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
-
-		if (!HotKeyManager::getInstance().onKeyEvent(false, input.isShiftPressed(), input.isControlPressed(), _key))
-			input.injectKeyRelease(_key);
 	}
 
 } // namespace tools
