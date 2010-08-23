@@ -36,6 +36,7 @@ namespace tools
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
@@ -46,10 +47,12 @@ namespace tools
 		void commandClear(const MyGUI::UString& _commandName);
 		void commandTest(const MyGUI::UString& _commandName);
 		void commandQuit(const MyGUI::UString& _commandName);
+		void commandFileDrop(const MyGUI::UString& _commandName);
 
 		void clear();
 		void save();
 		void load();
+		void loadDropFile();
 
 		void showLoadWindow();
 		void showSaveAsWindow();
@@ -64,12 +67,15 @@ namespace tools
 		bool mChanges;
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
+		MyGUI::UString mDropFileName;
 
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TestWindow* mTestWindow;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 
 		std::string mLocale;
+		typedef std::vector<std::wstring> VectorWString;
+		VectorWString mParams;
 	};
 
 } // namespace tools

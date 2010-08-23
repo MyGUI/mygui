@@ -3,30 +3,30 @@
 	<Command>
 		<Name>Command_QuitApp</Name>
 		<KeyCode>Escape</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 	</Command>
 	<Command>
 		<Name>Command_FileLoad</Name>
 		<KeyCode>O</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_FileLoad</Name>
 		<KeyCode>L</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_FileSave</Name>
 		<KeyCode>S</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_Test</Name>
 		<KeyCode>T</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 </MyGUI>
