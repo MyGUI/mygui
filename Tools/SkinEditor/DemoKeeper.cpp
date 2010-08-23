@@ -15,6 +15,7 @@
 #include "Localise.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
+#include "HotKeyManager.h"
 
 namespace tools
 {
@@ -67,6 +68,9 @@ namespace tools
 		new DialogManager();
 		DialogManager::getInstance().initialise();
 
+		new HotKeyManager();
+		HotKeyManager::getInstance().initialise();
+
 		mMainPane = new MainPane();
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
@@ -76,6 +80,8 @@ namespace tools
 
 		mTestWindow = new TestWindow();
 		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialogTest);
+
+		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &DemoKeeper::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &DemoKeeper::commandSave));
@@ -105,6 +111,9 @@ namespace tools
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
+
+		HotKeyManager::getInstance().shutdown();
+		delete HotKeyManager::getInstancePtr();
 
 		DialogManager::getInstance().shutdown();
 		delete DialogManager::getInstancePtr();
@@ -433,28 +442,21 @@ namespace tools
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
-		if (_key == MyGUI::KeyCode::Escape)
-		{
-			CommandManager::getInstance().executeCommand("Command_QuitApp");
-			return;
-		}
+		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
-		if (MyGUI::InputManager::getInstance().isControlPressed())
-		{
-			if (_key == MyGUI::KeyCode::O || _key == MyGUI::KeyCode::L)
-				CommandManager::getInstance().executeCommand("Command_FileLoad");
-			else if (_key == MyGUI::KeyCode::S)
-				CommandManager::getInstance().executeCommand("Command_FileSave");
-
-			return;
-		}
-
-		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
+		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
+			input.injectKeyPress(_key, _text);
 	}
 
 	void DemoKeeper::injectKeyRelease(MyGUI::KeyCode _key)
 	{
-		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
+		if (MyGUI::Gui::getInstancePtr() == nullptr)
+			return;
+
+		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
+
+		if (!HotKeyManager::getInstance().onKeyEvent(false, input.isShiftPressed(), input.isControlPressed(), _key))
+			input.injectKeyRelease(_key);
 	}
 
 } // namespace tools
