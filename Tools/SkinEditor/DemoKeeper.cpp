@@ -172,6 +172,9 @@ namespace tools
 
 	void DemoKeeper::commandLoad(const MyGUI::UString& _commandName)
 	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
 		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
@@ -199,11 +202,17 @@ namespace tools
 
 	void DemoKeeper::commandSaveAs(const MyGUI::UString& _commandName)
 	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
 		showSaveAsWindow();
 	}
 
 	void DemoKeeper::commandClear(const MyGUI::UString& _commandName)
 	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
 		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
@@ -418,6 +427,9 @@ namespace tools
 
 	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
 	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
