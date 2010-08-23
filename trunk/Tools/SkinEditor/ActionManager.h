@@ -10,6 +10,7 @@
 
 namespace tools
 {
+	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
 
 	class ActionManager :
 		public MyGUI::Singleton<ActionManager>
@@ -23,6 +24,8 @@ namespace tools
 
 		bool getChanges();
 		void setChanges(bool _value);
+
+		Event_Changes eventChanges;
 
 	private:
 		bool mChanges;

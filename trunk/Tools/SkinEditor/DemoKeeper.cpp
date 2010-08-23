@@ -16,9 +16,6 @@
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
 
-template <> tools::DemoKeeper* MyGUI::Singleton<tools::DemoKeeper>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::DemoKeeper>::mClassTypeName("DemoKeeper");
-
 namespace tools
 {
 
@@ -87,11 +84,15 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &DemoKeeper::commandTest));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &DemoKeeper::commandQuit));
 
+		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &DemoKeeper::notifyChanges);
+
 		updateCaption();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &DemoKeeper::notifyChanges);
+
 		delete mTestWindow;
 		mTestWindow = nullptr;
 
@@ -152,12 +153,6 @@ namespace tools
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;
-	}
-
-	void DemoKeeper::setChanges(bool _value)
-	{
-		mChanges = _value;
-		updateCaption();
 	}
 
 	void DemoKeeper::updateCaption()
@@ -412,6 +407,27 @@ namespace tools
 		}
 	}
 
+	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
+	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+		{
+			mTestWindow->setSkinItem(item);
+			mTestWindow->doModal();
+		}
+	}
+
+	void DemoKeeper::notifyEndDialogTest(Dialog* _sender, bool _result)
+	{
+		_sender->endModal();
+	}
+
+	void DemoKeeper::notifyChanges(bool _changes)
+	{
+		mChanges = _changes;
+		updateCaption();
+	}
+
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
@@ -436,19 +452,9 @@ namespace tools
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
 
-	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
+	void DemoKeeper::injectKeyRelease(MyGUI::KeyCode _key)
 	{
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-		{
-			mTestWindow->setSkinItem(item);
-			mTestWindow->doModal();
-		}
-	}
-
-	void DemoKeeper::notifyEndDialogTest(Dialog* _sender, bool _result)
-	{
-		_sender->endModal();
+		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
 } // namespace tools
