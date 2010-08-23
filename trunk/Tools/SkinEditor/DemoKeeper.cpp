@@ -89,10 +89,21 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &DemoKeeper::commandClear));
 		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &DemoKeeper::commandTest));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &DemoKeeper::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &DemoKeeper::commandFileDrop));
 
 		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &DemoKeeper::notifyChanges);
 
 		updateCaption();
+
+		for (VectorWString::const_iterator file = mParams.begin(); file != mParams.end(); ++file)
+		{
+			mFileName = *file;
+			addUserTag("SE_CurrentFileName", mFileName);
+
+			load();
+			updateCaption();
+			break;
+		}
 	}
 
 	void DemoKeeper::destroyScene()
@@ -147,17 +158,100 @@ namespace tools
 			mLocale = "Russian";
 		else if (mLocale == "en")
 			mLocale = "English";
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+		// при дропе файл может быть запущен в любой дирректории
+		wchar_t buff[MAX_PATH];
+		::GetModuleFileNameW(0, buff, MAX_PATH);
+
+		std::wstring dir = buff;
+		size_t pos = dir.find_last_of(L"\\/");
+		if (pos != dir.npos)
+		{
+			// устанавливаем правильную дирректорию
+			::SetCurrentDirectoryW(dir.substr(0, pos+1).c_str());
+		}
+
+		// имена могут содержать пробелы, необходимо
+		//склеивать и проверять файлы на существование
+		std::wifstream stream;
+		std::wstring tmp;
+		std::wstring delims = L" ";
+		std::wstring source = GetCommandLineW();
+		size_t start = source.find_first_not_of(delims);
+		while (start != source.npos)
+		{
+			size_t end = source.find_first_of(delims, start);
+			if (end != source.npos)
+			{
+				tmp += source.substr(start, end-start);
+
+				// имена могут быть в ковычках
+				if (tmp.size() > 2)
+				{
+					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					{
+						tmp = tmp.substr(1, tmp.size()-2);
+					}
+				}
+
+				stream.open(tmp.c_str());
+				if (stream.is_open())
+				{
+					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
+						mParams.push_back(tmp);
+
+					tmp.clear();
+					stream.close();
+				}
+				else
+					tmp += delims;
+			}
+			else
+			{
+				tmp += source.substr(start);
+
+				// имена могут быть в ковычках
+				if (tmp.size() > 2)
+				{
+					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
+					{
+						tmp = tmp.substr(1, tmp.size()-2);
+					}
+				}
+
+				stream.open(tmp.c_str());
+				if (stream.is_open())
+				{
+					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
+						mParams.push_back(tmp);
+
+					tmp.clear();
+					stream.close();
+				}
+				else
+					tmp += delims;
+				break;
+			}
+			start = source.find_first_not_of(delims, end + 1);
+		};
+
+#else
+#endif
 	}
 
-	void DemoKeeper::onFileDrop(const std::wstring& _filename)
+	void DemoKeeper::onFileDrop(const std::wstring& _fileName)
 	{
+		CommandManager::getInstance().setCommandData(_fileName);
+		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
 	bool DemoKeeper::onWinodwClose(size_t _handle)
 	{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	if (::IsIconic((HWND)_handle))
-		ShowWindow((HWND)_handle, SW_SHOWNORMAL);
+		if (::IsIconic((HWND)_handle))
+			ShowWindow((HWND)_handle, SW_SHOWNORMAL);
 #endif
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
@@ -263,6 +357,35 @@ namespace tools
 		}
 	}
 
+	void DemoKeeper::commandFileDrop(const MyGUI::UString& _commandName)
+	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
+		if (MessageBoxManager::getInstance().hasAny())
+			return;
+
+		mDropFileName = CommandManager::getInstance().getCommandData();
+		if (mDropFileName.empty())
+			return;
+
+		if (ActionManager::getInstance().getChanges())
+		{
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				replaceTags("Warning"),
+				replaceTags("MessageUnsavedData"),
+				MyGUI::MessageBoxStyle::IconQuest
+					| MyGUI::MessageBoxStyle::Yes
+					| MyGUI::MessageBoxStyle::No
+					| MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultLoadDropFile);
+		}
+		else
+		{
+			loadDropFile();
+		}
+	}
+
 	void DemoKeeper::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Cancel)
@@ -281,6 +404,35 @@ namespace tools
 
 			showLoadWindow();
 		}
+	}
+
+	void DemoKeeper::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Cancel)
+		{
+		}
+		else if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			clear();
+
+			loadDropFile();
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			clear();
+
+			loadDropFile();
+		}
+	}
+
+	void DemoKeeper::loadDropFile()
+	{
+		mFileName = mDropFileName;
+		addUserTag("SE_CurrentFileName", mFileName);
+
+		load();
+		updateCaption();
 	}
 
 	void DemoKeeper::showLoadWindow()
