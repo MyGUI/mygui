@@ -60,6 +60,8 @@ set (HEADER_FILES
   MessageBoxManager.h
   DialogManager.h
   MessageBoxFadeControl.h
+  HotKeyCommand.h
+  HotKeyManager.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
@@ -120,6 +122,7 @@ set (SOURCE_FILES
   MessageBoxManager.cpp
   DialogManager.cpp
   MessageBoxFadeControl.cpp
+  HotKeyManager.cpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
