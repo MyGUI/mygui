@@ -30,7 +30,6 @@ namespace tools
 
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);

@@ -196,10 +196,10 @@ namespace tools
 				{
 					command.setCommand(nodeCommand->getContent());
 				}
-				else if (nodeCommand->getName() == "Pressed")
+				/*else if (nodeCommand->getName() == "Pressed")
 				{
 					command.setPressed(MyGUI::utility::parseValue<bool>(nodeCommand->getContent()));
-				}
+				}*/
 				else if (nodeCommand->getName() == "KeyCode")
 				{
 					MapKeys::const_iterator item = mKeyNames.find(nodeCommand->getContent());
