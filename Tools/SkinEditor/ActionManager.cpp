@@ -5,7 +5,6 @@
 */
 #include "precompiled.h"
 #include "ActionManager.h"
-#include "DemoKeeper.h"
 
 template <> tools::ActionManager* MyGUI::Singleton<tools::ActionManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ActionManager>::mClassTypeName("ActionManager");
@@ -40,7 +39,7 @@ namespace tools
 		if (mChanges != _value)
 		{
 			mChanges = _value;
-			DemoKeeper::getInstance().setChanges(mChanges);
+			eventChanges(mChanges);
 		}
 	}
 
