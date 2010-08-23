@@ -20,6 +20,7 @@ namespace tools
 
 	private:
 		void notifyFrameStart(float _time);
+		float mMaxAlpha;
 	};
 
 } // namespace tools
