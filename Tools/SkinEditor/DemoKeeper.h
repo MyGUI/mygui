@@ -16,8 +16,7 @@ namespace tools
 {
 
 	class DemoKeeper :
-		public base::BaseManager,
-		public MyGUI::Singleton<DemoKeeper>
+		public base::BaseManager
 	{
 	public:
 		DemoKeeper();
@@ -29,11 +28,9 @@ namespace tools
 		virtual bool onWinodwClose(size_t _handle);
 		virtual void prepare();
 
-
-		void setChanges(bool _value);
-
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
@@ -59,6 +56,8 @@ namespace tools
 
 		virtual void setupResources();
 		void updateCaption();
+
+		void notifyChanges(bool _changes);
 
 	private:
 		MainPane* mMainPane;
