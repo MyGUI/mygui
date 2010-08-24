@@ -33,6 +33,7 @@ namespace MyGUI
 		mLineLength(0.0f),
 		mVertexCount(0),
 		mEmptyView(false),
+		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
