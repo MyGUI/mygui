@@ -20,4 +20,3 @@
 #define MYGUI_DONT_USE_OBSOLETE
 
 #endif // __MYGUI_PLATFORM_H__
-
