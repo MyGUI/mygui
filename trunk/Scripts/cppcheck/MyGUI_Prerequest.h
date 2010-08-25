@@ -15,5 +15,6 @@ namespace MyGUI
     #define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
 } // namespace MyGUI
 
-#endif // __MYGUI_PREREQUEST_H__
+#include "MyGUI_DeprecatedTypes.h"
 
+#endif // __MYGUI_PREREQUEST_H__
