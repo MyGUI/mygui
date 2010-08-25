@@ -64,7 +64,6 @@ set (HEADER_FILES
   HotKeyManager.h
 )
 set (SOURCE_FILES
-  ../../Common/Base/BaseResource.rc
   DemoKeeper.cpp
   SkinItem.cpp
   SkinManager.cpp
@@ -123,6 +122,132 @@ set (SOURCE_FILES
   DialogManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+  SkinItem.cpp
+  SkinManager.cpp
+  MainPane.cpp
+  SkinControl.cpp
+  SkinListControl.cpp
+  TextFieldControl.cpp
+  Property.cpp
+  PropertySet.cpp
+  SkinPropertyControl.cpp
+  SkinTextureControl.cpp
+  MyGUI_FilterNoneSkin.cpp
+  AreaSelectorControl.cpp
+  PositionSelectorControl.cpp
+  PositionSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
+  HorizontalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
+  VerticalSelectorBlackControl.cpp
+  StateControl.cpp
+  StateListControl.cpp
+  StateItem.cpp
+  StatePropertyControl.cpp
+  StateTextureControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorControl.cpp
+  PropertyControl.cpp
+  PropertyBoolControl.cpp
+  PropertyAlignControl.cpp
+  PropertyInt4Control.cpp
+  PropertyInt2Control.cpp
+  PropertyIntControl.cpp
+  PropertyRegionTypeControl.cpp
+  PropertyTexturesControl.cpp
+  PropertyColourControl.cpp
+  SeparatorPropertyControl.cpp
+  TextureControl.cpp
+  SeparatorTextureControl.cpp
+  SelectorControl.cpp
+  RegionItem.cpp
+  RegionControl.cpp
+  RegionListControl.cpp
+  RegionPropertyControl.cpp
+  RegionTextureControl.cpp
+  ActionManager.cpp
+  MainMenuControl.cpp
+  OpenSaveFileDialog.cpp
+  CommandManager.cpp
+  ColourPanel.cpp
+  Dialog.cpp
+  TestWindow.cpp
+  BackgroundControl.cpp
+  ExportManager.cpp
+  MessageBoxManager.cpp
+  DialogManager.cpp
+  MessageBoxFadeControl.cpp
+  HotKeyManager.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Binary.h
+  DemoKeeper.h
+  SkinItem.h
+  SkinManager.h
+  MainPane.h
+  SkinControl.h
+  SkinListControl.h
+  TextFieldControl.h
+  Property.h
+  PropertySet.h
+  SkinPropertyControl.h
+  SkinTextureControl.h
+  MyGUI_FilterNoneSkin.h
+  AreaSelectorControl.h
+  PositionSelectorControl.h
+  PositionSelectorBlackControl.h
+  HorizontalSelectorControl.h
+  HorizontalSelectorBlackControl.h
+  VerticalSelectorControl.h
+  VerticalSelectorBlackControl.h
+  StateControl.h
+  StateListControl.h
+  StateItem.h
+  StatePropertyControl.h
+  StateTextureControl.h
+  SeparatorItem.h
+  SeparatorListControl.h
+  SeparatorControl.h
+  ItemHolder.h
+  PropertyAdvisor.h
+  PropertyControl.h
+  PropertyBoolControl.h
+  PropertyAlignControl.h
+  PropertyInt4Control.h
+  PropertyInt2Control.h
+  PropertyIntControl.h
+  PropertyRegionTypeControl.h
+  PropertyTexturesControl.h
+  PropertyColourControl.h
+  SeparatorPropertyControl.h
+  TextureControl.h
+  SeparatorTextureControl.h
+  SelectorControl.h
+  RegionItem.h
+  RegionControl.h
+  RegionListControl.h
+  RegionPropertyControl.h
+  RegionTextureControl.h
+  ActionManager.h
+  MainMenuControl.h
+  OpenSaveFileDialog.h
+  CommandManager.h
+  ColourPanel.h
+  Dialog.h
+  TestWindow.h
+  BackgroundControl.h
+  ExportManager.h
+  Localise.h
+  MessageBoxManager.h
+  DialogManager.h
+  MessageBoxFadeControl.h
+  HotKeyCommand.h
+  HotKeyManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
