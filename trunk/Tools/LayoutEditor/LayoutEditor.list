@@ -7,6 +7,13 @@ set (HEADER_FILES
   UndoManager.h
   WidgetContainer.h
   WidgetTypes.h
+  CommandManager.h
+  MainMenuControl.h
+  SettingsManager.h
+  WidgetSelectorManager.h
+  HotKeyManager.h
+  HotKeyCommand.h
+  Localise.h
   PanelControllers.h
   PanelItems.h
   PanelMainProperties.h
@@ -19,17 +26,10 @@ set (HEADER_FILES
   SettingsWindow.h
   WidgetsWindow.h
   OpenSaveFileDialog.h
+  Dialog.h
   Parse.h
   GroupMessage.h
   CodeGenerator.h
-  Dialog.h
-  CommandManager.h
-  MainMenuControl.h
-  SettingsManager.h
-  WidgetSelectorManager.h
-  HotKeyManager.h
-  HotKeyCommand.h
-  Localise.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -37,6 +37,11 @@ set (SOURCE_FILES
   EditorWidgets.cpp
   UndoManager.cpp
   WidgetTypes.cpp
+  CommandManager.cpp
+  MainMenuControl.cpp
+  SettingsManager.cpp
+  WidgetSelectorManager.cpp
+  HotKeyManager.cpp
   editor.ico
   LayoutEditor.rc
   PanelControllers.cpp
@@ -49,15 +54,10 @@ set (SOURCE_FILES
   SettingsWindow.cpp
   WidgetsWindow.cpp
   OpenSaveFileDialog.cpp
+  Dialog.cpp
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
-  Dialog.cpp
-  CommandManager.cpp
-  MainMenuControl.cpp
-  SettingsManager.cpp
-  WidgetSelectorManager.cpp
-  HotKeyManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
@@ -65,6 +65,11 @@ SOURCE_GROUP("Source Files" FILES
   EditorWidgets.cpp
   UndoManager.cpp
   WidgetTypes.cpp
+  CommandManager.cpp
+  MainMenuControl.cpp
+  SettingsManager.cpp
+  WidgetSelectorManager.cpp
+  HotKeyManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Common.h
@@ -75,6 +80,13 @@ SOURCE_GROUP("Header Files" FILES
   UndoManager.h
   WidgetContainer.h
   WidgetTypes.h
+  CommandManager.h
+  MainMenuControl.h
+  SettingsManager.h
+  WidgetSelectorManager.h
+  HotKeyManager.h
+  HotKeyCommand.h
+  Localise.h
 )
 SOURCE_GROUP("Resources" FILES
   editor.ico
@@ -101,8 +113,8 @@ SOURCE_GROUP("Panels" FILES
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
   OpenSaveFileDialog.h
-  OpenSaveFileDialog.cpp
   Dialog.h
+  OpenSaveFileDialog.cpp
   Dialog.cpp
 )
 SOURCE_GROUP("Windows" FILES
