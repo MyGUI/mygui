@@ -69,6 +69,8 @@ set (HEADER_FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_WidgetDefines.h
+  include/MyGUI_BackwardCompatibility.h
+  include/MyGUI_DeprecatedTypes.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
   include/MyGUI_IObject.h
@@ -163,8 +165,6 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
-  include/MyGUI_BackwardCompatibility.h
-  include/MyGUI_DeprecatedTypes.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -213,6 +213,7 @@ set (SOURCE_FILES
   src/MyGUI_ControllerPosition.cpp
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
+  src/MyGUI_BackwardCompatibility.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_WidgetInput.cpp
   src/MyGUI_ResourceImageSet.cpp
@@ -257,7 +258,6 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
-  src/MyGUI_BackwardCompatibility.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
