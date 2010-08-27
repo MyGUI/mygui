@@ -155,7 +155,9 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 			# to avoid warnings from OGRE sources
 			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
 		endif ()
-		add_definitions(-fdiagnostics-show-option)
+		if (NOT APPLE)
+			add_definitions(-fdiagnostics-show-option)
+		endif ()
 		# very interesting option, but way too many warnings
 		#add_definitions(-Weffc++)
 		add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
