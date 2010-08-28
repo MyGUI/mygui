@@ -16,7 +16,8 @@ const int MARGIN = 2;
 
 WidgetsWindow::WidgetsWindow() :
 	BaseLayout("WidgetsWindow.layout"),
-	mToolTip(nullptr)
+	mToolTip(nullptr),
+	creating_status(0)
 {
 	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");

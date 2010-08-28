@@ -36,7 +36,7 @@ public:
 	void remove(WidgetContainer * _container);
 	void clear();
 
-	void setCodeGenerator(CodeGenerator* _codeGenerator) { mCodeGenerator = _codeGenerator; }
+	//void setCodeGenerator(CodeGenerator* _codeGenerator) { mCodeGenerator = _codeGenerator; }
 
 	bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test = false);
 
@@ -59,7 +59,7 @@ private:
 private:
 	bool widgets_changed;
 	std::vector<std::string> ignore_parameters;
-	CodeGenerator* mCodeGenerator;
+	//CodeGenerator* mCodeGenerator;
 };
 
 #endif // __EDITOR_WIDGETS_H__

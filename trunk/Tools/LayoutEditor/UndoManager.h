@@ -96,6 +96,8 @@ private:
 
 enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
 
+typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
+
 class UndoManager :
 	public MyGUI::Singleton<UndoManager>
 {
@@ -113,7 +115,9 @@ public:
 	void dropLastProperty() { last_property = PR_DEFAULT; }
 
 	bool isUnsaved() const { return mUnsaved; }
-	void setUnsaved(bool _unsaved) { mUnsaved = _unsaved; }
+	void setUnsaved(bool _unsaved);
+
+	Event_Changes eventChanges;
 
 private:
 	void commandUndo(const MyGUI::UString& _commandName);
