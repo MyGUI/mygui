@@ -11,8 +11,8 @@
 namespace tools
 {
 
-	typedef std::vector<MyGUI::UString> VectorUString;
 	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSettingsChanged;
+	typedef std::vector<MyGUI::UString> VectorUString;
 
 	class SettingsManager :
 		public MyGUI::Singleton<SettingsManager>
@@ -55,7 +55,6 @@ namespace tools
 		bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
 
 	private:
-		typedef std::vector<MyGUI::UString> VectorUString;
 		VectorUString mRecentFiles;
 		VectorUString mAdditionalPaths;
 
