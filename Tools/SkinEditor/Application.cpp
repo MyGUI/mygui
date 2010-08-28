@@ -11,8 +11,6 @@
 #include "CommandManager.h"
 #include "ExportManager.h"
 #include "MyGUI_FilterNoneSkin.h"
-#include "FileSystemInfo/FileSystemInfo.h"
-#include "Localise.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
 #include "HotKeyManager.h"
@@ -25,11 +23,6 @@ namespace tools
 {
 
 	Application::Application() :
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
-		mOpenSaveFileDialog(nullptr),
-		mTestWindow(nullptr),
-		mMessageBoxFadeControl(nullptr),
 		mEditorState(nullptr)
 	{
 	}
@@ -48,9 +41,6 @@ namespace tools
 	void Application::createScene()
 	{
 		getStatisticInfo()->setVisible(false);
-
-		addUserTag("\\n", "\n");
-		addUserTag("SE_CurrentFileName", mFileName);
 
 		if (!mLocale.empty())
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
@@ -81,60 +71,17 @@ namespace tools
 		new StateManager();
 		StateManager::getInstance().initialise();
 
-		mEditorState = new EditorState();
-		StateManager::getInstance().pushState(mEditorState);
-
-		mMessageBoxFadeControl = new MessageBoxFadeControl();
-
-		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
-
-		mTestWindow = new TestWindow();
-		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogTest);
-
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &Application::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &Application::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &Application::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &Application::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &Application::commandTest));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &Application::commandFileDrop));
-
-		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &Application::notifyChanges);
-
-		updateCaption();
-
-		for (VectorWString::const_iterator file = Application::getInstance().getParams().begin(); file != Application::getInstance().getParams().end(); ++file)
-		{
-			mFileName = *file;
-			addUserTag("SE_CurrentFileName", mFileName);
-
-			load();
-			updateCaption();
-			break;
-		}
+		mEditorState = new EditorState();
+		StateManager::getInstance().pushState(mEditorState);
 	}
 
 	void Application::destroyScene()
 	{
-		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &Application::notifyChanges);
-
 		StateManager::getInstance().popState();
 		delete mEditorState;
 		mEditorState = nullptr;
-
-		delete mTestWindow;
-		mTestWindow = nullptr;
-
-		mOpenSaveFileDialog->eventEndDialog = nullptr;
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
-
-		delete mMessageBoxFadeControl;
-		mMessageBoxFadeControl = nullptr;
 
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();
@@ -272,336 +219,6 @@ namespace tools
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;
-	}
-
-	void Application::updateCaption()
-	{
-		addUserTag("SE_HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
-		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
-	}
-
-	void Application::commandLoad(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (ActionManager::getInstance().getChanges())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoad);
-		}
-		else
-		{
-			showLoadWindow();
-		}
-	}
-
-	void Application::commandSave(const MyGUI::UString& _commandName)
-	{
-		if (ActionManager::getInstance().getChanges())
-		{
-			save();
-		}
-	}
-
-	void Application::commandSaveAs(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		showSaveAsWindow();
-	}
-
-	void Application::commandClear(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (ActionManager::getInstance().getChanges())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultClear);
-		}
-		else
-		{
-			clear();
-		}
-	}
-
-	void Application::commandQuit(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-		{
-			DialogManager::getInstance().endTopDialog();
-		}
-		else
-		{
-			if (MessageBoxManager::getInstance().hasAny())
-			{
-				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
-			}
-			else
-			{
-				if (ActionManager::getInstance().getChanges())
-				{
-					MyGUI::Message* message = MessageBoxManager::getInstance().create(
-						replaceTags("Warning"),
-						replaceTags("MessageUnsavedData"),
-						MyGUI::MessageBoxStyle::IconQuest
-							| MyGUI::MessageBoxStyle::Yes
-							| MyGUI::MessageBoxStyle::No
-							| MyGUI::MessageBoxStyle::Cancel);
-					message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultQuit);
-				}
-				else
-				{
-					Application::getInstance().quit();
-				}
-			}
-		}
-	}
-
-	void Application::commandFileDrop(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (MessageBoxManager::getInstance().hasAny())
-			return;
-
-		mDropFileName = CommandManager::getInstance().getCommandData();
-		if (mDropFileName.empty())
-			return;
-
-		if (ActionManager::getInstance().getChanges())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoadDropFile);
-		}
-		else
-		{
-			loadDropFile();
-		}
-	}
-
-	void Application::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-
-			showLoadWindow();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-
-			showLoadWindow();
-		}
-	}
-
-	void Application::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-
-			loadDropFile();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-
-			loadDropFile();
-		}
-	}
-
-	void Application::loadDropFile()
-	{
-		mFileName = mDropFileName;
-		addUserTag("SE_CurrentFileName", mFileName);
-
-		load();
-		updateCaption();
-	}
-
-	void Application::showLoadWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
-		mOpenSaveFileDialog->setMode("Load");
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void Application::save()
-	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
-
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-		doc.save(mFileName);
-
-		ActionManager::getInstance().setChanges(false);
-	}
-
-	void Application::clear()
-	{
-		SkinManager::getInstance().clear();
-		ActionManager::getInstance().setChanges(false);
-
-		mFileName = mDefaultFileName;
-		addUserTag("SE_CurrentFileName", mFileName);
-
-		updateCaption();
-	}
-
-	void Application::notifyEndDialog(Dialog* _sender, bool _result)
-	{
-		if (_result)
-		{
-			if (mOpenSaveFileDialog->getMode() == "SaveAs")
-			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("SE_CurrentFileName", mFileName);
-
-				save();
-				updateCaption();
-			}
-			else if (mOpenSaveFileDialog->getMode() == "Load")
-			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("SE_CurrentFileName", mFileName);
-
-				load();
-				updateCaption();
-			}
-		}
-
-		mOpenSaveFileDialog->endModal();
-	}
-
-	void Application::load()
-	{
-		SkinManager::getInstance().clear();
-
-		MyGUI::xml::Document doc;
-		if (doc.open(mFileName))
-		{
-			bool result = false;
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "Root")
-			{
-				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
-				while (nodes.next("SkinManager"))
-				{
-					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
-					result = true;
-					break;
-				}
-			}
-
-			if (!result)
-			{
-				MyGUI::Message* message = MessageBoxManager::getInstance().create(
-					replaceTags("Error"),
-					replaceTags("MessageIncorrectFileFormat"),
-					MyGUI::MessageBoxStyle::IconError
-						| MyGUI::MessageBoxStyle::Yes);
-
-				mFileName = mDefaultFileName;
-				addUserTag("SE_CurrentFileName", mFileName);
-
-				updateCaption();
-			}
-		}
-		else
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				doc.getLastError(),
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
-		}
-
-		ActionManager::getInstance().setChanges(false);
-	}
-
-	void Application::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-		}
-	}
-
-	void Application::showSaveAsWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
-		mOpenSaveFileDialog->setMode("SaveAs");
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void Application::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			Application::getInstance().quit();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			Application::getInstance().quit();
-		}
-	}
-
-	void Application::commandTest(const MyGUI::UString & _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-		{
-			mTestWindow->setSkinItem(item);
-			mTestWindow->doModal();
-		}
-	}
-
-	void Application::notifyEndDialogTest(Dialog* _sender, bool _result)
-	{
-		_sender->endModal();
-	}
-
-	void Application::notifyChanges(bool _changes)
-	{
-		updateCaption();
 	}
 
 	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
