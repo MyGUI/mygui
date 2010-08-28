@@ -40,7 +40,7 @@ namespace tools
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");
-		addUserTag("SE_CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", mFileName);
 
 		mMainPane = new MainPane();
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
@@ -56,7 +56,7 @@ namespace tools
 		for (Application::VectorWString::const_iterator file = Application::getInstance().getParams().begin(); file != Application::getInstance().getParams().end(); ++file)
 		{
 			mFileName = *file;
-			addUserTag("SE_CurrentFileName", mFileName);
+			addUserTag("CurrentFileName", mFileName);
 
 			load();
 			updateCaption();
@@ -91,7 +91,7 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("SE_HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
+		addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
 		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
 	}
 
@@ -206,6 +206,16 @@ namespace tools
 		}
 	}
 
+	void EditorState::commandTest(const MyGUI::UString & _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+			StateManager::getInstance().stateEvent(this, "Test");
+	}
+
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
@@ -243,7 +253,7 @@ namespace tools
 	void EditorState::loadDropFile()
 	{
 		mFileName = mDropFileName;
-		addUserTag("SE_CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", mFileName);
 
 		load();
 		updateCaption();
@@ -263,7 +273,7 @@ namespace tools
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("CurrentFileName", mFileName);
 
 				save();
 				updateCaption();
@@ -271,7 +281,7 @@ namespace tools
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("CurrentFileName", mFileName);
 
 				load();
 				updateCaption();
@@ -314,16 +324,6 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandTest(const MyGUI::UString & _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-			StateManager::getInstance().stateEvent(this, "Test");
-	}
-
 	void EditorState::notifyChanges(bool _changes)
 	{
 		updateCaption();
@@ -349,23 +349,9 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 
 		mFileName = mDefaultFileName;
-		addUserTag("SE_CurrentFileName", mFileName);
+		addUserTag("CurrentFileName", mFileName);
 
 		updateCaption();
-	}
-
-	void EditorState::save()
-	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
-
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-		doc.save(mFileName);
-
-		ActionManager::getInstance().setChanges(false);
 	}
 
 	void EditorState::load()
@@ -397,7 +383,7 @@ namespace tools
 						| MyGUI::MessageBoxStyle::Yes);
 
 				mFileName = mDefaultFileName;
-				addUserTag("SE_CurrentFileName", mFileName);
+				addUserTag("CurrentFileName", mFileName);
 
 				updateCaption();
 			}
@@ -410,6 +396,20 @@ namespace tools
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
 		}
+
+		ActionManager::getInstance().setChanges(false);
+	}
+
+	void EditorState::save()
+	{
+		MyGUI::xml::Document doc;
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+
+		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+
+		doc.save(mFileName);
 
 		ActionManager::getInstance().setChanges(false);
 	}
