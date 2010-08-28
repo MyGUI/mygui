@@ -34,6 +34,8 @@ namespace tools
 		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 
 		void setEdgeHideController();
+		void updateRecentFilesMenu();
+
 	private:
 		MyGUI::MenuBar* mBar;
 		MyGUI::MenuCtrl* mPopupMenuWidgets;

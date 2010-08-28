@@ -1008,7 +1008,7 @@ void EditorState::load(/*const MyGUI::UString& _file*/)
 	{
 		//mFileName = _file;
 		//setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		//tools::SettingsManager::getInstance().addRecentFile(_file);
+		tools::SettingsManager::getInstance().addRecentFile(mFileName);
 
 		UndoManager::getInstance().addValue();
 		UndoManager::getInstance().setUnsaved(false);
@@ -1034,7 +1034,7 @@ void EditorState::save(/*const MyGUI::UString& _file*/)
 	{
 		//mFileName = _file;
 		//setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		//tools::SettingsManager::getInstance().addRecentFile(_file);
+		tools::SettingsManager::getInstance().addRecentFile(mFileName);
 
 		UndoManager::getInstance().addValue();
 		UndoManager::getInstance().setUnsaved(false);
