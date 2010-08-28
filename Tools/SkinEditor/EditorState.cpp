@@ -202,6 +202,8 @@ namespace tools
 		}
 		else
 		{
+			clear();
+
 			loadDropFile();
 		}
 	}
