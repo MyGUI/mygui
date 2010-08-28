@@ -107,7 +107,7 @@ namespace tools
 
 		updateCaption();
 
-		for (VectorWString::const_iterator file = getParams().begin(); file != getParams().end(); ++file)
+		for (VectorWString::const_iterator file = Application::getInstance().getParams().begin(); file != Application::getInstance().getParams().end(); ++file)
 		{
 			mFileName = *file;
 			addUserTag("SE_CurrentFileName", mFileName);
@@ -277,7 +277,7 @@ namespace tools
 	void Application::updateCaption()
 	{
 		addUserTag("SE_HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
-		setCaption(replaceTags("CaptionMainWindow"));
+		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
 	}
 
 	void Application::commandLoad(const MyGUI::UString& _commandName)
@@ -367,7 +367,7 @@ namespace tools
 				}
 				else
 				{
-					quit();
+					Application::getInstance().quit();
 				}
 			}
 		}
@@ -573,11 +573,11 @@ namespace tools
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
-			quit();
+			Application::getInstance().quit();
 		}
 		else if (_result == MyGUI::MessageBoxStyle::No)
 		{
-			quit();
+			Application::getInstance().quit();
 		}
 	}
 
