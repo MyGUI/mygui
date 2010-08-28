@@ -74,8 +74,65 @@ namespace tools
 
 	void StateManager::rollbackToState(StateController* _state)
 	{
-		while (getCurentState() != _state || getCurentState() != nullptr)
+		while (getCurentState() != _state && getCurentState() != nullptr)
 			popState();
+	}
+
+	void StateManager::stateEvent(StateController* _state, const std::string& _event)
+	{
+		std::string currentStateName = getNameState(_state);
+		std::string toStateName = getEventToState(currentStateName, _event);
+
+		StateController* state = getStateByName(toStateName);
+		if (state == nullptr)
+			return;
+
+		if (std::find(mStates.begin(), mStates.end(), state) == mStates.end())
+		{
+			pushState(state);
+		}
+		else
+		{
+			rollbackToState(state);
+		}
+	}
+
+	void StateManager::registerState(StateController* _state, const std::string& _name)
+	{
+		mStateName[_name] = _state;
+	}
+
+	void StateManager::registerEventState(const std::string& _stateName, const std::string& _eventName, const std::string& _toState)
+	{
+		mLinks.push_back(std::make_pair(_stateName, std::make_pair(_eventName, _toState)));
+	}
+
+	std::string StateManager::getNameState(StateController* _state)
+	{
+		for (MapStateController::const_iterator item = mStateName.begin(); item != mStateName.end(); ++item)
+		{
+			if ((*item).second == _state)
+				return (*item).first;
+		}
+		return "";
+	}
+
+	std::string StateManager::getEventToState(const std::string& _currentStateName, const std::string& _eventName)
+	{
+		for (VectorPairPairString::const_iterator item = mLinks.begin(); item != mLinks.end(); ++item)
+		{
+			if ((*item).first == _currentStateName && (*item).second.first == _eventName)
+				return (*item).second.second;
+		}
+		return "";
+	}
+
+	StateController* StateManager::getStateByName(const std::string& _stateName)
+	{
+		MapStateController::iterator item = mStateName.find(_stateName);
+		if (item != mStateName.end())
+			return (*item).second;
+		return nullptr;
 	}
 
 } // namespace tools

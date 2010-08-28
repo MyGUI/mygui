@@ -65,6 +65,7 @@ set (HEADER_FILES
   StateManager.h
   StateController.h
   EditorState.h
+  TestState.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -127,6 +128,7 @@ set (SOURCE_FILES
   HotKeyManager.cpp
   StateManager.cpp
   EditorState.cpp
+  TestState.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

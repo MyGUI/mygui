@@ -7,14 +7,17 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
+#include "StateController.h"
 #include "EditorState.h"
+#include "TestState.h"
 
 namespace tools
 {
 
 	class Application :
 		public base::BaseManager,
-		public MyGUI::Singleton<Application>
+		public MyGUI::Singleton<Application>,
+		public StateController
 	{
 	public:
 		Application();
@@ -32,14 +35,19 @@ namespace tools
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams() { return mParams; }
 
+		virtual void resumeState();
+
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+
+		void commandQuitApp(const MyGUI::UString& _commandName);
 
 	private:
 		virtual void setupResources();
 
 	private:
 		EditorState* mEditorState;
+		TestState* mTestState;
 
 		std::string mLocale;
 		VectorWString mParams;
