@@ -35,6 +35,7 @@ namespace tools
 
 		mMainWidget->setVisible(true);
 
+		MyGUI::LayerManager::getInstance().upLayerItem(mMainWidget);
 		MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
 		DialogManager::getInstance()._addDialog(this);
 	}
