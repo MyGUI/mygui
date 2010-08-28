@@ -43,16 +43,28 @@
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
 
+	<Tag name="CaptionMainWindow">Layout editor - '#{CurrentFileName}' #{HasChanged}</Tag>
+	<Tag name="CaptionEnterName">Enter name</Tag>
+	<Tag name="CaptionOpenFile">Open file</Tag>
+	<Tag name="CaptionSaveFile">Save file</Tag>
+	<Tag name="CaptionExportFile">Export file</Tag>
+	<Tag name="CaptionColourPicker">Colour picker</Tag>
+	<Tag name="CaptionTestWindow">Test</Tag>
+
+	<Tag name="ButtonOpenFile">Open</Tag>
+	<Tag name="ButtonSaveFile">Save</Tag>
+
+	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
 	<Tag name="Warn_delete_all_widgets">Are you sure you want to delete all widgets?</Tag>
-	<Tag name="Warn_unsaved_data">You have unsaved changes. Do you want to save it?</Tag>
+	<!--Tag name="Warn_unsaved_data">You have unsaved changes. Do you want to save it?</Tag-->
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">pixels</Tag>
 
-	<Tag name="LE_MenuItemWidgetInfo">#{LE_FormatWidgetName}#{LE_FormatWidgetType}#{LE_FormatWidgetSkin}</Tag>
-	<Tag name="LE_PatternWidgetName">#{ColourMenuName}'#{LE_WidgetName}' </Tag>
-	<Tag name="LE_PatternWidgetType">#{ColourMenuType}[#{LE_WidgetType}] </Tag>
-	<Tag name="LE_PatternWidgetSkin">#{ColourMenuSkin}#{LE_WidgetSkin} </Tag>
+	<Tag name="MenuItemWidgetInfo">#{FormatWidgetName}#{FormatWidgetType}#{FormatWidgetSkin}</Tag>
+	<Tag name="PatternWidgetName">#{ColourMenuName}'#{WidgetName}' </Tag>
+	<Tag name="PatternWidgetType">#{ColourMenuType}[#{WidgetType}] </Tag>
+	<Tag name="PatternWidgetSkin">#{ColourMenuSkin}#{WidgetSkin} </Tag>
 
-	<Tag name="LE_FormatRecentFile">#{LE_IndexRecentFile}: #{LE_RecentFile}</Tag>
+	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 </MyGUI>

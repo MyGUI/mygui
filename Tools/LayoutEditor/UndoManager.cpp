@@ -22,7 +22,7 @@ void UndoManager::initialise(EditorWidgets * _ew)
 	pos = 0;
 	last_property = PR_DEFAULT;
 	ew = _ew;
-	mUnsaved = false;
+	setUnsaved(false);
 
 	tools::CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &UndoManager::commandUndo));
 	tools::CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &UndoManager::commandRedo));
@@ -39,7 +39,7 @@ void UndoManager::shutdown()
 
 void UndoManager::undo()
 {
-	mUnsaved = true;
+	setUnsaved(true);
 
 	if (pos == operations.GetSize() - 1) return;
 	pos++;
@@ -49,7 +49,7 @@ void UndoManager::undo()
 
 void UndoManager::redo()
 {
-	mUnsaved = true;
+	setUnsaved(true);
 
 	if (pos == 0) return;
 	pos--;
@@ -59,7 +59,7 @@ void UndoManager::redo()
 
 void UndoManager::addValue(int _property)
 {
-	mUnsaved = true;
+	setUnsaved(true);
 
 	if ((_property != PR_DEFAULT) && (_property == last_property))
 	{
@@ -97,4 +97,13 @@ void UndoManager::commandRedo(const MyGUI::UString& _commandName)
 {
 	redo();
 	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+}
+
+void UndoManager::setUnsaved(bool _value)
+{
+	if (mUnsaved != _value)
+	{
+		mUnsaved = _value;
+		eventChanges(mUnsaved);
+	}
 }
