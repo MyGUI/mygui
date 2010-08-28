@@ -44,6 +44,7 @@ private:
 	void notifyOkSettings(MyGUI::Widget* _sender);
 	void notifyCancel(MyGUI::Widget* _sender);
 	void notifyToggleCheck(MyGUI::Widget* _sender);
+	void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 private:
 	MyGUI::Edit* mGridEdit;
