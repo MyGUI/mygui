@@ -58,7 +58,7 @@ private:
 	//void commandTest(const MyGUI::UString& _commandName);
 	void commandQuit(const MyGUI::UString& _commandName);
 	void commandQuitApp(const MyGUI::UString& _commandName);
-	//void commandSettings(const MyGUI::UString& _commandName);
+	void commandSettings(const MyGUI::UString& _commandName);
 	//void commandCodeGenerator(const MyGUI::UString& _commandName);
 	void commandRecentFiles(const MyGUI::UString& _commandName);
 	void commandStatisticInfo(const MyGUI::UString& _commandName);
@@ -68,6 +68,7 @@ private:
 	void updateCaption();
 	bool checkCommand();
 
+	void notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result);
 	void notifyEndDialog(tools::Dialog* _sender, bool _result);
 	void notifyChanges(bool _changes);
 
@@ -88,7 +89,7 @@ private:
 	MyGUI::xml::Document * mTestLayout;
 
 	PropertiesPanelView * mPropertiesPanelView;
-	//SettingsWindow * mSettingsWindow;
+	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
 	//CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
