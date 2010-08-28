@@ -55,8 +55,7 @@
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
-	<!--Tag name="Warn_delete_all_widgets">Вы уверены, что хотите удалить все виджеты?</Tag-->
-	<Tag name="Warn_unsaved_data">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
+	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">пиксели</Tag>
