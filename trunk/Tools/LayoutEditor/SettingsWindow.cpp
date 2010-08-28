@@ -33,6 +33,10 @@ SettingsWindow::SettingsWindow() :
 	mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
 	mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
 
+	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+	if (window != nullptr)
+		window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
+
 	mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckShowName->setUserString("PropertyName", "ShowName");
 
@@ -114,4 +118,10 @@ void SettingsWindow::loadSettings()
 	setShowType(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType"));
 	setShowSkin(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin"));
 	setEdgeHide(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"));
+}
+
+void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+{
+	if (_name == "close")
+		eventEndDialog(this, false);
 }
