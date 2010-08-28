@@ -94,7 +94,8 @@ namespace tools
 					{
 						std::string name;
 						if (!field->findAttribute("name", name)) continue;
-						mRecentFiles.push_back(name);
+						addRecentFile(name);
+						//mRecentFiles.push_back(name);
 					}
 					else if (field->getName() == "AdditionalPath")
 					{
@@ -143,14 +144,14 @@ namespace tools
 		}
 
 		// cleanup for duplicates
-		std::reverse(mRecentFiles.begin(), mRecentFiles.end());
+		/*std::reverse(mRecentFiles.begin(), mRecentFiles.end());
 		for (size_t i = 0; i < mRecentFiles.size(); ++i)
 			mRecentFiles.erase(std::remove(mRecentFiles.begin() + i + 1, mRecentFiles.end(), mRecentFiles[i]), mRecentFiles.end());
 
 		// remove old files
 		while (mRecentFiles.size() > MAX_RECENT_FILES)
 			mRecentFiles.pop_back();
-		std::reverse(mRecentFiles.begin(), mRecentFiles.end());
+		std::reverse(mRecentFiles.begin(), mRecentFiles.end());*/
 
 		for (std::vector<MyGUI::UString>::iterator iter = mRecentFiles.begin(); iter != mRecentFiles.end(); ++iter)
 		{
@@ -194,7 +195,16 @@ namespace tools
 
 	void SettingsManager::addRecentFile(const MyGUI::UString& _fileName)
 	{
+		VectorUString::iterator item = std::remove(mRecentFiles.begin(), mRecentFiles.end(), _fileName);
+		if (item != mRecentFiles.end())
+			mRecentFiles.erase(item);
+
 		mRecentFiles.push_back(_fileName);
+
+		while (mRecentFiles.size() > MAX_RECENT_FILES)
+			mRecentFiles.erase(mRecentFiles.begin());
+
+		eventSettingsChanged("Main", "RecentFiles");
 	}
 
 	void SettingsManager::setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
