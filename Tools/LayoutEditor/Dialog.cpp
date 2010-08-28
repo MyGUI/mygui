@@ -5,13 +5,20 @@
 */
 #include "precompiled.h"
 #include "Dialog.h"
+#include "DialogManager.h"
 
 namespace tools
 {
 
-	std::vector<Dialog*> Dialog::mDialogs;
+	Dialog::Dialog() :
+		wraps::BaseLayout(),
+		mModal(false)
+	{
+	}
 
-	Dialog::Dialog()
+	Dialog::Dialog(const std::string& _layout) :
+		wraps::BaseLayout(_layout),
+		mModal(false)
 	{
 	}
 
@@ -19,29 +26,30 @@ namespace tools
 	{
 	}
 
-	void Dialog::addDialog(Dialog* _modal)
+	void Dialog::doModal()
 	{
-		mDialogs.push_back(_modal);
+		MYGUI_ASSERT(mModal != true, "Already modal mode");
+		mModal = true;
+
+		onDoModal();
+
+		mMainWidget->setVisible(true);
+
+		MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+		DialogManager::getInstance()._addDialog(this);
 	}
 
-	void Dialog::removeDialog(Dialog* _modal)
+	void Dialog::endModal()
 	{
-		std::vector<Dialog*>::iterator item = std::find(mDialogs.begin(), mDialogs.end(), _modal);
-		mDialogs.erase(item);
-	}
+		MYGUI_ASSERT(mModal != false, "Already modal mode");
+		mModal = false;
 
-	bool Dialog::getAnyDialog()
-	{
-		return !mDialogs.empty();
-	}
+		mMainWidget->setVisible(false);
 
-	void Dialog::endTopDialog(bool _result)
-	{
-		if (!mDialogs.empty())
-		{
-			Dialog* item = mDialogs.back();
-			item->eventEndDialog(item, _result);
-		}
+		MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
+		DialogManager::getInstance()._removeDialog(this);
+
+		onEndModal();
 	}
 
  } // namespace tools

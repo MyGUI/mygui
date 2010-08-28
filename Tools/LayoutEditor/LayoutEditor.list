@@ -30,6 +30,8 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
+  MessageBoxManager.h
+  DialogManager.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -58,6 +60,9 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
+  MessageBoxManager.cpp
+  DialogManager.cpp
+  Dialog.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
