@@ -835,6 +835,8 @@ void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 	}
 	else
 	{
+		clear();
+
 		loadDropFile();
 	}
 }
@@ -976,6 +978,8 @@ void EditorState::commandFileDrop(const MyGUI::UString& _commandName)
 	}
 	else
 	{
+		clear();
+
 		loadDropFile();
 	}
 }
