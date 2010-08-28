@@ -9,7 +9,6 @@
 #include "StateController.h"
 #include "MainPane.h"
 #include "OpenSaveFileDialog.h"
-#include "TestWindow.h"
 #include "MessageBoxFadeControl.h"
 
 namespace tools
@@ -55,6 +54,8 @@ namespace tools
 
 		void updateCaption();
 
+		bool checkCommand();
+
 	private:
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
@@ -62,7 +63,6 @@ namespace tools
 
 		MainPane* mMainPane;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
-		TestWindow* mTestWindow;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 	};
 
