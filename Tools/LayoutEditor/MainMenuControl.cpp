@@ -49,9 +49,9 @@ namespace tools
 				size_t index = 1;
 				for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
 				{
-					addUserTag("LE_IndexRecentFile", MyGUI::utility::toString(index));
-					addUserTag("LE_RecentFile", *iter);
-					recentFilesMenu->getItemChild()->addItem(replaceTags("LE_FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
+					addUserTag("RecentFile", *iter);
+					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
 				}
 			}
 		}
@@ -123,15 +123,15 @@ namespace tools
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
-		addUserTag("LE_WidgetName", _print_name ? widgetContainer->name : "");
-		addUserTag("LE_WidgetType", _print_type ? _widget->getTypeName() : "");
-		addUserTag("LE_WidgetSkin", _print_skin ? widgetContainer->skin : "");
+		addUserTag("WidgetName", _print_name ? widgetContainer->name : "");
+		addUserTag("WidgetType", _print_type ? _widget->getTypeName() : "");
+		addUserTag("WidgetSkin", _print_skin ? widgetContainer->skin : "");
 
-		addUserTag("LE_FormatWidgetName", (_print_name && !widgetContainer->name.empty()) ? "#{LE_PatternWidgetName}" : "");
-		addUserTag("LE_FormatWidgetType", _print_type ? "#{LE_PatternWidgetType}" : "");
-		addUserTag("LE_FormatWidgetSkin", _print_skin ? "#{LE_PatternWidgetSkin}" : "");
+		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->name.empty()) ? "#{PatternWidgetName}" : "");
+		addUserTag("FormatWidgetType", _print_type ? "#{PatternWidgetType}" : "");
+		addUserTag("FormatWidgetSkin", _print_skin ? "#{PatternWidgetSkin}" : "");
 
-		return replaceTags("LE_MenuItemWidgetInfo");
+		return replaceTags("MenuItemWidgetInfo");
 	}
 
 	void MainMenuControl::notifyChangeWidgets()

@@ -27,7 +27,9 @@ EditorState::EditorState() :
 	mWidgetsWindow(nullptr),
 	//mCodeGenerator(nullptr),
 	mOpenSaveFileDialog(nullptr),
-	mMainMenuControl(nullptr)
+	mMainMenuControl(nullptr),
+	mFileName("unnamed.xml"),
+	mDefaultFileName("unnamed.xml")
 {
 }
 
@@ -111,7 +113,7 @@ void EditorState::createScene()
 
 	mOpenSaveFileDialog = new tools::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setFileMask("*.layout");
-	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyOpenSaveEndDialog);
+	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
 
 	mMainMenuControl = new tools::MainMenuControl();
 	mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
@@ -126,8 +128,6 @@ void EditorState::createScene()
 
 	// после загрузки настроек инициализируем
 	mWidgetsWindow->initialise();
-
-	clear();
 
 	const tools::VectorUString& additionalPaths = tools::SettingsManager::getInstance().getAdditionalPaths();
 	for (tools::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
@@ -147,16 +147,30 @@ void EditorState::createScene()
 	//tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
 
 	// загружаем файлы которые были в командной строке
-	for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+	/*for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 	{
 		load(iter->c_str());
+	}*/
+
+	updateCaption();
+
+	for (VectorWString::const_iterator file = getParams().begin(); file != getParams().end(); ++file)
+	{
+		mFileName = *file;
+		tools::addUserTag("CurrentFileName", mFileName);
+
+		load();
+		updateCaption();
+		break;
 	}
 
+	UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 }
 
 void EditorState::destroyScene()
 {
+	UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 	delete mMainMenuControl;
@@ -449,7 +463,7 @@ void EditorState::notifyFrameStarted(float _time)
 	}
 }
 
-void EditorState::notifyLoad()
+/*void EditorState::notifyLoad()
 {
 	if (UndoManager::getInstance().isUnsaved())
 	{
@@ -478,7 +492,7 @@ bool EditorState::notifySave()
 		setModeSaveLoadDialog(true, mFileName);
 		return false;
 	}
-}
+}*/
 
 /*void EditorState::notifySettings()
 {
@@ -500,7 +514,7 @@ bool EditorState::notifySave()
 	EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
 }*/
 
-void EditorState::notifyClear()
+/*void EditorState::notifyClear()
 {
 	MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
 		localise("Warning"),
@@ -552,18 +566,13 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::Messa
 		// выходим
 		quit();
 	}
-	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
-	{
-		// do nothing
-	}
-	*/
-}
+}*/
 
-void EditorState::clearWidgetWindow()
+/*void EditorState::clearWidgetWindow()
 {
 	WidgetTypes::getInstance().clearAllSkins();
 	mWidgetsWindow->clearAllSheets();
-}
+}*/
 
 /*void EditorState::loadFile(const std::wstring& _file)
 {
@@ -573,7 +582,7 @@ void EditorState::clearWidgetWindow()
 	}
 }*/
 
-void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+/*void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 {
 	if ( _result == MyGUI::MessageBoxStyle::Yes )
 	{
@@ -586,11 +595,6 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::Messa
 	{
 		setModeSaveLoadDialog(false, mFileName);
 	}
-	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
-	{
-		// do nothing
-	}
-	*/
 }
 
 void EditorState::notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result)
@@ -633,7 +637,7 @@ void EditorState::setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filen
 
 	mOpenSaveFileDialog->doModal();
 	mOpenSaveFileDialog->setMode(_save ? "Save" : "Load");
-}
+}*/
 
 void EditorState::prepare()
 {
@@ -755,7 +759,7 @@ void EditorState::notifyRecreate()
 	mRecreate = true;
 }
 
-void EditorState::commandLoad(const MyGUI::UString& _commandName)
+/*void EditorState::commandLoad(const MyGUI::UString& _commandName)
 {
 	notifyLoad();
 }
@@ -773,7 +777,7 @@ void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
 void EditorState::commandClear(const MyGUI::UString& _commandName)
 {
 	notifyClear();
-}
+}*/
 
 /*void EditorState::commandTest(const MyGUI::UString& _commandName)
 {
@@ -794,10 +798,10 @@ void EditorState::commandClear(const MyGUI::UString& _commandName)
 	mTestMode = true;
 }*/
 
-void EditorState::commandQuit(const MyGUI::UString& _commandName)
+/*void EditorState::commandQuit(const MyGUI::UString& _commandName)
 {
 	notifyQuit();
-}
+}*/
 
 /*void EditorState::commandSettings(const MyGUI::UString& _commandName)
 {
@@ -843,11 +847,123 @@ void EditorState::commandQuitApp(const MyGUI::UString& _commandName)
 	}
 }
 
+void EditorState::commandLoad(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageUnsavedData"),
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No
+				| MyGUI::MessageBoxStyle::Cancel);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoad);
+	}
+	else
+	{
+		showLoadWindow();
+	}
+}
+
+void EditorState::commandSave(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		save();
+	}
+}
+
+void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	showSaveAsWindow();
+}
+
+void EditorState::commandClear(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageUnsavedData"),
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No
+				| MyGUI::MessageBoxStyle::Cancel);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultClear);
+	}
+	else
+	{
+		clear();
+	}
+}
+
+void EditorState::commandQuit(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageUnsavedData"),
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No
+				| MyGUI::MessageBoxStyle::Cancel);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
+	}
+	else
+	{
+		//StateManager::getInstance().stateEvent(this, "Exit");
+		quit();
+	}
+}
+
+void EditorState::commandFileDrop(const MyGUI::UString& _commandName)
+{
+	if (!checkCommand())
+		return;
+
+	mDropFileName = tools::CommandManager::getInstance().getCommandData();
+	if (mDropFileName.empty())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageUnsavedData"),
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No
+				| MyGUI::MessageBoxStyle::Cancel);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
+	}
+	else
+	{
+		loadDropFile();
+	}
+}
+
 void EditorState::clear()
 {
 	mWidgetsWindow->clearNewWidget();
 	mRecreate = false;
-	mFileName = "";
+	//mFileName = "";
 	EditorWidgets::getInstance().clear();
 
 	tools::WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
@@ -856,18 +972,22 @@ void EditorState::clear()
 	UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 	mSelectDepth = 0;
 
-	setWindowCaption(L"MyGUI Layout Editor");
+	//setWindowCaption(L"MyGUI Layout Editor");
+	mFileName = mDefaultFileName;
+	tools::addUserTag("CurrentFileName", mFileName);
+
+	updateCaption();
 }
 
-void EditorState::load(const MyGUI::UString& _file)
+void EditorState::load(/*const MyGUI::UString& _file*/)
 {
-	clear();
+	//clear();
 
-	if (EditorWidgets::getInstance().load(_file))
+	if (EditorWidgets::getInstance().load(mFileName))
 	{
-		mFileName = _file;
-		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		tools::SettingsManager::getInstance().addRecentFile(_file);
+		//mFileName = _file;
+		//setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
+		//tools::SettingsManager::getInstance().addRecentFile(_file);
 
 		UndoManager::getInstance().addValue();
 		UndoManager::getInstance().setUnsaved(false);
@@ -876,34 +996,179 @@ void EditorState::load(const MyGUI::UString& _file)
 	{
 		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
 			localise("Warning"),
-			"Failed to " + localise("Load") + " file '" + _file + "'",
+			"Failed to " + localise("Load") + " file '" + mFileName + "'",
 			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok
 			);
+
+		mFileName = mDefaultFileName;
+		tools::addUserTag("CurrentFileName", mFileName);
+
+		updateCaption();
 	}
 }
 
-bool EditorState::save(const MyGUI::UString& _file)
+void EditorState::save(/*const MyGUI::UString& _file*/)
 {
-	if (EditorWidgets::getInstance().save(_file))
+	if (EditorWidgets::getInstance().save(mFileName))
 	{
-		mFileName = _file;
-		setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
-		tools::SettingsManager::getInstance().addRecentFile(_file);
+		//mFileName = _file;
+		//setWindowCaption(_file.asWStr() + L" - MyGUI Layout Editor");
+		//tools::SettingsManager::getInstance().addRecentFile(_file);
 
 		UndoManager::getInstance().addValue();
 		UndoManager::getInstance().setUnsaved(false);
-		return true;
+		//return true;
 	}
-	else
+	/*else
 	{
 		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
 			localise("Warning"),
 			"Failed to " + localise("Save") + " file '" + _file + "'",
 			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok
 			);
+	}*/
+
+	//return false;
+}
+
+void EditorState::updateCaption()
+{
+	tools::addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
+	setCaption(tools::replaceTags("CaptionMainWindow"));
+}
+
+void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+{
+	if (_result == MyGUI::MessageBoxStyle::Yes)
+	{
+		save();
+		clear();
+
+		showLoadWindow();
+	}
+	else if (_result == MyGUI::MessageBoxStyle::No)
+	{
+		clear();
+
+		showLoadWindow();
+	}
+}
+
+void EditorState::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+{
+	if (_result == MyGUI::MessageBoxStyle::Yes)
+	{
+		save();
+		clear();
+
+		loadDropFile();
+	}
+	else if (_result == MyGUI::MessageBoxStyle::No)
+	{
+		clear();
+
+		loadDropFile();
+	}
+}
+
+void EditorState::loadDropFile()
+{
+	mFileName = mDropFileName;
+	tools::addUserTag("CurrentFileName", mFileName);
+
+	load();
+	updateCaption();
+}
+
+void EditorState::showLoadWindow()
+{
+	mOpenSaveFileDialog->setDialogInfo(tools::replaceTags("CaptionOpenFile"), tools::replaceTags("ButtonOpenFile"));
+	mOpenSaveFileDialog->setMode("Load");
+	mOpenSaveFileDialog->doModal();
+}
+
+void EditorState::notifyEndDialog(tools::Dialog* _sender, bool _result)
+{
+	if (_result)
+	{
+		if (mOpenSaveFileDialog->getMode() == "SaveAs")
+		{
+			mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+			tools::addUserTag("CurrentFileName", mFileName);
+
+			save();
+			updateCaption();
+		}
+		else if (mOpenSaveFileDialog->getMode() == "Load")
+		{
+			mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+			tools::addUserTag("CurrentFileName", mFileName);
+
+			load();
+			updateCaption();
+		}
 	}
 
-	return false;
+	mOpenSaveFileDialog->endModal();
+}
+
+void EditorState::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+{
+	if (_result == MyGUI::MessageBoxStyle::Yes)
+	{
+		save();
+		clear();
+	}
+	else if (_result == MyGUI::MessageBoxStyle::No)
+	{
+		clear();
+	}
+}
+
+void EditorState::showSaveAsWindow()
+{
+	mOpenSaveFileDialog->setDialogInfo(tools::replaceTags("CaptionSaveFile"), tools::replaceTags("ButtonSaveFile"));
+	mOpenSaveFileDialog->setMode("SaveAs");
+	mOpenSaveFileDialog->doModal();
+}
+
+void EditorState::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+{
+	if (_result == MyGUI::MessageBoxStyle::Yes)
+	{
+		save();
+		//StateManager::getInstance().stateEvent(this, "Exit");
+		quit();
+	}
+	else if (_result == MyGUI::MessageBoxStyle::No)
+	{
+		//StateManager::getInstance().stateEvent(this, "Exit");
+		quit();
+	}
+}
+
+bool EditorState::checkCommand()
+{
+	if (tools::DialogManager::getInstance().getAnyDialog())
+		return false;
+
+	if (tools::MessageBoxManager::getInstance().hasAny())
+		return false;
+
+	//if (!StateManager::getInstance().getStateActivate(this))
+	//	return false;
+
+	return true;
+}
+
+void EditorState::notifyChanges(bool _changes)
+{
+	updateCaption();
+}
+
+void EditorState::setCaption(const MyGUI::UString& _value)
+{
+	setWindowCaption(_value);
 }
 
 MYGUI_APP(EditorState)

@@ -12,8 +12,8 @@ template <> const char* MyGUI::Singleton<EditorWidgets>::mClassTypeName("EditorW
 
 EditorWidgets::EditorWidgets() :
 	global_counter(0),
-	widgets_changed(false),
-	mCodeGenerator(nullptr)
+	widgets_changed(false)//,
+	//mCodeGenerator(nullptr)
 {
 }
 
@@ -118,7 +118,8 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Widget")) parseWidget(element, nullptr);
 			element = root->getElementEnumerator();
-			while (element.next("CodeGenaratorSettings")) mCodeGenerator->loadProperties(element);
+			//while (element.next("CodeGenaratorSettings"))
+				//mCodeGenerator->loadProperties(element);
 		}
 		else
 		{
@@ -145,7 +146,7 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
-	mCodeGenerator->saveProperties(root);
+	//mCodeGenerator->saveProperties(root);
 
 	if (!doc.save(_fileName))
 	{
