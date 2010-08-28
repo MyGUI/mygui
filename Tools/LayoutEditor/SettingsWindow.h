@@ -10,7 +10,6 @@
 #include "Dialog.h"
 
 class SettingsWindow :
-	public wraps::BaseLayout,
 	public tools::Dialog
 {
 public:
@@ -19,8 +18,9 @@ public:
 
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
-	virtual void setVisible(bool _value);
-	virtual bool getVisible();
+protected:
+	virtual void onDoModal();
+	virtual void onEndModal();
 
 private:
 	int getGridStep();

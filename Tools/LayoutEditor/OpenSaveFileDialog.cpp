@@ -12,7 +12,7 @@ namespace tools
 {
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
-		BaseLayout("OpenSaveFileDialog.layout")
+		Dialog("OpenSaveFileDialog.layout")
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -159,35 +159,18 @@ namespace tools
 		update();
 	}
 
-	void OpenSaveFileDialog::setVisible(bool _value)
+	void OpenSaveFileDialog::onDoModal()
 	{
-		if (mMainWidget->getVisible() != _value)
-		{
-			mMainWidget->setVisible(_value);
+		update();
 
-			if (_value)
-			{
-				MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
-				addDialog(this);
+		MyGUI::IntSize windowSize = mMainWidget->getSize();
+		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-				update();
-
-				MyGUI::IntSize windowSize = mMainWidget->getSize();
-				MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-				mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
-			}
-			else
-			{
-				MyGUI::InputManager::getInstance().removeWidgetModal(mMainWidget);
-				removeDialog(this);
-			}
-		}
+		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 	}
 
-	bool OpenSaveFileDialog::getVisible()
+	void OpenSaveFileDialog::onEndModal()
 	{
-		return mMainWidget->getVisible();
 	}
 
 } // namespace tools

@@ -15,7 +15,7 @@ namespace tools
 	{
 	public:
 		HotKeyCommand() :
-			mPressed(false),
+			mPressed(true),
 			mShift(false),
 			mControl(false),
 			mKey(MyGUI::KeyCode::None)

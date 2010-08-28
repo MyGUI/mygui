@@ -7,32 +7,32 @@
 #define __DIALOG_H__
 
 #include <MyGUI.h>
+#include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
-	class Dialog
+	class Dialog :
+		public wraps::BaseLayout
 	{
 	public:
 		typedef MyGUI::delegates::CDelegate2<Dialog*, bool> EventHandle_Result;
 
 	public:
 		Dialog();
+		Dialog(const std::string& _layout);
 		virtual ~Dialog();
 
-		virtual void setVisible(bool _value) = 0;
-		virtual bool getVisible() = 0;
+		void doModal();
+		void endModal();
 
 		EventHandle_Result eventEndDialog;
 
-		static bool getAnyDialog();
-		static void endTopDialog(bool _result = false);
-
 	protected:
-		void addDialog(Dialog* _modal);
-		void removeDialog(Dialog* _modal);
+		virtual void onDoModal() { }
+		virtual void onEndModal() { }
 
 	private:
-		static std::vector<Dialog*> mDialogs;
+		bool mModal;
 	};
 
 } // namespace tools

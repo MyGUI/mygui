@@ -11,7 +11,7 @@
 extern int grid_step;//FIXME_HOOK
 
 SettingsWindow::SettingsWindow() :
-	BaseLayout("SettingsWindow.layout")
+	Dialog("SettingsWindow.layout")
 {
 	assignWidget(mGridEdit, "gridEdit");
 	assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -118,7 +118,7 @@ void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
 	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", _sender->getUserString("PropertyName"), checkbox->getStateSelected());
 }
 
-void SettingsWindow::setVisible(bool _value)
+/*void SettingsWindow::setVisible(bool _value)
 {
 	if (mMainWidget->getVisible() != _value)
 	{
@@ -145,4 +145,15 @@ void SettingsWindow::setVisible(bool _value)
 bool SettingsWindow::getVisible()
 {
 	return mMainWidget->getVisible();
+}*/
+void SettingsWindow::onDoModal()
+{
+	MyGUI::IntSize windowSize = mMainWidget->getSize();
+	MyGUI::IntSize parentSize = mMainWidget->getParentSize();
+
+	mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+}
+
+void SettingsWindow::onEndModal()
+{
 }

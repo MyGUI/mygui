@@ -18,7 +18,7 @@
 
 #define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
-int grid_step;//FIXME_HOOK
+int grid_step = 8;//FIXME_HOOK
 int toGrid(int _x) { return _x / grid_step * grid_step; }
 
 const std::string DEFAULT_STRING = "[DEFAULT]";

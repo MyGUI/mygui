@@ -1,6 +1,7 @@
 #include "precompiled.h"
 #include "Common.h"
 #include "GroupMessage.h"
+#include "MessageBoxManager.h"
 
 template <> GroupMessage* MyGUI::Singleton<GroupMessage>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<GroupMessage>::mClassTypeName("GroupMessage");
@@ -24,7 +25,12 @@ void GroupMessage::showMessages()
 			else warningMess = warningMess + "\n" + *iter;
 		}
 		if (!warningMess.empty())
-			MyGUI::Message::createMessageBox("Message", localise("Warning"), warningMess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
+		{
+			MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+				localise("Warning"),
+				warningMess,
+				MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
+		}
 
 		mWarningMessages.clear();
 	}
@@ -38,7 +44,12 @@ void GroupMessage::showMessages()
 			else errorMessages = errorMessages + "\n" + *iter;
 		}
 		if (!errorMessages.empty())
-			MyGUI::Message::createMessageBox("Message", localise("Error"), errorMessages , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
+		{
+			MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+				localise("Error"),
+				errorMessages ,
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
+		}
 
 		mErrorMessages.clear();
 	}
