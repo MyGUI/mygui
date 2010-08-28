@@ -55,7 +55,8 @@
 	<Tag name="ButtonSaveFile">Save</Tag>
 
 	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
-	<Tag name="MessageFailedLoadFile">Failed load file '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedLoadFile">Failed to load file '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedSaveFile">Failed to save file '#{CurrentFileName}'</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">pixels</Tag>
