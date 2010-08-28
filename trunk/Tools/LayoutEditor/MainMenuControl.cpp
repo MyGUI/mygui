@@ -39,22 +39,7 @@ namespace tools
 		mBar = menu_items[0]->castType<MyGUI::MenuBar>();
 		mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
 
-		MyGUI::MenuItem* recentFilesMenu = mBar->findItemById("RecentFiles", true);
-		if (recentFilesMenu != nullptr)
-		{
-			// список последних открытых файлов
-			const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
-			if (!recentFiles.empty())
-			{
-				size_t index = 1;
-				for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
-				{
-					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
-					addUserTag("RecentFile", *iter);
-					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
-				}
-			}
-		}
+		updateRecentFilesMenu();
 
 		// меню для виджетов
 		mPopupMenuWidgets = mBar->findItemById("Widgets", true)->getItemChild();
@@ -145,6 +130,14 @@ namespace tools
 		{
 			widgetsUpdate();
 		}
+		else if (_sectionName == "Main")
+		{
+			if (_propertyName == "RecentFiles")
+			{
+				// если удалить изменить меню когда оно активно то оно не открывается
+				//updateRecentFilesMenu();
+			}
+		}
 	}
 
 	void MainMenuControl::setEdgeHideController()
@@ -159,6 +152,27 @@ namespace tools
 			controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
 
 			MyGUI::ControllerManager::getInstance().addItem(mBar, controller);
+		}
+	}
+
+	void MainMenuControl::updateRecentFilesMenu()
+	{
+		MyGUI::MenuItem* recentFilesMenu = mBar->findItemById("RecentFiles", true);
+		if (recentFilesMenu != nullptr)
+		{
+			recentFilesMenu->getItemChild()->removeAllItems();
+			// список последних открытых файлов
+			const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
+			if (!recentFiles.empty())
+			{
+				size_t index = 1;
+				for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
+				{
+					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
+					addUserTag("RecentFile", *iter);
+					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+				}
+			}
 		}
 	}
 

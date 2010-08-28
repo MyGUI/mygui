@@ -55,8 +55,9 @@ namespace tools
 		bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
 
 	private:
-		std::vector<MyGUI::UString> mRecentFiles;
-		std::vector<MyGUI::UString> mAdditionalPaths;
+		typedef std::vector<MyGUI::UString> VectorUString;
+		VectorUString mRecentFiles;
+		VectorUString mAdditionalPaths;
 
 		typedef std::map<MyGUI::UString, MyGUI::UString> MapUString;
 		typedef std::map<MyGUI::UString, MapUString> MapSection;
