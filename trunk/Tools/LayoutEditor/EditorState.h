@@ -33,22 +33,20 @@ public:
 	// main panel
 	void notifyLoad();
 	bool notifySave();
-	void notifySettings();
-	void notifyEndTest();
+	//void notifySettings();
+	//void notifyEndTest();
 	void notifyClear();
 	void notifyQuit();
 
-	template <bool Save>
-	void saveOrLoadLayoutEvent(const MyGUI::UString& _file) { saveOrLoadLayout(Save, false, _file); }
-
-	bool saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString& _file);
-	void loadFile(const std::wstring& _file);
+	bool save(const MyGUI::UString& _file);
+	void load(const MyGUI::UString& _file);
+	//void loadFile(const std::wstring& _file);
 
 private:
 	void notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	void notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-	void clear(bool _clearName = true);
+	void clear(/*bool _clearName = true*/);
 	void notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	void notifyOpenSaveEndDialog(tools::Dialog* _dialog, bool _result);
@@ -68,8 +66,9 @@ private:
 	void commandSave(const MyGUI::UString& _commandName);
 	void commandSaveAs(const MyGUI::UString& _commandName);
 	void commandClear(const MyGUI::UString& _commandName);
-	void commandTest(const MyGUI::UString& _commandName);
+	//void commandTest(const MyGUI::UString& _commandName);
 	void commandQuit(const MyGUI::UString& _commandName);
+	void commandQuitApp(const MyGUI::UString& _commandName);
 	void commandSettings(const MyGUI::UString& _commandName);
 	void commandCodeGenerator(const MyGUI::UString& _commandName);
 	void commandRecentFiles(const MyGUI::UString& _commandName);
@@ -88,14 +87,14 @@ private:
 	// last loaded/saved file name
 	MyGUI::UString mFileName;
 
-	bool mTestMode;
+	//bool mTestMode;
 	MyGUI::VectorWidgetPtr mInterfaceWidgets;
 	MyGUI::xml::Document * mTestLayout;
 
 	PropertiesPanelView * mPropertiesPanelView;
-	SettingsWindow * mSettingsWindow;
+	//SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
-	CodeGenerator * mCodeGenerator;
+	//CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 
 	std::vector<std::wstring> mParams;

@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="HotKeys">
 	<Command>
+		<Name>Command_QuitApp</Name>
+		<KeyCode>Escape</KeyCode>
+		<Pressed>true</Pressed>
+	</Command>
+	<Command>
 		<Name>Command_FileLoad</Name>
 		<KeyCode>O</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_FileLoad</Name>
 		<KeyCode>L</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_FileSave</Name>
 		<KeyCode>S</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_Undo</Name>
 		<KeyCode>Z</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_Redo</Name>
 		<KeyCode>Y</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_Redo</Name>
 		<KeyCode>Z</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control Shift</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_Test</Name>
 		<KeyCode>T</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_ToggleRelativeMode</Name>
 		<KeyCode>R</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_StatisticInfo</Name>
 		<KeyCode>F11</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 	<Command>
 		<Name>Command_FocusVisible</Name>
 		<KeyCode>F12</KeyCode>
-		<Pressed>false</Pressed>
+		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
 </MyGUI>

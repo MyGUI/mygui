@@ -51,7 +51,7 @@
 				</Widget>
 				<Widget type="MenuItem" skin="PopupMenuLine">
 					<Property key="Caption" value="#{Quit}"/>
-					<Property key="MenuItemId" value="Command_QuitApp"/>
+					<Property key="MenuItemId" value="Command_Quit"/>
 				</Widget>
 			</Widget>
 		</Widget>
