@@ -15,7 +15,7 @@ namespace tools
 		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
 		mSkinButton(nullptr),
-		mSkinName("SE_GeneratedSkinName")
+		mSkinName("GeneratedSkinName")
 	{
 		assignBase(mBackgroundControl, "BackgroundControl");
 

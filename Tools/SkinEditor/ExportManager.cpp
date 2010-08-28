@@ -8,6 +8,7 @@
 #include "CommandManager.h"
 #include "SkinManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
+#include "Localise.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
@@ -47,7 +48,7 @@ namespace tools
 
 	void ExportManager::showExportWindow()
 	{
-		mOpenSaveFileDialog->setDialogInfo("Export", "Save");
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionExportFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("Export");
 		mOpenSaveFileDialog->doModal();
 	}
