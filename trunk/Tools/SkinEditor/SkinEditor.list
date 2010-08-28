@@ -62,6 +62,9 @@ set (HEADER_FILES
   MessageBoxFadeControl.h
   HotKeyCommand.h
   HotKeyManager.h
+  StateManager.h
+  StateController.h
+  EditorState.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -122,6 +125,8 @@ set (SOURCE_FILES
   DialogManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
+  StateManager.cpp
+  EditorState.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

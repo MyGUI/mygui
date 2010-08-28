@@ -7,19 +7,21 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
-#include "MainPane.h"
 #include "OpenSaveFileDialog.h"
 #include "TestWindow.h"
 #include "MessageBoxFadeControl.h"
+#include "EditorState.h"
 
 namespace tools
 {
 
-	class DemoKeeper :
-		public base::BaseManager
+	class Application :
+		public base::BaseManager,
+		public MyGUI::Singleton<Application>
 	{
 	public:
-		DemoKeeper();
+		Application();
+		virtual ~Application();
 
 		virtual void createScene();
 		virtual void destroyScene();
@@ -62,8 +64,6 @@ namespace tools
 		void notifyChanges(bool _changes);
 
 	private:
-		MainPane* mMainPane;
-		bool mChanges;
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
@@ -71,6 +71,7 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TestWindow* mTestWindow;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
+		EditorState* mEditorState;
 
 		std::string mLocale;
 		typedef std::vector<std::wstring> VectorWString;

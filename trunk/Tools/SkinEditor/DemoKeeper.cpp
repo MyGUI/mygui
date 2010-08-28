@@ -16,29 +16,36 @@
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
 #include "HotKeyManager.h"
+#include "StateManager.h"
+
+template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
 
 namespace tools
 {
 
-	DemoKeeper::DemoKeeper() :
-		mMainPane(nullptr),
-		mChanges(false),
+	Application::Application() :
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
 		mOpenSaveFileDialog(nullptr),
 		mTestWindow(nullptr),
-		mMessageBoxFadeControl(nullptr)
+		mMessageBoxFadeControl(nullptr),
+		mEditorState(nullptr)
 	{
 	}
 
-	void DemoKeeper::setupResources()
+	Application::~Application()
+	{
+	}
+
+	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
 		setResourceFilename("editor.xml");
 	}
 
-	void DemoKeeper::createScene()
+	void Application::createScene()
 	{
 		getStatisticInfo()->setVisible(false);
 
@@ -71,27 +78,32 @@ namespace tools
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
-		mMainPane = new MainPane();
+		new StateManager();
+		StateManager::getInstance().initialise();
+
+		mEditorState = new EditorState();
+		StateManager::getInstance().pushState(mEditorState);
+
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
+		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
 
 		mTestWindow = new TestWindow();
-		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialogTest);
+		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogTest);
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &DemoKeeper::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &DemoKeeper::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &DemoKeeper::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &DemoKeeper::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &DemoKeeper::commandTest));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &DemoKeeper::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &DemoKeeper::commandFileDrop));
+		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &Application::commandLoad));
+		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &Application::commandSave));
+		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &Application::commandSaveAs));
+		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &Application::commandClear));
+		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &Application::commandTest));
+		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &Application::commandFileDrop));
 
-		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &DemoKeeper::notifyChanges);
+		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &Application::notifyChanges);
 
 		updateCaption();
 
@@ -106,9 +118,13 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::destroyScene()
+	void Application::destroyScene()
 	{
-		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &DemoKeeper::notifyChanges);
+		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &Application::notifyChanges);
+
+		StateManager::getInstance().popState();
+		delete mEditorState;
+		mEditorState = nullptr;
 
 		delete mTestWindow;
 		mTestWindow = nullptr;
@@ -117,11 +133,11 @@ namespace tools
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 
-		delete mMainPane;
-		mMainPane = nullptr;
-
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
+
+		StateManager::getInstance().shutdown();
+		delete StateManager::getInstancePtr();
 
 		HotKeyManager::getInstance().shutdown();
 		delete HotKeyManager::getInstancePtr();
@@ -147,7 +163,7 @@ namespace tools
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
 
-	void DemoKeeper::prepare()
+	void Application::prepare()
 	{
 		// устанавливаем локаль из переменной окружения
 		// без этого не будут открываться наши файлы
@@ -241,13 +257,13 @@ namespace tools
 #endif
 	}
 
-	void DemoKeeper::onFileDrop(const std::wstring& _fileName)
+	void Application::onFileDrop(const std::wstring& _fileName)
 	{
 		CommandManager::getInstance().setCommandData(_fileName);
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
-	bool DemoKeeper::onWinodwClose(size_t _handle)
+	bool Application::onWinodwClose(size_t _handle)
 	{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (::IsIconic((HWND)_handle))
@@ -258,13 +274,13 @@ namespace tools
 		return false;
 	}
 
-	void DemoKeeper::updateCaption()
+	void Application::updateCaption()
 	{
-		addUserTag("SE_HasChanged", mChanges ? "*" : "");
+		addUserTag("SE_HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
 		setWindowCaption(replaceTags("CaptionMainWindow"));
 	}
 
-	void DemoKeeper::commandLoad(const MyGUI::UString& _commandName)
+	void Application::commandLoad(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return;
@@ -278,7 +294,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultLoad);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoad);
 		}
 		else
 		{
@@ -286,7 +302,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandSave(const MyGUI::UString& _commandName)
+	void Application::commandSave(const MyGUI::UString& _commandName)
 	{
 		if (ActionManager::getInstance().getChanges())
 		{
@@ -294,7 +310,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandSaveAs(const MyGUI::UString& _commandName)
+	void Application::commandSaveAs(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return;
@@ -302,7 +318,7 @@ namespace tools
 		showSaveAsWindow();
 	}
 
-	void DemoKeeper::commandClear(const MyGUI::UString& _commandName)
+	void Application::commandClear(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return;
@@ -316,7 +332,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultClear);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultClear);
 		}
 		else
 		{
@@ -324,7 +340,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandQuit(const MyGUI::UString& _commandName)
+	void Application::commandQuit(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 		{
@@ -338,7 +354,7 @@ namespace tools
 			}
 			else
 			{
-				if (mChanges)
+				if (ActionManager::getInstance().getChanges())
 				{
 					MyGUI::Message* message = MessageBoxManager::getInstance().create(
 						replaceTags("Warning"),
@@ -347,7 +363,7 @@ namespace tools
 							| MyGUI::MessageBoxStyle::Yes
 							| MyGUI::MessageBoxStyle::No
 							| MyGUI::MessageBoxStyle::Cancel);
-					message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultQuit);
+					message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultQuit);
 				}
 				else
 				{
@@ -357,7 +373,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandFileDrop(const MyGUI::UString& _commandName)
+	void Application::commandFileDrop(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return;
@@ -378,7 +394,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &DemoKeeper::notifyMessageBoxResultLoadDropFile);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoadDropFile);
 		}
 		else
 		{
@@ -386,7 +402,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -403,7 +419,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -420,7 +436,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::loadDropFile()
+	void Application::loadDropFile()
 	{
 		mFileName = mDropFileName;
 		addUserTag("SE_CurrentFileName", mFileName);
@@ -429,14 +445,14 @@ namespace tools
 		updateCaption();
 	}
 
-	void DemoKeeper::showLoadWindow()
+	void Application::showLoadWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void DemoKeeper::save()
+	void Application::save()
 	{
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
@@ -450,7 +466,7 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 	}
 
-	void DemoKeeper::clear()
+	void Application::clear()
 	{
 		SkinManager::getInstance().clear();
 		ActionManager::getInstance().setChanges(false);
@@ -461,7 +477,7 @@ namespace tools
 		updateCaption();
 	}
 
-	void DemoKeeper::notifyEndDialog(Dialog* _sender, bool _result)
+	void Application::notifyEndDialog(Dialog* _sender, bool _result)
 	{
 		if (_result)
 		{
@@ -486,7 +502,7 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-	void DemoKeeper::load()
+	void Application::load()
 	{
 		SkinManager::getInstance().clear();
 
@@ -532,7 +548,7 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 	}
 
-	void DemoKeeper::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -545,14 +561,14 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::showSaveAsWindow()
+	void Application::showSaveAsWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void DemoKeeper::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -565,7 +581,7 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::commandTest(const MyGUI::UString & _commandName)
+	void Application::commandTest(const MyGUI::UString & _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return;
@@ -578,18 +594,17 @@ namespace tools
 		}
 	}
 
-	void DemoKeeper::notifyEndDialogTest(Dialog* _sender, bool _result)
+	void Application::notifyEndDialogTest(Dialog* _sender, bool _result)
 	{
 		_sender->endModal();
 	}
 
-	void DemoKeeper::notifyChanges(bool _changes)
+	void Application::notifyChanges(bool _changes)
 	{
-		mChanges = _changes;
 		updateCaption();
 	}
 
-	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
@@ -602,4 +617,4 @@ namespace tools
 
 } // namespace tools
 
-MYGUI_APP(tools::DemoKeeper)
+MYGUI_APP(tools::Application)
