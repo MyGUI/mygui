@@ -53,14 +53,13 @@ namespace tools
 
 		updateCaption();
 
-		for (Application::VectorWString::const_iterator file = Application::getInstance().getParams().begin(); file != Application::getInstance().getParams().end(); ++file)
+		if (!Application::getInstance().getParams().empty())
 		{
-			mFileName = *file;
+			mFileName = Application::getInstance().getParams().front();
 			addUserTag("CurrentFileName", mFileName);
 
 			load();
 			updateCaption();
-			break;
 		}
 	}
 
