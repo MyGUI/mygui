@@ -23,6 +23,8 @@ namespace tools
 		MainPane();
 		virtual ~MainPane();
 
+		void setVisible(bool _value);
+
 	private:
 		SkinControl* mSkinControl;
 		StatesControl* mStatesControl;
