@@ -23,7 +23,7 @@ EditorState::EditorState() :
 	mRecreate(false),
 	//mTestMode(false),
 	mPropertiesPanelView(nullptr),
-	//mSettingsWindow(nullptr),
+	mSettingsWindow(nullptr),
 	mWidgetsWindow(nullptr),
 	//mCodeGenerator(nullptr),
 	mOpenSaveFileDialog(nullptr),
@@ -95,8 +95,8 @@ void EditorState::createScene()
 	mInterfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// settings window
-	//mSettingsWindow = new SettingsWindow();
-	//mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
+	mSettingsWindow = new SettingsWindow();
+	mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 	//mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
@@ -140,7 +140,7 @@ void EditorState::createScene()
 	//tools::CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 	tools::CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 	tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuitApp));
-	//tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
+	tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 	//tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 	tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
@@ -190,8 +190,8 @@ void EditorState::destroyScene()
 	WidgetTypes::getInstance().shutdown();
 	delete WidgetTypes::getInstancePtr();
 
-	//delete mSettingsWindow;
-	//mSettingsWindow = nullptr;
+	delete mSettingsWindow;
+	mSettingsWindow = nullptr;
 
 	//delete mCodeGenerator;
 	//mCodeGenerator = nullptr;
@@ -426,12 +426,6 @@ void EditorState::notifyFrameStarted(float _time)
 	}
 }
 
-/*void EditorState::notifySettings()
-{
-	mSettingsWindow->doModal();
-	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow->getMainWidget());
-}*/
-
 /*void EditorState::notifyEndTest()
 {
 	for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
@@ -446,10 +440,17 @@ void EditorState::notifyFrameStarted(float _time)
 	EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
 }*/
 
-/*void EditorState::notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result)
+void EditorState::notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result)
 {
-	_dialog->endModal();
-}*/
+	MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
+
+	if (_result)
+	{
+		mSettingsWindow->saveSettings();
+	}
+
+	mSettingsWindow->endModal();
+}
 
 void EditorState::prepare()
 {
@@ -589,12 +590,12 @@ void EditorState::notifyRecreate()
 	mTestMode = true;
 }*/
 
-/*void EditorState::commandSettings(const MyGUI::UString& _commandName)
+void EditorState::commandSettings(const MyGUI::UString& _commandName)
 {
-	notifySettings();
+	mSettingsWindow->doModal();
 }
 
-void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
+/*void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 {
 	mCodeGenerator->getMainWidget()->setVisible(true);
 }*/

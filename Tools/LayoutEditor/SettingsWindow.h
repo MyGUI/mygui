@@ -16,7 +16,8 @@ public:
 	SettingsWindow();
 	virtual ~SettingsWindow();
 
-	MyGUI::Widget* getMainWidget() { return mMainWidget; }
+	void loadSettings();
+	void saveSettings();
 
 protected:
 	virtual void onDoModal();
@@ -41,13 +42,13 @@ private:
 	void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
 	void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method
 	void notifyOkSettings(MyGUI::Widget* _sender);
+	void notifyCancel(MyGUI::Widget* _sender);
 	void notifyToggleCheck(MyGUI::Widget* _sender);
 
 private:
 	MyGUI::Edit* mGridEdit;
 	MyGUI::Button* mButtonOkSettings;
-	//MyGUI::ComboBox* mComboboxResolution;
-	//MyGUI::ComboBox* mComboboxFullscreen;
+	MyGUI::Button* mButtonCancel;
 	MyGUI::Button* mCheckShowName;
 	MyGUI::Button* mCheckShowType;
 	MyGUI::Button* mCheckShowSkin;
