@@ -19,10 +19,11 @@
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
 
-	<Tag name="CaptionMainWindow">Skin editor - '#{SE_CurrentFileName}' #{SE_HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Skin editor - '#{CurrentFileName}' #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
+	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionTestWindow">Test</Tag>
 
@@ -79,7 +80,7 @@
 
 	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
 	<Tag name="MessageDeleteSkin">Are you sure you want to delete skin?</Tag>
-	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{SE_CurrentFileName}'#{\n}have incorrect format.</Tag>
+	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{CurrentFileName}'#{\n}have incorrect format.</Tag>
 
-	<Tag name="SkinNamePattern">Skin name #{SE_SkinNameIndex}</Tag>
+	<Tag name="SkinNamePattern">Skin name #{SkinNameIndex}</Tag>
 </MyGUI>
