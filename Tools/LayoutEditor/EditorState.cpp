@@ -142,7 +142,7 @@ void EditorState::createScene()
 	tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuitApp));
 	//tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 	//tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
-	//tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
+	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 	//tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
 	//tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
 
@@ -813,12 +813,33 @@ void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 	mCodeGenerator->getMainWidget()->setVisible(true);
 }*/
 
-/*void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
+void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
-	load(tools::CommandManager::getInstance().getCommandData());
+	if (!checkCommand())
+		return;
+
+	mDropFileName = tools::CommandManager::getInstance().getCommandData();
+	if (mDropFileName.empty())
+		return;
+
+	if (UndoManager::getInstance().isUnsaved())
+	{
+		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageUnsavedData"),
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No
+				| MyGUI::MessageBoxStyle::Cancel);
+		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
+	}
+	else
+	{
+		loadDropFile();
+	}
 }
 
-void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
+/*void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
 {
 	getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
 }
