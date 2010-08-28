@@ -221,7 +221,7 @@ namespace tools
 		item = getRegion(MyGUI::Align::Bottom);
 		if (item != nullptr)
 		{
-			MyGUI::IntCoord coord(leftPosition, mCoordValue.height - bottomPosition, mCoordValue.width - rightPosition - leftPosition, mCoordValue.height - bottomPosition - topPosition);
+			MyGUI::IntCoord coord(leftPosition, mCoordValue.height - bottomPosition, mCoordValue.width - rightPosition - leftPosition, bottomPosition);
 			item->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
 		}
 
