@@ -143,8 +143,9 @@ void EditorState::createScene()
 	//tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 	//tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-	//tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
-	//tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
+	tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
+	tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
+	tools::CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
 
 	// загружаем файлы которые были в командной строке
 	/*for (std::vector<std::wstring>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
@@ -815,33 +816,10 @@ void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 
 void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
-	if (!checkCommand())
-		return;
-
-	mDropFileName = tools::CommandManager::getInstance().getCommandData();
-	if (mDropFileName.empty())
-		return;
-
-	if (UndoManager::getInstance().isUnsaved())
-	{
-		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
-			tools::replaceTags("Warning"),
-			tools::replaceTags("MessageUnsavedData"),
-			MyGUI::MessageBoxStyle::IconQuest
-				| MyGUI::MessageBoxStyle::Yes
-				| MyGUI::MessageBoxStyle::No
-				| MyGUI::MessageBoxStyle::Cancel);
-		message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
-	}
-	else
-	{
-		clear();
-
-		loadDropFile();
-	}
+	commandFileDrop(_commandName);
 }
 
-/*void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
+void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
 {
 	getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
 }
@@ -849,7 +827,7 @@ void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 void EditorState::commandFocusVisible(const MyGUI::UString& _commandName)
 {
 	getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
-}*/
+}
 
 void EditorState::commandQuitApp(const MyGUI::UString& _commandName)
 {
@@ -1020,8 +998,8 @@ void EditorState::load(/*const MyGUI::UString& _file*/)
 	else
 	{
 		MyGUI::Message* message = tools::MessageBoxManager::getInstance().create(
-			localise("Warning"),
-			"Failed to " + localise("Load") + " file '" + mFileName + "'",
+			tools::replaceTags("Warning"),
+			tools::replaceTags("MessageFailedLoadFile"),
 			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok
 			);
 
