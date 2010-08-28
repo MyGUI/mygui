@@ -43,14 +43,12 @@ namespace tools
 		mData.clear();
 	}
 
-	void CommandManager::registerCommand(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate)
+	void CommandManager::registerCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_command);
-		if (iter != mDelegates.end())
-		{
-			MYGUI_LOG(Warning, "Command '" << _command << "' already exist");
-		}
-		mDelegates[_command] = _delegate;
+		if (iter == mDelegates.end())
+			iter = mDelegates.insert(std::make_pair(_command, CommandDelegate())).first;
+		(*iter).second += _delegate;
 	}
 
 	void CommandManager::setCommandData(const MyGUI::UString& _data)

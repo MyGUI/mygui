@@ -23,7 +23,8 @@ namespace tools
 {
 
 	Application::Application() :
-		mEditorState(nullptr)
+		mEditorState(nullptr),
+		mTestState(nullptr)
 	{
 	}
 
@@ -72,16 +73,33 @@ namespace tools
 		StateManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
+		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
 
 		mEditorState = new EditorState();
-		StateManager::getInstance().pushState(mEditorState);
+		mTestState = new TestState();
+
+		StateManager::getInstance().registerState(this, "Application");
+		StateManager::getInstance().registerState(mEditorState, "EditorState");
+		StateManager::getInstance().registerState(mTestState, "TestState");
+
+		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
+		StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
+		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
+		StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
+
+		StateManager::getInstance().pushState(this);
+		StateManager::getInstance().stateEvent(this, "Start");
 	}
 
 	void Application::destroyScene()
 	{
-		StateManager::getInstance().popState();
+		StateManager::getInstance().rollbackToState(nullptr);
+
 		delete mEditorState;
 		mEditorState = nullptr;
+
+		delete mTestState;
+		mTestState = nullptr;
 
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();
@@ -235,6 +253,30 @@ namespace tools
 	void Application::setCaption(const MyGUI::UString& _value)
 	{
 		setWindowCaption(_value);
+	}
+
+	void Application::commandQuitApp(const MyGUI::UString& _commandName)
+	{
+		if (DialogManager::getInstance().getAnyDialog())
+		{
+			DialogManager::getInstance().endTopDialog();
+		}
+		else
+		{
+			if (MessageBoxManager::getInstance().hasAny())
+			{
+				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
+			}
+			else
+			{
+				CommandManager::getInstance().executeCommand("Command_Quit");
+			}
+		}
+	}
+
+	void Application::resumeState()
+	{
+		quit();
 	}
 
 } // namespace tools

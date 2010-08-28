@@ -22,9 +22,15 @@ namespace tools
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
 		mOpenSaveFileDialog(nullptr),
-		mTestWindow(nullptr),
 		mMessageBoxFadeControl(nullptr)
 	{
+		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
+		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
+		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
+		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
+		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
+		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
 	}
 
 	EditorState::~EditorState()
@@ -42,17 +48,6 @@ namespace tools
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
-
-		mTestWindow = new TestWindow();
-		mTestWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogTest);
-
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
 
 		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
@@ -72,9 +67,6 @@ namespace tools
 	void EditorState::cleanupState()
 	{
 		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
-
-		delete mTestWindow;
-		mTestWindow = nullptr;
 
 		mOpenSaveFileDialog->eventEndDialog = nullptr;
 		delete mOpenSaveFileDialog;
@@ -105,10 +97,7 @@ namespace tools
 
 	void EditorState::commandLoad(const MyGUI::UString& _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (!StateManager::getInstance().getStateActivate(this))
+		if (!checkCommand())
 			return;
 
 		if (ActionManager::getInstance().getChanges())
@@ -130,7 +119,7 @@ namespace tools
 
 	void EditorState::commandSave(const MyGUI::UString& _commandName)
 	{
-		if (!StateManager::getInstance().getStateActivate(this))
+		if (!checkCommand())
 			return;
 
 		if (ActionManager::getInstance().getChanges())
@@ -141,10 +130,7 @@ namespace tools
 
 	void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (!StateManager::getInstance().getStateActivate(this))
+		if (!checkCommand())
 			return;
 
 		showSaveAsWindow();
@@ -152,10 +138,7 @@ namespace tools
 
 	void EditorState::commandClear(const MyGUI::UString& _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (!StateManager::getInstance().getStateActivate(this))
+		if (!checkCommand())
 			return;
 
 		if (ActionManager::getInstance().getChanges())
@@ -177,53 +160,29 @@ namespace tools
 
 	void EditorState::commandQuit(const MyGUI::UString& _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
+		if (!checkCommand())
+			return;
+
+		if (ActionManager::getInstance().getChanges())
 		{
-			DialogManager::getInstance().endTopDialog();
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				replaceTags("Warning"),
+				replaceTags("MessageUnsavedData"),
+				MyGUI::MessageBoxStyle::IconQuest
+					| MyGUI::MessageBoxStyle::Yes
+					| MyGUI::MessageBoxStyle::No
+					| MyGUI::MessageBoxStyle::Cancel);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
 		}
 		else
 		{
-			if (MessageBoxManager::getInstance().hasAny())
-			{
-				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
-			}
-			else
-			{
-				if (StateManager::getInstance().getStateActivate(this))
-				{
-					if (ActionManager::getInstance().getChanges())
-					{
-						MyGUI::Message* message = MessageBoxManager::getInstance().create(
-							replaceTags("Warning"),
-							replaceTags("MessageUnsavedData"),
-							MyGUI::MessageBoxStyle::IconQuest
-								| MyGUI::MessageBoxStyle::Yes
-								| MyGUI::MessageBoxStyle::No
-								| MyGUI::MessageBoxStyle::Cancel);
-						message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
-					}
-					else
-					{
-						Application::getInstance().quit();
-					}
-				}
-				else
-				{
-					StateManager::getInstance().popState();
-				}
-			}
+			StateManager::getInstance().stateEvent(this, "Exit");
 		}
 	}
 
 	void EditorState::commandFileDrop(const MyGUI::UString& _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (!StateManager::getInstance().getStateActivate(this))
-			return;
-
-		if (MessageBoxManager::getInstance().hasAny())
+		if (!checkCommand())
 			return;
 
 		mDropFileName = CommandManager::getInstance().getCommandData();
@@ -418,28 +377,22 @@ namespace tools
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			save();
-			Application::getInstance().quit();
+			StateManager::getInstance().stateEvent(this, "Exit");
 		}
 		else if (_result == MyGUI::MessageBoxStyle::No)
 		{
-			Application::getInstance().quit();
+			StateManager::getInstance().stateEvent(this, "Exit");
 		}
 	}
 
 	void EditorState::commandTest(const MyGUI::UString & _commandName)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return;
-
-		if (!StateManager::getInstance().getStateActivate(this))
+		if (!checkCommand())
 			return;
 
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
-		{
-			mTestWindow->setSkinItem(item);
-			mTestWindow->doModal();
-		}
+			StateManager::getInstance().stateEvent(this, "Test");
 	}
 
 	void EditorState::notifyEndDialogTest(Dialog* _sender, bool _result)
@@ -450,6 +403,20 @@ namespace tools
 	void EditorState::notifyChanges(bool _changes)
 	{
 		updateCaption();
+	}
+
+	bool EditorState::checkCommand()
+	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return false;
+
+		if (MessageBoxManager::getInstance().hasAny())
+			return false;
+
+		if (!StateManager::getInstance().getStateActivate(this))
+			return false;
+
+		return true;
 	}
 
 } // namespace tools
