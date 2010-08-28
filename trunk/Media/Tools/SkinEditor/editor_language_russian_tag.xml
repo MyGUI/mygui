@@ -19,10 +19,11 @@
 	<Tag name="Warning">Внимание</Tag>
 	<Tag name="Error">Ошибка</Tag>
 
-	<Tag name="CaptionMainWindow">Редактор скинов - '#{SE_CurrentFileName}' #{SE_HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Редактор скинов - '#{CurrentFileName}' #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
+	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
 
@@ -79,7 +80,7 @@
 
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
-	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{SE_CurrentFileName}'#{\n}не соответствует формату.</Tag>
+	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{CurrentFileName}'#{\n}не соответствует формату.</Tag>
 
-	<Tag name="SkinNamePattern">Имя скина #{SE_SkinNameIndex}</Tag>
+	<Tag name="SkinNamePattern">Имя скина #{SkinNameIndex}</Tag>
 </MyGUI>
