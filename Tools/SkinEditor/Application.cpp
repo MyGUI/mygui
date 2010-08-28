@@ -4,7 +4,7 @@
 	@date		08/2010
 */
 #include "precompiled.h"
-#include "DemoKeeper.h"
+#include "Application.h"
 #include "Base/Main.h"
 #include "SkinManager.h"
 #include "ActionManager.h"
@@ -107,7 +107,7 @@ namespace tools
 
 		updateCaption();
 
-		for (VectorWString::const_iterator file = mParams.begin(); file != mParams.end(); ++file)
+		for (VectorWString::const_iterator file = getParams().begin(); file != getParams().end(); ++file)
 		{
 			mFileName = *file;
 			addUserTag("SE_CurrentFileName", mFileName);
@@ -277,7 +277,7 @@ namespace tools
 	void Application::updateCaption()
 	{
 		addUserTag("SE_HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
-		setWindowCaption(replaceTags("CaptionMainWindow"));
+		setCaption(replaceTags("CaptionMainWindow"));
 	}
 
 	void Application::commandLoad(const MyGUI::UString& _commandName)
@@ -613,6 +613,11 @@ namespace tools
 
 		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
 			input.injectKeyPress(_key, _text);
+	}
+
+	void Application::setCaption(const MyGUI::UString& _value)
+	{
+		setWindowCaption(_value);
 	}
 
 } // namespace tools

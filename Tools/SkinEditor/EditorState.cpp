@@ -5,6 +5,7 @@
 */
 #include "precompiled.h"
 #include "EditorState.h"
+#include "Application.h"
 
 namespace tools
 {

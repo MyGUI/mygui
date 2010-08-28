@@ -1,6 +1,6 @@
 set (HEADER_FILES
   Binary.h
-  DemoKeeper.h
+  Application.h
   SkinItem.h
   SkinManager.h
   MainPane.h
@@ -67,7 +67,7 @@ set (HEADER_FILES
   EditorState.h
 )
 set (SOURCE_FILES
-  DemoKeeper.cpp
+  Application.cpp
   SkinItem.cpp
   SkinManager.cpp
   MainPane.cpp
@@ -130,7 +130,7 @@ set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
-  DemoKeeper.cpp
+  Application.cpp
   SkinItem.cpp
   SkinManager.cpp
   MainPane.cpp
@@ -191,7 +191,7 @@ SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
-  DemoKeeper.h
+  Application.h
   SkinItem.h
   SkinManager.h
   MainPane.h

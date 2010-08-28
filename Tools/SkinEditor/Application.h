@@ -30,6 +30,11 @@ namespace tools
 		virtual bool onWinodwClose(size_t _handle);
 		virtual void prepare();
 
+		void setCaption(const MyGUI::UString& _value);
+
+		typedef std::vector<std::wstring> VectorWString;
+		const VectorWString& getParams() { return mParams; }
+
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
@@ -74,7 +79,6 @@ namespace tools
 		EditorState* mEditorState;
 
 		std::string mLocale;
-		typedef std::vector<std::wstring> VectorWString;
 		VectorWString mParams;
 	};
 
