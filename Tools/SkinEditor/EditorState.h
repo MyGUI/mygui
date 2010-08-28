@@ -33,7 +33,6 @@ namespace tools
 		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyEndDialogTest(Dialog* _sender, bool _result);
 		void notifyChanges(bool _changes);
 
 		void commandLoad(const MyGUI::UString& _commandName);

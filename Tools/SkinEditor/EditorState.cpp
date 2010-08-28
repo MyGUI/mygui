@@ -256,31 +256,6 @@ namespace tools
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void EditorState::save()
-	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
-
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
-
-		doc.save(mFileName);
-
-		ActionManager::getInstance().setChanges(false);
-	}
-
-	void EditorState::clear()
-	{
-		SkinManager::getInstance().clear();
-		ActionManager::getInstance().setChanges(false);
-
-		mFileName = mDefaultFileName;
-		addUserTag("SE_CurrentFileName", mFileName);
-
-		updateCaption();
-	}
-
 	void EditorState::notifyEndDialog(Dialog* _sender, bool _result)
 	{
 		if (_result)
@@ -304,6 +279,93 @@ namespace tools
 		}
 
 		mOpenSaveFileDialog->endModal();
+	}
+
+	void EditorState::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			clear();
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			clear();
+		}
+	}
+
+	void EditorState::showSaveAsWindow()
+	{
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
+		mOpenSaveFileDialog->setMode("SaveAs");
+		mOpenSaveFileDialog->doModal();
+	}
+
+	void EditorState::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	{
+		if (_result == MyGUI::MessageBoxStyle::Yes)
+		{
+			save();
+			StateManager::getInstance().stateEvent(this, "Exit");
+		}
+		else if (_result == MyGUI::MessageBoxStyle::No)
+		{
+			StateManager::getInstance().stateEvent(this, "Exit");
+		}
+	}
+
+	void EditorState::commandTest(const MyGUI::UString & _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+			StateManager::getInstance().stateEvent(this, "Test");
+	}
+
+	void EditorState::notifyChanges(bool _changes)
+	{
+		updateCaption();
+	}
+
+	bool EditorState::checkCommand()
+	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return false;
+
+		if (MessageBoxManager::getInstance().hasAny())
+			return false;
+
+		if (!StateManager::getInstance().getStateActivate(this))
+			return false;
+
+		return true;
+	}
+
+	void EditorState::clear()
+	{
+		SkinManager::getInstance().clear();
+		ActionManager::getInstance().setChanges(false);
+
+		mFileName = mDefaultFileName;
+		addUserTag("SE_CurrentFileName", mFileName);
+
+		updateCaption();
+	}
+
+	void EditorState::save()
+	{
+		MyGUI::xml::Document doc;
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+
+		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+
+		doc.save(mFileName);
+
+		ActionManager::getInstance().setChanges(false);
 	}
 
 	void EditorState::load()
@@ -350,73 +412,6 @@ namespace tools
 		}
 
 		ActionManager::getInstance().setChanges(false);
-	}
-
-	void EditorState::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			clear();
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-		}
-	}
-
-	void EditorState::showSaveAsWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
-		mOpenSaveFileDialog->setMode("SaveAs");
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void EditorState::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			save();
-			StateManager::getInstance().stateEvent(this, "Exit");
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			StateManager::getInstance().stateEvent(this, "Exit");
-		}
-	}
-
-	void EditorState::commandTest(const MyGUI::UString & _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-			StateManager::getInstance().stateEvent(this, "Test");
-	}
-
-	void EditorState::notifyEndDialogTest(Dialog* _sender, bool _result)
-	{
-		_sender->endModal();
-	}
-
-	void EditorState::notifyChanges(bool _changes)
-	{
-		updateCaption();
-	}
-
-	bool EditorState::checkCommand()
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return false;
-
-		if (MessageBoxManager::getInstance().hasAny())
-			return false;
-
-		if (!StateManager::getInstance().getStateActivate(this))
-			return false;
-
-		return true;
 	}
 
 } // namespace tools
