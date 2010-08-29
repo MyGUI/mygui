@@ -7,14 +7,21 @@
 #include "precompiled.h"
 #include "CodeGenerator.h"
 #include "EditorWidgets.h"
+#include "UndoManager.h"
 
 // FIXME
 const std::string TemplateName = "BaseLayoutCPP.xml";
 
-CodeGenerator::CodeGenerator()
+CodeGenerator::CodeGenerator() :
+	tools::Dialog()
 {
 	initialiseByAttributes(this);
 	mGenerateButton->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyGeneratePressed);
+	mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyCancel);
+
+	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+	if (window != nullptr)
+		window->eventWindowButtonPressed += MyGUI::newDelegate(this, &CodeGenerator::notifyWindowButtonPressed);
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("LECodeTemplate") = MyGUI::newDelegate(this, &CodeGenerator::parseTemplate);
 	MyGUI::ResourceManager::getInstance().load(TemplateName);
@@ -101,59 +108,57 @@ void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 			output_file << lm.replaceTags(str) << std::endl;
 			if (strcmp(str, "//%LE Widget_Declaration list start") == 0)
 			{
-				EditorWidgets& ew = EditorWidgets::getInstance();
-				for (std::vector<WidgetContainer*>::iterator iterWidget = ew.widgets.begin(); iterWidget != ew.widgets.end(); ++iterWidget )
-				{
-					printWidgetDeclaration(*iterWidget, output_file);
-				}
+				EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
+				while (widget.next())
+					printWidgetDeclaration(widget.current(), output_file);
 			}
 		}
 		output_file.close();
 		input_file.close();
 	}
 	
-	getMainWidget()->setVisible(false);
+	eventEndDialog(this, true);
 }
 
-void CodeGenerator::loadProperties(MyGUI::xml::ElementEnumerator _field)
+void CodeGenerator::onDoModal()
 {
-	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+	MyGUI::IntSize windowSize = mMainWidget->getSize();
+	MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-	while (field.next("Property"))
-	{
-		std::string key, value;
-
-		if (field->getName() == "Property")
-		{
-			if (!field->findAttribute("key", key)) continue;
-			if (!field->findAttribute("value", value)) continue;
-
-			if (key == "PanelName") mPanelNameEdit->setCaption(value);
-			else if (key == "IncludeDirectory") mIncludeDirectoryEdit->setCaption(value);
-			else if (key == "SourceDirectory") mSourceDirectoryEdit->setCaption(value);
-		}
-	}
+	mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 }
 
-void CodeGenerator::saveProperties(MyGUI::xml::ElementPtr _root)
+void CodeGenerator::onEndModal()
 {
-	// no settings
-	if (mPanelNameEdit->getCaption().empty() &&
-		mIncludeDirectoryEdit->getCaption().empty() &&
-		mSourceDirectoryEdit->getCaption().empty())
-		return;
-	_root = _root->createChild("CodeGenaratorSettings");
-	MyGUI::xml::ElementPtr nodeProp;
+}
 
-	nodeProp = _root->createChild("Property");
-	nodeProp->addAttribute("key", "PanelName");
-	nodeProp->addAttribute("value", mPanelNameEdit->getCaption());
+void CodeGenerator::notifyCancel(MyGUI::Widget* _sender)
+{
+	eventEndDialog(this, false);
+}
 
-	nodeProp = _root->createChild("Property");
-	nodeProp->addAttribute("key", "IncludeDirectory");
-	nodeProp->addAttribute("value", mIncludeDirectoryEdit->getCaption());
+void CodeGenerator::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+{
+	if (_name == "close")
+		eventEndDialog(this, false);
+}
 
-	nodeProp = _root->createChild("Property");
-	nodeProp->addAttribute("key", "SourceDirectory");
-	nodeProp->addAttribute("value", mSourceDirectoryEdit->getCaption());
+void CodeGenerator::loadTemplate()
+{
+	tools::SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
+
+	mPanelNameEdit->setCaption(sector->getPropertyValue("PanelName"));
+	mIncludeDirectoryEdit->setCaption(sector->getPropertyValue("IncludeDirectory"));
+	mSourceDirectoryEdit->setCaption(sector->getPropertyValue("SourceDirectory"));
+}
+
+void CodeGenerator::saveTemplate()
+{
+	tools::SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
+
+	sector->setPropertyValue("PanelName", mPanelNameEdit->getCaption());
+	sector->setPropertyValue("IncludeDirectory", mIncludeDirectoryEdit->getCaption());
+	sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getCaption());
+
+	UndoManager::getInstance().setUnsaved(true);
 }
