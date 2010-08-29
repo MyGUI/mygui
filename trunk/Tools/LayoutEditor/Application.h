@@ -1,5 +1,5 @@
-#ifndef __EDITOR_STATE_H__
-#define __EDITOR_STATE_H__
+#ifndef __APPLICATION_H__
+#define __APPLICATION_H__
 
 #include "BaseManager.h"
 #include "PropertiesPanelView.h"
@@ -12,12 +12,12 @@
 
 namespace tools
 {
-	class EditorState :
+	class Application :
 		public base::BaseManager
 	{
 	public:
-		EditorState();
-		virtual ~EditorState();
+		Application();
+		virtual ~Application();
 
 		virtual void createScene();
 		virtual void destroyScene();
@@ -114,4 +114,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __EDITOR_STATE_H__
+#endif // __APPLICATION_H__
