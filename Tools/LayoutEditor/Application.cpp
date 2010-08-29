@@ -21,8 +21,6 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 
 namespace tools
 {
-	const int BAR_HEIGHT = 30;
-
 	Application::Application() :
 		mLastClickX(0),
 		mLastClickY(0),
@@ -75,8 +73,6 @@ namespace tools
 		// if you want to test LanguageManager uncomment next line
 		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
-		//mTestMode = false;
-
 		new WidgetTypes();
 		WidgetTypes::getInstance().initialise();
 
@@ -100,9 +96,11 @@ namespace tools
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 
 		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
 		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
+		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
 
 		mEditorState = new EditorState();
 		//mTestState = new TestState();
@@ -127,6 +125,7 @@ namespace tools
 		delete mEditorState;
 		mEditorState = nullptr;
 
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 
 		StateManager::getInstance().shutdown();
@@ -164,14 +163,8 @@ namespace tools
 
 	void Application::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		/*if (mTestMode)
-		{
-			base::BaseManager::injectMouseMove(_absx, _absy, _absz);
-			return;
-		}*/
-
 		// drop select depth if we moved mouse
-		const int DIST = 2;
+		/*const int DIST = 2;
 		if ((abs(mLastClickX - _absx) > DIST) || (abs(mLastClickY - _absy) > DIST))
 		{
 			mSelectDepth = 0;
@@ -190,7 +183,7 @@ namespace tools
 		{
 			x2 = _absx;
 			y2 = _absy;
-		}
+		}*/
 
 		//FIXME
 		//mWidgetsWindow->createNewWidget(x2, y2);
@@ -200,12 +193,7 @@ namespace tools
 
 	void Application::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		/*if (mTestMode)
-		{
-			return base::BaseManager::injectMousePress(_absx, _absy, _id);
-		}*/
-
-		if (MyGUI::InputManager::getInstance().isModalAny())
+		/*if (MyGUI::InputManager::getInstance().isModalAny())
 		{
 			// if we have modal widgets we can't select any widget
 			base::BaseManager::injectMousePress(_absx, _absy, _id);
@@ -233,15 +221,15 @@ namespace tools
 
 		//FIXME
 		// не убираем пр€моугольник если нажали на его раст€гивалку
-		if (item/* && (item->getParent() != mPropertiesPanelView->getWidgetRectangle())*/)
+		if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
 		{
 			// чтобы пр€моугольник не мешалс€
 			//FIXME
 			//mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 			item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-		}
+		}*/
 
-		if (nullptr != item)
+		/*if (nullptr != item)
 		{
 			// find widget registered as container
 			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item)) item = item->getParent();
@@ -283,7 +271,7 @@ namespace tools
 			MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-		}
+		}*/
 
 		// вернем пр€моугольник
 		//FIXME
@@ -296,18 +284,12 @@ namespace tools
 			mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 		}*/
 
-		//base::BaseManager::injectMousePress(_absx, _absy, _id);
+		base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
 
 	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		/*if (mTestMode)
-		{
-			base::BaseManager::injectMouseRelease(_absx, _absy, _id);
-			return;
-		}*/
-
-		mSelectDepth++;
+		/*mSelectDepth++;
 
 		if (MyGUI::InputManager::getInstance().isModalAny())
 		{
@@ -331,7 +313,7 @@ namespace tools
 			//mWidgetsWindow->finishNewWidget(x2, y2);
 		}
 
-		UndoManager::getInstance().dropLastProperty();
+		UndoManager::getInstance().dropLastProperty();*/
 
 		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 	}
@@ -511,6 +493,14 @@ namespace tools
 	void Application::resumeState()
 	{
 		quit();
+	}
+
+	void Application::notifyChangeSelectedWidget(MyGUI::Widget* _widget)
+	{
+		if (_widget == nullptr)
+		{
+			mSelectDepth = 0;
+		}
 	}
 
 } // namespace tools
