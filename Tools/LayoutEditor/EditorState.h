@@ -8,6 +8,7 @@
 #include "OpenSaveFileDialog.h"
 #include "MainMenuControl.h"
 #include "CodeGenerator.h"
+#include "MessageBoxFadeControl.h"
 
 class EditorState :
 	public base::BaseManager
@@ -99,6 +100,7 @@ private:
 	std::string mLocale;
 
 	tools::MainMenuControl* mMainMenuControl;
+	tools::MessageBoxFadeControl* mMessageBoxFadeControl;
 
 	MyGUI::UString mFileName;
 	MyGUI::UString mDefaultFileName;
