@@ -40,8 +40,7 @@ namespace tools
 		typedef MyGUI::delegates::CDelegate0 EventInfo;
 		EventInfo eventRecreate;
 
-		// FIXME
-		MyGUI::Widget* getMainWidget() { return mMainWidget; }
+		void setVisible(bool _value);
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);

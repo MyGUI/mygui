@@ -25,7 +25,9 @@ namespace tools
 		mLastClickX(0),
 		mLastClickY(0),
 		mSelectDepth(0),
-		mGridStep(0)
+		mGridStep(0),
+		mEditorState(nullptr),
+		mTestState(nullptr)
 	{
 	}
 
@@ -103,16 +105,16 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
 
 		mEditorState = new EditorState();
-		//mTestState = new TestState();
+		mTestState = new TestState();
 
 		StateManager::getInstance().registerState(this, "Application");
 		StateManager::getInstance().registerState(mEditorState, "EditorState");
-		//StateManager::getInstance().registerState(mTestState, "TestState");
+		StateManager::getInstance().registerState(mTestState, "TestState");
 
 		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
-		//StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
+		StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
 		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
-		//StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
+		StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
 
 		StateManager::getInstance().pushState(this);
 		StateManager::getInstance().stateEvent(this, "Start");
@@ -124,6 +126,9 @@ namespace tools
 
 		delete mEditorState;
 		mEditorState = nullptr;
+
+		delete mTestState;
+		mTestState = nullptr;
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);

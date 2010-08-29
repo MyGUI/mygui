@@ -29,7 +29,7 @@ namespace tools
 
 		int getCreatingStatus() { return mCreatingStatus; }
 
-		MyGUI::Widget* getMainWidget() { return mMainWidget; }
+		void setVisible(bool _value);
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
