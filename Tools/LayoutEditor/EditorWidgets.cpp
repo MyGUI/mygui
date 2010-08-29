@@ -20,58 +20,6 @@ EditorWidgets::~EditorWidgets()
 	destroyAllSectors();
 }
 
-void MapSet(MyGUI::VectorStringPairs & _map, const std::string &_key, const std::string &_value)
-{
-	bool find = false;
-	for (MyGUI::VectorStringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
-	{
-		if (iter->first == _key)
-		{
-			iter->second = _value;
-			find = true;
-		}
-	}
-	if (!find)
-	{
-		_map.push_back(MyGUI::PairString(_key, _value));
-	}
-}
-
-MyGUI::VectorStringPairs::iterator MapFind(MyGUI::VectorStringPairs & _map, const std::string &_key)
-{
-	MyGUI::VectorStringPairs::iterator iter = _map.begin();
-	for (; iter!=_map.end(); ++iter)
-	{
-		if (iter->first == _key) break;
-	}
-	return iter;
-}
-
-void MapErase(MyGUI::VectorStringPairs & _map, const std::string &_key)
-{
-	for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
-	{
-		if (iter->first == _key)
-		{
-			_map.erase(iter);
-			return;
-		}
-	}
-}
-
-MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* widget)
-{
-	MyGUI::IntCoord coord = _coord;
-	MyGUI::Widget* parent = widget->getParent();
-	while (nullptr != parent)
-	{
-		coord = coord - parent->getPosition();
-		// а может у нас и дедушка есть? а может и прадед...
-		parent = parent->getParent();
-	}
-	return coord;
-}
-
 void EditorWidgets::initialise()
 {
 	mGlobalCounter = 0;

@@ -245,8 +245,10 @@ void PanelItems::notifySelectSheet(MyGUI::Widget* _sender)
 	{
 		WidgetContainer * sheetContainer = EditorWidgets::getInstance().find(tab->getItemAt(i));
 
-		if (i == item) MapSet(sheetContainer->mProperty, action, "true");
-		else MapErase(sheetContainer->mProperty, action);
+		if (i == item)
+			tools::utility::mapSet(sheetContainer->mProperty, action, "true");
+		else
+			tools::utility::mapErase(sheetContainer->mProperty, action);
 	}
 	UndoManager::getInstance().addValue();
 }
@@ -268,7 +270,7 @@ void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
 		MyGUI::TabItem* sheet = tab->getItemAt(item);
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
 		sheet->setProperty("Widget_Caption", value);
-		MapSet(widgetContainer->mProperty, action, value);
+		tools::utility::mapSet(widgetContainer->mProperty, action, value);
 		return;
 	}
 	else if (current_widget->isType<MyGUI::MenuCtrl>())
