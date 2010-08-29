@@ -45,7 +45,7 @@ namespace tools
 
 	void OpenSaveFileDialog::notifyDirectoryAccept(MyGUI::Edit* _sender)
 	{
-		setCurrentFolder(_sender->getCaption());
+		setCurrentFolder(_sender->getOnlyText());
 	}
 
 	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::Edit* _sender)
@@ -112,7 +112,7 @@ namespace tools
 	{
 		if (!mFolderMode)
 		{
-			mFileName = mEditFileName->getCaption();
+			mFileName = mEditFileName->getOnlyText();
 			if (!mFileName.empty())
 				eventEndDialog(this, true);
 		}

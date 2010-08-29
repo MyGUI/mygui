@@ -23,7 +23,7 @@ namespace tools
 		void setCaption(const MyGUI::UString& _value);
 
 		void setTextField(const MyGUI::UString& _value);
-		const MyGUI::UString& getTextField();
+		MyGUI::UString getTextField();
 
 		void show();
 		void hide();

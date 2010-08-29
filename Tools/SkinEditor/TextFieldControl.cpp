@@ -61,9 +61,9 @@ namespace tools
 		mText->setCaption(_value);
 	}
 
-	const MyGUI::UString& TextFieldControl::getTextField()
+	MyGUI::UString TextFieldControl::getTextField()
 	{
-		return mText->getCaption();
+		return mText->getOnlyText();
 	}
 
 	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName)

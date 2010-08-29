@@ -53,7 +53,7 @@ namespace demo
 
 	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		const MyGUI::UString & command = _sender->getCaption();
+		const MyGUI::UString & command = _sender->getOnlyText();
 		if (command == "") return;
 
 		MyGUI::UString key = command;

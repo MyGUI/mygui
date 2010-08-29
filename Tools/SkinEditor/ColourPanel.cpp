@@ -173,15 +173,15 @@ namespace tools
 	{
 		MyGUI::Edit* edit = static_cast<MyGUI::Edit*>(_sender);
 		size_t cursor = edit->getTextCursor();
-		size_t num = MyGUI::utility::parseSizeT(edit->getCaption());
+		size_t num = MyGUI::utility::parseSizeT(edit->getOnlyText());
 		if (num > 255) num = 255;
 		edit->setCaption(MyGUI::utility::toString(num));
 		if (cursor < edit->getTextLength()) edit->setTextCursor(cursor);
 
 		MyGUI::Colour colour(
-			MyGUI::utility::parseFloat(mEditRed->getCaption()) / 255.0f,
-			MyGUI::utility::parseFloat(mEditGreen->getCaption()) / 255.0f,
-			MyGUI::utility::parseFloat(mEditBlue->getCaption()) / 255.0f);
+			MyGUI::utility::parseFloat(mEditRed->getOnlyText()) / 255.0f,
+			MyGUI::utility::parseFloat(mEditGreen->getOnlyText()) / 255.0f,
+			MyGUI::utility::parseFloat(mEditBlue->getOnlyText()) / 255.0f);
 
 		updateFromColour(colour);
 	}

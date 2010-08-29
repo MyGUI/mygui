@@ -72,8 +72,8 @@ namespace demo
 	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
 	{
 		// шрифтов нету
-		if (mComboFont->getCaption().empty()) return;
-		if (mEditSaveFileName->getCaption().empty() && _widget == mButtonSave) return;
+		if (mComboFont->getOnlyText().empty()) return;
+		if (mEditSaveFileName->getOnlyText().empty() && _widget == mButtonSave) return;
 
 		MyGUI::xml::Document document;
 		document.createDeclaration();
@@ -82,18 +82,18 @@ namespace demo
 
 		if (_widget == mButtonSave)
 		{
-			if (!document.save(mEditSaveFileName->getCaption() + ".xml"))
+			if (!document.save(mEditSaveFileName->getOnlyText() + ".xml"))
 			{
 				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 			else
 			{
-				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "success", mEditSaveFileName->getCaption() + ".xml", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "success", mEditSaveFileName->getOnlyText() + ".xml", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 			}
 
 			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
 			MyGUI::ITexture* texture = font->getTextureFont();
-			texture->saveToFile(mEditSaveFileName->getCaption() + ".png");
+			texture->saveToFile(mEditSaveFileName->getOnlyText() + ".png");
 		}
 		else if (_widget == mButtonGenerate)
 		{
@@ -126,24 +126,24 @@ namespace demo
 		node->addAttribute("type", "ResourceTrueTypeFont");
 		node->addAttribute("name", mFontName);
 
-		addProperty(node, "Source", mComboFont->getCaption());
-		addProperty(node, "Size", MyGUI::utility::parseValue<int>(mEditSize->getCaption()));
-		addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mEditResolution->getCaption()));
-		addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getCaption()));
-		addProperty(node, "SpaceWidth", MyGUI::utility::parseValue<int>(mEditSpace->getCaption()));
-		addProperty(node, "TabWidth", MyGUI::utility::parseValue<int>(mEditTab->getCaption()));
-		addProperty(node, "CursorWidth", MyGUI::utility::parseValue<int>(mEditCursor->getCaption()));
-		addProperty(node, "Distance", MyGUI::utility::parseValue<int>(mEditDistance->getCaption()));
-		addProperty(node, "OffsetHeight", MyGUI::utility::parseValue<int>(mEditOffset->getCaption()));
+		addProperty(node, "Source", mComboFont->getOnlyText());
+		addProperty(node, "Size", MyGUI::utility::parseValue<int>(mEditSize->getOnlyText()));
+		addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mEditResolution->getOnlyText()));
+		addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getOnlyText()));
+		addProperty(node, "SpaceWidth", MyGUI::utility::parseValue<int>(mEditSpace->getOnlyText()));
+		addProperty(node, "TabWidth", MyGUI::utility::parseValue<int>(mEditTab->getOnlyText()));
+		addProperty(node, "CursorWidth", MyGUI::utility::parseValue<int>(mEditCursor->getOnlyText()));
+		addProperty(node, "Distance", MyGUI::utility::parseValue<int>(mEditDistance->getOnlyText()));
+		addProperty(node, "OffsetHeight", MyGUI::utility::parseValue<int>(mEditOffset->getOnlyText()));
 
 		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
 
-		if (mEditRange1->getCaption() != "")
-			node_codes->createChild("Code")->addAttribute("range", mEditRange1->getCaption());
-		if (mEditRange2->getCaption() != "")
-			node_codes->createChild("Code")->addAttribute("range", mEditRange2->getCaption());
-		if (mEditHide->getCaption() != "")
-			node_codes->createChild("Code")->addAttribute("hide", mEditHide->getCaption());
+		if (mEditRange1->getOnlyText() != "")
+			node_codes->createChild("Code")->addAttribute("range", mEditRange1->getOnlyText());
+		if (mEditRange2->getOnlyText() != "")
+			node_codes->createChild("Code")->addAttribute("range", mEditRange2->getOnlyText());
+		if (mEditHide->getOnlyText() != "")
+			node_codes->createChild("Code")->addAttribute("hide", mEditHide->getOnlyText());
 	}
 
 } // namespace demo
