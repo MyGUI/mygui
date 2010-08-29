@@ -49,6 +49,9 @@ namespace tools
 
 	void EditorState::initState()
 	{
+		addUserTag("\\n", "\n");
+		addUserTag("CurrentFileName", mFileName);
+
 		mBackgroundControl = new BackgroundControl();
 
 		// settings window
