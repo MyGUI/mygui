@@ -18,11 +18,8 @@
 
 namespace tools
 {
-	const int BAR_HEIGHT = 30;
-
 	EditorState::EditorState() :
 		mRecreate(false),
-		//mTestMode(false),
 		mPropertiesPanelView(nullptr),
 		mSettingsWindow(nullptr),
 		mWidgetsWindow(nullptr),
@@ -37,7 +34,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
 		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
+		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
@@ -53,7 +50,7 @@ namespace tools
 	{
 		//mTestMode = false;
 
-		mInterfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
+		/*mInterfaceWidgets = */MyGUI::LayoutManager::getInstance().loadLayout("Background.layout");
 
 		// settings window
 		mSettingsWindow = new SettingsWindow();
@@ -63,10 +60,10 @@ namespace tools
 		// properties panelView
 		mPropertiesPanelView = new PropertiesPanelView();
 		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-		mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
+		//mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 		mWidgetsWindow = new WidgetsWindow();
-		mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
+		//mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
@@ -77,17 +74,17 @@ namespace tools
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 
 		mMainMenuControl = new MainMenuControl();
-		mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
+		//mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
-		MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
+		/*MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
 		widget->setCoord(
 			widget->getParentSize().width - widget->getSize().width,
 			BAR_HEIGHT,
 			widget->getSize().width,
 			widget->getParentSize().height - BAR_HEIGHT
-			);
+			);*/
 
 		// после загрузки настроек инициализируем
 		mWidgetsWindow->initialise();
@@ -175,6 +172,11 @@ namespace tools
 	void EditorState::notifyRecreate()
 	{
 		mRecreate = true;
+	}
+
+	void EditorState::commandTest(const MyGUI::UString& _commandName)
+	{
+		StateManager::getInstance().stateEvent(this, "Test");
 	}
 
 	/*void EditorState::commandTest(const MyGUI::UString& _commandName)
@@ -533,6 +535,20 @@ namespace tools
 		mCodeGenerator->endModal();
 		if (_result)
 			mCodeGenerator->saveTemplate();
+	}
+
+	void EditorState::pauseState()
+	{
+		mMainMenuControl->setVisible(false);
+		mWidgetsWindow->setVisible(false);
+		mPropertiesPanelView->setVisible(false);
+	}
+
+	void EditorState::resumeState()
+	{
+		mWidgetsWindow->setVisible(true);
+		mMainMenuControl->setVisible(true);
+		mPropertiesPanelView->setVisible(WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr);
 	}
 
 } // namespace tools

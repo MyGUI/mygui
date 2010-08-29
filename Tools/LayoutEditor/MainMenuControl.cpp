@@ -176,4 +176,9 @@ namespace tools
 		}
 	}
 
+	void MainMenuControl::setVisible(bool _value)
+	{
+		mBar->setVisible(_value);
+	}
+
 } // namespace tools

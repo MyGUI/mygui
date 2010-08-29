@@ -17,8 +17,7 @@ namespace tools
 		MainMenuControl();
 		virtual ~MainMenuControl();
 
-		// FIXME
-		MyGUI::Widget* getMainWidget() { return mBar; }
+		void setVisible(bool _value);
 
 	private:
 		void createMainMenu();

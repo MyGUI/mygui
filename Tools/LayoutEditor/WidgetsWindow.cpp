@@ -319,4 +319,10 @@ namespace tools
 		}
 	}
 
+	void WidgetsWindow::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
+	}
+
+
 } // namespace tools
