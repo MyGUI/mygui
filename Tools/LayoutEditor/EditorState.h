@@ -6,6 +6,7 @@
 #include "WidgetsWindow.h"
 #include "OpenSaveFileDialog.h"
 #include "MainMenuControl.h"
+#include "BackgroundControl.h"
 #include "CodeGenerator.h"
 #include "MessageBoxFadeControl.h"
 #include "StateController.h"
@@ -45,7 +46,6 @@ namespace tools
 		void commandClear(const MyGUI::UString& _commandName);
 		void commandTest(const MyGUI::UString& _commandName);
 		void commandQuit(const MyGUI::UString& _commandName);
-		//void commandQuitApp(const MyGUI::UString& _commandName);
 		void commandSettings(const MyGUI::UString& _commandName);
 		void commandCodeGenerator(const MyGUI::UString& _commandName);
 		void commandRecentFiles(const MyGUI::UString& _commandName);
@@ -67,9 +67,6 @@ namespace tools
 		// drop select after skin change
 		bool mRecreate;
 
-		//MyGUI::VectorWidgetPtr mInterfaceWidgets;
-		MyGUI::xml::Document* mTestLayout;
-
 		PropertiesPanelView* mPropertiesPanelView;
 		SettingsWindow* mSettingsWindow;
 		WidgetsWindow* mWidgetsWindow;
@@ -78,6 +75,7 @@ namespace tools
 
 		MainMenuControl* mMainMenuControl;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
+		BackgroundControl* mBackgroundControl;
 
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;

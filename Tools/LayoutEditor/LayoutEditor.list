@@ -41,6 +41,7 @@ set (HEADER_FILES
   Application.h
   EditorState.h
   TestState.h
+  BackgroundControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -75,6 +76,7 @@ set (SOURCE_FILES
   EditorState.cpp
   Application.cpp
   TestState.cpp
+  BackgroundControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

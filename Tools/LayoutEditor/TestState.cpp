@@ -9,6 +9,8 @@
 #include "StateManager.h"
 #include "DialogManager.h"
 #include "MessageBoxManager.h"
+#include "EditorWidgets.h"
+#include "WidgetSelectorManager.h"
 
 namespace tools
 {
@@ -24,10 +26,20 @@ namespace tools
 
 	void TestState::initState()
 	{
+		MyGUI::xml::Document* mTestLayout = EditorWidgets::getInstance().savexmlDocument();
+		EditorWidgets::getInstance().clear();
+		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
+
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 	}
 
 	void TestState::cleanupState()
 	{
+		MyGUI::xml::Document* mTestLayout = EditorWidgets::getInstance().savexmlDocument();
+		EditorWidgets::getInstance().clear();
+		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, false);
+
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 	}
 
 	void TestState::pauseState()

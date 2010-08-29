@@ -28,7 +28,8 @@ namespace tools
 		mMainMenuControl(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
-		mMessageBoxFadeControl(nullptr)
+		mMessageBoxFadeControl(nullptr),
+		mBackgroundControl(nullptr)
 	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
@@ -48,43 +49,28 @@ namespace tools
 
 	void EditorState::initState()
 	{
-		//mTestMode = false;
-
-		/*mInterfaceWidgets = */MyGUI::LayoutManager::getInstance().loadLayout("Background.layout");
+		mBackgroundControl = new BackgroundControl();
 
 		// settings window
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
-		//mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 		// properties panelView
 		mPropertiesPanelView = new PropertiesPanelView();
 		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-		//mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 		mWidgetsWindow = new WidgetsWindow();
-		//mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
-		//mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->setFileMask("*.layout");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 
 		mMainMenuControl = new MainMenuControl();
-		//mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
-
-		/*MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
-		widget->setCoord(
-			widget->getParentSize().width - widget->getSize().width,
-			BAR_HEIGHT,
-			widget->getSize().width,
-			widget->getParentSize().height - BAR_HEIGHT
-			);*/
 
 		// после загрузки настроек инициализируем
 		mWidgetsWindow->initialise();
@@ -129,6 +115,9 @@ namespace tools
 
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
+
+		delete mBackgroundControl;
+		mBackgroundControl = nullptr;
 	}
 
 	void EditorState::notifyFrameStarted(float _time)
@@ -142,20 +131,6 @@ namespace tools
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 		}
 	}
-
-	/*void EditorState::notifyEndTest()
-	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-		{
-			if ((*iter)->getUserString("WasVisible") == "true")
-			{
-				(*iter)->setVisible(true);
-			}
-		}
-		mTestMode = false;
-		clear(false);
-		EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
-	}*/
 
 	void EditorState::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
 	{
@@ -178,25 +153,6 @@ namespace tools
 	{
 		StateManager::getInstance().stateEvent(this, "Test");
 	}
-
-	/*void EditorState::commandTest(const MyGUI::UString& _commandName)
-	{
-		mTestLayout = EditorWidgets::getInstance().savexmlDocument();
-		EditorWidgets::getInstance().clear();
-		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-
-		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-		{
-			if ((*iter)->getVisible())
-			{
-				(*iter)->setUserString("WasVisible", "true");
-				(*iter)->setVisible(false);
-			}
-		}
-
-		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
-		mTestMode = true;
-	}*/
 
 	void EditorState::commandSettings(const MyGUI::UString& _commandName)
 	{
