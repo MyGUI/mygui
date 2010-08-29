@@ -50,9 +50,11 @@
 	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
+	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
+	<Tag name="ButtonOpenFolder">Выбрать</Tag>
 
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>

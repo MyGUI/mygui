@@ -8,16 +8,25 @@
 #include "CodeGenerator.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
+#include "Localise.h"
 
 // FIXME
 const std::string TemplateName = "BaseLayoutCPP.xml";
 
 CodeGenerator::CodeGenerator() :
-	tools::Dialog()
+	tools::Dialog(),
+	mOpenSaveFileDialog(nullptr)
 {
 	initialiseByAttributes(this);
+
+	mOpenSaveFileDialog = new tools::OpenSaveFileDialog();
+	mOpenSaveFileDialog->setDialogInfo(tools::replaceTags("CaptionOpenFolder"), tools::replaceTags("ButtonOpenFolder"), true);
+	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &CodeGenerator::notifyEndDialogOpenSaveFile);
+
 	mGenerateButton->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyGeneratePressed);
 	mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyCancel);
+	mBrowseHeader->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyBrowseHeader);
+	mBrowseSource->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyBrowseSource);
 
 	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 	if (window != nullptr)
@@ -29,6 +38,8 @@ CodeGenerator::CodeGenerator() :
 
 CodeGenerator::~CodeGenerator()
 {
+	delete mOpenSaveFileDialog;
+	mOpenSaveFileDialog = nullptr;
 }
 
 void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
@@ -161,4 +172,35 @@ void CodeGenerator::saveTemplate()
 	sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getCaption());
 
 	UndoManager::getInstance().setUnsaved(true);
+}
+
+void CodeGenerator::notifyBrowseHeader(MyGUI::Widget* _sender)
+{
+	mOpenSaveFileDialog->setCurrentFolder(mIncludeDirectoryEdit->getCaption());
+	mOpenSaveFileDialog->setMode("Header");
+	mOpenSaveFileDialog->doModal();
+}
+
+void CodeGenerator::notifyBrowseSource(MyGUI::Widget* _sender)
+{
+	mOpenSaveFileDialog->setCurrentFolder(mSourceDirectoryEdit->getCaption());
+	mOpenSaveFileDialog->setMode("Source");
+	mOpenSaveFileDialog->doModal();
+}
+
+void CodeGenerator::notifyEndDialogOpenSaveFile(tools::Dialog* _sender, bool _result)
+{
+	if (_result)
+	{
+		if (mOpenSaveFileDialog->getMode() == "Header")
+		{
+			mIncludeDirectoryEdit->setCaption(mOpenSaveFileDialog->getCurrentFolder());
+		}
+		else if (mOpenSaveFileDialog->getMode() == "Source")
+		{
+			mSourceDirectoryEdit->setCaption(mOpenSaveFileDialog->getCurrentFolder());
+		}
+	}
+
+	mOpenSaveFileDialog->endModal();
 }
