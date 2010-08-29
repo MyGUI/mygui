@@ -7,9 +7,6 @@
 
 typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
 
-typedef std::vector<tools::SettingsSector*> VectorSettingsSector;
-typedef MyGUI::Enumerator<VectorSettingsSector> EnumeratorSettingsSector;
-
 typedef std::vector<WidgetContainer*> VectorWidgetContainer;
 typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
 
@@ -66,7 +63,7 @@ private:
 	int mGlobalCounter;
 	bool mWidgetsChanged;
 	std::vector<std::string> mIgnoreParameters;
-	VectorSettingsSector mSettings;
+	tools::VectorSettingsSector mSettings;
 	VectorWidgetContainer mWidgets;
 };
 

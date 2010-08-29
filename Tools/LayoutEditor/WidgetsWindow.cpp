@@ -23,10 +23,10 @@ WidgetsWindow::WidgetsWindow() :
 	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");
 
-	widgetsButtonWidth = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonWidth"));
-	widgetsButtonHeight = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonHeight"));
-	widgetsButtonsInOneLine = MyGUI::utility::parseInt(tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "widgetsButtonsInOneLine"));
-	skinSheetName = tools::SettingsManager::getInstance().getProperty("WidgetsWindow", "lastSkinGroup");
+	widgetsButtonWidth = tools::SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonWidth");
+	widgetsButtonHeight = tools::SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonHeight");
+	widgetsButtonsInOneLine = tools::SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonsInOneLine");
+	skinSheetName = tools::SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue("lastSkinGroup");
 
 	mToolTip = new EditorToolTip();
 
@@ -48,10 +48,10 @@ WidgetsWindow::~WidgetsWindow()
 	else
 		skinSheetName = "";
 
-	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonWidth", MyGUI::utility::toString(widgetsButtonWidth));
-	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonHeight", MyGUI::utility::toString(widgetsButtonHeight));
-	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "widgetsButtonsInOneLine", MyGUI::utility::toString(widgetsButtonsInOneLine));
-	tools::SettingsManager::getInstance().setProperty("WidgetsWindow", "lastSkinGroup", skinSheetName);
+	tools::SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonWidth", widgetsButtonWidth);
+	tools::SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonHeight", widgetsButtonHeight);
+	tools::SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonsInOneLine", widgetsButtonsInOneLine);
+	tools::SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("lastSkinGroup", skinSheetName);
 }
 
 void WidgetsWindow::updateSize()
@@ -297,14 +297,15 @@ void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipIn
 
 void WidgetsWindow::setEdgeHideController()
 {
-	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+	bool value = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
+	if (value)
 	{
 		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
 		MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
 
-		controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
-		controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
-		controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+		controller->setTime(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
+		controller->setRemainPixels(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
+		controller->setShadowSize(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
 
 		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 	}

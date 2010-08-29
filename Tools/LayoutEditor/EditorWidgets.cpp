@@ -486,20 +486,20 @@ void EditorWidgets::loadSector(MyGUI::xml::ElementPtr _sectorNode)
 
 void EditorWidgets::saveSectors(MyGUI::xml::ElementPtr _rootNode)
 {
-	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+	for (tools::VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
 		(*item)->serialization(_rootNode, MyGUI::Version());
 }
 
 void EditorWidgets::destroyAllSectors()
 {
-	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+	for (tools::VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
 		delete (*item);
 	mSettings.clear();
 }
 
 tools::SettingsSector* EditorWidgets::getSector(const MyGUI::UString& _sectorName)
 {
-	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+	for (tools::VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
 	{
 		if ((*item)->getName() == _sectorName)
 			return (*item);

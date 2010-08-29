@@ -7,11 +7,12 @@
 #define __SETTINGS_MANAGER_H__
 
 #include <MyGUI.h>
+#include "SettingsSector.h"
 
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSettingsChanged;
+	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSectorSettingsChanged;
 	typedef std::vector<MyGUI::UString> VectorUString;
 
 	class SettingsManager :
@@ -29,38 +30,25 @@ namespace tools
 
 		void addRecentFile(const MyGUI::UString& _fileName);
 
-		void setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue);
-		MyGUI::UString getProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
+		SettingsSector* getSector(const MyGUI::UString& _sectorName);
 
-		template <typename Type>
-		Type getPropertyValue(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
-		{
-			return MyGUI::utility::parseValue<Type>(getProperty(_sectionName, _propertyName));
-		}
-
-		template <typename Type>
-		void setPropertyValue(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, Type _value)
-		{
-			return setProperty(_sectionName, _propertyName, MyGUI::utility::toString(_value));
-		}
-
-		EventSettingsChanged eventSettingsChanged;
+		EventSectorSettingsChanged eventSettingsChanged;
 
 	private:
 		void loadSettings(const MyGUI::UString& _fileName, bool _internal);
 		void saveSettings(const MyGUI::UString& _fileName);
 
-		void setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue, bool _event);
+		void destroyAllSectors();
+		void saveSectors(MyGUI::xml::ElementPtr _rootNode);
+		void loadSector(MyGUI::xml::ElementPtr _sectorNode);
 
-		bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
+		void notifySettingsChanged(SettingsSector* _sector, const MyGUI::UString& _propertyName);
 
 	private:
 		VectorUString mRecentFiles;
 		VectorUString mAdditionalPaths;
 
-		typedef std::map<MyGUI::UString, MyGUI::UString> MapUString;
-		typedef std::map<MyGUI::UString, MapUString> MapSection;
-		MapSection mSections;
+		VectorSettingsSector mSettings;
 	};
 
 } // namespace tools
