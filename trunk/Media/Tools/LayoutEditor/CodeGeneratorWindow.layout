@@ -18,13 +18,19 @@
             <Property key="Caption" value="#{CG_SourceDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="8 144 368 26" align="HStretch Top" name="SourceDirectory"/>
-        <Widget type="Edit" skin="Edit" position="8 88 368 26" align="HStretch Top" name="IncludeDirectory"/>
+        <Widget type="Edit" skin="Edit" position="8 144 336 26" align="HStretch Top" name="SourceDirectory"/>
+        <Widget type="Edit" skin="Edit" position="8 88 336 26" align="HStretch Top" name="IncludeDirectory"/>
         <Widget type="Button" skin="Button" position="232 196 144 26" align="Right Bottom" name="Generate">
             <Property key="Caption" value="#{CG_Generate}"/>
         </Widget>
         <Widget type="Button" skin="Button" position="6 196 146 26" align="Left Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="349 88 26 26" align="Right Top" name="BrowseHeader">
+            <Property key="Caption" value="..."/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="349 144 26 26" align="Right Top" name="BrowseSource">
+            <Property key="Caption" value="..."/>
         </Widget>
     </Widget>
 </MyGUI>
