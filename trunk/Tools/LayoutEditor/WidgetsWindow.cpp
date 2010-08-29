@@ -154,8 +154,7 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 			creating_status = 2;
 
 			// внимание current_widget родитель и потом сразу же сын
-			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
-			EditorWidgets::getInstance().global_counter++;
+			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().getNextGlobalCounter());
 			// пока не найдем ближайшего над нами способного быть родителем
 			while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 			if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
@@ -206,7 +205,8 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setStateSelected(false);
 			new_widget_type = "";
 			new_widget_skin = "";
-			if (creating_status == 2) EditorWidgets::getInstance().global_counter--;
+			//FIXME ваще не вкурил
+			//if (creating_status == 2) EditorWidgets::getInstance().global_counter--;
 		}
 		creating_status = 0;
 	}
@@ -232,8 +232,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 	int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
 	int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
 
-	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
-	EditorWidgets::getInstance().global_counter++;
+	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().getNextGlobalCounter());
 
 	while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 

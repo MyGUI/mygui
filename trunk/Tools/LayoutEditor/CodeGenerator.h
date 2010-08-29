@@ -7,26 +7,32 @@
 #define __CODE_GENERATOR_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "EditorWidgets.h"
+#include "WidgetContainer.h"
+#include "Dialog.h"
 
 ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
 class CodeGenerator :
-	public wraps::BaseLayout
+	public tools::Dialog
 {
 public:
 
 	CodeGenerator();
 	~CodeGenerator();
 
-	void loadProperties(MyGUI::xml::ElementEnumerator _field);
-	void saveProperties(MyGUI::xml::ElementPtr _root);
+	void loadTemplate();
+	void saveTemplate();
 
-	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 private:
 	void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 	std::string stringToUpperCase(std::string _str);
 	void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 	void notifyGeneratePressed(MyGUI::Widget* _sender);
+	void notifyCancel(MyGUI::Widget* _sender);
+	void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+
+	virtual void onDoModal();
+	virtual void onEndModal();
+
 private:
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
 	MyGUI::Edit* mPanelNameEdit;
@@ -36,6 +42,8 @@ private:
 	MyGUI::Edit* mIncludeDirectoryEdit;
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mGenerateButton, "Generate");
 	MyGUI::Button* mGenerateButton;
+	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mCancel, "Cancel");
+	MyGUI::Button* mCancel;
 
 	MyGUI::MapString mTemplateFiles;
 	MyGUI::MapString mTemplateStrings;

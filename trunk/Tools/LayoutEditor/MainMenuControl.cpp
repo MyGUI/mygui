@@ -72,10 +72,9 @@ namespace tools
 
 		mPopupMenuWidgets->removeAllItems();
 
-		for (std::vector<WidgetContainer*>::iterator iter = EditorWidgets::getInstance().widgets.begin(); iter != EditorWidgets::getInstance().widgets.end(); ++iter )
-		{
-			createWidgetPopup(*iter, mPopupMenuWidgets, print_name, print_type, print_skin);
-		}
+		EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
+		while (widget.next())
+			createWidgetPopup(widget.current(), mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 
 	void MainMenuControl::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)

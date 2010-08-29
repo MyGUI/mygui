@@ -67,4 +67,10 @@
 	<Tag name="PatternWidgetSkin">#{ColourMenuSkin}#{WidgetSkin} </Tag>
 
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
+
+	<Tag name="CG_PanelName">Panel name</Tag>
+	<Tag name="CG_IncludeDirectory">Include directory</Tag>
+	<Tag name="CG_SourceDirectory">Source directory</Tag>
+	<Tag name="CG_Generate">Generate</Tag>
+	<Tag name="CG_NotImplemented">Not implemented template selector</Tag>
 </MyGUI>
