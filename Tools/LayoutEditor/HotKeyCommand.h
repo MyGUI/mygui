@@ -10,7 +10,6 @@
 
 namespace tools
 {
-
 	class HotKeyCommand
 	{
 	public:

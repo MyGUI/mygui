@@ -92,11 +92,13 @@ namespace tools
 
 		MyGUI::TabItem* sheet = nullptr;
 		mMaxLines = 0;
-		for (SkinGroups::iterator iter = WidgetTypes::getInstance().skin_groups.begin(); iter != WidgetTypes::getInstance().skin_groups.end(); ++iter)
+
+		const SkinGroups& groups = WidgetTypes::getInstance().getSkinGroups();
+		for (SkinGroups::const_iterator iter = groups.begin(); iter != groups.end(); ++iter)
 		{
 			sheet = mTabSkins->addItem(iter->first);
 			int i = 0;
-			for (VectorSkinInfo::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
+			for (VectorSkinInfo::const_iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 			{
 				MyGUI::Button* button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
 					i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
@@ -158,9 +160,12 @@ namespace tools
 
 				// внимание current_widget родитель и потом сразу же сын
 				std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().getNextGlobalCounter());
+
 				// пока не найдем ближайшего над нами способного быть родителем
-				while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
-				if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+				while (current_widget && !WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->parent)
+					current_widget = current_widget->getParent();
+
+				if (current_widget && WidgetTypes::getInstance().findWidgetStyle(new_widget_type)->child)
 				{
 					coord = coord - current_widget->getPosition();
 					current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
@@ -237,10 +242,11 @@ namespace tools
 
 		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().getNextGlobalCounter());
 
-		while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+		while (current_widget && !WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->parent)
+			current_widget = current_widget->getParent();
 
 		MyGUI::IntSize parent_size;
-		if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+		if (current_widget && WidgetTypes::getInstance().findWidgetStyle(new_widget_type)->child)
 		{
 			parent_size = current_widget->getSize();
 			current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);

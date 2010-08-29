@@ -7,17 +7,17 @@
 #define __MAIN_MENU_CONTROL_H__
 
 #include <MyGUI.h>
+#include "WidgetContainer.h"
 
 namespace tools
 {
-	struct WidgetContainer;
-
 	class MainMenuControl
 	{
 	public:
 		MainMenuControl();
 		virtual ~MainMenuControl();
 
+		// FIXME
 		MyGUI::Widget* getMainWidget() { return mBar; }
 
 	private:

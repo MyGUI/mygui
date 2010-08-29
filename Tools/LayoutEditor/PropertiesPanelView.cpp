@@ -158,7 +158,7 @@ namespace tools
 			return;
 		// найдем соответствующий контейнер виджета и переместим/растянем
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-		if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)
+		if (WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->resizeable)
 		{
 			MyGUI::IntCoord coord = utility::convertCoordToParentCoord(_sender->getCoord(), current_widget);
 			MyGUI::IntCoord old_coord = current_widget->getCoord();
@@ -308,14 +308,14 @@ namespace tools
 			mPairsCounter = 0;
 			mPanelMainProperties->update(_current_widget);
 
-			WidgetStyle * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+			WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
 			for (int i = 0; i < MaxBaseTypesCount; ++i)
 			{
 				mPairsCounter = 0;
 				mPanelsTypeProperties[i]->update(_current_widget, widgetType);
 				if (widgetType && !widgetType->base.empty())
 				{
-					widgetType = WidgetTypes::getInstance().find(widgetType->base);
+					widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
 				}
 				else
 				{
@@ -460,8 +460,10 @@ namespace tools
 		if (widget_for_type == PropertyType_ComboBox)
 		{
 			std::vector<std::string> values;
-			if (_type == "Skin") values = WidgetTypes::getInstance().find(current_widget->getTypeName())->skin;
-			else values = WidgetTypes::getInstance().findPossibleValues(_type);
+			if (_type == "Skin")
+				values = WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->skin;
+			else
+				values = WidgetTypes::getInstance().findPossibleValues(_type);
 
 			for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
 				editOrCombo->castType<MyGUI::ComboBox>()->addItem(*iter);

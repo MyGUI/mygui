@@ -10,7 +10,8 @@
 
 namespace tools
 {
-	class EditorToolTip : public wraps::BaseLayout
+	class EditorToolTip :
+		public wraps::BaseLayout
 	{
 	public:
 		EditorToolTip();
@@ -21,11 +22,13 @@ namespace tools
 
 	private:
 		void setPosition(const MyGUI::IntPoint & _point);
-		MyGUI::Edit* mText;
 
-		int minWidth;
-		int minHeight;
-		MyGUI::Widget* lastWidget;
+	private:
+		MyGUI::Edit* mText;
+		MyGUI::Widget* mLastWidget;
+
+		int mMinWidth;
+		int mMinHeight;
 	};
 
 } // namespace tools

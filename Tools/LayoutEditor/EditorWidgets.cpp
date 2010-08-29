@@ -298,10 +298,14 @@ namespace tools
 		bool exist = MyGUI::SkinManager::getInstance().isExist(container->skin);
 		if ( !exist && !container->skin.empty())
 		{
-			skin = WidgetTypes::getInstance().find(container->type)->default_skin;
+			skin = WidgetTypes::getInstance().findWidgetStyle(container->type)->default_skin;
+
 			std::string tmp;
-			if (skin.empty()) tmp = "empty skin";
-			else  tmp = "'" + skin + "'";
+			if (skin.empty())
+				tmp = "empty skin";
+			else
+				tmp = "'" + skin + "'";
+
 			// FIXME : not translated string
 			std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", tmp);
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);

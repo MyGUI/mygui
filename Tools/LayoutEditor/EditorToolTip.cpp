@@ -14,9 +14,9 @@ namespace tools
 	{
 		assignWidget(mText, "Text");
 
-		minWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
-		minHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
-		lastWidget = nullptr;
+		mMinWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("mMinWidth"));
+		mMinHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("mMinHeight"));
+		mLastWidget = nullptr;
 	}
 
 	void EditorToolTip::show(MyGUI::Widget* _sender)
@@ -70,11 +70,11 @@ namespace tools
 			height += max_size.height;
 		}
 
-		mMainWidget->setSize(std::max(minWidth, width + 2*MARGIN), std::max(minHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
-		if (lastWidget)
-			MyGUI::Gui::getInstance().destroyWidget(lastWidget);
-		lastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
-		lastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
+		mMainWidget->setSize(std::max(mMinWidth, width + 2*MARGIN), std::max(mMinHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
+		if (mLastWidget)
+			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
+		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+		mLastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
 
 		mMainWidget->setVisible(true);
 	}
