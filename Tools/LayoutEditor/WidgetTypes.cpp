@@ -6,38 +6,38 @@ template <> const char* MyGUI::Singleton<tools::WidgetTypes>::mClassTypeName("Wi
 
 namespace tools
 {
+	const std::string DEFAULT_GOROUP_NAME = "Default";
 	const std::string LogSection = "LayoutEditor";
 
 	void WidgetTypes::initialise()
 	{
-		//loadTypes();
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Widgets") = MyGUI::newDelegate(this, &WidgetTypes::loadWidgets);
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Values") = MyGUI::newDelegate(this, &WidgetTypes::loadValues);
 	}
 
 	void WidgetTypes::shutdown()
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter) delete *iter;
-		widget_types.clear();
-		for (std::vector<PossibleValue*>::iterator iter = possible_values.begin(); iter != possible_values.end(); ++iter) delete *iter;
-		possible_values.clear();
+		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter) delete *iter;
+		mWidgetTypes.clear();
+		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter) delete *iter;
+		mPossibleValues.clear();
 	}
 
-	WidgetStyle* WidgetTypes::find(std::string _type)
+	WidgetStyle* WidgetTypes::findWidgetStyle(const std::string& _type)
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter)
+		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
 			if ((*iter)->name == _type)
 			{
 				return *iter;
 			}
 		}
-		return find("Widget");
+		return findWidgetStyle("Widget");
 	}
 
-	std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
+	std::vector<std::string> WidgetTypes::findPossibleValues(const std::string& _name)
 	{
-		for (std::vector<PossibleValue*>::iterator iter = possible_values.begin(); iter != possible_values.end(); ++iter)
+		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
 		{
 			if ((*iter)->name == _name)
 			{
@@ -50,13 +50,13 @@ namespace tools
 	WidgetStyle * WidgetTypes::getWidgetType(const std::string& _name)
 	{
 		// ищем тип, если нет, то создаем
-		for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter)
+		for (VectorWidgetType::iterator iter=mWidgetTypes.begin(); iter!=mWidgetTypes.end(); ++iter)
 		{
 			if ((*iter)->name == _name) return (*iter);
 		}
 
 		WidgetStyle * type = new WidgetStyle(_name);
-		widget_types.push_back(type);
+		mWidgetTypes.push_back(type);
 
 		return type;
 	}
@@ -65,7 +65,7 @@ namespace tools
 	{
 		WidgetStyle * widget_type = getWidgetType(_type);
 
-		skin_groups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
+		mSkinGroups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
 		widget_type->skin.push_back(_skin);
 	}
 
@@ -94,7 +94,7 @@ namespace tools
 							button_name = value;
 
 						if (group.empty()) group = DEFAULT_GOROUP_NAME;
-						skin_groups[group].push_back(SkinInfo(value, widget_type->name, button_name));
+						mSkinGroups[group].push_back(SkinInfo(value, widget_type->name, button_name));
 						widget_type->skin.push_back(value);
 					}
 					else if (key == "DefaultSkin") widget_type->default_skin = value;
@@ -122,7 +122,7 @@ namespace tools
 	{
 
 		PossibleValue * possible_value = nullptr;
-		for (std::vector<PossibleValue*>::iterator iter=possible_values.begin(); iter!=possible_values.end(); ++iter)
+		for (VectorPossibleValue::iterator iter=mPossibleValues.begin(); iter!=mPossibleValues.end(); ++iter)
 		{
 			if ((*iter)->name == _name)
 			{
@@ -134,7 +134,7 @@ namespace tools
 		{
 			possible_value = new PossibleValue();
 			possible_value->name = _name;
-			possible_values.push_back(possible_value);
+			mPossibleValues.push_back(possible_value);
 		}
 
 		return possible_value;
@@ -179,12 +179,12 @@ namespace tools
 
 	void WidgetTypes::clearAllSkins()
 	{
-		for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter)
+		for (VectorWidgetType::iterator iter=mWidgetTypes.begin(); iter!=mWidgetTypes.end(); ++iter)
 		{
 			(*iter)->skin.clear();
 		}
 
-		skin_groups.clear();
+		mSkinGroups.clear();
 	}
 
 } // namespace tools

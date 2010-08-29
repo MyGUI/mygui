@@ -11,7 +11,6 @@
 
 namespace tools
 {
-
 	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSectorSettingsChanged;
 	typedef std::vector<MyGUI::UString> VectorUString;
 

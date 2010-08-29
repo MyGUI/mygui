@@ -77,17 +77,25 @@ namespace tools
 	{
 		current_widget = _current_widget;
 
-		WidgetStyle * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
 		//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 		if (widgetType->many_items)
 		{
 			setVisible(true);
-			if (widgetType->name == "Tab") mPanelCell->setCaption(replaceTags("Items"));
-			else mPanelCell->setCaption(replaceTags("Items"));
+
+			if (widgetType->name == "Tab")
+				mPanelCell->setCaption(replaceTags("Items"));
+			else
+				mPanelCell->setCaption(replaceTags("Items"));
+
 			syncItems(false);
-			if (widgetType->name == "Tab") mButtonSelect->setVisible(true);
-			else mButtonSelect->setVisible(false);
+
+			if (widgetType->name == "Tab")
+				mButtonSelect->setVisible(true);
+			else
+				mButtonSelect->setVisible(false);
+
 			mEdit->setCaption("");
 			//обновляем кнопки
 			notifyChangeWidth(0);

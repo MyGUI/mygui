@@ -1,6 +1,8 @@
 #ifndef __GROUP_MESSAGE__
 #define __GROUP_MESSAGE__
 
+#include <MyGUI.h>
+
 namespace tools
 {
 	class GroupMessage :
@@ -9,6 +11,7 @@ namespace tools
 	public:
 		void addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type);
 		void showMessages();
+
 	private:
 		MyGUI::VectorString mErrorMessages;
 		MyGUI::VectorString mWarningMessages;

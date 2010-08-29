@@ -34,6 +34,10 @@ set (HEADER_FILES
   DialogManager.h
   SettingsSector.h
   MessageBoxFadeControl.h
+  CyclicBuffer.h
+  SkinInfo.h
+  WidgetStyle.h
+  PossibleValue.h
 )
 set (SOURCE_FILES
   EditorState.cpp

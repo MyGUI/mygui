@@ -11,19 +11,19 @@ namespace tools
 	const int UNDO_COUNT = 64;
 
 	UndoManager::UndoManager() :
-		pos(0),
-		operations(UNDO_COUNT),
-		last_property(0),
-		ew(nullptr),
+		mPosition(0),
+		mOperations(UNDO_COUNT),
+		mLastProperty(0),
+		mEditorWidgets(nullptr),
 		mUnsaved(false)
 	{
 	}
 
 	void UndoManager::initialise(EditorWidgets * _ew)
 	{
-		pos = 0;
-		last_property = PR_DEFAULT;
-		ew = _ew;
+		mPosition = 0;
+		mLastProperty = PR_DEFAULT;
+		mEditorWidgets = _ew;
 		setUnsaved(false);
 
 		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &UndoManager::commandUndo));
@@ -32,61 +32,61 @@ namespace tools
 
 	void UndoManager::shutdown()
 	{
-		for (size_t i=0; i<operations.GetSize(); i++)
+		for (size_t i=0; i<mOperations.GetSize(); i++)
 		{
-			delete operations[i];
+			delete mOperations[i];
 		}
-		operations.Clear();
+		mOperations.Clear();
 	}
 
 	void UndoManager::undo()
 	{
 		setUnsaved(true);
 
-		if (pos == operations.GetSize() - 1) return;
-		pos++;
-		ew->clear();
-		ew->loadxmlDocument(operations[pos]);
+		if (mPosition == mOperations.GetSize() - 1) return;
+		mPosition++;
+		mEditorWidgets->clear();
+		mEditorWidgets->loadxmlDocument(mOperations[mPosition]);
 	}
 
 	void UndoManager::redo()
 	{
 		setUnsaved(true);
 
-		if (pos == 0) return;
-		pos--;
-		ew->clear();
-		ew->loadxmlDocument(operations[pos]);
+		if (mPosition == 0) return;
+		mPosition--;
+		mEditorWidgets->clear();
+		mEditorWidgets->loadxmlDocument(mOperations[mPosition]);
 	}
 
 	void UndoManager::addValue(int _property)
 	{
 		setUnsaved(true);
 
-		if ((_property != PR_DEFAULT) && (_property == last_property))
+		if ((_property != PR_DEFAULT) && (_property == mLastProperty))
 		{
-			delete operations.Front();
-			operations.PopFirst();
-			operations.Push( ew->savexmlDocument() );
+			delete mOperations.Front();
+			mOperations.PopFirst();
+			mOperations.Push( mEditorWidgets->savexmlDocument() );
 			return;
 		}
 
-		last_property = _property;
+		mLastProperty = _property;
 
-		if ( pos != 0 )
+		if ( mPosition != 0 )
 		{
-			last_property = PR_DEFAULT;
-			while (pos)
+			mLastProperty = PR_DEFAULT;
+			while (mPosition)
 			{
-				delete operations.Front();
-				operations.PopFirst();
-				pos--;
+				delete mOperations.Front();
+				mOperations.PopFirst();
+				mPosition--;
 			}
 		}
 
-		if ( operations.IsFull() ) delete operations.Back();
-		operations.Push( ew->savexmlDocument() );
-		pos = 0;
+		if ( mOperations.IsFull() ) delete mOperations.Back();
+		mOperations.Push( mEditorWidgets->savexmlDocument() );
+		mPosition = 0;
 	}
 
 	void UndoManager::commandUndo(const MyGUI::UString& _commandName)
