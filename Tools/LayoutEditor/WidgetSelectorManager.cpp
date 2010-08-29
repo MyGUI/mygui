@@ -11,7 +11,6 @@ template <> const char* MyGUI::Singleton<tools::WidgetSelectorManager>::mClassTy
 
 namespace tools
 {
-
 	WidgetSelectorManager::WidgetSelectorManager() :
 		mCurrentWidget(nullptr)
 	{

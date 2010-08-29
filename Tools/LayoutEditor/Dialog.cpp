@@ -9,7 +9,6 @@
 
 namespace tools
 {
-
 	Dialog::Dialog() :
 		wraps::BaseLayout(),
 		mModal(false)

@@ -10,7 +10,8 @@
 
 namespace tools
 {
-	EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
+	EditorToolTip::EditorToolTip() :
+		BaseLayout("EditorToolTip.layout")
 	{
 		assignWidget(mText, "Text");
 
@@ -41,11 +42,9 @@ namespace tools
 		const int LINE_HEIGHT = 22;
 		const int LINES = 3;
 
-		// óçíàåì ðàçìåð ñêèíà, òàê ÷òîáû äî÷êè áûëè ïîëíîðàçìåðíûå
 		MyGUI::SkinManager & manager = MyGUI::SkinManager::getInstance();
 		if (manager.isExist(skin))
 		{
-			// ìàêñèìàëüíàÿ ðàçíèöà
 			MyGUI::IntSize max_size;
 
 			MyGUI::ResourceSkin* info = manager.getByName(skin);
@@ -65,7 +64,6 @@ namespace tools
 				}
 			}
 
-			// ïðèáàâëÿåì ðàçìåð äåòåé
 			width += max_size.width;
 			height += max_size.height;
 		}

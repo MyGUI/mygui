@@ -11,7 +11,6 @@ template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName
 
 namespace tools
 {
-
 	const std::string LogSection = "LayoutEditor";
 
 	const std::wstring settingsFile = L"settings.xml";

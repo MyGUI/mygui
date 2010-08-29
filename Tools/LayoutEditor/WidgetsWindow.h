@@ -27,7 +27,7 @@ namespace tools
 		void createNewWidget(int _x2, int _y2);
 		void finishNewWidget(int _x2, int _y2);
 
-		int getCreatingStatus() { return creating_status; }
+		int getCreatingStatus() { return mCreatingStatus; }
 
 		MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
@@ -43,22 +43,26 @@ namespace tools
 	private:
 		MyGUI::Tab* mTabSkins;
 
-		int widgetsButtonWidth;
-		int widgetsButtonHeight;
-		int widgetsButtonsInOneLine;
-		std::string skinSheetName;
+		int mWidgetsButtonWidth;
+		int mWidgetsButtonHeight;
+		int mWidgetsButtonsInOneLine;
+		std::string mSkinSheetName;
 
-		MyGUI::Widget* current_widget;
+		MyGUI::Widget* mCurrentWidget;
 
-		EditorToolTip*  mToolTip;
+		EditorToolTip* mToolTip;
 
 		// info for new widget
-		int x1, y1, x2, y2;
-		// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
-		int creating_status;
+		int mX1;
+		int mY1;
+		int mX2;
+		int mY2;
 
-		std::string new_widget_type;
-		std::string new_widget_skin;
+		// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
+		int mCreatingStatus;
+
+		std::string mNewWidgetType;
+		std::string mNewWidgetSkin;
 		int mMaxLines;
 	};
 

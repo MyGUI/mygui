@@ -10,7 +10,6 @@
 
 namespace tools
 {
-
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		Dialog("OpenSaveFileDialog.layout"),
 		mFolderMode(false)
