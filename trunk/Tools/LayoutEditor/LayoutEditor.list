@@ -33,6 +33,7 @@ set (HEADER_FILES
   MessageBoxManager.h
   DialogManager.h
   SettingsSector.h
+  MessageBoxFadeControl.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -65,6 +66,7 @@ set (SOURCE_FILES
   DialogManager.cpp
   Dialog.cpp
   SettingsSector.cpp
+  MessageBoxFadeControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp

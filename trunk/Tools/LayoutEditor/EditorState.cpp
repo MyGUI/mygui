@@ -30,7 +30,8 @@ EditorState::EditorState() :
 	mOpenSaveFileDialog(nullptr),
 	mMainMenuControl(nullptr),
 	mFileName("unnamed.xml"),
-	mDefaultFileName("unnamed.xml")
+	mDefaultFileName("unnamed.xml"),
+	mMessageBoxFadeControl(nullptr)
 {
 }
 
@@ -119,6 +120,8 @@ void EditorState::createScene()
 	mMainMenuControl = new tools::MainMenuControl();
 	mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
 
+	mMessageBoxFadeControl = new tools::MessageBoxFadeControl();
+
 	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
 	widget->setCoord(
 		widget->getParentSize().width - widget->getSize().width,
@@ -167,6 +170,9 @@ void EditorState::destroyScene()
 {
 	UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+
+	delete mMessageBoxFadeControl;
+	mMessageBoxFadeControl = nullptr;
 
 	delete mMainMenuControl;
 	mMainMenuControl = nullptr;
