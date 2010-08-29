@@ -2,18 +2,15 @@
 #define __APPLICATION_H__
 
 #include "BaseManager.h"
-#include "PropertiesPanelView.h"
-#include "SettingsWindow.h"
-#include "WidgetsWindow.h"
-#include "OpenSaveFileDialog.h"
-#include "MainMenuControl.h"
-#include "CodeGenerator.h"
-#include "MessageBoxFadeControl.h"
+#include "StateController.h"
+#include "EditorState.h"
 
 namespace tools
 {
 	class Application :
-		public base::BaseManager
+		public base::BaseManager,
+		public MyGUI::Singleton<Application>,
+		public StateController
 	{
 	public:
 		Application();
@@ -38,47 +35,16 @@ namespace tools
 
 		void setCaption(const MyGUI::UString& _value);
 
+		virtual void resumeState();
+
 	private:
-		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-
-		void clear();
-		bool save();
-		void load();
-		void loadDropFile();
-
-		void notifyRecreate();
-		void notifyFrameStarted(float _time);
+		void commandQuitApp(const MyGUI::UString& _commandName);
+		void commandStatisticInfo(const MyGUI::UString& _commandName);
+		void commandFocusVisible(const MyGUI::UString& _commandName);
 
 		int toGrid(int _x);
 
-		void commandLoad(const MyGUI::UString& _commandName);
-		void commandSave(const MyGUI::UString& _commandName);
-		void commandSaveAs(const MyGUI::UString& _commandName);
-		void commandClear(const MyGUI::UString& _commandName);
-		//void commandTest(const MyGUI::UString& _commandName);
-		void commandQuit(const MyGUI::UString& _commandName);
-		void commandQuitApp(const MyGUI::UString& _commandName);
-		void commandSettings(const MyGUI::UString& _commandName);
-		void commandCodeGenerator(const MyGUI::UString& _commandName);
-		void commandRecentFiles(const MyGUI::UString& _commandName);
-		void commandStatisticInfo(const MyGUI::UString& _commandName);
-		void commandFocusVisible(const MyGUI::UString& _commandName);
-		void commandFileDrop(const MyGUI::UString& _commandName);
-
-		void updateCaption();
-		bool checkCommand();
-
-		void notifySettingsWindowEndDialog(Dialog* _dialog, bool _result);
-		void notifyEndDialogCodeGenerator(Dialog* _dialog, bool _result);
-		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
-		void notifyChanges(bool _changes);
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-
-		void showLoadWindow();
-		void showSaveAsWindow();
 
 	private:
 		// last click for depth selecting
@@ -86,30 +52,12 @@ namespace tools
 		int mLastClickY;
 		int mSelectDepth;
 
-		// drop select after skin change
-		bool mRecreate;
-
-		//bool mTestMode;
-		MyGUI::VectorWidgetPtr mInterfaceWidgets;
-		MyGUI::xml::Document * mTestLayout;
-
-		PropertiesPanelView * mPropertiesPanelView;
-		SettingsWindow * mSettingsWindow;
-		WidgetsWindow * mWidgetsWindow;
-		CodeGenerator * mCodeGenerator;
-		OpenSaveFileDialog* mOpenSaveFileDialog;
-
 		VectorWString mParams;
 		std::string mLocale;
 
-		MainMenuControl* mMainMenuControl;
-		MessageBoxFadeControl* mMessageBoxFadeControl;
-
-		MyGUI::UString mFileName;
-		MyGUI::UString mDefaultFileName;
-		MyGUI::UString mDropFileName;
-
 		int mGridStep;
+
+		EditorState* mEditorState;
 	};
 
 } // namespace tools

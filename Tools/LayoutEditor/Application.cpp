@@ -16,6 +16,9 @@
 #include "StateManager.h"
 #include "Localise.h"
 
+template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
+
 namespace tools
 {
 	const int BAR_HEIGHT = 30;
@@ -24,17 +27,6 @@ namespace tools
 		mLastClickX(0),
 		mLastClickY(0),
 		mSelectDepth(0),
-		mRecreate(false),
-		//mTestMode(false),
-		mPropertiesPanelView(nullptr),
-		mSettingsWindow(nullptr),
-		mWidgetsWindow(nullptr),
-		mCodeGenerator(nullptr),
-		mOpenSaveFileDialog(nullptr),
-		mMainMenuControl(nullptr),
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
-		mMessageBoxFadeControl(nullptr),
 		mGridStep(0)
 	{
 	}
@@ -101,112 +93,41 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-		mInterfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
-
-		// settings window
-		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &Application::notifySettingsWindowEndDialog);
-		//mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
-
-		// properties panelView
-		mPropertiesPanelView = new PropertiesPanelView();
-		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &Application::notifyRecreate);
-		mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
-
-		mWidgetsWindow = new WidgetsWindow();
-		mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
-
-		mCodeGenerator = new CodeGenerator();
-		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogCodeGenerator);
-		//mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
-
-		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->setFileMask("*.layout");
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogOpenSaveFile);
-
-		mMainMenuControl = new MainMenuControl();
-		mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
-
-		mMessageBoxFadeControl = new MessageBoxFadeControl();
-
-		MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
-		widget->setCoord(
-			widget->getParentSize().width - widget->getSize().width,
-			BAR_HEIGHT,
-			widget->getSize().width,
-			widget->getParentSize().height - BAR_HEIGHT
-			);
-
-		// после загрузки настроек инициализируем
-		mWidgetsWindow->initialise();
-
 		const VectorUString& additionalPaths = SettingsManager::getInstance().getAdditionalPaths();
 		for (VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &Application::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &Application::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &Application::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &Application::commandClear));
-		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &Application::commandTest));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &Application::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
-		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &Application::commandSettings));
-		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &Application::commandCodeGenerator));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &Application::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
-		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &Application::commandFileDrop));
-
-		updateCaption();
-
-		if (!getParams().empty())
-		{
-			mFileName = getParams().front();
-			addUserTag("CurrentFileName", mFileName);
-
-			load();
-			updateCaption();
-		}
-
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
-		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &Application::notifyChanges);
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &Application::notifyFrameStarted);
 
-		/*mEditorState = new EditorState();
-		mTestState = new TestState();
+		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
+		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
+
+		mEditorState = new EditorState();
+		//mTestState = new TestState();
 
 		StateManager::getInstance().registerState(this, "Application");
 		StateManager::getInstance().registerState(mEditorState, "EditorState");
-		StateManager::getInstance().registerState(mTestState, "TestState");
+		//StateManager::getInstance().registerState(mTestState, "TestState");
 
 		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
-		StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
+		//StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
 		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
-		StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
+		//StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
 
 		StateManager::getInstance().pushState(this);
-		StateManager::getInstance().stateEvent(this, "Start");*/
+		StateManager::getInstance().stateEvent(this, "Start");
 	}
 
 	void Application::destroyScene()
 	{
-		//StateManager::getInstance().rollbackToState(nullptr);
+		StateManager::getInstance().rollbackToState(nullptr);
+
+		delete mEditorState;
+		mEditorState = nullptr;
 
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
-		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &Application::notifyChanges);
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &Application::notifyFrameStarted);
-
-		delete mMessageBoxFadeControl;
-		mMessageBoxFadeControl = nullptr;
-
-		delete mMainMenuControl;
-		mMainMenuControl = nullptr;
-
-		delete mPropertiesPanelView;
-		mPropertiesPanelView = nullptr;
 
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();
@@ -227,18 +148,6 @@ namespace tools
 
 		WidgetTypes::getInstance().shutdown();
 		delete WidgetTypes::getInstancePtr();
-
-		delete mSettingsWindow;
-		mSettingsWindow = nullptr;
-
-		delete mCodeGenerator;
-		mCodeGenerator = nullptr;
-
-		delete mWidgetsWindow;
-		mWidgetsWindow = nullptr;
-
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
 
 		HotKeyManager::getInstance().shutdown();
 		delete HotKeyManager::getInstancePtr();
@@ -283,7 +192,8 @@ namespace tools
 			y2 = _absy;
 		}
 
-		mWidgetsWindow->createNewWidget(x2, y2);
+		//FIXME
+		//mWidgetsWindow->createNewWidget(x2, y2);
 
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
@@ -316,15 +226,18 @@ namespace tools
 		}
 
 		// юбилейный комит  =)
-		mWidgetsWindow->startNewWidget(x1, y1, _id);
+		//FIXME
+		//mWidgetsWindow->startNewWidget(x1, y1, _id);
 
 		MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
+		//FIXME
 		// не убираем прямоугольник если нажали на его растягивалку
-		if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
+		if (item/* && (item->getParent() != mPropertiesPanelView->getWidgetRectangle())*/)
 		{
 			// чтобы прямоугольник не мешался
-			mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
+			//FIXME
+			//mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 			item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 		}
 
@@ -353,7 +266,8 @@ namespace tools
 			{
 				WidgetSelectorManager::getInstance().setSelectedWidget(item);
 
-				if (mWidgetsWindow->getCreatingStatus() != 1)
+				//FIXME
+				//if (mWidgetsWindow->getCreatingStatus() != 1)
 				{
 					//FIXME
 					MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
@@ -372,14 +286,15 @@ namespace tools
 		}
 
 		// вернем прямоугольник
-		if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && mWidgetsWindow->getCreatingStatus() == 0)
+		//FIXME
+		/*if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && mWidgetsWindow->getCreatingStatus() == 0)
 		{
 			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 		}
 		else if (mWidgetsWindow->getCreatingStatus())
 		{
 			mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
-		}
+		}*/
 
 		//base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
@@ -412,7 +327,8 @@ namespace tools
 				y2 = _absy;
 			}
 
-			mWidgetsWindow->finishNewWidget(x2, y2);
+			//FIXME
+			//mWidgetsWindow->finishNewWidget(x2, y2);
 		}
 
 		UndoManager::getInstance().dropLastProperty();
@@ -424,70 +340,13 @@ namespace tools
 	{
 		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
-		/*if (mTestMode)
-		{
-			if (_key == MyGUI::KeyCode::Escape)
-			{
-				if (input.isModalAny() == false)
-				{
-					notifyEndTest();
-				}
-			}
-
-			MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
-			return;
-		}*/
-
 		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
 			input.injectKeyPress(_key, _text);
 	}
 
 	void Application::injectKeyRelease(MyGUI::KeyCode _key)
 	{
-		/*if (mTestMode)
-		{
-			return base::BaseManager::injectKeyRelease(_key);
-		}*/
-
 		return base::BaseManager::injectKeyRelease(_key);
-	}
-
-	void Application::notifyFrameStarted(float _time)
-	{
-		GroupMessage::getInstance().showMessages();
-
-		if (mRecreate)
-		{
-			mRecreate = false;
-			// виджет пересоздался, теперь никто незнает его адреса :)
-			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-		}
-	}
-
-	/*void Application::notifyEndTest()
-	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-		{
-			if ((*iter)->getUserString("WasVisible") == "true")
-			{
-				(*iter)->setVisible(true);
-			}
-		}
-		mTestMode = false;
-		clear(false);
-		EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
-	}*/
-
-	void Application::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
-	{
-		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
-
-		if (_result)
-		{
-			mSettingsWindow->saveSettings();
-		}
-
-		mSettingsWindow->endModal();
 	}
 
 	void Application::prepare()
@@ -606,46 +465,6 @@ namespace tools
 		return _x / mGridStep * mGridStep;
 	}
 
-	void Application::notifyRecreate()
-	{
-		mRecreate = true;
-	}
-
-	/*void Application::commandTest(const MyGUI::UString& _commandName)
-	{
-		mTestLayout = EditorWidgets::getInstance().savexmlDocument();
-		EditorWidgets::getInstance().clear();
-		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-
-		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
-		{
-			if ((*iter)->getVisible())
-			{
-				(*iter)->setUserString("WasVisible", "true");
-				(*iter)->setVisible(false);
-			}
-		}
-
-		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
-		mTestMode = true;
-	}*/
-
-	void Application::commandSettings(const MyGUI::UString& _commandName)
-	{
-		mSettingsWindow->doModal();
-	}
-
-	void Application::commandCodeGenerator(const MyGUI::UString& _commandName)
-	{
-		mCodeGenerator->loadTemplate();
-		mCodeGenerator->doModal();
-	}
-
-	void Application::commandRecentFiles(const MyGUI::UString& _commandName)
-	{
-		commandFileDrop(_commandName);
-	}
-
 	void Application::commandStatisticInfo(const MyGUI::UString& _commandName)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
@@ -675,336 +494,9 @@ namespace tools
 		}
 	}
 
-	void Application::commandLoad(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		if (UndoManager::getInstance().isUnsaved())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoad);
-		}
-		else
-		{
-			showLoadWindow();
-		}
-	}
-
-	void Application::commandSave(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		if (UndoManager::getInstance().isUnsaved())
-		{
-			save();
-		}
-	}
-
-	void Application::commandSaveAs(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		showSaveAsWindow();
-	}
-
-	void Application::commandClear(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		if (UndoManager::getInstance().isUnsaved())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultClear);
-		}
-		else
-		{
-			clear();
-		}
-	}
-
-	void Application::commandQuit(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		if (UndoManager::getInstance().isUnsaved())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultQuit);
-		}
-		else
-		{
-			//StateManager::getInstance().stateEvent(this, "Exit");
-			quit();
-		}
-	}
-
-	void Application::commandFileDrop(const MyGUI::UString& _commandName)
-	{
-		if (!checkCommand())
-			return;
-
-		mDropFileName = CommandManager::getInstance().getCommandData();
-		if (mDropFileName.empty())
-			return;
-
-		if (UndoManager::getInstance().isUnsaved())
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoadDropFile);
-		}
-		else
-		{
-			clear();
-
-			loadDropFile();
-		}
-	}
-
-	void Application::clear()
-	{
-		mWidgetsWindow->clearNewWidget();
-		mRecreate = false;
-		EditorWidgets::getInstance().clear();
-
-		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-
-		UndoManager::getInstance().shutdown();
-		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
-		mSelectDepth = 0;
-
-		mFileName = mDefaultFileName;
-		addUserTag("CurrentFileName", mFileName);
-
-		updateCaption();
-	}
-
-	void Application::load()
-	{
-		if (EditorWidgets::getInstance().load(mFileName))
-		{
-			SettingsManager::getInstance().addRecentFile(mFileName);
-
-			UndoManager::getInstance().addValue();
-			UndoManager::getInstance().setUnsaved(false);
-		}
-		else
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageFailedLoadFile"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-				);
-
-			mFileName = mDefaultFileName;
-			addUserTag("CurrentFileName", mFileName);
-
-			updateCaption();
-		}
-	}
-
-	bool Application::save()
-	{
-		if (EditorWidgets::getInstance().save(mFileName))
-		{
-			SettingsManager::getInstance().addRecentFile(mFileName);
-
-			UndoManager::getInstance().addValue();
-			UndoManager::getInstance().setUnsaved(false);
-			return true;
-		}
-		else
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageFailedSaveFile"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-				);
-		}
-		return false;
-	}
-
-	void Application::updateCaption()
-	{
-		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
-		setCaption(replaceTags("CaptionMainWindow"));
-	}
-
-	void Application::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			if (save())
-			{
-				clear();
-
-				showLoadWindow();
-			}
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-
-			showLoadWindow();
-		}
-	}
-
-	void Application::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			if (save())
-			{
-				clear();
-
-				loadDropFile();
-			}
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-
-			loadDropFile();
-		}
-	}
-
-	void Application::loadDropFile()
-	{
-		mFileName = mDropFileName;
-		addUserTag("CurrentFileName", mFileName);
-
-		load();
-		updateCaption();
-	}
-
-	void Application::showLoadWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
-		mOpenSaveFileDialog->setMode("Load");
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void Application::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
-	{
-		if (_result)
-		{
-			if (mOpenSaveFileDialog->getMode() == "SaveAs")
-			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
-
-				save();
-				updateCaption();
-			}
-			else if (mOpenSaveFileDialog->getMode() == "Load")
-			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
-
-				load();
-				updateCaption();
-			}
-		}
-
-		mOpenSaveFileDialog->endModal();
-	}
-
-	void Application::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			if (save())
-			{
-				clear();
-			}
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			clear();
-		}
-	}
-
-	void Application::showSaveAsWindow()
-	{
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
-		mOpenSaveFileDialog->setMode("SaveAs");
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void Application::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
-	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
-		{
-			if (save())
-			{
-				//StateManager::getInstance().stateEvent(this, "Exit");
-				quit();
-			}
-		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
-		{
-			//StateManager::getInstance().stateEvent(this, "Exit");
-			quit();
-		}
-	}
-
-	bool Application::checkCommand()
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return false;
-
-		if (MessageBoxManager::getInstance().hasAny())
-			return false;
-
-		//if (!StateManager::getInstance().getStateActivate(this))
-		//	return false;
-
-		return true;
-	}
-
-	void Application::notifyChanges(bool _changes)
-	{
-		updateCaption();
-	}
-
 	void Application::setCaption(const MyGUI::UString& _value)
 	{
 		setWindowCaption(_value);
-	}
-
-	void Application::notifyEndDialogCodeGenerator(Dialog* _dialog, bool _result)
-	{
-		mCodeGenerator->endModal();
-		if (_result)
-			mCodeGenerator->saveTemplate();
 	}
 
 	void Application::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
@@ -1014,6 +506,11 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 		}
+	}
+
+	void Application::resumeState()
+	{
+		quit();
 	}
 
 } // namespace tools
