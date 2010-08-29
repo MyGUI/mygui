@@ -156,7 +156,7 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::Window* _sender)
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)
 	{
-		MyGUI::IntCoord coord = convertCoordToParentCoord(_sender->getCoord(), current_widget);
+		MyGUI::IntCoord coord = tools::utility::convertCoordToParentCoord(_sender->getCoord(), current_widget);
 		MyGUI::IntCoord old_coord = current_widget->getCoord();
 		// align to grid
 		if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move)

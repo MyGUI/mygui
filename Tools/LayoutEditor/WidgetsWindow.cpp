@@ -5,6 +5,7 @@
 */
 
 #include "precompiled.h"
+#include "Common.h"
 #include "WidgetsWindow.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
@@ -173,7 +174,7 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 	}
 	else if (creating_status == 2)
 	{
-		coord = convertCoordToParentCoord(coord, current_widget);
+		coord = tools::utility::convertCoordToParentCoord(coord, current_widget);
 		current_widget->setCoord(coord);
 	}
 }
