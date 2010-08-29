@@ -10,7 +10,6 @@
 
 namespace tools
 {
-
 	class MessageBoxManager :
 		public MyGUI::Singleton<MessageBoxManager>
 	{

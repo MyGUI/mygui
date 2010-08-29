@@ -11,7 +11,6 @@
 
 namespace tools
 {
-
 	class HotKeyManager :
 		public MyGUI::Singleton<HotKeyManager>
 	{

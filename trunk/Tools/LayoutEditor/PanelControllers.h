@@ -13,10 +13,10 @@ namespace tools
 {
 	extern const int PropertyItemHeight;
 
-	class PanelControllers : public wraps::BasePanelViewItem
+	class PanelControllers :
+		public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelControllers();
 
 		virtual void initialise();
@@ -28,6 +28,7 @@ namespace tools
 		typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
 		EventHandle_EventCreatePair eventCreatePair;
 		EventHandle_WidgetVoid eventHidePairs;
+
 	private:
 		virtual void notifyChangeWidth(int _width);
 

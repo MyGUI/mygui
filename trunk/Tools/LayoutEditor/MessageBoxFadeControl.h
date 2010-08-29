@@ -10,7 +10,6 @@
 
 namespace tools
 {
-
 	class MessageBoxFadeControl :
 		public wraps::BaseLayout
 	{
