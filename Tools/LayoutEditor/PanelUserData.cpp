@@ -20,7 +20,7 @@ namespace tools
 		mButtonAdd(nullptr),
 		mButtonDelete(nullptr),
 		mMultilist(nullptr),
-		current_widget(nullptr),
+		mCurrentWidget(nullptr),
 		mEditLeft(0),
 		mEditRight(0),
 		mEditSpace(0),
@@ -62,11 +62,11 @@ namespace tools
 	{
 	}
 
-	void PanelUserData::update(MyGUI::Widget* _current_widget)
+	void PanelUserData::update(MyGUI::Widget* _currentWidget)
 	{
-		current_widget = _current_widget;
+		mCurrentWidget = _currentWidget;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		mMultilist->removeAllItems();
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
@@ -97,7 +97,7 @@ namespace tools
 	{
 		std::string key = mEditKey->getOnlyText();
 		std::string value = mEditValue->getOnlyText();
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		if (utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
 		{
 			mMultilist->addItem(key);
@@ -112,7 +112,7 @@ namespace tools
 		size_t item = mMultilist->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		utility::mapErase(widgetContainer->mUserString, mMultilist->getItemNameAt(item));
 		mMultilist->removeItemAt(item);
 		UndoManager::getInstance().addValue();
@@ -130,7 +130,7 @@ namespace tools
 		std::string value = mEditValue->getOnlyText();
 		std::string lastkey = mMultilist->getItemNameAt(item);
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
 		utility::mapErase(widgetContainer->mUserString, lastkey);
 		if (utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())

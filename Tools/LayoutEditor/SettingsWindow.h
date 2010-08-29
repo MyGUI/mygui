@@ -56,6 +56,8 @@ namespace tools
 		MyGUI::Button* mCheckShowType;
 		MyGUI::Button* mCheckShowSkin;
 		MyGUI::Button* mCheckEdgeHide;
+
+		int mGridStep;
 	};
 
 } // namespace tools

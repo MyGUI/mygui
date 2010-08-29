@@ -22,16 +22,14 @@ namespace tools
 
 	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
-	int grid_step = 8;//FIXME_HOOK
-	int toGrid(int _x) { return _x / grid_step * grid_step; }
-
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 	std::string DEFAULT_VALUE;
 	std::string ERROR_VALUE;
 
 	PropertiesPanelView::PropertiesPanelView() :
 		BaseLayout("PropertiesPanelView.layout"),
-		mPropertyItemHeight(0)
+		mPropertyItemHeight(0),
+		mGridStep(0)
 	{
 		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 		ERROR_VALUE = replaceTags("ColourError");
@@ -50,7 +48,7 @@ namespace tools
 		mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 		mPanelMainProperties->eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
 
-		for (int i = 0; i < MaxBaseTypesCount; ++i)
+		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 		{
 			mPanelsTypeProperties[i] = new PanelProperties();
 			mPanelView->addItem(mPanelsTypeProperties[i]);
@@ -69,7 +67,7 @@ namespace tools
 		mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
 
 		mPanels.push_back(mPanelMainProperties);
-		for (int i = 0; i < MaxBaseTypesCount; ++i)
+		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 		{
 			mPanels.push_back(mPanelsTypeProperties[i]);
 		}
@@ -77,19 +75,21 @@ namespace tools
 		mPanels.push_back(mPanelUserData);
 		mPanels.push_back(mPanelControllers);
 
-		current_widget = nullptr;
+		mCurrentWidget = nullptr;
 
 		// create widget rectangle
-		current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
-		current_widget_rectangle->eventWindowChangeCoord += newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
-		current_widget_rectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
-		current_widget_rectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
+		mCurrentWidgetRectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
+		mCurrentWidgetRectangle->eventWindowChangeCoord += newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
+		mCurrentWidgetRectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
+		mCurrentWidgetRectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
-		arrow_move = false;
+		mArrowMove = false;
 
 		setEdgeHideController();
 
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
+		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &PropertiesPanelView::notifySettingsChanged);
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertiesPanelView::commandToggleRelativeMode));
@@ -97,11 +97,12 @@ namespace tools
 
 	PropertiesPanelView::~PropertiesPanelView()
 	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &PropertiesPanelView::notifySettingsChanged);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 
 		mPanelView->removeAllItems();
 		delete mPanelMainProperties;
-		for (int i = 0; i < MaxBaseTypesCount; ++i)
+		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 		{
 			delete mPanelsTypeProperties[i];
 		}
@@ -160,24 +161,24 @@ namespace tools
 		if (!_sender->getVisible())
 			return;
 		// найдем соответствующий контейнер виджета и переместим/растянем
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-		if (WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->resizeable)
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		if (WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->resizeable)
 		{
-			MyGUI::IntCoord coord = utility::convertCoordToParentCoord(_sender->getCoord(), current_widget);
-			MyGUI::IntCoord old_coord = current_widget->getCoord();
+			MyGUI::IntCoord coord = utility::convertCoordToParentCoord(_sender->getCoord(), mCurrentWidget);
+			MyGUI::IntCoord old_coord = mCurrentWidget->getCoord();
 			// align to grid
-			if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move)
+			if (!MyGUI::InputManager::getInstance().isShiftPressed() && !mArrowMove)
 			{
 				if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 				{
-					coord.left = toGrid(coord.left + grid_step-1 - old_coord.left) + old_coord.left;
-					coord.top = toGrid(coord.top + grid_step-1 - old_coord.top) + old_coord.top;
+					coord.left = toGrid(coord.left + mGridStep-1 - old_coord.left) + old_coord.left;
+					coord.top = toGrid(coord.top + mGridStep-1 - old_coord.top) + old_coord.top;
 				}
 				else // если растягиваем
 				{
 					if (old_coord.left != coord.left)
 					{
-						coord.left = toGrid(coord.left + grid_step-1);
+						coord.left = toGrid(coord.left + mGridStep-1);
 						coord.width = old_coord.right() - coord.left;
 					}
 					else if (old_coord.width != coord.width)
@@ -187,7 +188,7 @@ namespace tools
 
 					if (old_coord.top != coord.top)
 					{
-						coord.top = toGrid(coord.top + grid_step-1);
+						coord.top = toGrid(coord.top + mGridStep-1);
 						coord.height = old_coord.bottom() - coord.top;
 					}
 					else if (old_coord.height != coord.height)
@@ -196,29 +197,29 @@ namespace tools
 					}
 				}
 			}
-			arrow_move = false;
+			mArrowMove = false;
 
-			current_widget->setCoord(coord);
-			// update coord because of current_widget can have MinMax size
-			coord = current_widget->getCoord();
+			mCurrentWidget->setCoord(coord);
+			// update coord because of mCurrentWidget can have MinMax size
+			coord = mCurrentWidget->getCoord();
 			setPositionText(widgetContainer->position());
 
 			UndoManager::getInstance().addValue(PR_POSITION);
 		}
-		current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
+		mCurrentWidgetRectangle->setCoord(mCurrentWidget->getAbsoluteCoord());
 	}
 
 	void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 	{
 		MyGUI::IntPoint delta;
-		int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
+		int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : mGridStep;
 		if (MyGUI::KeyCode::Tab == _key)
 		{
-			if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab"))
-				notifyChangeSelectedWidget(current_widget->getParent());
-			if (current_widget && current_widget->getTypeName() == "Tab")
+			if ((nullptr != mCurrentWidget) && (nullptr != mCurrentWidget->getParent()) && (mCurrentWidget->getParent()->getTypeName() == "Tab"))
+				notifyChangeSelectedWidget(mCurrentWidget->getParent());
+			if (mCurrentWidget && mCurrentWidget->getTypeName() == "Tab")
 			{
-				MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
+				MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 				size_t sheet = tab->getIndexSelected();
 				sheet++;
 				if (sheet >= tab->getItemCount()) sheet = 0;
@@ -227,9 +228,9 @@ namespace tools
 		}
 		else if (MyGUI::KeyCode::Delete == _key)
 		{
-			if (current_widget)
+			if (mCurrentWidget)
 			{
-				EditorWidgets::getInstance().remove(current_widget);
+				EditorWidgets::getInstance().remove(mCurrentWidget);
 				eventRecreate();
 				UndoManager::getInstance().addValue();
 			}
@@ -253,24 +254,24 @@ namespace tools
 
 		if (delta != MyGUI::IntPoint())
 		{
-			arrow_move = true;
-			current_widget_rectangle->setPosition(current_widget_rectangle->getPosition() + delta);
-			notifyRectangleResize(current_widget_rectangle);
+			mArrowMove = true;
+			mCurrentWidgetRectangle->setPosition(mCurrentWidgetRectangle->getPosition() + delta);
+			notifyRectangleResize(mCurrentWidgetRectangle);
 			UndoManager::getInstance().addValue(PR_KEY_POSITION);
 		}
 	}
 
 	void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
 	{
-		current_widget = _current_widget;
+		mCurrentWidget = _current_widget;
 
-		if (nullptr == current_widget)
-			current_widget_rectangle->setVisible(false);
+		if (nullptr == mCurrentWidget)
+			mCurrentWidgetRectangle->setVisible(false);
 		else
 		{
-			MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
-			MyGUI::IntCoord coord = current_widget->getCoord();
-			MyGUI::Widget* parent = current_widget->getParent();
+			MyGUI::LayerManager::getInstance().upLayerItem(mCurrentWidget);
+			MyGUI::IntCoord coord = mCurrentWidget->getCoord();
+			MyGUI::Widget* parent = mCurrentWidget->getParent();
 			if (nullptr != parent)
 			{
 				// если выбрали виджет на табе, то поднять лист таба
@@ -281,17 +282,17 @@ namespace tools
 					tab->setItemSelected(sheet);
 				}
 				// если выбрали лист таба, то поднять лист таба
-				if (current_widget->getTypeName() == "TabItem" || current_widget->getTypeName() == MyGUI::TabItem::getClassTypeName())
+				if (mCurrentWidget->getTypeName() == "TabItem" || mCurrentWidget->getTypeName() == MyGUI::TabItem::getClassTypeName())
 				{
 					MyGUI::Tab* tab = parent->castType<MyGUI::Tab>();
-					MyGUI::TabItem* sheet = current_widget->castType<MyGUI::TabItem>();
+					MyGUI::TabItem* sheet = mCurrentWidget->castType<MyGUI::TabItem>();
 					tab->setItemSelected(sheet);
 				}
-				coord = current_widget->getAbsoluteCoord();
+				coord = mCurrentWidget->getAbsoluteCoord();
 			}
-			current_widget_rectangle->setVisible(true);
-			current_widget_rectangle->setCoord(coord);
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
+			mCurrentWidgetRectangle->setVisible(true);
+			mCurrentWidgetRectangle->setCoord(coord);
+			MyGUI::InputManager::getInstance().setKeyFocusWidget(mCurrentWidgetRectangle);
 		}
 
 		// delete(hide) all previous properties
@@ -312,7 +313,7 @@ namespace tools
 			mPanelMainProperties->update(_current_widget);
 
 			WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
-			for (int i = 0; i < MaxBaseTypesCount; ++i)
+			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 			{
 				mPairsCounter = 0;
 				mPanelsTypeProperties[i]->update(_current_widget, widgetType);
@@ -465,7 +466,7 @@ namespace tools
 		{
 			std::vector<std::string> values;
 			if (_type == "Skin")
-				values = WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName())->skin;
+				values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 			else
 				values = WidgetTypes::getInstance().findPossibleValues(_type);
 
@@ -507,7 +508,7 @@ namespace tools
 			size_t index = _edit->getTextCursor();
 			WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
 			if ((!text.empty()) && (nullptr != textWC) &&
-				(EditorWidgets::getInstance().find(current_widget) != textWC))
+				(EditorWidgets::getInstance().find(mCurrentWidget) != textWC))
 			{
 				static const MyGUI::UString colour = ERROR_VALUE;
 				_edit->setCaption(colour + text);
@@ -524,7 +525,7 @@ namespace tools
 		//else
 		if ("Position" == _type)
 		{
-			if (EditorWidgets::getInstance().find(current_widget)->relative_mode)
+			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
 				success = utility::checkParse<float>(_edit, 4);
 			else
 				success = utility::checkParse<int>(_edit, 4);
@@ -547,7 +548,7 @@ namespace tools
 	void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
 		EditorWidgets * ew = &EditorWidgets::getInstance();
-		WidgetContainer * widgetContainer = ew->find(current_widget);
+		WidgetContainer * widgetContainer = ew->find(mCurrentWidget);
 		MyGUI::Edit* senderEdit = _sender->castType<MyGUI::Edit>();
 		std::string action = senderEdit->getUserString("action");
 		std::string value = senderEdit->getOnlyText();
@@ -598,13 +599,13 @@ namespace tools
 				float_coord.top = float_coord.top/100;
 				float_coord.width = float_coord.width/100;
 				float_coord.height = float_coord.height/100;
-				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, current_widget->getParentSize());
-				current_widget->setCoord(coord);
-				current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
+				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
+				mCurrentWidget->setCoord(coord);
+				mCurrentWidgetRectangle->setCoord(mCurrentWidget->getAbsoluteCoord());
 				return;
 			}
 			widgetContainer->widget->setProperty("Widget_Coord", value);
-			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
+			mCurrentWidgetRectangle->setCoord(mCurrentWidget->getAbsoluteCoord());
 			return;
 		}
 		else if (action == "Align")
@@ -638,7 +639,7 @@ namespace tools
 
 		if (success)
 		{
-			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
+			mCurrentWidgetRectangle->setCoord(mCurrentWidget->getAbsoluteCoord());
 		}
 		else
 		{
@@ -712,6 +713,32 @@ namespace tools
 	void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName)
 	{
 		toggleRelativeMode();
+	}
+
+	void PropertiesPanelView::toggleRelativeMode()
+	{
+		mPanelMainProperties->notifyToggleRelativeMode();
+	}
+
+	MyGUI::Window* PropertiesPanelView::getWidgetRectangle()
+	{
+		return mCurrentWidgetRectangle;
+	}
+
+	int PropertiesPanelView::toGrid(int _x)
+	{
+		if (mGridStep < 1)
+			return _x;
+		return _x / mGridStep * mGridStep;
+	}
+
+	void PropertiesPanelView::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "SettingsWindow")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		}
 	}
 
 } // namespace tools
