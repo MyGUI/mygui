@@ -30,7 +30,8 @@ namespace tools
 	std::string ERROR_VALUE;
 
 	PropertiesPanelView::PropertiesPanelView() :
-		BaseLayout("PropertiesPanelView.layout")
+		BaseLayout("PropertiesPanelView.layout"),
+		mPropertyItemHeight(0)
 	{
 		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 		ERROR_VALUE = replaceTags("ColourError");
@@ -87,6 +88,8 @@ namespace tools
 		arrow_move = false;
 
 		setEdgeHideController();
+
+		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertiesPanelView::commandToggleRelativeMode));
@@ -342,13 +345,14 @@ namespace tools
 			(*iter)->setVisible(false);
 		}
 	}
+
 	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
 	{
 		mPairsCounter++;
 		int x1 = 0, x2 = 125;
 		int w1 = 120;
 		int w2 = _window->getWidth() - x2;
-		const int h = PropertyItemHeight;
+		const int h = mPropertyItemHeight;
 
 		if (_property == "Position")
 		{

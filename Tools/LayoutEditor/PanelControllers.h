@@ -11,8 +11,6 @@
 
 namespace tools
 {
-	extern const int PropertyItemHeight;
-
 	class PanelControllers :
 		public wraps::BasePanelViewItem
 	{
@@ -22,11 +20,12 @@ namespace tools
 		virtual void initialise();
 		virtual void shutdown();
 
-		void update(MyGUI::Widget* _current_widget);
+		void update(MyGUI::Widget* _currentWidget);
 
 		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
-		typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
 		EventHandle_EventCreatePair eventCreatePair;
+
+		typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
 		EventHandle_WidgetVoid eventHidePairs;
 
 	private:
@@ -38,16 +37,21 @@ namespace tools
 
 		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
+	private:
 		MyGUI::ComboBox* mControllerName;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
 		MyGUI::List* mList;
 
-		MyGUI::Widget* current_widget;
+		MyGUI::Widget* mCurrentWidget;
 
-		int mButtonLeft, mButtonRight, mButtonSpace;
+		int mButtonLeft;
+		int mButtonRight;
+		int mButtonSpace;
 
 		std::map<std::string, MyGUI::MapString> mControllersProperties;
+
+		int mPropertyItemHeight;
 	};
 
 } // namespace tools

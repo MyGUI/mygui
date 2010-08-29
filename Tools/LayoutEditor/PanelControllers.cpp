@@ -8,6 +8,7 @@
 #include "PanelControllers.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -17,10 +18,11 @@ namespace tools
 		mButtonAdd(nullptr),
 		mButtonDelete(nullptr),
 		mList(nullptr),
-		current_widget(nullptr),
+		mCurrentWidget(nullptr),
 		mButtonLeft(0),
 		mButtonRight(0),
-		mButtonSpace(0)
+		mButtonSpace(0),
+		mPropertyItemHeight(0)
 	{
 	}
 
@@ -41,6 +43,7 @@ namespace tools
 		mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
 		mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 
+		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 		
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") = MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
 		MyGUI::ResourceManager::getInstance().load("controllers.xml");
@@ -50,11 +53,11 @@ namespace tools
 	{
 	}
 
-	void PanelControllers::update(MyGUI::Widget* _current_widget)
+	void PanelControllers::update(MyGUI::Widget* _currentWidget)
 	{
-		current_widget = _current_widget;
+		mCurrentWidget = _currentWidget;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		mList->removeAllItems();
 		for (std::vector<ControllerInfo*>::iterator iter = widgetContainer->mController.begin(); iter != widgetContainer->mController.end(); ++iter)
@@ -77,7 +80,7 @@ namespace tools
 	void PanelControllers::notifyAdd(MyGUI::Widget* _sender)
 	{
 		std::string key = mControllerName->getOnlyText();
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		ControllerInfo* controllerInfo = new ControllerInfo();
 		controllerInfo->mType = key;
@@ -92,7 +95,7 @@ namespace tools
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(item));
 		if (iter != widgetContainer->mController.end())
 		{
@@ -133,7 +136,7 @@ namespace tools
 					val = controllerInfo->mProperty[iter->first];
 				eventCreatePair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y);
 
-				y += PropertyItemHeight;
+				y += mPropertyItemHeight;
 			}
 		}
 		mPanelCell->setClientHeight(y);

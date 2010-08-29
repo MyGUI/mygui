@@ -9,15 +9,15 @@
 #include "PanelMainProperties.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
-	extern const int PropertyItemHeight = 22;
-
 	PanelMainProperties::PanelMainProperties() :
 		BasePanelViewItem("PanelMainProperties.layout"),
 		mButtonRelativePosition(nullptr),
-		current_widget(nullptr)
+		current_widget(nullptr),
+		mPropertyItemHeight(0)
 	{
 	}
 
@@ -27,6 +27,8 @@ namespace tools
 
 		assignWidget(mButtonRelativePosition, "buttonRelativePosition");
 		mButtonRelativePosition->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
+
+		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 	}
 
 	void PanelMainProperties::shutdown()
@@ -54,7 +56,7 @@ namespace tools
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
 		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);
-		y += PropertyItemHeight;
+		y += mPropertyItemHeight;
 
 		if (widgetType->resizeable)
 		{
@@ -64,7 +66,7 @@ namespace tools
 			else mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
 			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y);
-			y += PropertyItemHeight;
+			y += mPropertyItemHeight;
 		}
 		else
 		{
@@ -72,18 +74,18 @@ namespace tools
 		}
 
 		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
-		y += PropertyItemHeight;
+		y += mPropertyItemHeight;
 
 		if (nullptr == current_widget->getParent())
 		{
 			eventCreatePair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y);
-			y += PropertyItemHeight;
+			y += mPropertyItemHeight;
 		}
 
 		if (widgetType->skin.size() > 1)
 		{
 			eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y);
-			y += PropertyItemHeight;
+			y += mPropertyItemHeight;
 		}
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);

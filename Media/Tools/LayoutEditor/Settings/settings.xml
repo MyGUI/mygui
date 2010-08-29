@@ -16,5 +16,6 @@
 		<Property key="EdgeHideTime" value="0.5"/>
 		<Property key="EdgeHideRemainPixels" value="3"/>
 		<Property key="EdgeHideShadowSize" value="3"/>
+		<Property key="PropertyItemHeight" value="22"/>
 	</Settings>
 </MyGUI>

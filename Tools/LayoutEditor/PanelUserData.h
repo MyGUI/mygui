@@ -11,12 +11,10 @@
 
 namespace tools
 {
-	extern const int PropertyItemHeight;
-
-	class PanelUserData : public wraps::BasePanelViewItem
+	class PanelUserData :
+		public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelUserData();
 
 		virtual void initialise();
