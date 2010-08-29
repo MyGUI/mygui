@@ -22,8 +22,8 @@ namespace tools
 		virtual void initState();
 		virtual void cleanupState();
 
-		//virtual void pauseState() { }
-		//virtual void resumeState() { }
+		virtual void pauseState();
+		virtual void resumeState();
 
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
@@ -43,7 +43,7 @@ namespace tools
 		void commandSave(const MyGUI::UString& _commandName);
 		void commandSaveAs(const MyGUI::UString& _commandName);
 		void commandClear(const MyGUI::UString& _commandName);
-		//void commandTest(const MyGUI::UString& _commandName);
+		void commandTest(const MyGUI::UString& _commandName);
 		void commandQuit(const MyGUI::UString& _commandName);
 		//void commandQuitApp(const MyGUI::UString& _commandName);
 		void commandSettings(const MyGUI::UString& _commandName);
@@ -67,14 +67,13 @@ namespace tools
 		// drop select after skin change
 		bool mRecreate;
 
-		//bool mTestMode;
-		MyGUI::VectorWidgetPtr mInterfaceWidgets;
-		MyGUI::xml::Document * mTestLayout;
+		//MyGUI::VectorWidgetPtr mInterfaceWidgets;
+		MyGUI::xml::Document* mTestLayout;
 
-		PropertiesPanelView * mPropertiesPanelView;
-		SettingsWindow * mSettingsWindow;
-		WidgetsWindow * mWidgetsWindow;
-		CodeGenerator * mCodeGenerator;
+		PropertiesPanelView* mPropertiesPanelView;
+		SettingsWindow* mSettingsWindow;
+		WidgetsWindow* mWidgetsWindow;
+		CodeGenerator* mCodeGenerator;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 
 		MainMenuControl* mMainMenuControl;

@@ -40,6 +40,7 @@ set (HEADER_FILES
   StateController.h
   Application.h
   EditorState.h
+  TestState.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -73,6 +74,7 @@ set (SOURCE_FILES
   StateManager.cpp
   EditorState.cpp
   Application.cpp
+  TestState.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

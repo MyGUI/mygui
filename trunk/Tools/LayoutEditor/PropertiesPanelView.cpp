@@ -19,12 +19,12 @@
 
 namespace tools
 {
-
 	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 	std::string DEFAULT_VALUE;
 	std::string ERROR_VALUE;
+	const int BAR_HEIGHT = 30;
 
 	PropertiesPanelView::PropertiesPanelView() :
 		BaseLayout("PropertiesPanelView.layout"),
@@ -86,6 +86,13 @@ namespace tools
 		mArrowMove = false;
 
 		setEdgeHideController();
+
+		mMainWidget->setCoord(
+			mMainWidget->getParentSize().width - mMainWidget->getSize().width,
+			BAR_HEIGHT,
+			mMainWidget->getSize().width,
+			mMainWidget->getParentSize().height - BAR_HEIGHT
+			);
 
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
@@ -739,6 +746,11 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 		}
+	}
+
+	void PropertiesPanelView::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
 	}
 
 } // namespace tools
