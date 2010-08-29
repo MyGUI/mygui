@@ -9,37 +9,41 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-extern const int PropertyItemHeight;
-
-class PanelUserData : public wraps::BasePanelViewItem
+namespace tools
 {
-public:
+	extern const int PropertyItemHeight;
 
-	PanelUserData();
+	class PanelUserData : public wraps::BasePanelViewItem
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelUserData();
 
-	void update(MyGUI::Widget* _current_widget);
+		virtual void initialise();
+		virtual void shutdown();
 
-private:
-	virtual void notifyChangeWidth(int _width);
+		void update(MyGUI::Widget* _current_widget);
 
-	void notifyAddUserData(MyGUI::Widget* _sender = 0);
-	void notifyDeleteUserData(MyGUI::Widget* _sender);
-	void notifyUpdateUserData(MyGUI::Edit* _widget);
-	void notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index);
+	private:
+		virtual void notifyChangeWidth(int _width);
 
-	MyGUI::Edit* mEditKey;
-	MyGUI::Edit* mEditValue;
-	MyGUI::Button* mButtonAdd;
-	MyGUI::Button* mButtonDelete;
-	MyGUI::MultiList* mMultilist;
+		void notifyAddUserData(MyGUI::Widget* _sender = 0);
+		void notifyDeleteUserData(MyGUI::Widget* _sender);
+		void notifyUpdateUserData(MyGUI::Edit* _widget);
+		void notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index);
 
-	MyGUI::Widget* current_widget;
+		MyGUI::Edit* mEditKey;
+		MyGUI::Edit* mEditValue;
+		MyGUI::Button* mButtonAdd;
+		MyGUI::Button* mButtonDelete;
+		MyGUI::MultiList* mMultilist;
 
-	int mEditLeft, mEditRight, mEditSpace;
-	int mButtonLeft, mButtonRight, mButtonSpace;
-};
+		MyGUI::Widget* current_widget;
+
+		int mEditLeft, mEditRight, mEditSpace;
+		int mButtonLeft, mButtonRight, mButtonSpace;
+	};
+
+} // namespace tools
 
 #endif // __PANEL_USER_DATA_H__

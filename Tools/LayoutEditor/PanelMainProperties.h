@@ -9,30 +9,34 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-extern const int PropertyItemHeight;
-
-class PanelMainProperties : public wraps::BasePanelViewItem
+namespace tools
 {
-public:
+	extern const int PropertyItemHeight;
 
-	PanelMainProperties();
+	class PanelMainProperties : public wraps::BasePanelViewItem
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelMainProperties();
 
-	void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
-	void update(MyGUI::Widget* _current_widget);
+		virtual void initialise();
+		virtual void shutdown();
 
-	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
-	EventHandle_EventCreatePair eventCreatePair;
-	typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
-	EventHandle_EventSetPositionText eventSetPositionText;
+		void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
+		void update(MyGUI::Widget* _current_widget);
 
-	MyGUI::Widget* getMainWidget() { return mWidgetClient; }
-private:
-	MyGUI::Button* mButtonRelativePosition;
+		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+		EventHandle_EventCreatePair eventCreatePair;
+		typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
+		EventHandle_EventSetPositionText eventSetPositionText;
 
-	MyGUI::Widget* current_widget;
-};
+		MyGUI::Widget* getMainWidget() { return mWidgetClient; }
+	private:
+		MyGUI::Button* mButtonRelativePosition;
+
+		MyGUI::Widget* current_widget;
+	};
+
+} // namespace tools
 
 #endif // __PANEL_MAIN_PROPERTIES_H__

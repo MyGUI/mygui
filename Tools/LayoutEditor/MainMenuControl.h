@@ -8,10 +8,9 @@
 
 #include <MyGUI.h>
 
-struct WidgetContainer;
-
 namespace tools
 {
+	struct WidgetContainer;
 
 	class MainMenuControl
 	{

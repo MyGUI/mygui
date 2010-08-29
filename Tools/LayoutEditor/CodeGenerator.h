@@ -11,53 +11,57 @@
 #include "Dialog.h"
 #include "OpenSaveFileDialog.h"
 
-ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
-class CodeGenerator :
-	public tools::Dialog
+namespace tools
 {
-public:
+	ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
+	class CodeGenerator :
+		public Dialog
+	{
+	public:
 
-	CodeGenerator();
-	~CodeGenerator();
+		CodeGenerator();
+		~CodeGenerator();
 
-	void loadTemplate();
-	void saveTemplate();
+		void loadTemplate();
+		void saveTemplate();
 
-private:
-	void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-	std::string stringToUpperCase(std::string _str);
-	void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
-	void notifyGeneratePressed(MyGUI::Widget* _sender);
-	void notifyCancel(MyGUI::Widget* _sender);
-	void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
-	void notifyBrowseHeader(MyGUI::Widget* _sender);
-	void notifyBrowseSource(MyGUI::Widget* _sender);
+	private:
+		void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		std::string stringToUpperCase(std::string _str);
+		void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
+		void notifyGeneratePressed(MyGUI::Widget* _sender);
+		void notifyCancel(MyGUI::Widget* _sender);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyBrowseHeader(MyGUI::Widget* _sender);
+		void notifyBrowseSource(MyGUI::Widget* _sender);
 
-	void notifyEndDialogOpenSaveFile(tools::Dialog* _sender, bool _result);
+		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 
-	virtual void onDoModal();
-	virtual void onEndModal();
+		virtual void onDoModal();
+		virtual void onEndModal();
 
-private:
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
-	MyGUI::Edit* mPanelNameEdit;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mSourceDirectoryEdit, "SourceDirectory");
-	MyGUI::Edit* mSourceDirectoryEdit;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mIncludeDirectoryEdit, "IncludeDirectory");
-	MyGUI::Edit* mIncludeDirectoryEdit;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mGenerateButton, "Generate");
-	MyGUI::Button* mGenerateButton;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mCancel, "Cancel");
-	MyGUI::Button* mCancel;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseHeader, "BrowseHeader");
-	MyGUI::Button* mBrowseHeader;
-	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseSource, "BrowseSource");
-	MyGUI::Button* mBrowseSource;
+	private:
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
+		MyGUI::Edit* mPanelNameEdit;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mSourceDirectoryEdit, "SourceDirectory");
+		MyGUI::Edit* mSourceDirectoryEdit;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mIncludeDirectoryEdit, "IncludeDirectory");
+		MyGUI::Edit* mIncludeDirectoryEdit;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mGenerateButton, "Generate");
+		MyGUI::Button* mGenerateButton;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mCancel, "Cancel");
+		MyGUI::Button* mCancel;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseHeader, "BrowseHeader");
+		MyGUI::Button* mBrowseHeader;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseSource, "BrowseSource");
+		MyGUI::Button* mBrowseSource;
 
-	MyGUI::MapString mTemplateFiles;
-	MyGUI::MapString mTemplateStrings;
+		MyGUI::MapString mTemplateFiles;
+		MyGUI::MapString mTemplateStrings;
 
-	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
-};
+		OpenSaveFileDialog* mOpenSaveFileDialog;
+	};
+
+} // namespace tools
 
 #endif // __CODE_GENERATOR_H__

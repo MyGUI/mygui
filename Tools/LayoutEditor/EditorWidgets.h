@@ -5,66 +5,70 @@
 #include "WidgetContainer.h"
 #include "SettingsSector.h"
 
-typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
-
-typedef std::vector<WidgetContainer*> VectorWidgetContainer;
-typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
-
-class EditorWidgets :
-	public MyGUI::Singleton<EditorWidgets>
+namespace tools
 {
-public:
-	EditorWidgets();
-	~EditorWidgets();
+	typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
 
-public:
-	void initialise();
-	void shutdown();
+	typedef std::vector<WidgetContainer*> VectorWidgetContainer;
+	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
 
-	bool load(const MyGUI::UString& _fileName);
-	bool save(const MyGUI::UString& _fileName);
-	void clear();
+	class EditorWidgets :
+		public MyGUI::Singleton<EditorWidgets>
+	{
+	public:
+		EditorWidgets();
+		~EditorWidgets();
 
-	void loadxmlDocument(MyGUI::xml::Document * doc, bool _test = false);
-	MyGUI::xml::Document * savexmlDocument();
-	WidgetContainer * find(MyGUI::Widget* _widget);
-	WidgetContainer * find(const std::string& _name);
-	void add(WidgetContainer * _container);
-	void remove(MyGUI::Widget* _widget);
-	void remove(WidgetContainer * _container);
+	public:
+		void initialise();
+		void shutdown();
 
-	bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test = false);
+		bool load(const MyGUI::UString& _fileName);
+		bool save(const MyGUI::UString& _fileName);
+		void clear();
 
-	void invalidateWidgets();
-	EnumeratorWidgetContainer getWidgets();
+		void loadxmlDocument(MyGUI::xml::Document * doc, bool _test = false);
+		MyGUI::xml::Document * savexmlDocument();
+		WidgetContainer * find(MyGUI::Widget* _widget);
+		WidgetContainer * find(const std::string& _name);
+		void add(WidgetContainer * _container);
+		void remove(MyGUI::Widget* _widget);
+		void remove(WidgetContainer * _container);
 
-	tools::SettingsSector* getSector(const MyGUI::UString& _sectorName);
+		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test = false);
 
-	int getNextGlobalCounter();
+		void invalidateWidgets();
+		EnumeratorWidgetContainer getWidgets();
 
-	Event_ChangeWidgets eventChangeWidgets;
+		SettingsSector* getSector(const MyGUI::UString& _sectorName);
 
-private:
-	WidgetContainer * _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
+		int getNextGlobalCounter();
 
-	void parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::Widget* _parent, bool _test = false);
-	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);
+		Event_ChangeWidgets eventChangeWidgets;
 
-	void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-	void notifyFrameStarted(float _time);
+	private:
+		WidgetContainer * _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
-	void loadSector(MyGUI::xml::ElementPtr _sectorNode);
-	void saveSectors(MyGUI::xml::ElementPtr _rootNode);
+		void parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::Widget* _parent, bool _test = false);
+		void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);
 
-	void destroyAllSectors();
-	void destroyAllWidgets();
+		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void notifyFrameStarted(float _time);
 
-private:
-	int mGlobalCounter;
-	bool mWidgetsChanged;
-	std::vector<std::string> mIgnoreParameters;
-	tools::VectorSettingsSector mSettings;
-	VectorWidgetContainer mWidgets;
-};
+		void loadSector(MyGUI::xml::ElementPtr _sectorNode);
+		void saveSectors(MyGUI::xml::ElementPtr _rootNode);
+
+		void destroyAllSectors();
+		void destroyAllWidgets();
+
+	private:
+		int mGlobalCounter;
+		bool mWidgetsChanged;
+		std::vector<std::string> mIgnoreParameters;
+		VectorSettingsSector mSettings;
+		VectorWidgetContainer mWidgets;
+	};
+
+} // namespace tools
 
 #endif // __EDITOR_WIDGETS_H__

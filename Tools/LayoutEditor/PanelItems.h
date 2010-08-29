@@ -9,40 +9,44 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-extern const int PropertyItemHeight;
-
-class PanelItems : public wraps::BasePanelViewItem
+namespace tools
 {
-public:
+	extern const int PropertyItemHeight;
 
-	PanelItems();
+	class PanelItems : public wraps::BasePanelViewItem
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelItems();
 
-	void update(MyGUI::Widget* _current_widget);
+		virtual void initialise();
+		virtual void shutdown();
 
-	void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
+		void update(MyGUI::Widget* _current_widget);
 
-private:
-	void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");
-	void syncItems(bool _apply, bool _add = false, std::string _value = "");
-	void notifyAddItem(MyGUI::Widget* _sender = 0);
-	void notifyDeleteItem(MyGUI::Widget* _sender);
-	void notifySelectSheet(MyGUI::Widget* _sender);
-	void notifyUpdateItem(MyGUI::Edit* _widget);
-	void notifySelectItem(MyGUI::List* _widget, size_t _position);
-	virtual void notifyChangeWidth(int _width);
+		void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
 
-	MyGUI::Edit* mEdit;
-	MyGUI::List* mList;
-	MyGUI::Button* mButtonAdd;
-	MyGUI::Button* mButtonDelete;
-	MyGUI::Button* mButtonSelect;
+	private:
+		void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");
+		void syncItems(bool _apply, bool _add = false, std::string _value = "");
+		void notifyAddItem(MyGUI::Widget* _sender = 0);
+		void notifyDeleteItem(MyGUI::Widget* _sender);
+		void notifySelectSheet(MyGUI::Widget* _sender);
+		void notifyUpdateItem(MyGUI::Edit* _widget);
+		void notifySelectItem(MyGUI::List* _widget, size_t _position);
+		virtual void notifyChangeWidth(int _width);
 
-	MyGUI::Widget* current_widget;
+		MyGUI::Edit* mEdit;
+		MyGUI::List* mList;
+		MyGUI::Button* mButtonAdd;
+		MyGUI::Button* mButtonDelete;
+		MyGUI::Button* mButtonSelect;
 
-	int mButtonLeft, mButtonRight, mButtonSpace;
-};
+		MyGUI::Widget* current_widget;
+
+		int mButtonLeft, mButtonRight, mButtonSpace;
+	};
+
+} // namespace tools
 
 #endif // __PANEL_ITEMS_H__

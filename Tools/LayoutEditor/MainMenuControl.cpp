@@ -20,7 +20,7 @@ namespace tools
 	{
 		createMainMenu();
 
-		tools::SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
 
 		setEdgeHideController();
@@ -29,7 +29,7 @@ namespace tools
 	MainMenuControl::~MainMenuControl()
 	{
 		EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
-		tools::SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
 	}
 
 	void MainMenuControl::createMainMenu()
@@ -55,20 +55,20 @@ namespace tools
 	{
 		MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
 		if (data != nullptr)
-			tools::CommandManager::getInstance().setCommandData(*data);
+			CommandManager::getInstance().setCommandData(*data);
 
 		const std::string& command = _item->getItemId();
 		if (command.size() > 8 && command.substr(0, 8) == "Command_")
 		{
-			tools::CommandManager::getInstance().executeCommand(command);
+			CommandManager::getInstance().executeCommand(command);
 		}
 	}
 
 	void MainMenuControl::widgetsUpdate()
 	{
-		bool print_name = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName");
-		bool print_type = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType");
-		bool print_skin = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin");
+		bool print_name = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName");
+		bool print_type = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType");
+		bool print_skin = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin");
 
 		mPopupMenuWidgets->removeAllItems();
 
@@ -100,7 +100,7 @@ namespace tools
 	void MainMenuControl::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
-		tools::WidgetSelectorManager::getInstance().setSelectedWidget(widget);
+		WidgetSelectorManager::getInstance().setSelectedWidget(widget);
 	}
 
 	std::string MainMenuControl::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
@@ -141,15 +141,15 @@ namespace tools
 
 	void MainMenuControl::setEdgeHideController()
 	{
-		bool value = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
+		bool value = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
 		if (value)
 		{
 			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
 			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
 
-			controller->setTime(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
-			controller->setRemainPixels(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
-			controller->setShadowSize(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
+			controller->setTime(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
+			controller->setRemainPixels(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
+			controller->setShadowSize(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
 
 			MyGUI::ControllerManager::getInstance().addItem(mBar, controller);
 		}
@@ -162,11 +162,11 @@ namespace tools
 		{
 			recentFilesMenu->getItemChild()->removeAllItems();
 			// список последних открытых файлов
-			const tools::VectorUString& recentFiles = tools::SettingsManager::getInstance().getRecentFiles();
+			const VectorUString& recentFiles = SettingsManager::getInstance().getRecentFiles();
 			if (!recentFiles.empty())
 			{
 				size_t index = 1;
-				for (tools::VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
+				for (VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
 				{
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);

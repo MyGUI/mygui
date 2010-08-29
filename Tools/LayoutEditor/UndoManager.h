@@ -3,137 +3,141 @@
 
 #include "EditorWidgets.h"
 
-/// Fixed size cyclic buffer.
-template<typename T>
-class CyclicBuffer
+namespace tools
 {
-public:
-	typedef std::vector<T> container_type;                      ///< Underlying container type.
-	typedef typename std::vector<T>::value_type value_type;     ///< Element type.
-	typedef typename std::vector<T>::size_type size_type;       ///< Size and offset type.
-
-	/// Fixed size c-tor.
-	explicit CyclicBuffer( size_type _size ) :
-		pos( -1 ), count( 0 ), size( _size ),
-		c( new value_type[size] )
-	{ }
-
-	/// D-tor.
-	~CyclicBuffer() { delete [] c; }
-
-	/// Is buffer empty?
-	bool IsEmpty() const { return GetSize() == 0; }
-	/// Is buffer full?
-	bool IsFull() const { return GetSize() == GetCapacity(); }
-	/// Get size.
-	size_type GetSize() const { return count; }
-	/// Get capacity.
-	size_type GetCapacity() const { return size; }
-
-	/// Peek n-th element for read (0 = newest element).
-	const value_type& operator[]( size_type offset ) const { return c[( size + pos - offset ) % size]; }
-	/// Peek n-th element for edit (0 = newest element).
-	value_type& operator[]( size_type offset ) { return c[( size + pos - offset ) % size]; }
-	/// Peek newest element for read.
-	const value_type& Front() const { return (*this)[0]; }
-	/// Peek newest element for edit.
-	value_type& Front() { return (*this)[0]; }
-	/// Peek oldest element for read.
-	const value_type& Back() const { return (*this)[count - 1]; }
-	/// Peek oldest element for edit.
-	value_type& Back() { return (*this)[count - 1]; }
-
-	/// Clear buffer and all allocated elements.
-	void Clear() { while ( !IsEmpty() ) Pop(); }
-	/// Clear buffer, no elements d-tors will be called.
-	void ClearFast() { count = 0; }
-
-	/// Expand buffer, no element init will be done (uses Pop()).
-	void Expand() { if ( IsFull() ) Pop(); pos = ( pos + 1 ) % size; ++count; }
-	/// Expand buffer, no element init will be done (uses PopFast()).
-	void ExpandFast() { if ( IsFull() ) PopFast(); pos = ( pos + 1 ) % size; ++count; }
-
-	/// Push element into buffer tail (uses Expand())..
-	void Push( const value_type &v ) { Expand(); c[pos] = v; }
-	/// Push element into buffer tail (uses Expand()).
-	void Push( value_type &v ) { Expand(); c[pos] = v; }
-	/// Push element into buffer tail (uses ExpandFast()).
-	void PushFast( const value_type &v ) { ExpandFast(); c[pos] = v; }
-	/// Push element into buffer tail (uses ExpandFast()).
-	void PushFast( value_type &v ) { ExpandFast(); c[pos] = v; }
-
-	/// Pop last element from buffer.
-	void Pop()
+	/// Fixed size cyclic buffer.
+	template<typename T>
+	class CyclicBuffer
 	{
-		if ( !IsEmpty() )
+	public:
+		typedef std::vector<T> container_type;                      ///< Underlying container type.
+		typedef typename std::vector<T>::value_type value_type;     ///< Element type.
+		typedef typename std::vector<T>::size_type size_type;       ///< Size and offset type.
+
+		/// Fixed size c-tor.
+		explicit CyclicBuffer( size_type _size ) :
+			pos( -1 ), count( 0 ), size( _size ),
+			c( new value_type[size] )
+		{ }
+
+		/// D-tor.
+		~CyclicBuffer() { delete [] c; }
+
+		/// Is buffer empty?
+		bool IsEmpty() const { return GetSize() == 0; }
+		/// Is buffer full?
+		bool IsFull() const { return GetSize() == GetCapacity(); }
+		/// Get size.
+		size_type GetSize() const { return count; }
+		/// Get capacity.
+		size_type GetCapacity() const { return size; }
+
+		/// Peek n-th element for read (0 = newest element).
+		const value_type& operator[]( size_type offset ) const { return c[( size + pos - offset ) % size]; }
+		/// Peek n-th element for edit (0 = newest element).
+		value_type& operator[]( size_type offset ) { return c[( size + pos - offset ) % size]; }
+		/// Peek newest element for read.
+		const value_type& Front() const { return (*this)[0]; }
+		/// Peek newest element for edit.
+		value_type& Front() { return (*this)[0]; }
+		/// Peek oldest element for read.
+		const value_type& Back() const { return (*this)[count - 1]; }
+		/// Peek oldest element for edit.
+		value_type& Back() { return (*this)[count - 1]; }
+
+		/// Clear buffer and all allocated elements.
+		void Clear() { while ( !IsEmpty() ) Pop(); }
+		/// Clear buffer, no elements d-tors will be called.
+		void ClearFast() { count = 0; }
+
+		/// Expand buffer, no element init will be done (uses Pop()).
+		void Expand() { if ( IsFull() ) Pop(); pos = ( pos + 1 ) % size; ++count; }
+		/// Expand buffer, no element init will be done (uses PopFast()).
+		void ExpandFast() { if ( IsFull() ) PopFast(); pos = ( pos + 1 ) % size; ++count; }
+
+		/// Push element into buffer tail (uses Expand())..
+		void Push( const value_type &v ) { Expand(); c[pos] = v; }
+		/// Push element into buffer tail (uses Expand()).
+		void Push( value_type &v ) { Expand(); c[pos] = v; }
+		/// Push element into buffer tail (uses ExpandFast()).
+		void PushFast( const value_type &v ) { ExpandFast(); c[pos] = v; }
+		/// Push element into buffer tail (uses ExpandFast()).
+		void PushFast( value_type &v ) { ExpandFast(); c[pos] = v; }
+
+		/// Pop last element from buffer.
+		void Pop()
 		{
-			Back() = value_type();
-			PopFast();
+			if ( !IsEmpty() )
+			{
+				Back() = value_type();
+				PopFast();
+			}
 		}
-	}
 
-  /// Fast pop last element from buffer, no element d-top will be called.
-	void PopFast()
-	{
-		if ( !IsEmpty() )
-			--count;
-	}
-
-	void PopFirst()
-	{
-		if ( !IsEmpty() )
+	  /// Fast pop last element from buffer, no element d-top will be called.
+		void PopFast()
 		{
-			Front() = value_type();
-			--count;
-			--pos;
+			if ( !IsEmpty() )
+				--count;
 		}
-	}
 
-private:
-	size_type pos, count, size;
-	value_type *c;
-};
+		void PopFirst()
+		{
+			if ( !IsEmpty() )
+			{
+				Front() = value_type();
+				--count;
+				--pos;
+			}
+		}
 
-enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
+	private:
+		size_type pos, count, size;
+		value_type *c;
+	};
 
-typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
+	enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
 
-class UndoManager :
-	public MyGUI::Singleton<UndoManager>
-{
-public:
-	UndoManager();
+	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
 
-public:
-	void initialise(EditorWidgets * ew);
-	void shutdown();
+	class UndoManager :
+		public MyGUI::Singleton<UndoManager>
+	{
+	public:
+		UndoManager();
 
-	void undo();
-	void redo();
-	void addValue(int _property = PR_DEFAULT);
+	public:
+		void initialise(EditorWidgets * ew);
+		void shutdown();
 
-	void dropLastProperty() { last_property = PR_DEFAULT; }
+		void undo();
+		void redo();
+		void addValue(int _property = PR_DEFAULT);
 
-	bool isUnsaved() const { return mUnsaved; }
-	void setUnsaved(bool _unsaved);
+		void dropLastProperty() { last_property = PR_DEFAULT; }
 
-	Event_Changes eventChanges;
+		bool isUnsaved() const { return mUnsaved; }
+		void setUnsaved(bool _unsaved);
 
-private:
-	void commandUndo(const MyGUI::UString& _commandName);
-	void commandRedo(const MyGUI::UString& _commandName);
+		Event_Changes eventChanges;
 
-private:
-	// position in the bufer (0 - newest element)
-	size_t pos;
-	MyGUI::xml::Document last_condition;
+	private:
+		void commandUndo(const MyGUI::UString& _commandName);
+		void commandRedo(const MyGUI::UString& _commandName);
 
-	CyclicBuffer<MyGUI::xml::Document*> operations;
-	int last_property;
+	private:
+		// position in the bufer (0 - newest element)
+		size_t pos;
+		MyGUI::xml::Document last_condition;
 
-	EditorWidgets * ew;
+		CyclicBuffer<MyGUI::xml::Document*> operations;
+		int last_property;
 
-	bool mUnsaved;
-};
+		EditorWidgets * ew;
+
+		bool mUnsaved;
+	};
+
+} // namespace tools
 
 #endif // __UNDO_MANAGER_H__

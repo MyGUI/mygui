@@ -3,11 +3,6 @@
 
 #include <MyGUI.h>
 
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
-
 namespace tools
 {
 	namespace utility

@@ -11,7 +11,6 @@
 
 namespace tools
 {
-
 	class DialogManager :
 		public MyGUI::Singleton<DialogManager>
 	{
