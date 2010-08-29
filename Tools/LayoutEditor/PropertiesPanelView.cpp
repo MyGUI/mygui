@@ -17,6 +17,10 @@
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
+//FIXME
+template <> tools::PropertiesPanelView* MyGUI::Singleton<tools::PropertiesPanelView>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::PropertiesPanelView>::mClassTypeName("PropertiesPanelView");
+
 namespace tools
 {
 	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()

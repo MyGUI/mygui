@@ -168,8 +168,19 @@ namespace tools
 
 	void Application::injectMouseMove(int _absx, int _absy, int _absz)
 	{
+		if (WidgetsWindow::getInstancePtr() == nullptr)
+			return;
+		if (PropertiesPanelView::getInstancePtr() == nullptr)
+			return;
+
+		if (StateManager::getInstance().getStateActivate(mTestState))
+		{
+			base::BaseManager::injectMouseMove(_absx, _absy, _absz);
+			return;
+		}
+
 		// drop select depth if we moved mouse
-		/*const int DIST = 2;
+		const int DIST = 2;
 		if ((abs(mLastClickX - _absx) > DIST) || (abs(mLastClickY - _absy) > DIST))
 		{
 			mSelectDepth = 0;
@@ -188,17 +199,27 @@ namespace tools
 		{
 			x2 = _absx;
 			y2 = _absy;
-		}*/
+		}
 
-		//FIXME
-		//mWidgetsWindow->createNewWidget(x2, y2);
+		WidgetsWindow::getInstance().createNewWidget(x2, y2);
 
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
 
 	void Application::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		/*if (MyGUI::InputManager::getInstance().isModalAny())
+		if (WidgetsWindow::getInstancePtr() == nullptr)
+			return;
+		if (PropertiesPanelView::getInstancePtr() == nullptr)
+			return;
+
+		if (StateManager::getInstance().getStateActivate(mTestState))
+		{
+			base::BaseManager::injectMousePress(_absx, _absy, _id);
+			return;
+		}
+
+		if (MyGUI::InputManager::getInstance().isModalAny())
 		{
 			// if we have modal widgets we can't select any widget
 			base::BaseManager::injectMousePress(_absx, _absy, _id);
@@ -219,25 +240,23 @@ namespace tools
 		}
 
 		// юбилейный комит  =)
-		//FIXME
-		//mWidgetsWindow->startNewWidget(x1, y1, _id);
+		WidgetsWindow::getInstance().startNewWidget(x1, y1, _id);
 
 		MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
-		//FIXME
 		// не убираем прямоугольник если нажали на его растягивалку
-		if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
+		if (item && (item->getParent() != PropertiesPanelView::getInstance().getWidgetRectangle()))
 		{
 			// чтобы прямоугольник не мешался
-			//FIXME
-			//mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
+			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(false);
 			item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-		}*/
+		}
 
-		/*if (nullptr != item)
+		if (nullptr != item)
 		{
 			// find widget registered as container
-			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item)) item = item->getParent();
+			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+				item = item->getParent();
 			MyGUI::Widget* oldItem = item;
 
 			// try to selectin depth
@@ -245,7 +264,8 @@ namespace tools
 			while (depth && (nullptr != item))
 			{
 				item = item->getParent();
-				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item)) item = item->getParent();
+				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+					item = item->getParent();
 				depth--;
 			}
 			if (nullptr == item)
@@ -259,14 +279,12 @@ namespace tools
 			{
 				WidgetSelectorManager::getInstance().setSelectedWidget(item);
 
-				//FIXME
-				//if (mWidgetsWindow->getCreatingStatus() != 1)
+				if (WidgetsWindow::getInstance().getCreatingStatus() != 1)
 				{
-					//FIXME
-					MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
+					// это чтобы сразу можно было тащить
+					MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);
 				}
 			}
-			//FIXME
 			MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
 			MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 		}
@@ -276,25 +294,33 @@ namespace tools
 			MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
 
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-		}*/
+		}
 
 		// вернем прямоугольник
-		//FIXME
-		/*if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && mWidgetsWindow->getCreatingStatus() == 0)
+		if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && WidgetsWindow::getInstance().getCreatingStatus() == 0)
 		{
-			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
+			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(true);
 		}
-		else if (mWidgetsWindow->getCreatingStatus())
+		else if (WidgetsWindow::getInstance().getCreatingStatus())
 		{
-			mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
-		}*/
-
-		base::BaseManager::injectMousePress(_absx, _absy, _id);
+			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(false);
+		}
 	}
 
 	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		/*mSelectDepth++;
+		if (WidgetsWindow::getInstancePtr() == nullptr)
+			return;
+		if (PropertiesPanelView::getInstancePtr() == nullptr)
+			return;
+
+		if (StateManager::getInstance().getStateActivate(mTestState))
+		{
+			base::BaseManager::injectMouseRelease(_absx, _absy, _id);
+			return;
+		}
+
+		mSelectDepth++;
 
 		if (MyGUI::InputManager::getInstance().isModalAny())
 		{
@@ -314,11 +340,10 @@ namespace tools
 				y2 = _absy;
 			}
 
-			//FIXME
-			//mWidgetsWindow->finishNewWidget(x2, y2);
+			WidgetsWindow::getInstance().finishNewWidget(x2, y2);
 		}
 
-		UndoManager::getInstance().dropLastProperty();*/
+		UndoManager::getInstance().dropLastProperty();
 
 		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 	}
