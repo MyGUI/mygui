@@ -18,8 +18,6 @@
 
 namespace tools
 {
-	extern int grid_step;//FIXME_HOOK
-
 	class PropertiesPanelView :
 		public wraps::BaseLayout
 	{
@@ -33,14 +31,16 @@ namespace tools
 
 		void hideWidgetsPairs(MyGUI::Widget* _window);
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
-		MyGUI::Window* getWidgetRectangle() { return current_widget_rectangle; }
+
+		MyGUI::Window* getWidgetRectangle();
 
 		void setPositionText(const std::string& _caption);
-		void toggleRelativeMode() { mPanelMainProperties->notifyToggleRelativeMode(); }
+		void toggleRelativeMode();
 
 		typedef MyGUI::delegates::CDelegate0 EventInfo;
 		EventInfo eventRecreate;
 
+		// FIXME
 		MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 	private:
@@ -52,11 +52,15 @@ namespace tools
 		void notifyForceApplyProperties(MyGUI::Edit* _widget); // calls notifyApplyProperties
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+
 		std::string splitString(std::string& str, char separator);
 
 		void setEdgeHideController();
 
 		void commandToggleRelativeMode(const MyGUI::UString& _commandName);
+
+		int toGrid(int _x);
 
 	private:
 		MyGUI::IntSize mOldSize;
@@ -68,8 +72,8 @@ namespace tools
 		std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> mPropertiesElement;
 
 		PanelMainProperties * mPanelMainProperties;
-		static const int MaxBaseTypesCount = 5;
-		PanelProperties* mPanelsTypeProperties[MaxBaseTypesCount];
+		static const int MAX_BASE_TYPES_COUNT = 5;
+		PanelProperties* mPanelsTypeProperties[MAX_BASE_TYPES_COUNT];
 		PanelItems * mPanelItems;
 		PanelUserData * mPanelUserData;
 		PanelControllers * mPanelControllers;
@@ -77,12 +81,13 @@ namespace tools
 		typedef std::vector<wraps::BasePanelViewItem*> VectorPanel;
 		VectorPanel mPanels;
 
-		MyGUI::Widget* current_widget;
-		MyGUI::Window* current_widget_rectangle;
+		MyGUI::Widget* mCurrentWidget;
+		MyGUI::Window* mCurrentWidgetRectangle;
 
 		// widget was moved by keyboard arrows
-		bool arrow_move;
+		bool mArrowMove;
 		int mPropertyItemHeight;
+		int mGridStep;
 	};
 
 } // namespace tools

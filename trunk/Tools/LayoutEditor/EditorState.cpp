@@ -33,7 +33,8 @@ namespace tools
 		mMainMenuControl(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
-		mMessageBoxFadeControl(nullptr)
+		mMessageBoxFadeControl(nullptr),
+		mGridStep(0)
 	{
 	}
 
@@ -164,12 +165,16 @@ namespace tools
 			updateCaption();
 		}
 
+		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
 		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 	}
 
 	void EditorState::destroyScene()
 	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
@@ -572,7 +577,9 @@ namespace tools
 
 	int EditorState::toGrid(int _x)
 	{
-		return _x / grid_step * grid_step;
+		if (mGridStep < 1)
+			return _x;
+		return _x / mGridStep * mGridStep;
 	}
 
 	void EditorState::notifyRecreate()
@@ -974,6 +981,15 @@ namespace tools
 		mCodeGenerator->endModal();
 		if (_result)
 			mCodeGenerator->saveTemplate();
+	}
+
+	void EditorState::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "SettingsWindow")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		}
 	}
 
 } // namespace tools

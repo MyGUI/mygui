@@ -25,14 +25,17 @@ namespace tools
 
 		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
+
 		typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
 		EventHandle_EventSetPositionText eventSetPositionText;
 
+		//FIXME
 		MyGUI::Widget* getMainWidget() { return mWidgetClient; }
+
 	private:
 		MyGUI::Button* mButtonRelativePosition;
 
-		MyGUI::Widget* current_widget;
+		MyGUI::Widget* mCurrentWidget;
 		int mPropertyItemHeight;
 	};
 

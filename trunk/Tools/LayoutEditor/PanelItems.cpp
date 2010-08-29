@@ -23,7 +23,7 @@ namespace tools
 		mButtonAdd(nullptr),
 		mButtonDelete(nullptr),
 		mButtonSelect(nullptr),
-		current_widget(nullptr),
+		mCurrentWidget(nullptr),
 		mButtonLeft(0),
 		mButtonRight(0),
 		mButtonSpace(0)
@@ -75,7 +75,7 @@ namespace tools
 
 	void PanelItems::update(MyGUI::Widget* _current_widget)
 	{
-		current_widget = _current_widget;
+		mCurrentWidget = _current_widget;
 
 		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
 		//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
@@ -108,9 +108,9 @@ namespace tools
 
 	void PanelItems::notifyRectangleDoubleClick(MyGUI::Widget* _sender)
 	{
-		if (current_widget->getTypeName() == "Tab")
+		if (mCurrentWidget->getTypeName() == "Tab")
 		{
-			addSheetToTab(current_widget);
+			addSheetToTab(mCurrentWidget);
 			// update strings panel
 			syncItems(false);
 			UndoManager::getInstance().addValue();
@@ -130,26 +130,26 @@ namespace tools
 	{
 		std::string action;
 		// FIXME/2 как-то громоздко и не настраиваемо...
-		if (current_widget->getTypeName() == "Tab") action = "Tab_AddSheet";
+		if (mCurrentWidget->getTypeName() == "Tab") action = "Tab_AddSheet";
 		else
 		{
 			// for example "ComboBox_AddItem", "List_AddItem", etc...
-			action = current_widget->getTypeName() + "_AddItem";
+			action = mCurrentWidget->getTypeName() + "_AddItem";
 		}
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		if (_apply)
 		{
 			if (_add)
 			{
 				if (action == "Tab_AddSheet")
 				{
-					addSheetToTab(current_widget, _value);
+					addSheetToTab(mCurrentWidget, _value);
 					UndoManager::getInstance().addValue();
 				}
-				else if (current_widget->isType<MyGUI::MenuCtrl>())
+				else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 				{
-					current_widget->castType<MyGUI::MenuCtrl>()->addItem(_value);
+					mCurrentWidget->castType<MyGUI::MenuCtrl>()->addItem(_value);
 					UndoManager::getInstance().addValue();
 				}
 				else
@@ -162,13 +162,13 @@ namespace tools
 			{
 				if (action == "Tab_AddSheet")
 				{
-					EditorWidgets::getInstance().remove(current_widget->castType<MyGUI::Tab>()->findItemWith(_value));
+					EditorWidgets::getInstance().remove(mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value));
 				}
-				else if (current_widget->isType<MyGUI::MenuCtrl>())
+				else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 				{
-					size_t item_index = current_widget->castType<MyGUI::MenuCtrl>()->findItemIndexWith(_value);
+					size_t item_index = mCurrentWidget->castType<MyGUI::MenuCtrl>()->findItemIndexWith(_value);
 					if (item_index != MyGUI::ITEM_NONE)
-						current_widget->castType<MyGUI::MenuCtrl>()->removeItemAt(item_index);
+						mCurrentWidget->castType<MyGUI::MenuCtrl>()->removeItemAt(item_index);
 				}
 				else
 				{
@@ -180,10 +180,10 @@ namespace tools
 							if (iterProperty->second == _value)
 							{
 								widgetContainer->mProperty.erase(iterProperty);
-								if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->removeItemAt(index);
-								else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->removeItemAt(index);
-								//else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->removeItemAt(index);
-								//else if (current_widget->getTypeName() == "Message") ->castType<MyGUI::Message>(current_widget)->deleteItem(index);
+								if (mCurrentWidget->getTypeName() == "ComboBox") mCurrentWidget->castType<MyGUI::ComboBox>()->removeItemAt(index);
+								else if (mCurrentWidget->getTypeName() == "List") mCurrentWidget->castType<MyGUI::List>()->removeItemAt(index);
+								//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->removeItemAt(index);
+								//else if (mCurrentWidget->getTypeName() == "Message") ->castType<MyGUI::Message>(mCurrentWidget)->deleteItem(index);
 								return;
 							}
 							++index;
@@ -197,15 +197,15 @@ namespace tools
 			mList->removeAllItems();
 			if (action == "Tab_AddSheet")
 			{
-				MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
+				MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 				for (size_t i = 0; i<tab->getItemCount(); ++i)
 				{
 					mList->addItem(tab->getItemNameAt(i));
 				}
 			}
-			else if (current_widget->isType<MyGUI::MenuCtrl>())
+			else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 			{
-				MyGUI::MenuCtrl* menu = current_widget->castType<MyGUI::MenuCtrl>();
+				MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
 				for (size_t i = 0; i<menu->getItemCount(); ++i)
 				{
 					mList->addItem(menu->getItemNameAt(i));
@@ -244,8 +244,8 @@ namespace tools
 	{
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;
-		MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		std::string action = "Tab_SelectSheet";
 		std::string value = MyGUI::utility::toString(item);
@@ -274,19 +274,19 @@ namespace tools
 		std::string lastitem = mList->getItemNameAt(item);
 		mList->setItemNameAt(item, value);
 
-		if (current_widget->getTypeName() == "Tab")
+		if (mCurrentWidget->getTypeName() == "Tab")
 		{
 			action = "Widget_Caption";
-			MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
+			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 			MyGUI::TabItem* sheet = tab->getItemAt(item);
 			WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
 			sheet->setProperty("Widget_Caption", value);
 			utility::mapSet(widgetContainer->mProperty, action, value);
 			return;
 		}
-		else if (current_widget->isType<MyGUI::MenuCtrl>())
+		else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 		{
-			MyGUI::MenuCtrl* menu = current_widget->castType<MyGUI::MenuCtrl>();
+			MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
 			for (size_t i = 0; i<menu->getItemCount(); ++i)
 			{
 				menu->setItemNameAt(i, mList->getItemNameAt(i));
@@ -294,10 +294,10 @@ namespace tools
 		}
 		else
 		{
-			action = current_widget->getTypeName() + "_AddItem";
+			action = mCurrentWidget->getTypeName() + "_AddItem";
 		}
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		int index = 0;
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
@@ -306,9 +306,9 @@ namespace tools
 				if (iterProperty->second == lastitem)
 				{
 					iterProperty->second = value;
-					if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
-					else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->setItemNameAt(index, value);
-					//else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
+					if (mCurrentWidget->getTypeName() == "ComboBox") mCurrentWidget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
+					else if (mCurrentWidget->getTypeName() == "List") mCurrentWidget->castType<MyGUI::List>()->setItemNameAt(index, value);
+					//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
 					return;
 				}
 				++index;
@@ -324,9 +324,9 @@ namespace tools
 		const MyGUI::UString& value = mList->getItemNameAt(index);
 		mEdit->setOnlyText(value);
 
-		if (current_widget->isType<MyGUI::Tab>())
+		if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
-			current_widget->castType<MyGUI::Tab>()->setIndexSelected(index);
+			mCurrentWidget->castType<MyGUI::Tab>()->setIndexSelected(index);
 		}
 	}
 

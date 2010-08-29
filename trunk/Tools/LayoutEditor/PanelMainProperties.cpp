@@ -16,7 +16,7 @@ namespace tools
 	PanelMainProperties::PanelMainProperties() :
 		BasePanelViewItem("PanelMainProperties.layout"),
 		mButtonRelativePosition(nullptr),
-		current_widget(nullptr),
+		mCurrentWidget(nullptr),
 		mPropertyItemHeight(0)
 	{
 	}
@@ -37,9 +37,9 @@ namespace tools
 
 	void PanelMainProperties::notifyToggleRelativeMode(MyGUI::Widget* _sender)
 	{
-		if (current_widget)
+		if (mCurrentWidget)
 		{
-			WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+			WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 			else mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
 			widgetContainer->relative_mode = !widgetContainer->relative_mode;
@@ -50,10 +50,10 @@ namespace tools
 	void PanelMainProperties::update(MyGUI::Widget* _current_widget)
 	{
 		int y = 0;
-		current_widget = _current_widget;
+		mCurrentWidget = _current_widget;
 
-		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(current_widget->getTypeName());
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
+		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);
 		y += mPropertyItemHeight;
@@ -76,7 +76,7 @@ namespace tools
 		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 		y += mPropertyItemHeight;
 
-		if (nullptr == current_widget->getParent())
+		if (nullptr == mCurrentWidget->getParent())
 		{
 			eventCreatePair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y);
 			y += mPropertyItemHeight;

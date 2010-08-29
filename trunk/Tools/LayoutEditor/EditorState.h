@@ -75,6 +75,7 @@ namespace tools
 		void notifyEndDialogCodeGenerator(Dialog* _dialog, bool _result);
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 		void notifyChanges(bool _changes);
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		void showLoadWindow();
 		void showSaveAsWindow();
@@ -107,6 +108,8 @@ namespace tools
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
+
+		int mGridStep;
 	};
 
 } // namespace tools
