@@ -12,7 +12,8 @@
 namespace tools
 {
 	class WidgetsWindow :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public MyGUI::Singleton<WidgetsWindow> //FIXME
 	{
 	public:
 		WidgetsWindow();
