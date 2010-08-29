@@ -1,6 +1,6 @@
 #include "precompiled.h"
 #include "Common.h"
-#include "EditorState.h"
+#include "Application.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
@@ -19,7 +19,7 @@ namespace tools
 {
 	const int BAR_HEIGHT = 30;
 
-	EditorState::EditorState() :
+	Application::Application() :
 		mLastClickX(0),
 		mLastClickY(0),
 		mSelectDepth(0),
@@ -38,11 +38,11 @@ namespace tools
 	{
 	}
 
-	EditorState::~EditorState()
+	Application::~Application()
 	{
 	}
 
-	void EditorState::setupResources()
+	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor");
@@ -54,7 +54,7 @@ namespace tools
 		setResourceFilename("editor.xml");
 	}
 
-	void EditorState::createScene()
+	void Application::createScene()
 	{
 		getStatisticInfo()->setVisible(false);
 
@@ -101,24 +101,24 @@ namespace tools
 
 		// settings window
 		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
+		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &Application::notifySettingsWindowEndDialog);
 		//mInterfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 		// properties panelView
 		mPropertiesPanelView = new PropertiesPanelView();
-		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &Application::notifyRecreate);
 		mInterfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 		mWidgetsWindow = new WidgetsWindow();
 		mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 		mCodeGenerator = new CodeGenerator();
-		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
+		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogCodeGenerator);
 		//mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->setFileMask("*.layout");
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &Application::notifyEndDialogOpenSaveFile);
 
 		mMainMenuControl = new MainMenuControl();
 		mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
@@ -140,19 +140,19 @@ namespace tools
 		for (VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuitApp));
-		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
-		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
+		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &Application::commandLoad));
+		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &Application::commandSave));
+		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &Application::commandSaveAs));
+		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &Application::commandClear));
+		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &Application::commandTest));
+		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &Application::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
+		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &Application::commandSettings));
+		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &Application::commandCodeGenerator));
+		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &Application::commandRecentFiles));
+		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
+		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &Application::commandFileDrop));
 
 		updateCaption();
 
@@ -167,16 +167,16 @@ namespace tools
 
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
-		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
+		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &Application::notifyChanges);
+		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &Application::notifyFrameStarted);
 	}
 
-	void EditorState::destroyScene()
+	void Application::destroyScene()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &EditorState::notifySettingsChanged);
-		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
+		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &Application::notifyChanges);
+		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &Application::notifyFrameStarted);
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
@@ -229,7 +229,7 @@ namespace tools
 		delete SettingsManager::getInstancePtr();
 	}
 
-	void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
+	void Application::injectMouseMove(int _absx, int _absy, int _absz)
 	{
 		/*if (mTestMode)
 		{
@@ -264,7 +264,7 @@ namespace tools
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
 
-	void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	void Application::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		/*if (mTestMode)
 		{
@@ -360,7 +360,7 @@ namespace tools
 		//base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
 
-	void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		/*if (mTestMode)
 		{
@@ -396,7 +396,7 @@ namespace tools
 		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 	}
 
-	void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
@@ -418,7 +418,7 @@ namespace tools
 			input.injectKeyPress(_key, _text);
 	}
 
-	void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
+	void Application::injectKeyRelease(MyGUI::KeyCode _key)
 	{
 		/*if (mTestMode)
 		{
@@ -428,7 +428,7 @@ namespace tools
 		return base::BaseManager::injectKeyRelease(_key);
 	}
 
-	void EditorState::notifyFrameStarted(float _time)
+	void Application::notifyFrameStarted(float _time)
 	{
 		GroupMessage::getInstance().showMessages();
 
@@ -440,7 +440,7 @@ namespace tools
 		}
 	}
 
-	/*void EditorState::notifyEndTest()
+	/*void Application::notifyEndTest()
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = mInterfaceWidgets.begin(); iter != mInterfaceWidgets.end(); ++iter)
 		{
@@ -454,7 +454,7 @@ namespace tools
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout);
 	}*/
 
-	void EditorState::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
+	void Application::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
 	{
 		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
 
@@ -466,7 +466,7 @@ namespace tools
 		mSettingsWindow->endModal();
 	}
 
-	void EditorState::prepare()
+	void Application::prepare()
 	{
 		// устанавливаем локаль из переменной окружения
 		// без этого не будут открываться наши файлы
@@ -558,13 +558,13 @@ namespace tools
 	#endif
 	}
 
-	void EditorState::onFileDrop(const std::wstring& _fileName)
+	void Application::onFileDrop(const std::wstring& _fileName)
 	{
 		CommandManager::getInstance().setCommandData(_fileName);
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
-	bool EditorState::onWinodwClose(size_t _handle)
+	bool Application::onWinodwClose(size_t _handle)
 	{
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (::IsIconic((HWND)_handle))
@@ -575,19 +575,19 @@ namespace tools
 		return false;
 	}
 
-	int EditorState::toGrid(int _x)
+	int Application::toGrid(int _x)
 	{
 		if (mGridStep < 1)
 			return _x;
 		return _x / mGridStep * mGridStep;
 	}
 
-	void EditorState::notifyRecreate()
+	void Application::notifyRecreate()
 	{
 		mRecreate = true;
 	}
 
-	/*void EditorState::commandTest(const MyGUI::UString& _commandName)
+	/*void Application::commandTest(const MyGUI::UString& _commandName)
 	{
 		mTestLayout = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();
@@ -606,33 +606,33 @@ namespace tools
 		mTestMode = true;
 	}*/
 
-	void EditorState::commandSettings(const MyGUI::UString& _commandName)
+	void Application::commandSettings(const MyGUI::UString& _commandName)
 	{
 		mSettingsWindow->doModal();
 	}
 
-	void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
+	void Application::commandCodeGenerator(const MyGUI::UString& _commandName)
 	{
 		mCodeGenerator->loadTemplate();
 		mCodeGenerator->doModal();
 	}
 
-	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
+	void Application::commandRecentFiles(const MyGUI::UString& _commandName)
 	{
 		commandFileDrop(_commandName);
 	}
 
-	void EditorState::commandStatisticInfo(const MyGUI::UString& _commandName)
+	void Application::commandStatisticInfo(const MyGUI::UString& _commandName)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
 	}
 
-	void EditorState::commandFocusVisible(const MyGUI::UString& _commandName)
+	void Application::commandFocusVisible(const MyGUI::UString& _commandName)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
 	}
 
-	void EditorState::commandQuitApp(const MyGUI::UString& _commandName)
+	void Application::commandQuitApp(const MyGUI::UString& _commandName)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 		{
@@ -651,7 +651,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandLoad(const MyGUI::UString& _commandName)
+	void Application::commandLoad(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -665,7 +665,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoad);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoad);
 		}
 		else
 		{
@@ -673,7 +673,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandSave(const MyGUI::UString& _commandName)
+	void Application::commandSave(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -684,7 +684,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
+	void Application::commandSaveAs(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -692,7 +692,7 @@ namespace tools
 		showSaveAsWindow();
 	}
 
-	void EditorState::commandClear(const MyGUI::UString& _commandName)
+	void Application::commandClear(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -706,7 +706,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultClear);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultClear);
 		}
 		else
 		{
@@ -714,7 +714,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandQuit(const MyGUI::UString& _commandName)
+	void Application::commandQuit(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -728,7 +728,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultQuit);
 		}
 		else
 		{
@@ -737,7 +737,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandFileDrop(const MyGUI::UString& _commandName)
+	void Application::commandFileDrop(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;
@@ -755,7 +755,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes
 					| MyGUI::MessageBoxStyle::No
 					| MyGUI::MessageBoxStyle::Cancel);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &Application::notifyMessageBoxResultLoadDropFile);
 		}
 		else
 		{
@@ -765,7 +765,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::clear()
+	void Application::clear()
 	{
 		mWidgetsWindow->clearNewWidget();
 		mRecreate = false;
@@ -783,7 +783,7 @@ namespace tools
 		updateCaption();
 	}
 
-	void EditorState::load()
+	void Application::load()
 	{
 		if (EditorWidgets::getInstance().load(mFileName))
 		{
@@ -807,7 +807,7 @@ namespace tools
 		}
 	}
 
-	bool EditorState::save()
+	bool Application::save()
 	{
 		if (EditorWidgets::getInstance().save(mFileName))
 		{
@@ -828,13 +828,13 @@ namespace tools
 		return false;
 	}
 
-	void EditorState::updateCaption()
+	void Application::updateCaption()
 	{
 		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
 		setCaption(replaceTags("CaptionMainWindow"));
 	}
 
-	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -853,7 +853,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -872,7 +872,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::loadDropFile()
+	void Application::loadDropFile()
 	{
 		mFileName = mDropFileName;
 		addUserTag("CurrentFileName", mFileName);
@@ -881,14 +881,14 @@ namespace tools
 		updateCaption();
 	}
 
-	void EditorState::showLoadWindow()
+	void Application::showLoadWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void EditorState::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
+	void Application::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
 	{
 		if (_result)
 		{
@@ -913,7 +913,7 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-	void EditorState::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -928,14 +928,14 @@ namespace tools
 		}
 	}
 
-	void EditorState::showSaveAsWindow()
+	void Application::showSaveAsWindow()
 	{
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void EditorState::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void Application::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
@@ -952,7 +952,7 @@ namespace tools
 		}
 	}
 
-	bool EditorState::checkCommand()
+	bool Application::checkCommand()
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 			return false;
@@ -966,24 +966,24 @@ namespace tools
 		return true;
 	}
 
-	void EditorState::notifyChanges(bool _changes)
+	void Application::notifyChanges(bool _changes)
 	{
 		updateCaption();
 	}
 
-	void EditorState::setCaption(const MyGUI::UString& _value)
+	void Application::setCaption(const MyGUI::UString& _value)
 	{
 		setWindowCaption(_value);
 	}
 
-	void EditorState::notifyEndDialogCodeGenerator(Dialog* _dialog, bool _result)
+	void Application::notifyEndDialogCodeGenerator(Dialog* _dialog, bool _result)
 	{
 		mCodeGenerator->endModal();
 		if (_result)
 			mCodeGenerator->saveTemplate();
 	}
 
-	void EditorState::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	void Application::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
 		if (_sectorName == "SettingsWindow")
 		{
@@ -994,4 +994,4 @@ namespace tools
 
 } // namespace tools
 
-MYGUI_APP(tools::EditorState)
+MYGUI_APP(tools::Application)
