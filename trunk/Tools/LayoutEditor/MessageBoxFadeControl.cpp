@@ -9,7 +9,6 @@
 
 namespace tools
 {
-
 	MessageBoxFadeControl::MessageBoxFadeControl() :
 		wraps::BaseLayout("MessageBoxFadeControl.layout"),
 		mMaxAlpha(1)

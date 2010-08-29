@@ -12,7 +12,6 @@ template <> const char* MyGUI::Singleton<tools::HotKeyManager>::mClassTypeName("
 
 namespace tools
 {
-
 	HotKeyManager::HotKeyManager()
 	{
 		#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name

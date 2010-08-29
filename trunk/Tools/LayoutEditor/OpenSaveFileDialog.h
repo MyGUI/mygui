@@ -11,7 +11,6 @@
 
 namespace tools
 {
-
 	class OpenSaveFileDialog :
 		public Dialog
 	{
