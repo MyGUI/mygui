@@ -24,6 +24,7 @@ namespace tools
 
 	SettingsManager::~SettingsManager()
 	{
+		destroyAllSectors();
 	}
 
 	void SettingsManager::initialise()
@@ -35,6 +36,7 @@ namespace tools
 	void SettingsManager::shutdown()
 	{
 		saveSettings(userSettingsFile);
+		destroyAllSectors();
 	}
 
 	void SettingsManager::loadSettings(const MyGUI::UString& _fileName, bool _internal)
@@ -105,16 +107,7 @@ namespace tools
 					}
 					else
 					{
-						std::string key, value;
-
-						MyGUI::xml::ElementEnumerator properties = field->getElementEnumerator();
-						while (properties.next("Property"))
-						{
-							if (!properties->findAttribute("key", key)) continue;
-							if (!properties->findAttribute("value", value)) continue;
-
-							setProperty(field->getName(), key, value, false);
-						}
+						loadSector(field.current());
 					}
 				}
 			}
@@ -130,18 +123,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Settings");
 
-		for (MapSection::const_iterator section=mSections.begin(); section!=mSections.end(); ++section)
-		{
-			MyGUI::xml::Element* sectionNode = root->createChild((*section).first);
-
-			const MapUString& properties = (*section).second;
-			for (MapUString::const_iterator prop=properties.begin(); prop!=properties.end(); ++prop)
-			{
-				MyGUI::xml::Element* propertyNode = sectionNode->createChild("Property");
-				propertyNode->addAttribute("key", (*prop).first);
-				propertyNode->addAttribute("value", (*prop).second);
-			}
-		}
+		saveSectors(root);
 
 		// cleanup for duplicates
 		/*std::reverse(mRecentFiles.begin(), mRecentFiles.end());
@@ -172,27 +154,6 @@ namespace tools
 		}
 	}
 
-	/*bool SettingsManager::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
-	{
-		MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-		while (field.next())
-		{
-			std::string key, value;
-
-			if (field->getName() == "Property")
-			{
-				if (!field->findAttribute("key", key)) continue;
-				if (!field->findAttribute("value", value)) continue;
-
-				if (key == "MetaSolutionName")
-				{
-					return !value.empty();
-				}
-			}
-		}
-		return false;
-	}*/
-
 	void SettingsManager::addRecentFile(const MyGUI::UString& _fileName)
 	{
 		VectorUString::iterator item = std::remove(mRecentFiles.begin(), mRecentFiles.end(), _fileName);
@@ -207,39 +168,49 @@ namespace tools
 		eventSettingsChanged("Main", "RecentFiles");
 	}
 
-	void SettingsManager::setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
+	void SettingsManager::loadSector(MyGUI::xml::ElementPtr _sectorNode)
 	{
-		setProperty(_sectionName, _propertyName, _propertyValue, true);
+		SettingsSector* sector = new SettingsSector();
+		sector->eventSettingsChanged = MyGUI::newDelegate(this, &SettingsManager::notifySettingsChanged);
+
+		sector->deserialization(_sectorNode, MyGUI::Version());
+
+		mSettings.push_back(sector);
 	}
 
-	void SettingsManager::setProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue, bool _event)
+	void SettingsManager::saveSectors(MyGUI::xml::ElementPtr _rootNode)
 	{
-		MapSection::iterator sectionIter = mSections.find(_sectionName);
-		if (sectionIter == mSections.end())
-			sectionIter = mSections.insert(std::make_pair(_sectionName, MapUString())).first;
-
-		MapUString& section = (*sectionIter).second;
-		MapUString::iterator propertyIter = section.find(_propertyName);
-		if (propertyIter == section.end())
-			section.insert(std::make_pair(_propertyName, _propertyValue));
-		else
-			(*propertyIter).second = _propertyValue;
-
-		eventSettingsChanged(_sectionName, _propertyName);
+		for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+			(*item)->serialization(_rootNode, MyGUI::Version());
 	}
 
-	MyGUI::UString SettingsManager::getProperty(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
+	void SettingsManager::destroyAllSectors()
 	{
-		MapSection::const_iterator sectionIter = mSections.find(_sectionName);
-		if (sectionIter != mSections.end())
+		for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+			delete (*item);
+		mSettings.clear();
+	}
+
+	SettingsSector* SettingsManager::getSector(const MyGUI::UString& _sectorName)
+	{
+		for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
 		{
-			const MapUString& section = (*sectionIter).second;
-			MapUString::const_iterator propertyIter = section.find(_propertyName);
-			if (propertyIter != section.end())
-				return (*propertyIter).second;
+			if ((*item)->getName() == _sectorName)
+				return (*item);
 		}
 
-		return "";
+		SettingsSector* sector = new SettingsSector();
+		sector->eventSettingsChanged = MyGUI::newDelegate(this, &SettingsManager::notifySettingsChanged);
+
+		sector->setName(_sectorName);
+
+		mSettings.push_back(sector);
+		return sector;
+	}
+
+	void SettingsManager::notifySettingsChanged(SettingsSector* _sector, const MyGUI::UString& _propertyName)
+	{
+		eventSettingsChanged(_sector->getName(), _propertyName);
 	}
 
 } // namespace tools

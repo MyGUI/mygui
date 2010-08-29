@@ -81,6 +81,8 @@ namespace tools
 			(*item).second = _propertValue;
 		else
 			mProperties.insert(std::make_pair(_propertName, _propertValue));
+
+		eventSettingsChanged(this, _propertName);
 	}
 
 } // namespace tools

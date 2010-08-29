@@ -104,20 +104,20 @@ void SettingsWindow::onEndModal()
 
 void SettingsWindow::saveSettings()
 {
-	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "Grid", grid_step);
-	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowName", getShowName());
-	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowType", getShowType());
-	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "ShowSkin", getShowSkin());
-	tools::SettingsManager::getInstance().setPropertyValue("SettingsWindow", "EdgeHide", getEdgeHide());
+	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", grid_step);
+	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
+	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
+	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
+	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("EdgeHide", getEdgeHide());
 }
 
 void SettingsWindow::loadSettings()
 {
-	grid_step = tools::SettingsManager::getInstance().getPropertyValue<int>("SettingsWindow", "Grid");
-	setShowName(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowName"));
-	setShowType(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType"));
-	setShowSkin(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin"));
-	setEdgeHide(tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"));
+	grid_step = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+	setShowName(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
+	setShowType(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
+	setShowSkin(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
+	setEdgeHide(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide"));
 }
 
 void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)

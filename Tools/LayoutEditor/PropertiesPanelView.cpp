@@ -685,14 +685,15 @@ void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, 
 
 void PropertiesPanelView::setEdgeHideController()
 {
-	if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+	bool value = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
+	if (value)
 	{
 		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
 		MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
 
-		controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
-		controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
-		controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+		controller->setTime(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
+		controller->setRemainPixels(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
+		controller->setShadowSize(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
 
 		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 	}
