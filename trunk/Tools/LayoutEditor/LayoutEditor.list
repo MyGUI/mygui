@@ -1,6 +1,5 @@
 set (HEADER_FILES
   Common.h
-  Application.h
   EditorToolTip.h
   EditorWidgets.h
   resource.h
@@ -39,9 +38,10 @@ set (HEADER_FILES
   Dialog.h
   StateManager.h
   StateController.h
+  Application.h
+  EditorState.h
 )
 set (SOURCE_FILES
-  Application.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   UndoManager.cpp
@@ -71,9 +71,10 @@ set (SOURCE_FILES
   MessageBoxFadeControl.cpp
   Dialog.cpp
   StateManager.cpp
+  EditorState.cpp
+  Application.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  Application.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   UndoManager.cpp
@@ -86,7 +87,6 @@ SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Header Files" FILES
   Common.h
-  Application.h
   EditorToolTip.h
   EditorWidgets.h
   resource.h
