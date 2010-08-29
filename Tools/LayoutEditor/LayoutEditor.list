@@ -37,6 +37,8 @@ set (HEADER_FILES
   WidgetStyle.h
   PossibleValue.h
   Dialog.h
+  StateManager.h
+  StateController.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -68,6 +70,7 @@ set (SOURCE_FILES
   SettingsSector.cpp
   MessageBoxFadeControl.cpp
   Dialog.cpp
+  StateManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
