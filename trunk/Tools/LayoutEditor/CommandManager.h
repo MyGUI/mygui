@@ -10,7 +10,6 @@
 
 namespace tools
 {
-
 	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> CommandDelegate;
 
 	class CommandManager :

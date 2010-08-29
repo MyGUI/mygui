@@ -3,54 +3,58 @@
 
 #include "MyGUI.h"
 
-const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
-const std::string DEFAULT_LAYER = "Back";
-
-struct ControllerInfo
+namespace tools
 {
-	std::string mType;
-	MyGUI::MapString mProperty;
-};
+	const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
+	const std::string DEFAULT_LAYER = "Back";
 
-struct WidgetContainer
-{
-	WidgetContainer() :
-		widget(nullptr),
-		relative_mode(false)
-	{ }
-	WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = ""):
-		widget(_widget),
-		type(_type),
-		skin(_skin),
-		name(_name),
-		layer(""),
-		relative_mode(false)
-	{ }
-
-	MyGUI::Widget* widget;
-	std::vector<WidgetContainer*> childContainers;
-	MyGUI::VectorStringPairs mProperty;
-	MyGUI::VectorStringPairs mUserString;
-	std::vector<ControllerInfo*> mController;
-	std::string type;
-	std::string skin;
-	std::string align;
-	std::string name;
-	std::string layer;
-	// not for saving
-	std::string position(bool _percent = true)
+	struct ControllerInfo
 	{
-		if (relative_mode)
+		std::string mType;
+		MyGUI::MapString mProperty;
+	};
+
+	struct WidgetContainer
+	{
+		WidgetContainer() :
+			widget(nullptr),
+			relative_mode(false)
+		{ }
+		WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = ""):
+			widget(_widget),
+			type(_type),
+			skin(_skin),
+			name(_name),
+			layer(""),
+			relative_mode(false)
+		{ }
+
+		MyGUI::Widget* widget;
+		std::vector<WidgetContainer*> childContainers;
+		MyGUI::VectorStringPairs mProperty;
+		MyGUI::VectorStringPairs mUserString;
+		std::vector<ControllerInfo*> mController;
+		std::string type;
+		std::string skin;
+		std::string align;
+		std::string name;
+		std::string layer;
+		// not for saving
+		std::string position(bool _percent = true)
 		{
-			MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(widget->getCoord(), widget->getParentSize());
-			std::ostringstream stream;
-			if (_percent) stream << coord.left*100 << " " << coord.top*100 << " " << coord.width*100 << " " << coord.height*100;
-			else stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
-			return stream.str();
+			if (relative_mode)
+			{
+				MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(widget->getCoord(), widget->getParentSize());
+				std::ostringstream stream;
+				if (_percent) stream << coord.left*100 << " " << coord.top*100 << " " << coord.width*100 << " " << coord.height*100;
+				else stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
+				return stream.str();
+			}
+			return widget->getCoord().print();
 		}
-		return widget->getCoord().print();
-	}
-	bool relative_mode;
-};
+		bool relative_mode;
+	};
+
+} // namespace tools
 
 #endif // __WIDGET_CONTAINER_H__

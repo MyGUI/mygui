@@ -11,25 +11,29 @@
 #include "WidgetTypes.h"
 #include "WidgetContainer.h"
 
-extern const int PropertyItemHeight;
-
-class PanelProperties : public wraps::BasePanelViewItem
+namespace tools
 {
-public:
+	extern const int PropertyItemHeight;
 
-	PanelProperties();
+	class PanelProperties : public wraps::BasePanelViewItem
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelProperties();
 
-	void update(MyGUI::Widget* _current_widget, WidgetStyle* _widgetType);
+		virtual void initialise();
+		virtual void shutdown();
 
-	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
-	EventHandle_EventCreatePair eventCreatePair;
+		void update(MyGUI::Widget* _current_widget, WidgetStyle* _widgetType);
 
-private:
-	size_t AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y);
+		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+		EventHandle_EventCreatePair eventCreatePair;
 
-};
+	private:
+		size_t AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y);
+
+	};
+
+} // namespace tools
 
 #endif // __PANEL_PROPERTIES_H__
