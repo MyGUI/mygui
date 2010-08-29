@@ -177,7 +177,11 @@ namespace tools
 					}
 				}
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
+#else
+				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
+#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
@@ -202,7 +206,11 @@ namespace tools
 					}
 				}
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
 				stream.open(tmp.c_str());
+#else
+				stream.open(MyGUI::UString(tmp).asUTF8_c_str());
+#endif
 				if (stream.is_open())
 				{
 					if (tmp.size() > 4 && tmp.substr(tmp.size() - 4) != L".exe")
