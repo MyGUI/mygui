@@ -190,6 +190,9 @@ SOURCE_GROUP("Source Files" FILES
   DialogManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
+  StateManager.cpp
+  EditorState.cpp
+  TestState.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -255,6 +258,10 @@ SOURCE_GROUP("Header Files" FILES
   MessageBoxFadeControl.h
   HotKeyCommand.h
   HotKeyManager.h
+  StateManager.h
+  StateController.h
+  EditorState.h
+  TestState.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
