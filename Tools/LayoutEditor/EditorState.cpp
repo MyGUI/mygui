@@ -4,7 +4,6 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "Base/Main.h"
 #include "GroupMessage.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
@@ -34,21 +33,20 @@ namespace tools
 		mDefaultFileName("unnamed.xml"),
 		mMessageBoxFadeControl(nullptr)
 	{
-	}
-
-	EditorState::~EditorState()
-	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
 		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
 		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuitApp));
 		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
+	}
+
+	EditorState::~EditorState()
+	{
 	}
 
 	void EditorState::initState()
@@ -214,25 +212,6 @@ namespace tools
 		commandFileDrop(_commandName);
 	}
 
-	void EditorState::commandQuitApp(const MyGUI::UString& _commandName)
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-		{
-			DialogManager::getInstance().endTopDialog();
-		}
-		else
-		{
-			if (MessageBoxManager::getInstance().hasAny())
-			{
-				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
-			}
-			else
-			{
-				CommandManager::getInstance().executeCommand("Command_Quit");
-			}
-		}
-	}
-
 	void EditorState::commandLoad(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
@@ -356,9 +335,6 @@ namespace tools
 
 		UndoManager::getInstance().shutdown();
 		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
-
-		//FIXME нуна сбрасывать в апликейшен
-		//mSelectDepth = 0;
 
 		mFileName = mDefaultFileName;
 		addUserTag("CurrentFileName", mFileName);

@@ -45,6 +45,7 @@ namespace tools
 		int toGrid(int _x);
 
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifyChangeSelectedWidget(MyGUI::Widget* _widget);
 
 	private:
 		// last click for depth selecting
