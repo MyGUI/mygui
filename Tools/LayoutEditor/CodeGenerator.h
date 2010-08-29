@@ -9,6 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "WidgetContainer.h"
 #include "Dialog.h"
+#include "OpenSaveFileDialog.h"
 
 ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
 class CodeGenerator :
@@ -29,6 +30,10 @@ private:
 	void notifyGeneratePressed(MyGUI::Widget* _sender);
 	void notifyCancel(MyGUI::Widget* _sender);
 	void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+	void notifyBrowseHeader(MyGUI::Widget* _sender);
+	void notifyBrowseSource(MyGUI::Widget* _sender);
+
+	void notifyEndDialogOpenSaveFile(tools::Dialog* _sender, bool _result);
 
 	virtual void onDoModal();
 	virtual void onEndModal();
@@ -44,13 +49,15 @@ private:
 	MyGUI::Button* mGenerateButton;
 	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mCancel, "Cancel");
 	MyGUI::Button* mCancel;
+	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseHeader, "BrowseHeader");
+	MyGUI::Button* mBrowseHeader;
+	ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mBrowseSource, "BrowseSource");
+	MyGUI::Button* mBrowseSource;
 
 	MyGUI::MapString mTemplateFiles;
 	MyGUI::MapString mTemplateStrings;
 
-	std::string mPanelName;
-	std::string mIncludeDirectory;
-	std::string mSourceDirectory;
+	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 };
 
 #endif // __CODE_GENERATOR_H__

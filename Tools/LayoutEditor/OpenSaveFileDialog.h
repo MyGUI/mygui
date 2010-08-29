@@ -18,7 +18,7 @@ namespace tools
 	public:
 		OpenSaveFileDialog();
 
-		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button);
+		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
 		void setCurrentFolder(const MyGUI::UString& _value = "");
 		const MyGUI::UString& getCurrentFolder() { return mCurrentFolder; }
@@ -59,6 +59,7 @@ namespace tools
 		MyGUI::UString mFileMask;
 
 		MyGUI::UString mMode;
+		bool mFolderMode;
 	};
 
 } // namespace tools
