@@ -3,7 +3,6 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
-#include "CodeGenerator.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -11,14 +10,14 @@ template <> EditorWidgets* MyGUI::Singleton<EditorWidgets>::msInstance = nullptr
 template <> const char* MyGUI::Singleton<EditorWidgets>::mClassTypeName("EditorWidgets");
 
 EditorWidgets::EditorWidgets() :
-	global_counter(0),
-	widgets_changed(false)//,
-	//mCodeGenerator(nullptr)
+	mGlobalCounter(0),
+	mWidgetsChanged(false)
 {
 }
 
 EditorWidgets::~EditorWidgets()
 {
+	destroyAllSectors();
 }
 
 void MapSet(MyGUI::VectorStringPairs & _map, const std::string &_key, const std::string &_value)
@@ -75,8 +74,8 @@ MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::
 
 void EditorWidgets::initialise()
 {
-	global_counter = 0;
-	widgets_changed = true;
+	mGlobalCounter = 0;
+	mWidgetsChanged = true;
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
 
@@ -87,8 +86,15 @@ void EditorWidgets::shutdown()
 {
 	MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter) delete *iter;
-	widgets.clear();
+	destroyAllWidgets();
+	destroyAllSectors();
+}
+
+void EditorWidgets::destroyAllWidgets()
+{
+	for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+		delete *iter;
+	mWidgets.clear();
 }
 
 bool EditorWidgets::load(const MyGUI::UString& _fileName)
@@ -116,10 +122,13 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 		{
 			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next("Widget")) parseWidget(element, nullptr);
-			element = root->getElementEnumerator();
-			//while (element.next("CodeGenaratorSettings"))
-				//mCodeGenerator->loadProperties(element);
+			while (element.next())
+			{
+				if (element->getName() == "Widget")
+					parseWidget(element, nullptr);
+				else
+					loadSector(element.current());
+			}
 		}
 		else
 		{
@@ -127,7 +136,7 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 		}
 	}
 
-	widgets_changed = true;
+	mWidgetsChanged = true;
 	return true;
 }
 
@@ -140,13 +149,13 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 	root->addAttribute("type", "Layout");
 
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 	{
 		// в корень только сирот
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
-	//mCodeGenerator->saveProperties(root);
+	saveSectors(root);
 
 	if (!doc.save(_fileName))
 	{
@@ -171,7 +180,7 @@ void EditorWidgets::loadxmlDocument(MyGUI::xml::Document * doc, bool _test)
 			while (widget.next("Widget")) parseWidget(widget, 0, _test);
 		}
 	}
-	widgets_changed = true;
+	mWidgetsChanged = true;
 }
 
 MyGUI::xml::Document * EditorWidgets::savexmlDocument()
@@ -182,7 +191,7 @@ MyGUI::xml::Document * EditorWidgets::savexmlDocument()
 	MyGUI::xml::ElementPtr root = doc->createRoot("MyGUI");
 	root->addAttribute("type", "Layout");
 
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+	for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 	{
 		// в корень только сирот
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
@@ -196,7 +205,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 	if (nullptr == _container->widget->getParent())
 	{
 		if ("" == _container->layer) _container->layer = DEFAULT_LAYER;
-		widgets.push_back(_container);
+		mWidgets.push_back(_container);
 	}
 	else
 	{
@@ -210,13 +219,13 @@ void EditorWidgets::add(WidgetContainer * _container)
 		}
 		containerParent->childContainers.push_back(_container);
 	}
-	widgets_changed = true;
+	mWidgetsChanged = true;
 }
 
 void EditorWidgets::remove(MyGUI::Widget* _widget)
 {
 	remove(find(_widget));
-	widgets_changed = true;
+	mWidgetsChanged = true;
 }
 
 void EditorWidgets::remove(WidgetContainer * _container)
@@ -232,7 +241,7 @@ void EditorWidgets::remove(WidgetContainer * _container)
 	{
 		if (nullptr == _container->widget->getParent())
 		{
-			widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+			mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
 		}
 		else
 		{
@@ -252,26 +261,28 @@ void EditorWidgets::remove(WidgetContainer * _container)
 
 		delete _container;
 	}
-	widgets_changed = true;
+	mWidgetsChanged = true;
 }
 
 void EditorWidgets::clear()
 {
-	while (!widgets.empty())
+	while (!mWidgets.empty())
 	{
-		remove(widgets[widgets.size()-1]);
+		remove(mWidgets[mWidgets.size()-1]);
 	}
-	global_counter = 0;
+	mGlobalCounter = 0;
+
+	destroyAllSectors();
 }
 
 WidgetContainer * EditorWidgets::find(MyGUI::Widget* _widget)
 {
-	return _find(_widget, "", widgets);
+	return _find(_widget, "", mWidgets);
 }
 
 WidgetContainer * EditorWidgets::find(const std::string& _name)
 {
-	return _find(NULL, _name, widgets);
+	return _find(NULL, _name, mWidgets);
 }
 
 WidgetContainer * EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
@@ -327,10 +338,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 	std::string tmpname = container->name;
 	if (tmpname.empty())
-	{
-		tmpname = MyGUI::utility::toString(container->type, global_counter);
-		global_counter++;
-	}
+		tmpname = MyGUI::utility::toString(container->type, getNextGlobalCounter());
 
 	//может и не стоит
 	tmpname = "LayoutEditorWidget_" + tmpname;
@@ -437,7 +445,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 			}
 		}
 
-		if (_test || std::find(ignore_parameters.begin(), ignore_parameters.end(), _key) == ignore_parameters.end())
+		if (_test || std::find(mIgnoreParameters.begin(), mIgnoreParameters.end(), _key) == mIgnoreParameters.end())
 		{
 			_widget->setProperty(_key, _value);
 		}
@@ -502,20 +510,66 @@ void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std
 	while (parameter.next("Parameter"))
 	{
 		std::string name = parameter->findAttribute("key");
-		ignore_parameters.push_back(name);
+		mIgnoreParameters.push_back(name);
 	}
 }
 
 void EditorWidgets::notifyFrameStarted(float _time)
 {
-	if (widgets_changed)
+	if (mWidgetsChanged)
 	{
-		widgets_changed = false;
+		mWidgetsChanged = false;
 		eventChangeWidgets();
 	}
 }
 
 void EditorWidgets::invalidateWidgets()
 {
-	widgets_changed = true;
+	mWidgetsChanged = true;
+}
+
+void EditorWidgets::loadSector(MyGUI::xml::ElementPtr _sectorNode)
+{
+	tools::SettingsSector* sector = new tools::SettingsSector();
+	sector->deserialization(_sectorNode, MyGUI::Version());
+
+	mSettings.push_back(sector);
+}
+
+void EditorWidgets::saveSectors(MyGUI::xml::ElementPtr _rootNode)
+{
+	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+		(*item)->serialization(_rootNode, MyGUI::Version());
+}
+
+void EditorWidgets::destroyAllSectors()
+{
+	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+		delete (*item);
+	mSettings.clear();
+}
+
+tools::SettingsSector* EditorWidgets::getSector(const MyGUI::UString& _sectorName)
+{
+	for (VectorSettingsSector::iterator item = mSettings.begin(); item != mSettings.end(); ++item)
+	{
+		if ((*item)->getName() == _sectorName)
+			return (*item);
+	}
+
+	tools::SettingsSector* sector = new tools::SettingsSector();
+	sector->setName(_sectorName);
+
+	mSettings.push_back(sector);
+	return sector;
+}
+
+int EditorWidgets::getNextGlobalCounter()
+{
+	return ++ mGlobalCounter;
+}
+
+EnumeratorWidgetContainer EditorWidgets::getWidgets()
+{
+	return EnumeratorWidgetContainer(mWidgets);
 }

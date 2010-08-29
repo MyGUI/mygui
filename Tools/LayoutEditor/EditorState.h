@@ -59,7 +59,7 @@ private:
 	void commandQuit(const MyGUI::UString& _commandName);
 	void commandQuitApp(const MyGUI::UString& _commandName);
 	void commandSettings(const MyGUI::UString& _commandName);
-	//void commandCodeGenerator(const MyGUI::UString& _commandName);
+	void commandCodeGenerator(const MyGUI::UString& _commandName);
 	void commandRecentFiles(const MyGUI::UString& _commandName);
 	void commandStatisticInfo(const MyGUI::UString& _commandName);
 	void commandFocusVisible(const MyGUI::UString& _commandName);
@@ -69,7 +69,8 @@ private:
 	bool checkCommand();
 
 	void notifySettingsWindowEndDialog(tools::Dialog* _dialog, bool _result);
-	void notifyEndDialog(tools::Dialog* _sender, bool _result);
+	void notifyEndDialogCodeGenerator(tools::Dialog* _dialog, bool _result);
+	void notifyEndDialogOpenSaveFile(tools::Dialog* _sender, bool _result);
 	void notifyChanges(bool _changes);
 
 	void showLoadWindow();
@@ -91,7 +92,7 @@ private:
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
-	//CodeGenerator * mCodeGenerator;
+	CodeGenerator * mCodeGenerator;
 	tools::OpenSaveFileDialog* mOpenSaveFileDialog;
 
 	VectorWString mParams;

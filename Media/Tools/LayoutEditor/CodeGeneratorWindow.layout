@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="88 78 304 274" align="Left Bottom" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCSX" position="88 78 392 266" align="Left Bottom" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{Widgets}"/>
         <Property key="Snap" value="true"/>
         <Property key="Visible" value="false"/>
-        <Widget type="StaticText" skin="StaticText" position="0 40 128 32">
-            <Property key="Caption" value="Panel name"/>
+        <Property key="MinSize" value="392 266"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="8 8 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_PanelName}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="128 40 167 32" align="HStretch Top" name="PanelName"/>
-        <Widget type="StaticText" skin="StaticText" position="0 80 128 32">
-            <Property key="Caption" value="Include directory"/>
+        <Widget type="Edit" skin="Edit" position="8 32 368 26" align="HStretch Top" name="PanelName"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="8 64 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_IncludeDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="0 112 128 32">
-            <Property key="Caption" value="Source directory"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="8 120 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_SourceDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="128 112 167 32" align="HStretch Top" name="SourceDirectory"/>
-        <Widget type="Edit" skin="Edit" position="128 80 167 32" align="HStretch Top" name="IncludeDirectory"/>
-        <Widget type="Button" skin="Button" position="8 200 280 32" name="Generate">
-            <Property key="Caption" value="Generate"/>
+        <Widget type="Edit" skin="Edit" position="8 144 368 26" align="HStretch Top" name="SourceDirectory"/>
+        <Widget type="Edit" skin="Edit" position="8 88 368 26" align="HStretch Top" name="IncludeDirectory"/>
+        <Widget type="Button" skin="Button" position="232 196 144 26" align="Right Bottom" name="Generate">
+            <Property key="Caption" value="#{CG_Generate}"/>
         </Widget>
-        <Widget type="ComboBox" skin="ComboBox" position="0 0 296 32">
-            <Property key="Caption" value="Not implemented template selector"/>
-            <Property key="ModeDrop" value="true"/>
+        <Widget type="Button" skin="Button" position="6 196 146 26" align="Left Bottom" name="Cancel">
+            <Property key="Caption" value="#{Cancel}"/>
         </Widget>
     </Widget>
 </MyGUI>

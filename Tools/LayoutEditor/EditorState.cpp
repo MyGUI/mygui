@@ -25,7 +25,7 @@ EditorState::EditorState() :
 	mPropertiesPanelView(nullptr),
 	mSettingsWindow(nullptr),
 	mWidgetsWindow(nullptr),
-	//mCodeGenerator(nullptr),
+	mCodeGenerator(nullptr),
 	mOpenSaveFileDialog(nullptr),
 	mMainMenuControl(nullptr),
 	mFileName("unnamed.xml"),
@@ -107,13 +107,13 @@ void EditorState::createScene()
 	mWidgetsWindow = new WidgetsWindow();
 	mInterfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
-	//mCodeGenerator = new CodeGenerator();
+	mCodeGenerator = new CodeGenerator();
+	mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
 	//mInterfaceWidgets.push_back(mCodeGenerator->getMainWidget());
-	//EditorWidgets::getInstance().setCodeGenerator(mCodeGenerator);
 
 	mOpenSaveFileDialog = new tools::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setFileMask("*.layout");
-	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
+	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 
 	mMainMenuControl = new tools::MainMenuControl();
 	mInterfaceWidgets.push_back(mMainMenuControl->getMainWidget());
@@ -141,7 +141,7 @@ void EditorState::createScene()
 	tools::CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 	tools::CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &EditorState::commandQuitApp));
 	tools::CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-	//tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
+	tools::CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
 	tools::CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 	tools::CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &EditorState::commandStatisticInfo));
 	tools::CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &EditorState::commandFocusVisible));
@@ -193,8 +193,8 @@ void EditorState::destroyScene()
 	delete mSettingsWindow;
 	mSettingsWindow = nullptr;
 
-	//delete mCodeGenerator;
-	//mCodeGenerator = nullptr;
+	delete mCodeGenerator;
+	mCodeGenerator = nullptr;
 
 	delete mWidgetsWindow;
 	mWidgetsWindow = nullptr;
@@ -595,10 +595,11 @@ void EditorState::commandSettings(const MyGUI::UString& _commandName)
 	mSettingsWindow->doModal();
 }
 
-/*void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
+void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
 {
-	mCodeGenerator->getMainWidget()->setVisible(true);
-}*/
+	mCodeGenerator->loadTemplate();
+	mCodeGenerator->doModal();
+}
 
 void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 {
@@ -871,7 +872,7 @@ void EditorState::showLoadWindow()
 	mOpenSaveFileDialog->doModal();
 }
 
-void EditorState::notifyEndDialog(tools::Dialog* _sender, bool _result)
+void EditorState::notifyEndDialogOpenSaveFile(tools::Dialog* _sender, bool _result)
 {
 	if (_result)
 	{
@@ -957,6 +958,13 @@ void EditorState::notifyChanges(bool _changes)
 void EditorState::setCaption(const MyGUI::UString& _value)
 {
 	setWindowCaption(_value);
+}
+
+void EditorState::notifyEndDialogCodeGenerator(tools::Dialog* _dialog, bool _result)
+{
+	mCodeGenerator->endModal();
+	if (_result)
+		mCodeGenerator->saveTemplate();
 }
 
 MYGUI_APP(EditorState)

@@ -32,6 +32,7 @@ set (HEADER_FILES
   CodeGenerator.h
   MessageBoxManager.h
   DialogManager.h
+  SettingsSector.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -63,6 +64,7 @@ set (SOURCE_FILES
   MessageBoxManager.cpp
   DialogManager.cpp
   Dialog.cpp
+  SettingsSector.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
