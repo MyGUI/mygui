@@ -95,12 +95,12 @@ void PanelUserData::notifyAddUserData(MyGUI::Widget* _sender)
 	std::string key = mEditKey->getOnlyText();
 	std::string value = mEditValue->getOnlyText();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-	if (MapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
+	if (tools::utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
 	{
 		mMultilist->addItem(key);
 	}
 	mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
-	MapSet(widgetContainer->mUserString, key, value);
+	tools::utility::mapSet(widgetContainer->mUserString, key, value);
 	UndoManager::getInstance().addValue();
 }
 
@@ -110,7 +110,7 @@ void PanelUserData::notifyDeleteUserData(MyGUI::Widget* _sender)
 	if (MyGUI::ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-	MapErase(widgetContainer->mUserString, mMultilist->getItemNameAt(item));
+	tools::utility::mapErase(widgetContainer->mUserString, mMultilist->getItemNameAt(item));
 	mMultilist->removeItemAt(item);
 	UndoManager::getInstance().addValue();
 }
@@ -129,14 +129,14 @@ void PanelUserData::notifyUpdateUserData(MyGUI::Edit* _widget)
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
-	MapErase(widgetContainer->mUserString, lastkey);
-	if (MapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
+	tools::utility::mapErase(widgetContainer->mUserString, lastkey);
+	if (tools::utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
 	{
 		mMultilist->addItem(key);
 	}
 	mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
 	mMultilist->setIndexSelected(mMultilist->findSubItemWith(0, key));
-	MapSet(widgetContainer->mUserString, key, value);
+	tools::utility::mapSet(widgetContainer->mUserString, key, value);
 	UndoManager::getInstance().addValue();
 }
 

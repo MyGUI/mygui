@@ -13,6 +13,7 @@
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
+#include "Localise.h"
 
 const int BAR_HEIGHT = 30;
 
