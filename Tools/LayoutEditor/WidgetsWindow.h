@@ -9,55 +9,59 @@
 #include "BaseLayout/BaseLayout.h"
 #include "EditorToolTip.h"
 
-class WidgetsWindow :
-	public wraps::BaseLayout
+namespace tools
 {
-public:
-	WidgetsWindow();
-	virtual ~WidgetsWindow();
+	class WidgetsWindow :
+		public wraps::BaseLayout
+	{
+	public:
+		WidgetsWindow();
+		virtual ~WidgetsWindow();
 
-	void initialise();
+		void initialise();
 
-	void clearAllSheets();
+		void clearAllSheets();
 
-	void clearNewWidget();
-	void startNewWidget(int _x1, int _y1, MyGUI::MouseButton _id);
-	void createNewWidget(int _x2, int _y2);
-	void finishNewWidget(int _x2, int _y2);
+		void clearNewWidget();
+		void startNewWidget(int _x1, int _y1, MyGUI::MouseButton _id);
+		void createNewWidget(int _x2, int _y2);
+		void finishNewWidget(int _x2, int _y2);
 
-	int getCreatingStatus() { return creating_status; }
+		int getCreatingStatus() { return creating_status; }
 
-	MyGUI::Widget* getMainWidget() { return mMainWidget; }
+		MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
-private:
-	void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
-	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
-	void notifySelectWidgetType(MyGUI::Widget* _sender);
-	void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
+	private:
+		void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
+		void notifySelectWidgetType(MyGUI::Widget* _sender);
+		void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
 
-	void updateSize();
-	void setEdgeHideController();
+		void updateSize();
+		void setEdgeHideController();
 
-private:
-	MyGUI::Tab* mTabSkins;
+	private:
+		MyGUI::Tab* mTabSkins;
 
-	int widgetsButtonWidth;
-	int widgetsButtonHeight;
-	int widgetsButtonsInOneLine;
-	std::string skinSheetName;
+		int widgetsButtonWidth;
+		int widgetsButtonHeight;
+		int widgetsButtonsInOneLine;
+		std::string skinSheetName;
 
-	MyGUI::Widget* current_widget;
+		MyGUI::Widget* current_widget;
 
-	EditorToolTip*  mToolTip;
+		EditorToolTip*  mToolTip;
 
-	// info for new widget
-	int x1, y1, x2, y2;
-	// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
-	int creating_status;
+		// info for new widget
+		int x1, y1, x2, y2;
+		// 0 - none, 1 - mouse pressed (prepare), 2 - mouse moved (widget created)
+		int creating_status;
 
-	std::string new_widget_type;
-	std::string new_widget_skin;
-	int mMaxLines;
-};
+		std::string new_widget_type;
+		std::string new_widget_skin;
+		int mMaxLines;
+	};
+
+} // namespace tools
 
 #endif // __WIDGETS_WINDOW_H__

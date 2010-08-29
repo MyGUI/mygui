@@ -7,34 +7,36 @@
 #include "precompiled.h"
 #include "Parse.h"
 
-namespace Parse
+namespace tools
 {
-
-	bool checkParseFileName(MyGUI::Edit* _edit)
+	namespace utility
 	{
-		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-		const MyGUI::UString & text = _edit->getOnlyText();
-		size_t index = _edit->getTextCursor();
-
-		bool success = false;
-
-		if (text.find_first_of("*?") == std::string::npos)
+		bool checkParseFileName(MyGUI::Edit* _edit)
 		{
-			success = MyGUI::DataManager::getInstance().isDataExist(text);
+			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+			const MyGUI::UString & text = _edit->getOnlyText();
+			size_t index = _edit->getTextCursor();
+
+			bool success = false;
+
+			if (text.find_first_of("*?") == std::string::npos)
+			{
+				success = MyGUI::DataManager::getInstance().isDataExist(text);
+			}
+			else
+			{
+				success = false;
+			}
+
+			if (success)
+				_edit->setCaption(text);
+			else
+				_edit->setCaption(colour + text);
+
+			_edit->setTextCursor(index);
+
+			return success;
 		}
-		else
-		{
-			success = false;
-		}
 
-		if (success)
-			_edit->setCaption(text);
-		else
-			_edit->setCaption(colour + text);
-
-		_edit->setTextCursor(index);
-
-		return success;
-	}
-
-} // namespace Parse
+	} // namespace utility
+} // namespace tools

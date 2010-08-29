@@ -26,12 +26,12 @@ MetaSolutionWindow::MetaSolutionWindow() :
 
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("MetaSolution") = MyGUI::newDelegate(this, &MetaSolutionWindow::parseMetaSolution);
 
-	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
+	WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
 }
 
 MetaSolutionWindow::~MetaSolutionWindow()
 {
-	tools::WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
+	WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &MetaSolutionWindow::notifyChangeSelectedWidget);
 
 	closeMetaSolution();
 }
@@ -91,7 +91,7 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::List* _sender, size_t _
 		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
 		if (container)
 		{
-			tools::WidgetSelectorManager::getInstance().setSelectedWidget(container->widget);
+			WidgetSelectorManager::getInstance().setSelectedWidget(container->widget);
 		}
 	}
 }
@@ -364,7 +364,7 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, _parent, _widget->mName);
 	EditorWidgets::getInstance().add(widgetContainer);
 
-	tools::WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
+	WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
 
 	UndoManager::getInstance().addValue();
 

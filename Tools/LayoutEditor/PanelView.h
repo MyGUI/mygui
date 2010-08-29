@@ -9,8 +9,8 @@
 #include "PanelView/BasePanelView.h"
 #include "PanelViewCell.h"
 
-//namespace demo
-//{
+namespace tools
+{
 
 	class PanelView : public wraps::BasePanelView<PanelViewCell>
 	{
@@ -19,6 +19,6 @@
 
 	};
 
-//} // namespace demo
+} // namespace tools
 
 #endif // __PANEL_VIEW_H__

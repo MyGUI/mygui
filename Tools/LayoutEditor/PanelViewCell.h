@@ -8,8 +8,8 @@
 
 #include "PanelView/BasePanelViewItem.h"
 
-//namespace demo
-//{
+namespace tools
+{
 
 	class PanelViewCell : public wraps::BasePanelViewCell
 	{
@@ -49,6 +49,6 @@
 
 	};
 
-//} // namespace demo
+} // namespace tools
 
 #endif // __PANEL_VIEW_CELL_H__

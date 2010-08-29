@@ -9,42 +9,46 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-extern const int PropertyItemHeight;
-
-class PanelControllers : public wraps::BasePanelViewItem
+namespace tools
 {
-public:
+	extern const int PropertyItemHeight;
 
-	PanelControllers();
+	class PanelControllers : public wraps::BasePanelViewItem
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelControllers();
 
-	void update(MyGUI::Widget* _current_widget);
+		virtual void initialise();
+		virtual void shutdown();
 
-	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
-	typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
-	EventHandle_EventCreatePair eventCreatePair;
-	EventHandle_WidgetVoid eventHidePairs;
-private:
-	virtual void notifyChangeWidth(int _width);
+		void update(MyGUI::Widget* _current_widget);
 
-	void notifyAdd(MyGUI::Widget* _sender = 0);
-	void notifyDelete(MyGUI::Widget* _sender);
-	void notifySelectItem(MyGUI::List* _sender, size_t _index);
+		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+		typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
+		EventHandle_EventCreatePair eventCreatePair;
+		EventHandle_WidgetVoid eventHidePairs;
+	private:
+		virtual void notifyChangeWidth(int _width);
 
-	void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void notifyAdd(MyGUI::Widget* _sender = 0);
+		void notifyDelete(MyGUI::Widget* _sender);
+		void notifySelectItem(MyGUI::List* _sender, size_t _index);
 
-	MyGUI::ComboBox* mControllerName;
-	MyGUI::Button* mButtonAdd;
-	MyGUI::Button* mButtonDelete;
-	MyGUI::List* mList;
+		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
-	MyGUI::Widget* current_widget;
+		MyGUI::ComboBox* mControllerName;
+		MyGUI::Button* mButtonAdd;
+		MyGUI::Button* mButtonDelete;
+		MyGUI::List* mList;
 
-	int mButtonLeft, mButtonRight, mButtonSpace;
+		MyGUI::Widget* current_widget;
 
-	std::map<std::string, MyGUI::MapString> mControllersProperties;
-};
+		int mButtonLeft, mButtonRight, mButtonSpace;
+
+		std::map<std::string, MyGUI::MapString> mControllersProperties;
+	};
+
+} // namespace tools
 
 #endif // __PANEL_CONTROLLERS_H__

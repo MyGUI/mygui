@@ -8,120 +8,124 @@
 #include "SettingsWindow.h"
 #include "SettingsManager.h"
 
-extern int grid_step;//FIXME_HOOK
-
-SettingsWindow::SettingsWindow() :
-	Dialog("SettingsWindow.layout"),
-	mGridEdit(nullptr),
-	mButtonOkSettings(nullptr),
-	mButtonCancel(nullptr),
-	mCheckShowName(nullptr),
-	mCheckShowType(nullptr),
-	mCheckShowSkin(nullptr),
-	mCheckEdgeHide(nullptr)
+namespace tools
 {
-	assignWidget(mGridEdit, "gridEdit");
-	assignWidget(mButtonOkSettings, "buttonOkSettings");
-	assignWidget(mButtonCancel, "Cancel");
-	assignWidget(mCheckShowName, "checkShowName");
-	assignWidget(mCheckShowType, "checkShowType");
-	assignWidget(mCheckShowSkin, "checkShowSkin");
-	assignWidget(mCheckEdgeHide, "checkEdgeHide");
+	extern int grid_step;//FIXME_HOOK
 
-	mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
-	mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
-	mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
-	mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
+	SettingsWindow::SettingsWindow() :
+		Dialog("SettingsWindow.layout"),
+		mGridEdit(nullptr),
+		mButtonOkSettings(nullptr),
+		mButtonCancel(nullptr),
+		mCheckShowName(nullptr),
+		mCheckShowType(nullptr),
+		mCheckShowSkin(nullptr),
+		mCheckEdgeHide(nullptr)
+	{
+		assignWidget(mGridEdit, "gridEdit");
+		assignWidget(mButtonOkSettings, "buttonOkSettings");
+		assignWidget(mButtonCancel, "Cancel");
+		assignWidget(mCheckShowName, "checkShowName");
+		assignWidget(mCheckShowType, "checkShowType");
+		assignWidget(mCheckShowSkin, "checkShowSkin");
+		assignWidget(mCheckEdgeHide, "checkEdgeHide");
 
-	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != nullptr)
-		window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
+		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
+		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
+		mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
+		mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
 
-	mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-	mCheckShowName->setUserString("PropertyName", "ShowName");
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
 
-	mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-	mCheckShowType->setUserString("PropertyName", "ShowType");
+		mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+		mCheckShowName->setUserString("PropertyName", "ShowName");
 
-	mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-	mCheckShowSkin->setUserString("PropertyName", "ShowSkin");
+		mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+		mCheckShowType->setUserString("PropertyName", "ShowType");
 
-	mCheckEdgeHide->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-	mCheckEdgeHide->setUserString("PropertyName", "EdgeHide");
+		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+		mCheckShowSkin->setUserString("PropertyName", "ShowSkin");
 
-	loadSettings();
+		mCheckEdgeHide->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
+		mCheckEdgeHide->setUserString("PropertyName", "EdgeHide");
 
-	mMainWidget->setVisible(false);
-}
+		loadSettings();
 
-SettingsWindow::~SettingsWindow()
-{
-	saveSettings();
-}
+		mMainWidget->setVisible(false);
+	}
 
-void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
-{
-	MyGUI::StaticText* text = _sender->castType<MyGUI::StaticText>();
-	grid_step = MyGUI::utility::parseInt(text->getCaption());
-	grid_step = std::max(1, grid_step);
-	text->setCaption(MyGUI::utility::toString(grid_step));
-}
+	SettingsWindow::~SettingsWindow()
+	{
+		saveSettings();
+	}
 
-void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)
-{
-	notifyNewGridStep(_sender);
-}
+	void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
+	{
+		MyGUI::StaticText* text = _sender->castType<MyGUI::StaticText>();
+		grid_step = MyGUI::utility::parseInt(text->getCaption());
+		grid_step = std::max(1, grid_step);
+		text->setCaption(MyGUI::utility::toString(grid_step));
+	}
 
-void SettingsWindow::notifyOkSettings(MyGUI::Widget* _sender)
-{
-	eventEndDialog(this, true);
-}
+	void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)
+	{
+		notifyNewGridStep(_sender);
+	}
 
-void SettingsWindow::notifyCancel(MyGUI::Widget* _sender)
-{
-	eventEndDialog(this, false);
-}
+	void SettingsWindow::notifyOkSettings(MyGUI::Widget* _sender)
+	{
+		eventEndDialog(this, true);
+	}
 
-void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
-{
-	MyGUI::Button* checkbox = _sender->castType<MyGUI::Button>();
-	checkbox->setStateSelected(!checkbox->getStateSelected());
-}
-
-void SettingsWindow::onDoModal()
-{
-	loadSettings();
-
-	MyGUI::IntSize windowSize = mMainWidget->getSize();
-	MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-	mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
-}
-
-void SettingsWindow::onEndModal()
-{
-}
-
-void SettingsWindow::saveSettings()
-{
-	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", grid_step);
-	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
-	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
-	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
-	tools::SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("EdgeHide", getEdgeHide());
-}
-
-void SettingsWindow::loadSettings()
-{
-	grid_step = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
-	setShowName(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
-	setShowType(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
-	setShowSkin(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
-	setEdgeHide(tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide"));
-}
-
-void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
-{
-	if (_name == "close")
+	void SettingsWindow::notifyCancel(MyGUI::Widget* _sender)
+	{
 		eventEndDialog(this, false);
-}
+	}
+
+	void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
+	{
+		MyGUI::Button* checkbox = _sender->castType<MyGUI::Button>();
+		checkbox->setStateSelected(!checkbox->getStateSelected());
+	}
+
+	void SettingsWindow::onDoModal()
+	{
+		loadSettings();
+
+		MyGUI::IntSize windowSize = mMainWidget->getSize();
+		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
+
+		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
+	}
+
+	void SettingsWindow::onEndModal()
+	{
+	}
+
+	void SettingsWindow::saveSettings()
+	{
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", grid_step);
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("EdgeHide", getEdgeHide());
+	}
+
+	void SettingsWindow::loadSettings()
+	{
+		grid_step = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		setShowName(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
+		setShowType(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
+		setShowSkin(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
+		setEdgeHide(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide"));
+	}
+
+	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	{
+		if (_name == "close")
+			eventEndDialog(this, false);
+	}
+
+} // namespace tools
