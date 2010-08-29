@@ -13,6 +13,7 @@
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
+#include "StateManager.h"
 #include "Localise.h"
 
 namespace tools
@@ -93,6 +94,9 @@ namespace tools
 		new UndoManager();
 		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 
+		new StateManager();
+		StateManager::getInstance().initialise();
+
 		new GroupMessage();
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
@@ -170,10 +174,27 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &Application::notifyChanges);
 		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &Application::notifyFrameStarted);
+
+		/*mEditorState = new EditorState();
+		mTestState = new TestState();
+
+		StateManager::getInstance().registerState(this, "Application");
+		StateManager::getInstance().registerState(mEditorState, "EditorState");
+		StateManager::getInstance().registerState(mTestState, "TestState");
+
+		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
+		StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
+		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
+		StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
+
+		StateManager::getInstance().pushState(this);
+		StateManager::getInstance().stateEvent(this, "Start");*/
 	}
 
 	void Application::destroyScene()
 	{
+		//StateManager::getInstance().rollbackToState(nullptr);
+
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &Application::notifyChanges);
 		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &Application::notifyFrameStarted);
@@ -186,6 +207,9 @@ namespace tools
 
 		delete mPropertiesPanelView;
 		mPropertiesPanelView = nullptr;
+
+		StateManager::getInstance().shutdown();
+		delete StateManager::getInstancePtr();
 
 		delete GroupMessage::getInstancePtr();
 
