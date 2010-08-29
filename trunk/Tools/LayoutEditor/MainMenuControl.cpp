@@ -66,9 +66,9 @@ namespace tools
 
 	void MainMenuControl::widgetsUpdate()
 	{
-		bool print_name = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowName");
-		bool print_type = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowType");
-		bool print_skin = tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "ShowSkin");
+		bool print_name = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName");
+		bool print_type = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType");
+		bool print_skin = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin");
 
 		mPopupMenuWidgets->removeAllItems();
 
@@ -141,14 +141,15 @@ namespace tools
 
 	void MainMenuControl::setEdgeHideController()
 	{
-		if (tools::SettingsManager::getInstance().getPropertyValue<bool>("SettingsWindow", "EdgeHide"))
+		bool value = tools::SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
+		if (value)
 		{
 			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
 			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
 
-			controller->setTime(tools::SettingsManager::getInstance().getPropertyValue<float>("Settings", "EdgeHideTime"));
-			controller->setRemainPixels(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideRemainPixels"));
-			controller->setShadowSize(tools::SettingsManager::getInstance().getPropertyValue<int>("Settings", "EdgeHideShadowSize"));
+			controller->setTime(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
+			controller->setRemainPixels(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
+			controller->setShadowSize(tools::SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
 
 			MyGUI::ControllerManager::getInstance().addItem(mBar, controller);
 		}

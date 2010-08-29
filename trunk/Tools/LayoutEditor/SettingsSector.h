@@ -10,6 +10,11 @@
 
 namespace tools
 {
+	class SettingsSector;
+	typedef MyGUI::delegates::CDelegate2<SettingsSector*, const MyGUI::UString&> EventSettingsChanged;
+	typedef std::vector<SettingsSector*> VectorSettingsSector;
+	typedef MyGUI::Enumerator<VectorSettingsSector> EnumeratorSettingsSector;
+
 	class SettingsSector :
 		public MyGUI::ISerializable
 	{
@@ -24,8 +29,24 @@ namespace tools
 		void setName(const MyGUI::UString& _value);
 
 		bool getExistProperty(const MyGUI::UString& _propertName);
+
 		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertName);
 		void setPropertyValue(const MyGUI::UString& _propertName, const MyGUI::UString& _propertValue);
+		void setPropertyValue(const MyGUI::UString& _propertName, const std::string& _propertValue) { setPropertyValue(_propertName, MyGUI::UString(_propertValue)); }
+
+		template <typename Type>
+		Type getPropertyValue(const MyGUI::UString& _propertyName)
+		{
+			return MyGUI::utility::parseValue<Type>(getPropertyValue(_propertyName));
+		}
+
+		template <typename Type>
+		void setPropertyValue(const MyGUI::UString& _propertyName, Type _value)
+		{
+			return setPropertyValue(_propertyName, MyGUI::utility::toString(_value));
+		}
+
+		EventSettingsChanged eventSettingsChanged;
 
 	private:
 		MyGUI::UString mName;
