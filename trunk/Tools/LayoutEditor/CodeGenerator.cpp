@@ -101,9 +101,9 @@ namespace tools
 	void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 	{
 		MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
-		std::string panelName = mPanelNameEdit->getCaption();
-		std::string includeDirectory = mIncludeDirectoryEdit->getCaption();
-		std::string sourceDirectory = mSourceDirectoryEdit->getCaption();
+		std::string panelName = mPanelNameEdit->getOnlyText();
+		std::string includeDirectory = mIncludeDirectoryEdit->getOnlyText();
+		std::string sourceDirectory = mSourceDirectoryEdit->getOnlyText();
 
 		lm.addUserTag("Panel_Name", panelName);
 		lm.addUserTag("Include_Directory", includeDirectory);
@@ -169,23 +169,23 @@ namespace tools
 	{
 		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
 
-		sector->setPropertyValue("PanelName", mPanelNameEdit->getCaption());
-		sector->setPropertyValue("IncludeDirectory", mIncludeDirectoryEdit->getCaption());
-		sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getCaption());
+		sector->setPropertyValue("PanelName", mPanelNameEdit->getOnlyText());
+		sector->setPropertyValue("IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
+		sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getOnlyText());
 
 		UndoManager::getInstance().setUnsaved(true);
 	}
 
 	void CodeGenerator::notifyBrowseHeader(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mIncludeDirectoryEdit->getCaption());
+		mOpenSaveFileDialog->setCurrentFolder(mIncludeDirectoryEdit->getOnlyText());
 		mOpenSaveFileDialog->setMode("Header");
 		mOpenSaveFileDialog->doModal();
 	}
 
 	void CodeGenerator::notifyBrowseSource(MyGUI::Widget* _sender)
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mSourceDirectoryEdit->getCaption());
+		mOpenSaveFileDialog->setCurrentFolder(mSourceDirectoryEdit->getOnlyText());
 		mOpenSaveFileDialog->setMode("Source");
 		mOpenSaveFileDialog->doModal();
 	}
