@@ -11,12 +11,10 @@
 
 namespace tools
 {
-	extern const int PropertyItemHeight;
-
-	class PanelMainProperties : public wraps::BasePanelViewItem
+	class PanelMainProperties :
+		public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelMainProperties();
 
 		virtual void initialise();
@@ -35,6 +33,7 @@ namespace tools
 		MyGUI::Button* mButtonRelativePosition;
 
 		MyGUI::Widget* current_widget;
+		int mPropertyItemHeight;
 	};
 
 } // namespace tools

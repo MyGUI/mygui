@@ -82,6 +82,7 @@ namespace tools
 
 		// widget was moved by keyboard arrows
 		bool arrow_move;
+		int mPropertyItemHeight;
 	};
 
 } // namespace tools

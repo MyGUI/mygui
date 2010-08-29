@@ -13,12 +13,10 @@
 
 namespace tools
 {
-	extern const int PropertyItemHeight;
-
-	class PanelProperties : public wraps::BasePanelViewItem
+	class PanelProperties :
+		public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelProperties();
 
 		virtual void initialise();
@@ -32,6 +30,8 @@ namespace tools
 	private:
 		size_t AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y);
 
+	private:
+		int mPropertyItemHeight;
 	};
 
 } // namespace tools

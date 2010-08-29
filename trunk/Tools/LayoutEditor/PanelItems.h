@@ -11,9 +11,8 @@
 
 namespace tools
 {
-	extern const int PropertyItemHeight;
-
-	class PanelItems : public wraps::BasePanelViewItem
+	class PanelItems :
+		public wraps::BasePanelViewItem
 	{
 	public:
 

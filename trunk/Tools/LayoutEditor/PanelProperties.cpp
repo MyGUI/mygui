@@ -8,16 +8,20 @@
 #include "Localise.h"
 #include "PanelProperties.h"
 #include "EditorWidgets.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
-	PanelProperties::PanelProperties() : BasePanelViewItem("PanelProperties.layout")
+	PanelProperties::PanelProperties() :
+		BasePanelViewItem("PanelProperties.layout"),
+		mPropertyItemHeight(0)
 	{
 	}
 
 	void PanelProperties::initialise()
 	{
 		mPanelCell->setCaption(replaceTags("Widget_type_propertes"));
+		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 	}
 
 	void PanelProperties::shutdown()
@@ -40,7 +44,7 @@ namespace tools
 				}
 			}
 			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
-			y += PropertyItemHeight;
+			y += mPropertyItemHeight;
 		}
 
 		return count;
