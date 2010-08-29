@@ -19,7 +19,8 @@
 namespace tools
 {
 	class PropertiesPanelView :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public MyGUI::Singleton<PropertiesPanelView> //FIXME
 	{
 	public:
 		PropertiesPanelView();

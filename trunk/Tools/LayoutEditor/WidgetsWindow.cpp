@@ -13,6 +13,10 @@
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
 
+//FIXME
+template <> tools::WidgetsWindow* MyGUI::Singleton<tools::WidgetsWindow>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::WidgetsWindow>::mClassTypeName("WidgetsWindow");
+
 namespace tools
 {
 	const int MARGIN = 2;
