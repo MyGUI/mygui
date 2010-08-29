@@ -15,7 +15,6 @@ namespace tools
 		public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelItems();
 
 		virtual void initialise();
@@ -35,15 +34,18 @@ namespace tools
 		void notifySelectItem(MyGUI::List* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
 
+	private:
 		MyGUI::Edit* mEdit;
 		MyGUI::List* mList;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
 		MyGUI::Button* mButtonSelect;
 
-		MyGUI::Widget* current_widget;
+		MyGUI::Widget* mCurrentWidget;
 
-		int mButtonLeft, mButtonRight, mButtonSpace;
+		int mButtonLeft;
+		int mButtonRight;
+		int mButtonSpace;
 	};
 
 } // namespace tools

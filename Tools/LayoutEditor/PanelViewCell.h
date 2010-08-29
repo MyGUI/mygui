@@ -10,11 +10,12 @@
 
 namespace tools
 {
-
-	class PanelViewCell : public wraps::BasePanelViewCell
+	class PanelViewCell :
+		public wraps::BasePanelViewCell
 	{
 	public:
-		PanelViewCell(MyGUI::Widget* _parent) : BasePanelViewCell("PanelCell.layout", _parent)
+		PanelViewCell(MyGUI::Widget* _parent) :
+			BasePanelViewCell("PanelCell.layout", _parent)
 		{
 			assignWidget(mTextCaption, "text_Caption");
 			assignWidget(mButtonMinimize, "button_Minimize");

@@ -10,8 +10,6 @@
 
 namespace tools
 {
-	extern int grid_step;//FIXME_HOOK
-
 	SettingsWindow::SettingsWindow() :
 		Dialog("SettingsWindow.layout"),
 		mGridEdit(nullptr),
@@ -20,7 +18,8 @@ namespace tools
 		mCheckShowName(nullptr),
 		mCheckShowType(nullptr),
 		mCheckShowSkin(nullptr),
-		mCheckEdgeHide(nullptr)
+		mCheckEdgeHide(nullptr),
+		mGridStep(0)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -64,9 +63,9 @@ namespace tools
 	void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
 		MyGUI::StaticText* text = _sender->castType<MyGUI::StaticText>();
-		grid_step = MyGUI::utility::parseInt(text->getCaption());
-		grid_step = std::max(1, grid_step);
-		text->setCaption(MyGUI::utility::toString(grid_step));
+		mGridStep = MyGUI::utility::parseInt(text->getCaption());
+		mGridStep = std::max(1, mGridStep);
+		text->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 
 	void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)
@@ -106,7 +105,7 @@ namespace tools
 
 	void SettingsWindow::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", grid_step);
+		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", mGridStep);
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
@@ -115,7 +114,7 @@ namespace tools
 
 	void SettingsWindow::loadSettings()
 	{
-		grid_step = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 		setShowName(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
 		setShowType(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
 		setShowSkin(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));

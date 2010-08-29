@@ -20,7 +20,7 @@ namespace tools
 		virtual void initialise();
 		virtual void shutdown();
 
-		void update(MyGUI::Widget* _current_widget);
+		void update(MyGUI::Widget* _currentWidget);
 
 	private:
 		virtual void notifyChangeWidth(int _width);
@@ -30,16 +30,21 @@ namespace tools
 		void notifyUpdateUserData(MyGUI::Edit* _widget);
 		void notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index);
 
+	private:
 		MyGUI::Edit* mEditKey;
 		MyGUI::Edit* mEditValue;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
 		MyGUI::MultiList* mMultilist;
 
-		MyGUI::Widget* current_widget;
+		MyGUI::Widget* mCurrentWidget;
 
-		int mEditLeft, mEditRight, mEditSpace;
-		int mButtonLeft, mButtonRight, mButtonSpace;
+		int mEditLeft;
+		int mEditRight;
+		int mEditSpace;
+		int mButtonLeft;
+		int mButtonRight;
+		int mButtonSpace;
 	};
 
 } // namespace tools
