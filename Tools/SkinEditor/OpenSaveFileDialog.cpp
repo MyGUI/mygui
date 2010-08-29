@@ -12,7 +12,8 @@ namespace tools
 {
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
-		Dialog("OpenSaveFileDialog.layout")
+		Dialog("OpenSaveFileDialog.layout"),
+		mFolderMode(false)
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -57,10 +58,12 @@ namespace tools
 		accept();
 	}
 
-	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button)
+	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode)
 	{
+		mFolderMode = _folderMode;
 		mWindow->setCaption(_caption);
 		mButtonOpenSave->setCaption(_button);
+		mEditFileName->setVisible(!_folderMode);
 	}
 
 	void OpenSaveFileDialog::notifyListChangePosition(MyGUI::List* _sender, size_t _index)
@@ -107,9 +110,16 @@ namespace tools
 
 	void OpenSaveFileDialog::accept()
 	{
-		mFileName = mEditFileName->getCaption();
-		if (!mFileName.empty())
+		if (!mFolderMode)
+		{
+			mFileName = mEditFileName->getCaption();
+			if (!mFileName.empty())
+				eventEndDialog(this, true);
+		}
+		else
+		{
 			eventEndDialog(this, true);
+		}
 	}
 
 	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
@@ -135,14 +145,17 @@ namespace tools
 				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
 		}
 
-		// add files by given mask
-		infos.clear();
-		getSystemFileList(infos, mCurrentFolder, mFileMask);
-
-		for(common::VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+		if (!mFolderMode)
 		{
-			if (!(*item).folder)
-				mListFiles->addItem((*item).name, *item);
+			// add files by given mask
+			infos.clear();
+			getSystemFileList(infos, mCurrentFolder, mFileMask);
+
+			for(common::VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+			{
+				if (!(*item).folder)
+					mListFiles->addItem((*item).name, *item);
+			}
 		}
 	}
 
