@@ -45,7 +45,7 @@ namespace tools
 		void commandClear(const MyGUI::UString& _commandName);
 		//void commandTest(const MyGUI::UString& _commandName);
 		void commandQuit(const MyGUI::UString& _commandName);
-		void commandQuitApp(const MyGUI::UString& _commandName);
+		//void commandQuitApp(const MyGUI::UString& _commandName);
 		void commandSettings(const MyGUI::UString& _commandName);
 		void commandCodeGenerator(const MyGUI::UString& _commandName);
 		void commandRecentFiles(const MyGUI::UString& _commandName);
