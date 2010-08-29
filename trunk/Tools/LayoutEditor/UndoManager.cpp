@@ -17,6 +17,8 @@ namespace tools
 		mEditorWidgets(nullptr),
 		mUnsaved(false)
 	{
+		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &UndoManager::commandUndo));
+		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &UndoManager::commandRedo));
 	}
 
 	void UndoManager::initialise(EditorWidgets * _ew)
@@ -25,9 +27,6 @@ namespace tools
 		mLastProperty = PR_DEFAULT;
 		mEditorWidgets = _ew;
 		setUnsaved(false);
-
-		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &UndoManager::commandUndo));
-		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &UndoManager::commandRedo));
 	}
 
 	void UndoManager::shutdown()
