@@ -16,7 +16,7 @@ namespace tools
 		public MyGUI::Singleton<WidgetsWindow> //FIXME
 	{
 	public:
-		WidgetsWindow();
+		WidgetsWindow(MyGUI::Widget* _parent = nullptr);
 		virtual ~WidgetsWindow();
 
 		void initialise();
@@ -30,16 +30,11 @@ namespace tools
 
 		int getCreatingStatus() { return mCreatingStatus; }
 
-		void setVisible(bool _value);
-
 	private:
-		void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
+		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
 		void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
-
-		void updateSize();
-		void setEdgeHideController();
 
 	private:
 		MyGUI::Tab* mTabSkins;

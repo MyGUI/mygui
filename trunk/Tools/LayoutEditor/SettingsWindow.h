@@ -38,9 +38,6 @@ namespace tools
 		bool getShowSkin() { return mCheckShowSkin->getStateSelected(); }
 		void setShowSkin(bool _pressed) { mCheckShowSkin->setStateSelected(_pressed); }
 
-		bool getEdgeHide() { return mCheckEdgeHide->getStateSelected(); }
-		void setEdgeHide(bool _pressed) { mCheckEdgeHide->setStateSelected(_pressed); }
-
 		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
 		void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method
 		void notifyOkSettings(MyGUI::Widget* _sender);
@@ -55,7 +52,6 @@ namespace tools
 		MyGUI::Button* mCheckShowName;
 		MyGUI::Button* mCheckShowType;
 		MyGUI::Button* mCheckShowSkin;
-		MyGUI::Button* mCheckEdgeHide;
 
 		int mGridStep;
 	};

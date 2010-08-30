@@ -50,7 +50,7 @@ namespace tools
 		return count;
 	}
 
-	void PanelProperties::update(MyGUI::Widget* _current_widget, WidgetStyle* _widgetType)
+	void PanelProperties::update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType)
 	{
 		if (_widgetType == nullptr)
 		{
@@ -60,7 +60,7 @@ namespace tools
 
 		int y = 0;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _widgetType->name);
 

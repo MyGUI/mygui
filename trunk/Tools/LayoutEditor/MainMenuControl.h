@@ -8,13 +8,15 @@
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
-	class MainMenuControl
+	class MainMenuControl :
+		public wraps::BaseLayout
 	{
 	public:
-		MainMenuControl();
+		MainMenuControl(MyGUI::Widget* _parent = nullptr);
 		virtual ~MainMenuControl();
 
 		void setVisible(bool _value);
@@ -31,7 +33,6 @@ namespace tools
 		void notifyChangeWidgets();
 		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 
-		void setEdgeHideController();
 		void updateRecentFilesMenu();
 
 	private:

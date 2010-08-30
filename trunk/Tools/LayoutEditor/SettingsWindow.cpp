@@ -18,7 +18,6 @@ namespace tools
 		mCheckShowName(nullptr),
 		mCheckShowType(nullptr),
 		mCheckShowSkin(nullptr),
-		mCheckEdgeHide(nullptr),
 		mGridStep(0)
 	{
 		assignWidget(mGridEdit, "gridEdit");
@@ -27,7 +26,6 @@ namespace tools
 		assignWidget(mCheckShowName, "checkShowName");
 		assignWidget(mCheckShowType, "checkShowType");
 		assignWidget(mCheckShowSkin, "checkShowSkin");
-		assignWidget(mCheckEdgeHide, "checkEdgeHide");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
@@ -46,9 +44,6 @@ namespace tools
 
 		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 		mCheckShowSkin->setUserString("PropertyName", "ShowSkin");
-
-		mCheckEdgeHide->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-		mCheckEdgeHide->setUserString("PropertyName", "EdgeHide");
 
 		loadSettings();
 
@@ -109,7 +104,6 @@ namespace tools
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
 		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("EdgeHide", getEdgeHide());
 	}
 
 	void SettingsWindow::loadSettings()
@@ -118,7 +112,6 @@ namespace tools
 		setShowName(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
 		setShowType(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
 		setShowSkin(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
-		setEdgeHide(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide"));
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)

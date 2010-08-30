@@ -22,7 +22,7 @@ namespace tools
 		virtual void initialise();
 		virtual void shutdown();
 
-		void update(MyGUI::Widget* _current_widget, WidgetStyle* _widgetType);
+		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
 		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
