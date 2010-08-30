@@ -61,6 +61,8 @@ namespace tools
 		void showLoadWindow();
 		void showSaveAsWindow();
 
+		void setFileName(const MyGUI::UString& _fileName);
+
 	private:
 		// drop select after skin change
 		bool mRecreate;

@@ -71,6 +71,7 @@
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 
 	<Tag name="CG_PanelName">Имя панели</Tag>
+	<Tag name="CG_PanelNamespace">Namespace</Tag>
 	<Tag name="CG_IncludeDirectory">Папка для заголовков</Tag>
 	<Tag name="CG_SourceDirectory">Папка для исходников</Tag>
 	<Tag name="CG_Generate">Сгенерировать</Tag>
