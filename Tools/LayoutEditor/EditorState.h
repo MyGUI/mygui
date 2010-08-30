@@ -1,15 +1,13 @@
 #ifndef __EDITOR_STATE_H__
 #define __EDITOR_STATE_H__
 
-#include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
-#include "WidgetsWindow.h"
 #include "OpenSaveFileDialog.h"
-#include "MainMenuControl.h"
 #include "BackgroundControl.h"
 #include "CodeGenerator.h"
 #include "MessageBoxFadeControl.h"
 #include "StateController.h"
+#include "MainPaneControl.h"
 
 namespace tools
 {
@@ -67,15 +65,13 @@ namespace tools
 		// drop select after skin change
 		bool mRecreate;
 
-		PropertiesPanelView* mPropertiesPanelView;
 		SettingsWindow* mSettingsWindow;
-		WidgetsWindow* mWidgetsWindow;
 		CodeGenerator* mCodeGenerator;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 
-		MainMenuControl* mMainMenuControl;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 		BackgroundControl* mBackgroundControl;
+		MainPaneControl* mMainPaneControl;
 
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;

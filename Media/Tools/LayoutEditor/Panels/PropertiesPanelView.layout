@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCS" position="400 88 280 600" align="Right Top" layer="Overlapped" name="_Main">
-        <Property key="Caption" value="#{Properties}"/>
-        <Property key="Snap" value="true"/>
-        <Property key="MinSize" value="280 210"/>
-        <Property key="Visible" value="false"/>
-        <Widget type="ScrollView" skin="ScrollViewEmpty" position="2 2 267 560" align="Stretch" name="scroll_View">
+    <Widget type="Widget" skin="Default" position="10 10 280 600" align="Stretch" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 280 600" align="Stretch" name="scroll_View">
             <Property key="VisibleHScroll" value="false"/>
         </Widget>
     </Widget>

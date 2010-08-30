@@ -20,7 +20,7 @@ namespace tools
 		virtual void initialise();
 		virtual void shutdown();
 
-		void update(MyGUI::Widget* _current_widget);
+		void update(MyGUI::Widget* _currentWidget);
 
 		void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
 

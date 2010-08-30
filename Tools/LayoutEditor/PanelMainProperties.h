@@ -21,7 +21,7 @@ namespace tools
 		virtual void shutdown();
 
 		void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
-		void update(MyGUI::Widget* _current_widget);
+		void update(MyGUI::Widget* _currentWidget);
 
 		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;

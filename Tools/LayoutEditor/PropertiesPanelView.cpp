@@ -30,8 +30,8 @@ namespace tools
 	std::string ERROR_VALUE;
 	const int BAR_HEIGHT = 30;
 
-	PropertiesPanelView::PropertiesPanelView() :
-		BaseLayout("PropertiesPanelView.layout"),
+	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
+		BaseLayout("PropertiesPanelView.layout", _parent),
 		mPropertyItemHeight(0),
 		mGridStep(0)
 	{
@@ -89,14 +89,12 @@ namespace tools
 
 		mArrowMove = false;
 
-		setEdgeHideController();
-
-		mMainWidget->setCoord(
+		/*mMainWidget->setCoord(
 			mMainWidget->getParentSize().width - mMainWidget->getSize().width,
 			BAR_HEIGHT,
 			mMainWidget->getSize().width,
 			mMainWidget->getParentSize().height - BAR_HEIGHT
-			);
+			);*/
 
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
@@ -104,6 +102,8 @@ namespace tools
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertiesPanelView::commandToggleRelativeMode));
+
+		notifyChangeSelectedWidget(nullptr);
 	}
 
 	PropertiesPanelView::~PropertiesPanelView()
@@ -131,41 +131,6 @@ namespace tools
 			mPanelView->setNeedUpdate();
 		}
 	}
-
-	/*void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
-	{
-		MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-		VectorPanel::iterator iter = mPanels.begin();
-		while (field.next())
-		{
-			std::string key, value;
-
-			if (field->getName() == "Property")
-			{
-				if (!field->findAttribute("key", key)) continue;
-				if (!field->findAttribute("value", value)) continue;
-
-				if ((key == MyGUI::utility::toString("PanelMinimized")) && (iter != mPanels.end()))
-				{
-					(*iter)->getPanelCell()->setMinimized(MyGUI::utility::parseBool(value));
-					++iter;
-				}
-			}
-		}
-	}
-
-	void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
-	{
-		root = root->createChild("PropertiesPanelView");
-		MyGUI::xml::ElementPtr nodeProp;
-
-		for (VectorPanel::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
-		{
-			nodeProp = root->createChild("Property");
-			nodeProp->addAttribute("key", MyGUI::utility::toString("Panel","Minimized"));
-			nodeProp->addAttribute("value", (*iter)->getPanelCell()->isMinimized());
-		}
-	}*/
 
 	void PropertiesPanelView::notifyRectangleResize(MyGUI::Window* _sender)
 	{
@@ -272,12 +237,14 @@ namespace tools
 		}
 	}
 
-	void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
+	void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
-		mCurrentWidget = _current_widget;
+		mCurrentWidget = _currentWidget;
 
 		if (nullptr == mCurrentWidget)
+		{
 			mCurrentWidgetRectangle->setVisible(false);
+		}
 		else
 		{
 			MyGUI::LayerManager::getInstance().upLayerItem(mCurrentWidget);
@@ -312,22 +279,31 @@ namespace tools
 			hideWidgetsPairs(iterVector->first);
 		}
 
-		if (nullptr == _current_widget)
+		if (nullptr == mCurrentWidget)
 		{
-			mMainWidget->setVisible(false);
+			mPanelMainProperties->setVisible(false);
+			mPanelItems->setVisible(false);
+			mPanelUserData->setVisible(false);
+			mPanelControllers->setVisible(false);
+			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
+				mPanelsTypeProperties[i]->setVisible(false);
 		}
 		else
 		{
-			mMainWidget->setVisible(true);
+			mPanelMainProperties->setVisible(true);
+			mPanelItems->setVisible(true);
+			mPanelUserData->setVisible(true);
+			mPanelControllers->setVisible(true);
 
 			mPairsCounter = 0;
-			mPanelMainProperties->update(_current_widget);
+			mPanelMainProperties->update(mCurrentWidget);
 
-			WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
+			WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 			{
 				mPairsCounter = 0;
-				mPanelsTypeProperties[i]->update(_current_widget, widgetType);
+				mPanelsTypeProperties[i]->setVisible(true);
+				mPanelsTypeProperties[i]->update(mCurrentWidget, widgetType);
 				if (widgetType && !widgetType->base.empty())
 				{
 					widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
@@ -337,10 +313,10 @@ namespace tools
 					widgetType = nullptr;
 				}
 			}
-			mPanelItems->update(_current_widget);
-			mPanelUserData->update(_current_widget);
+			mPanelItems->update(mCurrentWidget);
+			mPanelUserData->update(mCurrentWidget);
 			mPairsCounter = 0;
-			mPanelControllers->update(_current_widget);
+			mPanelControllers->update(mCurrentWidget);
 		}
 	}
 
@@ -705,22 +681,6 @@ namespace tools
 		notifyApplyProperties(_sender, true);
 	}
 
-	void PropertiesPanelView::setEdgeHideController()
-	{
-		bool value = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
-		if (value)
-		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-
-			controller->setTime(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
-			controller->setRemainPixels(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
-			controller->setShadowSize(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
-
-			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
-		}
-	}
-
 	void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName)
 	{
 		toggleRelativeMode();
@@ -750,11 +710,6 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 		}
-	}
-
-	void PropertiesPanelView::setVisible(bool _value)
-	{
-		mMainWidget->setVisible(_value);
 	}
 
 } // namespace tools

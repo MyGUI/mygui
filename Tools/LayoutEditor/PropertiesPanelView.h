@@ -23,7 +23,7 @@ namespace tools
 		public MyGUI::Singleton<PropertiesPanelView> //FIXME
 	{
 	public:
-		PropertiesPanelView();
+		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
 		virtual ~PropertiesPanelView();
 
 		// widget editing
@@ -41,10 +41,8 @@ namespace tools
 		typedef MyGUI::delegates::CDelegate0 EventInfo;
 		EventInfo eventRecreate;
 
-		void setVisible(bool _value);
-
 	private:
-		void notifyChangeSelectedWidget(MyGUI::Widget* _current_widget);
+		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 		bool checkType(MyGUI::Edit* _edit, const std::string& _type);
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
@@ -55,8 +53,6 @@ namespace tools
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		std::string splitString(std::string& str, char separator);
-
-		void setEdgeHideController();
 
 		void commandToggleRelativeMode(const MyGUI::UString& _commandName);
 

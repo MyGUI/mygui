@@ -14,16 +14,17 @@
 
 namespace tools
 {
-	MainMenuControl::MainMenuControl() :
+	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
+		wraps::BaseLayout("MainMenuControl.layout", _parent),
 		mBar(nullptr),
 		mPopupMenuWidgets(nullptr)
 	{
+		assignWidget(mBar, "Menu");
+
 		createMainMenu();
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
-
-		setEdgeHideController();
 	}
 
 	MainMenuControl::~MainMenuControl()
@@ -34,10 +35,10 @@ namespace tools
 
 	void MainMenuControl::createMainMenu()
 	{
-		MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("MainMenuControl.layout");
-		MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
-		mBar = menu_items[0]->castType<MyGUI::MenuBar>();
-		mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
+		//MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("MainMenuControl.layout");
+		//MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
+		//mBar = menu_items[0]->castType<MyGUI::MenuBar>();
+		//mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
 
 		updateRecentFilesMenu();
 
@@ -136,22 +137,6 @@ namespace tools
 				// если удалить изменить меню когда оно активно то оно не открывается
 				//updateRecentFilesMenu();
 			}
-		}
-	}
-
-	void MainMenuControl::setEdgeHideController()
-	{
-		bool value = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
-		if (value)
-		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-
-			controller->setTime(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
-			controller->setRemainPixels(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
-			controller->setShadowSize(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
-
-			MyGUI::ControllerManager::getInstance().addItem(mBar, controller);
 		}
 	}
 

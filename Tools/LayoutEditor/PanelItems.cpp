@@ -73,12 +73,18 @@ namespace tools
 		}
 	}
 
-	void PanelItems::update(MyGUI::Widget* _current_widget)
+	void PanelItems::update(MyGUI::Widget* _currentWidget)
 	{
-		mCurrentWidget = _current_widget;
+		mCurrentWidget = _currentWidget;
 
-		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_current_widget->getTypeName());
-		//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
+		if (mCurrentWidget == nullptr)
+		{
+			setVisible(false);
+			return;
+		}
+
+		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_currentWidget->getTypeName());
+		//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		if (widgetType->many_items)
 		{
