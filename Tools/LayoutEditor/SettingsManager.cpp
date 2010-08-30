@@ -169,12 +169,8 @@ namespace tools
 
 	void SettingsManager::loadSector(MyGUI::xml::ElementPtr _sectorNode)
 	{
-		SettingsSector* sector = new SettingsSector();
-		sector->eventSettingsChanged = MyGUI::newDelegate(this, &SettingsManager::notifySettingsChanged);
-
+		SettingsSector* sector = getSector(_sectorNode->getName());
 		sector->deserialization(_sectorNode, MyGUI::Version());
-
-		mSettings.push_back(sector);
 	}
 
 	void SettingsManager::saveSectors(MyGUI::xml::ElementPtr _rootNode)
