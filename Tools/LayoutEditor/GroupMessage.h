@@ -13,8 +13,9 @@ namespace tools
 		void showMessages();
 
 	private:
-		MyGUI::VectorString mErrorMessages;
-		MyGUI::VectorString mWarningMessages;
+		typedef std::vector<MyGUI::UString> VectorUString;
+		VectorUString mErrorMessages;
+		VectorUString mWarningMessages;
 	};
 
 } // namespace tools
