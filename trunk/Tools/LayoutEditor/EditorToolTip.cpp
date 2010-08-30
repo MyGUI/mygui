@@ -15,8 +15,8 @@ namespace tools
 	{
 		assignWidget(mText, "Text");
 
-		mMinWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("mMinWidth"));
-		mMinHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("mMinHeight"));
+		mMinWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
+		mMinHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
 		mLastWidget = nullptr;
 	}
 
