@@ -182,11 +182,16 @@ namespace Awesomium
 			MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
 	}
 		
-	void AwesomiumWidget::setProperty(const std::string& _key, const std::string& _value)
+	void AwesomiumWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Awesomium_SourceURL") loadURL(_value);
-		else if (_key == "Awesomium_Transparent") setTransparent(MyGUI::utility::parseValue<bool>(_value));
-		else Base::setProperty(_key, _value);
+		if (_key == "SourceURL") loadURL(_value);
+		else if (_key == "Transparent") setTransparent(MyGUI::utility::parseValue<bool>(_value));
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace Awesomium

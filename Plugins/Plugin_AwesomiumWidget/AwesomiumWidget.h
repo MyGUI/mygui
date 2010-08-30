@@ -34,11 +34,11 @@ namespace Awesomium
 
 		void setTransparent(bool _value);
 
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
