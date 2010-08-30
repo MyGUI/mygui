@@ -3,15 +3,20 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-ATTRIBUTE_CLASS_LAYOUT(#{Panel_Name}, "#{Panel_Name}.layout");
-class #{Panel_Name} : public wraps::BaseLayout
+namespace #{Panel_Namespace}
 {
-public:
-	#{Panel_Name}();
-	virtual ~#{Panel_Name}();
-private:
-//%LE Widget_Declaration list start
-//%LE Widget_Declaration list end
-};
+
+	ATTRIBUTE_CLASS_LAYOUT(#{Panel_Name}, "#{Layout_Name}");
+	class #{Panel_Name} : public wraps::BaseLayout
+	{
+	public:
+		#{Panel_Name}(MyGUI::Widget* _parent = nullptr);
+		virtual ~#{Panel_Name}();
+	private:
+	//%LE Widget_Declaration list start
+	//%LE Widget_Declaration list end
+	};
+
+} // {Panel_Namespace}
 
 #endif // _#{Uppercase_Panel_Name}_H_

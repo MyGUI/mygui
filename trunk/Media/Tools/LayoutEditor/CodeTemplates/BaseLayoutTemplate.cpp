@@ -1,10 +1,15 @@
 #include "#{Panel_Name}.h"
 
-#{Panel_Name}::#{Panel_Name}()
+namespace #{Panel_Namespace}
 {
-	initialiseByAttributes(this);
-}
 
-#{Panel_Name}::~#{Panel_Name}()
-{
-}
+	#{Panel_Name}::#{Panel_Name}(MyGUI::Widget* _parent)
+	{
+		initialiseByAttributes(this, _parent);
+	}
+
+	#{Panel_Name}::~#{Panel_Name}()
+	{
+	}
+
+} // {Panel_Namespace}

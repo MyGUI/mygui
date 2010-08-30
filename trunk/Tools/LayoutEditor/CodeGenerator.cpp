@@ -66,13 +66,28 @@ namespace tools
 		}
 	}
 
-	std::string CodeGenerator::stringToUpperCase(std::string _str)
+	std::string CodeGenerator::stringToUpperCase(const std::string& _str)
 	{
+		// replace lower case sharacters with upper case characters and add '_' between words
+		// words is either Word or WORD, for example TestXMLPanelName return TEST_XML_PANEL_NAME
+		if (_str.empty()) return "";
+		std::string ret;
+		bool previousIsLowerCase = false;
 		for(size_t i=0;i<_str.length();i++)
 		{
-			_str[i] = (char)toupper(_str[i]);
+			if  ((i != 0) &&
+				 (
+				  (previousIsLowerCase && isupper(_str[i])) ||
+				  (isupper(_str[i]) && (i + 1<_str.length()) && islower(_str[i+1]))
+				 )
+				)
+			{
+				ret.push_back('_');
+			}
+			ret.push_back((char)toupper(_str[i]));
+			previousIsLowerCase = (bool)islower(_str[i]);
 		}
-		return _str;
+		return ret;
 	}
 
 	void CodeGenerator::printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream)
@@ -102,10 +117,13 @@ namespace tools
 	{
 		MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
 		std::string panelName = mPanelNameEdit->getOnlyText();
+		std::string panelNamespace = mPanelNamespaceEdit->getOnlyText();
 		std::string includeDirectory = mIncludeDirectoryEdit->getOnlyText();
 		std::string sourceDirectory = mSourceDirectoryEdit->getOnlyText();
 
 		lm.addUserTag("Panel_Name", panelName);
+		lm.addUserTag("Panel_Namespace", panelNamespace);
+		lm.addUserTag("Layout_Name", MyGUI::LanguageManager::getInstance().getTag("CurrentFileName_Short"));
 		lm.addUserTag("Include_Directory", includeDirectory);
 		lm.addUserTag("Source_Directory", sourceDirectory);
 		lm.addUserTag("Uppercase_Panel_Name", stringToUpperCase(panelName));
