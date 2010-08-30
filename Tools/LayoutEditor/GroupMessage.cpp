@@ -11,9 +11,23 @@ namespace tools
 	void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type)
 	{
 		if (_type == MyGUI::LogLevel::Error)
+		{
+			for (VectorUString::const_iterator item = mErrorMessages.begin(); item != mErrorMessages.end(); ++item)
+			{
+				if ((*item) == _message)
+					return;
+			}
 			mErrorMessages.push_back(_message);
-		else /*if (_type == MyGUI::LogLevel::Warning)*/
+		}
+		else
+		{
+			for (VectorUString::const_iterator item = mWarningMessages.begin(); item != mWarningMessages.end(); ++item)
+			{
+				if ((*item) == _message)
+					return;
+			}
 			mWarningMessages.push_back(_message);
+		}
 	}
 
 	void GroupMessage::showMessages()
@@ -21,14 +35,16 @@ namespace tools
 		if (mWarningMessages.size())
 		{
 			MyGUI::UString warningMess;
-			for (MyGUI::VectorString::iterator iter = mWarningMessages.begin(); iter != mWarningMessages.end(); ++iter)
+			for (VectorUString::const_iterator iter = mWarningMessages.begin(); iter != mWarningMessages.end(); ++iter)
 			{
-				if (warningMess.empty()) warningMess = warningMess + *iter;
-				else warningMess = warningMess + "\n" + *iter;
+				if (warningMess.empty())
+					warningMess = warningMess + *iter;
+				else
+					warningMess = warningMess + "\n" + *iter;
 			}
 			if (!warningMess.empty())
 			{
-				MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 					replaceTags("Warning"),
 					warningMess,
 					MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
@@ -40,14 +56,16 @@ namespace tools
 		if (mErrorMessages.size())
 		{
 			MyGUI::UString errorMessages;
-			for (MyGUI::VectorString::iterator iter = mErrorMessages.begin(); iter != mErrorMessages.end(); ++iter)
+			for (VectorUString::const_iterator iter = mErrorMessages.begin(); iter != mErrorMessages.end(); ++iter)
 			{
-				if (errorMessages.empty()) errorMessages = errorMessages + *iter;
-				else errorMessages = errorMessages + "\n" + *iter;
+				if (errorMessages.empty())
+					errorMessages = errorMessages + *iter;
+				else
+					errorMessages = errorMessages + "\n" + *iter;
 			}
 			if (!errorMessages.empty())
 			{
-				MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					errorMessages ,
 					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
