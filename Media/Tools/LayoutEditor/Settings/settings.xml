@@ -5,17 +5,13 @@
         <Property key="ShowName" value="1"/>
         <Property key="ShowType" value="1"/>
         <Property key="ShowSkin" value="0"/>
-        <Property key="EdgeHide" value="0"/>
     </SettingsWindow>
     <WidgetsWindow>
-        <Property key="widgetsButtonWidth" value="135"/>
+        <Property key="widgetsButtonWidth" value="130"/>
         <Property key="widgetsButtonHeight" value="24"/>
-        <Property key="widgetsButtonsInOneLine" value="5"/>
+        <Property key="widgetsButtonsInOneLine" value="2"/>
     </WidgetsWindow>
 	<Settings>
-		<Property key="EdgeHideTime" value="0.5"/>
-		<Property key="EdgeHideRemainPixels" value="3"/>
-		<Property key="EdgeHideShadowSize" value="3"/>
 		<Property key="PropertyItemHeight" value="22"/>
 	</Settings>
 </MyGUI>

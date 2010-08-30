@@ -20,16 +20,14 @@ namespace tools
 {
 	EditorState::EditorState() :
 		mRecreate(false),
-		mPropertiesPanelView(nullptr),
 		mSettingsWindow(nullptr),
-		mWidgetsWindow(nullptr),
 		mCodeGenerator(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mMainMenuControl(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
 		mMessageBoxFadeControl(nullptr),
-		mBackgroundControl(nullptr)
+		mBackgroundControl(nullptr),
+		mMainPaneControl(nullptr)
 	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
@@ -53,16 +51,14 @@ namespace tools
 		addUserTag("CurrentFileName", mFileName);
 
 		mBackgroundControl = new BackgroundControl();
+		mMainPaneControl = new MainPaneControl();
 
 		// settings window
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
 		// properties panelView
-		mPropertiesPanelView = new PropertiesPanelView();
-		mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-
-		mWidgetsWindow = new WidgetsWindow();
+		PropertiesPanelView::getInstance().eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
 
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
@@ -71,12 +67,10 @@ namespace tools
 		mOpenSaveFileDialog->setFileMask("*.layout");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 
-		mMainMenuControl = new MainMenuControl();
-
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
 		// после загрузки настроек инициализируем
-		mWidgetsWindow->initialise();
+		WidgetsWindow::getInstance().initialise();
 
 		updateCaption();
 
@@ -101,26 +95,20 @@ namespace tools
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
 
-		delete mMainMenuControl;
-		mMainMenuControl = nullptr;
-
-		delete mPropertiesPanelView;
-		mPropertiesPanelView = nullptr;
-
 		delete mSettingsWindow;
 		mSettingsWindow = nullptr;
 
 		delete mCodeGenerator;
 		mCodeGenerator = nullptr;
 
-		delete mWidgetsWindow;
-		mWidgetsWindow = nullptr;
-
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 
 		delete mBackgroundControl;
 		mBackgroundControl = nullptr;
+
+		delete mMainPaneControl;
+		mMainPaneControl = nullptr;
 	}
 
 	void EditorState::notifyFrameStarted(float _time)
@@ -288,7 +276,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		mWidgetsWindow->clearNewWidget();
+		WidgetsWindow::getInstance().clearNewWidget();
 		mRecreate = false;
 		EditorWidgets::getInstance().clear();
 
@@ -314,7 +302,7 @@ namespace tools
 		}
 		else
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageFailedLoadFile"),
 				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
@@ -339,7 +327,7 @@ namespace tools
 		}
 		else
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageFailedSaveFile"),
 				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
@@ -498,16 +486,12 @@ namespace tools
 
 	void EditorState::pauseState()
 	{
-		mMainMenuControl->setVisible(false);
-		mWidgetsWindow->setVisible(false);
-		mPropertiesPanelView->setVisible(false);
+		mMainPaneControl->setVisible(false);
 	}
 
 	void EditorState::resumeState()
 	{
-		mWidgetsWindow->setVisible(true);
-		mMainMenuControl->setVisible(true);
-		mPropertiesPanelView->setVisible(WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr);
+		mMainPaneControl->setVisible(true);
 	}
 
 } // namespace tools

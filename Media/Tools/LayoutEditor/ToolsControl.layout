@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Default" position="256 184 256 272" align="Stretch" layer="Back" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Tab" skin="Tab" position="0 0 256 272" align="Stretch">
+            <Widget type="TabItem" skin="" position="4 26 247 240">
+                <Property key="Widget_Caption" value="#{Properties}"/>
+                <Widget type="Widget" skin="Default" position="0 0 247 240" align="Stretch" name="PropertiesControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 247 240">
+                <Property key="Widget_Caption" value="#{Widgets}"/>
+                <Widget type="Widget" skin="Default" position="0 0 247 240" align="Stretch" name="WidgetsControl"/>
+            </Widget>
+        </Widget>
+    </Widget>
+    <CodeGenaratorSettings>
+        <Property key="IncludeDirectory" value="D:\MyGUI\MyGUI_Trunk\Tools\LayoutEditor"/>
+        <Property key="PanelName" value="ToolsControl"/>
+        <Property key="SourceDirectory" value="D:\MyGUI\MyGUI_Trunk\Tools\LayoutEditor"/>
+    </CodeGenaratorSettings>
+</MyGUI>

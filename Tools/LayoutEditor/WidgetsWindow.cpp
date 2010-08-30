@@ -21,8 +21,8 @@ namespace tools
 {
 	const int MARGIN = 2;
 
-	WidgetsWindow::WidgetsWindow() :
-		BaseLayout("WidgetsWindow.layout"),
+	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
+		BaseLayout("WidgetsWindow.layout", _parent),
 		mToolTip(nullptr),
 		mCreatingStatus(0)
 	{
@@ -35,8 +35,6 @@ namespace tools
 		mSkinSheetName = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue("lastSkinGroup");
 
 		mToolTip = new EditorToolTip();
-
-		setEdgeHideController();
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
 	}
@@ -58,36 +56,6 @@ namespace tools
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("mWidgetsButtonHeight", mWidgetsButtonHeight);
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("mWidgetsButtonsInOneLine", mWidgetsButtonsInOneLine);
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("lastSkinGroup", mSkinSheetName);
-	}
-
-	void WidgetsWindow::updateSize()
-	{
-		if (mTabSkins->getItemCount() == 0)
-		{
-			mMainWidget->setVisible(false);
-			return;
-		}
-
-		int w = mWidgetsButtonWidth, h = mWidgetsButtonHeight;
-		MyGUI::TabItem* sheet = mTabSkins->getItemAt(0);
-
-		const MyGUI::IntSize& sheet_size = sheet->getSize();
-		int width = mTabSkins->getWidth() - sheet_size.width;
-		int height = mTabSkins->getHeight() - sheet_size.height;
-
-		mTabSkins->setSize(width + mWidgetsButtonsInOneLine * w + 2*MARGIN, height + mMaxLines*h + 2*MARGIN);
-
-		// выбрать вкладку с прошлого раза
-		size_t index = mTabSkins->findItemIndexWith(mSkinSheetName);
-		if (index != MyGUI::ITEM_NONE) mTabSkins->setIndexSelected(index);
-
-		width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
-		height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
-
-		const MyGUI::IntSize& size = mMainWidget->getParentSize();
-		mMainWidget->setCoord(0, size.height - (height + mTabSkins->getHeight()), width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
-
-		mMainWidget->setVisible(true);
 	}
 
 	void WidgetsWindow::initialise()
@@ -127,8 +95,6 @@ namespace tools
 			}
 			mMaxLines = std::max((i+mWidgetsButtonsInOneLine-1)/mWidgetsButtonsInOneLine, mMaxLines);
 		}
-
-		updateSize();
 	}
 
 	void WidgetsWindow::clearNewWidget()
@@ -282,12 +248,12 @@ namespace tools
 	void WidgetsWindow::clearAllSheets()
 	{
 		mTabSkins->removeAllItems();
-		updateSize();
+		//updateSize();
 	}
 
-	void WidgetsWindow::notifyChangeSelectedWidget(MyGUI::Widget* _current_widget)
+	void WidgetsWindow::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
-		mCurrentWidget = _current_widget;
+		mCurrentWidget = _currentWidget;
 	}
 
 	void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
@@ -306,27 +272,5 @@ namespace tools
 			mToolTip->move(_info.point);
 		}
 	}
-
-	void WidgetsWindow::setEdgeHideController()
-	{
-		bool value = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("EdgeHide");
-		if (value)
-		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-
-			controller->setTime(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<float>("EdgeHideTime"));
-			controller->setRemainPixels(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideRemainPixels"));
-			controller->setShadowSize(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("EdgeHideShadowSize"));
-
-			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
-		}
-	}
-
-	void WidgetsWindow::setVisible(bool _value)
-	{
-		mMainWidget->setVisible(_value);
-	}
-
 
 } // namespace tools

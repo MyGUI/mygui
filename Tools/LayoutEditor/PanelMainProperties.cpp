@@ -47,10 +47,10 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::update(MyGUI::Widget* _current_widget)
+	void PanelMainProperties::update(MyGUI::Widget* _currentWidget)
 	{
 		int y = 0;
-		mCurrentWidget = _current_widget;
+		mCurrentWidget = _currentWidget;
 
 		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);

@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="0 240 200 272" align="Left Bottom" layer="Overlapped" name="_Main">
-        <Property key="Caption" value="#{Widgets}"/>
-        <Property key="Snap" value="true"/>
-        <Widget type="Tab" skin="Tab" position="0 0 189 235" name="tabSkins"/>
+    <Widget type="Widget" skin="Default" position="10 10 200 272" align="Stretch" layer="Overlapped" name="_Main">
+		<UserString key="SnapTo" value="Stretch"/>
+		<Widget type="Tab" skin="Tab" position="0 0 200 272" align="Stretch" name="tabSkins"/>
     </Widget>
 </MyGUI>
