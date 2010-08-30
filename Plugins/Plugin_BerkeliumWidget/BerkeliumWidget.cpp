@@ -90,12 +90,6 @@ namespace MyGUI
 			mWindow->navigateTo(_url.data(), _url.length());
 	}
 
-	void BerkeliumWidget::setProperty(const std::string& _key, const std::string& _value)
-	{
-		if (_key == "Berkelium_SourceURL") loadURL(_value);
-		else Base::setProperty(_key, _value);
-	}
-
 	void BerkeliumWidget::onPaint(Berkelium::Window *win, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect)
 	{
 		if (mWindow == nullptr)
@@ -220,4 +214,16 @@ namespace MyGUI
 
 		Base::onKeyButtonReleased(_key);
 	}
+
+	void BerkeliumWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "SourceURL") loadURL(_value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
+	}
+
 }
