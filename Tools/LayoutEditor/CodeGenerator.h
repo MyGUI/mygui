@@ -27,7 +27,7 @@ namespace tools
 
 	private:
 		void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-		std::string stringToUpperCase(std::string _str);
+		std::string stringToUpperCase(const std::string& _str);
 		void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 		void notifyGeneratePressed(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
@@ -43,6 +43,8 @@ namespace tools
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
 		MyGUI::Edit* mPanelNameEdit;
+		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNamespaceEdit, "PanelNamespace");
+		MyGUI::Edit* mPanelNamespaceEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mSourceDirectoryEdit, "SourceDirectory");
 		MyGUI::Edit* mSourceDirectoryEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mIncludeDirectoryEdit, "IncludeDirectory");

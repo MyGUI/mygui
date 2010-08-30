@@ -76,8 +76,7 @@ namespace tools
 
 		if (!Application::getInstance().getParams().empty())
 		{
-			mFileName = Application::getInstance().getParams().front();
-			addUserTag("CurrentFileName", mFileName);
+			setFileName(Application::getInstance().getParams().front());
 
 			load();
 			updateCaption();
@@ -285,8 +284,7 @@ namespace tools
 		UndoManager::getInstance().shutdown();
 		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 
-		mFileName = mDefaultFileName;
-		addUserTag("CurrentFileName", mFileName);
+		setFileName(mDefaultFileName);
 
 		updateCaption();
 	}
@@ -308,8 +306,7 @@ namespace tools
 				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 				);
 
-			mFileName = mDefaultFileName;
-			addUserTag("CurrentFileName", mFileName);
+			setFileName(mDefaultFileName);
 
 			updateCaption();
 		}
@@ -382,8 +379,7 @@ namespace tools
 
 	void EditorState::loadDropFile()
 	{
-		mFileName = mDropFileName;
-		addUserTag("CurrentFileName", mFileName);
+		setFileName(mDropFileName);
 
 		load();
 		updateCaption();
@@ -402,16 +398,14 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
+				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				save();
 				updateCaption();
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
-				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				addUserTag("CurrentFileName", mFileName);
+				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				load();
 				updateCaption();
@@ -492,6 +486,15 @@ namespace tools
 	void EditorState::resumeState()
 	{
 		mMainPaneControl->setVisible(true);
+	}
+
+	void EditorState::setFileName(const MyGUI::UString& _fileName)
+	{
+		mFileName = _fileName;
+		addUserTag("CurrentFileName", mFileName);
+		size_t pos = mFileName.find_last_of("\\/");
+		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(mFileName.find_last_of("\\/") + 1);
+		addUserTag("CurrentFileName_Short", shortName);
 	}
 
 } // namespace tools
