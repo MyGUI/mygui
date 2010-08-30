@@ -30,8 +30,6 @@ namespace MyGUI
 
 		void loadURL(const std::string& _url);
 
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 	private:
 		// from WindowDelegate
 		virtual void onAddressBarChanged(Berkelium::Window *win, const char* newURL, size_t newURLSize) { }
@@ -59,6 +57,8 @@ namespace MyGUI
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 		virtual void onMouseDrag(int _left, int _top);
 		virtual void onMouseMove(int _left, int _top);

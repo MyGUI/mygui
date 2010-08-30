@@ -167,11 +167,16 @@ namespace Hikari
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void HikariWidget::setProperty(const std::string& _key, const std::string& _value)
+	void HikariWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Hikari_Source") load(_value);
-		else if (_key == "Hikari_Transparent") setTransparent(MyGUI::utility::parseValue<bool>(_value));
-		else Base::setProperty(_key, _value);
+		if (_key == "Source") load(_value);
+		else if (_key == "Transparent") setTransparent(MyGUI::utility::parseValue<bool>(_value));
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace Hikari
