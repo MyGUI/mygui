@@ -37,13 +37,8 @@ namespace tools
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
 
 		mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-		mCheckShowName->setUserString("PropertyName", "ShowName");
-
 		mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-		mCheckShowType->setUserString("PropertyName", "ShowType");
-
 		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
-		mCheckShowSkin->setUserString("PropertyName", "ShowSkin");
 
 		loadSettings();
 
@@ -57,10 +52,9 @@ namespace tools
 
 	void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
-		MyGUI::Edit* text = _sender->castType<MyGUI::Edit>();
-		mGridStep = MyGUI::utility::parseInt(text->getOnlyText());
+		mGridStep = MyGUI::utility::parseInt(mGridEdit->getOnlyText());
 		mGridStep = std::max(1, mGridStep);
-		text->setCaption(MyGUI::utility::toString(mGridStep));
+		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 
 	void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)
@@ -109,6 +103,8 @@ namespace tools
 	void SettingsWindow::loadSettings()
 	{
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
+
 		setShowName(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
 		setShowType(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
 		setShowSkin(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
