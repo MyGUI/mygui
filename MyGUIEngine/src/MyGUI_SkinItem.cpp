@@ -152,7 +152,7 @@ namespace MyGUI
 		setRenderItemTexture(mTexture);
 	}
 
-	const std::string& SkinItem::_getTextureName()
+	const std::string& SkinItem::_getTextureName() const
 	{
 		return mTextureName;
 	}

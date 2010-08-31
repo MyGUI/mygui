@@ -79,7 +79,7 @@ namespace MyGUI
 		size_t getActiveViewport() { return mActiveViewport; }
 
 		/** Set GUI viewport index */
-		void setActiveViewport(size_t _num);
+		void setActiveViewport(unsigned short _num);
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
@@ -114,7 +114,7 @@ namespace MyGUI
 		Ogre::RenderWindow* mWindow;
 
 		// вьюпорт, с которым работает система
-		size_t mActiveViewport;
+		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;

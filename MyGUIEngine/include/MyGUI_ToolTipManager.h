@@ -40,7 +40,7 @@ namespace MyGUI
 		void shutdown();
 
 		void setDelayVisible(float _value);
-		float getDelayVisible() { return mDelayVisible; }
+		float getDelayVisible() const { return mDelayVisible; }
 
 	/*internal:*/
 		void _unlinkWidget(Widget* _widget);
@@ -53,7 +53,7 @@ namespace MyGUI
 		void moveToolTip(Widget* _widget, size_t _index, const IntPoint& _point);
 
 		bool isNeedToolTip(Widget* _widget);
-		size_t getToolTipIndex(Widget* _widget);
+		size_t getToolTipIndex(Widget* _widget) const;
 
 	private:
 		float mDelayVisible;

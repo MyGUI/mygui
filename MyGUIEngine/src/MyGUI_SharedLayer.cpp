@@ -96,7 +96,7 @@ namespace MyGUI
 		}
 	}
 
-	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top)
+	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
 		if (!mIsPick) return nullptr;
 		if (mChildItem != nullptr)
@@ -117,7 +117,7 @@ namespace MyGUI
 		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);
 	}
 
-	EnumeratorILayerNode SharedLayer::getEnumerator()
+	EnumeratorILayerNode SharedLayer::getEnumerator() const
 	{
 		static VectorILayerNode nodes;
 		if (mChildItem == nullptr)

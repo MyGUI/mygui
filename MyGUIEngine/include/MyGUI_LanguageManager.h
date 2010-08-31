@@ -44,7 +44,7 @@ namespace MyGUI
 		/** Set current language for replacing #{} tags */
 		void setCurrentLanguage(const std::string& _name);
 		/** Get current language */
-		const std::string& getCurrentLanguage();
+		const std::string& getCurrentLanguage() const;
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */

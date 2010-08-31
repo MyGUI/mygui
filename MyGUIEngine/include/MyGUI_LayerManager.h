@@ -67,7 +67,7 @@ namespace MyGUI
 		/** Check is layer exist */
 		bool isExist(const std::string& _name) const;
 		/** Get layer nodes Enumerator */
-		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
+		EnumeratorLayer getEnumerator() const { return EnumeratorLayer(mLayerNodes); }
 
 		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;

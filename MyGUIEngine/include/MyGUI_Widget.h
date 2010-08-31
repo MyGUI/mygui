@@ -189,12 +189,12 @@ namespace MyGUI
 		bool isRootWidget() { return nullptr == mCroppedParent; }
 
 		/** Get parent widget or nullptr if no parent */
-		Widget* getParent() { return mParent; }
+		Widget* getParent() const { return mParent; }
 
-		IntSize getParentSize();
+		IntSize getParentSize() const;
 
 		/** Get child widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator();
+		EnumeratorWidgetPtr getEnumerator() const;
 
 		/** Get child count */
 		size_t getChildCount();
@@ -275,7 +275,7 @@ namespace MyGUI
 		Widget* _getContainer() { return mContainer; }
 
 		void _setAlign(const IntSize& _oldsize);
-		bool _checkPoint(int _left, int _top);
+		bool _checkPoint(int _left, int _top) const;
 
 		Widget* _createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
 
@@ -303,8 +303,8 @@ namespace MyGUI
 		virtual void baseUpdateEnable();
 
 		// наследуемся он LayerInfo
-		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
-		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+		virtual ILayerItem * getLayerItemByPoint(int _left, int _top) const;
+		virtual const IntCoord& getLayerItemCoord() const { return mCoord; }
 
 		template <typename T>
 		void assignWidget(T * & _widget, const std::string& _name)

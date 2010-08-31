@@ -41,7 +41,8 @@ namespace MyGUI
 		mLastVertextCount(0),
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr),
-		mCompression(false)
+		mCompression(false),
+		mSeparate(false)
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 	}
@@ -211,7 +212,7 @@ namespace MyGUI
 		mSeparate = _value;
 	}
 
-	bool RenderItem::getSeparate()
+	bool RenderItem::getSeparate() const
 	{
 		return mSeparate;
 	}

@@ -199,7 +199,7 @@ namespace MyGUI
 		return _widget->getNeedToolTip();
 	}
 
-	size_t ToolTipManager::getToolTipIndex(Widget* _widget)
+	size_t ToolTipManager::getToolTipIndex(Widget* _widget) const
 	{
 		Widget* container = _widget->_getContainer();
 		if (container != nullptr)

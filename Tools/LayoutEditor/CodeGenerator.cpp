@@ -85,7 +85,7 @@ namespace tools
 				ret.push_back('_');
 			}
 			ret.push_back((char)toupper(_str[i]));
-			previousIsLowerCase = (bool)islower(_str[i]);
+			previousIsLowerCase = (islower(_str[i]) != 0);
 		}
 		return ret;
 	}

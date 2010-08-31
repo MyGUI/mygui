@@ -53,10 +53,10 @@ namespace MyGUI
 		virtual void upChildItemNode(ILayerNode* _node) = 0;
 
 		// список детей
-		virtual EnumeratorILayerNode getEnumerator() = 0;
+		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		// возвращает виджет по позиции
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 
 		// возвращает позицию в координатах леера
 		virtual IntPoint getPosition(int _left, int _top) const = 0;

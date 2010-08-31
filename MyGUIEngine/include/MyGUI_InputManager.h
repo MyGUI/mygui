@@ -71,11 +71,11 @@ namespace MyGUI
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */
-		bool isFocusMouse() { return mWidgetMouseFocus != nullptr; }
+		bool isFocusMouse() const { return mWidgetMouseFocus != nullptr; }
 		/** Is any widget have key focus */
-		bool isFocusKey() { return mWidgetKeyFocus != nullptr; }
+		bool isFocusKey() const { return mWidgetKeyFocus != nullptr; }
 		/** Is any widget captured mouse */
-		bool isCaptureMouse() { return mIsWidgetMouseCapture; }
+		bool isCaptureMouse() const { return mIsWidgetMouseCapture; }
 
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(Widget* _widget);
@@ -85,15 +85,15 @@ namespace MyGUI
 		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
 
 		/** Get mouse focused widget */
-		Widget* getMouseFocusWidget() { return mWidgetMouseFocus; }
+		Widget* getMouseFocusWidget() const { return mWidgetMouseFocus; }
 		/** Get key focused widget */
-		Widget* getKeyFocusWidget() { return mWidgetKeyFocus; }
+		Widget* getKeyFocusWidget() const { return mWidgetKeyFocus; }
 		/** Get position of last left mouse button press.
 			Position calculated on specific layer where mouse was pressed.
 		*/
-		const IntPoint& getLastLeftPressed() { return mLastLeftPressed; }
+		const IntPoint& getLastLeftPressed() const { return mLastLeftPressed; }
 		/** Get current mouse position on screen */
-		const IntPoint& getMousePosition() { return mMousePosition; }
+		const IntPoint& getMousePosition() const { return mMousePosition; }
 
 		/** Get mouse position on current layer.
 			This position might different from getMousePosition() if mouse is over non-2d layer.
@@ -107,12 +107,12 @@ namespace MyGUI
 		void removeWidgetModal(Widget* _widget);
 
 		/** Return true if any modal widget exist */
-		bool isModalAny() { return !mVectorModalRootWidget.empty(); }
+		bool const isModalAny() const { return !mVectorModalRootWidget.empty(); }
 
 		/** Is control button pressed */
-		bool isControlPressed() { return mIsControlPressed; }
+		bool isControlPressed() const { return mIsControlPressed; }
 		/** Is shift button pressed */
-		bool isShiftPressed() { return mIsShiftPressed; }
+		bool isShiftPressed() const { return mIsShiftPressed; }
 
 		/** Reset mouse capture.
 			For example when we dragging and application

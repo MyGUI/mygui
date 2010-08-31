@@ -43,10 +43,10 @@ namespace MyGUI
 		virtual ~LayerNode();
 
 		// леер, которому мы принадлежим
-		virtual ILayer* getLayer() { return mLayer; }
+		virtual ILayer* getLayer() const { return mLayer; }
 
 		// возвращает отца или nullptr
-		virtual ILayerNode* getParent() { return mParent; }
+		virtual ILayerNode* getParent() const { return mParent; }
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
@@ -57,7 +57,7 @@ namespace MyGUI
 		virtual void upChildItemNode(ILayerNode* _node);
 
 		// список детей
-		virtual EnumeratorILayerNode getEnumerator();
+		virtual EnumeratorILayerNode getEnumerator() const;
 
 		// добавляем айтем к ноду
 		virtual void attachLayerItem(ILayerItem* _item);
@@ -70,14 +70,14 @@ namespace MyGUI
 		virtual void outOfDate(RenderItem* _item);
 
 		// возвращает виджет по позиции
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
 
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 		virtual void dumpStatisticToLog(size_t _level);
 
-		bool isOutOfDate() { return mOutOfDate; }
+		bool isOutOfDate() const { return mOutOfDate; }
 
 	protected:
 		void updateCompression();

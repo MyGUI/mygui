@@ -112,7 +112,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	const std::string& LayoutManager::getCurrentLayout()
+	const std::string& LayoutManager::getCurrentLayout() const
 	{
 		return mCurrentLayoutName;
 	}
