@@ -26,6 +26,11 @@ namespace tools
 
 		MyGUI::Window* getWidgetRectangle();
 
+		typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::IntCoord&> EventHandle_EventChangeCoord;
+		EventHandle_EventChangeCoord eventChangeCoord;
+
+		void setCoord(const MyGUI::IntCoord& _coord);
+
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
@@ -36,6 +41,8 @@ namespace tools
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+
+		void notifyChangeCoord(const MyGUI::IntCoord& _coord);
 
 		std::string splitString(std::string& str, char separator);
 
@@ -52,6 +59,7 @@ namespace tools
 
 		void hideWidgetsPairs(MyGUI::Widget* _window);
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
+
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;
