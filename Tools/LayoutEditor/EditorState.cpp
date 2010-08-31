@@ -68,9 +68,6 @@ namespace tools
 
 		mSelectionAreaControl = new SelectionAreaControl();
 
-		// после загрузки настроек инициализируем
-		WidgetsWindow::getInstance().initialise();
-
 		updateCaption();
 
 		if (!Application::getInstance().getParams().empty())
