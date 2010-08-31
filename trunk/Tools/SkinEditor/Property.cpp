@@ -21,17 +21,17 @@ namespace tools
 	{
 	}
 
-	const MyGUI::UString& Property::getValue()
+	const MyGUI::UString& Property::getValue() const
 	{
 		return mValue;
 	}
 
-	const MyGUI::UString& Property::getName()
+	const MyGUI::UString& Property::getName() const
 	{
 		return mName;
 	}
 
-	const MyGUI::UString& Property::getType()
+	const MyGUI::UString& Property::getType() const
 	{
 		return mType;
 	}
@@ -47,7 +47,7 @@ namespace tools
 		}
 	}
 
-	bool Property::getReadOnly()
+	bool Property::getReadOnly() const
 	{
 		return mReadOnly;
 	}
