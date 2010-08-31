@@ -6,8 +6,6 @@
 #ifndef __PROPERTIES_PANEL_VIEW_H__
 #define __PROPERTIES_PANEL_VIEW_H__
 
-//#include "PanelView/PanelView.h"
-//#include "PanelView/PanelViewWindow.h"
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView.h"
 #include "PanelMainProperties.h"
@@ -26,20 +24,7 @@ namespace tools
 		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
 		virtual ~PropertiesPanelView();
 
-		// widget editing
-		void notifyRectangleResize(MyGUI::Window* _sender);
-		void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
-
-		void hideWidgetsPairs(MyGUI::Widget* _window);
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
-
 		MyGUI::Window* getWidgetRectangle();
-
-		void setPositionText(const std::string& _caption);
-		void toggleRelativeMode();
-
-		typedef MyGUI::delegates::CDelegate0 EventInfo;
-		EventInfo eventRecreate;
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
@@ -58,6 +43,15 @@ namespace tools
 
 		int toGrid(int _x);
 
+		void setPositionText(const std::string& _caption);
+		void toggleRelativeMode();
+
+		// widget editing
+		void notifyRectangleResize(MyGUI::Window* _sender);
+		void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
+
+		void hideWidgetsPairs(MyGUI::Widget* _window);
+		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;

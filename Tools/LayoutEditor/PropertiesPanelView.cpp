@@ -33,7 +33,9 @@ namespace tools
 	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
 		BaseLayout("PropertiesPanelView.layout", _parent),
 		mPropertyItemHeight(0),
-		mGridStep(0)
+		mGridStep(0),
+		mCurrentWidget(nullptr),
+		mArrowMove(false)
 	{
 		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 		ERROR_VALUE = replaceTags("ColourError");
@@ -79,22 +81,10 @@ namespace tools
 		mPanels.push_back(mPanelUserData);
 		mPanels.push_back(mPanelControllers);
 
-		mCurrentWidget = nullptr;
-
 		// create widget rectangle
 		mCurrentWidgetRectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 		mCurrentWidgetRectangle->eventWindowChangeCoord += newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
-		//mCurrentWidgetRectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
 		mCurrentWidgetRectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
-
-		mArrowMove = false;
-
-		/*mMainWidget->setCoord(
-			mMainWidget->getParentSize().width - mMainWidget->getSize().width,
-			BAR_HEIGHT,
-			mMainWidget->getSize().width,
-			mMainWidget->getParentSize().height - BAR_HEIGHT
-			);*/
 
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
@@ -207,7 +197,7 @@ namespace tools
 			if (mCurrentWidget)
 			{
 				EditorWidgets::getInstance().remove(mCurrentWidget);
-				eventRecreate();
+				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 				UndoManager::getInstance().addValue();
 			}
 		}
@@ -565,7 +555,7 @@ namespace tools
 				ew->clear();
 				ew->loadxmlDocument(savedDoc);
 				delete savedDoc;
-				eventRecreate();
+				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			}
 			else
 			{

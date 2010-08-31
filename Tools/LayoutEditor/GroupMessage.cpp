@@ -8,6 +8,24 @@ template <> const char* MyGUI::Singleton<tools::GroupMessage>::mClassTypeName("G
 
 namespace tools
 {
+	GroupMessage::GroupMessage()
+	{
+	}
+
+	GroupMessage::~GroupMessage()
+	{
+	}
+
+	void GroupMessage::initialise()
+	{
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GroupMessage::notifyFrameStarted);
+	}
+
+	void GroupMessage::shutdown()
+	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GroupMessage::notifyFrameStarted);
+	}
+
 	void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type)
 	{
 		if (_type == MyGUI::LogLevel::Error)
@@ -73,6 +91,11 @@ namespace tools
 
 			mErrorMessages.clear();
 		}
+	}
+
+	void GroupMessage::notifyFrameStarted(float _time)
+	{
+		showMessages();
 	}
 
 } // namespace tools
