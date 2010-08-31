@@ -114,10 +114,10 @@ namespace MyGUI
 		MYGUI_EXCEPT("item node not found");
 	}
 
-	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top)
+	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
 		if (!mIsPick) return nullptr;
-		VectorILayerNode::reverse_iterator iter = mChildItems.rbegin();
+		VectorILayerNode::const_reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -140,7 +140,7 @@ namespace MyGUI
 		}
 	}
 
-	EnumeratorILayerNode OverlappedLayer::getEnumerator()
+	EnumeratorILayerNode OverlappedLayer::getEnumerator() const
 	{
 		return EnumeratorILayerNode(mChildItems);
 	}

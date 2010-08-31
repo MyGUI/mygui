@@ -43,7 +43,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( IResource )
 
 	public:
-		const std::string& getResourceName() { return mResourceName; }
+		const std::string& getResourceName() const { return mResourceName; }
 
 	protected:
 		IResource() { }

@@ -31,7 +31,7 @@ namespace MyGUI
 
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
 
 		virtual IntPoint getPosition(int _left, int _top) const;
 

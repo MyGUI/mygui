@@ -298,6 +298,7 @@ namespace MyGUI
 
 	bool MemberObsolete<PluginManager>::load(const std::string& _file) { return ResourceManager::getInstance().load(_file); }
 
+	void MemberObsolete<PointerManager>::setDeafultPointer(const std::string& _value) { static_cast<PointerManager*>(this)->setDefaultPointer(_value); }
 	void MemberObsolete<PointerManager>::show() { static_cast<PointerManager*>(this)->setVisible(true); }
 	void MemberObsolete<PointerManager>::hide() { static_cast<PointerManager*>(this)->setVisible(false); }
 	bool MemberObsolete<PointerManager>::isShow() { return static_cast<PointerManager*>(this)->isVisible(); }

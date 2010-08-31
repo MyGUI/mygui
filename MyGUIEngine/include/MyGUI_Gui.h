@@ -161,7 +161,7 @@ namespace MyGUI
 		void destroyAllChildWidget() { _destroyAllChildWidget(); }
 
 		/** Get root widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
+		EnumeratorWidgetPtr getEnumerator() const { return EnumeratorWidgetPtr(mWidgetChild); }
 
 	/*internal:*/
 

@@ -79,7 +79,7 @@ namespace MyGUI
 		}
 	}
 
-	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top)
+	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top) const
 	{
 		if (!mIsPick)
 			return nullptr;

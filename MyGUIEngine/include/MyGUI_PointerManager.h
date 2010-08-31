@@ -56,12 +56,12 @@ namespace MyGUI
 		void resetToDefaultPointer();
 
 		/** Get default pointer */
-		const std::string& getDefaultPointer() { return mDefaultName; }
+		const std::string& getDefaultPointer() const { return mDefaultName; }
 		/** Set default pointer */
-		void setDeafultPointer(const std::string& _value);
+		void setDefaultPointer(const std::string& _value);
 
 		/** Get layer name where pointer rendered */
-		const std::string& getLayerName() { return mLayerName; }
+		const std::string& getLayerName() const { return mLayerName; }
 		/** Set layer where pointer rendered */
 		void setLayerName(const std::string& _value);
 

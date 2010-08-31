@@ -53,57 +53,57 @@ namespace MyGUI
 		virtual void doRender();
 
 		void setCaption(const UString& _value);
-		const UString& getCaption();
+		const UString& getCaption() const;
 
 		void setTextColour(const Colour& _value);
-		const Colour& getTextColour();
+		const Colour& getTextColour() const;
 
 		void setAlpha(float _value);
-		float getAlpha();
+		float getAlpha() const;
 
 		virtual void setFontName(const std::string& _value);
-		virtual const std::string& getFontName();
+		virtual const std::string& getFontName() const;
 
 		virtual void setFontHeight(int _value);
-		virtual int getFontHeight();
+		virtual int getFontHeight() const;
 
 		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		virtual void setTextAlign(Align _value);
-		virtual Align getTextAlign();
+		virtual Align getTextAlign() const;
 
-		virtual size_t getTextSelectionStart();
-		virtual size_t getTextSelectionEnd();
+		virtual size_t getTextSelectionStart() const;
+		virtual size_t getTextSelectionEnd() const;
 		virtual void setTextSelection(size_t _start, size_t _end);
 
-		virtual bool getSelectBackground();
+		virtual bool getSelectBackground() const;
 		virtual void setSelectBackground(bool _normal);
 
-		virtual bool isVisibleCursor();
+		virtual bool isVisibleCursor() const;
 		virtual void setVisibleCursor(bool _value);
 
 		/** Get invert selected text color property */
-		virtual bool getInvertSelected() { return mInvertSelect; }
+		virtual bool getInvertSelected() const { return mInvertSelect; }
 		/** Enable or disable inverting color of selected text\n
 			Enabled (true) by default
 		*/
 		virtual void setInvertSelected(bool _value);
 
-		virtual size_t getCursorPosition();
+		virtual size_t getCursorPosition() const;
 		virtual void setCursorPosition(size_t _index);
 
-		virtual IntSize getTextSize();
+		virtual IntSize getTextSize() /*const*/;
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(const IntPoint& _point);
-		virtual IntPoint getViewOffset();
+		virtual IntPoint getViewOffset() const;
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getCursorPosition(const IntPoint& _point);
+		virtual size_t getCursorPosition(const IntPoint& _point) /*const*/;
 
 		// возвращает положение курсора в обсолютных координатах
-		virtual IntCoord getCursorCoord(size_t _position);
+		virtual IntCoord getCursorCoord(size_t _position) /*const*/;
 
 		void setShiftText(bool _shift);
 

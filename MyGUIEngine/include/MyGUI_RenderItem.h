@@ -46,7 +46,7 @@ namespace MyGUI
 		ITexture* getTexture();
 
 		void setSeparate(bool _value);
-		bool getSeparate();
+		bool getSeparate() const;
 
 		void addDrawItem(ISubWidget* _item, size_t _count);
 		void removeDrawItem(ISubWidget* _item);

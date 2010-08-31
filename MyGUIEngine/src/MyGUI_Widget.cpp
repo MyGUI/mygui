@@ -470,7 +470,7 @@ namespace MyGUI
 		_updateAlpha();
 	}
 
-	ILayerItem * Widget::getLayerItemByPoint(int _left, int _top)
+	ILayerItem * Widget::getLayerItemByPoint(int _left, int _top) const
 	{
 		// проверяем попадание
 		if (!mEnabled
@@ -482,7 +482,7 @@ namespace MyGUI
 				return nullptr;
 
 		// спрашиваем у детишек
-		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
 		{
 			// общаемся только с послушными детьми
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
@@ -493,7 +493,7 @@ namespace MyGUI
 				return item;
 		}
 		// спрашиваем у детишек скна
-		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
 		{
 			ILayerItem * item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr)
@@ -501,7 +501,7 @@ namespace MyGUI
 		}
 
 		// непослушные дети
-		return getInheritsPick() ? nullptr : this;
+		return getInheritsPick() ? nullptr : (ILayerItem *)(this);
 	}
 
 	void Widget::_updateAbsolutePoint()
@@ -921,7 +921,7 @@ namespace MyGUI
 		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name, false);
 	}
 
-	EnumeratorWidgetPtr Widget::getEnumerator()
+	EnumeratorWidgetPtr Widget::getEnumerator() const
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
@@ -1016,7 +1016,7 @@ namespace MyGUI
 		_setSkinItemColour(_value);
 	}
 
-	IntSize Widget::getParentSize()
+	IntSize Widget::getParentSize() const
 	{
 		if (mCroppedParent)
 			return static_cast<Widget*>(mCroppedParent)->getSize();
@@ -1032,7 +1032,7 @@ namespace MyGUI
 			ToolTipManager::getInstance()._unlinkWidget(this);
 	}
 
-	bool Widget::_checkPoint(int _left, int _top)
+	bool Widget::_checkPoint(int _left, int _top) const
 	{
 		return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
 	}

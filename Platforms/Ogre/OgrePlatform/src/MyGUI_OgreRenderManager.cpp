@@ -143,7 +143,7 @@ namespace MyGUI
 		}
 	}
 
-	void OgreRenderManager::setActiveViewport(size_t _num)
+	void OgreRenderManager::setActiveViewport(unsigned short _num)
 	{
 		mActiveViewport = _num;
 

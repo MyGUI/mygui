@@ -21,7 +21,7 @@ namespace tools
 		virtual ~ColourPanel();
 
 		void setColour(const MyGUI::Colour& _colour);
-		const MyGUI::Colour& getColour() { return mCurrentColour; }
+		const MyGUI::Colour& getColour() const { return mCurrentColour; }
 
 	protected:
 		virtual void onDoModal();

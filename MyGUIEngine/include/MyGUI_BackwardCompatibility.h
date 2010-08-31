@@ -520,6 +520,8 @@ namespace MyGUI
 	class MemberObsolete<PointerManager>
 	{
 	public:
+		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setDefaultPointer(const std::string& _value)")
+		void setDeafultPointer(const std::string& _value);
 		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setVisible(bool _visible)")
 		void show();
 		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setVisible(bool _visible)")

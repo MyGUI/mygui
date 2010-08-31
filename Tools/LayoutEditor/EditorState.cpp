@@ -23,11 +23,11 @@ namespace tools
 		mSettingsWindow(nullptr),
 		mCodeGenerator(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
 		mMessageBoxFadeControl(nullptr),
 		mBackgroundControl(nullptr),
-		mMainPaneControl(nullptr)
+		mMainPaneControl(nullptr),
+		mFileName("unnamed.xml"),
+		mDefaultFileName("unnamed.xml")
 	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));

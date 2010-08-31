@@ -38,7 +38,7 @@ namespace MyGUI
 
 		void addUsing() { mCountUsing++; }
 		void removeUsing() { mCountUsing--; }
-		size_t countUsing() { return mCountUsing; }
+		size_t countUsing() const { return mCountUsing; }
 
 	private:
 		size_t mCountUsing;

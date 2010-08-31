@@ -180,7 +180,7 @@ namespace MyGUI
 				const std::string& key = node->findAttribute("key");
 				const std::string& value = node->findAttribute("value");
 				if (key == "Default")
-					setDeafultPointer(value);
+					setDefaultPointer(value);
 				else if (key == "Layer")
 					setLayerName(value);
 				else if (key == "Skin")
@@ -192,7 +192,7 @@ namespace MyGUI
 			setLayerName(layer);
 
 		if (!pointer.empty())
-			setDeafultPointer(pointer);
+			setDefaultPointer(pointer);
 
 	}
 
@@ -300,7 +300,7 @@ namespace MyGUI
 		}
 	}
 
-	void PointerManager::setDeafultPointer(const std::string& _value)
+	void PointerManager::setDefaultPointer(const std::string& _value)
 	{
 		Update();
 
