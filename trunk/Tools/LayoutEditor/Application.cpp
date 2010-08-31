@@ -51,6 +51,12 @@ namespace tools
 	{
 		getStatisticInfo()->setVisible(false);
 
+		// set locale language if it was taken from OS
+		if (!mLocale.empty())
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+		// if you want to test LanguageManager uncomment next line
+		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
+
 		new SettingsManager();
 		SettingsManager::getInstance().initialise();
 
@@ -69,12 +75,6 @@ namespace tools
 		new DialogManager();
 		DialogManager::getInstance().initialise();
 
-		// set locale language if it was taken from OS
-		if (!mLocale.empty())
-			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
-		// if you want to test LanguageManager uncomment next line
-		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
-
 		new WidgetTypes();
 		WidgetTypes::getInstance().initialise();
 
@@ -88,6 +88,7 @@ namespace tools
 		StateManager::getInstance().initialise();
 
 		new GroupMessage();
+		GroupMessage::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
@@ -136,6 +137,7 @@ namespace tools
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();
 
+		GroupMessage::getInstance().shutdown();
 		delete GroupMessage::getInstancePtr();
 
 		DialogManager::getInstance().shutdown();
