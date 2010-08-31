@@ -119,7 +119,7 @@ namespace wraps
 		template <typename Type>
 		void initialiseByAttributes(Type* _owner, MyGUI::Widget* _parent = nullptr)
 		{
-			initialise(attribute::AttributeLayout<Type>::getData());
+			initialise(attribute::AttributeLayout<Type>::getData(), _parent);
 
 			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
 			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item=data.begin(); item!=data.end(); ++item)
