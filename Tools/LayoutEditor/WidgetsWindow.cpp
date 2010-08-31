@@ -24,9 +24,9 @@ namespace tools
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
 		BaseLayout("WidgetsWindow.layout", _parent),
 		mToolTip(nullptr),
-		mCreatingStatus(0)
+		mCreatingStatus(0),
+		mCurrentWidget(nullptr)
 	{
-		mCurrentWidget = nullptr;
 		assignWidget(mTabSkins, "tabSkins");
 
 		mWidgetsButtonWidth = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonWidth");
@@ -35,6 +35,8 @@ namespace tools
 		mSkinSheetName = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue("lastSkinGroup");
 
 		mToolTip = new EditorToolTip();
+
+		initialise();
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeSelectedWidget);
 	}
@@ -271,6 +273,11 @@ namespace tools
 		{
 			mToolTip->move(_info.point);
 		}
+	}
+
+	int WidgetsWindow::getCreateStatus()
+	{
+		return mCreatingStatus;
 	}
 
 } // namespace tools
