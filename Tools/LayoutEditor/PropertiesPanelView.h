@@ -24,8 +24,6 @@ namespace tools
 		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
 		virtual ~PropertiesPanelView();
 
-		MyGUI::Window* getWidgetRectangle();
-
 		typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::IntCoord&> EventHandle_EventChangeCoord;
 		EventHandle_EventChangeCoord eventChangeCoord;
 
@@ -40,22 +38,12 @@ namespace tools
 		void notifyForceApplyProperties(MyGUI::Edit* _widget); // calls notifyApplyProperties
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-
-		void notifyChangeCoord(const MyGUI::IntCoord& _coord);
-
 		std::string splitString(std::string& str, char separator);
 
 		void commandToggleRelativeMode(const MyGUI::UString& _commandName);
 
-		int toGrid(int _x);
-
 		void setPositionText(const std::string& _caption);
 		void toggleRelativeMode();
-
-		// widget editing
-		void notifyRectangleResize(MyGUI::Window* _sender);
-		void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 		void hideWidgetsPairs(MyGUI::Widget* _window);
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
@@ -80,12 +68,8 @@ namespace tools
 		VectorPanel mPanels;
 
 		MyGUI::Widget* mCurrentWidget;
-		MyGUI::Window* mCurrentWidgetRectangle;
 
-		// widget was moved by keyboard arrows
-		bool mArrowMove;
 		int mPropertyItemHeight;
-		int mGridStep;
 	};
 
 } // namespace tools

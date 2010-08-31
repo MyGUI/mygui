@@ -247,10 +247,10 @@ namespace tools
 		MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 		// не убираем пр€моугольник если нажали на его раст€гивалку
-		if (item && (item->getParent() != PropertiesPanelView::getInstance().getWidgetRectangle()))
+		if (item && (item->getParent() != SelectionAreaControl::getInstance().getWidgetRectangle()))
 		{
 			// чтобы пр€моугольник не мешалс€
-			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(false);
+			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(false);
 			item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 		}
 
@@ -301,11 +301,11 @@ namespace tools
 		// вернем пр€моугольник
 		if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && WidgetsWindow::getInstance().getCreatingStatus() == 0)
 		{
-			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(true);
+			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(true);
 		}
 		else if (WidgetsWindow::getInstance().getCreatingStatus())
 		{
-			PropertiesPanelView::getInstance().getWidgetRectangle()->setVisible(false);
+			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(false);
 		}
 	}
 
