@@ -112,17 +112,6 @@ namespace tools
 		}
 	}
 
-	/*void PanelItems::notifyRectangleDoubleClick(MyGUI::Widget* _sender)
-	{
-		if (mCurrentWidget->getTypeName() == "Tab")
-		{
-			addSheetToTab(mCurrentWidget);
-			// update strings panel
-			syncItems(false);
-			UndoManager::getInstance().addValue();
-		}
-	}*/
-
 	void PanelItems::addSheetToTab(MyGUI::Widget* _tab, std::string _caption)
 	{
 		MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
