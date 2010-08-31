@@ -17,9 +17,8 @@ namespace tools
 	{
 	public:
 		EditorWidgets();
-		~EditorWidgets();
+		virtual ~EditorWidgets();
 
-	public:
 		void initialise();
 		void shutdown();
 

@@ -49,11 +49,6 @@ namespace tools
 		void notifyChangeSelectedWidget(MyGUI::Widget* _widget);
 
 	private:
-		// last click for depth selecting
-		int mLastClickX;
-		int mLastClickY;
-		int mSelectDepth;
-
 		VectorWString mParams;
 		std::string mLocale;
 
