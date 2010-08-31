@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Widget" skin="Default" position="24 48 664 456" align="Stretch" layer="Back" name="_Main">
+    <Widget type="Widget" skin="Default" position="24 48 664 456" align="Stretch" layer="Overlapped" name="_Main">
         <Property key="NeedMouse" value="false"/>
         <Property key="InheritsPick" value="true"/>
         <UserString key="SnapTo" value="Stretch"/>
