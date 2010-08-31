@@ -377,7 +377,7 @@ namespace tools
 
 			if (!result)
 			{
-				MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					replaceTags("MessageIncorrectFileFormat"),
 					MyGUI::MessageBoxStyle::IconError
@@ -391,7 +391,7 @@ namespace tools
 		}
 		else
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				doc.getLastError(),
 				MyGUI::MessageBoxStyle::IconError

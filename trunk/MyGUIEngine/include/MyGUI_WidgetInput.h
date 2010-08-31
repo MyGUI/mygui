@@ -116,7 +116,7 @@ namespace MyGUI
 		/** Set picking mask for widget */
 		void setMaskPick(const MaskPickInfo& _info);
 
-		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord);
+		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord) const;
 
 		bool getRootMouseFocus() const { return mRootMouseFocus; }
 		bool getRootKeyFocus() const { return mRootKeyFocus; }

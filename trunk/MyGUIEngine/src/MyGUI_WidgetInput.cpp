@@ -49,7 +49,7 @@ namespace MyGUI
 		mOwnMaskPickInfo = _info;
 	}
 
-	bool WidgetInput::isMaskPickInside(const IntPoint& _point, const IntCoord& _coord)
+	bool WidgetInput::isMaskPickInside(const IntPoint& _point, const IntCoord& _coord) const
 	{
 		return !mOwnMaskPickInfo.empty() && mOwnMaskPickInfo.pick(_point, _coord);
 	}

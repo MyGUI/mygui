@@ -39,7 +39,7 @@ namespace MyGUI
 		virtual ~LayerItem() { }
 
 	public:
-		ILayer* getLayer() { return mLayer; }
+		ILayer* getLayer() const { return mLayer; }
 
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
 		virtual void detachFromLayer();

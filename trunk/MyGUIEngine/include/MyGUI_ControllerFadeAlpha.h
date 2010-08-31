@@ -61,10 +61,6 @@ namespace MyGUI
 		bool addTime(Widget* _widget, float _time);
 		void prepareItem(Widget* _widget);
 
-		bool getEnabled() { return mEnabled; }
-		float getAlpha() { return mAlpha; }
-		float getCoef() { return mCoef; }
-
 	private:
 		float mAlpha;
 		float mCoef;

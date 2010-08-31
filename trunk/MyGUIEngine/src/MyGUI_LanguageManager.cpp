@@ -234,7 +234,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	const std::string& LanguageManager::getCurrentLanguage()
+	const std::string& LanguageManager::getCurrentLanguage() const
 	{
 		return mCurrentLanguageName;
 	}

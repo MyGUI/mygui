@@ -69,7 +69,7 @@ namespace MyGUI
 		*/
 		AddUserStringDelegate eventAddUserString;
 
-		const std::string& getCurrentLayout();
+		const std::string& getCurrentLayout() const;
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

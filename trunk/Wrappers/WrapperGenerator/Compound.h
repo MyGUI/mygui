@@ -52,7 +52,7 @@ namespace wrapper
 		const std::string& getId() const { return mId; }
 		const std::string& getType() const { return mType; }
 
-		Enumerator getEnumerator() { return Enumerator(mChilds.begin(), mChilds.end()); }
+		Enumerator getEnumerator() const { return Enumerator(mChilds.begin(), mChilds.end()); }
 
 	private:
 		std::string getItemName(xml::ElementPtr _element)

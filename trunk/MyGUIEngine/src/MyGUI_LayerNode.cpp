@@ -129,16 +129,16 @@ namespace MyGUI
 		mOutOfDate = false;
 	}
 
-	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top)
+	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top) const
 	{
 		// сначала пикаем детей
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
 
-		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
+		for (VectorLayerItem::const_iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
@@ -254,7 +254,7 @@ namespace MyGUI
 			_item->outOfDate();
 	}
 
-	EnumeratorILayerNode LayerNode::getEnumerator()
+	EnumeratorILayerNode LayerNode::getEnumerator() const
 	{
 		return EnumeratorILayerNode(mChildItems);
 	}

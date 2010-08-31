@@ -39,7 +39,7 @@ namespace MyGUI
 	public:
 		virtual ~SubSkinStateInfo() { }
 
-		const FloatRect& getRect() { return mRect; }
+		const FloatRect& getRect() const { return mRect; }
 
 	private:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)
@@ -70,10 +70,10 @@ namespace MyGUI
 		TileRectStateInfo() : mTileH(true), mTileV(true) { }
 		virtual ~TileRectStateInfo() { }
 
-		const FloatRect& getRect() { return mRect; }
-		const IntSize& getTileSize() { return mTileSize; }
-		bool getTileH() { return mTileH; }
-		bool getTileV() { return mTileV; }
+		const FloatRect& getRect() const { return mRect; }
+		const IntSize& getTileSize() const { return mTileSize; }
+		bool getTileH() const { return mTileH; }
+		bool getTileV() const { return mTileV; }
 
 	private:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)
@@ -117,8 +117,8 @@ namespace MyGUI
 		EditTextStateInfo() : mColour(Colour::White), mShift(false) { }
 		virtual ~EditTextStateInfo() { }
 
-		const Colour& getColour() { return mColour; }
-		bool getShift() { return mShift; }
+		const Colour& getColour() const { return mColour; }
+		bool getShift() const { return mShift; }
 
 	private:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)

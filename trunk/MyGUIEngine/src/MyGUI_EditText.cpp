@@ -266,7 +266,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	const UString& EditText::getCaption()
+	const UString& EditText::getCaption() const
 	{
 		return mCaption;
 	}
@@ -293,7 +293,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	const Colour& EditText::getTextColour()
+	const Colour& EditText::getTextColour() const
 	{
 		return mColour;
 	}
@@ -309,7 +309,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	float EditText::getAlpha()
+	float EditText::getAlpha() const
 	{
 		return mAlpha;
 	}
@@ -348,7 +348,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	const std::string& EditText::getFontName()
+	const std::string& EditText::getFontName() const
 	{
 		return mFont->getResourceName();
 	}
@@ -360,7 +360,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	int EditText::getFontHeight()
+	int EditText::getFontHeight() const
 	{
 		return mFontHeight;
 	}
@@ -388,12 +388,12 @@ namespace MyGUI
 		mNode = nullptr;
 	}
 
-	size_t EditText::getTextSelectionStart()
+	size_t EditText::getTextSelectionStart() const
 	{
 		return mStartSelect;
 	}
 
-	size_t EditText::getTextSelectionEnd()
+	size_t EditText::getTextSelectionEnd() const
 	{
 		return mEndSelect;
 	}
@@ -405,7 +405,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	bool EditText::getSelectBackground()
+	bool EditText::getSelectBackground() const
 	{
 		return mBackgroundNormal;
 	}
@@ -417,7 +417,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	bool EditText::isVisibleCursor()
+	bool EditText::isVisibleCursor() const
 	{
 		return mVisibleCursor;
 	}
@@ -429,7 +429,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	size_t EditText::getCursorPosition()
+	size_t EditText::getCursorPosition() const
 	{
 		return mCursorPosition;
 	}
@@ -447,7 +447,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	Align EditText::getTextAlign()
+	Align EditText::getTextAlign() const
 	{
 		return mTextAlign;
 	}
@@ -470,7 +470,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	IntPoint EditText::getViewOffset()
+	IntPoint EditText::getViewOffset() const
 	{
 		return mViewOffset;
 	}

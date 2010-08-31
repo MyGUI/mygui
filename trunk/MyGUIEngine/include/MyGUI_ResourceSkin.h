@@ -49,7 +49,7 @@ namespace MyGUI
 		const MapWidgetStateInfo& getStateInfo() const { return mStates; }
 		const MapString& getProperties() const { return mProperties; }
 		const VectorChildSkinInfo& getChild() const { return mChilds; }
-		const std::string& getSkinName() { return mSkinName; }
+		const std::string& getSkinName() const { return mSkinName; }
 
 	private:
 		void setInfo(const IntSize& _size, const std::string &_texture);

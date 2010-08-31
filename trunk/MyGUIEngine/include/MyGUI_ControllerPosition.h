@@ -67,8 +67,6 @@ namespace MyGUI
 		bool addTime(Widget* _widget, float _time);
 		void prepareItem(Widget* _widget);
 
-		float getElapsedTime() { return mElapsedTime; }
-
 		IntCoord mStartCoord;
 		IntCoord mDestCoord;
 		float mTime;

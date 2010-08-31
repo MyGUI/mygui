@@ -42,7 +42,7 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		const VectorWidgetInfo& getLayoutData() { return mLayoutData; }
+		const VectorWidgetInfo& getLayoutData() const { return mLayoutData; }
 
 		/** Create widgets described in layout */
 		VectorWidgetPtr createLayout(const std::string& _prefix = "", Widget* _parent = nullptr);

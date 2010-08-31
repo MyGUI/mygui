@@ -42,7 +42,7 @@ namespace MyGUI
 		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		void _setTextureName(const std::string& _texture);
-		const std::string& _getTextureName();
+		const std::string& _getTextureName() const;
 
 	protected:
 		void _createSkinItem(ResourceSkin* _info);
