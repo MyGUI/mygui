@@ -30,17 +30,17 @@ namespace tools
 
 		void destroyAllChilds();
 
-		Property* getChild(const MyGUI::UString& _name);
+		Property* getChild(const MyGUI::UString& _name) const;
 
-		EnumeratorProperty getChildsEnumerator();
+		EnumeratorProperty getChildsEnumerator() const;
 
 		EventHandle_ChangeProperty eventChangeProperty;
 
 		void setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _value, const MyGUI::UString& _owner);
-		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName);
+		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName) const;
 
 		void setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value);
-		bool getPropertyReadOnly(const MyGUI::UString& _propertyName);
+		bool getPropertyReadOnly(const MyGUI::UString& _propertyName) const;
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
