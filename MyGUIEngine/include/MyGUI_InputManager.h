@@ -107,7 +107,7 @@ namespace MyGUI
 		void removeWidgetModal(Widget* _widget);
 
 		/** Return true if any modal widget exist */
-		bool const isModalAny() const { return !mVectorModalRootWidget.empty(); }
+		bool isModalAny() const { return !mVectorModalRootWidget.empty(); }
 
 		/** Is control button pressed */
 		bool isControlPressed() const { return mIsControlPressed; }
