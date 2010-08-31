@@ -172,8 +172,6 @@ namespace tools
 	{
 		if (WidgetsWindow::getInstancePtr() == nullptr)
 			return;
-		if (PropertiesPanelView::getInstancePtr() == nullptr)
-			return;
 
 		if (StateManager::getInstance().getStateActivate(mTestState))
 		{
@@ -202,8 +200,6 @@ namespace tools
 	void Application::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		if (WidgetsWindow::getInstancePtr() == nullptr)
-			return;
-		if (PropertiesPanelView::getInstancePtr() == nullptr)
 			return;
 
 		if (StateManager::getInstance().getStateActivate(mTestState))
@@ -268,8 +264,6 @@ namespace tools
 	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		if (WidgetsWindow::getInstancePtr() == nullptr)
-			return;
-		if (PropertiesPanelView::getInstancePtr() == nullptr)
 			return;
 
 		if (StateManager::getInstance().getStateActivate(mTestState))
