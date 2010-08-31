@@ -93,17 +93,17 @@ namespace MyGUI
 		virtual size_t getCursorPosition() const;
 		virtual void setCursorPosition(size_t _index);
 
-		virtual IntSize getTextSize() /*const*/;
+		virtual IntSize getTextSize()/* const*/;
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(const IntPoint& _point);
 		virtual IntPoint getViewOffset() const;
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getCursorPosition(const IntPoint& _point) /*const*/;
+		virtual size_t getCursorPosition(const IntPoint& _point)/* const*/;
 
 		// возвращает положение курсора в обсолютных координатах
-		virtual IntCoord getCursorCoord(size_t _position) /*const*/;
+		virtual IntCoord getCursorCoord(size_t _position)/* const*/;
 
 		void setShiftText(bool _shift);
 
