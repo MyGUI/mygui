@@ -21,13 +21,13 @@ namespace tools
 		Property(const MyGUI::UString& _name, const MyGUI::UString& _type);
 		~Property();
 
-		const MyGUI::UString& getValue();
+		const MyGUI::UString& getValue() const;
 		void setValue(const MyGUI::UString& _value, const MyGUI::UString& _owner);
 
-		const MyGUI::UString& getName();
-		const MyGUI::UString& getType();
+		const MyGUI::UString& getName() const;
+		const MyGUI::UString& getType() const;
 
-		bool getReadOnly();
+		bool getReadOnly() const;
 		void setReadOnly(bool _value);
 
 		EventHandle_ChangeProperty eventChangeProperty;

@@ -59,9 +59,9 @@ namespace tools
 			destroyChild(mChilds.back());
 	}
 
-	Property* PropertySet::getChild(const MyGUI::UString& _name)
+	Property* PropertySet::getChild(const MyGUI::UString& _name) const
 	{
-		for (VectorProperty::iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+		for (VectorProperty::const_iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
 		{
 			if ((*item)->getName() == _name)
 				return *item;
@@ -70,7 +70,7 @@ namespace tools
 		return nullptr;
 	}
 
-	EnumeratorProperty PropertySet::getChildsEnumerator()
+	EnumeratorProperty PropertySet::getChildsEnumerator() const
 	{
 		return EnumeratorProperty(mChilds);
 	}
@@ -97,7 +97,7 @@ namespace tools
 			proper->setValue(_value, _owner);
 	}
 
-	const MyGUI::UString& PropertySet::getPropertyValue(const MyGUI::UString& _propertyName)
+	const MyGUI::UString& PropertySet::getPropertyValue(const MyGUI::UString& _propertyName) const
 	{
 		Property* proper = getChild(_propertyName);
 		if (proper != nullptr)
@@ -114,7 +114,7 @@ namespace tools
 			proper->setReadOnly(_value);
 	}
 
-	bool PropertySet::getPropertyReadOnly(const MyGUI::UString& _propertyName)
+	bool PropertySet::getPropertyReadOnly(const MyGUI::UString& _propertyName) const
 	{
 		Property* proper = getChild(_propertyName);
 		if (proper != nullptr)

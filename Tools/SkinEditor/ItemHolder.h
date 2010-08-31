@@ -46,12 +46,12 @@ namespace tools
 			destroyAllChilds(true);
 		}
 
-		EnumeratorItem getChildsEnumerator()
+		EnumeratorItem getChildsEnumerator() const
 		{
 			return EnumeratorItem(mChilds);
 		}
 
-		T* getItemSelected()
+		T* getItemSelected() const
 		{
 			return mItemSelected;
 		}
