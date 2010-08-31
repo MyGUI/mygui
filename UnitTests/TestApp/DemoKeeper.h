@@ -9,14 +9,13 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper();
 		virtual void createScene();
 		virtual void destroyScene();
 
 	private:
 		virtual void setupResources();
 
-	private:
-		MyGUI::Widget* m_button;
 	};
 
 } // namespace demo
