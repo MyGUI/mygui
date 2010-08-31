@@ -32,8 +32,8 @@ namespace tools
 
 	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
 		BaseLayout("PropertiesPanelView.layout", _parent),
-		mPropertyItemHeight(0),
-		mCurrentWidget(nullptr)
+		mCurrentWidget(nullptr),
+		mPropertyItemHeight(0)
 	{
 		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 		ERROR_VALUE = replaceTags("ColourError");
