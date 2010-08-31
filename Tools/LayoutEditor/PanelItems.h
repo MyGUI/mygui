@@ -22,7 +22,7 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget);
 
-		void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
+		//void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
 
 	private:
 		void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");

@@ -84,7 +84,7 @@ namespace tools
 		// create widget rectangle
 		mCurrentWidgetRectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 		mCurrentWidgetRectangle->eventWindowChangeCoord += newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
-		mCurrentWidgetRectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
+		//mCurrentWidgetRectangle->eventMouseButtonDoubleClick += newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
 		mCurrentWidgetRectangle->eventKeyButtonPressed += newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
 		mArrowMove = false;
