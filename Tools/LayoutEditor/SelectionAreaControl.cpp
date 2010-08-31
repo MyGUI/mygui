@@ -5,23 +5,28 @@
 #include "WidgetSelectorManager.h"
 #include "UndoManager.h"
 
-//FIXME
-template <> tools::SelectionAreaControl* MyGUI::Singleton<tools::SelectionAreaControl>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::SelectionAreaControl>::mClassTypeName("SelectionAreaControl");
-
 namespace tools
 {
 	SelectionAreaControl::SelectionAreaControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SelectionAreaControl.layout", _parent),
-		mCurrentWidgetRectangle(nullptr),
+		mWindow(nullptr),
 		mCurrentWidget(nullptr),
 		mGridStep(0),
-		mArrowMove(false)
+		mArrowMove(false),
+		mSelectDepth(0),
+		mMouseButtonPressed(false),
+		mLastClickX(0),
+		mLastClickY(0)
 	{
-		assignWidget(mCurrentWidgetRectangle, "_Main");
+		assignWidget(mWindow, "_Main");
 
-		mCurrentWidgetRectangle->eventWindowChangeCoord += newDelegate(this, &SelectionAreaControl::notifyRectangleResize);
-		mCurrentWidgetRectangle->eventKeyButtonPressed += newDelegate(this, &SelectionAreaControl::notifyRectangleKeyPressed);
+		mWindow->eventWindowChangeCoord += newDelegate(this, &SelectionAreaControl::notifyRectangleResize);
+		mWindow->eventKeyButtonPressed += newDelegate(this, &SelectionAreaControl::notifyRectangleKeyPressed);
+
+		mWindow->eventMouseButtonPressed += newDelegate(this, &SelectionAreaControl::notifyMouseButtonPressed);
+		mWindow->eventMouseButtonReleased += newDelegate(this, &SelectionAreaControl::notifyMouseButtonReleased);
+		mWindow->eventMouseMove += newDelegate(this, &SelectionAreaControl::notifyMouseMouseMove);
+		mWindow->eventMouseDrag += newDelegate(this, &SelectionAreaControl::notifyMouseMouseDrag);
 
 		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
 
@@ -41,7 +46,7 @@ namespace tools
 
 	void SelectionAreaControl::notifyChangeCoord(const MyGUI::IntCoord& _coord)
 	{
-		mCurrentWidgetRectangle->setCoord(_coord);
+		mWindow->setCoord(_coord);
 	}
 
 	int SelectionAreaControl::toGrid(int _x)
@@ -60,16 +65,8 @@ namespace tools
 		}
 	}
 
-	MyGUI::Window* SelectionAreaControl::getWidgetRectangle()
-	{
-		return mCurrentWidgetRectangle;
-	}
-
 	void SelectionAreaControl::notifyRectangleResize(MyGUI::Window* _sender)
 	{
-		if (!_sender->getVisible())
-			return;
-
 		if (WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->resizeable)
 		{
 			MyGUI::IntCoord coord = utility::convertCoordToParentCoord(_sender->getCoord(), mCurrentWidget);
@@ -115,7 +112,7 @@ namespace tools
 
 			UndoManager::getInstance().addValue(PR_POSITION);
 		}
-		mCurrentWidgetRectangle->setCoord(mCurrentWidget->getAbsoluteCoord());
+		mWindow->setCoord(mCurrentWidget->getAbsoluteCoord());
 	}
 
 	void SelectionAreaControl::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
@@ -164,8 +161,8 @@ namespace tools
 		if (delta != MyGUI::IntPoint())
 		{
 			mArrowMove = true;
-			mCurrentWidgetRectangle->setPosition(mCurrentWidgetRectangle->getPosition() + delta);
-			notifyRectangleResize(mCurrentWidgetRectangle);
+			mWindow->setPosition(mWindow->getPosition() + delta);
+			notifyRectangleResize(mWindow);
 			UndoManager::getInstance().addValue(PR_KEY_POSITION);
 		}
 	}
@@ -174,7 +171,112 @@ namespace tools
 	{
 		mCurrentWidget = _currentWidget;
 
-		mCurrentWidgetRectangle->setVisible(mCurrentWidget != nullptr);
+		mWindow->setVisible(mCurrentWidget != nullptr);
+
+		if (mCurrentWidget == nullptr)
+		{
+			mSelectDepth = 0;
+		}
+	}
+
+	void SelectionAreaControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
+	{
+		mMouseButtonPressed = false;
+
+		const int distance = 2;
+		if ((abs(mLastClickX - _left) > distance) || (abs(mLastClickY - _top) > distance))
+		{
+			mSelectDepth = 0;
+		}
+	}
+
+	void SelectionAreaControl::notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	{
+		mMouseButtonPressed = false;
+	}
+
+	void SelectionAreaControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Left)
+		{
+			mLastClickX = _left;
+			mLastClickY = _top;
+			mMouseButtonPressed = true;
+		}
+	}
+
+	void SelectionAreaControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Left)
+		{
+			if (mMouseButtonPressed)
+			{
+				mMouseButtonPressed = false;
+
+				// здесь кликать вглубь
+				MyGUI::Widget* item = getTopWidget(MyGUI::InputManager::getInstance().getLastLeftPressed());
+				if (nullptr != item)
+				{
+					// find widget registered as container
+					while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+						item = item->getParent();
+					MyGUI::Widget* oldItem = item;
+
+					// try to selectin depth
+					int depth = mSelectDepth;
+					while (depth && (nullptr != item))
+					{
+						item = item->getParent();
+						while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+							item = item->getParent();
+						depth--;
+					}
+					if (nullptr == item)
+					{
+						item = oldItem;
+						mSelectDepth = 0;
+					}
+
+					// found widget
+					if (nullptr != item)
+					{
+						WidgetSelectorManager::getInstance().setSelectedWidget(item);
+						mSelectDepth++;
+					}
+				}
+			}
+		}
+	}
+
+	MyGUI::Widget* SelectionAreaControl::getTopWidget(const MyGUI::IntPoint& _point)
+	{
+		MyGUI::Widget* result = nullptr;
+
+		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
+		while (container.next())
+		{
+			if (checkContainer(container.current(), result, _point))
+				break;
+		}
+
+		return result;
+	}
+
+	bool SelectionAreaControl::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
+	{
+		if (_container->widget->getAbsoluteCoord().inside(_point))
+		{
+			_result = _container->widget;
+
+			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+			{
+				if (checkContainer(*item, _result, _point))
+					break;
+			}
+
+			return true;
+		}
+		return false;
 	}
 
 } // namespace tools
