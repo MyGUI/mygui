@@ -15,6 +15,7 @@
 #include "DialogManager.h"
 #include "StateManager.h"
 #include "Localise.h"
+#include "WidgetCreatorManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -59,6 +60,9 @@ namespace tools
 
 		new CommandManager();
 		CommandManager::getInstance().initialise();
+
+		new WidgetCreatorManager();
+		WidgetCreatorManager::getInstance().initialise();
 
 		new WidgetSelectorManager();
 		WidgetSelectorManager::getInstance().initialise();
@@ -157,6 +161,9 @@ namespace tools
 
 		WidgetSelectorManager::getInstance().shutdown();
 		delete WidgetSelectorManager::getInstancePtr();
+
+		WidgetCreatorManager::getInstance().shutdown();
+		delete WidgetCreatorManager::getInstancePtr();
 
 		CommandManager::getInstance().shutdown();
 		delete CommandManager::getInstancePtr();
