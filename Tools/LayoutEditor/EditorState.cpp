@@ -19,7 +19,6 @@
 namespace tools
 {
 	EditorState::EditorState() :
-		mRecreate(false),
 		mSettingsWindow(nullptr),
 		mCodeGenerator(nullptr),
 		mOpenSaveFileDialog(nullptr),
@@ -57,9 +56,6 @@ namespace tools
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
-		// properties panelView
-		PropertiesPanelView::getInstance().eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
 
@@ -83,13 +79,11 @@ namespace tools
 		}
 
 		UndoManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
-		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 	}
 
 	void EditorState::cleanupState()
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
@@ -110,18 +104,6 @@ namespace tools
 		mMainPaneControl = nullptr;
 	}
 
-	void EditorState::notifyFrameStarted(float _time)
-	{
-		GroupMessage::getInstance().showMessages();
-
-		if (mRecreate)
-		{
-			mRecreate = false;
-			// виджет пересоздался, теперь никто незнает его адреса :)
-			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-		}
-	}
-
 	void EditorState::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
 	{
 		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
@@ -132,11 +114,6 @@ namespace tools
 		}
 
 		mSettingsWindow->endModal();
-	}
-
-	void EditorState::notifyRecreate()
-	{
-		mRecreate = true;
 	}
 
 	void EditorState::commandTest(const MyGUI::UString& _commandName)
@@ -276,7 +253,6 @@ namespace tools
 	void EditorState::clear()
 	{
 		WidgetsWindow::getInstance().clearNewWidget();
-		mRecreate = false;
 		EditorWidgets::getInstance().clear();
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);

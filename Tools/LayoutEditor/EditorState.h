@@ -35,9 +35,6 @@ namespace tools
 		void load();
 		void loadDropFile();
 
-		void notifyRecreate();
-		void notifyFrameStarted(float _time);
-
 		void commandLoad(const MyGUI::UString& _commandName);
 		void commandSave(const MyGUI::UString& _commandName);
 		void commandSaveAs(const MyGUI::UString& _commandName);
@@ -64,9 +61,6 @@ namespace tools
 		void setFileName(const MyGUI::UString& _fileName);
 
 	private:
-		// drop select after skin change
-		bool mRecreate;
-
 		SettingsWindow* mSettingsWindow;
 		CodeGenerator* mCodeGenerator;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
