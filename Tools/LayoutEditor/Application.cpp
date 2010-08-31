@@ -22,9 +22,6 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 namespace tools
 {
 	Application::Application() :
-		//mLastClickX(0),
-		//mLastClickY(0),
-		//mSelectDepth(0),
 		mGridStep(0),
 		mEditorState(nullptr),
 		mTestState(nullptr)
