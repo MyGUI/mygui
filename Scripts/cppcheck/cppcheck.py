@@ -35,7 +35,7 @@ parseOutput()
 
 checkFolderSources('Demos')
 checkFolderSources('Tools')
-checkFolderSources('UnitTests')
+checkFolderSources('UnitTests/UnitTest_*')
 checkFolderSources('Common')
 #checkFolderSources('Platforms/OpenGL')
 # include temporary disabled due to cppcheck bug
