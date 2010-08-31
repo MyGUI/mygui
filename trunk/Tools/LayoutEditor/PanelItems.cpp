@@ -112,7 +112,7 @@ namespace tools
 		}
 	}
 
-	void PanelItems::notifyRectangleDoubleClick(MyGUI::Widget* _sender)
+	/*void PanelItems::notifyRectangleDoubleClick(MyGUI::Widget* _sender)
 	{
 		if (mCurrentWidget->getTypeName() == "Tab")
 		{
@@ -121,7 +121,7 @@ namespace tools
 			syncItems(false);
 			UndoManager::getInstance().addValue();
 		}
-	}
+	}*/
 
 	void PanelItems::addSheetToTab(MyGUI::Widget* _tab, std::string _caption)
 	{
