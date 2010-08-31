@@ -4,6 +4,7 @@
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
 #include "UndoManager.h"
+#include "WidgetsWindow.h"
 
 namespace tools
 {
@@ -67,6 +68,13 @@ namespace tools
 
 	void SelectionAreaControl::notifyRectangleResize(MyGUI::Window* _sender)
 	{
+		if (WidgetsWindow::getInstance().getCreateStatus() == 2 || WidgetsWindow::getInstance().getCreateStatus() == 1)
+		{
+			if (mWindow->getVisible())
+				mWindow->setVisible(false);
+			return;
+		}
+
 		if (WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->resizeable)
 		{
 			MyGUI::IntCoord coord = utility::convertCoordToParentCoord(_sender->getCoord(), mCurrentWidget);

@@ -240,7 +240,7 @@ namespace tools
 			{
 				WidgetSelectorManager::getInstance().setSelectedWidget(item);
 
-				if (WidgetsWindow::getInstance().getCreatingStatus() != 1)
+				if (WidgetsWindow::getInstance().getCreateStatus() == 1)
 				{
 					// это чтобы сразу можно было тащить
 					MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);

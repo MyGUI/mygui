@@ -19,22 +19,21 @@ namespace tools
 		WidgetsWindow(MyGUI::Widget* _parent = nullptr);
 		virtual ~WidgetsWindow();
 
-		void initialise();
-
-		void clearAllSheets();
-
 		void clearNewWidget();
 		void startNewWidget(int _x1, int _y1, MyGUI::MouseButton _id);
 		void createNewWidget(int _x2, int _y2);
 		void finishNewWidget(int _x2, int _y2);
 
-		int getCreatingStatus() { return mCreatingStatus; }
+		int getCreateStatus();
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
 		void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
+
+		void initialise();
+		void clearAllSheets();
 
 	private:
 		MyGUI::Tab* mTabSkins;
