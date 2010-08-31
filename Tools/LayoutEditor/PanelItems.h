@@ -22,8 +22,6 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget);
 
-		//void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
-
 	private:
 		void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");
 		void syncItems(bool _apply, bool _add = false, std::string _value = "");
