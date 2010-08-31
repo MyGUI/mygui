@@ -42,7 +42,7 @@ namespace MyGUI
 		void setLoggingLevel(LogLevel _value) { mLevel = _value; }
 		// DESCRIBEME
 		// возращает уровень фильтра
-		LogLevel getLoggingLevel() { return mLevel; }
+		LogLevel getLoggingLevel() const { return mLevel; }
 
 	private:
 		LogLevel mLevel;

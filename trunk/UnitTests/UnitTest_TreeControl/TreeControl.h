@@ -124,8 +124,10 @@ namespace MyGUI
     };
 
 
-inline TreeControl::Node::Node()
-    { /* Random Initialization */ }
+inline TreeControl::Node::Node() :
+    mbIsPrepared(false),
+    mbIsExpanded(true)
+    { }
 inline bool TreeControl::Node::isPrepared() const
     { return mbIsPrepared; }
 inline void TreeControl::Node::setPrepared(bool bIsPrepared)
