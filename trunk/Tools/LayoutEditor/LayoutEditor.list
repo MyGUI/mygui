@@ -45,6 +45,7 @@ set (HEADER_FILES
   MainPaneControl.h
   ToolsControl.h
   SelectionAreaControl.h
+  WidgetCreatorManager.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -83,6 +84,7 @@ set (SOURCE_FILES
   MainPaneControl.cpp
   ToolsControl.cpp
   SelectionAreaControl.cpp
+  WidgetCreatorManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
