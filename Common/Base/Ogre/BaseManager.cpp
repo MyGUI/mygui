@@ -297,6 +297,7 @@ namespace base
 				}
 				catch (...)
 				{
+					MYGUI_LOG(Warning, "Error get statistics");
 				}
 			}
 		}
