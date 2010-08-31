@@ -5,6 +5,10 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper()
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
