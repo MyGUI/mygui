@@ -49,8 +49,9 @@ namespace MyGUI
 
 			return data;
 		}
-		catch(Ogre::FileNotFoundException)
+		catch(Ogre::FileNotFoundException _e)
 		{
+			MYGUI_LOG(Warning, _e.getDescription());
 		}
 
 		return nullptr;
