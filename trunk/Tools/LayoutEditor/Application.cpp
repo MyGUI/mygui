@@ -22,9 +22,9 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 namespace tools
 {
 	Application::Application() :
-		mLastClickX(0),
-		mLastClickY(0),
-		mSelectDepth(0),
+		//mLastClickX(0),
+		//mLastClickY(0),
+		//mSelectDepth(0),
 		mGridStep(0),
 		mEditorState(nullptr),
 		mTestState(nullptr)
@@ -181,15 +181,6 @@ namespace tools
 			return;
 		}
 
-		// drop select depth if we moved mouse
-		const int DIST = 2;
-		if ((abs(mLastClickX - _absx) > DIST) || (abs(mLastClickY - _absy) > DIST))
-		{
-			mSelectDepth = 0;
-			mLastClickX = _absx;
-			mLastClickY = _absy;
-		}
-
 		// align to grid if shift not pressed
 		int x2, y2;
 		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
@@ -246,36 +237,11 @@ namespace tools
 
 		MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
-		// не убираем пр€моугольник если нажали на его раст€гивалку
-		if (item && (item->getParent() != SelectionAreaControl::getInstance().getWidgetRectangle()))
-		{
-			// чтобы пр€моугольник не мешалс€
-			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(false);
-			item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-		}
-
 		if (nullptr != item)
 		{
 			// find widget registered as container
 			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
 				item = item->getParent();
-			MyGUI::Widget* oldItem = item;
-
-			// try to selectin depth
-			int depth = mSelectDepth;
-			while (depth && (nullptr != item))
-			{
-				item = item->getParent();
-				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-					item = item->getParent();
-				depth--;
-			}
-			if (nullptr == item)
-			{
-				item = oldItem;
-				mSelectDepth = 0;
-			}
-
 			// found widget
 			if (nullptr != item)
 			{
@@ -297,16 +263,6 @@ namespace tools
 
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 		}
-
-		// вернем пр€моугольник
-		if (WidgetSelectorManager::getInstance().getSelectedWidget() != nullptr && WidgetsWindow::getInstance().getCreatingStatus() == 0)
-		{
-			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(true);
-		}
-		else if (WidgetsWindow::getInstance().getCreatingStatus())
-		{
-			SelectionAreaControl::getInstance().getWidgetRectangle()->setVisible(false);
-		}
 	}
 
 	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -321,8 +277,6 @@ namespace tools
 			base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 			return;
 		}
-
-		mSelectDepth++;
 
 		if (MyGUI::InputManager::getInstance().isModalAny())
 		{
@@ -539,7 +493,7 @@ namespace tools
 	{
 		if (_widget == nullptr)
 		{
-			mSelectDepth = 0;
+			//mSelectDepth = 0;
 		}
 	}
 

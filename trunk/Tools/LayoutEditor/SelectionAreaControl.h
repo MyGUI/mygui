@@ -8,14 +8,11 @@
 namespace tools
 {
 	class SelectionAreaControl :
-		public wraps::BaseLayout,
-		public MyGUI::Singleton<SelectionAreaControl> //FIXME
+		public wraps::BaseLayout
 	{
 	public:
 		SelectionAreaControl(MyGUI::Widget* _parent = nullptr);
 		virtual ~SelectionAreaControl();
-
-		MyGUI::Window* getWidgetRectangle();
 
 	private:
 		void notifyRectangleResize(MyGUI::Window* _sender);
@@ -27,12 +24,24 @@ namespace tools
 
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+
+		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
+		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+
 	private:
-		MyGUI::Window* mCurrentWidgetRectangle;
+		MyGUI::Window* mWindow;
 		MyGUI::Widget* mCurrentWidget;
 
 		int mGridStep;
 		bool mArrowMove;
+		size_t mSelectDepth;
+		bool mMouseButtonPressed;
+		int mLastClickX;
+		int mLastClickY;
 	};
 
 } // namespace tools
