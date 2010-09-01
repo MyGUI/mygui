@@ -5,6 +5,7 @@
 */
 #include "precompiled.h"
 #include "PropertyColourControl.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -118,7 +119,7 @@ namespace tools
 		mEdit->setOnlyText(value);
 		if (!_validate)
 		{
-			mEdit->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("ColourError") + mEdit->getOnlyText());
+			mEdit->setCaption(replaceTags("ColourError") + mEdit->getOnlyText());
 		}
 
 		mEdit->setTextCursor(index);
