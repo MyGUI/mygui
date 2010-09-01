@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef BASEMAIN_H__
-#define BASEMAIN_H__
+#ifndef __BASEMAIN_H__
+#define __BASEMAIN_H__
 
 #include "precompiled.h"
  
@@ -15,17 +15,11 @@
 #include <windows.h>
 #endif
 
-
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	int main(int argc, char **argv);
-	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
-	void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
+	#define MYGUI_APP(cls) INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return startApp<cls>(); }
 #else
-	void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
+	#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
 #endif
-
-// simple shortcut
-#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
 
 template <class AppClass>
 int startApp()
@@ -44,7 +38,11 @@ int startApp()
 	}
 	catch (MyGUI::Exception& _e)
 	{
-		OutException("An exception has occured", _e.getFullDescription().c_str());
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		MessageBoxA( NULL, _e.getFullDescription().c_str(), "An exception has occured", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+#else
+		std::cerr << "An exception has occured" << " : " << _e.getFullDescription().c_str();
+#endif
 		return 1;
 	}
 	return 0;
