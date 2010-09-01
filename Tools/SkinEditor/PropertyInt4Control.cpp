@@ -5,6 +5,7 @@
 */
 #include "precompiled.h"
 #include "PropertyInt4Control.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -86,7 +87,7 @@ namespace tools
 	{
 		MyGUI::UString value = mEdit->getOnlyText();
 		if (!_validate)
-			value = MyGUI::LanguageManager::getInstance().replaceTags("ColourError") + value;
+			value = replaceTags("ColourError") + value;
 
 		size_t index = mEdit->getTextCursor();
 		mEdit->setCaption(value);
