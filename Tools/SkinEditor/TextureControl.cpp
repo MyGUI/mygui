@@ -17,9 +17,9 @@ namespace tools
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mScale(nullptr),
-		mScaleValue(1),
 		mBackgroundButton(nullptr),
-		mColourPanel(nullptr)
+		mColourPanel(nullptr),
+		mScaleValue(1.0)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
