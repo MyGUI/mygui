@@ -4,8 +4,8 @@
 	@date		12/2009
 */
 
-#include "SceneObject.h"
 #include <MyGUI.h>
+#include "SceneObject.h"
 
 #ifdef MYGUI_OGRE_PLATFORM
 
