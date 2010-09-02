@@ -43,6 +43,8 @@ namespace tools
 
 		int getNextGlobalCounter();
 
+		std::string getSkinReplace(const std::string& _skinName);
+
 		Event_ChangeWidgets eventChangeWidgets;
 
 	private:
@@ -52,6 +54,8 @@ namespace tools
 		void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);
 
 		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadSkinReplace(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+
 		void notifyFrameStarted(float _time);
 
 		void loadSector(MyGUI::xml::ElementPtr _sectorNode);
@@ -66,6 +70,9 @@ namespace tools
 		std::vector<std::string> mIgnoreParameters;
 		VectorSettingsSector mSettings;
 		VectorWidgetContainer mWidgets;
+
+		typedef std::map<std::string, std::string> MapString;
+		MapString mSkinReplaces;
 	};
 
 } // namespace tools
