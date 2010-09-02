@@ -7,8 +7,6 @@
 #define __TEXTURE_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "Property.h"
-#include "AreaSelectorControl.h"
 #include "SelectorControl.h"
 #include "ColourPanel.h"
 

@@ -5,7 +5,6 @@
 */
 #include "precompiled.h"
 #include "TextureControl.h"
-#include "SkinManager.h"
 #include "Localise.h"
 
 namespace tools
