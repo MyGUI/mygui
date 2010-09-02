@@ -140,11 +140,11 @@ namespace tools
 				if (mCurrentWidget && WidgetTypes::getInstance().findWidgetStyle(mNewWidgetType)->child)
 				{
 					coord = coord - mCurrentWidget->getPosition();
-					mCurrentWidget = mCurrentWidget->createWidgetT(mNewWidgetType, mNewWidgetSkin, coord, MyGUI::Align::Default, tmpname);
+					mCurrentWidget = mCurrentWidget->createWidgetT(mNewWidgetType, EditorWidgets::getInstance().getSkinReplace(mNewWidgetSkin), coord, MyGUI::Align::Default, tmpname);
 				}
 				else
 				{
-					mCurrentWidget = MyGUI::Gui::getInstance().createWidgetT(mNewWidgetType, mNewWidgetSkin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+					mCurrentWidget = MyGUI::Gui::getInstance().createWidgetT(mNewWidgetType, EditorWidgets::getInstance().getSkinReplace(mNewWidgetSkin), coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 				}
 
 				if (mCurrentWidget->isType<MyGUI::StaticText>())
@@ -221,12 +221,12 @@ namespace tools
 		if (mCurrentWidget && WidgetTypes::getInstance().findWidgetStyle(mNewWidgetType)->child)
 		{
 			parent_size = mCurrentWidget->getSize();
-			mCurrentWidget = mCurrentWidget->createWidgetT(mNewWidgetType, mNewWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
+			mCurrentWidget = mCurrentWidget->createWidgetT(mNewWidgetType, EditorWidgets::getInstance().getSkinReplace(mNewWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
 		}
 		else
 		{
 			parent_size = MyGUI::RenderManager::getInstance().getViewSize();
-			mCurrentWidget = MyGUI::Gui::getInstance().createWidgetT(mNewWidgetType, mNewWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+			mCurrentWidget = MyGUI::Gui::getInstance().createWidgetT(mNewWidgetType, EditorWidgets::getInstance().getSkinReplace(mNewWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 		}
 		// place in parent center
 		const MyGUI::IntCoord size((parent_size.width - width)/2, (parent_size.height - height)/2, width, height);
