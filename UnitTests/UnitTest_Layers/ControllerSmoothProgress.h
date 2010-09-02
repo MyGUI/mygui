@@ -77,7 +77,7 @@ namespace demo
 
 		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
 		{
-			if (_key == "Progress_Position")
+			if (_key == "RangePosition")
 			{
 				MyGUI::Progress* progress = _sender->castType<MyGUI::Progress>(false);
 				if (progress != nullptr)

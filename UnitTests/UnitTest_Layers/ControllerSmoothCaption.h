@@ -66,7 +66,7 @@ namespace demo
 
 		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
 		{
-			if (_key == "Widget_Caption" || _key == "Text_Caption" )
+			if (_key == "Caption")
 			{
 				mNeedCaption = _value;
 				mCurrentPosition = 0;
