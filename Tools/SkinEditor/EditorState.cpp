@@ -18,9 +18,9 @@ namespace tools
 {
 
 	EditorState::EditorState() :
-		mMainPane(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
+		mMainPane(nullptr),
 		mOpenSaveFileDialog(nullptr),
 		mMessageBoxFadeControl(nullptr)
 	{

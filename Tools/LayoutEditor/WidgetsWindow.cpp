@@ -23,9 +23,9 @@ namespace tools
 
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
 		BaseLayout("WidgetsWindow.layout", _parent),
+		mCurrentWidget(nullptr),
 		mToolTip(nullptr),
-		mCreatingStatus(0),
-		mCurrentWidget(nullptr)
+		mCreatingStatus(0)
 	{
 		assignWidget(mTabSkins, "tabSkins");
 
