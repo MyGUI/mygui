@@ -188,7 +188,7 @@ namespace MyGUI
 
 	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{Button, Button_StateSelected, bool} Set state selected.
+		/// @wproperty{Button, StateSelected, bool} Set state selected.
 		if (_key == "StateSelected") setStateSelected(utility::parseValue<bool>(_value));
 		else if (_key == "ModeImage") setModeImage(utility::parseValue<bool>(_value));
 		else if (_key == "ImageResource") setImageResource(_value);
