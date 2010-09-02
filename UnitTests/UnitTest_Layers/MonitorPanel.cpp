@@ -37,11 +37,11 @@ namespace demo
 				if (device != nullptr)
 				{
 					mShipImage->setItemName(device->getDeviceName());
-					mDescription->setProperty("Widget_Caption", device->getDeviceDescription());
-					mEnergy->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueEnergy()));
-					mExplosion->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueExplosion()));
-					mTarget->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueTarget()));
-					mHP->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueHP()));
+					mDescription->setProperty("Caption", device->getDeviceDescription());
+					mEnergy->setProperty("RangePosition", MyGUI::utility::toString(device->getValueEnergy()));
+					mExplosion->setProperty("RangePosition", MyGUI::utility::toString(device->getValueExplosion()));
+					mTarget->setProperty("RangePosition", MyGUI::utility::toString(device->getValueTarget()));
+					mHP->setProperty("RangePosition", MyGUI::utility::toString(device->getValueHP()));
 				}
 			}
 

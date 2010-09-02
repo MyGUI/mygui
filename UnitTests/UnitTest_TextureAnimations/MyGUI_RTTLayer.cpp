@@ -144,7 +144,7 @@ namespace MyGUI
 		}
 	}
 
-	ILayerItem * RTTLayer::getLayerItemByPoint(int _left, int _top) const
+	ILayerItem * RTTLayer::getLayerItemByPoint(int _left, int _top)
 	{
 		if (false == mIsPick) return nullptr;
 		VectorILayerNode::reverse_iterator iter = mChildItems.rbegin();
