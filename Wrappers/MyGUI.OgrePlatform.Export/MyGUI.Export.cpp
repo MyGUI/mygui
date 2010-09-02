@@ -62,7 +62,7 @@ namespace demo
 
 	MYGUIEXPORT void MYGUICALL Export_SetActiveViewport(int _num)
 	{
-		gPlatform->getRenderManagerPtr()->setActiveViewport((unsigned int)_num);
+		gPlatform->getRenderManagerPtr()->setActiveViewport((unsigned short)_num);
 	}
 }
 
