@@ -8,9 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
-#include "SkinItem.h"
 #include "AreaSelectorControl.h"
-#include "PropertyAdvisor.h"
 #include "SelectorControl.h"
 #include "ColourPanel.h"
 
