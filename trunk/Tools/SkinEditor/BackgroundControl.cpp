@@ -16,8 +16,8 @@ namespace tools
 		mBackgroundColour(nullptr),
 		mBackground(nullptr),
 		mBackgroundButton(nullptr),
-		mColourPanel(nullptr),
-		mCanvas(nullptr)
+		mCanvas(nullptr),
+		mColourPanel(nullptr)
 	{
 		assignWidget(mBackgroundColour, "BackgroundColour");
 		assignWidget(mBackground, "Background");
