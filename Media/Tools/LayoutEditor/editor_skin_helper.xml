@@ -2,7 +2,7 @@
 
 <MyGUI type="Skin" version="1.1">
 
-	<Skin name="PanelEmpty" size="16 16" texture="core_debug.png">
+	<Skin name="LE_PanelEmpty" size="16 16" texture="core_debug.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "16 0 1 1"/>
 		</BasisSkin>
@@ -34,7 +34,7 @@
 		</BasisSkin>
 	</Skin>
 
-	<Skin name="StaticText" size="16 16" texture="core_debug.png">
+	<Skin name="LE_StaticText" size="16 16" texture="core_debug.png">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
 		<Property key="Colour" value="1 1 1"/>
@@ -72,7 +72,7 @@
 		<BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch"/>
 	</Skin>
 
-	<Skin name="StaticImageHelper" size="16 16" texture="core_debug.png">
+	<Skin name="LE_StaticImageHelper" size="16 16" texture="core_debug.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "0 0 1 1"/>
 		</BasisSkin>
@@ -104,12 +104,12 @@
 		</BasisSkin>
 	</Skin>
 
-	<Skin name="StaticImage" size="16 16">
-		<Child type="Widget" skin="StaticImageHelper" offset="0 0 16 16" align="Stretch"/>
+	<Skin name="LE_StaticImage" size="16 16">
+		<Child type="Widget" skin="LE_StaticImageHelper" offset="0 0 16 16" align="Stretch"/>
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Skin>
 
-	<Skin name="EmptyItemBox" size="16 16" texture="core_debug.png" align="Left Top">
+	<Skin name="LE_ItemBoxEmpty" size="16 16" texture="core_debug.png" align="Left Top">
 		<Property key="NeedKey" value="true"/>
 
 		<Child type="VScroll" skin="WOT_VScroll" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>

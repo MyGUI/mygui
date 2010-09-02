@@ -257,7 +257,7 @@ namespace tools
 
 		if (mPropertiesText[_window].size() < mPairsCounter)
 		{
-			text = _window->createWidget<MyGUI::StaticText>("Editor_StaticText", x1, y, w1, h, MyGUI::Align::Default);
+			text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1, h, MyGUI::Align::Default);
 			text->setTextAlign(MyGUI::Align::Right);
 
 			mPropertiesText[_window].push_back(text);

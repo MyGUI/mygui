@@ -8,7 +8,7 @@
         <Widget type="Tab" skin="Tab" position="5 6 429 216" align="Stretch">
             <Widget type="TabItem" skin="" position="4 26 420 184">
                 <Property key="Widget_Caption" value="#{Editor_settings}"/>
-                <Widget type="StaticText" skin="Editor_StaticText" position="5 8 96 24">
+                <Widget type="StaticText" skin="StaticText" position="5 8 96 24">
                     <Property key="TextAlign" value="Left VCenter"/>
                     <Property key="Caption" value="#{Grid_step}"/>
                 </Widget>

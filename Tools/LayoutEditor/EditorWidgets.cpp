@@ -28,6 +28,7 @@ namespace tools
 		mWidgetsChanged = true;
 
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
+		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("SkinReplace") = MyGUI::newDelegate(this, &EditorWidgets::loadSkinReplace);
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 	}
@@ -311,6 +312,9 @@ namespace tools
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 
+		if (!_test)
+			skin = getSkinReplace(skin);
+
 		if (nullptr == _parent)
 		{
 			std::string layer = DEFAULT_EDITOR_LAYER;
@@ -526,6 +530,21 @@ namespace tools
 	EnumeratorWidgetContainer EditorWidgets::getWidgets()
 	{
 		return EnumeratorWidgetContainer(mWidgets);
+	}
+
+	std::string EditorWidgets::getSkinReplace(const std::string& _skinName)
+	{
+		MapString::iterator item = mSkinReplaces.find(_skinName);
+		if (item != mSkinReplaces.end())
+			return (*item).second;
+		return _skinName;
+	}
+
+	void EditorWidgets::loadSkinReplace(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	{
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next("Skin"))
+			mSkinReplaces[node->findAttribute("key")] = node->getContent();
 	}
 
 } // namespace tools
