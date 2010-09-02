@@ -174,6 +174,7 @@ if (MSVC)
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
 		SET(WARNING_LEVEL "/W4")
+		add_definitions(/wd4127)
 	else ()
 		SET(WARNING_LEVEL "/W3")
 	endif ()
