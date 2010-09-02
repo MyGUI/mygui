@@ -244,7 +244,7 @@ namespace MyGUI
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
 		/** Set any widget property
-			@param _key Property name (for example Widget_Alpha or Edit_MultiLine)
+			@param _key Property name (for example Alpha or Enabled)
 			@param _value Value converted to string
 		*/
 		void setProperty(const std::string& _key, const std::string& _value);
