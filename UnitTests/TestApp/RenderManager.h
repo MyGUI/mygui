@@ -23,6 +23,15 @@ namespace demo
 		Ogre::RenderSystem* getRenderSystem();
 
 		Layer* createLayer();
+
+		template <typename T>
+		T* createLayer()
+		{
+			T* layer = new T();
+			mLayers.push_back(layer);
+			return layer;
+		}
+
 		void destroyAllLayers();
 
 		void doRender();
