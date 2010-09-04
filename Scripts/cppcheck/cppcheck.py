@@ -24,28 +24,21 @@ def parseOutput():
 		line = file.readline()
 	file.close ()
 
-def checkFolderSources(folder) :
-	os.system("cppcheck --enable=all -I Scripts/cppcheck -I Common -I MyGUIEngine/include " + folder + " 2>temp.cppcheck")
+def checkFolderSources(folder, flags) :
+	os.system("cppcheck --enable=all -I Scripts/cppcheck -I MyGUIEngine/include " + flags + " " + folder + " 2>temp.cppcheck")
 	parseOutput()
 
 
-checkFolderSources('MyGUIEngine')
+checkFolderSources('MyGUIEngine', '')
 
-checkFolderSources('Demos')
-checkFolderSources('Tools')
-checkFolderSources('UnitTests/UnitTest_*')
-checkFolderSources('Common')
-#checkFolderSources('Platforms/OpenGL')
+checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('UnitTests/UnitTest_*', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Common', '-I Common')
 # include temporary disabled due to cppcheck bug
-#os.system("cppcheck --enable=all -I Scripts/cppcheck -I Platforms/OpenGL/OpenGLPlatform/include Platforms/OpenGL/OpenGLPlatform/src 2>temp.cppcheck")
-os.system("cppcheck --enable=all -I Scripts/cppcheck Platforms/OpenGL/OpenGLPlatform/src 2>temp.cppcheck")
-parseOutput()
-#checkFolderSources('Platforms/Ogre')
-os.system("cppcheck --enable=all -I Scripts/cppcheck -I Platforms/Ogre/OgrePlatform/include Platforms/Ogre/OgrePlatform/src 2>temp.cppcheck")
-parseOutput()
-#checkFolderSources('Platforms/DirectX')
-os.system("cppcheck --enable=all -I Scripts/cppcheck -I Platforms/DirectX/DirectXPlatform/include Platforms/DirectX/DirectXPlatform/src 2>temp.cppcheck")
-parseOutput()
-checkFolderSources('Plugins')
-checkFolderSources('Wrapper')
+#checkFolderSources('Platforms/OpenGL/src', '-I Platforms/OpenGL/OpenGLPlatform/include')
+checkFolderSources('Platforms/Ogre/src', '-I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Platforms/DirectX/src', '-I Platforms/DirectX/DirectXPlatform/include')
+checkFolderSources('Plugins', '')
+checkFolderSources('Wrapper', '')
 
