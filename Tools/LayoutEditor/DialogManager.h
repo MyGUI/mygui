@@ -29,7 +29,8 @@ namespace tools
 		void _removeDialog(Dialog* _modal);
 
 	private:
-		std::vector<Dialog*> mDialogs;
+		typedef std::vector<Dialog*> VectorDialog;
+		VectorDialog mDialogs;
 	};
 
 } // namespace tools

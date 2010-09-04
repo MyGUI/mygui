@@ -11,7 +11,11 @@
 namespace tools
 {
 	EditorToolTip::EditorToolTip() :
-		BaseLayout("EditorToolTip.layout")
+		BaseLayout("EditorToolTip.layout"),
+		mText(nullptr),
+		mLastWidget(nullptr),
+		mMinWidth(0),
+		mMinHeight(0)
 	{
 		assignWidget(mText, "Text");
 

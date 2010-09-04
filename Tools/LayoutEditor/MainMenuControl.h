@@ -38,7 +38,6 @@ namespace tools
 	private:
 		MyGUI::MenuBar* mBar;
 		MyGUI::MenuCtrl* mPopupMenuWidgets;
-		std::vector<MyGUI::PopupMenu::ItemInfo> mWidgetMenus;
 	};
 
 } // namespace tools

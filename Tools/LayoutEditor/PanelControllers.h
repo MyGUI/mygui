@@ -49,7 +49,8 @@ namespace tools
 		int mButtonRight;
 		int mButtonSpace;
 
-		std::map<std::string, MyGUI::MapString> mControllersProperties;
+		typedef std::map<std::string, MyGUI::MapString> MapMapString;
+		MapMapString mControllersProperties;
 
 		int mPropertyItemHeight;
 	};
