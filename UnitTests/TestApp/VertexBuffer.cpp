@@ -138,14 +138,6 @@ namespace demo
 
 			_renderManager->getRenderSystem()->_render(getRenderOperation());
 		}
-		else if (mRenderMode == RenderModeMask)
-		{
-			_renderManager->setCurrentManual(true);
-
-			initStateMask(_renderManager);
-
-			_renderManager->getRenderSystem()->_render(getRenderOperation());
-		}
 		else
 		{
 			if (_renderManager->getCurrentManual())
@@ -164,61 +156,6 @@ namespace demo
 	void VertexBuffer::setRenderMode(RenderMode _value)
 	{
 		mRenderMode = _value;
-	}
-
-	void VertexBuffer::initStateMask(RenderManager* _renderManager)
-	{
-		Ogre::LayerBlendModeEx mColourBlendMode;	//!< Controls colour blending mode used.
-		Ogre::LayerBlendModeEx mAlphaBlendMode;	//!< Controls alpha blending mode used.
-		Ogre::TextureUnitState::UVWAddressingMode mUvwAddressMode;
-
-		// Initialise blending modes to be used.
-		mColourBlendMode.blendType = Ogre::LBT_COLOUR;
-		mColourBlendMode.source1 = Ogre::LBS_TEXTURE;
-		mColourBlendMode.source2 = Ogre::LBS_DIFFUSE;
-		mColourBlendMode.operation = Ogre::LBX_MODULATE;
-
-		mAlphaBlendMode.blendType = Ogre::LBT_ALPHA;
-		mAlphaBlendMode.source1 = Ogre::LBS_TEXTURE;
-		mAlphaBlendMode.source2 = Ogre::LBS_DIFFUSE;
-		mAlphaBlendMode.operation = Ogre::LBX_MODULATE;
-
-		mUvwAddressMode.u = Ogre::TextureUnitState::TAM_CLAMP;
-		mUvwAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
-		mUvwAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
-
-		// set-up matrices
-		_renderManager->getRenderSystem()->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
-		_renderManager->getRenderSystem()->_setViewMatrix(Ogre::Matrix4::IDENTITY);
-		_renderManager->getRenderSystem()->_setProjectionMatrix(Ogre::Matrix4::IDENTITY);
-
-		// initialise render settings
-		_renderManager->getRenderSystem()->setLightingEnabled(false);
-		_renderManager->getRenderSystem()->_setDepthBufferParams(false, false);
-		_renderManager->getRenderSystem()->_setDepthBias(0, 0);
-		_renderManager->getRenderSystem()->_setCullingMode(Ogre::CULL_NONE);
-		_renderManager->getRenderSystem()->_setFog(Ogre::FOG_NONE);
-		_renderManager->getRenderSystem()->_setColourBufferWriteEnabled(true, true, true, true);
-		_renderManager->getRenderSystem()->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-		_renderManager->getRenderSystem()->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
-		_renderManager->getRenderSystem()->setShadingType(Ogre::SO_GOURAUD);
-		_renderManager->getRenderSystem()->_setPolygonMode(Ogre::PM_SOLID);
-
-		// initialise texture settings
-		_renderManager->getRenderSystem()->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
-		_renderManager->getRenderSystem()->_setTextureCoordSet(0, 0);
-		_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
-		_renderManager->getRenderSystem()->_setTextureAddressingMode(0, mUvwAddressMode);
-		_renderManager->getRenderSystem()->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
-		_renderManager->getRenderSystem()->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0, false);
-		_renderManager->getRenderSystem()->_setTextureBlendMode(0, mColourBlendMode);
-		_renderManager->getRenderSystem()->_setTextureBlendMode(0, mAlphaBlendMode);
-		_renderManager->getRenderSystem()->_disableTextureUnitsFrom(1);
-
-		// enable alpha blending
-		_renderManager->getRenderSystem()->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
-
-		_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
 	}
 
 } // namespace demo
