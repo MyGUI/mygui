@@ -45,7 +45,8 @@ namespace tools
 		typedef std::map<std::string, StateController*> MapStateController;
 		MapStateController mStateName;
 
-		typedef std::pair< std::string, std::pair<std::string, std::string> > PairPairString;
+		typedef std::pair<std::string, std::string> PairString;
+		typedef std::pair< std::string, PairString> PairPairString;
 		typedef std::vector<PairPairString> VectorPairPairString;
 		VectorPairPairString mLinks;
 	};

@@ -48,7 +48,7 @@ namespace tools
 
 	void DialogManager::_removeDialog(Dialog* _modal)
 	{
-		std::vector<Dialog*>::iterator item = std::find(mDialogs.begin(), mDialogs.end(), _modal);
+		VectorDialog::iterator item = std::find(mDialogs.begin(), mDialogs.end(), _modal);
 		mDialogs.erase(item);
 	}
 

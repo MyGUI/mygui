@@ -32,6 +32,12 @@ namespace tools
 
 	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
 		BaseLayout("PropertiesPanelView.layout", _parent),
+		mPanelView(nullptr),
+		mPairsCounter(0),
+		mPanelMainProperties(nullptr),
+		mPanelItems(nullptr),
+		mPanelUserData(nullptr),
+		mPanelControllers(nullptr),
 		mCurrentWidget(nullptr),
 		mPropertyItemHeight(0)
 	{
@@ -144,7 +150,7 @@ namespace tools
 		}
 
 		// delete(hide) all previous properties
-		for (std::map<MyGUI::Widget*, std::vector<MyGUI::StaticText*> >::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
+		for (MapVectorStaticText::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
 		{
 			hideWidgetsPairs(iterVector->first);
 		}
@@ -193,7 +199,7 @@ namespace tools
 	void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
 	{
 		mPairsCounter = 0;
-		for (std::vector<MyGUI::StaticText*>::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
+		for (VectorStaticText::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
 		{
 			(*iter)->setVisible(false);
 		}

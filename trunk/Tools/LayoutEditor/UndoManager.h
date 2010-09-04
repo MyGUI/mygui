@@ -42,7 +42,7 @@ namespace tools
 		CyclicBuffer<MyGUI::xml::Document*> mOperations;
 		int mLastProperty;
 
-		EditorWidgets * mEditorWidgets;
+		EditorWidgets* mEditorWidgets;
 
 		bool mUnsaved;
 	};
