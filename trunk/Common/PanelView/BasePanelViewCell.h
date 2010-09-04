@@ -14,7 +14,8 @@
 namespace wraps
 {
 
-	class BasePanelViewCell : public BaseLayout
+	class BasePanelViewCell :
+		public BaseLayout
 	{
 	public:
 
@@ -36,7 +37,8 @@ namespace wraps
 
 		void setCaption(const MyGUI::UString & _caption)
 		{
-			if (mTextCaption) mTextCaption->setCaption(_caption);
+			if (mTextCaption)
+				mTextCaption->setCaption(_caption);
 		}
 
 		MyGUI::Widget* getClient()
@@ -78,8 +80,15 @@ namespace wraps
 			updateMinimized();
 		}
 
-		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
-		bool getVisible() { return mMainWidget->getVisible(); }
+		void setVisible(bool _visible)
+		{
+			mMainWidget->setVisible(_visible);
+		}
+
+		bool getVisible()
+		{
+			return mMainWidget->getVisible();
+		}
 
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 
@@ -95,14 +104,14 @@ namespace wraps
 			if (!m_minimized)
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
-				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 			else
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
-				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition* controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction += newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}

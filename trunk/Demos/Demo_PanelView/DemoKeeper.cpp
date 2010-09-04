@@ -60,11 +60,11 @@ namespace demo
 	{
 		if (_key == EVENT_SHOW_STATIC)
 		{
-			mView->getPanelView()->setItemShow(mPanelStatic, _value != 0);
+			mPanelStatic->setVisible(_value != 0);
 		}
 		else if (_key == EVENT_SHOW_DYNAMIC)
 		{
-			mView->getPanelView()->setItemShow(mPanelDynamic, _value != 0);
+			mPanelDynamic->setVisible(_value != 0);
 		}
 		else if (_key == EVENT_COUNT_DYNAMIC)
 		{
