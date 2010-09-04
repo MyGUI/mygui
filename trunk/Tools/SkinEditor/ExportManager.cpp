@@ -170,11 +170,9 @@ namespace tools
 				regionNodes = node->getElementEnumerator();
 				while (regionNodes.next("PropertySet"))
 				{
-					MyGUI::xml::ElementEnumerator propertyNodes = regionNodes->getElementEnumerator();
-					while (propertyNodes.next("Property"))
+					MyGUI::xml::ElementEnumerator propertyNode = regionNodes->getElementEnumerator();
+					while (propertyNode.next("Property"))
 					{
-						MyGUI::xml::Element* propertyNode = propertyNodes.current();
-
 						std::string name;
 						if (propertyNode->findAttribute("name", name))
 						{
@@ -220,17 +218,15 @@ namespace tools
 						MyGUI::xml::ElementEnumerator propertySetNodes = stateNodes->getElementEnumerator();
 						while (propertySetNodes.next("PropertySet"))
 						{
-							MyGUI::xml::ElementEnumerator propertyNodes = propertySetNodes->getElementEnumerator();
-							while (propertyNodes.next("Property"))
+							MyGUI::xml::ElementEnumerator statePropertyNode = propertySetNodes->getElementEnumerator();
+							while (statePropertyNode.next("Property"))
 							{
-								MyGUI::xml::Element* propertyNode = propertyNodes.current();
-
 								std::string name;
-								if (propertyNode->findAttribute("name", name))
+								if (statePropertyNode->findAttribute("name", name))
 								{
 									if (name == "Visible")
 									{
-										if (propertyNode->getContent() != "True")
+										if (statePropertyNode->getContent() != "True")
 											stateVisible = false;
 									}
 								}
