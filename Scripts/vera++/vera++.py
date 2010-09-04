@@ -24,10 +24,18 @@ def parseOutput():
 		line = file.readline()
 	file.close ()
 
+def checkDir(folder):
+	os.system("vera++ ../../" + folder + " -profile default 2> temp.vera++")
+	parseOutput()
+
 os.chdir("Scripts/vera++")
-os.system("vera++ ../../MyGUIEngine/src/*.cpp -profile default 2> temp.vera++")
-parseOutput()
-os.system("vera++ ../../MyGUIEngine/include/*.h -profile default 2> temp.vera++")
-parseOutput()
+checkDir("MyGUIEngine/src/*.cpp")
+checkDir("MyGUIEngine/include/*.h")
+checkDir("*/*/*.h")
+checkDir("*/*/*.cpp")
+checkDir("Common/*/*/*.h")
+checkDir("Common/*/*/*.cpp")
+checkDir("Platforms/*/*/*/*.h")
+checkDir("Platforms/*/*/*/*.cpp")
 os.chdir("../..")
 
