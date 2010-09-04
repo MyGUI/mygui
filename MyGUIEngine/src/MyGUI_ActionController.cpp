@@ -53,7 +53,7 @@ namespace MyGUI
 				_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
 				_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
 				_startRect.height - int( float(_startRect.height - _destRect.height) * _k )
-				);
+			);
 		}
 
 		void inertionalMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)

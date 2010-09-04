@@ -90,7 +90,7 @@ namespace MyGUI
 		return object == nullptr ? nullptr : object->castType<ControllerItem>();
 	}
 
-	void ControllerManager::addItem(Widget* _widget, ControllerItem * _item)
+	void ControllerManager::addItem(Widget* _widget, ControllerItem* _item)
 	{
 		// если виджет первый, то подписываемся на кадры
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);

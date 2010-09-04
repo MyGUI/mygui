@@ -72,17 +72,29 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
+		void setPosition(int _left, int _top)
+		{
+			setPosition(IntPoint(_left, _top));
+		}
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		void setSize(int _width, int _height)
+		{
+			setSize(IntSize(_width, _height));
+		}
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
+		void setCoord(int _left, int _top, int _width, int _height)
+		{
+			setCoord(IntCoord(_left, _top, _width, _height));
+		}
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() const { return mItemsInfo.size(); }
+		size_t getItemCount() const
+		{
+			return mItemsInfo.size();
+		}
 
 		//! Insert an item into a array at a specified position
 		TabItem* insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
@@ -101,7 +113,10 @@ namespace MyGUI
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 		//! Remove item
-		void removeItem(TabItem* _item) { removeItemAt(getItemIndex(_item)); }
+		void removeItem(TabItem* _item)
+		{
+			removeItemAt(getItemIndex(_item));
+		}
 
 		//! Remove all items
 		void removeAllItems();
@@ -128,7 +143,10 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getIndexSelected() { return mIndexSelect; }
+		size_t getIndexSelected()
+		{
+			return mIndexSelect;
+		}
 
 		//! Get selected item (nullptr if none selected)
 		TabItem* getItemSelected();
@@ -137,7 +155,10 @@ namespace MyGUI
 		void setIndexSelected(size_t _index);
 
 		//! Select item
-		void setItemSelected(TabItem* _item) { setIndexSelected(getItemIndex(_item)); }
+		void setItemSelected(TabItem* _item)
+		{
+			setIndexSelected(getItemIndex(_item));
+		}
 
 
 		//------------------------------------------------------------------------------//
@@ -146,23 +167,32 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 		//! Replace an item data
-		void setItemData(TabItem* _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
+		void setItemData(TabItem* _item, Any _data)
+		{
+			setItemDataAt(getItemIndex(_item), _data);
+		}
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
+		void clearItemDataAt(size_t _index)
+		{
+			setItemDataAt(_index, Any::Null);
+		}
 		//! Clear an item data
-		void clearItemData(TabItem* _item) { clearItemDataAt(getItemIndex(_item)); }
+		void clearItemData(TabItem* _item)
+		{
+			clearItemDataAt(getItemIndex(_item));
+		}
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(TabItem* _item, bool _throw = true)
+		ValueType* getItemData(TabItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
@@ -175,13 +205,19 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Replace an item name
-		void setItemName(TabItem* _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(TabItem* _item, const UString& _name)
+		{
+			setItemNameAt(getItemIndex(_item), _name);
+		}
 
 		//! Get item name from specified position
 		const UString& getItemNameAt(size_t _index);
 
 		//! Get item name
-		const UString& getItemName(TabItem* _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString& getItemName(TabItem* _item)
+		{
+			return getItemNameAt(getItemIndex(_item));
+		}
 
 
 		//------------------------------------------------------------------------------//
@@ -191,16 +227,28 @@ namespace MyGUI
 		void beginToItemAt(size_t _index);
 
 		//! Move all elements so specified becomes visible
-		void beginToItem(TabItem* _item) { beginToItemAt(getItemIndex(_item)); }
+		void beginToItem(TabItem* _item)
+		{
+			beginToItemAt(getItemIndex(_item));
+		}
 
 		//! Move all elements so first becomes visible
-		void beginToItemFirst() { if (getItemCount()) beginToItemAt(0); }
+		void beginToItemFirst()
+		{
+			if (getItemCount()) beginToItemAt(0);
+		}
 
 		//! Move all elements so last becomes visible
-		void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
+		void beginToItemLast()
+		{
+			if (getItemCount()) beginToItemAt(getItemCount() - 1);
+		}
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
+		void beginToItemSelected()
+		{
+			if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected());
+		}
 
 
 		//------------------------------------------------------------------------------//
@@ -209,29 +257,47 @@ namespace MyGUI
 		//! Set button width at a specified position
 		void setButtonWidthAt(size_t _index, int _width = DEFAULT);
 		//! Set button width
-		void setButtonWidth(TabItem* _item, int _width = DEFAULT) { setButtonWidthAt(getItemIndex(_item), _width); }
+		void setButtonWidth(TabItem* _item, int _width = DEFAULT)
+		{
+			setButtonWidthAt(getItemIndex(_item), _width);
+		}
 
 		//! Get button width at a specified position
 		int getButtonWidthAt(size_t _index);
 		//! Get button width
-		int getButtonWidth(TabItem* _item) { return getButtonWidthAt(getItemIndex(_item)); }
+		int getButtonWidth(TabItem* _item)
+		{
+			return getButtonWidthAt(getItemIndex(_item));
+		}
 
 		//------------------------------------------------------------------------------//
 
 		/** Set default button width and disable autowidth mode */
 		void setButtonDefaultWidth(int _value);
 		/** Get default button width */
-		int getButtonDefaultWidth() { return mButtonDefaultWidth; }
+		int getButtonDefaultWidth()
+		{
+			return mButtonDefaultWidth;
+		}
 
 		/** Enable or disable button auto width */
 		void setButtonAutoWidth(bool _value);
 		/** Get button auto width flag */
-		bool getButtonAutoWidth() { return mButtonAutoWidth; }
+		bool getButtonAutoWidth()
+		{
+			return mButtonAutoWidth;
+		}
 
 		/** Enable or disable smooth sheets showing */
-		void setSmoothShow(bool _value) { mSmoothShow = _value; }
+		void setSmoothShow(bool _value)
+		{
+			mSmoothShow = _value;
+		}
 		/** Get smooth sheets showing flag */
-		bool getSmoothShow() { return mSmoothShow; }
+		bool getSmoothShow()
+		{
+			return mSmoothShow;
+		}
 
 	/*events:*/
 		/** Event : Active Tab sheet changed \n

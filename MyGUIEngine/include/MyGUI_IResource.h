@@ -31,7 +31,7 @@ namespace MyGUI
 {
 
 	class IResource;
-	typedef IResource * IResourcePtr;
+	typedef IResource* IResourcePtr;
 
 	class ResourceManager;
 
@@ -43,14 +43,17 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( IResource )
 
 	public:
-		const std::string& getResourceName() const { return mResourceName; }
+		const std::string& getResourceName() const
+		{
+			return mResourceName;
+		}
 
 	protected:
 		IResource() { }
 	private:
 		// constructors and operator =, without implementation, just for private
-		IResource(IResource const &);
-		IResource& operator = (IResource const &);
+		IResource(IResource const&);
+		IResource& operator = (IResource const&);
 
 	protected:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)

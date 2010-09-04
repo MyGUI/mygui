@@ -65,7 +65,7 @@ namespace MyGUI
 		friend class DynLibManager;
 
 	protected:
-		DynLib(const std::string &name);
+		DynLib(const std::string& name);
 
 		~DynLib();
 
@@ -80,7 +80,10 @@ namespace MyGUI
 		void unload();
 
 		//! Get the name of the library
-		std::string getName(void) const { return mName; }
+		std::string getName(void) const
+		{
+			return mName;
+		}
 
 		/**
 			Returns the address of the given symbol from the loaded library.

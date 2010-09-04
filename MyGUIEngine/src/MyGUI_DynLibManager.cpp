@@ -60,7 +60,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	DynLib* DynLibManager::load(const std::string &fileName)
+	DynLib* DynLibManager::load(const std::string& fileName)
 	{
 		StringDynLibMap::iterator it = mLibsMap.find(fileName);
 
@@ -69,7 +69,7 @@ namespace MyGUI
 			return it->second;
 		}
 
-		DynLib *pLib = new DynLib(fileName);
+		DynLib* pLib = new DynLib(fileName);
 		if (!pLib->load())
 		{
 			delete pLib;
@@ -80,7 +80,7 @@ namespace MyGUI
 		return pLib;
 	}
 
-	void DynLibManager::unload(DynLib *library)
+	void DynLibManager::unload(DynLib* library)
 	{
 		StringDynLibMap::iterator it = mLibsMap.find(library->getName());
 

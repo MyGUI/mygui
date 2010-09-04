@@ -52,17 +52,38 @@ namespace MyGUI
 		void removeDrawItem(ISubWidget* _item);
 		void reallockDrawItem(ISubWidget* _item, size_t _count);
 
-		void outOfDate() { mOutDate = true; }
+		void outOfDate()
+		{
+			mOutDate = true;
+		}
 
-		size_t getNeedVertexCount() const { return mNeedVertexCount; }
-		size_t getVertexCount() const { return mCountVertex; }
+		size_t getNeedVertexCount() const
+		{
+			return mNeedVertexCount;
+		}
+		size_t getVertexCount() const
+		{
+			return mCountVertex;
+		}
 
-		bool getCurrentUpdate() const { return mCurrentUpdate; }
-		Vertex* getCurrentVertextBuffer() const { return mCurrentVertext; }
+		bool getCurrentUpdate() const
+		{
+			return mCurrentUpdate;
+		}
+		Vertex* getCurrentVertextBuffer() const
+		{
+			return mCurrentVertext;
+		}
 
-		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
+		void setLastVertexCount(size_t _count)
+		{
+			mLastVertextCount = _count;
+		}
 
-		IRenderTarget* getRenderTarget() { return mRenderTarget; }
+		IRenderTarget* getRenderTarget()
+		{
+			return mRenderTarget;
+		}
 
 		bool getCompression();
 

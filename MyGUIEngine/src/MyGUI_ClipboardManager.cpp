@@ -125,7 +125,7 @@ namespace MyGUI
 			{
 				EmptyClipboard(); //очищаем буфер
 				HGLOBAL hgBuffer = GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
-				wchar_t * chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : NULL;
+				wchar_t* chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : NULL;
 				if (chBuffer)
 				{
 					memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
@@ -154,7 +154,7 @@ namespace MyGUI
 			if (OpenClipboard((HWND)mHwnd))
 			{
 				HANDLE hData = GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
-				wchar_t * chBuffer = hData ? (wchar_t*)GlobalLock(hData) : NULL;
+				wchar_t* chBuffer = hData ? (wchar_t*)GlobalLock(hData) : NULL;
 				if (chBuffer)
 				{
 					buff = chBuffer;

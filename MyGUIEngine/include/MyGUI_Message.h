@@ -52,7 +52,10 @@ namespace MyGUI
 		void setSmoothShow(bool _value);
 
 		/** Get name of default layer for Message*/
-		const std::string& getDefaultLayer() { return mDefaultLayer; }
+		const std::string& getDefaultLayer()
+		{
+			return mDefaultLayer;
+		}
 
 		/** Set message icon*/
 		void setMessageIcon(MessageBoxStyle _value);
@@ -110,9 +113,9 @@ namespace MyGUI
 		void _destroyMessage(MessageBoxStyle _result);
 
 		UString getButtonName(MessageBoxStyle _style);
-		const char * getIconName(size_t _index);
-		const char * getButtonName(size_t _index);
-		const char * getButtonTag(size_t _index);
+		const char* getIconName(size_t _index);
+		const char* getButtonName(size_t _index);
+		const char* getButtonTag(size_t _index);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

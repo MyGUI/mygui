@@ -47,10 +47,16 @@ namespace MyGUI
 
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
-		virtual ITexture* getTextureFont() { return mTexture; }
+		virtual ITexture* getTextureFont()
+		{
+			return mTexture;
+		}
 
 		// получившаяся высота при генерации в пикселях
-		virtual int getDefaultHeight() { return mHeightPix; }
+		virtual int getDefaultHeight()
+		{
+			return mHeightPix;
+		}
 
 	private:
 		void addCodePointRange(Char _first, Char _second);
@@ -64,7 +70,7 @@ namespace MyGUI
 
 		void initialise();
 
-		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
+		void addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 		// write 2 or 4 bytes into buffer: LA or LLLA if _rgba is true
 		uint8* writeData(uint8* _pDest, unsigned char _luminance, unsigned char _alpha, bool _rgba);
 

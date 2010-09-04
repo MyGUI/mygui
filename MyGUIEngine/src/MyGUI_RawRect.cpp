@@ -162,7 +162,7 @@ namespace MyGUI
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}
 
-	void RawRect::setStateData(IStateInfo * _data)
+	void RawRect::setStateData(IStateInfo* _data)
 	{
 		SubSkinStateInfo* data = _data->castType<SubSkinStateInfo>();
 		const FloatRect& rect = data->getRect();

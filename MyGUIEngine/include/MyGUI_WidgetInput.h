@@ -77,39 +77,69 @@ namespace MyGUI
 		virtual ~WidgetInput() { }
 
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
-		void setNeedToolTip(bool _value) { mNeedToolTip = _value; }
+		void setNeedToolTip(bool _value)
+		{
+			mNeedToolTip = _value;
+		}
 		/** Get need tool tip mode flag */
-		bool getNeedToolTip() const { return mNeedToolTip; }
+		bool getNeedToolTip() const
+		{
+			return mNeedToolTip;
+		}
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _value) { mPointer = _value; }
+		void setPointer(const std::string& _value)
+		{
+			mPointer = _value;
+		}
 		/** Get mouse pointer name for this widget */
-		const std::string& getPointer() const { return mPointer; }
+		const std::string& getPointer() const
+		{
+			return mPointer;
+		}
 
 		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
+		void setNeedKeyFocus(bool _value)
+		{
+			mNeedKeyFocus = _value;
+		}
 		/** Is need key focus
 			If disable this widget won't be reacting on keyboard at all.\n
 			Enabled (true) by default.
 		*/
-		bool getNeedKeyFocus() const { return mNeedKeyFocus; }
+		bool getNeedKeyFocus() const
+		{
+			return mNeedKeyFocus;
+		}
 
 		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
+		void setNeedMouseFocus(bool _value)
+		{
+			mNeedMouseFocus = _value;
+		}
 		/** Is need mouse focus
 			If disable this widget won't be reacting on mouse at all.\n
 			Enabled (true) by default.
 		*/
-		bool getNeedMouseFocus() const { return mNeedMouseFocus; }
+		bool getNeedMouseFocus() const
+		{
+			return mNeedMouseFocus;
+		}
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
 			need mouse focus (was set setNeedKeyFocus(false) ).\n
 			Disabled (false) by default.
 		*/
-		void setInheritsPick(bool _value) { mInheritsPick = _value; }
+		void setInheritsPick(bool _value)
+		{
+			mInheritsPick = _value;
+		}
 		/** Get inherits mode flag */
-		bool getInheritsPick() const { return mInheritsPick; }
+		bool getInheritsPick() const
+		{
+			return mInheritsPick;
+		}
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
@@ -118,8 +148,14 @@ namespace MyGUI
 
 		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord) const;
 
-		bool getRootMouseFocus() const { return mRootMouseFocus; }
-		bool getRootKeyFocus() const { return mRootKeyFocus; }
+		bool getRootMouseFocus() const
+		{
+			return mRootMouseFocus;
+		}
+		bool getRootKeyFocus() const
+		{
+			return mRootKeyFocus;
+		}
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
@@ -257,8 +293,14 @@ namespace MyGUI
 		void _riseMouseChangeRootFocus(bool _focus);
 		void _riseKeyChangeRootFocus(bool _focus);
 
-		void _setRootMouseFocus(bool _value) { mRootMouseFocus = _value; }
-		void _setRootKeyFocus(bool _value) { mRootKeyFocus = _value; }
+		void _setRootMouseFocus(bool _value)
+		{
+			mRootMouseFocus = _value;
+		}
+		void _setRootKeyFocus(bool _value)
+		{
+			mRootKeyFocus = _value;
+		}
 
 	protected:
 		virtual void onMouseLostFocus(Widget* _new) { }

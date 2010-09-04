@@ -246,7 +246,7 @@ namespace MyGUI
 			}
 			eventListMouseItemActivate(this, mIndexSelect);
 
-		// если не клиент, то просчитывам
+			// если не клиент, то просчитывам
 		}
 		// ячейка может быть скрыта
 		else if (_sender->getVisible())
@@ -551,7 +551,7 @@ namespace MyGUI
 				}
 				mRangeIndex += mHeightLine;
 
-			// строка в видимой области
+				// строка в видимой области
 			}
 			else
 			{
@@ -620,7 +620,7 @@ namespace MyGUI
 				}
 				mRangeIndex -= mHeightLine;
 
-			// строка в видимой области
+				// строка в видимой области
 			}
 			else
 			{

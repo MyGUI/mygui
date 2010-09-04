@@ -93,8 +93,16 @@ namespace MyGUI
 			return true;
 		}
 
-		typename T::const_reference operator->() const { assert(m_current != m_end); return (*m_current); }
-		typename T::const_reference current() { assert(m_current != m_end); return (*m_current); }
+		typename T::const_reference operator->() const
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
+		typename T::const_reference current()
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
 
 	private:
 		bool m_first;

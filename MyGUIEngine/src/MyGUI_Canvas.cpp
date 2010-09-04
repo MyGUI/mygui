@@ -177,10 +177,14 @@ namespace MyGUI
 	{
 		if ( mTexResizeMode == TRM_PT_VIEW_REQUESTED )
 		{
-			_setUVSet( FloatRect( 0, 0,
-				(float) mReqTexSize.width  / (float) getTextureRealWidth(),
-				(float) mReqTexSize.height / (float) getTextureRealHeight()
-				) );
+			_setUVSet(
+				FloatRect(
+					0,
+					0,
+					(float) mReqTexSize.width  / (float) getTextureRealWidth(),
+					(float) mReqTexSize.height / (float) getTextureRealHeight()
+				)
+			);
 		}
 
 		if ( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_ALL )

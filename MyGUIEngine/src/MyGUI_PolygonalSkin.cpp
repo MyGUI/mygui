@@ -43,7 +43,10 @@ namespace MyGUI
 	{
 	}
 
-	inline float len(float x, float y) { return sqrt(x*x + y*y); }
+	inline float len(float x, float y)
+	{
+		return sqrt(x*x + y*y);
+	}
 
 	void PolygonalSkin::setPoints(const std::vector<FloatPoint>& _points)
 	{
@@ -182,7 +185,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void PolygonalSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	void PolygonalSkin::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
@@ -244,7 +247,7 @@ namespace MyGUI
 	void PolygonalSkin::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
-		
+
 		mGeometryOutdated = true;
 
 		if (nullptr != mNode)
@@ -255,7 +258,7 @@ namespace MyGUI
 	{
 		if (mLinePoints.size() < 2) return;
 		if (!mRenderItem || !mRenderItem->getRenderTarget()) return;
-		
+
 		mGeometryOutdated = false;
 
 		// using mCurrentCoord as rectangle where we draw polygons
@@ -345,7 +348,7 @@ namespace MyGUI
 				float length = len(normal.left, normal.top);
 				normal.left *= 2 * mLineWidth / length /(sharpness - 0.5f);
 				normal.top *= 2 * mLineWidth / length /(sharpness - 0.5f);
-				
+
 				// check orientation
 				lineDir = mLinePoints[i] - mLinePoints[i-1];
 				if (lineDir.left * normal.top - lineDir.top * normal.left < 0)

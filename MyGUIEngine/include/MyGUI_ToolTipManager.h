@@ -40,7 +40,10 @@ namespace MyGUI
 		void shutdown();
 
 		void setDelayVisible(float _value);
-		float getDelayVisible() const { return mDelayVisible; }
+		float getDelayVisible() const
+		{
+			return mDelayVisible;
+		}
 
 	/*internal:*/
 		void _unlinkWidget(Widget* _widget);

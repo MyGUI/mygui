@@ -39,14 +39,20 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( LayerNode )
 
 	public:
-		explicit LayerNode(ILayer* _layer, ILayerNode * _parent = nullptr);
+		explicit LayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		virtual ~LayerNode();
 
 		// леер, которому мы принадлежим
-		virtual ILayer* getLayer() const { return mLayer; }
+		virtual ILayer* getLayer() const
+		{
+			return mLayer;
+		}
 
 		// возвращает отца или nullptr
-		virtual ILayerNode* getParent() const { return mParent; }
+		virtual ILayerNode* getParent() const
+		{
+			return mParent;
+		}
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
@@ -77,7 +83,10 @@ namespace MyGUI
 
 		virtual void dumpStatisticToLog(size_t _level);
 
-		bool isOutOfDate() const { return mOutOfDate; }
+		bool isOutOfDate() const
+		{
+			return mOutOfDate;
+		}
 
 	protected:
 		void updateCompression();
@@ -94,7 +103,7 @@ namespace MyGUI
 		// список такиж как мы, для построения дерева
 		VectorILayerNode mChildItems;
 
-		ILayerNode * mParent;
+		ILayerNode* mParent;
 		ILayer* mLayer;
 		bool mOutOfDate;
 	};

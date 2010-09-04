@@ -50,7 +50,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::setCenter(const IntPoint &_center)
+	void RotatingSkin::setCenter(const IntPoint& _center)
 	{
 		mCenterPos = _center;
 		mGeometryOutdated = true;
@@ -156,7 +156,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	void RotatingSkin::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
@@ -226,7 +226,10 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	inline float len(float x, float y) { return sqrt(x*x + y*y); }
+	inline float len(float x, float y)
+	{
+		return sqrt(x*x + y*y);
+	}
 
 	void RotatingSkin::_rebuildGeometry()
 	{
@@ -308,7 +311,7 @@ namespace MyGUI
 					mResultVerticiesUV[i] = FloatPoint(
 						baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
 						baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top
-						);
+					);
 				}
 				else
 				{
@@ -348,7 +351,7 @@ namespace MyGUI
 			resultVerticiesPos[i] = _baseVerticiesPos[i];
 		}
 
-		ICroppedRectangle * parent = mCroppedParent->getCroppedParent();
+		ICroppedRectangle* parent = mCroppedParent->getCroppedParent();
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mCroppedParent->getLeft(), Left);
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mCroppedParent->getLeft(), Right);
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mCroppedParent->getTop(), Top);
@@ -372,38 +375,40 @@ namespace MyGUI
 			FloatPoint& v1 = _verticies[(i+1)%_verticies.size()];
 			switch (_side)
 			{
-			case Left: case Right:
+			case Left:
+			case Right:
 				// both inside
-				if (invert * v0.left >= invert * _sideCoord && invert * v1.left >= invert * _sideCoord)
+				if (invert* v0.left >= invert* _sideCoord && invert* v1.left >= invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
-				else if (invert * v0.left >= invert * _sideCoord && invert * v1.left < invert * _sideCoord)
+				else if (invert* v0.left >= invert * _sideCoord && invert * v1.left < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
 					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
 				}
 				// intersect side (2nd vertex in)
-				else if (invert * v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
+				else if (invert* v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 				{
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
 					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
 				}
 				// else don't add any verticies
 				break;
-			case Top: case Bottom:
+			case Top:
+			case Bottom:
 				// both inside
-				if (invert * v0.top >= invert * _sideCoord && invert * v1.top >= invert * _sideCoord)
+				if (invert* v0.top >= invert* _sideCoord && invert* v1.top >= invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
-				else if (invert * v0.top >= invert * _sideCoord && invert * v1.top < invert * _sideCoord)
+				else if (invert* v0.top >= invert * _sideCoord && invert * v1.top < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
 					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
 				}
 				// intersect side (2nd vertex in)
-				else if (invert * v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
+				else if (invert* v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 				{
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
 					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
@@ -428,7 +433,7 @@ namespace MyGUI
 		return FloatPoint(
 			(point.top*dirX.left - point.left*dirX.top)/div,
 			(point.left*dirY.top - point.top*dirY.left)/div
-			);
+		);
 	}
 
 } // namespace MyGUI

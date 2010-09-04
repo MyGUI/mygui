@@ -182,7 +182,7 @@ namespace MyGUI
 		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
 		else alpha = WINDOW_ALPHA_DEACTIVE;
 
-		ControllerFadeAlpha * controller = createControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
+		ControllerFadeAlpha* controller = createControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
@@ -295,7 +295,7 @@ namespace MyGUI
 
 	void Window::destroySmooth()
 	{
-		ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
 		controller->eventPostAction += newDelegate(action::actionWidgetDestroy);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
@@ -352,14 +352,14 @@ namespace MyGUI
 				setAlpha(ALPHA_MIN);
 				Base::setVisible(true);
 			}
-			ControllerFadeAlpha * controller = createControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
 			controller->eventPostAction += newDelegate(this, &Window::animateStop);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
 		{
 			setEnabledSilent(false);
-			ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
 			controller->eventPostAction += newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}

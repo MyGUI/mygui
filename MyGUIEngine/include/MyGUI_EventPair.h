@@ -34,14 +34,14 @@ namespace MyGUI
 
 		template <typename T>
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator = (T * _delegate)
+		void operator = (T* _delegate)
 		{
 			m_eventObsolete = _delegate;
 			m_event = nullptr;
 		}
 
 		MYGUI_OBSOLETE("use : operator += ")
-		void operator = (typename Event::IDelegate * _delegate)
+		void operator = (typename Event::IDelegate* _delegate)
 		{
 			m_eventObsolete = nullptr;
 			m_event = _delegate;
@@ -49,13 +49,13 @@ namespace MyGUI
 
 		template <typename T>
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator += (T * _delegate)
+		void operator += (T* _delegate)
 		{
 			m_eventObsolete += _delegate;
 			m_event.clear();
 		}
 
-		void operator += (typename Event::IDelegate * _delegate)
+		void operator += (typename Event::IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event += _delegate;
@@ -63,13 +63,13 @@ namespace MyGUI
 
 		template <typename T>
 		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
-		void operator -= (T * _delegate)
+		void operator -= (T* _delegate)
 		{
 			m_eventObsolete -= _delegate;
 			m_event.clear();
 		}
 
-		void operator -= (typename Event::IDelegate * _delegate)
+		void operator -= (typename Event::IDelegate* _delegate)
 		{
 			m_eventObsolete.clear();
 			m_event -= _delegate;

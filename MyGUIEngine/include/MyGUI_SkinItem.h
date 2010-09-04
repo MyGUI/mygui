@@ -37,9 +37,15 @@ namespace MyGUI
 		SkinItem();
 
 		/** Get text sub widget or nullptr if no text sub widget */
-		ISubWidgetText * getSubWidgetText() { return mText; }
+		ISubWidgetText* getSubWidgetText()
+		{
+			return mText;
+		}
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
-		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
+		ISubWidgetRect* getSubWidgetMain()
+		{
+			return mMainSkin;
+		}
 
 		void _setTextureName(const std::string& _texture);
 		const std::string& _getTextureName() const;
@@ -62,9 +68,9 @@ namespace MyGUI
 		// вектор всех детей сабскинов
 		VectorSubWidget mSubSkinChild;
 		// указатель на окно текста
-		ISubWidgetText * mText;
+		ISubWidgetText* mText;
 		// указатель на первый не текстовой сабскин
-		ISubWidgetRect * mMainSkin;
+		ISubWidgetRect* mMainSkin;
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 

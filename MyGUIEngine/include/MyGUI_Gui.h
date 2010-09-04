@@ -155,13 +155,22 @@ namespace MyGUI
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(Widget* _widget) { _destroyChildWidget(_widget); }
+		void destroyChildWidget(Widget* _widget)
+		{
+			_destroyChildWidget(_widget);
+		}
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget() { _destroyAllChildWidget(); }
+		void destroyAllChildWidget()
+		{
+			_destroyAllChildWidget();
+		}
 
 		/** Get root widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator() const { return EnumeratorWidgetPtr(mWidgetChild); }
+		EnumeratorWidgetPtr getEnumerator() const
+		{
+			return EnumeratorWidgetPtr(mWidgetChild);
+		}
 
 	/*internal:*/
 

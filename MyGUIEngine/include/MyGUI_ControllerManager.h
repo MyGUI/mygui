@@ -54,7 +54,7 @@ namespace MyGUI
 			@note _item will be deleted automatically at end of controller lifetime
 				(if not removed by removeItem(Widget* _widget) before)
 		*/
-		void addItem(Widget* _widget, ControllerItem * _item);
+		void addItem(Widget* _widget, ControllerItem* _item);
 
 		/** Stop and remove all controllers over specified widget.
 			@param _widget Pointer to widget for removing control from.
@@ -67,7 +67,7 @@ namespace MyGUI
 		void clear();
 
 	private:
-		typedef std::pair<Widget*, ControllerItem *> PairControllerItem;
+		typedef std::pair<Widget*, ControllerItem*> PairControllerItem;
 		typedef std::list<PairControllerItem> ListControllerItem;
 		ListControllerItem mListItem;
 

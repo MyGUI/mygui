@@ -216,7 +216,8 @@ namespace MyGUI
 		do
 		{
 			result = replaceTagsPass(result, replace);
-		} while (replace);
+		}
+		while (replace);
 
 		return result;
 	}

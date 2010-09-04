@@ -63,7 +63,7 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name)
 	{
 		ResourceSkin* skinInfo = nullptr;
 		ResourceLayout* templateInfo = nullptr;
@@ -470,7 +470,7 @@ namespace MyGUI
 		_updateAlpha();
 	}
 
-	ILayerItem * Widget::getLayerItemByPoint(int _left, int _top) const
+	ILayerItem* Widget::getLayerItemByPoint(int _left, int _top) const
 	{
 		// проверяем попадание
 		if (!mEnabled
@@ -478,8 +478,9 @@ namespace MyGUI
 			|| (!getNeedMouseFocus() && !getInheritsPick())
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))
-				return nullptr;
+			|| isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord)
+			)
+			return nullptr;
 
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
@@ -488,20 +489,20 @@ namespace MyGUI
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
 				continue;
 
-			ILayerItem * item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr)
 				return item;
 		}
 		// спрашиваем у детишек скна
 		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
 		{
-			ILayerItem * item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr)
 				return item;
 		}
 
 		// непослушные дети
-		return getInheritsPick() ? nullptr : (ILayerItem *)(this);
+		return getInheritsPick() ? nullptr : (ILayerItem*)(this);
 	}
 
 	void Widget::_updateAbsolutePoint()

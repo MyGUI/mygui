@@ -33,9 +33,9 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString &, const UString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
+	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&> EventHandle_WidgetIntUTFStringUTFStringBool;
 
-	typedef delegates::CDelegate5<MultiList*, size_t, const UString &, const UString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
+	typedef delegates::CDelegate5<MultiList*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
 	typedef delegates::CMultiDelegate2<MultiList*, size_t> EventHandle_MultiListPtrSizeT;
 
 	class MYGUI_EXPORT MultiList :
@@ -54,7 +54,10 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of columns
-		size_t getColumnCount() { return mVectorColumnInfo.size(); }
+		size_t getColumnCount()
+		{
+			return mVectorColumnInfo.size();
+		}
 
 		/** Insert new column
 			@param _column New column will be inserted before _column
@@ -67,7 +70,10 @@ namespace MyGUI
 			@param _width Width of new column
 			@param _name Name of new column
 		*/
-		void addColumn(const UString& _name, int _width, Any _data = Any::Null) { insertColumnAt(ITEM_NONE, _name, _width, _data); }
+		void addColumn(const UString& _name, int _width, Any _data = Any::Null)
+		{
+			insertColumnAt(ITEM_NONE, _name, _width, _data);
+		}
 
 		/** Delete column */
 		void removeColumnAt(size_t _column);
@@ -107,11 +113,14 @@ namespace MyGUI
 		void setColumnDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearColumnDataAt(size_t _index) { setColumnDataAt(_index, Any::Null); }
+		void clearColumnDataAt(size_t _index)
+		{
+			setColumnDataAt(_index, Any::Null);
+		}
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getColumnDataAt(size_t _index, bool _throw = true)
+		ValueType* getColumnDataAt(size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiList::getItemDataAt");
 			return mVectorColumnInfo[_index].data.castType<ValueType>(_throw);
@@ -134,7 +143,10 @@ namespace MyGUI
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		/** Add new item at the end */
-		void addItem(const UString& _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
+		void addItem(const UString& _name, Any _data = Any::Null)
+		{
+			insertItemAt(ITEM_NONE, _name, _data);
+		}
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -150,37 +162,55 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name
-		void setItemNameAt(size_t _index, const UString& _name) { setSubItemNameAt(0, _index, _name); }
+		void setItemNameAt(size_t _index, const UString& _name)
+		{
+			setSubItemNameAt(0, _index, _name);
+		}
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index) { return getSubItemNameAt(0, _index); }
+		const UString& getItemNameAt(size_t _index)
+		{
+			return getSubItemNameAt(0, _index);
+		}
 
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getIndexSelected() { return mItemSelected; }
+		size_t getIndexSelected()
+		{
+			return mItemSelected;
+		}
 
 		/** Select specified _index */
 		void setIndexSelected(size_t _index);
 
 		/** Clear item selection */
-		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
+		void clearIndexSelected()
+		{
+			setIndexSelected(ITEM_NONE);
+		}
 
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
 
 		//! Replace an item data at a specified position
-		void setItemDataAt(size_t _index, Any _data) { setSubItemDataAt(0, _index, _data); }
+		void setItemDataAt(size_t _index, Any _data)
+		{
+			setSubItemDataAt(0, _index, _data);
+		}
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
+		void clearItemDataAt(size_t _index)
+		{
+			setItemDataAt(_index, Any::Null);
+		}
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return getSubItemDataAt<ValueType>(0, _index, _throw);
 		}
@@ -211,11 +241,14 @@ namespace MyGUI
 		void setSubItemDataAt(size_t _column, size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearSubItemDataAt(size_t _column, size_t _index) { setSubItemDataAt(_column, _index, Any::Null); }
+		void clearSubItemDataAt(size_t _column, size_t _index)
+		{
+			setSubItemDataAt(_column, _index, Any::Null);
+		}
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
+		ValueType* getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemDataAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemDataAt");

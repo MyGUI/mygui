@@ -42,7 +42,10 @@ namespace MyGUI
 		virtual ~ILayer() { }
 
 		// имя леера
-		const std::string& getName() const { return mName; }
+		const std::string& getName() const
+		{
+			return mName;
+		}
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode() = 0;
