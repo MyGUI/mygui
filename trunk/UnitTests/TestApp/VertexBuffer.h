@@ -11,6 +11,14 @@ namespace demo
 	class VertexBuffer
 	{
 	public:
+		enum RenderMode
+		{
+			RenderModeNormal,
+			RenderModeFilterNone,
+			RenderModePolygonWireFrame
+		};
+
+	public:
 		VertexBuffer();
 		virtual ~VertexBuffer();
 
@@ -26,7 +34,7 @@ namespace demo
 
 		void doRender(RenderManager* _renderManager);
 
-		void setManualMode(bool _value);
+		void setRenderMode(RenderMode _value);
 
 	private:
 		void createVertexBuffer();
@@ -42,7 +50,7 @@ namespace demo
 		MyGUI::IntCoord mCoord;
 		MyGUI::FloatRect mCurrentTexture;
 		MyGUI::uint32 mCurrentColour;
-		bool mManualMode;
+		RenderMode mRenderMode;
 	};
 
 } // namespace demo
