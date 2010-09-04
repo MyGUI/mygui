@@ -43,8 +43,14 @@ namespace MyGUI
 	{
 	public:
 		DataStreamHolder(IDataStream* _data) : mData(_data) { }
-		~DataStreamHolder() { delete mData; }
-		IDataStream* getData() { return mData; }
+		~DataStreamHolder()
+		{
+			delete mData;
+		}
+		IDataStream* getData()
+		{
+			return mData;
+		}
 	private:
 		IDataStream* mData;
 	};

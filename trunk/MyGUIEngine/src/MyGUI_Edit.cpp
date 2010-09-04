@@ -837,7 +837,7 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info)
+	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo* _info)
 	{
 		if (_info != nullptr) _info->push_back(TextCommandInfo(_undo, _redo, _length));
 	}
@@ -943,7 +943,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void Edit::saveInHistory(VectorChangeInfo * _info)
+	void Edit::saveInHistory(VectorChangeInfo* _info)
 	{
 		if (_info == nullptr) return;
 		// если нет информации об изменении
@@ -1014,7 +1014,7 @@ namespace MyGUI
 		commandResetRedo();
 
 		// история изменений
-		VectorChangeInfo * history = nullptr;
+		VectorChangeInfo* history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// конец диапазона
@@ -1124,7 +1124,7 @@ namespace MyGUI
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo * history = nullptr;
+		VectorChangeInfo* history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
@@ -1180,7 +1180,7 @@ namespace MyGUI
 		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength)) return;
 
 		// история изменений
-		VectorChangeInfo * history = nullptr;
+		VectorChangeInfo* history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
@@ -1259,7 +1259,7 @@ namespace MyGUI
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo * history = nullptr;
+		VectorChangeInfo* history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки

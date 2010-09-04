@@ -47,7 +47,7 @@ namespace MyGUI
 
 		void setRectTexture(const FloatPoint& _pointLT, const FloatPoint& _pointRT, const FloatPoint& _pointLB, const FloatPoint& _pointRB);
 
-		virtual void setStateData(IStateInfo * _data);
+		virtual void setStateData(IStateInfo* _data);
 
 		// метод для отрисовки себя
 		virtual void doRender();

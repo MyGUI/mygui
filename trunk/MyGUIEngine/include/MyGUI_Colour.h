@@ -41,7 +41,10 @@ namespace MyGUI
 
 		Colour() : red( 1 ), green( 1 ), blue( 1 ), alpha( 1 ) { }
 		Colour( float _red, float _green, float _blue, float _alpha = 1 ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
-		explicit Colour(const std::string& _value) { *this = parse(_value); }
+		explicit Colour(const std::string& _value)
+		{
+			*this = parse(_value);
+		}
 
 
 		Colour& operator=( Colour const& _value )

@@ -327,7 +327,7 @@ namespace MyGUI
 					texture_right,
 					texture_bottom,
 					mCurrentColour
-					);
+				);
 
 				count ++;
 			}
@@ -336,7 +336,7 @@ namespace MyGUI
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount * count);
 	}
 
-	void TileRect::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	void TileRect::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 

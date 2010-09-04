@@ -54,12 +54,18 @@ namespace MyGUI
 		/**
 			@param _value seconds in which widget planned to reach destination coordinate
 		*/
-		void setTime(float _value) { mTime = _value; }
+		void setTime(float _value)
+		{
+			mTime = _value;
+		}
 
 		/**
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
-		void setAction(FrameAction::IDelegate* _value) { eventFrameAction = _value; }
+		void setAction(FrameAction::IDelegate* _value)
+		{
+			eventFrameAction = _value;
+		}
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 

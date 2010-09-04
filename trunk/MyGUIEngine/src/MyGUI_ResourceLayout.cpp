@@ -122,7 +122,7 @@ namespace MyGUI
 			Widget* widget = createWidget(*iter, _prefix, _parent);
 			widgets.push_back(widget);
 		}
-		
+
 		return widgets;
 	}
 

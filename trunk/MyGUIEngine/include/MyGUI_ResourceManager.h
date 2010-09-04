@@ -55,7 +55,7 @@ namespace MyGUI
 		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
-		typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
+		typedef delegates::CDelegate3<xml::ElementPtr, const std::string&, Version> LoadXmlDelegate;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
@@ -79,9 +79,15 @@ namespace MyGUI
 		typedef std::map<std::string, IResource*> MapResource;
 		typedef Enumerator<MapResource> EnumeratorPtr;
 
-		EnumeratorPtr getEnumerator() const { return EnumeratorPtr(mResources); }
+		EnumeratorPtr getEnumerator() const
+		{
+			return EnumeratorPtr(mResources);
+		}
 
-		size_t getCount() { return mResources.size(); }
+		size_t getCount()
+		{
+			return mResources.size();
+		}
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);

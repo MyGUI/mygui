@@ -45,7 +45,7 @@ namespace MyGUI
 			int value = 0;
 			while (true)
 			{
-				const char * name = type.getValueName(value);
+				const char* name = type.getValueName(value);
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			}
@@ -55,11 +55,23 @@ namespace MyGUI
 
 		FlowDirection(Enum _value = LeftToRight) : value(_value) { }
 
-		bool isHorizontal() const { return value == LeftToRight || value == RightToLeft; }
-		bool isVertical() const { return !isHorizontal(); }
+		bool isHorizontal() const
+		{
+			return value == LeftToRight || value == RightToLeft;
+		}
+		bool isVertical() const
+		{
+			return !isHorizontal();
+		}
 
-		friend bool operator == (FlowDirection const& a, FlowDirection const& b) { return a.value == b.value; }
-		friend bool operator != (FlowDirection const& a, FlowDirection const& b) { return a.value != b.value; }
+		friend bool operator == (FlowDirection const& a, FlowDirection const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (FlowDirection const& a, FlowDirection const& b)
+		{
+			return a.value != b.value;
+		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const FlowDirection&  _value )
 		{
@@ -75,12 +87,15 @@ namespace MyGUI
 			return _stream;
 		}
 
-		std::string print() const { return getValueName(value); }
+		std::string print() const
+		{
+			return getValueName(value);
+		}
 
 	private:
-		const char * getValueName(int _index) const
+		const char* getValueName(int _index) const
 		{
-			static const char * values[MAX + 1] = { "LeftToRight", "RightToLeft", "TopToBottom", "BottomToTop", "" };
+			static const char* values[MAX + 1] = { "LeftToRight", "RightToLeft", "TopToBottom", "BottomToTop", "" };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 

@@ -388,7 +388,7 @@ namespace MyGUI
 		if (image->getItemResource())
 		{
 			static const size_t CountIcons = 3;
-			static const char * IconNames[CountIcons + 1] = { "None", "Up", "Down", "" };
+			static const char* IconNames[CountIcons + 1] = { "None", "Up", "Down", "" };
 			if (_index >= CountIcons) _index = CountIcons;
 			image->setItemName(IconNames[_index]);
 		}
@@ -512,7 +512,7 @@ namespace MyGUI
 		size_t last;
 		for (size_t step = count>>1; step>0 ; step >>= 1)
 		{
-			for (size_t i=0;i<(count-step);i++)
+			for (size_t i=0; i<(count-step); i++)
 			{
 				first=(int)i;
 				while (first>=0)

@@ -73,12 +73,28 @@ namespace MyGUI
 
 		MessageBoxStyle(Enum _value = None) : value(_value) { }
 
-		MessageBoxStyle& operator |= (MessageBoxStyle const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
-		friend MessageBoxStyle operator | (Enum const& a, Enum const& b) { return MessageBoxStyle(Enum(int(a) | int(b))); }
-		MessageBoxStyle operator | (Enum const& a) { return MessageBoxStyle(Enum(int(value) | int(a))); }
+		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
+		{
+			value = Enum(int(value) | int(_other.value));
+			return *this;
+		}
+		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
+		{
+			return MessageBoxStyle(Enum(int(a) | int(b)));
+		}
+		MessageBoxStyle operator | (Enum const& a)
+		{
+			return MessageBoxStyle(Enum(int(value) | int(a)));
+		}
 
-		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value == b.value; }
-		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value != b.value; }
+		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b)
+		{
+			return a.value != b.value;
+		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const MessageBoxStyle&  _value )
 		{

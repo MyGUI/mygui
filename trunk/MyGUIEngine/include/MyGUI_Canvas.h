@@ -98,31 +98,58 @@ namespace MyGUI
 		void unlock();
 
 		/// Checks lockness of hardware _pixel buffer.
-		bool isLocked() const { return mTexture->isLocked(); }
+		bool isLocked() const
+		{
+			return mTexture->isLocked();
+		}
 
 		/// Returns real width of texture.
-		int getTextureRealWidth() const { return (int) mTexture->getWidth(); }
+		int getTextureRealWidth() const
+		{
+			return (int) mTexture->getWidth();
+		}
 
 		/// Returns real height of texture.
-		int getTextureRealHeight() const { return (int) mTexture->getHeight(); }
+		int getTextureRealHeight() const
+		{
+			return (int) mTexture->getHeight();
+		}
 
 		/// Returns real _size of texture.
-		IntSize getTextureRealSize() const { return IntSize( getTextureRealWidth(), getTextureRealHeight() ); }
+		IntSize getTextureRealSize() const
+		{
+			return IntSize( getTextureRealWidth(), getTextureRealHeight() );
+		}
 
 		/// Returns needed width while creating texture.
-		int getTextureSrcWidth() const { return mReqTexSize.width; }
+		int getTextureSrcWidth() const
+		{
+			return mReqTexSize.width;
+		}
 
 		/// Returns needed height while creating texture.
-		int getTextureSrcHeight() const { return mReqTexSize.height; }
+		int getTextureSrcHeight() const
+		{
+			return mReqTexSize.height;
+		}
 
 		/// Returns needed sizes while creating texture.
-		IntSize getTextureSrcSize() const { return mReqTexSize; }
+		IntSize getTextureSrcSize() const
+		{
+			return mReqTexSize;
+		}
 
 		/// Returns needed sizes while creating texture.
-		PixelFormat getTextureFormat() const { return mTexture->getFormat(); }
+		PixelFormat getTextureFormat() const
+		{
+			return mTexture->getFormat();
+		}
 
 		/// Returns name of the current texture.
-		const std::string& getTextureName() const { return mTexture->getName(); }
+		const std::string& getTextureName() const
+		{
+			return mTexture->getName();
+		}
 
 		//! @copydoc Widget::setSize(const IntSize& _value)
 		virtual void setSize(const IntSize& _value);
@@ -130,36 +157,66 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		void setSize(int _width, int _height)
+		{
+			setSize(IntSize(_width, _height));
+		}
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
+		void setCoord(int _left, int _top, int _width, int _height)
+		{
+			setCoord(IntCoord(_left, _top, _width, _height));
+		}
 
 		/// Returns resize mode
-		TextureResizeMode getResizeMode() const { return mTexResizeMode; }
+		TextureResizeMode getResizeMode() const
+		{
+			return mTexResizeMode;
+		}
 
 		/// Sets resize mode of texture \sa TextureResizeMode
-		void setResizeMode( TextureResizeMode _set ) { mTexResizeMode = _set; }
+		void setResizeMode( TextureResizeMode _set )
+		{
+			mTexResizeMode = _set;
+		}
 
 		/// Checks if the texture has the source (required by user) size, otherwise real texture size are bigger.
 		bool isTextureSrcSize() const;
 
 		/// Returns true if the texture was created (and exists), otherwise false
-		bool isTextureCreated() const { return mTexture != nullptr; }
+		bool isTextureCreated() const
+		{
+			return mTexture != nullptr;
+		}
 
 		/// Returns true if we own the texture, otherwise false. \sa mManaged
-		bool isTextureManaged() const { return mTexManaged; }
+		bool isTextureManaged() const
+		{
+			return mTexManaged;
+		}
 
 		/// Reurns interface texture.
-		ITexture* getTexture() const { return mTexture; }
+		ITexture* getTexture() const
+		{
+			return mTexture;
+		}
 
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
-		void setTextureManaged( bool _value ) { mTexManaged = _value; }
+		void setTextureManaged( bool _value )
+		{
+			mTexManaged = _value;
+		}
 
 		/// Returns default GUI texture usage
-		static TextureUsage getDefaultTextureUsage() { return TextureUsage::Stream | TextureUsage::Write; }
+		static TextureUsage getDefaultTextureUsage()
+		{
+			return TextureUsage::Stream | TextureUsage::Write;
+		}
 
 		/// Returns default GUI texture format
-		static PixelFormat getDefaultTextureFormat() { return PixelFormat::R8G8B8A8; }
+		static PixelFormat getDefaultTextureFormat()
+		{
+			return PixelFormat::R8G8B8A8;
+		}
 
 	/*events:*/
 		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas.\n

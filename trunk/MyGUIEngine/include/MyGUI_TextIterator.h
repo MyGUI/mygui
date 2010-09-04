@@ -36,7 +36,7 @@ namespace MyGUI
 		TextIterator();
 
 	public:
-		TextIterator(const UString& _text, VectorChangeInfo * _history = nullptr);
+		TextIterator(const UString& _text, VectorChangeInfo* _history = nullptr);
 
 		bool moveNext();
 
@@ -47,7 +47,10 @@ namespace MyGUI
 		bool getTagColour(UString& _colour);
 
 		// удаляет цвет
-		void clearTagColour() { getTagColour(true); }
+		void clearTagColour()
+		{
+			getTagColour(true);
+		}
 
 		bool setTagColour(const Colour& _colour);
 
@@ -63,16 +66,25 @@ namespace MyGUI
 		bool eraseFromStart();
 
 		// возвращает текущую псевдо позицию
-		size_t getPosition() const { return mPosition; }
+		size_t getPosition() const
+		{
+			return mPosition;
+		}
 
-		const UString& getText() const { return mText; }
+		const UString& getText() const
+		{
+			return mText;
+		}
 
 		void insertText(const UString& _insert, bool _multiLine);
 
 		void clearNewLine(UString& _text);
 
 		//очищает весь текст
-		void clearText() { clear(); }
+		void clearText()
+		{
+			clear();
+		}
 
 		// возвращает размер строки
 		size_t getSize() const;
@@ -86,7 +98,10 @@ namespace MyGUI
 		// возвращает текст без тегов
 		static UString getOnlyText(const UString& _text);
 
-		static UString getTextNewLine() { return L"\n"; }
+		static UString getTextNewLine()
+		{
+			return L"\n";
+		}
 
 		static UString getTextCharInfo(Char _char);
 
@@ -115,7 +130,7 @@ namespace MyGUI
 		mutable size_t mSize;
 		bool mFirst;
 
-		VectorChangeInfo * mHistory;
+		VectorChangeInfo* mHistory;
 
 	};
 

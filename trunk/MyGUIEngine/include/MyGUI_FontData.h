@@ -46,8 +46,14 @@ namespace MyGUI
 
 		FontCodeType(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (FontCodeType const& a, FontCodeType const& b) { return a.value == b.value; }
-		friend bool operator != (FontCodeType const& a, FontCodeType const& b) { return a.value != b.value; }
+		friend bool operator == (FontCodeType const& a, FontCodeType const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (FontCodeType const& a, FontCodeType const& b)
+		{
+			return a.value != b.value;
+		}
 
 	private:
 		Enum value;
@@ -74,7 +80,10 @@ namespace MyGUI
 		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) const { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const
+		{
+			return _code >= first && _code <= last;
+		}
 
 	public:
 		Char first;
@@ -94,11 +103,20 @@ namespace MyGUI
 		}
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) const { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const
+		{
+			return _code >= first && _code <= last;
+		}
 
 		// возвращает указатель на глиф, или 0, если код не входит в диапазон
-		GlyphInfo* getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }
-		void setInfo(Char _code, GlyphInfo* _value) { if (isExist(_code)) range[_code - first] = *_value; }
+		GlyphInfo* getInfo(Char _code)
+		{
+			return isExist(_code) ? &range[_code - first] : nullptr;
+		}
+		void setInfo(Char _code, GlyphInfo* _value)
+		{
+			if (isExist(_code)) range[_code - first] = *_value;
+		}
 
 	public:
 		Char first;
@@ -117,7 +135,10 @@ namespace MyGUI
 		{
 		}
 
-		bool operator < (const PairCodeCoord& _value) const { return code < _value.code; }
+		bool operator < (const PairCodeCoord& _value) const
+		{
+			return code < _value.code;
+		}
 
 		Char code;
 		IntCoord coord;

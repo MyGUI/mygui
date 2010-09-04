@@ -50,16 +50,31 @@ namespace MyGUI
 
 		virtual const std::string& getFullDescription() const;
 
-		virtual const std::string &getSource() const { return mSource; }
+		virtual const std::string& getSource() const
+		{
+			return mSource;
+		}
 
-		virtual const std::string &getFile() const { return mFile; }
+		virtual const std::string& getFile() const
+		{
+			return mFile;
+		}
 
-		virtual long getLine() const { return mLine; }
+		virtual long getLine() const
+		{
+			return mLine;
+		}
 
-		virtual const std::string& getDescription() const { return mDescription; }
+		virtual const std::string& getDescription() const
+		{
+			return mDescription;
+		}
 
 		// Override std::exception::what
-		const char* what() const throw() { return getFullDescription().c_str(); }
+		const char* what() const throw()
+		{
+			return getFullDescription().c_str();
+		}
 
 	};
 

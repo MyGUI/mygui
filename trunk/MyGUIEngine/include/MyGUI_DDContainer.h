@@ -47,9 +47,15 @@ namespace MyGUI
 		/** Set drag'n'drop mode flag.
 			Disabled (false) by default.
 		*/
-		void setNeedDragDrop(bool _value) { mNeedDragDrop = _value; }
+		void setNeedDragDrop(bool _value)
+		{
+			mNeedDragDrop = _value;
+		}
 		/** Get drag'n'drop mode flag */
-		bool getNeedDragDrop() { return mNeedDragDrop; }
+		bool getNeedDragDrop()
+		{
+			return mNeedDragDrop;
+		}
 
 	/*events:*/
 		/** Event : Request for start drag.\n

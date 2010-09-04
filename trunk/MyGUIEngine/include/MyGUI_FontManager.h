@@ -46,7 +46,10 @@ namespace MyGUI
 		/** Get default font name.
 			Default skin also used when creating widget with skin that doesn't exist.
 		*/
-		const std::string& getDefaultFont() const { return mDefaultName; }
+		const std::string& getDefaultFont() const
+		{
+			return mDefaultName;
+		}
 		/** Get default font name.
 			Default skin also used when creating widget with skin that doesn't exist.
 		*/

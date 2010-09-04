@@ -81,7 +81,10 @@ namespace MyGUI
 		/** Set text cursor position */
 		void setTextCursor(size_t _index);
 		/** Get text cursor position */
-		size_t getTextCursor() { return mCursorPosition; }
+		size_t getTextCursor()
+		{
+			return mCursorPosition;
+		}
 
 
 		/** Set edit text applying tags */
@@ -97,17 +100,32 @@ namespace MyGUI
 		/** Get text length excluding tags
 			For example "#00FF00Hello" length is 5
 		*/
-		size_t getTextLength() const { return mTextLength; }
+		size_t getTextLength() const
+		{
+			return mTextLength;
+		}
 
 		//! Sets if surplus characters should push characters off the left side rather than ignored
-		void setOverflowToTheLeft(bool _value) { mOverflowToTheLeft = _value; }
+		void setOverflowToTheLeft(bool _value)
+		{
+			mOverflowToTheLeft = _value;
+		}
 		//! Returns true if surplus characters will be pushed off the left rather than ignored
-		bool getOverflowToTheLeft() { return mOverflowToTheLeft; }
+		bool getOverflowToTheLeft()
+		{
+			return mOverflowToTheLeft;
+		}
 
 		//! Sets the max amount of text allowed in the edit field.
-		void setMaxTextLength(size_t _value) { mMaxTextLength = _value; }
+		void setMaxTextLength(size_t _value)
+		{
+			mMaxTextLength = _value;
+		}
 		//! Gets the max amount of text allowed in the edit field.
-		size_t getMaxTextLength() { return mMaxTextLength; }
+		size_t getMaxTextLength()
+		{
+			return mMaxTextLength;
+		}
 
 		/** Inser text at _index position (text end by default) */
 		void insertText(const UString& _text, size_t _index = ITEM_NONE);
@@ -122,7 +140,10 @@ namespace MyGUI
 		*/
 		void setEditReadOnly(bool _value);
 		/** Get edit read only mode flag */
-		bool getEditReadOnly() { return mModeReadOnly; }
+		bool getEditReadOnly()
+		{
+			return mModeReadOnly;
+		}
 
 		/** Enable or disable edit password mode\n
 			Password mode: you see password chars (*** by default) instead text.\n
@@ -130,7 +151,10 @@ namespace MyGUI
 		*/
 		void setEditPassword(bool _value);
 		/** Get edit password mode flag */
-		bool getEditPassword() { return mModePassword; }
+		bool getEditPassword()
+		{
+			return mModePassword;
+		}
 
 		/** Enable or disable edit multiline mode\n
 			Multile mode: new line character moves text to new line.\n
@@ -139,7 +163,10 @@ namespace MyGUI
 		*/
 		void setEditMultiLine(bool _value);
 		/** Get edit multiline mode flag */
-		bool getEditMultiLine() { return mModeMultiline; }
+		bool getEditMultiLine()
+		{
+			return mModeMultiline;
+		}
 
 		/** Enable or disable edit static mode\n
 			Static mode is same as read only, but you also can't select text.\n
@@ -147,14 +174,20 @@ namespace MyGUI
 		*/
 		void setEditStatic(bool _value);
 		/** Get edit static mode flag */
-		bool getEditStatic() { return mModeStatic; }
+		bool getEditStatic()
+		{
+			return mModeStatic;
+		}
 
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _value);
 		/** Set edit password character ('*' by default). First character of string used. */
 		void setPasswordChar(const UString& _char);
 		/** Get edit password character */
-		Char getPasswordChar() { return mCharPassword; }
+		Char getPasswordChar()
+		{
+			return mCharPassword;
+		}
 
 		/** Enable or disable edit word wrap mode\n
 			Word Wrap mode: move words to new line if they goes out of width.
@@ -163,16 +196,25 @@ namespace MyGUI
 		*/
 		void setEditWordWrap(bool _value);
 		/** Get edit word wrap mode flag */
-		bool getEditWordWrap() { return mModeWordWrap; }
+		bool getEditWordWrap()
+		{
+			return mModeWordWrap;
+		}
 
 		/** Enable or disable tab printing mode\n
 			Tab printing mode: when editing text and pressing Tab key it displayed.
 			If this mode disabled Tab key ignored.\n
 			Disabled (false) by default.
 		*/
-		void setTabPrinting(bool _value) { mTabPrinting = _value; }
+		void setTabPrinting(bool _value)
+		{
+			mTabPrinting = _value;
+		}
 		/** Get edit tab printing wrap mode flag */
-		bool getTabPrinting() { return mTabPrinting; }
+		bool getTabPrinting()
+		{
+			return mTabPrinting;
+		}
 
 		/** Get invert selected text color property */
 		bool getInvertSelected();
@@ -189,16 +231,28 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
+		void setPosition(int _left, int _top)
+		{
+			setPosition(IntPoint(_left, _top));
+		}
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		void setSize(int _width, int _height)
+		{
+			setSize(IntSize(_width, _height));
+		}
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
+		void setCoord(int _left, int _top, int _width, int _height)
+		{
+			setCoord(IntCoord(_left, _top, _width, _height));
+		}
 
 		/** Show VScroll when text size larger than Edit */
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
-		bool isVisibleVScroll() { return mVisibleVScroll; }
+		bool isVisibleVScroll()
+		{
+			return mVisibleVScroll;
+		}
 		/** Get range of vertical scroll (or 0 if no scroll).
 			Range measured in pixels (full text heiht minus Edit height).
 			For example if Edit is 200 pixels height and 40 lines of text
@@ -214,7 +268,10 @@ namespace MyGUI
 		/** Show HScroll when text size larger than Edit */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
-		bool isVisibleHScroll() { return mVisibleHScroll; }
+		bool isVisibleHScroll()
+		{
+			return mVisibleHScroll;
+		}
 		/** Get range of horizontal scroll (or 0 if no scroll).
 			Range measured in pixels (full text width minus Edit width).
 			For example if Edit is 200 pixels width and the longest line
@@ -308,7 +365,7 @@ namespace MyGUI
 		void resetSelect();
 
 		// запись в историю данных о позиции
-		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = nullptr);
+		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo* _info = nullptr);
 
 		// команнды отмена и повтор
 		bool commandRedo();
@@ -316,9 +373,16 @@ namespace MyGUI
 		// объединяет последние две комманды
 		void commandMerge();
 		// очистка
-		void commandResetRedo() { mVectorRedoChangeInfo.clear(); }
-		void commandResetHistory() { mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear(); }
-		void saveInHistory(VectorChangeInfo * _info = nullptr);
+		void commandResetRedo()
+		{
+			mVectorRedoChangeInfo.clear();
+		}
+		void commandResetHistory()
+		{
+			mVectorRedoChangeInfo.clear();
+			mVectorUndoChangeInfo.clear();
+		}
+		void saveInHistory(VectorChangeInfo* _info = nullptr);
 
 		// работа с буфером обмена
 		void commandCut();

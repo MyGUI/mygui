@@ -42,9 +42,9 @@ namespace MyGUI
 		void shutdown();
 
 		//!	Load library
-		DynLib* load(const std::string &fileName);
+		DynLib* load(const std::string& fileName);
 		//!	Unload library
-		void unload(DynLib *library);
+		void unload(DynLib* library);
 
 		void unloadAll();
 

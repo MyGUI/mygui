@@ -258,10 +258,10 @@ namespace MyGUI
 		}
 	}
 
-	const char * Message::getIconName(size_t _index)
+	const char* Message::getIconName(size_t _index)
 	{
 		static const size_t CountIcons = 4;
-		static const char * IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
+		static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
 		if (_index >= CountIcons) return IconNames[CountIcons];
 		return IconNames[_index];
 	}
@@ -374,18 +374,18 @@ namespace MyGUI
 		return result;
 	}
 
-	const char * Message::getButtonName(size_t _index)
+	const char* Message::getButtonName(size_t _index)
 	{
 		static const size_t Count = 9;
-		static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
+		static const char* Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
 		if (_index >= Count) return Names[Count];
 		return Names[_index];
 	}
 
-	const char * Message::getButtonTag(size_t _index)
+	const char* Message::getButtonTag(size_t _index)
 	{
 		static const size_t Count = 9;
-		static const char * Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
+		static const char* Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
 		if (_index >= Count) return Names[Count];
 		return Names[_index];
 	}

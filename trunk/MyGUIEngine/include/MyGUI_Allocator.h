@@ -56,8 +56,14 @@ namespace MyGUI
 		inline explicit Allocator(Allocator<U> const&) { }
 
 		//    address
-		inline pointer address(reference r) { return &r; }
-		inline const_pointer address(const_reference r) { return &r; }
+		inline pointer address(reference r)
+		{
+			return &r;
+		}
+		inline const_pointer address(const_reference r)
+		{
+			return &r;
+		}
 
 		//    memory allocation
 		inline pointer allocate(size_type cnt, typename std::allocator<void>::const_pointer = 0)
@@ -76,11 +82,23 @@ namespace MyGUI
 		}
 
 		//    construction/destruction
-		inline void construct(pointer p, const T& t) { new (p) T(t); }
-		inline void destroy(pointer p) { p->~T(); }
+		inline void construct(pointer p, const T& t)
+		{
+			new (p) T(t);
+		}
+		inline void destroy(pointer p)
+		{
+			p->~T();
+		}
 
-		inline bool operator==(Allocator const&) { return true; }
-		inline bool operator!=(Allocator const& a) { return !operator==(a); }
+		inline bool operator==(Allocator const&)
+		{
+			return true;
+		}
+		inline bool operator!=(Allocator const& a)
+		{
+			return !operator==(a);
+		}
 	};
 
 } // namespace MyGUI

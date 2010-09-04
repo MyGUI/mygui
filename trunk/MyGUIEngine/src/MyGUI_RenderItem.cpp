@@ -65,7 +65,7 @@ namespace MyGUI
 		if (mOutDate || _update)
 		{
 			mCountVertex = 0;
-			Vertex * buffer = (Vertex*)mVertexBuffer->lock();
+			Vertex* buffer = (Vertex*)mVertexBuffer->lock();
 
 			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
 			{

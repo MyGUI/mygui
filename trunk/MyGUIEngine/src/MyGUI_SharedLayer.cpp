@@ -89,19 +89,19 @@ namespace MyGUI
 	void SharedLayer::upChildItemNode(ILayerNode* _item)
 	{
 		// если есть отец, то пусть сам рулит
-		ILayerNode * parent = _item->getParent();
+		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
 		{
 			parent->upChildItemNode(_item);
 		}
 	}
 
-	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top) const
+	ILayerItem* SharedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
 		if (!mIsPick) return nullptr;
 		if (mChildItem != nullptr)
 		{
-			ILayerItem * item = mChildItem->getLayerItemByPoint(_left, _top);
+			ILayerItem* item = mChildItem->getLayerItemByPoint(_left, _top);
 			if (item != nullptr) return item;
 		}
 		return nullptr;

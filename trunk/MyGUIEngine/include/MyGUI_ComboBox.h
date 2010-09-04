@@ -48,13 +48,19 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() const { return mList->getItemCount(); }
+		size_t getItemCount() const
+		{
+			return mList->getItemCount();
+		}
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const UString& _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
+		void addItem(const UString& _name, Any _data = Any::Null)
+		{
+			return insertItemAt(ITEM_NONE, _name, _data);
+		}
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -71,13 +77,19 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getIndexSelected() { return mItemIndex; }
+		size_t getIndexSelected()
+		{
+			return mItemIndex;
+		}
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);
 
 		//! Clear item selection
-		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
+		void clearIndexSelected()
+		{
+			setIndexSelected(ITEM_NONE);
+		}
 
 
 		//------------------------------------------------------------------------------//
@@ -87,11 +99,14 @@ namespace MyGUI
 		void setItemDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
+		void clearItemDataAt(size_t _index)
+		{
+			setItemDataAt(_index, Any::Null);
+		}
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
 			return mList->getItemDataAt<ValueType>(_index, _throw);
 		}
@@ -104,23 +119,38 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index) { return mList->getItemNameAt(_index); }
+		const UString& getItemNameAt(size_t _index)
+		{
+			return mList->getItemNameAt(_index);
+		}
 
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выдимостью
 
 		//! Move all elements so specified becomes visible
-		void beginToItemAt(size_t _index) { mList->beginToItemAt(_index); }
+		void beginToItemAt(size_t _index)
+		{
+			mList->beginToItemAt(_index);
+		}
 
 		//! Move all elements so first becomes visible
-		void beginToItemFirst() { if (getItemCount()) beginToItemAt(0); }
+		void beginToItemFirst()
+		{
+			if (getItemCount()) beginToItemAt(0);
+		}
 
 		//! Move all elements so last becomes visible
-		void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
+		void beginToItemLast()
+		{
+			if (getItemCount()) beginToItemAt(getItemCount() - 1);
+		}
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
+		void beginToItemSelected()
+		{
+			if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected());
+		}
 
 
 		//------------------------------------------------------------------------------------//
@@ -129,20 +159,38 @@ namespace MyGUI
 		//! Set drop list mode (text can not be edited)
 		void setComboModeDrop(bool _value);
 		//! Get drop list mode flag
-		bool getComboModeDrop() { return mModeDrop; }
+		bool getComboModeDrop()
+		{
+			return mModeDrop;
+		}
 
 		//! Set smooth show of list
-		void setSmoothShow(bool _value) { mShowSmooth = _value; }
+		void setSmoothShow(bool _value)
+		{
+			mShowSmooth = _value;
+		}
 		//! Get smooth show of list flag
-		bool getSmoothShow() { return mShowSmooth; }
+		bool getSmoothShow()
+		{
+			return mShowSmooth;
+		}
 
 		//! Get max list length
-		void setMaxListLength(int _value) { mMaxListLength = _value; }
+		void setMaxListLength(int _value)
+		{
+			mMaxListLength = _value;
+		}
 		//! Set max list length
-		int getMaxListLength() { return mMaxListLength; }
+		int getMaxListLength()
+		{
+			return mMaxListLength;
+		}
 
 		void setFlowDirection(FlowDirection _value);
-		FlowDirection getFlowDirection() { return mFlowDirection; }
+		FlowDirection getFlowDirection()
+		{
+			return mFlowDirection;
+		}
 
 	/*events:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n

@@ -83,7 +83,7 @@ namespace MyGUI
 		void close();
 
 	private:
-		static LogManager * msInstance;
+		static LogManager* msInstance;
 
 		typedef std::vector<LogSource*> VectorLogSource;
 		VectorLogSource mSources;

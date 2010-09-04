@@ -58,10 +58,10 @@ namespace MyGUI
 		}
 	}
 
-	ILayerNode * OverlappedLayer::createChildItemNode()
+	ILayerNode* OverlappedLayer::createChildItemNode()
 	{
 		// создаем рутовый айтем
-		ILayerNode * node = new LayerNode(this);
+		ILayerNode* node = new LayerNode(this);
 		mChildItems.push_back(node);
 
 		return node;
@@ -70,7 +70,7 @@ namespace MyGUI
 	void OverlappedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
 		// если есть отец, то русть сам и удаляет
-		ILayerNode * parent = _item->getParent();
+		ILayerNode* parent = _item->getParent();
 		if (parent)
 		{
 			parent->destroyChildItemNode(_item);
@@ -114,13 +114,13 @@ namespace MyGUI
 		MYGUI_EXCEPT("item node not found");
 	}
 
-	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top) const
+	ILayerItem* OverlappedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
 		if (!mIsPick) return nullptr;
 		VectorILayerNode::const_reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
+			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (item != nullptr) return item;
 			++iter;
 		}

@@ -137,7 +137,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class Element
 		//----------------------------------------------------------------------//
-		Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string& _content) :
+		Element::Element(const std::string& _name, ElementPtr _parent, ElementType _type, const std::string& _content) :
 			mName(_name),
 			mContent(_content),
 			mParent(_parent),
@@ -300,11 +300,23 @@ namespace MyGUI
 		}
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
-		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
-		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide)
+		{
+			_stream.open(_wide.c_str());
+		}
+		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide)
+		{
+			_stream.open(_wide.c_str());
+		}
 #else
-		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
-		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
+		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide)
+		{
+			_stream.open(UString(_wide).asUTF8_c_str());
+		}
+		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide)
+		{
+			_stream.open(UString(_wide).asUTF8_c_str());
+		}
 #endif
 
 		//----------------------------------------------------------------------//
@@ -489,7 +501,7 @@ namespace MyGUI
 			mCol = 0;
 		}
 
-		bool Document::parseTag(ElementPtr &_currentNode, std::string _content)
+		bool Document::parseTag(ElementPtr& _currentNode, std::string _content)
 		{
 
 			// убераем лишнее
@@ -675,7 +687,7 @@ namespace MyGUI
 			return true;
 		}
 
-		bool Document::checkPair(std::string &_key, std::string &_value)
+		bool Document::checkPair(std::string& _key, std::string& _value)
 		{
 			// в ключе не должно быть ковычек и пробелов
 			MyGUI::utility::trim(_key);

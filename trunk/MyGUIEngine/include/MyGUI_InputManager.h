@@ -71,29 +71,53 @@ namespace MyGUI
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */
-		bool isFocusMouse() const { return mWidgetMouseFocus != nullptr; }
+		bool isFocusMouse() const
+		{
+			return mWidgetMouseFocus != nullptr;
+		}
 		/** Is any widget have key focus */
-		bool isFocusKey() const { return mWidgetKeyFocus != nullptr; }
+		bool isFocusKey() const
+		{
+			return mWidgetKeyFocus != nullptr;
+		}
 		/** Is any widget captured mouse */
-		bool isCaptureMouse() const { return mIsWidgetMouseCapture; }
+		bool isCaptureMouse() const
+		{
+			return mIsWidgetMouseCapture;
+		}
 
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(Widget* _widget);
 		/** Drop key focus for _widget */
 		void resetKeyFocusWidget(Widget* _widget);
 		/** Drop any key focus */
-		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
+		void resetKeyFocusWidget()
+		{
+			setKeyFocusWidget(nullptr);
+		}
 
 		/** Get mouse focused widget */
-		Widget* getMouseFocusWidget() const { return mWidgetMouseFocus; }
+		Widget* getMouseFocusWidget() const
+		{
+			return mWidgetMouseFocus;
+		}
 		/** Get key focused widget */
-		Widget* getKeyFocusWidget() const { return mWidgetKeyFocus; }
+		Widget* getKeyFocusWidget() const
+		{
+			return mWidgetKeyFocus;
+		}
 		/** Get position of last left mouse button press.
 			Position calculated on specific layer where mouse was pressed.
 		*/
-		const IntPoint& getLastLeftPressed() const { return mLastLeftPressed; }
+		const IntPoint& getLastLeftPressed() const
+		{
+			return mLastLeftPressed;
+		}
 		/** Get current mouse position on screen */
-		const IntPoint& getMousePosition() const { return mMousePosition; }
+		const IntPoint& getMousePosition() const
+		{
+			return mMousePosition;
+		}
 
 		/** Get mouse position on current layer.
 			This position might different from getMousePosition() if mouse is over non-2d layer.
@@ -107,21 +131,36 @@ namespace MyGUI
 		void removeWidgetModal(Widget* _widget);
 
 		/** Return true if any modal widget exist */
-		bool isModalAny() const { return !mVectorModalRootWidget.empty(); }
+		bool isModalAny() const
+		{
+			return !mVectorModalRootWidget.empty();
+		}
 
 		/** Is control button pressed */
-		bool isControlPressed() const { return mIsControlPressed; }
+		bool isControlPressed() const
+		{
+			return mIsControlPressed;
+		}
 		/** Is shift button pressed */
-		bool isShiftPressed() const { return mIsShiftPressed; }
+		bool isShiftPressed() const
+		{
+			return mIsShiftPressed;
+		}
 
 		/** Reset mouse capture.
 			For example when we dragging and application
 			lost focus you should call this.
 		*/
-		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
+		void resetMouseCaptureWidget()
+		{
+			mIsWidgetMouseCapture = false;
+		}
 
 		/** Unlink widget from input manager. */
-		void unlinkWidget(Widget* _widget) { _unlinkWidget(_widget); }
+		void unlinkWidget(Widget* _widget)
+		{
+			_unlinkWidget(_widget);
+		}
 
 		/** Event : MultiDelegate. Mouse focus was changed.\n
 			signature : void method(MyGUI::Widget* _widget)\n

@@ -52,27 +52,76 @@ namespace MyGUI
 
 		Align(Enum _value = Default) : value(_value) { }
 
-		bool isHCenter() const { return HCenter == (value & ((int)HStretch)); }
-		bool isVCenter() const { return VCenter == (value & ((int)VStretch)); }
-		bool isCenter() const { return Center == (value & ((int)Stretch)); }
+		bool isHCenter() const
+		{
+			return HCenter == (value & ((int)HStretch));
+		}
+		bool isVCenter() const
+		{
+			return VCenter == (value & ((int)VStretch));
+		}
+		bool isCenter() const
+		{
+			return Center == (value & ((int)Stretch));
+		}
 
-		bool isLeft() const { return Left == (value & ((int)HStretch)); }
-		bool isRight() const { return Right == (value & ((int)HStretch)); }
-		bool isHStretch() const { return HStretch == (value & ((int)HStretch)); }
+		bool isLeft() const
+		{
+			return Left == (value & ((int)HStretch));
+		}
+		bool isRight() const
+		{
+			return Right == (value & ((int)HStretch));
+		}
+		bool isHStretch() const
+		{
+			return HStretch == (value & ((int)HStretch));
+		}
 
-		bool isTop() const { return Top == (value & ((int)VStretch)); }
-		bool isBottom() const { return (Bottom == (value & ((int)VStretch))); }
-		bool isVStretch() const { return (VStretch == (value & ((int)VStretch))); }
+		bool isTop() const
+		{
+			return Top == (value & ((int)VStretch));
+		}
+		bool isBottom() const
+		{
+			return (Bottom == (value & ((int)VStretch)));
+		}
+		bool isVStretch() const
+		{
+			return (VStretch == (value & ((int)VStretch)));
+		}
 
-		bool isStretch() const { return (Stretch == (value & ((int)Stretch))); }
-		bool isDefault() const { return (Default == (value & ((int)Stretch))); }
+		bool isStretch() const
+		{
+			return (Stretch == (value & ((int)Stretch)));
+		}
+		bool isDefault() const
+		{
+			return (Default == (value & ((int)Stretch)));
+		}
 
-		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
-		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
-		friend Align operator | (Align const& a, Align const& b) { return Align(Enum(int(a.value) | int(b.value))); }
+		Align& operator |= (Align const& _other)
+		{
+			value = Enum(int(value) | int(_other.value));
+			return *this;
+		}
+		friend Align operator | (Enum const& a, Enum const& b)
+		{
+			return Align(Enum(int(a) | int(b)));
+		}
+		friend Align operator | (Align const& a, Align const& b)
+		{
+			return Align(Enum(int(a.value) | int(b.value)));
+		}
 
-		friend bool operator == (Align const& a, Align const& b) { return a.value == b.value; }
-		friend bool operator != (Align const& a, Align const& b) { return a.value != b.value; }
+		friend bool operator == (Align const& a, Align const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (Align const& a, Align const& b)
+		{
+			return a.value != b.value;
+		}
 
 		typedef std::map<std::string, int> MapAlign;
 

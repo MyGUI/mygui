@@ -55,8 +55,14 @@ namespace MyGUI
 
 		virtual void doRender() = 0;
 
-		virtual void setAlign(Align _value) { mAlign = _value; }
-		virtual void setVisible(bool _value) { mVisible = _value; }
+		virtual void setAlign(Align _value)
+		{
+			mAlign = _value;
+		}
+		virtual void setVisible(bool _value)
+		{
+			mVisible = _value;
+		}
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }

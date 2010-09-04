@@ -38,11 +38,11 @@ namespace MyGUI
 	{
 	}
 
-	GlyphInfo * ResourceManualFont::getGlyphInfo(Char _id)
+	GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id)
 	{
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
 		{
-			GlyphInfo * info = iter->getInfo(_id);
+			GlyphInfo* info = iter->getInfo(_id);
 			if (info == nullptr) continue;
 			return info;
 		}
@@ -64,7 +64,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManualFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	void ResourceManualFont::addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
@@ -122,7 +122,7 @@ namespace MyGUI
 
 		for (size_t pos=_first; pos<=_last; ++pos)
 		{
-			GlyphInfo * info = range.getInfo(_info[pos].code);
+			GlyphInfo* info = range.getInfo(_info[pos].code);
 			const IntCoord& coord = _info[pos].coord;
 			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
 

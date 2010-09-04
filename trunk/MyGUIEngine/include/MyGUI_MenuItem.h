@@ -72,7 +72,7 @@ namespace MyGUI
 
 		/** Create specific type child item (submenu), MenuItem can have only one child */
 		template <typename Type>
-		Type * createItemChildT()
+		Type* createItemChildT()
 		{
 			return mOwner->createItemChildT<Type>(this);
 		}
@@ -86,7 +86,10 @@ namespace MyGUI
 		void setItemChildVisible(bool _value);
 
 		/** Get parent MenuCtrl */
-		MenuCtrl* getMenuCtrlParent() { return mOwner; }
+		MenuCtrl* getMenuCtrlParent()
+		{
+			return mOwner;
+		}
 
 		/** Get child item (submenu) */
 		MenuCtrl* getItemChild();

@@ -39,10 +39,16 @@ namespace MyGUI
 
 		// DESCRIBEME
 		// устанавливает доступность подписчика
-		bool getEnable() const { return mEnable; }
+		bool getEnable() const
+		{
+			return mEnable;
+		}
 		// DESCRIBEME
 		// возвращает доступность подписчика
-		void setEnable(bool _value) { mEnable = _value; }
+		void setEnable(bool _value)
+		{
+			mEnable = _value;
+		}
 
 	private:
 		bool mEnable;
