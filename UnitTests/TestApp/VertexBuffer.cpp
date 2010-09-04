@@ -120,9 +120,11 @@ namespace demo
 	{
 		if (mRenderMode == RenderModeFilterNone)
 		{
+			if (_renderManager->getCurrentManual())
+				_renderManager->initState();
+
 			_renderManager->setCurrentManual(true);
 
-			_renderManager->initState();
 			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
 			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
 
@@ -130,11 +132,14 @@ namespace demo
 		}
 		else if (mRenderMode == RenderModePolygonWireframe)
 		{
+			if (_renderManager->getCurrentManual())
+				_renderManager->initState();
+
 			_renderManager->setCurrentManual(true);
 
-			_renderManager->initState();
 			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
 			_renderManager->getRenderSystem()->_setPolygonMode(Ogre::PM_WIREFRAME);
+			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
 
 			_renderManager->getRenderSystem()->_render(getRenderOperation());
 		}

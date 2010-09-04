@@ -14,10 +14,14 @@ namespace demo
 
 		virtual void doRender(RenderManager* _renderManager);
 
+		void setTextureFilterNone(bool _value);
+
 	private:
 		VertexBuffer* mBuffer;
 		Ogre::TexturePtr mTexture;
 		Ogre::Viewport* mViewport;
+		Ogre::Matrix4 mProjectMatrix;
+		bool mTextureFilterNone;
 	};
 
 } // namespace demo
