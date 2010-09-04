@@ -3,12 +3,14 @@ set (HEADER_FILES
   VertexBuffer.h
   RenderManager.h
   Layer.h
+  RttLayer.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
   VertexBuffer.cpp
   RenderManager.cpp
   Layer.cpp
+  RttLayer.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
