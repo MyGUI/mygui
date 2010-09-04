@@ -42,7 +42,7 @@ namespace diagnostic
 				MyGUI::Gui::getInstance().destroyWidget(mMouseHelper);
 		}
 
-		bool getFocusVisible() { return mFocusVisible; }
+		bool getFocusVisible() const { return mFocusVisible; }
 
 		void setFocusVisible(bool _value)
 		{
