@@ -46,13 +46,13 @@ namespace MyGUI
 
 		virtual void setVisible(bool _visible);
 
-		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя
 		virtual void doRender();
 
-		virtual void setStateData(IStateInfo * _data);
+		virtual void setStateData(IStateInfo* _data);
 
 	/*internal:*/
 		virtual void _updateView();

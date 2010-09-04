@@ -117,7 +117,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle * _cropeedParent, const std::string& _name)
+	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, const std::string& _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)
@@ -147,13 +147,13 @@ namespace MyGUI
 		Gui::getInstance().destroyWidgets(_widgets);
 	}
 
-	void WidgetManager::registerUnlinker(IUnlinkWidget * _unlink)
+	void WidgetManager::registerUnlinker(IUnlinkWidget* _unlink)
 	{
 		unregisterUnlinker(_unlink);
 		mVectorIUnlinkWidget.push_back(_unlink);
 	}
 
-	void WidgetManager::unregisterUnlinker(IUnlinkWidget * _unlink)
+	void WidgetManager::unregisterUnlinker(IUnlinkWidget* _unlink)
 	{
 		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++)
 		{

@@ -134,13 +134,13 @@ namespace MyGUI
 		// сначала пикаем детей
 		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
+			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
 
 		for (VectorLayerItem::const_iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
 		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
+			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
 
@@ -155,7 +155,7 @@ namespace MyGUI
 			if (mFirstRenderItems.empty() || _separate)
 			{
 				// создаем новый буфер
-				RenderItem * item = new RenderItem();
+				RenderItem* item = new RenderItem();
 				item->setTexture(_texture);
 				item->setSeparate(_separate);
 				mFirstRenderItems.push_back(item);
@@ -195,7 +195,7 @@ namespace MyGUI
 			}
 
 			// создаем новый буфер
-			RenderItem * item = new RenderItem();
+			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
 			item->setSeparate(_separate);
 			mFirstRenderItems.push_back(item);
@@ -219,7 +219,7 @@ namespace MyGUI
 
 		}
 		// не найденно создадим новый
-		RenderItem * item = new RenderItem();
+		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
 		item->setSeparate(_separate);
 
@@ -271,7 +271,7 @@ namespace MyGUI
 			{
 				if ((*iter1)->getNeedVertexCount() == 0)
 				{
-					RenderItem * tmp = (*iter1);
+					RenderItem* tmp = (*iter1);
 					(*iter1) = (*iter2);
 					(*iter2) = tmp;
 				}

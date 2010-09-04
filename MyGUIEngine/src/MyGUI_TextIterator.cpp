@@ -33,7 +33,7 @@ namespace MyGUI
 	{
 	}
 
-	TextIterator::TextIterator(const UString& _text, VectorChangeInfo * _history) :
+	TextIterator::TextIterator(const UString& _text, VectorChangeInfo* _history) :
 		mText(_text),
 		mCurrent(mText.begin()),
 		mEnd(mText.end()),

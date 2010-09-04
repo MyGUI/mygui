@@ -41,15 +41,27 @@ namespace MyGUI
 		public:
 			virtual ~IDelegateUnlink() { }
 
-			IDelegateUnlink() { m_baseDelegateUnlink = this; }
-			bool compare(IDelegateUnlink * _unlink) const { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
+			IDelegateUnlink()
+			{
+				m_baseDelegateUnlink = this;
+			}
+			bool compare(IDelegateUnlink* _unlink) const
+			{
+				return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink;
+			}
 
 		private:
-			IDelegateUnlink * m_baseDelegateUnlink;
+			IDelegateUnlink* m_baseDelegateUnlink;
 		};
 
-		inline IDelegateUnlink * GetDelegateUnlink(void * _base) { return 0; }
-		inline IDelegateUnlink * GetDelegateUnlink(IDelegateUnlink * _base) { return _base; }
+		inline IDelegateUnlink* GetDelegateUnlink(void* _base)
+		{
+			return 0;
+		}
+		inline IDelegateUnlink* GetDelegateUnlink(IDelegateUnlink* _base)
+		{
+			return _base;
+		}
 	}
 
 	// без параметров

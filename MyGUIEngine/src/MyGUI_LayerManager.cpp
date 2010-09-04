@@ -212,7 +212,7 @@ namespace MyGUI
 		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
 		while (iter != mLayerNodes.rend())
 		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
+			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (item != nullptr) return static_cast<Widget*>(item);
 			++iter;
 		}

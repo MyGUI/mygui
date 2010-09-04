@@ -78,20 +78,26 @@ namespace MyGUI
 		}
 
 		/** Set any user data to store inside widget */
-		void setUserData(Any _data) { mUserData = _data; }
+		void setUserData(Any _data)
+		{
+			mUserData = _data;
+		}
 
 		/** Get user data and cast it to ValueType */
 		template <typename ValueType>
-		ValueType * getUserData(bool _throw = true)
+		ValueType* getUserData(bool _throw = true)
 		{
 			return mUserData.castType<ValueType>(_throw);
 		}
 
 	/*internal:*/
-		void _setInternalData(Any _data) { mInternalData = _data; }
+		void _setInternalData(Any _data)
+		{
+			mInternalData = _data;
+		}
 
 		template <typename ValueType>
-		ValueType * _getInternalData(bool _throw = true)
+		ValueType* _getInternalData(bool _throw = true)
 		{
 			return mInternalData.castType<ValueType>(_throw);
 		}

@@ -84,19 +84,31 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		//! Get number of items
-		size_t getItemCount() const { return mItems.size(); }
+		size_t getItemCount() const
+		{
+			return mItems.size();
+		}
 
 		//! Select specified _index
 		void setItemSelect(size_t _index);
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemSelect() { return mIndexSelect; }
+		size_t getItemSelect()
+		{
+			return mIndexSelect;
+		}
 		//! Reset item selection
-		void resetItemSelect() { setItemSelect(ITEM_NONE); }
+		void resetItemSelect()
+		{
+			setItemSelect(ITEM_NONE);
+		}
 
 		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const IntCoord& _item);
 		//! Add an item to the end of a list
-		void addItem(const IntCoord& _item) { insertItem(ITEM_NONE, _item); }
+		void addItem(const IntCoord& _item)
+		{
+			insertItem(ITEM_NONE, _item);
+		}
 		//! Replace an item at a specified position
 		void setItem(size_t _index, const IntCoord& _item);
 
@@ -184,7 +196,10 @@ namespace MyGUI
 		void setItemResourceInfo(const ImageIndexInfo& _info);
 
 		/** Get current items resource used in StaticImage */
-		ResourceImageSetPtr getItemResource() { return mResource; }
+		ResourceImageSetPtr getItemResource()
+		{
+			return mResource;
+		}
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 

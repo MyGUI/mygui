@@ -96,7 +96,7 @@ namespace MyGUI
 			(LPTSTR) &lpMsgBuf,
 			0,
 			NULL
-			);
+		);
 		std::string ret = (char*)lpMsgBuf;
 		// Free the buffer.
 		LocalFree( lpMsgBuf );

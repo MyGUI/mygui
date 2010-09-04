@@ -125,7 +125,7 @@ namespace MyGUI
 		mLayerNode->detachLayerItem(this);
 
 		// при детаче обнулиться
-		ILayerNode * save = mLayerNode;
+		ILayerNode* save = mLayerNode;
 
 		// физически отсоединяем
 		detachFromLayerItemNode(true);

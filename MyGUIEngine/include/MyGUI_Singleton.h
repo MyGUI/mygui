@@ -51,8 +51,14 @@ namespace MyGUI
 			MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << getClassTypeName() << " was not created");
 			return (*getInstancePtr());
 		}
-		static T* getInstancePtr() { return msInstance; }
-		static const char* getClassTypeName() { return mClassTypeName; }
+		static T* getInstancePtr()
+		{
+			return msInstance;
+		}
+		static const char* getClassTypeName()
+		{
+			return mClassTypeName;
+		}
 
 	private:
 		static T* msInstance;

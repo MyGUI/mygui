@@ -41,13 +41,16 @@ namespace MyGUI
 		/** Set angle of rotation in radians */
 		void setAngle(float _angle);
 		/** Get angle of rotation in radians */
-		float getAngle() const { return mAngle; }
+		float getAngle() const
+		{
+			return mAngle;
+		}
 
 		/** Set center of rotation
 			@param _center Center point.
 			@param _local If true - _center point calculated as point on SubWidget, else calculated as point on screen.
 		*/
-		void setCenter(const IntPoint &_center);
+		void setCenter(const IntPoint& _center);
 		/** Get center of rotation */
 		IntPoint getCenter(bool _local = true) const;
 
@@ -57,7 +60,7 @@ namespace MyGUI
 
 		virtual void setStateData(IStateInfo* _data);
 
-		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя

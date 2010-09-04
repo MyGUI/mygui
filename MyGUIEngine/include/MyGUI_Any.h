@@ -147,7 +147,7 @@ namespace MyGUI
 		}
 
 		template<typename ValueType>
-		ValueType * castType(bool _throw = true) const
+		ValueType* castType(bool _throw = true) const
 		{
 			if (this->getType() == typeid(ValueType))
 			{
@@ -157,9 +157,9 @@ namespace MyGUI
 			return nullptr;
 		}
 
-		void * castUnsafe() const
+		void* castUnsafe() const
 		{
-			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : nullptr;
+			return mContent ? static_cast<Any::Holder<void*> *>(this->mContent)->held : nullptr;
 		}
 
 	private:
@@ -170,7 +170,7 @@ namespace MyGUI
 
 		public:
 			virtual const std::type_info& getType() const = 0;
-			virtual Placeholder * clone() const = 0;
+			virtual Placeholder* clone() const = 0;
 
 		};
 
@@ -188,7 +188,7 @@ namespace MyGUI
 				return typeid(ValueType);
 			}
 
-			virtual Placeholder * clone() const
+			virtual Placeholder* clone() const
 			{
 				return new Holder(held);
 			}
@@ -197,13 +197,13 @@ namespace MyGUI
 			ValueType held;
 
 		private:
-			Holder& operator=(const Holder &);
+			Holder& operator=(const Holder&);
 
 		};
 
 
-		private: // representation
-			Placeholder * mContent;
+	private: // representation
+		Placeholder* mContent;
 
 	};
 

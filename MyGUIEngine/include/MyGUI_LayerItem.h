@@ -39,7 +39,10 @@ namespace MyGUI
 		virtual ~LayerItem() { }
 
 	public:
-		ILayer* getLayer() const { return mLayer; }
+		ILayer* getLayer() const
+		{
+			return mLayer;
+		}
 
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
 		virtual void detachFromLayer();
@@ -67,8 +70,8 @@ namespace MyGUI
 		// актуально для рутового виджета
 		ILayer* mLayer;
 		// конкретный айтем находящийся в слое
-		ILayerNode * mLayerNode;
-		ILayerNode * mSaveLayerNode;
+		ILayerNode* mLayerNode;
+		ILayerNode* mSaveLayerNode;
 
 		typedef std::vector<LayerItem*> VectorLayerItem;
 		// список наших детей айтемов

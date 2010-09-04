@@ -557,13 +557,13 @@ namespace MyGUI
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr &_widgets);
+		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
 		MYGUI_OBSOLETE(" is deprecated")
 		Widget* findWidgetT(const std::string& _name, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated")
 		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
-		void parse(Widget* _widget, const std::string &_key, const std::string &_value);
+		void parse(Widget* _widget, const std::string& _key, const std::string& _value);
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE

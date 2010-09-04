@@ -75,7 +75,7 @@ namespace MyGUI
 	{
 		time_t ctTime;
 		time(&ctTime);
-		struct tm *currentTime;
+		struct tm* currentTime;
 		currentTime = localtime(&ctTime);
 
 		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)

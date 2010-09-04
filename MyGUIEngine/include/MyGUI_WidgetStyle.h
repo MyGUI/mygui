@@ -44,7 +44,7 @@ namespace MyGUI
 			int value = 0;
 			while (true)
 			{
-				const char * name = type.getValueName(value);
+				const char* name = type.getValueName(value);
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			}
@@ -55,8 +55,14 @@ namespace MyGUI
 		WidgetStyle() : value(MAX) { }
 		WidgetStyle(Enum _value) : value(_value) { }
 
-		friend bool operator == (WidgetStyle const& a, WidgetStyle const& b) { return a.value == b.value; }
-		friend bool operator != (WidgetStyle const& a, WidgetStyle const& b) { return a.value != b.value; }
+		friend bool operator == (WidgetStyle const& a, WidgetStyle const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (WidgetStyle const& a, WidgetStyle const& b)
+		{
+			return a.value != b.value;
+		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle&  _value )
 		{
@@ -72,12 +78,15 @@ namespace MyGUI
 			return _stream;
 		}
 
-		std::string print() const { return getValueName(value); }
+		std::string print() const
+		{
+			return getValueName(value);
+		}
 
 	private:
-		const char * getValueName(int _index) const
+		const char* getValueName(int _index) const
 		{
-			static const char * values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
+			static const char* values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 

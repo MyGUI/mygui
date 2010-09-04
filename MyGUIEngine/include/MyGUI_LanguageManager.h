@@ -66,7 +66,7 @@ namespace MyGUI
 			signature : void method(const std::string& _language);
 			@param _language Current language.
 		*/
-		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
+		delegates::CMultiDelegate1<const std::string&> eventChangeLanguage;
 
 		/** Event : Request tag.\n
 			signature : void method(const MyGUI::UString& _tag, MyGUI::UString& _result);

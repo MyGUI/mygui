@@ -90,7 +90,7 @@ namespace MyGUI
 					Align::parse(basis->findAttribute("align")),
 					basis->findAttribute("layer"),
 					basis->findAttribute("name")
-					);
+				);
 
 				xml::ElementEnumerator child_params = basis->getElementEnumerator();
 				while (child_params.next("Property"))
@@ -182,7 +182,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceSkin::setInfo(const IntSize& _size, const std::string &_texture)
+	void ResourceSkin::setInfo(const IntSize& _size, const std::string& _texture)
 	{
 		mSize = _size;
 		mTexture = _texture;
@@ -196,7 +196,7 @@ namespace MyGUI
 		fillState(_bind.mStates, mBasis.size()-1);
 	}
 
-	void ResourceSkin::addProperty(const std::string &_key, const std::string &_value)
+	void ResourceSkin::addProperty(const std::string& _key, const std::string& _value)
 	{
 		mProperties[_key] = _value;
 	}

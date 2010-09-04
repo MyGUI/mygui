@@ -67,7 +67,7 @@ namespace MyGUI
 		virtual void setFontHeight(int _value);
 		virtual int getFontHeight() const;
 
-		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node);
 		virtual void destroyDrawItem();
 
 		virtual void setTextAlign(Align _value);
@@ -84,7 +84,10 @@ namespace MyGUI
 		virtual void setVisibleCursor(bool _value);
 
 		/** Get invert selected text color property */
-		virtual bool getInvertSelected() const { return mInvertSelect; }
+		virtual bool getInvertSelected() const
+		{
+			return mInvertSelect;
+		}
 		/** Enable or disable inverting color of selected text\n
 			Enabled (true) by default
 		*/
@@ -109,7 +112,7 @@ namespace MyGUI
 
 		void setWordWrap(bool _value);
 
-		virtual void setStateData(IStateInfo * _data);
+		virtual void setStateData(IStateInfo* _data);
 
 	/*internal:*/
 		virtual void _updateView();

@@ -36,9 +36,18 @@ namespace MyGUI
 		explicit SharedLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		virtual ~SharedLayerNode();
 
-		void addUsing() { mCountUsing++; }
-		void removeUsing() { mCountUsing--; }
-		size_t countUsing() const { return mCountUsing; }
+		void addUsing()
+		{
+			mCountUsing++;
+		}
+		void removeUsing()
+		{
+			mCountUsing--;
+		}
+		size_t countUsing() const
+		{
+			return mCountUsing;
+		}
 
 	private:
 		size_t mCountUsing;

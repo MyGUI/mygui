@@ -35,7 +35,7 @@ namespace MyGUI
 {
 
 	class ResourceImageSet;
-	typedef ResourceImageSet * ResourceImageSetPtr;
+	typedef ResourceImageSet* ResourceImageSetPtr;
 
 	struct IndexImage
 	{
@@ -122,7 +122,10 @@ namespace MyGUI
 		ImageIndexInfo getIndexInfo(const IntSize& _group, const std::string& _index);
 
 		/** Get groups Enumerator */
-		EnumeratorGroupImage getEnumerator() const { return EnumeratorGroupImage(mGroups); }
+		EnumeratorGroupImage getEnumerator() const
+		{
+			return EnumeratorGroupImage(mGroups);
+		}
 
 	private:
 		VectorGroupImage mGroups;

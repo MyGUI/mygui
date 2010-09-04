@@ -191,7 +191,7 @@ namespace MyGUI
 		if (image->getItemResource())
 		{
 			static const size_t CountIcons = 2;
-			static const char * IconNames[CountIcons + 1] = { "None", "Popup", "" };
+			static const char* IconNames[CountIcons + 1] = { "None", "Popup", "" };
 			if (_index >= CountIcons) _index = CountIcons;
 			image->setItemName(IconNames[_index]);
 		}
@@ -455,7 +455,7 @@ namespace MyGUI
 		else
 		{
 			if ((item->getItemType() == MenuItemType::Popup && mPopupAccept) ||
-				item->getItemType() == MenuItemType::Normal)
+					item->getItemType() == MenuItemType::Normal)
 			{
 				notifyMenuCtrlAccept(item);
 			}

@@ -46,17 +46,23 @@ namespace MyGUI
 
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
-		virtual ITexture* getTextureFont() { return mTexture; }
+		virtual ITexture* getTextureFont()
+		{
+			return mTexture;
+		}
 
 		// дефолтная высота, указанная в настройках шрифта
-		virtual int getDefaultHeight() { return mDefaultHeight; }
+		virtual int getDefaultHeight()
+		{
+			return mDefaultHeight;
+		}
 
 	private:
 		void addGlyph(Char _index, const IntCoord& _coord);
 
 		void initialise();
 
-		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
+		void addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
 		void addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
 		void checkTexture();

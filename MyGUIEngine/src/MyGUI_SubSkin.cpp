@@ -187,7 +187,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void SubSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	void SubSkin::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
@@ -264,7 +264,7 @@ namespace MyGUI
 			mCurrentTexture.right,
 			mCurrentTexture.bottom,
 			mCurrentColour
-			);
+		);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}

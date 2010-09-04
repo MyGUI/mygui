@@ -19,10 +19,22 @@ namespace MyGUI
 		CharInfo(const FloatRect& _rect, int _width) : rect(_rect), width(_width) { }
 		CharInfo(uint32 _colour) : rect(-1, 0, 0, 0), width((int)_colour) { }
 
-		bool isColour() const { return rect.left == -1; }
-		int getWidth() const { return width; }
-		const FloatRect& getUVRect() const { return rect; }
-		uint32 getColour() const { return (uint32)width; }
+		bool isColour() const
+		{
+			return rect.left == -1;
+		}
+		int getWidth() const
+		{
+			return width;
+		}
+		const FloatRect& getUVRect() const
+		{
+			return rect;
+		}
+		uint32 getColour() const
+		{
+			return (uint32)width;
+		}
 
 	private:
 		FloatRect rect;
@@ -34,7 +46,13 @@ namespace MyGUI
 	struct LineInfo
 	{
 		LineInfo() : width(0), offset(0), count(0) { }
-		void clear() { width = 0; count = 0; simbols.clear(); offset = 0; }
+		void clear()
+		{
+			width = 0;
+			count = 0;
+			simbols.clear();
+			offset = 0;
+		}
 		int width;
 		int offset;
 		size_t count;
@@ -67,12 +85,34 @@ namespace MyGUI
 			rollback = true;
 		}
 
-		void clear() { rollback = false; }
-		bool empty() const { return !rollback; }
-		int getLenght() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return lenght; }
-		size_t getCount() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return count; }
-		size_t getPosition() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return position; }
-		UString::const_iterator getTextIter() const { MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid"); return space_point; }
+		void clear()
+		{
+			rollback = false;
+		}
+		bool empty() const
+		{
+			return !rollback;
+		}
+		int getLenght() const
+		{
+			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
+			return lenght;
+		}
+		size_t getCount() const
+		{
+			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
+			return count;
+		}
+		size_t getPosition() const
+		{
+			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
+			return position;
+		}
+		UString::const_iterator getTextIter() const
+		{
+			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
+			return space_point;
+		}
 
 	private:
 		size_t position;
@@ -163,7 +203,11 @@ namespace MyGUI
 				{
 					// берем следующий символ
 					++ index;
-					if (index == end) { --index; continue; } // это защита
+					if (index == end)
+					{
+						--index;    // это защита
+						continue;
+					}
 
 					character = *index;
 					// если два подряд, то рисуем один шарп, если нет то меняем цвет
@@ -176,7 +220,11 @@ namespace MyGUI
 						for (char i=0; i<5; i++)
 						{
 							++ index;
-							if (index == end) { --index; continue; } // это защита
+							if (index == end)
+							{
+								--index;    // это защита
+								continue;
+							}
 							colour <<= 4;
 							colour += convert_colour[ ((*index) - 48) & 0x3F ];
 						}
@@ -342,9 +390,18 @@ namespace MyGUI
 			return IntPoint(left, top);
 		}
 
-		const IntSize& getViewSize() const { return mViewSize; }
-		size_t getTextLength() const { return mLength; }
-		const VectorLineInfo& getData() const { return mLineInfo; }
+		const IntSize& getViewSize() const
+		{
+			return mViewSize;
+		}
+		size_t getTextLength() const
+		{
+			return mLength;
+		}
+		const VectorLineInfo& getData() const
+		{
+			return mLineInfo;
+		}
 
 	private:
 		IntSize mViewSize;

@@ -46,10 +46,16 @@ namespace MyGUI
 
 		// DESCRIBEME
 		// устанавливает имя файла подписчика
-		void setFileName(const std::string& _value) { mFileName = _value; }
+		void setFileName(const std::string& _value)
+		{
+			mFileName = _value;
+		}
 		// DESCRIBEME
 		// возвращает имя файла подписчика
-		const std::string& getFileName() const { return mFileName; }
+		const std::string& getFileName() const
+		{
+			return mFileName;
+		}
 
 	private:
 		std::ofstream mStream;

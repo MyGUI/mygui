@@ -33,7 +33,10 @@ namespace MyGUI
 		virtual ~BiIndexBase() { }
 	protected:
 
-		size_t getIndexCount() { return mIndexFace.size(); }
+		size_t getIndexCount()
+		{
+			return mIndexFace.size();
+		}
 
 		size_t insertItemAt(size_t _index)
 		{

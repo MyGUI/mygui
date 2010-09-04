@@ -36,13 +36,31 @@ namespace MyGUI
 		Version(int _major, int _minor, int _patch) : mMajor(_major), mMinor(_minor), mPatch(_patch) { }
 		Version(int _major, int _minor) : mMajor(_major), mMinor(_minor), mPatch(0) { }
 
-		friend bool operator < (Version const& a, Version const& b) { return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor); }
-		friend bool operator >= (Version const& a, Version const& b) { return !(a < b); }
-		friend bool operator > (Version const& a, Version const& b) { return (b < a); }
-		friend bool operator <= (Version const& a, Version const& b) { return !(a > b); }
+		friend bool operator < (Version const& a, Version const& b)
+		{
+			return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor);
+		}
+		friend bool operator >= (Version const& a, Version const& b)
+		{
+			return !(a < b);
+		}
+		friend bool operator > (Version const& a, Version const& b)
+		{
+			return (b < a);
+		}
+		friend bool operator <= (Version const& a, Version const& b)
+		{
+			return !(a > b);
+		}
 
-		friend bool operator == (Version const& a, Version const& b) { return !(a < b) && !(a > b); }
-		friend bool operator != (Version const& a, Version const& b) { return !(a == b); }
+		friend bool operator == (Version const& a, Version const& b)
+		{
+			return !(a < b) && !(a > b);
+		}
+		friend bool operator != (Version const& a, Version const& b)
+		{
+			return !(a == b);
+		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const Version&  _value )
 		{
@@ -58,9 +76,18 @@ namespace MyGUI
 			return _stream;
 		}
 
-		int getMajor() const { return mMajor; }
-		int getMinor() const { return mMinor; }
-		int getPatch() const { return mPatch; }
+		int getMajor() const
+		{
+			return mMajor;
+		}
+		int getMinor() const
+		{
+			return mMinor;
+		}
+		int getPatch() const
+		{
+			return mPatch;
+		}
 
 		std::string print() const
 		{

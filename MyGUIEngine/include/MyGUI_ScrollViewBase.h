@@ -39,17 +39,35 @@ namespace MyGUI
 		void updateScrollPosition();
 
 		// размер данных
-		virtual IntSize getContentSize() { return IntSize(); }
+		virtual IntSize getContentSize()
+		{
+			return IntSize();
+		}
 		// смещение данных
-		virtual IntPoint getContentPosition() { return IntPoint(); }
+		virtual IntPoint getContentPosition()
+		{
+			return IntPoint();
+		}
 		virtual void setContentPosition(const IntPoint& _value) { }
 		// размер окна, через которые видно данные
-		virtual IntSize getViewSize() { return IntSize(); }
+		virtual IntSize getViewSize()
+		{
+			return IntSize();
+		}
 		// размер на который прокручиваются данные при щелчке по скролу
-		virtual size_t getHScrollPage() { return 1; }
-		virtual size_t getVScrollPage() { return 1; }
+		virtual size_t getHScrollPage()
+		{
+			return 1;
+		}
+		virtual size_t getVScrollPage()
+		{
+			return 1;
+		}
 
-		virtual Align getContentAlign() { return Align::Center; }
+		virtual Align getContentAlign()
+		{
+			return Align::Center;
+		}
 
 		virtual void eraseContent() { }
 

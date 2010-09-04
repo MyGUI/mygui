@@ -365,7 +365,7 @@ namespace MyGUI
 		return mFontHeight;
 	}
 
-	void EditText::createDrawItem(ITexture* _texture, ILayerNode * _node)
+	void EditText::createDrawItem(ITexture* _texture, ILayerNode* _node)
 	{
 		mNode = _node;
 		// если уже есть текстура, то атачимся, актуально для смены леера
@@ -818,7 +818,7 @@ namespace MyGUI
 				float real_bottom = - (((info.pixScaleY * (float)(pix_top + result_height) + info.vOffset) * 2) - 1);
 
 				DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_current | 0x00FFFFFF,
-					texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, vertex_count);
+						texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, vertex_count);
 			}
 		}
 
