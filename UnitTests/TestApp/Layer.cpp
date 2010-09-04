@@ -27,7 +27,7 @@ namespace demo
 		mBuffers.clear();
 	}
 
-	void Layer::doRender(IRenderManager* _renderManager)
+	void Layer::doRender(RenderManager* _renderManager)
 	{
 		for (VectorVertexBuffer::iterator item = mBuffers.begin(); item != mBuffers.end(); ++ item)
 		{
