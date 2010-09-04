@@ -54,21 +54,25 @@ namespace tools
 
 		// properties window
 		size_t mPairsCounter;
-		std::map<MyGUI::Widget*, std::vector<MyGUI::StaticText*> > mPropertiesText;
-		std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> mPropertiesElement;
 
-		PanelMainProperties * mPanelMainProperties;
+		typedef std::vector<MyGUI::StaticText*> VectorStaticText;
+		typedef std::map<MyGUI::Widget*, VectorStaticText> MapVectorStaticText;
+		MapVectorStaticText mPropertiesText;
+
+		typedef std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> MapVectorWidget;
+		MapVectorWidget mPropertiesElement;
+
+		PanelMainProperties* mPanelMainProperties;
 		static const int MAX_BASE_TYPES_COUNT = 5;
 		PanelProperties* mPanelsTypeProperties[MAX_BASE_TYPES_COUNT];
-		PanelItems * mPanelItems;
-		PanelUserData * mPanelUserData;
-		PanelControllers * mPanelControllers;
+		PanelItems* mPanelItems;
+		PanelUserData* mPanelUserData;
+		PanelControllers* mPanelControllers;
 
 		typedef std::vector<wraps::BasePanelViewItem*> VectorPanel;
 		VectorPanel mPanels;
 
 		MyGUI::Widget* mCurrentWidget;
-
 		int mPropertyItemHeight;
 	};
 

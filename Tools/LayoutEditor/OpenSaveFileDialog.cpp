@@ -12,6 +12,11 @@ namespace tools
 {
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		Dialog("OpenSaveFileDialog.layout"),
+		mWindow(nullptr),
+		mListFiles(nullptr),
+		mEditFileName(nullptr),
+		mEditCurrentFolder(nullptr),
+		mButtonOpenSave(nullptr),
 		mFolderMode(false)
 	{
 		assignWidget(mListFiles, "ListFiles");

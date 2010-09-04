@@ -67,7 +67,8 @@ namespace tools
 	private:
 		int mGlobalCounter;
 		bool mWidgetsChanged;
-		std::vector<std::string> mIgnoreParameters;
+		typedef std::vector<std::string> VectorString;
+		VectorString mIgnoreParameters;
 		VectorSettingsSector mSettings;
 		VectorWidgetContainer mWidgets;
 
