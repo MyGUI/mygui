@@ -29,8 +29,6 @@ def checkDir(folder):
 	parseOutput()
 
 os.chdir("Scripts/vera++")
-checkDir("MyGUIEngine/src/*.cpp")
-checkDir("MyGUIEngine/include/*.h")
 checkDir("*/*/*.h")
 checkDir("*/*/*.cpp")
 checkDir("Common/*/*/*.h")
