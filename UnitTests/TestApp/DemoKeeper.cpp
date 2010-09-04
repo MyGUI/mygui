@@ -24,11 +24,12 @@ namespace demo
 		VertexBuffer* buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile1.png");
 		buffer->setCoord(MyGUI::IntCoord(10, 10, 300, 300));
-		buffer->setManualMode(true);
+		buffer->setRenderMode(VertexBuffer::RenderModeFilterNone);
 
 		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
 		buffer->setCoord(MyGUI::IntCoord(150, 150, 300, 300));
+		buffer->setRenderMode(VertexBuffer::RenderModePolygonWireFrame);
 
 		layer = mRenderManager->createLayer();
 		buffer = layer->createVertexBuffer();
@@ -38,7 +39,7 @@ namespace demo
 		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
 		buffer->setCoord(MyGUI::IntCoord(650, 150, 300, 300));
-		buffer->setManualMode(true);
+		buffer->setRenderMode(VertexBuffer::RenderModeFilterNone);
 	}
 
 	void DemoKeeper::destroyScene()

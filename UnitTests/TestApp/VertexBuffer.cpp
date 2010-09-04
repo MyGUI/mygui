@@ -10,7 +10,7 @@ namespace demo
 		mVertexCount(6),
 		mCurrentTexture(0, 0, 1, 1),
 		mCurrentColour(0xFFFFFFFF),
-		mManualMode(false)
+		mRenderMode(RenderModeNormal)
 	{
 		createVertexBuffer();
 	}
@@ -118,13 +118,23 @@ namespace demo
 
 	void VertexBuffer::doRender(RenderManager* _renderManager)
 	{
-		if (mManualMode)
+		if (mRenderMode == RenderModeFilterNone)
 		{
 			_renderManager->initState();
 			_renderManager->setCurrentManual(true);
 
 			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
 			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
+
+			_renderManager->getRenderSystem()->_render(getRenderOperation());
+		}
+		else if (mRenderMode == RenderModePolygonWireFrame)
+		{
+			_renderManager->initState();
+			_renderManager->setCurrentManual(true);
+
+			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
+			_renderManager->getRenderSystem()->_setPolygonMode(Ogre::PM_WIREFRAME);
 
 			_renderManager->getRenderSystem()->_render(getRenderOperation());
 		}
@@ -143,9 +153,9 @@ namespace demo
 		}
 	}
 
-	void VertexBuffer::setManualMode(bool _value)
+	void VertexBuffer::setRenderMode(RenderMode _value)
 	{
-		mManualMode = _value;
+		mRenderMode = _value;
 	}
 
 } // namespace demo
