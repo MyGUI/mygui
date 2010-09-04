@@ -30,17 +30,31 @@ namespace demo
 		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
 		buffer->setCoord(MyGUI::IntCoord(150, 150, 300, 300));
-		buffer->setRenderMode(VertexBuffer::RenderModePolygonWireframe);
+		//buffer->setRenderMode(VertexBuffer::RenderModePolygonWireframe);
 
-		layer = mRenderManager->createLayer<RttLayer>();
-		buffer = layer->createVertexBuffer();
+
+		RttLayer* rttLayer = mRenderManager->createLayer<RttLayer>();
+		buffer = rttLayer->createVertexBuffer();
 		buffer->setTextureName("smile1.png");
-		buffer->setCoord(MyGUI::IntCoord(500, 10, 300, 300));
-
-		buffer = layer->createVertexBuffer();
-		buffer->setTextureName("smile2.png");
-		buffer->setCoord(MyGUI::IntCoord(650, 150, 300, 300));
+		buffer->setCoord(MyGUI::IntCoord(10, 410, 300, 300));
 		buffer->setRenderMode(VertexBuffer::RenderModeFilterNone);
+
+		buffer = rttLayer->createVertexBuffer();
+		buffer->setTextureName("smile2.png");
+		buffer->setCoord(MyGUI::IntCoord(150, 550, 300, 300));
+
+
+		rttLayer = mRenderManager->createLayer<RttLayer>();
+		rttLayer->setTextureFilterNone(true);
+		buffer = rttLayer->createVertexBuffer();
+		buffer->setTextureName("smile1.png");
+		buffer->setCoord(MyGUI::IntCoord(500, 410, 300, 300));
+
+		buffer = rttLayer->createVertexBuffer();
+		buffer->setTextureName("smile2.png");
+		buffer->setCoord(MyGUI::IntCoord(650, 550, 300, 300));
+		buffer->setRenderMode(VertexBuffer::RenderModeFilterNone);
+
 
 		layer = mRenderManager->createLayer();
 		buffer = layer->createVertexBuffer();
