@@ -5,7 +5,7 @@ foreach f [getSourceFileNames] {
     foreach line [getAllLines $f] {
 
         if [regexp {^\t* } $line] {
-            report $f $lineNumber "leading spaces used instead tabs"
+            report $f $lineNumber "leading spaces used instead of tabs"
         }
 
         incr lineNumber
