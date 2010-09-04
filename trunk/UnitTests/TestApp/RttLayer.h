@@ -13,6 +13,11 @@ namespace demo
 		virtual ~RttLayer();
 
 		virtual void doRender(RenderManager* _renderManager);
+
+	private:
+		VertexBuffer* mBuffer;
+		Ogre::TexturePtr mTexture;
+		Ogre::Viewport* mViewport;
 	};
 
 } // namespace demo
