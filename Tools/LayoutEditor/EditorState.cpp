@@ -276,7 +276,8 @@ namespace tools
 	{
 		if (EditorWidgets::getInstance().load(mFileName))
 		{
-			SettingsManager::getInstance().addRecentFile(mFileName);
+			if (mFileName != mDefaultFileName)
+				SettingsManager::getInstance().addRecentFile(mFileName);
 
 			UndoManager::getInstance().addValue();
 			UndoManager::getInstance().setUnsaved(false);
@@ -299,7 +300,8 @@ namespace tools
 	{
 		if (EditorWidgets::getInstance().save(mFileName))
 		{
-			SettingsManager::getInstance().addRecentFile(mFileName);
+			if (mFileName != mDefaultFileName)
+				SettingsManager::getInstance().addRecentFile(mFileName);
 
 			UndoManager::getInstance().addValue();
 			UndoManager::getInstance().setUnsaved(false);
@@ -390,6 +392,8 @@ namespace tools
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
+				clear();
+
 				mLastFolder = mOpenSaveFileDialog->getCurrentFolder();
 				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
