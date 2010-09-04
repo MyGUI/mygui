@@ -9,7 +9,10 @@
 namespace demo
 {
 
-	PanelDirector::PanelDirector() : BasePanelViewItem("PanelDirector.layout")
+	PanelDirector::PanelDirector() :
+		BasePanelViewItem("PanelDirector.layout"),
+		mCheckShowStatic(nullptr),
+
 	{
 	}
 

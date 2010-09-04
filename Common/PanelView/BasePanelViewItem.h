@@ -20,6 +20,8 @@ namespace wraps
 	public:
 		BasePanelViewItem(const std::string& _layout) :
 			BaseLayout("", nullptr),
+			mPanelCell(nullptr),
+			mWidgetClient(nullptr),
 			mLayout(_layout)
 		{
 		}
