@@ -235,7 +235,7 @@ namespace delegates
 
 		bool empty() const
 		{
-			for (ConstListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ConstListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if (*iter) return false;
 			}
@@ -244,7 +244,7 @@ namespace delegates
 
 		void clear()
 		{
-			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if (*iter)
 				{
@@ -256,7 +256,7 @@ namespace delegates
 
 		void clear(IDelegateUnlink* _unlink)
 		{
-			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_unlink))
 				{
@@ -268,7 +268,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS& operator+=(IDelegate* _delegate)
 		{
-			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -281,7 +281,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS& operator-=(IDelegate* _delegate)
 		{
-			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -347,7 +347,7 @@ namespace delegates
 	private:
 		void safe_clear(ListDelegate& _delegates)
 		{
-			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if (*iter)
 				{
@@ -360,7 +360,7 @@ namespace delegates
 
 		void delete_is_not_found(IDelegate* _del, ListDelegate& _delegates)
 		{
-			for (ListDelegateIterator iter=_delegates.begin(); iter!=_delegates.end(); ++iter)
+			for (ListDelegateIterator iter = _delegates.begin(); iter != _delegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_del))
 				{
