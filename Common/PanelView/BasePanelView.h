@@ -26,8 +26,8 @@ namespace wraps
 		BasePanelView(const std::string& _layout, MyGUI::Widget* _parent) :
 	  		BaseLayout(_layout, _parent),
 			mNeedUpdate(false),
-			mFirstInitialise(false),
-			mOldClientWidth(0)
+			mOldClientWidth(0),
+			mFirstInitialise(false)
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 
