@@ -2,7 +2,7 @@
 import os
 
 ignoredEndings = ["is never used", "It is safe to deallocate a NULL pointer", "Throwing exception in destructor"]
-ignoredContent = ["MyGUI_UString"]
+ignoredContent = ["MyGUI_UString", "(style) Include file: "]
 
 def isIgnoredWarning(warning):
 	for ignore in ignoredEndings:
