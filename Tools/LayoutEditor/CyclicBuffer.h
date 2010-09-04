@@ -16,7 +16,7 @@ namespace tools
 
 		/// Fixed size c-tor.
 		explicit CyclicBuffer( size_type _size ) :
-			pos( -1 ), count( 0 ), size( _size ),
+			pos( (size_t)-1 ), count( 0 ), size( _size ),
 			c( new value_type[size] )
 		{ }
 

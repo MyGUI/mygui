@@ -170,24 +170,24 @@ namespace tools
 				regionNodes = node->getElementEnumerator();
 				while (regionNodes.next("PropertySet"))
 				{
-					MyGUI::xml::ElementEnumerator propertyNode = regionNodes->getElementEnumerator();
-					while (propertyNode.next("Property"))
+					MyGUI::xml::ElementEnumerator regionPropertyNode = regionNodes->getElementEnumerator();
+					while (regionPropertyNode.next("Property"))
 					{
 						std::string name;
-						if (propertyNode->findAttribute("name", name))
+						if (regionPropertyNode->findAttribute("name", name))
 						{
 							if (name == "RegionType")
 							{
-								regionTypeValue = propertyNode->getContent();
+								regionTypeValue = regionPropertyNode->getContent();
 							}
 							else if (name == "Position")
 							{
-								regionCoord = MyGUI::IntCoord::parse(propertyNode->getContent());
+								regionCoord = MyGUI::IntCoord::parse(regionPropertyNode->getContent());
 								regionOffsetValue = regionCoord.print();
 							}
 							else if (name == "Align")
 							{
-								alignValue = propertyNode->getContent();
+								alignValue = regionPropertyNode->getContent();
 							}
 						}
 					}
