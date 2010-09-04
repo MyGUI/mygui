@@ -52,10 +52,10 @@ namespace MyGUI
 		data.resize(size);
 
 		size_t pos = 0;
-		for (size_t pos_pix=0; pos_pix<size; pos_pix++)
+		for (size_t pos_pix = 0; pos_pix < size; pos_pix++)
 		{
 			bool white = false;
-			for (size_t in_pix=0; in_pix<pixel_size; in_pix++)
+			for (size_t in_pix = 0; in_pix < pixel_size; in_pix++)
 			{
 				if (0xFF != buffer[pos])
 				{

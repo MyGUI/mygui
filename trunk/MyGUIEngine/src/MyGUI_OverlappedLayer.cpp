@@ -78,7 +78,7 @@ namespace MyGUI
 		}
 
 		// айтем рутовый, мы удаляем
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -101,7 +101,7 @@ namespace MyGUI
 		}
 
 		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) return;
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -134,7 +134,7 @@ namespace MyGUI
 
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
@@ -152,7 +152,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "Layer name='" << getName() << "'" << " type='" << getTypeName() << "'" << spacer);
 		MYGUI_LOG(Info, "Count root nodes : " << mChildItems.size() << spacer);
 
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			(*iter)->dumpStatisticToLog(0);
 		}

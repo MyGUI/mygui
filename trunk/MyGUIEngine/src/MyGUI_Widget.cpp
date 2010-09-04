@@ -209,7 +209,7 @@ namespace MyGUI
 			std::string skinName;
 
 			const VectorWidgetInfo& data = _templateInfo->getLayoutData();
-			for (VectorWidgetInfo::const_iterator item=data.begin(); item!=data.end(); ++item)
+			for (VectorWidgetInfo::const_iterator item = data.begin(); item != data.end(); ++item)
 			{
 				if ((*item).name == "Root")
 				{
@@ -238,7 +238,7 @@ namespace MyGUI
 		if (!skinOnly)
 		{
 			const MapString& properties = _skinInfo->getProperties();
-			for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
+			for (MapString::const_iterator item = properties.begin(); item != properties.end(); ++item)
 			{
 				if (BackwardCompatibility::isIgnoreProperty((*item).first))
 					setUserString((*item).first, (*item).second);
@@ -246,11 +246,11 @@ namespace MyGUI
 
 			// создаем детей скина
 			const VectorChildSkinInfo& child = _skinInfo->getChild();
-			for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
+			for (VectorChildSkinInfo::const_iterator iter = child.begin(); iter != child.end(); ++iter)
 			{
 				Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
 				// заполняем UserString пропертями
-				for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
+				for (MapString::const_iterator prop = iter->params.begin(); prop != iter->params.end(); ++prop)
 					widget->setUserString(prop->first, prop->second);
 			}
 		}
@@ -284,7 +284,7 @@ namespace MyGUI
 		_deleteSkinItem();
 
 		// удаляем виджеты чтобы ли в скине
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
 		{
 			// Добавляем себя чтобы удалилось
 			mWidgetChild.push_back(*iter);
@@ -483,7 +483,7 @@ namespace MyGUI
 			return nullptr;
 
 		// спрашиваем у детишек
-		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
 		{
 			// общаемся только с послушными детьми
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup)
@@ -494,7 +494,7 @@ namespace MyGUI
 				return item;
 		}
 		// спрашиваем у детишек скна
-		for (VectorWidgetPtr::const_reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
+		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
 		{
 			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr)
@@ -1063,7 +1063,7 @@ namespace MyGUI
 	void Widget::setSkinProperty(ResourceSkin* _info)
 	{
 		const MapString& properties = _info->getProperties();
-		for (MapString::const_iterator item=properties.begin(); item!=properties.end(); ++item)
+		for (MapString::const_iterator item = properties.begin(); item != properties.end(); ++item)
 			setProperty((*item).first, (*item).second);
 	}
 
@@ -1089,7 +1089,7 @@ namespace MyGUI
 	{
 		VectorWidgetPtr result;
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
 		{
 			Widget* find = (*iter)->findWidget(_name);
 			if (nullptr != find)

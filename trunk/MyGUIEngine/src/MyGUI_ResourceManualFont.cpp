@@ -40,7 +40,7 @@ namespace MyGUI
 
 	GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id)
 	{
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		for (VectorRangeInfo::iterator iter = mVectorRangeInfo.begin(); iter != mVectorRangeInfo.end(); ++iter)
 		{
 			GlyphInfo* info = iter->getInfo(_id);
 			if (info == nullptr) continue;
@@ -92,12 +92,12 @@ namespace MyGUI
 		size_t count = mVectorPairCodeCoord.size();
 		size_t first = 0;
 
-		for (size_t pos=1; pos<count; ++pos)
+		for (size_t pos = 1; pos < count; ++pos)
 		{
 			// диапазон оборвался
 			if (code + 1 != mVectorPairCodeCoord[pos].code)
 			{
-				addRange(mVectorPairCodeCoord, first, pos-1, size.width, size.height, aspect);
+				addRange(mVectorPairCodeCoord, first, pos - 1, size.width, size.height, aspect);
 				code = mVectorPairCodeCoord[pos].code;
 				first = pos;
 			}
@@ -107,7 +107,7 @@ namespace MyGUI
 			}
 		}
 
-		addRange(mVectorPairCodeCoord, first, count-1, size.width, size.height, aspect);
+		addRange(mVectorPairCodeCoord, first, count - 1, size.width, size.height, aspect);
 
 		// уничтожаем буфер
 		VectorPairCodeCoord tmp;
@@ -120,7 +120,7 @@ namespace MyGUI
 	{
 		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
 
-		for (size_t pos=_first; pos<=_last; ++pos)
+		for (size_t pos = _first; pos <= _last; ++pos)
 		{
 			GlyphInfo* info = range.getInfo(_info[pos].code);
 			const IntCoord& coord = _info[pos].coord;

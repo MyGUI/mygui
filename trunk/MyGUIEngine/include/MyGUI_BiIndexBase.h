@@ -63,7 +63,7 @@ namespace MyGUI
 				index = mIndexFace[_index];
 
 				size_t count = mIndexFace.size();
-				for (size_t pos=0; pos<count; ++pos)
+				for (size_t pos = 0; pos < count; ++pos)
 				{
 					if (mIndexFace[pos] >= index) mIndexFace[pos]++;
 				}
@@ -71,7 +71,7 @@ namespace MyGUI
 
 				count ++;
 				mIndexBack.push_back(0);
-				for (size_t pos=0; pos<count; ++pos)
+				for (size_t pos = 0; pos < count; ++pos)
 				{
 					mIndexBack[mIndexFace[pos]] = pos;
 				}
@@ -98,7 +98,7 @@ namespace MyGUI
 			mIndexBack.pop_back();
 
 			size_t count = mIndexFace.size();
-			for (size_t pos=0; pos<count; ++pos)
+			for (size_t pos = 0; pos < count; ++pos)
 			{
 				if (mIndexFace[pos] > index) mIndexFace[pos]--;
 				mIndexBack[mIndexFace[pos]] = pos;
@@ -170,9 +170,9 @@ namespace MyGUI
 			size_t count = mIndexFace.size();
 
 			vec.reserve(count);
-			for (size_t pos=0; pos<count; ++pos) vec.push_back(false);
+			for (size_t pos = 0; pos < count; ++pos) vec.push_back(false);
 
-			for (size_t pos=0; pos<count; ++pos)
+			for (size_t pos = 0; pos < count; ++pos)
 			{
 				// максимум
 				size_t index = mIndexBack[pos];
@@ -186,20 +186,20 @@ namespace MyGUI
 				vec[index] = true;
 			}
 
-			for (size_t pos=0; pos<count; ++pos)
+			for (size_t pos = 0; pos < count; ++pos)
 			{
 				if (!vec[pos]) throw new std::exception();
 			}
 
 			// проверяем на взаимоссылаемость индексов
-			for (size_t pos=0; pos<count; ++pos)
+			for (size_t pos = 0; pos < count; ++pos)
 			{
 				size_t index = mIndexFace[pos];
 				if (mIndexBack[index] != pos) throw new std::exception();
 			}
 		}
 
-		#endif
+#endif
 
 	private:
 		typedef std::vector<size_t> VectorSizeT;

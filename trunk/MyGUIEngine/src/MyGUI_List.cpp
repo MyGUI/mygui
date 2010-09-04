@@ -379,7 +379,7 @@ namespace MyGUI
 
 						// выравниваем
 						int offset = 0;
-						for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+						for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 						{
 							mWidgetLines[pos]->setPosition(0, offset);
 							offset += mHeightLine;
@@ -403,7 +403,7 @@ namespace MyGUI
 
 					// выравниваем
 					int offset = 0 - mOffsetTop;
-					for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+					for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 					{
 						mWidgetLines[pos]->setPosition(0, offset);
 						offset += mHeightLine;
@@ -444,7 +444,7 @@ namespace MyGUI
 	{
 		// перерисовываем линии, только те, что видны
 		size_t pos = _start;
-		for (; pos<mWidgetLines.size(); pos++)
+		for (; pos < mWidgetLines.size(); pos++)
 		{
 			// индекс в нашем массиве
 			size_t index = pos + (size_t)mTopIndex;
@@ -477,7 +477,7 @@ namespace MyGUI
 		else
 		{
 			//Widget* focus = InputManager::getInstance().getMouseFocusWidget();
-			for (; pos<mWidgetLines.size(); pos++)
+			for (; pos < mWidgetLines.size(); pos++)
 			{
 				static_cast<Button*>(mWidgetLines[pos])->setStateSelected(false);
 				static_cast<Button*>(mWidgetLines[pos])->setVisible(false);
@@ -729,7 +729,7 @@ namespace MyGUI
 		mItemsInfo.clear();
 
 		int offset = 0;
-		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 		{
 			mWidgetLines[pos]->setVisible(false);
 			mWidgetLines[pos]->setPosition(0, offset);
@@ -749,7 +749,7 @@ namespace MyGUI
 	void List::setItemNameAt(size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
-		mItemsInfo[_index].first =_name;
+		mItemsInfo[_index].first = _name;
 		_redrawItem(_index);
 	}
 
@@ -818,7 +818,7 @@ namespace MyGUI
 		// смещение с отрицательной стороны
 		int offset = 0 - mOffsetTop;
 
-		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 		{
 			mWidgetLines[pos]->setPosition(IntPoint(0, offset));
 			offset += mHeightLine;
@@ -860,7 +860,7 @@ namespace MyGUI
 		size_t count_pressed = 0;
 		size_t count_show = 0;
 
-		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
 			static_cast<Button*>(mWidgetLines[pos])->getStateSelected() ? count_pressed ++ : 0;
@@ -883,7 +883,7 @@ namespace MyGUI
 			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0");
 			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0");
 			int height = 0;
-			for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+			for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 			{
 				if (pos >= mItemsInfo.size()) break;
 				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height");
@@ -894,7 +894,7 @@ namespace MyGUI
 
 	size_t List::findItemIndexWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].first == _name) return pos;
 		}

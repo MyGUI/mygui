@@ -39,20 +39,20 @@ namespace MyGUI
 
 	LayerNode::~LayerNode()
 	{
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 		{
 			delete (*iter);
 		}
 		mFirstRenderItems.clear();
 
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
 			delete (*iter);
 		}
 		mSecondRenderItems.clear();
 
 		// удаляем дочерние узлы
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			delete (*iter);
 		}
@@ -68,7 +68,7 @@ namespace MyGUI
 
 	void LayerNode::destroyChildItemNode(ILayerNode* _node)
 	{
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _node)
 			{
@@ -82,7 +82,7 @@ namespace MyGUI
 
 	void LayerNode::upChildItemNode(ILayerNode* _item)
 	{
-		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -98,7 +98,7 @@ namespace MyGUI
 	{
 		// проверяем на сжатие пустот
 		bool need_compression = false;
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 		{
 			if ((*iter)->getCompression())
 			{
@@ -111,17 +111,17 @@ namespace MyGUI
 			updateCompression();
 
 		// сначала отрисовываем свое
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
 
 		// теперь отрисовываем дочерние узлы
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
@@ -132,13 +132,13 @@ namespace MyGUI
 	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top) const
 	{
 		// сначала пикаем детей
-		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
 
-		for (VectorLayerItem::const_iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
+		for (VectorLayerItem::const_iterator iter = mLayerItems.begin(); iter != mLayerItems.end(); ++iter)
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
@@ -204,7 +204,7 @@ namespace MyGUI
 		}
 
 		// для второй очереди порядок неважен
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
 			// либо такая же текстура, либо пустой буфер
 			if ((*iter)->getTexture() == _texture)
@@ -235,7 +235,7 @@ namespace MyGUI
 
 	void LayerNode::detachLayerItem(ILayerItem* _item)
 	{
-		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
+		for (VectorLayerItem::iterator iter = mLayerItems.begin(); iter != mLayerItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -287,16 +287,16 @@ namespace MyGUI
 		std::string offset(" ", _level);
 		MYGUI_LOG(Info, offset << " - Node batch_count='" << mFirstRenderItems.size() + mSecondRenderItems.size() << spacer);
 
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 		{
 			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
 		}
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
 			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
 		}
 
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			(*iter)->dumpStatisticToLog(_level + 1);
 		}

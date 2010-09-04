@@ -86,13 +86,13 @@ namespace MyGUI
 		}
 
 		VectorWidgetPtr buttons = getSkinWidgetsByName("Button");
-		for (VectorWidgetPtr::iterator iter=buttons.begin(); iter!=buttons.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = buttons.begin(); iter != buttons.end(); ++iter)
 		{
 			(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
 		}
 
 		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
-		for (VectorWidgetPtr::iterator iter=actions.begin(); iter!=actions.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = actions.begin(); iter != actions.end(); ++iter)
 		{
 			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);

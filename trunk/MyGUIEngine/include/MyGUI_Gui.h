@@ -78,12 +78,12 @@ namespace MyGUI
 		/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
 		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
-			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
+			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * mViewSize.width), (int)(_coord.top * mViewSize.height), (int)(_coord.width * mViewSize.width), (int)(_coord.height * mViewSize.height)), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
-			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
+			return createWidgetT(_type, _skin, IntCoord((int)(_left * mViewSize.width), (int)(_top * mViewSize.height), (int)(_width * mViewSize.width), (int)(_height * mViewSize.height)), _align, _layer, _name);
 		}
 
 		// templates for creating widgets by type

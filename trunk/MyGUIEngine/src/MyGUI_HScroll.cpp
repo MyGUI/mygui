@@ -45,8 +45,8 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth()))
 		{
 			mWidgetTrack->setVisible(false);
-			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
-			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
+			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos / 2, mWidgetFirstPart->getHeight());
+			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos / 2, mWidgetSecondPart->getHeight());
 			return;
 		}
 		// если скрыт то покажем
@@ -56,17 +56,17 @@ namespace MyGUI
 		}
 
 		// и обновляем позицию
-		pos = (int)(((size_t)(pos-getTrackSize()) * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
+		pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
 		if ( nullptr != mWidgetFirstPart )
 		{
-			int height = pos + mWidgetTrack->getWidth()/2 - mWidgetFirstPart->getLeft();
+			int height = pos + mWidgetTrack->getWidth() / 2 - mWidgetFirstPart->getLeft();
 			mWidgetFirstPart->setSize(height, mWidgetFirstPart->getHeight());
 		}
 		if ( nullptr != mWidgetSecondPart )
 		{
-			int top = pos + mWidgetTrack->getWidth()/2;
+			int top = pos + mWidgetTrack->getWidth() / 2;
 			int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
 			mWidgetSecondPart->setCoord(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
 		}
@@ -87,9 +87,9 @@ namespace MyGUI
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
 		// высчитываем ближайшее значение и обновляем
-		pos = pos * (int)(mScrollRange-1) / (getLineSize() - getTrackSize());
+		pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 
 		// проверяем на выходы и изменения
 		if (pos < 0) pos = 0;
@@ -104,7 +104,7 @@ namespace MyGUI
 	void HScroll::setTrackSize(int _size)
 	{
 		if (mWidgetTrack != nullptr)
-			mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
+			mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
 		updateTrack();
 	}
 

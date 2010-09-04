@@ -261,7 +261,7 @@ namespace MyGUI
 
 	void ResourceManager::clear()
 	{
-		for (MapResource::iterator item=mResources.begin(); item!=mResources.end(); ++item)
+		for (MapResource::iterator item = mResources.begin(); item != mResources.end(); ++item)
 		{
 			delete item->second;
 		}

@@ -67,7 +67,7 @@ namespace MyGUI
 
 	void LogManager::flush()
 	{
-		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
 			(*item)->flush();
 	}
 
@@ -78,13 +78,13 @@ namespace MyGUI
 		struct tm* currentTime;
 		currentTime = localtime(&ctTime);
 
-		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
 			(*item)->log(_section, _level, currentTime, _message, _file, _line);
 	}
 
 	void LogManager::close()
 	{
-		for (VectorLogSource::iterator item=mSources.begin(); item!=mSources.end(); ++item)
+		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
 			(*item)->close();
 	}
 
