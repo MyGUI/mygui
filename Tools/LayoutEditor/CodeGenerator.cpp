@@ -121,6 +121,21 @@ namespace tools
 		std::string includeDirectory = mIncludeDirectoryEdit->getOnlyText();
 		std::string sourceDirectory = mSourceDirectoryEdit->getOnlyText();
 
+		if (panelName.empty() || mPanelNameEdit->getCaption() == ("#FF0000" + replaceTags("Error")))
+		{
+			mPanelNameEdit->setCaption("#FF0000" + replaceTags("Error"));
+			return;
+		}
+
+		if (panelNamespace.empty() || mPanelNamespaceEdit->getCaption() == ("#FF0000" + replaceTags("Error")))
+		{
+			mPanelNamespaceEdit->setCaption("#FF0000" + replaceTags("Error"));
+			return;
+		}
+
+		if (includeDirectory.empty()) includeDirectory = ".";
+		if (sourceDirectory.empty()) sourceDirectory = ".";
+
 		lm.addUserTag("Panel_Name", panelName);
 		lm.addUserTag("Panel_Namespace", panelNamespace);
 		lm.addUserTag("Layout_Name", MyGUI::LanguageManager::getInstance().getTag("CurrentFileName_Short"));
@@ -179,6 +194,7 @@ namespace tools
 		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
 
 		mPanelNameEdit->setCaption(sector->getPropertyValue("PanelName"));
+		mPanelNamespaceEdit->setCaption(sector->getPropertyValue("PanelNamespace"));
 		mIncludeDirectoryEdit->setCaption(sector->getPropertyValue("IncludeDirectory"));
 		mSourceDirectoryEdit->setCaption(sector->getPropertyValue("SourceDirectory"));
 	}
@@ -188,6 +204,7 @@ namespace tools
 		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
 
 		sector->setPropertyValue("PanelName", mPanelNameEdit->getOnlyText());
+		sector->setPropertyValue("PanelNamespace", mPanelNamespaceEdit->getOnlyText());
 		sector->setPropertyValue("IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
 		sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getOnlyText());
 
