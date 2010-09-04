@@ -115,7 +115,7 @@ namespace demo
 		mRenderOperation.vertexData->vertexCount = 6;
 	}
 
-	void VertexBuffer::draw(IRenderManager* _renderManager)
+	void VertexBuffer::doRender(IRenderManager* _renderManager)
 	{
 		if (mManualMode)
 		{

@@ -37,27 +37,30 @@ namespace demo
 		mUvwAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
 		mUvwAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
-		VertexBuffer* buffer = createVertexBuffer();
+		Layer* layer = createLayer();
+		VertexBuffer* buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile1.png");
-		buffer->setCoord(MyGUI::IntCoord(10, 10, 400, 400));
+		buffer->setCoord(MyGUI::IntCoord(10, 10, 300, 300));
+		buffer->setManualMode(true);
 
-		buffer = createVertexBuffer();
+		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
-		buffer->setCoord(MyGUI::IntCoord(200, 300, 400, 400));
+		buffer->setCoord(MyGUI::IntCoord(150, 150, 300, 300));
 
-		buffer = createVertexBuffer();
+		layer = createLayer();
+		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile1.png");
-		buffer->setCoord(MyGUI::IntCoord(500, 10, 400, 400));
+		buffer->setCoord(MyGUI::IntCoord(500, 10, 300, 300));
 
-		buffer = createVertexBuffer();
+		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
-		buffer->setCoord(MyGUI::IntCoord(500, 300, 400, 400));
+		buffer->setCoord(MyGUI::IntCoord(650, 150, 300, 300));
 		buffer->setManualMode(true);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		destroyAllBuffers();
+		destroyAllLayers();
 		getSceneManager()->removeRenderQueueListener(this);
 	}
 
@@ -111,27 +114,22 @@ namespace demo
 	{
 		setCurrentManual(true);
 
-		for (VectorVertexBuffer::iterator item = mBuffers.begin(); item != mBuffers.end(); ++ item)
-		{
-			if ((*item)->getEmpty())
-				continue;
-
-			(*item)->draw(this);
-		}
+		for (VectorLayer::iterator item = mLayers.begin(); item != mLayers.end(); ++ item)
+			(*item)->doRender(this);
 	}
 
-	VertexBuffer* DemoKeeper::createVertexBuffer()
+	Layer* DemoKeeper::createLayer()
 	{
-		VertexBuffer* buffer = new VertexBuffer();
-		mBuffers.push_back(buffer);
-		return buffer;
+		Layer* layer = new Layer();
+		mLayers.push_back(layer);
+		return layer;
 	}
 
-	void DemoKeeper::destroyAllBuffers()
+	void DemoKeeper::destroyAllLayers()
 	{
-		for (VectorVertexBuffer::iterator item = mBuffers.begin(); item != mBuffers.end(); ++ item)
+		for (VectorLayer::iterator item = mLayers.begin(); item != mLayers.end(); ++ item)
 			delete (*item);
-		mBuffers.clear();
+		mLayers.clear();
 	}
 
 } // namespace demo

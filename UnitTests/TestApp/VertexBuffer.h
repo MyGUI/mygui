@@ -23,7 +23,7 @@ namespace demo
 		const MyGUI::IntCoord& getCoord();
 		void setCoord(const MyGUI::IntCoord& _value);
 
-		void draw(IRenderManager* _renderManager);
+		void doRender(IRenderManager* _renderManager);
 
 		void setManualMode(bool _value);
 

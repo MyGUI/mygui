@@ -2,7 +2,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
-#include "VertexBuffer.h"
+#include "Layer.h"
 #include "IRenderManager.h"
 
 namespace demo
@@ -29,9 +29,9 @@ namespace demo
 
 		void doRender();
 
-		VertexBuffer* createVertexBuffer();
+		Layer* createLayer();
 
-		void destroyAllBuffers();
+		void destroyAllLayers();
 
 	private:
 		Ogre::RenderSystem* mRenderSystem;
@@ -39,8 +39,8 @@ namespace demo
 		Ogre::LayerBlendModeEx mAlphaBlendMode;	//!< Controls alpha blending mode used.
 		Ogre::TextureUnitState::UVWAddressingMode mUvwAddressMode;
 
-		typedef std::vector<VertexBuffer*> VectorVertexBuffer;
-		VectorVertexBuffer mBuffers;
+		typedef std::vector<Layer*> VectorLayer;
+		VectorLayer mLayers;
 	};
 
 } // namespace demo
