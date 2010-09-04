@@ -36,4 +36,5 @@ set rules {
     T017
     T018
     NoLeadingSpaces
+    PointerNearType
 }
