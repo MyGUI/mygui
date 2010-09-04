@@ -37,4 +37,5 @@ set rules {
     T018
     NoLeadingSpaces
     PointerNearType
+    SpacesAroundEqualSign
 }
