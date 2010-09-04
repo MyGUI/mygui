@@ -69,7 +69,7 @@ namespace wraps
 			}
 		}
 
-		bool isMinimized()
+		bool isMinimized() const
 		{
 			return m_minimized;
 		}
