@@ -15,8 +15,7 @@ namespace demo
 		{
 			RenderModeNormal,
 			RenderModeFilterNone,
-			RenderModePolygonWireframe,
-			RenderModeMask
+			RenderModePolygonWireframe
 		};
 
 	public:
@@ -42,8 +41,6 @@ namespace demo
 		void destroyVertexBuffer();
 
 		void update();
-
-		void initStateMask(RenderManager* _renderManager);
 
 	private:
 		std::string mTextureName;

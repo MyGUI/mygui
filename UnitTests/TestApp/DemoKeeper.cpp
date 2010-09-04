@@ -35,7 +35,6 @@ namespace demo
 		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile1.png");
 		buffer->setCoord(MyGUI::IntCoord(500, 10, 300, 300));
-		buffer->setRenderMode(VertexBuffer::RenderModeMask);
 
 		buffer = layer->createVertexBuffer();
 		buffer->setTextureName("smile2.png");
