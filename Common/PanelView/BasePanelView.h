@@ -16,14 +16,18 @@ namespace wraps
 {
 
 	template <typename TypeCell>
-	class BasePanelView : public BaseLayout
+	class BasePanelView :
+		public BaseLayout
 	{
 	public:
 		typedef std::vector<BasePanelViewItem*> VectorCell;
 
 	public:
 		BasePanelView(const std::string& _layout, MyGUI::Widget* _parent) :
-	  		BaseLayout(_layout, _parent)
+	  		BaseLayout(_layout, _parent),
+			mNeedUpdate(false),
+			mFirstInitialise(false),
+			mOldClientWidth(0)
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 
@@ -33,25 +37,34 @@ namespace wraps
 			mNeedUpdate = false;
 
 			mOldClientWidth = mScrollView->getClientCoord().width;
+
+			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
 		}
 
 		virtual ~BasePanelView()
 		{
+			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
+
 			removeAllItems();
 		}
 
 		//! Get number of items
-		size_t getItemCount() { return mItems.size(); }
+		size_t getItemCount()
+		{
+			return mItems.size();
+		}
 
 		//! Insert an item into a list at a specified position
-		void insertItem(size_t _index, BasePanelViewItem * _item)
+		void insertItem(size_t _index, BasePanelViewItem* _item)
 		{
 			MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "BasePanelView::insertItem");
-			if (_index == MyGUI::ITEM_NONE) _index = mItems.size();
+
+			if (_index == MyGUI::ITEM_NONE)
+				_index = mItems.size();
 			MYGUI_ASSERT(findItem(_item) == MyGUI::ITEM_NONE, "panel allready exist");
 
 			// создаем лейаут базовой €чейки
-			BasePanelViewCell * cell = new TypeCell(mScrollView);
+			BasePanelViewCell* cell = new TypeCell(mScrollView);
 			cell->eventUpdatePanel = MyGUI::newDelegate(this, &BasePanelView::notifyUpdatePanel);
 
 			// теперь основной лейаут €чейки
@@ -59,32 +72,31 @@ namespace wraps
 
 			mItems.insert(mItems.begin() + _index, _item);
 			setNeedUpdate();
+			mFirstInitialise = true;
 		}
 
 		//! Add an item to the end of a list
-		void addItem(BasePanelViewItem * _item) { insertItem(MyGUI::ITEM_NONE, _item); }
+		void addItem(BasePanelViewItem* _item)
+		{
+			insertItem(MyGUI::ITEM_NONE, _item);
+		}
 
 		//! Get item from specified position
-		BasePanelViewItem * getItem(size_t _index)
+		BasePanelViewItem* getItem(size_t _index)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItems.size(), "BasePanelView::getItem");
 			return mItems[_index];
 		}
 
 		//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
-		size_t findItem(BasePanelViewItem * _item)
+		size_t findItem(BasePanelViewItem* _item)
 		{
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-				if ((*iter) == _item) return iter - mItems.begin();
+			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			{
+				if ((*iter) == _item)
+					return iter - mItems.begin();
 			}
 			return MyGUI::ITEM_NONE;
-		}
-
-		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->getVisible(); }
-		void setItemShow(BasePanelViewItem * _item, bool _show)
-		{
-			_item->getPanelCell()->setVisible(_show);
-			setNeedUpdate();
 		}
 
 		//! Remove item at a specified position
@@ -92,7 +104,7 @@ namespace wraps
 		{
 			MYGUI_ASSERT_RANGE(_index, mItems.size(), "BasePanelView::removeItemAt");
 
-			BasePanelViewCell * cell = mItems[_index]->getPanelCell();
+			BasePanelViewCell* cell = mItems[_index]->getPanelCell();
 			mItems[_index]->_shutdown();
 			delete cell;
 
@@ -101,7 +113,7 @@ namespace wraps
 		}
 
 		//! Remove item at a specified position
-		void removeItem(BasePanelViewItem * _item)
+		void removeItem(BasePanelViewItem* _item)
 		{
 			size_t index = findItem(_item);
 			MYGUI_ASSERT(index != MyGUI::ITEM_NONE, "item is not found");
@@ -111,8 +123,9 @@ namespace wraps
 		//! Remove all items
 		void removeAllItems()
 		{
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
-				BasePanelViewCell * cell = (*iter)->getPanelCell();
+			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			{
+				BasePanelViewCell* cell = (*iter)->getPanelCell();
 				(*iter)->_shutdown();
 				delete cell;
 			}
@@ -124,9 +137,11 @@ namespace wraps
 		{
 			// вычисл€ем максимальную высоту всего добра
 			int height = 0;
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
+			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			{
 				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->getVisible()) {
+				if (widget->getVisible())
+				{
 					height += widget->getHeight();
 				}
 			}
@@ -136,8 +151,9 @@ namespace wraps
 			const MyGUI::IntSize & size = mScrollView->getClientCoord().size();
 			mScrollView->setCanvasSize(size.width, height);
 
-			bool change = false;
-			if (mOldClientWidth != size.width) {
+			bool change = mFirstInitialise;
+			if (mOldClientWidth != size.width)
+			{
 				mOldClientWidth = size.width;
 				change = true;
 			}
@@ -147,7 +163,7 @@ namespace wraps
 			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
 			{
 				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->getVisible())
+				if (widget->getVisible() || mFirstInitialise)
 				{
 					height = widget->getHeight();
 					widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));
@@ -161,6 +177,7 @@ namespace wraps
 			}
 
 			mNeedUpdate = false;
+			mFirstInitialise = false;
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEntered);
 		}
 
@@ -168,19 +185,33 @@ namespace wraps
 		// необходимо обновить все панели
 		void setNeedUpdate()
 		{
-			if (!mNeedUpdate) {
+			if (!mNeedUpdate)
+			{
 				mNeedUpdate = true;
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BasePanelView::frameEntered);
 			}
 		}
 
 	private:
-		void notifyUpdatePanel(BasePanelViewCell * _panel)
+		void notifyUpdatePanel(BasePanelViewCell* _panel)
 		{
 			setNeedUpdate();
 		}
 
-		void frameEntered(float _time) { updateView(); }
+		void frameEntered(float _time)
+		{
+			updateView();
+		}
+
+		void frameEnteredCheck(float _time)
+		{
+			const MyGUI::IntSize& size = mMainWidget->getSize();
+			if (size != mOldSize)
+			{
+				mOldSize = size;
+				setNeedUpdate();
+			}
+		}
 
 	protected:
 		MyGUI::ScrollView* mScrollView;
@@ -189,6 +220,8 @@ namespace wraps
 		VectorCell mItems;
 		bool mNeedUpdate;
 		int mOldClientWidth;
+		MyGUI::IntSize mOldSize;
+		bool mFirstInitialise;
 	};
 
 } // namespace wraps
