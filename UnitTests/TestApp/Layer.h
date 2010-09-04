@@ -15,7 +15,7 @@ namespace demo
 		VertexBuffer* createVertexBuffer();
 		void destroyAllBuffers();
 
-		void doRender(IRenderManager* _renderManager);
+		void doRender(RenderManager* _renderManager);
 
 	private:
 		typedef std::vector<VertexBuffer*> VectorVertexBuffer;

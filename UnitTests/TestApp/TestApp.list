@@ -1,12 +1,13 @@
 set (HEADER_FILES
   DemoKeeper.h
   VertexBuffer.h
-  IRenderManager.h
+  RenderManager.h
   Layer.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
   VertexBuffer.cpp
+  RenderManager.cpp
   Layer.cpp
   ../../Common/Base/BaseResource.rc
 )
