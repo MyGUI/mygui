@@ -294,7 +294,7 @@ namespace MyGUI
 		{
 			++_iter;
 			if ( _iter == mEnd ) return false;
-			buff[pos] = (Char)(*_iter);
+			buff[pos] = (wchar_t)(*_iter);
 		}
 
 		// ставим на следующий тег или символ
@@ -361,7 +361,7 @@ namespace MyGUI
 	{
 		if (_char == L'#') return L"##";
 		wchar_t buff[16] = L"_\0";
-		buff[0] = _char;
+		buff[0] = (wchar_t)_char;
 		return buff;
 	}
 

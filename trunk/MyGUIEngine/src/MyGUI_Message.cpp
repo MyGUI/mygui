@@ -227,9 +227,8 @@ namespace MyGUI
 
 	void Message::setWindowFade(bool _fade)
 	{
-		return; //пока пропустим
-
-		if (_fade)
+		//пока пропустим
+		/*if (_fade)
 		{
 			if (nullptr == mWidgetFade)
 			{
@@ -255,7 +254,7 @@ namespace MyGUI
 				WidgetManager::getInstance().destroyWidget(mWidgetFade);
 				mWidgetFade = nullptr;
 			}
-		}
+		}*/
 	}
 
 	const char* Message::getIconName(size_t _index)
