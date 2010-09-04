@@ -6,7 +6,6 @@
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
 #define nullptr 0
 
-#define namespace //
 #define M_PI 3.14
 
 namespace MyGUI
