@@ -25,13 +25,11 @@ def parseOutput():
 	file.close ()
 
 def checkFolderSources(folder) :
-	os.system("cppcheck --enable=all -I Scripts/cppcheck " + folder + " 2>temp.cppcheck")
+	os.system("cppcheck --enable=all -I Scripts/cppcheck -I Common -I MyGUIEngine/include " + folder + " 2>temp.cppcheck")
 	parseOutput()
 
 
-#checkFolderSources('MyGUIEngine')
-os.system("cppcheck --enable=all -I Scripts/cppcheck -I MyGUIEngine/include MyGUIEngine/src 2>temp.cppcheck")
-parseOutput()
+checkFolderSources('MyGUIEngine')
 
 checkFolderSources('Demos')
 checkFolderSources('Tools')
