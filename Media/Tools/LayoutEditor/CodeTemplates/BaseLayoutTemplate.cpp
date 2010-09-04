@@ -12,4 +12,4 @@ namespace #{Panel_Namespace}
 	{
 	}
 
-} // {Panel_Namespace}
+} // #{Panel_Namespace}

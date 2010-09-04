@@ -137,7 +137,7 @@ namespace tools
 				char str[256];
 				input_file.getline(str, sizeof(str));
 				output_file << lm.replaceTags(str) << std::endl;
-				if (strcmp(str, "//%LE Widget_Declaration list start") == 0)
+				if (strstr(str, "//%LE Widget_Declaration list start") != 0)
 				{
 					EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
 					while (widget.next())
