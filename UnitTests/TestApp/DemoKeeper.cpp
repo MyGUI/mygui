@@ -43,7 +43,16 @@ namespace demo
 
 		buffer = createVertexBuffer();
 		buffer->setTextureName("smile2.png");
-		buffer->setCoord(MyGUI::IntCoord(300, 300, 400, 400));
+		buffer->setCoord(MyGUI::IntCoord(200, 300, 400, 400));
+
+		buffer = createVertexBuffer();
+		buffer->setTextureName("smile1.png");
+		buffer->setCoord(MyGUI::IntCoord(500, 10, 400, 400));
+
+		buffer = createVertexBuffer();
+		buffer->setTextureName("smile2.png");
+		buffer->setCoord(MyGUI::IntCoord(500, 300, 400, 400));
+		buffer->setManualMode(true);
 	}
 
 	void DemoKeeper::destroyScene()
@@ -100,19 +109,14 @@ namespace demo
 
 	void DemoKeeper::doRender()
 	{
-		bool first = true;
+		setCurrentManual(true);
+
 		for (VectorVertexBuffer::iterator item = mBuffers.begin(); item != mBuffers.end(); ++ item)
 		{
 			if ((*item)->getEmpty())
 				continue;
 
-			mRenderSystem->_setTexture(0, true, (*item)->getTextureName());
-			if (first)
-			{
-				initState();
-				first = false;
-			}
-			mRenderSystem->_render((*item)->getRenderOperation());
+			(*item)->draw(this);
 		}
 	}
 

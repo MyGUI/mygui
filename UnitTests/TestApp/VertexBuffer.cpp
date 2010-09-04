@@ -8,7 +8,8 @@ namespace demo
 	VertexBuffer::VertexBuffer() :
 		mVertexCount(6),
 		mCurrentTexture(0, 0, 1, 1),
-		mCurrentColour(0xFFFFFFFF)
+		mCurrentColour(0xFFFFFFFF),
+		mManualMode(false)
 	{
 		createVertexBuffer();
 	}
@@ -112,6 +113,38 @@ namespace demo
 
 		mVertexBuffer->unlock();
 		mRenderOperation.vertexData->vertexCount = 6;
+	}
+
+	void VertexBuffer::draw(IRenderManager* _renderManager)
+	{
+		if (mManualMode)
+		{
+			_renderManager->initState();
+			_renderManager->setCurrentManual(true);
+
+			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
+			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
+
+			_renderManager->getRenderSystem()->_render(getRenderOperation());
+		}
+		else
+		{
+			if (_renderManager->getCurrentManual())
+			{
+				_renderManager->initState();
+				_renderManager->setCurrentManual(false);
+			}
+
+			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
+			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
+
+			_renderManager->getRenderSystem()->_render(getRenderOperation());
+		}
+	}
+
+	void VertexBuffer::setManualMode(bool _value)
+	{
+		mManualMode = _value;
 	}
 
 } // namespace demo
