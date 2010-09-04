@@ -194,7 +194,7 @@ namespace MyGUI
 
 	Widget* Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
 		{
 			Widget* widget = (*iter)->findWidget(_name);
 			if (widget != nullptr) return widget;
@@ -300,7 +300,7 @@ namespace MyGUI
 		mViewSize = _size;
 
 		// выравниваем рутовые окна
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
 			(*iter)->_setAlign(oldViewSize);
 	}
 
