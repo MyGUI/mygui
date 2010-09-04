@@ -155,7 +155,7 @@ namespace MyGUI
 
 	void WidgetManager::unregisterUnlinker(IUnlinkWidget* _unlink)
 	{
-		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++)
+		for (size_t pos = 0; pos < mVectorIUnlinkWidget.size(); pos++)
 		{
 			if (mVectorIUnlinkWidget[pos] == _unlink)
 			{
@@ -168,7 +168,7 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)
 	{
-		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter)
+		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter != mVectorIUnlinkWidget.end(); ++iter)
 		{
 			(*iter)->_unlinkWidget(_widget);
 		}
@@ -199,7 +199,7 @@ namespace MyGUI
 	{
 		if (!mDestroyWidgets.empty())
 		{
-			for (VectorWidgetPtr::iterator entry=mDestroyWidgets.begin(); entry!=mDestroyWidgets.end(); ++entry)
+			for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
 				delete (*entry);
 			mDestroyWidgets.clear();
 		}

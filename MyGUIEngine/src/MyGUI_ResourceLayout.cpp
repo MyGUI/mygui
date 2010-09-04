@@ -117,7 +117,7 @@ namespace MyGUI
 	{
 		VectorWidgetPtr widgets;
 
-		for (VectorWidgetInfo::iterator iter=mLayoutData.begin(); iter!=mLayoutData.end(); ++iter)
+		for (VectorWidgetInfo::iterator iter = mLayoutData.begin(); iter != mLayoutData.end(); ++iter)
 		{
 			Widget* widget = createWidget(*iter, _prefix, _parent);
 			widgets.push_back(widget);

@@ -127,8 +127,8 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight()))
 		{
 			mWidgetTrack->setVisible(false);
-			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
-			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
+			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos / 2);
+			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos / 2);
 			return;
 		}
 		// если скрыт то покажем
@@ -138,17 +138,17 @@ namespace MyGUI
 		}
 
 		// и обновляем позицию
-		pos = (int)(((size_t)(pos-getTrackSize()) * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
+		pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
 		if ( nullptr != mWidgetFirstPart )
 		{
-			int height = pos + mWidgetTrack->getHeight()/2 - mWidgetFirstPart->getTop();
+			int height = pos + mWidgetTrack->getHeight() / 2 - mWidgetFirstPart->getTop();
 			mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), height);
 		}
 		if ( nullptr != mWidgetSecondPart )
 		{
-			int top = pos + mWidgetTrack->getHeight()/2;
+			int top = pos + mWidgetTrack->getHeight() / 2;
 			int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
 			mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 		}
@@ -169,9 +169,9 @@ namespace MyGUI
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
-		int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange-1) * 2);
+		int pos = start - (int)mSkinRangeStart + (getLineSize() - getTrackSize()) / (((int)mScrollRange - 1) * 2);
 		// высчитываем ближайшее значение и обновляем
-		pos = pos * (int)(mScrollRange-1) / (getLineSize() - getTrackSize());
+		pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 
 		// проверяем на выходы и изменения
 		if (pos < 0) pos = 0;
@@ -215,10 +215,10 @@ namespace MyGUI
 		else if (_sender == mWidgetEnd)
 		{
 			// максимальное значение
-			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
+			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)) ) return;
 
 			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollPage) < (mScrollRange-1)) mScrollPosition += mScrollPage;
+			if ((mScrollPosition + mScrollPage) < (mScrollRange - 1)) mScrollPosition += mScrollPage;
 			else mScrollPosition = mScrollRange - 1;
 
 			// оповещаем
@@ -243,10 +243,10 @@ namespace MyGUI
 		else if (_sender == mWidgetSecondPart)
 		{
 			// максимальное значение
-			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange-1)) ) return;
+			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)) ) return;
 
 			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollViewPage) < (mScrollRange-1)) mScrollPosition += mScrollViewPage;
+			if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1)) mScrollPosition += mScrollViewPage;
 			else mScrollPosition = mScrollRange - 1;
 
 			// оповещаем
@@ -309,7 +309,7 @@ namespace MyGUI
 	void VScroll::setTrackSize(int _size)
 	{
 		if (mWidgetTrack != nullptr)
-			mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size);
+			mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size);
 		updateTrack();
 	}
 

@@ -78,7 +78,7 @@ namespace MyGUI
 		if (mElapsedTime < mTime)
 		{
 			IntCoord coord;
-			eventFrameAction(mStartCoord, mDestCoord, coord, mElapsedTime/mTime);
+			eventFrameAction(mStartCoord, mDestCoord, coord, mElapsedTime / mTime);
 			if (mCalcPosition)
 			{
 				if (mCalcSize) _widget->setCoord(coord);

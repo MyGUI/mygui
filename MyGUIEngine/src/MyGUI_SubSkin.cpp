@@ -57,7 +57,7 @@ namespace MyGUI
 
 	void SubSkin::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((uint8)(_alpha * 255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
@@ -168,8 +168,8 @@ namespace MyGUI
 
 				float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
 				float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-				float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
-				float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
+				float UV_rgt_total = mRectTexture.right - (1 - UV_rgt) * UV_sizeX;
+				float UV_btm_total = mRectTexture.bottom - (1 - UV_btm) * UV_sizeY;
 
 				mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 			}
@@ -223,8 +223,8 @@ namespace MyGUI
 
 			float UV_lft_total = mRectTexture.left + UV_lft * UV_sizeX;
 			float UV_top_total = mRectTexture.top + UV_top * UV_sizeY;
-			float UV_rgt_total = mRectTexture.right - (1-UV_rgt) * UV_sizeX;
-			float UV_btm_total = mRectTexture.bottom - (1-UV_btm) * UV_sizeY;
+			float UV_rgt_total = mRectTexture.right - (1 - UV_rgt) * UV_sizeX;
+			float UV_btm_total = mRectTexture.bottom - (1 - UV_btm) * UV_sizeY;
 
 			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 		}

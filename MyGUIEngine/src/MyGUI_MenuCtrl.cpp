@@ -207,7 +207,7 @@ namespace MyGUI
 
 		if (mAlignVert)
 		{
-			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
+			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
 				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
 				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), height);
@@ -220,7 +220,7 @@ namespace MyGUI
 		}
 		else
 		{
-			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
+			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
 				int width = iter->type == MenuItemType::Separator ? mSeparatorHeight : iter->width;
 				iter->item->setCoord(size.width, 0, width, mHeightLine);
@@ -604,7 +604,7 @@ namespace MyGUI
 
 	size_t MenuCtrl::getItemIndex(MenuItem* _item)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item) return pos;
 		}
@@ -613,7 +613,7 @@ namespace MyGUI
 
 	MenuItem* MenuCtrl::findItemWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
 		}
@@ -622,7 +622,7 @@ namespace MyGUI
 
 	MenuItem* MenuCtrl::getItemById(const std::string& _id)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].id == _id) return mItemsInfo[pos].item;
 		}
@@ -631,7 +631,7 @@ namespace MyGUI
 
 	size_t MenuCtrl::getItemIndexById(const std::string& _id)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].id == _id) return pos;
 		}
@@ -640,7 +640,7 @@ namespace MyGUI
 
 	MenuItem* MenuCtrl::findItemById(const std::string& _id, bool _recursive)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].id == _id)
 				return mItemsInfo[pos].item;
@@ -657,7 +657,7 @@ namespace MyGUI
 
 	size_t MenuCtrl::findItemIndexWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].name == _name) return pos;
 		}
@@ -666,7 +666,7 @@ namespace MyGUI
 
 	size_t MenuCtrl::findItemIndex(MenuItem* _item)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item) return pos;
 		}

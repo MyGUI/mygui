@@ -33,7 +33,7 @@ namespace MyGUI
 
 		inline void trim(std::string& _str, bool _left = true, bool _right = true)
 		{
-			if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
+			if (_right) _str.erase(_str.find_last_not_of(" \t\r") + 1);
 			if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 		}
 
@@ -274,7 +274,7 @@ namespace MyGUI
 				while (start != _source.npos)
 				{
 					size_t end = _source.find_first_of(_delims, start);
-					if (end != _source.npos) _ret.push_back(_source.substr(start, end-start));
+					if (end != _source.npos) _ret.push_back(_source.substr(start, end - start));
 					else
 					{
 						_ret.push_back(_source.substr(start));

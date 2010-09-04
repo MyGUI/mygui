@@ -55,7 +55,7 @@ namespace MyGUI
 		}
 
 		// ставим на следующий символ проскакивая все тэги
-		for (UString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
 
 			if ((*iter) == L'#')
@@ -88,7 +88,7 @@ namespace MyGUI
 				}
 
 				// остальные 5 символов цвета
-				for (size_t pos=0; pos<5; pos++)
+				for (size_t pos = 0; pos < 5; pos++)
 				{
 					// следующий символ
 					++ iter;
@@ -171,9 +171,9 @@ namespace MyGUI
 		wchar_t buff[SIZE];
 
 #ifdef __MINGW32__
-		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red * 255), (int)(_colour.green * 255), (int)(_colour.blue * 255));
 #else
-		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red * 255), (int)(_colour.green * 255), (int)(_colour.blue * 255));
 #endif
 		// непосредственная вставка
 		UString tmpStr = UString(buff);
@@ -205,7 +205,7 @@ namespace MyGUI
 		if (mSize != ITEM_NONE) return mSize;
 		mSize = mPosition;
 
-		for (UString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
 
 			if ((*iter) == L'#')
@@ -218,7 +218,7 @@ namespace MyGUI
 				if ((*iter) != L'#')
 				{
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++)
+					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++ iter;
 						if (iter == mEnd)
@@ -245,7 +245,7 @@ namespace MyGUI
 		ret.reserve(_text.size());
 
 		UString::const_iterator end = _text.end();
-		for (UString::const_iterator iter=_text.begin(); iter!=end; ++iter)
+		for (UString::const_iterator iter = _text.begin(); iter != end; ++iter)
 		{
 
 			if ((*iter) == L'#')
@@ -258,7 +258,7 @@ namespace MyGUI
 				if ((*iter) != L'#')
 				{
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++)
+					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++ iter;
 						if (iter == end)
@@ -290,7 +290,7 @@ namespace MyGUI
 		// берем цвет
 		wchar_t buff[16] = L"#FFFFFF\0";
 		buff[1] = (wchar_t)(*_iter);
-		for (size_t pos=2; pos<7; pos++)
+		for (size_t pos = 2; pos < 7; pos++)
 		{
 			++_iter;
 			if ( _iter == mEnd ) return false;
@@ -307,7 +307,7 @@ namespace MyGUI
 
 	void TextIterator::clearNewLine(UString& _text)
 	{
-		for (UString::iterator iter=_text.begin(); iter!=_text.end(); ++iter)
+		for (UString::iterator iter = _text.begin(); iter != _text.end(); ++iter)
 		{
 			if ( ((*iter) == FontCodeType::NEL) ||
 				((*iter) == FontCodeType::CR) ||
@@ -328,8 +328,8 @@ namespace MyGUI
 	UString TextIterator::getFromStart()
 	{
 		if (mSave == mEnd) return L"";
-		size_t start = mSave-mText.begin();
-		return mText.substr(start, mCurrent-mText.begin()-start);
+		size_t start = mSave - mText.begin();
+		return mText.substr(start, mCurrent - mText.begin() - start);
 	}
 
 	bool TextIterator::eraseFromStart()
@@ -371,9 +371,9 @@ namespace MyGUI
 		wchar_t buff[SIZE];
 //FIXME
 #ifdef __MINGW32__
-		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red * 255), (int)(_colour.green * 255), (int)(_colour.blue * 255));
 #else
-		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red * 255), (int)(_colour.green * 255), (int)(_colour.blue * 255));
 #endif
 		return buff;
 	}
@@ -382,7 +382,7 @@ namespace MyGUI
 	{
 		// преобразуем в строку с тегами
 		UString text(_text);
-		for (UString::iterator iter=text.begin(); iter!=text.end(); ++iter)
+		for (UString::iterator iter = text.begin(); iter != text.end(); ++iter)
 		{
 			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 			if (L'#' == (*iter)) iter = text.insert(++iter, L'#');
@@ -395,16 +395,16 @@ namespace MyGUI
 		// сбрасываем размер
 		mSize = ITEM_NONE;
 		// записываем в историю
-		if (mHistory) mHistory->push_back(TextCommandInfo(_insert, _start-mText.begin(), TextCommandInfo::COMMAND_INSERT));
+		if (mHistory) mHistory->push_back(TextCommandInfo(_insert, _start - mText.begin(), TextCommandInfo::COMMAND_INSERT));
 		// запоминаем позицию итератора
 		size_t pos = _start - mText.begin();
-		size_t pos_save = (mSave==mEnd) ? ITEM_NONE : _start - mText.begin();
+		size_t pos_save = (mSave == mEnd) ? ITEM_NONE : _start - mText.begin();
 		// непосредственно вставляем
 		mText.insert(_start, _insert.begin(), _insert.end());
 		// возвращаем итераторы
 		_start = mText.begin() + pos;
 		mEnd = mText.end();
-		(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
+		(pos_save == ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
 	}
 
 	UString::iterator TextIterator::erase(UString::iterator _start, UString::iterator _end)
@@ -412,8 +412,8 @@ namespace MyGUI
 		// сбрасываем размер
 		mSize = ITEM_NONE;
 		// сохраняем в историю
-		size_t start = _start-mText.begin();
-		if (mHistory) mHistory->push_back(TextCommandInfo(mText.substr(start, _end-_start), start, TextCommandInfo::COMMAND_ERASE));
+		size_t start = _start - mText.begin();
+		if (mHistory) mHistory->push_back(TextCommandInfo(mText.substr(start, _end - _start), start, TextCommandInfo::COMMAND_ERASE));
 		// возвращаем итератор
 		return mText.erase(_start, _end);
 	}
@@ -445,7 +445,7 @@ namespace MyGUI
 
 		mSize = mPosition;
 
-		for (UString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		for (UString::iterator iter = mCurrent; iter != mEnd; ++iter)
 		{
 
 			if ((*iter) == L'#')
@@ -458,7 +458,7 @@ namespace MyGUI
 				if ((*iter) != L'#')
 				{
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++)
+					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++ iter;
 						if (iter == mEnd)
@@ -499,8 +499,8 @@ namespace MyGUI
 		UString::iterator iter_colour = mEnd;
 
 		// теперь пройдем от начала и узнаем реальную позицию разницы
-		UString::iterator iter=mText.begin();
-		for (; iter!=mEnd; ++iter)
+		UString::iterator iter = mText.begin();
+		for (; iter != mEnd; ++iter)
 		{
 			if ((*iter) == L'#')
 			{
@@ -514,7 +514,7 @@ namespace MyGUI
 				if ((*iter) != L'#')
 				{
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++)
+					for (size_t pos = 0; pos < 5; pos++)
 					{
 						++ iter;
 						if (iter == mEnd)

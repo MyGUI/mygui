@@ -215,7 +215,7 @@ namespace MyGUI
 				if (nullptr != mButtonRight) mButtonRight->setVisible(true);
 				if (nullptr != mButtonList) mButtonList->setVisible(true);
 				if (nullptr != mButtonDecor) mButtonDecor->setVisible(true);
-				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->setVisible(true);
+				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter) (*iter)->setVisible(true);
 				if (mWidgetBar != nullptr)
 					mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -229,7 +229,7 @@ namespace MyGUI
 				if (nullptr != mButtonRight) mButtonRight->setVisible(false);
 				if (nullptr != mButtonList) mButtonList->setVisible(false);
 				if (nullptr != mButtonDecor) mButtonDecor->setVisible(false);
-				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->setVisible(false);
+				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter) (*iter)->setVisible(false);
 				if (mWidgetBar != nullptr)
 					mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -240,7 +240,7 @@ namespace MyGUI
 		{
 			// считаем длинну видимых кнопок
 			int width = 0;
-			for (size_t pos=mStartIndex; pos<mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
+			for (size_t pos = mStartIndex; pos < mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
 			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= _getWidgetBar()->getWidth()))
@@ -253,8 +253,8 @@ namespace MyGUI
 		// проверяем и обновляем бар
 		int width = 0;
 		size_t count = 0;
-		size_t pos=mStartIndex;
-		for (; pos<mItemsInfo.size(); pos++)
+		size_t pos = mStartIndex;
+		for (; pos < mItemsInfo.size(); pos++)
 		{
 			// текущая кнопка не влазиет
 			if (width > _getWidgetBar()->getWidth()) break;
@@ -345,7 +345,7 @@ namespace MyGUI
 		}
 		else if (_sender == mButtonRight)
 		{
-			if ((mStartIndex+1) < mItemsInfo.size())
+			if ((mStartIndex + 1) < mItemsInfo.size())
 			{
 				mStartIndex ++;
 				// в updateBar() будет подкорректированно если что
@@ -371,7 +371,7 @@ namespace MyGUI
 		mIndexSelect = select;
 
 		size_t count = 0;
-		for (size_t pos=0; pos<mItemButton.size(); pos++)
+		for (size_t pos = 0; pos < mItemButton.size(); pos++)
 		{
 			Button* button = mItemButton[count]->castType<Button>();
 			if (button->getVisible())
@@ -411,7 +411,7 @@ namespace MyGUI
 		{
 			// длинна бара от старт индекса до нужной включительно
 			int width = 0;
-			for (size_t pos=mStartIndex; pos<=_index; pos++)
+			for (size_t pos = mStartIndex; pos <= _index; pos++)
 			{
 				width += mItemsInfo[pos].width;
 			}
@@ -440,7 +440,7 @@ namespace MyGUI
 	{
 		mButtonAutoWidth = _auto;
 
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			int width;
 			if (mButtonAutoWidth) width = _getTextWidth(mItemsInfo[pos].name);
@@ -654,7 +654,7 @@ namespace MyGUI
 
 	size_t Tab::getItemIndex(TabItem* _item)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item) return pos;
 		}
@@ -663,7 +663,7 @@ namespace MyGUI
 
 	size_t Tab::findItemIndex(TabItem* _item)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item) return pos;
 		}
@@ -672,7 +672,7 @@ namespace MyGUI
 
 	size_t Tab::findItemIndexWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].name == _name) return pos;
 		}
@@ -681,7 +681,7 @@ namespace MyGUI
 
 	TabItem* Tab::findItemWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
 		}

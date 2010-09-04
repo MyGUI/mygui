@@ -130,7 +130,7 @@ namespace MyGUI
 			return;
 		}
 
-		for (VectorString::const_iterator iter=item->second.begin(); iter!=item->second.end(); ++iter)
+		for (VectorString::const_iterator iter = item->second.begin(); iter != item->second.end(); ++iter)
 		{
 			loadLanguage(*iter, false);
 		}
@@ -191,19 +191,19 @@ namespace MyGUI
 				read.erase(0, 3);
 			}
 
-			if (read[read.size()-1] == '\r') read.erase(read.size()-1, 1);
+			if (read[read.size()-1] == '\r') read.erase(read.size() - 1, 1);
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");
 			if (_user)
 			{
 				if (pos == std::string::npos) mUserMapLanguage[read] = "";
-				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 			else
 			{
 				if (pos == std::string::npos) mMapLanguage[read] = "";
-				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+				else mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 		}
 	}
@@ -267,7 +267,7 @@ namespace MyGUI
 			return _line;
 
 		UString::iterator end = line.end();
-		for (UString::iterator iter=line.begin(); iter!=end; )
+		for (UString::iterator iter = line.begin(); iter != end; )
 		{
 			if (*iter == '#')
 			{

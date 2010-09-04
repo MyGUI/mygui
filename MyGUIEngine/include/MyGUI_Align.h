@@ -130,7 +130,7 @@ namespace MyGUI
 			Align result(Enum(0));
 			const MapAlign& map_names = result.getValueNames();
 			const std::vector<std::string>& vec = utility::split(_value);
-			for (size_t pos=0; pos<vec.size(); pos++)
+			for (size_t pos = 0; pos < vec.size(); pos++)
 			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
 				if (iter != map_names.end())

@@ -302,7 +302,7 @@ namespace MyGUI
 	{
 		if (mAlpha == _value) return;
 		mAlpha = _value;
-		mCurrentAlpha = ((uint8)(mAlpha*255) << 24);
+		mCurrentAlpha = ((uint8)(mAlpha * 255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
@@ -400,8 +400,8 @@ namespace MyGUI
 
 	void EditText::setTextSelection(size_t _start, size_t _end)
 	{
-		mStartSelect=_start;
-		mEndSelect=_end;
+		mStartSelect = _start;
+		mEndSelect = _end;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -575,10 +575,10 @@ namespace MyGUI
 		const int height = mFontHeight;
 
 		size_t index = 0;
-		for (VectorLineInfo::const_iterator line=data.begin(); line!=data.end(); ++line)
+		for (VectorLineInfo::const_iterator line = data.begin(); line != data.end(); ++line)
 		{
 			left = line->offset - mViewOffset.left + mCoord.left;
-			for (VectorCharInfo::const_iterator sim=line->simbols.begin(); sim!=line->simbols.end(); ++sim)
+			for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
 			{
 				if (sim->isColour())
 				{

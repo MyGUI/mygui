@@ -147,7 +147,7 @@ namespace MyGUI
 
 		std::vector<MessageBoxStyle> buttons = _info.getButtons();
 
-		for (size_t index=0; index<buttons.size(); ++index)
+		for (size_t index = 0; index < buttons.size(); ++index)
 		{
 			// корректируем ее номер
 			MessageBoxStyle info = buttons[index];
@@ -180,7 +180,7 @@ namespace MyGUI
 
 	void Message::clearButton()
 	{
-		for (std::vector<Button*>::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
 		{
 			WidgetManager::getInstance().destroyWidget(*iter);
 		}
@@ -322,14 +322,14 @@ namespace MyGUI
 		size += mOffsetText;
 		size.width += 3;
 
-		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size()+1) * mButtonOffset.width);
+		int width = ((int)mVectorButton.size() * mButtonSize.width) + (((int)mVectorButton.size() + 1) * mButtonOffset.width);
 		if (size.width < width) size.width = width;
 
-		int offset = (size.width - width)/2;
+		int offset = (size.width - width) / 2;
 		offset += mButtonOffset.width;
 
 		const IntSize& view = RenderManager::getInstance().getViewSize();
-		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
+		setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
 
 		if (nullptr != mIcon)
 		{
@@ -340,7 +340,7 @@ namespace MyGUI
 			}
 		}
 
-		for (std::vector<Button*>::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
 		{
 			(*iter)->setCoord(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 			offset += mButtonOffset.width + mButtonSize.width;

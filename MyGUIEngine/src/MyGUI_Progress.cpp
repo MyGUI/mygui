@@ -159,7 +159,7 @@ namespace MyGUI
 		// все скрыто
 		if ((0 == mRange) || (0 == mEndPosition))
 		{
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
 			{
 				(*iter)->setVisible(false);
 			}
@@ -177,13 +177,13 @@ namespace MyGUI
 			else
 			{
 				// первый показываем и ставим норм альфу
-				VectorWidgetPtr::iterator iter=mVectorTrack.begin();
+				VectorWidgetPtr::iterator iter = mVectorTrack.begin();
 				(*iter)->setVisible(true);
 				(*iter)->setAlpha(ALPHA_MAX);
 
 				// все начиная со второго скрываем
 				++iter;
-				for (; iter!=mVectorTrack.end(); ++iter)
+				for (; iter != mVectorTrack.end(); ++iter)
 				{
 					(*iter)->setVisible(false);
 				}
@@ -227,7 +227,7 @@ namespace MyGUI
 		if ((0 == mStartPosition) && (mRange == mEndPosition))
 		{
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
 			{
 				(*iter)->setAlpha(ALPHA_MAX);
 				(*iter)->setVisible(true);
@@ -246,7 +246,7 @@ namespace MyGUI
 			int show_count = show_pix / mTrackStep;
 
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
 			{
 				if (0 > show_count)
 				{

@@ -53,7 +53,7 @@ namespace MyGUI
 
 	void RawRect::setAlpha(float _alpha)
 	{
-		mCurrentColour = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = ((uint8)(_alpha * 255) << 24);
 
 		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
 		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);

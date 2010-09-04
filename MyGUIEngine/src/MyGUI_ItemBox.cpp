@@ -158,7 +158,7 @@ namespace MyGUI
 		size_t count = (count_visible * mCountItemInLine) + start;
 
 		size_t index = 0;
-		for (size_t pos = start; pos<count; ++pos, ++index)
+		for (size_t pos = start; pos < count; ++pos, ++index)
 		{
 			// дальше нет айтемов
 			if (pos >= mItemsInfo.size()) break;
@@ -282,11 +282,11 @@ namespace MyGUI
 			return;
 		}
 
-		for (size_t pos=0; pos<mVectorItems.size(); ++pos)
+		for (size_t pos = 0; pos < mVectorItems.size(); ++pos)
 		{
 			Widget* item = mVectorItems[pos];
 			const IntRect& abs_rect = item->getAbsoluteRect();
-			if ((point.left>= abs_rect.left) && (point.left <= abs_rect.right) && (point.top>= abs_rect.top) && (point.top <= abs_rect.bottom))
+			if ((point.left >= abs_rect.left) && (point.left <= abs_rect.right) && (point.top >= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
 
 				size_t index = calcIndexByWidget(item);
@@ -504,7 +504,7 @@ namespace MyGUI
 
 	size_t ItemBox::_getContainerIndex(const IntPoint& _point)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 		{
 			if ((*iter)->getVisible())
 			{
@@ -525,7 +525,7 @@ namespace MyGUI
 		if ( ! _update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 			{
 				instance.unlinkFromUnlinkers(*iter);
 			}
@@ -534,7 +534,7 @@ namespace MyGUI
 
 	Widget* ItemBox::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 		{
 			if ((*iter)->getVisible())
 			{

@@ -78,7 +78,7 @@ namespace MyGUI
 
 	void RotatingSkin::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((uint8)(_alpha * 255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
@@ -228,7 +228,7 @@ namespace MyGUI
 
 	inline float len(float x, float y)
 	{
-		return sqrt(x*x + y*y);
+		return sqrt(x * x + y * y);
 	}
 
 	void RotatingSkin::_rebuildGeometry()
@@ -246,10 +246,10 @@ namespace MyGUI
 
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = atan2(                (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
-		baseAngles[1] = atan2( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI/2;
-		baseAngles[2] = atan2( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
-		baseAngles[3] = atan2(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI/2;
+		baseAngles[0] = atan2(                (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[1] = atan2( - width_base + (float)mCenterPos.left,                 (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[2] = atan2( - width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[3] = atan2(                (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
@@ -309,8 +309,8 @@ namespace MyGUI
 				{
 					FloatPoint point = _getPositionInsideRect(mResultVerticiesPos[i], baseVerticiesPos[0], baseVerticiesPos[1], baseVerticiesPos[3]);
 					mResultVerticiesUV[i] = FloatPoint(
-						baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
-						baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top
+						baseVerticiesUV[0].left + point.left * v0.left + point.top * v1.left,
+						baseVerticiesUV[0].top  + point.left * v0.top  + point.top * v1.top
 					);
 				}
 				else
@@ -384,14 +384,14 @@ namespace MyGUI
 				else if (invert* v0.left >= invert * _sideCoord && invert * v1.left < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
-					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+					float c = (v0.left - _sideCoord) / (_sideCoord - v1.left);
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c * v1.top) / (c + 1)));
 				}
 				// intersect side (2nd vertex in)
 				else if (invert* v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 				{
-					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+					float c = (v0.left - _sideCoord) / (_sideCoord - v1.left);
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c * v1.top) / (c + 1)));
 				}
 				// else don't add any verticies
 				break;
@@ -404,14 +404,14 @@ namespace MyGUI
 				else if (invert* v0.top >= invert * _sideCoord && invert * v1.top < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
-					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
+					float c = (v0.top - _sideCoord) / (_sideCoord - v1.top);
+					newVerticies.push_back(FloatPoint((v0.left + c * v1.left) / (c + 1), (float)_sideCoord));
 				}
 				// intersect side (2nd vertex in)
 				else if (invert* v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 				{
-					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
+					float c = (v0.top - _sideCoord) / (_sideCoord - v1.top);
+					newVerticies.push_back(FloatPoint((v0.left + c * v1.left) / (c + 1), (float)_sideCoord));
 				}
 				// else don't add any verticies
 				break;
@@ -429,10 +429,10 @@ namespace MyGUI
 		FloatPoint dirX = _corner1 - _corner0;
 		FloatPoint dirY = _corner2 - _corner0;
 
-		float div = dirX.left*dirY.top - dirX.top*dirY.left;
+		float div = dirX.left * dirY.top - dirX.top * dirY.left;
 		return FloatPoint(
-			(point.top*dirX.left - point.left*dirX.top)/div,
-			(point.left*dirY.top - point.top*dirY.left)/div
+			(point.top * dirX.left - point.left * dirX.top) / div,
+			(point.left * dirY.top - point.top * dirY.left) / div
 		);
 	}
 

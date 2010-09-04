@@ -64,7 +64,7 @@ namespace MyGUI
 
 	void TileRect::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((uint8)(_alpha * 255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
@@ -225,7 +225,7 @@ namespace MyGUI
 		float top = window_top;
 		float bottom = window_top;
 
-		for (int y=0; y<mCoord.height; y+=mTileSize.height)
+		for (int y = 0; y < mCoord.height; y += mTileSize.height)
 		{
 			top = bottom;
 			bottom -= mRealTileHeight;
@@ -258,7 +258,7 @@ namespace MyGUI
 				texture_crop_height = true;
 			}
 
-			for (int x=0; x<mCoord.width; x+=mTileSize.width)
+			for (int x = 0; x < mCoord.width; x += mTileSize.width)
 			{
 				left = right;
 				right += mRealTileWidth;
