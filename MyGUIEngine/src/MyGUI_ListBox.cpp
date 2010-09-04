@@ -121,7 +121,7 @@ namespace MyGUI
 
 	size_t ListBox::findItemIndexWith(const UString& _name)
 	{
-		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos] == _name) return pos;
 		}

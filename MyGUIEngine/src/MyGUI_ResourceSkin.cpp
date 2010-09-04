@@ -193,7 +193,7 @@ namespace MyGUI
 		checkState(_bind.mStates);
 		mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
 		checkBasis();
-		fillState(_bind.mStates, mBasis.size()-1);
+		fillState(_bind.mStates, mBasis.size() - 1);
 	}
 
 	void ResourceSkin::addProperty(const std::string& _key, const std::string& _value)
@@ -208,9 +208,9 @@ namespace MyGUI
 
 	void ResourceSkin::clear()
 	{
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
+		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
 		{
-			for (VectorStateInfo::iterator iter2=iter->second.begin(); iter2!=iter->second.end(); ++iter2)
+			for (VectorStateInfo::iterator iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
 			{
 				delete *iter2;
 			}
@@ -239,7 +239,7 @@ namespace MyGUI
 	void ResourceSkin::checkBasis()
 	{
 		// и увеличиваем размер смещений по колличеству сабвиджетов
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
+		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
 		{
 			iter->second.resize(mBasis.size());
 		}

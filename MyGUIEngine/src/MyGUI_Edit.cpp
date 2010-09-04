@@ -125,7 +125,7 @@ namespace MyGUI
 	{
 		mClient = nullptr;
 		mClientText = nullptr;
-		mVScroll= nullptr;
+		mVScroll = nullptr;
 		mHScroll = nullptr;
 
 		Base::shutdownOverride();
@@ -227,13 +227,13 @@ namespace MyGUI
 
 		while (iterBack != text.rend())
 		{
-			if (((*iterBack)<265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
+			if (((*iterBack) < 265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
 			iterBack++;
 			mStartSelect--;
 		}
 		while (iterForw != text.end())
 		{
-			if (((*iterForw)<265) && (ispunct(*iterForw) || isspace(*iterForw))) break;
+			if (((*iterForw) < 265) && (ispunct(*iterForw) || isspace(*iterForw))) break;
 			iterForw++;
 			mEndSelect++;
 		}
@@ -371,7 +371,7 @@ namespace MyGUI
 					deleteTextSelect(true);
 					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
 					// проверяем на возможность объединения
-					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+					if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
 					// отсылаем событие о изменении
 					eventEditTextChange(this);
 				}
@@ -622,7 +622,7 @@ namespace MyGUI
 						deleteTextSelect(true);
 						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
 						// проверяем на возможность объединения
-						if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+						if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
 						// отсылаем событие о изменении
 						eventEditTextChange(this);
 					}
@@ -850,7 +850,7 @@ namespace MyGUI
 		mVectorUndoChangeInfo.pop_back();
 
 		// объединяем последовательности
-		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); ++iter)
+		for (VectorChangeInfo::iterator iter = info.begin(); iter != info.end(); ++iter)
 		{
 			mVectorUndoChangeInfo.back().push_back((*iter));
 		}
@@ -873,7 +873,7 @@ namespace MyGUI
 		UString text = getRealString();
 
 		// восстанавливаем последовательность
-		for (VectorChangeInfo::reverse_iterator iter=info.rbegin(); iter!=info.rend(); iter++)
+		for (VectorChangeInfo::reverse_iterator iter = info.rbegin(); iter != info.rend(); iter++)
 		{
 
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
@@ -916,7 +916,7 @@ namespace MyGUI
 		UString text = getRealString();
 
 		// восстанавливаем последовательность
-		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); ++iter)
+		for (VectorChangeInfo::iterator iter = info.begin(); iter != info.end(); ++iter)
 		{
 
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
@@ -1058,7 +1058,7 @@ namespace MyGUI
 		}
 
 		// сохраняем позицию для восстановления курсора
-		commandPosition(_start, _start+_count, mTextLength, history);
+		commandPosition(_start, _start + _count, mTextLength, history);
 
 		// запоминаем в историю
 		if (_history)
@@ -1081,7 +1081,7 @@ namespace MyGUI
 		// начало и конец выделения
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
-		_setTextColour(start, end-start, _colour, _history);
+		_setTextColour(start, end - start, _colour, _history);
 	}
 
 	UString Edit::getTextSelection()
@@ -1089,7 +1089,7 @@ namespace MyGUI
 		if ( !isTextSelection()) return "";
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
-		return getTextInterval(start, end-start);
+		return getTextInterval(start, end - start);
 	}
 
 	void Edit::setEditPassword(bool _password)
@@ -1384,7 +1384,7 @@ namespace MyGUI
 			deleteTextSelect(true);
 			insertText(clipboard, mCursorPosition, true);
 			// проверяем на возможность объединения
-			if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+			if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
 			// отсылаем событие о изменении
 			eventEditTextChange(this);
 		}

@@ -65,7 +65,7 @@ namespace MyGUI
 
 	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		for (VectorRangeInfo::iterator iter = mVectorRangeInfo.begin(); iter != mVectorRangeInfo.end(); ++iter)
 		{
 			GlyphInfo* info = iter->getInfo(_id);
 			if (info == nullptr) continue;
@@ -146,11 +146,11 @@ namespace MyGUI
 
 		size_t finalWidth = MIN_FONT_TEXTURE_WIDTH;
 		// trying to guess necessary width for texture
-		while (mTtfSize*mTtfResolution > finalWidth*6) finalWidth *= 2;
+		while (mTtfSize * mTtfResolution > finalWidth * 6) finalWidth *= 2;
 
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		for (VectorRangeInfo::iterator iter = mVectorRangeInfo.begin(); iter != mVectorRangeInfo.end(); ++iter)
 		{
-			for (Char index=iter->first; index<=iter->last; ++index)
+			for (Char index = iter->first; index <= iter->last; ++index)
 			{
 
 				// символ рисовать ненужно
@@ -179,7 +179,7 @@ namespace MyGUI
 		max_height >>= 6;
 		max_bear >>= 6;
 
-		size_t finalHeight = (height+1) * (max_height + mDistance) + mDistance;
+		size_t finalHeight = (height + 1) * (max_height + mDistance) + mDistance;
 
 		//make it more squared
 		while (finalHeight > finalWidth)
@@ -338,7 +338,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
-				pDest = writeData(pDest, (k&1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
+				pDest = writeData(pDest, (k & 1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
 			}
 		}
 
@@ -349,10 +349,10 @@ namespace MyGUI
 		// создаем все остальные символы
 		//------------------------------------------------------------------
 		FT_Error ftResult;
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		for (VectorRangeInfo::iterator iter = mVectorRangeInfo.begin(); iter != mVectorRangeInfo.end(); ++iter)
 		{
 			size_t pos = 0;
-			for (Char index=iter->first; index<=iter->last; ++index, ++pos)
+			for (Char index = iter->first; index <= iter->last; ++index, ++pos)
 			{
 				// сомвол рисовать не нада
 				if (checkHidePointCode(index)) continue;
@@ -443,7 +443,7 @@ namespace MyGUI
 	// проверяет, входит ли символ в зоны ненужных символов
 	bool ResourceTrueTypeFont::checkHidePointCode(Char _id)
 	{
-		for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter)
+		for (VectorPairCodePoint::iterator iter = mVectorHideCodePoint.begin(); iter != mVectorHideCodePoint.end(); ++iter)
 		{
 			if (iter->isExist(_id)) return true;
 		}

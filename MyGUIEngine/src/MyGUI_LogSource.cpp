@@ -46,19 +46,19 @@ namespace MyGUI
 
 	void LogSource::open()
 	{
-		for (VectorLogListeners::iterator listener=mListeners.begin(); listener!=mListeners.end(); ++listener)
+		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
 			(*listener)->open();
 	}
 
 	void LogSource::close()
 	{
-		for (VectorLogListeners::iterator listener=mListeners.begin(); listener!=mListeners.end(); ++listener)
+		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
 			(*listener)->close();
 	}
 
 	void LogSource::flush()
 	{
-		for (VectorLogListeners::iterator listener=mListeners.begin(); listener!=mListeners.end(); ++listener)
+		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
 			(*listener)->flush();
 	}
 
@@ -70,7 +70,7 @@ namespace MyGUI
 				return;
 		}
 
-		for (VectorLogListeners::iterator listener=mListeners.begin(); listener!=mListeners.end(); ++listener)
+		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
 			(*listener)->log(_section, _level, _time, _message, _file, _line);
 	}
 

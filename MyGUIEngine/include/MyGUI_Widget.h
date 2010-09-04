@@ -376,7 +376,7 @@ namespace MyGUI
 		void assignWidget(T * & _widget, const std::string& _name)
 		{
 			_widget = nullptr;
-			for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
 			{
 				Widget* find = (*iter)->findWidget(_name);
 				if (nullptr != find)

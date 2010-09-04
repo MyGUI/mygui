@@ -39,8 +39,8 @@ namespace MyGUI
 		{
 			if ((0 == _coord.width) || (0 == _coord.height)) return false;
 
-			int x = ((_point.left * width)-1) / _coord.width;
-			int y = ((_point.top * height)-1) / _coord.height;
+			int x = ((_point.left * width) - 1) / _coord.width;
+			int y = ((_point.top * height) - 1) / _coord.height;
 
 			return 0 != data[(size_t)(y * width + x)];
 		}

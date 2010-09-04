@@ -78,7 +78,7 @@ namespace MyGUI
 
 	void LayerManager::clear()
 	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			destroy(*iter);
 		}
@@ -101,7 +101,7 @@ namespace MyGUI
 				continue;
 			}
 
-			for (VectorLayer::iterator iter=layers.begin(); iter!=layers.end(); ++iter)
+			for (VectorLayer::iterator iter = layers.begin(); iter != layers.end(); ++iter)
 			{
 				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
@@ -141,7 +141,7 @@ namespace MyGUI
 		_item->detachFromLayer();
 
 		// а теперь аттачим
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			if (_name == (*iter)->getName())
 			{
@@ -174,12 +174,12 @@ namespace MyGUI
 
 	void LayerManager::merge(VectorLayer& _layers)
 	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			if ((*iter) == nullptr) continue;
 			bool find = false;
 			std::string name = (*iter)->getName();
-			for (VectorLayer::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2)
+			for (VectorLayer::iterator iter2 = _layers.begin(); iter2 != _layers.end(); ++iter2)
 			{
 				if (name == (*iter2)->getName())
 				{
@@ -221,7 +221,7 @@ namespace MyGUI
 
 	void LayerManager::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
@@ -229,7 +229,7 @@ namespace MyGUI
 
 	ILayer* LayerManager::getByName(const std::string& _name, bool _throw) const
 	{
-		for (VectorLayer::const_iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::const_iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			if (_name == (*iter)->getName())
 				return (*iter);
@@ -243,7 +243,7 @@ namespace MyGUI
 		static const char* spacer = "                                                                                                                        ";
 		MYGUI_LOG(Info, spacer);
 		MYGUI_LOG(Info, "---------- Statistic for layers start ----------" << spacer);
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{
 			(*iter)->dumpStatisticToLog();
 		}

@@ -77,7 +77,7 @@ namespace MyGUI
 
 	void ControllerManager::clear()
 	{
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
 		{
 			delete (*iter).second;
 		}
@@ -98,7 +98,7 @@ namespace MyGUI
 		// подготавливаем
 		_item->prepareItem(_widget);
 
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
 		{
 			// такой уже в списке есть
 			if ((*iter).first == _widget)
@@ -119,7 +119,7 @@ namespace MyGUI
 	void ControllerManager::removeItem(Widget* _widget)
 	{
 		// не удаляем из списка, а обнуляем, в цикле он будет удален
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
 		{
 			if ((*iter).first == _widget) (*iter).first = nullptr;
 		}
@@ -132,7 +132,7 @@ namespace MyGUI
 
 	void ControllerManager::frameEntered(float _time)
 	{
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); /*added in body*/)
+		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); /*added in body*/)
 		{
 			if (nullptr == (*iter).first)
 			{

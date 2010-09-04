@@ -464,7 +464,7 @@ namespace MyGUI
 		}
 
 		// ручками сбрасываем, чтобы не менять фокусы
-		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
 		{
 			if ((*iter == _widget))
 			{
@@ -493,7 +493,7 @@ namespace MyGUI
 		resetKeyFocusWidget(_widget);
 		resetMouseFocusWidget();
 
-		for (VectorWidgetPtr::iterator iter=mVectorModalRootWidget.begin(); iter!=mVectorModalRootWidget.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
 		{
 			if ((*iter == _widget))
 			{

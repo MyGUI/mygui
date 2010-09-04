@@ -72,7 +72,7 @@ namespace MyGUI
 	private:
 		size_t getGroupIndex(const std::string& _name)
 		{
-			for (size_t index=0; index<mGroups.size(); ++index)
+			for (size_t index = 0; index < mGroups.size(); ++index)
 			{
 				if (mGroups[index].name == _name) return index;
 			}
@@ -81,7 +81,7 @@ namespace MyGUI
 
 		size_t getGroupIndex(const IntSize& _size)
 		{
-			for (size_t index=0; index<mGroups.size(); ++index)
+			for (size_t index = 0; index < mGroups.size(); ++index)
 			{
 				if (mGroups[index].size == _size) return index;
 			}
@@ -91,7 +91,7 @@ namespace MyGUI
 		size_t getImageIndex(GroupImage& _group, const std::string& _name)
 		{
 			VectorIndexImage& indexes = _group.indexes;
-			for (size_t index=0; index<indexes.size(); ++index)
+			for (size_t index = 0; index < indexes.size(); ++index)
 			{
 				if (indexes[index].name == _name) return index;
 			}
@@ -106,7 +106,7 @@ namespace MyGUI
 
 		const IntSize& getGroupSize(const std::string& _group)
 		{
-			for (size_t index=0; index<mGroups.size(); ++index)
+			for (size_t index = 0; index < mGroups.size(); ++index)
 			{
 				if (mGroups[index].name == _group) return mGroups[index].size;
 			}

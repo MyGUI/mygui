@@ -119,7 +119,7 @@ namespace MyGUI
 		if (!mVectorColumnInfo.empty())
 		{
 			size_t count = mVectorColumnInfo.front().list->getItemCount();
-			for (size_t pos=0; pos<count; ++pos)
+			for (size_t pos = 0; pos < count; ++pos)
 				column.list->addItem("");
 		}
 
@@ -187,7 +187,7 @@ namespace MyGUI
 	void MultiList::removeAllColumns()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			manager.destroyWidget((*iter).button);
 			manager.destroyWidget((*iter).list);
@@ -229,7 +229,7 @@ namespace MyGUI
 	void MultiList::removeAllItems()
 	{
 		BiIndexBase::removeAllItems();
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			(*iter).list->removeAllItems();
 		}
@@ -248,7 +248,7 @@ namespace MyGUI
 	{
 		if (_index == ITEM_NONE)
 		{
-			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 			{
 				(*iter).list->clearIndexSelected();
 			}
@@ -256,7 +256,7 @@ namespace MyGUI
 		else
 		{
 			//size_t index = BiIndexBase::convertToBack(_index);
-			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 			{
 				(*iter).list->setIndexSelected(_index);
 			}
@@ -311,14 +311,14 @@ namespace MyGUI
 		if (mWidthBar >= mClient->getWidth()) mButtonMain->setVisible(false);
 		else
 		{
-			mButtonMain->setCoord(mWidthBar, 0, mClient->getWidth()-mWidthBar, mHeightButton);
+			mButtonMain->setCoord(mWidthBar, 0, mClient->getWidth() - mWidthBar, mHeightButton);
 			mButtonMain->setVisible(true);
 		}
 	}
 
 	void MultiList::notifyListChangePosition(List* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			if (_sender != (*iter).list) (*iter).list->setIndexSelected(_position);
 		}
@@ -339,7 +339,7 @@ namespace MyGUI
 
 	void MultiList::notifyListChangeFocus(List* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			if (_sender != (*iter).list)
 			{
@@ -352,7 +352,7 @@ namespace MyGUI
 
 	void MultiList::notifyListChangeScrollPosition(List* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			if (_sender != (*iter).list)
 				(*iter).list->setScrollPosition(_position);
@@ -368,7 +368,7 @@ namespace MyGUI
 	void MultiList::redrawButtons()
 	{
 		size_t pos = 0;
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			if (pos == mSortColumnIndex)
 			{
@@ -427,7 +427,7 @@ namespace MyGUI
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty()) return nullptr;
 		// последний столбик
-		if (_index == mVectorColumnInfo.size()-1) return nullptr;
+		if (_index == mVectorColumnInfo.size() - 1) return nullptr;
 
 		while (_index >= mSeparators.size())
 		{
@@ -442,7 +442,7 @@ namespace MyGUI
 	{
 		mWidthBar = 0;
 		size_t index = 0;
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mClient->getHeight() - mHeightButton);
 			(*iter).button->setCoord(mWidthBar, 0, (*iter).width, mHeightButton);
@@ -477,7 +477,7 @@ namespace MyGUI
 		while (first < last)
 		{
 			BiIndexBase::swapItemsBackAt(first, last);
-			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 			{
 				(*iter).list->swapItemsAt(first, last);
 			}
@@ -510,18 +510,18 @@ namespace MyGUI
 		// shell sort
 		int first;
 		size_t last;
-		for (size_t step = count>>1; step>0 ; step >>= 1)
+		for (size_t step = count >> 1; step > 0 ; step >>= 1)
 		{
-			for (size_t i=0; i<(count-step); i++)
+			for (size_t i = 0; i < (count - step); i++)
 			{
-				first=(int)i;
-				while (first>=0)
+				first = (int)i;
+				while (first >= 0)
 				{
-					last = first+step;
+					last = first + step;
 					if (compare(list, first, last))
 					{
 						BiIndexBase::swapItemsBackAt(first, last);
-						for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+						for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 						{
 							(*iter).list->swapItemsAt(first, last);
 						}
@@ -549,7 +549,7 @@ namespace MyGUI
 		size_t index = BiIndexBase::insertItemAt(_index);
 
 		// вставляем во все поля пустые, а потом присваиваем первому
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			(*iter).list->insertItemAt(index, "");
 		}
@@ -566,7 +566,7 @@ namespace MyGUI
 
 		size_t index = BiIndexBase::removeItemAt(_index);
 
-		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
+		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
 			(*iter).list->removeItemAt(index);
 		}

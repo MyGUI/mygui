@@ -210,7 +210,7 @@ namespace MyGUI
 		}
 		else if (_rel < 0)
 		{
-			if ((mItemIndex+1) < mList->getItemCount())
+			if ((mItemIndex + 1) < mList->getItemCount())
 			{
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;

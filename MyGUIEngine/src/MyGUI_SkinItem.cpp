@@ -82,7 +82,7 @@ namespace MyGUI
 		if (iter == mStateInfo.end())
 			return false;
 
-		size_t index=0;
+		size_t index = 0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index)
 		{
 			IStateInfo* data = (*iter).second[index];
@@ -104,7 +104,7 @@ namespace MyGUI
 
 		// загружаем кирпичики виджета
 		FactoryManager& factory = FactoryManager::getInstance();
-		for (VectorSubWidgetInfo::const_iterator iter=_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter)
+		for (VectorSubWidgetInfo::const_iterator iter = _info->getBasisInfo().begin(); iter != _info->getBasisInfo().end(); ++iter)
 		{
 			IObject* object = factory.createObject("BasisSkin", (*iter).type);
 			if (object == nullptr)

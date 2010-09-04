@@ -95,7 +95,7 @@ namespace MyGUI
 
 	void StaticImage::setImageRect(const IntRect& _rect)
 	{
-		mRectImage= _rect;
+		mRectImage = _rect;
 
 		// если тайл еще не установлен, то ставим тот что у координат
 		if (mSizeTile.empty()) mSizeTile.set(_rect.width(), _rect.height());
@@ -145,9 +145,9 @@ namespace MyGUI
 		int pos_h = mRectImage.left;
 		int pos_v = mRectImage.top;
 
-		for (size_t v=0; v<count_v; ++v)
+		for (size_t v = 0; v < count_v; ++v)
 		{
-			for (size_t h=0; h<count_h; ++h)
+			for (size_t h = 0; h < count_h; ++h)
 			{
 				addItem(IntCoord(pos_h, pos_v, mSizeTile.width, mSizeTile.height));
 				pos_h += mSizeTile.width;
@@ -352,7 +352,7 @@ namespace MyGUI
 			addItem(IntCoord(*iter, _info.size));
 			setItemFrameRate(0, _info.rate);
 
-			for (++iter; iter!=_info.frames.end(); ++iter)
+			for (++iter; iter != _info.frames.end(); ++iter)
 			{
 				addItemFrame(0, MyGUI::IntCoord(*iter, _info.size));
 			}

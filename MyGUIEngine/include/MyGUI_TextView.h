@@ -163,7 +163,7 @@ namespace MyGUI
 
 			result.height += _height;
 
-			for (; index!=end; ++index)
+			for (; index != end; ++index)
 			{
 				Char character = *index;
 
@@ -217,7 +217,7 @@ namespace MyGUI
 						uint32 colour = convert_colour[(character-48) & 0x3F];
 
 						// и еще п€ть символов после шарпа
-						for (char i=0; i<5; i++)
+						for (char i = 0; i < 5; i++)
 						{
 							++ index;
 							if (index == end)
@@ -301,7 +301,7 @@ namespace MyGUI
 				result.width = width;
 
 			// теперь выравниванием строки
-			for (VectorLineInfo::iterator line=mLineInfo.begin(); line!=mLineInfo.end(); ++line)
+			for (VectorLineInfo::iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 			{
 				if (_align.isRight())
 					line->offset = result.width - line->width;
@@ -318,7 +318,7 @@ namespace MyGUI
 			size_t result = 0;
 			int top = 0;
 
-			for (VectorLineInfo::const_iterator line=mLineInfo.begin(); line!=mLineInfo.end(); ++line)
+			for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 			{
 				// это последн€€ строка
 				bool lastline = !(line + 1 != mLineInfo.end());
@@ -331,7 +331,7 @@ namespace MyGUI
 					int count = 0;
 
 					// ищем символ
-					for (VectorCharInfo::const_iterator sim=line->simbols.begin(); sim!=line->simbols.end(); ++sim)
+					for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
 					{
 						if (sim->isColour())
 							continue;
@@ -365,12 +365,12 @@ namespace MyGUI
 			size_t position = 0;
 			int top = 0;
 			int left = 0;
-			for (VectorLineInfo::const_iterator line=mLineInfo.begin(); line!=mLineInfo.end(); ++line)
+			for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 			{
 				left = line->offset;
 				if (position + line->count >= _position)
 				{
-					for (VectorCharInfo::const_iterator sim=line->simbols.begin(); sim!=line->simbols.end(); ++sim)
+					for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
 					{
 						if (sim->isColour())
 							continue;

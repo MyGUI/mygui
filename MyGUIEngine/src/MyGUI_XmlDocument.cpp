@@ -147,7 +147,7 @@ namespace MyGUI
 
 		Element::~Element()
 		{
-			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter)
+			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter)
 			{
 				delete *iter;
 			}
@@ -157,7 +157,7 @@ namespace MyGUI
 		void Element::save(std::ostream& _stream, size_t _level)
 		{
 			// сначала табуляции намутим
-			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
+			for (size_t tab = 0; tab < _level; ++tab) _stream  << "    ";
 
 			// теперь заголовок тега
 			if (mType == ElementType::Declaration) _stream << "<?";
@@ -185,21 +185,21 @@ namespace MyGUI
 				{
 					if (!empty)
 					{
-						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
+						for (size_t tab = 0; tab <= _level; ++tab) _stream  << "    ";
 					}
 					_stream << utility::convert_to_xml(mContent);
 
 					if (!empty) _stream << "\n";
 				}
 				// если есть детишки путь сохранятся
-				for (size_t child=0; child<mChilds.size(); child++)
+				for (size_t child = 0; child < mChilds.size(); child++)
 				{
 					mChilds[child]->save(_stream, _level + 1);
 				}
 
 				if (!empty)
 				{
-					for (size_t tab=0; tab<_level; ++tab)
+					for (size_t tab = 0; tab < _level; ++tab)
 						_stream  << "    ";
 				}
 				_stream << "</" << mName << ">\n";
@@ -224,7 +224,7 @@ namespace MyGUI
 
 		bool Element::findAttribute(const std::string& _name, std::string& _value)
 		{
-			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
+			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
 			{
 				if ( (*iter).first == _name)
 				{
@@ -237,7 +237,7 @@ namespace MyGUI
 
 		std::string Element::findAttribute(const std::string& _name)
 		{
-			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
+			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
 			{
 				if ( (*iter).first == _name) return (*iter).second;
 			}
@@ -251,7 +251,7 @@ namespace MyGUI
 
 		void Element::removeAttribute(const std::string& _key)
 		{
-			for (size_t index=0; index<mAttributes.size(); ++index)
+			for (size_t index = 0; index < mAttributes.size(); ++index)
 			{
 				if (mAttributes[index].first == _key)
 				{
@@ -266,7 +266,7 @@ namespace MyGUI
 			Element* elem = new Element(mName, nullptr, mType, mContent);
 			elem->mAttributes = mAttributes;
 
-			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter)
+			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter)
 			{
 				Element* child = (*iter)->createCopy();
 				child->mParent = elem;
@@ -278,7 +278,7 @@ namespace MyGUI
 
 		void Element::setAttribute(const std::string& _key, const std::string& _value)
 		{
-			for (size_t index=0; index<mAttributes.size(); ++index)
+			for (size_t index = 0; index < mAttributes.size(); ++index)
 			{
 				if (mAttributes[index].first == _key)
 				{
@@ -449,7 +449,7 @@ namespace MyGUI
 				// берем новую строку
 				_stream->readline(read, '\n');
 				if (read.empty()) continue;
-				if (read[read.size()-1] == '\r') read.erase(read.size()-1, 1);
+				if (read[read.size()-1] == '\r') read.erase(read.size() - 1, 1);
 				if (read.empty()) continue;
 
 				mLine ++;
@@ -555,7 +555,7 @@ namespace MyGUI
 				else
 				{
 					end = _content.find_last_not_of(" \t");
-					_content = _content.substr(start, end - start+1);
+					_content = _content.substr(start, end - start + 1);
 				}
 				// проверяем соответствие открывающего и закрывающего тегов
 				if (_currentNode->getName() != _content)
@@ -640,13 +640,13 @@ namespace MyGUI
 						return false;
 					}
 					// ищем вторые ковычки
-					end = _content.find_first_of("\"\'", start+1);
+					end = _content.find_first_of("\"\'", start + 1);
 					if (end == _content.npos)
 					{
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
-					end = _content.find_first_of("\"\'", end+1);
+					end = _content.find_first_of("\"\'", end + 1);
 					if (end == _content.npos)
 					{
 						mLastError = ErrorType::IncorrectAttribute;
@@ -654,7 +654,7 @@ namespace MyGUI
 					}
 
 					std::string key = _content.substr(0, start);
-					std::string value = _content.substr(start+1, end-start);
+					std::string value = _content.substr(start + 1, end - start);
 
 					// проверка на валидность
 					if (! checkPair(key, value))
@@ -667,7 +667,7 @@ namespace MyGUI
 					_currentNode->addAttribute(key, value);
 
 					// следующий кусок
-					_content = _content.substr(end+1);
+					_content = _content.substr(end + 1);
 
 					// в строке не осталось символов
 					start = _content.find_first_not_of(" \t");
@@ -794,7 +794,7 @@ namespace MyGUI
 				}
 				else
 				{
-					end = find(_line, '>', start+1);
+					end = find(_line, '>', start + 1);
 					if (end == _line.npos) break;
 				}
 				// проверяем на наличее тела
@@ -817,12 +817,12 @@ namespace MyGUI
 					}
 				}
 				// вырезаем наш тэг и парсим
-				if (!parseTag(_element, _line.substr(start+1, end-start-1)))
+				if (!parseTag(_element, _line.substr(start + 1, end - start - 1)))
 				{
 					return false;
 				}
 				// и обрезаем текущую строку разбора
-				_line = _line.substr(end+1);
+				_line = _line.substr(end + 1);
 			}
 			return true;
 		}

@@ -114,7 +114,7 @@ namespace MyGUI
 			if (manager != nullptr)
 				manager->_deleteDelayWidgets();
 
-			for (VectorDynLib::iterator entry=mDelayDynLib.begin(); entry!=mDelayDynLib.end(); ++entry)
+			for (VectorDynLib::iterator entry = mDelayDynLib.begin(); entry != mDelayDynLib.end(); ++entry)
 			{
 				(*entry)->unload();
 				delete (*entry);

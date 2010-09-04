@@ -73,9 +73,9 @@ namespace MyGUI
 			return true;
 		}
 
-		float k = sin(M_PI * mElapsedTime/mTime - M_PI/2);
-		if (k<0) k = (-pow(-k, 0.7f) + 1)/2;
-		else k = (pow(k, 0.7f) + 1)/2;
+		float k = sin(M_PI * mElapsedTime / mTime - M_PI / 2);
+		if (k < 0) k = (-pow(-k, 0.7f) + 1) / 2;
+		else k = (pow(k, 0.7f) + 1) / 2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 		// if widget was moved
@@ -104,12 +104,12 @@ namespace MyGUI
 		}
 		if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
 		{
-			coord.left = int(float(view_size.width - 1) - float(mRemainPixels)*k - float(coord.width) * (1.f - k));
+			coord.left = int(float(view_size.width - 1) - float(mRemainPixels) * k - float(coord.width) * (1.f - k));
 			nearBorder = true;
 		}
-		if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
+		if ((coord.bottom() >= view_size.height - 1) && !(coord.top <= 0))
 		{
-			coord.top = int(float(view_size.height-1) - float(mRemainPixels)*k - float(coord.height) * (1.f - k));
+			coord.top = int(float(view_size.height - 1) - float(mRemainPixels) * k - float(coord.height) * (1.f - k));
 			nearBorder = true;
 		}
 
@@ -162,9 +162,9 @@ namespace MyGUI
 		//mElapsedTime = (asin(k)/M_PI + 1./2) * mTime;
 		// this is reversed formula from ControllerEdgeHide::addTime k calculation
 		if (k > 0.5f)
-			mElapsedTime = (asin( pow( 2*k - 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
+			mElapsedTime = (asin( pow( 2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 		else
-			mElapsedTime = (asin(-pow(-2*k + 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
+			mElapsedTime = (asin(-pow(-2 * k + 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 	}
 
 } // namespace MyGUI

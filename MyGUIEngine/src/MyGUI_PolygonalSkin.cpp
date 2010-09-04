@@ -45,7 +45,7 @@ namespace MyGUI
 
 	inline float len(float x, float y)
 	{
-		return sqrt(x*x + y*y);
+		return sqrt(x * x + y * y);
 	}
 
 	void PolygonalSkin::setPoints(const std::vector<FloatPoint>& _points)
@@ -107,7 +107,7 @@ namespace MyGUI
 
 	void PolygonalSkin::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((uint8)(_alpha * 255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode)
@@ -346,8 +346,8 @@ namespace MyGUI
 				float sharpness = len(normal.left, normal.top) / mLineWidth;
 
 				float length = len(normal.left, normal.top);
-				normal.left *= 2 * mLineWidth / length /(sharpness - 0.5f);
-				normal.top *= 2 * mLineWidth / length /(sharpness - 0.5f);
+				normal.left *= 2 * mLineWidth / length / (sharpness - 0.5f);
+				normal.top *= 2 * mLineWidth / length / (sharpness - 0.5f);
 
 				// check orientation
 				lineDir = mLinePoints[i] - mLinePoints[i-1];
@@ -373,7 +373,7 @@ namespace MyGUI
 					normal2.top = -normal2.top;
 				}
 
-				FloatPoint UVcenter((baseVerticiesUV[0].left + baseVerticiesUV[3].left)/2, (baseVerticiesUV[0].top + baseVerticiesUV[3].top)/2);
+				FloatPoint UVcenter((baseVerticiesUV[0].left + baseVerticiesUV[3].left) / 2, (baseVerticiesUV[0].top + baseVerticiesUV[3].top) / 2);
 				mResultVerticiesPos.push_back(points[0]);
 				mResultVerticiesPos.push_back(mLinePoints[i] + normal);
 				mResultVerticiesPos.push_back(mLinePoints[i]);
@@ -415,8 +415,8 @@ namespace MyGUI
 		float length = len(result.top, result.left);
 		result.left /= length;
 		result.top /= length;
-		result.left *= mLineWidth/2;
-		result.top *= mLineWidth/2;
+		result.left *= mLineWidth / 2;
+		result.top *= mLineWidth / 2;
 		return result;
 	}
 
@@ -441,14 +441,14 @@ namespace MyGUI
 		result.left /= length;
 		result.top /= length;
 
-		float cos = result.left*line1.left + result.top*line1.top;
+		float cos = result.left * line1.left + result.top * line1.top;
 		float angle = acos(cos);
 
 		// too sharp angle
 		if (fabs(angle) < 1e-6 /*< 0.2f*/)
 			return FloatPoint();
 
-		float width = mLineWidth/2 / sin(angle);
+		float width = mLineWidth / 2 / sin(angle);
 		result.left *= width;
 		result.top *= width;
 		return result;

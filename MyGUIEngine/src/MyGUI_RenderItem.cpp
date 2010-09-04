@@ -67,7 +67,7 @@ namespace MyGUI
 			mCountVertex = 0;
 			Vertex* buffer = (Vertex*)mVertexBuffer->lock();
 
-			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+			for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 			{
 				// перед вызовом запоминаем позицию в буфере
 				mCurrentVertext = buffer;
@@ -100,12 +100,12 @@ namespace MyGUI
 			// непосредственный рендринг
 			if (mSeparate)
 			{
-				for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 					(*iter).first->preRender();
 
 				_target->doRender(mVertexBuffer, mTexture, mCountVertex);
 
-				for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 					(*iter).first->postRender();
 			}
 			else
@@ -117,7 +117,7 @@ namespace MyGUI
 
 	void RenderItem::removeDrawItem(ISubWidget* _item)
 	{
-		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 		{
 			if ((*iter).first == _item)
 			{
@@ -145,7 +145,7 @@ namespace MyGUI
 
 // проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
-		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 		{
 			MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
 		}
@@ -160,7 +160,7 @@ namespace MyGUI
 
 	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
 	{
-		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 		{
 			if ((*iter).first == _item)
 			{

@@ -138,7 +138,7 @@ namespace MyGUI
 		int top = 0;
 		size_t widget_index = 0;
 
-		for (size_t index=0; index<mItemsInfo.size(); ++index)
+		for (size_t index = 0; index < mItemsInfo.size(); ++index)
 		{
 			ItemDataInfo& info = mItemsInfo[index];
 
@@ -290,11 +290,11 @@ namespace MyGUI
 			return;
 		}
 
-		for (size_t pos=0; pos<mVectorItems.size(); ++pos)
+		for (size_t pos = 0; pos < mVectorItems.size(); ++pos)
 		{
 			Widget* item = mVectorItems[pos];
 			const IntRect& abs_rect = item->getAbsoluteRect();
-			if ((point.left>= abs_rect.left) && (point.left <= abs_rect.right) && (point.top>= abs_rect.top) && (point.top <= abs_rect.bottom))
+			if ((point.left >= abs_rect.left) && (point.left <= abs_rect.right) && (point.top >= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
 
 				size_t index = calcIndexByWidget(item);
@@ -540,7 +540,7 @@ namespace MyGUI
 
 	size_t ListCtrl::_getContainerIndex(const IntPoint& _point)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 		{
 			if ((*iter)->getVisible())
 			{
@@ -561,7 +561,7 @@ namespace MyGUI
 		if ( ! _update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+			for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 			{
 				instance.unlinkFromUnlinkers(*iter);
 			}
@@ -570,7 +570,7 @@ namespace MyGUI
 
 	Widget* ListCtrl::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
 		{
 			if ((*iter)->getVisible())
 			{
@@ -746,7 +746,7 @@ namespace MyGUI
 	{
 		IntSize size;
 
-		for (VectorItemInfo::const_iterator item=mItemsInfo.begin(); item!=mItemsInfo.end(); ++item)
+		for (VectorItemInfo::const_iterator item = mItemsInfo.begin(); item != mItemsInfo.end(); ++item)
 		{
 			if (size.width < item->size.width)
 				size.width = item->size.width;
