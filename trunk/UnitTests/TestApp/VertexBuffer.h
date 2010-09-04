@@ -2,10 +2,10 @@
 #define __VERTEXT_BUFFER_H__
 
 #include "BaseManager.h"
-#include "IRenderManager.h"
 
 namespace demo
 {
+	class RenderManager;
 
 	class VertexBuffer
 	{
@@ -23,7 +23,7 @@ namespace demo
 		const MyGUI::IntCoord& getCoord();
 		void setCoord(const MyGUI::IntCoord& _value);
 
-		void doRender(IRenderManager* _renderManager);
+		void doRender(RenderManager* _renderManager);
 
 		void setManualMode(bool _value);
 

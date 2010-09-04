@@ -1,5 +1,6 @@
 #include "precompiled.h"
 #include "VertexBuffer.h"
+#include "RenderManager.h"
 #include "MyGUI_OgreRenderManager.h"
 
 namespace demo
@@ -115,7 +116,7 @@ namespace demo
 		mRenderOperation.vertexData->vertexCount = 6;
 	}
 
-	void VertexBuffer::doRender(IRenderManager* _renderManager)
+	void VertexBuffer::doRender(RenderManager* _renderManager)
 	{
 		if (mManualMode)
 		{
