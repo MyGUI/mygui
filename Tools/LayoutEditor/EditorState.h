@@ -74,6 +74,7 @@ namespace tools
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
+		MyGUI::UString mLastFolder;
 	};
 
 } // namespace tools
