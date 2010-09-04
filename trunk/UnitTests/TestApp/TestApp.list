@@ -1,6 +1,7 @@
 set (HEADER_FILES
   DemoKeeper.h
   VertexBuffer.h
+  IRenderManager.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp

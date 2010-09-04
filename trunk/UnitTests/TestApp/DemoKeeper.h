@@ -3,13 +3,15 @@
 
 #include "BaseManager.h"
 #include "VertexBuffer.h"
+#include "IRenderManager.h"
 
 namespace demo
 {
 
 	class DemoKeeper :
 		public base::BaseManager,
-		public Ogre::RenderQueueListener
+		public Ogre::RenderQueueListener,
+		public IRenderManager
 	{
 	public:
 		DemoKeeper();
@@ -22,7 +24,9 @@ namespace demo
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 
-		void initState();
+		virtual void initState();
+		virtual Ogre::RenderSystem* getRenderSystem() { return mRenderSystem; }
+
 		void doRender();
 
 		VertexBuffer* createVertexBuffer();
