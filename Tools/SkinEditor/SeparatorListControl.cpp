@@ -148,7 +148,7 @@ namespace tools
 		if (getCurrentSkin() != nullptr)
 		{
 			int currentPreset = 0;
-			int index = 0;
+			int bitIndex = 0;
 
 			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
 			while (separators.next())
@@ -156,9 +156,9 @@ namespace tools
 				SeparatorItem* item = separators.current();
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
 				if (visible)
-					currentPreset |= (1 << index);
+					currentPreset |= (1 << bitIndex);
 
-				++ index;
+				++ bitIndex;
 			}
 
 			size_t indexSelected = MyGUI::ITEM_NONE;

@@ -142,7 +142,7 @@ namespace tools
 		if (getCurrentSkin() != nullptr)
 		{
 			int currentPreset = 0;
-			int index = 0;
+			int bitIndex = 0;
 
 			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
 			while (states.next())
@@ -150,9 +150,9 @@ namespace tools
 				StateItem* item = states.current();
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
 				if (visible)
-					currentPreset |= (1 << index);
+					currentPreset |= (1 << bitIndex);
 
-				++ index;
+				++ bitIndex;
 			}
 
 			size_t indexSelected = MyGUI::ITEM_NONE;
