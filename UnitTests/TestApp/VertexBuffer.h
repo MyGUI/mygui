@@ -1,7 +1,8 @@
 #ifndef __VERTEXT_BUFFER_H__
 #define __VERTEXT_BUFFER_H__
 
-#include "BaseManager.h"
+#include <Ogre.h>
+#include <MyGUI.h>
 
 namespace demo
 {

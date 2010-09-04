@@ -1,7 +1,7 @@
 #ifndef __RENDER_MANAGER_H__
 #define __RENDER_MANAGER_H__
 
-#include "BaseManager.h"
+#include <Ogre.h>
 #include "Layer.h"
 
 namespace demo

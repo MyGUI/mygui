@@ -1,7 +1,6 @@
 #ifndef __LAYER_H__
 #define __LAYER_H__
 
-#include "BaseManager.h"
 #include "VertexBuffer.h"
 
 namespace demo
@@ -15,7 +14,7 @@ namespace demo
 		VertexBuffer* createVertexBuffer();
 		void destroyAllBuffers();
 
-		void doRender(RenderManager* _renderManager);
+		virtual void doRender(RenderManager* _renderManager);
 
 	private:
 		typedef std::vector<VertexBuffer*> VectorVertexBuffer;
