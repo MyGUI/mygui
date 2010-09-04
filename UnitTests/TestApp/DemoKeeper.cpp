@@ -1,6 +1,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
+#include "RttLayer.h"
 
 namespace demo
 {
@@ -30,6 +31,16 @@ namespace demo
 		buffer->setTextureName("smile2.png");
 		buffer->setCoord(MyGUI::IntCoord(150, 150, 300, 300));
 		buffer->setRenderMode(VertexBuffer::RenderModePolygonWireframe);
+
+		layer = mRenderManager->createLayer<RttLayer>();
+		buffer = layer->createVertexBuffer();
+		buffer->setTextureName("smile1.png");
+		buffer->setCoord(MyGUI::IntCoord(500, 10, 300, 300));
+
+		buffer = layer->createVertexBuffer();
+		buffer->setTextureName("smile2.png");
+		buffer->setCoord(MyGUI::IntCoord(650, 150, 300, 300));
+		buffer->setRenderMode(VertexBuffer::RenderModeFilterNone);
 
 		layer = mRenderManager->createLayer();
 		buffer = layer->createVertexBuffer();
