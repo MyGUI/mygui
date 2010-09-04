@@ -60,9 +60,11 @@ namespace tools
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
 
+		mLastFolder = SettingsManager::getInstance().getSector("Files")->getPropertyValue("LastFolder");
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->setFileMask("*.layout");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
@@ -84,6 +86,8 @@ namespace tools
 	void EditorState::cleanupState()
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
+
+		SettingsManager::getInstance().getSector("Files")->setPropertyValue("LastFolder", mLastFolder);
 
 		delete mSelectionAreaControl;
 		mSelectionAreaControl = nullptr;
@@ -366,6 +370,7 @@ namespace tools
 
 	void EditorState::showLoadWindow()
 	{
+		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();
@@ -377,6 +382,7 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
+				mLastFolder = mOpenSaveFileDialog->getCurrentFolder();
 				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				save();
@@ -384,6 +390,7 @@ namespace tools
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
+				mLastFolder = mOpenSaveFileDialog->getCurrentFolder();
 				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				load();
@@ -411,6 +418,7 @@ namespace tools
 
 	void EditorState::showSaveAsWindow()
 	{
+		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->doModal();
