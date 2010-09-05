@@ -44,17 +44,32 @@ namespace MyGUI
 		virtual int getWidth();
 		virtual int getHeight();
 
-		virtual PixelFormat getFormat() { return mOriginalFormat; }
-		virtual TextureUsage getUsage() { return mOriginalUsage; }
-		virtual size_t getNumElemBytes() { return mNumElemBytes; }
+		virtual PixelFormat getFormat()
+		{
+			return mOriginalFormat;
+		}
+		virtual TextureUsage getUsage()
+		{
+			return mOriginalUsage;
+		}
+		virtual size_t getNumElemBytes()
+		{
+			return mNumElemBytes;
+		}
 
 		virtual IRenderTarget* getRenderTarget();
 
 		static Ogre::TextureUsage convertUsage(TextureUsage _usage);
 		static Ogre::PixelFormat convertFormat(PixelFormat _format);
 	/*internal:*/
-		Ogre::TexturePtr getOgreTexture() { return mTexture; }
-		void setOgreTexture(Ogre::TexturePtr _value) { mTexture = _value; }
+		Ogre::TexturePtr getOgreTexture()
+		{
+			return mTexture;
+		}
+		void setOgreTexture(Ogre::TexturePtr _value)
+		{
+			mTexture = _value;
+		}
 
 	private:
 		void setUsage(TextureUsage _usage);

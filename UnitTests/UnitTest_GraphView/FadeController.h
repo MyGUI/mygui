@@ -75,7 +75,7 @@ namespace animation
 					mWeight -= _value * (1 / fade_time);
 					if (mWeight < 0) mWeight = 0;
 					mConnection.forceEvent("Weight", mWeight);
-	 
+
 					if (mWeight == 0)
 						mConnection.forceEvent("Stop");
 				}

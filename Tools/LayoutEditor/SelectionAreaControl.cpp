@@ -84,14 +84,14 @@ namespace tools
 			{
 				if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 				{
-					coord.left = toGrid(coord.left + mGridStep-1 - old_coord.left) + old_coord.left;
-					coord.top = toGrid(coord.top + mGridStep-1 - old_coord.top) + old_coord.top;
+					coord.left = toGrid(coord.left + mGridStep - 1 - old_coord.left) + old_coord.left;
+					coord.top = toGrid(coord.top + mGridStep - 1 - old_coord.top) + old_coord.top;
 				}
 				else // если растягиваем
 				{
 					if (old_coord.left != coord.left)
 					{
-						coord.left = toGrid(coord.left + mGridStep-1);
+						coord.left = toGrid(coord.left + mGridStep - 1);
 						coord.width = old_coord.right() - coord.left;
 					}
 					else if (old_coord.width != coord.width)
@@ -101,7 +101,7 @@ namespace tools
 
 					if (old_coord.top != coord.top)
 					{
-						coord.top = toGrid(coord.top + mGridStep-1);
+						coord.top = toGrid(coord.top + mGridStep - 1);
 						coord.height = old_coord.bottom() - coord.top;
 					}
 					else if (old_coord.height != coord.height)

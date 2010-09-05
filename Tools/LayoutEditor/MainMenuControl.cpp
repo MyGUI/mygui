@@ -83,11 +83,11 @@ namespace tools
 		bool submenu = !_container->childContainers.empty();
 
 		_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
-		_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
+		_parentPopup->setItemDataAt(_parentPopup->getItemCount() - 1, _container->widget);
 
 		if (submenu)
 		{
-			MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
+			MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount() - 1);
 			child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
 			child->setPopupAccept(true);
 

@@ -18,11 +18,11 @@ namespace MyGUI
 		if (str[ 0 ] == 'p')
 		{
 			temp = str.substr(1, str.length() - 1);
-			
+
 			px(utility::parseInt(temp));
 		}
 		else if (str[ 0 ] == 'f')
-		{			
+		{
 			if (str[ 1 ] == 'f')
 				mFlMode = FM_FREE_SPACE;
 			else if (str[ 1 ] == 'p')
@@ -86,7 +86,7 @@ namespace MyGUI
 	}
 
 	//SizeDescription::SizeDescription(Widget* _widget)
-	//:	mSizeBehaviour(0), 
+	//:	mSizeBehaviour(0),
 	//	//mMaxSize(INT_SIZE_UNBOUND),
 	//	//mIsInitialized(false),
 	//	mWidget(_widget)
@@ -94,9 +94,9 @@ namespace MyGUI
 	//}
 
 	//SizeDescription::SizeDescription(Widget* _widget, const Dimension& _dim)
-	//:	mSizeBehaviour(0), 
-	//	size(_dim), 
-	//	//mMinSize(0, 0), 
+	//:	mSizeBehaviour(0),
+	//	size(_dim),
+	//	//mMinSize(0, 0),
 	//	//mMaxSize(INT_SIZE_UNBOUND),
 	//	//mIsInitialized(false),
 	//	mWidget(_widget)
@@ -107,7 +107,7 @@ namespace MyGUI
 	{
 		if ((_beh & SB_MIN) && (_beh & SB_MAX))
 		{
-			MYGUI_EXCEPT("Can't be min and max!"); 
+			MYGUI_EXCEPT("Can't be min and max!");
 			return false;
 		}
 
@@ -163,13 +163,13 @@ namespace MyGUI
 
 	//bool SizeDescription::isPxSize() const
 	//{
-	//	return mPxSize != IntSize(0, 0) && mFlSize == FloatSize(0, 0); 
+	//	return mPxSize != IntSize(0, 0) && mFlSize == FloatSize(0, 0);
 	//}
 
-	//bool SizeDescription::isFlSize() const 
-	//{ 
-	//	return mFlSize != FloatSize(0, 0) && mPxSize == IntSize(0, 0); 
+	//bool SizeDescription::isFlSize() const
+	//{
+	//	return mFlSize != FloatSize(0, 0) && mPxSize == IntSize(0, 0);
 	//}
-	
+
 } // namespace MyGUI
 

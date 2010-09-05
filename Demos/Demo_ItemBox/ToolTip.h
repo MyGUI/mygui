@@ -18,9 +18,9 @@ namespace demo
 	public:
 		ToolTip();
 
-		void show(ItemData * _data);
+		void show(ItemData* _data);
 		void hide();
-		void move(const MyGUI::IntPoint & _point);
+		void move(const MyGUI::IntPoint& _point);
 
 	private:
 		MyGUI::StaticText* mTextName;

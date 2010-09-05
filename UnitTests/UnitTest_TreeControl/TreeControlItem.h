@@ -12,30 +12,36 @@
 namespace MyGUI
 {
 
-    class TreeControlItem : public Button
-    {
-        MYGUI_RTTI_DERIVED( TreeControlItem )
+	class TreeControlItem : public Button
+	{
+		MYGUI_RTTI_DERIVED( TreeControlItem )
 
-    public:
-        TreeControlItem();
+	public:
+		TreeControlItem();
 
-        TreeControl::Node* getNode() const;
-        Button* getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
-        StaticImage* getIcon() const  { return mpIcon; }
+		TreeControl::Node* getNode() const;
+		Button* getButtonExpandCollapse() const
+		{
+			return mpButtonExpandCollapse;
+		}
+		StaticImage* getIcon() const
+		{
+			return mpIcon;
+		}
 
-    protected:
-        virtual void initialiseOverride();
-        virtual void shutdownOverride();
+	protected:
+		virtual void initialiseOverride();
+		virtual void shutdownOverride();
 
-        void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
-        void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
-        void notifyMouseWheel(Widget* pSender, int nValue);
+		void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
+		void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
+		void notifyMouseWheel(Widget* pSender, int nValue);
 
-    private:
-        Button* mpButtonExpandCollapse;
-        StaticImage* mpIcon;
-        //int mnLevelOffset;
-    };
+	private:
+		Button* mpButtonExpandCollapse;
+		StaticImage* mpIcon;
+		//int mnLevelOffset;
+	};
 
 }
 

@@ -48,7 +48,7 @@ namespace animation
 
 		virtual void addTime(float _value)
 		{
-			for (VectorNode::iterator item=mNodes.begin(); item!=mNodes.end(); ++item)
+			for (VectorNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
 			{
 				(*item)->addTime(_value);
 			}
@@ -70,7 +70,7 @@ namespace animation
 		{
 			if (_name == getName()) return this;
 
-			for (VectorNode::iterator item=mNodes.begin(); item!=mNodes.end(); ++item)
+			for (VectorNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
 			{
 				if ((*item)->getName() == _name)
 				{

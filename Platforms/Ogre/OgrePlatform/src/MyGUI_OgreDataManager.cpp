@@ -49,7 +49,7 @@ namespace MyGUI
 
 			return data;
 		}
-		catch(Ogre::FileNotFoundException _e)
+		catch (Ogre::FileNotFoundException _e)
 		{
 			MYGUI_LOG(Warning, _e.getDescription());
 		}
@@ -82,7 +82,7 @@ namespace MyGUI
 			if (fi->path.empty())
 			{
 				bool found = false;
-				for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
+				for (VectorString::iterator iter = result.begin(); iter != result.end(); ++iter)
 				{
 					if (*iter == fi->filename)
 					{

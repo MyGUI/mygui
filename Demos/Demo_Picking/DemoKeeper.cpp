@@ -37,7 +37,7 @@ namespace demo
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
-		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
+		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
 		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");

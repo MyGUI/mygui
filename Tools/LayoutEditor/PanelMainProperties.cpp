@@ -39,7 +39,7 @@ namespace tools
 	{
 		if (mCurrentWidget)
 		{
-			WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 			else mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
 			widgetContainer->relative_mode = !widgetContainer->relative_mode;
@@ -52,8 +52,8 @@ namespace tools
 		int y = 0;
 		mCurrentWidget = _currentWidget;
 
-		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);
 		y += mPropertyItemHeight;

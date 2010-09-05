@@ -73,7 +73,7 @@ namespace demo
 			{
 				mStateName.clear();
 			}
-			
+
 			getAnimationNode()->setProperty("Length", MyGUI::utility::toString(mLength));
 		}
 

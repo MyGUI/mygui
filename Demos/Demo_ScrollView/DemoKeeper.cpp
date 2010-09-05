@@ -23,13 +23,13 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Resize window to see how ScrollView widget works");
 
-		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
+		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(450, 450);
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		window->setMinSize(150, 150);
 		window->setCaption("ScrollView demo");
-		MyGUI::ScrollView* scroll_view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(2, 2, window->getClientCoord().width-2, window->getClientCoord().height-2), MyGUI::Align::Stretch);
+		MyGUI::ScrollView* scroll_view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(2, 2, window->getClientCoord().width - 2, window->getClientCoord().height - 2), MyGUI::Align::Stretch);
 
 		scroll_view->setCanvasSize(256, 256);
 		MyGUI::StaticImage* image = scroll_view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Default);

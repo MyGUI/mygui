@@ -130,7 +130,7 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection * mConnectionOut;
+		wraps::BaseGraphConnection* mConnectionOut;
 		MyGUI::EditPtr mEditPosition;
 		MyGUI::HScrollPtr mScrollPosition;
 		float mPosition;

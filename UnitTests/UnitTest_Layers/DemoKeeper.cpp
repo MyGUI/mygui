@@ -101,7 +101,7 @@ namespace demo
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
 		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");

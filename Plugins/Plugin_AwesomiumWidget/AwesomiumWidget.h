@@ -28,7 +28,10 @@ namespace Awesomium
 	public:
 		AwesomiumWidget();
 
-		Awesomium::WebView* getControl() { return mControl; }
+		Awesomium::WebView* getControl()
+		{
+			return mControl;
+		}
 
 		void loadURL(const std::string& _url);
 

@@ -30,7 +30,10 @@ namespace tools
 		EventHandle_EventSetPositionText eventSetPositionText;
 
 		//FIXME
-		MyGUI::Widget* getMainWidget() { return mWidgetClient; }
+		MyGUI::Widget* getMainWidget()
+		{
+			return mWidgetClient;
+		}
 
 	private:
 		MyGUI::Button* mButtonRelativePosition;

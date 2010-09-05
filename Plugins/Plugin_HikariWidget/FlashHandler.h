@@ -29,9 +29,9 @@
 namespace Hikari
 {
 
-	inline void replaceAll(std::wstring &sourceStr, const std::wstring &replaceWhat, const std::wstring &replaceWith)
+	inline void replaceAll(std::wstring& sourceStr, const std::wstring& replaceWhat, const std::wstring& replaceWith)
 	{
-		for(size_t i = sourceStr.find(replaceWhat); i != std::wstring::npos; i = sourceStr.find(replaceWhat, i + replaceWith.length()))
+		for (size_t i = sourceStr.find(replaceWhat); i != std::wstring::npos; i = sourceStr.find(replaceWhat, i + replaceWith.length()))
 		{
 			sourceStr.erase(i, replaceWhat.length());
 			sourceStr.insert(i, replaceWith);
@@ -40,32 +40,32 @@ namespace Hikari
 
 	std::wstring serializeValue(const FlashValue& value)
 	{
-		switch(value.getType())
+		switch (value.getType())
 		{
 		case FT_NULL:
 			return L"<null/>";
 		case FT_BOOLEAN:
-			return value.getBool()? L"<true/>" : L"<false/>";
+			return value.getBool() ? L"<true/>" : L"<false/>";
 		case FT_NUMBER:
-			{
-				static std::wstringstream converter;
-				converter.clear();
-				converter.str(L"");
-				converter << value.getNumber();
+		{
+			static std::wstringstream converter;
+			converter.clear();
+			converter.str(L"");
+			converter << value.getNumber();
 
-				return L"<number>" + converter.str() + L"</number>";
-			}
+			return L"<number>" + converter.str() + L"</number>";
+		}
 		case FT_STRING:
-			{
-				std::wstring stringVal = value.getString();
-				replaceAll(stringVal, L"&", L"&amp;");
-				replaceAll(stringVal, L"\"", L"&quot;");
-				replaceAll(stringVal, L"'", L"&apos;");
-				replaceAll(stringVal, L"<", L"&lt;");
-				replaceAll(stringVal, L">", L"&gt;");
+		{
+			std::wstring stringVal = value.getString();
+			replaceAll(stringVal, L"&", L"&amp;");
+			replaceAll(stringVal, L"\"", L"&quot;");
+			replaceAll(stringVal, L"'", L"&apos;");
+			replaceAll(stringVal, L"<", L"&lt;");
+			replaceAll(stringVal, L">", L"&gt;");
 
-				return L"<string>" + stringVal + L"</string>";
-			}
+			return L"<string>" + stringVal + L"</string>";
+		}
 		}
 
 		return L"<null/>";
@@ -73,14 +73,14 @@ namespace Hikari
 
 	FlashValue deserializeValue(const std::wstring& valueStr)
 	{
-		if(valueStr == L"<null/>")
+		if (valueStr == L"<null/>")
 			return FlashValue();
-		else if(valueStr == L"<true/>")
+		else if (valueStr == L"<true/>")
 			return FlashValue(true);
-		else if(valueStr == L"<false/>")
+		else if (valueStr == L"<false/>")
 			return FlashValue(false);
 
-		if(valueStr.substr(0, 8) == L"<string>")
+		if (valueStr.substr(0, 8) == L"<string>")
 		{
 			std::wstring stringVal = valueStr.substr(8, valueStr.find(L"</string>", 8) - 8);
 			replaceAll(stringVal, L"&quot;", L"\"");
@@ -90,7 +90,7 @@ namespace Hikari
 			replaceAll(stringVal, L"&amp;", L"&");
 			return FlashValue(stringVal);
 		}
-		else if(valueStr.substr(0, 8) == L"<number>")
+		else if (valueStr.substr(0, 8) == L"<number>")
 		{
 			static std::wstringstream converter;
 			converter.clear();
@@ -111,10 +111,10 @@ namespace Hikari
 
 		result += L"<invoke name=\"" + funcName + L"\" returntype=\"xml\">";
 
-		if(args.size())
+		if (args.size())
 		{
 			result += L"<arguments>";
-			for(Arguments::const_iterator i = args.begin(); i != args.end(); ++i)
+			for (Arguments::const_iterator i = args.begin(); i != args.end(); ++i)
 				result += serializeValue(*i);
 			result += L"</arguments>";
 		}
@@ -129,32 +129,32 @@ namespace Hikari
 		size_t indexA = 0;
 		size_t indexB = 0;
 
-		if((indexA = xmlString.find(L"<invoke name=\"")) == std::wstring::npos)
+		if ((indexA = xmlString.find(L"<invoke name=\"")) == std::wstring::npos)
 			return false;
 
-		if((indexB = xmlString.find(L"\"", indexA + 14)) == std::wstring::npos)
+		if ((indexB = xmlString.find(L"\"", indexA + 14)) == std::wstring::npos)
 			return false;
 
 		funcName = xmlString.substr(indexA + 14, indexB - (indexA + 14));
 		args.clear();
 
-		if((indexA = xmlString.find(L"<arguments>", indexB)) == std::wstring::npos)
+		if ((indexA = xmlString.find(L"<arguments>", indexB)) == std::wstring::npos)
 			return true;
 
 		indexA += 11;
 		std::wstring argString(xmlString.substr(indexA, xmlString.find(L"</arguments>", indexA) - indexA));
 
-		for(indexA = 0, indexB = 0; true;)
+		for (indexA = 0, indexB = 0; true;)
 		{
-			if((indexA = argString.find(L"<", indexB)) == std::wstring::npos)
+			if ((indexA = argString.find(L"<", indexB)) == std::wstring::npos)
 				break;
 
-			if((indexB = argString.find(L">", indexA)) == std::wstring::npos)
+			if ((indexB = argString.find(L">", indexA)) == std::wstring::npos)
 				break;
 
-			if(argString[indexB-1] != L'/')
+			if (argString[indexB-1] != L'/')
 			{
-				if((indexB = argString.find(L">", indexB + 1)) == std::wstring::npos)
+				if ((indexB = argString.find(L">", indexB + 1)) == std::wstring::npos)
 					break;
 			}
 
@@ -166,15 +166,15 @@ namespace Hikari
 
 	class FlashHandler : public ShockwaveFlashObjects::_IShockwaveFlashEvents
 	{
-	public:	
-		LPCONNECTIONPOINT connectionPoint;	
+	public:
+		LPCONNECTIONPOINT connectionPoint;
 		DWORD cookie;
 		int refCount;
 		FlashControl* owner;
 
 	public:
 		FlashHandler() : cookie(0), connectionPoint(0), refCount(0), owner(0)
-		{		
+		{
 		}
 
 		virtual ~FlashHandler()
@@ -189,21 +189,21 @@ namespace Hikari
 
 			HRESULT result = NOERROR;
 			LPCONNECTIONPOINTCONTAINER cPointContainer = 0;
-							
+
 			if ((owner->flashInterface->QueryInterface(IID_IConnectionPointContainer, (void**)&cPointContainer) == S_OK) &&
-				(cPointContainer->FindConnectionPoint(__uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents), &connectionPoint) == S_OK))			
+					(cPointContainer->FindConnectionPoint(__uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents), &connectionPoint) == S_OK))
 			{
 				IDispatch* dispatch = 0;
 				QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
 
-				if(dispatch)
+				if (dispatch)
 				{
 					result = connectionPoint->Advise((LPUNKNOWN)dispatch, &cookie);
 					dispatch->Release();
 				}
 			}
-					
-			if(cPointContainer)
+
+			if (cPointContainer)
 				cPointContainer->Release();
 
 			return result;
@@ -213,9 +213,9 @@ namespace Hikari
 		{
 			HRESULT result = S_OK;
 
-			if(connectionPoint)
+			if (connectionPoint)
 			{
-				if(cookie)
+				if (cookie)
 				{
 					result = connectionPoint->Unadvise(cookie);
 					cookie = 0;
@@ -227,7 +227,7 @@ namespace Hikari
 
 			return result;
 		}
-	 
+
 		HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, LPVOID* ppv)
 		{
 			*ppv = 0;
@@ -251,13 +251,13 @@ namespace Hikari
 				return S_OK;
 			}
 			else
-			{   
+			{
 				return E_NOTIMPL;
 			}
 		}
 
 		ULONG STDMETHODCALLTYPE AddRef()
-		{  
+		{
 			return ++refCount;
 		}
 
@@ -265,8 +265,8 @@ namespace Hikari
 		{
 			--refCount;
 
-			if(!refCount)
-				delete this;		
+			if (!refCount)
+				delete this;
 
 			return refCount;
 		}
@@ -278,46 +278,46 @@ namespace Hikari
 
 		virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo** ppTInfo)
 		{
-			return E_NOTIMPL; 
+			return E_NOTIMPL;
 		}
 
-		virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid,DISPID* rgDispId)
+		virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR* rgszNames, UINT cNames, LCID lcid, DISPID* rgDispId)
 		{
-			return E_NOTIMPL; 
+			return E_NOTIMPL;
 		}
 
 		virtual HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
-			WORD wFlags, ::DISPPARAMS __RPC_FAR *pDispParams, VARIANT __RPC_FAR *pVarResult,
-			::EXCEPINFO __RPC_FAR *pExcepInfo, UINT __RPC_FAR *puArgErr)
+			WORD wFlags, ::DISPPARAMS __RPC_FAR* pDispParams, VARIANT __RPC_FAR* pVarResult,
+			::EXCEPINFO __RPC_FAR* pExcepInfo, UINT __RPC_FAR* puArgErr)
 		{
-			switch(dispIdMember)
+			switch (dispIdMember)
 			{
-			case 0x7a6:			
+			case 0x7a6:
 				break;
-			case 0x96:			
-				if((pDispParams->cArgs == 2) && (pDispParams->rgvarg[0].vt == VT_BSTR) && (pDispParams->rgvarg[1].vt == VT_BSTR))
+			case 0x96:
+				if ((pDispParams->cArgs == 2) && (pDispParams->rgvarg[0].vt == VT_BSTR) && (pDispParams->rgvarg[1].vt == VT_BSTR))
 					FSCommand(pDispParams->rgvarg[1].bstrVal, pDispParams->rgvarg[0].bstrVal);
 				break;
 			case 0xC5:
-				if((pDispParams->cArgs == 1) && (pDispParams->rgvarg[0].vt == VT_BSTR))
+				if ((pDispParams->cArgs == 1) && (pDispParams->rgvarg[0].vt == VT_BSTR))
 					FlashCall(pDispParams->rgvarg[0].bstrVal);
 				break;
-			case DISPID_READYSTATECHANGE:					
+			case DISPID_READYSTATECHANGE:
 				break;
-			default:			
+			default:
 				return DISP_E_MEMBERNOTFOUND;
-			} 
-			
+			}
+
 			return NOERROR;
 		}
 
 		HRESULT OnReadyStateChange (long newState)
-		{	
+		{
 			return S_OK;
 		}
-	    
+
 		HRESULT OnProgress(long percentDone )
-		{		
+		{
 			return S_OK;
 		}
 
@@ -326,7 +326,7 @@ namespace Hikari
 			// TODO: Handle FSCommand
 
 			return S_OK;
-		}	
+		}
 
 		HRESULT FlashCall (_bstr_t request)
 		{

@@ -24,11 +24,11 @@ namespace demo
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
 	private:
-		void command(const MyGUI::UString & _key, const MyGUI::UString & _value);
+		void command(const MyGUI::UString& _key, const MyGUI::UString& _value);
 		virtual void setupResources();
 
 	private:
-		Console * mConsole;
+		Console* mConsole;
 		MyGUI::Edit* mEdit;
 	};
 

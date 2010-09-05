@@ -83,10 +83,10 @@ namespace demo
 		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock(MyGUI::TextureUsage::Write));
 
 		for (size_t j = 0; j < size; j++)
-			for(size_t i = 0; i < size; i++)
+			for (size_t i = 0; i < size; i++)
 			{
-				float x = (float)i/size;
-				float y = (float)j/size;
+				float x = (float)i / size;
+				float y = (float)j / size;
 				*pDest++ = MyGUI::uint8((1. - y) * (_colour.blue  * x + (1. - x)) * 255); // B
 				*pDest++ = MyGUI::uint8((1. - y) * (_colour.green * x + (1. - x)) * 255); // G
 				*pDest++ = MyGUI::uint8((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
@@ -117,7 +117,7 @@ namespace demo
 		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(nullptr, _left, _top);
 	}
 
-	void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)
+	void ColourPanel::updateFromPoint(const MyGUI::IntPoint& _point)
 	{
 		// вычисляем цвет по положению курсора Altren 09.2008
 		float x = 1.0f * _point.left / mColourRect->getWidth();
@@ -202,7 +202,7 @@ namespace demo
 		vec.push_back(_colour.blue);
 		std::sort(vec.begin(), vec.end());
 
-		MyGUI::IntPoint point((int)((1 - vec[0]/vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
+		MyGUI::IntPoint point((int)((1 - vec[0] / vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
 		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;
@@ -227,7 +227,7 @@ namespace demo
 
 
 		int i;
-		for (i = 0; i<6; ++i)
+		for (i = 0; i < 6; ++i)
 		{
 			if ((fabs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
 				(fabs(byIndex(mColourRange[i], iMax) - byIndex(mBaseColour, iMax)) < 0.001) &&
@@ -277,7 +277,7 @@ namespace demo
 		return colour;
 	}
 
-	float & ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
+	float& ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
 	{
 		if (_index == 0) return _colour.red;
 		else if (_index == 1) return _colour.green;
@@ -285,4 +285,4 @@ namespace demo
 		else return _colour.alpha;
 	}
 
- } // namespace demo
+} // namespace demo

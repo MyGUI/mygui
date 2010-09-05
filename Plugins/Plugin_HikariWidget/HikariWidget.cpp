@@ -97,7 +97,7 @@ namespace Hikari
 	void HikariWidget::gotoFrame(long frameNum)
 	{
 		mControl->getFlashInterface()->raw_GotoFrame(frameNum);
-	}	
+	}
 
 	void HikariWidget::setLoop(bool shouldLoop)
 	{

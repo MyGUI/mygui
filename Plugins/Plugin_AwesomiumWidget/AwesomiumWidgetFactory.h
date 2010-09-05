@@ -19,7 +19,10 @@ namespace Awesomium
 		AwesomiumWidgetFactory();
 		virtual ~AwesomiumWidgetFactory();
 
-		static Awesomium::WebCore* getCore() { return msCore; }
+		static Awesomium::WebCore* getCore()
+		{
+			return msCore;
+		}
 
 	private:
 		void notifyFrameStart(float _time);

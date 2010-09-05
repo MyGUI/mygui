@@ -17,10 +17,13 @@ namespace demo
 	{
 	public:
 		ItemBoxWindow(const std::string& _layout);
-		ItemBox * getItemBox() { return mItemBox; }
+		ItemBox* getItemBox()
+		{
+			return mItemBox;
+		}
 
 	private:
-		ItemBox * mItemBox;
+		ItemBox* mItemBox;
 	};
 
 } // namespace demo

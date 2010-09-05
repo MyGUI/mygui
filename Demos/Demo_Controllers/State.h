@@ -16,8 +16,14 @@ namespace demo
 	{
 		enum EnumType { Jump, Accelerated, Slowed, Inertional, MAX };
 		ControllerType(EnumType _value = MAX) : value(_value) { }
-		friend bool operator == (ControllerType const & a, ControllerType const & b) { return a.value == b.value; }
-		friend bool operator != (ControllerType const & a, ControllerType const & b) { return a.value != b.value; }
+		friend bool operator == (ControllerType const& a, ControllerType const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (ControllerType const& a, ControllerType const& b)
+		{
+			return a.value != b.value;
+		}
 	private:
 		EnumType value;
 	};
@@ -29,7 +35,10 @@ namespace demo
 		State(const std::string& _layout, ControllerType _type);
 		virtual ~State();
 
-		MyGUI::Widget* getClient() { return mMainWidget->getClientWidget(); }
+		MyGUI::Widget* getClient()
+		{
+			return mMainWidget->getClientWidget();
+		}
 
 		void setVisible(bool _visible);
 
@@ -40,7 +49,7 @@ namespace demo
 		void notifyFrameEvent(float _time);
 		void notifyPostAction(MyGUI::Widget* _sender);
 
-		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint & _point);
+		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint& _point);
 		MyGUI::ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 		void FrameAdvise(bool _advise);

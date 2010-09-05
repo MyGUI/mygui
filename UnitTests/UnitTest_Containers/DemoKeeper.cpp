@@ -66,7 +66,7 @@ namespace demo
 		// I hope
 		MyGUI::IntCoord reqWidgetCoords = getFlowWidgetCoords(_widget);
 
-		if(reqWidgetCoords == MyGUI::IntCoord())
+		if (reqWidgetCoords == MyGUI::IntCoord())
 		{
 			MYGUI_EXCEPT("Required coord property wasn't found (or nil) in test " +
 				_testName + "/" + _widget->getName() + "!");
@@ -198,16 +198,16 @@ namespace demo
 		//	info->size.px(MyGUI::INT_SIZE_UNBOUND.width, 5);
 		//	info->lineBreak = true;
 
-		for(int i = 0; i < 4; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			MyGUI::Button* b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
 			b->setCaption("Button " + MyGUI::utility::toString(i + 8));
 			info = flow->getWidgetInfo(b);
 
-				spacer = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
-				info = flow->getWidgetInfo(spacer);
+			spacer = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
+			info = flow->getWidgetInfo(spacer);
 
-			if(i % 4 == 3)
+			if (i % 4 == 3)
 			{
 				lineBreak = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(0, 0, 0, 0), MyGUI::Align::Default);
 				info = flow->getWidgetInfo(lineBreak);

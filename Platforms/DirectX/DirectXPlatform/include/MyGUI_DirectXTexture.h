@@ -44,14 +44,17 @@ namespace MyGUI
 
 		virtual IRenderTarget* getRenderTarget();
 
-	/*internal:*/
-		IDirect3DTexture9 * getDirectXTexture() { return mpTexture; }
+		/*internal:*/
+		IDirect3DTexture9* getDirectXTexture()
+		{
+			return mpTexture;
+		}
 		void deviceLost();
 		void deviceRestore();
 
 	private:
-		IDirect3DDevice9 *mpD3DDevice;
-	    IDirect3DTexture9 *mpTexture;
+		IDirect3DDevice9* mpD3DDevice;
+		IDirect3DTexture9* mpTexture;
 		IntSize mSize;
 		TextureUsage mTextureUsage;
 		PixelFormat mPixelFormat;

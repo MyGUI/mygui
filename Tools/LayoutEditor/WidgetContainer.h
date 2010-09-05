@@ -46,7 +46,7 @@ namespace tools
 			{
 				MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(widget->getCoord(), widget->getParentSize());
 				std::ostringstream stream;
-				if (_percent) stream << coord.left*100 << " " << coord.top*100 << " " << coord.width*100 << " " << coord.height*100;
+				if (_percent) stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " " << coord.height * 100;
 				else stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
 				return stream.str();
 			}

@@ -31,16 +31,34 @@ namespace MyGUI
 
 		virtual void destroy();
 
-		virtual int getWidth() { return mWidth; }
-		virtual int getHeight() { return mHeight; }
+		virtual int getWidth()
+		{
+			return mWidth;
+		}
+		virtual int getHeight()
+		{
+			return mHeight;
+		}
 
 		virtual void* lock(TextureUsage _access);
 		virtual void unlock();
-		virtual bool isLocked() { return mLock; }
+		virtual bool isLocked()
+		{
+			return mLock;
+		}
 
-		virtual PixelFormat getFormat()  { return mOriginalFormat; }
-		virtual TextureUsage getUsage() { return mOriginalUsage; }
-		virtual size_t getNumElemBytes() { return mNumElemBytes; }
+		virtual PixelFormat getFormat()
+		{
+			return mOriginalFormat;
+		}
+		virtual TextureUsage getUsage()
+		{
+			return mOriginalUsage;
+		}
+		virtual size_t getNumElemBytes()
+		{
+			return mNumElemBytes;
+		}
 
 		virtual IRenderTarget* getRenderTarget();
 

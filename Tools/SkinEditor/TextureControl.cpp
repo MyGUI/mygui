@@ -120,7 +120,7 @@ namespace tools
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
 
-		for (std::vector<SelectorControl*>::iterator item=mSelectors.begin(); item!=mSelectors.end(); ++item)
+		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
 			(*item)->setScale(mScaleValue);
 	}
 

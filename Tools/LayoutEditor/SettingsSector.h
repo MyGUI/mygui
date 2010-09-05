@@ -32,7 +32,10 @@ namespace tools
 
 		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertName);
 		void setPropertyValue(const MyGUI::UString& _propertName, const MyGUI::UString& _propertValue);
-		void setPropertyValue(const MyGUI::UString& _propertName, const std::string& _propertValue) { setPropertyValue(_propertName, MyGUI::UString(_propertValue)); }
+		void setPropertyValue(const MyGUI::UString& _propertName, const std::string& _propertValue)
+		{
+			setPropertyValue(_propertName, MyGUI::UString(_propertValue));
+		}
 
 		template <typename Type>
 		Type getPropertyValue(const MyGUI::UString& _propertyName)

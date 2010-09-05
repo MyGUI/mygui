@@ -117,7 +117,7 @@ namespace tools
 		return true;
 	}
 
-	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document * doc, bool _test)
+	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document* doc, bool _test)
 	{
 		MyGUI::xml::ElementPtr root = doc->getRoot();
 
@@ -134,9 +134,9 @@ namespace tools
 		mWidgetsChanged = true;
 	}
 
-	MyGUI::xml::Document * EditorWidgets::savexmlDocument()
+	MyGUI::xml::Document* EditorWidgets::savexmlDocument()
 	{
-		MyGUI::xml::Document * doc = new MyGUI::xml::Document();
+		MyGUI::xml::Document* doc = new MyGUI::xml::Document();
 
 		doc->createDeclaration();
 		MyGUI::xml::ElementPtr root = doc->createRoot("MyGUI");
@@ -151,7 +151,7 @@ namespace tools
 		return doc;
 	}
 
-	void EditorWidgets::add(WidgetContainer * _container)
+	void EditorWidgets::add(WidgetContainer* _container)
 	{
 		if (nullptr == _container->widget->getParent())
 		{
@@ -161,7 +161,7 @@ namespace tools
 		else
 		{
 			MyGUI::Widget* parent = _container->widget->getParent();
-			WidgetContainer * containerParent = find(parent);
+			WidgetContainer* containerParent = find(parent);
 			while (NULL == containerParent)
 			{
 				parent = parent->getParent();
@@ -179,7 +179,7 @@ namespace tools
 		mWidgetsChanged = true;
 	}
 
-	void EditorWidgets::remove(WidgetContainer * _container)
+	void EditorWidgets::remove(WidgetContainer* _container)
 	{
 		std::vector<WidgetContainer*>::reverse_iterator iter;
 		while (_container->childContainers.empty() == false)
@@ -197,7 +197,7 @@ namespace tools
 			else
 			{
 				MyGUI::Widget* parent = _container->widget->getParent();
-				WidgetContainer * containerParent = find(parent);
+				WidgetContainer* containerParent = find(parent);
 				while (NULL == containerParent)
 				{
 					parent = parent->getParent();
@@ -226,17 +226,17 @@ namespace tools
 		destroyAllSectors();
 	}
 
-	WidgetContainer * EditorWidgets::find(MyGUI::Widget* _widget)
+	WidgetContainer* EditorWidgets::find(MyGUI::Widget* _widget)
 	{
 		return _find(_widget, "", mWidgets);
 	}
 
-	WidgetContainer * EditorWidgets::find(const std::string& _name)
+	WidgetContainer* EditorWidgets::find(const std::string& _name)
 	{
 		return _find(NULL, _name, mWidgets);
 	}
 
-	WidgetContainer * EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
+	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
 	{
 		for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 		{
@@ -244,15 +244,15 @@ namespace tools
 			{
 				return *iter;
 			}
-			WidgetContainer * retContainer = _find(_widget, _name, (*iter)->childContainers);
+			WidgetContainer* retContainer = _find(_widget, _name, (*iter)->childContainers);
 			if (retContainer) return retContainer;
 		}
 		return nullptr;
 	}
 
-	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::Widget* _parent, bool _test)
+	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _test)
 	{
-		WidgetContainer * container = new WidgetContainer();
+		WidgetContainer* container = new WidgetContainer();
 		// парсим атрибуты виджета
 		MyGUI::IntCoord coord;
 		MyGUI::Align align = MyGUI::Align::Default;
@@ -275,10 +275,10 @@ namespace tools
 		// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
 		if (!container->name.empty())
 		{
-			WidgetContainer * iter = find(container->name);
+			WidgetContainer* iter = find(container->name);
 			if (nullptr != iter)
 			{
-				static long renameN=0;
+				static long renameN = 0;
 				// FIXME : not translated string
 				std::string mess = MyGUI::utility::toString("Widget with name '", container->name, "' already exist. Renamed to '", container->name, renameN, "'.");
 				MYGUI_LOGGING(LogSection, Warning, mess);
@@ -392,7 +392,7 @@ namespace tools
 
 	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test)
 	{
- 		try
+		try
 		{
 			if (_key == "Image_Texture")
 			{
@@ -410,7 +410,7 @@ namespace tools
 			//FIXME вроде уже не нужно, без этой строки все работает намного быстрее из-за корректных ленивых вычислеиний
 			//Ogre::Root::getSingleton().renderOneFrame();
 		}
-		catch(...)
+		catch (...)
 		{
 			GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogLevel::Error);
 			return false;
@@ -418,7 +418,7 @@ namespace tools
 		return true;
 	}
 
-	void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node)
+	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node)
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Widget");
 

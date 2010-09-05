@@ -46,8 +46,8 @@ namespace demo
 		std::string mFontName;
 		int mFontHeight;
 
-		FontView * mFontView;
-		TextureView * mTextureView;
+		FontView* mFontView;
+		TextureView* mTextureView;
 
 	};
 

@@ -67,12 +67,12 @@ namespace MyGUI
 		common::VectorWString wresult;
 		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
 
-		for (VectorArhivInfo::const_iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
 			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, false);
 		}
 
-		for (common::VectorWString::const_iterator item=wresult.begin(); item!=wresult.end(); ++item)
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
 		{
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
@@ -88,12 +88,12 @@ namespace MyGUI
 		common::VectorWString wresult;
 		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
 
-		for (VectorArhivInfo::const_iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
 			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, true);
 		}
 
-		for (common::VectorWString::const_iterator item=wresult.begin(); item!=wresult.end(); ++item)
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
 		{
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}

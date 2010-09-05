@@ -54,7 +54,7 @@ namespace MyGUI
 		mRenderSystem = nullptr;
 		mActiveViewport = 0;
 
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
 			setRenderSystem(root->getRenderSystem());
 		setRenderWindow(_window);
@@ -166,14 +166,14 @@ namespace MyGUI
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId)
 			return;
 
-		Ogre::Viewport * viewport = mSceneManager->getCurrentViewport();
+		Ogre::Viewport* viewport = mSceneManager->getCurrentViewport();
 		if (nullptr == viewport
 			|| !viewport->getOverlaysEnabled())
 			return;
 
 		if (mWindow->getNumViewports() <= mActiveViewport
 			|| viewport != mWindow->getViewport(mActiveViewport))
-				return;
+			return;
 
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
@@ -277,7 +277,7 @@ namespace MyGUI
 				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
 			}
 		}
-		
+
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
 		Ogre::RenderOperation* operation = buffer->getRenderOperation();
 		operation->vertexData->vertexCount = _count;
@@ -380,7 +380,7 @@ namespace MyGUI
 
 	void OgreRenderManager::destroyAllResources()
 	{
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
 		}
@@ -390,7 +390,7 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 	bool OgreRenderManager::checkTexture(ITexture* _texture)
 	{
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			if (item->second == _texture)
 				return true;

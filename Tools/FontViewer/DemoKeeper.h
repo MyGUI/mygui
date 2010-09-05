@@ -24,7 +24,7 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		FontPanel * mFontPanel;
+		FontPanel* mFontPanel;
 	};
 
 } // namespace demo

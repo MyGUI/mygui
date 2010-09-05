@@ -84,7 +84,7 @@ namespace demo
 		else if (_key == MyGUI::KeyCode::Four)
 		{
 			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-			while(layer.next())
+			while (layer.next())
 			{
 				if (layer->getName() == "RTT_Test")
 				{
@@ -95,7 +95,7 @@ namespace demo
 		else if (_key == MyGUI::KeyCode::Space)
 		{
 			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-			while(layer.next())
+			while (layer.next())
 			{
 				if (layer->getName() == "RTT_Test")
 				{
@@ -110,7 +110,7 @@ namespace demo
 
 							//MyGUI::Widget* widget = rttnode->castType<MyGUI::Widget>(false);
 							//if (widget != nullptr)
-								//widget->setCaption(rtt ? "RTT mode" : "Vertext mode");
+							//	widget->setCaption(rtt ? "RTT mode" : "Vertext mode");
 
 
 							/*for (SetWidget::iterator item=mWidgets.begin(); item!=mWidgets.end(); ++item)

@@ -32,14 +32,26 @@ namespace MyGUI
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
-		static OgreRenderManager& getInstance() { return *getInstancePtr(); }
-		static OgreRenderManager* getInstancePtr() { return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr()); }
+		static OgreRenderManager& getInstance()
+		{
+			return *getInstancePtr();
+		}
+		static OgreRenderManager* getInstancePtr()
+		{
+			return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr());
+		}
 
 		/** @see RenderManager::getViewSize */
-		virtual const IntSize& getViewSize() const { return mViewSize; }
+		virtual const IntSize& getViewSize() const
+		{
+			return mViewSize;
+		}
 
 		/** @see RenderManager::getVertexFormat */
-		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
+		virtual VertexColourType getVertexFormat()
+		{
+			return mVertexFormat;
+		}
 
 		/** @see RenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
@@ -65,7 +77,10 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 		/** @see IRenderTarget::getInfo */
-		virtual const RenderTargetInfo& getInfo() { return mInfo; }
+		virtual const RenderTargetInfo& getInfo()
+		{
+			return mInfo;
+		}
 
 		void setRenderSystem(Ogre::RenderSystem* _render);
 		Ogre::RenderSystem* getRenderSystem();
@@ -76,15 +91,27 @@ namespace MyGUI
 		void setSceneManager(Ogre::SceneManager* _scene);
 
 		/** Get GUI viewport index */
-		size_t getActiveViewport() { return mActiveViewport; }
+		size_t getActiveViewport()
+		{
+			return mActiveViewport;
+		}
 
 		/** Set GUI viewport index */
 		void setActiveViewport(unsigned short _num);
 
-		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
+		Ogre::RenderWindow* getRenderWindow()
+		{
+			return mWindow;
+		}
 
-		bool getManualRender() { return mManualRender; }
-		void setManualRender(bool _value) { mManualRender = _value; }
+		bool getManualRender()
+		{
+			return mManualRender;
+		}
+		void setManualRender(bool _value)
+		{
+			mManualRender = _value;
+		}
 
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture);

@@ -33,7 +33,7 @@ namespace wraps
 		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
 
 		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
-	  		BaseLayout(_layout, _parent),
+			BaseLayout(_layout, _parent),
 			mIsDrug(false),
 			mConnectionStart(nullptr),
 			mCanvas(nullptr)
@@ -67,7 +67,7 @@ namespace wraps
 
 		void removeAllItems()
 		{
-			for (VectorGraphNode::iterator item=mNodes.begin(); item!=mNodes.end(); ++item)
+			for (VectorGraphNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
 			{
 				removeAllConnections((*item));
 				(*item)->_shutdown();
@@ -216,7 +216,7 @@ namespace wraps
 					mDrugLine.point_start.set(
 						coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
 						coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-						);
+					);
 					mDrugLine.point_end = mDrugLine.point_start;
 
 					mConnectionStart = _connection;
@@ -277,7 +277,7 @@ namespace wraps
 						mDrugLine.point_start.set(
 							coord.left + (coord.width / 2) - mCanvas->getAbsoluteLeft(),
 							coord.top + (coord.height / 2) - mCanvas->getAbsoluteTop()
-							);
+						);
 						mDrugLine.point_end = mDrugLine.point_start;
 
 						mConnectionStart = drag_node;
@@ -376,7 +376,7 @@ namespace wraps
 		{
 			if ( ! _event.textureChanged && ! _event.requested ) return;
 
-			unsigned char * data = (unsigned char*)_canvas->lock();
+			unsigned char* data = (unsigned char*)_canvas->lock();
 
 			int width = _canvas->getTextureRealWidth();
 			int height = _canvas->getTextureRealHeight();
@@ -384,7 +384,7 @@ namespace wraps
 			clearCanvas((unsigned char*)data, width, height);
 
 			// проходим по всем нодам и перерисовываем связи
-			for (size_t index=0; index<mNodes.size(); ++index)
+			for (size_t index = 0; index < mNodes.size(); ++index)
 			{
 				EnumeratorConnection node_point = mNodes[index]->getConnectionEnumerator();
 				while (node_point.next())
@@ -394,7 +394,7 @@ namespace wraps
 					while (connect_point.next())
 					{
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
-			
+
 						ConnectionInfo info(
 							coord_from.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_from.width / 2, coord_from.height / 2),
 							coord_to.point() - mCanvas->getAbsolutePosition() + MyGUI::IntPoint(coord_to.width / 2, coord_to.height / 2),
@@ -410,7 +410,7 @@ namespace wraps
 			// ниточка для драга
 			if (mIsDrug)
 				drawCurve((unsigned char*)data, width, height, mDrugLine);
-			
+
 			_canvas->unlock();
 		}
 
@@ -451,7 +451,7 @@ namespace wraps
 		void clearCanvas(unsigned char* _data, int _width, int _height)
 		{
 			agg::rendering_buffer rbuf;
-			rbuf.attach(_data, _width, _height, _width*4);
+			rbuf.attach(_data, _width, _height, _width * 4);
 
 			// Pixel format and basic primitives renderer
 			agg::pixfmt_bgra32 pixf(rbuf);
@@ -462,10 +462,10 @@ namespace wraps
 
 		void drawCurve(unsigned char* _data, int _width, int _height, const ConnectionInfo& _info)
 		{
-			//============================================================ 
+			//============================================================
 			// AGG
 			agg::rendering_buffer rbuf;
-			rbuf.attach(_data, _width, _height, _width*4);
+			rbuf.attach(_data, _width, _height, _width * 4);
 
 			// Pixel format and basic primitives renderer
 			agg::pixfmt_bgra32 pixf(rbuf);
@@ -517,7 +517,7 @@ namespace wraps
 			agg::render_scanlines(ras, sl, ren);
 
 
-			//============================================================ 
+			//============================================================
 			// хранилище всех путей
 			agg::path_storage path2;
 
@@ -554,13 +554,13 @@ namespace wraps
 			// Setting the attrribute (color) & Rendering
 			ren.color(agg::rgba8(_info.colour.red * 255, _info.colour.green * 255, _info.colour.blue * 255, 255));
 			agg::render_scanlines(ras, sl, ren);
-			//============================================================ 
+			//============================================================
 		}
 
 		MyGUI::IntSize getViewSize()
 		{
 			MyGUI::IntSize result;
-			for (size_t index=0; index<mNodes.size(); ++index)
+			for (size_t index = 0; index < mNodes.size(); ++index)
 			{
 				const MyGUI::IntCoord& coord = mNodes[index]->getCoord();
 				if (coord.right() > result.width) result.width = coord.right();

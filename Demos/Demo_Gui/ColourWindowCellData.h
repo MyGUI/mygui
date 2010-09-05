@@ -24,8 +24,14 @@ namespace demo
 		{
 		}
 
-		const std::string& getName() const { return m_name; }
-		const MyGUI::Colour& getColour() const { return m_colour; }
+		const std::string& getName() const
+		{
+			return m_name;
+		}
+		const MyGUI::Colour& getColour() const
+		{
+			return m_colour;
+		}
 
 
 	private:

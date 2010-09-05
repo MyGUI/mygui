@@ -50,7 +50,7 @@ namespace demo
 		}
 
 	private:
-		wraps::BaseGraphConnection * mConnectionOut;
+		wraps::BaseGraphConnection* mConnectionOut;
 		MyGUI::ButtonPtr mButtonEvent;
 
 	};

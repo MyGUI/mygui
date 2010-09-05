@@ -90,7 +90,7 @@ namespace MyGUI
 	{
 		OpenGLRenderManager::getInstance().end();
 
-	    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); // unbind
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); // unbind
 
 		glPopAttrib();
 	}

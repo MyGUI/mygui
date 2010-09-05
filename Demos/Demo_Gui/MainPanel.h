@@ -27,7 +27,7 @@ namespace demo
 	public:
 		MainPanel();
 
-		void addObject(const MyGUI::UString & _name);
+		void addObject(const MyGUI::UString& _name);
 
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);

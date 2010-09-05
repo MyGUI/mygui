@@ -22,8 +22,14 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		static OpenGLDataManager& getInstance() { return *getInstancePtr(); }
-		static OpenGLDataManager* getInstancePtr() { return static_cast<OpenGLDataManager*>(DataManager::getInstancePtr()); }
+		static OpenGLDataManager& getInstance()
+		{
+			return *getInstancePtr();
+		}
+		static OpenGLDataManager* getInstancePtr()
+		{
+			return static_cast<OpenGLDataManager*>(DataManager::getInstancePtr());
+		}
 
 		/** @see DataManager::getData */
 		virtual IDataStream* getData(const std::string& _name);

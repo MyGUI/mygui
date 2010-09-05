@@ -48,7 +48,7 @@ namespace plugin
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Plugin::update);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::BerkeliumWidget>("Widget");
 
-		Berkelium::destroy(); 
+		Berkelium::destroy();
 
 		MYGUI_LOGGING(LogSection, Info, "shutdown");
 	}

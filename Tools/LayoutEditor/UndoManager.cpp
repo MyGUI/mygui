@@ -21,7 +21,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &UndoManager::commandRedo));
 	}
 
-	void UndoManager::initialise(EditorWidgets * _ew)
+	void UndoManager::initialise(EditorWidgets* _ew)
 	{
 		mPosition = 0;
 		mLastProperty = PR_DEFAULT;
@@ -31,7 +31,7 @@ namespace tools
 
 	void UndoManager::shutdown()
 	{
-		for (size_t i=0; i<mOperations.GetSize(); i++)
+		for (size_t i = 0; i < mOperations.GetSize(); i++)
 		{
 			delete mOperations[i];
 		}

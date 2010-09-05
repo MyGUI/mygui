@@ -30,10 +30,10 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		EditorWindow * mEditorWindow;
-		MainPanel * mMainPanel;
-		InformationWindow * mInformationWindow;
-		ColourWindow * mColourWindow;
+		EditorWindow* mEditorWindow;
+		MainPanel* mMainPanel;
+		InformationWindow* mInformationWindow;
+		ColourWindow* mColourWindow;
 	};
 
 } // namespace demo

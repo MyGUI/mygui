@@ -113,7 +113,7 @@ namespace MyGUI
 			mDefaultData.set(
 				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
 				0, 0, texture_u, texture_v, 0xFFFFFFFF
-				);
+			);
 		}
 
 		// анимируем и проверяем, использовалась ли анимация
@@ -136,7 +136,7 @@ namespace MyGUI
 			mVertexBuffer->setVertextCount(count_quad * VertexQuad::VertexCount);
 			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
-			for (size_t index=0; index<count_quad; ++index)
+			for (size_t index = 0; index < count_quad; ++index)
 			{
 				// копируем дефолтные данные
 				quad[index].vertex[VertexQuad::CornerLT] = mData[index].vertex[QuadData::CornerLT];
@@ -230,7 +230,7 @@ namespace MyGUI
 		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
 		while (anim.next())
 			anim->create();
-		
+
 		Base::attachLayerItem(_item);
 	}
 

@@ -21,15 +21,24 @@ namespace plugin
 		StrangeButton();
 
 		//! OLD Set button check state
-		void setButtonPressed(bool _value) { setStateCheck(_value); }
+		void setButtonPressed(bool _value)
+		{
+			setStateCheck(_value);
+		}
 		//! OLD Get buton check
-		bool getButtonPressed() { return getStateCheck(); }
+		bool getButtonPressed()
+		{
+			return getStateCheck();
+		}
 
 		//! Set button check state
 		void setStateCheck(bool _value);
 
 		//! Get buton check
-		bool getStateCheck() { return mIsStateCheck; }
+		bool getStateCheck()
+		{
+			return mIsStateCheck;
+		}
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);

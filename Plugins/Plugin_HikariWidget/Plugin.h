@@ -32,14 +32,17 @@ namespace plugin
 
 		//!	Shut down
 		virtual void shutdown();
-		
+
 		//!	Uninstall
 		virtual void uninstall();
 
 		//! Get name
 		virtual const std::string& getName() const;
 
-		static HMODULE getLibHandle() { return msFlashLib; }
+		static HMODULE getLibHandle()
+		{
+			return msFlashLib;
+		}
 
 	public:
 		static const std::string LogSection;

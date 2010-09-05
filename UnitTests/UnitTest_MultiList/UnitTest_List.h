@@ -15,7 +15,7 @@ namespace unittest
 	{
 	private:
 		MyGUI::List* original_list;
-		unittest::Mirror_List * mirror_list;
+		unittest::Mirror_List* mirror_list;
 		size_t count_items;
 
 	public:
@@ -37,7 +37,8 @@ namespace unittest
 			assert(count_items == original_list->getItemCount());
 			assert(original_list->getItemCount() == mirror_list->getItemCount());
 
-			for(size_t pos=0; pos<count_items; ++pos) {
+			for (size_t pos = 0; pos < count_items; ++pos)
+			{
 				assert(original_list->getItemNameAt(pos) == mirror_list->getItemNameAt(pos));
 				assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
 			}
@@ -57,7 +58,8 @@ namespace unittest
 
 		void Begin(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				Begin();
 				--_count;
 			}
@@ -75,7 +77,8 @@ namespace unittest
 
 		void AddItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				AddItem();
 				--_count;
 			}
@@ -96,7 +99,8 @@ namespace unittest
 
 		void InsertItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				InsertItem();
 				--_count;
 			}
@@ -118,7 +122,8 @@ namespace unittest
 
 		void RemoveItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				RemoveItem();
 				--_count;
 			}

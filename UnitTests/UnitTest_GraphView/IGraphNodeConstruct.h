@@ -20,7 +20,10 @@ namespace demo
 	public:
 		GraphNodeConstruct() { }
 		virtual ~GraphNodeConstruct() { }
-		virtual BaseAnimationNode* create(const std::string& _name) { return new Type(_name); }
+		virtual BaseAnimationNode* create(const std::string& _name)
+		{
+			return new Type(_name);
+		}
 	};
 
 }

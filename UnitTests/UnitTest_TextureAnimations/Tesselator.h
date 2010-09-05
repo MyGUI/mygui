@@ -25,14 +25,35 @@ namespace demo
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord);
 
-		int getCountX() const { return mCountX; }
-		int getCountY() const { return mCountY; }
-		int getCount() const { return mCountX * mCountY; }
+		int getCountX() const
+		{
+			return mCountX;
+		}
+		int getCountY() const
+		{
+			return mCountY;
+		}
+		int getCount() const
+		{
+			return mCountX * mCountY;
+		}
 
-		float getLeft() const { return mLeft; }
-		float getTop() const { return mTop; }
-		float getWidth() const { return mWidth; }
-		float getHeight() const { return mHeight; }
+		float getLeft() const
+		{
+			return mLeft;
+		}
+		float getTop() const
+		{
+			return mTop;
+		}
+		float getWidth() const
+		{
+			return mWidth;
+		}
+		float getHeight() const
+		{
+			return mHeight;
+		}
 
 	private:
 		int mCountX;

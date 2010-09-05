@@ -83,7 +83,7 @@ namespace tools
 			return;
 		}
 
-		WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(_currentWidget->getTypeName());
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_currentWidget->getTypeName());
 		//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		if (widgetType->many_items)
@@ -116,7 +116,7 @@ namespace tools
 	{
 		MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
 		MyGUI::TabItem* sheet = tab->addItem(_caption);
-		WidgetContainer * wc = new WidgetContainer("TabItem", "", sheet, "");
+		WidgetContainer* wc = new WidgetContainer("TabItem", "", sheet, "");
 		if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Widget_Caption", _caption));
 		EditorWidgets::getInstance().add(wc);
 	}
@@ -132,7 +132,7 @@ namespace tools
 			action = mCurrentWidget->getTypeName() + "_AddItem";
 		}
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		if (_apply)
 		{
 			if (_add)
@@ -193,7 +193,7 @@ namespace tools
 			if (action == "Tab_AddSheet")
 			{
 				MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
-				for (size_t i = 0; i<tab->getItemCount(); ++i)
+				for (size_t i = 0; i < tab->getItemCount(); ++i)
 				{
 					mList->addItem(tab->getItemNameAt(i));
 				}
@@ -201,7 +201,7 @@ namespace tools
 			else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 			{
 				MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
-				for (size_t i = 0; i<menu->getItemCount(); ++i)
+				for (size_t i = 0; i < menu->getItemCount(); ++i)
 				{
 					mList->addItem(menu->getItemNameAt(i));
 				}
@@ -240,7 +240,7 @@ namespace tools
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;
 		MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		std::string action = "Tab_SelectSheet";
 		std::string value = MyGUI::utility::toString(item);
@@ -249,7 +249,7 @@ namespace tools
 		action = "Sheet_Select";
 		for (size_t i = 0; i < tab->getItemCount(); ++i)
 		{
-			WidgetContainer * sheetContainer = EditorWidgets::getInstance().find(tab->getItemAt(i));
+			WidgetContainer* sheetContainer = EditorWidgets::getInstance().find(tab->getItemAt(i));
 
 			if (i == item)
 				utility::mapSet(sheetContainer->mProperty, action, "true");
@@ -262,7 +262,11 @@ namespace tools
 	void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
 	{
 		size_t item = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item) { notifyAddItem(); return; }
+		if (MyGUI::ITEM_NONE == item)
+		{
+			notifyAddItem();
+			return;
+		}
 		ON_EXIT(UndoManager::getInstance().addValue());
 		std::string action;
 		std::string value = mEdit->getOnlyText();
@@ -274,7 +278,7 @@ namespace tools
 			action = "Widget_Caption";
 			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 			MyGUI::TabItem* sheet = tab->getItemAt(item);
-			WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(sheet);
 			sheet->setProperty("Widget_Caption", value);
 			utility::mapSet(widgetContainer->mProperty, action, value);
 			return;
@@ -282,7 +286,7 @@ namespace tools
 		else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 		{
 			MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
-			for (size_t i = 0; i<menu->getItemCount(); ++i)
+			for (size_t i = 0; i < menu->getItemCount(); ++i)
 			{
 				menu->setItemNameAt(i, mList->getItemNameAt(i));
 			}
@@ -292,7 +296,7 @@ namespace tools
 			action = mCurrentWidget->getTypeName() + "_AddItem";
 		}
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		int index = 0;
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{

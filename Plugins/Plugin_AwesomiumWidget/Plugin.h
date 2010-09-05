@@ -31,7 +31,7 @@ namespace plugin
 
 		//!	Shut down
 		virtual void shutdown();
-		
+
 		//!	Uninstall
 		virtual void uninstall();
 

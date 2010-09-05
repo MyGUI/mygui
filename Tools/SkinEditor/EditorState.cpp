@@ -207,7 +207,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::commandTest(const MyGUI::UString & _commandName)
+	void EditorState::commandTest(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
 			return;

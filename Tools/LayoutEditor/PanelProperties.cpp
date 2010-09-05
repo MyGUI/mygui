@@ -28,7 +28,7 @@ namespace tools
 	{
 	}
 
-	size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y)
+	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y)
 	{
 		size_t count = widgetType->parameter.size();
 
@@ -60,7 +60,7 @@ namespace tools
 
 		int y = 0;
 
-		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _widgetType->name);
 

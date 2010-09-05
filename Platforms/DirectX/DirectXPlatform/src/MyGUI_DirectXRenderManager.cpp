@@ -23,14 +23,14 @@ namespace MyGUI
 	{
 	}
 
-	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
+	void DirectXRenderManager::initialise(IDirect3DDevice9* _device)
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mpD3DDevice = _device;
 
-		mVertexFormat = VertexColourType::ColourARGB;  
+		mVertexFormat = VertexColourType::ColourARGB;
 
 		memset(&mInfo, 0, sizeof(mInfo));
 		if (mpD3DDevice != nullptr)
@@ -70,9 +70,9 @@ namespace MyGUI
 
 	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		DirectXTexture *dxTex = static_cast<DirectXTexture*>(_texture);
+		DirectXTexture* dxTex = static_cast<DirectXTexture*>(_texture);
 		mpD3DDevice->SetTexture(0, dxTex->getDirectXTexture());
-		DirectXVertexBuffer *dxVB = static_cast<DirectXVertexBuffer*>(_buffer);
+		DirectXVertexBuffer* dxVB = static_cast<DirectXVertexBuffer*>(_buffer);
 		dxVB->setToStream(0);
 		// count in vertexes, triangle_list = vertexes / 3
 		mpD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, _count / 3);
@@ -116,7 +116,7 @@ namespace MyGUI
 		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_NONE );
 
-		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP); 
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 
 		mpD3DDevice->SetRenderState(D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA);
@@ -170,7 +170,7 @@ namespace MyGUI
 
 	void DirectXRenderManager::destroyAllResources()
 	{
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
 		}
@@ -205,7 +205,7 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_LOG(Info, "device D3D lost");
 
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			static_cast<DirectXTexture*>(item->second)->deviceLost();
 		}
@@ -215,7 +215,7 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_LOG(Info, "device D3D restore");
 
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			static_cast<DirectXTexture*>(item->second)->deviceRestore();
 		}

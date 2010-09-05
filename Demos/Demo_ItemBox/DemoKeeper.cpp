@@ -18,16 +18,16 @@ namespace demo
 	{
 	}
 
-	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
+	void DemoKeeper::notifyStartDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE)
 		{
-			ItemData * data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData* data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			_result = !data->isEmpty();
 		}
 	}
 
-	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
+	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
 		// не на айтем кидаем
 		if (_info.receiver_index == MyGUI::ITEM_NONE)
@@ -43,19 +43,19 @@ namespace demo
 			return;
 		}
 
-		ItemData * sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-		ItemData * receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+		ItemData* sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+		ItemData* receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 		_result = receiver_data->isEmpty() || receiver_data->compare(sender_data);
 	}
 
-	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool _result)
+	void DemoKeeper::notifyEndDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool _result)
 	{
 		if (_result)
 		{
 
-			ItemData * sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-			ItemData * receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+			ItemData* sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData* receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 			receiver_data->add(sender_data);
 			sender_data->clear();
@@ -67,7 +67,7 @@ namespace demo
 
 	}
 
-	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::IBNotifyItemData & _info)
+	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout* _sender, const MyGUI::IBNotifyItemData& _info)
 	{
 		/*if (_info.index != MyGUI::ITEM_NONE)
 		{
@@ -80,7 +80,7 @@ namespace demo
 		}*/
 	}
 
-	void DemoKeeper::notifyDropState(wraps::BaseLayout * _sender, MyGUI::DDItemState _state)
+	void DemoKeeper::notifyDropState(wraps::BaseLayout* _sender, MyGUI::DDItemState _state)
 	{
 		/*if (_state == MyGUI::DDItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
 		else if (_state == MyGUI::DDItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
@@ -165,7 +165,7 @@ namespace demo
 		mToolTip = nullptr;
 	}
 
-	void DemoKeeper::notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
+	void DemoKeeper::notifyToolTip(wraps::BaseLayout* _sender, const MyGUI::ToolTipInfo& _info, ItemData* _data)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show)
 		{

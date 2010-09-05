@@ -34,7 +34,7 @@
 namespace Hikari
 {
 
-	class FlashSite : public IOleInPlaceSiteWindowless, public IOleClientSite	
+	class FlashSite : public IOleInPlaceSiteWindowless, public IOleClientSite
 	{
 	public:
 		int	refCount;
@@ -42,12 +42,12 @@ namespace Hikari
 
 	public:
 		FlashSite() : refCount(0), owner(0)
-		{		
-		}	
+		{
+		}
 
 		virtual ~FlashSite()
 		{
-			if(owner)
+			if (owner)
 				owner->comCount--;
 		}
 
@@ -61,7 +61,7 @@ namespace Hikari
 		{
 			*ppv = 0;
 
-			if(riid == IID_IUnknown)
+			if (riid == IID_IUnknown)
 			{
 				*ppv = (IUnknown*)(IOleWindow*)this;
 				AddRef();
@@ -98,21 +98,21 @@ namespace Hikari
 				return S_OK;
 			}
 			else
-			{   
+			{
 				return E_NOTIMPL;
 			}
 		}
 
 		ULONG STDMETHODCALLTYPE AddRef()
-		{  
+		{
 			return ++refCount;
 		}
 
 		ULONG STDMETHODCALLTYPE Release()
-		{  
+		{
 			--refCount;
 
-			if(!refCount)
+			if (!refCount)
 				delete this;
 
 			return refCount;
@@ -129,8 +129,8 @@ namespace Hikari
 			return E_NOTIMPL;
 		}
 
-		virtual HRESULT STDMETHODCALLTYPE GetContainer(IOleContainer ** theContainerP)
-		{			
+		virtual HRESULT STDMETHODCALLTYPE GetContainer(IOleContainer** theContainerP)
+		{
 			return E_NOINTERFACE;
 		}
 
@@ -165,16 +165,16 @@ namespace Hikari
 		}
 
 		HRESULT STDMETHODCALLTYPE OnInPlaceActivate(void)
-		{		
+		{
 			return S_OK;
 		}
 
 		HRESULT STDMETHODCALLTYPE OnUIActivate(void)
-		{		
+		{
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE GetWindowContext(IOleInPlaceFrame __RPC_FAR *__RPC_FAR *ppFrame, IOleInPlaceUIWindow __RPC_FAR *__RPC_FAR *ppDoc, 
+		HRESULT STDMETHODCALLTYPE GetWindowContext(IOleInPlaceFrame __RPC_FAR* __RPC_FAR* ppFrame, IOleInPlaceUIWindow __RPC_FAR* __RPC_FAR* ppDoc,
 			LPRECT lprcPosRect, LPRECT lprcClipRect, LPOLEINPLACEFRAMEINFO lpFrameInfo)
 		{
 			RECT rect;
@@ -185,16 +185,16 @@ namespace Hikari
 
 			*lprcPosRect = rect;
 			*lprcClipRect = rect;
-			
+
 			*ppFrame = 0;
-			QueryInterface(__uuidof(IOleInPlaceFrame), (void**)ppFrame);		
+			QueryInterface(__uuidof(IOleInPlaceFrame), (void**)ppFrame);
 			*ppDoc = 0;
 
 			lpFrameInfo->fMDIApp = FALSE;
 			lpFrameInfo->hwndFrame = 0;
 			lpFrameInfo->haccel = 0;
 			lpFrameInfo->cAccelEntries = 0;
-			
+
 			return S_OK;
 		}
 
@@ -204,12 +204,12 @@ namespace Hikari
 		}
 
 		HRESULT STDMETHODCALLTYPE OnUIDeactivate(BOOL fUndoable)
-		{		
+		{
 			return S_OK;
 		}
 
 		HRESULT STDMETHODCALLTYPE OnInPlaceDeactivate(void)
-		{	
+		{
 			return S_OK;
 		}
 
@@ -228,13 +228,13 @@ namespace Hikari
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE OnInPlaceActivateEx(BOOL __RPC_FAR *pfNoRedraw, DWORD dwFlags)
-		{		
+		HRESULT STDMETHODCALLTYPE OnInPlaceActivateEx(BOOL __RPC_FAR* pfNoRedraw, DWORD dwFlags)
+		{
 			return S_OK;
 		}
 
 		HRESULT STDMETHODCALLTYPE OnInPlaceDeactivateEx(BOOL fNoRedraw)
-		{		
+		{
 			return S_OK;
 		}
 
@@ -268,9 +268,9 @@ namespace Hikari
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE GetDC(LPCRECT pRect, DWORD grfFlags, HDC __RPC_FAR *phDC)
-		{		
-			return E_INVALIDARG;		
+		HRESULT STDMETHODCALLTYPE GetDC(LPCRECT pRect, DWORD grfFlags, HDC __RPC_FAR* phDC)
+		{
+			return E_INVALIDARG;
 		}
 
 		HRESULT STDMETHODCALLTYPE ReleaseDC(HDC hDC)
@@ -279,13 +279,13 @@ namespace Hikari
 		}
 
 		HRESULT STDMETHODCALLTYPE InvalidateRect(LPCRECT pRect, BOOL fErase)
-		{	
-			if(owner->isTotallyDirty)
+		{
+			if (owner->isTotallyDirty)
 				return S_OK;
 
-			if(pRect)
+			if (pRect)
 			{
-				if(owner->isClean)
+				if (owner->isClean)
 				{
 					owner->dirtyBounds.left = pRect->left;
 					owner->dirtyBounds.right = pRect->right;
@@ -302,7 +302,7 @@ namespace Hikari
 				}
 			}
 
-			if(owner->dirtyBounds.left < 0 || owner->dirtyBounds.top < 0 || 
+			if (owner->dirtyBounds.left < 0 || owner->dirtyBounds.top < 0 ||
 				owner->dirtyBounds.right > owner->width || owner->dirtyBounds.bottom > owner->height || !pRect)
 			{
 				owner->invalidateTotally();
@@ -312,7 +312,7 @@ namespace Hikari
 		}
 
 		HRESULT STDMETHODCALLTYPE InvalidateRgn(HRGN hRGN, BOOL fErase)
-		{	
+		{
 			owner->invalidateTotally();
 
 			return S_OK;
@@ -325,13 +325,13 @@ namespace Hikari
 
 		HRESULT STDMETHODCALLTYPE AdjustRect(LPRECT prc)
 		{
-			if(!prc)
+			if (!prc)
 				return E_INVALIDARG;
-			
+
 			return S_OK;
 		}
 
-		HRESULT STDMETHODCALLTYPE OnDefWindowMessage(UINT msg, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR *plResult)
+		HRESULT STDMETHODCALLTYPE OnDefWindowMessage(UINT msg, WPARAM wParam, LPARAM lParam, LRESULT __RPC_FAR* plResult)
 		{
 			return S_FALSE;
 		}

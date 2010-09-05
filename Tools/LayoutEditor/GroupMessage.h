@@ -15,7 +15,7 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type);
+		void addMessage(const MyGUI::UString& _message, MyGUI::LogLevel _type);
 
 	private:
 		void showMessages();

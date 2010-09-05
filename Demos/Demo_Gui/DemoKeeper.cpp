@@ -53,7 +53,7 @@ namespace demo
 		mMainPanel->addObject("Render to Texture");
 
 		mEditorWindow = new EditorWindow();
-    }
+	}
 
 	void DemoKeeper::destroyScene()
 	{
@@ -103,7 +103,7 @@ namespace demo
 
 #ifdef MYGUI_OGRE_PLATFORM
 
-			for (std::vector<wraps::RenderBox*>::iterator item=mRenderBoxes.begin(); item!=mRenderBoxes.end(); ++item)
+			for (std::vector<wraps::RenderBox*>::iterator item = mRenderBoxes.begin(); item != mRenderBoxes.end(); ++item)
 			{
 				delete *item;
 			}

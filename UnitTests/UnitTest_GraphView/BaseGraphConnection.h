@@ -21,7 +21,7 @@ namespace wraps
 	{
 	public:
 		BaseGraphConnection(MyGUI::WidgetPtr _widget) :
-	  		BaseLayout("", _widget),
+			BaseLayout("", _widget),
 			mOwnerNode(nullptr)
 		{
 			mType = mMainWidget->getUserString("Type");
@@ -33,19 +33,46 @@ namespace wraps
 			mOffset.height *= offset;
 		}
 
-		BaseGraphNode* getOwnerNode() { return mOwnerNode; }
-		const std::string& getType() { return mType; }
-		const std::string& getName() { return mName; }
+		BaseGraphNode* getOwnerNode()
+		{
+			return mOwnerNode;
+		}
+		const std::string& getType()
+		{
+			return mType;
+		}
+		const std::string& getName()
+		{
+			return mName;
+		}
 
-		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
-		MyGUI::IntSize getOffset() { return mOffset; }
+		MyGUI::IntCoord getAbsoluteCoord()
+		{
+			return mMainWidget->getAbsoluteCoord();
+		}
+		MyGUI::IntSize getOffset()
+		{
+			return mOffset;
+		}
 
 		// все присоединениые к нам точки
-		bool isAnyConnection() { return !mConnection.empty() ; }
-		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mConnection); }
+		bool isAnyConnection()
+		{
+			return !mConnection.empty() ;
+		}
+		EnumeratorConnection getConnectionEnumerator()
+		{
+			return EnumeratorConnection(mConnection);
+		}
 
-		bool isAnyReverseConnection() { return !mReverseConnection.empty() ; }
-		EnumeratorConnection getReverseConnectionEnumerator() { return EnumeratorConnection(mReverseConnection); }
+		bool isAnyReverseConnection()
+		{
+			return !mReverseConnection.empty() ;
+		}
+		EnumeratorConnection getReverseConnectionEnumerator()
+		{
+			return EnumeratorConnection(mReverseConnection);
+		}
 
 		void addConnectionPoint(BaseGraphConnection* _point)
 		{
@@ -62,9 +89,15 @@ namespace wraps
 		}
 
 	/*internal:*/
-		void _setOwnerNode(BaseGraphNode* _owner) { mOwnerNode = _owner; }
+		void _setOwnerNode(BaseGraphNode* _owner)
+		{
+			mOwnerNode = _owner;
+		}
 
-		MyGUI::WidgetPtr _getMainWidget() { return mMainWidget; }
+		MyGUI::WidgetPtr _getMainWidget()
+		{
+			return mMainWidget;
+		}
 
 		void _addReverseConnectionPoint(BaseGraphConnection* _point)
 		{

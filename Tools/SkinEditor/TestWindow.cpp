@@ -117,4 +117,4 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(rootOut, "", MyGUI::Version(1, 1, 0));
 	}
 
- } // namespace tools
+} // namespace tools

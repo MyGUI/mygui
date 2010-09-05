@@ -26,7 +26,7 @@ namespace tools
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GroupMessage::notifyFrameStarted);
 	}
 
-	void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogLevel _type)
+	void GroupMessage::addMessage(const MyGUI::UString& _message, MyGUI::LogLevel _type)
 	{
 		if (_type == MyGUI::LogLevel::Error)
 		{

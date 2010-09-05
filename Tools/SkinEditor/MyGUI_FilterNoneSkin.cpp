@@ -70,7 +70,7 @@ namespace MyGUI
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_POINT);
 			}
 		}
-		
+
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
 		Ogre::RenderOperation* operation = buffer->getRenderOperation();
 		operation->vertexData->vertexCount = _count;

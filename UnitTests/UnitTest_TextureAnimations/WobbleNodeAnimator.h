@@ -39,7 +39,7 @@ namespace demo
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord,
 			bool& _isAnimate
-			);
+		);
 
 	private:
 		void addInertia(const MyGUI::FloatPoint& _value);

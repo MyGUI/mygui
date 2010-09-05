@@ -42,8 +42,8 @@ namespace demo
 
 	private:
 		std::string mName;
-		wraps::BaseGraphConnection * mConnectionIn1;
-		wraps::BaseGraphConnection * mConnectionOut1;
+		wraps::BaseGraphConnection* mConnectionIn1;
+		wraps::BaseGraphConnection* mConnectionOut1;
 		wraps::BaseGraphConnection* mConnectionIn2;
 		wraps::BaseGraphConnection* mConnectionOut2;
 

@@ -73,13 +73,13 @@ namespace tools
 		if (_str.empty()) return "";
 		std::string ret;
 		bool previousIsLowerCase = false;
-		for(size_t i=0;i<_str.length();i++)
+		for (size_t i = 0; i < _str.length(); i++)
 		{
-			if  ((i != 0) &&
-				 (
-				  (previousIsLowerCase && isupper(_str[i])) ||
-				  (isupper(_str[i]) && (i + 1<_str.length()) && islower(_str[i+1]))
-				 )
+			if ((i != 0) &&
+				(
+				(previousIsLowerCase && isupper(_str[i])) ||
+				(isupper(_str[i]) && (i + 1 < _str.length()) && islower(_str[i+1]))
+				)
 				)
 			{
 				ret.push_back('_');
@@ -162,7 +162,7 @@ namespace tools
 			output_file.close();
 			input_file.close();
 		}
-		
+
 		eventEndDialog(this, true);
 	}
 

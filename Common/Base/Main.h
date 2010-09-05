@@ -9,7 +9,7 @@
 #define __BASEMAIN_H__
 
 #include "precompiled.h"
- 
+
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -26,7 +26,7 @@ int startApp()
 {
 	try
 	{
-		AppClass * app = new AppClass();
+		AppClass* app = new AppClass();
 		app->prepare();
 		if (app->create())
 		{

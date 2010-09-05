@@ -21,7 +21,7 @@ namespace wraps
 	{
 	public:
 		BaseGraphConnection(MyGUI::WidgetPtr _widget) :
-	  		BaseLayout("", _widget),
+			BaseLayout("", _widget),
 			mOwnerNode(nullptr)
 		{
 			mType = mMainWidget->getUserString("Type");
@@ -32,18 +32,42 @@ namespace wraps
 			mOffset.height *= offset;
 		}
 
-		BaseGraphNode* getOwnerNode() { return mOwnerNode; }
-		const std::string& getConnectionType() { return mType; }
+		BaseGraphNode* getOwnerNode()
+		{
+			return mOwnerNode;
+		}
+		const std::string& getConnectionType()
+		{
+			return mType;
+		}
 
-		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
-		MyGUI::IntSize getOffset() { return mOffset; }
+		MyGUI::IntCoord getAbsoluteCoord()
+		{
+			return mMainWidget->getAbsoluteCoord();
+		}
+		MyGUI::IntSize getOffset()
+		{
+			return mOffset;
+		}
 
 		// все присоединениые к нам точки
-		size_t getConnectionCount() { return mConnection.size(); }
-		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mConnection); }
+		size_t getConnectionCount()
+		{
+			return mConnection.size();
+		}
+		EnumeratorConnection getConnectionEnumerator()
+		{
+			return EnumeratorConnection(mConnection);
+		}
 
-		size_t getReverseConnectionCount() { return mReverseConnection.size(); }
-		EnumeratorConnection getReverseConnectionEnumerator() { return EnumeratorConnection(mReverseConnection); }
+		size_t getReverseConnectionCount()
+		{
+			return mReverseConnection.size();
+		}
+		EnumeratorConnection getReverseConnectionEnumerator()
+		{
+			return EnumeratorConnection(mReverseConnection);
+		}
 
 		void addConnectionPoint(BaseGraphConnection* _point)
 		{
@@ -58,9 +82,15 @@ namespace wraps
 		}
 
 	/*internal:*/
-		void _setOwnerNode(BaseGraphNode* _owner) { mOwnerNode = _owner; }
+		void _setOwnerNode(BaseGraphNode* _owner)
+		{
+			mOwnerNode = _owner;
+		}
 
-		MyGUI::WidgetPtr _getMainWidget() { return mMainWidget; }
+		MyGUI::WidgetPtr _getMainWidget()
+		{
+			return mMainWidget;
+		}
 
 		void _addReverseConnectionPoint(BaseGraphConnection* _point)
 		{

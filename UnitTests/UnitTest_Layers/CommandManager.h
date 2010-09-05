@@ -20,11 +20,14 @@ namespace demo
 		CommandManager();
 		virtual ~CommandManager();
 
-		static CommandManager& getInstance() { return *msCommandManager; }
+		static CommandManager& getInstance()
+		{
+			return *msCommandManager;
+		}
 
 		void execiteCommand(const std::string& _name, MyGUI::Any _data);
 
-		void registerCommand(const std::string& _name, CommandDelegate::IDelegate * _delegate);
+		void registerCommand(const std::string& _name, CommandDelegate::IDelegate* _delegate);
 		void unregisterCommand(const std::string& _name);
 
 	private:

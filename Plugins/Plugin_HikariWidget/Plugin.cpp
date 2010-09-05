@@ -15,7 +15,7 @@ namespace plugin
 	const std::string Plugin::LogSection = "Plugin";
 	HMODULE Plugin::msFlashLib = 0;
 
-	Plugin::Plugin() : 
+	Plugin::Plugin() :
 		mKeyboardHook(0)
 	{
 	}

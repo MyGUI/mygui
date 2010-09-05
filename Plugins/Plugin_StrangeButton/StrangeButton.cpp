@@ -55,7 +55,7 @@ namespace plugin
 		std::string s, str = getSubWidgetText()->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
-		
+
 		getSubWidgetText()->setCaption(s);
 
 		updateButtonState();

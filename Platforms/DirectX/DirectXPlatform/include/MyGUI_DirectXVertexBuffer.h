@@ -20,7 +20,7 @@ namespace MyGUI
 	class DirectXVertexBuffer : public IVertexBuffer
 	{
 	public:
-		DirectXVertexBuffer(IDirect3DDevice9 *_device, DirectXRenderManager *_pRenderManager);
+		DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager);
 		virtual ~DirectXVertexBuffer();
 
 		virtual void setVertextCount(size_t _count);
@@ -38,9 +38,9 @@ namespace MyGUI
 		void resize();
 
 	private:
-		IDirect3DDevice9 *mpD3DDevice;
-		IDirect3DVertexBuffer9 *mpBuffer;
-	    DirectXRenderManager *pRenderManager;
+		IDirect3DDevice9* mpD3DDevice;
+		IDirect3DVertexBuffer9* mpBuffer;
+		DirectXRenderManager* pRenderManager;
 
 		size_t mVertexCount;
 		size_t mNeedVertexCount;

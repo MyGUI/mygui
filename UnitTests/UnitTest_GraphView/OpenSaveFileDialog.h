@@ -24,16 +24,28 @@ namespace common
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button);
 
 		void setCurrentFolder(const MyGUI::UString& _value = "");
-		const MyGUI::UString& getCurrentFolder() { return mCurrentFolder; }
+		const MyGUI::UString& getCurrentFolder()
+		{
+			return mCurrentFolder;
+		}
 
 		void setFileMask(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileMask() { return mFileMask; }
+		const MyGUI::UString& getFileMask()
+		{
+			return mFileMask;
+		}
 
 		void setFileName(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileName() { return mFileName; }
+		const MyGUI::UString& getFileName()
+		{
+			return mFileName;
+		}
 
 		void setVisible(bool _value);
-		bool isVisible() { return mMainWidget->isVisible(); }
+		bool isVisible()
+		{
+			return mMainWidget->isVisible();
+		}
 
 		void setModalMode(bool _value);
 		bool getModalMode();

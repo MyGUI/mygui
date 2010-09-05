@@ -241,7 +241,7 @@ namespace tools
 			return result;
 
 		const VectorCommand& commands = (*section).second;
-		for (VectorCommand::const_iterator item=commands.begin(); item!=commands.end(); ++item)
+		for (VectorCommand::const_iterator item = commands.begin(); item != commands.end(); ++item)
 		{
 			const HotKeyCommand& command = (*item);
 			if (command.getPressed() == _pressed

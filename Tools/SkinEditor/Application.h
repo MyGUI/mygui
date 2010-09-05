@@ -33,7 +33,10 @@ namespace tools
 		void setCaption(const MyGUI::UString& _value);
 
 		typedef std::vector<std::wstring> VectorWString;
-		const VectorWString& getParams() { return mParams; }
+		const VectorWString& getParams()
+		{
+			return mParams;
+		}
 
 		virtual void resumeState();
 
