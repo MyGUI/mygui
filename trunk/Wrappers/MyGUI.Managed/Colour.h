@@ -30,8 +30,14 @@ namespace MyGUI
 			{
 				return ( lvalue.red == rvalue.red && lvalue.green == rvalue.green && lvalue.blue == rvalue.blue && lvalue.alpha == rvalue.alpha );
 			}
-			virtual bool Equals(Colour other) { return *this == other; }
-			static bool operator != ( Colour lvalue, Colour rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(Colour other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( Colour lvalue, Colour rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 			static Colour Red = Colour(1, 0, 0, 1);
 			static Colour Green = Colour(0, 1, 0, 1);
@@ -48,8 +54,14 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::Colour&>
 		{
 			typedef Colour Type;
-			inline static const Colour& To(const MyGUI::Colour& _value) { return reinterpret_cast<const Colour&>(_value); }
-			inline static MyGUI::Colour& From(Colour& _value) { return reinterpret_cast<MyGUI::Colour&>(_value); }
+			inline static const Colour& To(const MyGUI::Colour& _value)
+			{
+				return reinterpret_cast<const Colour&>(_value);
+			}
+			inline static MyGUI::Colour& From(Colour& _value)
+			{
+				return reinterpret_cast<MyGUI::Colour&>(_value);
+			}
 		};
 
 	} // namespace Managed

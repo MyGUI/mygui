@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.width == rvalue.width && lvalue.height == rvalue.height );
 			}
-			virtual bool Equals(FloatSize other) { return *this == other; }
-			static bool operator != ( FloatSize lvalue, FloatSize rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(FloatSize other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( FloatSize lvalue, FloatSize rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,14 +47,26 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::FloatSize&>
 		{
 			typedef FloatSize Type;
-			inline static const FloatSize& To(const MyGUI::FloatSize& _value) { return reinterpret_cast<const FloatSize&>(_value); }
-			inline static MyGUI::FloatSize& From(FloatSize& _value) { return reinterpret_cast<MyGUI::FloatSize&>(_value); }
+			inline static const FloatSize& To(const MyGUI::FloatSize& _value)
+			{
+				return reinterpret_cast<const FloatSize&>(_value);
+			}
+			inline static MyGUI::FloatSize& From(FloatSize& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatSize&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::FloatSize>
 		{
 			typedef FloatSize Type;
-			inline static const FloatSize& To(const MyGUI::FloatSize& _value) { return reinterpret_cast<const FloatSize&>(_value); }
-			inline static MyGUI::FloatSize& From(FloatSize& _value) { return reinterpret_cast<MyGUI::FloatSize&>(_value); }
+			inline static const FloatSize& To(const MyGUI::FloatSize& _value)
+			{
+				return reinterpret_cast<const FloatSize&>(_value);
+			}
+			inline static MyGUI::FloatSize& From(FloatSize& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatSize&>(_value);
+			}
 		};
 
 	} // namespace Managed

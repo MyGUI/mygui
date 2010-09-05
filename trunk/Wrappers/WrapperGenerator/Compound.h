@@ -47,12 +47,27 @@ namespace wrapper
 			mChilds.clear();
 		}
 
-		const std::string& getKind() const { return mKind; }
-		const std::string& getName() const { return mName; }
-		const std::string& getId() const { return mId; }
-		const std::string& getType() const { return mType; }
+		const std::string& getKind() const
+		{
+			return mKind;
+		}
+		const std::string& getName() const
+		{
+			return mName;
+		}
+		const std::string& getId() const
+		{
+			return mId;
+		}
+		const std::string& getType() const
+		{
+			return mType;
+		}
 
-		Enumerator getEnumerator() const { return Enumerator(mChilds.begin(), mChilds.end()); }
+		Enumerator getEnumerator() const
+		{
+			return Enumerator(mChilds.begin(), mChilds.end());
+		}
 
 	private:
 		std::string getItemName(xml::ElementPtr _element)

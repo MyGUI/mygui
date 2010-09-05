@@ -18,7 +18,7 @@ namespace utility
 		Enumerator() { }
 
 	public:
-		explicit Enumerator(const T & _container) :
+		explicit Enumerator(const T& _container) :
 			m_first(true),
 			m_current(_container.begin()),
 			m_end(_container.end())
@@ -35,7 +35,8 @@ namespace utility
 		bool next()
 		{
 			if (m_current == m_end) return false;
-			else if (m_first) {
+			else if (m_first)
+			{
 				m_first = false;
 				return true;
 			}
@@ -44,8 +45,16 @@ namespace utility
 			return true;
 		}
 
-		typename T::const_reference operator->() const { assert(m_current != m_end); return (*m_current); }
-		typename T::const_reference current() { assert(m_current != m_end); return (*m_current); }
+		typename T::const_reference operator->() const
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
+		typename T::const_reference current()
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
 
 	private:
 		bool m_first;

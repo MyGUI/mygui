@@ -21,21 +21,30 @@ namespace xml
 
 	struct ElementType
 	{
-		enum Enum {
+		enum Enum
+		{
 			Comment,
 			Declaration,
 			Normal,
-			MAX };
+			MAX
+		};
 		ElementType(Enum _value = MAX) : value(_value) { }
-		friend bool operator == (ElementType const & a, ElementType const & b) { return a.value == b.value; }
-		friend bool operator != (ElementType const & a, ElementType const & b) { return a.value != b.value; }
+		friend bool operator == (ElementType const& a, ElementType const& b)
+		{
+			return a.value == b.value;
+		}
+		friend bool operator != (ElementType const& a, ElementType const& b)
+		{
+			return a.value != b.value;
+		}
 	private:
 		Enum value;
 	};
 
 	struct ErrorType
 	{
-		enum Enum {
+		enum Enum
+		{
 			OpenFileFail,
 			CreateFileFail,
 			IncorrectContent,
@@ -46,15 +55,20 @@ namespace xml
 			MoreThanOneXMLDeclaration,
 			MoreThanOneRootElement,
 			IncorrectAttribute,
-			MAX };
+			MAX
+		};
 		ErrorType(Enum _value = MAX) : value(_value) { }
 
-		std::string print() const { return getValueName(value); }
+		std::string print() const
+		{
+			return getValueName(value);
+		}
 
 	private:
-		const char * getValueName(int _index) const
+		const char* getValueName(int _index) const
 		{
-			static const char * values[MAX + 1] = {
+			static const char* values[MAX + 1] =
+			{
 				"Failed to open XML file",
 				"Failed to ceate XML file",
 				"XML file contain incorrect content",
@@ -65,7 +79,8 @@ namespace xml
 				"XML file contain more than one declaration",
 				"XML file contain more than one root element",
 				"XML file contain incorrect attribute",
-				"" };
+				""
+			};
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 	private:
@@ -75,7 +90,7 @@ namespace xml
 	class Element;
 	class Document;
 
-	typedef Element * ElementPtr;
+	typedef Element* ElementPtr;
 	typedef std::pair<std::string, std::string> PairAttribute;
 	typedef std::vector<PairAttribute> VectorAttributes;
 	typedef std::vector<ElementPtr> VectorElement;
@@ -94,8 +109,16 @@ namespace xml
 		bool next();
 		bool next(const std::string& _name);
 
-		ElementPtr operator->() const { assert(m_current != m_end); return (*m_current); }
-		ElementPtr current() { assert(m_current != m_end); return (*m_current); }
+		ElementPtr operator->() const
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
+		ElementPtr current()
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
 
 	private:
 		bool m_first;
@@ -114,14 +137,14 @@ namespace xml
 		~Element();
 
 	private:
-		Element(const std::string &_name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string& _content = "");
-		void save(std::ofstream & _stream, size_t _level);
+		Element(const std::string& _name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string& _content = "");
+		void save(std::ofstream& _stream, size_t _level);
 
 	public:
 		ElementPtr createChild(const std::string& _name, const std::string& _content = "");
 
 		template <typename T>
-		void addAttribute(const std::string &_key, const T& _value)
+		void addAttribute(const std::string& _key, const T& _value)
 		{
 			mAttributes.push_back(PairAttribute(_key, utility::toString(_value)));
 		}
@@ -133,8 +156,10 @@ namespace xml
 
 		void removeAttribute(const std::string& _key)
 		{
-			for (size_t index=0; index<mAttributes.size(); ++index) {
-				if (mAttributes[index].first == _key) {
+			for (size_t index = 0; index < mAttributes.size(); ++index)
+			{
+				if (mAttributes[index].first == _key)
+				{
 					mAttributes.erase(mAttributes.begin() + index);
 					return;
 				}
@@ -143,8 +168,10 @@ namespace xml
 
 		void setAttribute(const std::string& _key, const std::string& _value)
 		{
-			for (size_t index=0; index<mAttributes.size(); ++index) {
-				if (mAttributes[index].first == _key) {
+			for (size_t index = 0; index < mAttributes.size(); ++index)
+			{
+				if (mAttributes[index].first == _key)
+				{
 					mAttributes[index].second = _value;
 					return;
 				}
@@ -161,7 +188,8 @@ namespace xml
 		void addContent(const std::string& _content)
 		{
 			if (mContent.empty()) mContent = _content;
-			else {
+			else
+			{
 				mContent += " ";
 				mContent += _content;
 			}
@@ -185,18 +213,39 @@ namespace xml
 
 		void clear();
 
-		bool findAttribute(const std::string& _name, std::string & _value);
+		bool findAttribute(const std::string& _name, std::string& _value);
 		std::string findAttribute(const std::string& _name);
 
-		const std::string& getName() const { return mName; }
-		const std::string& getContent() const { return mContent; }
-		const std::string& getContent2() const { return mContent2; }
-		const VectorAttributes & getAttributes() const { return mAttributes; }
-		ElementPtr getParent() const { return mParent; }
+		const std::string& getName() const
+		{
+			return mName;
+		}
+		const std::string& getContent() const
+		{
+			return mContent;
+		}
+		const std::string& getContent2() const
+		{
+			return mContent2;
+		}
+		const VectorAttributes& getAttributes() const
+		{
+			return mAttributes;
+		}
+		ElementPtr getParent() const
+		{
+			return mParent;
+		}
 
-		ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
+		ElementEnumerator getElementEnumerator()
+		{
+			return ElementEnumerator(mChilds.begin(), mChilds.end());
+		}
 
-		ElementType getType() const { return mType; }
+		ElementType getType() const
+		{
+			return mType;
+		}
 
 	private:
 		std::string mName;
@@ -224,7 +273,7 @@ namespace xml
 		bool open(const std::wstring& _filename);
 
 		// открывает обычным потоком
-		bool open(std::ifstream & _stream);
+		bool open(std::ifstream& _stream);
 
 		// сохраняет файл, имя файла в кодировке utf8
 		bool save(const std::string& _filename);
@@ -232,7 +281,7 @@ namespace xml
 		// сохраняет файл, имя файла в кодировке utf16 или utf32
 		bool save(const std::wstring& _filename);
 
-		bool save(std::ofstream & _stream);
+		bool save(std::ofstream& _stream);
 
 
 		// если группа есть, то открывается огровским потоком, если нет, то просто как файл
@@ -247,17 +296,23 @@ namespace xml
 			return utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
 		}
 
-		void clearLastError() { mLastError = ErrorType::MAX; }
+		void clearLastError()
+		{
+			mLastError = ErrorType::MAX;
+		}
 
 	private:
 
-		void setLastFileError(const std::string& _filename) { mLastErrorFile = _filename; }
+		void setLastFileError(const std::string& _filename)
+		{
+			mLastErrorFile = _filename;
+		}
 
-		bool parseTag(ElementPtr &_currentNode, std::string _content);
+		bool parseTag(ElementPtr& _currentNode, std::string _content);
 
-		bool checkPair(std::string &_key, std::string &_value);
+		bool checkPair(std::string& _key, std::string& _value);
 
-		bool parseLine(std::string & _line, ElementPtr & _element);
+		bool parseLine(std::string& _line, ElementPtr& _element);
 
 		// ищет символ без учета ковычек
 		size_t find(const std::string& _text, char _char, size_t _start = 0);
@@ -269,7 +324,10 @@ namespace xml
 		ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
 		ElementPtr createRoot(const std::string& _name);
 
-		ElementPtr getRoot() const { return mRoot; }
+		ElementPtr getRoot() const
+		{
+			return mRoot;
+		}
 
 	private:
 		ElementPtr mRoot;

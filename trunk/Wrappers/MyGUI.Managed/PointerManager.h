@@ -18,9 +18,9 @@ namespace MyGUI
 			PointerManager() { }
 
 		public:
-			static property PointerManager^ Instance
+			static property PointerManager ^ Instance
 			{
-				PointerManager^ get( )
+				PointerManager ^ get( )
 				{
 					if (mPointerManager == nullptr)
 					{
@@ -37,12 +37,18 @@ namespace MyGUI
 		public:
 			property bool Visible
 			{
-				bool get() { return mPointerManager->isVisible(); }
-				void set(bool _value) { mPointerManager->setVisible(_value); }
+				bool get()
+				{
+					return mPointerManager->isVisible();
+				}
+				void set(bool _value)
+				{
+					mPointerManager->setVisible(_value);
+				}
 			}
 
 		private:
-			static PointerManager^ m_instance = gcnew PointerManager();
+			static PointerManager ^ m_instance = gcnew PointerManager();
 			static MyGUI::PointerManager* mPointerManager = nullptr;
 		};
 	}

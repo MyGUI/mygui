@@ -43,8 +43,14 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::IBNotifyItemData&>
 		{
 			typedef IBNotifyItemData Type;
-			inline static const IBNotifyItemData& To(const MyGUI::IBNotifyItemData& _value) { return reinterpret_cast<const IBNotifyItemData&>(_value); }
-			inline static MyGUI::IBNotifyItemData& From(IBNotifyItemData& _value) { return reinterpret_cast<MyGUI::IBNotifyItemData&>(_value); }
+			inline static const IBNotifyItemData& To(const MyGUI::IBNotifyItemData& _value)
+			{
+				return reinterpret_cast<const IBNotifyItemData&>(_value);
+			}
+			inline static MyGUI::IBNotifyItemData& From(IBNotifyItemData& _value)
+			{
+				return reinterpret_cast<MyGUI::IBNotifyItemData&>(_value);
+			}
 		};
 
 	} // namespace Managed

@@ -14,7 +14,7 @@ namespace MyGUI
 	namespace Managed
 	{
 
-		#ifndef MMYGUI_USING_EXTERNAL_TYPE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 		public enum struct KeyCode
 		{
@@ -175,8 +175,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::KeyCode>
 		{
 			typedef KeyCode Type;
-			inline static const KeyCode& To(const MyGUI::KeyCode& _value) { return reinterpret_cast<const KeyCode&>(_value); }
-			inline static MyGUI::KeyCode& From(KeyCode& _value) { return reinterpret_cast<MyGUI::KeyCode&>(_value); }
+			inline static const KeyCode& To(const MyGUI::KeyCode& _value)
+			{
+				return reinterpret_cast<const KeyCode&>(_value);
+			}
+			inline static MyGUI::KeyCode& From(KeyCode& _value)
+			{
+				return reinterpret_cast<MyGUI::KeyCode&>(_value);
+			}
 		};
 
 	} // namespace Managed

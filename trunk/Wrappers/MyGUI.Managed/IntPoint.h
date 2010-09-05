@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top );
 			}
-			virtual bool Equals(IntPoint other) { return *this == other; }
-			static bool operator != ( IntPoint lvalue, IntPoint rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(IntPoint other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( IntPoint lvalue, IntPoint rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,14 +47,26 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::IntPoint&>
 		{
 			typedef IntPoint Type;
-			inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
-			inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
+			inline static const IntPoint& To(const MyGUI::IntPoint& _value)
+			{
+				return reinterpret_cast<const IntPoint&>(_value);
+			}
+			inline static MyGUI::IntPoint& From(IntPoint& _value)
+			{
+				return reinterpret_cast<MyGUI::IntPoint&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::IntPoint>
 		{
 			typedef IntPoint Type;
-			inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
-			inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
+			inline static const IntPoint& To(const MyGUI::IntPoint& _value)
+			{
+				return reinterpret_cast<const IntPoint&>(_value);
+			}
+			inline static MyGUI::IntPoint& From(IntPoint& _value)
+			{
+				return reinterpret_cast<MyGUI::IntPoint&>(_value);
+			}
 		};
 
 	} // namespace Managed

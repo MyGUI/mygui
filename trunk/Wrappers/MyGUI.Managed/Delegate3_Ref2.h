@@ -25,7 +25,7 @@ namespace MyGUI
 
 			virtual void invoke( T1 p1, T2 p2, T3 p3 )
 			{
-				Widget^ widget = nullptr;
+				Widget ^ widget = nullptr;
 				((MD)mDelegate)(Convert<T1>::To(p1), widget, Convert<T3>::To(p3));
 				p2 = Convert<MyGUI::Widget*>::From(widget);
 			}

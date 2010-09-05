@@ -35,15 +35,30 @@ namespace wrapper
 
 		virtual ~Member() { }
 
-		const std::string& getName() const { return mName; }
-		const std::string& getType() const { return mType; }
-		const std::string& getKind() const { return mKind; }
-		const std::string& getId() const { return mId; }
+		const std::string& getName() const
+		{
+			return mName;
+		}
+		const std::string& getType() const
+		{
+			return mType;
+		}
+		const std::string& getKind() const
+		{
+			return mKind;
+		}
+		const std::string& getId() const
+		{
+			return mId;
+		}
 
-		void setName(const std::string& _name) { mName = _name; }
+		void setName(const std::string& _name)
+		{
+			mName = _name;
+		}
 
 		// вставить себя в шаблон
-		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type) { }
+		virtual void insertToTemplate(const std::string& _template, ITypeHolder* _holder, const std::string& _type) { }
 
 		// обработка других елементов, если вернется true то елемент удаляется
 		virtual void postProccesing(Member* _member) { }

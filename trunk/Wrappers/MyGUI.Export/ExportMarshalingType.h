@@ -12,7 +12,7 @@
 namespace Export
 {
 
-	template <> struct Convert< const MyGUI::DDItemInfo & >
+	template <> struct Convert< const MyGUI::DDItemInfo& >
 	{
 		struct DDItemInfo
 		{

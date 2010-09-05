@@ -19,9 +19,9 @@ namespace MyGUI
 			InputManager() { }
 
 		public:
-			static property InputManager^ Instance
+			static property InputManager ^ Instance
 			{
-				InputManager^ get( )
+				InputManager ^ get( )
 				{
 					if (mInputManager == nullptr)
 					{
@@ -38,26 +38,41 @@ namespace MyGUI
 		public:
 			property bool KeyFocus
 			{
-				bool get() { return mInputManager->getKeyFocusWidget() != nullptr; }
+				bool get()
+				{
+					return mInputManager->getKeyFocusWidget() != nullptr;
+				}
 			}
 
 		public:
 			property bool MouseFocus
 			{
-				bool get() { return mInputManager->getMouseFocusWidget() != nullptr; }
+				bool get()
+				{
+					return mInputManager->getMouseFocusWidget() != nullptr;
+				}
 			}
 
 		public:
-			property Widget^ KeyFocusWidget
+			property Widget ^ KeyFocusWidget
 			{
-				Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getKeyFocusWidget()); }
-				void set(Widget^ _widget) { mInputManager->setKeyFocusWidget( Convert< MyGUI::Widget * >::From(_widget) ); }
+				Widget ^ get()
+				{
+					return Convert< MyGUI::Widget* >::To(mInputManager->getKeyFocusWidget());
+				}
+				void set(Widget ^ _widget)
+				{
+					mInputManager->setKeyFocusWidget( Convert< MyGUI::Widget* >::From(_widget) );
+				}
 			}
 
 		public:
-			property Widget^ MouseFocusWidget
+			property Widget ^ MouseFocusWidget
 			{
-				Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getMouseFocusWidget()); }
+				Widget ^ get()
+				{
+					return Convert< MyGUI::Widget* >::To(mInputManager->getMouseFocusWidget());
+				}
 			}
 
 		public:
@@ -67,15 +82,15 @@ namespace MyGUI
 			}
 
 		public:
-			void AddWidgetModal(Widget^ _widget)
+			void AddWidgetModal(Widget ^ _widget)
 			{
-				mInputManager->addWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
+				mInputManager->addWidgetModal( Convert< MyGUI::Widget* >::From(_widget) );
 			}
 
 		public:
-			void RemoveWidgetModal(Widget^ _widget)
+			void RemoveWidgetModal(Widget ^ _widget)
 			{
-				mInputManager->removeWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
+				mInputManager->removeWidgetModal( Convert< MyGUI::Widget* >::From(_widget) );
 			}
 
 		public:
@@ -109,7 +124,7 @@ namespace MyGUI
 			}
 
 		private:
-			static InputManager^ m_instance = gcnew InputManager();
+			static InputManager ^ m_instance = gcnew InputManager();
 			static MyGUI::InputManager* mInputManager = nullptr;
 		};
 	}

@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 		template_sln += "/Wrappers/WrapperGenerator/Data/Wrappers.sln.txt";
 
 		wrapper::addTag("MyGUI_SourceDir", MYGUI_SOURCE_DIR);
-		
+
 		std::ifstream infile;
 		infile.open(template_sln.c_str());
 		if (infile.is_open())
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 	else if (num == 3)
 	{
 		std::cout << std::endl << "start" << std::endl << std::endl;
-		wrapper::Wrapper * wrap = new wrapper::Wrapper();
+		wrapper::Wrapper* wrap = new wrapper::Wrapper();
 		wrap->initialise("Data/SharpData.xml");
 		wrap->wrap();
 		std::cout << std::endl << "complete" << std::endl << std::endl;
@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 	else if (num == 4)
 	{
 		std::cout << std::endl << "start" << std::endl << std::endl;
-		wrapper::Wrapper * wrap = new wrapper::Wrapper();
+		wrapper::Wrapper* wrap = new wrapper::Wrapper();
 		wrap->initialise("Data/ManagedData.xml");
 		wrap->wrap();
 		std::cout << std::endl << "complete" << std::endl << std::endl;
