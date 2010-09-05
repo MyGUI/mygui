@@ -13,7 +13,10 @@
 namespace wrapper
 {
 
-	struct Param { std::string type, name, def; };
+	struct Param
+	{
+		std::string type, name, def;
+	};
 	typedef std::vector<Param> VectorParam;
 
 	class ITypeHolder

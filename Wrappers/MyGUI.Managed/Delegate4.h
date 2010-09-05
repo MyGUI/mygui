@@ -22,7 +22,10 @@ namespace MyGUI
 		public:
 			Delegate4 (MD _delegate) : mDelegate(_delegate) { }
 
-			virtual bool isType( const std::type_info & _type) { return typeid( Delegate4<MD, T1, T2, T3, T4> ) == _type; }
+			virtual bool isType( const std::type_info& _type)
+			{
+				return typeid( Delegate4<MD, T1, T2, T3, T4> ) == _type;
+			}
 
 			virtual void invoke( T1 p1, T2 p2, T3 p3, T4 p4 )
 			{

@@ -10,6 +10,6 @@
 namespace Export
 {
 
-	Convert< const MyGUI::DDItemInfo & >::DDItemInfo Convert< const MyGUI::DDItemInfo & >::mHolder;
+	Convert< const MyGUI::DDItemInfo& >::DDItemInfo Convert< const MyGUI::DDItemInfo& >::mHolder;
 
 }

@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.right == rvalue.right && lvalue.bottom == rvalue.bottom );
 			}
-			virtual bool Equals(IntRect other) { return *this == other; }
-			static bool operator != ( IntRect lvalue, IntRect rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(IntRect other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( IntRect lvalue, IntRect rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,19 +47,34 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::IntRect&>
 		{
 			typedef IntRect Type;
-			inline static const IntRect& To(const MyGUI::IntRect& _value) { return reinterpret_cast<const IntRect&>(_value); }
-			inline static MyGUI::IntRect& From(IntRect& _value) { return reinterpret_cast<MyGUI::IntRect&>(_value); }
+			inline static const IntRect& To(const MyGUI::IntRect& _value)
+			{
+				return reinterpret_cast<const IntRect&>(_value);
+			}
+			inline static MyGUI::IntRect& From(IntRect& _value)
+			{
+				return reinterpret_cast<MyGUI::IntRect&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::IntRect>
 		{
 			typedef IntRect Type;
-			inline static const IntRect& To(const MyGUI::IntRect& _value) { return reinterpret_cast<const IntRect&>(_value); }
-			inline static MyGUI::IntRect& From(IntRect& _value) { return reinterpret_cast<MyGUI::IntRect&>(_value); }
+			inline static const IntRect& To(const MyGUI::IntRect& _value)
+			{
+				return reinterpret_cast<const IntRect&>(_value);
+			}
+			inline static MyGUI::IntRect& From(IntRect& _value)
+			{
+				return reinterpret_cast<MyGUI::IntRect&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::IntRect&>
 		{
-			typedef IntRect%Type;
-			inline static IntRect% To(MyGUI::IntRect& _value) { return reinterpret_cast<IntRect&>(_value); }
+			typedef IntRect % Type;
+			inline static IntRect % To(MyGUI::IntRect& _value)
+			{
+				return reinterpret_cast<IntRect&>(_value);
+			}
 		};
 
 	} // namespace Managed

@@ -19,11 +19,11 @@ namespace MyGUI
 
 		public value struct NativePtrHolder
 		{
-			NativePtrHolder( System::IntPtr _pointer, System::Type^ _type) : mPointer(_pointer), mType(_type) { }
+			NativePtrHolder( System::IntPtr _pointer, System::Type ^ _type) : mPointer(_pointer), mType(_type) { }
 
 		public:
 			System::IntPtr mPointer;
-			System::Type^ mType;
+			System::Type ^ mType;
 		};
 
 		#endif // MMYGUI_USING_EXTERNAL_TYPE

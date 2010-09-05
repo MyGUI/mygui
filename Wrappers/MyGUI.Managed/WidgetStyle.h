@@ -29,8 +29,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::WidgetStyle>
 		{
 			typedef WidgetStyle Type;
-			inline static const WidgetStyle& To(const MyGUI::WidgetStyle& _value) { return reinterpret_cast<const WidgetStyle&>(_value); }
-			inline static MyGUI::WidgetStyle& From(WidgetStyle& _value) { return reinterpret_cast<MyGUI::WidgetStyle&>(_value); }
+			inline static const WidgetStyle& To(const MyGUI::WidgetStyle& _value)
+			{
+				return reinterpret_cast<const WidgetStyle&>(_value);
+			}
+			inline static MyGUI::WidgetStyle& From(WidgetStyle& _value)
+			{
+				return reinterpret_cast<MyGUI::WidgetStyle&>(_value);
+			}
 		};
 
 	} // namespace Managed

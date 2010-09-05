@@ -20,9 +20,9 @@ namespace MyGUI
 
 		public value struct DDItemInfo
 		{
-			Widget^ sender;
+			Widget ^ sender;
 			System::UInt32 sender_index;
-			Widget^ receiver;
+			Widget ^ receiver;
 			System::UInt32 receiver_index;
 		};
 

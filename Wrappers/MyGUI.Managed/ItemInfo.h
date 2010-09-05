@@ -32,8 +32,14 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::IBDrawItemInfo&>
 		{
 			typedef IBDrawItemInfo Type;
-			inline static const IBDrawItemInfo& To(const MyGUI::IBDrawItemInfo& _value) { return reinterpret_cast<const IBDrawItemInfo&>(_value); }
-			inline static MyGUI::IBDrawItemInfo& From(IBDrawItemInfo& _value) { return reinterpret_cast<MyGUI::IBDrawItemInfo&>(_value); }
+			inline static const IBDrawItemInfo& To(const MyGUI::IBDrawItemInfo& _value)
+			{
+				return reinterpret_cast<const IBDrawItemInfo&>(_value);
+			}
+			inline static MyGUI::IBDrawItemInfo& From(IBDrawItemInfo& _value)
+			{
+				return reinterpret_cast<MyGUI::IBDrawItemInfo&>(_value);
+			}
 		};
 
 	} // namespace Managed

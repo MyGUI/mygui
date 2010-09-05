@@ -12,7 +12,7 @@
 namespace demo
 {
 
-	typedef void (MYGUICALLBACK *HandleFrameStart)(float _time);
+	typedef void (MYGUICALLBACK* HandleFrameStart)(float _time);
 
 	class DemoKeeper : public base::BaseManager
 	{
@@ -24,7 +24,10 @@ namespace demo
 		virtual void destroyScene();
 
 		void notifyFrameStart(float _time);
-		void setFrameEvent(HandleFrameStart _delegate) { mFrameStartDelegate = _delegate; }
+		void setFrameEvent(HandleFrameStart _delegate)
+		{
+			mFrameStartDelegate = _delegate;
+		}
 
 	private:
 		HandleFrameStart mFrameStartDelegate;

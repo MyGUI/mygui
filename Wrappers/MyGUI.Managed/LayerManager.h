@@ -19,9 +19,9 @@ namespace MyGUI
 			LayerManager() { }
 
 		public:
-			static property LayerManager^ Instance
+			static property LayerManager ^ Instance
 			{
-				LayerManager^ get( )
+				LayerManager ^ get( )
 				{
 					if (mLayerManager == nullptr)
 					{
@@ -36,19 +36,19 @@ namespace MyGUI
 			}
 
 		public:
-			void UpWidget(Widget^ _widget)
+			void UpWidget(Widget ^ _widget)
 			{
-				mLayerManager->upLayerItem( Convert< MyGUI::Widget * >::From(_widget) );
+				mLayerManager->upLayerItem( Convert< MyGUI::Widget* >::From(_widget) );
 			}
 
 		public:
-			void AttachToLayer(System::String^  _layer, Widget^ _widget)
+			void AttachToLayer(System::String ^  _layer, Widget ^ _widget)
 			{
-				mLayerManager->attachToLayerNode( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
+				mLayerManager->attachToLayerNode( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget* >::From(_widget) );
 			}
 
 		private:
-			static LayerManager^ m_instance = gcnew LayerManager();
+			static LayerManager ^ m_instance = gcnew LayerManager();
 			static MyGUI::LayerManager* mLayerManager = nullptr;
 		};
 	}

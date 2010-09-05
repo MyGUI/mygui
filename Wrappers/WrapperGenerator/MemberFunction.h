@@ -42,7 +42,7 @@ namespace wrapper
 						real_name = ref->getContent();
 						break;
 					}
-					
+
 					if (real_name.empty())
 						mType = info->getContent();
 					else
@@ -64,7 +64,7 @@ namespace wrapper
 								real_name = ref->getContent();
 								break;
 							}
-							
+
 							if (real_name.empty())
 								pair_param.type = param->getContent();
 							else
@@ -125,12 +125,24 @@ namespace wrapper
 		{
 		}
 
-		size_t getParamCount() { return mParams.size(); }
-		const std::string& getParamType(size_t _index) { return mParams.at(_index).type; }
-		EnumeratorParam getParamEnumerator() { return EnumeratorParam(mParams.begin(), mParams.end()); }
-		MemberFunction* getGetFunction() { return mGetProperty; }
+		size_t getParamCount()
+		{
+			return mParams.size();
+		}
+		const std::string& getParamType(size_t _index)
+		{
+			return mParams.at(_index).type;
+		}
+		EnumeratorParam getParamEnumerator()
+		{
+			return EnumeratorParam(mParams.begin(), mParams.end());
+		}
+		MemberFunction* getGetFunction()
+		{
+			return mGetProperty;
+		}
 
-		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type)
+		virtual void insertToTemplate(const std::string& _template, ITypeHolder* _holder, const std::string& _type)
 		{
 			if ( ! isNeedInsert() ) return;
 
@@ -140,13 +152,15 @@ namespace wrapper
 			std::string filename = _template;
 			std::ifstream infile;
 			infile.open(filename.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << filename << std::endl;
 				return;
 			}
 
 			std::string read;
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				file_data.push_back(read);
 			}
@@ -155,16 +169,19 @@ namespace wrapper
 			// теперь все записываем
 			std::ofstream outfile;
 			outfile.open(filename.c_str());
-			if ( ! outfile.is_open() ) {
+			if ( ! outfile.is_open() )
+			{
 				std::cout << "error open file " << filename << std::endl;
 				return;
 			}
 
-			for (VectorString::iterator item = file_data.begin(); item!=file_data.end(); ++item) {
+			for (VectorString::iterator item = file_data.begin(); item != file_data.end(); ++item)
+			{
 				if (item != file_data.begin()) outfile << "\n";
 				outfile << *item;
 
-				if (item->find("//InsertPoint") != std::string::npos) {
+				if (item->find("//InsertPoint") != std::string::npos)
+				{
 					outfile << std::endl << std::endl;
 					insert(outfile, _holder, _type);
 				}
@@ -191,7 +208,7 @@ namespace wrapper
 				if (member->getParamCount() == mParams.size())
 				{
 					bool eqviv = true;
-					for (size_t index=0; index<mParams.size(); ++index)
+					for (size_t index = 0; index < mParams.size(); ++index)
 					{
 						if (mParams[index].type != member->getParamType(index))
 						{
@@ -246,7 +263,7 @@ namespace wrapper
 
 		bool isSetProperty()
 		{
-			if (mName.size() > 3 && 
+			if (mName.size() > 3 &&
 				mName.substr(0, 3) == "set" &&
 				mParams.size() == 1 &&
 				mType == "void")
@@ -272,7 +289,7 @@ namespace wrapper
 			assert(get);
 
 			std::string name = _item->getName();
-			if (name.size() > 3 && 
+			if (name.size() > 3 &&
 				(name.substr(0, 3) == "get" || name.substr(0, 2) == "is") &&
 				get->getParamCount() == 0 &&
 				get->getType() != "void")
@@ -288,7 +305,7 @@ namespace wrapper
 			return false;
 		}
 
-		void insert(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
+		void insert(std::ofstream& _stream, ITypeHolder* _holder, const std::string& _type)
 		{
 			if (mGetProperty != nullptr)
 			{
@@ -311,7 +328,7 @@ namespace wrapper
 			}
 		}
 
-		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type, size_t _count)
+		void insertMethod(std::ofstream& _stream, ITypeHolder* _holder, const std::string& _type, size_t _count)
 		{
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
@@ -332,13 +349,14 @@ namespace wrapper
 			addTag("OriginalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
-			for(size_t index2=0; index2<info.size(); ++index2)
+			for (size_t index2 = 0; index2 < info.size(); ++index2)
 			{
 				addTag(utility::toString(info[index2].first), info[index2].second);
 			}
 
 
-			for (size_t index=0; index<_count; ++index) {
+			for (size_t index = 0; index < _count; ++index)
+			{
 				std::string type = _holder->getTypeDescription(mParams[index].type);
 				if (type.empty()) return;
 
@@ -347,7 +365,7 @@ namespace wrapper
 
 				// теперь вставляем теги замены типов указанные в xml
 				const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
-				for(size_t index2=0; index2<info.size(); ++index2)
+				for (size_t index2 = 0; index2 < info.size(); ++index2)
 				{
 					addTag(utility::toString(info[index2].first, index + 1), info[index2].second);
 				}
@@ -357,12 +375,14 @@ namespace wrapper
 			std::string data, read;
 			std::ifstream infile;
 			infile.open(template_name.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << template_name << std::endl;
 				return;
 			}
 
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				data += read + "\n";
 			}
@@ -370,8 +390,10 @@ namespace wrapper
 			infile.close();
 
 			// утф заголовки
-			if (data.size() > 3) {
-				if (data[2] < 32) {
+			if (data.size() > 3)
+			{
+				if (data[2] < 32)
+				{
 					data[0] = ' ';
 					data[1] = ' ';
 					data[2] = ' ';
@@ -385,7 +407,7 @@ namespace wrapper
 			std::cout << "method  : " << member_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
-		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
+		void insertProperty(std::ofstream& _stream, ITypeHolder* _holder, const std::string& _type)
 		{
 			std::string templ = _holder->getMemberData(mName);
 			if (templ.empty()) templ = utility::toString("Property", (mGetProperty->getName().at(0) == 'i' ? "IsSet" : "GetSet"), ".txt");
@@ -408,7 +430,7 @@ namespace wrapper
 			addTag("OriginalTypeName1", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
-			for(size_t index2=0; index2<info.size(); ++index2)
+			for (size_t index2 = 0; index2 < info.size(); ++index2)
 			{
 				addTag(utility::toString(info[index2].first), info[index2].second);
 				// для первого параметра сеттера
@@ -418,12 +440,14 @@ namespace wrapper
 			std::string data, read;
 			std::ifstream infile;
 			infile.open(template_name.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << template_name << std::endl;
 				return;
 			}
 
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				data += read + "\n";
 			}
@@ -431,8 +455,10 @@ namespace wrapper
 			infile.close();
 
 			// утф заголовки
-			if (data.size() > 3) {
-				if (data[2] < 32) {
+			if (data.size() > 3)
+			{
+				if (data[2] < 32)
+				{
 					data[0] = ' ';
 					data[1] = ' ';
 					data[2] = ' ';

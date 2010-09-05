@@ -18,7 +18,7 @@ namespace utility
 
 	inline void trim(std::string& _str, bool _left = true, bool _right = true)
 	{
-		if (_right) _str.erase(_str.find_last_not_of(" \t\r")+1);
+		if (_right) _str.erase(_str.find_last_not_of(" \t\r") + 1);
 		if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
 
@@ -115,9 +115,11 @@ namespace utility
 		T result;
 		stream >> result;
 		if (stream.fail()) return T();
-		else {
+		else
+		{
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return T();
 				item = stream.get();
 			};
@@ -125,16 +127,48 @@ namespace utility
 		return result;
 	}
 
-	inline char parseChar(const std::string& _value) { return static_cast<char>(parseValue<short>(_value)); }
-	inline unsigned char parseUChar(const std::string& _value) { return static_cast<unsigned char>(parseValue<unsigned short>(_value)); }
-	inline short parseShort(const std::string& _value) { return parseValue<short>(_value); }
-	inline unsigned short parseUShort(const std::string& _value) { return parseValue<unsigned short>(_value); }
-	inline int parseInt(const std::string& _value) { return parseValue<int>(_value); }
-	inline unsigned int parseUInt(const std::string& _value) { return parseValue<unsigned int>(_value); }
-	inline size_t parseSizeT(const std::string& _value) { return parseValue<size_t>(_value); }
-	inline float parseFloat(const std::string& _value) { return parseValue<float>(_value); }
-	inline double parseDouble(const std::string& _value) { return parseValue<double>(_value); }
-	inline bool parseBool(const std::string& _value) { std::string value(_value); trim(value); return ( (value == "true") || (value == "1") ); }
+	inline char parseChar(const std::string& _value)
+	{
+		return static_cast<char>(parseValue<short>(_value));
+	}
+	inline unsigned char parseUChar(const std::string& _value)
+	{
+		return static_cast<unsigned char>(parseValue<unsigned short>(_value));
+	}
+	inline short parseShort(const std::string& _value)
+	{
+		return parseValue<short>(_value);
+	}
+	inline unsigned short parseUShort(const std::string& _value)
+	{
+		return parseValue<unsigned short>(_value);
+	}
+	inline int parseInt(const std::string& _value)
+	{
+		return parseValue<int>(_value);
+	}
+	inline unsigned int parseUInt(const std::string& _value)
+	{
+		return parseValue<unsigned int>(_value);
+	}
+	inline size_t parseSizeT(const std::string& _value)
+	{
+		return parseValue<size_t>(_value);
+	}
+	inline float parseFloat(const std::string& _value)
+	{
+		return parseValue<float>(_value);
+	}
+	inline double parseDouble(const std::string& _value)
+	{
+		return parseValue<double>(_value);
+	}
+	inline bool parseBool(const std::string& _value)
+	{
+		std::string value(_value);
+		trim(value);
+		return ( (value == "true") || (value == "1") );
+	}
 
 	// для парсинга сложных типов, состоящих из простых
 	template<typename T1, typename T2 >
@@ -144,9 +178,11 @@ namespace utility
 		std::istringstream stream(_value);
 		stream >> p1 >> p2;
 		if (stream.fail()) return T1();
-		else {
+		else
+		{
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return T1();
 				item = stream.get();
 			};
@@ -161,9 +197,11 @@ namespace utility
 		std::istringstream stream(_value);
 		stream >> p1 >> p2 >> p3;
 		if (stream.fail()) return T1();
-		else {
+		else
+		{
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return T1();
 				item = stream.get();
 			};
@@ -178,9 +216,11 @@ namespace utility
 		std::istringstream stream(_value);
 		stream >> p1 >> p2 >> p3 >> p4;
 		if (stream.fail()) return T1();
-		else {
+		else
+		{
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return T1();
 				item = stream.get();
 			};
@@ -194,10 +234,12 @@ namespace utility
 		inline void split(std::vector<std::string> & _ret, const std::string& _source, const std::string& _delims)
 		{
 			size_t start = _source.find_first_not_of(_delims);
-			while (start != _source.npos) {
+			while (start != _source.npos)
+			{
 				size_t end = _source.find_first_of(_delims, start);
-				if (end != _source.npos) _ret.push_back(_source.substr(start, end-start));
-				else {
+				if (end != _source.npos) _ret.push_back(_source.substr(start, end - start));
+				else
+				{
 					_ret.push_back(_source.substr(start));
 					break;
 				}
@@ -214,7 +256,7 @@ namespace utility
 	}
 
 	template<typename T1, typename T2, typename T3, typename T4>
-	inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
+	inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2, T3& _p3, T4& _p4)
 	{
 		std::istringstream stream(_value);
 
@@ -222,7 +264,8 @@ namespace utility
 
 		if (stream.fail()) return false;
 		int item = stream.get();
-		while (item != -1) {
+		while (item != -1)
+		{
 			if (item != ' ' && item != '\t') return false;
 			item = stream.get();
 		};
@@ -231,7 +274,7 @@ namespace utility
 	}
 
 	template<typename T1, typename T2, typename T3>
-	inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2, T3 & _p3)
+	inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2, T3& _p3)
 	{
 		std::istringstream stream(_value);
 
@@ -239,7 +282,8 @@ namespace utility
 
 		if (stream.fail()) return false;
 		int item = stream.get();
-		while (item != -1) {
+		while (item != -1)
+		{
 			if (item != ' ' && item != '\t') return false;
 			item = stream.get();
 		};
@@ -248,7 +292,7 @@ namespace utility
 	}
 
 	template<typename T1, typename T2>
-	inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2)
+	inline bool parseComplex(const std::string& _value, T1& _p1, T2& _p2)
 	{
 		std::istringstream stream(_value);
 
@@ -256,7 +300,8 @@ namespace utility
 
 		if (stream.fail()) return false;
 		int item = stream.get();
-		while (item != -1) {
+		while (item != -1)
+		{
 			if (item != ' ' && item != '\t') return false;
 			item = stream.get();
 		};
@@ -265,7 +310,7 @@ namespace utility
 	}
 
 	template<typename T1>
-	inline bool parseComplex(const std::string& _value, T1 & _p1)
+	inline bool parseComplex(const std::string& _value, T1& _p1)
 	{
 		std::istringstream stream(_value);
 
@@ -273,7 +318,8 @@ namespace utility
 
 		if (stream.fail()) return false;
 		int item = stream.get();
-		while (item != -1) {
+		while (item != -1)
+		{
 			if (item != ' ' && item != '\t') return false;
 			item = stream.get();
 		};
@@ -282,15 +328,17 @@ namespace utility
 	}
 
 	template<>
-	inline bool parseComplex<bool>(const std::string& _value, bool & _p1)
+	inline bool parseComplex<bool>(const std::string& _value, bool& _p1)
 	{
 		std::string value(_value);
 		trim(value);
-		if ((value == "true") || (value == "1")) {
+		if ((value == "true") || (value == "1"))
+		{
 			_p1 = true;
 			return true;
 		}
-		else if ((value == "false") || (value == "0")) {
+		else if ((value == "false") || (value == "0"))
+		{
 			_p1 = false;
 			return true;
 		}

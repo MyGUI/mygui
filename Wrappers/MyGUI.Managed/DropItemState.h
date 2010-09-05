@@ -32,8 +32,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::DDItemState>
 		{
 			typedef DDItemState Type;
-			inline static const DDItemState& To(const MyGUI::DDItemState& _value) { return reinterpret_cast<const DDItemState&>(_value); }
-			inline static MyGUI::DDItemState& From(DDItemState& _value) { return reinterpret_cast<MyGUI::DDItemState&>(_value); }
+			inline static const DDItemState& To(const MyGUI::DDItemState& _value)
+			{
+				return reinterpret_cast<const DDItemState&>(_value);
+			}
+			inline static MyGUI::DDItemState& From(DDItemState& _value)
+			{
+				return reinterpret_cast<MyGUI::DDItemState&>(_value);
+			}
 		};
 
 	} // namespace Managed

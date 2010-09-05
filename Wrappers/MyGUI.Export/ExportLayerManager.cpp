@@ -9,11 +9,11 @@ namespace Export
 {
 
 	MYGUIEXPORT void MYGUICALL ExportLayerManager_AttachToLayer(
-		Convert<const std::string &>::Type _layer ,
-		MyGUI::Widget * _widget )
+		Convert<const std::string&>::Type _layer ,
+		MyGUI::Widget* _widget )
 	{
 		MyGUI::LayerManager::getInstance().attachToLayerNode(
-			Convert<const std::string &>::From(_layer) ,
+			Convert<const std::string&>::From(_layer) ,
 			_widget );
 	}
 
