@@ -42,7 +42,7 @@ namespace MyGUI
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr),
 		mCompression(false),
-		mSeparate(false)
+		mManualRender(false)
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 	}
@@ -98,15 +98,10 @@ namespace MyGUI
 			}
 #endif
 			// непосредственный рендринг
-			if (mSeparate)
+			if (mManualRender)
 			{
 				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
-					(*iter).first->preRender();
-
-				_target->doRender(mVertexBuffer, mTexture, mCountVertex);
-
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
-					(*iter).first->postRender();
+					(*iter).first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
 			}
 			else
 			{
@@ -207,14 +202,14 @@ namespace MyGUI
 		return result;
 	}
 
-	void RenderItem::setSeparate(bool _value)
+	void RenderItem::setManualRender(bool _value)
 	{
-		mSeparate = _value;
+		mManualRender = _value;
 	}
 
-	bool RenderItem::getSeparate() const
+	bool RenderItem::getManualRender() const
 	{
-		return mSeparate;
+		return mManualRender;
 	}
 
 } // namespace MyGUI

@@ -83,7 +83,8 @@ namespace MyGUI
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
-		void setTextureFilter(Ogre::FilterOptions _value);
+		bool getManualRender() { return mManualRender; }
+		void setManualRender(bool _value) { mManualRender = _value; }
 
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture);
@@ -126,8 +127,8 @@ namespace MyGUI
 		MapTexture mTextures;
 
 		bool mIsInitialise;
-		Ogre::FilterOptions mTextureFilter;
-		ITexture* mTexture;
+		//ITexture* mTexture;
+		bool mManualRender;
 	};
 
 } // namespace MyGUI
