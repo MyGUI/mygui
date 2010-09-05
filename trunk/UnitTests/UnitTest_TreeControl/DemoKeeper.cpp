@@ -25,10 +25,10 @@ public:
 	MyGUI::UString getPath(MyGUI::TreeControl::Node* pNode) const;
 
 private:
-	MyGUI::TreeControl * mpResourcesTree;
+	MyGUI::TreeControl* mpResourcesTree;
 };
 
-SampleLayout * mSampleLayout;
+SampleLayout* mSampleLayout;
 
 SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 {
@@ -52,7 +52,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 	common::VectorFileInfo result;
 	common::getSystemFileList(result, gMediaBase, L"*.*");
 
-	for (common::VectorFileInfo::iterator item=result.begin(); item!=result.end(); ++item)
+	for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
 	{
 		if ((*item).name == L".." || (*item).name == L".")
 			continue;
@@ -136,7 +136,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		common::VectorFileInfo result;
 		common::getSystemFileList(result, path, L"*.*");
 
-		for (common::VectorFileInfo::iterator item=result.begin(); item!=result.end(); ++item)
+		for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
 		{
 			if ((*item).name == L".." || (*item).name == L".")
 				continue;
@@ -160,26 +160,19 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 				MyGUI::UString strImage;
 				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" || strExtension == "jpeg")
 					strImage = "Image";
-				else
-				if (strExtension == "mat" || strExtension == "material")
+				else if (strExtension == "mat" || strExtension == "material")
 					strImage = "Material";
-				else
-				if (strExtension == "layout")
+				else if (strExtension == "layout")
 					strImage = "Layout";
-				else
-				if (strExtension == "ttf" || strExtension == "font" || strExtension == "fontdef")
+				else if (strExtension == "ttf" || strExtension == "font" || strExtension == "fontdef")
 					strImage = "Font";
-				else
-				if (strExtension == "txt" || strExtension == "text")
+				else if (strExtension == "txt" || strExtension == "text")
 					strImage = "Text";
-				else
-				if (strExtension == "xml")
+				else if (strExtension == "xml")
 					strImage = "XML";
-				else
-				if (strExtension == "mesh")
+				else if (strExtension == "mesh")
 					strImage = "Mesh";
-				else
-				if (strExtension == "htm" || strExtension == "html")
+				else if (strExtension == "htm" || strExtension == "html")
 					strImage = "HTML";
 				else
 					strImage = "Unknown";
@@ -197,7 +190,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
 {
 	if (!pNode || pNode == mpResourcesTree->getRoot())
-	return MyGUI::UString();
+		return MyGUI::UString();
 
 	MyGUI::UString strPath;
 	while (pNode->getParent() != mpResourcesTree->getRoot())

@@ -46,7 +46,7 @@ namespace tools
 		const int LINE_HEIGHT = 22;
 		const int LINES = 3;
 
-		MyGUI::SkinManager & manager = MyGUI::SkinManager::getInstance();
+		MyGUI::SkinManager& manager = MyGUI::SkinManager::getInstance();
 		if (manager.isExist(skin))
 		{
 			MyGUI::IntSize max_size;
@@ -54,13 +54,13 @@ namespace tools
 			MyGUI::ResourceSkin* info = manager.getByName(skin);
 			if (info != nullptr)
 			{
-				const MyGUI::VectorChildSkinInfo & child = info->getChild();
-				for (size_t pos=0; pos<child.size(); ++pos)
+				const MyGUI::VectorChildSkinInfo& child = info->getChild();
+				for (size_t pos = 0; pos < child.size(); ++pos)
 				{
 					const std::string& child_skin = child[pos].skin;
 					if (!manager.isExist(child_skin)) continue;
-					const MyGUI::ResourceSkin * child_info = manager.getByName(child_skin);
-					const MyGUI::IntSize & child_size = child[pos].coord.size();
+					const MyGUI::ResourceSkin* child_info = manager.getByName(child_skin);
+					const MyGUI::IntSize& child_size = child[pos].coord.size();
 					MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 
 					if (max_size.width < dif_size.width) max_size.width = dif_size.width;
@@ -72,10 +72,10 @@ namespace tools
 			height += max_size.height;
 		}
 
-		mMainWidget->setSize(std::max(mMinWidth, width + 2*MARGIN), std::max(mMinHeight, height + LINE_HEIGHT*LINES + 2*MARGIN));
+		mMainWidget->setSize(std::max(mMinWidth, width + 2 * MARGIN), std::max(mMinHeight, height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		if (mLastWidget)
 			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
-		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
+		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, width, height, MyGUI::Align::Default);
 		mLastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
 
 		mMainWidget->setVisible(true);
@@ -86,12 +86,12 @@ namespace tools
 		mMainWidget->setVisible(false);
 	}
 
-	void EditorToolTip::move(const MyGUI::IntPoint & _point)
+	void EditorToolTip::move(const MyGUI::IntPoint& _point)
 	{
 		setPosition(_point);
 	}
 
-	void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
+	void EditorToolTip::setPosition(const MyGUI::IntPoint& _point)
 	{
 		const MyGUI::IntPoint offset(10, 10);
 

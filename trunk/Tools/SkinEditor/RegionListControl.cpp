@@ -156,7 +156,7 @@ namespace tools
 	{
 		if (getCurrentSkin() == nullptr)
 			return;
-		
+
 		bool leftVisible = isSeparatorVisible(MyGUI::Align::Left);
 		bool rightVisible = isSeparatorVisible(MyGUI::Align::Right);
 		bool topVisible = isSeparatorVisible(MyGUI::Align::Top);

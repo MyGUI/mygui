@@ -52,8 +52,8 @@ namespace demo
 		vd->addElement( 0, 0, Ogre::VET_FLOAT3, Ogre::VES_POSITION );
 		vd->addElement( 0, Ogre::VertexElement::getTypeSize( Ogre::VET_FLOAT3 ), Ogre::VET_COLOUR, Ogre::VES_DIFFUSE );
 		vd->addElement( 0, Ogre::VertexElement::getTypeSize( Ogre::VET_FLOAT3 ) +
-						   Ogre::VertexElement::getTypeSize( Ogre::VET_COLOUR ),
-						   Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES );
+			Ogre::VertexElement::getTypeSize( Ogre::VET_COLOUR ),
+			Ogre::VET_FLOAT2, Ogre::VES_TEXTURE_COORDINATES );
 
 		// Create the Vertex Buffer, using the Vertex Structure we previously declared in _declareVertexStructure.
 		mVertexBuffer = Ogre::HardwareBufferManager::getSingleton( ).createVertexBuffer(
@@ -110,7 +110,7 @@ namespace demo
 			mCurrentTexture.right,
 			mCurrentTexture.bottom,
 			mCurrentColour
-			);
+		);
 
 		mVertexBuffer->unlock();
 		mRenderOperation.vertexData->vertexCount = 6;

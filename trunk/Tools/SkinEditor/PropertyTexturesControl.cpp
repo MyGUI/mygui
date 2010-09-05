@@ -17,12 +17,12 @@ namespace tools
 
 		// FIXME потом вынести в загружаемые настройки
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
-		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
+		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mComboBox->addItem(*iter);
 
 		// FIXME потом вынести в загружаемые настройки
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
-		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
+		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mComboBox->addItem(*iter);
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
@@ -66,7 +66,7 @@ namespace tools
 		size_t result = MyGUI::ITEM_NONE;
 
 		size_t count = mComboBox->getItemCount();
-		for (size_t index=0; index<count; ++index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			if (mComboBox->getItemNameAt(index) == _name)
 			{

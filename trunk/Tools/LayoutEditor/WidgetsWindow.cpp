@@ -84,8 +84,8 @@ namespace tools
 			for (VectorSkinInfo::const_iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 			{
 				MyGUI::Button* button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
-					i%mWidgetsButtonsInOneLine * w + MARGIN, i/mWidgetsButtonsInOneLine * h + MARGIN, w, h,
-					MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->widget_type, iterSkin->widget_skin));
+					i % mWidgetsButtonsInOneLine * w + MARGIN, i / mWidgetsButtonsInOneLine * h + MARGIN, w, h,
+					MyGUI::Align::Top | MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->widget_type, iterSkin->widget_skin));
 				button->setCaption(iterSkin->widget_button_name);
 				button->setTextAlign(MyGUI::Align::Center);
 				button->setUserString("widget", iterSkin->widget_type);
@@ -104,7 +104,7 @@ namespace tools
 				button->eventToolTip += MyGUI::newDelegate(this, &WidgetsWindow::notifyToolTip);
 				i++;
 			}
-			mMaxLines = std::max((i+mWidgetsButtonsInOneLine-1)/mWidgetsButtonsInOneLine, mMaxLines);
+			mMaxLines = std::max((i + mWidgetsButtonsInOneLine - 1) / mWidgetsButtonsInOneLine, mMaxLines);
 		}
 	}
 
@@ -128,7 +128,7 @@ namespace tools
 		mX2 = _x2;
 		mY2 = _y2;
 		MyGUI::IntCoord coord(std::min(mX1, mX2), std::min(mY1, mY2), abs(mX1 - mX2), abs(mY1 - mY2));
-		if ((mCreatingStatus == 1) && ((mX1-mX2)*(mY1-mY2) != 0))
+		if ((mCreatingStatus == 1) && ((mX1 - mX2)*(mY1 - mY2) != 0))
 		{
 			// тип виджета может отсутсвовать
 			if (!MyGUI::WidgetManager::getInstance().isFactoryExist(mNewWidgetType))
@@ -173,10 +173,10 @@ namespace tools
 		mY2 = _y2;
 		if (mCreatingStatus > 0)
 		{
-			if ((mX1-mX2)*(mY1-mY2) != 0)
+			if ((mX1 - mX2)*(mY1 - mY2) != 0)
 			{
 				// создали виджет, все счастливы
-				WidgetContainer * widgetContainer = new WidgetContainer(mNewWidgetType, mNewWidgetSkin, mCurrentWidget);
+				WidgetContainer* widgetContainer = new WidgetContainer(mNewWidgetType, mNewWidgetSkin, mCurrentWidget);
 				EditorWidgets::getInstance().add(widgetContainer);
 				mCurrentWidget = nullptr;
 
@@ -238,12 +238,12 @@ namespace tools
 			mCurrentWidget = MyGUI::Gui::getInstance().createWidgetT(mNewWidgetType, EditorWidgets::getInstance().getSkinReplace(mNewWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 		}
 		// place in parent center
-		const MyGUI::IntCoord size((parent_size.width - width)/2, (parent_size.height - height)/2, width, height);
+		const MyGUI::IntCoord size((parent_size.width - width) / 2, (parent_size.height - height) / 2, width, height);
 		mCurrentWidget->setCoord(size);
 		if (mCurrentWidget->isType<MyGUI::StaticText>())
 			mCurrentWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mNewWidgetSkin));
 
-		WidgetContainer * widgetContainer = new WidgetContainer(mNewWidgetType, mNewWidgetSkin, mCurrentWidget);
+		WidgetContainer* widgetContainer = new WidgetContainer(mNewWidgetType, mNewWidgetSkin, mCurrentWidget);
 		EditorWidgets::getInstance().add(widgetContainer);
 		mCurrentWidget = nullptr;
 
@@ -267,7 +267,7 @@ namespace tools
 		mCurrentWidget = _currentWidget;
 	}
 
-	void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
+	void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show)
 		{

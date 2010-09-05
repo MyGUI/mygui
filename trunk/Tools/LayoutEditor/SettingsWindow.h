@@ -29,14 +29,32 @@ namespace tools
 		int getGridStep();
 		void setGridStep();
 
-		bool getShowName() { return mCheckShowName->getStateSelected(); }
-		void setShowName(bool _pressed) { mCheckShowName->setStateSelected(_pressed); }
+		bool getShowName()
+		{
+			return mCheckShowName->getStateSelected();
+		}
+		void setShowName(bool _pressed)
+		{
+			mCheckShowName->setStateSelected(_pressed);
+		}
 
-		bool getShowType() { return mCheckShowType->getStateSelected(); }
-		void setShowType(bool _pressed) { mCheckShowType->setStateSelected(_pressed); }
+		bool getShowType()
+		{
+			return mCheckShowType->getStateSelected();
+		}
+		void setShowType(bool _pressed)
+		{
+			mCheckShowType->setStateSelected(_pressed);
+		}
 
-		bool getShowSkin() { return mCheckShowSkin->getStateSelected(); }
-		void setShowSkin(bool _pressed) { mCheckShowSkin->setStateSelected(_pressed); }
+		bool getShowSkin()
+		{
+			return mCheckShowSkin->getStateSelected();
+		}
+		void setShowSkin(bool _pressed)
+		{
+			mCheckShowSkin->setStateSelected(_pressed);
+		}
 
 		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
 		void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method

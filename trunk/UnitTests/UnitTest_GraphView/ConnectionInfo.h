@@ -24,12 +24,12 @@ namespace wraps
 			const MyGUI::Colour& _colour,
 			const MyGUI::IntSize& _start_offset,
 			const MyGUI::IntSize& _end_offset
-			) :
-				point_start(_point_start),
-				point_end(_point_end),
-				colour(_colour),
-				start_offset(_start_offset),
-				end_offset(_end_offset)
+		) :
+			point_start(_point_start),
+			point_end(_point_end),
+			colour(_colour),
+			start_offset(_start_offset),
+			end_offset(_end_offset)
 		{
 		}
 

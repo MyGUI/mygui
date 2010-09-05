@@ -54,10 +54,22 @@ namespace tools
 		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner) { }
 		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner) { }
 
-		SkinItem* getCurrentSkin() { return mCurrentSkin; }
-		StateItem* getCurrentState() { return mCurrentState; }
-		SeparatorItem* getCurrentSeparator() { return mCurrentSeparator; }
-		RegionItem* getCurrentRegion() { return mCurrentRegion; }
+		SkinItem* getCurrentSkin()
+		{
+			return mCurrentSkin;
+		}
+		StateItem* getCurrentState()
+		{
+			return mCurrentState;
+		}
+		SeparatorItem* getCurrentSeparator()
+		{
+			return mCurrentSeparator;
+		}
+		RegionItem* getCurrentRegion()
+		{
+			return mCurrentRegion;
+		}
 
 	private:
 		void notifySkinChangeSelection()

@@ -336,7 +336,7 @@ namespace tools
 		if (pos != dir.npos)
 		{
 			// устанавливаем правильную дирректорию
-			::SetCurrentDirectoryW(dir.substr(0, pos+1).c_str());
+			::SetCurrentDirectoryW(dir.substr(0, pos + 1).c_str());
 		}
 
 		// имена могут содержать пробелы, необходимо
@@ -351,14 +351,14 @@ namespace tools
 			size_t end = source.find_first_of(delims, start);
 			if (end != source.npos)
 			{
-				tmp += source.substr(start, end-start);
+				tmp += source.substr(start, end - start);
 
 				// имена могут быть в ковычках
 				if (tmp.size() > 2)
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
 					{
-						tmp = tmp.substr(1, tmp.size()-2);
+						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 
@@ -387,7 +387,7 @@ namespace tools
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
 					{
-						tmp = tmp.substr(1, tmp.size()-2);
+						tmp = tmp.substr(1, tmp.size() - 2);
 					}
 				}
 

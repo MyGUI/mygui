@@ -25,10 +25,10 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		State * mMenu1;
-		State * mMenu2;
-		State * mMenu3;
-		State * mMenu4;
+		State* mMenu1;
+		State* mMenu2;
+		State* mMenu3;
+		State* mMenu4;
 		ControllerType mType;
 		bool mIsAnim;
 	};

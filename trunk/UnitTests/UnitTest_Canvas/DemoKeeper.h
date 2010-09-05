@@ -16,7 +16,10 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
-		DemoKeeper() : base::BaseManager() { mGraphView = 0; }
+		DemoKeeper() : base::BaseManager()
+		{
+			mGraphView = 0;
+		}
 		virtual void createScene();
 		virtual void destroyScene();
 
@@ -28,7 +31,7 @@ namespace demo
 		MyGUI::WindowPtr mPanel3;
 		MyGUI::ScrollViewPtr mScrollView3;
 
-		wraps::BaseGraphView * mGraphView;
+		wraps::BaseGraphView* mGraphView;
 	};
 
 } // namespace demo

@@ -24,7 +24,7 @@ namespace wraps
 
 	public:
 		BasePanelView(const std::string& _layout, MyGUI::Widget* _parent) :
-	  		BaseLayout(_layout, _parent),
+			BaseLayout(_layout, _parent),
 			mNeedUpdate(false),
 			mOldClientWidth(0),
 			mFirstInitialise(false)
@@ -91,7 +91,7 @@ namespace wraps
 		//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
 		size_t findItem(BasePanelViewItem* _item)
 		{
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
 				if ((*iter) == _item)
 					return iter - mItems.begin();
@@ -123,7 +123,7 @@ namespace wraps
 		//! Remove all items
 		void removeAllItems()
 		{
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
 				BasePanelViewCell* cell = (*iter)->getPanelCell();
 				(*iter)->_shutdown();
@@ -137,7 +137,7 @@ namespace wraps
 		{
 			// вычисляем максимальную высоту всего добра
 			int height = 0;
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
 				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
 				if (widget->getVisible())
@@ -148,7 +148,7 @@ namespace wraps
 			// ставим высоту холста, и спрашиваем получившуюся ширину клиента
 			mScrollView->setCanvasSize(0, height);
 			// ширина клиента могла поменятся
-			const MyGUI::IntSize & size = mScrollView->getClientCoord().size();
+			const MyGUI::IntSize& size = mScrollView->getClientCoord().size();
 			mScrollView->setCanvasSize(size.width, height);
 
 			bool change = mFirstInitialise;
@@ -160,7 +160,7 @@ namespace wraps
 
 			// выравниваем все панели
 			int pos = 0;
-			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter)
+			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
 				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
 				if (widget->getVisible() || mFirstInitialise)

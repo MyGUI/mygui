@@ -60,7 +60,7 @@ namespace demo
 		{
 			MyGUI::ControllerManager& manager = MyGUI::ControllerManager::getInstance();
 
-			MyGUI::ControllerFadeAlpha * controller = createControllerFadeAlpha(0, 3, true);
+			MyGUI::ControllerFadeAlpha* controller = createControllerFadeAlpha(0, 3, true);
 			manager.addItem(mMainWidget, controller);
 
 			controller = createControllerFadeAlpha(0, 3, true);
@@ -88,7 +88,7 @@ namespace demo
 
 		const int offset = 30;
 		const float time_diff = 0.3;
-		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
+		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 
 		if (!mMainWidget->getVisible())
 		{
@@ -121,7 +121,7 @@ namespace demo
 			}
 		}
 
-		if (mCountTime > time_diff*2)
+		if (mCountTime > time_diff * 2)
 		{
 			if (!mButton3->getVisible())
 			{
@@ -175,7 +175,7 @@ namespace demo
 		}
 	}
 
-	MyGUI::ControllerPosition * State::createControllerPosition(const MyGUI::IntPoint & _point)
+	MyGUI::ControllerPosition* State::createControllerPosition(const MyGUI::IntPoint& _point)
 	{
 		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
 		MyGUI::ControllerPosition* controller = item->castType<MyGUI::ControllerPosition>();

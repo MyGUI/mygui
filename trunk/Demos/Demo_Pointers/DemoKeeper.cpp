@@ -204,12 +204,12 @@ namespace demo
 		node->setPosition(0, 0, -300);
 		//node->showBoundingBox(true);
 
-        Ogre::MeshManager::getSingleton().createPlane(
-            "FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
-            Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+		Ogre::MeshManager::getSingleton().createPlane(
+			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
-        entity = getSceneManager()->createEntity("floor", "FloorPlane");
-        entity->setMaterialName("Ground");
+		entity = getSceneManager()->createEntity("floor", "FloorPlane");
+		entity->setMaterialName("Ground");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 
@@ -235,8 +235,8 @@ namespace demo
 			_y / float(size.height));
 		gRaySceneQuery->setRay(ray);
 		gRaySceneQuery->setSortByDistance(true);
-		Ogre::RaySceneQueryResult &result = gRaySceneQuery->execute();
-		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter!=result.end(); ++iter)
+		Ogre::RaySceneQueryResult& result = gRaySceneQuery->execute();
+		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
 		{
 			if (iter->movable != 0)
 			{

@@ -126,7 +126,7 @@ namespace Hikari
 
 		/**
 		* Attempts to call a function declared as a callback in the ActionScript of the currently-loaded movie.
-		* 
+		*
 		* @param	funcName	The name of the callback that was declared using 'ExternalInterface.addCallback(funcName, function)'
 		*						in the ActionScript of the currently-loaded movie.
 		* @param	args	The arguments to pass to the ActionScript function.
@@ -138,7 +138,10 @@ namespace Hikari
 
 		FlashValue callFunction(MyGUI::UString funcName, const Arguments& args = Args());
 
-		FlashControl* getControl() { return mControl; }
+		FlashControl* getControl()
+		{
+			return mControl;
+		}
 
 	protected:
 		virtual void initialiseOverride();

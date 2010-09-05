@@ -10,8 +10,8 @@
 namespace demo
 {
 
-	MyGUI::StaticImage * image;
-	MyGUI::RotatingSkin * rotato;
+	MyGUI::StaticImage* image;
+	MyGUI::RotatingSkin* rotato;
 
 	void DemoKeeper::setupResources()
 	{
@@ -29,7 +29,7 @@ namespace demo
 		image = window->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
 		image->setImageTexture("wallpaper0.png");
 
-		MyGUI::ISubWidget * main = image->getSubWidgetMain();
+		MyGUI::ISubWidget* main = image->getSubWidgetMain();
 		rotato = main->castType<MyGUI::RotatingSkin>();
 	}
 

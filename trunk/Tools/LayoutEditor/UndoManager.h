@@ -17,16 +17,22 @@ namespace tools
 		UndoManager();
 
 	public:
-		void initialise(EditorWidgets * mEditorWidgets);
+		void initialise(EditorWidgets* mEditorWidgets);
 		void shutdown();
 
 		void undo();
 		void redo();
 		void addValue(int _property = PR_DEFAULT);
 
-		void dropLastProperty() { mLastProperty = PR_DEFAULT; }
+		void dropLastProperty()
+		{
+			mLastProperty = PR_DEFAULT;
+		}
 
-		bool isUnsaved() const { return mUnsaved; }
+		bool isUnsaved() const
+		{
+			return mUnsaved;
+		}
 		void setUnsaved(bool _unsaved);
 
 		Event_Changes eventChanges;

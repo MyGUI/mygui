@@ -17,7 +17,7 @@ namespace MyGUI
 		mTexture(_texture)
 	{
 		mProjectMatrix = Ogre::Matrix4::IDENTITY;
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
 		{
 			Ogre::RenderSystem* system = root->getRenderSystem();

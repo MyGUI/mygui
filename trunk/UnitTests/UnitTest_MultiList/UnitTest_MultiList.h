@@ -17,13 +17,14 @@ namespace unittest
 	private:
 		MyGUI::MultiList* original_list;
 		//unittest::BiIndexData * original_list;
-		unittest::Mirror_MultiList * mirror_list;
+		unittest::Mirror_MultiList* mirror_list;
 		size_t count_items;
 		size_t count_columns;
 
 		void Assert(bool _expression)
 		{
-			if (!_expression) {
+			if (!_expression)
+			{
 				throw new std::exception();
 			}
 		}
@@ -68,9 +69,11 @@ namespace unittest
 			Assert(original_list->getItemCount() == mirror_list->getItemCount());
 			Assert(original_list->getColumnCount() == mirror_list->getColumnCount());
 
-			for (size_t item=0; item<count_items; ++item) {
-				for (size_t column=0; column<count_columns; ++column) {
-					
+			for (size_t item = 0; item < count_items; ++item)
+			{
+				for (size_t column = 0; column < count_columns; ++column)
+				{
+
 					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					//Assert(original_list->getItemNameAt(item) == MyGUI::utility::toString(item));
 
@@ -102,7 +105,8 @@ namespace unittest
 
 		void Begin(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				Begin();
 				--_count;
 			}
@@ -122,7 +126,8 @@ namespace unittest
 
 		void AddItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				AddItem();
 				--_count;
 			}
@@ -145,7 +150,8 @@ namespace unittest
 
 		void InsertItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				InsertItem();
 				--_count;
 			}
@@ -168,7 +174,8 @@ namespace unittest
 
 		void RemoveItem(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				RemoveItem();
 				--_count;
 			}
@@ -190,7 +197,8 @@ namespace unittest
 
 		void SwapItems(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				SwapItems();
 				--_count;
 			}
@@ -212,7 +220,8 @@ namespace unittest
 
 		void SortItems(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				SortItems();
 				--_count;
 			}
@@ -237,7 +246,8 @@ namespace unittest
 
 		void ChangeItems(size_t _count)
 		{
-			while (_count > 0) {
+			while (_count > 0)
+			{
 				ChangeItems();
 				--_count;
 			}
@@ -284,7 +294,8 @@ namespace unittest
 			original_list->removeItemAt(1);
 			original_list->removeItemAt(0);*/
 
-			if (count_items > 100) {
+			if (count_items > 100)
+			{
 				RemoveAllItems();
 			}
 

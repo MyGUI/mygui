@@ -26,8 +26,14 @@ namespace MyGUI
 		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
 
-		static OpenGLRenderManager& getInstance() { return *getInstancePtr(); }
-		static OpenGLRenderManager* getInstancePtr() { return static_cast<OpenGLRenderManager*>(RenderManager::getInstancePtr()); }
+		static OpenGLRenderManager& getInstance()
+		{
+			return *getInstancePtr();
+		}
+		static OpenGLRenderManager* getInstancePtr()
+		{
+			return static_cast<OpenGLRenderManager*>(RenderManager::getInstancePtr());
+		}
 
 		/** @see OpenGLRenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;

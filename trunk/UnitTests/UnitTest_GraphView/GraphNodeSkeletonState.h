@@ -127,8 +127,8 @@ namespace demo
 				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
 				Ogre::AnimationStateIterator iter = set->getAnimationStateIterator();
 				while (iter.hasMoreElements())
-				{ 
-					Ogre::AnimationState* state = iter.getNext(); 
+				{
+					Ogre::AnimationState* state = iter.getNext();
 					mComboStates->addItem(state->getAnimationName());
 				}
 			}
@@ -152,10 +152,10 @@ namespace demo
 
 	private:
 		std::string mStateName;
-		wraps::BaseGraphConnection * mStartIn;
-		wraps::BaseGraphConnection * mStopIn;
-		wraps::BaseGraphConnection * mPositionIn;
-		wraps::BaseGraphConnection * mWeightIn;
+		wraps::BaseGraphConnection* mStartIn;
+		wraps::BaseGraphConnection* mStopIn;
+		wraps::BaseGraphConnection* mPositionIn;
+		wraps::BaseGraphConnection* mWeightIn;
 		MyGUI::ComboBoxPtr mComboStates;
 		MyGUI::StaticTextPtr mWeightValue;
 		MyGUI::StaticTextPtr mPositionValue;

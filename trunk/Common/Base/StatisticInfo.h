@@ -42,9 +42,9 @@ namespace diagnostic
 		}
 
 		template <typename T>
-		void change(const std::string& _key, const T & _value)
+		void change(const std::string& _key, const T& _value)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{
@@ -57,7 +57,7 @@ namespace diagnostic
 
 		void remove(const std::string& _key)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{
@@ -72,7 +72,7 @@ namespace diagnostic
 			if (mInfo)
 			{
 				std::ostringstream stream;
-				for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+				for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 				{
 					if (iter != mParams.begin()) stream << "\n";
 					stream << iter->first << " : " << iter->second;
@@ -80,7 +80,7 @@ namespace diagnostic
 
 				mInfo->setCaption(stream.str());
 
-				MyGUI::ISubWidgetText * text = mInfo->getSubWidgetText();
+				MyGUI::ISubWidgetText* text = mInfo->getSubWidgetText();
 				if (text)
 				{
 					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
@@ -97,7 +97,7 @@ namespace diagnostic
 
 		void clear(const std::string& _key)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{

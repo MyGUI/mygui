@@ -122,7 +122,7 @@ namespace common
 		VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
 
-		for(VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+		for (VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
 		{
 			if ((*item).folder)
 				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
@@ -132,7 +132,7 @@ namespace common
 		infos.clear();
 		getSystemFileList(infos, mCurrentFolder, mFileMask);
 
-		for(VectorFileInfo::iterator item=infos.begin(); item!=infos.end(); ++item)
+		for (VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
 		{
 			if (!(*item).folder)
 				mListFiles->addItem((*item).name, *item);

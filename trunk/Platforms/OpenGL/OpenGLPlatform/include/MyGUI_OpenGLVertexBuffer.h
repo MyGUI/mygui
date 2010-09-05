@@ -30,7 +30,10 @@ namespace MyGUI
 		void destroy();
 		void create();
 
-		unsigned int getBufferID() { return mBufferID; }
+		unsigned int getBufferID()
+		{
+			return mBufferID;
+		}
 
 	private:
 		unsigned int mBufferID;

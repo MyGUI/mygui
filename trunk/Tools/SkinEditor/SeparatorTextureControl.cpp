@@ -249,7 +249,7 @@ namespace tools
 		{
 			if (_corner.isTop())
 			{
-				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
+				for (std::vector<int>::iterator item = _coordsHor.begin(); item != _coordsHor.end(); ++item)
 				{
 					if ((*item) == offset)
 						return;
@@ -258,7 +258,7 @@ namespace tools
 			}
 			else if (_corner.isLeft())
 			{
-				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
+				for (std::vector<int>::iterator item = _coordsVert.begin(); item != _coordsVert.end(); ++item)
 				{
 					if ((*item) == offset)
 						return;
@@ -267,7 +267,7 @@ namespace tools
 			}
 			else if (_corner.isBottom())
 			{
-				for (std::vector<int>::iterator item=_coordsHor.begin(); item!=_coordsHor.end(); ++item)
+				for (std::vector<int>::iterator item = _coordsHor.begin(); item != _coordsHor.end(); ++item)
 				{
 					if ((*item) == (mTextureRegion.height - offset))
 						return;
@@ -276,7 +276,7 @@ namespace tools
 			}
 			else if (_corner.isRight())
 			{
-				for (std::vector<int>::iterator item=_coordsVert.begin(); item!=_coordsVert.end(); ++item)
+				for (std::vector<int>::iterator item = _coordsVert.begin(); item != _coordsVert.end(); ++item)
 				{
 					if ((*item) == (mTextureRegion.width - offset))
 						return;
@@ -296,7 +296,7 @@ namespace tools
 			mHorizontalBlackSelectors.push_back(selector);
 		}
 
-		for (size_t index=0; index<mHorizontalBlackSelectors.size(); ++index)
+		for (size_t index = 0; index < mHorizontalBlackSelectors.size(); ++index)
 		{
 			if (index < _coordsHor.size())
 			{
@@ -317,7 +317,7 @@ namespace tools
 			mVerticalBlackSelectors.push_back(selector);
 		}
 
-		for (size_t index=0; index<mVerticalBlackSelectors.size(); ++index)
+		for (size_t index = 0; index < mVerticalBlackSelectors.size(); ++index)
 		{
 			if (index < _coordsVert.size())
 			{

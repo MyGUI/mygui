@@ -28,7 +28,7 @@ namespace tools
 		EventHandle_EventCreatePair eventCreatePair;
 
 	private:
-		size_t AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y);
+		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y);
 
 	private:
 		int mPropertyItemHeight;

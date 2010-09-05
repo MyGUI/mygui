@@ -16,7 +16,10 @@
 #include "PointerManager.h"
 #include "MyGUI_LastHeader.h"
 
-namespace MyGUI { class OgrePlatform; }
+namespace MyGUI
+{
+	class OgrePlatform;
+}
 
 namespace base
 {
@@ -35,21 +38,45 @@ namespace base
 		bool create();
 		void destroy();
 		void run();
-		void quit() { mExit = true; }
+		void quit()
+		{
+			mExit = true;
+		}
 
 		void setWindowCaption(const std::wstring& _text);
 		void createDefaultScene();
 
-		MyGUI::Gui* getGUI() { return mGUI; }
-		const std::string& getRootMedia() { return mRootMedia; }
-		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
-		diagnostic::StatisticInfo * getStatisticInfo() { return mInfo; }
-		diagnostic::InputFocusInfo* getFocusInput() { return mFocusInfo; }
+		MyGUI::Gui* getGUI()
+		{
+			return mGUI;
+		}
+		const std::string& getRootMedia()
+		{
+			return mRootMedia;
+		}
+		void setResourceFilename(const std::string& _flename)
+		{
+			mResourceFileName = _flename;
+		}
+		void addResourceLocation(const std::string& _name, bool _recursive = false);
+		diagnostic::StatisticInfo* getStatisticInfo()
+		{
+			return mInfo;
+		}
+		diagnostic::InputFocusInfo* getFocusInput()
+		{
+			return mFocusInfo;
+		}
 
 	/*internal:*/
-		Ogre::SceneManager* getSceneManager() { return mSceneManager; }
-		Ogre::Camera* getCamera() { return mCamera; }
+		Ogre::SceneManager* getSceneManager()
+		{
+			return mSceneManager;
+		}
+		Ogre::Camera* getCamera()
+		{
+			return mCamera;
+		}
 
 	protected:
 		virtual void createScene() { }
@@ -80,7 +107,7 @@ namespace base
 		diagnostic::StatisticInfo* mInfo;
 		diagnostic::InputFocusInfo* mFocusInfo;
 
-		Ogre::Root *mRoot;
+		Ogre::Root* mRoot;
 		Ogre::Camera* mCamera;
 		Ogre::SceneManager* mSceneManager;
 		Ogre::RenderWindow* mWindow;

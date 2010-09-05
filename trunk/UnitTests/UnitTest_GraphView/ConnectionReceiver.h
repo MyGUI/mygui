@@ -31,7 +31,7 @@ namespace animation
 
 		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
+			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{
 				if (_eventout == item->first
 					&& _node == item->second.first
@@ -46,7 +46,7 @@ namespace animation
 
 		void forceEvent(const std::string& _name, float _value = 0)
 		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
+			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{
 				if (_name == item->first)
 					item->second.first->setEvent(item->second.second, _value);

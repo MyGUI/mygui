@@ -21,7 +21,10 @@ namespace tools
 		virtual ~ColourPanel();
 
 		void setColour(const MyGUI::Colour& _colour);
-		const MyGUI::Colour& getColour() const { return mCurrentColour; }
+		const MyGUI::Colour& getColour() const
+		{
+			return mCurrentColour;
+		}
 
 	protected:
 		virtual void onDoModal();
@@ -47,7 +50,7 @@ namespace tools
 
 		MyGUI::Colour getSaturate(const MyGUI::Colour& _colour);
 
-		float & byIndex(MyGUI::Colour& _colour, size_t _index);
+		float& byIndex(MyGUI::Colour& _colour, size_t _index);
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourRect, "widget_ColourRect");

@@ -27,7 +27,7 @@ namespace demo
 			mResourceInfo(nullptr),
 			mResourceImage(nullptr)
 		{
-			MyGUI::ResourceManager & manager = MyGUI::ResourceManager::getInstance();
+			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 			mResourceInfo = manager.getByName(_resource)->castType<demo::ResourceItemInfo>();
 			mResourceImage = manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
 		}
@@ -37,12 +37,12 @@ namespace demo
 			return mResourceInfo == 0;
 		}
 
-		bool compare(ItemData * _data) const
+		bool compare(ItemData* _data) const
 		{
 			return mResourceInfo == _data->mResourceInfo;
 		}
 
-		void add(ItemData * _data)
+		void add(ItemData* _data)
 		{
 			count += _data->count;
 			mResourceInfo = _data->mResourceInfo;
@@ -56,9 +56,18 @@ namespace demo
 			count = 0;
 		}
 
-		size_t getCount() const { return count; }
-		demo::ResourceItemInfoPtr getInfo() const { return mResourceInfo; }
-		MyGUI::ResourceImageSetPtr getImage() const { return mResourceImage; }
+		size_t getCount() const
+		{
+			return count;
+		}
+		demo::ResourceItemInfoPtr getInfo() const
+		{
+			return mResourceInfo;
+		}
+		MyGUI::ResourceImageSetPtr getImage() const
+		{
+			return mResourceImage;
+		}
 
 	private:
 		size_t count;

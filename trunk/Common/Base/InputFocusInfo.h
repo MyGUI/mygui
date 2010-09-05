@@ -42,7 +42,10 @@ namespace diagnostic
 				MyGUI::Gui::getInstance().destroyWidget(mMouseHelper);
 		}
 
-		bool getFocusVisible() const { return mFocusVisible; }
+		bool getFocusVisible() const
+		{
+			return mFocusVisible;
+		}
 
 		void setFocusVisible(bool _value)
 		{
@@ -105,14 +108,14 @@ namespace diagnostic
 				if (mWidgetMouseFocus)
 				{
 					//if (_updateinfo)
-						//MyGUI::MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
+					//	MyGUI::MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
 					mMouseHelper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
 					mMouseHelper->setVisible(true);
 				}
 				else
 				{
 					//if (_updateinfo)
-						//MyGUI::MYGUI_OUT("mouse focus : nullptr");
+					//	MyGUI::MYGUI_OUT("mouse focus : nullptr");
 					mMouseHelper->setVisible(false);
 				}
 			}
@@ -134,14 +137,14 @@ namespace diagnostic
 				if (mWidgetKeyFocus)
 				{
 					//if (_updateinfo)
-						//MyGUI::MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
+					//	MyGUI::MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
 					mKeyHelper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
 					mKeyHelper->setVisible(true);
 				}
 				else
 				{
 					//if (_updateinfo)
-						//MyGUI::MYGUI_OUT("key focus : nullptr");
+					//	MyGUI::MYGUI_OUT("key focus : nullptr");
 					mKeyHelper->setVisible(false);
 				}
 			}

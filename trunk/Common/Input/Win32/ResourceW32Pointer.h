@@ -25,7 +25,10 @@ namespace input
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
-		size_t getPointerHandle() { return mHandle; }
+		size_t getPointerHandle()
+		{
+			return mHandle;
+		}
 
 	private:
 		size_t mHandle;

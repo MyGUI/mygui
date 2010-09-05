@@ -30,19 +30,19 @@ namespace wraps
 		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
 			{
 				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
 				if (nullptr != find)
 				{
-					T * cast = find->castType<T>(false);
+					T* cast = find->castType<T>(false);
 					if (nullptr != cast)
 					{
 						_widget = cast;
 					}
 					else if (_throw)
 					{
-							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
+						MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
 							<< "' source name = '" << find->getName()
 							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
 					}
@@ -57,7 +57,7 @@ namespace wraps
 		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
 			{
 				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
 				if (nullptr != find)
@@ -87,7 +87,7 @@ namespace wraps
 				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
 
 				const std::string main_name = mPrefix + MAIN_WINDOW;
-				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+				for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
 				{
 					if ((*iter)->getName() == main_name)
 					{
@@ -105,7 +105,7 @@ namespace wraps
 		void shutdown()
 		{
 			// удаляем все классы
-			for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter)
+			for (VectorBasePtr::iterator iter = mListBase.begin(); iter != mListBase.end(); ++iter)
 			{
 				delete (*iter);
 			}
@@ -122,7 +122,7 @@ namespace wraps
 			initialise(attribute::AttributeLayout<Type>::getData(), _parent);
 
 			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
-			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item=data.begin(); item!=data.end(); ++item)
+			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item = data.begin(); item != data.end(); ++item)
 			{
 				MyGUI::Widget* value = 0;
 				assignWidget(value, item->second, false);
@@ -137,46 +137,46 @@ namespace wraps
 			{
 				MyGUI::Align align = MyGUI::Align::parse(_child->getUserString("SnapTo"));
 
-                MyGUI::IntCoord coord = _child->getCoord();
-                MyGUI::IntSize size = _child->getParentSize();
+				MyGUI::IntCoord coord = _child->getCoord();
+				MyGUI::IntSize size = _child->getParentSize();
 
-                if (align.isHStretch())
-                {
-                    coord.left = 0;
-                    coord.width = size.width;
-                }
-                else if (align.isLeft())
-                {
-                    coord.left = 0;
-                }
-                else if (align.isRight())
-                {
-                    coord.left = size.width - coord.width;
-                }
-                else
-                {
-                    coord.left = (size.width - coord.width) / 2;
-                }
+				if (align.isHStretch())
+				{
+					coord.left = 0;
+					coord.width = size.width;
+				}
+				else if (align.isLeft())
+				{
+					coord.left = 0;
+				}
+				else if (align.isRight())
+				{
+					coord.left = size.width - coord.width;
+				}
+				else
+				{
+					coord.left = (size.width - coord.width) / 2;
+				}
 
-                if (align.isVStretch())
-                {
-                    coord.top = 0;
-                    coord.height = size.height;
-                }
-                else if (align.isTop())
-                {
-                    coord.top = 0;
-                }
-                else if (align.isBottom())
-                {
-                    coord.top = size.height - coord.height;
-                }
-                else
-                {
-                    coord.top = (size.height - coord.height) / 2;
-                }
+				if (align.isVStretch())
+				{
+					coord.top = 0;
+					coord.height = size.height;
+				}
+				else if (align.isTop())
+				{
+					coord.top = 0;
+				}
+				else if (align.isBottom())
+				{
+					coord.top = size.height - coord.height;
+				}
+				else
+				{
+					coord.top = (size.height - coord.height) / 2;
+				}
 
-                _child->setCoord(coord);
+				_child->setCoord(coord);
 			}
 		}
 

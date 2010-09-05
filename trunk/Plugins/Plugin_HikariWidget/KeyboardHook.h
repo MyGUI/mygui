@@ -2,7 +2,7 @@
 #define __KeyboardHook_H__
 
 /*
-	This file is part of NaviLibrary, a library that allows developers to create and 
+	This file is part of NaviLibrary, a library that allows developers to create and
 	interact with web-content as an overlay or material in Ogre3D applications.
 
 	Copyright (C) 2009 Adam J. Simmons

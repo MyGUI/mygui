@@ -21,7 +21,7 @@ namespace demo
 		mOffsetHeight = mMainWidget->getHeight() - coord.height;
 	}
 
-	void ToolTip::show(ItemData * _data)
+	void ToolTip::show(ItemData* _data)
 	{
 		if ((_data == nullptr) || _data->isEmpty())
 			return;
@@ -47,7 +47,7 @@ namespace demo
 		mMainWidget->setVisible(false);
 	}
 
-	void ToolTip::move(const MyGUI::IntPoint & _point)
+	void ToolTip::move(const MyGUI::IntPoint& _point)
 	{
 		const MyGUI::IntPoint offset(10, 10);
 

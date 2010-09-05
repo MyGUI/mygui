@@ -1,5 +1,5 @@
 /*
-	This file is part of NaviLibrary, a library that allows developers to create and 
+	This file is part of NaviLibrary, a library that allows developers to create and
 	interact with web-content as an overlay or material in Ogre3D applications.
 
 	Copyright (C) 2009 Adam J. Simmons
@@ -44,7 +44,7 @@ KeyboardHook::~KeyboardHook()
 
 void KeyboardHook::handleHook(UINT msg, HWND hwnd, WPARAM wParam, LPARAM lParam)
 {
-	switch(msg)
+	switch (msg)
 	{
 	case WM_KEYDOWN:
 	case WM_KEYUP:
@@ -67,22 +67,22 @@ void KeyboardHook::handleHook(UINT msg, HWND hwnd, WPARAM wParam, LPARAM lParam)
 	case WM_IME_SETCONTEXT:
 	case WM_IME_STARTCOMPOSITION:
 	case WM_HELP:
-	case WM_CANCELMODE: 
-		{
-			if(listener)
-				listener->handleKeyMessage(hwnd, msg, wParam, lParam);
+	case WM_CANCELMODE:
+	{
+		if (listener)
+			listener->handleKeyMessage(hwnd, msg, wParam, lParam);
 
-			break;
-		}
+		break;
+	}
 	}
 }
 
 LRESULT CALLBACK GetMessageProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	if(nCode == HC_ACTION)
+	if (nCode == HC_ACTION)
 	{
-		MSG *msg = (MSG*)lParam;
-		if(wParam & PM_REMOVE)
+		MSG* msg = (MSG*)lParam;
+		if (wParam & PM_REMOVE)
 			KeyboardHook::instance->handleHook(msg->message, msg->hwnd, msg->wParam, msg->lParam);
 	}
 

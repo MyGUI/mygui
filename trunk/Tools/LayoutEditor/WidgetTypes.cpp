@@ -47,15 +47,15 @@ namespace tools
 		return std::vector<std::string>();
 	}
 
-	WidgetStyle * WidgetTypes::getWidgetType(const std::string& _name)
+	WidgetStyle* WidgetTypes::getWidgetType(const std::string& _name)
 	{
 		// ищем тип, если нет, то создаем
-		for (VectorWidgetType::iterator iter=mWidgetTypes.begin(); iter!=mWidgetTypes.end(); ++iter)
+		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
 			if ((*iter)->name == _name) return (*iter);
 		}
 
-		WidgetStyle * type = new WidgetStyle(_name);
+		WidgetStyle* type = new WidgetStyle(_name);
 		mWidgetTypes.push_back(type);
 
 		return type;
@@ -63,7 +63,7 @@ namespace tools
 
 	void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name)
 	{
-		WidgetStyle * widget_type = getWidgetType(_type);
+		WidgetStyle* widget_type = getWidgetType(_type);
 
 		mSkinGroups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
 		widget_type->skin.push_back(_skin);
@@ -74,7 +74,7 @@ namespace tools
 		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 		while (widgets.next("Widget"))
 		{
-			WidgetStyle * widget_type = getWidgetType(widgets->findAttribute("name"));
+			WidgetStyle* widget_type = getWidgetType(widgets->findAttribute("name"));
 
 			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
@@ -118,11 +118,11 @@ namespace tools
 		}
 	}
 
-	PossibleValue * WidgetTypes::getPossibleValue(const std::string& _name)
+	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
 	{
 
-		PossibleValue * possible_value = nullptr;
-		for (VectorPossibleValue::iterator iter=mPossibleValues.begin(); iter!=mPossibleValues.end(); ++iter)
+		PossibleValue* possible_value = nullptr;
+		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
 		{
 			if ((*iter)->name == _name)
 			{
@@ -146,7 +146,7 @@ namespace tools
 		while (widgets.next("Value"))
 		{
 			std::string name = widgets->findAttribute("name");
-			PossibleValue * possible_value = getPossibleValue(name);
+			PossibleValue* possible_value = getPossibleValue(name);
 
 			// тип мерджа переменных
 			std::string merge = widgets->findAttribute("merge");
@@ -179,7 +179,7 @@ namespace tools
 
 	void WidgetTypes::clearAllSkins()
 	{
-		for (VectorWidgetType::iterator iter=mWidgetTypes.begin(); iter!=mWidgetTypes.end(); ++iter)
+		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
 			(*iter)->skin.clear();
 		}

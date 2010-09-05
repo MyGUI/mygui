@@ -18,14 +18,14 @@ namespace demo
 	public:
 		ColourWindowCellView(MyGUI::Widget* _parent);
 
-		void update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data);
-		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop);
+		void update(const MyGUI::IBDrawItemInfo& _info, ColourWindowCellData* _data);
+		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
 
 	private:
 
 		MyGUI::StaticText* mText;
 		MyGUI::Widget* mColour;
-		MyGUI::RawRect * mRawColourView;
+		MyGUI::RawRect* mRawColourView;
 
 	};
 

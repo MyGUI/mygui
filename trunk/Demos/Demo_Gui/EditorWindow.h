@@ -18,7 +18,10 @@ namespace demo
 		EditorWindow();
 
 		void clearView();
-		MyGUI::Widget* getView() { return mMainWidget; }
+		MyGUI::Widget* getView()
+		{
+			return mMainWidget;
+		}
 
 	};
 

@@ -21,7 +21,10 @@ namespace animation
 	public:
 		AnimationNodeConstruct() { }
 		virtual ~AnimationNodeConstruct() { }
-		virtual IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) { return new Type(_name, _holder); }
+		virtual IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder)
+		{
+			return new Type(_name, _holder);
+		}
 	};
 
 } // namespace animation

@@ -26,7 +26,10 @@
 #include "FlashValue.h"
 #include <MyGUI.h>
 
-namespace ShockwaveFlashObjects { struct IShockwaveFlash; }
+namespace ShockwaveFlashObjects
+{
+	struct IShockwaveFlash;
+}
 struct IOleObject;
 class IOleInPlaceObjectWindowless;
 
@@ -39,7 +42,7 @@ namespace Hikari
 
 	/**
 	* Used by FlashControl::setQuality, defines the Flash rendering quality.
-	* 
+	*
 	* <ul>
 	* <li>RQ_LOW - Favors playback speed over appearance and never uses anti-aliasing.
 	* <li>RQ_MEDIUM - Applies some anti-aliasing and does not smooth bitmaps. It produces a better quality than the Low setting, but lower quality than the High setting.
@@ -200,7 +203,7 @@ namespace Hikari
 
 		/**
 		* Attempts to call a function declared as a callback in the ActionScript of the currently-loaded movie.
-		* 
+		*
 		* @param	funcName	The name of the callback that was declared using 'ExternalInterface.addCallback(funcName, function)'
 		*						in the ActionScript of the currently-loaded movie.
 		* @param	args	The arguments to pass to the ActionScript function.
@@ -214,13 +217,22 @@ namespace Hikari
 
 		void setSize(int _width, int _height);
 
-		int getWidth() const { return width; }
-		int getHeight() const { return height; }
+		int getWidth() const
+		{
+			return width;
+		}
+		int getHeight() const
+		{
+			return height;
+		}
 
 		void invalidateTotally();
 		void update();
 
-		ShockwaveFlashObjects::IShockwaveFlash* getFlashInterface() { return flashInterface; }
+		ShockwaveFlashObjects::IShockwaveFlash* getFlashInterface()
+		{
+			return flashInterface;
+		}
 
 		void handleKeyEvent(UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -240,7 +252,7 @@ namespace Hikari
 		int comCount;
 		HDC mainContext, altContext;
 		HBITMAP mainBitmap, altBitmap;
-		BYTE *mainBuffer, *altBuffer;
+		BYTE* mainBuffer, *altBuffer;
 		RenderBuffer* renderBuffer;
 		RECT dirtyBounds;
 		bool isClean, isTotallyDirty;

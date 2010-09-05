@@ -32,27 +32,27 @@ namespace MyGUI
 
 	private:
 		// from WindowDelegate
-		virtual void onAddressBarChanged(Berkelium::Window *win, const char* newURL, size_t newURLSize) { }
+		virtual void onAddressBarChanged(Berkelium::Window* win, const char* newURL, size_t newURLSize) { }
 
-		virtual void onStartLoading(Berkelium::Window *win, const char *newURL, size_t newURLSize) { }
-		virtual void onLoad(Berkelium::Window *win) { }
-		virtual void onLoadError(Berkelium::Window *win, const char* error, size_t errorLength) { }
+		virtual void onStartLoading(Berkelium::Window* win, const char* newURL, size_t newURLSize) { }
+		virtual void onLoad(Berkelium::Window* win) { }
+		virtual void onLoadError(Berkelium::Window* win, const char* error, size_t errorLength) { }
 
-		virtual void onBeforeUnload(Berkelium::Window *win, bool *proceed) { }
-		virtual void onCancelUnload(Berkelium::Window *win) { }
+		virtual void onBeforeUnload(Berkelium::Window* win, bool* proceed) { }
+		virtual void onCancelUnload(Berkelium::Window* win) { }
 
-		virtual void onCrashed(Berkelium::Window *win) { }
-		virtual void onUnresponsive(Berkelium::Window *win) { }
-		virtual void onResponsive(Berkelium::Window *win) { }
-		virtual void onChromeSend(Berkelium::Window *win, Berkelium::WindowDelegate::Data message, const Berkelium::WindowDelegate::Data* content, size_t numContents) { }
-		virtual void onCreatedWindow(Berkelium::Window *win, Berkelium::Window *newWindow) { }
-		virtual void onPaint(Berkelium::Window *win, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect);
+		virtual void onCrashed(Berkelium::Window* win) { }
+		virtual void onUnresponsive(Berkelium::Window* win) { }
+		virtual void onResponsive(Berkelium::Window* win) { }
+		virtual void onChromeSend(Berkelium::Window* win, Berkelium::WindowDelegate::Data message, const Berkelium::WindowDelegate::Data* content, size_t numContents) { }
+		virtual void onCreatedWindow(Berkelium::Window* win, Berkelium::Window* newWindow) { }
+		virtual void onPaint(Berkelium::Window* win, const unsigned char* sourceBuffer, const Berkelium::Rect& rect, int dx, int dy, const Berkelium::Rect& scrollRect);
 
-		virtual void onWidgetCreated(Berkelium::Window *win, Berkelium::Widget *newWidget, int zIndex) { }
-	    virtual void onWidgetDestroyed(Berkelium::Window *win, Berkelium::Widget *newWidget) { }
-		virtual void onWidgetResize(Berkelium::Window *win, Berkelium::Widget *wid, int newWidth, int newHeight) { }
-		virtual void onWidgetMove(Berkelium::Window *win, Berkelium::Widget *wid, int newX, int newY) { }
-		virtual void onWidgetPaint(Berkelium::Window *win, Berkelium::Widget *wid, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect) { }
+		virtual void onWidgetCreated(Berkelium::Window* win, Berkelium::Widget* newWidget, int zIndex) { }
+		virtual void onWidgetDestroyed(Berkelium::Window* win, Berkelium::Widget* newWidget) { }
+		virtual void onWidgetResize(Berkelium::Window* win, Berkelium::Widget* wid, int newWidth, int newHeight) { }
+		virtual void onWidgetMove(Berkelium::Window* win, Berkelium::Widget* wid, int newX, int newY) { }
+		virtual void onWidgetPaint(Berkelium::Window* win, Berkelium::Widget* wid, const unsigned char* sourceBuffer, const Berkelium::Rect& rect, int dx, int dy, const Berkelium::Rect& scrollRect) { }
 
 	protected:
 		virtual void initialiseOverride();

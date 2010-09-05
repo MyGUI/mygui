@@ -35,7 +35,7 @@ namespace editor
 
 	void View::notifyListChangePosition(MyGUI::MultiList* _sender, size_t _index)
 	{
-		if (_index == MyGUI::ITEM_NONE) 
+		if (_index == MyGUI::ITEM_NONE)
 		{
 			mEditResourceName->setCaption("");
 			mImageView->setCanvasSize(0, 0);
@@ -57,7 +57,7 @@ namespace editor
 			return;
 		m_CurrentTime -= 1;
 
-		for (VectorPairAnim::iterator iter=mVectorAnimImages.begin(); iter!=mVectorAnimImages.end(); ++iter)
+		for (VectorPairAnim::iterator iter = mVectorAnimImages.begin(); iter != mVectorAnimImages.end(); ++iter)
 		{
 			PairAnim& paira = (*iter);
 			if (paira.index + 1 < paira.group.indexes.size())
@@ -100,7 +100,7 @@ namespace editor
 		mImageView->setCanvasSize(size);
 	}
 
-	void View::addGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, MyGUI::IntSize & _size)
+	void View::addGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage& _group, MyGUI::IntSize& _size)
 	{
 		const int left = 10;
 		const int text_height = 26;
@@ -117,14 +117,14 @@ namespace editor
 
 		addAnimGroup(_image, _group, _size);
 
-		for (size_t pos=0; pos<_group.indexes.size(); ++pos)
+		for (size_t pos = 0; pos < _group.indexes.size(); ++pos)
 		{
 			addIndex(_image, _group, _group.indexes[pos], _size);
 		}
 
 	}
 
-	void View::addAnimGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, MyGUI::IntSize & _size)
+	void View::addAnimGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage& _group, MyGUI::IntSize& _size)
 	{
 		const int left = 10;
 		const int offset_height = 10;
@@ -147,7 +147,7 @@ namespace editor
 		mVectorAnimImages.push_back(PairAnim(text, image, _group));
 	}
 
-	void View::addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, const MyGUI::IndexImage & _index, MyGUI::IntSize & _size)
+	void View::addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage& _group, const MyGUI::IndexImage& _index, MyGUI::IntSize& _size)
 	{
 		const int left = 10;
 		const int offset_height = 10;

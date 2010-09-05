@@ -15,44 +15,44 @@
 #pragma comment(lib, "gdiplus.lib")
 
 // имя класса окна
-const char * WND_CLASS_NAME = "MyGUI_Demo_window";
+const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	switch(uMsg)
+	switch (uMsg)
 	{
-		case WM_CREATE:
-		{
-			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
-			break;
-		}
+	case WM_CREATE:
+	{
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+		break;
+	}
 
-		case WM_MOVE:
-		case WM_SIZE:
-		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-			if (baseManager)
-				baseManager->_windowResized();
-			break;
-		}
+	case WM_MOVE:
+	case WM_SIZE:
+	{
+		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		if (baseManager)
+			baseManager->_windowResized();
+		break;
+	}
 
-		case WM_CLOSE:
-		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-			if (baseManager)
-				baseManager->quit();
-		}
+	case WM_CLOSE:
+	{
+		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		if (baseManager)
+			baseManager->quit();
+	}
 
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			break;
-		}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		break;
+	}
 
-		default:
-		{
-			return DefWindowProc(hWnd, uMsg, wParam, lParam);
-		}
+	default:
+	{
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
 	}
 	return 0;
 }
@@ -100,7 +100,8 @@ namespace base
 	bool BaseManager::create()
 	{
 		// регистрируем класс окна
-		WNDCLASS wc = {
+		WNDCLASS wc =
+		{
 			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, IDI_APPLICATION),
 			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
 		};
@@ -254,7 +255,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::setWindowCaption(const std::wstring & _text)
+	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
 		SetWindowTextW(hWnd, _text.c_str());
 	}
@@ -263,7 +264,7 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
@@ -286,7 +287,7 @@ namespace base
 		else
 		{
 			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
 			hwndAfter = HWND_NOTOPMOST;
 			AdjustWindowRect(&rc, style, false);
 		}
@@ -311,7 +312,7 @@ namespace base
 		{
 			// calc FPS
 			static MyGUI::Timer timer;
-			const unsigned long interval = 1000; 
+			const unsigned long interval = 1000;
 			static int count_frames = 0;
 			int accumulate = timer.getMilliseconds();
 			if (accumulate > interval)
@@ -379,7 +380,7 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
-		if (_height == 0)	
+		if (_height == 0)
 			_height = 1;
 
 		glViewport(0, 0, _width, _height);
@@ -387,10 +388,10 @@ namespace base
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		gluPerspective(45.0f, (GLfloat)_width/(GLfloat)_height, 0.1f, 100.0f);
+		gluPerspective(45.0f, (GLfloat)_width / (GLfloat)_height, 0.1f, 100.0f);
 
 		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();		
+		glLoadIdentity();
 	}
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
@@ -399,7 +400,7 @@ namespace base
 
 		static PIXELFORMATDESCRIPTOR pfd =
 		{
-			sizeof(PIXELFORMATDESCRIPTOR),	
+			sizeof(PIXELFORMATDESCRIPTOR),
 			1,
 			PFD_DRAW_TO_WINDOW | // Format Must Support Window
 			PFD_SUPPORT_OPENGL | // Format Must Support OpenGL
@@ -411,7 +412,7 @@ namespace base
 			0, // Shift Bit Ignored
 			0, // No Accumulation Buffer
 			0, 0, 0, 0, // Accumulation Bits Ignored
-			16, // 16Bit Z-Buffer (Depth Buffer)  
+			16, // 16Bit Z-Buffer (Depth Buffer)
 			0, // No Stencil Buffer
 			0, // No Auxiliary Buffer
 			PFD_MAIN_PLANE, // Main Drawing Layer
@@ -425,7 +426,7 @@ namespace base
 		{
 			return false;
 		}
-	
+
 		if (!(pixel_format = ChoosePixelFormat(hDC, &pfd)))
 		{
 			return false;
@@ -525,7 +526,7 @@ namespace base
 		}
 		else
 		{
-			for (unsigned int y=0; y<_out_data->Height; ++y)
+			for (unsigned int y = 0; y < _out_data->Height; ++y)
 			{
 				memcpy(ptr_dest, ptr_source, stride_dest);
 				ptr_dest += stride_dest;

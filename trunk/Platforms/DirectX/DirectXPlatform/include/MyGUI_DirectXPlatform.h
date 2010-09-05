@@ -37,7 +37,7 @@ namespace MyGUI
 			delete mLogManager;
 		}
 
-		void initialise(IDirect3DDevice9 *_device, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(IDirect3DDevice9* _device, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;

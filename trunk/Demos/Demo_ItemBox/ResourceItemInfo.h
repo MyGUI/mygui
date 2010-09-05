@@ -15,7 +15,7 @@ namespace demo
 {
 
 	class ResourceItemInfo;
-	typedef ResourceItemInfo * ResourceItemInfoPtr;
+	typedef ResourceItemInfo* ResourceItemInfoPtr;
 
 	class ResourceItemInfo :
 		public MyGUI::IResource,
@@ -32,9 +32,18 @@ namespace demo
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
 	public:
-		const std::string& getItemName() { return mItemName; }
-		const std::string& getItemDescription() { return mItemDescription; }
-		const std::string& getItemResourceImage() { return mItemResourceImage; }
+		const std::string& getItemName()
+		{
+			return mItemName;
+		}
+		const std::string& getItemDescription()
+		{
+			return mItemDescription;
+		}
+		const std::string& getItemResourceImage()
+		{
+			return mItemResourceImage;
+		}
 
 	private:
 		std::string mItemName;

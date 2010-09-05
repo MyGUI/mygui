@@ -76,7 +76,7 @@ namespace MyGUI
 	{
 		if (mBufferID != 0)
 		{
-		    glDeleteBuffersARB(1, &mBufferID);
+			glDeleteBuffersARB(1, &mBufferID);
 			mBufferID = 0;
 		}
 	}

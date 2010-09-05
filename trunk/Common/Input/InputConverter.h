@@ -43,53 +43,53 @@ namespace input
 		 * 0x07 : unassigned
 		 */
 
-		VLK_BACK = 0x08, 
-		VLK_TAB = 0x09, 
+		VLK_BACK = 0x08,
+		VLK_TAB = 0x09,
 
 		/*
 		 * 0x0A - 0x0B : reserved
 		 */
 
-		VLK_CLEAR = 0x0C, 
-		VLK_RETURN = 0x0D, 
+		VLK_CLEAR = 0x0C,
+		VLK_RETURN = 0x0D,
 
-		VLK_SHIFT = 0x10, 
-		VLK_CONTROL = 0x11, 
-		VLK_MENU = 0x12, 
-		VLK_PAUSE = 0x13, 
-		VLK_CAPITAL = 0x14, 
+		VLK_SHIFT = 0x10,
+		VLK_CONTROL = 0x11,
+		VLK_MENU = 0x12,
+		VLK_PAUSE = 0x13,
+		VLK_CAPITAL = 0x14,
 
-		VLK_KANA = 0x15, 
+		VLK_KANA = 0x15,
 		VLK_HANGEUL = 0x15, /* old name - should be here for compatibility */
-		VLK_HANGUL = 0x15, 
-		VLK_JUNJA = 0x17, 
-		VLK_FINAL = 0x18, 
-		VLK_HANJA = 0x19, 
-		VLK_KANJI = 0x19, 
+		VLK_HANGUL = 0x15,
+		VLK_JUNJA = 0x17,
+		VLK_FINAL = 0x18,
+		VLK_HANJA = 0x19,
+		VLK_KANJI = 0x19,
 
-		VLK_ESCAPE = 0x1B, 
+		VLK_ESCAPE = 0x1B,
 
-		VLK_CONVERT = 0x1C, 
-		VLK_NONCONVERT = 0x1D, 
-		VLK_ACCEPT = 0x1E, 
-		VLK_MODECHANGE = 0x1F, 
+		VLK_CONVERT = 0x1C,
+		VLK_NONCONVERT = 0x1D,
+		VLK_ACCEPT = 0x1E,
+		VLK_MODECHANGE = 0x1F,
 
-		VLK_SPACE = 0x20, 
-		VLK_PRIOR = 0x21, 
-		VLK_NEXT = 0x22, 
-		VLK_END = 0x23, 
-		VLK_HOME = 0x24, 
-		VLK_LEFT = 0x25, 
-		VLK_UP = 0x26, 
-		VLK_RIGHT = 0x27, 
-		VLK_DOWN = 0x28, 
-		VLK_SELECT = 0x29, 
-		VLK_PRINT = 0x2A, 
-		VLK_EXECUTE = 0x2B, 
-		VLK_SNAPSHOT = 0x2C, 
-		VLK_INSERT = 0x2D, 
-		VLK_DELETE = 0x2E, 
-		VLK_HELP = 0x2F, 
+		VLK_SPACE = 0x20,
+		VLK_PRIOR = 0x21,
+		VLK_NEXT = 0x22,
+		VLK_END = 0x23,
+		VLK_HOME = 0x24,
+		VLK_LEFT = 0x25,
+		VLK_UP = 0x26,
+		VLK_RIGHT = 0x27,
+		VLK_DOWN = 0x28,
+		VLK_SELECT = 0x29,
+		VLK_PRINT = 0x2A,
+		VLK_EXECUTE = 0x2B,
+		VLK_SNAPSHOT = 0x2C,
+		VLK_INSERT = 0x2D,
+		VLK_DELETE = 0x2E,
+		VLK_HELP = 0x2F,
 
 		/*
 		 * VLK_0 - VLK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
@@ -134,63 +134,63 @@ namespace input
 		VLK_Y = 0x59,
 		VLK_Z = 0x5A,
 
-		VLK_LWIN = 0x5B, 
-		VLK_RWIN = 0x5C, 
-		VLK_APPS = 0x5D, 
+		VLK_LWIN = 0x5B,
+		VLK_RWIN = 0x5C,
+		VLK_APPS = 0x5D,
 
 		/*
 		 * 0x5E : reserved
 		 */
 
-		VLK_SLEEP = 0x5F, 
+		VLK_SLEEP = 0x5F,
 
-		VLK_NUMPAD0 = 0x60, 
-		VLK_NUMPAD1 = 0x61, 
-		VLK_NUMPAD2 = 0x62, 
-		VLK_NUMPAD3 = 0x63, 
-		VLK_NUMPAD4 = 0x64, 
-		VLK_NUMPAD5 = 0x65, 
-		VLK_NUMPAD6 = 0x66, 
-		VLK_NUMPAD7 = 0x67, 
-		VLK_NUMPAD8 = 0x68, 
-		VLK_NUMPAD9 = 0x69, 
-		VLK_MULTIPLY = 0x6A, 
-		VLK_ADD = 0x6B, 
-		VLK_SEPARATOR = 0x6C, 
-		VLK_SUBTRACT = 0x6D, 
-		VLK_DECIMAL = 0x6E, 
-		VLK_DIVIDE = 0x6F, 
-		VLK_F1 = 0x70, 
-		VLK_F2 = 0x71, 
-		VLK_F3 = 0x72, 
-		VLK_F4 = 0x73, 
-		VLK_F5 = 0x74, 
-		VLK_F6 = 0x75, 
-		VLK_F7 = 0x76, 
-		VLK_F8 = 0x77, 
-		VLK_F9 = 0x78, 
-		VLK_F10 = 0x79, 
-		VLK_F11 = 0x7A, 
-		VLK_F12 = 0x7B, 
-		VLK_F13 = 0x7C, 
-		VLK_F14 = 0x7D, 
-		VLK_F15 = 0x7E, 
-		VLK_F16 = 0x7F, 
-		VLK_F17 = 0x80, 
-		VLK_F18 = 0x81, 
-		VLK_F19 = 0x82, 
-		VLK_F20 = 0x83, 
-		VLK_F21 = 0x84, 
-		VLK_F22 = 0x85, 
-		VLK_F23 = 0x86, 
-		VLK_F24 = 0x87, 
+		VLK_NUMPAD0 = 0x60,
+		VLK_NUMPAD1 = 0x61,
+		VLK_NUMPAD2 = 0x62,
+		VLK_NUMPAD3 = 0x63,
+		VLK_NUMPAD4 = 0x64,
+		VLK_NUMPAD5 = 0x65,
+		VLK_NUMPAD6 = 0x66,
+		VLK_NUMPAD7 = 0x67,
+		VLK_NUMPAD8 = 0x68,
+		VLK_NUMPAD9 = 0x69,
+		VLK_MULTIPLY = 0x6A,
+		VLK_ADD = 0x6B,
+		VLK_SEPARATOR = 0x6C,
+		VLK_SUBTRACT = 0x6D,
+		VLK_DECIMAL = 0x6E,
+		VLK_DIVIDE = 0x6F,
+		VLK_F1 = 0x70,
+		VLK_F2 = 0x71,
+		VLK_F3 = 0x72,
+		VLK_F4 = 0x73,
+		VLK_F5 = 0x74,
+		VLK_F6 = 0x75,
+		VLK_F7 = 0x76,
+		VLK_F8 = 0x77,
+		VLK_F9 = 0x78,
+		VLK_F10 = 0x79,
+		VLK_F11 = 0x7A,
+		VLK_F12 = 0x7B,
+		VLK_F13 = 0x7C,
+		VLK_F14 = 0x7D,
+		VLK_F15 = 0x7E,
+		VLK_F16 = 0x7F,
+		VLK_F17 = 0x80,
+		VLK_F18 = 0x81,
+		VLK_F19 = 0x82,
+		VLK_F20 = 0x83,
+		VLK_F21 = 0x84,
+		VLK_F22 = 0x85,
+		VLK_F23 = 0x86,
+		VLK_F24 = 0x87,
 
 		/*
 		 * 0x88 - 0x8F : unassigned
 		 */
 
-		VLK_NUMLOCK = 0x90, 
-		VLK_SCROLL = 0x91, 
+		VLK_NUMLOCK = 0x90,
+		VLK_SCROLL = 0x91,
 
 		/*
 		 * NEC PC-9800 kbd definitions
@@ -215,32 +215,32 @@ namespace input
 		 * Used only as parameters to GetAsyncKeyState() and GetKeyState().
 		 * No other API or message will distinguish left and right keys in this way.
 		 */
-		VLK_LSHIFT = 0xA0, 
-		VLK_RSHIFT = 0xA1, 
-		VLK_LCONTROL = 0xA2, 
-		VLK_RCONTROL = 0xA3, 
-		VLK_LMENU = 0xA4, 
-		VLK_RMENU = 0xA5, 
+		VLK_LSHIFT = 0xA0,
+		VLK_RSHIFT = 0xA1,
+		VLK_LCONTROL = 0xA2,
+		VLK_RCONTROL = 0xA3,
+		VLK_LMENU = 0xA4,
+		VLK_RMENU = 0xA5,
 
-		VLK_BROWSER_BACK = 0xA6, 
-		VLK_BROWSER_FORWARD = 0xA7, 
-		VLK_BROWSER_REFRESH = 0xA8, 
-		VLK_BROWSER_STOP = 0xA9, 
-		VLK_BROWSER_SEARCH = 0xAA, 
-		VLK_BROWSER_FAVORITES = 0xAB, 
-		VLK_BROWSER_HOME = 0xAC, 
+		VLK_BROWSER_BACK = 0xA6,
+		VLK_BROWSER_FORWARD = 0xA7,
+		VLK_BROWSER_REFRESH = 0xA8,
+		VLK_BROWSER_STOP = 0xA9,
+		VLK_BROWSER_SEARCH = 0xAA,
+		VLK_BROWSER_FAVORITES = 0xAB,
+		VLK_BROWSER_HOME = 0xAC,
 
-		VLK_VOLUME_MUTE = 0xAD, 
-		VLK_VOLUME_DOWN = 0xAE, 
-		VLK_VOLUME_UP = 0xAF, 
-		VLK_MEDIA_NEXT_TRACK = 0xB0, 
-		VLK_MEDIA_PREV_TRACK = 0xB1, 
-		VLK_MEDIA_STOP = 0xB2, 
-		VLK_MEDIA_PLAY_PAUSE = 0xB3, 
-		VLK_LAUNCH_MAIL = 0xB4, 
-		VLK_LAUNCH_MEDIA_SELECT = 0xB5, 
-		VLK_LAUNCH_APP1 = 0xB6, 
-		VLK_LAUNCH_APP2 = 0xB7, 
+		VLK_VOLUME_MUTE = 0xAD,
+		VLK_VOLUME_DOWN = 0xAE,
+		VLK_VOLUME_UP = 0xAF,
+		VLK_MEDIA_NEXT_TRACK = 0xB0,
+		VLK_MEDIA_PREV_TRACK = 0xB1,
+		VLK_MEDIA_STOP = 0xB2,
+		VLK_MEDIA_PLAY_PAUSE = 0xB3,
+		VLK_LAUNCH_MAIL = 0xB4,
+		VLK_LAUNCH_MEDIA_SELECT = 0xB5,
+		VLK_LAUNCH_APP1 = 0xB6,
+		VLK_LAUNCH_APP2 = 0xB7,
 
 		/*
 		 * 0xB8 - 0xB9 : reserved
@@ -266,7 +266,7 @@ namespace input
 		VLK_OEM_5 = 0xDC, //  '\|' for US
 		VLK_OEM_6 = 0xDD, //  ']}' for US
 		VLK_OEM_7 = 0xDE, //  ''"' for US
-		VLK_OEM_8 = 0xDF, 
+		VLK_OEM_8 = 0xDF,
 
 		/*
 		 * 0xE0 : reserved
@@ -280,11 +280,11 @@ namespace input
 		VLK_ICO_HELP = 0xE3, //  Help key on ICO
 		VLK_ICO_00 = 0xE4, //  00 key on ICO
 
-		VLK_PROCESSKEY = 0xE5, 
+		VLK_PROCESSKEY = 0xE5,
 
-		VLK_ICO_CLEAR = 0xE6, 
+		VLK_ICO_CLEAR = 0xE6,
 
-		VLK_PACKET = 0xE7, 
+		VLK_PACKET = 0xE7,
 
 		/*
 		 * 0xE8 : unassigned
@@ -293,29 +293,29 @@ namespace input
 		/*
 		 * Nokia/Ericsson definitions
 		 */
-		VLK_OEM_RESET = 0xE9, 
-		VLK_OEM_JUMP = 0xEA, 
-		VLK_OEM_PA1 = 0xEB, 
-		VLK_OEM_PA2 = 0xEC, 
-		VLK_OEM_PA3 = 0xED, 
-		VLK_OEM_WSCTRL = 0xEE, 
-		VLK_OEM_CUSEL = 0xEF, 
-		VLK_OEM_ATTN = 0xF0, 
-		VLK_OEM_FINISH = 0xF1, 
-		VLK_OEM_COPY = 0xF2, 
-		VLK_OEM_AUTO = 0xF3, 
-		VLK_OEM_ENLW = 0xF4, 
-		VLK_OEM_BACKTAB = 0xF5, 
+		VLK_OEM_RESET = 0xE9,
+		VLK_OEM_JUMP = 0xEA,
+		VLK_OEM_PA1 = 0xEB,
+		VLK_OEM_PA2 = 0xEC,
+		VLK_OEM_PA3 = 0xED,
+		VLK_OEM_WSCTRL = 0xEE,
+		VLK_OEM_CUSEL = 0xEF,
+		VLK_OEM_ATTN = 0xF0,
+		VLK_OEM_FINISH = 0xF1,
+		VLK_OEM_COPY = 0xF2,
+		VLK_OEM_AUTO = 0xF3,
+		VLK_OEM_ENLW = 0xF4,
+		VLK_OEM_BACKTAB = 0xF5,
 
-		VLK_ATTN = 0xF6, 
-		VLK_CRSEL = 0xF7, 
-		VLK_EXSEL = 0xF8, 
-		VLK_EREOF = 0xF9, 
-		VLK_PLAY = 0xFA, 
-		VLK_ZOOM = 0xFB, 
-		VLK_NONAME = 0xFC, 
-		VLK_PA1 = 0xFD, 
-		VLK_OEM_CLEAR = 0xFE, 
+		VLK_ATTN = 0xF6,
+		VLK_CRSEL = 0xF7,
+		VLK_EXSEL = 0xF8,
+		VLK_EREOF = 0xF9,
+		VLK_PLAY = 0xFA,
+		VLK_ZOOM = 0xFB,
+		VLK_NONAME = 0xFC,
+		VLK_PA1 = 0xFD,
+		VLK_OEM_CLEAR = 0xFE,
 
 		VLK_MAX
 	};
@@ -419,7 +419,7 @@ namespace input
 		SC_NOCONVERT = 0x7B,    // (Japanese keyboard)
 		SC_YEN = 0x7D,    // (Japanese keyboard)
 		SC_ABNT_C2 = 0x7E,    // Numpad . on Portugese (Brazilian) keyboards
-		SC_NUMPADEQUALS= 0x8D,    // = on numeric keypad (NEC PC98)
+		SC_NUMPADEQUALS = 0x8D,    // = on numeric keypad (NEC PC98)
 		SC_PREVTRACK = 0x90,    // Previous Track (SC_CIRCUMFLEX on Japanese keyboard)
 		SC_AT = 0x91,    //                     (NEC PC98)
 		SC_COLON = 0x92,    //                     (NEC PC98)
@@ -460,7 +460,7 @@ namespace input
 		SC_SLEEP = 0xDF,    // System Sleep
 		SC_WAKE = 0xE3,    // System Wake
 		SC_WEBSEARCH = 0xE5,    // Web Search
-		SC_WEBFAVORITES= 0xE6,    // Web Favorites
+		SC_WEBFAVORITES = 0xE6,    // Web Favorites
 		SC_WEBREFRESH = 0xE7,    // Web Refresh
 		SC_WEBSTOP = 0xE8,    // Web Stop
 		SC_WEBFORWARD = 0xE9,    // Web Forward
@@ -1106,17 +1106,23 @@ namespace input
 			switch (buff[0])
 			{
 			case 0x5E: // Circumflex accent: â
-				deadKey = 0x302; break;
+				deadKey = 0x302;
+				break;
 			case 0x60: // Grave accent: à
-				deadKey = 0x300; break;
+				deadKey = 0x300;
+				break;
 			case 0xA8: // Diaeresis: ü
-				deadKey = 0x308; break;
+				deadKey = 0x308;
+				break;
 			case 0xB4: // Acute accent: é
-				deadKey = 0x301; break;
+				deadKey = 0x301;
+				break;
 			case 0xB8: // Cedilla: ç
-				deadKey = 0x327; break;
+				deadKey = 0x327;
+				break;
 			default:
-				deadKey = buff[0]; break;
+				deadKey = buff[0];
+				break;
 			}
 		}
 		return 0;

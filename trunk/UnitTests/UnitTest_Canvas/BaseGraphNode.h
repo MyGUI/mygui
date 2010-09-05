@@ -28,16 +28,25 @@ namespace wraps
 	public:
 		BaseGraphNode(const std::string& _layout) :
 			mLayout(_layout),
-	  		BaseLayout("", nullptr),
+			BaseLayout("", nullptr),
 			mView(nullptr)
 		{
 		}
 
 		// все точки данного узла
-		size_t getConnectionCount() { return mListConnection.size(); }
-		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mListConnection); }
+		size_t getConnectionCount()
+		{
+			return mListConnection.size();
+		}
+		EnumeratorConnection getConnectionEnumerator()
+		{
+			return EnumeratorConnection(mListConnection);
+		}
 
-		const MyGUI::IntCoord& getCoord() { return mMainWidget->getCoord(); }
+		const MyGUI::IntCoord& getCoord()
+		{
+			return mMainWidget->getCoord();
+		}
 
 		void setPosition(int _x, int _y)
 		{
@@ -110,7 +119,7 @@ namespace wraps
 
 		void removeConnections()
 		{
-			for (size_t index=0; index<mListConnection.size(); ++index)
+			for (size_t index = 0; index < mListConnection.size(); ++index)
 			{
 				mListConnection[index];
 			}

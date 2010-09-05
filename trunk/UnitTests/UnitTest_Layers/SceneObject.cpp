@@ -37,14 +37,14 @@ namespace demo
 
 	void SceneObject::GetMeshInformation(
 		const Ogre::MeshPtr mesh,
-		size_t &vertex_count,
+		size_t& vertex_count,
 		Ogre::Vector3* &vertices,
-		size_t &index_count,
+		size_t& index_count,
 		unsigned long* &indices,
 		Ogre::Vector2* &coords,
-		const Ogre::Vector3 &position,
-		const Ogre::Quaternion &orient,
-		const Ogre::Vector3 &scale,
+		const Ogre::Vector3& position,
+		const Ogre::Quaternion& orient,
+		const Ogre::Vector3& scale,
 		const std::string& _material)
 	{
 		bool added_shared = false;
@@ -63,9 +63,9 @@ namespace demo
 				continue;
 
 			// We only need to add the shared vertices once
-			if(submesh->useSharedVertices)
+			if (submesh->useSharedVertices)
 			{
-				if( !added_shared )
+				if ( !added_shared )
 				{
 					vertex_count += mesh->sharedVertexData->vertexCount;
 					added_shared = true;
@@ -97,9 +97,9 @@ namespace demo
 
 			Ogre::VertexData* vertex_data = submesh->useSharedVertices ? mesh->sharedVertexData : submesh->vertexData;
 
-			if((!submesh->useSharedVertices)||(submesh->useSharedVertices && !added_shared))
+			if ((!submesh->useSharedVertices) || (submesh->useSharedVertices && !added_shared))
 			{
-				if(submesh->useSharedVertices)
+				if (submesh->useSharedVertices)
 				{
 					added_shared = true;
 					//shared_offset = current_offset;
@@ -123,7 +123,7 @@ namespace demo
 				//      Ogre::Real* pReal;
 				float* pReal;
 
-				for( size_t j = 0; j < vertex_data->vertexCount; ++j, vertex += vbuf->getVertexSize())
+				for ( size_t j = 0; j < vertex_data->vertexCount; ++j, vertex += vbuf->getVertexSize())
 				{
 					posElem->baseVertexPointerToElement(vertex, &pReal);
 
@@ -156,14 +156,14 @@ namespace demo
 			// Ogre 1.6 patch (commenting the static_cast...) - index offsets start from 0 for each submesh
 			if ( use32bitindexes )
 			{
-				for ( size_t k = 0; k < numTris*3; ++k)
+				for ( size_t k = 0; k < numTris * 3; ++k)
 				{
 					indices[index_offset++] = pLong[k] /*+ static_cast<unsigned long>(offset)*/;
 				}
 			}
 			else
 			{
-				for ( size_t k = 0; k < numTris*3; ++k)
+				for ( size_t k = 0; k < numTris * 3; ++k)
 				{
 					indices[index_offset++] = static_cast<unsigned long>(pShort[k]) /*+
 						static_cast<unsigned long>(offset)*/;
@@ -173,7 +173,7 @@ namespace demo
 			ibuf->unlock();
 			current_offset = next_offset;
 		}
-	} 
+	}
 
 	void SceneObject::clear()
 	{
@@ -228,7 +228,7 @@ namespace demo
 
 		if (new_closest_found)
 		{
-			closest_result = _ray.getPoint(closest_distance);               
+			closest_result = _ray.getPoint(closest_distance);
 
 			// return the result
 			if (closest_distance >= 0.0f)
@@ -366,8 +366,8 @@ namespace demo
 
 		mRaySceneQuery->setRay(ray);
 		mRaySceneQuery->setSortByDistance(true);
-		Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
-		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter!=result.end(); ++iter)
+		Ogre::RaySceneQueryResult& result = mRaySceneQuery->execute();
+		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
 		{
 			if (iter->movable != 0)
 			{

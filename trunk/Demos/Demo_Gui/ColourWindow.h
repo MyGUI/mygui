@@ -31,11 +31,11 @@ namespace demo
 		MyGUI::HScroll* mSliderBlue;
 
 		MyGUI::Widget* mColour;
-		MyGUI::RawRect * mRawColourView;
+		MyGUI::RawRect* mRawColourView;
 		MyGUI::Button* mAdd;
 		MyGUI::Edit* mLine;
 
-		ColourWindowBox * mBox;
+		ColourWindowBox* mBox;
 
 	};
 

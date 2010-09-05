@@ -17,7 +17,7 @@ namespace wraps
 	struct DDItemInfo
 	{
 
-		DDItemInfo(const MyGUI::DDItemInfo & _info) :
+		DDItemInfo(const MyGUI::DDItemInfo& _info) :
 			sender(*_info.sender->getUserData<wraps::BaseLayout*>()),
 			sender_index(_info.sender_index),
 			receiver(_info.receiver ? *_info.receiver->getUserData<wraps::BaseLayout*>() : nullptr),
@@ -25,10 +25,10 @@ namespace wraps
 		{
 		}
 
-		wraps::BaseLayout * sender;
+		wraps::BaseLayout* sender;
 		size_t sender_index;
 
-		wraps::BaseLayout * receiver;
+		wraps::BaseLayout* receiver;
 		size_t receiver_index;
 	};
 

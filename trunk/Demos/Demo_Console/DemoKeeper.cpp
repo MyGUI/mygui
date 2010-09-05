@@ -61,7 +61,7 @@ namespace demo
 		base::BaseManager::injectKeyPress(_key, _text);
 	}
 
-	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)
+	void DemoKeeper::command(const MyGUI::UString& _key, const MyGUI::UString& _value)
 	{
 		if (_key == "colour")
 		{

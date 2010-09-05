@@ -20,16 +20,31 @@ namespace tools
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
 		void setCurrentFolder(const MyGUI::UString& _value = "");
-		const MyGUI::UString& getCurrentFolder() { return mCurrentFolder; }
+		const MyGUI::UString& getCurrentFolder()
+		{
+			return mCurrentFolder;
+		}
 
 		void setFileMask(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileMask() const { return mFileMask; }
+		const MyGUI::UString& getFileMask() const
+		{
+			return mFileMask;
+		}
 
 		void setFileName(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileName() const { return mFileName; }
+		const MyGUI::UString& getFileName() const
+		{
+			return mFileName;
+		}
 
-		const MyGUI::UString& getMode() { return mMode; }
-		void setMode(const MyGUI::UString& _value) { mMode = _value; }
+		const MyGUI::UString& getMode()
+		{
+			return mMode;
+		}
+		void setMode(const MyGUI::UString& _value)
+		{
+			mMode = _value;
+		}
 
 	protected:
 		virtual void onDoModal();

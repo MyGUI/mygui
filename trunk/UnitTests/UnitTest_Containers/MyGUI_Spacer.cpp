@@ -7,7 +7,7 @@
 
 namespace MyGUI
 {
-	void Spacer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)
+	void Spacer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 		// TODO: only for debug
@@ -19,5 +19,5 @@ namespace MyGUI
 	{
 		MYGUI_EXCEPT("Have you ever seen that nothing has anything? I'm not sure that it's wright, so I put there exception that notify you (and me :) ) not to put anything here. Yes, don't put anything to Spacer!" );
 	}
-	
+
 } // namespace MyGUI

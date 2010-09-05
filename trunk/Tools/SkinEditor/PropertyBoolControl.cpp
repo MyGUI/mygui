@@ -59,7 +59,7 @@ namespace tools
 		size_t result = MyGUI::ITEM_NONE;
 
 		size_t count = mComboBox->getItemCount();
-		for (size_t index=0; index<count; ++index)
+		for (size_t index = 0; index < count; ++index)
 		{
 			if (mComboBox->getItemNameAt(index) == _name)
 			{

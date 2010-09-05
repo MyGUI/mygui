@@ -10,15 +10,15 @@ namespace demo
 
 	float squaredDistance(const MyGUI::FloatPoint& _value, const MyGUI::FloatPoint& _other)
 	{
-		float x1 = _other.left-_value.left;
-		float y1 = _other.top-_value.top;
+		float x1 = _other.left - _value.left;
+		float y1 = _other.top - _value.top;
 
-		return x1*x1 + y1*y1;				
+		return x1 * x1 + y1 * y1;
 	}
 
 	float getLength(const MyGUI::FloatPoint& _value)
 	{
-		return (float)sqrt( _value.left*_value.left + _value.top*_value.top );
+		return (float)sqrt( _value.left * _value.left + _value.top * _value.top );
 	}
 
 	void setLength(MyGUI::FloatPoint& _value, float _len)
@@ -30,7 +30,7 @@ namespace demo
 
 	float squaredLength(const MyGUI::FloatPoint& _value)
 	{
-		return _value.left*_value.left + _value.top*_value.top;
+		return _value.left * _value.left + _value.top * _value.top;
 	}
 
 	WobbleNodeAnimator::WobbleNodeAnimator() :
@@ -64,7 +64,7 @@ namespace demo
 		const MyGUI::RenderTargetInfo& _info,
 		const MyGUI::IntCoord& _coord,
 		bool& _isAnimate
-		)
+	)
 	{
 		if (mDestroy)
 		{
@@ -81,13 +81,13 @@ namespace demo
 			mInertiaPoint.set(0.5, 0.5);
 			mInertiaMode = false;
 
-			addInertia(MyGUI::FloatPoint((float)_coord.left-mOldCoord.left, (float)_coord.top-mOldCoord.top));
+			addInertia(MyGUI::FloatPoint((float)_coord.left - mOldCoord.left, (float)_coord.top - mOldCoord.top));
 		}
 		else if (mOldCoord.size() != _coord.size())
 		{
 			mInertiaMode = true;
 
-			addInertia(MyGUI::FloatPoint((float)_coord.width - mOldCoord.width, (float)_coord.height-mOldCoord.height));
+			addInertia(MyGUI::FloatPoint((float)_coord.width - mOldCoord.width, (float)_coord.height - mOldCoord.height));
 		}
 		else if (mOldCoord.point() != _coord.point())
 		{
@@ -95,7 +95,7 @@ namespace demo
 			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width , (float)(point.top - _coord.top) / (float)_coord.height);
 			mInertiaMode = false;
 
-			addInertia(MyGUI::FloatPoint((float)_coord.left-mOldCoord.left, (float)_coord.top-mOldCoord.top));
+			addInertia(MyGUI::FloatPoint((float)_coord.left - mOldCoord.left, (float)_coord.top - mOldCoord.top));
 		}
 
 		mOldCoord = _coord;
@@ -140,7 +140,7 @@ namespace demo
 
 		mDragOffset.left = mDragOffset.left + mInertia.left * 5.0f * speed * _time;
 		mDragOffset.top = mDragOffset.top + mInertia.top * 5.0f * speed * _time;
-		
+
 		mInertia.left += (mInertia.left * -5 * speed * _time);
 		mInertia.left += (previousdrag.left * -4.0f * speed * _time);
 
@@ -153,9 +153,9 @@ namespace demo
 		int count_w = getCountX();
 		int count_h = getCountY();
 
-		for (int rx=0; rx<count_w+1; rx++)
+		for (int rx = 0; rx < count_w + 1; rx++)
 		{
-			for (int ry=0; ry<count_h+1; ry++)
+			for (int ry = 0; ry < count_h + 1; ry++)
 			{
 				MyGUI::FloatPoint point((float)rx / (float)count_w, (float)ry / (float)count_h);
 
@@ -179,8 +179,8 @@ namespace demo
 
 				if (rx < count_w && ry < count_h)
 				{
-					_data[rx + ry*count_w].vertex[MyGUI::QuadData::CornerLT].x = vert.left;
-					_data[rx + ry*count_w].vertex[MyGUI::QuadData::CornerLT].y = vert.top;
+					_data[rx + ry* count_w].vertex[MyGUI::QuadData::CornerLT].x = vert.left;
+					_data[rx + ry* count_w].vertex[MyGUI::QuadData::CornerLT].y = vert.top;
 				}
 
 				if (rx > 0 && ry > 0)
@@ -191,8 +191,8 @@ namespace demo
 
 				if (rx > 0 && ry < count_h)
 				{
-					_data[(rx-1) + ry*count_w].vertex[MyGUI::QuadData::CornerRT].x = vert.left;
-					_data[(rx-1) + ry*count_w].vertex[MyGUI::QuadData::CornerRT].y = vert.top;
+					_data[(rx-1) + ry* count_w].vertex[MyGUI::QuadData::CornerRT].x = vert.left;
+					_data[(rx-1) + ry* count_w].vertex[MyGUI::QuadData::CornerRT].y = vert.top;
 				}
 
 				if (rx < count_w && ry > 0)

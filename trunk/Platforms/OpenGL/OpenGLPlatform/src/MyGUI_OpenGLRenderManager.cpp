@@ -77,7 +77,7 @@ namespace MyGUI
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 		}
 
-	    glBindTexture(GL_TEXTURE_2D, texture_id);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, buffer_id);
 
@@ -101,7 +101,7 @@ namespace MyGUI
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-	    glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLRenderManager::begin()
@@ -241,7 +241,7 @@ namespace MyGUI
 
 	void OpenGLRenderManager::destroyAllResources()
 	{
-		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
 		}
