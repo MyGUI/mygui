@@ -40,15 +40,15 @@ namespace input
 		VLK_XBUTTON2 = 0x06, /* NOT contiguous with L & RBUTTON */
 
 		/*
-		 * 0x07 : unassigned
-		 */
+			0x07 : unassigned
+		*/
 
 		VLK_BACK = 0x08,
 		VLK_TAB = 0x09,
 
 		/*
-		 * 0x0A - 0x0B : reserved
-		 */
+			0x0A - 0x0B : reserved
+		*/
 
 		VLK_CLEAR = 0x0C,
 		VLK_RETURN = 0x0D,
@@ -92,10 +92,10 @@ namespace input
 		VLK_HELP = 0x2F,
 
 		/*
-		 * VLK_0 - VLK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
-		 * 0x40 : unassigned
-		 * VLK_A - VLK_Z are the same as ASCII 'A' - 'Z' (0x41 - 0x5A)
-		 */
+			VLK_0 - VLK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
+			0x40 : unassigned
+			VLK_A - VLK_Z are the same as ASCII 'A' - 'Z' (0x41 - 0x5A)
+		*/
 
 		VLK_0 = 0x30,
 		VLK_1 = 0x31,
@@ -139,8 +139,8 @@ namespace input
 		VLK_APPS = 0x5D,
 
 		/*
-		 * 0x5E : reserved
-		 */
+			0x5E : reserved
+		*/
 
 		VLK_SLEEP = 0x5F,
 
@@ -186,20 +186,20 @@ namespace input
 		VLK_F24 = 0x87,
 
 		/*
-		 * 0x88 - 0x8F : unassigned
-		 */
+			0x88 - 0x8F : unassigned
+		*/
 
 		VLK_NUMLOCK = 0x90,
 		VLK_SCROLL = 0x91,
 
 		/*
-		 * NEC PC-9800 kbd definitions
-		 */
+			NEC PC-9800 kbd definitions
+		*/
 		VLK_OEM_NEC_EQUAL = 0x92, // '=' key on numpad
 
 		/*
-		 * Fujitsu/OASYS kbd definitions
-		 */
+			Fujitsu/OASYS kbd definitions
+		*/
 		VLK_OEM_FJ_JISHO = 0x92, // 'Dictionary' key
 		VLK_OEM_FJ_MASSHOU = 0x93, // 'Unregister word' key
 		VLK_OEM_FJ_TOUROKU = 0x94, // 'Register word' key
@@ -207,14 +207,14 @@ namespace input
 		VLK_OEM_FJ_ROYA = 0x96, // 'Right OYAYUBI' key
 
 		/*
-		 * 0x97 - 0x9F : unassigned
-		 */
+			0x97 - 0x9F : unassigned
+		*/
 
 		/*
-		 * VLK_L* & VLK_R* - left and right Alt, Ctrl and Shift virtual keys.
-		 * Used only as parameters to GetAsyncKeyState() and GetKeyState().
-		 * No other API or message will distinguish left and right keys in this way.
-		 */
+			VLK_L* & VLK_R* - left and right Alt, Ctrl and Shift virtual keys.
+			Used only as parameters to GetAsyncKeyState() and GetKeyState().
+			No other API or message will distinguish left and right keys in this way.
+		*/
 		VLK_LSHIFT = 0xA0,
 		VLK_RSHIFT = 0xA1,
 		VLK_LCONTROL = 0xA2,
@@ -243,8 +243,8 @@ namespace input
 		VLK_LAUNCH_APP2 = 0xB7,
 
 		/*
-		 * 0xB8 - 0xB9 : reserved
-		 */
+			0xB8 - 0xB9 : reserved
+		*/
 
 		VLK_OEM_1 = 0xBA, // ';:' for US
 		VLK_OEM_PLUS = 0xBB, // '+' any country
@@ -255,12 +255,12 @@ namespace input
 		VLK_OEM_3 = 0xC0, // '`~' for US
 
 		/*
-		 * 0xC1 - 0xD7 : reserved
-		 */
+			0xC1 - 0xD7 : reserved
+		*/
 
 		/*
-		 * 0xD8 - 0xDA : unassigned
-		 */
+			0xD8 - 0xDA : unassigned
+		*/
 
 		VLK_OEM_4 = 0xDB, //  '[{' for US
 		VLK_OEM_5 = 0xDC, //  '\|' for US
@@ -269,12 +269,12 @@ namespace input
 		VLK_OEM_8 = 0xDF,
 
 		/*
-		 * 0xE0 : reserved
-		 */
+			0xE0 : reserved
+		*/
 
 		/*
-		 * Various extended or enhanced keyboards
-		 */
+			Various extended or enhanced keyboards
+		*/
 		VLK_OEM_AX = 0xE1, //  'AX' key on Japanese AX kbd
 		VLK_OEM_102 = 0xE2, //  "<>" or "\|" on RT 102-key kbd.
 		VLK_ICO_HELP = 0xE3, //  Help key on ICO
@@ -287,12 +287,12 @@ namespace input
 		VLK_PACKET = 0xE7,
 
 		/*
-		 * 0xE8 : unassigned
-		 */
+			0xE8 : unassigned
+		*/
 
 		/*
-		 * Nokia/Ericsson definitions
-		 */
+			Nokia/Ericsson definitions
+		*/
 		VLK_OEM_RESET = 0xE9,
 		VLK_OEM_JUMP = 0xEA,
 		VLK_OEM_PA1 = 0xEB,

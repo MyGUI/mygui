@@ -28,11 +28,6 @@ foreach fileName [getSourceFileNames] {
             report $fileName 1 "directory name should start with alphabetic character or underscore"
             break
         }
-
-        if {[string first "." $dir] != -1} {
-            report $fileName 1 "directory name should not contain the dot"
-            break
-        }
     }
 
     if {$dirDepth >= $maxDirectoryDepth} {

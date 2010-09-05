@@ -158,15 +158,15 @@ namespace demo
 			{
 				for ( size_t k = 0; k < numTris * 3; ++k)
 				{
-					indices[index_offset++] = pLong[k] /*+ static_cast<unsigned long>(offset)*/;
+					indices[index_offset++] = pLong[k];/*+ static_cast<unsigned long>(offset)*/
 				}
 			}
 			else
 			{
 				for ( size_t k = 0; k < numTris * 3; ++k)
 				{
-					indices[index_offset++] = static_cast<unsigned long>(pShort[k]) /*+
-						static_cast<unsigned long>(offset)*/;
+					indices[index_offset++] = static_cast<unsigned long>(pShort[k]);/*+
+						static_cast<unsigned long>(offset)*/
 				}
 			}
 
