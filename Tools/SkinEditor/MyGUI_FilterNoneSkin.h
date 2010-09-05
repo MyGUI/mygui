@@ -37,8 +37,7 @@ namespace MyGUI
 		FilterNone();
 		virtual ~FilterNone();
 
-		virtual void preRender();
-		virtual void postRender();
+		virtual void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 	/*internal:*/
 		virtual void _setAlign(const IntSize& _oldsize);

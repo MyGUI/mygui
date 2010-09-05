@@ -69,8 +69,7 @@ namespace MyGUI
 
 		virtual void _setAlign(const IntSize& _oldsize)  { }
 
-		virtual void preRender() { }
-		virtual void postRender() { }
+		virtual void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) { }
 
 	protected:
 		Align mAlign;

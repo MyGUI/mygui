@@ -147,17 +147,17 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, bool _firstQueue, bool _separate)
+	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender)
 	{
 		// для первичной очереди нужен порядок
 		if (_firstQueue)
 		{
-			if (mFirstRenderItems.empty() || _separate)
+			if (mFirstRenderItems.empty() || _manualRender)
 			{
 				// создаем новый буфер
 				RenderItem* item = new RenderItem();
 				item->setTexture(_texture);
-				item->setSeparate(_separate);
+				item->setManualRender(_manualRender);
 				mFirstRenderItems.push_back(item);
 
 				return item;
@@ -197,7 +197,7 @@ namespace MyGUI
 			// создаем новый буфер
 			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
-			item->setSeparate(_separate);
+			item->setManualRender(_manualRender);
 			mFirstRenderItems.push_back(item);
 
 			return item;
@@ -221,7 +221,7 @@ namespace MyGUI
 		// не найденно создадим новый
 		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
-		item->setSeparate(_separate);
+		item->setManualRender(_manualRender);
 
 		mSecondRenderItems.push_back(item);
 		return mSecondRenderItems.back();

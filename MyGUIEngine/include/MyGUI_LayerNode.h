@@ -71,7 +71,7 @@ namespace MyGUI
 		virtual void detachLayerItem(ILayerItem* _item);
 
 		// добавляет саб айтем и возвращает рендер айтем
-		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _separate);
+		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender);
 		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item);
 

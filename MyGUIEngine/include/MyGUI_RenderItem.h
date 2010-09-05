@@ -45,8 +45,8 @@ namespace MyGUI
 		void setTexture(ITexture* _value);
 		ITexture* getTexture();
 
-		void setSeparate(bool _value);
-		bool getSeparate() const;
+		void setManualRender(bool _value);
+		bool getManualRender() const;
 
 		void addDrawItem(ISubWidget* _item, size_t _count);
 		void removeDrawItem(ISubWidget* _item);
@@ -110,7 +110,7 @@ namespace MyGUI
 		IRenderTarget* mRenderTarget;
 
 		bool mCompression;
-		bool mSeparate;
+		bool mManualRender;
 	};
 
 } // namespace MyGUI
