@@ -27,6 +27,8 @@
 
 #ifdef MYGUI_OGRE_PLATFORM
 #include <MyGUI_OgreRenderManager.h>
+#include <MyGUI_OgreTexture.h>
+#include <MyGUI_OgreVertexBuffer.h>
 #endif
 
 namespace MyGUI
@@ -50,23 +52,30 @@ namespace MyGUI
 		Base::_setAlign(_oldsize);
 	}
 
-	void FilterNone::preRender()
+	void FilterNone::doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		OgreRenderManager::getInstance().setTextureFilter(Ogre::FO_NONE);
-		Ogre::RenderSystem* renderSystem = OgreRenderManager::getInstance().getRenderSystem();
-		if (renderSystem != nullptr)
-			renderSystem->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
-#endif
-	}
+		if (OgreRenderManager::getInstancePtr()->getManualRender())
+			OgreRenderManager::getInstancePtr()->begin();
 
-	void FilterNone::postRender()
-	{
-#ifdef MYGUI_OGRE_PLATFORM
-		OgreRenderManager::getInstance().setTextureFilter(Ogre::FO_LINEAR);
-		Ogre::RenderSystem* renderSystem = OgreRenderManager::getInstance().getRenderSystem();
-		if (renderSystem != nullptr)
-			renderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+		OgreRenderManager::getInstancePtr()->setManualRender(true);
+
+		if (_texture)
+		{
+			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
+			if (!texture_ptr.isNull())
+			{
+				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
+				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_POINT);
+			}
+		}
+		
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
+		Ogre::RenderOperation* operation = buffer->getRenderOperation();
+		operation->vertexData->vertexCount = _count;
+
+		OgreRenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
 #endif
 	}
 
