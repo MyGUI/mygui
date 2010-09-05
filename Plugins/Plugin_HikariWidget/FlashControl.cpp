@@ -80,7 +80,7 @@ FlashControl::~FlashControl()
 		handler->Shutdown();
 		handler->Release();
 	}
-	
+
 	if (oleObject)
 	{
 		oleObject->Close(OLECLOSE_NOSAVE);
@@ -88,29 +88,33 @@ FlashControl::~FlashControl()
 	}
 
 	if (site) site->Release();
-	
+
 	if (comCount)
 	{
 		MYGUI_LOGGING(plugin::Plugin::LogSection, Warning, "Hikari::FlashControl is leaking COM objects!");
 	}
-	
+
 	if (mainContext) ::DeleteDC(mainContext);
 	if (mainBitmap) ::DeleteObject(mainBitmap);
 	if (altContext) ::DeleteDC(altContext);
 	if (altBitmap) ::DeleteObject(altBitmap);
-	if (renderBuffer) { delete renderBuffer; renderBuffer = 0; }
+	if (renderBuffer)
+	{
+		delete renderBuffer;
+		renderBuffer = 0;
+	}
 }
 
 void FlashControl::createControl(HMODULE _lib)
 {
 	site = new FlashSite();
-	site->AddRef();	
+	site->AddRef();
 	site->Init(this);
-	
+
 	// Try to load from user-supplied Flash OCX first
 	if (_lib)
 	{
-		typedef HRESULT (__stdcall *GetClassObject)(REFCLSID rclsid, REFIID riid, LPVOID * ppv); 
+		typedef HRESULT (__stdcall * GetClassObject)(REFCLSID rclsid, REFIID riid, LPVOID * ppv);
 
 		IClassFactory* factory = 0;
 		GetClassObject getClassFunc = (GetClassObject)GetProcAddress(_lib, "DllGetClassObject");
@@ -118,7 +122,7 @@ void FlashControl::createControl(HMODULE _lib)
 		if (SUCCEEDED(result))
 		{
 			factory->CreateInstance(NULL, IID_IOleObject, (void**)&oleObject);
-			factory->Release();	
+			factory->Release();
 		}
 	}
 
@@ -137,8 +141,8 @@ void FlashControl::createControl(HMODULE _lib)
 	oleObject->SetClientSite(clientSite);
 	clientSite->Release();
 
-	IOleInPlaceObject* inPlaceObject = 0;	
-	oleObject->QueryInterface(__uuidof(IOleInPlaceObject), (LPVOID*)&inPlaceObject);			
+	IOleInPlaceObject* inPlaceObject = 0;
+	oleObject->QueryInterface(__uuidof(IOleInPlaceObject), (LPVOID*)&inPlaceObject);
 
 	if (inPlaceObject)
 	{
@@ -153,12 +157,12 @@ void FlashControl::createControl(HMODULE _lib)
 	flashInterface->PutWMode("opaque");
 
 	oleObject->DoVerb(OLEIVERB_INPLACEACTIVATE, 0, clientSite, 0, 0, 0);
-	clientSite->Release();	
-		
+	clientSite->Release();
+
 	oleObject->QueryInterface(__uuidof(IOleInPlaceObjectWindowless), (LPVOID*)&windowlessObject);
-			
+
 	handler = new FlashHandler();
-	handler->AddRef();	
+	handler->AddRef();
 	handler->Init(this);
 
 	IViewObject* curView = 0;
@@ -178,7 +182,7 @@ void FlashControl::load(const std::string& movieFilename)
 
 	// работают только абсолютные пути c левыми слешами
 	std::string absolute_path = full_path.at(0) == '.' ? getCurrentWorkingDirectory() + full_path : full_path;
-	for (size_t index=0; index<absolute_path.size(); ++index)
+	for (size_t index = 0; index < absolute_path.size(); ++index)
 	{
 		if (absolute_path[index] == '/')
 			absolute_path[index] = '\\';
@@ -200,13 +204,13 @@ void FlashControl::setTransparent(bool isTransparent)
 	{
 		flashInterface->PutWMode("opaque");
 	}
-	
+
 	invalidateTotally();
 }
 
 void FlashControl::setQuality(short renderQuality)
 {
-	switch(renderQuality)
+	switch (renderQuality)
 	{
 	case RQ_LOW:
 		flashInterface->PutQuality2("low");
@@ -363,7 +367,7 @@ void FlashControl::update()
 			DeleteObject(mainBitmap);
 			mainBitmap = 0;
 		}
-		
+
 		lastDirtyWidth = dirtyWidth;
 		lastDirtyHeight = dirtyHeight;
 
@@ -391,7 +395,7 @@ void FlashControl::update()
 		}
 
 		altContext = CreateCompatibleDC(hdc);
-		altBitmap = CreateDIBSection(hdc, (BITMAPINFO*)&bih, DIB_RGB_COLORS, (void **)&altBuffer, 0, 0);
+		altBitmap = CreateDIBSection(hdc, (BITMAPINFO*)&bih, DIB_RGB_COLORS, (void**)&altBuffer, 0, 0);
 		SelectObject(altContext, altBitmap);
 
 		ReleaseDC(0, hdc);
@@ -412,12 +416,12 @@ void FlashControl::update()
 	// We've rendered the dirty area twice: once on black and once
 	// on white. Now we compare the red channels of each to determine
 	// the alpha value of each pixel.
-	BYTE *blackBuffer, *whiteBuffer;
+	BYTE* blackBuffer, *whiteBuffer;
 	blackBuffer = mainBuffer;
 	whiteBuffer = altBuffer;
 	BYTE blackRed, whiteRed;
 	int size = dirtyWidth * dirtyHeight;
-	for(int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		blackRed = *blackBuffer;
 		whiteRed = *whiteBuffer;
@@ -427,7 +431,7 @@ void FlashControl::update()
 	}
 
 	renderBuffer->copyArea(dirtyBounds, mainBuffer, dirtyWidth * 4);
-	
+
 	if (mOwner)
 	{
 		MyGUI::uint8* destBuffer = static_cast<MyGUI::uint8*>(mOwner->lock());

@@ -110,7 +110,7 @@ namespace tools
 
 	void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
-		const MyGUI::IntSize & size = _sender->getSize();
+		const MyGUI::IntSize& size = _sender->getSize();
 		if (size != mOldSize)
 		{
 			mOldSize = size;
@@ -174,7 +174,7 @@ namespace tools
 			mPairsCounter = 0;
 			mPanelMainProperties->update(mCurrentWidget);
 
-			WidgetStyle * widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
+			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 			{
 				mPairsCounter = 0;
@@ -368,9 +368,9 @@ namespace tools
 		bool success = true;
 		if ("Name" == _type)
 		{
-			const MyGUI::UString & text = _edit->getOnlyText();
+			const MyGUI::UString& text = _edit->getOnlyText();
 			size_t index = _edit->getTextCursor();
-			WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
+			WidgetContainer* textWC = EditorWidgets::getInstance().find(text);
 			if ((!text.empty()) && (nullptr != textWC) &&
 				(EditorWidgets::getInstance().find(mCurrentWidget) != textWC))
 			{
@@ -411,8 +411,8 @@ namespace tools
 
 	void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
-		EditorWidgets * ew = &EditorWidgets::getInstance();
-		WidgetContainer * widgetContainer = ew->find(mCurrentWidget);
+		EditorWidgets* ew = &EditorWidgets::getInstance();
+		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
 		MyGUI::Edit* senderEdit = _sender->castType<MyGUI::Edit>();
 		std::string action = senderEdit->getUserString("action");
 		std::string value = senderEdit->getOnlyText();
@@ -438,7 +438,7 @@ namespace tools
 			widgetContainer->skin = value;
 			if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) || widgetContainer->skin.empty())
 			{
-				MyGUI::xml::Document * savedDoc = ew->savexmlDocument();
+				MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
 				ew->clear();
 				ew->loadxmlDocument(savedDoc);
 				delete savedDoc;
@@ -459,10 +459,10 @@ namespace tools
 				std::istringstream str(value);
 				MyGUI::FloatCoord float_coord;
 				str >> float_coord;
-				float_coord.left = float_coord.left/100;
-				float_coord.top = float_coord.top/100;
-				float_coord.width = float_coord.width/100;
-				float_coord.height = float_coord.height/100;
+				float_coord.left = float_coord.left / 100;
+				float_coord.top = float_coord.top / 100;
+				float_coord.width = float_coord.width / 100;
+				float_coord.height = float_coord.height / 100;
 				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
 				mCurrentWidget->setCoord(coord);
 

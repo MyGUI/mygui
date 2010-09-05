@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	DirectXTexture::DirectXTexture(const std::string& _name, IDirect3DDevice9 *_device) :
+	DirectXTexture::DirectXTexture(const std::string& _name, IDirect3DDevice9* _device) :
 		mName(_name),
 		mpD3DDevice(_device),
 		mpTexture(NULL),
@@ -95,7 +95,7 @@ namespace MyGUI
 		destroy();
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::R8G8B8A8;
-    
+
 		std::string fullname = DirectXDataManager::getInstance().getDataPath(_filename);
 
 		D3DXIMAGE_INFO info;

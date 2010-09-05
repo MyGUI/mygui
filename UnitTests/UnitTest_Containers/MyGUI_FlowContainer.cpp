@@ -53,7 +53,7 @@ namespace MyGUI
 				return;
 
 			lineBreak = utility::parseBool(widget->getUserString("MGI_BreakLine"));
-			
+
 			autoLineBreak = utility::parseBool(widget->getUserString("MGI_AutoLineBreak"));
 
 			size.fromString(widget->getUserString("MGI_Size"));
@@ -63,7 +63,7 @@ namespace MyGUI
 		}
 	}
 
-	void FlowContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name)	
+	void FlowContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _name);
 	}
@@ -115,9 +115,9 @@ namespace MyGUI
 		//IntSize t = _widgetInfo.widget->_getTextSize();
 
 		if (_widgetInfo.size.isNull())
-			_widgetInfo.size.px(_widgetInfo.widget->getSize());		
+			_widgetInfo.size.px(_widgetInfo.widget->getSize());
 	}
-	
+
 	//IntSize FlowContainer::getWidgetMinSize(const WidgetInfo& _info) const
 	//{
 	//	Widget* widget = _info.widget;
@@ -178,7 +178,7 @@ namespace MyGUI
 		WidgetParamWrap<WidgetParamWrap_Height> sizeWrap(_info.size, _info.minSize, _info.maxSize);
 		return _isWidgetComply(_widgetTags, sizeWrap, _info);
 	}
-	
+
 	template<class T>
 	int FlowContainer::_getWidgetPxDimension(const SizeData& _sizeData, const T& _size, const WidgetInfo& _info)
 	{
@@ -256,7 +256,7 @@ namespace MyGUI
 		ListWidgetInfoIter iter = _data.first;
 		float flHSum = 0;
 
-		while(iter != mWidgetsInfo.end())
+		while (iter != mWidgetsInfo.end())
 		{
 			bool count = iter->size.w.isFloatMode(_mode);
 
@@ -282,11 +282,11 @@ namespace MyGUI
 		ListWidgetInfoIter iter = _data.first;
 		bool isFirstAtRow = true;
 
-		_calcRow.size = IntSize();	
+		_calcRow.size = IntSize();
 
 		bool breakRow = _widgetTags == WT_ALL;
 
-		while(iter != mWidgetsInfo.end())
+		while (iter != mWidgetsInfo.end())
 		{
 			bool toNextRow = false;
 
@@ -302,8 +302,8 @@ namespace MyGUI
 
 				if (_calcRow.size.height < widgetSize.height)
 					_calcRow.size.height = widgetSize.height;
-				
-				// width here 
+
+				// width here
 
 				bool ignoreNextRow = false;
 
@@ -384,7 +384,7 @@ namespace MyGUI
 		calcPxWidthSum(result, calcRow, WT_ALL);
 
 		float flFreeHSum = calcFlWidthSum(result, FM_FREE_SPACE);
-		float freeHSpace = _in.maxWidth - calcRow.size.width;		
+		float freeHSpace = _in.maxWidth - calcRow.size.width;
 
 		// We have too much space :)
 		if (freeHSpace >= 0)
@@ -416,7 +416,7 @@ namespace MyGUI
 				result.spacersCoeff = float(pxForSpacers) / float(result.size.width);
 			}
 
-			if (freeHSpace> 0)
+			if (freeHSpace > 0)
 			{
 				result.freeCoeff = freeHSpace / flFreeHSum;
 				MYGUI_OUT_SPACES("Ok", freeHSpace, flFreeHSum, result.first->widget->getCaption());
@@ -431,7 +431,7 @@ namespace MyGUI
 				MYGUI_OUT("Space!");
 			}
 		}
-		
+
 		calcPxWidthSum(result, calcRow, WT_ALL);
 
 		result.size.height = calcRow.size.height;
@@ -499,7 +499,7 @@ namespace MyGUI
 			{
 				if (iter->size.h.isFl())
 				{
-					if (maxHFl <iter->size.h.fl())
+					if (maxHFl < iter->size.h.fl())
 						maxHFl = iter->size.h.fl();
 				}
 			}
@@ -526,7 +526,7 @@ namespace MyGUI
 		IntPoint curLocal(0, 0);
 		ListWidgetInfoIter iter = mWidgetsInfo.begin();
 
-		while(iter != mWidgetsInfo.end())
+		while (iter != mWidgetsInfo.end())
 		{
 			in.cur = curLocal;
 			in.from = iter;
@@ -562,7 +562,7 @@ namespace MyGUI
 		{
 			if (iter->size.h.isFl())
 			{
-				IntSize newSize = iter->widget->getSize(); 
+				IntSize newSize = iter->widget->getSize();
 
 				newSize.height = iter->size.h.fl() * vCoeff;
 				iter->widget->setSize(newSize);
@@ -570,7 +570,7 @@ namespace MyGUI
 			}
 			else
 			{
-				IntPoint op = iter->widget->getPosition(); 
+				IntPoint op = iter->widget->getPosition();
 				iter->widget->setPosition(IntPoint(op.left, op.top + moveDown));
 			}
 		}

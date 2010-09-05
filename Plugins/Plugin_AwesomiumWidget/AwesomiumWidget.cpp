@@ -92,7 +92,7 @@ namespace Awesomium
 		if (!mIsTransparent)
 		{
 			int count = getTextureRealWidth() * getTextureRealHeight();
-			for (int index=0; index<count; ++index)
+			for (int index = 0; index < count; ++index)
 			{
 				((unsigned char*)(&(((unsigned int*)data)[index])))[3] = 0xFF;
 			}
@@ -181,7 +181,7 @@ namespace Awesomium
 		if (isFocused)
 			MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
 	}
-		
+
 	void AwesomiumWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "SourceURL") loadURL(_value);

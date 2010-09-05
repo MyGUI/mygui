@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	typedef MyGUI::delegates::CDelegate2<const MyGUI::UString &, const MyGUI::UString &> CommandDelegate;
+	typedef MyGUI::delegates::CDelegate2<const MyGUI::UString&, const MyGUI::UString&> CommandDelegate;
 
 	namespace formates
 	{
@@ -21,10 +21,22 @@ namespace demo
 #	undef max
 #	undef min
 #endif
-		template<typename T> inline std::string format() { return MyGUI::utility::toString("[ ", (std::numeric_limits<T>::min)(), " | ", (std::numeric_limits<T>::max)(), " ]"); }
-		template<> inline std::string format<bool>() { return "[ true | false ]"; }
-		template<> inline std::string format<float>() { return MyGUI::utility::toString("[ ", -(std::numeric_limits<float>::max)(), " | ", (std::numeric_limits<float>::max)(), " ]"); }
-		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -(std::numeric_limits<double>::max)(), " | ", (std::numeric_limits<double>::max)(), " ]"); }
+		template<typename T> inline std::string format()
+		{
+			return MyGUI::utility::toString("[ ", (std::numeric_limits<T>::min)(), " | ", (std::numeric_limits<T>::max)(), " ]");
+		}
+		template<> inline std::string format<bool>()
+		{
+			return "[ true | false ]";
+		}
+		template<> inline std::string format<float>()
+		{
+			return MyGUI::utility::toString("[ ", -(std::numeric_limits<float>::max)(), " | ", (std::numeric_limits<float>::max)(), " ]");
+		}
+		template<> inline std::string format<double>()
+		{
+			return MyGUI::utility::toString("[ ", -(std::numeric_limits<double>::max)(), " | ", (std::numeric_limits<double>::max)(), " ]");
+		}
 	}
 
 	class Console :
@@ -34,8 +46,8 @@ namespace demo
 	public:
 		Console();
 
-		void addToConsole(const MyGUI::UString & _line);
-		void addToConsole(const MyGUI::UString & _reason, const MyGUI::UString & _key, const MyGUI::UString & _value)
+		void addToConsole(const MyGUI::UString& _line);
+		void addToConsole(const MyGUI::UString& _reason, const MyGUI::UString& _key, const MyGUI::UString& _value)
 		{
 			addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
 		}
@@ -52,23 +64,44 @@ namespace demo
 
 			signature your method : void method(const MyGUI::UString & _key, const MyGUI::UString & _value)
 		*/
-		void registerConsoleDelegate(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate);
+		void registerConsoleDelegate(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate);
 
 		/** Event : Unknown command.\n
 			signature : void method(const MyGUI::UString & _key, const MyGUI::UString & _value)
 		*/
 		CommandDelegate eventConsoleUnknowCommand;
 
-		const MyGUI::UString & getConsoleStringCurrent() { return mStringCurrent; }
-		const MyGUI::UString & getConsoleStringError() { return mStringError; }
-		const MyGUI::UString & getConsoleStringSuccess() { return mStringSuccess; }
-		const MyGUI::UString & getConsoleStringUnknow() { return mStringUnknow; }
-		const MyGUI::UString & getConsoleStringFormat() { return mStringFormat; }
+		const MyGUI::UString& getConsoleStringCurrent()
+		{
+			return mStringCurrent;
+		}
+		const MyGUI::UString& getConsoleStringError()
+		{
+			return mStringError;
+		}
+		const MyGUI::UString& getConsoleStringSuccess()
+		{
+			return mStringSuccess;
+		}
+		const MyGUI::UString& getConsoleStringUnknow()
+		{
+			return mStringUnknow;
+		}
+		const MyGUI::UString& getConsoleStringFormat()
+		{
+			return mStringFormat;
+		}
 
-		bool getVisible() { return mMainWidget->getVisible(); }
-		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
+		bool getVisible()
+		{
+			return mMainWidget->getVisible();
+		}
+		void setVisible(bool _visible)
+		{
+			mMainWidget->setVisible(_visible);
+		}
 
-		template <typename T> bool isAction(T & _result, const MyGUI::UString & _key, const MyGUI::UString & _value, const MyGUI::UString & _format = "")
+		template <typename T> bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = "")
 		{
 			if (_value.empty())
 			{
@@ -97,7 +130,7 @@ namespace demo
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value);
+		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString& _key, const MyGUI::UString& _value);
 
 	private:
 		MyGUI::Edit* mListHistory;
@@ -116,7 +149,7 @@ namespace demo
 		// если текущий текст автодополнен
 		bool mAutocomleted;
 
-		static Console * m_instance;
+		static Console* m_instance;
 	};
 
 } // namespace demo

@@ -27,7 +27,7 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
-		const MyGUI::IntSize & view = MyGUI::RenderManager::getInstance().getViewSize();
+		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(300, 26);
 
 		// если группа ресурсов не указанна, то ищется в корне приложения

@@ -21,20 +21,50 @@ namespace tools
 		{
 		}
 
-		bool getPressed() const { return mPressed; }
-		void setPressed(bool _value) { mPressed = _value; }
+		bool getPressed() const
+		{
+			return mPressed;
+		}
+		void setPressed(bool _value)
+		{
+			mPressed = _value;
+		}
 
-		bool getShift() const { return mShift; }
-		void setShift(bool _value) { mShift = _value; }
+		bool getShift() const
+		{
+			return mShift;
+		}
+		void setShift(bool _value)
+		{
+			mShift = _value;
+		}
 
-		bool getControl() const { return mControl; }
-		void setControl(bool _value) { mControl = _value; }
+		bool getControl() const
+		{
+			return mControl;
+		}
+		void setControl(bool _value)
+		{
+			mControl = _value;
+		}
 
-		MyGUI::KeyCode getKey() const { return mKey; }
-		void setKey(MyGUI::KeyCode _value) { mKey = _value; }
+		MyGUI::KeyCode getKey() const
+		{
+			return mKey;
+		}
+		void setKey(MyGUI::KeyCode _value)
+		{
+			mKey = _value;
+		}
 
-		const MyGUI::UString& getCommand() const { return mCommand; }
-		void setCommand(const MyGUI::UString& _value) { mCommand = _value; }
+		const MyGUI::UString& getCommand() const
+		{
+			return mCommand;
+		}
+		void setCommand(const MyGUI::UString& _value)
+		{
+			mCommand = _value;
+		}
 
 	private:
 		bool mPressed;

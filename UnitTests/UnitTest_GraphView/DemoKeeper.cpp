@@ -74,7 +74,7 @@ namespace demo
 	}
 
 	void DemoKeeper::createScene()
-    {
+	{
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
@@ -97,11 +97,11 @@ namespace demo
 		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
-    void DemoKeeper::destroyScene()
-    {
+	void DemoKeeper::destroyScene()
+	{
 		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 		delete mGraphView;
-    }
+	}
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
 	{

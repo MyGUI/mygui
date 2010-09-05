@@ -16,7 +16,7 @@ namespace tools
 		bool checkParseInterval(MyGUI::Edit* _edit, size_t _count, T _min, T _max)
 		{
 			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-			const MyGUI::UString & text = _edit->getOnlyText();
+			const MyGUI::UString& text = _edit->getOnlyText();
 			size_t index = _edit->getTextCursor();
 			bool success = true;
 
@@ -59,7 +59,7 @@ namespace tools
 		bool checkParse(MyGUI::Edit* _edit, size_t _count)
 		{
 			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-			const MyGUI::UString & text = _edit->getOnlyText();
+			const MyGUI::UString& text = _edit->getOnlyText();
 			size_t index = _edit->getTextCursor();
 			bool success = false;
 

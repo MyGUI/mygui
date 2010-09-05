@@ -26,12 +26,12 @@ using namespace Hikari;
 template<class NumberType>
 inline NumberType toNumber(MyGUI::UString numberString)
 {
-	if(numberString.substr(0, 4).compare("true") == 0) return 1;
-	else if(numberString.substr(0, 4).compare("false") == 0) return 0;
+	if (numberString.substr(0, 4).compare("true") == 0) return 1;
+	else if (numberString.substr(0, 4).compare("false") == 0) return 0;
 
 	std::istringstream converter(numberString);
-	
-	if(typeid(NumberType)==typeid(bool))
+
+	if (typeid(NumberType) == typeid(bool))
 	{
 		int result;
 		return (converter >> result).fail() ? false : !!result;
@@ -42,11 +42,11 @@ inline NumberType toNumber(MyGUI::UString numberString)
 }
 
 template<class NumberType>
-inline std::string numberToString(const NumberType &number)
+inline std::string numberToString(const NumberType& number)
 {
 	std::ostringstream converter;
 
-	if(typeid(NumberType)==typeid(bool))
+	if (typeid(NumberType) == typeid(bool))
 	{
 		return number ? "true" : "false";
 	}
@@ -110,11 +110,11 @@ void FlashValue::setNull()
 
 bool FlashValue::getBool() const
 {
-	if(valueType == FT_BOOLEAN)
+	if (valueType == FT_BOOLEAN)
 		return boolValue;
-	else if(valueType == FT_NUMBER)
+	else if (valueType == FT_NUMBER)
 		return !!((int)numValue);
-	else if(valueType == FT_STRING)
+	else if (valueType == FT_STRING)
 		return toNumber<bool>(strValue);
 
 	return false;
@@ -122,11 +122,11 @@ bool FlashValue::getBool() const
 
 float FlashValue::getNumber() const
 {
-	if(valueType == FT_NUMBER)
+	if (valueType == FT_NUMBER)
 		return numValue;
-	else if(valueType == FT_BOOLEAN)
+	else if (valueType == FT_BOOLEAN)
 		return (float)boolValue;
-	else if(valueType == FT_STRING)
+	else if (valueType == FT_STRING)
 		return toNumber<float>(strValue);
 
 	return 0;
@@ -134,7 +134,7 @@ float FlashValue::getNumber() const
 
 MyGUI::Colour FlashValue::getNumberAsColor() const
 {
-	if(valueType != FT_NUMBER)
+	if (valueType != FT_NUMBER)
 		return MyGUI::Colour::Zero;
 
 	MyGUI::Colour result;
@@ -147,11 +147,11 @@ MyGUI::Colour FlashValue::getNumberAsColor() const
 
 MyGUI::UString FlashValue::getString() const
 {
-	if(valueType == FT_STRING)
+	if (valueType == FT_STRING)
 		return strValue;
-	else if(valueType == FT_BOOLEAN)
+	else if (valueType == FT_BOOLEAN)
 		return numberToString<bool>(boolValue);
-	else if(valueType == FT_NUMBER)
+	else if (valueType == FT_NUMBER)
 		return numberToString<float>(numValue);
 
 	return "";
@@ -161,7 +161,7 @@ Args::Args()
 {
 }
 
-Args::Args(Args &v)
+Args::Args(Args& v)
 {
 	this->swap(v);
 }
@@ -170,7 +170,7 @@ Args::Args(const FlashValue& firstArg) : Arguments(1, firstArg)
 {
 }
 
-Args& Args::operator()(const FlashValue& newArg) 
+Args& Args::operator()(const FlashValue& newArg)
 {
 	this->push_back(newArg);
 	return *this;

@@ -225,7 +225,7 @@ namespace tools
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_coord, coord.left, coord.top, coord.width, coord.height))
 		{
-			for (std::vector<MyGUI::IntCoord>::iterator item=_coords.begin(); item!=_coords.end(); ++item)
+			for (std::vector<MyGUI::IntCoord>::iterator item = _coords.begin(); item != _coords.end(); ++item)
 			{
 				if ((*item) == coord)
 					return;
@@ -245,7 +245,7 @@ namespace tools
 			mBlackSelectors.push_back(selector);
 		}
 
-		for (size_t index=0; index<mBlackSelectors.size(); ++index)
+		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
 		{
 			if (index < _coords.size())
 			{

@@ -49,12 +49,30 @@ namespace demo
 		}
 
 	public:
-		const std::string& getDeviceName() { return mDeviceName; }
-		const std::string& getDeviceDescription() { return mDeviceDescription; }
-		size_t getValueEnergy() { return mValueEnergy; }
-		size_t getValueExplosion() { return mValueExplosion; }
-		size_t getValueTarget() { return mValueTarget; }
-		size_t getValueHP() { return mValueHP; }
+		const std::string& getDeviceName()
+		{
+			return mDeviceName;
+		}
+		const std::string& getDeviceDescription()
+		{
+			return mDeviceDescription;
+		}
+		size_t getValueEnergy()
+		{
+			return mValueEnergy;
+		}
+		size_t getValueExplosion()
+		{
+			return mValueExplosion;
+		}
+		size_t getValueTarget()
+		{
+			return mValueTarget;
+		}
+		size_t getValueHP()
+		{
+			return mValueHP;
+		}
 
 	private:
 		std::string mDeviceName;

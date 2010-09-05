@@ -22,8 +22,14 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		static DirectXDataManager& getInstance() { return *getInstancePtr(); }
-		static DirectXDataManager* getInstancePtr() { return static_cast<DirectXDataManager*>(DataManager::getInstancePtr()); }
+		static DirectXDataManager& getInstance()
+		{
+			return *getInstancePtr();
+		}
+		static DirectXDataManager* getInstancePtr()
+		{
+			return static_cast<DirectXDataManager*>(DataManager::getInstancePtr());
+		}
 
 		/** @see DataManager::getData(const std::string& _name) */
 		virtual IDataStream* getData(const std::string& _name);

@@ -31,11 +31,14 @@ namespace MyGUI
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
-		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
+		virtual const RenderTargetInfo& getInfo()
+		{
+			return mRenderTargetInfo;
+		}
 
 	private:
-		IDirect3DDevice9 *mpD3DDevice;
-	    IDirect3DTexture9 *mpTexture;
+		IDirect3DDevice9* mpD3DDevice;
+		IDirect3DTexture9* mpTexture;
 		IDirect3DSurface9* mpRenderSurface;
 		IDirect3DSurface9* mpBackBuffer;
 		RenderTargetInfo mRenderTargetInfo;

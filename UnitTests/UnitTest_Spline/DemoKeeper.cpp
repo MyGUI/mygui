@@ -19,9 +19,9 @@ namespace demo
 		linePoints.clear();
 		for (size_t i = 0; i < _pointsNumber; ++i)
 		{
-			float t = float(i)/(_pointsNumber - 1);
-			float left = _points[0].left*pow(1-t, 3) + 3*_points[1].left*pow(1-t, 2)*t + 3*_points[2].left*(1-t)*t*t + t*t*t*_points[3].left;
-			float top = _points[0].top *pow(1-t, 3) + 3*_points[1].top *pow(1-t, 2)*t + 3*_points[2].top *(1-t)*t*t + t*t*t*_points[3].top;
+			float t = float(i) / (_pointsNumber - 1);
+			float left = _points[0].left * pow(1 - t, 3) + 3 * _points[1].left * pow(1 - t, 2) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
+			float top = _points[0].top * pow(1 - t, 3) + 3 * _points[1].top * pow(1 - t, 2) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
 			MyGUI::FloatPoint point(left, top);
 			linePoints.push_back(point);
 		}
@@ -62,7 +62,7 @@ namespace demo
 		widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 400), MyGUI::Align::Default);
 
 		// get main subskin
-		MyGUI::ISubWidget * main = widget->getSubWidgetMain();
+		MyGUI::ISubWidget* main = widget->getSubWidgetMain();
 		polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 
 		// set PolygonalSkin properties and points

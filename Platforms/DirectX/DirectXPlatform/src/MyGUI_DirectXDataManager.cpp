@@ -53,7 +53,7 @@ namespace MyGUI
 		if (_recursive)
 		{
 			// теперь проходим подкаталоги
-			for (std::vector<std::string>::iterator iter = dir.begin(); iter!=dir.end(); ++iter)
+			for (std::vector<std::string>::iterator iter = dir.begin(); iter != dir.end(); ++iter)
 			{
 				scanFolder(_result, *iter, _recursive, _mask, _fullpath);
 			}
@@ -114,7 +114,7 @@ namespace MyGUI
 		static VectorString result;
 		result.clear();
 
-		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		for (VectorArhivInfo::iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
 			scanFolder(result, (*item).name, (*item).recursive, _pattern, false);
 		}
@@ -127,7 +127,7 @@ namespace MyGUI
 		static std::string path;
 		VectorString result;
 
-		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		for (VectorArhivInfo::iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
 			scanFolder(result, (*item).name, (*item).recursive, _name, true);
 		}

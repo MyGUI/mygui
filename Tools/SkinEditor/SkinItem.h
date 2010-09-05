@@ -28,9 +28,18 @@ namespace tools
 
 		PropertySet* getPropertySet();
 
-		ItemHolder<StateItem>& getStates() { return mStates; }
-		ItemHolder<SeparatorItem>& getSeparators() { return mSeparators; }
-		ItemHolder<RegionItem>& getRegions() { return mRegions; }
+		ItemHolder<StateItem>& getStates()
+		{
+			return mStates;
+		}
+		ItemHolder<SeparatorItem>& getSeparators()
+		{
+			return mSeparators;
+		}
+		ItemHolder<RegionItem>& getRegions()
+		{
+			return mRegions;
+		}
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);

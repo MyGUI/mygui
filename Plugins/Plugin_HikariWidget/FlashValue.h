@@ -62,7 +62,7 @@ namespace Hikari
 		* @param	numericValue	The value to initialize this FlashValue with.
 		*/
 		FlashValue(int numericValue);
-		
+
 		/**
 		* Creates a FlashValue as a number type.
 		*
@@ -90,7 +90,7 @@ namespace Hikari
 		* @param	stringValue	The value to initialize this FlashValue with.
 		*/
 		FlashValue(const std::string& stringValue);
-		
+
 		/**
 		* Creates a FlashValue as a string type.
 		*
@@ -179,7 +179,7 @@ namespace Hikari
 	public:
 		Args();
 
-		Args(Args &v);
+		Args(Args& v);
 
 		explicit Args(const FlashValue& firstArg);
 

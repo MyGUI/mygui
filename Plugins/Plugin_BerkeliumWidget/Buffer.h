@@ -69,7 +69,7 @@ namespace helpers
 				{
 					dest += width_bytes_dest * height;
 					source += width_bytes_source * height;
-					for (int y=0; y<height; ++y)
+					for (int y = 0; y < height; ++y)
 					{
 						dest -= width_bytes_dest;
 						source -= width_bytes_source;
@@ -81,7 +81,7 @@ namespace helpers
 				// ширина уменьшилась, копируем сверху вниз
 				else if (oldWidth > mWidthVisible)
 				{
-					for (int y=0; y<height; ++y)
+					for (int y = 0; y < height; ++y)
 					{
 						memcpy(dest, source, width_bytes_source);
 						dest += width_bytes_dest;
@@ -93,7 +93,7 @@ namespace helpers
 				if (oldHeight < mHeightVisible)
 				{
 					dest = new_data + (oldHeight * width_bytes_dest);
-					for (int y=oldHeight; y<mHeightVisible; ++y)
+					for (int y = oldHeight; y < mHeightVisible; ++y)
 					{
 						memset(dest, (int)0xFFFFFFFF, width_bytes_dest);
 						dest += width_bytes_dest;
@@ -124,7 +124,7 @@ namespace helpers
 				{
 					dest += width_bytes_dest * height;
 					source += width_bytes_source * height;
-					for (int y=0; y<height; ++y)
+					for (int y = 0; y < height; ++y)
 					{
 						dest -= width_bytes_dest;
 						source -= width_bytes_source;
@@ -137,7 +137,7 @@ namespace helpers
 				// буфер один и тот же, используем memmove
 				else if (oldWidth > mWidthVisible)
 				{
-					for (int y=0; y<height; ++y)
+					for (int y = 0; y < height; ++y)
 					{
 						memmove(dest, source, width_bytes_source);
 						dest += width_bytes_dest;
@@ -149,7 +149,7 @@ namespace helpers
 				if (oldHeight < mHeightVisible)
 				{
 					dest = mBuffer + (oldHeight * width_bytes_dest);
-					for (int y=oldHeight; y<mHeightVisible; ++y)
+					for (int y = oldHeight; y < mHeightVisible; ++y)
 					{
 						memset(dest, (int)0xFFFFFFFF, width_bytes_dest);
 						dest += width_bytes_dest;
@@ -168,7 +168,7 @@ namespace helpers
 			int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
 			int width_bytes_dest = _width * BIT_IN_COLOUR;
 
-			for (int y=0; y<mHeightVisible; ++y)
+			for (int y = 0; y < mHeightVisible; ++y)
 			{
 				memcpy(data, source, width_bytes_visible);
 				data += width_bytes_dest;
@@ -207,7 +207,7 @@ namespace helpers
 			int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
 			int width_bytes_dest = _width * BIT_IN_COLOUR;
 
-			for (int y=0; y<_height; ++y)
+			for (int y = 0; y < _height; ++y)
 			{
 				// копируем из себя в себя же, нуна memmove
 				memmove(data, source, width_bytes_dest);
@@ -229,7 +229,7 @@ namespace helpers
 			data += (width_bytes_visible * _height);
 			source += (width_bytes_visible * _height);
 
-			for (int y=0; y<_height; ++y)
+			for (int y = 0; y < _height; ++y)
 			{
 				// источник мы и есть, ширина строки такая же как и у приемника
 				data -= width_bytes_visible;
@@ -249,7 +249,7 @@ namespace helpers
 			int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
 			int width_bytes_dest = _width * BIT_IN_COLOUR;
 
-			for (int y=0; y<_height; ++y)
+			for (int y = 0; y < _height; ++y)
 			{
 				memcpy(data, source, width_bytes_dest);
 				data += width_bytes_visible;
@@ -258,14 +258,17 @@ namespace helpers
 
 			int count = mWidthVisible * mHeightVisible;
 			data = original_data + 3;
-			for (int index=0; index<count; ++index)
+			for (int index = 0; index < count; ++index)
 			{
 				*data = 0xFF;
 				data += BIT_IN_COLOUR;
 			}
 		}
 
-		bool isDirty() const { return mDirty; }
+		bool isDirty() const
+		{
+			return mDirty;
+		}
 
 	private:
 		bool mDirty;

@@ -17,7 +17,7 @@ namespace attribute
 	{
 		~DataHolder()
 		{
-			for (typename Type::iterator item=data.begin(); item!=data.end(); ++item)
+			for (typename Type::iterator item = data.begin(); item != data.end(); ++item)
 				delete (*item).first;
 		}
 
@@ -40,8 +40,8 @@ namespace attribute
 
 		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value)
 		{
-                  _target->*m_offset = SetterType::template convert<FieldType>(_value);
-                  //                  _target->*m_offset = (_value == 0 ? 0 : _value->castType<int>::template(false));//SetterType::convert<FieldType>(_value);
+			_target->*m_offset = SetterType::template convert<FieldType>(_value);
+			//                  _target->*m_offset = (_value == 0 ? 0 : _value->castType<int>::template(false));//SetterType::convert<FieldType>(_value);
 		}
 	};
 

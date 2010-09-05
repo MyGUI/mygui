@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	void ColourWindowCellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop)
+	void ColourWindowCellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
 		_coord.set(0, 0, _sender->getClientCoord().width, 20);
 	}
@@ -26,7 +26,7 @@ namespace demo
 		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 	}
 
-	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data)
+	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo& _info, ColourWindowCellData* _data)
 	{
 
 		if (_info.update)

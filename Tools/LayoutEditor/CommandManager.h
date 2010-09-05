@@ -10,7 +10,7 @@
 
 namespace tools
 {
-	typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::UString &> CommandDelegate;
+	typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::UString&> CommandDelegate;
 
 	class CommandManager :
 		public MyGUI::Singleton<CommandManager>

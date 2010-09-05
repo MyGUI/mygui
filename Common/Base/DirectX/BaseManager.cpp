@@ -14,46 +14,46 @@
 #endif
 
 // имя класса окна
-const char * WND_CLASS_NAME = "MyGUI_Demo_window";
+const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	switch(uMsg)
+	switch (uMsg)
 	{
-		case WM_CREATE:
-		{
-			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
-			break;
-		}
+	case WM_CREATE:
+	{
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+		break;
+	}
 
-		case WM_SIZE:
+	case WM_SIZE:
+	{
+		if (wParam != SIZE_MINIMIZED)
 		{
-			if (wParam != SIZE_MINIMIZED)
-			{
-				base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-				if (baseManager)
-					baseManager->_windowResized();
-			}
-			break;
-		}
-
-		case WM_CLOSE:
-		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+			base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
-				baseManager->quit();
+				baseManager->_windowResized();
 		}
+		break;
+	}
 
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			break;
-		}
+	case WM_CLOSE:
+	{
+		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+		if (baseManager)
+			baseManager->quit();
+	}
 
-		default:
-		{
-			return DefWindowProc(hWnd, uMsg, wParam, lParam);
-		}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		break;
+	}
+
+	default:
+	{
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
 	}
 	return 0;
 }
@@ -97,7 +97,8 @@ namespace base
 	bool BaseManager::create()
 	{
 		// регистрируем класс окна
-		WNDCLASS wc = {
+		WNDCLASS wc =
+		{
 			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, IDI_APPLICATION),
 			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
 		};
@@ -249,7 +250,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::setWindowCaption(const std::wstring & _text)
+	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
 		SetWindowTextW(hWnd, _text.c_str());
 	}
@@ -258,7 +259,7 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
@@ -281,7 +282,7 @@ namespace base
 		else
 		{
 			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
 			hwndAfter = HWND_NOTOPMOST;
 			AdjustWindowRect(&rc, style, false);
 		}
@@ -306,7 +307,7 @@ namespace base
 		{
 			// calc FPS
 			static MyGUI::Timer timer;
-			const unsigned long interval = 1000; 
+			const unsigned long interval = 1000;
 			static int count_frames = 0;
 			int accumulate = timer.getMilliseconds();
 			if (accumulate > interval)

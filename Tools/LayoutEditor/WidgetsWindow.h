@@ -28,7 +28,7 @@ namespace tools
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
-		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
 		void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
 

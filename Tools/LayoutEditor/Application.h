@@ -32,7 +32,10 @@ namespace tools
 		virtual bool onWinodwClose(size_t _handle);
 
 		typedef std::vector<std::wstring> VectorWString;
-		const VectorWString& getParams() { return mParams; }
+		const VectorWString& getParams()
+		{
+			return mParams;
+		}
 
 		void setCaption(const MyGUI::UString& _value);
 

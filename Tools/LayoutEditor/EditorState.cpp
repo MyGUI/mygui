@@ -288,7 +288,7 @@ namespace tools
 				replaceTags("Error"),
 				replaceTags("MessageFailedLoadFile"),
 				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-				);
+			);
 
 			setFileName(mDefaultFileName);
 
@@ -313,7 +313,7 @@ namespace tools
 				replaceTags("Error"),
 				replaceTags("MessageFailedSaveFile"),
 				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-				);
+			);
 		}
 		return false;
 	}

@@ -20,7 +20,10 @@ namespace tools
 		BackgroundControl(MyGUI::Widget* _parent);
 		virtual ~BackgroundControl();
 
-		MyGUI::Widget* getCanvas() { return mCanvas; }
+		MyGUI::Widget* getCanvas()
+		{
+			return mCanvas;
+		}
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);

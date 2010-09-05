@@ -53,4 +53,4 @@ namespace tools
 		onEndModal();
 	}
 
- } // namespace tools
+} // namespace tools

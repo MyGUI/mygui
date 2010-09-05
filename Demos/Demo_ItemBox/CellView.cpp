@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	void CellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop)
+	void CellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
 		if (_drop) _coord.set(0, 0, 90, 74);
 		else _coord.set(0, 0, 90, 74);
@@ -24,7 +24,7 @@ namespace demo
 		assignWidget(mTextFront, "text_Front");
 	}
 
-	void CellView::update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data)
+	void CellView::update(const MyGUI::IBDrawItemInfo& _info, ItemData* _data)
 	{
 
 		if (_info.update)

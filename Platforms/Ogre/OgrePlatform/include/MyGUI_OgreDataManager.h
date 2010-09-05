@@ -22,10 +22,19 @@ namespace MyGUI
 		void initialise(const std::string& _group);
 		void shutdown();
 
-		static OgreDataManager& getInstance() { return *getInstancePtr(); }
-		static OgreDataManager* getInstancePtr() { return static_cast<OgreDataManager*>(DataManager::getInstancePtr()); }
+		static OgreDataManager& getInstance()
+		{
+			return *getInstancePtr();
+		}
+		static OgreDataManager* getInstancePtr()
+		{
+			return static_cast<OgreDataManager*>(DataManager::getInstancePtr());
+		}
 
-		const std::string& getGroup() { return mGroup; }
+		const std::string& getGroup()
+		{
+			return mGroup;
+		}
 
 		/** @see DataManager::getData */
 		virtual IDataStream* getData(const std::string& _name);

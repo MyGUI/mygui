@@ -23,9 +23,12 @@ namespace base
 	std::string macBundlePath()
 	{
 		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
+		CFBundleRef mainBundle = CFBundleGetMainBundle();
+		assert(mainBundle);
+		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);
+		assert(mainBundleURL);
+		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);
+		assert(cfStringRef);
 		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
 		CFRelease(mainBundleURL);
 		CFRelease(cfStringRef);
@@ -359,7 +362,7 @@ namespace base
 		#endif
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		addResourceLocation(_name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "FileSystem", false);
 	}
@@ -380,7 +383,7 @@ namespace base
 		try
 		{
 			Ogre::MeshManager::getSingleton().createPlane(
-				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
 			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");

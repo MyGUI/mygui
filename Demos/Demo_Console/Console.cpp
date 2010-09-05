@@ -53,7 +53,7 @@ namespace demo
 
 	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		const MyGUI::UString & command = _sender->getOnlyText();
+		const MyGUI::UString& command = _sender->getOnlyText();
 		if (command == "") return;
 
 		MyGUI::UString key = command;
@@ -95,7 +95,7 @@ namespace demo
 		{
 			edit->deleteTextSelection();
 			len = edit->getCaption().length();
-			edit->eraseText(len-1);
+			edit->eraseText(len - 1);
 		}
 
 		MyGUI::UString command = edit->getCaption();
@@ -116,7 +116,7 @@ namespace demo
 		mAutocomleted = false;
 	}
 
-	void Console::addToConsole(const MyGUI::UString & _line)
+	void Console::addToConsole(const MyGUI::UString& _line)
 	{
 		if (mListHistory->getCaption().empty())
 			mListHistory->addText(_line);
@@ -132,7 +132,7 @@ namespace demo
 		mListHistory->setCaption("");
 	}
 
-	void Console::registerConsoleDelegate(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate)
+	void Console::registerConsoleDelegate(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
 	{
 		mComboCommand->addItem(_command);
 		MapDelegate::iterator iter = mDelegates.find(_command);
@@ -143,7 +143,7 @@ namespace demo
 		mDelegates[_command] = _delegate;
 	}
 
-	void Console::internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value)
+	void Console::internalCommand(MyGUI::Widget* _sender, const MyGUI::UString& _key, const MyGUI::UString& _value)
 	{
 		if (_key == "clear")
 		{

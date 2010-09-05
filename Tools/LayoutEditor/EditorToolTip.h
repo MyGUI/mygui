@@ -18,10 +18,10 @@ namespace tools
 
 		void show(MyGUI::Widget* _sender);
 		void hide();
-		void move(const MyGUI::IntPoint & _point);
+		void move(const MyGUI::IntPoint& _point);
 
 	private:
-		void setPosition(const MyGUI::IntPoint & _point);
+		void setPosition(const MyGUI::IntPoint& _point);
 
 	private:
 		MyGUI::Edit* mText;

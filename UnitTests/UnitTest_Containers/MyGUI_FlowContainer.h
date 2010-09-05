@@ -23,10 +23,10 @@ namespace MyGUI
 {
 
 	// Internal
-	class WidgetParamWrap_Width{};
+	class WidgetParamWrap_Width {};
 
 	// Internal
-	class WidgetParamWrap_Height{};
+	class WidgetParamWrap_Height {};
 
 	/// MyGUI Internal
 	template<typename T>
@@ -37,9 +37,18 @@ namespace MyGUI
 		const Dimension& minSize;
 		const Dimension& maxSize;
 
-		const SizeParam& dim() const { MYGUI_EXCEPT("Wrong templation!"); }
-		const SizeParam& minDim() const { MYGUI_EXCEPT("Wrong templation!"); }
-		const SizeParam& maxDim() const { MYGUI_EXCEPT("Wrong templation!"); } 
+		const SizeParam& dim() const
+		{
+			MYGUI_EXCEPT("Wrong templation!");
+		}
+		const SizeParam& minDim() const
+		{
+			MYGUI_EXCEPT("Wrong templation!");
+		}
+		const SizeParam& maxDim() const
+		{
+			MYGUI_EXCEPT("Wrong templation!");
+		}
 
 		WidgetParamWrap(const Dimension& _size, const Dimension& _minSize, const Dimension& _maxSize)
 			:	size(_size), minSize(_minSize), maxSize(_maxSize) {}
@@ -48,13 +57,13 @@ namespace MyGUI
 	class FlowContainer;
 	typedef FlowContainer* FlowContainerPtr;
 
-	enum 
+	enum
 	{
 		HORZ,
 		VERT
 	};
 
-	/** Flow container. Data stores from left to right. 
+	/** Flow container. Data stores from left to right.
 	Modes:
 	Break lines:
 	Wider: If there is no place for widget, set it next row.
@@ -73,11 +82,17 @@ namespace MyGUI
 
 		protected:
 
-			void setCurrentSize(const IntSize& _size) { mCurrentSize = _size; }
+			void setCurrentSize(const IntSize& _size)
+			{
+				mCurrentSize = _size;
+			}
 
 		public:
 			/// Notem it's not your proprty but it's real current sizes of widget.
-			IntSize getCurrentSize() const { return mCurrentSize; }
+			IntSize getCurrentSize() const
+			{
+				return mCurrentSize;
+			}
 
 			bool lineBreak;
 			//SizeDescription sizeDesc;
@@ -107,7 +122,7 @@ namespace MyGUI
 
 		enum WidgetTag
 		{
-			WT_ALL = (int)-1,
+			WT_ALL = (int) - 1,
 			WT_SPACER = MYGUI_FLAG(1),
 			WT_FREE = MYGUI_FLAG(2),
 			WT_PARENT = MYGUI_FLAG(3),
@@ -137,7 +152,7 @@ namespace MyGUI
 		{
 			IntPoint pos;
 			ListWidgetInfoIter first;
-			ListWidgetInfoIter last; // last non-space 
+			ListWidgetInfoIter last; // last non-space
 			ListWidgetInfoIter lineBreak;// which breaks
 			ListWidgetInfoIter next;
 			bool autoLineBreak;
@@ -155,7 +170,10 @@ namespace MyGUI
 		};
 
 	public:
-		bool isCoeff(float _coeff) const { return fabs(_coeff)> 0.00001; }
+		bool isCoeff(float _coeff) const
+		{
+			return fabs(_coeff) > 0.00001;
+		}
 
 		bool isSpacer(/*const */Widget* _widget) const;
 
@@ -170,7 +188,7 @@ namespace MyGUI
 			ListWidgetInfoIter last;
 		};
 
-	
+
 		float calcFlWidthSum(const RowData& _data, FloatMode _mode);
 
 		bool calcPxWidthSum(const RowData& _data, CalcRow& _calcRow, int _widgetTags);
@@ -187,7 +205,7 @@ namespace MyGUI
 		int getWidgetPxWidth(const RowData& _data, const WidgetInfo& _info);
 
 		int getWidgetPxHeight(const RowData& _data, const WidgetInfo& _info);
-	
+
 		float getWidgetFlWidth(const RowData& _data, const WidgetInfo& _info);
 
 		float getWidgetFlHeight(const RowData& _data, const WidgetInfo& _info);
@@ -205,7 +223,7 @@ namespace MyGUI
 		//IntSize getWidgetMinSize(const WidgetInfo& _info) const;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name);
 
 	public:
 
@@ -221,9 +239,9 @@ namespace MyGUI
 		void updateAllWidgetInfos();
 
 		void update();
-	
+
 	protected:
-		
+
 		ListWidgetInfo mWidgetsInfo;
 	};
 

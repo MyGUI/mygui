@@ -20,7 +20,10 @@ namespace demo
 		EnemyPanel();
 
 		bool isIntersect(int _x, int _y);
-		void setVisible(bool _value) { mMainWidget->setVisible(_value); }
+		void setVisible(bool _value)
+		{
+			mMainWidget->setVisible(_value);
+		}
 	};
 
 } // namespace demo

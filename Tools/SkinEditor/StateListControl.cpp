@@ -158,7 +158,7 @@ namespace tools
 			size_t indexSelected = MyGUI::ITEM_NONE;
 
 			size_t count = mPresets->getItemCount();
-			for (size_t index=0; index<count; ++index)
+			for (size_t index = 0; index < count; ++index)
 			{
 				PresetEnum preset = *mPresets->getItemDataAt<PresetEnum>(index);
 				if (preset == currentPreset)

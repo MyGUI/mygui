@@ -17,7 +17,7 @@ namespace demo
 	{
 		MyGUI::ItemBox* box = getItemBox();
 		size_t count = box->getItemCount();
-		for (size_t pos=0; pos<count; ++pos)
+		for (size_t pos = 0; pos < count; ++pos)
 		{
 			delete *box->getItemDataAt<ItemData*>(pos);
 		}

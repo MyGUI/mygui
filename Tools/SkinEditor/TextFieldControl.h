@@ -31,7 +31,7 @@ namespace tools
 		void setUserData(MyGUI::Any _data);
 
 		template <typename ValueType>
-		ValueType * getUserData(bool _throw = true)
+		ValueType* getUserData(bool _throw = true)
 		{
 			return mMainWidget->getUserData<ValueType>(_throw);
 		}

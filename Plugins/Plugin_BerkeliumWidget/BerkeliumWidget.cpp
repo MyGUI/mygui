@@ -90,7 +90,7 @@ namespace MyGUI
 			mWindow->navigateTo(_url.data(), _url.length());
 	}
 
-	void BerkeliumWidget::onPaint(Berkelium::Window *win, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect)
+	void BerkeliumWidget::onPaint(Berkelium::Window* win, const unsigned char* sourceBuffer, const Berkelium::Rect& rect, int dx, int dy, const Berkelium::Rect& scrollRect)
 	{
 		if (mWindow == nullptr)
 			return;

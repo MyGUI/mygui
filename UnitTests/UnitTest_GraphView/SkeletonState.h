@@ -103,7 +103,7 @@ namespace animation
 		}
 
 	private:
-		Ogre::AnimationState * mState;
+		Ogre::AnimationState* mState;
 		typedef std::pair<IAnimationNode*, std::string> PairIn;
 		typedef std::pair<std::string, PairIn> PairOut;
 		typedef std::vector<PairOut> VectorPairOut;

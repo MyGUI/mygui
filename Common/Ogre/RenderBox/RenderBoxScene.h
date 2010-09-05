@@ -46,13 +46,13 @@ namespace wraps
 			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
-		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position = Ogre::Vector3::ZERO, const Ogre::Quaternion & _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3 & _scale = Ogre::Vector3::UNIT_SCALE)
+		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3& _position = Ogre::Vector3::ZERO, const Ogre::Quaternion& _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3& _scale = Ogre::Vector3::UNIT_SCALE)
 		{
 			clearScene();
 
 			static size_t num = 0;
 			mEntity = mScene->createEntity(MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName);
-			Ogre::SceneNode * node = mNode->createChildSceneNode(_position, _orientation);
+			Ogre::SceneNode* node = mNode->createChildSceneNode(_position, _orientation);
 			node->attachObject(mEntity);
 
 			updateViewport();
@@ -105,7 +105,10 @@ namespace wraps
 		}
 
 		/** Get speed of entity rotation.*/
-		int getAutoRotationSpeed() { return mRotationSpeed; }
+		int getAutoRotationSpeed()
+		{
+			return mRotationSpeed;
+		}
 
 		/** Enable or disable auto rotation */
 		void setAutoRotation(bool _value)
@@ -143,7 +146,10 @@ namespace wraps
 		}
 
 		/** Get mouse rotation flag */
-		bool getMouseRotation() { return mMouseRotation; }
+		bool getMouseRotation()
+		{
+			return mMouseRotation;
+		}
 
 		virtual void setCanvas(MyGUI::Canvas* _value)
 		{
@@ -196,7 +202,7 @@ namespace wraps
 			{
 				if (mMouseRotation)
 				{
-					const MyGUI::IntPoint & point = MyGUI::InputManager::getInstance().getLastLeftPressed();
+					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastLeftPressed();
 					mLastPointerX = point.left;
 					mLeftPressed = true;
 				}
@@ -252,7 +258,7 @@ namespace wraps
 			// главный источник света
 			Ogre::Vector3 dir(-1, -1, 0.5);
 			dir.normalise();
-			Ogre::Light * light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
+			Ogre::Light* light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
 			light->setDirection(dir);
 
@@ -292,14 +298,14 @@ namespace wraps
 
 				Ogre::Vector3 vec = box.getSize();
 
-				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
+				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // самое длинное - диагональ (если крутить модель)
 				float len2 = width / mCamera->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1f, len1*0.2f);
+				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z / 2 + len1) + Ogre::Vector3(0, height * 0.1f, len1 * 0.2f);
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
 
 				mCameraNode->setPosition(result);

@@ -61,7 +61,7 @@ namespace tools
 
 	Property* PropertySet::getChild(const MyGUI::UString& _name) const
 	{
-		for (VectorProperty::const_iterator item=mChilds.begin(); item!=mChilds.end(); ++item)
+		for (VectorProperty::const_iterator item = mChilds.begin(); item != mChilds.end(); ++item)
 		{
 			if ((*item)->getName() == _name)
 				return *item;

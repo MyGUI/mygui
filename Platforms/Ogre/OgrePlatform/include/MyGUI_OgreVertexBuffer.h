@@ -35,7 +35,10 @@ namespace MyGUI
 		virtual Vertex* lock();
 		virtual void unlock();
 
-		Ogre::RenderOperation* getRenderOperation() { return &mRenderOperation; }
+		Ogre::RenderOperation* getRenderOperation()
+		{
+			return &mRenderOperation;
+		}
 
 	private:
 		void createVertexBuffer();

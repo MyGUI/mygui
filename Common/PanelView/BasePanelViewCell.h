@@ -35,7 +35,7 @@ namespace wraps
 		{
 		}
 
-		void setCaption(const MyGUI::UString & _caption)
+		void setCaption(const MyGUI::UString& _caption)
 		{
 			if (mTextCaption)
 				mTextCaption->setCaption(_caption);

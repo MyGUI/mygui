@@ -13,7 +13,7 @@ namespace input
 {
 
 	// указатель на менеджер, куда транслируютьс€ сообщени€
-	InputManager * InputManager::msInputManager = 0;
+	InputManager* InputManager::msInputManager = 0;
 
 	// стара€ процедура, которую мы заменили
 	LRESULT InputManager::msOldWindowProc = NULL;
@@ -67,78 +67,78 @@ namespace input
 		{
 			switch (uMsg)
 			{
-				case WM_MOUSEMOVE:
-					{
-						int x = GET_LOWORD(lParam);
-						int y = GET_HIWORD(lParam);
+			case WM_MOUSEMOVE:
+			{
+				int x = GET_LOWORD(lParam);
+				int y = GET_HIWORD(lParam);
 
-						if (x < 0) x = 0;
-						else if (x > msInputManager->mWidth) x = msInputManager->mWidth;
-						if (y < 0) y = 0;
-						else if (y > msInputManager->mHeight) y = msInputManager->mHeight;
+				if (x < 0) x = 0;
+				else if (x > msInputManager->mWidth) x = msInputManager->mWidth;
+				if (y < 0) y = 0;
+				else if (y > msInputManager->mHeight) y = msInputManager->mHeight;
 
-						old_x = x;
-						old_y = y;
+				old_x = x;
+				old_y = y;
 
-						if (msSkipMove)
-							msSkipMove = false;
-						else
-							msInputManager->injectMouseMove(old_x, old_y, old_z);
-					}
-					break;
-
-				case WM_MOUSEWHEEL:
-					old_z += GET_HIWORD(wParam);
+				if (msSkipMove)
+					msSkipMove = false;
+				else
 					msInputManager->injectMouseMove(old_x, old_y, old_z);
-					break;
+			}
+			break;
 
-				case WM_LBUTTONDOWN:
-					left_button = true;
-					if (!right_button)
-						::SetCapture(hWnd);
-					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
-					break;
+			case WM_MOUSEWHEEL:
+				old_z += GET_HIWORD(wParam);
+				msInputManager->injectMouseMove(old_x, old_y, old_z);
+				break;
 
-				case WM_LBUTTONDBLCLK:
-					left_button = true;
-					if (!right_button)
-						::SetCapture(hWnd);
-					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
-					break;
+			case WM_LBUTTONDOWN:
+				left_button = true;
+				if (!right_button)
+					::SetCapture(hWnd);
+				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
+				break;
 
-				case WM_RBUTTONDOWN:
-					right_button = true;
-					if (!left_button)
-						::SetCapture(hWnd);
-					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
-					break;
+			case WM_LBUTTONDBLCLK:
+				left_button = true;
+				if (!right_button)
+					::SetCapture(hWnd);
+				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
+				break;
 
-				case WM_RBUTTONDBLCLK:
-					right_button = true;
-					if (!left_button)
-						::SetCapture(hWnd);
-					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
-					break;
+			case WM_RBUTTONDOWN:
+				right_button = true;
+				if (!left_button)
+					::SetCapture(hWnd);
+				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
+				break;
 
-				case WM_MBUTTONDOWN:
-					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Middle);
-					break;
+			case WM_RBUTTONDBLCLK:
+				right_button = true;
+				if (!left_button)
+					::SetCapture(hWnd);
+				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
+				break;
 
-				case WM_LBUTTONUP:
-					msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Left);
-					left_button = false;
-					if (!right_button)
-						::SetCapture(0);
-					break;
-				case WM_RBUTTONUP:
-					right_button = false;
-					if (!left_button)
-						::SetCapture(0);
-					msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Right);
-					break;
-				case WM_MBUTTONUP:
-					msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Middle);
-					break;
+			case WM_MBUTTONDOWN:
+				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Middle);
+				break;
+
+			case WM_LBUTTONUP:
+				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Left);
+				left_button = false;
+				if (!right_button)
+					::SetCapture(0);
+				break;
+			case WM_RBUTTONUP:
+				right_button = false;
+				if (!left_button)
+					::SetCapture(0);
+				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Right);
+				break;
+			case WM_MBUTTONUP:
+				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Middle);
+				break;
 			}
 		}
 
@@ -226,7 +226,7 @@ namespace input
 	{
 		POINT point = { _x, _y };
 		::ClientToScreen(mHwnd, &point);
-		
+
 		msSkipMove = true;
 		::SetCursorPos(point.x, point.y);
 	}

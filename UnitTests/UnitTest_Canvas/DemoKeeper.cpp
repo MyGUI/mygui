@@ -40,7 +40,7 @@ namespace demo
 				&& isConnectionTypeSimple(_from->getConnectionType()) == isConnectionTypeSimple(_to->getConnectionType())
 				&& isConnectionOut(_from->getConnectionType()) && !isConnectionOut(_to->getConnectionType())
 				&& !_sender->isConnecting(_from, _to)
-				)
+			)
 			{
 				_result = true;
 			}
@@ -78,15 +78,15 @@ namespace demo
 		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
 		mGraphView->eventChangeSize = MyGUI::newDelegate(this, &DemoKeeper::eventChangeSize);
 
-		GraphNodeSimple * node1 = new GraphNodeSimple("Node1");
+		GraphNodeSimple* node1 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node1);
 		node1->setPosition(10, 10);
 
-		GraphNodeSimple * node2 = new GraphNodeSimple("Node2");
+		GraphNodeSimple* node2 = new GraphNodeSimple("Node2");
 		mGraphView->addItem(node2);
 		node2->setPosition(230, 70);
 
-		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
+		GraphNodeSimple* node3 = new GraphNodeSimple("Node3");
 		mGraphView->addItem(node3);
 		node3->setPosition(450, 10);
 	}

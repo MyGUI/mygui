@@ -17,7 +17,7 @@ namespace wraps
 	{
 	public:
 		ContextMenu(const std::string& _layout) :
-	  		BaseLayout(_layout, nullptr)
+			BaseLayout(_layout, nullptr)
 		{
 			assignWidget(mMenu, "_Main");
 			mMenu->setVisible(false);
