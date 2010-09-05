@@ -15,11 +15,11 @@
 #ifdef MMYGUI_USING_EXTERNAL_TYPE
 // неймспейс внешних типов
 #    define MMYGUI_EXTERNAL_NAMESPACE
-#else 
+#else
 // неймспейс внешних типов
 #    define MMYGUI_EXTERNAL_NAMESPACE
 #endif
 
-	//------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------//
 #define MMYGUI_CHECK_NATIVE(ptr) \
 	if (ptr == nullptr) throw gcnew System::NullReferenceException();

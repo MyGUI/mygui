@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
 			}
-			virtual bool Equals(IntCoord other) { return *this == other; }
-			static bool operator != ( IntCoord lvalue, IntCoord rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(IntCoord other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( IntCoord lvalue, IntCoord rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,19 +47,34 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::IntCoord&>
 		{
 			typedef IntCoord Type;
-			inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-			inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+			inline static const IntCoord& To(const MyGUI::IntCoord& _value)
+			{
+				return reinterpret_cast<const IntCoord&>(_value);
+			}
+			inline static MyGUI::IntCoord& From(IntCoord& _value)
+			{
+				return reinterpret_cast<MyGUI::IntCoord&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::IntCoord>
 		{
 			typedef IntCoord Type;
-			inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-			inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+			inline static const IntCoord& To(const MyGUI::IntCoord& _value)
+			{
+				return reinterpret_cast<const IntCoord&>(_value);
+			}
+			inline static MyGUI::IntCoord& From(IntCoord& _value)
+			{
+				return reinterpret_cast<MyGUI::IntCoord&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::IntCoord&>
 		{
-			typedef IntCoord%Type;
-			inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
+			typedef IntCoord % Type;
+			inline static IntCoord % To(MyGUI::IntCoord& _value)
+			{
+				return reinterpret_cast<IntCoord&>(_value);
+			}
 		};
 
 	} // namespace Managed

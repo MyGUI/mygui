@@ -24,9 +24,9 @@ namespace MyGUI
 			Gui() : GuiFactory() { }
 
 		public:
-			static property Gui^ Instance
+			static property Gui ^ Instance
 			{
-				Gui^ get( )
+				Gui ^ get( )
 				{
 					if (mGui == nullptr)
 					{
@@ -45,37 +45,37 @@ namespace MyGUI
 			}
 
 		public:
-			void DebugOut(System::String^ _line)
+			void DebugOut(System::String ^ _line)
 			{
 				MYGUI_OUT( Convert<const std::string&>::From(_line) );
 			}
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
-			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			WidgetType CreateWidget(System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
+				BaseWidget ^ child = (BaseWidget ^ )(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return (WidgetType)child;
 			}
 
 			generic <typename WidgetType> where WidgetType : ref class
-			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer)
+			WidgetType CreateWidget(System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
+				BaseWidget ^ child = (BaseWidget ^ )(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), "");
 				return (WidgetType)child;
 			}
 
-			BaseWidget^ CreateWidgetT(System::Type^ _type, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			BaseWidget ^ CreateWidgetT(System::Type ^ _type, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 			{
-				System::Reflection::ConstructorInfo^ ci = _type->GetConstructor(gcnew cli::array<System::Type^>(0));
-				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
+				System::Reflection::ConstructorInfo ^ ci = _type->GetConstructor(gcnew cli::array < System::Type ^ > (0));
+				BaseWidget ^ child = (BaseWidget ^ )ci->Invoke(nullptr);
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return child;
 			}
 
-			Widget^ CreateWidgetT(BaseWidget^ _parent, WidgetStyle _style, System::String^ _type, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			Widget ^ CreateWidgetT(BaseWidget ^ _parent, WidgetStyle _style, System::String ^ _type, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 			{
 				return CreateWidget(
 					_parent,
@@ -86,53 +86,53 @@ namespace MyGUI
 					Convert<MyGUI::Align>::From(_align),
 					Convert<const std::string&>::From(_layer),
 					Convert<const std::string&>::From(_name)
-					);
+				);
 			}
 
-			void DestroyWidget(Widget^ _widget)
+			void DestroyWidget(Widget ^ _widget)
 			{
 				delete _widget;
 				_widget = nullptr;
 			}
 
 		public:
-			void LoadResource(System::String^ _source)
+			void LoadResource(System::String ^ _source)
 			{
 				mGui->load( Convert< const std::string& >::From(_source) );
 			}
 
 		public:
-			void SetProperty(Widget^ _widget, System::String^ _key, System::String^ _value)
+			void SetProperty(Widget ^ _widget, System::String ^ _key, System::String ^ _value)
 			{
 				_widget->GetNativePtr()->setProperty
-					(
+				(
 					Convert<const std::string&>::From(_key),
 					Convert<const std::string&>::From(_value)
-					);
+				);
 			}
 
 		public:
-			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file)
+			System::Collections::Generic::List < Widget ^ > ^ LoadLayout(System::String ^ _file)
 			{
 				return LoadLayout(_file, nullptr, "");
 			}
 
 		public:
-			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, Widget^ _parent)
+			System::Collections::Generic::List < Widget ^ > ^ LoadLayout(System::String ^ _file, Widget ^ _parent)
 			{
 				return LoadLayout(_file, _parent, "");
 			}
 
 		public:
-			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, System::String^ _prefix)
+			System::Collections::Generic::List < Widget ^ > ^ LoadLayout(System::String ^ _file, System::String ^ _prefix)
 			{
 				return LoadLayout(_file, nullptr, _prefix);
 			}
 
 		public:
-			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, Widget^ _parent, System::String^ _prefix)
+			System::Collections::Generic::List < Widget ^ > ^ LoadLayout(System::String ^ _file, Widget ^ _parent, System::String ^ _prefix)
 			{
-				System::Collections::Generic::List<Widget^>^ widgets = gcnew System::Collections::Generic::List<Widget^>();
+				System::Collections::Generic::List < Widget ^ > ^ widgets = gcnew System::Collections::Generic::List < Widget ^ > ();
 
 				const std::string& file = string_utility::managed_to_utf8(_file);
 				const std::string& prefix = string_utility::managed_to_utf8(_prefix);
@@ -160,7 +160,7 @@ namespace MyGUI
 				MyGUI::Version version = MyGUI::Version::parse(root->findAttribute("version"));
 
 				MyGUI::xml::ElementEnumerator widgets_array = root->getElementEnumerator();
-				while(widgets_array.next("Widget"))
+				while (widgets_array.next("Widget"))
 				{
 					ParseWidget(widgets_array.current(), version, widgets, _parent, prefix, true);
 				}
@@ -168,9 +168,9 @@ namespace MyGUI
 				return widgets;
 			}
 
-			void UnloadLayout(System::Collections::Generic::List<Widget^>^ _list)
+			void UnloadLayout(System::Collections::Generic::List < Widget ^ > ^ _list)
 			{
-				for (int index=0; index<_list->Count; ++index)
+				for (int index = 0; index < _list->Count; ++index)
 				{
 					delete _list[index];
 				}
@@ -178,26 +178,26 @@ namespace MyGUI
 			}
 
 		public:
-			Widget^ FindWidgetT(const std::string& _name)
+			Widget ^ FindWidgetT(const std::string& _name)
 			{
 				return FindWidgetT(_name, true);
 			}
 
-			Widget^ FindWidgetT(const std::string& _name, bool _throw)
+			Widget ^ FindWidgetT(const std::string& _name, bool _throw)
 			{
-				return Convert< MyGUI::Widget * >::To( mGui->findWidgetT(_name, _throw) );
+				return Convert< MyGUI::Widget* >::To( mGui->findWidgetT(_name, _throw) );
 			}
 
-			Widget^ FindWidgetT(const std::string& _name, const std::string& _prefix)
+			Widget ^ FindWidgetT(const std::string& _name, const std::string& _prefix)
 			{
 				return FindWidgetT(_prefix + _name, true);
 			}
 
-			Widget^ FindWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+			Widget ^ FindWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
 			{
 				return FindWidgetT(_prefix + _name, _throw);
 			}
-			
+
 			generic <typename WidgetType> where WidgetType : ref class
 			WidgetType FindWidgetT(const std::string& _name)
 			{
@@ -207,7 +207,7 @@ namespace MyGUI
 			generic <typename WidgetType> where WidgetType : ref class
 			WidgetType FindWidgetT(const std::string& _name, bool _throw)
 			{
-				Widget^ widget = FindWidgetT(_name, _throw);
+				Widget ^ widget = FindWidgetT(_name, _throw);
 				if (widget == nullptr) return (WidgetType)widget;
 				if (_throw && (nullptr == cli::safe_cast<WidgetType>(widget))) throw gcnew System::Exception("error cast widget type");
 				return (WidgetType)widget;
@@ -226,26 +226,26 @@ namespace MyGUI
 			}
 
 		public:
-			delegate void HandleParserUserData( Widget^ _widget, System::String^ _key, System::String^ _value );
-			event HandleParserUserData^ EventParserUserData
+			delegate void HandleParserUserData( Widget ^ _widget, System::String ^ _key, System::String ^ _value );
+			event HandleParserUserData ^ EventParserUserData
 			{
-				void add(HandleParserUserData^ _value)
+				void add(HandleParserUserData ^ _value)
 				{
 					mDelegateParserUserData += _value;
 				}
-				void remove(HandleParserUserData^ _value)
+				void remove(HandleParserUserData ^ _value)
 				{
 					mDelegateParserUserData -= _value;
 				}
 			}
 		private:
-			HandleParserUserData^ mDelegateParserUserData;
+			HandleParserUserData ^ mDelegateParserUserData;
 
 		private:
 			void ParseWidget(
 				MyGUI::xml::ElementPtr _widget,
-				MyGUI::Version _version, System::Collections::Generic::List<Widget^>^ _widgets,
-				Widget^ _parent,
+				MyGUI::Version _version, System::Collections::Generic::List < Widget ^ > ^ _widgets,
+				Widget ^ _parent,
 				const std::string& _prefix, bool _root)
 			{
 				// парсим атрибуты виджета
@@ -274,7 +274,7 @@ namespace MyGUI
 
 				if (!name.empty()) name = _prefix + name;
 
-				Widget^ wid = nullptr;
+				Widget ^ wid = nullptr;
 				if (nullptr == _parent)
 					wid = CreateWidget(_parent, MyGUI::WidgetStyle::Overlapped, type, skin, coord, align, layer, name);
 				else
@@ -315,8 +315,8 @@ namespace MyGUI
 			}
 
 		private:
-			static Gui^ m_instance = gcnew Gui();
-			static MyGUI::Gui * mGui = nullptr;
+			static Gui ^ m_instance = gcnew Gui();
+			static MyGUI::Gui* mGui = nullptr;
 		};
 
 	} // namespace Managed

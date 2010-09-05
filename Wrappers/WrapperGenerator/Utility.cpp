@@ -44,7 +44,7 @@ namespace wrapper
 		std::string line(_data);
 
 		std::string::iterator end = line.end();
-		for (std::string::iterator iter=line.begin(); iter!=end; )
+		for (std::string::iterator iter = line.begin(); iter != end; )
 		{
 			if (*iter == '#')
 			{
@@ -64,7 +64,7 @@ namespace wrapper
 					++iter2;
 					while (true)
 					{
-						if (iter2 == end) 
+						if (iter2 == end)
 						{
 							return line;
 						}
@@ -85,7 +85,7 @@ namespace wrapper
 								iter = line.begin() + pos + replace->second.length();
 							}
 							end = line.end();
-							if (iter == end) 
+							if (iter == end)
 							{
 								return line;
 							}
@@ -151,7 +151,8 @@ namespace wrapper
 			}
 		}
 
-		if (element == nullptr) {
+		if (element == nullptr)
+		{
 			std::cout << "'" << _member << "' not found in '" << _compound << "'" << std::endl;
 			return nullptr;
 		}
@@ -183,7 +184,7 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом
 	//--------------------------------------------------------------------------------------//
-	std::string getTypedef(const std::string& _type, Compound * _root)
+	std::string getTypedef(const std::string& _type, Compound* _root)
 	{
 		TypeInfo type(_type);
 
@@ -199,7 +200,7 @@ namespace wrapper
 				if (enumerator2->getKind() != "typedef" ||
 					enumerator2->getName() != type.getType()) continue;
 
-				Member * member = getByRef(enumerator->getId(), enumerator2->getId());
+				Member* member = getByRef(enumerator->getId(), enumerator2->getId());
 				type.setOnlyType(correctPlatformType(enumerator->getName(), member->getType()));
 				delete member;
 				member = 0;
@@ -214,7 +215,7 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, если они наход€тс€ в неймспейсе
 	//--------------------------------------------------------------------------------------//
-	std::string getTypeNamespace(const std::string& _type, Compound * _root, const std::string& _namespace)
+	std::string getTypeNamespace(const std::string& _type, Compound* _root, const std::string& _namespace)
 	{
 		TypeInfo type(_type);
 		type.setOnlyType(_namespace + "::" + type.getType());
@@ -233,7 +234,7 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом или в наход€тс€ в неймспейсе
 	//--------------------------------------------------------------------------------------//
-	std::string getFullDefinition(const std::string& _type, Compound * _root, const std::string& _namespace)
+	std::string getFullDefinition(const std::string& _type, Compound* _root, const std::string& _namespace)
 	{
 		std::string type = getTypedef(_type, _root);
 		if (type == _type)
@@ -249,8 +250,9 @@ namespace wrapper
 			std::string inner_type = type.substr(start + 1, end - start - 1);
 			std::vector<std::string> inner_types = utility::split(inner_type, ",");
 			size_t count = inner_types.size();
-			if (count != 0) {
-				for (size_t index=0; index<count; ++index)
+			if (count != 0)
+			{
+				for (size_t index = 0; index < count; ++index)
 				{
 					utility::trim(inner_types[index]);
 					inner_types[index] = " " + getFullDefinition(inner_types[index], _root, _namespace) + " ";
@@ -263,7 +265,7 @@ namespace wrapper
 				else
 				{
 					inner_type.clear();
-					for (size_t index=0; index<count-1; ++index)
+					for (size_t index = 0; index < count - 1; ++index)
 					{
 						inner_type += inner_types[index] + " , ";
 					}
@@ -287,7 +289,7 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает информацию по типу и по имени
 	//--------------------------------------------------------------------------------------//
-	Compound* getCompound(const std::string& _kind, const std::string& _name, Compound * _root)
+	Compound* getCompound(const std::string& _kind, const std::string& _name, Compound* _root)
 	{
 		Compound::Enumerator enumerator = _root->getEnumerator();
 		while (enumerator.next())
@@ -307,7 +309,7 @@ namespace wrapper
 		size_t cov = 0;
 		size_t start = 0;
 
-		for (size_t index=0; index<_name.size(); ++index)
+		for (size_t index = 0; index < _name.size(); ++index)
 		{
 			if (_name[index] == '<')
 			{

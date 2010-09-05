@@ -56,8 +56,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::MessageBoxStyle>
 		{
 			typedef MessageBoxStyle Type;
-			inline static const MessageBoxStyle& To(const MyGUI::MessageBoxStyle& _value) { return reinterpret_cast<const MessageBoxStyle&>(_value); }
-			inline static MyGUI::MessageBoxStyle& From(MessageBoxStyle& _value) { return reinterpret_cast<MyGUI::MessageBoxStyle&>(_value); }
+			inline static const MessageBoxStyle& To(const MyGUI::MessageBoxStyle& _value)
+			{
+				return reinterpret_cast<const MessageBoxStyle&>(_value);
+			}
+			inline static MyGUI::MessageBoxStyle& From(MessageBoxStyle& _value)
+			{
+				return reinterpret_cast<MyGUI::MessageBoxStyle&>(_value);
+			}
 		};
 
 	} // namespace Managed

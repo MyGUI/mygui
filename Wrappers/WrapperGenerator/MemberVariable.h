@@ -57,7 +57,7 @@ namespace wrapper
 		{
 		}
 
-		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type)
+		virtual void insertToTemplate(const std::string& _template, ITypeHolder* _holder, const std::string& _type)
 		{
 			if ( ! isNeedInsert() ) return;
 
@@ -67,13 +67,15 @@ namespace wrapper
 			std::string filename = _template;
 			std::ifstream infile;
 			infile.open(filename.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << filename << std::endl;
 				return;
 			}
 
 			std::string read;
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				file_data.push_back(read);
 			}
@@ -82,16 +84,19 @@ namespace wrapper
 			// теперь все записываем
 			std::ofstream outfile;
 			outfile.open(filename.c_str());
-			if ( ! outfile.is_open() ) {
+			if ( ! outfile.is_open() )
+			{
 				std::cout << "error open file " << filename << std::endl;
 				return;
 			}
 
-			for (VectorString::iterator item = file_data.begin(); item!=file_data.end(); ++item) {
+			for (VectorString::iterator item = file_data.begin(); item != file_data.end(); ++item)
+			{
 				if (item != file_data.begin()) outfile << "\n";
 				outfile << *item;
 
-				if (item->find("//InsertPoint") != std::string::npos) {
+				if (item->find("//InsertPoint") != std::string::npos)
+				{
 					outfile << std::endl << std::endl;
 					insert(outfile, _holder, _type);
 				}
@@ -107,7 +112,7 @@ namespace wrapper
 			return ! mProtection;
 		}
 
-		void removePair(std::string & _name)
+		void removePair(std::string& _name)
 		{
 			if ( ! first(_name, "EventPair") ) return;
 
@@ -127,7 +132,7 @@ namespace wrapper
 			}
 		}
 
-		void insert(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
+		void insert(std::ofstream& _stream, ITypeHolder* _holder, const std::string& _type)
 		{
 			removePair(mType);
 
@@ -142,11 +147,11 @@ namespace wrapper
 				std::string inner_type = type.substr(start + 1, end - start - 1);
 				std::vector<std::string> inner_types = split_params(inner_type);
 				size_t count = inner_types.size();
-				for (size_t index=0; index<count; ++index)
+				for (size_t index = 0; index < count; ++index)
 				{
 					utility::trim(inner_types[index]);
 					params.push_back( PairString( inner_types[index],
-						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : utility::toString("_value", index+1)
+						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : utility::toString("_value", index + 1)
 						));
 				}
 			}
@@ -156,7 +161,7 @@ namespace wrapper
 			}
 
 			const std::string prefix = "MyGUI::delegates::CDelegate";
-			if (type.size() < prefix.size()+1 || type.substr(0, prefix.size()+1) != utility::toString(prefix, params.size()))
+			if (type.size() < prefix.size() + 1 || type.substr(0, prefix.size() + 1) != utility::toString(prefix, params.size()))
 			{
 				return;
 			}
@@ -182,7 +187,7 @@ namespace wrapper
 				prefix_event = false;
 				event_name = event_name.substr(prefix2.size());
 			}
-			
+
 
 			std::string templ = _holder->getMemberData(mName);
 			if (templ.empty()) templ = utility::toString("Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
@@ -191,14 +196,14 @@ namespace wrapper
 
 			addTag("DelegateName", event_name);
 
-			for (size_t index=0; index<params.size(); ++index)
+			for (size_t index = 0; index < params.size(); ++index)
 			{
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(params[index].first));
 				addTag(utility::toString("ValueName", index + 1), params[index].second);
 
 				// теперь вставляем теги замены типов указанные в xml
 				const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(params[index].first);
-				for(size_t index2=0; index2<info.size(); ++index2)
+				for (size_t index2 = 0; index2 < info.size(); ++index2)
 				{
 					addTag(utility::toString(info[index2].first, index + 1), info[index2].second);
 				}
@@ -208,12 +213,14 @@ namespace wrapper
 			std::string data, read;
 			std::ifstream infile;
 			infile.open(template_name.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << template_name << std::endl;
 				return;
 			}
 
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				data += read + "\n";
 			}
@@ -221,8 +228,10 @@ namespace wrapper
 			infile.close();
 
 			// утф заголовки
-			if (data.size() > 3) {
-				if (data[2] < 32) {
+			if (data.size() > 3)
+			{
+				if (data[2] < 32)
+				{
 					data[0] = ' ';
 					data[1] = ' ';
 					data[2] = ' ';
@@ -236,9 +245,9 @@ namespace wrapper
 			std::cout << (prefix_event ? "event  : " : "request  : ")  << event_name << "    '" << template_name << "'" << std::endl;
 		}
 
-		private:
-			bool mProtection;
-			VectorString mFindParamsName;
+	private:
+		bool mProtection;
+		VectorString mFindParamsName;
 	};
 
 } // namespace wrapper

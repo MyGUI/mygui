@@ -20,9 +20,12 @@ namespace MyGUI
 			WidgetHolder() : object() { }
 			WidgetHolder(BaseWidget ^ _obj) : object(_obj) { }
 			~WidgetHolder() { }
-			BaseWidget ^ toObject() { return object; }
+			BaseWidget ^ toObject()
+			{
+				return object;
+			}
 		private:
-			gcroot<BaseWidget^> object;
+			gcroot < BaseWidget ^ > object;
 		};
 
 	} // namespace Managed

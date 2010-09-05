@@ -43,8 +43,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::MouseButton>
 		{
 			typedef MouseButton Type;
-			inline static const MouseButton& To(const MyGUI::MouseButton& _value) { return reinterpret_cast<const MouseButton&>(_value); }
-			inline static MyGUI::MouseButton& From(MouseButton& _value) { return reinterpret_cast<MyGUI::MouseButton&>(_value); }
+			inline static const MouseButton& To(const MyGUI::MouseButton& _value)
+			{
+				return reinterpret_cast<const MouseButton&>(_value);
+			}
+			inline static MyGUI::MouseButton& From(MouseButton& _value)
+			{
+				return reinterpret_cast<MyGUI::MouseButton&>(_value);
+			}
 		};
 
 	} // namespace Managed

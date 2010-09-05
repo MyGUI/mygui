@@ -18,21 +18,21 @@ namespace Export
 		return MyGUI::InputManager::getInstance().isFocusMouse();
 	}
 
-	MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportInputManager_GetKeyFocusWidget( )
+	MYGUIEXPORT Convert<MyGUI::Widget*>::Type MYGUICALL ExportInputManager_GetKeyFocusWidget( )
 	{
-		return Convert<MyGUI::Widget *>::To( MyGUI::InputManager::getInstance().getKeyFocusWidget() );
+		return Convert<MyGUI::Widget*>::To( MyGUI::InputManager::getInstance().getKeyFocusWidget() );
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportInputManager_SetKeyFocusWidget(
-		MyGUI::Widget * _widget )
+		MyGUI::Widget* _widget )
 	{
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(
 			_widget );
 	}
 
-	MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportInputManager_GetMouseFocusWidget( )
+	MYGUIEXPORT Convert<MyGUI::Widget*>::Type MYGUICALL ExportInputManager_GetMouseFocusWidget( )
 	{
-		return Convert<MyGUI::Widget *>::To( MyGUI::InputManager::getInstance().getMouseFocusWidget() );
+		return Convert<MyGUI::Widget*>::To( MyGUI::InputManager::getInstance().getMouseFocusWidget() );
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportInputManager_ResetKeyFocusWidget( )
@@ -57,7 +57,7 @@ namespace Export
 	MYGUIEXPORT bool MYGUICALL ExportInputManager_InjectKeyPress(
 		Convert<MyGUI::KeyCode>::Type _key,
 		Convert<MyGUI::Char>::Type _char
-		)
+	)
 	{
 		return MyGUI::InputManager::getInstance().injectKeyPress(
 			Convert<MyGUI::KeyCode>::From( _key ),
@@ -67,7 +67,7 @@ namespace Export
 
 	MYGUIEXPORT bool MYGUICALL ExportInputManager_InjectKeyRelease(
 		Convert<MyGUI::KeyCode>::Type _key
-		)
+	)
 	{
 		return MyGUI::InputManager::getInstance().injectKeyRelease(
 			Convert<MyGUI::KeyCode>::From( _key )
@@ -78,7 +78,7 @@ namespace Export
 		int _absX,
 		int _absY,
 		Convert<MyGUI::MouseButton>::Type _button
-		)
+	)
 	{
 		return MyGUI::InputManager::getInstance().injectMousePress(
 			_absX,
@@ -91,7 +91,7 @@ namespace Export
 		int _absX,
 		int _absY,
 		Convert<MyGUI::MouseButton>::Type _button
-		)
+	)
 	{
 		return MyGUI::InputManager::getInstance().injectMouseRelease(
 			_absX,
@@ -104,7 +104,7 @@ namespace Export
 		int _absX,
 		int _absY,
 		int _absZ
-		)
+	)
 	{
 		return MyGUI::InputManager::getInstance().injectMouseMove(
 			_absX,

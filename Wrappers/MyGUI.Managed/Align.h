@@ -40,8 +40,14 @@ namespace MyGUI
 		template <> struct Convert<MyGUI::Align>
 		{
 			typedef Align Type;
-			inline static const Align& To(const MyGUI::Align& _value) { return reinterpret_cast<const Align&>(_value); }
-			inline static MyGUI::Align& From(Align& _value) { return reinterpret_cast<MyGUI::Align&>(_value); }
+			inline static const Align& To(const MyGUI::Align& _value)
+			{
+				return reinterpret_cast<const Align&>(_value);
+			}
+			inline static MyGUI::Align& From(Align& _value)
+			{
+				return reinterpret_cast<MyGUI::Align&>(_value);
+			}
 		};
 
 	} // namespace Managed

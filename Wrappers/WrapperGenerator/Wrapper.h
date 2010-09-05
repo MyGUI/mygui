@@ -38,7 +38,7 @@ namespace wrapper
 
 			result += getCustomParamPrefix(_template, utility::trim_result(getFullDefinition(_rettype, mRoot, _namespace)), 0);
 
-			for (size_t index=0; index<_params.size(); ++index)
+			for (size_t index = 0; index < _params.size(); ++index)
 			{
 				result += getCustomParamPrefix(_template, utility::trim_result(getFullDefinition(_params[index].type, mRoot, _namespace)), index + 1);
 			}
@@ -55,7 +55,7 @@ namespace wrapper
 				std::cout << doc.getLastError() << std::endl;
 				return false;
 			}
-		
+
 			xml::ElementEnumerator child_item = doc.getRoot()->getElementEnumerator();
 			while (child_item.next())
 			{
@@ -114,12 +114,12 @@ namespace wrapper
 		void wrap()
 		{
 			// очищаем шаблоны для добавления
-			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
+			for (VectorClassAttribute::iterator item = mClassAttribute.begin(); item != mClassAttribute.end(); ++item)
 			{
 				(*item).initialise(mRoot, this);
 			}
 
-			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
+			for (VectorClassAttribute::iterator item = mClassAttribute.begin(); item != mClassAttribute.end(); ++item)
 			{
 				(*item).wrap();
 			}
@@ -135,7 +135,7 @@ namespace wrapper
 			const CustomTypeInfo& info = type->second.custom;
 
 			bool find = false;
-			for (VectorString::const_iterator iter=info.templates.begin(); iter!=info.templates.end(); ++iter)
+			for (VectorString::const_iterator iter = info.templates.begin(); iter != info.templates.end(); ++iter)
 			{
 				if ((*iter) == _template)
 				{
@@ -146,7 +146,7 @@ namespace wrapper
 
 			if (!find) return result;
 
-			for (VectorSizeT::const_iterator iter=info.params.begin(); iter!=info.params.end(); ++iter)
+			for (VectorSizeT::const_iterator iter = info.params.begin(); iter != info.params.end(); ++iter)
 			{
 				if ((*iter) == _num)
 				{
@@ -159,7 +159,7 @@ namespace wrapper
 		}
 
 	private:
-		Compound * mRoot;
+		Compound* mRoot;
 		VectorClassAttribute mClassAttribute;
 		MapTypeInfo mPairTypeInfo;
 

@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.right == rvalue.right && lvalue.bottom == rvalue.bottom );
 			}
-			virtual bool Equals(FloatRect other) { return *this == other; }
-			static bool operator != ( FloatRect lvalue, FloatRect rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(FloatRect other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( FloatRect lvalue, FloatRect rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,19 +47,34 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::FloatRect&>
 		{
 			typedef FloatRect Type;
-			inline static const FloatRect& To(const MyGUI::FloatRect& _value) { return reinterpret_cast<const FloatRect&>(_value); }
-			inline static MyGUI::FloatRect& From(FloatRect& _value) { return reinterpret_cast<MyGUI::FloatRect&>(_value); }
+			inline static const FloatRect& To(const MyGUI::FloatRect& _value)
+			{
+				return reinterpret_cast<const FloatRect&>(_value);
+			}
+			inline static MyGUI::FloatRect& From(FloatRect& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatRect&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::FloatRect>
 		{
 			typedef FloatRect Type;
-			inline static const FloatRect& To(const MyGUI::FloatRect& _value) { return reinterpret_cast<const FloatRect&>(_value); }
-			inline static MyGUI::FloatRect& From(FloatRect& _value) { return reinterpret_cast<MyGUI::FloatRect&>(_value); }
+			inline static const FloatRect& To(const MyGUI::FloatRect& _value)
+			{
+				return reinterpret_cast<const FloatRect&>(_value);
+			}
+			inline static MyGUI::FloatRect& From(FloatRect& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatRect&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::FloatRect&>
 		{
-			typedef FloatRect%Type;
-			inline static FloatRect% To(MyGUI::FloatRect& _value) { return reinterpret_cast<FloatRect&>(_value); }
+			typedef FloatRect % Type;
+			inline static FloatRect % To(MyGUI::FloatRect& _value)
+			{
+				return reinterpret_cast<FloatRect&>(_value);
+			}
 		};
 
 	} // namespace Managed

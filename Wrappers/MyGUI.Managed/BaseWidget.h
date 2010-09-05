@@ -58,9 +58,10 @@ namespace MyGUI
 			}
 
 		internal:
-			void CreateWidget( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
+			void CreateWidget( BaseWidget ^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
-				if (_parent == nullptr) {
+				if (_parent == nullptr)
+				{
 					mNative = MyGUI::Gui::getInstance().createWidgetT(
 						getClassTypeName(),
 						_skin,
@@ -88,19 +89,20 @@ namespace MyGUI
 
 			void DestroyChilds()
 			{
-				while (mChilds.Count > 0) {
-					BaseWidget^ child = mChilds[0];
+				while (mChilds.Count > 0)
+				{
+					BaseWidget ^ child = mChilds[0];
 					delete child;
 					child = nullptr;
 				}
 			}
 
-			BaseWidget^ getMangedParent(MyGUI::Widget* _widget)
+			BaseWidget ^ getMangedParent(MyGUI::Widget* _widget)
 			{
 				MyGUI::Widget* parent = _widget->getParent();
 				while (parent != nullptr)
 				{
-					WidgetHolder * obj = parent->getUserData< WidgetHolder >(false);
+					WidgetHolder* obj = parent->getUserData< WidgetHolder >(false);
 					if (obj != nullptr) return obj->toObject();
 					parent = parent->getParent();
 				}
@@ -109,40 +111,43 @@ namespace MyGUI
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
-			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name)
+			WidgetType CreateWidget(System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _name)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
+				BaseWidget ^ child = (BaseWidget ^ )(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(this, MyGUI::WidgetStyle::Child, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), "", Convert<const std::string&>::From(_name));
 				return (WidgetType)child;
 			}
 
 			generic <typename WidgetType> where WidgetType : ref class
-			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align)
+			WidgetType CreateWidget(System::String ^ _skin, IntCoord _coord, Align _align)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
+				BaseWidget ^ child = (BaseWidget ^ )(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(this, MyGUI::WidgetStyle::Child, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), "", "");
 				return (WidgetType)child;
 			}
 
 			generic <typename WidgetType> where WidgetType : ref class
-			WidgetType CreateWidget(WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			WidgetType CreateWidget(WidgetStyle _style, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
+				BaseWidget ^ child = (BaseWidget ^ )(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(this, Convert<MyGUI::WidgetStyle>::From(_style), Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return (WidgetType)child;
 			}
 
-			BaseWidget^ CreateWidgetT(System::Type^ _type, WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			BaseWidget ^ CreateWidgetT(System::Type ^ _type, WidgetStyle _style, System::String ^ _skin, IntCoord _coord, Align _align, System::String ^ _layer, System::String ^ _name)
 			{
-				System::Reflection::ConstructorInfo^ ci = _type->GetConstructor(gcnew cli::array<System::Type^>(0));
-				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
+				System::Reflection::ConstructorInfo ^ ci = _type->GetConstructor(gcnew cli::array < System::Type ^ > (0));
+				BaseWidget ^ child = (BaseWidget ^ )ci->Invoke(nullptr);
 				child->CreateWidget(this, Convert<MyGUI::WidgetStyle>::From(_style), Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return child;
 			}
 
 		internal:
 			virtual const std::string& getClassTypeName() = 0;
-			MyGUI::Widget* GetNativePtr() { return mNative; }
+			MyGUI::Widget* GetNativePtr()
+			{
+				return mNative;
+			}
 
 		public:
 			System::IntPtr GetNativeIntPtr()
@@ -150,14 +155,14 @@ namespace MyGUI
 				return System::IntPtr(mNative);
 			}
 
-			property System::Object^ UserData
+			property System::Object ^ UserData
 			{
-				System::Object^ get( )
+				System::Object ^ get( )
 				{
 					MMYGUI_CHECK_NATIVE(mNative);
 					return mUserData;
 				}
-				void set(System::Object^ _value)
+				void set(System::Object ^ _value)
 				{
 					MMYGUI_CHECK_NATIVE(mNative);
 					mUserData = _value;
@@ -169,10 +174,10 @@ namespace MyGUI
 
 		private:
 			bool mIsWrap;
-			BaseWidget^ mParent;
-			System::Collections::Generic::List<BaseWidget^> mChilds;
-			System::Object^ mUserData;
-			static System::Collections::Generic::List<BaseWidget^> mRoots;
+			BaseWidget ^ mParent;
+			System::Collections::Generic::List < BaseWidget ^ > mChilds;
+			System::Object ^ mUserData;
+			static System::Collections::Generic::List < BaseWidget ^ > mRoots;
 
 		};
 

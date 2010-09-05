@@ -27,8 +27,14 @@ namespace MyGUI
 			{
 				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top );
 			}
-			virtual bool Equals(FloatPoint other) { return *this == other; }
-			static bool operator != ( FloatPoint lvalue, FloatPoint rvalue ) { return !(lvalue == rvalue); }
+			virtual bool Equals(FloatPoint other)
+			{
+				return *this == other;
+			}
+			static bool operator != ( FloatPoint lvalue, FloatPoint rvalue )
+			{
+				return !(lvalue == rvalue);
+			}
 
 		};
 
@@ -41,14 +47,26 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::FloatPoint&>
 		{
 			typedef FloatPoint Type;
-			inline static const FloatPoint& To(const MyGUI::FloatPoint& _value) { return reinterpret_cast<const FloatPoint&>(_value); }
-			inline static MyGUI::FloatPoint& From(FloatPoint& _value) { return reinterpret_cast<MyGUI::FloatPoint&>(_value); }
+			inline static const FloatPoint& To(const MyGUI::FloatPoint& _value)
+			{
+				return reinterpret_cast<const FloatPoint&>(_value);
+			}
+			inline static MyGUI::FloatPoint& From(FloatPoint& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatPoint&>(_value);
+			}
 		};
 		template <> struct Convert<MyGUI::FloatPoint>
 		{
 			typedef FloatPoint Type;
-			inline static const FloatPoint& To(const MyGUI::FloatPoint& _value) { return reinterpret_cast<const FloatPoint&>(_value); }
-			inline static MyGUI::FloatPoint& From(FloatPoint& _value) { return reinterpret_cast<MyGUI::FloatPoint&>(_value); }
+			inline static const FloatPoint& To(const MyGUI::FloatPoint& _value)
+			{
+				return reinterpret_cast<const FloatPoint&>(_value);
+			}
+			inline static MyGUI::FloatPoint& From(FloatPoint& _value)
+			{
+				return reinterpret_cast<MyGUI::FloatPoint&>(_value);
+			}
 		};
 
 	} // namespace Managed

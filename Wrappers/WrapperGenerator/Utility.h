@@ -24,12 +24,12 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, если они наход€тс€ в неймспейсе
 	//--------------------------------------------------------------------------------------//
-	std::string getTypeNamespace(const std::string& _type, Compound * _root, const std::string& _namespace);
+	std::string getTypeNamespace(const std::string& _type, Compound* _root, const std::string& _namespace);
 
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом или в наход€тс€ в неймспейсе
 	//--------------------------------------------------------------------------------------//
-	std::string getFullDefinition(const std::string& _type, Compound * _root, const std::string& _namespace);
+	std::string getFullDefinition(const std::string& _type, Compound* _root, const std::string& _namespace);
 
 	//--------------------------------------------------------------------------------------//
 	// фабрика, создает тип по айди класса и своему айди
@@ -39,12 +39,12 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом
 	//--------------------------------------------------------------------------------------//
-	std::string getTypedef(const std::string& _type, Compound * _root);
+	std::string getTypedef(const std::string& _type, Compound* _root);
 
 	//--------------------------------------------------------------------------------------//
 	// возвращает информацию по типу и по имени
 	//--------------------------------------------------------------------------------------//
-	Compound* getCompound(const std::string& _kind, const std::string& _name, Compound * _root);
+	Compound* getCompound(const std::string& _kind, const std::string& _name, Compound* _root);
 
 
 	//--------------------------------------------------------------------------------------//
@@ -72,19 +72,22 @@ namespace wrapper
 			std::vector<std::string> tokens = utility::split(_type);
 			if (tokens.empty()) return;
 
-			if (tokens.front() == "const") {
+			if (tokens.front() == "const")
+			{
 				token_const = tokens.front();
 				tokens.erase(tokens.begin());
 			}
 			if (tokens.empty()) return;
 
-			if (tokens.back() == "&") {
+			if (tokens.back() == "&")
+			{
 				token_amp = tokens.back();
 				tokens.erase(tokens.begin() + tokens.size() - 1);
 			}
 			if (tokens.empty()) return;
 
-			if (tokens.back() == "*") {
+			if (tokens.back() == "*")
+			{
 				token_amp = tokens.back();
 				tokens.erase(tokens.begin() + tokens.size() - 1);
 			}
@@ -93,9 +96,18 @@ namespace wrapper
 			token_type = tokens.front();
 		}
 
-		std::string toString() { return token_const + " " + token_type + " " + token_amp; }
-		const std::string& getType() const { return token_type; }
-		void setOnlyType(const std::string& _type) { token_type = _type; }
+		std::string toString()
+		{
+			return token_const + " " + token_type + " " + token_amp;
+		}
+		const std::string& getType() const
+		{
+			return token_type;
+		}
+		void setOnlyType(const std::string& _type)
+		{
+			token_type = _type;
+		}
 
 	private:
 		std::string token_const;

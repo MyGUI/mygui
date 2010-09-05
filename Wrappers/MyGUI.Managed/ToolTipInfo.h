@@ -30,8 +30,14 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::ToolTipInfo&>
 		{
 			typedef ToolTipInfo Type;
-			inline static const ToolTipInfo& To(const MyGUI::ToolTipInfo& _value) { return reinterpret_cast<const ToolTipInfo&>(_value); }
-			inline static MyGUI::ToolTipInfo& From(ToolTipInfo& _value) { return reinterpret_cast<MyGUI::ToolTipInfo&>(_value); }
+			inline static const ToolTipInfo& To(const MyGUI::ToolTipInfo& _value)
+			{
+				return reinterpret_cast<const ToolTipInfo&>(_value);
+			}
+			inline static MyGUI::ToolTipInfo& From(ToolTipInfo& _value)
+			{
+				return reinterpret_cast<MyGUI::ToolTipInfo&>(_value);
+			}
 		};
 
 	} // namespace Managed

@@ -30,8 +30,14 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::DDWidgetState&>
 		{
 			typedef DDWidgetState Type;
-			inline static const DDWidgetState& To(const MyGUI::DDWidgetState& _value) { return reinterpret_cast<const DDWidgetState&>(_value); }
-			inline static MyGUI::DDWidgetState& From(DDWidgetState& _value) { return reinterpret_cast<MyGUI::DDWidgetState&>(_value); }
+			inline static const DDWidgetState& To(const MyGUI::DDWidgetState& _value)
+			{
+				return reinterpret_cast<const DDWidgetState&>(_value);
+			}
+			inline static MyGUI::DDWidgetState& From(DDWidgetState& _value)
+			{
+				return reinterpret_cast<MyGUI::DDWidgetState&>(_value);
+			}
 		};
 
 	} // namespace Managed

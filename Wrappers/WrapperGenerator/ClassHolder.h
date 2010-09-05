@@ -90,7 +90,8 @@ namespace wrapper
 
 		virtual std::string getMemberData(const std::string& _name)
 		{
-			for (VectorPairString::const_iterator item=mPairMemberData.begin(); item!=mPairMemberData.end(); ++item) {
+			for (VectorPairString::const_iterator item = mPairMemberData.begin(); item != mPairMemberData.end(); ++item)
+			{
 				if (item->first == _name) return item->second;
 			}
 			return "";
@@ -106,7 +107,7 @@ namespace wrapper
 			return mCommonTypeHolder->getTemplatePrefix(_template, _rettype, _params, mNamespace);
 		}
 
-		void initialise(Compound * _root, ICommonTypeHolder* _typeholder)
+		void initialise(Compound* _root, ICommonTypeHolder* _typeholder)
 		{
 			mRoot = _root;
 			mCommonTypeHolder = _typeholder;
@@ -125,7 +126,7 @@ namespace wrapper
 			wrapClass(mType, mRoot, items);
 			wrapItems(mRoot, items);
 
-			for (VectorMember::iterator item=items.begin(); item!=items.end(); ++item)
+			for (VectorMember::iterator item = items.begin(); item != items.end(); ++item)
 			{
 				delete *item;
 				*item = 0;
@@ -135,14 +136,14 @@ namespace wrapper
 
 	private:
 
-		void wrapItems(Compound * _root, VectorMember& _items)
+		void wrapItems(Compound* _root, VectorMember& _items)
 		{
 			std::cout << std::endl;
 
 			// пост обработка
-			for (size_t index=0; index<_items.size(); ++index)
+			for (size_t index = 0; index < _items.size(); ++index)
 			{
-				for (size_t index2=0; index2<_items.size(); ++index2)
+				for (size_t index2 = 0; index2 < _items.size(); ++index2)
 				{
 					if (index == index2) continue;
 					_items[index]->postProccesing(_items[index2]);
@@ -150,7 +151,7 @@ namespace wrapper
 			}
 
 			// вставка айтемов в файл
-			for (size_t index=0; index<_items.size(); ++index)
+			for (size_t index = 0; index < _items.size(); ++index)
 			{
 				wrapMember(_items[index]);
 			}
@@ -158,9 +159,9 @@ namespace wrapper
 			std::cout << std::endl;
 		}
 
-		void wrapClass(const std::string& _name, Compound * _root, VectorMember& _items)
+		void wrapClass(const std::string& _name, Compound* _root, VectorMember& _items)
 		{
-			Compound * item = getCompound("class", _name, _root);
+			Compound* item = getCompound("class", _name, _root);
 			if (item == nullptr)
 			{
 				std::cout << mType << " not found" << std::endl;
@@ -188,23 +189,27 @@ namespace wrapper
 		void createTemplates()
 		{
 			clearTags();
-			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
+			for (VectorPairString::const_iterator item = mPairTag.begin(); item != mPairTag.end(); ++item)
+			{
 				addTag(item->first, item->second);
 			}
 
 			// создаем файлы шаблонов и настраиваем их
-			for (VectorTemplate::const_iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
+			for (VectorTemplate::const_iterator item = mTemplates.begin(); item != mTemplates.end(); ++item)
+			{
 				std::ifstream infile;
 				std::string file = "Data/" + item->type + "/" + item->name;
 				infile.open(file.c_str());
-				if ( ! infile.is_open() ) {
+				if ( ! infile.is_open() )
+				{
 					std::cout << "error open file " << file << std::endl;
 					continue;
 				}
 
 				std::ofstream outfile;
 				outfile.open(item->output.c_str());
-				if ( ! outfile.is_open() ) {
+				if ( ! outfile.is_open() )
+				{
 					std::cout << "error open file " << item->output << std::endl;
 					infile.close();
 					continue;
@@ -213,7 +218,8 @@ namespace wrapper
 				std::string read;
 				std::string data;
 
-				while (false == infile.eof()) {
+				while (false == infile.eof())
+				{
 					std::getline(infile, read);
 					read = replaceTags(read);
 					if ( ! data .empty() ) data += "\n";
@@ -230,13 +236,13 @@ namespace wrapper
 		void appendToTemplates()
 		{
 			clearTags();
-			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item)
+			for (VectorPairString::const_iterator item = mPairTag.begin(); item != mPairTag.end(); ++item)
 			{
 				addTag(item->first, item->second);
 			}
 
 			// создаем файлы шаблонов и настраиваем их
-			for (VectorTemplate::const_iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item)
+			for (VectorTemplate::const_iterator item = mTemplates.begin(); item != mTemplates.end(); ++item)
 			{
 				if (item->templ.empty()) continue;
 
@@ -245,13 +251,15 @@ namespace wrapper
 				// сначала все считываем
 				std::ifstream infile;
 				infile.open(item->output.c_str());
-				if ( ! infile.is_open() ) {
+				if ( ! infile.is_open() )
+				{
 					std::cout << "error open file " << item->output << std::endl;
 					continue;
 				}
 
 				std::string read;
-				while (false == infile.eof()) {
+				while (false == infile.eof())
+				{
 					std::getline(infile, read);
 					file_data.push_back(read);
 				}
@@ -260,18 +268,21 @@ namespace wrapper
 				// теперь все записываем
 				std::ofstream outfile;
 				outfile.open(item->output.c_str());
-				if ( ! outfile.is_open() ) {
+				if ( ! outfile.is_open() )
+				{
 					std::cout << "error open file " << item->output << std::endl;
 					continue;
 				}
 
 				std::string template_name = utility::toString("Data/", item->type, "/", item->templ);
 
-				for (VectorString::iterator item = file_data.begin(); item!=file_data.end(); ++item) {
+				for (VectorString::iterator item = file_data.begin(); item != file_data.end(); ++item)
+				{
 					if (item != file_data.begin()) outfile << "\n";
 					outfile << *item;
 
-					if (item->find("//InsertPoint") != std::string::npos) {
+					if (item->find("//InsertPoint") != std::string::npos)
+					{
 						outfile << std::endl << std::endl;
 						insert(outfile, template_name);
 					}
@@ -287,12 +298,14 @@ namespace wrapper
 			std::string data, read;
 			std::ifstream infile;
 			infile.open(_templfile.c_str());
-			if ( ! infile.is_open() ) {
+			if ( ! infile.is_open() )
+			{
 				std::cout << "error open file " << _templfile << std::endl;
 				return;
 			}
 
-			while (false == infile.eof()) {
+			while (false == infile.eof())
+			{
 				std::getline(infile, read);
 				data += read + "\n";
 			}
@@ -300,8 +313,10 @@ namespace wrapper
 			infile.close();
 
 			// утф заголовки
-			if (data.size() > 3) {
-				if (data[2] < 32) {
+			if (data.size() > 3)
+			{
+				if (data[2] < 32)
+				{
 					data[0] = ' ';
 					data[1] = ' ';
 					data[2] = ' ';
@@ -317,11 +332,13 @@ namespace wrapper
 
 		void wrapMember(Member* _member)
 		{
-			for (VectorTemplate::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
+			for (VectorTemplate::iterator item = mTemplates.begin(); item != mTemplates.end(); ++item)
+			{
 				if (!item->templ.empty()) continue;
 
 				clearTags();
-				for (VectorPairString::const_iterator item2=mPairTag.begin(); item2!=mPairTag.end(); ++item2) {
+				for (VectorPairString::const_iterator item2 = mPairTag.begin(); item2 != mPairTag.end(); ++item2)
+				{
 					addTag(item2->first, item2->second);
 				}
 				_member->insertToTemplate(item->output, this, item->type);
@@ -334,7 +351,7 @@ namespace wrapper
 		VectorTemplate mTemplates;
 		VectorPairString mPairTag;
 		VectorPairString mPairMemberData;
-		Compound * mRoot;
+		Compound* mRoot;
 		ICommonTypeHolder* mCommonTypeHolder;
 	};
 
