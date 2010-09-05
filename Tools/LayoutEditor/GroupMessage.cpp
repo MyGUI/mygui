@@ -85,7 +85,7 @@ namespace tools
 			{
 				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
-					errorMessages ,
+					errorMessages,
 					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 			}
 

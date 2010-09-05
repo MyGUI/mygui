@@ -1,7 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       08/2008
+	@file
+	@author     Albert Semenov
+	@date       08/2008
 */
 #ifndef __FADE_NODE_ANIMATOR_H__
 #define __FADE_NODE_ANIMATOR_H__

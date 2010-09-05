@@ -1,7 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       08/2008
+	@file
+	@author     Albert Semenov
+	@date       08/2008
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"

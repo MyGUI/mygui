@@ -577,4 +577,3 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-

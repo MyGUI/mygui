@@ -118,11 +118,11 @@ namespace base
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
 		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
-		Ogre::Light* l = mSceneManager->createLight("MainLight");
-		l->setType(Ogre::Light::LT_DIRECTIONAL);
+		Ogre::Light* light = mSceneManager->createLight("MainLight");
+		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
 		vec.normalise();
-		l->setDirection(vec);
+		light->setDirection(vec);
 
 		// Load resources
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();

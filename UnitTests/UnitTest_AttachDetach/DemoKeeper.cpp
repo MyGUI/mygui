@@ -51,7 +51,7 @@ namespace demo
 	const char* get_skin()
 	{
 		const int SIZE = 8;
-		static const char* names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV" , "Button", "EditStretch", "RadioBox", "CheckBox" };
+		static const char* names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditStretch", "RadioBox", "CheckBox" };
 		return names[random(SIZE)];
 	}
 

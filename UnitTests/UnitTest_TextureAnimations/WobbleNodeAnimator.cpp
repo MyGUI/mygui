@@ -1,7 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       08/2008
+	@file
+	@author     Albert Semenov
+	@date       08/2008
 */
 #include "WobbleNodeAnimator.h"
 
@@ -92,7 +92,7 @@ namespace demo
 		else if (mOldCoord.point() != _coord.point())
 		{
 			const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getMousePosition();
-			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width , (float)(point.top - _coord.top) / (float)_coord.height);
+			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width, (float)(point.top - _coord.top) / (float)_coord.height);
 			mInertiaMode = false;
 
 			addInertia(MyGUI::FloatPoint((float)_coord.left - mOldCoord.left, (float)_coord.top - mOldCoord.top));

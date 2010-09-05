@@ -1,4 +1,3 @@
-
 #include "AnimationGraphFactory.h"
 
 namespace animation

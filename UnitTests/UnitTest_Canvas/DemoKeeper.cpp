@@ -1,8 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       08/2008
-    @module
+	@file
+	@author     Albert Semenov
+	@date       08/2008
 */
 
 #include "precompiled.h"

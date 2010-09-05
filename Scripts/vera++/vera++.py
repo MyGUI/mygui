@@ -2,7 +2,7 @@
 import os
 
 ignoredEndings = []
-ignoredContent = ["MyGUI_UString", "MyGUI_KeyCode.h:58"]
+ignoredContent = ["MyGUI_UString", "Wrappers", "MyGUI_KeyCode.h:58", "InputConverter.h:896", "MyGUI_RTTLayer.h:21", "HotKeyManager.cpp:43", "HotKeyManager.cpp:44"]
 
 def isIgnoredWarning(warning):
 	for ignore in ignoredEndings:

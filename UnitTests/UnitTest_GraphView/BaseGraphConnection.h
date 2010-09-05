@@ -58,7 +58,7 @@ namespace wraps
 		// все присоединениые к нам точки
 		bool isAnyConnection()
 		{
-			return !mConnection.empty() ;
+			return !mConnection.empty();
 		}
 		EnumeratorConnection getConnectionEnumerator()
 		{
@@ -67,7 +67,7 @@ namespace wraps
 
 		bool isAnyReverseConnection()
 		{
-			return !mReverseConnection.empty() ;
+			return !mReverseConnection.empty();
 		}
 		EnumeratorConnection getReverseConnectionEnumerator()
 		{

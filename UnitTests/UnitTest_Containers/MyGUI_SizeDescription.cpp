@@ -172,4 +172,3 @@ namespace MyGUI
 	//}
 
 } // namespace MyGUI
-

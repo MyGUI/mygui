@@ -4,7 +4,6 @@ set keywords {
     case
     class
     delete
-    enum
     explicit
     extern
     goto

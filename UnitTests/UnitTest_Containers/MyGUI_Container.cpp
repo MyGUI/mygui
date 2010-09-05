@@ -32,4 +32,3 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-

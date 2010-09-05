@@ -1,7 +1,7 @@
 /*!
-    @file
-    @author     Albert Semenov
-    @date       08/2008
+	@file
+	@author     Albert Semenov
+	@date       08/2008
 */
 
 #include "DemoKeeper.h"
@@ -26,7 +26,7 @@ namespace demo
 			getGUI()->destroyWidget(lastFlow);
 
 		// Load new, find and update
-		/*MYGUI_ASSERT(*/MyGUI::ResourceManager::getInstance().load(_layoutFileName)/*, "Can't load test lauout!")*/;
+		/*MYGUI_ASSERT(*/MyGUI::ResourceManager::getInstance().load(_layoutFileName);/*, "Can't load test lauout!");*/
 
 		MyGUI::FlowContainer* flow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow");
 

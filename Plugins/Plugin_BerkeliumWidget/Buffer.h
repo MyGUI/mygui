@@ -29,7 +29,7 @@ namespace helpers
 		{
 			if (mBuffer != 0)
 			{
-				delete[] mBuffer;
+				delete [] mBuffer;
 				mBuffer = 0;
 			}
 		}
@@ -103,7 +103,7 @@ namespace helpers
 				// удаляем старый буфер
 				if (mBuffer != 0)
 				{
-					delete[] mBuffer;
+					delete [] mBuffer;
 					mBuffer = 0;
 				}
 				mBuffer = new_data;

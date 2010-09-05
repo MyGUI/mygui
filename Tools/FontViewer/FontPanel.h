@@ -54,4 +54,3 @@ namespace demo
 } // namespace demo
 
 #endif // __FONT_PANEL_H__
-
