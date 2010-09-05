@@ -31,7 +31,6 @@ namespace attribute
 	ATTRIBUTE_FIELD(AttributeFieldWidgetName, _class, _field, _value)
 
 
-
 	DECLARE_ATTRIBUTE_CLASS(AttributeSize, MyGUI::IntSize);
 
 #define ATTRIBUTE_CLASS_SIZE(_class, _value) \

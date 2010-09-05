@@ -34,8 +34,7 @@ namespace tools
 		std::string skin = _sender->getUserString("skin");
 		std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
 			"\nSkin: " + skin +
-			"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
-			;
+			"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height");
 
 		mText->setCaption(text);
 

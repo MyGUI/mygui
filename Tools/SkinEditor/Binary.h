@@ -14,7 +14,7 @@ namespace tools
 	{
 		static unsigned const value
 			= Binary < N / 10 >::value << 1 // prepend higher bits
-			  | N % 10;                     // to lowest bit
+			| N % 10;                     // to lowest bit
 	};
 
 	template <>                           // specialization

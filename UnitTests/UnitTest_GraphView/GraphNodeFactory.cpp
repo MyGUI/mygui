@@ -1,4 +1,3 @@
-
 #include "GraphNodeFactory.h"
 #include "GraphNodeFadeController.h"
 #include "GraphNodeLoopController.h"

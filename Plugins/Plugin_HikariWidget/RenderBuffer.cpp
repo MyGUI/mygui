@@ -32,7 +32,7 @@ RenderBuffer::~RenderBuffer()
 {
 	if (buffer)
 	{
-		delete[] buffer;
+		delete [] buffer;
 		buffer = 0;
 	}
 }
@@ -48,7 +48,7 @@ void RenderBuffer::reserve(int width, int height)
 
 		if (buffer)
 		{
-			delete[] buffer;
+			delete [] buffer;
 			buffer = 0;
 		}
 
@@ -89,5 +89,3 @@ void RenderBuffer::blitBGR(unsigned char* destBuffer, int destRowSpan, int destD
 			memcpy(destBuffer + row * destRowSpan, buffer + row * rowSpan, rowSpan);
 	}
 }
-
-
