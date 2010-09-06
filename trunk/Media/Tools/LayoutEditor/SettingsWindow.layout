@@ -7,7 +7,7 @@
         <Property key="MinSize" value="448 296"/>
         <Widget type="Tab" skin="Tab" position="5 6 429 216" align="Stretch">
             <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Widget_Caption" value="#{Editor_settings}"/>
+                <Property key="Widget_Caption" value="#{GeneralSettings}"/>
                 <Widget type="StaticText" skin="StaticText" position="5 8 96 24">
                     <Property key="TextAlign" value="Left VCenter"/>
                     <Property key="Caption" value="#{Grid_step}"/>
@@ -17,7 +17,7 @@
                 </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Widget_Caption" value="#{Widgets_list}"/>
+                <Property key="Widget_Caption" value="#{WidgetsSettings}"/>
                 <Widget type="Button" skin="CheckBox" position="5 10 403 24" align="HStretch Top" name="checkShowName">
                     <Property key="Caption" value="#{Show_widget_name}"/>
                 </Widget>
@@ -26,6 +26,20 @@
                 </Widget>
                 <Widget type="Button" skin="CheckBox" position="5 72 403 24" align="HStretch Top" name="checkShowSkin">
                     <Property key="Caption" value="#{Show_widget_skin}"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 420 184">
+                <Property key="Widget_Caption" value="#{FoldersSettings}"/>
+                <Widget type="StaticText" skin="StaticText" position="3 8 413 24" align="HStretch Top">
+                    <Property key="TextAlign" value="Left VCenter"/>
+                    <Property key="Caption" value="#{ResourcesPaths}"/>
+                </Widget>
+                <Widget type="List" skin="List" position="3 37 415 112" align="Stretch" name="ResourcePaths"/>
+                <Widget type="Button" skin="Button" position="298 156 120 26" align="Right Bottom" name="ResourcePathAdd">
+                    <Property key="Caption" value="#{Add}"/>
+                </Widget>
+                <Widget type="Button" skin="Button" position="4 156 120 24" align="Left Bottom" name="ResourcePathDelete">
+                    <Property key="Caption" value="#{Delete}"/>
                 </Widget>
             </Widget>
         </Widget>
