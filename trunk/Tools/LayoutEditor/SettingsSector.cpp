@@ -57,15 +57,15 @@ namespace tools
 		mName = _value;
 	}
 
-	bool SettingsSector::getExistProperty(const MyGUI::UString& _propertName)
+	bool SettingsSector::getExistProperty(const MyGUI::UString& _propertyName)
 	{
-		MapUString::const_iterator item = mProperties.find(_propertName);
+		MapUString::const_iterator item = mProperties.find(_propertyName);
 		return item != mProperties.end();
 	}
 
-	const MyGUI::UString& SettingsSector::getPropertyValue(const MyGUI::UString& _propertName)
+	const MyGUI::UString& SettingsSector::getPropertyValue(const MyGUI::UString& _propertyName)
 	{
-		MapUString::const_iterator item = mProperties.find(_propertName);
+		MapUString::const_iterator item = mProperties.find(_propertyName);
 		if (item != mProperties.end())
 			return (*item).second;
 
@@ -73,15 +73,77 @@ namespace tools
 		return empty;
 	}
 
-	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertName, const MyGUI::UString& _propertValue)
+	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
 	{
-		MapUString::iterator item = mProperties.find(_propertName);
+		MapUString::iterator item = mProperties.find(_propertyName);
 		if (item != mProperties.end())
-			(*item).second = _propertValue;
+			(*item).second = _propertyValue;
 		else
-			mProperties.insert(std::make_pair(_propertName, _propertValue));
+			mProperties.insert(std::make_pair(_propertyName, _propertyValue));
 
-		eventSettingsChanged(this, _propertName);
+		eventSettingsChanged(this, _propertyName);
 	}
 
+	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertyName, const std::string& _propertyValue)
+	{
+		setPropertyValue(_propertyName, MyGUI::UString(_propertyValue));
+	}
+
+	void SettingsSector::setPropertyValueList(const MyGUI::UString& _propertyName, const VectorUString& _propertyValues)
+	{
+		clearProperty(_propertyName);
+		for (size_t index = 0; index < _propertyValues.size(); ++ index)
+			setPropertyValue(MyGUI::utility::toString(_propertyName, '.', index), _propertyValues[index]);
+	}
+
+	void SettingsSector::setPropertyValueList(const MyGUI::UString& _propertyName, const VectorString& _propertyValues)
+	{
+		clearProperty(_propertyName);
+		for (size_t index = 0; index < _propertyValues.size(); ++ index)
+			setPropertyValue(MyGUI::utility::toString(_propertyName, '.', index), _propertyValues[index]);
+	}
+
+	void SettingsSector::clearProperty(const MyGUI::UString& _propertyName)
+	{
+		for (MapUString::iterator item = mProperties.begin(); item != mProperties.end(); ++ item)
+		{
+			size_t indexSeparator = (*item).first.find('.');
+			if (indexSeparator != -1)
+			{
+				if ((*item).first.substr(0, indexSeparator) == _propertyName)
+				{
+					item = mProperties.erase(item);
+					if (item == mProperties.end())
+						break;
+				}
+			}
+			else
+			{
+				if ((*item).first == _propertyName)
+				{
+					item = mProperties.erase(item);
+					if (item == mProperties.end())
+						break;
+				}
+			}
+		}
+	}
+
+	SettingsSector::VectorUString SettingsSector::getPropertyValueList(const MyGUI::UString& _propertyName)
+	{
+		VectorUString result;
+
+		for (MapUString::iterator item = mProperties.begin(); item != mProperties.end(); ++ item)
+		{
+			size_t indexSeparator = (*item).first.find('.');
+			if (indexSeparator != -1)
+			{
+				if ((*item).first.substr(0, indexSeparator) == _propertyName)
+					result.push_back((*item).second);
+			}
+		}
+
+		return result;
+	}
+	
 } // namespace tools

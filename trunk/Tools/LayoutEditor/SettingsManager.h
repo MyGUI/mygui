@@ -24,14 +24,8 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		const VectorUString& getRecentFiles()
-		{
-			return mRecentFiles;
-		}
-		const VectorUString& getAdditionalPaths()
-		{
-			return mAdditionalPaths;
-		}
+		const VectorUString& getRecentFiles();
+		const VectorUString& getAdditionalPaths();
 
 		void addRecentFile(const MyGUI::UString& _fileName);
 

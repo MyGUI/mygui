@@ -208,4 +208,14 @@ namespace tools
 		eventSettingsChanged(_sector->getName(), _propertyName);
 	}
 
+	const VectorUString& SettingsManager::getRecentFiles()
+	{
+		return mRecentFiles;
+	}
+
+	const VectorUString& SettingsManager::getAdditionalPaths()
+	{
+		return mAdditionalPaths;
+	}
+
 } // namespace tools
