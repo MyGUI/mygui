@@ -67,12 +67,12 @@ namespace wraps
 			changePosition(nullptr);
 		}
 
-		EnumeratorNode getNodeEnumerator()
+		EnumeratorNode getNodeEnumerator() const
 		{
 			return EnumeratorNode(mNodes);
 		}
 
-		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to)
+		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to) const
 		{
 			EnumeratorConnection conn = _from->getConnectionEnumerator();
 			while (conn.next())
@@ -85,7 +85,7 @@ namespace wraps
 			return false;
 		}
 
-		MyGUI::WidgetPtr getClient()
+		MyGUI::WidgetPtr getClient() const
 		{
 			return mCanvas;
 		}
