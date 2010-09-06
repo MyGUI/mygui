@@ -148,7 +148,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		endif ()
 		add_executable(${PROJECTNAME} ${MYGUI_EXEC_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	endif ()
-	set_target_properties(${PROJECTNAME} PROPERTIES PROJECT_GROUP ${SOLUTIONFOLDER})
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 	
 	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
 
@@ -233,7 +233,7 @@ function(mygui_plugin PROJECTNAME)
 	
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Plugins")
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 	
