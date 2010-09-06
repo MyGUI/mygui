@@ -16,6 +16,7 @@
 #include "StateManager.h"
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
+#include "RecentFilesManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -91,13 +92,16 @@ namespace tools
 		new GroupMessage();
 		GroupMessage::getInstance().initialise();
 
+		new RecentFilesManager();
+		RecentFilesManager::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-		const VectorUString& additionalPaths = SettingsManager::getInstance().getAdditionalPaths();
-		for (VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
+		for (SettingsSector::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
@@ -134,6 +138,9 @@ namespace tools
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
+
+		RecentFilesManager::getInstance().shutdown();
+		delete RecentFilesManager::getInstancePtr();
 
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();
@@ -475,10 +482,10 @@ namespace tools
 
 	void Application::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
-		if (_sectorName == "SettingsWindow")
+		if (_sectorName == "Settings")
 		{
 			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
 	}
 

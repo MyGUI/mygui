@@ -29,7 +29,7 @@ namespace tools
 		mWindow->eventMouseMove += newDelegate(this, &SelectionAreaControl::notifyMouseMouseMove);
 		mWindow->eventMouseDrag += newDelegate(this, &SelectionAreaControl::notifyMouseMouseDrag);
 
-		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 
 		notifyChangeSelectedWidget(nullptr);
 
@@ -59,10 +59,10 @@ namespace tools
 
 	void SelectionAreaControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
-		if (_sectorName == "SettingsWindow")
+		if (_sectorName == "Settings")
 		{
 			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
 	}
 
