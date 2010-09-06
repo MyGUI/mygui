@@ -54,7 +54,7 @@ if(MYGUI_RENDERSYSTEM EQUAL 2)
 		#else ()
 		#	add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
 		#endif ()
-		set_target_properties(${PROJECTNAME} PROPERTIES PROJECT_GROUP ${SOLUTIONFOLDER})
+		set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 		
 		# add dependencies
 		add_dependencies(${PROJECTNAME} MyGUIEngine )
