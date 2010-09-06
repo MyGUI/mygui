@@ -19,11 +19,11 @@ namespace tools
 		mCheckShowName(nullptr),
 		mCheckShowType(nullptr),
 		mCheckShowSkin(nullptr),
-		mGridStep(0),
 		mResourcePathAdd(nullptr),
 		mResourcePathDelete(nullptr),
 		mResourcePaths(nullptr),
-		mOpenSaveFileDialog(nullptr)
+		mOpenSaveFileDialog(nullptr),
+		mGridStep(0)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
