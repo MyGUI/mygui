@@ -122,11 +122,11 @@ namespace demo
 
 		std::string name = _id;
 		size_t index = name.find("Controller");
-		if (index != -1) name.erase(index);
+		if (index != MyGUI::ITEM_NONE) name.erase(index);
 		else
 		{
 			index = name.find("State");
-			if (index != -1) name.erase(index);
+			if (index != MyGUI::ITEM_NONE) name.erase(index);
 		}
 
 		static size_t name_index = 0;

@@ -33,9 +33,9 @@ namespace wraps
 		{
 		}
 
-		MyGUI::Colour colour;
 		MyGUI::IntPoint point_start;
 		MyGUI::IntPoint point_end;
+		MyGUI::Colour colour;
 		MyGUI::IntSize start_offset;
 		MyGUI::IntSize end_offset;
 	};

@@ -19,9 +19,9 @@ namespace wraps
 		ConnectionInfo(const MyGUI::IntPoint& _point_start, const MyGUI::IntPoint& _point_end, const MyGUI::Colour& _colour, const MyGUI::IntSize& _start_offset, const MyGUI::IntSize& _end_offset) :
 			point_start(_point_start), point_end(_point_end), colour(_colour), start_offset(_start_offset), end_offset(_end_offset) { }
 
-		MyGUI::Colour colour;
 		MyGUI::IntPoint point_start;
 		MyGUI::IntPoint point_end;
+		MyGUI::Colour colour;
 		MyGUI::IntSize start_offset;
 		MyGUI::IntSize end_offset;
 	};
@@ -384,7 +384,7 @@ namespace wraps
 			polygonalSkin->setWidth(4.0f);
 			widget->setColour(_colour);
 
-			const int PointsNumber = 16;
+			const size_t PointsNumber = 16;
 			std::vector<MyGUI::FloatPoint> basePoints;
 			basePoints.push_back(
 				MyGUI::FloatPoint((float)_info.point_start.left, (float)_info.point_start.top + _offset));
