@@ -8,6 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
+#include "OpenSaveFileDialog.h"
 
 namespace tools
 {
@@ -29,32 +30,12 @@ namespace tools
 		int getGridStep();
 		void setGridStep();
 
-		bool getShowName()
-		{
-			return mCheckShowName->getStateSelected();
-		}
-		void setShowName(bool _pressed)
-		{
-			mCheckShowName->setStateSelected(_pressed);
-		}
-
-		bool getShowType()
-		{
-			return mCheckShowType->getStateSelected();
-		}
-		void setShowType(bool _pressed)
-		{
-			mCheckShowType->setStateSelected(_pressed);
-		}
-
-		bool getShowSkin()
-		{
-			return mCheckShowSkin->getStateSelected();
-		}
-		void setShowSkin(bool _pressed)
-		{
-			mCheckShowSkin->setStateSelected(_pressed);
-		}
+		bool getShowName();
+		void setShowName(bool _pressed);
+		bool getShowType();
+		void setShowType(bool _pressed);
+		bool getShowSkin();
+		void setShowSkin(bool _pressed);
 
 		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
 		void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method
@@ -63,6 +44,11 @@ namespace tools
 		void notifyToggleCheck(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
+		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
+		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
+
+		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
+
 	private:
 		MyGUI::Edit* mGridEdit;
 		MyGUI::Button* mButtonOkSettings;
@@ -70,8 +56,12 @@ namespace tools
 		MyGUI::Button* mCheckShowName;
 		MyGUI::Button* mCheckShowType;
 		MyGUI::Button* mCheckShowSkin;
+		MyGUI::Button* mResourcePathAdd;
+		MyGUI::Button* mResourcePathDelete;
+		MyGUI::List* mResourcePaths;
 
 		int mGridStep;
+		OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
 } // namespace tools

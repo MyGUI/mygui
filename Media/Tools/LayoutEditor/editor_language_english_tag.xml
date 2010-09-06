@@ -21,12 +21,10 @@
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Select">Select</Tag>
 
+	<Tag name="GeneralSettings">General</Tag>
+	<Tag name="WidgetsSettings">Widgets</Tag>
+	<Tag name="FoldersSettings">Folders</Tag>
 	<Tag name="Grid_step">Grid step</Tag>
-	<Tag name="Resolution">Resolution</Tag>
-	<Tag name="Full_screen">Full screen</Tag>
-	<Tag name="Screen_properties">Screen properties</Tag>
-	<Tag name="Editor_settings">Editor settings</Tag>
-	<Tag name="Widgets_list">Widgets list</Tag>
 	<Tag name="Show_widget_name">Show widget name</Tag>
 	<Tag name="Show_widget_type">Show widget type</Tag>
 	<Tag name="Show_widget_skin">Show widget skin</Tag>
@@ -36,6 +34,7 @@
 	<Tag name="Value">Value</Tag>
 
 	<Tag name="Select_file_name">Select file name</Tag>
+	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
 
 	<Tag name="OK">OK</Tag>
 	<Tag name="Ok">Оk</Tag>
