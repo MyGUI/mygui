@@ -21,7 +21,7 @@ namespace wraps
 		{
 			assignWidget(mMenu, "_Main");
 			mMenu->setVisible(false);
-			mMenu->eventMenuCtrlAccept = MyGUI::newDelegate(this, &ContextMenu::notifyMenuCtrlAccept);
+			mMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &ContextMenu::notifyMenuCtrlAccept);
 		}
 
 		void setVisible(bool _value)
@@ -32,7 +32,7 @@ namespace wraps
 
 		bool isVisible()
 		{
-			return mMenu->isVisible();
+			return mMenu->getVisible();
 		}
 
 		/** Event : Menu accept.\n

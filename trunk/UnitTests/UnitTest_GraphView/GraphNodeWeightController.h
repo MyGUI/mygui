@@ -33,13 +33,13 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(getName());
+			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition += MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}

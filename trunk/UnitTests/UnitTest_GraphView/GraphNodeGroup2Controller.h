@@ -30,7 +30,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(getName());
+			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 
 			assignBase(mStart1In, "Start1In");
 			assignBase(mStart2In, "Start2In");

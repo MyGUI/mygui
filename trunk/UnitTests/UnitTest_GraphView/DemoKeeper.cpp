@@ -220,7 +220,7 @@ namespace demo
 		mGraphView->eventDisconnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyDisconnectPoint);
 
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
-		mGraphView->getClient()->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		mGraphView->getClient()->eventMouseButtonReleased += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
 	}
 
 	void DemoKeeper::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)

@@ -19,12 +19,12 @@ namespace common
 		assignWidget(mEditCurrentFolder, "EditCurrentFolder");
 		assignWidget(mButtonOpenSave, "ButtonOpenSave");
 
-		mListFiles->eventListChangePosition = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
-		mListFiles->eventListSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
-		mEditFileName->eventEditSelectAccept = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
-		mButtonOpenSave->eventMouseButtonClick = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
+		mListFiles->eventListChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
+		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
+		mEditFileName->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
+		mButtonOpenSave->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
 
-		mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
+		mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
 		mModalMode = false;
 
@@ -52,7 +52,7 @@ namespace common
 
 	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button)
 	{
-		mMainWidget->setCaption(_caption);
+		mMainWidget->castType<MyGUI::Window>()->setCaption(_caption);
 		mButtonOpenSave->setCaption(_button);
 	}
 

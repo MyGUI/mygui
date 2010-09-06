@@ -34,13 +34,13 @@ namespace MyGUI
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
-		bool getCacheUsing()
+		bool getCacheUsing() const
 		{
 			return mChacheUsing;
 		}
 		void setCacheUsing(bool _value);
 
-		bool getAnimate()
+		bool getAnimate() const
 		{
 			return mIsAnimate;
 		}
@@ -49,7 +49,7 @@ namespace MyGUI
 		{
 			mDestroy = _value;
 		}
-		bool getDestroy()
+		bool getDestroy() const
 		{
 			return mDestroy;
 		}

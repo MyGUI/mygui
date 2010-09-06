@@ -29,7 +29,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(getName());
+			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mStartIn, "StartIn");
 			assignBase(mStopIn, "StopIn");
 			assignBase(mPositionIn, "PositionIn");
@@ -40,7 +40,7 @@ namespace demo
 			assignWidget(mStartValue, "StartValue");
 			assignWidget(mStopValue, "StopValue");
 
-			mComboStates->eventComboAccept = MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
+			mComboStates->eventComboAccept += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
@@ -76,7 +76,7 @@ namespace demo
 			size_t index = mComboStates->findItemIndexWith(_name);
 			if (index != MyGUI::ITEM_NONE)
 			{
-				mComboStates->setItemSelectedAt(index);
+				mComboStates->setIndexSelected(index);
 				notifyComboAccept(mComboStates, index);
 			}
 		}
@@ -135,7 +135,7 @@ namespace demo
 
 			if (mComboStates->getItemCount() > 0)
 			{
-				mComboStates->setItemSelectedAt(0);
+				mComboStates->setIndexSelected(0);
 				notifyComboAccept(mComboStates, 0);
 			}
 		}

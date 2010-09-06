@@ -32,39 +32,39 @@ namespace wraps
 			mOffset.height *= offset;
 		}
 
-		BaseGraphNode* getOwnerNode()
+		BaseGraphNode* getOwnerNode() const
 		{
 			return mOwnerNode;
 		}
-		const std::string& getConnectionType()
+		const std::string& getConnectionType() const
 		{
 			return mType;
 		}
 
-		MyGUI::IntCoord getAbsoluteCoord()
+		MyGUI::IntCoord getAbsoluteCoord() const
 		{
 			return mMainWidget->getAbsoluteCoord();
 		}
-		MyGUI::IntSize getOffset()
+		MyGUI::IntSize getOffset() const
 		{
 			return mOffset;
 		}
 
 		// все присоединениые к нам точки
-		size_t getConnectionCount()
+		size_t getConnectionCount() const
 		{
 			return mConnection.size();
 		}
-		EnumeratorConnection getConnectionEnumerator()
+		EnumeratorConnection getConnectionEnumerator() const
 		{
 			return EnumeratorConnection(mConnection);
 		}
 
-		size_t getReverseConnectionCount()
+		size_t getReverseConnectionCount() const
 		{
 			return mReverseConnection.size();
 		}
-		EnumeratorConnection getReverseConnectionEnumerator()
+		EnumeratorConnection getReverseConnectionEnumerator() const
 		{
 			return EnumeratorConnection(mReverseConnection);
 		}
@@ -87,7 +87,7 @@ namespace wraps
 			mOwnerNode = _owner;
 		}
 
-		MyGUI::WidgetPtr _getMainWidget()
+		MyGUI::WidgetPtr _getMainWidget() const
 		{
 			return mMainWidget;
 		}

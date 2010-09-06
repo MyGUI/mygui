@@ -7,7 +7,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 #include "GraphView.h"
 #include "AnimationGraph.h"
 #include "AnimationGraphFactory.h"
