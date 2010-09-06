@@ -73,8 +73,9 @@ namespace wraps
 				mAnimationState->setLoop(true);
 				mAnimationState->setWeight(1);
 			}
-			catch (Ogre::ItemIdentityException&)
+			catch (Ogre::ItemIdentityException& _e)
 			{
+				MYGUI_LOG(Warning, _e.getDescription());
 			}
 
 			frameAdvise(needFrameUpdate());
