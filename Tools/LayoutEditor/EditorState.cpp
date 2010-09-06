@@ -27,7 +27,8 @@ namespace tools
 		mMainPaneControl(nullptr),
 		mSelectionAreaControl(nullptr),
 		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml")
+		mDefaultFileName("unnamed.xml"),
+		mMaxRecentFolders(8)
 	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
@@ -60,11 +61,15 @@ namespace tools
 		mCodeGenerator = new CodeGenerator();
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
 
-		mLastFolder = SettingsManager::getInstance().getSector("Files")->getPropertyValue("LastFolder");
+		mRecentFolder = SettingsManager::getInstance().getSector("Files")->getPropertyValue("RecentFolder");
+		mRecentFolders = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentFolders");
+		addRecentFolder(mRecentFolder);
+
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->setFileMask("*.layout");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
-		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
+		mOpenSaveFileDialog->setCurrentFolder(mRecentFolder);
+		mOpenSaveFileDialog->setRecentFilders(mRecentFolders);
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
@@ -87,7 +92,8 @@ namespace tools
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
-		SettingsManager::getInstance().getSector("Files")->setPropertyValue("LastFolder", mLastFolder);
+		SettingsManager::getInstance().getSector("Files")->setPropertyValue("RecentFolder", mRecentFolder);
+		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFolders", mRecentFolders);
 
 		delete mSelectionAreaControl;
 		mSelectionAreaControl = nullptr;
@@ -372,7 +378,8 @@ namespace tools
 
 	void EditorState::showLoadWindow()
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
+		mOpenSaveFileDialog->setCurrentFolder(mRecentFolder);
+		mOpenSaveFileDialog->setRecentFilders(mRecentFolders);
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();
@@ -384,7 +391,8 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
-				mLastFolder = mOpenSaveFileDialog->getCurrentFolder();
+				mRecentFolder = mOpenSaveFileDialog->getCurrentFolder();
+				addRecentFolder(mRecentFolder);
 				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				save();
@@ -394,7 +402,8 @@ namespace tools
 			{
 				clear();
 
-				mLastFolder = mOpenSaveFileDialog->getCurrentFolder();
+				mRecentFolder = mOpenSaveFileDialog->getCurrentFolder();
+				addRecentFolder(mRecentFolder);
 				setFileName(common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName()));
 
 				load();
@@ -422,7 +431,8 @@ namespace tools
 
 	void EditorState::showSaveAsWindow()
 	{
-		mOpenSaveFileDialog->setCurrentFolder(mLastFolder);
+		mOpenSaveFileDialog->setCurrentFolder(mRecentFolder);
+		mOpenSaveFileDialog->setRecentFilders(mRecentFolders);
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->doModal();
@@ -486,6 +496,26 @@ namespace tools
 		size_t pos = mFileName.find_last_of("\\/");
 		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(mFileName.find_last_of("\\/") + 1);
 		addUserTag("CurrentFileName_Short", shortName);
+	}
+
+	void EditorState::addRecentFolder(const MyGUI::UString& _folder)
+	{
+		MyGUI::UString folder(_folder);
+		if (_folder.empty())
+			folder = MyGUI::UString(common::getSystemCurrentFolder());
+
+		for (VectorUString::iterator item = mRecentFolders.begin(); item != mRecentFolders.end(); ++ item)
+		{
+			if ((*item == folder))
+			{
+				mRecentFolders.erase(item);
+				break;
+			}
+		}
+		mRecentFolders.insert(mRecentFolders.begin(), folder);
+
+		while (mRecentFolders.size() > mMaxRecentFolders)
+			mRecentFolders.pop_back();
 	}
 
 } // namespace tools
