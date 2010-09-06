@@ -29,7 +29,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->castType<MyGUI::Window>()->setCaption(mName);
 			assignBase(mConnectionIn1, "ConnectionIn1");
 			assignBase(mConnectionOut1, "ConnectionOut1");
 			assignBase(mConnectionIn2, "ConnectionIn2");

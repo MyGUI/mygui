@@ -26,11 +26,11 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(getName());
+			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mButtonEvent, "ButtonEvent");
 
-			mButtonEvent->eventMouseButtonClick = MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
+			mButtonEvent->eventMouseButtonClick += MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
 		}
 
 		virtual void shutdown()

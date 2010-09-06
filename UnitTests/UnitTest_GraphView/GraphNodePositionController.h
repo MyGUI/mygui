@@ -74,13 +74,13 @@ namespace demo
 
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(getName());
+			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodePositionController::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodePositionController::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept += MyGUI::newDelegate(this, &GraphNodePositionController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition += MyGUI::newDelegate(this, &GraphNodePositionController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
