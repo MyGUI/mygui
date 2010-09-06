@@ -11,6 +11,7 @@
 #include "WidgetContainer.h"
 #include "EditorWidgets.h"
 #include "Localise.h"
+#include "RecentFilesManager.h"
 
 namespace tools
 {
@@ -35,11 +36,6 @@ namespace tools
 
 	void MainMenuControl::createMainMenu()
 	{
-		//MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().loadLayout("MainMenuControl.layout");
-		//MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
-		//mBar = menu_items[0]->castType<MyGUI::MenuBar>();
-		//mBar->setCoord(0, 0, mBar->getParentSize().width, mBar->getHeight());
-
 		updateRecentFilesMenu();
 
 		// меню для виджетов
@@ -67,9 +63,9 @@ namespace tools
 
 	void MainMenuControl::widgetsUpdate()
 	{
-		bool print_name = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName");
-		bool print_type = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType");
-		bool print_skin = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin");
+		bool print_name = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowName");
+		bool print_type = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowType");
+		bool print_skin = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowSkin");
 
 		mPopupMenuWidgets->removeAllItems();
 
@@ -126,7 +122,7 @@ namespace tools
 
 	void MainMenuControl::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
 	{
-		if (_sectionName == "SettingsWindow")
+		if (_sectionName == "Settings")
 		{
 			widgetsUpdate();
 		}
@@ -147,11 +143,11 @@ namespace tools
 		{
 			recentFilesMenu->getItemChild()->removeAllItems();
 			// список последних открытых файлов
-			const VectorUString& recentFiles = SettingsManager::getInstance().getRecentFiles();
+			const RecentFilesManager::VectorUString& recentFiles = RecentFilesManager::getInstance().getRecentFiles();
 			if (!recentFiles.empty())
 			{
 				size_t index = 1;
-				for (VectorUString::const_reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter, ++index)
+				for (RecentFilesManager::VectorUString::const_iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter, ++index)
 				{
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);

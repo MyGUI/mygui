@@ -94,20 +94,20 @@ namespace tools
 
 	void SettingsWindow::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("Grid", mGridStep);
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowName", getShowName());
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowType", getShowType());
-		SettingsManager::getInstance().getSector("SettingsWindow")->setPropertyValue("ShowSkin", getShowSkin());
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowName", getShowName());
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowType", getShowType());
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowSkin", getShowSkin());
 	}
 
 	void SettingsWindow::loadSettings()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 
-		setShowName(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowName"));
-		setShowType(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowType"));
-		setShowSkin(SettingsManager::getInstance().getSector("SettingsWindow")->getPropertyValue<bool>("ShowSkin"));
+		setShowName(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowName"));
+		setShowType(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowType"));
+		setShowSkin(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowSkin"));
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
