@@ -61,6 +61,8 @@ namespace tools
 
 		void setFileName(const MyGUI::UString& _fileName);
 
+		void addRecentFolder(const MyGUI::UString& _folder);
+
 	private:
 		SettingsWindow* mSettingsWindow;
 		CodeGenerator* mCodeGenerator;
@@ -74,7 +76,11 @@ namespace tools
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
-		MyGUI::UString mLastFolder;
+		MyGUI::UString mRecentFolder;
+
+		typedef std::vector<MyGUI::UString> VectorUString;
+		VectorUString mRecentFolders;
+		size_t mMaxRecentFolders;
 	};
 
 } // namespace tools

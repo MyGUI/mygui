@@ -28,14 +28,9 @@ namespace tools
 		const MyGUI::UString& getName();
 		void setName(const MyGUI::UString& _value);
 
-		bool getExistProperty(const MyGUI::UString& _propertName);
+		bool getExistProperty(const MyGUI::UString& _propertyName);
 
-		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertName);
-		void setPropertyValue(const MyGUI::UString& _propertName, const MyGUI::UString& _propertValue);
-		void setPropertyValue(const MyGUI::UString& _propertName, const std::string& _propertValue)
-		{
-			setPropertyValue(_propertName, MyGUI::UString(_propertValue));
-		}
+		const MyGUI::UString& getPropertyValue(const MyGUI::UString& _propertyName);
 
 		template <typename Type>
 		Type getPropertyValue(const MyGUI::UString& _propertyName)
@@ -43,11 +38,25 @@ namespace tools
 			return MyGUI::utility::parseValue<Type>(getPropertyValue(_propertyName));
 		}
 
+		void setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue);
+
+		void setPropertyValue(const MyGUI::UString& _propertyName, const std::string& _propertyValue);
+
+		typedef std::vector<MyGUI::UString> VectorUString;
+		void setPropertyValueList(const MyGUI::UString& _propertyName, const VectorUString& _propertyValue);
+
+		typedef std::vector<std::string> VectorString;
+		void setPropertyValueList(const MyGUI::UString& _propertyName, const VectorString& _propertyValue);
+
 		template <typename Type>
 		void setPropertyValue(const MyGUI::UString& _propertyName, Type _value)
 		{
 			return setPropertyValue(_propertyName, MyGUI::utility::toString(_value));
 		}
+
+		VectorUString getPropertyValueList(const MyGUI::UString& _propertyName);
+
+		void clearProperty(const MyGUI::UString& _propertyName);
 
 		EventSettingsChanged eventSettingsChanged;
 
