@@ -44,7 +44,7 @@ namespace common
 		void setVisible(bool _value);
 		bool isVisible()
 		{
-			return mMainWidget->isVisible();
+			return mMainWidget->getVisible();
 		}
 
 		void setModalMode(bool _value);

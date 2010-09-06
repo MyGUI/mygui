@@ -3,7 +3,6 @@
 	@author     Albert Semenov
 	@date       08/2008
 */
-
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
@@ -51,6 +50,17 @@ namespace demo
 		_result = true;
 	}
 
+	DemoKeeper::DemoKeeper() :
+		mGraphView(nullptr)
+	{
+	}
+
+	void DemoKeeper::setupResources()
+	{
+		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
+	}
+
 	void DemoKeeper::eventChangeSize(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
 	{
 		const MyGUI::IntCoord& coord = mScrollView3->getClientCoord();
@@ -64,10 +74,10 @@ namespace demo
 
 		mPanel3 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 700, 500), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption("GraphView");
-		mScrollView3 = mPanel3->createWidget< MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
+		mScrollView3 = mPanel3->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mScrollView3->setCanvasAlign(MyGUI::Align::Default);
 
-		mCanvas3 = mScrollView3->createWidget< MyGUI::Canvas>("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
+		mCanvas3 = mScrollView3->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
 		mCanvas3->updateTexture();
 

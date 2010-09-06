@@ -62,7 +62,7 @@ namespace animation
 			}
 		}
 
-		virtual float getLength() const
+		virtual float getLength()
 		{
 			if (!mState)
 			{

@@ -99,8 +99,8 @@ namespace wraps
 			MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
 			if (window != nullptr)
 			{
-				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowChangeCoord);
-				window->eventWindowButtonPressed = MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowButtonPressed);
+				window->eventWindowChangeCoord += MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowChangeCoord);
+				window->eventWindowButtonPressed += MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowButtonPressed);
 			}
 
 			// перекрывающийся стиль
@@ -148,9 +148,9 @@ namespace wraps
 		void addConnection(BaseGraphConnection* _connection)
 		{
 			_connection->_setOwnerNode(this);
-			_connection->_getMainWidget()->eventMouseButtonPressed = MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonPressed);
-			_connection->_getMainWidget()->eventMouseButtonReleased = MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonReleased);
-			_connection->_getMainWidget()->eventMouseDrag = MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseDrag);
+			_connection->_getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonPressed);
+			_connection->_getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseButtonReleased);
+			_connection->_getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseDrag);
 			_connection->_getMainWidget()->setUserData(_connection);
 		}
 

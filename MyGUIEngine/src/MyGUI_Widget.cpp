@@ -1015,6 +1015,9 @@ namespace MyGUI
 	void Widget::setColour(const Colour& _value)
 	{
 		_setSkinItemColour(_value);
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->setColour(_value);
 	}
 
 	IntSize Widget::getParentSize() const
