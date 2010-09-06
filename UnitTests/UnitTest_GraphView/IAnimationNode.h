@@ -46,7 +46,7 @@ namespace animation
 		{
 		}
 
-		virtual float getLength() const
+		virtual float getLength()
 		{
 			return 0;
 		}
