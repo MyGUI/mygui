@@ -15,7 +15,6 @@ namespace tools
 
 	const std::wstring settingsFile = L"settings.xml";
 	const std::wstring userSettingsFile = L"le_user_settings.xml";
-	const size_t MAX_RECENT_FILES = 8;
 
 	SettingsManager::SettingsManager()
 	{
@@ -79,36 +78,7 @@ namespace tools
 				// берем детей и крутимся
 				MyGUI::xml::ElementEnumerator field = root->getElementEnumerator();
 				while (field.next())
-				{
-					/*if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
-					else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
-					else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
-					else if (field->getName() == "MetaSolutionWindow")
-					{
-						if (isNeedSolutionLoad(field))
-						{
-							clearWidgetWindow();
-							mMetaSolutionWindow->load(field);
-						}
-					}
-					else */if (field->getName() == "RecentFile")
-					{
-						std::string name;
-						if (!field->findAttribute("name", name)) continue;
-						addRecentFile(name);
-						//mRecentFiles.push_back(name);
-					}
-					else if (field->getName() == "AdditionalPath")
-					{
-						std::string name;
-						if (!field->findAttribute("name", name)) continue;
-						mAdditionalPaths.push_back(name);
-					}
-					else
-					{
-						loadSector(field.current());
-					}
-				}
+					loadSector(field.current());
 			}
 		}
 	}
@@ -124,47 +94,11 @@ namespace tools
 
 		saveSectors(root);
 
-		// cleanup for duplicates
-		/*std::reverse(mRecentFiles.begin(), mRecentFiles.end());
-		for (size_t i = 0; i < mRecentFiles.size(); ++i)
-			mRecentFiles.erase(std::remove(mRecentFiles.begin() + i + 1, mRecentFiles.end(), mRecentFiles[i]), mRecentFiles.end());
-
-		// remove old files
-		while (mRecentFiles.size() > MAX_RECENT_FILES)
-			mRecentFiles.pop_back();
-		std::reverse(mRecentFiles.begin(), mRecentFiles.end());*/
-
-		for (std::vector<MyGUI::UString>::iterator iter = mRecentFiles.begin(); iter != mRecentFiles.end(); ++iter)
-		{
-			MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
-			nodeProp->addAttribute("name", *iter);
-		}
-
-		for (std::vector<MyGUI::UString>::iterator iter = mAdditionalPaths.begin(); iter != mAdditionalPaths.end(); ++iter)
-		{
-			MyGUI::xml::ElementPtr nodeProp = root->createChild("AdditionalPath");
-			nodeProp->addAttribute("name", *iter);
-		}
-
 		if (!doc.save(_fileName))
 		{
 			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 			return;
 		}
-	}
-
-	void SettingsManager::addRecentFile(const MyGUI::UString& _fileName)
-	{
-		VectorUString::iterator item = std::remove(mRecentFiles.begin(), mRecentFiles.end(), _fileName);
-		if (item != mRecentFiles.end())
-			mRecentFiles.erase(item);
-
-		mRecentFiles.push_back(_fileName);
-
-		while (mRecentFiles.size() > MAX_RECENT_FILES)
-			mRecentFiles.erase(mRecentFiles.begin());
-
-		eventSettingsChanged("Main", "RecentFiles");
 	}
 
 	void SettingsManager::loadSector(MyGUI::xml::ElementPtr _sectorNode)
@@ -206,16 +140,6 @@ namespace tools
 	void SettingsManager::notifySettingsChanged(SettingsSector* _sector, const MyGUI::UString& _propertyName)
 	{
 		eventSettingsChanged(_sector->getName(), _propertyName);
-	}
-
-	const VectorUString& SettingsManager::getRecentFiles()
-	{
-		return mRecentFiles;
-	}
-
-	const VectorUString& SettingsManager::getAdditionalPaths()
-	{
-		return mAdditionalPaths;
 	}
 
 } // namespace tools

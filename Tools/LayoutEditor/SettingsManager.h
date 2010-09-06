@@ -12,7 +12,6 @@
 namespace tools
 {
 	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSectorSettingsChanged;
-	typedef std::vector<MyGUI::UString> VectorUString;
 
 	class SettingsManager :
 		public MyGUI::Singleton<SettingsManager>
@@ -23,11 +22,6 @@ namespace tools
 
 		void initialise();
 		void shutdown();
-
-		const VectorUString& getRecentFiles();
-		const VectorUString& getAdditionalPaths();
-
-		void addRecentFile(const MyGUI::UString& _fileName);
 
 		SettingsSector* getSector(const MyGUI::UString& _sectorName);
 
@@ -44,9 +38,6 @@ namespace tools
 		void notifySettingsChanged(SettingsSector* _sector, const MyGUI::UString& _propertyName);
 
 	private:
-		VectorUString mRecentFiles;
-		VectorUString mAdditionalPaths;
-
 		VectorSettingsSector mSettings;
 	};
 
