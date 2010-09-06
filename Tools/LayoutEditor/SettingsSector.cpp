@@ -105,25 +105,29 @@ namespace tools
 
 	void SettingsSector::clearProperty(const MyGUI::UString& _propertyName)
 	{
-		for (MapUString::iterator item = mProperties.begin(); item != mProperties.end(); ++ item)
+		for (MapUString::iterator item = mProperties.begin(); item != mProperties.end(); /* inside loop */)
 		{
 			size_t indexSeparator = (*item).first.find('.');
-			if (indexSeparator != -1)
+			if (indexSeparator != MyGUI::UString::npos)
 			{
 				if ((*item).first.substr(0, indexSeparator) == _propertyName)
 				{
-					item = mProperties.erase(item);
-					if (item == mProperties.end())
-						break;
+					mProperties.erase(item++);
+				}
+				else
+				{
+					++item;
 				}
 			}
 			else
 			{
 				if ((*item).first == _propertyName)
 				{
-					item = mProperties.erase(item);
-					if (item == mProperties.end())
-						break;
+					mProperties.erase(item++);
+				}
+				else
+				{
+					++item;
 				}
 			}
 		}
@@ -136,7 +140,7 @@ namespace tools
 		for (MapUString::iterator item = mProperties.begin(); item != mProperties.end(); ++ item)
 		{
 			size_t indexSeparator = (*item).first.find('.');
-			if (indexSeparator != -1)
+			if (indexSeparator != MyGUI::UString::npos)
 			{
 				if ((*item).first.substr(0, indexSeparator) == _propertyName)
 					result.push_back((*item).second);
