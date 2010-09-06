@@ -27,8 +27,8 @@ namespace wraps
 	{
 	public:
 		BaseGraphNode(const std::string& _layout) :
-			mLayout(_layout),
 			BaseLayout("", nullptr),
+			mLayout(_layout),
 			mView(nullptr)
 		{
 		}

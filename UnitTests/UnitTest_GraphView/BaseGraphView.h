@@ -23,9 +23,9 @@ namespace wraps
 
 		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 			BaseLayout(_layout, _parent),
+			mCanvas(nullptr),
 			mIsDrug(false),
-			mConnectionStart(nullptr),
-			mCanvas(nullptr)
+			mConnectionStart(nullptr)
 		{
 			if (mMainWidget->isType<MyGUI::Canvas>())
 			{
@@ -455,7 +455,7 @@ namespace wraps
 			polygonalSkin->setWidth(4.0f);
 			widget->setColour(_colour);
 
-			const int PointsNumber = 16;
+			const size_t PointsNumber = 16;
 			std::vector<MyGUI::FloatPoint> basePoints;
 			basePoints.push_back(
 				MyGUI::FloatPoint((float)_info.point_start.left, (float)_info.point_start.top + _offset));

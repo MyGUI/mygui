@@ -142,7 +142,7 @@ namespace demo
 
 		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 		{
-			if (_index != -1)
+			if (_index != MyGUI::ITEM_NONE)
 			{
 				mStateName = _sender->getItemNameAt(_index);
 				getAnimationNode()->setProperty("StateName", mStateName);
