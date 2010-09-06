@@ -60,8 +60,9 @@ namespace tools
 		MyGUI::Button* mResourcePathDelete;
 		MyGUI::List* mResourcePaths;
 
-		int mGridStep;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
+
+		int mGridStep;
 	};
 
 } // namespace tools
