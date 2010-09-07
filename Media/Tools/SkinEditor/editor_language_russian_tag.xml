@@ -5,14 +5,19 @@
 	<Tag name="Save">Сохранить</Tag>
 	<Tag name="Save_as">Сохранить как...</Tag>
 	<Tag name="Clear">Очистить</Tag>
+	<Tag name="Settings">Настройки</Tag>
 	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
 	<Tag name="Export">Экспорт</Tag>
 	<Tag name="RecentFiles">Предыдущие файлы </Tag>
 	<Tag name="Quit">Выход</Tag>
 
+	<Tag name="Add">Добавить</Tag>
 	<Tag name="Create">Создать</Tag>
 	<Tag name="Delete">Удалить</Tag>
 	<Tag name="Rename">Переименовать</Tag>
+
+	<Tag name="FoldersSettings">Папки</Tag>
+	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
 
 	<Tag name="OK">Ок</Tag>
 	<Tag name="Ok">Ок</Tag>
@@ -27,9 +32,11 @@
 	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
+	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
+	<Tag name="ButtonOpenFolder">Выбрать</Tag>
 
 	<Tag name="PropertyRegionCoords">Координаты</Tag>
 	<Tag name="PropertyRegionVisible">Видимость</Tag>
