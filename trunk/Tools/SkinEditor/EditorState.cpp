@@ -23,16 +23,18 @@ namespace tools
 		mDefaultFileName("unnamed.xml"),
 		mMainPane(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mMessageBoxFadeControl(nullptr)
+		mMessageBoxFadeControl(nullptr),
+		mSettingsWindow(nullptr)
 	{
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
 		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
+		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
 		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
+		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 	}
 
 	EditorState::~EditorState()
@@ -46,6 +48,9 @@ namespace tools
 
 		mMainPane = new MainPane();
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
+
+		mSettingsWindow = new SettingsWindow();
+		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
@@ -74,6 +79,9 @@ namespace tools
 		mOpenSaveFileDialog->eventEndDialog = nullptr;
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
+
+		delete mSettingsWindow;
+		mSettingsWindow = nullptr;
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
@@ -435,6 +443,21 @@ namespace tools
 	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
 	{
 		commandFileDrop(_commandName);
+	}
+
+	void EditorState::commandSettings(const MyGUI::UString& _commandName)
+	{
+		mSettingsWindow->doModal();
+	}
+
+	void EditorState::notifySettingsWindowEndDialog(Dialog* _dialog, bool _result)
+	{
+		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
+
+		if (_result)
+			mSettingsWindow->saveSettings();
+
+		mSettingsWindow->endModal();
 	}
 
 } // namespace tools

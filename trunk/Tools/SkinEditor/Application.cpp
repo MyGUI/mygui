@@ -81,6 +81,11 @@ namespace tools
 		StateManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
+
+		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
+		for (SettingsSector::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+			addResourceLocation(*iter);
+
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
 
 		mEditorState = new EditorState();

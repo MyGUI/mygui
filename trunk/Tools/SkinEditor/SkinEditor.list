@@ -69,6 +69,7 @@ set (HEADER_FILES
   SettingsManager.h
   RecentFilesManager.h
   SettingsSector.h
+  SettingsWindow.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -135,6 +136,7 @@ set (SOURCE_FILES
   SettingsManager.cpp
   RecentFilesManager.cpp
   SettingsSector.cpp
+  SettingsWindow.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
