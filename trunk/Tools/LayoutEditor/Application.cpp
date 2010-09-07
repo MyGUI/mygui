@@ -57,7 +57,7 @@ namespace tools
 		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
 		new SettingsManager();
-		SettingsManager::getInstance().initialise();
+		SettingsManager::getInstance().initialise("le_user_settings.xml");
 
 		new CommandManager();
 		CommandManager::getInstance().initialise();
