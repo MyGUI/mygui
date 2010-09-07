@@ -275,13 +275,6 @@ namespace tools
 			text->setCoord(x1, y, w1, h);
 		}
 		std::string prop = _property;
-		// trim widget name
-		//std::string::iterator iterS;
-		//iterS = std::find(prop.begin(), prop.end(), '_');
-		//if (iterS != prop.end()) prop.erase(prop.begin(), ++iterS);
-
-		//size_t idx = prop.find_last_of(' ');
-		//if (idx != std::string::npos) prop = prop.substr(idx);
 
 		text->setCaption(prop);
 
@@ -330,12 +323,25 @@ namespace tools
 		{
 			std::vector<std::string> values;
 			if (_type == "Skin")
+			{
 				values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
+
+				MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+				while (resource.next())
+				{
+					MyGUI::ResourceSkin* skin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
+					if (skin != nullptr)
+						values.push_back(replaceTags("ColourDefault") + skin->getResourceName());
+				}
+			}
 			else
+			{
 				values = WidgetTypes::getInstance().findPossibleValues(_type);
+			}
 
 			for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
 				editOrCombo->castType<MyGUI::ComboBox>()->addItem(*iter);
+			editOrCombo->castType<MyGUI::ComboBox>()->beginToItemFirst();
 		}
 
 		editOrCombo->setUserString("action", _property);

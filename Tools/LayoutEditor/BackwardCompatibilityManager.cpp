@@ -22,9 +22,6 @@ namespace tools
 		mPropertyNames["3.1.0-ImageResource"] = "Button_ImageResource";
 
 		mPropertyNames["3.1.0-ModeDrop"] = "Combo_ModeDrop";
-		mPropertyNames["3.1.0-FlowDirection"] = "Combo_FlowDirection";
-		mPropertyNames["3.1.0-MaxListLength"] = "Combo_MaxLength";
-		mPropertyNames["3.1.0-SmoothShow"] = "Combo_SmoothShow";
 
 		mPropertyNames["3.1.0-NeedDragDrop"] = "DDContainer_NeedDragDrop";
 
@@ -37,8 +34,6 @@ namespace tools
 		mPropertyNames["3.1.0-MaxTextLength"] = "Edit_MaxTextLength";
 		mPropertyNames["3.1.0-OverflowToTheLeft"] = "Edit_OverflowToTheLeft";
 		mPropertyNames["3.1.0-Static"] = "Edit_Static";
-		mPropertyNames["3.1.0-VisibleVScroll"] = "Edit_ShowVScroll";
-		mPropertyNames["3.1.0-VisibleHScroll"] = "Edit_ShowHScroll";
 		mPropertyNames["3.1.0-WordWrap"] = "Edit_WordWrap";
 		mPropertyNames["3.1.0-TabPrinting"] = "Edit_TabPrinting";
 		mPropertyNames["3.1.0-InvertSelected"] = "Edit_InvertSelected";
@@ -51,15 +46,11 @@ namespace tools
 		mPropertyNames["3.1.0-MessageButton"] = "Message_Button";
 		mPropertyNames["3.1.0-SmoothShow"] = "Message_SmoothShow";
 		mPropertyNames["3.1.0-Fade"] = "Message_Fade";
-		mPropertyNames["3.1.0-Caption"] = "Message_Caption";
 
 		mPropertyNames["3.1.0-Range"] = "Progress_Range";
 		mPropertyNames["3.1.0-RangePosition"] = "Progress_Position";
 		mPropertyNames["3.1.0-AutoTrack"] = "Progress_AutoTrack";
-		mPropertyNames["3.1.0-FlowDirection"] = "Progress_FlowDirection";
 
-		mPropertyNames["3.1.0-VisibleVScroll"] = "ScrollView_VScroll";
-		mPropertyNames["3.1.0-VisibleHScroll"] = "ScrollView_HScroll";
 		mPropertyNames["3.1.0-CanvasAlign"] = "ScrollView_CanvasAlign";
 		mPropertyNames["3.1.0-CanvasSize"] = "ScrollView_CanvasSize";
 
@@ -75,7 +66,6 @@ namespace tools
 		mPropertyNames["3.1.0-TextAlign"] = "Text_TextAlign";
 		mPropertyNames["3.1.0-FontName"] = "Text_FontName";
 		mPropertyNames["3.1.0-FontHeight"] = "Text_FontHeight";
-		mPropertyNames["3.1.0-Caption"] = "Text_Caption";
 
 		mPropertyNames["3.1.0-ButtonWidth"] = "Tab_ButtonWidth";
 		mPropertyNames["3.1.0-ButtonAutoWidth"] = "Tab_ButtonAutoWidth";
@@ -90,6 +80,7 @@ namespace tools
 		mPropertyNames["3.1.0-ViewPage"] = "Scroll_ViewPage";
 		mPropertyNames["3.1.0-MoveToClick"] = "Scroll_MoveToClick";
 
+		mPropertyNames["3.1.0-Caption"] = "Widget_Caption";
 		mPropertyNames["3.1.0-Position"] = "Widget_Position";
 		mPropertyNames["3.1.0-Size"] = "Widget_Size";
 		mPropertyNames["3.1.0-Coord"] = "Widget_Coord";
@@ -105,6 +96,17 @@ namespace tools
 		mPropertyNames["3.1.0-Enabled"] = "Widget_Enabled";
 		mPropertyNames["3.1.0-NeedToolTip"] = "Widget_NeedToolTip";
 		mPropertyNames["3.1.0-Pointer"] = "Widget_Pointer";
+
+		mPropertyNames["3.1.0-AutoAlpha"] = "Window_AutoAlpha";
+		mPropertyNames["3.1.0-Snap"] = "Window_Snap";
+		mPropertyNames["3.1.0-MinSize"] = "Window_MinSize";
+		mPropertyNames["3.1.0-MaxSize"] = "Window_MaxSize";
+
+		mPropertyNames["3.1.0-Edit-VisibleVScroll"] = "Edit_ShowVScroll";
+		mPropertyNames["3.1.0-Edit-VisibleHScroll"] = "Edit_ShowHScroll";
+		mPropertyNames["3.1.0-Message-Caption"] = "Message_Caption";
+		mPropertyNames["3.1.0-ScrollView-VisibleVScroll"] = "ScrollView_VScroll";
+		mPropertyNames["3.1.0-ScrollView-VisibleHScroll"] = "ScrollView_HScroll";
 	}
 
 	BackwardCompatibilityManager::~BackwardCompatibilityManager()
@@ -142,7 +144,17 @@ namespace tools
 			}
 			else
 			{
-				MYGUI_LOG(Warning, "Property key not found '" << key << "'");
+				key = MyGUI::utility::toString(getCurrentVersion(), "-", _widgetType, "-", propertyName);
+
+				item = mPropertyNames.find(key);
+				if (item != mPropertyNames.end())
+				{
+					propertyName = (*item).second;
+				}
+				else
+				{
+					MYGUI_LOG(Warning, "Property key not found '" << key << "'");
+				}
 			}
 		}
 
