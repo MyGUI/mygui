@@ -47,6 +47,7 @@ set (HEADER_FILES
   SelectionAreaControl.h
   WidgetCreatorManager.h
   RecentFilesManager.h
+  BackwardCompatibilityManager.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -87,6 +88,7 @@ set (SOURCE_FILES
   SelectionAreaControl.cpp
   WidgetCreatorManager.cpp
   RecentFilesManager.cpp
+  BackwardCompatibilityManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

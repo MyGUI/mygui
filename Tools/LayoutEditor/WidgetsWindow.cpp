@@ -63,9 +63,9 @@ namespace tools
 		else
 			mSkinSheetName = "";
 
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("mWidgetsButtonWidth", mWidgetsButtonWidth);
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("mWidgetsButtonHeight", mWidgetsButtonHeight);
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("mWidgetsButtonsInOneLine", mWidgetsButtonsInOneLine);
+		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonWidth", mWidgetsButtonWidth);
+		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonHeight", mWidgetsButtonHeight);
+		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonsInOneLine", mWidgetsButtonsInOneLine);
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("lastSkinGroup", mSkinSheetName);
 	}
 

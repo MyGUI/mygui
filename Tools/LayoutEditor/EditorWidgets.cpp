@@ -3,6 +3,7 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
+#include "BackwardCompatibilityManager.h"
 
 template <> tools::EditorWidgets* MyGUI::Singleton<tools::EditorWidgets>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName("EditorWidgets");
@@ -103,7 +104,8 @@ namespace tools
 		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 		{
 			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+			if (nullptr == (*iter)->widget->getParent())
+				serialiseWidget(*iter, root, true);
 		}
 
 		saveSectors(root);
@@ -128,7 +130,8 @@ namespace tools
 			{
 				// берем детей и крутимся
 				MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
-				while (widget.next("Widget")) parseWidget(widget, 0, _test);
+				while (widget.next("Widget"))
+					parseWidget(widget, 0, _test);
 			}
 		}
 		mWidgetsChanged = true;
@@ -145,7 +148,8 @@ namespace tools
 		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 		{
 			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+			if (nullptr == (*iter)->widget->getParent())
+				serialiseWidget(*iter, root);
 		}
 
 		return doc;
@@ -155,7 +159,8 @@ namespace tools
 	{
 		if (nullptr == _container->widget->getParent())
 		{
-			if ("" == _container->layer) _container->layer = DEFAULT_LAYER;
+			if ("" == _container->layer)
+				_container->layer = DEFAULT_LAYER;
 			mWidgets.push_back(_container);
 		}
 		else
@@ -165,7 +170,8 @@ namespace tools
 			while (NULL == containerParent)
 			{
 				parent = parent->getParent();
-				if (parent == nullptr) return;
+				if (parent == nullptr)
+					return;
 				containerParent = find(parent);
 			}
 			containerParent->childContainers.push_back(_container);
@@ -201,7 +207,8 @@ namespace tools
 				while (NULL == containerParent)
 				{
 					parent = parent->getParent();
-					if (parent == nullptr) return;
+					if (parent == nullptr)
+						return;
 					containerParent = find(parent);
 				}
 
@@ -245,7 +252,8 @@ namespace tools
 				return *iter;
 			}
 			WidgetContainer* retContainer = _find(_widget, _name, (*iter)->childContainers);
-			if (retContainer) return retContainer;
+			if (retContainer)
+				return retContainer;
 		}
 		return nullptr;
 	}
@@ -335,30 +343,39 @@ namespace tools
 		{
 			std::string key, value, type;
 
-			if (widget->getName() == "Widget") parseWidget(widget, container->widget, _test);
+			if (widget->getName() == "Widget")
+			{
+				parseWidget(widget, container->widget, _test);
+			}
 			else if (widget->getName() == "Property")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("key", key)) continue;
-				if (!widget->findAttribute("value", value)) continue;
+				if (!widget->findAttribute("key", key))
+					continue;
+				if (!widget->findAttribute("value", value))
+					continue;
 
 				// и пытаемся парсить свойство
-				if ( tryToApplyProperty(container->widget, key, value, _test) == false ) continue;
+				if (tryToApplyProperty(container->widget, key, value, _test) == false)
+					continue;
 
 				container->mProperty.push_back(MyGUI::PairString(key, value));
 			}
 			else if (widget->getName() == "UserString")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("key", key)) continue;
-				if (!widget->findAttribute("value", value)) continue;
+				if (!widget->findAttribute("key", key))
+					continue;
+				if (!widget->findAttribute("value", value))
+					continue;
 				//container->mUserString.insert(MyGUI::PairString(key, value));
 				container->mUserString.push_back(MyGUI::PairString(key, value));
 			}
 			else if (widget->getName() == "Controller")
 			{
 				// парсим атрибуты
-				if (!widget->findAttribute("type", type)) continue;
+				if (!widget->findAttribute("type", type))
+					continue;
 				ControllerInfo* controllerInfo = new ControllerInfo();
 				controllerInfo->mType = type;
 
@@ -371,8 +388,11 @@ namespace tools
 				MyGUI::xml::ElementEnumerator prop = widget->getElementEnumerator();
 				while (prop.next("Property"))
 				{
-					if (!prop->findAttribute("key", key)) continue;
-					if (!prop->findAttribute("value", value)) continue;
+					if (!prop->findAttribute("key", key))
+						continue;
+					if (!prop->findAttribute("value", value))
+						continue;
+
 					controllerInfo->mProperty[key] = value;
 					if (item)
 					{
@@ -418,24 +438,29 @@ namespace tools
 		return true;
 	}
 
-	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node)
+	void EditorWidgets::serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility)
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Widget");
 
 		node->addAttribute("type", _container->type);
 		node->addAttribute("skin", _container->skin);
-		if (!_container->relative_mode) node->addAttribute("position", _container->position());
-		else node->addAttribute("position_real", _container->position(false));
-		if ("" != _container->align) node->addAttribute("align", _container->align);
-		if ("" != _container->layer) node->addAttribute("layer", _container->layer);
-		if ("" != _container->name) node->addAttribute("name", _container->name);
+
+		if (!_container->relative_mode)
+			node->addAttribute("position", _container->position());
+		else
+			node->addAttribute("position_real", _container->position(false));
+
+		if ("" != _container->align)
+			node->addAttribute("align", _container->align);
+
+		if ("" != _container->layer)
+			node->addAttribute("layer", _container->layer);
+
+		if ("" != _container->name)
+			node->addAttribute("name", _container->name);
 
 		for (MyGUI::VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
-		{
-			MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
-			nodeProp->addAttribute("key", iter->first);
-			nodeProp->addAttribute("value", iter->second);
-		}
+			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->type, *iter, _compatibility);
 
 		for (MyGUI::VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 		{
@@ -458,7 +483,7 @@ namespace tools
 
 		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
 		{
-			serialiseWidget(*iter, node);
+			serialiseWidget(*iter, node, _compatibility);
 		}
 	}
 
