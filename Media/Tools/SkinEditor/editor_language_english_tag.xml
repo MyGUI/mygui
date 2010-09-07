@@ -5,14 +5,19 @@
 	<Tag name="Save">Save</Tag>
 	<Tag name="Save_as">Save as</Tag>
 	<Tag name="Clear">Clear</Tag>
+	<Tag name="Settings">Settings</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
 	<Tag name="Export">Export</Tag>
 	<Tag name="RecentFiles">Recent Files </Tag>
 	<Tag name="Quit">Quit</Tag>
 
+	<Tag name="Add">Add</Tag>
 	<Tag name="Create">Create</Tag>
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Rename">Rename</Tag>
+
+	<Tag name="FoldersSettings">Folders</Tag>
+	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
 
 	<Tag name="OK">OK</Tag>
 	<Tag name="Ok">Ok</Tag>
@@ -27,9 +32,11 @@
 	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionTestWindow">Test</Tag>
+	<Tag name="CaptionOpenFolder">Select folder</Tag>
 
 	<Tag name="ButtonOpenFile">Open</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>
+	<Tag name="ButtonOpenFolder">Select</Tag>
 
 	<Tag name="PropertyRegionCoords">Coords</Tag>
 	<Tag name="PropertyRegionVisible">Visible</Tag>

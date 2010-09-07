@@ -32,6 +32,10 @@
 						<Property key="MenuItemId" value="Command_FileExport"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Settings}"/>
+						<Property key="MenuItemId" value="Command_Settings"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Caption" value="#{Test}"/>
 						<Property key="MenuItemId" value="Command_Test"/>
 					</Widget>
