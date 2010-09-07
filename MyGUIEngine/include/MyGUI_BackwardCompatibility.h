@@ -575,6 +575,7 @@ namespace MyGUI
 		static void initialise();
 		static void shutdown();
 		static bool isIgnoreProperty(const std::string& _key);
+		static std::string MYGUI_EXPORT getPropertyRename(const std::string& _propertyName);
 
 	private:
 #ifndef MYGUI_DONT_USE_OBSOLETE

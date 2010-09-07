@@ -26,6 +26,7 @@
 	<Tag name="WidgetsSettings">Виджеты</Tag>
 	<Tag name="FoldersSettings">Папки</Tag>
 	<Tag name="Grid_step">Шаг сетки</Tag>
+	<Tag name="LayoutVersion">Версия макета</Tag>
 	<Tag name="Show_widget_name">Показывать имя виджета</Tag>
 	<Tag name="Show_widget_type">Показывать тип виджета</Tag>
 	<Tag name="Show_widget_skin">Показывать скин виджета</Tag>

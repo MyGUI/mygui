@@ -100,6 +100,7 @@ namespace tools
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Layout");
+		root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
 
 		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 		{
@@ -354,6 +355,9 @@ namespace tools
 					continue;
 				if (!widget->findAttribute("value", value))
 					continue;
+
+				// конвертим проперти в текущий вариант версии
+				key = MyGUI::BackwardCompatibility::getPropertyRename(key);
 
 				// и пытаемся парсить свойство
 				if (tryToApplyProperty(container->widget, key, value, _test) == false)

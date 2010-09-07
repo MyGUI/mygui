@@ -14,16 +14,97 @@ namespace tools
 {
 	BackwardCompatibilityManager::BackwardCompatibilityManager()
 	{
-		mVersions.push_back("V3.2.0");
-		mVersions.push_back("V3.1.0");
+		mVersions.push_back("3.2.0");
+		mVersions.push_back("3.1.0");
 
-		mPropertyNames["V3.1.0-StaticImage-ImageTexture"] = "Image_Texture";
-		mPropertyNames["V3.1.0-StaticImage-ImageRegion"] = "Image_Region";
-		mPropertyNames["V3.1.0-StaticImage-ImageTile"] = "Image_Tile";
-		mPropertyNames["V3.1.0-StaticImage-ImageIndex"] = "Image_Index";
-		mPropertyNames["V3.1.0-StaticImage-ImageResource"] = "Image_Resource";
-		mPropertyNames["V3.1.0-StaticImage-ImageGroup"] = "Image_Group";
-		mPropertyNames["V3.1.0-StaticImage-ImageName"] = "Image_Name";
+		mPropertyNames["3.1.0-StateSelected"] = "Button_Pressed";
+		mPropertyNames["3.1.0-ModeImage"] = "Button_ModeImage";
+		mPropertyNames["3.1.0-ImageResource"] = "Button_ImageResource";
+
+		mPropertyNames["3.1.0-ModeDrop"] = "Combo_ModeDrop";
+		mPropertyNames["3.1.0-FlowDirection"] = "Combo_FlowDirection";
+		mPropertyNames["3.1.0-MaxListLength"] = "Combo_MaxLength";
+		mPropertyNames["3.1.0-SmoothShow"] = "Combo_SmoothShow";
+
+		mPropertyNames["3.1.0-NeedDragDrop"] = "DDContainer_NeedDragDrop";
+
+		mPropertyNames["3.1.0-CursorPosition"] = "Edit_CursorPosition";
+		mPropertyNames["3.1.0-TextSelect"] = "Edit_TextSelect";
+		mPropertyNames["3.1.0-ReadOnly"] = "Edit_ReadOnly";
+		mPropertyNames["3.1.0-Password"] = "Edit_Password";
+		mPropertyNames["3.1.0-MultiLine"] = "Edit_MultiLine";
+		mPropertyNames["3.1.0-PasswordChar"] = "Edit_PasswordChar";
+		mPropertyNames["3.1.0-MaxTextLength"] = "Edit_MaxTextLength";
+		mPropertyNames["3.1.0-OverflowToTheLeft"] = "Edit_OverflowToTheLeft";
+		mPropertyNames["3.1.0-Static"] = "Edit_Static";
+		mPropertyNames["3.1.0-VisibleVScroll"] = "Edit_ShowVScroll";
+		mPropertyNames["3.1.0-VisibleHScroll"] = "Edit_ShowHScroll";
+		mPropertyNames["3.1.0-WordWrap"] = "Edit_WordWrap";
+		mPropertyNames["3.1.0-TabPrinting"] = "Edit_TabPrinting";
+		mPropertyNames["3.1.0-InvertSelected"] = "Edit_InvertSelected";
+
+		mPropertyNames["3.1.0-MenuItemId"] = "MenuItem_Id";
+		mPropertyNames["3.1.0-MenuItemType"] = "MenuItem_Type";
+
+		mPropertyNames["3.1.0-MessageText"] = "Message_Message";
+		mPropertyNames["3.1.0-Modal"] = "Message_Modal";
+		mPropertyNames["3.1.0-MessageButton"] = "Message_Button";
+		mPropertyNames["3.1.0-SmoothShow"] = "Message_SmoothShow";
+		mPropertyNames["3.1.0-Fade"] = "Message_Fade";
+		mPropertyNames["3.1.0-Caption"] = "Message_Caption";
+
+		mPropertyNames["3.1.0-Range"] = "Progress_Range";
+		mPropertyNames["3.1.0-RangePosition"] = "Progress_Position";
+		mPropertyNames["3.1.0-AutoTrack"] = "Progress_AutoTrack";
+		mPropertyNames["3.1.0-FlowDirection"] = "Progress_FlowDirection";
+
+		mPropertyNames["3.1.0-VisibleVScroll"] = "ScrollView_VScroll";
+		mPropertyNames["3.1.0-VisibleHScroll"] = "ScrollView_HScroll";
+		mPropertyNames["3.1.0-CanvasAlign"] = "ScrollView_CanvasAlign";
+		mPropertyNames["3.1.0-CanvasSize"] = "ScrollView_CanvasSize";
+
+		mPropertyNames["3.1.0-ImageTexture"] = "Image_Texture";
+		mPropertyNames["3.1.0-ImageRegion"] = "Image_Region";
+		mPropertyNames["3.1.0-ImageTile"] = "Image_Tile";
+		mPropertyNames["3.1.0-ImageIndex"] = "Image_Index";
+		mPropertyNames["3.1.0-ImageResource"] = "Image_Resource";
+		mPropertyNames["3.1.0-ImageGroup"] = "Image_Group";
+		mPropertyNames["3.1.0-ImageName"] = "Image_Name";
+
+		mPropertyNames["3.1.0-TextColour"] = "Text_TextColour";
+		mPropertyNames["3.1.0-TextAlign"] = "Text_TextAlign";
+		mPropertyNames["3.1.0-FontName"] = "Text_FontName";
+		mPropertyNames["3.1.0-FontHeight"] = "Text_FontHeight";
+		mPropertyNames["3.1.0-Caption"] = "Text_Caption";
+
+		mPropertyNames["3.1.0-ButtonWidth"] = "Tab_ButtonWidth";
+		mPropertyNames["3.1.0-ButtonAutoWidth"] = "Tab_ButtonAutoWidth";
+		mPropertyNames["3.1.0-SmoothShow"] = "Tab_SmoothShow";
+		mPropertyNames["3.1.0-SelectItem"] = "Tab_SelectItem";
+
+		mPropertyNames["3.1.0-ButtonWidth"] = "TabItem_ButtonWidth";
+
+		mPropertyNames["3.1.0-Range"] = "Scroll_Range";
+		mPropertyNames["3.1.0-RangePosition"] = "Scroll_Position";
+		mPropertyNames["3.1.0-Page"] = "Scroll_Page";
+		mPropertyNames["3.1.0-ViewPage"] = "Scroll_ViewPage";
+		mPropertyNames["3.1.0-MoveToClick"] = "Scroll_MoveToClick";
+
+		mPropertyNames["3.1.0-Position"] = "Widget_Position";
+		mPropertyNames["3.1.0-Size"] = "Widget_Size";
+		mPropertyNames["3.1.0-Coord"] = "Widget_Coord";
+		mPropertyNames["3.1.0-Visible"] = "Widget_Visible";
+		mPropertyNames["3.1.0-Alpha"] = "Widget_Alpha";
+		mPropertyNames["3.1.0-Colour"] = "Widget_Colour";
+		mPropertyNames["3.1.0-InheritsAlpha"] = "Widget_InheritsAlpha";
+		mPropertyNames["3.1.0-InheritsPick"] = "Widget_InheritsPick";
+		mPropertyNames["3.1.0-MaskPick"] = "Widget_MaskPick";
+		mPropertyNames["3.1.0-State"] = "Widget_State";
+		mPropertyNames["3.1.0-NeedKey"] = "Widget_NeedKey";
+		mPropertyNames["3.1.0-NeedMouse"] = "Widget_NeedMouse";
+		mPropertyNames["3.1.0-Enabled"] = "Widget_Enabled";
+		mPropertyNames["3.1.0-NeedToolTip"] = "Widget_NeedToolTip";
+		mPropertyNames["3.1.0-Pointer"] = "Widget_Pointer";
 	}
 
 	BackwardCompatibilityManager::~BackwardCompatibilityManager()
@@ -33,14 +114,9 @@ namespace tools
 	void BackwardCompatibilityManager::initialise()
 	{
 		if (SettingsManager::getInstance().getSector("Settings")->getExistProperty("LayoutVersion"))
-		{
 			mCurrentVersion = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("LayoutVersion");
-		}
 		else
-		{
 			mCurrentVersion = getDefaultVersion();
-			SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LayoutVersion", mCurrentVersion);
-		}
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &BackwardCompatibilityManager::notifySettingsChanged);
 	}
@@ -48,6 +124,7 @@ namespace tools
 	void BackwardCompatibilityManager::shutdown()
 	{
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &BackwardCompatibilityManager::notifySettingsChanged);
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LayoutVersion", mCurrentVersion);
 	}
 
 	void BackwardCompatibilityManager::serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility)
@@ -56,7 +133,7 @@ namespace tools
 
 		if (_compatibility && getDefaultVersion() != getCurrentVersion())
 		{
-			std::string key = MyGUI::utility::toString(getCurrentVersion(), "-", _widgetType, "-", propertyName);
+			std::string key = MyGUI::utility::toString(getCurrentVersion(), "-", propertyName);
 
 			MyGUI::MapString::const_iterator item = mPropertyNames.find(key);
 			if (item != mPropertyNames.end())
@@ -96,6 +173,11 @@ namespace tools
 	const std::string& BackwardCompatibilityManager::getCurrentVersion()
 	{
 		return mCurrentVersion;
+	}
+
+	void BackwardCompatibilityManager::setCurrentVersion(const std::string& _value)
+	{
+		mCurrentVersion = _value;
 	}
 
 } // namespace tools

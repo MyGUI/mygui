@@ -929,20 +929,20 @@ namespace MyGUI
 		factory.registerFactory<RenderBox>("Widget");
 		factory.registerFactory<Sheet>("Widget");
 
+		mPropertyRename["Widget_Caption"] = "Caption";
 		mPropertyRename["Button_Pressed"] = "StateSelected";
 		mPropertyRename["ButtonPressed"] = "StateSelected";
 		mPropertyRename["StateCheck"] = "StateSelected";
 		mPropertyRename["Edit_ShowVScroll"] = "VisibleVScroll";
-		mPropertyRename["ScrollView_VScroll"] = "VisibleVScroll";
 		mPropertyRename["Edit_ShowHScroll"] = "VisibleHScroll";
+		mPropertyRename["ScrollView_VScroll"] = "VisibleVScroll";
 		mPropertyRename["ScrollView_HScroll"] = "VisibleHScroll";
-		mPropertyRename["Widget_Caption"] = "Caption";
 		mPropertyRename["Message_Caption"] = "Caption";
+		mPropertyRename["Message_Message"] = "MessageText";
+		mPropertyRename["Message_Button"] = "MessageButton";
 		mPropertyRename["Progress_Position"] = "RangePosition";
 		mPropertyRename["Scroll_Position"] = "RangePosition";
 		mPropertyRename["Tab_SelectSheet"] = "SelectItem";
-		mPropertyRename["Message_Message"] = "MessageText";
-		mPropertyRename["Message_Button"] = "MessageButton";
 		mPropertyRename["Image_Texture"] = "ImageTexture";
 		mPropertyRename["Image_Coord"] = "ImageRegion";
 		mPropertyRename["Image_Tile"] = "ImageTile";
@@ -952,11 +952,11 @@ namespace MyGUI
 		mPropertyRename["Image_Name"] = "ImageName";
 		mPropertyRename["MenuItem_Id"] = "MenuItemId";
 		mPropertyRename["MenuItem_Type"] = "MenuItemType";
+		mPropertyRename["Combo_MaxLength"] = "MaxListLength";
 		mPropertyRename["AlignText"] = "TextAlign";
 		mPropertyRename["ToStick"] = "Snap";
 		mPropertyRename["ListSmoothShow"] = "SmoothShow";
 		mPropertyRename["HeightList"] = "MaxListLength";
-		mPropertyRename["Combo_MaxLength"] = "MaxListLength";
 
 		mPropertyIgnore.insert("AlignVert");
 		mPropertyIgnore.insert("DragLayer");
@@ -997,6 +997,16 @@ namespace MyGUI
 		mPropertyIgnore.insert("MainMove");
 		mPropertyIgnore.insert("LevelOffset");
 #endif // MYGUI_DONT_USE_OBSOLETE
+	}
+
+	std::string BackwardCompatibility::getPropertyRename(const std::string& _propertyName)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		MapString::const_iterator item = mPropertyRename.find(_propertyName);
+		if (item != mPropertyRename.end())
+			return (*item).second;
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return _propertyName;
 	}
 
 	void BackwardCompatibility::shutdown()
