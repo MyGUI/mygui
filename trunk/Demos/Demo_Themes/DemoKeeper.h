@@ -24,6 +24,8 @@ namespace demo
 		void destroyDemo();
 		virtual void setupResources();
 
+		void colourWidgets(MyGUI::Widget* _widget, const MyGUI::Colour& _colour);
+
 	private:
 		MyGUI::Widget* mDemoView;
 		MyGUI::ComboBox* mComboSkins;
