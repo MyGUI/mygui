@@ -16,6 +16,7 @@
 	<Tag name="Main_properties">Основные свойства</Tag>
 	<Tag name="Widget_type_propertes">Свойства #{widget_type}</Tag>
 	<Tag name="Properties_not_available">#808080Свойства #{widget_type}</Tag>
+	<Tag name="Items">Элементы</Tag>
 
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
