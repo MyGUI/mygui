@@ -117,7 +117,7 @@ namespace tools
 		MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
 		MyGUI::TabItem* sheet = tab->addItem(_caption);
 		WidgetContainer* wc = new WidgetContainer("TabItem", "", sheet, "");
-		if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Widget_Caption", _caption));
+		if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Caption", _caption));
 		EditorWidgets::getInstance().add(wc);
 	}
 
@@ -275,11 +275,11 @@ namespace tools
 
 		if (mCurrentWidget->getTypeName() == "Tab")
 		{
-			action = "Widget_Caption";
+			action = "Caption";
 			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 			MyGUI::TabItem* sheet = tab->getItemAt(item);
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(sheet);
-			sheet->setProperty("Widget_Caption", value);
+			sheet->setProperty("Caption", value);
 			utility::mapSet(widgetContainer->mProperty, action, value);
 			return;
 		}
