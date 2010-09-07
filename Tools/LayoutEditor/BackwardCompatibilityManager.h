@@ -22,7 +22,9 @@ namespace tools
 
 		const MyGUI::VectorString& getVersions();
 		const std::string& getDefaultVersion();
+
 		const std::string& getCurrentVersion();
+		void setCurrentVersion(const std::string& _value);
 
 		void serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility);
 
