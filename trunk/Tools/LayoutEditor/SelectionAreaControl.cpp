@@ -138,6 +138,8 @@ namespace tools
 				sheet++;
 				if (sheet >= tab->getItemCount()) sheet = 0;
 				if (tab->getItemCount()) tab->setIndexSelected(sheet);
+
+				WidgetSelectorManager::getInstance().setSelectedWidget(tab->getItemSelected());
 			}
 		}
 		else if (MyGUI::KeyCode::Delete == _key)
