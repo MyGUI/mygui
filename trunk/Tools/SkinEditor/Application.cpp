@@ -15,6 +15,8 @@
 #include "DialogManager.h"
 #include "HotKeyManager.h"
 #include "StateManager.h"
+#include "RecentFilesManager.h"
+#include "SettingsManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -47,6 +49,12 @@ namespace tools
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+
+		new SettingsManager();
+		SettingsManager::getInstance().initialise("se_user_settings.xml");
+
+		new RecentFilesManager();
+		RecentFilesManager::getInstance().initialise();
 
 		new CommandManager();
 		CommandManager::getInstance().initialise();
@@ -124,6 +132,12 @@ namespace tools
 
 		CommandManager::getInstance().shutdown();
 		delete CommandManager::getInstancePtr();
+
+		RecentFilesManager::getInstance().shutdown();
+		delete RecentFilesManager::getInstancePtr();
+
+		SettingsManager::getInstance().shutdown();
+		delete SettingsManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}

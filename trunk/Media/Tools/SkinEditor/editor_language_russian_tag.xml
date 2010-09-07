@@ -7,6 +7,7 @@
 	<Tag name="Clear">Очистить</Tag>
 	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
 	<Tag name="Export">Экспорт</Tag>
+	<Tag name="RecentFiles">Предыдущие файлы </Tag>
 	<Tag name="Quit">Выход</Tag>
 
 	<Tag name="Create">Создать</Tag>
@@ -81,6 +82,8 @@
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageDeleteSkin">Вы уверены, что хотите удалить скин?</Tag>
 	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{CurrentFileName}'#{\n}не соответствует формату.</Tag>
+
+	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 
 	<Tag name="SkinNamePattern">Имя скина #{SkinNameIndex}</Tag>
 </MyGUI>

@@ -13,6 +13,7 @@
 #include "MessageBoxManager.h"
 #include "DialogManager.h"
 #include "StateManager.h"
+#include "RecentFilesManager.h"
 
 namespace tools
 {
@@ -30,6 +31,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
 		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
 	}
 
@@ -48,6 +50,8 @@ namespace tools
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 
 		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
@@ -262,6 +266,8 @@ namespace tools
 
 	void EditorState::showLoadWindow()
 	{
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();
@@ -273,6 +279,7 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "SaveAs")
 			{
+				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 				addUserTag("CurrentFileName", mFileName);
 
@@ -281,6 +288,7 @@ namespace tools
 			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
+				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				mFileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 				addUserTag("CurrentFileName", mFileName);
 
@@ -307,6 +315,8 @@ namespace tools
 
 	void EditorState::showSaveAsWindow()
 	{
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
 		mOpenSaveFileDialog->doModal();
@@ -371,6 +381,10 @@ namespace tools
 				{
 					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
 					result = true;
+
+					if (mFileName != mDefaultFileName)
+						RecentFilesManager::getInstance().addRecentFile(mFileName);
+
 					break;
 				}
 			}
@@ -412,7 +426,15 @@ namespace tools
 
 		doc.save(mFileName);
 
+		if (mFileName != mDefaultFileName)
+			RecentFilesManager::getInstance().addRecentFile(mFileName);
+
 		ActionManager::getInstance().setChanges(false);
+	}
+
+	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
+	{
+		commandFileDrop(_commandName);
 	}
 
 } // namespace tools

@@ -21,6 +21,8 @@ namespace tools
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
 
+		void updateRecentFilesMenu();
+
 	private:
 		MyGUI::MenuBar* mMainMenu;
 	};
