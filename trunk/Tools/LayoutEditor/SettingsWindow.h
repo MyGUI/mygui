@@ -59,6 +59,7 @@ namespace tools
 		MyGUI::Button* mResourcePathAdd;
 		MyGUI::Button* mResourcePathDelete;
 		MyGUI::List* mResourcePaths;
+		MyGUI::ComboBox* mLayoutVersion;
 
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 

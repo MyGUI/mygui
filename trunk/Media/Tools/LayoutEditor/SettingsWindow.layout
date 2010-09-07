@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
+<MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowCSX" position="32 64 448 296" align="Left Top" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{Settings}"/>
         <Property key="Snap" value="true"/>
@@ -7,17 +7,24 @@
         <Property key="MinSize" value="448 296"/>
         <Widget type="Tab" skin="Tab" position="5 6 429 216" align="Stretch">
             <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Widget_Caption" value="#{GeneralSettings}"/>
-                <Widget type="StaticText" skin="StaticText" position="5 8 96 24">
-                    <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Caption" value="#{GeneralSettings}"/>
+                <Widget type="StaticText" skin="StaticText" position="5 8 107 24">
+                    <Property key="TextAlign" value="Right VCenter"/>
                     <Property key="Caption" value="#{Grid_step}"/>
                 </Widget>
-                <Widget type="Edit" skin="Edit" position="104 8 304 24" align="HStretch Top" name="gridEdit">
+                <Widget type="Edit" skin="Edit" position="120 8 288 24" align="HStretch Top" name="gridEdit">
                     <Property key="Caption" value="8"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position="5 37 107 24">
+                    <Property key="TextAlign" value="Right VCenter"/>
+                    <Property key="Caption" value="#{LayoutVersion}"/>
+                </Widget>
+                <Widget type="ComboBox" skin="ComboBox" position="120 37 288 26" align="HStretch Top" name="LayoutVersion">
+                    <Property key="ModeDrop" value="true"/>
                 </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Widget_Caption" value="#{WidgetsSettings}"/>
+                <Property key="Caption" value="#{WidgetsSettings}"/>
                 <Widget type="Button" skin="CheckBox" position="5 10 403 24" align="HStretch Top" name="checkShowName">
                     <Property key="Caption" value="#{Show_widget_name}"/>
                 </Widget>
@@ -29,7 +36,7 @@
                 </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Widget_Caption" value="#{FoldersSettings}"/>
+                <Property key="Caption" value="#{FoldersSettings}"/>
                 <Widget type="StaticText" skin="StaticText" position="3 8 413 24" align="HStretch Top">
                     <Property key="TextAlign" value="Left VCenter"/>
                     <Property key="Caption" value="#{ResourcesPaths}"/>

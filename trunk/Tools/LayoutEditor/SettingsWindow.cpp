@@ -8,6 +8,7 @@
 #include "SettingsWindow.h"
 #include "SettingsManager.h"
 #include "Localise.h"
+#include "BackwardCompatibilityManager.h"
 
 namespace tools
 {
@@ -23,7 +24,8 @@ namespace tools
 		mResourcePathDelete(nullptr),
 		mResourcePaths(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mGridStep(0)
+		mGridStep(0),
+		mLayoutVersion(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -36,6 +38,8 @@ namespace tools
 		assignWidget(mResourcePathDelete, "ResourcePathDelete");
 		assignWidget(mResourcePaths, "ResourcePaths");
 
+		assignWidget(mLayoutVersion, "LayoutVersion");
+
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
 		mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
@@ -43,6 +47,14 @@ namespace tools
 
 		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathAdd);
 		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathDelete);
+
+		MyGUI::VectorString versions = BackwardCompatibilityManager::getInstancePtr()->getVersions();
+		for (size_t index = 0; index < versions.size(); ++ index)
+		{
+			mLayoutVersion->addItem(versions[index]);
+			if (BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion() == versions[index])
+				mLayoutVersion->setIndexSelected(index);
+		}
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -122,6 +134,13 @@ namespace tools
 		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
 			paths.push_back(mResourcePaths->getItemNameAt(index));
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
+
+		if (mLayoutVersion->getIndexSelected() != MyGUI::ITEM_NONE)
+		{
+			std::string versionName = mLayoutVersion->getItemNameAt(mLayoutVersion->getIndexSelected());
+			if (versionName != BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion())
+				BackwardCompatibilityManager::getInstancePtr()->setCurrentVersion(versionName);
+		}
 	}
 
 	void SettingsWindow::loadSettings()
