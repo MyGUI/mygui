@@ -66,6 +66,9 @@ set (HEADER_FILES
   StateController.h
   EditorState.h
   TestState.h
+  SettingsManager.h
+  RecentFilesManager.h
+  SettingsSector.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -129,6 +132,9 @@ set (SOURCE_FILES
   StateManager.cpp
   EditorState.cpp
   TestState.cpp
+  SettingsManager.cpp
+  RecentFilesManager.cpp
+  SettingsSector.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

@@ -42,6 +42,7 @@ namespace tools
 		void commandTest(const MyGUI::UString& _commandName);
 		void commandQuit(const MyGUI::UString& _commandName);
 		void commandFileDrop(const MyGUI::UString& _commandName);
+		void commandRecentFiles(const MyGUI::UString& _commandName);
 
 		void clear();
 		void save();

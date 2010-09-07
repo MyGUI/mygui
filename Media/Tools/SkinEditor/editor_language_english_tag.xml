@@ -7,6 +7,7 @@
 	<Tag name="Clear">Clear</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
 	<Tag name="Export">Export</Tag>
+	<Tag name="RecentFiles">Recent Files </Tag>
 	<Tag name="Quit">Quit</Tag>
 
 	<Tag name="Create">Create</Tag>
@@ -81,6 +82,8 @@
 	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
 	<Tag name="MessageDeleteSkin">Are you sure you want to delete skin?</Tag>
 	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{CurrentFileName}'#{\n}have incorrect format.</Tag>
+
+	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 
 	<Tag name="SkinNamePattern">Skin name #{SkinNameIndex}</Tag>
 </MyGUI>
