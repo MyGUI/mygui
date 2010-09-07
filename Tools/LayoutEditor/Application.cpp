@@ -17,6 +17,7 @@
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
 #include "RecentFilesManager.h"
+#include "BackwardCompatibilityManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -95,6 +96,9 @@ namespace tools
 		new RecentFilesManager();
 		RecentFilesManager::getInstance().initialise();
 
+		new BackwardCompatibilityManager();
+		BackwardCompatibilityManager::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -138,6 +142,9 @@ namespace tools
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
+
+		BackwardCompatibilityManager::getInstance().shutdown();
+		delete BackwardCompatibilityManager::getInstancePtr();
 
 		RecentFilesManager::getInstance().shutdown();
 		delete RecentFilesManager::getInstancePtr();
