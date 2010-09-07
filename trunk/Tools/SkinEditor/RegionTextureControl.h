@@ -6,7 +6,7 @@
 #ifndef __REGION_TEXTURE_CONTROL_H__
 #define __REGION_TEXTURE_CONTROL_H__
 
-#include "TextureControl.h"
+#include "TextureToolControl.h"
 #include "PropertyAdvisor.h"
 #include "AreaSelectorControl.h"
 #include "PositionSelectorControl.h"
@@ -14,9 +14,8 @@
 
 namespace tools
 {
-
 	class RegionTextureControl :
-		public TextureControl,
+		public TextureToolControl,
 		public PropertyAdvisor
 	{
 	public:

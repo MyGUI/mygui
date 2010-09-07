@@ -6,7 +6,7 @@
 #ifndef __STATE_TEXTURE_CONTROL_H__
 #define __STATE_TEXTURE_CONTROL_H__
 
-#include "TextureControl.h"
+#include "TextureToolControl.h"
 #include "Property.h"
 #include "SkinItem.h"
 #include "PositionSelectorControl.h"
@@ -15,9 +15,8 @@
 
 namespace tools
 {
-
 	class StateTextureControl :
-		public TextureControl,
+		public TextureToolControl,
 		public PropertyAdvisor
 	{
 	public:

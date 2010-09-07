@@ -8,9 +8,8 @@
 
 namespace tools
 {
-
 	SeparatorTextureControl::SeparatorTextureControl(MyGUI::Widget* _parent) :
-		TextureControl(_parent),
+		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
 		mVerticalSelectorControl(nullptr)

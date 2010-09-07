@@ -9,9 +9,8 @@
 
 namespace tools
 {
-
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
-		TextureControl(_parent),
+		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);

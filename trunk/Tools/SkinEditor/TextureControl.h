@@ -8,7 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SelectorControl.h"
-#include "ColourPanel.h"
+#include "Dialog.h"
 
 namespace tools
 {
@@ -17,7 +17,7 @@ namespace tools
 		public wraps::BaseLayout
 	{
 	public:
-		TextureControl(MyGUI::Widget* _parent);
+		TextureControl(const std::string& _layout, MyGUI::Widget* _parent);
 		virtual ~TextureControl();
 
 	protected:
@@ -36,20 +36,17 @@ namespace tools
 			_control->setScale(mScaleValue);
 		}
 
-	private:
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void setColour(MyGUI::Colour _value);
+		MyGUI::Colour getColour();
 
+		void setScale(double _value);
+
+	private:
 		void notifyChangePosition();
-		void notifyEndDialog(Dialog* _sender, bool _result);
 
 		void updateTexture();
 		void updateCoord();
 
-		void fillColours(MyGUI::ComboBox* _combo);
-		void updateColour(MyGUI::ComboBox* _sender);
-
-		void fillScale();
 		void updateScale();
 
 		void updateRegionCoord();
@@ -58,12 +55,7 @@ namespace tools
 	private:
 		MyGUI::ScrollView* mView;
 		MyGUI::StaticImage* mTexture;
-		MyGUI::ComboBox* mBackgroundColour;
 		MyGUI::Widget* mBackground;
-		MyGUI::ComboBox* mScale;
-		MyGUI::Widget* mBackgroundButton;
-
-		ColourPanel* mColourPanel;
 
 		double mScaleValue;
 		MyGUI::IntSize mTextureSize;

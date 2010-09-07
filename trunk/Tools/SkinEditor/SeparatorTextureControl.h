@@ -6,7 +6,7 @@
 #ifndef __SEPARATOR_TEXTURE_CONTROL_H__
 #define __SEPARATOR_TEXTURE_CONTROL_H__
 
-#include "TextureControl.h"
+#include "TextureToolControl.h"
 #include "PropertyAdvisor.h"
 #include "HorizontalSelectorControl.h"
 #include "VerticalSelectorControl.h"
@@ -15,9 +15,8 @@
 
 namespace tools
 {
-
 	class SeparatorTextureControl :
-		public TextureControl,
+		public TextureToolControl,
 		public PropertyAdvisor
 	{
 	public:
