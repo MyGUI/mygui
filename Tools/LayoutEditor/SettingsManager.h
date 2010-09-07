@@ -20,7 +20,7 @@ namespace tools
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		void initialise();
+		void initialise(const MyGUI::UString& _userFileName);
 		void shutdown();
 
 		SettingsSector* getSector(const MyGUI::UString& _sectorName);
@@ -39,6 +39,8 @@ namespace tools
 
 	private:
 		VectorSettingsSector mSettings;
+		MyGUI::UString mFileName;
+		MyGUI::UString mUserFileName;
 	};
 
 } // namespace tools

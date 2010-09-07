@@ -13,10 +13,8 @@ namespace tools
 {
 	const std::string LogSection = "LayoutEditor";
 
-	const std::wstring settingsFile = L"settings.xml";
-	const std::wstring userSettingsFile = L"le_user_settings.xml";
-
-	SettingsManager::SettingsManager()
+	SettingsManager::SettingsManager() :
+		mFileName("settings.xml")
 	{
 	}
 
@@ -25,15 +23,16 @@ namespace tools
 		destroyAllSectors();
 	}
 
-	void SettingsManager::initialise()
+	void SettingsManager::initialise(const MyGUI::UString& _userFileName)
 	{
-		loadSettings(settingsFile, true);
-		loadSettings(userSettingsFile, false);
+		mUserFileName = _userFileName;
+		loadSettings(mFileName, true);
+		loadSettings(mUserFileName, false);
 	}
 
 	void SettingsManager::shutdown()
 	{
-		saveSettings(userSettingsFile);
+		saveSettings(mUserFileName);
 		destroyAllSectors();
 	}
 
