@@ -70,6 +70,7 @@ set (HEADER_FILES
   RecentFilesManager.h
   SettingsSector.h
   SettingsWindow.h
+  TextureToolControl.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -137,6 +138,7 @@ set (SOURCE_FILES
   RecentFilesManager.cpp
   SettingsSector.cpp
   SettingsWindow.cpp
+  TextureToolControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

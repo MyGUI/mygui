@@ -8,9 +8,8 @@
 
 namespace tools
 {
-
 	RegionTextureControl::RegionTextureControl(MyGUI::Widget* _parent) :
-		TextureControl(_parent),
+		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mAreaSelectorControl(nullptr),
 		mPositionSelectorControl(nullptr)

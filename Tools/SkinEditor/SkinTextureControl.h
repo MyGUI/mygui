@@ -6,7 +6,7 @@
 #ifndef __SKIN_TEXTURE_CONTROL_H__
 #define __SKIN_TEXTURE_CONTROL_H__
 
-#include "TextureControl.h"
+#include "TextureToolControl.h"
 #include "Property.h"
 #include "SkinItem.h"
 #include "AreaSelectorControl.h"
@@ -14,9 +14,8 @@
 
 namespace tools
 {
-
 	class SkinTextureControl :
-		public TextureControl,
+		public TextureToolControl,
 		public PropertyAdvisor
 	{
 	public:
