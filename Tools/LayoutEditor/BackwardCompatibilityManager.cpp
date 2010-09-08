@@ -196,9 +196,4 @@ namespace tools
 		mCurrentVersion = _value;
 	}
 
-	std::string BackwardCompatibilityManager::getPropertyName(const std::string& _propertyName)
-	{
-		return _propertyName;
-	}
-
 } // namespace tools
