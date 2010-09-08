@@ -77,7 +77,7 @@ namespace tools
 				while (element.next())
 				{
 					if (element->getName() == "Widget")
-						parseWidget(element, nullptr);
+						parseWidget(element, nullptr, true);
 					else
 						loadSector(element.current());
 				}
@@ -266,7 +266,6 @@ namespace tools
 		MyGUI::IntCoord coord;
 		MyGUI::Align align = MyGUI::Align::Default;
 		std::string position;
-		//std::string layer;
 
 		_widget->findAttribute("name", container->name);
 		_widget->findAttribute("type", container->type);
@@ -358,6 +357,9 @@ namespace tools
 
 				// конвертим проперти в текущий вариант версии
 				key = MyGUI::BackwardCompatibility::getPropertyRename(key);
+				size_t indexSeparator = key.find('_');
+				if (indexSeparator != std::string::npos)
+					key = key.substr(indexSeparator + 1);
 
 				// и пытаемся парсить свойство
 				if (tryToApplyProperty(container->widget, key, value, _test) == false)
