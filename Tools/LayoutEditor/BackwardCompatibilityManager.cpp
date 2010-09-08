@@ -74,8 +74,6 @@ namespace tools
 
 		mPropertyNames["3.1.0-ButtonWidth"] = "TabItem_ButtonWidth";
 
-		mPropertyNames["3.1.0-Range"] = "Scroll_Range";
-		mPropertyNames["3.1.0-RangePosition"] = "Scroll_Position";
 		mPropertyNames["3.1.0-Page"] = "Scroll_Page";
 		mPropertyNames["3.1.0-ViewPage"] = "Scroll_ViewPage";
 		mPropertyNames["3.1.0-MoveToClick"] = "Scroll_MoveToClick";
@@ -102,6 +100,12 @@ namespace tools
 		mPropertyNames["3.1.0-MinSize"] = "Window_MinSize";
 		mPropertyNames["3.1.0-MaxSize"] = "Window_MaxSize";
 
+		mPropertyNames["3.1.0-VScroll-Range"] = "Scroll_Range";
+		mPropertyNames["3.1.0-VScroll-RangePosition"] = "Scroll_Position";
+		mPropertyNames["3.1.0-HScroll-Range"] = "Scroll_Range";
+		mPropertyNames["3.1.0-HScroll-RangePosition"] = "Scroll_Position";
+		mPropertyNames["3.1.0-Progress-Range"] = "Progress_Range";
+		mPropertyNames["3.1.0-Progress-RangePosition"] = "Progress_Position";
 		mPropertyNames["3.1.0-Edit-VisibleVScroll"] = "Edit_ShowVScroll";
 		mPropertyNames["3.1.0-Edit-VisibleHScroll"] = "Edit_ShowHScroll";
 		mPropertyNames["3.1.0-Message-Caption"] = "Message_Caption";
@@ -190,6 +194,11 @@ namespace tools
 	void BackwardCompatibilityManager::setCurrentVersion(const std::string& _value)
 	{
 		mCurrentVersion = _value;
+	}
+
+	std::string BackwardCompatibilityManager::getPropertyName(const std::string& _propertyName)
+	{
+		return _propertyName;
 	}
 
 } // namespace tools
