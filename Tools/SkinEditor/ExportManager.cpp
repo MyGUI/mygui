@@ -9,6 +9,7 @@
 #include "SkinManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
+#include "RecentFilesManager.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
@@ -32,6 +33,8 @@ namespace tools
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ExportManager::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 	}
 
 	void ExportManager::shutdown()
@@ -48,6 +51,8 @@ namespace tools
 
 	void ExportManager::showExportWindow()
 	{
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionExportFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("Export");
 		mOpenSaveFileDialog->doModal();
@@ -59,6 +64,7 @@ namespace tools
 		{
 			if (mOpenSaveFileDialog->getMode() == "Export")
 			{
+				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				MyGUI::UString fileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 				exportSkin(fileName);
 			}
