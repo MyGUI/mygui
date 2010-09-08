@@ -63,11 +63,11 @@ namespace tools
 		new CommandManager();
 		CommandManager::getInstance().initialise();
 
-		new WidgetCreatorManager();
-		WidgetCreatorManager::getInstance().initialise();
-
 		new WidgetSelectorManager();
 		WidgetSelectorManager::getInstance().initialise();
+
+		new WidgetCreatorManager();
+		WidgetCreatorManager::getInstance().initialise();
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
@@ -173,11 +173,11 @@ namespace tools
 		HotKeyManager::getInstance().shutdown();
 		delete HotKeyManager::getInstancePtr();
 
-		WidgetSelectorManager::getInstance().shutdown();
-		delete WidgetSelectorManager::getInstancePtr();
-
 		WidgetCreatorManager::getInstance().shutdown();
 		delete WidgetCreatorManager::getInstancePtr();
+
+		WidgetSelectorManager::getInstance().shutdown();
+		delete WidgetSelectorManager::getInstancePtr();
 
 		CommandManager::getInstance().shutdown();
 		delete CommandManager::getInstancePtr();
