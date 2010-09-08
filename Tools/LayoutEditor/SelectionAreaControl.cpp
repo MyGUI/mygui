@@ -5,19 +5,16 @@
 #include "WidgetSelectorManager.h"
 #include "UndoManager.h"
 #include "WidgetsWindow.h"
+#include "WidgetCreatorManager.h"
 
 namespace tools
 {
 	SelectionAreaControl::SelectionAreaControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SelectionAreaControl.layout", _parent),
+		mGridStep(0),
 		mWindow(nullptr),
 		mCurrentWidget(nullptr),
-		mGridStep(0),
-		mArrowMove(false),
-		mSelectDepth(0),
-		mMouseButtonPressed(false),
-		mLastClickX(0),
-		mLastClickY(0)
+		mArrowMove(false)
 	{
 		assignWidget(mWindow, "_Main");
 
@@ -27,7 +24,6 @@ namespace tools
 		mWindow->eventMouseButtonPressed += newDelegate(this, &SelectionAreaControl::notifyMouseButtonPressed);
 		mWindow->eventMouseButtonReleased += newDelegate(this, &SelectionAreaControl::notifyMouseButtonReleased);
 		mWindow->eventMouseMove += newDelegate(this, &SelectionAreaControl::notifyMouseMouseMove);
-		mWindow->eventMouseDrag += newDelegate(this, &SelectionAreaControl::notifyMouseMouseDrag);
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 
@@ -180,119 +176,24 @@ namespace tools
 	void SelectionAreaControl::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
-
 		mWindow->setVisible(mCurrentWidget != nullptr);
-
-		if (mCurrentWidget == nullptr)
-		{
-			mSelectDepth = 0;
-		}
 	}
 
 	void SelectionAreaControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
 	{
-		mMouseButtonPressed = false;
-
-		const int distance = 2;
-		if ((abs(mLastClickX - _left) > distance) || (abs(mLastClickY - _top) > distance))
-		{
-			mSelectDepth = 0;
-		}
-	}
-
-	void SelectionAreaControl::notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
-	{
-		mMouseButtonPressed = false;
+		WidgetCreatorManager::getInstance().notifyMouseMouseMove(MyGUI::IntPoint(_left, _top));
 	}
 
 	void SelectionAreaControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Left)
-		{
-			mLastClickX = _left;
-			mLastClickY = _top;
-			mMouseButtonPressed = true;
-		}
+			WidgetCreatorManager::getInstance().notifyMouseButtonPressed(MyGUI::IntPoint(_left, _top));
 	}
 
 	void SelectionAreaControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Left)
-		{
-			if (mMouseButtonPressed)
-			{
-				mMouseButtonPressed = false;
-
-				// здесь кликать вглубь
-				MyGUI::Widget* item = getTopWidget(MyGUI::InputManager::getInstance().getLastLeftPressed());
-				if (nullptr != item)
-				{
-					// find widget registered as container
-					while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-						item = item->getParent();
-					MyGUI::Widget* oldItem = item;
-
-					// try to selectin depth
-					int depth = mSelectDepth;
-					while (depth && (nullptr != item))
-					{
-						item = item->getParent();
-						while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-							item = item->getParent();
-						depth--;
-					}
-					if (nullptr == item)
-					{
-						item = oldItem;
-						mSelectDepth = 0;
-					}
-
-					// found widget
-					if (nullptr != item)
-					{
-						WidgetSelectorManager::getInstance().setSelectedWidget(item);
-						mSelectDepth++;
-					}
-				}
-			}
-		}
-	}
-
-	MyGUI::Widget* SelectionAreaControl::getTopWidget(const MyGUI::IntPoint& _point)
-	{
-		MyGUI::Widget* result = nullptr;
-
-		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
-		while (container.next())
-		{
-			if (checkContainer(container.current(), result, _point))
-				break;
-		}
-
-		return result;
-	}
-
-	bool SelectionAreaControl::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
-	{
-		if (_container->widget->getAbsoluteCoord().inside(_point))
-		{
-			_result = _container->widget;
-
-			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
-			{
-				if (_container->widget->isType<MyGUI::Tab>() && (*item)->widget->isType<MyGUI::TabItem>())
-				{
-					if (_container->widget->castType<MyGUI::Tab>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
-						continue;
-				}
-
-				if (checkContainer(*item, _result, _point))
-					break;
-			}
-
-			return true;
-		}
-		return false;
+			WidgetCreatorManager::getInstance().notifyMouseButtonReleased(MyGUI::IntPoint(_left, _top));
 	}
 
 } // namespace tools

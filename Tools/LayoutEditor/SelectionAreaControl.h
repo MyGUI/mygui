@@ -3,7 +3,6 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertiesPanelView.h"
-#include "WidgetsWindow.h"
 
 namespace tools
 {
@@ -27,10 +26,6 @@ namespace tools
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top);
-		void notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
-
-		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
-		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
 
 	private:
 		MyGUI::Window* mWindow;
@@ -38,10 +33,6 @@ namespace tools
 
 		int mGridStep;
 		bool mArrowMove;
-		size_t mSelectDepth;
-		bool mMouseButtonPressed;
-		int mLastClickX;
-		int mLastClickY;
 	};
 
 } // namespace tools
