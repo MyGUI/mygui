@@ -26,7 +26,6 @@ namespace tools
 		const std::string& getCurrentVersion();
 		void setCurrentVersion(const std::string& _value);
 
-		std::string getPropertyName(const std::string& _propertyName);
 		void serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility);
 
 	private:
