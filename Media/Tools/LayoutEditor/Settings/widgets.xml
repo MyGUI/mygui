@@ -58,7 +58,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="DDContainer_NeedDragDrop" value="Bool"/>
+		<Parameter key="NeedDragDrop" value="Bool"/>
 	</Widget>
 
 	<Widget name="Edit">
