@@ -11,9 +11,9 @@ namespace tools
 {
 	SelectionAreaControl::SelectionAreaControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SelectionAreaControl.layout", _parent),
-		mGridStep(0),
 		mWindow(nullptr),
 		mCurrentWidget(nullptr),
+		mGridStep(0),
 		mArrowMove(false)
 	{
 		assignWidget(mWindow, "_Main");

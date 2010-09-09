@@ -129,7 +129,6 @@ namespace MyGUI
 		}
 
 		MYGUI_EXCEPT("factory '" << _type << "' not found");
-		return nullptr;
 	}
 
 	void WidgetManager::destroyWidget(Widget* _widget)

@@ -14,10 +14,10 @@ template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTyp
 namespace tools
 {
 	WidgetCreatorManager::WidgetCreatorManager() :
+		mSelectDepth(0),
 		mMouseButtonPressed(false),
 		mLastClickX(0),
-		mLastClickY(0),
-		mSelectDepth(0)
+		mLastClickY(0)
 	{
 	}
 
