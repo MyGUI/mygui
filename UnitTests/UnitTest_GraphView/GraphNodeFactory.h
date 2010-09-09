@@ -10,6 +10,7 @@ namespace demo
 	{
 	public:
 		GraphNodeFactory();
+		~GraphNodeFactory();
 
 		BaseAnimationNode* createNode(const std::string& _type, const std::string& _name);
 

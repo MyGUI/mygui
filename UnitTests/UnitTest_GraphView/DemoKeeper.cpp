@@ -99,7 +99,26 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+
+		for (VectorBaseAnimationNode::iterator item = mNodes.begin(); item != mNodes.end(); ++ item)
+		{
+			animation::IAnimationNode* anim_node = (*item)->getAnimationNode();
+			delete anim_node;
+			delete (*item);
+		}
+		mNodes.clear();
+
+		delete mFileDialog;
+		mFileDialog = nullptr;
+
 		delete mGraphView;
+		mGraphView = nullptr;
+
+		delete mGraph;
+		mGraph = nullptr;
+
+		delete mContextMenu;
+		mContextMenu = nullptr;
 	}
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
@@ -140,6 +159,8 @@ namespace demo
 	{
 		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _type, _name);
 		assert(node);
+
+		mNodes.push_back(node);
 
 		mGraphView->addItem(node);
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
@@ -187,8 +208,10 @@ namespace demo
 		node->getAnimationNode()->getGraph()->removeNode(node->getAnimationNode());
 		animation::IAnimationNode* anim_node = node->getAnimationNode();
 		_sender->removeItem(_node);
-		delete _node;
 		delete anim_node;
+
+		mNodes.erase(std::remove(mNodes.begin(), mNodes.end(), _node), mNodes.end());
+		delete _node;
 	}
 
 	void DemoKeeper::notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)

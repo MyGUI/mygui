@@ -9,6 +9,7 @@
 
 #include "BaseManager.h"
 #include "BaseGraphView.h"
+#include "GraphNodeSimple.h"
 
 namespace demo
 {
@@ -30,6 +31,9 @@ namespace demo
 		MyGUI::ScrollViewPtr mScrollView3;
 
 		wraps::BaseGraphView* mGraphView;
+		GraphNodeSimple* mNode1;
+		GraphNodeSimple* mNode2;
+		GraphNodeSimple* mNode3;
 	};
 
 } // namespace demo

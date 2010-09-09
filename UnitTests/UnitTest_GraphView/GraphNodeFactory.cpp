@@ -21,10 +21,18 @@ namespace demo
 		addConstruct("GraphNodeSkeletonState", new GraphNodeConstruct<GraphNodeSkeletonState>());
 	}
 
+	GraphNodeFactory::~GraphNodeFactory()
+	{
+		for (MapConstruct::iterator item = mConstructs.begin(); item != mConstructs.end(); ++ item)
+			delete (*item).second;
+		mConstructs.clear();
+	}
+
 	BaseAnimationNode* GraphNodeFactory::createNode(const std::string& _type, const std::string& _name)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
-		if (item == mConstructs.end()) return 0;
+		if (item == mConstructs.end())
+			return nullptr;
 		return (*item).second->create(_name);
 	}
 

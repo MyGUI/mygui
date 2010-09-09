@@ -52,4 +52,12 @@ int startApp()
 	return 0;
 }
 
+// этот дефайн чтобы в демках показывалось имя файла где вызывается new
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
+
 #endif

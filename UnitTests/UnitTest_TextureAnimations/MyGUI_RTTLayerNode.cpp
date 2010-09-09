@@ -38,6 +38,10 @@ namespace MyGUI
 			MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
 			mTexture = nullptr;
 		}
+
+		for (VectorLayerNodeAnimation::iterator item = mLayerNodeAnimation.begin(); item != mLayerNodeAnimation.end(); ++item)
+			delete (*item);
+		mLayerNodeAnimation.clear();
 	}
 
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)

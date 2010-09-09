@@ -23,6 +23,13 @@ namespace animation
 		//addConstruct("SoundState", new AnimationNodeConstruct<SoundState>());
 	}
 
+	AnimationNodeFactory::~AnimationNodeFactory()
+	{
+		for (MapConstruct::iterator item = mConstructs.begin(); item != mConstructs.end(); ++item)
+			delete (*item).second;
+		mConstructs.clear();
+	}
+
 	IAnimationNode* AnimationNodeFactory::createNode(const std::string& _type, const std::string& _name, IAnimationGraph* _holder)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
