@@ -16,9 +16,13 @@
 #endif
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#define MYGUI_APP(cls) INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return startApp<cls>(); }
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define MYGUI_APP(cls) INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); return startApp<cls>(); }
+#	else
+#		define MYGUI_APP(cls) INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return startApp<cls>(); }
+#	endif
 #else
-	#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
+#	define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
 #endif
 
 template <class AppClass>
