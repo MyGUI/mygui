@@ -11,6 +11,8 @@
 
 namespace tools
 {
+	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_ChangeCreatorMode;
+
 	class WidgetCreatorManager :
 		public MyGUI::Singleton<WidgetCreatorManager>
 	{
@@ -22,8 +24,18 @@ namespace tools
 		void shutdown();
 
 		void notifyMouseMouseMove(const MyGUI::IntPoint& _point);
+		void notifyMouseMouseDrag(const MyGUI::IntPoint& _point);
 		void notifyMouseButtonPressed(const MyGUI::IntPoint& _point);
 		void notifyMouseButtonReleased(const MyGUI::IntPoint& _point);
+
+		void setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin);
+		void resetCreatorInfo();
+
+		bool getCreateMode();
+		const std::string& getWidgetType();
+		const std::string& getWidgetSkin();
+
+		Event_ChangeCreatorMode eventChangeCreatorMode;
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
@@ -31,11 +43,23 @@ namespace tools
 		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
 		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
 
+		void createNewWidget();
+		void moveNewWidget();
+		void finishNewWidget();
+
+		void resetWidget();
+
 	private:
 		size_t mSelectDepth;
 		bool mMouseButtonPressed;
-		int mLastClickX;
-		int mLastClickY;
+		MyGUI::IntPoint mLastClick;
+		bool mCreateMode;
+		std::string mWidgetType;
+		std::string mWidgetSkin;
+		bool mStartNewWidget;
+		MyGUI::IntPoint mStartPoint;
+		MyGUI::Widget* mNewWidget;
+		//PositionSelectorControl* mPositionSelectorControl;
 	};
 
 } // namespace tools

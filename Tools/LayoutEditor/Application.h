@@ -21,9 +21,6 @@ namespace tools
 		virtual void destroyScene();
 		virtual void setupResources();
 
-		virtual void injectMouseMove(int _absx, int _absy, int _absz);
-		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
@@ -49,7 +46,6 @@ namespace tools
 		int toGrid(int _x);
 
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-		void notifyChangeSelectedWidget(MyGUI::Widget* _widget);
 
 	private:
 		VectorWString mParams;

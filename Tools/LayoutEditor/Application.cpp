@@ -108,7 +108,6 @@ namespace tools
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 
 		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
 		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
@@ -140,7 +139,6 @@ namespace tools
 		delete mTestState;
 		mTestState = nullptr;
 
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &Application::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 
 		BackwardCompatibilityManager::getInstance().shutdown();
@@ -184,136 +182,6 @@ namespace tools
 
 		SettingsManager::getInstance().shutdown();
 		delete SettingsManager::getInstancePtr();
-	}
-
-	void Application::injectMouseMove(int _absx, int _absy, int _absz)
-	{
-		if (WidgetsWindow::getInstancePtr() == nullptr)
-			return;
-
-		if (StateManager::getInstance().getStateActivate(mTestState))
-		{
-			base::BaseManager::injectMouseMove(_absx, _absy, _absz);
-			return;
-		}
-
-		// align to grid if shift not pressed
-		int x2, y2;
-		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
-		{
-			x2 = toGrid(_absx);
-			y2 = toGrid(_absy);
-		}
-		else
-		{
-			x2 = _absx;
-			y2 = _absy;
-		}
-
-		WidgetsWindow::getInstance().createNewWidget(x2, y2);
-
-		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
-	}
-
-	void Application::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
-	{
-		if (WidgetsWindow::getInstancePtr() == nullptr)
-			return;
-
-		if (StateManager::getInstance().getStateActivate(mTestState))
-		{
-			base::BaseManager::injectMousePress(_absx, _absy, _id);
-			return;
-		}
-
-		if (MyGUI::InputManager::getInstance().isModalAny())
-		{
-			// if we have modal widgets we can't select any widget
-			base::BaseManager::injectMousePress(_absx, _absy, _id);
-			return;
-		}
-
-		// align to grid if shift not pressed
-		int x1, y1;
-		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
-		{
-			x1 = toGrid(_absx);
-			y1 = toGrid(_absy);
-		}
-		else
-		{
-			x1 = _absx;
-			y1 = _absy;
-		}
-
-		// юбилейный комит  =)
-		WidgetsWindow::getInstance().startNewWidget(x1, y1, _id);
-
-		MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-
-		if (nullptr != item)
-		{
-			// find widget registered as container
-			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-				item = item->getParent();
-			// found widget
-			if (nullptr != item)
-			{
-				WidgetSelectorManager::getInstance().setSelectedWidget(item);
-
-				if (WidgetsWindow::getInstance().getCreateStatus() == 1)
-				{
-					// это чтобы сразу можно было тащить
-					MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, 0);
-				}
-			}
-			MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
-			MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
-		}
-		else
-		{
-			//FIXME
-			MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
-
-			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-		}
-	}
-
-	void Application::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
-	{
-		if (WidgetsWindow::getInstancePtr() == nullptr)
-			return;
-
-		if (StateManager::getInstance().getStateActivate(mTestState))
-		{
-			base::BaseManager::injectMouseRelease(_absx, _absy, _id);
-			return;
-		}
-
-		if (MyGUI::InputManager::getInstance().isModalAny())
-		{
-		}
-		else
-		{
-			// align to grid if shift not pressed
-			int x2, y2;
-			if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
-			{
-				x2 = toGrid(_absx);
-				y2 = toGrid(_absy);
-			}
-			else
-			{
-				x2 = _absx;
-				y2 = _absy;
-			}
-
-			WidgetsWindow::getInstance().finishNewWidget(x2, y2);
-		}
-
-		UndoManager::getInstance().dropLastProperty();
-
-		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 	}
 
 	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
@@ -499,14 +367,6 @@ namespace tools
 	void Application::resumeState()
 	{
 		quit();
-	}
-
-	void Application::notifyChangeSelectedWidget(MyGUI::Widget* _widget)
-	{
-		if (_widget == nullptr)
-		{
-			//mSelectDepth = 0;
-		}
 	}
 
 } // namespace tools

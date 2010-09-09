@@ -4,6 +4,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "MainMenuControl.h"
 #include "ToolsControl.h"
+#include "WorkspaceControl.h"
 
 namespace tools
 {
@@ -19,6 +20,7 @@ namespace tools
 	private:
 		MainMenuControl* mMainMenuControl;
 		ToolsControl* mToolsControl;
+		WorkspaceControl* mWorkspaceControl;
 	};
 
 } // namespace tools
