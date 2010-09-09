@@ -79,15 +79,9 @@ namespace MyGUI
 		typedef std::map<std::string, IResource*> MapResource;
 		typedef Enumerator<MapResource> EnumeratorPtr;
 
-		EnumeratorPtr getEnumerator() const
-		{
-			return EnumeratorPtr(mResources);
-		}
+		EnumeratorPtr getEnumerator() const;
 
-		size_t getCount()
-		{
-			return mResources.size();
-		}
+		size_t getCount();
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
@@ -99,6 +93,9 @@ namespace MyGUI
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		MapResource mResources;
+
+		typedef std::vector<IResource*> VectorResource;
+		VectorResource mRemovedResoures;
 
 		bool mIsInitialise;
 	};

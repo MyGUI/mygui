@@ -32,6 +32,16 @@ namespace MyGUI
 	{
 	}
 
+	ResourceSkin::~ResourceSkin()
+	{
+		for (MapWidgetStateInfo::iterator item = mStates.begin(); item != mStates.end(); ++ item)
+		{
+			for (VectorStateInfo::iterator info = (*item).second.begin(); info != (*item).second.end(); ++ info)
+				delete (*info);
+		}
+		mStates.clear();
+	}
+
 	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
