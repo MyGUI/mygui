@@ -24,6 +24,7 @@ namespace tools
 		mWindow->eventMouseButtonPressed += newDelegate(this, &SelectionAreaControl::notifyMouseButtonPressed);
 		mWindow->eventMouseButtonReleased += newDelegate(this, &SelectionAreaControl::notifyMouseButtonReleased);
 		mWindow->eventMouseMove += newDelegate(this, &SelectionAreaControl::notifyMouseMouseMove);
+		mWindow->eventMouseDrag += newDelegate(this, &SelectionAreaControl::notifyMouseMouseDrag);
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 
@@ -36,6 +37,11 @@ namespace tools
 
 	SelectionAreaControl::~SelectionAreaControl()
 	{
+		mWindow->eventMouseButtonPressed -= newDelegate(this, &SelectionAreaControl::notifyMouseButtonPressed);
+		mWindow->eventMouseButtonReleased -= newDelegate(this, &SelectionAreaControl::notifyMouseButtonReleased);
+		mWindow->eventMouseMove -= newDelegate(this, &SelectionAreaControl::notifyMouseMouseMove);
+		mWindow->eventMouseDrag -= newDelegate(this, &SelectionAreaControl::notifyMouseMouseDrag);
+
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &SelectionAreaControl::notifyChangeSelectedWidget);
 		PropertiesPanelView::getInstance().eventChangeCoord -= MyGUI::newDelegate(this, &SelectionAreaControl::notifyChangeCoord);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectionAreaControl::notifySettingsChanged);
@@ -64,7 +70,7 @@ namespace tools
 
 	void SelectionAreaControl::notifyRectangleResize(MyGUI::Window* _sender)
 	{
-		if (WidgetsWindow::getInstance().getCreateStatus() == 2 || WidgetsWindow::getInstance().getCreateStatus() == 1)
+		if (WidgetCreatorManager::getInstance().getCreateMode())
 		{
 			if (mWindow->getVisible())
 				mWindow->setVisible(false);
@@ -182,6 +188,11 @@ namespace tools
 	void SelectionAreaControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
 	{
 		WidgetCreatorManager::getInstance().notifyMouseMouseMove(MyGUI::IntPoint(_left, _top));
+	}
+
+	void SelectionAreaControl::notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	{
+		WidgetCreatorManager::getInstance().notifyMouseMouseDrag(MyGUI::IntPoint(_left, _top));
 	}
 
 	void SelectionAreaControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
