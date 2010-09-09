@@ -12,6 +12,7 @@ namespace animation
 	{
 	public:
 		AnimationNodeFactory();
+		~AnimationNodeFactory();
 
 		IAnimationNode* createNode(const std::string& _type, const std::string& _name, IAnimationGraph* _holder);
 

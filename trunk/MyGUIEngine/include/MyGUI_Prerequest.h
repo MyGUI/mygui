@@ -31,6 +31,11 @@
 #	ifndef _CRT_SECURE_NO_WARNINGS
 #		define _CRT_SECURE_NO_WARNINGS
 #	endif
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define _CRTDBG_MAP_ALLOC
+#		include <stdlib.h>
+#		include <crtdbg.h>
+#	endif
 #endif
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)

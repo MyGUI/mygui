@@ -22,26 +22,8 @@
 #ifndef __MYGUI_PRECOMPILED_H__
 #define __MYGUI_PRECOMPILED_H__
 
-#ifdef MYGUI_CHECK_MEMORY_LEAKS
-#	if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#		define _CRTDBG_MAP_ALLOC
-#	endif
-#endif
-
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	ifdef MYGUI_CHECK_MEMORY_LEAKS
-#		include <stdlib.h>
-#		include <crtdbg.h>
-#		ifdef _DEBUG
-#			define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#			define new DEBUG_NEW
-#		endif
-#	endif
-#endif
-
 #include "MyGUI_Macros.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Singleton.h"

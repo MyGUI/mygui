@@ -7,8 +7,6 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
-#include "GraphNodeSimple.h"
-
 namespace demo
 {
 
@@ -51,7 +49,10 @@ namespace demo
 	}
 
 	DemoKeeper::DemoKeeper() :
-		mGraphView(nullptr)
+		mGraphView(nullptr),
+		mNode1(nullptr),
+		mNode2(nullptr),
+		mNode3(nullptr)
 	{
 	}
 
@@ -71,7 +72,6 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-
 		mPanel3 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 700, 500), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption("GraphView");
 		mScrollView3 = mPanel3->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
@@ -87,22 +87,32 @@ namespace demo
 		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
 		mGraphView->eventChangeSize = MyGUI::newDelegate(this, &DemoKeeper::eventChangeSize);
 
-		GraphNodeSimple* node1 = new GraphNodeSimple("Node1");
-		mGraphView->addItem(node1);
-		node1->setPosition(10, 10);
+		mNode1 = new GraphNodeSimple("Node1");
+		mGraphView->addItem(mNode1);
+		mNode1->setPosition(10, 10);
 
-		GraphNodeSimple* node2 = new GraphNodeSimple("Node2");
-		mGraphView->addItem(node2);
-		node2->setPosition(230, 70);
+		mNode2 = new GraphNodeSimple("Node2");
+		mGraphView->addItem(mNode2);
+		mNode2->setPosition(230, 70);
 
-		GraphNodeSimple* node3 = new GraphNodeSimple("Node3");
-		mGraphView->addItem(node3);
-		node3->setPosition(450, 10);
+		mNode3 = new GraphNodeSimple("Node3");
+		mGraphView->addItem(mNode3);
+		mNode3->setPosition(450, 10);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
 		delete mGraphView;
+		mGraphView = nullptr;
+
+		delete mNode1;
+		mNode1 = nullptr;
+
+		delete mNode2;
+		mNode2 = nullptr;
+
+		delete mNode3;
+		mNode3 = nullptr;
 	}
 
 } // namespace demo
