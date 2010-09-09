@@ -92,9 +92,17 @@ namespace MyGUI
 			root->findAttribute("type", type);
 			root->findAttribute("name", name);
 
-			if (mResources.find(name) != mResources.end())
+			if (name.empty())
+				continue;
+
+			MapResource::iterator item = mResources.find(name);
+			if (item != mResources.end())
 			{
 				MYGUI_LOG(Warning, "dublicate resource name '" << name << "'");
+
+				// ресурсами могут пользоваться
+				mRemovedResoures.push_back((*item).second);
+				mResources.erase(item);
 			}
 
 			IObject* object = factory.createObject(XML_TYPE, type);
@@ -107,8 +115,7 @@ namespace MyGUI
 			IResourcePtr resource = object->castType<IResource>();
 			resource->deserialization(root.current(), _version);
 
-			if (!name.empty())
-				mResources[name] = resource;
+			mResources[name] = resource;
 		}
 	}
 
@@ -168,7 +175,8 @@ namespace MyGUI
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 			if (iter != mMapLoadXmlDelegate.end())
 			{
-				if ((!_match) || (type == _type)) (*iter).second(root, _file, version);
+				if ((!_match) || (type == _type))
+					(*iter).second(root, _file, version);
 				else
 				{
 					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
@@ -261,11 +269,23 @@ namespace MyGUI
 
 	void ResourceManager::clear()
 	{
-		for (MapResource::iterator item = mResources.begin(); item != mResources.end(); ++item)
-		{
+		for (MapResource::iterator item = mResources.begin(); item != mResources.end(); ++ item)
 			delete item->second;
-		}
 		mResources.clear();
+
+		for (VectorResource::iterator item = mRemovedResoures.begin(); item != mRemovedResoures.end(); ++ item)
+			delete (*item);
+		mRemovedResoures.clear();
+	}
+
+	ResourceManager::EnumeratorPtr ResourceManager::getEnumerator() const
+	{
+		return EnumeratorPtr(mResources);
+	}
+
+	size_t ResourceManager::getCount()
+	{
+		return mResources.size();
 	}
 
 } // namespace MyGUI
