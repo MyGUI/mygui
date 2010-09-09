@@ -7,6 +7,8 @@
 #include "WidgetCreatorManager.h"
 #include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
+#include "WidgetTypes.h"
+#include "UndoManager.h"
 
 template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName("WidgetCreatorManager");
@@ -14,10 +16,12 @@ template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTyp
 namespace tools
 {
 	WidgetCreatorManager::WidgetCreatorManager() :
-		mSelectDepth(0),
 		mMouseButtonPressed(false),
-		mLastClickX(0),
-		mLastClickY(0)
+		mSelectDepth(0),
+		mCreateMode(false),
+		mStartNewWidget(false),
+		mNewWidget(nullptr)
+		//mPositionSelectorControl(nullptr)
 	{
 	}
 
@@ -27,12 +31,20 @@ namespace tools
 
 	void WidgetCreatorManager::initialise()
 	{
+		//mPositionSelectorControl = new PositionSelectorControl();
+		//mPositionSelectorControl->setVisible(false);
+
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
 	}
 
 	void WidgetCreatorManager::shutdown()
 	{
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
+
+		resetWidget();
+
+		//delete mPositionSelectorControl;
+		//mPositionSelectorControl = nullptr;
 	}
 
 	void WidgetCreatorManager::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
@@ -46,21 +58,34 @@ namespace tools
 		mMouseButtonPressed = false;
 
 		const int distance = 2;
-		if ((abs(mLastClickX - _point.left) > distance) || (abs(mLastClickY - _point.top) > distance))
+		if ((abs(mLastClick.left - _point.left) > distance) || (abs(mLastClick.top - _point.top) > distance))
 		{
 			mSelectDepth = 0;
 		}
 	}
 
+	void WidgetCreatorManager::notifyMouseMouseDrag(const MyGUI::IntPoint& _point)
+	{
+		mMouseButtonPressed = false;
+
+		if (getCreateMode())
+			WidgetCreatorManager::getInstance().moveNewWidget();
+	}
+
 	void WidgetCreatorManager::notifyMouseButtonPressed(const MyGUI::IntPoint& _point)
 	{
-		mLastClickX = _point.left;
-		mLastClickY = _point.top;
+		mLastClick = _point;
 		mMouseButtonPressed = true;
+
+		if (getCreateMode())
+			createNewWidget();
 	}
 
 	void WidgetCreatorManager::notifyMouseButtonReleased(const MyGUI::IntPoint& _point)
 	{
+		if (getCreateMode())
+			finishNewWidget();
+
 		if (mMouseButtonPressed)
 		{
 			mMouseButtonPressed = false;
@@ -134,6 +159,142 @@ namespace tools
 			return true;
 		}
 		return false;
+	}
+
+	void WidgetCreatorManager::setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin)
+	{
+		mWidgetType = _widgetType;
+		mWidgetSkin = _widgetSkin;
+		mCreateMode = true;
+
+		eventChangeCreatorMode(mCreateMode);
+	}
+
+	void WidgetCreatorManager::resetCreatorInfo()
+	{
+		mWidgetType = "";
+		mWidgetSkin = "";
+		mCreateMode = false;
+
+		eventChangeCreatorMode(mCreateMode);
+	}
+
+	bool WidgetCreatorManager::getCreateMode()
+	{
+		return mCreateMode;
+	}
+
+	const std::string& WidgetCreatorManager::getWidgetType()
+	{
+		return mWidgetType;
+	}
+
+	const std::string& WidgetCreatorManager::getWidgetSkin()
+	{
+		return mWidgetSkin;
+	}
+
+	void WidgetCreatorManager::createNewWidget()
+	{
+		mStartNewWidget = true;
+		mStartPoint = MyGUI::InputManager::getInstance().getMousePosition();
+
+		//mPositionSelectorControl->setVisible(false);
+		resetWidget();
+	}
+
+	void WidgetCreatorManager::moveNewWidget()
+	{
+		if (mNewWidget == nullptr)
+		{
+			// тип виджета может отсутсвовать
+			if (!MyGUI::WidgetManager::getInstance().isFactoryExist(mWidgetType))
+				return;
+
+			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
+
+			MyGUI::Widget* current = WidgetSelectorManager::getInstance().getSelectedWidget();
+
+			// пока не найдем ближайшего над нами способного быть родителем
+			while (current && !WidgetTypes::getInstance().findWidgetStyle(current->getTypeName())->parent)
+				current = current->getParent();
+
+			if (current && WidgetTypes::getInstance().findWidgetStyle(mWidgetType)->child)
+				mNewWidget = current->createWidgetT(mWidgetType, mWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
+			else
+				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, mWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+
+			if (mNewWidget->isType<MyGUI::StaticText>())
+				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));
+
+			//mPositionSelectorControl->setVisible(true);
+		}
+
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+		MyGUI::IntPoint offset;
+
+		MyGUI::Widget* parent = mNewWidget->getParent();
+		if (parent != nullptr)
+			offset = parent->getAbsolutePosition();
+
+		MyGUI::IntCoord coord = MyGUI::IntCoord(
+			std::min(mStartPoint.left - offset.left, point.left - offset.left),
+			std::min(mStartPoint.top - offset.top, point.top - offset.top),
+			abs(point.left - mStartPoint.left),
+			abs(point.top - mStartPoint.top));
+
+		mNewWidget->setCoord(coord);
+		//mPositionSelectorControl->setCoord(mNewWidget->getAbsoluteCoord());
+	}
+
+	void WidgetCreatorManager::finishNewWidget()
+	{
+		resetCreatorInfo();
+		//mPositionSelectorControl->setVisible(false);
+
+		if (mNewWidget != nullptr)
+		{
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			MyGUI::IntPoint offset;
+
+			MyGUI::Widget* parent = mNewWidget->getParent();
+			if (parent != nullptr)
+				offset = parent->getAbsolutePosition();
+
+			MyGUI::IntCoord coord = MyGUI::IntCoord(
+				std::min(mStartPoint.left - offset.left, point.left - offset.left),
+				std::min(mStartPoint.top - offset.top, point.top - offset.top),
+				abs(point.left - mStartPoint.left),
+				abs(point.top - mStartPoint.top));
+
+			if ((coord.width * coord.height) != 0)
+			{
+				mNewWidget->setCoord(coord);
+
+				// создали виджет, все счастливы
+				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
+				mNewWidget = nullptr;
+
+				EditorWidgets::getInstance().add(widgetContainer);
+				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
+				UndoManager::getInstance().addValue();
+			}
+			else
+			{
+				// не удалось создать, т.к. размер нулевой
+				resetWidget();
+			}
+		}
+	}
+
+	void WidgetCreatorManager::resetWidget()
+	{
+		// подстрахуемся
+		if (mNewWidget != nullptr)
+		{
+			MyGUI::WidgetManager::getInstance().destroyWidget(mNewWidget);
+			mNewWidget = nullptr;
+		}
 	}
 
 } // namespace tools

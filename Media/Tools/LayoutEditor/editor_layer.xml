@@ -12,6 +12,9 @@
 	<Layer type="OverlappedLayer" name="LayoutEditor_Widgets">
 		<Property key="Pick" value="true"/>
 	</Layer>
+	<Layer type="OverlappedLayer" name="LayoutEditor_MainPane">
+		<Property key="Pick" value="true"/>
+	</Layer>
 	<Layer type="OverlappedLayer" name="LayoutEditor_Rectangle">
 		<Property key="Pick" value="true"/>
 	</Layer>

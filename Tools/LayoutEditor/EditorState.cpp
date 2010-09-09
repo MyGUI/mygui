@@ -16,6 +16,7 @@
 #include "Localise.h"
 #include "Application.h"
 #include "RecentFilesManager.h"
+#include "WidgetCreatorManager.h"
 
 namespace tools
 {
@@ -258,7 +259,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		WidgetsWindow::getInstance().clearNewWidget();
+		WidgetCreatorManager::getInstance().resetCreatorInfo();
 		EditorWidgets::getInstance().clear();
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);

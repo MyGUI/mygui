@@ -5,10 +5,12 @@ namespace tools
 	MainPaneControl::MainPaneControl() :
 		wraps::BaseLayout("MainPane.layout"),
 		mMainMenuControl(nullptr),
-		mToolsControl(nullptr)
+		mToolsControl(nullptr),
+		mWorkspaceControl(nullptr)
 	{
 		assignBase(mMainMenuControl, "MainMenuControl");
 		assignBase(mToolsControl, "ToolsControl");
+		assignBase(mWorkspaceControl, "WorkspaceControl");
 	}
 
 	MainPaneControl::~MainPaneControl()
