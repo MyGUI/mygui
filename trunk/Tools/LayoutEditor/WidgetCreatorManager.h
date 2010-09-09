@@ -48,6 +48,7 @@ namespace tools
 		void finishNewWidget();
 
 		void resetWidget();
+		void selectWidget();
 
 	private:
 		size_t mSelectDepth;

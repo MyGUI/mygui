@@ -182,7 +182,7 @@ namespace tools
 	void SelectionAreaControl::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
-		mWindow->setVisible(mCurrentWidget != nullptr);
+		mWindow->setVisible(mCurrentWidget != nullptr && !WidgetCreatorManager::getInstance().getCreateMode());
 	}
 
 	void SelectionAreaControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
