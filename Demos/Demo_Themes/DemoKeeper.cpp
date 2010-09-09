@@ -54,7 +54,7 @@ namespace demo
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");
 		mComboSkins->addItem("black & orange");
-		mComboSkins->addItem("gray");
+		//mComboSkins->addItem("gray");
 
 		mComboSkins->setIndexSelected(_index);
 		mComboSkins->eventComboAccept += MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);

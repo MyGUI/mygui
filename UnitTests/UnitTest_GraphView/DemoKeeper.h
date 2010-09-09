@@ -64,6 +64,9 @@ namespace demo
 		common::OpenSaveFileDialog* mFileDialog;
 		bool mFileDialogSave;
 		wraps::ContextMenu* mContextMenu;
+
+		typedef std::vector<BaseAnimationNode*> VectorBaseAnimationNode;
+		VectorBaseAnimationNode mNodes;
 	};
 
 } // namespace demo
