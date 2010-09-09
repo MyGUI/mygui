@@ -91,6 +91,7 @@ namespace MyGUI
 		ConsoleLogListener* mConsole;
 		FileLogListener* mFile;
 		LevelLogFilter* mFilter;
+		LogSource* mDefaultSource;
 
 		LogLevel mLevel;
 		bool mConsoleEnable;

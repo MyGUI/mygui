@@ -36,6 +36,7 @@ namespace MyGUI
 		mConsole(nullptr),
 		mFile(nullptr),
 		mFilter(nullptr),
+		mDefaultSource(nullptr),
 		mLevel(LogLevel::Info),
 		mConsoleEnable(true)
 	{
@@ -46,6 +47,15 @@ namespace MyGUI
 	{
 		flush();
 		close();
+
+		delete mDefaultSource;
+		mDefaultSource = nullptr;
+		delete mConsole;
+		mConsole = nullptr;
+		delete mFile;
+		mFile = nullptr;
+		delete mFilter;
+		mFilter = nullptr;
 
 		msInstance = nullptr;
 	}
@@ -103,14 +113,14 @@ namespace MyGUI
 		mConsole->setEnable(mConsoleEnable);
 		mFilter->setLoggingLevel(mLevel);
 
-		LogSource* source = new LogSource();
-		source->addLogListener(mFile);
-		source->addLogListener(mConsole);
-		source->setLogFilter(mFilter);
+		mDefaultSource = new LogSource();
+		mDefaultSource->addLogListener(mFile);
+		mDefaultSource->addLogListener(mConsole);
+		mDefaultSource->setLogFilter(mFilter);
 
-		source->open();
+		mDefaultSource->open();
 
-		LogManager::getInstance().addLogSource(source);
+		LogManager::getInstance().addLogSource(mDefaultSource);
 	}
 
 	void LogManager::setSTDOutputEnabled(bool _value)
