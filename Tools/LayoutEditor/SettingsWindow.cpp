@@ -23,9 +23,9 @@ namespace tools
 		mResourcePathAdd(nullptr),
 		mResourcePathDelete(nullptr),
 		mResourcePaths(nullptr),
+		mLayoutVersion(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mGridStep(0),
-		mLayoutVersion(nullptr)
+		mGridStep(0)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
