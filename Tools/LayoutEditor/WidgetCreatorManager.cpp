@@ -90,37 +90,7 @@ namespace tools
 		{
 			mMouseButtonPressed = false;
 
-			// здесь кликать вглубь
-			MyGUI::Widget* item = getTopWidget(MyGUI::InputManager::getInstance().getLastLeftPressed());
-			if (nullptr != item)
-			{
-				// find widget registered as container
-				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-					item = item->getParent();
-				MyGUI::Widget* oldItem = item;
-
-				// try to selectin depth
-				int depth = mSelectDepth;
-				while (depth && (nullptr != item))
-				{
-					item = item->getParent();
-					while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
-						item = item->getParent();
-					depth--;
-				}
-				if (nullptr == item)
-				{
-					item = oldItem;
-					mSelectDepth = 0;
-				}
-
-				// found widget
-				if (nullptr != item)
-				{
-					WidgetSelectorManager::getInstance().setSelectedWidget(item);
-					mSelectDepth++;
-				}
-			}
+			selectWidget();
 		}
 	}
 
@@ -211,6 +181,9 @@ namespace tools
 			if (!MyGUI::WidgetManager::getInstance().isFactoryExist(mWidgetType))
 				return;
 
+			// выделяем верний виджет
+			selectWidget();
+
 			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
 
 			MyGUI::Widget* current = WidgetSelectorManager::getInstance().getSelectedWidget();
@@ -294,6 +267,52 @@ namespace tools
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(mNewWidget);
 			mNewWidget = nullptr;
+		}
+	}
+
+	void WidgetCreatorManager::selectWidget()
+	{
+		// здесь кликать вглубь
+		MyGUI::Widget* item = getTopWidget(MyGUI::InputManager::getInstance().getLastLeftPressed());
+		if (nullptr != item)
+		{
+			// find widget registered as container
+			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+				item = item->getParent();
+			MyGUI::Widget* oldItem = item;
+
+			// try to selectin depth
+			int depth = mSelectDepth;
+			while (depth && (nullptr != item))
+			{
+				item = item->getParent();
+				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+					item = item->getParent();
+				depth--;
+			}
+
+			if (nullptr == item)
+			{
+				item = oldItem;
+				mSelectDepth = 0;
+			}
+
+			// found widget
+			if (nullptr != item)
+			{
+				WidgetSelectorManager::getInstance().setSelectedWidget(item);
+				mSelectDepth++;
+			}
+			else
+			{
+				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+				mSelectDepth = 0;
+			}
+		}
+		else
+		{
+			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+			mSelectDepth = 0;
 		}
 	}
 
