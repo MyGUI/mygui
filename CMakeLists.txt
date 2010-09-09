@@ -142,8 +142,12 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
-# Used to not annoy users with warnings (should be TRUE for developers)
+# Used to not annoy users with high level warnings (should be TRUE for developers)
 option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
+option(MYGUI_CHECK_MEMORY_LEAKS "Check memory leaks. Developers should enable this." FALSE)
+if (MYGUI_CHECK_MEMORY_LEAKS)
+	add_definitions(-DMYGUI_CHECK_MEMORY_LEAKS)
+endif ()
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
