@@ -112,6 +112,8 @@ namespace tools
 		mPresets->addItem(replaceTags("PresetRegion9Grid"), SeparatorPreset9Slice);
 		mPresets->addItem(replaceTags("PresetRegion3Hor"), SeparatorPreset3SliceHorScale);
 		mPresets->addItem(replaceTags("PresetRegion3Vert"), SeparatorPreset3SliceVertScale);
+
+		mPresets->beginToItemFirst();
 	}
 
 	void SeparatorListControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)

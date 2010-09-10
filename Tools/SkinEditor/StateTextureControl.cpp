@@ -204,4 +204,16 @@ namespace tools
 		}
 	}
 
+	void StateTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
+		MyGUI::IntPoint point;
+		point.left = _point.left - (mSizeValue.width / 2);
+		point.top = _point.top - (mSizeValue.height / 2);
+
+		mAreaSelectorControl->setPosition(point);
+
+		if (getCurrentState() != nullptr)
+			getCurrentState()->getPropertySet()->setPropertyValue("Position", point.print(), mTypeName);
+	}
+
 } // namespace tools
