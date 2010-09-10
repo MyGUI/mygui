@@ -222,9 +222,6 @@ namespace tools
 
 	void WidgetCreatorManager::finishNewWidget()
 	{
-		resetCreatorInfo();
-		//mPositionSelectorControl->setVisible(false);
-
 		if (mNewWidget != nullptr)
 		{
 			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
@@ -249,8 +246,11 @@ namespace tools
 				mNewWidget = nullptr;
 
 				EditorWidgets::getInstance().add(widgetContainer);
-				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
 				UndoManager::getInstance().addValue();
+
+				// чтобы выделился созданый виджет
+				resetCreatorInfo();
+				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
 			}
 			else
 			{
@@ -258,6 +258,9 @@ namespace tools
 				resetWidget();
 			}
 		}
+
+		resetCreatorInfo();
+		//mPositionSelectorControl->setVisible(false);
 	}
 
 	void WidgetCreatorManager::resetWidget()
