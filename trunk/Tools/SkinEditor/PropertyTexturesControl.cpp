@@ -25,6 +25,8 @@ namespace tools
 		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mComboBox->addItem(*iter);
 
+		mComboBox->beginToItemFirst();
+
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
 	}
 

@@ -90,4 +90,15 @@ namespace tools
 			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
 	}
 
+	void SkinTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
+		mCoordValue.left = _point.left - (mCoordValue.width / 2);
+		mCoordValue.top = _point.top - (mCoordValue.height / 2);
+
+		mAreaSelectorControl->setCoord(mCoordValue);
+
+		if (getCurrentSkin() != nullptr)
+			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+	}
+
 } // namespace tools

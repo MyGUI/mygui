@@ -41,6 +41,9 @@ namespace tools
 
 		void setScale(double _value);
 
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+
 	private:
 		void notifyChangePosition();
 

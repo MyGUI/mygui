@@ -72,6 +72,8 @@ namespace tools
 
 		_combo->setIndexSelected(0);
 
+		_combo->beginToItemFirst();
+
 		updateColour(_combo);
 	}
 
@@ -85,6 +87,8 @@ namespace tools
 		mScale->addItem(replaceTags("Scale400"), (double)4);
 		mScale->addItem(replaceTags("Scale800"), (double)8);
 		mScale->addItem(replaceTags("Scale1600"), (double)16);
+
+		mScale->beginToItemFirst();
 
 		size_t index = 1;
 
