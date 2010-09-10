@@ -20,10 +20,13 @@ namespace tools
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackground, "Background");
+
+		mTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 	}
 
 	TextureControl::~TextureControl()
 	{
+		mTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 	}
 
 	void TextureControl::updateScale()
@@ -88,6 +91,18 @@ namespace tools
 	{
 		mScaleValue = _value;
 		updateScale();
+	}
+
+	void TextureControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastLeftPressed() - mTexture->getAbsolutePosition();
+		point.left = (int)((double)point.left / mScaleValue);
+		point.top = (int)((double)point.top / mScaleValue);
+		onMouseButtonClick(point);
+	}
+
+	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
 	}
 
 } // namespace tools

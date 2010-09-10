@@ -23,6 +23,9 @@ namespace tools
 		StateTextureControl(MyGUI::Widget* _parent);
 		virtual ~StateTextureControl();
 
+	protected:
+		void onMouseButtonClick(const MyGUI::IntPoint& _point);
+
 	private:
 		void notifyChangePosition();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);

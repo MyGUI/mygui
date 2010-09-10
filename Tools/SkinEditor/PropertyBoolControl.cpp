@@ -18,6 +18,8 @@ namespace tools
 		mComboBox->addItem("True");
 		mComboBox->addItem("False");
 
+		mComboBox->beginToItemFirst();
+
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
 	}
 

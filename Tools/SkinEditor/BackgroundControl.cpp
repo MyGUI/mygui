@@ -55,6 +55,7 @@ namespace tools
 		_combo->addItem(replaceTags("ColourBlue"), MyGUI::Colour::Blue);
 
 		_combo->setIndexSelected(0);
+		_combo->beginToItemFirst();
 
 		updateColourByPresets();
 	}

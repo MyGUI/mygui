@@ -24,6 +24,8 @@ namespace tools
 		mComboBox->addItem("TileRect Hor");
 		mComboBox->addItem("TileRect Ver");
 
+		mComboBox->beginToItemFirst();
+
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
 	}
 

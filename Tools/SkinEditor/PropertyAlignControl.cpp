@@ -38,6 +38,8 @@ namespace tools
 		mComboBox->addItem("HCenter VStretch");
 		mComboBox->addItem("HCenter VCenter");
 
+		mComboBox->beginToItemFirst();
+
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 

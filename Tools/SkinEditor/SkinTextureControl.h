@@ -22,6 +22,9 @@ namespace tools
 		SkinTextureControl(MyGUI::Widget* _parent);
 		virtual ~SkinTextureControl();
 
+	protected:
+		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);

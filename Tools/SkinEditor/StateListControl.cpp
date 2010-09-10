@@ -50,6 +50,8 @@ namespace tools
 		mPresets->addItem(replaceTags("PresetStateOnlyNormal"), PresetNormalOnly);
 		mPresets->addItem(replaceTags("PresetStateFirst4"), PresetFirst4States);
 		mPresets->addItem(replaceTags("PresetStateAll"), PresetAllStates);
+
+		mPresets->beginToItemFirst();
 	}
 
 	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
