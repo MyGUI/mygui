@@ -23,8 +23,8 @@ namespace tools
 		mWidgetsButtonWidth(0),
 		mWidgetsButtonHeight(0),
 		mWidgetsButtonsInOneLine(0),
-		mToolTip(nullptr),
-		mMaxLines(0)
+		mMaxLines(0),
+		mToolTip(nullptr)
 	{
 		assignWidget(mTabSkins, "tabSkins");
 
