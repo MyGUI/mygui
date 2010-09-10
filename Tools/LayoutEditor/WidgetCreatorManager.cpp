@@ -16,8 +16,8 @@ template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTyp
 namespace tools
 {
 	WidgetCreatorManager::WidgetCreatorManager() :
-		mMouseButtonPressed(false),
 		mSelectDepth(0),
+		mMouseButtonPressed(false),
 		mCreateMode(false),
 		mStartNewWidget(false),
 		mNewWidget(nullptr)
