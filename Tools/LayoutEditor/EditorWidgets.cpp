@@ -77,7 +77,7 @@ namespace tools
 				while (element.next())
 				{
 					if (element->getName() == "Widget")
-						parseWidget(element, nullptr, true);
+						parseWidget(element, nullptr);
 					else
 						loadSector(element.current());
 				}
