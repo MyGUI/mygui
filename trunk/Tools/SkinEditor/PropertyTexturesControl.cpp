@@ -8,12 +8,17 @@
 
 namespace tools
 {
-
 	PropertyTexturesControl::PropertyTexturesControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
-		mComboBox(nullptr)
+		wraps::BaseLayout("PropertyTextureBrowseControl.layout", _parent),
+		mComboBox(nullptr),
+		mBrowse(nullptr),
+		mTextureBrowseControl(nullptr)
 	{
 		assignWidget(mComboBox, "ComboBox");
+		assignWidget(mBrowse, "Browse");
+
+		mTextureBrowseControl = new TextureBrowseControl();
+		mTextureBrowseControl->eventEndDialog = MyGUI::newDelegate(this, &PropertyTexturesControl::notifyEndDialog);
 
 		// FIXME потом вынести в загружаемые настройки
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
@@ -28,11 +33,16 @@ namespace tools
 		mComboBox->beginToItemFirst();
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
+		mBrowse->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
 	}
 
 	PropertyTexturesControl::~PropertyTexturesControl()
 	{
+		mBrowse->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
 		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
+
+		delete mTextureBrowseControl;
+		mTextureBrowseControl = nullptr;
 	}
 
 	void PropertyTexturesControl::updateProperty()
@@ -41,6 +51,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			mComboBox->setEnabled(true);
+			mBrowse->setEnabled(true);
+
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}
@@ -48,6 +60,7 @@ namespace tools
 		{
 			mComboBox->setIndexSelected(MyGUI::ITEM_NONE);
 			mComboBox->setEnabled(false);
+			mBrowse->setEnabled(false);
 		}
 	}
 
@@ -78,6 +91,20 @@ namespace tools
 		}
 
 		return result;
+	}
+
+	void PropertyTexturesControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		mTextureBrowseControl->doModal();
+	}
+
+	void PropertyTexturesControl::notifyEndDialog(Dialog* _sender, bool _result)
+	{
+		mTextureBrowseControl->endModal();
+
+		if (_result)
+		{
+		}
 	}
 
 } // namespace tools

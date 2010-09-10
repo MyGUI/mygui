@@ -33,6 +33,7 @@
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
+	<Tag name="CaptionTextureBrowse">Выбор текстуры</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
