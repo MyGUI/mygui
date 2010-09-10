@@ -29,6 +29,7 @@ namespace tools
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyPreviewColour(const MyGUI::Colour& _value);
 
 		bool parseColour1(const std::string& _value, MyGUI::Colour& _resultValue);
 		bool parseColour2(const std::string& _value, MyGUI::Colour& _resultValue);
@@ -38,6 +39,8 @@ namespace tools
 		MyGUI::UString getClearValue();
 		void setColour(bool _validate);
 
+		void updateSetProperty();
+
 	private:
 		MyGUI::Edit* mEdit;
 		MyGUI::Widget* mColour;
@@ -45,6 +48,7 @@ namespace tools
 		ColourPanel* mColourPanel;
 
 		MyGUI::Colour mCurrentColour;
+		MyGUI::Colour mPreviewColour;
 	};
 
 } // namespace tools

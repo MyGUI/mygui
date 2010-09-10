@@ -21,6 +21,7 @@ namespace tools
 
 	private:
 		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyPreviewColour(const MyGUI::Colour& _value);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
@@ -35,6 +36,7 @@ namespace tools
 		MyGUI::Widget* mBackgroundButton;
 
 		ColourPanel* mColourPanel;
+		MyGUI::Colour mPreviewColour;
 	};
 
 } // namespace tools

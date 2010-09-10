@@ -30,6 +30,7 @@ namespace tools
 
 		mColourPanel = new ColourPanel();
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &TextureToolControl::notifyEndDialog);
+		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &TextureToolControl::notifyPreviewColour);
 	}
 
 	TextureToolControl::~TextureToolControl()
@@ -45,6 +46,8 @@ namespace tools
 
 	void TextureToolControl::notifyEndDialog(Dialog* _sender, bool _result)
 	{
+		mColourPanel->endModal();
+
 		if (_result)
 		{
 			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
@@ -55,8 +58,16 @@ namespace tools
 			mBackgroundButton->setColour(colour);
 			mBackgroundButton->setAlpha(colour.alpha);
 		}
+		else
+		{
+			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
+			MyGUI::Colour colour = mPreviewColour;
+			colour.alpha = 1;
 
-		mColourPanel->endModal();
+			setColour(colour);
+			mBackgroundButton->setColour(colour);
+			mBackgroundButton->setAlpha(colour.alpha);
+		}
 	}
 
 	void TextureToolControl::fillColours(MyGUI::ComboBox* _combo)
@@ -130,8 +141,20 @@ namespace tools
 
 	void TextureToolControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		mColourPanel->setColour(getColour());
+		mPreviewColour = getColour();
+		mColourPanel->setColour(mPreviewColour);
 		mColourPanel->doModal();
+	}
+
+	void TextureToolControl::notifyPreviewColour(const MyGUI::Colour& _value)
+	{
+		mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
+		MyGUI::Colour colour = _value;
+		colour.alpha = 1;
+
+		setColour(colour);
+		mBackgroundButton->setColour(colour);
+		mBackgroundButton->setAlpha(colour.alpha);
 	}
 
 } // namespace tools
