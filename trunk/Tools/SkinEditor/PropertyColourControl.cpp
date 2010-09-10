@@ -24,6 +24,7 @@ namespace tools
 
 		mColourPanel = new ColourPanel();
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &PropertyColourControl::notifyEndDialog);
+		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &PropertyColourControl::notifyPreviewColour);
 	}
 
 	PropertyColourControl::~PropertyColourControl()
@@ -205,6 +206,7 @@ namespace tools
 
 	void PropertyColourControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
+		mPreviewColour = mCurrentColour;
 		mColourPanel->setColour(mCurrentColour);
 		mColourPanel->doModal();
 	}
@@ -218,10 +220,29 @@ namespace tools
 			mCurrentColour = mColourPanel->getColour();
 			mCurrentColour.alpha = 1;
 
-			Property* proper = getProperty();
-			if (proper != nullptr)
-				proper->setValue(mCurrentColour.print(), ""); // чтобы мы обновили поле
+			updateSetProperty();
 		}
+		else
+		{
+			mCurrentColour = mPreviewColour;
+
+			updateSetProperty();
+		}
+	}
+
+	void PropertyColourControl::notifyPreviewColour(const MyGUI::Colour& _value)
+	{
+		mCurrentColour = _value;
+		mCurrentColour.alpha = 1;
+
+		updateSetProperty();
+	}
+
+	void PropertyColourControl::updateSetProperty()
+	{
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			proper->setValue(mCurrentColour.print(), ""); // чтобы мы обновили поле
 	}
 
 } // namespace tools

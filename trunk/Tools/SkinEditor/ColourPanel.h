@@ -11,6 +11,7 @@
 
 namespace tools
 {
+	typedef MyGUI::delegates::CDelegate1<const MyGUI::Colour&> Event_PreviewColour;
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
@@ -21,10 +22,9 @@ namespace tools
 		virtual ~ColourPanel();
 
 		void setColour(const MyGUI::Colour& _colour);
-		const MyGUI::Colour& getColour() const
-		{
-			return mCurrentColour;
-		}
+		const MyGUI::Colour& getColour() const;
+
+		Event_PreviewColour eventPreviewColour;
 
 	protected:
 		virtual void onDoModal();
