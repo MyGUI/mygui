@@ -136,6 +136,7 @@ namespace tools
 		mCurrentColour.blue = (1 - y) * (mBaseColour.blue * x + MyGUI::Colour::White.blue * (1 - x));
 
 		mColourView->setColour(mCurrentColour);
+		eventPreviewColour(mCurrentColour);
 
 		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
 		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
@@ -258,6 +259,7 @@ namespace tools
 		updateTexture(mBaseColour);
 
 		mColourView->setColour(mCurrentColour);
+		eventPreviewColour(mCurrentColour);
 	}
 
 	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)
@@ -314,6 +316,11 @@ namespace tools
 	void ColourPanel::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		eventEndDialog(this, false);
+	}
+
+	const MyGUI::Colour& ColourPanel::getColour() const
+	{
+		return mCurrentColour;
 	}
 
 } // namespace tools

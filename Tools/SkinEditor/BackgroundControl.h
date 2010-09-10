@@ -31,6 +31,7 @@ namespace tools
 
 		void notifyChangePosition();
 		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyPreviewColour(const MyGUI::Colour& _value);
 
 		void fillColours(MyGUI::ComboBox* _combo);
 		void updateColourByPresets();
@@ -46,6 +47,7 @@ namespace tools
 		ColourPanel* mColourPanel;
 
 		MyGUI::Colour mCurrentColour;
+		MyGUI::Colour mPreviewColour;
 	};
 
 } // namespace tools

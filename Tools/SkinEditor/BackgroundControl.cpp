@@ -31,6 +31,7 @@ namespace tools
 
 		mColourPanel = new ColourPanel();
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &BackgroundControl::notifyEndDialog);
+		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &BackgroundControl::notifyPreviewColour);
 	}
 
 	BackgroundControl::~BackgroundControl()
@@ -77,12 +78,15 @@ namespace tools
 
 	void BackgroundControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
+		mPreviewColour = mCurrentColour;
 		mColourPanel->setColour(mCurrentColour);
 		mColourPanel->doModal();
 	}
 
 	void BackgroundControl::notifyEndDialog(Dialog* _sender, bool _result)
 	{
+		mColourPanel->endModal();
+
 		if (_result)
 		{
 			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
@@ -90,8 +94,13 @@ namespace tools
 			mCurrentColour.alpha = 1;
 			updateColours();
 		}
-
-		mColourPanel->endModal();
+		else
+		{
+			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
+			mCurrentColour = mPreviewColour;
+			mCurrentColour.alpha = 1;
+			updateColours();
+		}
 	}
 
 	void BackgroundControl::updateColours()
@@ -100,6 +109,14 @@ namespace tools
 		mBackground->setAlpha(mCurrentColour.alpha);
 		mBackgroundButton->setColour(mCurrentColour);
 		mBackgroundButton->setAlpha(mCurrentColour.alpha);
+	}
+
+	void BackgroundControl::notifyPreviewColour(const MyGUI::Colour& _value)
+	{
+		mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
+		mCurrentColour = _value;
+		mCurrentColour.alpha = 1;
+		updateColours();
 	}
 
 } // namespace tools
