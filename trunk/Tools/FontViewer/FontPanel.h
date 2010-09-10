@@ -23,7 +23,7 @@ namespace demo
 	private:
 		void update();
 		void notifyMouseButtonClick(MyGUI::Widget* _widget);
-		void generateFontTTFXml(MyGUI::xml::ElementPtr _root);
+		void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName);
 
 	private:
 		MyGUI::ComboBox* mComboFont;
