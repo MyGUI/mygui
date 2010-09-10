@@ -8,10 +8,11 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
+#include "TextureBrowseControl.h"
+#include "Dialog.h"
 
 namespace tools
 {
-
 	class PropertyTexturesControl :
 		public wraps::BaseLayout,
 		public PropertyControl
@@ -25,11 +26,16 @@ namespace tools
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyEndDialog(Dialog* _sender, bool _result);
 
 		size_t getComboIndex(const MyGUI::UString& _name);
 
 	private:
 		MyGUI::ComboBox* mComboBox;
+		MyGUI::Button* mBrowse;
+
+		TextureBrowseControl* mTextureBrowseControl;
 	};
 
 } // namespace tools
