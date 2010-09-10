@@ -32,7 +32,7 @@ namespace demo
 		mButtonGenerate->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 		mButtonSave->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 
-		mFontName = "FontName";
+		mFontName = "GeneratedFontName";
 		mFontHeight = 0;
 
 		// загружаем демо вью
@@ -58,7 +58,16 @@ namespace demo
 			std::string file = *iter;
 			mComboFont->addItem(file);
 		}
-		if (mComboFont->getItemCount() > 0) mComboFont->setIndexSelected(0);
+
+		paths = MyGUI::DataManager::getInstance().getDataListNames("*.pfb");
+		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
+		{
+			std::string file = *iter;
+			mComboFont->addItem(file);
+		}
+
+		if (mComboFont->getItemCount() > 0)
+			mComboFont->setIndexSelected(0);
 	}
 
 	template<typename Type>
@@ -72,16 +81,18 @@ namespace demo
 	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
 	{
 		// шрифтов нету
-		if (mComboFont->getOnlyText().empty()) return;
-		if (mEditSaveFileName->getOnlyText().empty() && _widget == mButtonSave) return;
-
-		MyGUI::xml::Document document;
-		document.createDeclaration();
-		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-		generateFontTTFXml(root);
+		if (mComboFont->getOnlyText().empty())
+			return;
+		if (mEditSaveFileName->getOnlyText().empty() && _widget == mButtonSave)
+			return;
 
 		if (_widget == mButtonSave)
 		{
+			MyGUI::xml::Document document;
+			document.createDeclaration();
+			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
+			generateFontTTFXml(root, MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".", mFontHeight));
+
 			if (!document.save(mEditSaveFileName->getOnlyText() + ".xml"))
 			{
 				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
@@ -103,6 +114,11 @@ namespace demo
 				manager.removeByName(mFontName);
 			}
 
+			MyGUI::xml::Document document;
+			document.createDeclaration();
+			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
+			generateFontTTFXml(root, mFontName);
+
 			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
 			MyGUI::IResource* resource = manager.getByName(mFontName, false);
 			MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
@@ -117,14 +133,14 @@ namespace demo
 		}
 	}
 
-	void FontPanel::generateFontTTFXml(MyGUI::xml::ElementPtr _root)
+	void FontPanel::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName)
 	{
 		_root->addAttribute("type", "Resource");
 		_root->addAttribute("version", "1.1");
 
 		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
 		node->addAttribute("type", "ResourceTrueTypeFont");
-		node->addAttribute("name", mFontName);
+		node->addAttribute("name", _fontName);
 
 		addProperty(node, "Source", mComboFont->getOnlyText());
 		addProperty(node, "Size", MyGUI::utility::parseValue<int>(mEditSize->getOnlyText()));
