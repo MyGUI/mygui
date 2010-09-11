@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	ColourWindowBox::ColourWindowBox(MyGUI::Widget* _parent) : wraps::BaseItemBox<ColourWindowCellView>("", _parent)
+	ColourWindowBox::ColourWindowBox(MyGUI::Widget* _parent) :
+		wraps::BaseItemBox<ColourWindowCellView>(_parent)
 	{
 	}
 

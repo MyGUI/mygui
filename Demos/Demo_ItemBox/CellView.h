@@ -12,8 +12,8 @@
 
 namespace demo
 {
-
-	class CellView : public wraps::BaseCellView<ItemData>
+	class CellView :
+		public wraps::BaseCellView<ItemData*>
 	{
 	public:
 		CellView(MyGUI::Widget* _parent);
@@ -27,7 +27,6 @@ namespace demo
 		MyGUI::StaticImage* mImageItem;
 		MyGUI::StaticText* mTextBack;
 		MyGUI::StaticText* mTextFront;
-
 	};
 
 } // namespace demo

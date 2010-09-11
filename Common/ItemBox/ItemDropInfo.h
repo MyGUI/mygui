@@ -13,10 +13,8 @@
 
 namespace wraps
 {
-
 	struct DDItemInfo
 	{
-
 		DDItemInfo(const MyGUI::DDItemInfo& _info) :
 			sender(*_info.sender->getUserData<wraps::BaseLayout*>()),
 			sender_index(_info.sender_index),
