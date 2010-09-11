@@ -173,7 +173,7 @@ namespace tools
 	void WidgetCreatorManager::createNewWidget()
 	{
 		mStartNewWidget = true;
-		mStartPoint = MyGUI::InputManager::getInstance().getMousePosition();
+		mStartPoint = getMousePosition();
 		mStartPoint.left += mGridStep / 2;
 		mStartPoint.top += mGridStep / 2;
 
@@ -276,7 +276,7 @@ namespace tools
 	void WidgetCreatorManager::selectWidget()
 	{
 		// здесь кликать вглубь
-		MyGUI::Widget* item = getTopWidget(MyGUI::InputManager::getInstance().getLastLeftPressed());
+		MyGUI::Widget* item = getTopWidget(getMousePosition());
 		if (nullptr != item)
 		{
 			// find widget registered as container
@@ -337,9 +337,7 @@ namespace tools
 
 	MyGUI::IntCoord WidgetCreatorManager::getCoordNewWidget()
 	{
-		MyGUI::IntPoint startPoint = mStartPoint;
-		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-
+		MyGUI::IntPoint point = getMousePosition();
 		point.left += mGridStep / 2;
 		point.top += mGridStep / 2;
 
@@ -354,12 +352,18 @@ namespace tools
 		}
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord(
-			std::min(startPoint.left, point.left),
-			std::min(startPoint.top, point.top),
-			abs(point.left - startPoint.left),
-			abs(point.top - startPoint.top));
+			std::min(mStartPoint.left, point.left),
+			std::min(mStartPoint.top, point.top),
+			abs(point.left - mStartPoint.left),
+			abs(point.top - mStartPoint.top));
 
 		return coord;
+	}
+
+	MyGUI::IntPoint WidgetCreatorManager::getMousePosition()
+	{
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+		return point;
 	}
 
 } // namespace tools
