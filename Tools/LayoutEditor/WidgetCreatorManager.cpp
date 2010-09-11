@@ -193,9 +193,9 @@ namespace tools
 				current = current->getParent();
 
 			if (current && WidgetTypes::getInstance().findWidgetStyle(mWidgetType)->child)
-				mNewWidget = current->createWidgetT(mWidgetType, mWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
+				mNewWidget = current->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
 			else
-				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, mWidgetSkin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
 
 			if (mNewWidget->isType<MyGUI::StaticText>())
 				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));
