@@ -19,6 +19,7 @@ namespace tools
 		assignWidget(mTextureName, "TextureName");
 		assignWidget(mSelector, "Selector");
 		assignWidget(mBack, "Back");
+		assignWidget(mParentBack, "ParentBack");
 		assignWidget(mImage, "Image");
 	}
 
@@ -34,8 +35,14 @@ namespace tools
 				mBack->setVisible(true);
 				mImage->setImageTexture(_data);
 
-				const MyGUI::IntSize& targetSize = mSelector->getSize();
-				//mBack->setSize();
+				const MyGUI::IntSize& targetSize = mParentBack->getSize();
+
+				float k1 = (float)targetSize.width / textureSize.width;
+				float k2 = (float)targetSize.height / textureSize.height ;
+				float k = std::min( k1, k2);
+				MyGUI::IntSize size = MyGUI::IntSize((int)(k *  (float)textureSize.width), (int)(k *  (float)textureSize.height));
+
+				mBack->setSize(size);
 			}
 			else
 			{
