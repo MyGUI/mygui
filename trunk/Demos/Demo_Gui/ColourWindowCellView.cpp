@@ -15,7 +15,7 @@ namespace demo
 	}
 
 	ColourWindowCellView::ColourWindowCellView(MyGUI::Widget* _parent) :
-		wraps::BaseCellView<ColourWindowCellData>("ColourWindowCellView.layout", _parent)
+		wraps::BaseCellView<ColourWindowCellData*>("ColourWindowCellView.layout", _parent)
 	{
 		mMainWidget->setCoord(0, 0, _parent->getWidth(), _parent->getHeight());
 		mMainWidget->setAlign(MyGUI::Align::Stretch);
