@@ -9,9 +9,11 @@
             <Property key="TextColour" value="1 1 1"/>
         </Widget>
         <Widget type="Widget" skin="MarkerWhite" position="3 3 179 176" align="Stretch" name="Selector">
-            <Widget type="Widget" skin="BackgroundTile" position="41 39 99 88" align="Center" name="Back">
-                <Property key="InheritsAlpha" value="false"/>
-                <Widget type="StaticImage" skin="StaticImage" position="0 0 99 88" align="Stretch" name="Image"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 173 170" align="Stretch" name="ParentBack">
+                <Widget type="Widget" skin="BackgroundTile" position="37 41 99 88" align="Center" name="Back">
+                    <Property key="InheritsAlpha" value="false"/>
+                    <Widget type="StaticImage" skin="StaticImage" position="0 0 99 88" align="Stretch" name="Image"/>
+                </Widget>
             </Widget>
         </Widget>
     </Widget>
