@@ -32,6 +32,7 @@ namespace tools
 			if (textureSize.width != 0 && textureSize.height != 0)
 			{
 				mBack->setVisible(true);
+				mImage->setImageTexture(_data);
 
 				const MyGUI::IntSize& targetSize = mSelector->getSize();
 				//mBack->setSize();
