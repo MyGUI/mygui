@@ -52,13 +52,6 @@ namespace tools
 		mWindow->setCoord(_coord);
 	}
 
-	int SelectionAreaControl::toGrid(int _x)
-	{
-		if (mGridStep < 1)
-			return _x;
-		return _x / mGridStep * mGridStep;
-	}
-
 	void SelectionAreaControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
 		if (_sectorName == "Settings")
@@ -86,29 +79,29 @@ namespace tools
 			{
 				if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 				{
-					coord.left = toGrid(coord.left + mGridStep - 1 - old_coord.left) + old_coord.left;
-					coord.top = toGrid(coord.top + mGridStep - 1 - old_coord.top) + old_coord.top;
+					coord.left = toGrid(coord.left + mGridStep - 1 - old_coord.left, mCurrentWidget, true) + old_coord.left;
+					coord.top = toGrid(coord.top + mGridStep - 1 - old_coord.top, mCurrentWidget, false) + old_coord.top;
 				}
 				else // если растягиваем
 				{
 					if (old_coord.left != coord.left)
 					{
-						coord.left = toGrid(coord.left + mGridStep - 1);
+						coord.left = toGrid(coord.left + mGridStep - 1, mCurrentWidget, true);
 						coord.width = old_coord.right() - coord.left;
 					}
 					else if (old_coord.width != coord.width)
 					{
-						coord.width = toGrid(coord.width + old_coord.left) - old_coord.left;
+						coord.width = toGrid(coord.width + old_coord.left, mCurrentWidget, true) - old_coord.left;
 					}
 
 					if (old_coord.top != coord.top)
 					{
-						coord.top = toGrid(coord.top + mGridStep - 1);
+						coord.top = toGrid(coord.top + mGridStep - 1, mCurrentWidget, false);
 						coord.height = old_coord.bottom() - coord.top;
 					}
 					else if (old_coord.height != coord.height)
 					{
-						coord.height = toGrid(coord.height + old_coord.top) - old_coord.top;
+						coord.height = toGrid(coord.height + old_coord.top, mCurrentWidget, false) - old_coord.top;
 					}
 				}
 			}
@@ -205,6 +198,22 @@ namespace tools
 	{
 		if (_id == MyGUI::MouseButton::Left)
 			WidgetCreatorManager::getInstance().notifyMouseButtonReleased(MyGUI::IntPoint(_left, _top));
+	}
+
+	int SelectionAreaControl::toGrid(int _value, MyGUI::Widget* _widget, bool _horizont)
+	{
+		if (mGridStep < 1)
+			return _value;
+
+		/*MyGUI::Widget* parent = _widget->getParent();
+		if (parent != nullptr)
+		{
+			if (_horizont)
+				return _value / mGridStep * mGridStep - (parent->getAbsoluteLeft() % mGridStep);
+			return _value / mGridStep * mGridStep - (parent->getAbsoluteTop() % mGridStep);
+		}*/
+
+		return _value / mGridStep * mGridStep;
 	}
 
 } // namespace tools

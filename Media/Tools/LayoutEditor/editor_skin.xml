@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Skin" version="1.1">
+<MyGUI type="Resource" version="1.1">
 
-	<Skin name = "ProgressHealthBarTrack" size = "193 49" texture = "progresstrack.png" >
+	<Resource type="ResourceSkin" name = "ProgressHealthBarTrack" size = "193 49" texture = "progresstrack.png" >
 		<BasisSkin type="MainSkin" offset = "0 0 193 49" align = "Stretch">
 			<State name="normal" offset = "0 0 193 49"/>
 		</BasisSkin>
-	</Skin>
+	</Resource>
 
-	<Skin name = "ProgressHealthBar" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name = "ProgressHealthBar" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="TrackSkin" value = "ProgressHealthBarTrack" />
 		<Property key="TrackWidth" value = "86" />
 		<Property key="TrackStep" value = "53" />
 		<Property key="TrackFill" value = "false" />
 
 		<Child type="Widget" skin="Default" offset = "2 1 46 14" align = "Stretch" name = "Client"/>
-	</Skin>
+	</Resource>
 
+	<Resource type="ResourceSkin" name = "PositionRectangle" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="ToStick" value = "false" />
+		<Property key="MainMove" value = "true" />
+
+		<Child type="Widget" skin="MarkerGreen" offset = "0 0 50 1" align = "HStretch Top"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "0 49 50 1" align = "HStretch Bottom"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "Left VStretch"/>
+		<Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
+	</Resource>
+	
 </MyGUI>
