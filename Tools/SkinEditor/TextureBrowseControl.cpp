@@ -23,11 +23,16 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TextureBrowseControl::notifyWindowButtonPressed);
 
+		MyGUI::ItemBox* box = mTextures->getItemBox();
+		box->eventChangeItemPosition += MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
+
 		mMainWidget->setVisible(false);
 	}
 
 	TextureBrowseControl::~TextureBrowseControl()
 	{
+		MyGUI::ItemBox* box = mTextures->getItemBox();
+		box->eventChangeItemPosition -= MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
 	}
 
 	void TextureBrowseControl::onDoModal()
@@ -65,6 +70,20 @@ namespace tools
 	void TextureBrowseControl::setTextureName(const std::string& _value)
 	{
 		mCurrentTextureName = _value;
+
+		MyGUI::ItemBox* box = mTextures->getItemBox();
+
+		size_t indexSelected = MyGUI::ITEM_NONE;
+		for (size_t index = 0; index < box->getItemCount(); ++index)
+		{
+			if (*box->getItemDataAt<std::string>(index) == mCurrentTextureName)
+			{
+				indexSelected = index;
+				break;
+			}
+		}
+
+		box->setIndexSelected(indexSelected);
 	}
 
 	void TextureBrowseControl::setTextures(const MyGUI::VectorString& _textures)
@@ -73,6 +92,14 @@ namespace tools
 
 		for (MyGUI::VectorString::const_iterator item = _textures.begin(); item != _textures.end(); ++item)
 			mTextures->addItem((*item));
+	}
+
+	void TextureBrowseControl::notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index)
+	{
+		if (_index != MyGUI::ITEM_NONE)
+			mCurrentTextureName = *_sender->getItemDataAt<std::string>(_index);
+		else
+			mCurrentTextureName = "";
 	}
 
 } // namespace tools
