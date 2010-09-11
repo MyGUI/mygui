@@ -41,7 +41,7 @@ namespace tools
 
 		SettingsSector* getSector(const MyGUI::UString& _sectorName);
 
-		int getNextGlobalCounter();
+		//int getNextGlobalCounter();
 
 		std::string getSkinReplace(const std::string& _skinName);
 
@@ -65,7 +65,7 @@ namespace tools
 		void destroyAllWidgets();
 
 	private:
-		int mGlobalCounter;
+		//int mGlobalCounter;
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
 		VectorString mIgnoreParameters;

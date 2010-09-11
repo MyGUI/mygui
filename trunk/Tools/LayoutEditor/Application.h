@@ -29,10 +29,7 @@ namespace tools
 		virtual bool onWinodwClose(size_t _handle);
 
 		typedef std::vector<std::wstring> VectorWString;
-		const VectorWString& getParams()
-		{
-			return mParams;
-		}
+		const VectorWString& getParams();
 
 		void setCaption(const MyGUI::UString& _value);
 
@@ -43,15 +40,9 @@ namespace tools
 		void commandStatisticInfo(const MyGUI::UString& _commandName);
 		void commandFocusVisible(const MyGUI::UString& _commandName);
 
-		int toGrid(int _x);
-
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-
 	private:
 		VectorWString mParams;
 		std::string mLocale;
-
-		int mGridStep;
 
 		EditorState* mEditorState;
 		TestState* mTestState;

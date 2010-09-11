@@ -17,7 +17,7 @@ namespace tools
 		void notifyRectangleResize(MyGUI::Window* _sender);
 		void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-		int toGrid(int _x);
+		int toGrid(int _value, MyGUI::Widget* _widget, bool _horizont);
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangeCoord(const MyGUI::IntCoord& _coord);
 

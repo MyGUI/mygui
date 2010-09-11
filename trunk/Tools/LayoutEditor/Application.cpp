@@ -25,7 +25,6 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 namespace tools
 {
 	Application::Application() :
-		mGridStep(0),
 		mEditorState(nullptr),
 		mTestState(nullptr)
 	{
@@ -105,10 +104,6 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Application::notifySettingsChanged);
-
 		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
 		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
@@ -138,8 +133,6 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
-
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Application::notifySettingsChanged);
 
 		BackwardCompatibilityManager::getInstance().shutdown();
 		delete BackwardCompatibilityManager::getInstancePtr();
@@ -314,13 +307,6 @@ namespace tools
 		return false;
 	}
 
-	int Application::toGrid(int _x)
-	{
-		if (mGridStep < 1)
-			return _x;
-		return _x / mGridStep * mGridStep;
-	}
-
 	void Application::commandStatisticInfo(const MyGUI::UString& _commandName)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
@@ -355,18 +341,14 @@ namespace tools
 		setWindowCaption(_value);
 	}
 
-	void Application::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
-	}
-
 	void Application::resumeState()
 	{
 		quit();
+	}
+
+	const Application::VectorWString& Application::getParams()
+	{
+		return mParams;
 	}
 
 } // namespace tools

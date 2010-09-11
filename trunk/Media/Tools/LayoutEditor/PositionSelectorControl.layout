@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="PositionRectangle" position="32 56 136 112" align="Default" layer="LayoutEditor_Rectangle" name="_Main"/>
+</MyGUI>

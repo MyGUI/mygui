@@ -13,7 +13,7 @@ namespace tools
 	const std::string LogSection = "LayoutEditor";
 
 	EditorWidgets::EditorWidgets() :
-		mGlobalCounter(0),
+		//mGlobalCounter(0),
 		mWidgetsChanged(false)
 	{
 	}
@@ -25,7 +25,7 @@ namespace tools
 
 	void EditorWidgets::initialise()
 	{
-		mGlobalCounter = 0;
+		//mGlobalCounter = 0;
 		mWidgetsChanged = true;
 
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
@@ -229,7 +229,7 @@ namespace tools
 		{
 			remove(mWidgets[mWidgets.size()-1]);
 		}
-		mGlobalCounter = 0;
+		//mGlobalCounter = 0;
 
 		destroyAllSectors();
 	}
@@ -295,12 +295,12 @@ namespace tools
 			}
 		}
 
-		std::string tmpname = container->name;
+		/*std::string tmpname = container->name;
 		if (tmpname.empty())
 			tmpname = MyGUI::utility::toString(container->type, getNextGlobalCounter());
 
 		//может и не стоит
-		tmpname = "LayoutEditorWidget_" + tmpname;
+		tmpname = "LayoutEditorWidget_" + tmpname;*/
 
 		// проверяем скин на присутствие
 		std::string skin = container->skin;
@@ -328,11 +328,11 @@ namespace tools
 			std::string layer = DEFAULT_EDITOR_LAYER;
 			if (_test && MyGUI::LayerManager::getInstance().isExist(container->layer))
 				layer = container->layer;
-			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer, tmpname);
+			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer/*, tmpname*/);
 		}
 		else
 		{
-			container->widget = _parent->createWidgetT(container->type, skin, coord, align, tmpname);
+			container->widget = _parent->createWidgetT(container->type, skin, coord, align/*, tmpname*/);
 		}
 
 		add(container);
@@ -553,10 +553,10 @@ namespace tools
 		return sector;
 	}
 
-	int EditorWidgets::getNextGlobalCounter()
+	/*int EditorWidgets::getNextGlobalCounter()
 	{
 		return ++ mGlobalCounter;
-	}
+	}*/
 
 	EnumeratorWidgetContainer EditorWidgets::getWidgets()
 	{
