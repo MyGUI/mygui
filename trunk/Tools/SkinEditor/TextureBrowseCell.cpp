@@ -27,7 +27,6 @@ namespace tools
 	{
 		if (_info.update)
 		{
-			mSelector->setColour(MyGUI::Colour(1, 0.5, 0));
 			mTextureName->setCaption(_data);
 			const MyGUI::IntSize& textureSize = MyGUI::texture_utility::getTextureSize(_data);
 
