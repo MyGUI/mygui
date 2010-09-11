@@ -24,6 +24,7 @@ namespace tools
 		MyGUI::StaticText* mTextureName;
 		MyGUI::Widget* mSelector;
 		MyGUI::Widget* mBack;
+		MyGUI::Widget* mParentBack;
 		MyGUI::StaticImage* mImage;
 	};
 
