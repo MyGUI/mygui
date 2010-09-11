@@ -17,20 +17,16 @@ namespace tools
 		assignWidget(mComboBox, "ComboBox");
 		assignWidget(mBrowse, "Browse");
 
-		mTextureBrowseControl = new TextureBrowseControl();
-		mTextureBrowseControl->eventEndDialog = MyGUI::newDelegate(this, &PropertyTexturesControl::notifyEndDialog);
+		fillTextures();
 
-		// FIXME потом вынести в загружаемые настройки
-		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
-			mComboBox->addItem(*iter);
-
-		// FIXME потом вынести в загружаемые настройки
-		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
-			mComboBox->addItem(*iter);
+		for (MyGUI::VectorString::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
+			mComboBox->addItem((*item));
 
 		mComboBox->beginToItemFirst();
+
+		mTextureBrowseControl = new TextureBrowseControl();
+		mTextureBrowseControl->eventEndDialog = MyGUI::newDelegate(this, &PropertyTexturesControl::notifyEndDialog);
+		mTextureBrowseControl->setTextures(mTextures);
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
 		mBrowse->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
@@ -95,6 +91,12 @@ namespace tools
 
 	void PropertyTexturesControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			mTextureBrowseControl->setTextureName(proper->getValue());
+		else
+			mTextureBrowseControl->setTextureName("");
+
 		mTextureBrowseControl->doModal();
 	}
 
@@ -104,7 +106,23 @@ namespace tools
 
 		if (_result)
 		{
+			Property* proper = getProperty();
+			if (proper != nullptr)
+				proper->setValue(mTextureBrowseControl->getTextureName(), getTypeName());
+			updateProperty();
 		}
 	}
 
+	void PropertyTexturesControl::fillTextures()
+	{
+		// FIXME потом вынести в загружаемые настройки
+		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
+		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
+			mTextures.push_back(*iter);
+
+		// FIXME потом вынести в загружаемые настройки
+		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
+		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
+			mTextures.push_back(*iter);
+	}
 } // namespace tools

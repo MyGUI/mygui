@@ -31,11 +31,14 @@ namespace tools
 
 		size_t getComboIndex(const MyGUI::UString& _name);
 
+		void fillTextures();
+
 	private:
 		MyGUI::ComboBox* mComboBox;
 		MyGUI::Button* mBrowse;
 
 		TextureBrowseControl* mTextureBrowseControl;
+		MyGUI::VectorString mTextures;
 	};
 
 } // namespace tools
