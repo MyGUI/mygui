@@ -12,8 +12,8 @@
 
 namespace demo
 {
-
-	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData>
+	class ColourWindowCellView :
+		public wraps::BaseCellView<ColourWindowCellData*>
 	{
 	public:
 		ColourWindowCellView(MyGUI::Widget* _parent);
@@ -22,11 +22,9 @@ namespace demo
 		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
 
 	private:
-
 		MyGUI::StaticText* mText;
 		MyGUI::Widget* mColour;
 		MyGUI::RawRect* mRawColourView;
-
 	};
 
 } // namespace demo

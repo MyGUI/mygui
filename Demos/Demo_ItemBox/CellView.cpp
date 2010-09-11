@@ -15,7 +15,8 @@ namespace demo
 		else _coord.set(0, 0, 90, 74);
 	}
 
-	CellView::CellView(MyGUI::Widget* _parent) : wraps::BaseCellView<ItemData>("CellView.layout", _parent)
+	CellView::CellView(MyGUI::Widget* _parent) :
+		wraps::BaseCellView<ItemData*>("CellView.layout", _parent)
 	{
 		assignWidget(mImageBack, "image_Back");
 		assignWidget(mImageBorder, "image_Border");
