@@ -8,11 +8,13 @@
 
 namespace tools
 {
-
 	TextureBrowseControl::TextureBrowseControl() :
-		Dialog()
+		Dialog(),
+		mTextures(nullptr)
 	{
 		initialiseByAttributes(this);
+
+		assignBase(mTextures, "Textures");
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureBrowseControl::notifyMouseButtonClickOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureBrowseControl::notifyMouseButtonClickCancel);
@@ -53,6 +55,24 @@ namespace tools
 	void TextureBrowseControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		eventEndDialog(this, false);
+	}
+
+	const std::string& TextureBrowseControl::getTextureName()
+	{
+		return mCurrentTextureName;
+	}
+
+	void TextureBrowseControl::setTextureName(const std::string& _value)
+	{
+		mCurrentTextureName = _value;
+	}
+
+	void TextureBrowseControl::setTextures(const MyGUI::VectorString& _textures)
+	{
+		mTextures->removeAllItems();
+
+		for (MyGUI::VectorString::const_iterator item = _textures.begin(); item != _textures.end(); ++item)
+			mTextures->addItem((*item));
 	}
 
 } // namespace tools
