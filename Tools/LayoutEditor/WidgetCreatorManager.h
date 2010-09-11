@@ -8,6 +8,7 @@
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
+#include "PositionSelectorControl.h"
 
 namespace tools
 {
@@ -39,6 +40,7 @@ namespace tools
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
 		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
@@ -50,6 +52,9 @@ namespace tools
 		void resetWidget();
 		void selectWidget();
 
+		int toGrid(int _value);
+		MyGUI::IntCoord getCoordNewWidget();
+
 	private:
 		size_t mSelectDepth;
 		bool mMouseButtonPressed;
@@ -60,7 +65,8 @@ namespace tools
 		bool mStartNewWidget;
 		MyGUI::IntPoint mStartPoint;
 		MyGUI::Widget* mNewWidget;
-		//PositionSelectorControl* mPositionSelectorControl;
+		int mGridStep;
+		PositionSelectorControl* mPositionSelectorControl;
 	};
 
 } // namespace tools

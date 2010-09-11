@@ -9,6 +9,7 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
+#include "SettingsManager.h"
 
 template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName("WidgetCreatorManager");
@@ -20,8 +21,9 @@ namespace tools
 		mMouseButtonPressed(false),
 		mCreateMode(false),
 		mStartNewWidget(false),
-		mNewWidget(nullptr)
-		//mPositionSelectorControl(nullptr)
+		mNewWidget(nullptr),
+		mGridStep(0),
+		mPositionSelectorControl(nullptr)
 	{
 	}
 
@@ -31,8 +33,11 @@ namespace tools
 
 	void WidgetCreatorManager::initialise()
 	{
-		//mPositionSelectorControl = new PositionSelectorControl();
-		//mPositionSelectorControl->setVisible(false);
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &WidgetCreatorManager::notifySettingsChanged);
+
+		mPositionSelectorControl = new PositionSelectorControl();
+		mPositionSelectorControl->setVisible(false);
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
 	}
@@ -40,11 +45,12 @@ namespace tools
 	void WidgetCreatorManager::shutdown()
 	{
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifySettingsChanged);
 
 		resetWidget();
 
-		//delete mPositionSelectorControl;
-		//mPositionSelectorControl = nullptr;
+		delete mPositionSelectorControl;
+		mPositionSelectorControl = nullptr;
 	}
 
 	void WidgetCreatorManager::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
@@ -168,8 +174,10 @@ namespace tools
 	{
 		mStartNewWidget = true;
 		mStartPoint = MyGUI::InputManager::getInstance().getMousePosition();
+		mStartPoint.left += mGridStep / 2;
+		mStartPoint.top += mGridStep / 2;
 
-		//mPositionSelectorControl->setVisible(false);
+		mPositionSelectorControl->setVisible(false);
 		resetWidget();
 	}
 
@@ -184,60 +192,52 @@ namespace tools
 			// выделяем верний виджет
 			selectWidget();
 
-			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
+			// если будет глючить то вернуть
+			//std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
 
-			MyGUI::Widget* current = WidgetSelectorManager::getInstance().getSelectedWidget();
+			MyGUI::Widget* parent = WidgetSelectorManager::getInstance().getSelectedWidget();
 
 			// пока не найдем ближайшего над нами способного быть родителем
-			while (current && !WidgetTypes::getInstance().findWidgetStyle(current->getTypeName())->parent)
-				current = current->getParent();
+			while (parent != nullptr && !WidgetTypes::getInstance().findWidgetStyle(parent->getTypeName())->parent)
+				parent = parent->getParent();
 
-			if (current && WidgetTypes::getInstance().findWidgetStyle(mWidgetType)->child)
-				mNewWidget = current->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, tmpname);
+			if (!WidgetTypes::getInstance().findWidgetStyle(mWidgetType)->child)
+				parent = nullptr;
+
+			if (parent != nullptr)
+				mNewWidget = parent->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default/*, tmpname*/);
 			else
-				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER/*, tmpname*/);
 
 			if (mNewWidget->isType<MyGUI::StaticText>())
 				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));
 
-			//mPositionSelectorControl->setVisible(true);
+			// переводим старт поинт в координаты отца
+			if (parent != nullptr)
+				mStartPoint -= parent->getAbsolutePosition();
+
+			if (!MyGUI::InputManager::getInstance().isShiftPressed())
+			{
+				mStartPoint.left = toGrid(mStartPoint.left);
+				mStartPoint.top = toGrid(mStartPoint.top);
+			}
+
+			mPositionSelectorControl->setVisible(true);
 		}
 
-		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-		MyGUI::IntPoint offset;
-
-		MyGUI::Widget* parent = mNewWidget->getParent();
-		if (parent != nullptr)
-			offset = parent->getAbsolutePosition();
-
-		MyGUI::IntCoord coord = MyGUI::IntCoord(
-			std::min(mStartPoint.left - offset.left, point.left - offset.left),
-			std::min(mStartPoint.top - offset.top, point.top - offset.top),
-			abs(point.left - mStartPoint.left),
-			abs(point.top - mStartPoint.top));
+		MyGUI::IntCoord coord = getCoordNewWidget();
 
 		mNewWidget->setCoord(coord);
-		//mPositionSelectorControl->setCoord(mNewWidget->getAbsoluteCoord());
+		mPositionSelectorControl->setCoord(mNewWidget->getAbsoluteCoord());
 	}
 
 	void WidgetCreatorManager::finishNewWidget()
 	{
 		if (mNewWidget != nullptr)
 		{
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			MyGUI::IntPoint offset;
+			MyGUI::IntCoord coord = getCoordNewWidget();
 
-			MyGUI::Widget* parent = mNewWidget->getParent();
-			if (parent != nullptr)
-				offset = parent->getAbsolutePosition();
-
-			MyGUI::IntCoord coord = MyGUI::IntCoord(
-				std::min(mStartPoint.left - offset.left, point.left - offset.left),
-				std::min(mStartPoint.top - offset.top, point.top - offset.top),
-				abs(point.left - mStartPoint.left),
-				abs(point.top - mStartPoint.top));
-
-			if ((coord.width * coord.height) != 0)
+			if (coord.width != 0 && coord.height != 0)
 			{
 				mNewWidget->setCoord(coord);
 
@@ -260,7 +260,7 @@ namespace tools
 		}
 
 		resetCreatorInfo();
-		//mPositionSelectorControl->setVisible(false);
+		mPositionSelectorControl->setVisible(false);
 	}
 
 	void WidgetCreatorManager::resetWidget()
@@ -317,6 +317,49 @@ namespace tools
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			mSelectDepth = 0;
 		}
+	}
+
+	void WidgetCreatorManager::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "Settings")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		}
+	}
+
+	int WidgetCreatorManager::toGrid(int _value)
+	{
+		if (mGridStep < 1)
+			return _value;
+		return _value / mGridStep * mGridStep;
+	}
+
+	MyGUI::IntCoord WidgetCreatorManager::getCoordNewWidget()
+	{
+		MyGUI::IntPoint startPoint = mStartPoint;
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+
+		point.left += mGridStep / 2;
+		point.top += mGridStep / 2;
+
+		MyGUI::Widget* parent = mNewWidget->getParent();
+		if (parent != nullptr)
+			point -= parent->getAbsolutePosition();
+
+		if (!MyGUI::InputManager::getInstance().isShiftPressed())
+		{
+			point.left = toGrid(point.left);
+			point.top = toGrid(point.top);
+		}
+
+		MyGUI::IntCoord coord = MyGUI::IntCoord(
+			std::min(startPoint.left, point.left),
+			std::min(startPoint.top, point.top),
+			abs(point.left - startPoint.left),
+			abs(point.top - startPoint.top));
+
+		return coord;
 	}
 
 } // namespace tools
