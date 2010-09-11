@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelSmall" position="112 208 187 208" align="Stretch" layer="Back" name="_Main">
+        <Property key="NeedMouse" value="false"/>
+        <Property key="NeedKey" value="false"/>
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="StaticText" skin="StaticText" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="TextColour" value="1 1 1"/>
+        </Widget>
+        <Widget type="Widget" skin="MarkerWhite" position="3 3 179 176" align="Stretch" name="Selector">
+            <Widget type="Widget" skin="BackgroundTile" position="41 39 99 88" align="Center" name="Back">
+                <Property key="InheritsAlpha" value="false"/>
+                <Widget type="StaticImage" skin="StaticImage" position="0 0 99 88" align="Stretch" name="Image"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

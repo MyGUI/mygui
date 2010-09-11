@@ -8,10 +8,11 @@
 
 #include <MyGUI.h>
 #include "Dialog.h"
+#include "ItemBox/BaseItemBox.h"
+#include "TextureBrowseCell.h"
 
 namespace tools
 {
-
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
 	class TextureBrowseControl :
 		public Dialog
@@ -19,6 +20,11 @@ namespace tools
 	public:
 		TextureBrowseControl();
 		virtual ~TextureBrowseControl();
+
+		const std::string& getTextureName();
+		void setTextureName(const std::string& _value);
+
+		void setTextures(const MyGUI::VectorString& _textures);
 
 	protected:
 		virtual void onDoModal();
@@ -35,6 +41,10 @@ namespace tools
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(TextureBrowseControl, mCancel, "Cancel");
 		MyGUI::Button* mCancel;
+
+		wraps::BaseItemBox<TextureBrowseCell>* mTextures;
+
+		std::string mCurrentTextureName;
 	};
 
 } // namespace tools
