@@ -55,6 +55,8 @@ namespace tools
 		int toGrid(int _value);
 		MyGUI::IntCoord getCoordNewWidget();
 
+		MyGUI::IntPoint getMousePosition();
+
 	private:
 		size_t mSelectDepth;
 		bool mMouseButtonPressed;
