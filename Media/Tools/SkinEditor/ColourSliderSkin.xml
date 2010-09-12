@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="Skin">
-  <Skin name = "VColourSlider" size = "15 55" texture = "colours.png" >
+  <Skin name = "VColourSlider" size = "15 55" texture = "ColourSlider.png" >
     <Property key="TrackRangeMargins" value = "1 -1" />
     <Property key="MinTrackSize" value = "7" />
     <Property key="MoveToClick" value = "true" />
