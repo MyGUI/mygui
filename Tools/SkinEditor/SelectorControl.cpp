@@ -14,7 +14,17 @@ namespace tools
 		mScaleValue(1.0),
 		mPositionChanged(false)
 	{
-		mCoordReal = mMainWidget->getCoord();
+		assignWidget(mProjection, "Projection", false);
+
+		if (mProjection != nullptr)
+		{
+			mCoordReal = mProjection->getCoord();
+			mProjectionDiff = mMainWidget->getAbsoluteCoord() - mProjection->getAbsoluteCoord();
+		}
+		else
+		{
+			mCoordReal = mMainWidget->getCoord();
+		}
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -63,10 +73,10 @@ namespace tools
 
 	void SelectorControl::updateCoord()
 	{
-		mCoordReal.left = (int)((double)mCoordValue.left * mScaleValue);
-		mCoordReal.top = (int)((double)mCoordValue.top * mScaleValue);
-		mCoordReal.width = (int)((double)mCoordValue.width * mScaleValue);
-		mCoordReal.height = (int)((double)mCoordValue.height * mScaleValue);
+		mCoordReal.left = (int)((double)mCoordValue.left * mScaleValue) + mProjectionDiff.left;
+		mCoordReal.top = (int)((double)mCoordValue.top * mScaleValue) + mProjectionDiff.top;
+		mCoordReal.width = (int)((double)mCoordValue.width * mScaleValue) + mProjectionDiff.width;
+		mCoordReal.height = (int)((double)mCoordValue.height * mScaleValue) + mProjectionDiff.height;
 
 		mMainWidget->setCoord(mCoordReal);
 	}
@@ -75,20 +85,32 @@ namespace tools
 	{
 		mPositionChanged = true;
 
-		MyGUI::IntCoord coord = _sender->getCoord();
+		MyGUI::IntCoord coord = _sender->getCoord() - mProjectionDiff;
+		const MyGUI::IntCoord& actionScale = _sender->getActionScale();
 
-		mCoordValue.left = (int)((double)coord.left / mScaleValue);
-		mCoordValue.top = (int)((double)coord.top / mScaleValue);
-
-		if (mCoordReal.left != coord.left && mCoordReal.width != coord.width)
-			mCoordValue.width = (int)((double)coord.right() / mScaleValue) - mCoordValue.left;
-		else
+		if (actionScale.left != 0 && actionScale.width != 0)
+		{
+			int right = mCoordValue.right();
 			mCoordValue.width = (int)((double)coord.width / mScaleValue);
-
-		if (mCoordReal.top != coord.top && mCoordReal.height != coord.height)
-			mCoordValue.height = (int)((double)coord.bottom() / mScaleValue) - mCoordValue.top;
+			mCoordValue.left = right - mCoordValue.width;
+		}
 		else
+		{
+			mCoordValue.left = (int)((double)coord.left / mScaleValue);
+			mCoordValue.width = (int)((double)coord.width / mScaleValue);
+		}
+
+		if (actionScale.top != 0 && actionScale.height != 0)
+		{
+			int bottom = mCoordValue.bottom();
 			mCoordValue.height = (int)((double)coord.height / mScaleValue);
+			mCoordValue.top = bottom - mCoordValue.height;
+		}
+		else
+		{
+			mCoordValue.top = (int)((double)coord.top / mScaleValue);
+			mCoordValue.height = (int)((double)coord.height / mScaleValue);
+		}
 
 		updateCoord();
 	}

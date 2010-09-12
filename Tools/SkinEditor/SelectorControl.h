@@ -45,6 +45,8 @@ namespace tools
 		MyGUI::IntCoord mCoordReal;
 		double mScaleValue;
 		bool mPositionChanged;
+		MyGUI::Widget* mProjection;
+		MyGUI::IntCoord mProjectionDiff;
 	};
 
 } // namespace tools
