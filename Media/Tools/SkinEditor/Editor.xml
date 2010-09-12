@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="List">
-	<List file="editor_theme.xml"/>
-	<List file="editor_language.xml"/>
+	<List file="EditorTheme.xml"/>
+	<List file="EditorLanguage.xml"/>
 	<List file="core_font.xml"/>
 	<List file="core_resource.xml"/>
 	<List file="core_skin.xml"/>
@@ -11,5 +11,5 @@
 	<List file="core_settings.xml"/>
 
 	<List file="EditorSkins.xml"/>
-	<List file="colour_slider_skin.xml"/>
+	<List file="ColourSliderSkin.xml"/>
 </MyGUI>

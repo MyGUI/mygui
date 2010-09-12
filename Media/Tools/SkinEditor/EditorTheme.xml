@@ -5,7 +5,7 @@
 	<Language>
 		<Info>
 			<Source>core_theme_black_orange_tag.xml</Source>
-			<Source>editor_theme_black_orange_tag.xml</Source>
+			<Source>EditorThemeBlackOrangeTag.xml</Source>
 		</Info>
 	</Language>
 
