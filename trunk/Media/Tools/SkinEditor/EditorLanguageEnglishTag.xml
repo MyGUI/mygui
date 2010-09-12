@@ -17,7 +17,9 @@
 	<Tag name="Rename">Rename</Tag>
 
 	<Tag name="FoldersSettings">Folders</Tag>
+	<Tag name="ResourcesSettings">Resources</Tag>
 	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
+	<Tag name="TextAdditionalResources">Additional resources (restart required)</Tag>
 
 	<Tag name="OK">OK</Tag>
 	<Tag name="Ok">Ok</Tag>
@@ -34,6 +36,7 @@
 	<Tag name="CaptionTestWindow">Test</Tag>
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
 	<Tag name="CaptionTextureBrowse">Select texture</Tag>
+	<Tag name="CaptionAddResource">Enter file name</Tag>
 
 	<Tag name="ButtonOpenFile">Open</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>

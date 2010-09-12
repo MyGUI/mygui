@@ -8,7 +8,8 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
-#include "OpenSaveFileDialog.h"
+#include "SettingsResourcesControl.h"
+#include "SettingsResourcePathsControl.h"
 
 namespace tools
 {
@@ -27,23 +28,16 @@ namespace tools
 		virtual void onEndModal();
 
 	private:
-		void notifyOkSettings(MyGUI::Widget* _sender);
+		void notifyOk(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
-		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
-		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
-
-		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
-
 	private:
-		MyGUI::Button* mButtonOkSettings;
+		MyGUI::Button* mButtonOk;
 		MyGUI::Button* mButtonCancel;
-		MyGUI::Button* mResourcePathAdd;
-		MyGUI::Button* mResourcePathDelete;
-		MyGUI::List* mResourcePaths;
 
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+		SettingsResourcesControl* mSettingsResourcesControl;
+		SettingsResourcePathsControl* mSettingsResourcePathsControl;
 	};
 
 } // namespace tools

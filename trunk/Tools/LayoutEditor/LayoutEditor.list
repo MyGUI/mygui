@@ -53,6 +53,8 @@ set (HEADER_FILES
   SettingsResourcesControl.h
   TextFieldControl.h
   SettingsResourcePathsControl.h
+  SettingsGeneralControl.h
+  SettingsWidgetsControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -99,6 +101,8 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   TextFieldControl.cpp
   SettingsResourcePathsControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsWidgetsControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
