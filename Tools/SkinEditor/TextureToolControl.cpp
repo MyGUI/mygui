@@ -21,10 +21,10 @@ namespace tools
 		assignWidget(mBackgroundButton, "BackgroundColourButton");
 
 		fillColours(mBackgroundColour);
-		mBackgroundColour->eventComboChangePosition += MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePosition);
+		mBackgroundColour->eventComboChangePosition += MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePositionBack);
 
 		fillScale();
-		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePosition);
+		mScale->eventComboChangePosition += MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePositionScale);
 
 		mBackgroundButton->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureToolControl::notifyMouseButtonClick);
 
@@ -37,8 +37,8 @@ namespace tools
 	{
 		mBackgroundButton->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureToolControl::notifyMouseButtonClick);
 
-		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePosition);
-		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePosition);
+		mBackgroundColour->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePositionBack);
+		mScale->eventComboChangePosition -= MyGUI::newDelegate(this, &TextureToolControl::notifyComboChangePositionScale);
 
 		delete mColourPanel;
 		mColourPanel = nullptr;
@@ -123,7 +123,11 @@ namespace tools
 				mBackgroundButton->setAlpha(colour.alpha);
 			}
 		}
-		else if (_sender == mScale)
+	}
+
+	void TextureToolControl::updateScale(MyGUI::ComboBox* _sender)
+	{
+		if (_sender == mScale)
 		{
 			size_t index = mScale->getIndexSelected();
 			if (index != MyGUI::ITEM_NONE)
@@ -134,9 +138,14 @@ namespace tools
 		}
 	}
 
-	void TextureToolControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
+	void TextureToolControl::notifyComboChangePositionBack(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		updateColour(_sender);
+	}
+
+	void TextureToolControl::notifyComboChangePositionScale(MyGUI::ComboBox* _sender, size_t _index)
+	{
+		updateScale(_sender);
 	}
 
 	void TextureToolControl::notifyMouseButtonClick(MyGUI::Widget* _sender)

@@ -8,7 +8,6 @@
 
 namespace tools
 {
-
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1.0),
