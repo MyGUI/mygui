@@ -7,6 +7,7 @@
 #define __SETTINGS_RESOURCES_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "TextFieldControl.h"
 
 namespace tools
 {
@@ -24,10 +25,14 @@ namespace tools
 		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
 		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
 
+		void notifyEndDialog(Dialog* _sender, bool _result);
+
 	private:
 		MyGUI::Button* mResourceAdd;
 		MyGUI::Button* mResourceDelete;
 		MyGUI::List* mResources;
+
+		TextFieldControl* mTextFieldControl;
 	};
 
 } // namespace tools

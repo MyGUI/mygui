@@ -51,6 +51,7 @@ set (HEADER_FILES
   WorkspaceControl.h
   PositionSelectorControl.h
   SettingsResourcesControl.h
+  TextFieldControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -95,6 +96,7 @@ set (SOURCE_FILES
   WorkspaceControl.cpp
   PositionSelectorControl.cpp
   SettingsResourcesControl.cpp
+  TextFieldControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

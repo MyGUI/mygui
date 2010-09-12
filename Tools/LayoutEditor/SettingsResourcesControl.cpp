@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "SettingsResourcesControl.h"
 #include "SettingsManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -13,11 +14,15 @@ namespace tools
 		wraps::BaseLayout("SettingsResourcesControl.layout", _parent),
 		mResourceAdd(nullptr),
 		mResourceDelete(nullptr),
-		mResources(nullptr)
+		mResources(nullptr),
+		mTextFieldControl(nullptr)
 	{
 		assignWidget(mResourceAdd, "ResourceAdd");
 		assignWidget(mResourceDelete, "ResourceDelete");
 		assignWidget(mResources, "Resources");
+
+		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
 
 		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
 		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
@@ -27,6 +32,9 @@ namespace tools
 	{
 		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
 		mResourceDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
+
+		delete mTextFieldControl;
+		mTextFieldControl = nullptr;
 	}
 
 	void SettingsResourcesControl::loadSettings()
@@ -47,7 +55,9 @@ namespace tools
 
 	void SettingsResourcesControl::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
 	{
-		//mOpenSaveFileDialog->doModal();
+		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
+		mTextFieldControl->setTextField("");
+		mTextFieldControl->doModal();
 	}
 
 	void SettingsResourcesControl::notifyClickResourcePathDelete(MyGUI::Widget* _sender)
@@ -55,6 +65,17 @@ namespace tools
 		size_t index = mResources->getIndexSelected();
 		if (index != MyGUI::ITEM_NONE)
 			mResources->removeItemAt(index);
+	}
+
+	void SettingsResourcesControl::notifyEndDialog(Dialog* _sender, bool _result)
+	{
+		mTextFieldControl->endModal();
+
+		if (_result)
+		{
+			if (mTextFieldControl->getTextField() != "")
+				mResources->addItem(mTextFieldControl->getTextField());
+		}
 	}
 
 } // namespace tools

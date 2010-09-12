@@ -25,6 +25,7 @@
 	<Tag name="GeneralSettings">Основные</Tag>
 	<Tag name="WidgetsSettings">Виджеты</Tag>
 	<Tag name="FoldersSettings">Папки</Tag>
+	<Tag name="ResourcesSettings">Ресурсы</Tag>
 	<Tag name="Grid_step">Шаг сетки</Tag>
 	<Tag name="LayoutVersion">Версия макета</Tag>
 	<Tag name="Show_widget_name">Показывать имя виджета</Tag>
@@ -37,6 +38,7 @@
 
 	<Tag name="Select_file_name">Выберите имя файла</Tag>
 	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
+	<Tag name="TextAdditionalResources">Дополнительные ресурсы (требуется перезагрузка)</Tag>
 
 	<Tag name="OK">Ок</Tag>
 	<Tag name="Ok">Ок</Tag>
@@ -52,6 +54,7 @@
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
+	<Tag name="CaptionAddResource">Введите имя файла</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
