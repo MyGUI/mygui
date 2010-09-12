@@ -12,7 +12,7 @@
 		<Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
 	</Resource>
 
-	<Skin name="LE_PanelEmpty" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="EditorSelections.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "16 0 1 1"/>
 		</BasisSkin>
@@ -42,9 +42,9 @@
 		<BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
 			<State name="normal" offset = "31 15 1 1"/>
 		</BasisSkin>
-	</Skin>
+	</Resource>
 
-	<Skin name="LE_StaticText" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_StaticText" size="16 16" texture="EditorSelections.png">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
 		<Property key="Colour" value="1 1 1"/>
@@ -80,9 +80,9 @@
 		</BasisSkin>
 
 		<BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch"/>
-	</Skin>
+	</Resource>
 
-	<Skin name="LE_StaticImageHelper" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_StaticImageHelper" size="16 16" texture="EditorSelections.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "0 0 1 1"/>
 		</BasisSkin>
@@ -112,14 +112,14 @@
 		<BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
 			<State name="normal" offset = "15 15 1 1"/>
 		</BasisSkin>
-	</Skin>
+	</Resource>
 
-	<Skin name="LE_StaticImage" size="16 16">
+	<Resource type="ResourceSkin" name="LE_StaticImage" size="16 16">
 		<Child type="Widget" skin="LE_StaticImageHelper" offset="0 0 16 16" align="Stretch"/>
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
-	</Skin>
+	</Resource>
 
-	<Skin name="LE_ItemBoxEmpty" size="16 16" texture="EditorSelections.png" align="Left Top">
+	<Resource type="ResourceSkin" name="LE_ItemBoxEmpty" size="16 16" texture="EditorSelections.png" align="Left Top">
 		<Property key="NeedKey" value="true"/>
 
 		<Child type="VScroll" skin="WOT_VScroll" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>
@@ -154,6 +154,6 @@
 		<BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
 			<State name="normal" offset = "47 15 1 1"/>
 		</BasisSkin>
-	</Skin>
-	
+	</Resource>
+
 </MyGUI>
