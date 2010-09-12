@@ -180,7 +180,6 @@
 
 		<Property key="Skin" value="Progress"/>
 		<Property key="Skin" value="ProgressFill"/>
-		<Property key="Skin" value="ProgressHealthBar" group="Other"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>

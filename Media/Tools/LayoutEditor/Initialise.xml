@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="List">
-	<List file="widgets.xml"/>
-	<List file="values.xml"/>
-	<List file="ignore.xml"/>
-	<List file="hotkeys.xml"/>
+	<List file="Widgets.xml"/>
+	<List file="Values.xml"/>
+	<List file="Ignore.xml"/>
+	<List file="Hotkeys.xml"/>
 	<List file="SkinReplaces.xml"/>
 
 	<!-- это для подключения плагинов -->
-	<List file="editor_plugin.xml"/>
+	<List file="EditorPlugin.xml"/>
 
 	<!-- это для подключения внешних ресурсов -->
 	<List file="external_resources.xml"/>
