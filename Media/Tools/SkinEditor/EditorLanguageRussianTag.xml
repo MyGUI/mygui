@@ -17,7 +17,9 @@
 	<Tag name="Rename">Переименовать</Tag>
 
 	<Tag name="FoldersSettings">Папки</Tag>
+	<Tag name="ResourcesSettings">Ресурсы</Tag>
 	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
+	<Tag name="TextAdditionalResources">Дополнительные ресурсы (требуется перезагрузка)</Tag>
 
 	<Tag name="OK">Ок</Tag>
 	<Tag name="Ok">Ок</Tag>
@@ -34,6 +36,7 @@
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 	<Tag name="CaptionTextureBrowse">Выбор текстуры</Tag>
+	<Tag name="CaptionAddResource">Введите имя файла</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>

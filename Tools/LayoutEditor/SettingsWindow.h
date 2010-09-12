@@ -8,9 +8,10 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
-#include "OpenSaveFileDialog.h"
 #include "SettingsResourcesControl.h"
 #include "SettingsResourcePathsControl.h"
+#include "SettingsGeneralControl.h"
+#include "SettingsWidgetsControl.h"
 
 namespace tools
 {
@@ -29,36 +30,18 @@ namespace tools
 		virtual void onEndModal();
 
 	private:
-		int getGridStep();
-		void setGridStep();
-
-		bool getShowName();
-		void setShowName(bool _pressed);
-		bool getShowType();
-		void setShowType(bool _pressed);
-		bool getShowSkin();
-		void setShowSkin(bool _pressed);
-
-		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
-		void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method
-		void notifyOkSettings(MyGUI::Widget* _sender);
+		void notifyOk(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
-		void notifyToggleCheck(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 	private:
-		MyGUI::Edit* mGridEdit;
-		MyGUI::Button* mButtonOkSettings;
+		MyGUI::Button* mButtonOk;
 		MyGUI::Button* mButtonCancel;
-		MyGUI::Button* mCheckShowName;
-		MyGUI::Button* mCheckShowType;
-		MyGUI::Button* mCheckShowSkin;
-		MyGUI::ComboBox* mLayoutVersion;
-
-		int mGridStep;
 
 		SettingsResourcesControl* mSettingsResourcesControl;
 		SettingsResourcePathsControl* mSettingsResourcePathsControl;
+		SettingsGeneralControl* mSettingsGeneralControl;
+		SettingsWidgetsControl* mSettingsWidgetsControl;
 	};
 
 } // namespace tools

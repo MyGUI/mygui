@@ -98,11 +98,11 @@ namespace tools
 		new BackwardCompatibilityManager();
 		BackwardCompatibilityManager::getInstance().initialise();
 
+		MyGUI::ResourceManager::getInstance().load("initialise.xml");
+
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
 		for (SettingsSector::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
-
-		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 		const SettingsSector::VectorUString& additionalResources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalResources");
 		for (SettingsSector::VectorUString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)

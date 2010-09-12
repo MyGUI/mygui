@@ -6,40 +6,28 @@
 
 #include "precompiled.h"
 #include "SettingsWindow.h"
-#include "SettingsManager.h"
-#include "Localise.h"
 
 namespace tools
 {
 	SettingsWindow::SettingsWindow() :
 		Dialog("SettingsWindow.layout"),
-		mButtonOkSettings(nullptr),
+		mButtonOk(nullptr),
 		mButtonCancel(nullptr),
-		mResourcePathAdd(nullptr),
-		mResourcePathDelete(nullptr),
-		mResourcePaths(nullptr),
-		mOpenSaveFileDialog(nullptr)
+		mSettingsResourcesControl(nullptr),
+		mSettingsResourcePathsControl(nullptr)
 	{
-		assignWidget(mButtonOkSettings, "buttonOkSettings");
+		assignWidget(mButtonOk, "Ok");
 		assignWidget(mButtonCancel, "Cancel");
 
-		assignWidget(mResourcePathAdd, "ResourcePathAdd");
-		assignWidget(mResourcePathDelete, "ResourcePathDelete");
-		assignWidget(mResourcePaths, "ResourcePaths");
+		assignBase(mSettingsResourcesControl, "SettingsResourcesControl");
+		assignBase(mSettingsResourcePathsControl, "SettingsResourcePathsControl");
 
-		mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
+		mButtonOk->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOk);
 		mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
-
-		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathAdd);
-		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathDelete);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
-
-		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &SettingsWindow::notifyEndDialogOpenSaveFile);
 
 		loadSettings();
 
@@ -48,13 +36,9 @@ namespace tools
 
 	SettingsWindow::~SettingsWindow()
 	{
-		saveSettings();
-
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
 	}
 
-	void SettingsWindow::notifyOkSettings(MyGUI::Widget* _sender)
+	void SettingsWindow::notifyOk(MyGUI::Widget* _sender)
 	{
 		eventEndDialog(this, true);
 	}
@@ -80,44 +64,20 @@ namespace tools
 
 	void SettingsWindow::saveSettings()
 	{
-		SettingsSector::VectorUString paths;
-		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
-			paths.push_back(mResourcePaths->getItemNameAt(index));
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
+		mSettingsResourcesControl->saveSettings();
+		mSettingsResourcePathsControl->saveSettings();
 	}
 
 	void SettingsWindow::loadSettings()
 	{
-		mResourcePaths->removeAllItems();
-		SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
-		for (SettingsSector::VectorUString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
-			mResourcePaths->addItem(*item);
+		mSettingsResourcesControl->loadSettings();
+		mSettingsResourcePathsControl->loadSettings();
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		if (_name == "close")
 			eventEndDialog(this, false);
-	}
-
-	void SettingsWindow::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
-	{
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void SettingsWindow::notifyClickResourcePathDelete(MyGUI::Widget* _sender)
-	{
-		size_t index = mResourcePaths->getIndexSelected();
-		if (index != MyGUI::ITEM_NONE)
-			mResourcePaths->removeItemAt(index);
-	}
-
-	void SettingsWindow::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
-	{
-		if (_result)
-			mResourcePaths->addItem(mOpenSaveFileDialog->getCurrentFolder());
-
-		mOpenSaveFileDialog->endModal();
 	}
 
 } // namespace tools
