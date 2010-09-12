@@ -10,6 +10,7 @@
 #include "Dialog.h"
 #include "OpenSaveFileDialog.h"
 #include "SettingsResourcesControl.h"
+#include "SettingsResourcePathsControl.h"
 
 namespace tools
 {
@@ -45,11 +46,6 @@ namespace tools
 		void notifyToggleCheck(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
-		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
-		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
-
-		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
-
 	private:
 		MyGUI::Edit* mGridEdit;
 		MyGUI::Button* mButtonOkSettings;
@@ -57,16 +53,12 @@ namespace tools
 		MyGUI::Button* mCheckShowName;
 		MyGUI::Button* mCheckShowType;
 		MyGUI::Button* mCheckShowSkin;
-		MyGUI::Button* mResourcePathAdd;
-		MyGUI::Button* mResourcePathDelete;
-		MyGUI::List* mResourcePaths;
 		MyGUI::ComboBox* mLayoutVersion;
-
-		OpenSaveFileDialog* mOpenSaveFileDialog;
 
 		int mGridStep;
 
 		SettingsResourcesControl* mSettingsResourcesControl;
+		SettingsResourcePathsControl* mSettingsResourcePathsControl;
 	};
 
 } // namespace tools
