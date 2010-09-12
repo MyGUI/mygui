@@ -25,6 +25,7 @@
 	<Tag name="GeneralSettings">General</Tag>
 	<Tag name="WidgetsSettings">Widgets</Tag>
 	<Tag name="FoldersSettings">Folders</Tag>
+	<Tag name="ResourcesSettings">Resources</Tag>
 	<Tag name="Grid_step">Grid step</Tag>
 	<Tag name="LayoutVersion">Layout version</Tag>
 	<Tag name="Show_widget_name">Show widget name</Tag>
@@ -37,6 +38,7 @@
 
 	<Tag name="Select_file_name">Select file name</Tag>
 	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
+	<Tag name="TextAdditionalResources">Additional resources (restart required)</Tag>
 
 	<Tag name="OK">OK</Tag>
 	<Tag name="Ok">Оk</Tag>
@@ -52,6 +54,7 @@
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionTestWindow">Test</Tag>
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
+	<Tag name="CaptionAddResource">Enter file name</Tag>
 
 	<Tag name="ButtonOpenFile">Open</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>
