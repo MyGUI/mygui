@@ -27,14 +27,14 @@
 
 	<Resource type="ResourceSkin" name="VerticalBorderWhite" size="9 50" texture="#{MyGUI_Theme_Texture}">
 		<Property key="Pointer" value="size_horz"/>
-		<BasisSkin type="SubSkin" offset="4 0 1 50" align="HCenter VStretch">
+		<BasisSkin type="SubSkin" offset="4 0 1 50" align="Stretch">
 			<State name="normal" offset="678 66 1 1"/>
 		</BasisSkin>
 	</Resource>
 
 	<Resource type="ResourceSkin" name="HorizintalBorderWhite" size="50 9" texture="#{MyGUI_Theme_Texture}">
 		<Property key="Pointer" value="size_vert"/>
-		<BasisSkin type="SubSkin" offset="0 4 50 1" align="HStretch VCenter">
+		<BasisSkin type="SubSkin" offset="0 4 50 1" align="Stretch">
 			<State name="normal" offset="678 66 1 1"/>
 		</BasisSkin>
 	</Resource>
