@@ -10,6 +10,6 @@
 	<List file="core_layer.xml"/>
 	<List file="core_settings.xml"/>
 
-	<List file="SE_skins.xml"/>
+	<List file="EditorSkins.xml"/>
 	<List file="colour_slider_skin.xml"/>
 </MyGUI>
