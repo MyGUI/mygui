@@ -57,7 +57,7 @@ namespace MyGUI
 		setNeedKeyFocus(true);
 
 		// дефолтные размеры
-		mMinmax.set(0, 0, 3000, 3000);
+		mMinmax.set(0, 0, (std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)());
 
 		bool main_move = false;
 		if (isUserString("MainMove"))
@@ -411,6 +411,56 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	const IntCoord& Window::getActionScale()
+	{
+		return mCurrentActionScale;
+	}
+
+	bool Window::getAutoAlpha()
+	{
+		return mIsAutoAlpha;
+	}
+
+	StaticText* Window::getCaptionWidget()
+	{
+		return mWidgetCaption;
+	}
+
+	void Window::setMinSize(int _width, int _height)
+	{
+		setMinSize(IntSize(_width, _height));
+	}
+
+	void Window::setMaxSize(int _width, int _height)
+	{
+		setMaxSize(IntSize(_width, _height));
+	}
+
+	void Window::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void Window::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void Window::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	bool Window::getSnap()
+	{
+		return mSnap;
+	}
+	/** Enable or disable snap to borders mode */
+	void Window::setSnap(bool _value)
+	{
+		mSnap = _value;
 	}
 
 } // namespace MyGUI

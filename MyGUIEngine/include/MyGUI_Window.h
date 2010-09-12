@@ -56,10 +56,7 @@ namespace MyGUI
 		/** Enable or disable auto alpha mode */
 		void setAutoAlpha(bool _value);
 		/** Get auto alpha mode flag */
-		bool getAutoAlpha()
-		{
-			return mIsAutoAlpha;
-		}
+		bool getAutoAlpha();
 
 		/** Set window caption */
 		virtual void setCaption(const UString& _value);
@@ -67,28 +64,19 @@ namespace MyGUI
 		virtual const UString& getCaption();
 
 		/** Get window caption widget */
-		StaticText* getCaptionWidget()
-		{
-			return mWidgetCaption;
-		}
+		StaticText* getCaptionWidget();
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize& _value);
 		/** Set minimal possible window size */
-		void setMinSize(int _width, int _height)
-		{
-			setMinSize(IntSize(_width, _height));
-		}
+		void setMinSize(int _width, int _height);
 		/** Get minimal possible window size */
 		IntSize getMinSize();
 
 		/** Set maximal possible window size */
 		void setMaxSize(const IntSize& _value);
 		/** Set maximal possible window size */
-		void setMaxSize(int _width, int _height)
-		{
-			setMaxSize(IntSize(_width, _height));
-		}
+		void setMaxSize(int _width, int _height);
 		/** Get maximal possible window size */
 		IntSize getMaxSize();
 
@@ -100,31 +88,18 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 		/** Get snap to borders mode flag */
-		bool getSnap()
-		{
-			return mSnap;
-		}
+		bool getSnap();
 		/** Enable or disable snap to borders mode */
-		void setSnap(bool _value)
-		{
-			mSnap = _value;
-		}
+		void setSnap(bool _value);
+
+		const IntCoord& getActionScale();
 
 	/*events:*/
 		/** Event : Window button pressed.\n
