@@ -20,13 +20,10 @@ namespace tools
 		mCheckShowName(nullptr),
 		mCheckShowType(nullptr),
 		mCheckShowSkin(nullptr),
-		mResourcePathAdd(nullptr),
-		mResourcePathDelete(nullptr),
-		mResourcePaths(nullptr),
 		mLayoutVersion(nullptr),
-		mOpenSaveFileDialog(nullptr),
 		mGridStep(0),
-		mSettingsResourcesControl(nullptr)
+		mSettingsResourcesControl(nullptr),
+		mSettingsResourcePathsControl(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -35,21 +32,15 @@ namespace tools
 		assignWidget(mCheckShowType, "checkShowType");
 		assignWidget(mCheckShowSkin, "checkShowSkin");
 
-		assignWidget(mResourcePathAdd, "ResourcePathAdd");
-		assignWidget(mResourcePathDelete, "ResourcePathDelete");
-		assignWidget(mResourcePaths, "ResourcePaths");
-
 		assignWidget(mLayoutVersion, "LayoutVersion");
 
 		assignBase(mSettingsResourcesControl, "SettingsResourcesControl");
+		assignBase(mSettingsResourcePathsControl, "SettingsResourcePathsControl");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
 		mButtonOkSettings->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
 		mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
-
-		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathAdd);
-		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyClickResourcePathDelete);
 
 		MyGUI::VectorString versions = BackwardCompatibilityManager::getInstancePtr()->getVersions();
 		for (size_t index = 0; index < versions.size(); ++ index)
@@ -67,10 +58,6 @@ namespace tools
 		mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 
-		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &SettingsWindow::notifyEndDialogOpenSaveFile);
-
 		loadSettings();
 
 		mMainWidget->setVisible(false);
@@ -78,8 +65,6 @@ namespace tools
 
 	SettingsWindow::~SettingsWindow()
 	{
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
 	}
 
 	void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
@@ -131,11 +116,6 @@ namespace tools
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowType", getShowType());
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowSkin", getShowSkin());
 
-		SettingsSector::VectorUString paths;
-		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
-			paths.push_back(mResourcePaths->getItemNameAt(index));
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
-
 		if (mLayoutVersion->getIndexSelected() != MyGUI::ITEM_NONE)
 		{
 			std::string versionName = mLayoutVersion->getItemNameAt(mLayoutVersion->getIndexSelected());
@@ -144,6 +124,7 @@ namespace tools
 		}
 
 		mSettingsResourcesControl->saveSettings();
+		mSettingsResourcePathsControl->saveSettings();
 	}
 
 	void SettingsWindow::loadSettings()
@@ -155,12 +136,8 @@ namespace tools
 		setShowType(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowType"));
 		setShowSkin(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowSkin"));
 
-		mResourcePaths->removeAllItems();
-		SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
-		for (SettingsSector::VectorUString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
-			mResourcePaths->addItem(*item);
-
 		mSettingsResourcesControl->loadSettings();
+		mSettingsResourcePathsControl->loadSettings();
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
@@ -197,26 +174,6 @@ namespace tools
 	void SettingsWindow::setShowSkin(bool _pressed)
 	{
 		mCheckShowSkin->setStateSelected(_pressed);
-	}
-
-	void SettingsWindow::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
-	{
-		mOpenSaveFileDialog->doModal();
-	}
-
-	void SettingsWindow::notifyClickResourcePathDelete(MyGUI::Widget* _sender)
-	{
-		size_t index = mResourcePaths->getIndexSelected();
-		if (index != MyGUI::ITEM_NONE)
-			mResourcePaths->removeItemAt(index);
-	}
-
-	void SettingsWindow::notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result)
-	{
-		if (_result)
-			mResourcePaths->addItem(mOpenSaveFileDialog->getCurrentFolder());
-
-		mOpenSaveFileDialog->endModal();
 	}
 
 } // namespace tools

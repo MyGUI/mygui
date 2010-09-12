@@ -37,28 +37,18 @@
             </Widget>
             <Widget type="TabItem" skin="" position="4 26 420 184">
                 <Property key="Caption" value="#{FoldersSettings}"/>
-                <Widget type="StaticText" skin="StaticText" position="3 8 413 24" align="HStretch Top">
-                    <Property key="TextAlign" value="Left VCenter"/>
-                    <Property key="Caption" value="#{ResourcesPaths}"/>
-                </Widget>
-                <Widget type="List" skin="List" position="3 37 415 112" align="Stretch" name="ResourcePaths"/>
-                <Widget type="Button" skin="Button" position="298 156 120 26" align="Right Bottom" name="ResourcePathAdd">
-                    <Property key="Caption" value="#{Add}"/>
-                </Widget>
-                <Widget type="Button" skin="Button" position="4 156 120 24" align="Left Bottom" name="ResourcePathDelete">
-                    <Property key="Caption" value="#{Delete}"/>
-                </Widget>
-            </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Caption" value="#{ResourcesSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcesControl"/>
-            </Widget>
-        </Widget>
-        <Widget type="Button" skin="Button" position="313 229 120 26" align="Right Bottom" name="buttonOkSettings">
-            <Property key="Caption" value="#{Ok}"/>
-        </Widget>
-        <Widget type="Button" skin="Button" position="6 228 120 26" align="Left Bottom" name="Cancel">
-            <Property key="Caption" value="#{Cancel}"/>
+				<Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcePathsControl"/>
+			</Widget>
+			<Widget type="TabItem" skin="" position="4 26 420 184">
+				<Property key="Caption" value="#{ResourcesSettings}"/>
+				<Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcesControl"/>
+			</Widget>
+		</Widget>
+		<Widget type="Button" skin="Button" position="313 229 120 26" align="Right Bottom" name="buttonOkSettings">
+			<Property key="Caption" value="#{Ok}"/>
+		</Widget>
+		<Widget type="Button" skin="Button" position="6 228 120 26" align="Left Bottom" name="Cancel">
+			<Property key="Caption" value="#{Cancel}"/>
         </Widget>
     </Widget>
 </MyGUI>
