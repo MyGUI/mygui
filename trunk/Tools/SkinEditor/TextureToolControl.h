@@ -22,13 +22,15 @@ namespace tools
 	private:
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyPreviewColour(const MyGUI::Colour& _value);
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyComboChangePositionBack(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyComboChangePositionScale(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void fillColours(MyGUI::ComboBox* _combo);
 		void fillScale();
 
 		void updateColour(MyGUI::ComboBox* _sender);
+		void updateScale(MyGUI::ComboBox* _sender);
 
 	private:
 		MyGUI::ComboBox* mBackgroundColour;

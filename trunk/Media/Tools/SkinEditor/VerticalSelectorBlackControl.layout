@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="VerticalSeparatorWhite" position="32 56 136 112" align="Default" layer="Popup" name="_Main">
+    <Widget type="Window" skin="VerticalSeparatorWhite" position="30 30 9 50" align="Default" layer="Popup" name="_Main">
 		<Property key="Colour" value="0 0 0"/>
 		<Property key="Alpha" value="0.5"/>
         <Property key="NeedMouse" value="false"/>
