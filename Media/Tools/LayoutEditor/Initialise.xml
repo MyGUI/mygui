@@ -6,10 +6,5 @@
 	<List file="Ignore.xml"/>
 	<List file="Hotkeys.xml"/>
 	<List file="SkinReplaces.xml"/>
-
-	<!-- это для подключения плагинов -->
 	<List file="EditorPlugin.xml"/>
-
-	<!-- это для подключения внешних ресурсов -->
-	<List file="external_resources.xml"/>
 </MyGUI>
