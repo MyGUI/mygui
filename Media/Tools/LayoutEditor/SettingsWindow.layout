@@ -49,6 +49,10 @@
                     <Property key="Caption" value="#{Delete}"/>
                 </Widget>
             </Widget>
+            <Widget type="TabItem" skin="" position="4 26 420 184">
+                <Property key="Caption" value="#{ResourcesSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcesControl"/>
+            </Widget>
         </Widget>
         <Widget type="Button" skin="Button" position="313 229 120 26" align="Right Bottom" name="buttonOkSettings">
             <Property key="Caption" value="#{Ok}"/>

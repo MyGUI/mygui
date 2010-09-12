@@ -78,8 +78,6 @@ namespace tools
 
 	SettingsWindow::~SettingsWindow()
 	{
-		saveSettings();
-
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 	}
