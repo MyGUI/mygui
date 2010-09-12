@@ -32,6 +32,9 @@ namespace tools
 		mRename->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
 
+		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SkinListControl::notifyEndDialog);
+
 		SkinManager::getInstance().eventChangeList += MyGUI::newDelegate(this, &SkinListControl::notifyChangeList);
 	}
 
@@ -39,12 +42,13 @@ namespace tools
 	{
 		SkinManager::getInstance().eventChangeList -= MyGUI::newDelegate(this, &SkinListControl::notifyChangeList);
 
-		hideTextField();
-
 		mCreate->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
 		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangePosition);
+
+		delete mTextFieldControl;
+		mTextFieldControl = nullptr;
 	}
 
 	void SkinListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
@@ -145,30 +149,12 @@ namespace tools
 		}
 	}
 
-	void SkinListControl::hideTextField()
-	{
-		if (mTextFieldControl != nullptr)
-		{
-			mTextFieldControl->hide();
-
-			mTextFieldControl->eventResult = nullptr;
-
-			delete mTextFieldControl;
-			mTextFieldControl = nullptr;
-		}
-	}
-
 	void SkinListControl::showTextField(SkinItem* _item)
 	{
-		hideTextField();
-
-		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
 		mTextFieldControl->setUserData(_item);
-		mTextFieldControl->show();
-
-		mTextFieldControl->eventResult = MyGUI::newDelegate(this, &SkinListControl::notifyTextFieldResult);
+		mTextFieldControl->doModal();
 	}
 
 	MyGUI::UString SkinListControl::getNextFreeName()
@@ -209,8 +195,10 @@ namespace tools
 		return result;
 	}
 
-	void SkinListControl::notifyTextFieldResult(bool _result)
+	void SkinListControl::notifyEndDialog(Dialog* _sender, bool _result)
 	{
+		_sender->endModal();
+
 		if (_result)
 		{
 			SkinItem* item = *mTextFieldControl->getUserData<SkinItem*>();
@@ -219,8 +207,6 @@ namespace tools
 			else
 				createItem(mTextFieldControl->getTextField());
 		}
-
-		hideTextField();
 	}
 
 	void SkinListControl::renameItem(SkinItem* _item, const MyGUI::UString& _value)
