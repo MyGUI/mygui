@@ -6,15 +6,12 @@
 #ifndef __TEXT_FIELD_CONTROL_H__
 #define __TEXT_FIELD_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#include "Dialog.h"
 
 namespace tools
 {
-
-	typedef MyGUI::delegates::CDelegate1<bool> EventHandle_TextFieldResult;
-
 	class TextFieldControl :
-		public wraps::BaseLayout
+		public Dialog
 	{
 	public:
 		TextFieldControl();
@@ -25,9 +22,6 @@ namespace tools
 		void setTextField(const MyGUI::UString& _value);
 		MyGUI::UString getTextField();
 
-		void show();
-		void hide();
-
 		void setUserData(MyGUI::Any _data);
 
 		template <typename ValueType>
@@ -36,7 +30,9 @@ namespace tools
 			return mMainWidget->getUserData<ValueType>(_throw);
 		}
 
-		EventHandle_TextFieldResult eventResult;
+	protected:
+		virtual void onDoModal();
+		virtual void onEndModal();
 
 	private:
 		void notifyOk(MyGUI::Widget* _sender);

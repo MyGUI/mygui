@@ -12,7 +12,6 @@
 
 namespace tools
 {
-
 	class SkinListControl :
 		public wraps::BaseLayout
 	{
@@ -25,13 +24,12 @@ namespace tools
 		void notifyCreate(MyGUI::Widget* _sender);
 		void notifyRename(MyGUI::Widget* _sender);
 		void notifyDelete(MyGUI::Widget* _sender);
-		void notifyTextFieldResult(bool _result);
+		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style);
 		void notifyChangeList();
 
 		void updateList();
 
-		void hideTextField();
 		void showTextField(SkinItem* _item);
 
 		MyGUI::UString getNextFreeName();

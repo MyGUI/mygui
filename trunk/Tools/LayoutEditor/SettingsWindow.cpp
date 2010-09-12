@@ -25,7 +25,8 @@ namespace tools
 		mResourcePaths(nullptr),
 		mLayoutVersion(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mGridStep(0)
+		mGridStep(0),
+		mSettingsResourcesControl(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mButtonOkSettings, "buttonOkSettings");
@@ -39,6 +40,8 @@ namespace tools
 		assignWidget(mResourcePaths, "ResourcePaths");
 
 		assignWidget(mLayoutVersion, "LayoutVersion");
+
+		assignBase(mSettingsResourcesControl, "SettingsResourcesControl");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
@@ -141,6 +144,8 @@ namespace tools
 			if (versionName != BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion())
 				BackwardCompatibilityManager::getInstancePtr()->setCurrentVersion(versionName);
 		}
+
+		mSettingsResourcesControl->saveSettings();
 	}
 
 	void SettingsWindow::loadSettings()
@@ -156,6 +161,8 @@ namespace tools
 		SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
 		for (SettingsSector::VectorUString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResourcePaths->addItem(*item);
+
+		mSettingsResourcesControl->loadSettings();
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
