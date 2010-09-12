@@ -9,6 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "Dialog.h"
 #include "OpenSaveFileDialog.h"
+#include "SettingsResourcesControl.h"
 
 namespace tools
 {
@@ -64,6 +65,8 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 
 		int mGridStep;
+
+		SettingsResourcesControl* mSettingsResourcesControl;
 	};
 
 } // namespace tools

@@ -31,12 +31,13 @@ namespace tools
 		MYGUI_ASSERT(mModal != true, "Already modal mode");
 		mModal = true;
 
+		MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
+		MyGUI::LayerManager::getInstance().upLayerItem(mMainWidget);
+
 		onDoModal();
 
 		mMainWidget->setVisible(true);
 
-		MyGUI::LayerManager::getInstance().upLayerItem(mMainWidget);
-		MyGUI::InputManager::getInstance().addWidgetModal(mMainWidget);
 		DialogManager::getInstance()._addDialog(this);
 	}
 

@@ -50,6 +50,7 @@ set (HEADER_FILES
   BackwardCompatibilityManager.h
   WorkspaceControl.h
   PositionSelectorControl.h
+  SettingsResourcesControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -93,6 +94,7 @@ set (SOURCE_FILES
   BackwardCompatibilityManager.cpp
   WorkspaceControl.cpp
   PositionSelectorControl.cpp
+  SettingsResourcesControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
