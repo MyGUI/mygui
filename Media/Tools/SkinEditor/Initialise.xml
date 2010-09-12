@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MyGUI type="List">
-	<List file="hotkeys.xml"/>
-
-	<!-- это для подключения внешних ресурсов -->
-	<List file="external_resources.xml"/>
+	<List file="Hotkeys.xml"/>
 </MyGUI>
