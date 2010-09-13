@@ -101,14 +101,6 @@ namespace tools
 		mAreaSelectorControl->setCoord(mCoordValue);
 	}
 
-	void SkinTextureControl::notifyChangePosition()
-	{
-		mCoordValue = mAreaSelectorControl->getCoord();
-
-		if (getCurrentSkin() != nullptr)
-			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
-	}
-
 	void SkinTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 		mCoordValue.left = _point.left - (mCoordValue.width / 2);
@@ -277,6 +269,59 @@ namespace tools
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
 		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::notifyChangePosition()
+	{
+		mCoordValue = mAreaSelectorControl->getCoord();
+
+		// снапим к гриду
+		if (!MyGUI::InputManager::getInstance().isShiftPressed())
+		{
+			MyGUI::IntCoord coord = mCoordValue;
+			MyGUI::IntCoord actionScale = mAreaSelectorControl->getActionScale();
+
+			if (actionScale.left != 0 && actionScale.width != 0)
+			{
+				int right = coord.right();
+				coord.width = toGrid(coord.width + (mGridStep / 2));
+				coord.left = right - coord.width;
+			}
+			else if (actionScale.width != 0)
+			{
+				int right = toGrid(coord.right() + (mGridStep / 2));
+				coord.width = right - coord.left;
+			}
+			else if (actionScale.left != 0)
+			{
+				coord.left = toGrid(coord.left + (mGridStep / 2));
+			}
+
+			if (actionScale.top != 0 && actionScale.height != 0)
+			{
+				int bottom = coord.bottom();
+				coord.height = toGrid(coord.height + (mGridStep / 2));
+				coord.top = bottom - coord.height;
+			}
+			else if (actionScale.height != 0)
+			{
+				int bottom = toGrid(coord.bottom() + (mGridStep / 2));
+				coord.height = bottom - coord.top;
+			}
+			else if (actionScale.top != 0)
+			{
+				coord.top = toGrid(coord.top + (mGridStep / 2));
+			}
+
+			if (coord != mCoordValue)
+			{
+				mCoordValue = coord;
+				mAreaSelectorControl->setCoord(mCoordValue);
+			}
+		}
+
+		if (getCurrentSkin() != nullptr)
+			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
 	}
 
 } // namespace tools
