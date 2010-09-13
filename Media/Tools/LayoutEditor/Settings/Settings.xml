@@ -6,12 +6,12 @@
         <Property key="widgetsButtonsInOneLine" value="2"/>
     </WidgetsWindow>
 	<Settings>
-		<Property key="Grid" value="8"/>
+		<Property key="Grid" value="5"/>
 		<Property key="ShowName" value="1"/>
 		<Property key="ShowType" value="1"/>
-		<Property key="ShowSkin" value="0"/>
+		<Property key="ShowSkin" value="1"/>
 		<Property key="PropertyItemHeight" value="22"/>
-		<Property key="MaxRecentFolders" value="8"/>
-		<Property key="MaxRecentFiles" value="8"/>
+		<Property key="MaxRecentFolders" value="10"/>
+		<Property key="MaxRecentFiles" value="10"/>
 	</Settings>
 </MyGUI>

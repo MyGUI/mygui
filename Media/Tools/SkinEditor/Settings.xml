@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Settings">
 	<Settings>
-		<Property key="Grid" value="8"/>
-		<Property key="MaxRecentFolders" value="8"/>
-		<Property key="MaxRecentFiles" value="8"/>
+		<Property key="Grid" value="5"/>
+		<Property key="MaxRecentFolders" value="10"/>
+		<Property key="MaxRecentFiles" value="10"/>
 	</Settings>
 </MyGUI>
