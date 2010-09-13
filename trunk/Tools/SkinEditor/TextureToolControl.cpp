@@ -52,7 +52,6 @@ namespace tools
 		{
 			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
 			MyGUI::Colour colour = mColourPanel->getColour();
-			colour.alpha = 1;
 
 			setColour(colour);
 			mBackgroundButton->setColour(colour);
@@ -62,7 +61,6 @@ namespace tools
 		{
 			mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
 			MyGUI::Colour colour = mPreviewColour;
-			colour.alpha = 1;
 
 			setColour(colour);
 			mBackgroundButton->setColour(colour);
@@ -159,7 +157,6 @@ namespace tools
 	{
 		mBackgroundColour->setIndexSelected(MyGUI::ITEM_NONE);
 		MyGUI::Colour colour = _value;
-		colour.alpha = 1;
 
 		setColour(colour);
 		mBackgroundButton->setColour(colour);
