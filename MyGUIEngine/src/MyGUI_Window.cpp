@@ -73,6 +73,7 @@ namespace MyGUI
 			{
 				mClient->setUserString("Scale", "1 1 0 0");
 				mClient->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+				mClient->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 				mClient->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 			}
 			setWidgetClient(mClient);
@@ -82,6 +83,7 @@ namespace MyGUI
 		if (mWidgetCaption != nullptr)
 		{
 			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMouseReleased);
 			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 
@@ -95,6 +97,7 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter = actions.begin(); iter != actions.end(); ++iter)
 		{
 			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			(*iter)->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 	}
@@ -136,6 +139,13 @@ namespace MyGUI
 		notifyMousePressed(this, _left, _top, _id);
 
 		Base::onMouseButtonPressed(_left, _top, _id);
+	}
+
+	void Window::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	{
+		notifyMouseReleased(this, _left, _top, _id);
+
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void Window::notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
@@ -459,10 +469,18 @@ namespace MyGUI
 	{
 		return mSnap;
 	}
-	/** Enable or disable snap to borders mode */
+
 	void Window::setSnap(bool _value)
 	{
 		mSnap = _value;
+	}
+
+	void Window::notifyMouseReleased(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
+	{
+		if (MouseButton::Left == _id)
+		{
+			mCurrentActionScale.clear();
+		}
 	}
 
 } // namespace MyGUI
