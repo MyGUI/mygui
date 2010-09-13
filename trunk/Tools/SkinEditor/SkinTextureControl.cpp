@@ -6,6 +6,7 @@
 #include "precompiled.h"
 #include "SkinTextureControl.h"
 #include "SkinManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
@@ -18,6 +19,15 @@ namespace tools
 		addSelectorControl(mAreaSelectorControl);
 
 		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
+
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeRight));
+		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeTop));
+		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeBottom));
 
 		initialiseAdvisor();
 	}
@@ -95,6 +105,88 @@ namespace tools
 		mCoordValue.left = _point.left - (mCoordValue.width / 2);
 		mCoordValue.top = _point.top - (mCoordValue.height / 2);
 
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left --;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandMoveRight(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left ++;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandMoveTop(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top --;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top ++;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width --;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width ++;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height --;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height ++;
+		updateFromCoordValue();
+	}
+
+	bool SkinTextureControl::checkCommand()
+	{
+		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+	}
+
+	void SkinTextureControl::updateFromCoordValue()
+	{
 		mAreaSelectorControl->setCoord(mCoordValue);
 
 		if (getCurrentSkin() != nullptr)
