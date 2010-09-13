@@ -12,7 +12,8 @@ namespace tools
 {
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr),
+		mGridStep(10)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -28,6 +29,14 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeRight));
 		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeTop));
 		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeBottom));
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeRight));
+		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeTop));
+		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
 		initialiseAdvisor();
 	}
@@ -108,6 +117,24 @@ namespace tools
 		updateFromCoordValue();
 	}
 
+	bool SkinTextureControl::checkCommand()
+	{
+		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+	}
+
+	void SkinTextureControl::updateFromCoordValue()
+	{
+		mAreaSelectorControl->setCoord(mCoordValue);
+
+		if (getCurrentSkin() != nullptr)
+			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+	}
+
+	int SkinTextureControl::toGrid(int _value)
+	{
+		return _value / mGridStep * mGridStep;
+	}
+
 	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName)
 	{
 		if (!checkCommand())
@@ -180,17 +207,76 @@ namespace tools
 		updateFromCoordValue();
 	}
 
-	bool SkinTextureControl::checkCommand()
+	void SkinTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName)
 	{
-		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left = toGrid(--mCoordValue.left);
+		updateFromCoordValue();
 	}
 
-	void SkinTextureControl::updateFromCoordValue()
+	void SkinTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName)
 	{
-		mAreaSelectorControl->setCoord(mCoordValue);
+		if (!checkCommand())
+			return;
 
-		if (getCurrentSkin() != nullptr)
-			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top = toGrid(--mCoordValue.top);
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
+		updateFromCoordValue();
+	}
+
+	void SkinTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		updateFromCoordValue();
 	}
 
 } // namespace tools
