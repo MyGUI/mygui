@@ -997,6 +997,51 @@
 		</BasisSkin>
 	</Resource>
 
+	<Resource type="ResourceSkin" name = "WindowCX" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="Snap" value = "true" />
+
+		<Child type="Button" skin="WindowCaptionSmall" offset = "0 0 40 28" align = "HStretch Top" name = "Caption">
+			<Property key="Scale" value = "1 1 0 0"/>
+		</Child>
+
+		<Child type="Widget" skin="DefaultClient" offset = "4 31 58 12" align = "Stretch" name = "Client"/>
+
+		<Child type="Button" skin="ButtonX" offset = "43 6 18 17" align = "Right Top" name = "Button">
+			<Property key="Event" value = "close"/>
+		</Child>
+
+		<BasisSkin type="SubSkin" offset = "40 0 28 28" align = "Right Top">
+			<State name="normal" offset = "396 104 28 28"/>
+		</BasisSkin>
+
+		<BasisSkin type="SubSkin" offset = "0 28 4 3" align = "Left Top">
+			<State name="normal" offset = "384 173 4 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "4 28 58 3" align = "HStretch Top">
+			<State name="normal" offset = "390 173 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "62 28 6 3" align = "Right Top">
+			<State name="normal" offset = "401 173 6 3"/>
+		</BasisSkin>
+
+		<BasisSkin type="SubSkin" offset = "0 31 4 12" align = "Left VStretch">
+			<State name="normal" offset = "384 176 4 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "62 31 6 12" align = "Right VStretch">
+			<State name="normal" offset = "401 176 6 12"/>
+		</BasisSkin>
+
+		<BasisSkin type="SubSkin" offset = "0 43 4 6" align = "Left Bottom">
+			<State name="normal" offset = "384 188 4 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "4 43 58 6" align = "HStretch Bottom">
+			<State name="normal" offset = "390 188 3 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "62 43 6 6" align = "Right Bottom">
+			<State name="normal" offset = "401 188 6 6"/>
+		</BasisSkin>
+	</Resource>
+	
 	<Resource type="ResourceSkin" name = "WindowCSMX" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value = "true" />
 
