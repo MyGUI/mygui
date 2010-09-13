@@ -7,13 +7,14 @@
 #include "SkinTextureControl.h"
 #include "SkinManager.h"
 #include "CommandManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
-		mGridStep(10)
+		mGridStep(0)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -38,11 +39,17 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeTop));
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
+
 		initialiseAdvisor();
 	}
 
 	SkinTextureControl::~SkinTextureControl()
 	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
+
 		shutdownAdvisor();
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
@@ -124,6 +131,8 @@ namespace tools
 
 	int SkinTextureControl::toGrid(int _value)
 	{
+		if (mGridStep < 1)
+			return _value;
 		return _value / mGridStep * mGridStep;
 	}
 
@@ -322,6 +331,15 @@ namespace tools
 
 		if (getCurrentSkin() != nullptr)
 			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+	}
+
+	void SkinTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "Settings")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		}
 	}
 
 } // namespace tools
