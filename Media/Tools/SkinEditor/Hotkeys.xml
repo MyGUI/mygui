@@ -29,4 +29,52 @@
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
+	<Command>
+		<Name>Command_MoveLeft</Name>
+		<KeyCode>ArrowLeft</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_MoveRight</Name>
+		<KeyCode>ArrowRight</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_MoveTop</Name>
+		<KeyCode>ArrowUp</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_MoveBottom</Name>
+		<KeyCode>ArrowDown</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_SizeLeft</Name>
+		<KeyCode>ArrowLeft</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift Control</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_SizeRight</Name>
+		<KeyCode>ArrowRight</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift Control</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_SizeTop</Name>
+		<KeyCode>ArrowUp</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift Control</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_SizeBottom</Name>
+		<KeyCode>ArrowDown</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Shift Control</Modifier>
+	</Command>
 </MyGUI>
