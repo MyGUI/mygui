@@ -13,12 +13,14 @@ namespace tools
 		Dialog("SettingsWindow.layout"),
 		mButtonOk(nullptr),
 		mButtonCancel(nullptr),
+		mSettingsGeneralControl(nullptr),
 		mSettingsResourcesControl(nullptr),
 		mSettingsResourcePathsControl(nullptr)
 	{
 		assignWidget(mButtonOk, "Ok");
 		assignWidget(mButtonCancel, "Cancel");
 
+		assignBase(mSettingsGeneralControl, "SettingsGeneralControl");
 		assignBase(mSettingsResourcesControl, "SettingsResourcesControl");
 		assignBase(mSettingsResourcePathsControl, "SettingsResourcePathsControl");
 
@@ -64,12 +66,14 @@ namespace tools
 
 	void SettingsWindow::saveSettings()
 	{
+		mSettingsGeneralControl->saveSettings();
 		mSettingsResourcesControl->saveSettings();
 		mSettingsResourcePathsControl->saveSettings();
 	}
 
 	void SettingsWindow::loadSettings()
 	{
+		mSettingsGeneralControl->loadSettings();
 		mSettingsResourcesControl->loadSettings();
 		mSettingsResourcePathsControl->loadSettings();
 	}

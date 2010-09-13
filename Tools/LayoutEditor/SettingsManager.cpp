@@ -14,7 +14,7 @@ namespace tools
 	const std::string LogSection = "LayoutEditor";
 
 	SettingsManager::SettingsManager() :
-		mFileName("settings.xml")
+		mFileName("Settings.xml")
 	{
 	}
 
