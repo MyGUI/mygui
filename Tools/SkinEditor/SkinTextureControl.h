@@ -41,6 +41,8 @@ namespace tools
 		void updateFromCoordValue();
 		bool checkCommand();
 
+		int toGrid(int _value);
+
 		void CommandMoveLeft(const MyGUI::UString& _commandName);
 		void CommandMoveRight(const MyGUI::UString& _commandName);
 		void CommandMoveTop(const MyGUI::UString& _commandName);
@@ -49,12 +51,21 @@ namespace tools
 		void CommandSizeRight(const MyGUI::UString& _commandName);
 		void CommandSizeTop(const MyGUI::UString& _commandName);
 		void CommandSizeBottom(const MyGUI::UString& _commandName);
+		void CommandGridMoveLeft(const MyGUI::UString& _commandName);
+		void CommandGridMoveRight(const MyGUI::UString& _commandName);
+		void CommandGridMoveTop(const MyGUI::UString& _commandName);
+		void CommandGridMoveBottom(const MyGUI::UString& _commandName);
+		void CommandGridSizeLeft(const MyGUI::UString& _commandName);
+		void CommandGridSizeRight(const MyGUI::UString& _commandName);
+		void CommandGridSizeTop(const MyGUI::UString& _commandName);
+		void CommandGridSizeBottom(const MyGUI::UString& _commandName);
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
+		int mGridStep;
 	};
 
 } // namespace tools
