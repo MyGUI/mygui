@@ -16,7 +16,9 @@
 	<Tag name="Delete">Удалить</Tag>
 	<Tag name="Rename">Переименовать</Tag>
 
+	<Tag name="GeneralSettings">Основные</Tag>
 	<Tag name="FoldersSettings">Папки</Tag>
+	<Tag name="Grid_step">Шаг сетки</Tag>
 	<Tag name="ResourcesSettings">Ресурсы</Tag>
 	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
 	<Tag name="TextAdditionalResources">Дополнительные ресурсы (требуется перезагрузка)</Tag>

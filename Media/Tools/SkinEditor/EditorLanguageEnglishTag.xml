@@ -16,8 +16,10 @@
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Rename">Rename</Tag>
 
+	<Tag name="GeneralSettings">General</Tag>
 	<Tag name="FoldersSettings">Folders</Tag>
 	<Tag name="ResourcesSettings">Resources</Tag>
+	<Tag name="Grid_step">Grid step</Tag>
 	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
 	<Tag name="TextAdditionalResources">Additional resources (restart required)</Tag>
 

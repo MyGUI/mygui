@@ -75,6 +75,7 @@ set (HEADER_FILES
   TextureBrowseCell.h
   SettingsResourcesControl.h
   SettingsResourcePathsControl.h
+  SettingsGeneralControl.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -147,6 +148,7 @@ set (SOURCE_FILES
   TextureBrowseCell.cpp
   SettingsResourcesControl.cpp
   SettingsResourcePathsControl.cpp
+  SettingsGeneralControl.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

@@ -10,6 +10,7 @@
 #include "Dialog.h"
 #include "SettingsResourcesControl.h"
 #include "SettingsResourcePathsControl.h"
+#include "SettingsGeneralControl.h"
 
 namespace tools
 {
@@ -36,6 +37,7 @@ namespace tools
 		MyGUI::Button* mButtonOk;
 		MyGUI::Button* mButtonCancel;
 
+		SettingsGeneralControl* mSettingsGeneralControl;
 		SettingsResourcesControl* mSettingsResourcesControl;
 		SettingsResourcePathsControl* mSettingsResourcePathsControl;
 	};
