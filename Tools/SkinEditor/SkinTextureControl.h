@@ -28,6 +28,7 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateSkinProperties();
