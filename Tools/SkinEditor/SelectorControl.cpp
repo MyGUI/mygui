@@ -11,8 +11,7 @@ namespace tools
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1.0),
-		mPositionChanged(false),
-		mCapture(false)
+		mPositionChanged(false)
 	{
 		assignWidget(mProjection, "Projection", false);
 
@@ -150,6 +149,14 @@ namespace tools
 		if (window != nullptr)
 			return !window->getActionScale().empty();
 		return false;
+	}
+
+	MyGUI::IntCoord SelectorControl::getActionScale()
+	{
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			return window->getActionScale();
+		return MyGUI::IntCoord();
 	}
 
 } // namespace tools
