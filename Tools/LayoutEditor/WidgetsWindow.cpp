@@ -129,7 +129,7 @@ namespace tools
 		{
 			for (MyGUI::VectorWidgetPtr::iterator item = mWidgets.begin(); item != mWidgets.end(); ++item)
 			{
-				bool selected = 
+				bool selected =
 					(*item)->getUserString("widget") == WidgetCreatorManager::getInstance().getWidgetType() &&
 					(*item)->getUserString("skin") == WidgetCreatorManager::getInstance().getWidgetSkin();
 				(*item)->castType<MyGUI::Button>()->setStateSelected(selected);

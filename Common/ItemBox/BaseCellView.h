@@ -22,7 +22,7 @@ namespace wraps
 
 	protected:
 		BaseCellView(const std::string& _layout, MyGUI::Widget* _parent) :
-			 BaseLayout(_layout, _parent)
+			BaseLayout(_layout, _parent)
 		{
 		}
 	};
