@@ -162,6 +162,8 @@ namespace MyGUI
 		coord.width *= (_left - point.left);
 		coord.height *= (_top - point.top);
 
+		if (coord.empty()) return;
+
 		if (coord.left == 0 && coord.top == 0)
 			setSize((mPreActionCoord + coord).size());
 		else if (coord.width == 0 && coord.height == 0)
