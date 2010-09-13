@@ -30,7 +30,6 @@
 
 namespace MyGUI
 {
-
 	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
 	const float WINDOW_ALPHA_FOCUS = 0.7f;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
@@ -57,7 +56,11 @@ namespace MyGUI
 		setNeedKeyFocus(true);
 
 		// дефолтные размеры
-		mMinmax.set(0, 0, (std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)());
+		mMinmax.set(
+			(std::numeric_limits<int>::min)(),
+			(std::numeric_limits<int>::min)(),
+			(std::numeric_limits<int>::max)(),
+			(std::numeric_limits<int>::max)());
 
 		bool main_move = false;
 		if (isUserString("MainMove"))
@@ -83,7 +86,7 @@ namespace MyGUI
 		if (mWidgetCaption != nullptr)
 		{
 			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMouseReleased);
+			mWidgetCaption->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 		}
 
@@ -172,7 +175,8 @@ namespace MyGUI
 		coord.width *= (_left - point.left);
 		coord.height *= (_top - point.top);
 
-		if (coord.empty()) return;
+		if (coord.empty())
+			return;
 
 		if (coord.left == 0 && coord.top == 0)
 			setSize((mPreActionCoord + coord).size());
@@ -187,12 +191,16 @@ namespace MyGUI
 
 	void Window::updateAlpha()
 	{
-		if (!mIsAutoAlpha) return;
+		if (!mIsAutoAlpha)
+			return;
 
 		float alpha;
-		if (mKeyRootFocus) alpha = WINDOW_ALPHA_ACTIVE;
-		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
-		else alpha = WINDOW_ALPHA_DEACTIVE;
+		if (mKeyRootFocus)
+			alpha = WINDOW_ALPHA_ACTIVE;
+		else if (mMouseRootFocus)
+			alpha = WINDOW_ALPHA_FOCUS;
+		else
+			alpha = WINDOW_ALPHA_DEACTIVE;
 
 		ControllerFadeAlpha* controller = createControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
@@ -201,12 +209,16 @@ namespace MyGUI
 	void Window::setAutoAlpha(bool _auto)
 	{
 		mIsAutoAlpha = _auto;
-		if (!_auto) setAlpha(ALPHA_MAX);
+		if (!_auto)
+			setAlpha(ALPHA_MAX);
 		else
 		{
-			if (mKeyRootFocus) setAlpha(WINDOW_ALPHA_ACTIVE);
-			else if (mMouseRootFocus) setAlpha(WINDOW_ALPHA_FOCUS);
-			else setAlpha(WINDOW_ALPHA_DEACTIVE);
+			if (mKeyRootFocus)
+				setAlpha(WINDOW_ALPHA_ACTIVE);
+			else if (mMouseRootFocus)
+				setAlpha(WINDOW_ALPHA_FOCUS);
+			else
+				setAlpha(WINDOW_ALPHA_DEACTIVE);
 		}
 	}
 
@@ -229,11 +241,16 @@ namespace MyGUI
 		IntSize size = _size;
 		// прилепляем к краям
 
-		if (size.width < mMinmax.left) size.width = mMinmax.left;
-		else if (size.width > mMinmax.right) size.width = mMinmax.right;
-		if (size.height < mMinmax.top) size.height = mMinmax.top;
-		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
-		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
+		if (size.width < mMinmax.left)
+			size.width = mMinmax.left;
+		else if (size.width > mMinmax.right)
+			size.width = mMinmax.right;
+		if (size.height < mMinmax.top)
+			size.height = mMinmax.top;
+		else if (size.height > mMinmax.bottom)
+			size.height = mMinmax.bottom;
+		if ((size.width == mCoord.width) && (size.height == mCoord.height))
+			return;
 
 		if (mSnap)
 		{
@@ -254,29 +271,37 @@ namespace MyGUI
 		{
 			int offset = mMinmax.left - size.width;
 			size.width = mMinmax.left;
-			if ((pos.left - mCoord.left) > offset) pos.left -= offset;
-			else pos.left = mCoord.left;
+			if ((pos.left - mCoord.left) > offset)
+				pos.left -= offset;
+			else
+				pos.left = mCoord.left;
 		}
 		else if (size.width > mMinmax.right)
 		{
 			int offset = mMinmax.right - size.width;
 			size.width = mMinmax.right;
-			if ((pos.left - mCoord.left) < offset) pos.left -= offset;
-			else pos.left = mCoord.left;
+			if ((pos.left - mCoord.left) < offset)
+				pos.left -= offset;
+			else
+				pos.left = mCoord.left;
 		}
 		if (size.height < mMinmax.top)
 		{
 			int offset = mMinmax.top - size.height;
 			size.height = mMinmax.top;
-			if ((pos.top - mCoord.top) > offset) pos.top -= offset;
-			else pos.top = mCoord.top;
+			if ((pos.top - mCoord.top) > offset)
+				pos.top -= offset;
+			else
+				pos.top = mCoord.top;
 		}
 		else if (size.height > mMinmax.bottom)
 		{
 			int offset = mMinmax.bottom - size.height;
 			size.height = mMinmax.bottom;
-			if ((pos.top - mCoord.top) < offset) pos.top -= offset;
-			else pos.top = mCoord.top;
+			if ((pos.top - mCoord.top) < offset)
+				pos.top -= offset;
+			else
+				pos.top = mCoord.top;
 		}
 
 		// прилепляем к краям
@@ -288,20 +313,24 @@ namespace MyGUI
 		}
 
 		IntCoord coord(pos, size);
-		if (coord == mCoord) return;
+		if (coord == mCoord)
+			return;
 
 		Base::setCoord(coord);
 	}
 
 	void Window::setCaption(const UString& _caption)
 	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
-		else Base::setCaption(_caption);
+		if (mWidgetCaption != nullptr)
+			mWidgetCaption->setCaption(_caption);
+		else
+			Base::setCaption(_caption);
 	}
 
 	const UString& Window::getCaption()
 	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
+		if (mWidgetCaption != nullptr)
+			return mWidgetCaption->getCaption();
 		return Base::getCaption();
 	}
 
@@ -323,7 +352,6 @@ namespace MyGUI
 
 	void Window::setVisible(bool _visible)
 	{
-
 		if (mAnimateSmooth)
 		{
 			ControllerManager::getInstance().removeItem(this);
@@ -347,8 +375,10 @@ namespace MyGUI
 
 		const IntSize view_size = getParentSize();
 
-		if ( abs(_coord.left + _coord.width - view_size.width) < WINDOW_SNAP_DISTANSE) _coord.left = view_size.width - _coord.width;
-		if ( abs(_coord.top + _coord.height - view_size.height) < WINDOW_SNAP_DISTANSE) _coord.top = view_size.height - _coord.height;
+		if ( abs(_coord.left + _coord.width - view_size.width) < WINDOW_SNAP_DISTANSE)
+			_coord.left = view_size.width - _coord.width;
+		if ( abs(_coord.top + _coord.height - view_size.height) < WINDOW_SNAP_DISTANSE)
+			_coord.top = view_size.height - _coord.height;
 	}
 
 	void Window::setVisibleSmooth(bool _visible)
