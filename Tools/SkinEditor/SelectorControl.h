@@ -32,6 +32,8 @@ namespace tools
 		MyGUI::IntSize getSize();
 		const MyGUI::IntCoord& getCoord();
 
+		bool getCapture();
+
 		EventHandle_ChangePosition eventChangePosition;
 
 	private:
@@ -47,6 +49,7 @@ namespace tools
 		bool mPositionChanged;
 		MyGUI::Widget* mProjection;
 		MyGUI::IntCoord mProjectionDiff;
+		bool mCapture;
 	};
 
 } // namespace tools

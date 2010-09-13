@@ -38,6 +38,17 @@ namespace tools
 		void updateCoord();
 
 		void updateRegionCoord();
+		void updateFromCoordValue();
+		bool checkCommand();
+
+		void CommandMoveLeft(const MyGUI::UString& _commandName);
+		void CommandMoveRight(const MyGUI::UString& _commandName);
+		void CommandMoveTop(const MyGUI::UString& _commandName);
+		void CommandMoveBottom(const MyGUI::UString& _commandName);
+		void CommandSizeLeft(const MyGUI::UString& _commandName);
+		void CommandSizeRight(const MyGUI::UString& _commandName);
+		void CommandSizeTop(const MyGUI::UString& _commandName);
+		void CommandSizeBottom(const MyGUI::UString& _commandName);
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
