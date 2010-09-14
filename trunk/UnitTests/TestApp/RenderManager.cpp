@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "RenderManager.h"
 
 namespace demo

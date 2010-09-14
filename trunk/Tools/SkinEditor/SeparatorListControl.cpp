@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "SeparatorListControl.h"
 #include "SkinManager.h"
 #include "Binary.h"

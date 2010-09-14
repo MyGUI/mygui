@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Localise.h"
 #include "GroupMessage.h"
 #include "MessageBoxManager.h"

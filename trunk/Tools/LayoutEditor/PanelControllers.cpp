@@ -4,7 +4,7 @@
 	@date		12/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "PanelControllers.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"

@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "View.h"
 
 namespace editor

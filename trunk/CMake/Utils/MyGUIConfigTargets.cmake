@@ -92,6 +92,15 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 	
+	if (${SOLUTIONFOLDER} STREQUAL "Tools")
+		include(PrecompiledHeader)
+		# specify a precompiled header to use
+		use_precompiled_header(${PROJECTNAME}
+			"../../Common/Precompiled.h"
+			"../../Common/Precompiled.cpp"
+		)
+	endif ()
+	
 	# Set up dependencies
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 		include_directories(../../Common/Base/DirectX)

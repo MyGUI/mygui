@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		05/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "DemoKeeper.h"
 #include "CellView.h"
 #include "Base/Main.h"

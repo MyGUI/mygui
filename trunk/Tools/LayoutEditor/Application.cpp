@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Common.h"
 #include "Application.h"
 #include "EditorWidgets.h"

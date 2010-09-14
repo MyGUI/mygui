@@ -9,6 +9,7 @@ set (SOURCE_FILES
   FontPanel.cpp
   FontView.cpp
   TextureView.cpp
+  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
@@ -26,6 +27,7 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("" FILES
 )

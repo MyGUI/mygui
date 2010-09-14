@@ -4,7 +4,7 @@
 	@date		01/2010
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "CodeGenerator.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"

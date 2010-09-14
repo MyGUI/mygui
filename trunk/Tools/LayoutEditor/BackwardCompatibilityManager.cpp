@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "BackwardCompatibilityManager.h"
 #include "SettingsManager.h"
 

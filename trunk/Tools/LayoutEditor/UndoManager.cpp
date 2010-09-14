@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "UndoManager.h"
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"

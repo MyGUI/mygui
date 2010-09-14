@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"

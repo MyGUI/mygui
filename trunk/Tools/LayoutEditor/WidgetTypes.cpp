@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "WidgetTypes.h"
 
 template <> tools::WidgetTypes* MyGUI::Singleton<tools::WidgetTypes>::msInstance = nullptr;

@@ -5,6 +5,7 @@ set (HEADER_FILES
 set (SOURCE_FILES
   Controller.cpp
   View.cpp
+  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
   ../../Common/Base/mygui.ico
 )
@@ -20,6 +21,7 @@ SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
   ../../Common/Base/mygui.ico
   CMakeLists.txt
+  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("" FILES
 )

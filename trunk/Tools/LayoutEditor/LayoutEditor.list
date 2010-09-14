@@ -103,6 +103,7 @@ set (SOURCE_FILES
   SettingsResourcePathsControl.cpp
   SettingsGeneralControl.cpp
   SettingsWidgetsControl.cpp
+  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
@@ -135,6 +136,7 @@ SOURCE_GROUP("Resources" FILES
   editor.ico
   LayoutEditor.rc
   CMakeLists.txt
+  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h

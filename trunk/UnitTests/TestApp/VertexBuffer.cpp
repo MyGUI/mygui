@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "VertexBuffer.h"
 #include "RenderManager.h"
 #include "MyGUI_OgreRenderManager.h"

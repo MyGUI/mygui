@@ -4,7 +4,7 @@
 	@date		09/2008
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Common.h"
 #include "WidgetsWindow.h"
 #include "EditorWidgets.h"

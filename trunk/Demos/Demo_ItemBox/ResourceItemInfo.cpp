@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "ResourceItemInfo.h"
 #include "MyGUI_ResourceManager.h"
 

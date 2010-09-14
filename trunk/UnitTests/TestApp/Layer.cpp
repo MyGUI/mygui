@@ -1,4 +1,4 @@
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Layer.h"
 #include "MyGUI_OgreRenderManager.h"
 
