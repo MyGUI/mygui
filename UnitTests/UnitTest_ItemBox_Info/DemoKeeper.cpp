@@ -3,7 +3,7 @@
 	@author		George Evmenov
 	@date		08/2000
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 

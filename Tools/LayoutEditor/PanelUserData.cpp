@@ -4,7 +4,7 @@
 	@date		09/2008
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Common.h"
 #include "Localise.h"
 #include "PanelUserData.h"

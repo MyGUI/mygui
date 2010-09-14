@@ -4,7 +4,7 @@
 	@date		09/2008
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Localise.h"
 #include "PanelProperties.h"
 #include "EditorWidgets.h"

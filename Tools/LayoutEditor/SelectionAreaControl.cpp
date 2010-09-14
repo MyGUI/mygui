@@ -1,3 +1,4 @@
+#include "Precompiled.h"
 #include "Common.h"
 #include "SelectionAreaControl.h"
 #include "PropertiesPanelView.h"

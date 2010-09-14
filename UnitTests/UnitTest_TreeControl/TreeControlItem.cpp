@@ -4,7 +4,7 @@
 	@date       08/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "TreeControlItem.h"
 
 namespace MyGUI
