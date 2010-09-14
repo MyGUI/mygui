@@ -8,7 +8,6 @@
 
 namespace tools
 {
-
 	ColourPanel::ColourPanel() :
 		Dialog()
 	{
@@ -22,10 +21,12 @@ namespace tools
 		mColourRect->eventMouseDrag += MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
 		mImageColourPicker->eventMouseDrag += MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
 		mScrollRange->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePosition);
+		mAlphaSlider->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourPanel::notifyScrollChangePositionAlpha);
 
 		mEditRed->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 		mEditGreen->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 		mEditBlue->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
+		mInputAlpha->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChangeAlpha);
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClickOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClickCancel);
@@ -195,6 +196,7 @@ namespace tools
 		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
 		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
 		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
+		mInputAlpha->setCaption(MyGUI::utility::toString(colour.alpha));
 
 		updateFromColour(colour);
 	}
@@ -260,7 +262,10 @@ namespace tools
 
 		updateTexture(mBaseColour);
 
+		mAlphaSlider->setScrollPosition((size_t)((double)(mAlphaSlider->getScrollRange() - 1) * (double)mCurrentColour.alpha));
+
 		mColourView->setColour(mCurrentColour);
+		mColourView->setAlpha(mCurrentColour.alpha);
 		mAlphaSliderBack->setColour(mCurrentColour);
 
 		eventPreviewColour(mCurrentColour);
@@ -325,6 +330,52 @@ namespace tools
 	const MyGUI::Colour& ColourPanel::getColour() const
 	{
 		return mCurrentColour;
+	}
+
+	void ColourPanel::notifyEditTextChangeAlpha(MyGUI::Edit* _sender)
+	{
+		MyGUI::UString value = _sender->getOnlyText();
+
+		mCurrentColour.alpha = MyGUI::utility::parseValue<float>(value);
+
+		bool validate = true;
+		if (mCurrentColour.alpha > 1)
+		{
+			mCurrentColour.alpha = 1;
+			validate = false;
+		}
+		else if (mCurrentColour.alpha < 0)
+		{
+			mCurrentColour.alpha = 0;
+			validate = false;
+		}
+
+		if (!validate)
+			value = MyGUI::utility::toString(mCurrentColour.alpha);
+
+		size_t index = _sender->getTextCursor();
+		_sender->setCaption(value);
+		_sender->setTextCursor(index);
+
+		mAlphaSlider->setScrollPosition((size_t)((double)(mAlphaSlider->getScrollRange() - 1) * (double)mCurrentColour.alpha));
+		mColourView->setAlpha(mCurrentColour.alpha);
+
+		eventPreviewColour(mCurrentColour);
+	}
+
+	void ColourPanel::notifyScrollChangePositionAlpha(MyGUI::VScroll* _sender, size_t _position)
+	{
+		mCurrentColour.alpha = (float)((double)mAlphaSlider->getScrollPosition() / (double)(mAlphaSlider->getScrollRange() - 1));
+
+		if (mCurrentColour.alpha > 1)
+			mCurrentColour.alpha = 1;
+		else if (mCurrentColour.alpha < 0)
+			mCurrentColour.alpha = 0;
+
+		mInputAlpha->setCaption(MyGUI::utility::toString(mCurrentColour.alpha));
+		mColourView->setAlpha(mCurrentColour.alpha);
+
+		eventPreviewColour(mCurrentColour);
 	}
 
 } // namespace tools
