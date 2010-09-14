@@ -13,15 +13,35 @@
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="195 7 22 177" align="Left VStretch">
-            <Widget type="VScroll" skin="VColourSlider" position="2 2 16 171" align="Stretch" name="scroll_Range">
-                <Property key="Range" value="512"/>
-                <Property key="RangePosition" value="0"/>
-                <Property key="Page" value="1"/>
-                <Property key="ViewPage" value="32"/>
+            <Widget type="StaticImage" skin="StaticImage" position="2 2 16 171" align="Stretch">
+                <Property key="ImageTexture" value="ColourSlider.png"/>
+                <Widget type="VScroll" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="scroll_Range">
+                    <Property key="Range" value="512"/>
+                    <Property key="RangePosition" value="0"/>
+                    <Property key="Page" value="1"/>
+                    <Property key="ViewPage" value="32"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSmall" position="230 7 22 177" align="Left VStretch">
+            <Widget type="Widget" skin="BackgroundTile" position="2 2 16 171" align="Stretch">
+                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
+                    <Property key="ImageTexture" value="AlphaSlider.png"/>
+                    <Widget type="VScroll" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="AlphaSlider">
+                        <Property key="Range" value="512"/>
+                        <Property key="RangePosition" value="0"/>
+                        <Property key="Page" value="1"/>
+                        <Property key="ViewPage" value="32"/>
+                    </Widget>
+                </Widget>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="395 74 107 107" align="Right Top">
-            <Widget type="Widget" skin="MarkerWhite" position="2 2 101 101" name="widget_ColourView"/>
+            <Widget type="Widget" skin="BackgroundTile" position="2 2 101 101" align="Stretch">
+                <Widget type="Widget" skin="MarkerWhite" position="0 0 101 101" name="widget_ColourView">
+                    <Property key="Alpha" value="0.5"/>
+                </Widget>
+            </Widget>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="260 61 73 26" align="Right Top">
             <Property key="TextAlign" value="Right VCenter"/>
@@ -56,6 +76,5 @@
         <Widget type="Button" skin="Button" position="395 41 107 26" align="Right Top" name="button_Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="230 7 22 177" align="Left VStretch"/>
     </Widget>
 </MyGUI>

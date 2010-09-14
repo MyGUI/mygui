@@ -136,6 +136,8 @@ namespace tools
 		mCurrentColour.blue = (1 - y) * (mBaseColour.blue * x + MyGUI::Colour::White.blue * (1 - x));
 
 		mColourView->setColour(mCurrentColour);
+		mAlphaSliderBack->setColour(mCurrentColour);
+
 		eventPreviewColour(mCurrentColour);
 
 		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
@@ -259,6 +261,8 @@ namespace tools
 		updateTexture(mBaseColour);
 
 		mColourView->setColour(mCurrentColour);
+		mAlphaSliderBack->setColour(mCurrentColour);
+
 		eventPreviewColour(mCurrentColour);
 	}
 
