@@ -80,6 +80,9 @@ namespace tools
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mCancel, "button_Cancel");
 		MyGUI::Button* mCancel;
 
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderBack, "AlphaSliderBack");
+		MyGUI::Widget* mAlphaSliderBack;
+
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mBaseColour;
 

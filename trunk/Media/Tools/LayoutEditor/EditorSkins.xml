@@ -2,6 +2,25 @@
 
 <MyGUI type="Resource" version="1.1">
 
+	<Resource type="ResourceSkin" name = "VSliderEmpty" size = "15 55" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value = "1 -1" />
+		<Property key="MinTrackSize" value = "7" />
+		<Property key="MoveToClick" value = "true" />
+		<Child type="Button" skin="Default" offset = "0 1 15 1" align = "Stretch" name = "FirstPart"/>
+		<Child type="Button" skin="Default" offset = "0 49 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+		<Child type="Button" skin="VScrollTrackSlider" offset = "1 18 15 7" align = "HStretch Top" name = "Track"/>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="BackgroundTile" size="32 32" texture="BackgroundTile.png">
+		<BasisSkin type="TileRect" offset="0 0 32 32" align="Stretch">
+			<State name="normal" offset="0 0 32 32">
+				<Property key="TileSize" value="32 32"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+	
 	<Resource type="ResourceSkin" name = "PositionRectangle" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="ToStick" value = "false" />
 		<Property key="MainMove" value = "true" />
