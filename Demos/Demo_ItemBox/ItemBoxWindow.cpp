@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "ItemBoxWindow.h"
 
 namespace demo

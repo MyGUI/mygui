@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Console.h"
 
 // внутри неймспейса demo почему то не линкуется, даже если указать абсолютные пути

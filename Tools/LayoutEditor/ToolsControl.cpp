@@ -1,3 +1,4 @@
+#include "Precompiled.h"
 #include "ToolsControl.h"
 
 namespace tools

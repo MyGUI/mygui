@@ -4,7 +4,7 @@
 	@date		09/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "InputManager.h"
 #include "../InputConverter.h"
 

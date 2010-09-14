@@ -4,7 +4,7 @@
 	@date		1/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "PointerManager.h"
 #include <MyGUI.h>
 

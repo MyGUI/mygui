@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "ColourWindowCellView.h"
 
 namespace demo

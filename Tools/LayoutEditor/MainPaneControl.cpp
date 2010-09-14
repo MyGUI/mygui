@@ -1,3 +1,4 @@
+#include "Precompiled.h"
 #include "MainPaneControl.h"
 
 namespace tools

@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "Application.h"
 #include "Base/Main.h"
 #include "SkinManager.h"

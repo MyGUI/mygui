@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "FriendPanel.h"
 
 namespace demo

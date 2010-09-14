@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "UnitTest_List.h"

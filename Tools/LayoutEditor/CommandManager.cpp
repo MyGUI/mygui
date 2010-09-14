@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "CommandManager.h"
 
 template <> tools::CommandManager* MyGUI::Singleton<tools::CommandManager>::msInstance = nullptr;

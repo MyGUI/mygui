@@ -1,3 +1,4 @@
+#include "Precompiled.h"
 #include "WorkspaceControl.h"
 #include "WidgetCreatorManager.h"
 

@@ -3,7 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "StateManager.h"
 
 template <> tools::StateManager* MyGUI::Singleton<tools::StateManager>::msInstance = nullptr;

@@ -4,7 +4,7 @@
 	@date		08/2008
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "BaseManager.h"
 #include <MyGUI_OgrePlatform.h>
 
