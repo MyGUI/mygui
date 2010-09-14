@@ -11,5 +11,4 @@
 	<List file="core_settings.xml"/>
 
 	<List file="EditorSkins.xml"/>
-	<List file="ColourSliderSkin.xml"/>
 </MyGUI>
