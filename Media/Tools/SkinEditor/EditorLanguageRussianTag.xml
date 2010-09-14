@@ -72,6 +72,7 @@
 	<Tag name="ColourRed">Красный</Tag>
 	<Tag name="ColourGreen">Зеленый</Tag>
 	<Tag name="ColourBlue">Синий</Tag>
+	<Tag name="ColourAlpha">Альфа</Tag>
 
 	<Tag name="Scale50">50 %</Tag>
 	<Tag name="Scale100">100 %</Tag>

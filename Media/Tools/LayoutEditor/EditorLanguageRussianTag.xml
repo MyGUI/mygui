@@ -79,4 +79,13 @@
 	<Tag name="CG_IncludeDirectory">Папка для заголовков</Tag>
 	<Tag name="CG_SourceDirectory">Папка для исходников</Tag>
 	<Tag name="CG_Generate">Сгенерировать</Tag>
+
+	<Tag name="ColourZero">Нет цвета</Tag>
+	<Tag name="ColourBlack">Черный</Tag>
+	<Tag name="ColourWhite">Белый</Tag>
+	<Tag name="ColourRed">Красный</Tag>
+	<Tag name="ColourGreen">Зеленый</Tag>
+	<Tag name="ColourBlue">Синий</Tag>
+	<Tag name="ColourAlpha">Альфа</Tag>
+	
 </MyGUI>

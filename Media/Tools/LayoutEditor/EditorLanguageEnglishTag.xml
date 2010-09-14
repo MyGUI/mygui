@@ -79,4 +79,13 @@
 	<Tag name="CG_IncludeDirectory">Include directory</Tag>
 	<Tag name="CG_SourceDirectory">Source directory</Tag>
 	<Tag name="CG_Generate">Generate</Tag>
+
+	<Tag name="ColourZero">Zero</Tag>
+	<Tag name="ColourBlack">Black</Tag>
+	<Tag name="ColourWhite">White</Tag>
+	<Tag name="ColourRed">Red</Tag>
+	<Tag name="ColourGreen">Green</Tag>
+	<Tag name="ColourBlue">Blue</Tag>
+	<Tag name="ColourAlpha">Alpha</Tag>
+	
 </MyGUI>

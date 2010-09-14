@@ -76,5 +76,14 @@
         <Widget type="Button" skin="Button" position="395 41 107 26" align="Right Top" name="button_Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
+        <Widget type="StaticText" skin="StaticText" position="260 89 73 26" align="Right Top">
+            <Property key="Caption" value="#{ColourAlpha}"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="338 89 44 26" align="Right Top" name="InputAlpha">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="Caption" value="0.5"/>
+            <Property key="MaxTextLength" value="4"/>
+        </Widget>
     </Widget>
 </MyGUI>
