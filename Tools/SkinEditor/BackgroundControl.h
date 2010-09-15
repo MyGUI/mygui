@@ -20,34 +20,15 @@ namespace tools
 		BackgroundControl(MyGUI::Widget* _parent);
 		virtual ~BackgroundControl();
 
-		MyGUI::Widget* getCanvas()
-		{
-			return mCanvas;
-		}
+		MyGUI::Widget* getCanvas();
 
 	private:
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-
-		void notifyChangePosition();
-		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyPreviewColour(const MyGUI::Colour& _value);
-
-		void fillColours(MyGUI::ComboBox* _combo);
-		void updateColourByPresets();
-
-		void updateColours();
+		void setColour(const MyGUI::Colour& _colour);
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 	private:
-		MyGUI::ComboBox* mBackgroundColour;
 		MyGUI::Widget* mBackground;
-		MyGUI::Widget* mBackgroundButton;
 		MyGUI::Widget* mCanvas;
-
-		ColourPanel* mColourPanel;
-
-		MyGUI::Colour mCurrentColour;
-		MyGUI::Colour mPreviewColour;
 	};
 
 } // namespace tools

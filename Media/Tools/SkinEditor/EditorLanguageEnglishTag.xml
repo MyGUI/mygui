@@ -10,6 +10,11 @@
 	<Tag name="Export">Export</Tag>
 	<Tag name="RecentFiles">Recent Files </Tag>
 	<Tag name="Quit">Quit</Tag>
+	
+	<Tag name="MenuColours">Colours</Tag>
+	<Tag name="MenuColourBackground">Background colour ...</Tag>
+	<Tag name="MenuColourSelector">Selector colour ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Inactive selector colour ...</Tag>
 
 	<Tag name="Add">Add</Tag>
 	<Tag name="Create">Create</Tag>

@@ -5,9 +5,11 @@
 */
 #include "Precompiled.h"
 #include "SelectorControl.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
+
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1.0),
@@ -29,12 +31,14 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 	}
 
 	SelectorControl::~SelectorControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -157,6 +161,28 @@ namespace tools
 		if (window != nullptr)
 			return window->getActionScale();
 		return MyGUI::IntCoord();
+	}
+
+	void SelectorControl::setColour(MyGUI::Colour _value)
+	{
+		mMainWidget->setColour(_value);
+		mMainWidget->setAlpha(_value.alpha);
+	}
+
+	void SelectorControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (!mPropertyColour.empty() && _sectorName == "Settings" && _propertyName == mPropertyColour)
+		{
+			MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
+			setColour(colour);
+		}
+	}
+
+	void SelectorControl::setPropertyColour(const std::string& _propertyName)
+	{
+		mPropertyColour = _propertyName;
+		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
+		setColour(colour);
 	}
 
 } // namespace tools

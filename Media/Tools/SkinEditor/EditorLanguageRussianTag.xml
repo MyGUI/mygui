@@ -11,6 +11,11 @@
 	<Tag name="RecentFiles">Предыдущие файлы </Tag>
 	<Tag name="Quit">Выход</Tag>
 
+	<Tag name="MenuColours">Цвета</Tag>
+	<Tag name="MenuColourBackground">Цвет фона ...</Tag>
+	<Tag name="MenuColourSelector">Цвет рамки ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Цвет неактивной рамки ...</Tag>
+
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Create">Создать</Tag>
 	<Tag name="Delete">Удалить</Tag>

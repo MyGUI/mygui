@@ -37,11 +37,17 @@ namespace tools
 
 		EventHandle_ChangePosition eventChangePosition;
 
+	protected:
+		void setPropertyColour(const std::string& _propertyName);
+
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 		void notifyFrameStart(float _time);
 
+		void setColour(MyGUI::Colour _value);
 		void updateCoord();
+
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 	private:
 		MyGUI::IntCoord mCoordValue;
@@ -50,6 +56,7 @@ namespace tools
 		bool mPositionChanged;
 		MyGUI::Widget* mProjection;
 		MyGUI::IntCoord mProjectionDiff;
+		std::string mPropertyColour;
 	};
 
 } // namespace tools

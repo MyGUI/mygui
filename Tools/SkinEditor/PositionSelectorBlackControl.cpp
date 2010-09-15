@@ -10,8 +10,9 @@ namespace tools
 {
 
 	PositionSelectorBlackControl::PositionSelectorBlackControl(MyGUI::Widget* _parent) :
-		SelectorControl("PositionSelectorBlackControl.layout", _parent)
+		SelectorControl("PositionSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelectorInactive");
 	}
 
 	PositionSelectorBlackControl::~PositionSelectorBlackControl()
