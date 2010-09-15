@@ -4,5 +4,8 @@
 		<Property key="Grid" value="5"/>
 		<Property key="MaxRecentFolders" value="10"/>
 		<Property key="MaxRecentFiles" value="10"/>
+		<Property key="ColourBackground" value="0 0 0 0"/>
+		<Property key="ColourSelector" value="0 1 0 1"/>
+		<Property key="ColourSelectorInactive" value="0 0 0 0.5"/>
 	</Settings>
 </MyGUI>

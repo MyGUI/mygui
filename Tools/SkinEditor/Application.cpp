@@ -17,6 +17,7 @@
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
+#include "ColourManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -80,6 +81,9 @@ namespace tools
 		new StateManager();
 		StateManager::getInstance().initialise();
 
+		new ColourManager();
+		ColourManager::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -117,6 +121,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+
+		ColourManager::getInstance().shutdown();
+		delete ColourManager::getInstancePtr();
 
 		StateManager::getInstance().shutdown();
 		delete StateManager::getInstancePtr();

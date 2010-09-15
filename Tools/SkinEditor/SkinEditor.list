@@ -76,6 +76,7 @@ set (HEADER_FILES
   SettingsResourcesControl.h
   SettingsResourcePathsControl.h
   SettingsGeneralControl.h
+  ColourManager.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -149,6 +150,7 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsGeneralControl.cpp
+  ColourManager.cpp
   ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
 )

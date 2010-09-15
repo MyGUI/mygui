@@ -12,6 +12,7 @@ namespace tools
 	VerticalSelectorControl::VerticalSelectorControl(MyGUI::Widget* _parent) :
 		SelectorControl("VerticalSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelector");
 	}
 
 	VerticalSelectorControl::~VerticalSelectorControl()
