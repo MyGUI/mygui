@@ -78,19 +78,6 @@ namespace MyGUI
 
 
 
-   	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
    
 
 
@@ -101,73 +88,6 @@ namespace MyGUI
 
 
    
-
-
-   
-
-
-   
-
-
-   	public:
-		property Convert<bool>::Type MoveToClick
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getMoveToClick() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMoveToClick( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<int>::Type MinTrackSize
-		{
-			Convert<int>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getMinTrackSize() );
-			}
-			void set(Convert<int>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMinTrackSize( Convert<int>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<int>::Type TrackSize
-		{
-			Convert<int>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getTrackSize() );
-			}
-			void set(Convert<int>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTrackSize( Convert<int>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		Convert<int>::Type GetLineSize( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getLineSize( ) );
-		}
-
 
 
    	public:
@@ -188,40 +108,6 @@ namespace MyGUI
 
 
    	public:
-		property Convert<size_t>::Type ScrollPage
-		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getScrollPage() );
-			}
-			void set(Convert<size_t>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setScrollPage( Convert<size_t>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<size_t>::Type ScrollPosition
-		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getScrollPosition() );
-			}
-			void set(Convert<size_t>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setScrollPosition( Convert<size_t>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
 		property Convert<size_t>::Type ScrollRange
 		{
 			Convert<size_t>::Type get( )
@@ -236,15 +122,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
 
 
 		};

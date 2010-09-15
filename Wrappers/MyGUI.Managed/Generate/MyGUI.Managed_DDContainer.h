@@ -258,45 +258,6 @@ namespace MyGUI
 
 
 
-   	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		property Convert<bool>::Type NeedDragDrop
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getNeedDragDrop() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setNeedDragDrop( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

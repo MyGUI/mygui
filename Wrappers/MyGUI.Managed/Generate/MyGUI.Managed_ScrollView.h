@@ -40,22 +40,6 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   
-
-
-   	public:
 		void SetCanvasSize(
 			Convert<int>::Type _width ,
 			Convert<int>::Type _height )
@@ -103,23 +87,6 @@ namespace MyGUI
 
 
    	public:
-		property Convert<bool>::Type VisibleHScroll
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isVisibleHScroll() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setVisibleHScroll( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
 		property Convert<bool>::Type VisibleVScroll
 		{
 			Convert<bool>::Type get( )
@@ -134,30 +101,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
 
 
    
