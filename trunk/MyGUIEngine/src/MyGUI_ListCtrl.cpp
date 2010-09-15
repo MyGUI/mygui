@@ -788,7 +788,8 @@ namespace MyGUI
 
 		if (mContentSize.height <= _getClientWidget()->getHeight()) return;
 
-		if (offset >= mContentSize.height - _getClientWidget()->getHeight()) offset = mContentSize.height - _getClientWidget()->getHeight();
+		if (mContentSize.height <= _getClientWidget()->getHeight()) offset = 0;
+		else if (offset >= mContentSize.height - _getClientWidget()->getHeight()) offset = mContentSize.height - _getClientWidget()->getHeight();
 		else if (offset < 0) offset = 0;
 
 		if (mContentPosition.top == offset) return;
