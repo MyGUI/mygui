@@ -29,6 +29,8 @@ namespace demo
 		void destroyWindows();
 		void createWindows();
 		virtual void setupResources();
+		void removeRenderBoxes();
+		void createRenderBox(MyGUI::Canvas* _canvas);
 
 	private:
 		EditorWindow * mEditorWindow;

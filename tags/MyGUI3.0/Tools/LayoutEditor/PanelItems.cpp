@@ -12,6 +12,14 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
+
 #define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 PanelItems::PanelItems() :

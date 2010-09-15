@@ -58,6 +58,7 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
+		removeRenderBoxes();
 		destroyWindows();
 
 		delete mEditorWindow;
@@ -101,16 +102,7 @@ namespace demo
 		}
 		else if (_action == MainPanel::EventNew)
 		{
-
-#ifdef MYGUI_OGRE_PLATFORM
-
-			for (std::vector<wraps::RenderBox*>::iterator item=mRenderBoxes.begin(); item!=mRenderBoxes.end(); ++item)
-			{
-				delete *item;
-			}
-			mRenderBoxes.clear();
-
-#endif // MYGUI_OGRE_PLATFORM
+			removeRenderBoxes();
 
 			destroyWindows();
 			mEditorWindow->clearView();
@@ -169,18 +161,29 @@ namespace demo
 				window->setCaption("Render");
 				MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
-#ifdef MYGUI_OGRE_PLATFORM
-
-				wraps::RenderBox* box = new wraps::RenderBox();
-				box->setCanvas(canvas);
-				box->setViewport(getCamera());
-				box->setBackgroundColour(MyGUI::Colour::Black);
-				mRenderBoxes.push_back(box);
-
-#endif // MYGUI_OGRE_PLATFORM
-
+				createRenderBox(canvas);
 			}
 		}
+	}
+
+	void DemoKeeper::removeRenderBoxes()
+	{
+#ifdef MYGUI_OGRE_PLATFORM
+		for (std::vector<wraps::RenderBox*>::iterator item = mRenderBoxes.begin(); item != mRenderBoxes.end(); ++item)
+			delete *item;
+		mRenderBoxes.clear();
+#endif // MYGUI_OGRE_PLATFORM
+	}
+
+	void DemoKeeper::createRenderBox(MyGUI::Canvas* _canvas)
+	{
+#ifdef MYGUI_OGRE_PLATFORM
+		wraps::RenderBox* box = new wraps::RenderBox();
+		box->setCanvas(_canvas);
+		box->setViewport(getCamera());
+		box->setBackgroundColour(MyGUI::Colour::Black);
+		mRenderBoxes.push_back(box);
+#endif // MYGUI_OGRE_PLATFORM
 	}
 
 } // namespace demo

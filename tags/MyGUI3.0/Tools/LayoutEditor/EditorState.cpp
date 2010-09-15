@@ -1,11 +1,19 @@
 #include "precompiled.h"
+
 #include "Common.h"
 #include "EditorState.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "Base/Main.h"
 #include "GroupMessage.h"
+#include "Base/Main.h"
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
 
 const std::string LogSection = "LayoutEditor";
 
@@ -33,6 +41,7 @@ private:
 //===================================================================================
 void EditorState::setupResources()
 {
+	//::_CrtSetBreakAlloc(28046);
 	base::BaseManager::setupResources();
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");

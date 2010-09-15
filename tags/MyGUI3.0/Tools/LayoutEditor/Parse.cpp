@@ -8,6 +8,14 @@
 #include "precompiled.h"
 #include "Parse.h"
 
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
+
 namespace Parse
 {
 

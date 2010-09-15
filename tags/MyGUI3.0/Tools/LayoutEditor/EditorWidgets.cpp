@@ -5,6 +5,14 @@
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
 
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
+
 const std::string LogSection = "LayoutEditor";
 
 //MYGUI_INSTANCE_IMPLEMENT( EditorWidgets )
@@ -87,7 +95,8 @@ void EditorWidgets::initialise()
 
 void EditorWidgets::shutdown()
 {
-	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter) delete *iter;
+	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
+		delete *iter;
 	widgets.clear();
 }
 
@@ -227,7 +236,13 @@ void EditorWidgets::remove(WidgetContainer * _container)
 	{
 		if (nullptr == _container->widget->getParent())
 		{
-			widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
+			std::vector<WidgetContainer*>::iterator item = std::find(widgets.begin(), widgets.end(), _container);
+			if (item != widgets.end())
+			{
+				//FIXME
+				//delete *item;
+				widgets.erase(item);
+			}
 		}
 		else
 		{
