@@ -134,12 +134,10 @@ namespace wraps
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 		{
-			if (_info.type == MyGUI::ToolTipInfo::Show)
-			{
-				if (_info.index == MyGUI::ITEM_NONE)
-					return;
-			}
-			eventToolTip(this, _info, *mBoxItems->getItemDataAt<DataType>(_info.index));
+			if (_info.index == MyGUI::ITEM_NONE)
+				eventToolTip(this, _info, DataType());
+			else
+				eventToolTip(this, _info, *mBoxItems->getItemDataAt<DataType>(_info.index));
 		}
 
 	public:
