@@ -4,7 +4,7 @@
         <Property key="Widget_Caption" value="PanelView demo"/>
         <Property key="Window_MinSize" value="200 150"/>
         <Widget type="ScrollView" skin="ScrollView" position="2 2 219 504" align="Stretch" name="scroll_View">
-            <Property key="ScrollView_HScroll" value="false"/>
+            <Property key="ScrollView_VisibleHScroll" value="false"/>
         </Widget>
     </Widget>
 </MyGUI>

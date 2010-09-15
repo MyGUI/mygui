@@ -33,9 +33,9 @@
 
 namespace MyGUI
 {
-
 	const std::string XML_TYPE("Skin");
 	const std::string XML_TYPE_RESOURCE("Resource");
+	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
 	MYGUI_INSTANCE_IMPLEMENT( SkinManager )
@@ -48,7 +48,7 @@ namespace MyGUI
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
 		FactoryManager::getInstance().registerFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
-		mDefaultName = "skin_Default";
+		mDefaultName = "Default";
 		createDefault(mDefaultName);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -76,19 +76,29 @@ namespace MyGUI
 	{
 		// берем детей и крутимся, основной цикл со скинами
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
-		while (skin.next(XML_TYPE))
+		while (skin.next())
 		{
-			std::string name = skin->findAttribute("name");
-			std::string type = skin->findAttribute("type");
-			if (type.empty()) type = "ResourceSkin";
-
-			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
-			if (object != nullptr)
+			if (skin->getName() == XML_TYPE)
 			{
-				ResourceSkin* data = object->castType<ResourceSkin>();
-				data->deserialization(skin.current(), _version);
+				std::string name = skin->findAttribute("name");
+				std::string type = skin->findAttribute("type");
+				if (type.empty()) type = "ResourceSkin";
 
-				ResourceManager::getInstance().addResource(data);
+				IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
+				if (object != nullptr)
+				{
+					ResourceSkin* data = object->castType<ResourceSkin>();
+					data->deserialization(skin.current(), _version);
+
+					ResourceManager::getInstance().addResource(data);
+				}
+			}
+			else if (skin->getName() == XML_TYPE_PROPERTY)
+			{
+				const std::string& key = skin->findAttribute("key");
+				const std::string& value = skin->findAttribute("value");
+				if (key == "Default")
+					mDefaultName = value;
 			}
 		}
 	}
@@ -111,10 +121,7 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)
-		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
-			MYGUI_LOG(Error, "Skin '" << _name << "' not found. Replaced with default skin.");
-		}
 
 		return result ? result->castType<ResourceSkin>(false) : nullptr;
 	}
