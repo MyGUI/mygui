@@ -5,7 +5,7 @@
 	@module
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "InputManager.h"
 #include "../InputConverter.h"
 
