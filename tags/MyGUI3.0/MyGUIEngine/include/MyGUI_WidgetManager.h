@@ -75,6 +75,9 @@ namespace MyGUI
 
 		bool isFactoryExist(const std::string& _type);
 
+	/*internal:*/
+		void _oldParse(Widget* _widget, const std::string &_key, const std::string &_value);
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

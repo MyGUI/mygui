@@ -761,6 +761,9 @@ void EditorState::notifyEndTest()
 	testMode = false;
 	clear(false);
 	ew->loadxmlDocument(testLayout);
+
+	delete testLayout;
+	testLayout = nullptr;
 }
 
 void EditorState::notifyClear()

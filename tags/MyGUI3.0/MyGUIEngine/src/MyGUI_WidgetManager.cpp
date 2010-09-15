@@ -293,4 +293,16 @@ namespace MyGUI
 		if (iter != mDelegates.end()) mDelegates.erase(iter);
 	}
 #endif // MYGUI_DONT_USE_OBSOLETE
+
+	void WidgetManager::_oldParse(Widget* _widget, const std::string &_key, const std::string &_value)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter == mDelegates.end())
+		{
+			_widget->setProperty(_key, _value);
+			return;
+		}
+		iter->second(_widget, _key, _value);
+	}
+
 } // namespace MyGUI
