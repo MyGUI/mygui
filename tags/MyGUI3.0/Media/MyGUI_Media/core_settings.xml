@@ -2,6 +2,10 @@
 
 <MyGUI>
 
+	<MyGUI type="Skin">
+		<Property key="Default" value="PanelEmpty"/>
+	</MyGUI>
+
 	<MyGUI type="Font">
 		<Property key="Default" value="font_DejaVuSans.17"/>
 	</MyGUI>

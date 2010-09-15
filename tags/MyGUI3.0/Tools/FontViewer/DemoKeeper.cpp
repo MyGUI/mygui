@@ -29,7 +29,7 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
 
-		getGUI()->load("external.xml");
+		getGUI()->load("external_resources.xml");
 
 		mFontPanel = new FontPanel();
 	}
