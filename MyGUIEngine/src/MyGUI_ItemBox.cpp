@@ -740,8 +740,12 @@ namespace MyGUI
 			if (_rel < 0) offset += mSizeItem.height;
 			else offset -= mSizeItem.height;
 
-			if (offset >= mContentSize.height - _getClientWidget()->getHeight()) offset = mContentSize.height - _getClientWidget()->getHeight();
-			else if (offset < 0) offset = 0;
+			if (mContentSize.height <= _getClientWidget()->getHeight())
+				offset = 0;
+			else if (offset >= mContentSize.height - _getClientWidget()->getHeight())
+				offset = mContentSize.height - _getClientWidget()->getHeight();
+			else if (offset < 0)
+				offset = 0;
 
 			if (mContentPosition.top == offset) return;
 
@@ -759,8 +763,12 @@ namespace MyGUI
 			if (_rel < 0) offset += mSizeItem.width;
 			else  offset -= mSizeItem.width;
 
-			if (offset >= mContentSize.width - _getClientWidget()->getWidth()) offset = mContentSize.width - _getClientWidget()->getWidth();
-			else if (offset < 0) offset = 0;
+			if (mContentSize.width <= _getClientWidget()->getWidth())
+				offset = 0;
+			else if (offset >= mContentSize.width - _getClientWidget()->getWidth())
+				offset = mContentSize.width - _getClientWidget()->getWidth();
+			else if (offset < 0)
+				offset = 0;
 
 			if (mContentPosition.left == offset) return;
 
