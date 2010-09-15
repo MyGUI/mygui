@@ -29,6 +29,17 @@ struct WidgetContainer
 		relative_mode(false)
 	{ }
 
+	~WidgetContainer()
+	{
+		for (std::vector<WidgetContainer*>::iterator iter = childContainers.begin(); iter != childContainers.end(); ++iter)
+			delete *iter;
+		childContainers.clear();
+
+		for (std::vector<ControllerInfo*>::iterator iter = mController.begin(); iter != mController.end(); ++iter)
+			delete *iter;
+		mController.clear();
+	}
+
 	MyGUI::Widget* widget;
 	std::vector<WidgetContainer*> childContainers;
 	StringPairs mProperty;

@@ -209,7 +209,12 @@ void EditorWidgets::add(WidgetContainer * _container)
 		while (NULL == containerParent)
 		{
 			parent = parent->getParent();
-			if (parent == nullptr) return;
+			if (parent == nullptr)
+			{
+				// такого не должно быть, или утечка памяти,
+				// так как удалять нельзя им пользуется код вызывающий данную функцию
+				return;
+			}
 			containerParent = find(parent);
 		}
 		containerParent->childContainers.push_back(_container);
@@ -238,11 +243,7 @@ void EditorWidgets::remove(WidgetContainer * _container)
 		{
 			std::vector<WidgetContainer*>::iterator item = std::find(widgets.begin(), widgets.end(), _container);
 			if (item != widgets.end())
-			{
-				//FIXME
-				//delete *item;
 				widgets.erase(item);
-			}
 		}
 		else
 		{
@@ -448,7 +449,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 		{
 			// для поддержки старых пропертей
 #ifndef MYGUI_DONT_USE_OBSOLETE
-			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
+			MyGUI::WidgetManager::getInstance()._oldParse(_widget, _key, _value);
 #else
 			_widget->setProperty(_key, _value);
 #endif
