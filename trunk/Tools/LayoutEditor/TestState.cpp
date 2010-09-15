@@ -31,6 +31,9 @@ namespace tools
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+		delete mTestLayout;
+		mTestLayout = nullptr;
 	}
 
 	void TestState::cleanupState()
@@ -40,6 +43,9 @@ namespace tools
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, false);
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+		delete mTestLayout;
+		mTestLayout = nullptr;
 	}
 
 	void TestState::pauseState()

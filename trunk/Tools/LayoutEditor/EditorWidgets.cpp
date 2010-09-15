@@ -209,7 +209,11 @@ namespace tools
 				{
 					parent = parent->getParent();
 					if (parent == nullptr)
+					{
+						// такого не должно быть, или утечка памяти,
+						// так как удалять нельзя им пользуется код вызывающий данную функцию
 						return;
+					}
 					containerParent = find(parent);
 				}
 
