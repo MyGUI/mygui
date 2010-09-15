@@ -79,36 +79,6 @@ namespace MyGUI
 
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		property Convert<bool>::Type SmoothShow
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getSmoothShow() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setSmoothShow( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
 		property Convert<bool>::Type ButtonAutoWidth
 		{
 			Convert<bool>::Type get( )
@@ -126,23 +96,6 @@ namespace MyGUI
 
 
    	public:
-		property Convert<int>::Type ButtonDefaultWidth
-		{
-			Convert<int>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getButtonDefaultWidth() );
-			}
-			void set(Convert<int>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setButtonDefaultWidth( Convert<int>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
 		Convert<int>::Type GetButtonWidth(
 			Convert<MyGUI::TabItem *>::Type _item )
 		{
@@ -150,18 +103,6 @@ namespace MyGUI
 			return Convert<int>::To(
 				static_cast<ThisType*>(mNative)->getButtonWidth(
 					Convert<MyGUI::TabItem *>::From(_item) ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetButtonWidthAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getButtonWidthAt(
-					Convert<size_t>::From(_index) ) );
 		}
 
 
@@ -188,24 +129,6 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setButtonWidthAt(
 				Convert<size_t>::From(_index) ,
 				Convert<int>::From(_width) );
-		}
-
-
-
-   	public:
-		void BeginToItemSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemSelected( );
-		}
-
-
-
-   	public:
-		void BeginToItemLast( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemLast( );
 		}
 
 
@@ -242,18 +165,6 @@ namespace MyGUI
 
 
    	public:
-		Convert<const MyGUI::UString &>::Type GetItemName(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::UString &>::To(
-				static_cast<ThisType*>(mNative)->getItemName(
-					Convert<MyGUI::TabItem *>::From(_item) ) );
-		}
-
-
-
-   	public:
 		Convert<const MyGUI::UString &>::Type GetItemNameAt(
 			Convert<size_t>::Type _index )
 		{
@@ -261,19 +172,6 @@ namespace MyGUI
 			return Convert<const MyGUI::UString &>::To(
 				static_cast<ThisType*>(mNative)->getItemNameAt(
 					Convert<size_t>::From(_index) ) );
-		}
-
-
-
-   	public:
-		void SetItemName(
-			Convert<MyGUI::TabItem *>::Type _item ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemName(
-				Convert<MyGUI::TabItem *>::From(_item) ,
-				Convert<const MyGUI::UString &>::From(_name) );
 		}
 
 
@@ -292,41 +190,6 @@ namespace MyGUI
 
 
    	public:
-		Convert<MyGUI::Any>::Type GetItemData(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemData< ObjectHolder >(
-				Convert<MyGUI::TabItem *>::From(_item) , false );
-			return data ? data->toObject() : nullptr;
-		}
-
-
-
-   	public:
-		Convert<MyGUI::Any>::Type GetItemDataAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemDataAt< ObjectHolder >(
-				Convert<size_t>::From(_index) , false );
-			return data ? data->toObject() : nullptr;
-		}
-
-
-
-   	public:
-		void ClearItemData(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearItemData(
-				Convert<MyGUI::TabItem *>::From(_item) );
-		}
-
-
-
-   	public:
 		void ClearItemDataAt(
 			Convert<size_t>::Type _index )
 		{
@@ -335,49 +198,6 @@ namespace MyGUI
 				Convert<size_t>::From(_index) );
 		}
 
-
-
-   	public:
-		void SetItemData(
-			Convert<MyGUI::TabItem *>::Type _item ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemData(
-				Convert<MyGUI::TabItem *>::From(_item) ,
-				Convert<MyGUI::Any>::From(_data) );
-		}
-
-
-
-   	public:
-		void SetItemDataAt(
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemDataAt(
-				Convert<size_t>::From(_index) ,
-				Convert<MyGUI::Any>::From(_data) );
-		}
-
-
-
-   	public:
-		property Convert<MyGUI::TabItem *>::Type ItemSelected
-		{
-			Convert<MyGUI::TabItem *>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::TabItem *>::To( static_cast<ThisType*>(mNative)->getItemSelected() );
-			}
-			void set(Convert<MyGUI::TabItem *>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemSelected( Convert<MyGUI::TabItem *>::From(_value) );
-			}
-		}
-	
 
 
    	public:
@@ -398,18 +218,6 @@ namespace MyGUI
 
 
    	public:
-		Convert<MyGUI::TabItem *>::Type FindItemWith(
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::TabItem *>::To(
-				static_cast<ThisType*>(mNative)->findItemWith(
-					Convert<const MyGUI::UString &>::From(_name) ) );
-		}
-
-
-
-   	public:
 		Convert<size_t>::Type FindItemIndexWith(
 			Convert<const MyGUI::UString &>::Type _name )
 		{
@@ -422,68 +230,10 @@ namespace MyGUI
 
 
    	public:
-		Convert<size_t>::Type FindItemIndex(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->findItemIndex(
-					Convert<MyGUI::TabItem *>::From(_item) ) );
-		}
-
-
-
-   	public:
-		Convert<size_t>::Type GetItemIndex(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemIndex(
-					Convert<MyGUI::TabItem *>::From(_item) ) );
-		}
-
-
-
-   	public:
-		Convert<MyGUI::TabItem *>::Type GetItemAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::TabItem *>::To(
-				static_cast<ThisType*>(mNative)->getItemAt(
-					Convert<size_t>::From(_index) ) );
-		}
-
-
-
-   	public:
 		void RemoveAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeAllItems( );
-		}
-
-
-
-   	public:
-		void RemoveItem(
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItem(
-				Convert<MyGUI::TabItem *>::From(_item) );
-		}
-
-
-
-   	public:
-		void RemoveItemAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItemAt(
-				Convert<size_t>::From(_index) );
 		}
 
 
@@ -564,24 +314,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
 
 
    

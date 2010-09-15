@@ -125,82 +125,7 @@ namespace MyGUI
 
 
 
-   	public:
-		property Convert<bool>::Type Snap
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getSnap() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setSnap( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
    
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
-		void SetMaxSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMaxSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		property Convert<MyGUI::types::TSize< int >>::Type MaxSize
-		{
-			Convert<MyGUI::types::TSize< int >>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::types::TSize< int >>::To( static_cast<ThisType*>(mNative)->getMaxSize() );
-			}
-			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		void SetMinSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMinSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
-
 
 
    	public:
@@ -220,48 +145,7 @@ namespace MyGUI
 	
 
 
-   	public:
-		Convert<MyGUI::Widget *>::Type GetCaptionWidget( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::Widget *>::To(
-				static_cast<ThisType*>(mNative)->getCaptionWidget( ) );
-		}
-
-
-
    
-
-
-   	public:
-		property Convert<bool>::Type AutoAlpha
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getAutoAlpha() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setAutoAlpha( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   
-
-
-   	public:
-		void SetVisibleSmooth(
-			Convert<bool>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setVisibleSmooth(
-				Convert<bool>::From(_value) );
-		}
-
 
 
    

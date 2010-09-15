@@ -146,9 +146,6 @@ namespace MyGUI
    
 
 
-   
-
-
 		};
 
 	} // namespace Managed
