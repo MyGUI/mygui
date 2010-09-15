@@ -5,7 +5,7 @@
 	@module
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "PointerManager.h"
 #include <MyGUI.h>
 

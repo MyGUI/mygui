@@ -4,7 +4,7 @@
 	@date		05/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "BaseManager.h"
 #include <MyGUI_DirectXPlatform.h>
 
