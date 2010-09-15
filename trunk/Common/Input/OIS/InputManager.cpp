@@ -4,7 +4,7 @@
 	@date		09/2009
 */
 
-#include "precompiled.h"
+#include "Precompiled.h"
 #include "InputManager.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
