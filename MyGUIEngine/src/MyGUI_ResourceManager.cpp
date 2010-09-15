@@ -60,6 +60,11 @@ namespace MyGUI
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
 
 		clear();
+
+		for (VectorResource::iterator item = mRemovedResoures.begin(); item != mRemovedResoures.end(); ++ item)
+			delete (*item);
+		mRemovedResoures.clear();
+
 		unregisterLoadXmlDelegate(XML_TYPE);
 		unregisterLoadXmlDelegate(XML_TYPE_LIST);
 
@@ -89,6 +94,9 @@ namespace MyGUI
 			root->findAttribute("name", name);
 			root->findAttribute("id", id);
 
+			if (name.empty())
+				continue;
+
 			Guid guid(id);
 			if (!guid.empty())
 			{
@@ -98,9 +106,14 @@ namespace MyGUI
 				}
 			}
 
-			if (mResources.find(name) != mResources.end())
+			MapResource::iterator item = mResources.find(name);
+			if (item != mResources.end())
 			{
 				MYGUI_LOG(Warning, "dublicate resource name '" << name << "'");
+
+				// ресурсами могут пользоваться
+				mRemovedResoures.push_back((*item).second);
+				mResources.erase(item);
 			}
 
 			vector_guid.push_back(guid);
@@ -116,7 +129,7 @@ namespace MyGUI
 			resource->deserialization(root.current(), _version);
 
 			if (!guid.empty()) mResourcesID[guid] = resource;
-			if (!name.empty()) mResources[name] = resource;
+			mResources[name] = resource;
 		}
 
 		if (!vector_guid.empty())
@@ -261,12 +274,31 @@ namespace MyGUI
 	void ResourceManager::addResource(IResourcePtr _item)
 	{
 		if (!_item->getResourceName().empty())
+		{
+			MapResource::iterator item = mResources.find(_item->getResourceName());
+			if (item != mResources.end())
+			{
+				MYGUI_LOG(Warning, "dublicate resource name '" << _item->getResourceName() << "'");
+
+				// ресурсами могут пользоваться
+				mRemovedResoures.push_back((*item).second);
+				mResources.erase(item);
+			}
+
 			mResources[_item->getResourceName()] = _item;
+		}
+		else
+		{
+			delete _item;
+			return;
+		}
+
+
 		if (!_item->getResourceID().empty())
 			mResourcesID[_item->getResourceID()] = _item;
 	}
 
-	void ResourceManager::removeResource(IResourcePtr _item)
+	/*void ResourceManager::removeResource(IResourcePtr _item)
 	{
 		if (_item == nullptr) return;
 
@@ -283,6 +315,6 @@ namespace MyGUI
 			if (id != mResourcesID.end())
 				mResourcesID.erase(id);
 		}
-	}
+	}*/
 
 } // namespace MyGUI

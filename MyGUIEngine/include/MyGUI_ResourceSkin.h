@@ -41,6 +41,7 @@ namespace MyGUI
 
 	public:
 		ResourceSkin();
+		virtual ~ResourceSkin();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 

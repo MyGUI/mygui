@@ -233,6 +233,9 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
+		delete mSampleLayout;
+		mSampleLayout = nullptr;
+
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		factory.unregisterFactory<MyGUI::TreeControl>("Widget");
 		factory.unregisterFactory<MyGUI::TreeControlItem>("Widget");

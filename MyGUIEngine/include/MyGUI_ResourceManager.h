@@ -60,7 +60,7 @@ namespace MyGUI
 
 		void addResource(IResourcePtr _item);
 
-		void removeResource(IResourcePtr _item);
+		//void removeResource(IResourcePtr _item);
 
 		typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
 
@@ -95,6 +95,9 @@ namespace MyGUI
 		typedef std::map<std::string, VectorGuid> MapVectorString;
 
 		MapVectorString mListFileGuid;
+
+		typedef std::vector<IResourcePtr> VectorResource;
+		VectorResource mRemovedResoures;
 	};
 
 } // namespace MyGUI

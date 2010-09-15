@@ -20,7 +20,11 @@
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	int main(int argc, char **argv);
+#ifdef MYGUI_CHECK_MEMORY_LEAKS
+	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); return main(1, &strCmdLine); }
+#else
 	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
+#endif
 	void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
 #else
 	void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }

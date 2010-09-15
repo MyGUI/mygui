@@ -11,6 +11,14 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifdef MYGUI_CHECK_MEMORY_LEAKS
+#		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+#		define new DEBUG_NEW
+#	endif
+#endif
+
 extern const int PropertyItemHeight = 22;
 
 PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
