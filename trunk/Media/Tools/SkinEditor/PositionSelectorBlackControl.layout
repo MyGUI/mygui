@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Window" skin="PositionBorderWhite" position="32 56 136 112" align="Default" layer="Popup" name="_Main">
-        <Property key="NeedMouse" value="false"/>
-        <Property key="Alpha" value="0.5"/>
-		<Property key="Colour" value="0 0 0"/>
-	</Widget>
-</MyGUI>

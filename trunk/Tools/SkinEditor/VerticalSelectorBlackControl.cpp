@@ -10,8 +10,9 @@ namespace tools
 {
 
 	VerticalSelectorBlackControl::VerticalSelectorBlackControl(MyGUI::Widget* _parent) :
-		SelectorControl("VerticalSelectorBlackControl.layout", _parent)
+		SelectorControl("VerticalSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelectorInactive");
 	}
 
 	VerticalSelectorBlackControl::~VerticalSelectorBlackControl()

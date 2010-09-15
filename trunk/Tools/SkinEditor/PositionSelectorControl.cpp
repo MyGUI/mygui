@@ -12,6 +12,7 @@ namespace tools
 	PositionSelectorControl::PositionSelectorControl(MyGUI::Widget* _parent) :
 		SelectorControl("PositionSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelector");
 	}
 
 	PositionSelectorControl::~PositionSelectorControl()

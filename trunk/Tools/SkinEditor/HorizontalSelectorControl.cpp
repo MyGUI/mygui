@@ -12,6 +12,7 @@ namespace tools
 	HorizontalSelectorControl::HorizontalSelectorControl(MyGUI::Widget* _parent) :
 		SelectorControl("HorizontalSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelector");
 	}
 
 	HorizontalSelectorControl::~HorizontalSelectorControl()

@@ -10,8 +10,9 @@ namespace tools
 {
 
 	HorizontalSelectorBlackControl::HorizontalSelectorBlackControl(MyGUI::Widget* _parent) :
-		SelectorControl("HorizontalSelectorBlackControl.layout", _parent)
+		SelectorControl("HorizontalSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelectorInactive");
 	}
 
 	HorizontalSelectorBlackControl::~HorizontalSelectorBlackControl()
