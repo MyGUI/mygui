@@ -110,7 +110,7 @@ namespace MyGUI
 		mFilter = new LevelLogFilter();
 
 		mFile->setFileName(_logname);
-		mConsole->setEnable(mConsoleEnable);
+		mConsole->setEnabled(mConsoleEnable);
 		mFilter->setLoggingLevel(mLevel);
 
 		mDefaultSource = new LogSource();
@@ -128,7 +128,7 @@ namespace MyGUI
 		mConsoleEnable = _value;
 
 		if (mConsole != nullptr)
-			mConsole->setEnable(_value);
+			mConsole->setEnabled(_value);
 	}
 
 	bool LogManager::getSTDOutputEnabled() const

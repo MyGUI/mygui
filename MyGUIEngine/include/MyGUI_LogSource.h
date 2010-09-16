@@ -35,24 +35,18 @@ namespace MyGUI
 		LogSource();
 		~LogSource();
 
-		// DESCRIBEME
-		// устанавливает фильтр для источника
+		/** Set log messages filter. */
 		void setLogFilter(ILogFilter* _filter);
-		// DESCRIBEME
-		// добавляет подписчик в источник
+		/** Set log messages filter. */
 		void addLogListener(ILogListener* _lestener);
 
-		// DESCRIBEME
-		// рассылает всем подписчикам open
+		/** Call ILogListener::open() for all listeners. */
 		void open();
-		// DESCRIBEME
-		// рассылает всем подписчикам close
+		/** Call ILogListener::close() for all listeners. */
 		void close();
-		// DESCRIBEME
-		// рассылает всем подписчикам flush
+		/** Call ILogListener::flush() for all listeners. */
 		void flush();
-		// DESCRIBEME
-		// рассылка события всем подписчикам через фильтр
+		/** Call ILogListener::log for all listeners for messages that match LogSource filter (@see void setLogFilter(ILogFilter* _filter)). */
 		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
 	private:

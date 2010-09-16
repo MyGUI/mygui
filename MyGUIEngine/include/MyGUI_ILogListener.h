@@ -32,17 +32,13 @@ namespace MyGUI
 	public:
 		virtual ~ILogListener() { }
 
-		// DESCRIBEME
-		// открытие подписчика
+		/** Opens log listener. (for example open file) */
 		virtual void open() { }
-		// DESCRIBEME
-		// закрытие подписчика
+		/** Opens log listener. (for example close file) */
 		virtual void close() { }
-		// DESCRIBEME
-		// запись отложеных событий
+		/** Flush log listener messages.*/
 		virtual void flush() { }
-		// DESCRIBEME
-		// запись события
+		/** Log message.*/
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) { }
 	};
 }
