@@ -40,40 +40,40 @@ namespace MyGUI
 		void shutdown();
 
 		typedef delegates::CDelegate1<IObject*&> Delegate;
-		// DESCRIBEME
+		/** Register delegate function that creates object for specified _category and _type. */
 		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
-		// DESCRIBEME
+		/** Unregister delegate function that creates object for specified _category and _type. */
 		void unregisterFactory(const std::string& _category, const std::string& _type);
-		// DESCRIBEME
+		/** Unregister all delegate functions that creates object for specified _category. */
 		void unregisterFactory(const std::string& _category);
 
-		// DESCRIBEME
+		/** Is factory for specified _category and _type exist. */
 		bool isFactoryExist(const std::string& _category, const std::string& _type);
 
-		// DESCRIBEME
+		/** Register factory for specified _category. */
 		template<typename Type>
 		void registerFactory(const std::string& _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
 		}
 
-		// DESCRIBEME
+		/** Register factory for specified _category and _type. */
 		template<typename Type>
 		void registerFactory(const std::string& _category, const std::string& _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
 		}
 
-		// DESCRIBEME
+		/** Unegister factory for specified _category. */
 		template<typename Type>
 		void unregisterFactory(const std::string& _category)
 		{
 			unregisterFactory(_category, Type::getClassTypeName());
 		}
 
-		// DESCRIBEME
+		/** Create object with given _category and _type. Return nullptr if there's no registered factory. */
 		IObject* createObject(const std::string& _category, const std::string& _type);
-		// DESCRIBEME
+		/** Destroy object */
 		void destroyObject(IObject* _object);
 
 	private:

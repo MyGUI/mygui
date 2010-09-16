@@ -39,7 +39,7 @@ namespace tools
 				delete *iter;
 			mController.clear();
 		}
-	
+
 		MyGUI::Widget* widget;
 		std::vector<WidgetContainer*> childContainers;
 		MyGUI::VectorStringPairs mProperty;
