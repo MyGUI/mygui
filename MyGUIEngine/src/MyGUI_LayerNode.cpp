@@ -150,51 +150,53 @@ namespace MyGUI
 
 	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, ISubWidget* _item)
 	{
-		bool first = _item->castType<ISubWidgetText>(false) == nullptr;
+		bool _firstQueue = _item->castType<ISubWidgetText>(false) == nullptr;
 		// для первичной очереди нужен порядок
-		if (first)
+		if (_firstQueue)
 		{
 			if (mFirstRenderItems.empty())
 			{
 				// создаем новый буфер
-				RenderItem * item = new RenderItem();
+				RenderItem* item = new RenderItem();
 				item->setTexture(_texture);
 				mFirstRenderItems.push_back(item);
 
 				return item;
 			}
 
-			// если последний буфер пустой, то мона не создавать
-			if (mFirstRenderItems.back()->getNeedVertexCount() == 0)
+			// если в конце пустой буфер, то нуна найти последний пустой с краю
+			// либо с нужной текстурой за пустым
+			VectorRenderItem::reverse_iterator iter = mFirstRenderItems.rbegin();
+			if ((*iter)->getNeedVertexCount() == 0)
 			{
-				// пустых может быть сколько угодно, нужен самый первый из пустых
-				for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+				while (true)
 				{
-					if ((*iter)->getNeedVertexCount() == 0)
+					VectorRenderItem::reverse_iterator next = iter + 1;
+					if (next != mFirstRenderItems.rend())
 					{
-						// а теперь внимание, если перед пустым наш, то его и юзаем
-						if (iter != mFirstRenderItems.begin())
+						if ((*next)->getNeedVertexCount() == 0)
 						{
-							VectorRenderItem::iterator prev = iter - 1;
-							if ((*prev)->getTexture() == _texture)
-							{
-								return (*prev);
-							}
+							iter = next;
+							continue;
 						}
-						(*iter)->setTexture(_texture);
-						return (*iter);
+						else if ((*next)->getTexture() == _texture)
+							iter = next;
 					}
-				}
-			}
 
-			// та же текстура
-			if (mFirstRenderItems.back()->getTexture() == _texture)
+					break;
+				}
+
+				(*iter)->setTexture(_texture);
+				return (*iter);
+			}
+			// последний буфер с нужной текстурой
+			else if ((*iter)->getTexture() == _texture)
 			{
-				return mFirstRenderItems.back();
+				return *iter;
 			}
 
 			// создаем новый буфер
-			RenderItem * item = new RenderItem();
+			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
 			mFirstRenderItems.push_back(item);
 
@@ -202,7 +204,7 @@ namespace MyGUI
 		}
 
 		// для второй очереди порядок неважен
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
 			// либо такая же текстура, либо пустой буфер
 			if ((*iter)->getTexture() == _texture)
@@ -217,7 +219,7 @@ namespace MyGUI
 
 		}
 		// не найденно создадим новый
-		RenderItem * item = new RenderItem();
+		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
 
 		mSecondRenderItems.push_back(item);

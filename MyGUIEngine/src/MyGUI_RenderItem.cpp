@@ -169,6 +169,9 @@ namespace MyGUI
 
 	void RenderItem::setTexture(ITexture* _value)
 	{
+		if (mTexture == _value)
+			return;
+
 		MYGUI_DEBUG_ASSERT(mVertexBuffer->getVertextCount() == 0, "change texture only empty buffer");
 		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
 
