@@ -27,7 +27,8 @@
 	<Tag name="Grid_step">Grid step</Tag>
 	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
 	<Tag name="TextAdditionalResources">Additional resources (restart required)</Tag>
-
+	<Tag name="TextSaveLastTexture">Save last texture</Tag>
+	
 	<Tag name="OK">OK</Tag>
 	<Tag name="Ok">Ok</Tag>
 	<Tag name="Cancel">Cancel</Tag>

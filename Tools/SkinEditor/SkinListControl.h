@@ -39,6 +39,8 @@ namespace tools
 		void renameItem(SkinItem* _item, const MyGUI::UString& _value);
 		void createItem(const MyGUI::UString& _value);
 
+		std::string getLastTextureName();
+
 	private:
 		MyGUI::List* mList;
 		MyGUI::Button* mCreate;
