@@ -9,5 +9,8 @@
         <Widget type="Edit" skin="Edit" position="120 8 288 24" align="HStretch Top" name="gridEdit">
             <Property key="Caption" value="8"/>
         </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 37 402 24" align="HStretch Top" name="SaveLastTexture">
+            <Property key="Caption" value="#{TextSaveLastTexture}"/>
+        </Widget>
     </Widget>
 </MyGUI>
