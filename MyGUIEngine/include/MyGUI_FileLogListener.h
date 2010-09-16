@@ -44,14 +44,12 @@ namespace MyGUI
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
-		// DESCRIBEME
-		// устанавливает имя файла подписчика
+		/** Set listener's file name where it wirte log. */
 		void setFileName(const std::string& _value)
 		{
 			mFileName = _value;
 		}
-		// DESCRIBEME
-		// возвращает имя файла подписчика
+		/** Get listener's file name where it wirte log. */
 		const std::string& getFileName() const
 		{
 			return mFileName;

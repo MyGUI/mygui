@@ -37,21 +37,19 @@ namespace MyGUI
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
-		// DESCRIBEME
-		// устанавливает доступность подписчика
-		bool getEnable() const
+		/** Is log listener enabled. */
+		bool getEnabled() const
 		{
-			return mEnable;
+			return mEnabled;
 		}
-		// DESCRIBEME
-		// возвращает доступность подписчика
-		void setEnable(bool _value)
+		/** Enable or disable log listener. */
+		void setEnabled(bool _value)
 		{
-			mEnable = _value;
+			mEnabled = _value;
 		}
 
 	private:
-		bool mEnable;
+		bool mEnabled;
 	};
 }
 

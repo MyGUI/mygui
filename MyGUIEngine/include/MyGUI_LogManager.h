@@ -47,36 +47,27 @@ namespace MyGUI
 		static LogManager& getInstance();
 		static LogManager* getInstancePtr();
 
-		// DESCRIBEME
-		// рассылает всем источникам flush
+		/** Call LogSource::flush() for all log sources. */
 		void flush();
-		// DESCRIBEME
-		// рассылает всем источникам лог евент
+		/** Call LogSource::log for all log sources. */
 		void log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line);
 
-		// DESCRIBEME
-		// создает дефолтный источник в который входит :
-		// 1. LevelLogFilter - фильтр по уровню события лога
-		// 2. FileLogListener - подписчик для записи в файл
-		// 3. ConsoleLogListener - подписчик для записи в std::cout
+		/** Create default LevelLogFilter, FileLogListener and ConsoleLogListener. */
 		void createDefaultSource(const std::string& _logname);
 
-		// DESCRIBEME
-		// устанавливает доступность дефолтного подписчика в std::cout
+		/** Enable or disable default ConsoleLogListener that writes log into std::cout.\n
+			Enabled (true) by default.
+		*/
 		void setSTDOutputEnabled(bool _value);
-		// DESCRIBEME
-		// возвращает доступность дефолтного подписчика в std::cout
+		/** Is disable ConsoleLogListener enabled. */
 		bool getSTDOutputEnabled() const;
 
-		// DESCRIBEME
-		// устанавливает уровень для дефолтного фильтра
+		/** Set default LevelLogFilter level. */
 		void setLoggingLevel(LogLevel _value);
-		// DESCRIBEME
-		// возвращает уровень для дефолтного фильтра
+		/** Get default LevelLogFilter level. */
 		LogLevel getLoggingLevel() const;
 
-		// DESCRIBEME
-		// добавляет источник в список источников
+		/** Add log source. */
 		void addLogSource(LogSource* _source);
 
 	private:
