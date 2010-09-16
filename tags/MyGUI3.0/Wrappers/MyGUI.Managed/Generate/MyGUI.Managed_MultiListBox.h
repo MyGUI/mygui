@@ -120,6 +120,20 @@ namespace MyGUI
 
 
    	public:
+		Convert<MyGUI::Any>::Type GetSubItemDataAt(
+			Convert<size_t>::Type _column ,
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			ObjectHolder* data = static_cast<ThisType*>(mNative)->getSubItemDataAt< ObjectHolder >(
+					Convert<size_t>::From(_column) ,
+					Convert<size_t>::From(_index) , false );
+			return data ? data->toObject() : nullptr;
+		}
+
+
+
+   	public:
 		void ClearSubItemDataAt(
 			Convert<size_t>::Type _column ,
 			Convert<size_t>::Type _index )
@@ -148,6 +162,20 @@ namespace MyGUI
 
 
    	public:
+		Convert<size_t>::Type FindSubItemWith(
+			Convert<size_t>::Type _column ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->findSubItemWith(
+					Convert<size_t>::From(_column) ,
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+
+
+
+   	public:
 		Convert<const MyGUI::UString &>::Type GetSubItemNameAt(
 			Convert<size_t>::Type _column ,
 			Convert<size_t>::Type _index )
@@ -162,6 +190,21 @@ namespace MyGUI
 
 
    	public:
+		void SetSubItemNameAt(
+			Convert<size_t>::Type _column ,
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSubItemNameAt(
+				Convert<size_t>::From(_column) ,
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
+
+
+   	public:
 		Convert<MyGUI::Any>::Type GetItemDataAt(
 			Convert<size_t>::Type _index )
 		{
@@ -169,6 +212,17 @@ namespace MyGUI
 			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemDataAt< ObjectHolder >(
 				Convert<size_t>::From(_index) , false );
 			return data ? data->toObject() : nullptr;
+		}
+
+
+
+   	public:
+		void ClearItemDataAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->clearItemDataAt(
+				Convert<size_t>::From(_index) );
 		}
 
 
@@ -187,6 +241,32 @@ namespace MyGUI
 
 
    	public:
+		void ClearIndexSelected( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->clearIndexSelected( );
+		}
+
+
+
+   	public:
+		property Convert<size_t>::Type IndexSelected
+		{
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getIndexSelected() );
+			}
+			void set(Convert<size_t>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setIndexSelected( Convert<size_t>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		Convert<const MyGUI::UString &>::Type GetItemNameAt(
 			Convert<size_t>::Type _index )
 		{
@@ -194,6 +274,32 @@ namespace MyGUI
 			return Convert<const MyGUI::UString &>::To(
 				static_cast<ThisType*>(mNative)->getItemNameAt(
 					Convert<size_t>::From(_index) ) );
+		}
+
+
+
+   	public:
+		void SetItemNameAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemNameAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
+
+
+   	public:
+		void SwapItemsAt(
+			Convert<size_t>::Type _index1 ,
+			Convert<size_t>::Type _index2 )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->swapItemsAt(
+				Convert<size_t>::From(_index1) ,
+				Convert<size_t>::From(_index2) );
 		}
 
 
@@ -240,6 +346,31 @@ namespace MyGUI
 
 
    	public:
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
+
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
+
+
+   	public:
 		property Convert<size_t>::Type ItemCount
 		{
 			Convert<size_t>::Type get( )
@@ -259,6 +390,30 @@ namespace MyGUI
 			ObjectHolder* data = static_cast<ThisType*>(mNative)->getColumnDataAt< ObjectHolder >(
 				Convert<size_t>::From(_index) , false );
 			return data ? data->toObject() : nullptr;
+		}
+
+
+
+   	public:
+		void ClearColumnDataAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->clearColumnDataAt(
+				Convert<size_t>::From(_index) );
+		}
+
+
+
+   	public:
+		void SetColumnDataAt(
+			Convert<size_t>::Type _index ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setColumnDataAt(
+				Convert<size_t>::From(_index) ,
+				Convert<MyGUI::Any>::From(_data) );
 		}
 
 
@@ -336,6 +491,17 @@ namespace MyGUI
 
 
    	public:
+		void RemoveColumnAt(
+			Convert<size_t>::Type _column )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->removeColumnAt(
+				Convert<size_t>::From(_column) );
+		}
+
+
+
+   	public:
 		void AddColumn(
 			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width ,
@@ -361,6 +527,35 @@ namespace MyGUI
 
 
    	public:
+		void InsertColumnAt(
+			Convert<size_t>::Type _column ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<int>::Type _width ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertColumnAt(
+				Convert<size_t>::From(_column) ,
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<int>::From(_width) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
+
+		void InsertColumnAt(
+			Convert<size_t>::Type _column ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<int>::Type _width )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertColumnAt(
+				Convert<size_t>::From(_column) ,
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<int>::From(_width) );
+		}
+
+
+
+   	public:
 		property Convert<size_t>::Type ColumnCount
 		{
 			Convert<size_t>::Type get( )
@@ -370,6 +565,15 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
+
+
+   
+
+
+   
 
 
 		};

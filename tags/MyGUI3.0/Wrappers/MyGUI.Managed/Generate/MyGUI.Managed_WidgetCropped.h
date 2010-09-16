@@ -28,6 +28,16 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
+		Convert<int>::Type GetHeight( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<int>::To(
+				static_cast<ThisType*>(mNative)->getHeight( ) );
+		}
+
+
+
+   	public:
 		Convert<int>::Type GetWidth( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -43,6 +53,26 @@ namespace MyGUI
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<int>::To(
 				static_cast<ThisType*>(mNative)->getBottom( ) );
+		}
+
+
+
+   	public:
+		Convert<int>::Type GetTop( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<int>::To(
+				static_cast<ThisType*>(mNative)->getTop( ) );
+		}
+
+
+
+   	public:
+		Convert<int>::Type GetRight( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<int>::To(
+				static_cast<ThisType*>(mNative)->getRight( ) );
 		}
 
 
@@ -115,6 +145,50 @@ namespace MyGUI
 
 
    	public:
+		Convert<const MyGUI::types::TPoint< int > &>::Type GetAbsolutePosition( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const MyGUI::types::TPoint< int > &>::To(
+				static_cast<ThisType*>(mNative)->getAbsolutePosition( ) );
+		}
+
+
+
+   	public:
+		property Convert<bool>::Type Visible
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isVisible() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setVisible( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<MyGUI::types::TSize< int >>::Type Size
+		{
+			Convert<MyGUI::types::TSize< int >>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::types::TSize< int >>::To( static_cast<ThisType*>(mNative)->getSize() );
+			}
+			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		property Convert<MyGUI::types::TPoint< int >>::Type Position
 		{
 			Convert<MyGUI::types::TPoint< int >>::Type get( )
@@ -129,6 +203,26 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   	public:
+		property Convert<const MyGUI::types::TCoord< int > &>::Type Coord
+		{
+			Convert<const MyGUI::types::TCoord< int > &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast<ThisType*>(mNative)->getCoord() );
+			}
+			void set(Convert<const MyGUI::types::TCoord< int > &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+			}
+		}
+	
+
+
+   
 
 
 		};

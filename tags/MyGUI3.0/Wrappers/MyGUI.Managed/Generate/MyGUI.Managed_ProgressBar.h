@@ -40,6 +40,88 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
+		void SetProperty(
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setProperty(
+				Convert<const std::string &>::From(_key) ,
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   	public:
+		property Convert<MyGUI::Align>::Type ProgressStartPoint
+		{
+			Convert<MyGUI::Align>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::Align>::To( static_cast<ThisType*>(mNative)->getProgressStartPoint() );
+			}
+			void set(Convert<MyGUI::Align>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setProgressStartPoint( Convert<MyGUI::Align>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<bool>::Type ProgressAutoTrack
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getProgressAutoTrack() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setProgressAutoTrack( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<size_t>::Type ProgressPosition
+		{
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getProgressPosition() );
+			}
+			void set(Convert<size_t>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setProgressPosition( Convert<size_t>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		property Convert<size_t>::Type ProgressRange
 		{
 			Convert<size_t>::Type get( )
@@ -54,6 +136,15 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
+
+
+   
+
+
+   
 
 
 		};

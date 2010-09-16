@@ -40,6 +40,19 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
+		void SetProperty(
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setProperty(
+				Convert<const std::string &>::From(_key) ,
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   	public:
 		Convert<MyGUI::MenuCtrl *>::Type GetItemChild( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -47,6 +60,114 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->getItemChild( ) );
 		}
 
+
+
+   	public:
+		Convert<MyGUI::MenuCtrl *>::Type GetMenuCtrlParent( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuCtrl *>::To(
+				static_cast<ThisType*>(mNative)->getMenuCtrlParent( ) );
+		}
+
+
+
+   	public:
+		void SetItemChildVisible(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemChildVisible(
+				Convert<bool>::From(_value) );
+		}
+
+
+
+   	public:
+		property Convert<MyGUI::MenuItemType>::Type ItemType
+		{
+			Convert<MyGUI::MenuItemType>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::MenuItemType>::To( static_cast<ThisType*>(mNative)->getItemType() );
+			}
+			void set(Convert<MyGUI::MenuItemType>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setItemType( Convert<MyGUI::MenuItemType>::From(_value) );
+			}
+		}
+	
+
+
+   
+
+
+   	public:
+		Convert<MyGUI::MenuCtrl *>::Type CreateItemChild( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuCtrl *>::To(
+				static_cast<ThisType*>(mNative)->createItemChild( ) );
+		}
+
+
+
+   	public:
+		Convert<size_t>::Type GetItemIndex( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->getItemIndex( ) );
+		}
+
+
+
+   	public:
+		property Convert<const std::string &>::Type ItemId
+		{
+			Convert<const std::string &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getItemId() );
+			}
+			void set(Convert<const std::string &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setItemId( Convert<const std::string &>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		void RemoveItem( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->removeItem( );
+		}
+
+
+
+   	public:
+		property Convert<MyGUI::Any>::Type ItemData
+		{
+			Convert<MyGUI::Any>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemData< ObjectHolder >(false);
+				return data ? data->toObject() : nullptr;
+			}
+			void set(Convert<MyGUI::Any>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setItemData( Convert<MyGUI::Any>::From(_value) );
+			}
+		}
+	
+
+
+   
 
 
    	public:

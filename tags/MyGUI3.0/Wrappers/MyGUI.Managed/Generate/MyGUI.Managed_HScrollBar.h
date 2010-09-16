@@ -39,6 +39,21 @@ namespace MyGUI
 
 			//InsertPoint
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
 		};
 
 	} // namespace Managed

@@ -39,6 +39,33 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		void SetCaptionWithNewLine(
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCaptionWithNewLine(
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetProperty(
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setProperty(
+				Convert<const std::string &>::From(_key) ,
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   
+
+
    
 
 
@@ -51,6 +78,12 @@ namespace MyGUI
 				Convert<const std::string &>::From(_skinname) );
 		}
 
+
+
+   
+
+
+   
 
 
    	public:
@@ -70,10 +103,67 @@ namespace MyGUI
 	
 
 
+   	public:
+		property Convert<bool>::Type NeedToolTip
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getNeedToolTip() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setNeedToolTip( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
    
 
 
    
+
+
+   	public:
+		Convert<MyGUI::Widget *>::Type GetClientWidget( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::Widget *>::To(
+				static_cast<ThisType*>(mNative)->getClientWidget( ) );
+		}
+
+
+
+   	public:
+		Convert<MyGUI::types::TCoord< int >>::Type GetClientCoord( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::types::TCoord< int >>::To(
+				static_cast<ThisType*>(mNative)->getClientCoord( ) );
+		}
+
+
+
+   
+
+
+   	public:
+		property Convert<const std::string &>::Type Pointer
+		{
+			Convert<const std::string &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getPointer() );
+			}
+			void set(Convert<const std::string &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setPointer( Convert<const std::string &>::From(_value) );
+			}
+		}
+	
 
 
    	public:
@@ -85,6 +175,23 @@ namespace MyGUI
 				Convert<bool>::From(_value) );
 		}
 
+
+
+   	public:
+		property Convert<bool>::Type Enabled
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isEnabled() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setEnabled( Convert<bool>::From(_value) );
+			}
+		}
+	
 
 
    	public:
@@ -113,6 +220,52 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   	public:
+		property Convert<bool>::Type NeedMouseFocus
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isNeedMouseFocus() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setNeedMouseFocus( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<bool>::Type NeedKeyFocus
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isNeedKeyFocus() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setNeedKeyFocus( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		Convert<MyGUI::Widget *>::Type FindWidget(
+			Convert<const std::string &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::Widget *>::To(
+				static_cast<ThisType*>(mNative)->findWidget(
+					Convert<const std::string &>::From(_name) ) );
+		}
+
 
 
    	public:
@@ -151,6 +304,56 @@ namespace MyGUI
 
 
    	public:
+		Convert<bool>::Type IsRootWidget( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->isRootWidget( ) );
+		}
+
+
+
+   	public:
+		void SetColour(
+			Convert<const MyGUI::Colour &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setColour(
+				Convert<const MyGUI::Colour &>::From(_value) );
+		}
+
+
+
+   	public:
+		Convert<bool>::Type SetState(
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->setState(
+					Convert<const std::string &>::From(_value) ) );
+		}
+
+
+
+   	public:
+		property Convert<bool>::Type InheritsAlpha
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isInheritsAlpha() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setInheritsAlpha( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		property Convert<float>::Type Alpha
 		{
 			Convert<float>::Type get( )
@@ -165,6 +368,37 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   	public:
+		property Convert<const MyGUI::UString &>::Type Caption
+		{
+			Convert<const MyGUI::UString &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+			}
+			void set(Convert<const MyGUI::UString &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		void SetAlign(
+			Convert<MyGUI::Align>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setAlign(
+				Convert<MyGUI::Align>::From(_value) );
+		}
+
+
+
+   
 
 
    	public:
@@ -193,6 +427,52 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setRealSize(
 				Convert<float>::From(_width) ,
 				Convert<float>::From(_height) );
+		}
+
+
+
+   	public:
+		void SetRealPosition(
+			Convert<float>::Type _left ,
+			Convert<float>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setRealPosition(
+				Convert<float>::From(_left) ,
+				Convert<float>::From(_top) );
+		}
+
+
+
+   	public:
+		void SetRealCoord(
+			Convert<const MyGUI::types::TCoord< float > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setRealCoord(
+				Convert<const MyGUI::types::TCoord< float > &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetRealSize(
+			Convert<const MyGUI::types::TSize< float > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setRealSize(
+				Convert<const MyGUI::types::TSize< float > &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetRealPosition(
+			Convert<const MyGUI::types::TPoint< float > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setRealPosition(
+				Convert<const MyGUI::types::TPoint< float > &>::From(_value) );
 		}
 
 
@@ -241,12 +521,34 @@ namespace MyGUI
 
 
    	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
+
+
+
+   	public:
 		void SetSize(
 			Convert<const MyGUI::types::TSize< int > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize(
 				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
 		}
 
 
@@ -259,6 +561,42 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->getName( ) );
 		}
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    

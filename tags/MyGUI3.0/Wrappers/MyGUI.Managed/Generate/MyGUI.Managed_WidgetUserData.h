@@ -42,6 +42,55 @@ namespace MyGUI
 
 
 
+   	public:
+		Convert<bool>::Type IsUserString(
+			Convert<const std::string &>::Type _key )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->isUserString(
+					Convert<const std::string &>::From(_key) ) );
+		}
+
+
+
+   	public:
+		Convert<bool>::Type ClearUserString(
+			Convert<const std::string &>::Type _key )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->clearUserString(
+					Convert<const std::string &>::From(_key) ) );
+		}
+
+
+
+   	public:
+		Convert<const std::string &>::Type GetUserString(
+			Convert<const std::string &>::Type _key )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const std::string &>::To(
+				static_cast<ThisType*>(mNative)->getUserString(
+					Convert<const std::string &>::From(_key) ) );
+		}
+
+
+
+   	public:
+		void SetUserString(
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setUserString(
+				Convert<const std::string &>::From(_key) ,
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
 		};
 
 	} // namespace Managed

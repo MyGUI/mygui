@@ -91,6 +91,134 @@ namespace MyGUI
 
 
 
+   	public:
+		void SetMessageModal(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageModal(
+				Convert<bool>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetMessageStyle(
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageStyle(
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetMessageButton(
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageButton(
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
+		}
+
+
+
+   	public:
+		void EndMessage( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->endMessage( );
+		}
+
+
+
+   	public:
+		void EndMessage(
+			Convert<MyGUI::MessageBoxStyle>::Type _result )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->endMessage(
+				Convert<MyGUI::MessageBoxStyle>::From(_result) );
+		}
+
+
+
+   	public:
+		void SetWindowFade(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setWindowFade(
+				Convert<bool>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetMessageIcon(
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageIcon(
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
+		}
+
+
+
+   	public:
+		Convert<const std::string &>::Type GetDefaultLayer( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const std::string &>::To(
+				static_cast<ThisType*>(mNative)->getDefaultLayer( ) );
+		}
+
+
+
+   	public:
+		void SetSmoothShow(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSmoothShow(
+				Convert<bool>::From(_value) );
+		}
+
+
+
+   	public:
+		Convert<MyGUI::MessageBoxStyle>::Type AddButtonName(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MessageBoxStyle>::To(
+				static_cast<ThisType*>(mNative)->addButtonName(
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+
+
+
+   	public:
+		void SetMessageText(
+			Convert<const MyGUI::UString &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageText(
+				Convert<const MyGUI::UString &>::From(_value) );
+		}
+
+
+
+   
+
+
+   
+
+
+   
+
+
 		};
 
 	} // namespace Managed
