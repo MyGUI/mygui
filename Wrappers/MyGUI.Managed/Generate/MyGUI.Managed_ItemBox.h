@@ -325,6 +325,30 @@ namespace MyGUI
    
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   	public:
+		void ResetDrag( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->resetDrag( );
+		}
+
+
+
    	public:
 		Convert<MyGUI::Widget *>::Type GetWidgetByIndex(
 			Convert<size_t>::Type _index )
@@ -333,6 +357,16 @@ namespace MyGUI
 			return Convert<MyGUI::Widget *>::To(
 				static_cast<ThisType*>(mNative)->getWidgetByIndex(
 					Convert<size_t>::From(_index) ) );
+		}
+
+
+
+   	public:
+		Convert<MyGUI::Widget *>::Type GetWidgetDrag( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::Widget *>::To(
+				static_cast<ThisType*>(mNative)->getWidgetDrag( ) );
 		}
 
 
@@ -367,12 +401,37 @@ namespace MyGUI
 
 
    	public:
+		Convert<MyGUI::Any>::Type GetItemDataAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemDataAt< ObjectHolder >(
+				Convert<size_t>::From(_index) , false );
+			return data ? data->toObject() : nullptr;
+		}
+
+
+
+   	public:
 		void ClearItemDataAt(
 			Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemDataAt(
 				Convert<size_t>::From(_index) );
+		}
+
+
+
+   	public:
+		void SetItemDataAt(
+			Convert<size_t>::Type _index ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemDataAt(
+				Convert<size_t>::From(_index) ,
+				Convert<MyGUI::Any>::From(_data) );
 		}
 
 
@@ -387,6 +446,23 @@ namespace MyGUI
 
 
    	public:
+		property Convert<size_t>::Type IndexSelected
+		{
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getIndexSelected() );
+			}
+			void set(Convert<size_t>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setIndexSelected( Convert<size_t>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		void RedrawAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -396,10 +472,70 @@ namespace MyGUI
 
 
    	public:
+		void RedrawItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->redrawItemAt(
+				Convert<size_t>::From(_index) );
+		}
+
+
+
+   	public:
 		void RemoveAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeAllItems( );
+		}
+
+
+
+   	public:
+		void RemoveItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->removeItemAt(
+				Convert<size_t>::From(_index) );
+		}
+
+
+
+   	public:
+		void AddItem(
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem(
+				Convert<MyGUI::Any>::From(_data) );
+		}
+
+		void AddItem( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem( );
+		}
+
+
+
+   	public:
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
+
+		void InsertItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) );
 		}
 
 
