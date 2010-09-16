@@ -7,5 +7,6 @@
 		<Property key="ColourBackground" value="0 0 0 0"/>
 		<Property key="ColourSelector" value="0 1 0 1"/>
 		<Property key="ColourSelectorInactive" value="0 0 0 0.5"/>
+		<Property key="SaveLastTexture" value="true"/>
 	</Settings>
 </MyGUI>

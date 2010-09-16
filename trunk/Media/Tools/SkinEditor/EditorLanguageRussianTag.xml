@@ -27,6 +27,7 @@
 	<Tag name="ResourcesSettings">Ресурсы</Tag>
 	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
 	<Tag name="TextAdditionalResources">Дополнительные ресурсы (требуется перезагрузка)</Tag>
+	<Tag name="TextSaveLastTexture">Сохранять последнюю текстуру</Tag>
 
 	<Tag name="OK">Ок</Tag>
 	<Tag name="Ok">Ок</Tag>

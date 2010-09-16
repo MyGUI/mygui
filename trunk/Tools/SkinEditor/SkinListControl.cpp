@@ -10,6 +10,7 @@
 #include <limits>
 #include "Localise.h"
 #include "MessageBoxManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -219,11 +220,16 @@ namespace tools
 
 	void SkinListControl::createItem(const MyGUI::UString& _value)
 	{
+		std::string textureName = getLastTextureName();
+
 		SkinItem* item = SkinManager::getInstance().createChild();
 		item->setName(_value);
 		SkinManager::getInstance().setItemSelected(item);
 
 		updateList();
+
+		if (!textureName.empty())
+			item->getPropertySet()->setPropertyValue("Texture", textureName, "");
 
 		ActionManager::getInstance().setChanges(true);
 	}
@@ -231,6 +237,23 @@ namespace tools
 	void SkinListControl::notifyChangeList()
 	{
 		updateList();
+	}
+
+	std::string SkinListControl::getLastTextureName()
+	{
+		if (!SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("SaveLastTexture"))
+			return "";
+
+		SkinItem* lastCurrent = nullptr;
+
+		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
+		while (items.next())
+			lastCurrent = items.current();
+
+		if (lastCurrent != nullptr)
+			return lastCurrent->getPropertySet()->getPropertyValue("Texture");
+
+		return "";
 	}
 
 } // namespace tools
