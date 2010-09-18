@@ -16,6 +16,8 @@
 	<Tag name="MenuColourSelector">Цвет рамки ...</Tag>
 	<Tag name="MenuColourSelectorInactive">Цвет неактивной рамки ...</Tag>
 
+	<Tag name="MenuScale">Масштаб</Tag>
+
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Create">Создать</Tag>
 	<Tag name="Delete">Удалить</Tag>

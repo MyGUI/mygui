@@ -30,14 +30,22 @@ namespace tools
 
 	void CommandManager::executeCommand(const MyGUI::UString& _command)
 	{
-		MapDelegate::iterator iter = mDelegates.find(_command);
+		MyGUI::UString command = _command;
+		size_t index = _command.find('.');
+		if (index != MyGUI::UString::npos)
+		{
+			command = _command.substr(0, index);
+			mData = _command.substr(index + 1);
+		}
+
+		MapDelegate::iterator iter = mDelegates.find(command);
 		if (iter != mDelegates.end())
 		{
-			iter->second(_command);
+			iter->second(command);
 		}
 		else
 		{
-			MYGUI_LOG(Warning, "Command '" << _command << "' not found");
+			MYGUI_LOG(Warning, "Command '" << command << "' not found");
 		}
 
 		mData.clear();

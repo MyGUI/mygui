@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	class TextureToolControl :
 		public TextureControl
 	{
@@ -18,15 +19,7 @@ namespace tools
 		virtual ~TextureToolControl();
 
 	private:
-		void notifyComboChangePositionScale(MyGUI::ComboBox* _sender, size_t _index);
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-
-		void fillScale();
-
-		void updateScale(MyGUI::ComboBox* _sender);
-
-	private:
-		MyGUI::ComboBox* mScale;
 	};
 
 } // namespace tools
