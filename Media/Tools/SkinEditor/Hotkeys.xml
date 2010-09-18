@@ -121,4 +121,16 @@
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
+	<Command>
+		<Name>Command_ChangeNextScale</Name>
+		<KeyCode>PageUp</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Control</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_ChangePrevScale</Name>
+		<KeyCode>PageDown</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Control</Modifier>
+	</Command>
 </MyGUI>
