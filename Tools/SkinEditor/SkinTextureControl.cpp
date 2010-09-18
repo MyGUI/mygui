@@ -142,148 +142,180 @@ namespace tools
 		return _value / mGridStep * mGridStep;
 	}
 
-	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.left --;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveRight(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.left ++;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveTop(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.top --;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.top ++;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.width --;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.width ++;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.height --;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.height ++;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.left = toGrid(--mCoordValue.left);
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.top = toGrid(--mCoordValue.top);
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
 		updateFromCoordValue();
+
+		_result = true;
 	}
 
 	void SkinTextureControl::notifyChangePosition()
@@ -348,7 +380,7 @@ namespace tools
 		}
 	}
 
-	void SkinTextureControl::CommandChangeNextScale(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -366,9 +398,11 @@ namespace tools
 				break;
 			}
 		}
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandChangePrevScale(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -386,9 +420,11 @@ namespace tools
 				break;
 			}
 		}
+
+		_result = true;
 	}
 
-	void SkinTextureControl::CommandChangeScale(const MyGUI::UString& _commandName)
+	void SkinTextureControl::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkMenuCommand())
 			return;
@@ -402,6 +438,8 @@ namespace tools
 
 		mCurrentScaleValue = scaleValue;
 		setScale((double)mCurrentScaleValue / (double)100);
+
+		_result = true;
 	}
 
 	bool SkinTextureControl::checkMenuCommand()

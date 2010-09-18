@@ -293,7 +293,7 @@ namespace tools
 		setWindowCaption(_value);
 	}
 
-	void Application::commandQuitApp(const MyGUI::UString& _commandName)
+	void Application::commandQuitApp(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 		{
@@ -310,6 +310,8 @@ namespace tools
 				CommandManager::getInstance().executeCommand("Command_Quit");
 			}
 		}
+
+		_result = true;
 	}
 
 	void Application::resumeState()

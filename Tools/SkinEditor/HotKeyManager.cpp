@@ -248,8 +248,8 @@ namespace tools
 				&& command.getShift() == _shift
 				&& command.getControl() == _control)
 			{
-				CommandManager::getInstance().executeCommand(command.getCommand());
-				result = true;
+				if (CommandManager::getInstance().executeCommand(command.getCommand()))
+					result = true;
 			}
 		}
 

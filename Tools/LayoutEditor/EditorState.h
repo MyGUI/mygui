@@ -36,16 +36,16 @@ namespace tools
 		void load();
 		void loadDropFile();
 
-		void commandLoad(const MyGUI::UString& _commandName);
-		void commandSave(const MyGUI::UString& _commandName);
-		void commandSaveAs(const MyGUI::UString& _commandName);
-		void commandClear(const MyGUI::UString& _commandName);
-		void commandTest(const MyGUI::UString& _commandName);
-		void commandQuit(const MyGUI::UString& _commandName);
-		void commandSettings(const MyGUI::UString& _commandName);
-		void commandCodeGenerator(const MyGUI::UString& _commandName);
-		void commandRecentFiles(const MyGUI::UString& _commandName);
-		void commandFileDrop(const MyGUI::UString& _commandName);
+		void commandLoad(const MyGUI::UString& _commandName, bool& _result);
+		void commandSave(const MyGUI::UString& _commandName, bool& _result);
+		void commandSaveAs(const MyGUI::UString& _commandName, bool& _result);
+		void commandClear(const MyGUI::UString& _commandName, bool& _result);
+		void commandTest(const MyGUI::UString& _commandName, bool& _result);
+		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
+		void commandSettings(const MyGUI::UString& _commandName, bool& _result);
+		void commandCodeGenerator(const MyGUI::UString& _commandName, bool& _result);
+		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
+		void commandFileDrop(const MyGUI::UString& _commandName, bool& _result);
 
 		void updateCaption();
 		bool checkCommand();

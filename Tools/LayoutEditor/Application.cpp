@@ -311,17 +311,21 @@ namespace tools
 		return false;
 	}
 
-	void Application::commandStatisticInfo(const MyGUI::UString& _commandName)
+	void Application::commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
+
+		_result = true;
 	}
 
-	void Application::commandFocusVisible(const MyGUI::UString& _commandName)
+	void Application::commandFocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+
+		_result = true;
 	}
 
-	void Application::commandQuitApp(const MyGUI::UString& _commandName)
+	void Application::commandQuitApp(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 		{
@@ -338,6 +342,8 @@ namespace tools
 				CommandManager::getInstance().executeCommand("Command_Quit");
 			}
 		}
+
+		_result = true;
 	}
 
 	void Application::setCaption(const MyGUI::UString& _value)

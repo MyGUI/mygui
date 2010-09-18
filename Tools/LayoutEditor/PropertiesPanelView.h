@@ -40,7 +40,7 @@ namespace tools
 
 		std::string splitString(std::string& str, char separator);
 
-		void commandToggleRelativeMode(const MyGUI::UString& _commandName);
+		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
 
 		void setPositionText(const std::string& _caption);
 		void toggleRelativeMode();

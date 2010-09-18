@@ -88,16 +88,20 @@ namespace tools
 		mPosition = 0;
 	}
 
-	void UndoManager::commandUndo(const MyGUI::UString& _commandName)
+	void UndoManager::commandUndo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		undo();
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+		_result = true;
 	}
 
-	void UndoManager::commandRedo(const MyGUI::UString& _commandName)
+	void UndoManager::commandRedo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		redo();
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+		_result = true;
 	}
 
 	void UndoManager::setUnsaved(bool _value)

@@ -44,9 +44,11 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void ExportManager::commandExport(const MyGUI::UString& _commandName)
+	void ExportManager::commandExport(const MyGUI::UString& _commandName, bool& _result)
 	{
 		showExportWindow();
+
+		_result = true;
 	}
 
 	void ExportManager::showExportWindow()

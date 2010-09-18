@@ -10,7 +10,7 @@
 
 namespace tools
 {
-	typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::UString&> CommandDelegate;
+	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, bool&> CommandDelegate;
 
 	class CommandManager :
 		public MyGUI::Singleton<CommandManager>
@@ -23,8 +23,9 @@ namespace tools
 		void shutdown();
 
 		void registerCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate);
+		void unregisterCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate);
 
-		void executeCommand(const MyGUI::UString& _command);
+		bool executeCommand(const MyGUI::UString& _command);
 
 		void setCommandData(const MyGUI::UString& _data);
 		const MyGUI::UString& getCommandData();

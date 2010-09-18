@@ -123,28 +123,34 @@ namespace tools
 		mSettingsWindow->endModal();
 	}
 
-	void EditorState::commandTest(const MyGUI::UString& _commandName)
+	void EditorState::commandTest(const MyGUI::UString& _commandName, bool& _result)
 	{
 		StateManager::getInstance().stateEvent(this, "Test");
+
+		_result = true;
 	}
 
-	void EditorState::commandSettings(const MyGUI::UString& _commandName)
+	void EditorState::commandSettings(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mSettingsWindow->doModal();
+
+		_result = true;
 	}
 
-	void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName)
+	void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mCodeGenerator->loadTemplate();
 		mCodeGenerator->doModal();
+
+		_result = true;
 	}
 
-	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName)
+	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName, bool& _result)
 	{
-		commandFileDrop(_commandName);
+		commandFileDrop(_commandName, _result);
 	}
 
-	void EditorState::commandLoad(const MyGUI::UString& _commandName)
+	void EditorState::commandLoad(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -164,9 +170,11 @@ namespace tools
 		{
 			showLoadWindow();
 		}
+
+		_result = true;
 	}
 
-	void EditorState::commandSave(const MyGUI::UString& _commandName)
+	void EditorState::commandSave(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -175,17 +183,21 @@ namespace tools
 		{
 			save();
 		}
+
+		_result = true;
 	}
 
-	void EditorState::commandSaveAs(const MyGUI::UString& _commandName)
+	void EditorState::commandSaveAs(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		showSaveAsWindow();
+
+		_result = true;
 	}
 
-	void EditorState::commandClear(const MyGUI::UString& _commandName)
+	void EditorState::commandClear(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -205,9 +217,11 @@ namespace tools
 		{
 			clear();
 		}
+
+		_result = true;
 	}
 
-	void EditorState::commandQuit(const MyGUI::UString& _commandName)
+	void EditorState::commandQuit(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -227,9 +241,11 @@ namespace tools
 		{
 			StateManager::getInstance().stateEvent(this, "Exit");
 		}
+
+		_result = true;
 	}
 
-	void EditorState::commandFileDrop(const MyGUI::UString& _commandName)
+	void EditorState::commandFileDrop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -255,6 +271,8 @@ namespace tools
 
 			loadDropFile();
 		}
+
+		_result = true;
 	}
 
 	void EditorState::clear()
