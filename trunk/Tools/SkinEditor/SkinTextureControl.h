@@ -45,26 +45,26 @@ namespace tools
 
 		int toGrid(int _value);
 
-		void CommandMoveLeft(const MyGUI::UString& _commandName);
-		void CommandMoveRight(const MyGUI::UString& _commandName);
-		void CommandMoveTop(const MyGUI::UString& _commandName);
-		void CommandMoveBottom(const MyGUI::UString& _commandName);
-		void CommandSizeLeft(const MyGUI::UString& _commandName);
-		void CommandSizeRight(const MyGUI::UString& _commandName);
-		void CommandSizeTop(const MyGUI::UString& _commandName);
-		void CommandSizeBottom(const MyGUI::UString& _commandName);
-		void CommandGridMoveLeft(const MyGUI::UString& _commandName);
-		void CommandGridMoveRight(const MyGUI::UString& _commandName);
-		void CommandGridMoveTop(const MyGUI::UString& _commandName);
-		void CommandGridMoveBottom(const MyGUI::UString& _commandName);
-		void CommandGridSizeLeft(const MyGUI::UString& _commandName);
-		void CommandGridSizeRight(const MyGUI::UString& _commandName);
-		void CommandGridSizeTop(const MyGUI::UString& _commandName);
-		void CommandGridSizeBottom(const MyGUI::UString& _commandName);
+		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
 
-		void CommandChangeNextScale(const MyGUI::UString& _commandName);
-		void CommandChangePrevScale(const MyGUI::UString& _commandName);
-		void CommandChangeScale(const MyGUI::UString& _commandName);
+		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
+		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
+		void CommandChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;

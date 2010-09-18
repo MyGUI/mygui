@@ -39,22 +39,28 @@ namespace tools
 		mColourPanel = nullptr;
 	}
 
-	void ColourManager::commandChangeColourBackground(const MyGUI::UString& _commandName)
+	void ColourManager::commandChangeColourBackground(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mCurrentColourType = "ColourBackground";
 		showColourDialog();
+
+		_result = true;
 	}
 
-	void ColourManager::commandChangeColourSelector(const MyGUI::UString& _commandName)
+	void ColourManager::commandChangeColourSelector(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mCurrentColourType = "ColourSelector";
 		showColourDialog();
+
+		_result = true;
 	}
 
-	void ColourManager::commandChangeColourSelectorInactive(const MyGUI::UString& _commandName)
+	void ColourManager::commandChangeColourSelectorInactive(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mCurrentColourType = "ColourSelectorInactive";
 		showColourDialog();
+
+		_result = true;
 	}
 
 	void ColourManager::notifyEndDialog(Dialog* _sender, bool _result)

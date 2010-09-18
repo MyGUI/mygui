@@ -28,8 +28,9 @@ namespace tools
 	{
 	}
 
-	void CommandManager::executeCommand(const MyGUI::UString& _command)
+	bool CommandManager::executeCommand(const MyGUI::UString& _command)
 	{
+		bool result = false;
 		MyGUI::UString command = _command;
 		size_t index = _command.find('.');
 		if (index != MyGUI::UString::npos)
@@ -41,7 +42,7 @@ namespace tools
 		MapDelegate::iterator iter = mDelegates.find(command);
 		if (iter != mDelegates.end())
 		{
-			iter->second(command);
+			iter->second(command, result);
 		}
 		else
 		{
@@ -49,6 +50,7 @@ namespace tools
 		}
 
 		mData.clear();
+		return false;
 	}
 
 	void CommandManager::registerCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
@@ -57,6 +59,17 @@ namespace tools
 		if (iter == mDelegates.end())
 			iter = mDelegates.insert(std::make_pair(_command, CommandDelegate())).first;
 		(*iter).second += _delegate;
+	}
+
+	void CommandManager::unregisterCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_command);
+		if (iter != mDelegates.end())
+		{
+			(*iter).second -= _delegate;
+			if ((*iter).second.empty())
+				mDelegates.erase(iter);
+		}
 	}
 
 	void CommandManager::setCommandData(const MyGUI::UString& _data)

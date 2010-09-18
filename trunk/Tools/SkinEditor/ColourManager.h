@@ -22,9 +22,9 @@ namespace tools
 		void shutdown();
 
 	private:
-		void commandChangeColourBackground(const MyGUI::UString& _commandName);
-		void commandChangeColourSelector(const MyGUI::UString& _commandName);
-		void commandChangeColourSelectorInactive(const MyGUI::UString& _commandName);
+		void commandChangeColourBackground(const MyGUI::UString& _commandName, bool& _result);
+		void commandChangeColourSelector(const MyGUI::UString& _commandName, bool& _result);
+		void commandChangeColourSelectorInactive(const MyGUI::UString& _commandName, bool& _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyPreviewColour(const MyGUI::Colour& _value);

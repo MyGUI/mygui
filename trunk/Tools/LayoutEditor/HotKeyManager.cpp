@@ -12,6 +12,7 @@ template <> const char* MyGUI::Singleton<tools::HotKeyManager>::mClassTypeName("
 
 namespace tools
 {
+
 	HotKeyManager::HotKeyManager()
 	{
 		#define BIND_KEY(name) mKeyNames[#name] = MyGUI::KeyCode::name
@@ -247,8 +248,8 @@ namespace tools
 				&& command.getShift() == _shift
 				&& command.getControl() == _control)
 			{
-				CommandManager::getInstance().executeCommand(command.getCommand());
-				result = true;
+				if (CommandManager::getInstance().executeCommand(command.getCommand()))
+					result = true;
 			}
 		}
 

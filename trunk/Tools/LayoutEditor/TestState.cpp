@@ -56,12 +56,14 @@ namespace tools
 	{
 	}
 
-	void TestState::commandQuit(const MyGUI::UString& _commandName)
+	void TestState::commandQuit(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		StateManager::getInstance().stateEvent(this, "Exit");
+
+		_result = true;
 	}
 
 	bool TestState::checkCommand()

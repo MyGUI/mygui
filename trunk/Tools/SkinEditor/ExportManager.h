@@ -28,7 +28,7 @@ namespace tools
 		void exportSkin(const MyGUI::UString& _fileName);
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void showExportWindow();
-		void commandExport(const MyGUI::UString& _commandName);
+		void commandExport(const MyGUI::UString& _commandName, bool& _result);
 		MyGUI::UString convertStateName(const MyGUI::UString& _value);
 
 	private:
