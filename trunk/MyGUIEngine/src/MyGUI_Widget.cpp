@@ -976,7 +976,7 @@ namespace MyGUI
 
 	void Widget::_updateVisible()
 	{
-		mInheritsVisible = mParent == nullptr || (mParent->getVisible() && mParent->_isInheritsVisible());
+		mInheritsVisible = mParent == nullptr || (mParent->getVisible() && mParent->getInheritedVisible());
 		bool value = mVisible && mInheritsVisible;
 
 		_setSkinItemVisible(value);
@@ -998,7 +998,7 @@ namespace MyGUI
 
 	void Widget::_updateEnabled()
 	{
-		mInheritsEnabled = mParent == nullptr || (mParent->getEnabled() && mParent->_isInheritsEnable());
+		mInheritsEnabled = mParent == nullptr || (mParent->getEnabled() && mParent->getInheritedEnabled());
 		bool value = mEnabled && mInheritsEnabled;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
@@ -1147,6 +1147,131 @@ namespace MyGUI
 		}
 
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void Widget::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void Widget::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void Widget::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	void Widget::setRealPosition(float _left, float _top)
+	{
+		setRealPosition(FloatPoint(_left, _top));
+	}
+
+	void Widget::setRealSize(float _width, float _height)
+	{
+		setRealSize(FloatSize(_width, _height));
+	}
+
+	void Widget::setRealCoord(float _left, float _top, float _width, float _height)
+	{
+		setRealCoord(FloatCoord(_left, _top, _width, _height));
+	}
+
+	const std::string& Widget::getName() const
+	{
+		return mName;
+	}
+
+	bool Widget::getVisible() const
+	{
+		return mVisible;
+	}
+
+	Align Widget::getAlign() const
+	{
+		return mAlign;
+	}
+
+	float Widget::getAlpha() const
+	{
+		return mAlpha;
+	}
+
+	bool Widget::getInheritsAlpha()  const
+	{
+		return mInheritsAlpha;
+	}
+
+	bool Widget::isRootWidget()
+	{
+		return nullptr == mCroppedParent;
+	}
+
+	Widget* Widget::getParent() const
+	{
+		return mParent;
+	}
+
+	void Widget::setEnabledSilent(bool _value)
+	{
+		mEnabled = _value;
+	}
+
+	bool Widget::getEnabled() const
+	{
+		return mEnabled;
+	}
+
+	Widget* Widget::getClientWidget()
+	{
+		return mWidgetClient;
+	}
+
+	WidgetStyle Widget::getWidgetStyle()
+	{
+		return mWidgetStyle;
+	}
+
+	size_t Widget::_getItemIndex(Widget* _item)
+	{
+		return ITEM_NONE;
+	}
+
+	void Widget::_setContainer(Widget* _value)
+	{
+		mContainer = _value;
+	}
+
+	Widget* Widget::_getContainer()
+	{
+		return mContainer;
+	}
+
+	size_t Widget::_getContainerIndex(const IntPoint& _point)
+	{
+		return ITEM_NONE;
+	}
+
+	const IntCoord& Widget::getLayerItemCoord() const
+	{
+		return mCoord;
+	}
+
+	float Widget::_getRealAlpha()
+	{
+		return mRealAlpha;
+	}
+
+	bool Widget::getInheritedEnabled()
+	{
+		return mInheritsEnabled;
+	}
+
+	bool Widget::getInheritedVisible()
+	{
+		return mInheritsVisible;
 	}
 
 } // namespace MyGUI
