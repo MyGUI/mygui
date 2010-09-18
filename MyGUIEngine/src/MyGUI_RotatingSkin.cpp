@@ -23,6 +23,7 @@
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -35,6 +36,7 @@ namespace MyGUI
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	RotatingSkin::~RotatingSkin()

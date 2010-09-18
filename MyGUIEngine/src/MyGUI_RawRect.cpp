@@ -45,6 +45,7 @@ namespace MyGUI
 		mRenderColourLB(0xFFFFFFFF),
 		mRenderColourRB(0xFFFFFFFF)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	RawRect::~RawRect()
