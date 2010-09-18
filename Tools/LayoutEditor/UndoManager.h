@@ -38,8 +38,8 @@ namespace tools
 		Event_Changes eventChanges;
 
 	private:
-		void commandUndo(const MyGUI::UString& _commandName);
-		void commandRedo(const MyGUI::UString& _commandName);
+		void commandUndo(const MyGUI::UString& _commandName, bool& _result);
+		void commandRedo(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		// position in the bufer (0 - newest element)

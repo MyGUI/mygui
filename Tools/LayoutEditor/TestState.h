@@ -24,7 +24,7 @@ namespace tools
 		virtual void resumeState();
 
 	private:
-		void commandQuit(const MyGUI::UString& _commandName);
+		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
 		bool checkCommand();
 	};
 

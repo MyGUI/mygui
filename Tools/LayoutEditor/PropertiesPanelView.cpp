@@ -566,9 +566,11 @@ namespace tools
 		notifyApplyProperties(_sender, true);
 	}
 
-	void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName)
+	void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result)
 	{
 		toggleRelativeMode();
+
+		_result = true;
 	}
 
 	void PropertiesPanelView::toggleRelativeMode()

@@ -43,7 +43,7 @@ namespace tools
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
-		void commandQuitApp(const MyGUI::UString& _commandName);
+		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		virtual void setupResources();
