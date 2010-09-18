@@ -127,20 +127,11 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** See Widget::setSize(const IntSize& _size) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** See Widget::setCoord(const IntCoord& _coord) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 		/** Set widget position (position of left top corner)*/
 		void setRealPosition(const FloatPoint& _value);
@@ -150,50 +141,32 @@ namespace MyGUI
 		void setRealCoord(const FloatCoord& _value);
 
 		/** See Widget::setRealPosition(const FloatPoint& _point) */
-		void setRealPosition(float _left, float _top)
-		{
-			setRealPosition(FloatPoint(_left, _top));
-		}
+		void setRealPosition(float _left, float _top);
 		/** See Widget::setRealSize(const FloatSize& _size) */
-		void setRealSize(float _width, float _height)
-		{
-			setRealSize(FloatSize(_width, _height));
-		}
+		void setRealSize(float _width, float _height);
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
-		void setRealCoord(float _left, float _top, float _width, float _height)
-		{
-			setRealCoord(FloatCoord(_left, _top, _width, _height));
-		}
+		void setRealCoord(float _left, float _top, float _width, float _height);
 
 		//! Get name of widget
-		const std::string& getName() const
-		{
-			return mName;
-		}
+		const std::string& getName() const;
 
 		/** Hide or show widget */
 		virtual void setVisible(bool _value);
 		/** Return true if visible */
-		bool getVisible() const
-		{
-			return mVisible;
-		}
+		bool getVisible() const;
+
+		/** Return widget's visibility based on it's and parents visibility. */
+		bool getInheritedVisible();
 
 		/** Set align */
 		virtual void setAlign(Align _value);
 		/** Get align */
-		Align getAlign() const
-		{
-			return mAlign;
-		}
+		Align getAlign() const;
 
 		/** Set widget opacity */
 		void setAlpha(float _value);
 		/** Get widget opacity */
-		float getAlpha() const
-		{
-			return mAlpha;
-		}
+		float getAlpha() const;
 
 		/** Enable or disable inherits alpha mode.\n
 			Inherits alpha mode: when enabled widget alpha is it's own
@@ -207,10 +180,7 @@ namespace MyGUI
 		*/
 		void setInheritsAlpha(bool _value);
 		/** Get inherits alpha mode flag */
-		bool getInheritsAlpha()  const
-		{
-			return mInheritsAlpha;
-		}
+		bool getInheritsAlpha()  const;
 
 		/** Set widget's state */
 		bool setState(const std::string& _value);
@@ -219,16 +189,10 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget()
-		{
-			return nullptr == mCroppedParent;
-		}
+		bool isRootWidget();
 
 		/** Get parent widget or nullptr if no parent */
-		Widget* getParent() const
-		{
-			return mParent;
-		}
+		Widget* getParent() const;
 
 		IntSize getParentSize() const;
 
@@ -247,24 +211,18 @@ namespace MyGUI
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _value);
 		/** Enable or disable widget without changing widget's state */
-		void setEnabledSilent(bool _value)
-		{
-			mEnabled = _value;
-		}
+		void setEnabledSilent(bool _value);
 		/** Is widget enabled */
-		bool getEnabled() const
-		{
-			return mEnabled;
-		}
+		bool getEnabled() const;
+
+		/** Is widget enabled and it's and parents enabled. */
+		bool getInheritedEnabled();
 
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
 		/** Get clien area widget or nullptr if widget don't have client */
-		Widget* getClientWidget()
-		{
-			return mWidgetClient;
-		}
+		Widget* getClientWidget();
 
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
@@ -289,10 +247,7 @@ namespace MyGUI
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 		/** Get widget style */
-		WidgetStyle getWidgetStyle()
-		{
-			return mWidgetStyle;
-		}
+		WidgetStyle getWidgetStyle();
 
 		/** Set any widget property
 			@param _key Property name (for example Alpha or Enabled)
@@ -311,10 +266,7 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual size_t _getItemIndex(Widget* _item)
-		{
-			return ITEM_NONE;
-		}
+		virtual size_t _getItemIndex(Widget* _item);
 
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
@@ -325,14 +277,8 @@ namespace MyGUI
 		// удяляет неудачника
 		void _destroyChildWidget(Widget* _widget);
 
-		void _setContainer(Widget* _value)
-		{
-			mContainer = _value;
-		}
-		Widget* _getContainer()
-		{
-			return mContainer;
-		}
+		void _setContainer(Widget* _value);
+		Widget* _getContainer();
 
 		void _setAlign(const IntSize& _oldsize);
 		bool _checkPoint(int _left, int _top) const;
@@ -355,10 +301,7 @@ namespace MyGUI
 		void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint& _point)
-		{
-			return ITEM_NONE;
-		}
+		virtual size_t _getContainerIndex(const IntPoint& _point);
 
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
@@ -367,10 +310,7 @@ namespace MyGUI
 
 		// наследуемся он LayerInfo
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
-		virtual const IntCoord& getLayerItemCoord() const
-		{
-			return mCoord;
-		}
+		virtual const IntCoord& getLayerItemCoord() const;
 
 		template <typename T>
 		void assignWidget(T * & _widget, const std::string& _name)
@@ -408,21 +348,10 @@ namespace MyGUI
 
 		// для внутреннего использования
 		void _updateVisible();
-		bool _isInheritsVisible()
-		{
-			return mInheritsVisible;
-		}
 
 		void _updateEnabled();
-		bool _isInheritsEnable()
-		{
-			return mInheritsEnabled;
-		}
 
-		float _getRealAlpha()
-		{
-			return mRealAlpha;
-		}
+		float _getRealAlpha();
 
 		void _createChildSkinWidget(ResourceSkin* _info);
 		void _destroyChildSkinWidget();
