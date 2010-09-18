@@ -41,6 +41,7 @@ namespace tools
 		void updateRegionCoord();
 		void updateFromCoordValue();
 		bool checkCommand();
+		bool checkMenuCommand();
 
 		int toGrid(int _value);
 
@@ -61,12 +62,19 @@ namespace tools
 		void CommandGridSizeTop(const MyGUI::UString& _commandName);
 		void CommandGridSizeBottom(const MyGUI::UString& _commandName);
 
+		void CommandChangeNextScale(const MyGUI::UString& _commandName);
+		void CommandChangePrevScale(const MyGUI::UString& _commandName);
+		void CommandChangeScale(const MyGUI::UString& _commandName);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
 		int mGridStep;
+		typedef std::vector<size_t> VectorSizeT;
+		VectorSizeT mScaleValue;
+		size_t mCurrentScaleValue;
 	};
 
 } // namespace tools

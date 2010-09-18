@@ -16,6 +16,8 @@
 	<Tag name="MenuColourSelector">Selector colour ...</Tag>
 	<Tag name="MenuColourSelectorInactive">Inactive selector colour ...</Tag>
 
+	<Tag name="MenuScale">Scale</Tag>
+
 	<Tag name="Add">Add</Tag>
 	<Tag name="Create">Create</Tag>
 	<Tag name="Delete">Delete</Tag>
