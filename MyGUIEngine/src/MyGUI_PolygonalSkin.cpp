@@ -23,6 +23,7 @@
 #include "MyGUI_PolygonalSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -37,6 +38,7 @@ namespace MyGUI
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	PolygonalSkin::~PolygonalSkin()
