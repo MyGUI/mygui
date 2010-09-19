@@ -19,6 +19,9 @@ if (MYGUI_STATIC)
   add_definitions(-DMYGUI_STATIC)
 endif()
 
+if (WIN32)
+	configure_file(${MYGUI_TEMPLATES_DIR}/updateListFiles.bat.in ${MYGUI_BINARY_DIR}/updateListFiles.bat)
+endif ()
 
 # Create the pkg-config package files on Unix systems
 if (UNIX)
