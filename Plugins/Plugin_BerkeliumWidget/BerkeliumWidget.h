@@ -76,7 +76,6 @@ namespace MyGUI
 		void update(bool _invalidate);
 		void updateSize();
 
-
 	private:
 		Berkelium::Window* mWindow;
 		int mOldWidth;
@@ -84,6 +83,6 @@ namespace MyGUI
 		helpers::Buffer mBuffer;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __BERKELIUM_WIDGET_H__
