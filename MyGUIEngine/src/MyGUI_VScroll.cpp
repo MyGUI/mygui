@@ -266,9 +266,10 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::notifyMouseDrag(Widget* _sender, int _left, int _top)
+	void VScroll::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		TrackMove(_left, _top);
+		if (_id == MouseButton::Left)
+			TrackMove(_left, _top);
 	}
 
 	void VScroll::setScrollRange(size_t _range)

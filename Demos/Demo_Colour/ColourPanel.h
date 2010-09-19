@@ -29,7 +29,7 @@ namespace demo
 		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
 
 	private:
-		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
 		void notifyEditTextChange(MyGUI::Edit* _sender);

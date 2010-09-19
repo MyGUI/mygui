@@ -30,6 +30,7 @@
 #include "MyGUI_KeyCode.h"
 #include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
@@ -177,7 +178,7 @@ namespace MyGUI
 			@param _left - pointer position
 			@param _top - pointer position
 		*/
-		EventHandle_WidgetIntInt eventMouseDrag;
+		EventPair3to4<EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton> eventMouseDrag;
 
 		/** Event : Mouse move over widget.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top)\n
@@ -279,7 +280,7 @@ namespace MyGUI
 	/*internal:*/
 		void _riseMouseLostFocus(Widget* _new);
 		void _riseMouseSetFocus(Widget* _old);
-		void _riseMouseDrag(int _left, int _top);
+		void _riseMouseDrag(int _left, int _top, MouseButton _id);
 		void _riseMouseMove(int _left, int _top);
 		void _riseMouseWheel(int _rel);
 		void _riseMouseButtonPressed(int _left, int _top, MouseButton _id);
@@ -305,7 +306,7 @@ namespace MyGUI
 	protected:
 		virtual void onMouseLostFocus(Widget* _new) { }
 		virtual void onMouseSetFocus(Widget* _old) { }
-		virtual void onMouseDrag(int _left, int _top) { }
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id) { }
 		virtual void onMouseMove(int _left, int _top) { }
 		virtual void onMouseWheel(int _rel) { }
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id) { }

@@ -592,9 +592,9 @@ namespace MyGUI
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void ListCtrl::onMouseDrag(int _left, int _top)
+	void ListCtrl::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void ListCtrl::removeDropItems()
@@ -643,16 +643,16 @@ namespace MyGUI
 
 	}
 
-	void ListCtrl::notifyMouseDrag(Widget* _sender, int _left, int _top)
+	void ListCtrl::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		mouseDrag();
+		mouseDrag(_id);
 	}
 
 	void ListCtrl::notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonPressed(_id);
 
-		if ( MouseButton::Left == _id)
+		if (MouseButton::Left == _id)
 		{
 			size_t old = mIndexSelect;
 

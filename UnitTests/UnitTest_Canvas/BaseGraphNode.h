@@ -128,19 +128,19 @@ namespace wraps
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MouseButton::Left)
-			{
 				mView->startDrag(*_sender->getUserData<BaseGraphConnection*>());
-			}
 		}
 
 		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
-			mView->stopDrag(*_sender->getUserData<BaseGraphConnection*>());
+			if (_id == MyGUI::MouseButton::Left)
+				mView->stopDrag(*_sender->getUserData<BaseGraphConnection*>());
 		}
 
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
-			mView->updateDrag(*_sender->getUserData<BaseGraphConnection*>());
+			if (_id == MyGUI::MouseButton::Left)
+				mView->updateDrag(*_sender->getUserData<BaseGraphConnection*>());
 		}
 
 	private:
