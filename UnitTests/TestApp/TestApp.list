@@ -15,9 +15,17 @@ set (SOURCE_FILES
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
+  VertexBuffer.cpp
+  RenderManager.cpp
+  Layer.cpp
+  RttLayer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
+  VertexBuffer.h
+  RenderManager.h
+  Layer.h
+  RttLayer.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

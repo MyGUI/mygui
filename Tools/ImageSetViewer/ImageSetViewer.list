@@ -18,10 +18,10 @@ SOURCE_GROUP("Header Files" FILES
   View.h
 )
 SOURCE_GROUP("Resource" FILES
+  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
   ../../Common/Base/mygui.ico
   CMakeLists.txt
-  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("" FILES
 )
