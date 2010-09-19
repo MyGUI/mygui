@@ -13,6 +13,34 @@ set (HEADER_FILES
   HotKeyManager.h
   HotKeyCommand.h
   Localise.h
+  MessageBoxManager.h
+  DialogManager.h
+  SettingsSector.h
+  MessageBoxFadeControl.h
+  CyclicBuffer.h
+  SkinInfo.h
+  WidgetStyle.h
+  PossibleValue.h
+  Dialog.h
+  StateManager.h
+  StateController.h
+  Application.h
+  EditorState.h
+  TestState.h
+  BackgroundControl.h
+  MainPaneControl.h
+  ToolsControl.h
+  SelectionAreaControl.h
+  WidgetCreatorManager.h
+  RecentFilesManager.h
+  BackwardCompatibilityManager.h
+  WorkspaceControl.h
+  PositionSelectorControl.h
+  SettingsResourcesControl.h
+  TextFieldControl.h
+  SettingsResourcePathsControl.h
+  SettingsGeneralControl.h
+  SettingsWidgetsControl.h
   PanelControllers.h
   PanelItems.h
   PanelMainProperties.h
@@ -27,6 +55,105 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
+)
+set (SOURCE_FILES
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  UndoManager.cpp
+  WidgetTypes.cpp
+  CommandManager.cpp
+  MainMenuControl.cpp
+  SettingsManager.cpp
+  WidgetSelectorManager.cpp
+  HotKeyManager.cpp
+  MessageBoxManager.cpp
+  DialogManager.cpp
+  SettingsSector.cpp
+  MessageBoxFadeControl.cpp
+  Dialog.cpp
+  StateManager.cpp
+  EditorState.cpp
+  Application.cpp
+  TestState.cpp
+  BackgroundControl.cpp
+  MainPaneControl.cpp
+  ToolsControl.cpp
+  SelectionAreaControl.cpp
+  WidgetCreatorManager.cpp
+  RecentFilesManager.cpp
+  BackwardCompatibilityManager.cpp
+  WorkspaceControl.cpp
+  PositionSelectorControl.cpp
+  SettingsResourcesControl.cpp
+  TextFieldControl.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsWidgetsControl.cpp
+  editor.ico
+  LayoutEditor.rc
+  ../../Common/Precompiled.cpp
+  PanelControllers.cpp
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelUserData.cpp
+  PropertiesPanelView.cpp
+  SettingsWindow.cpp
+  WidgetsWindow.cpp
+  OpenSaveFileDialog.cpp
+  Parse.cpp
+  GroupMessage.cpp
+  CodeGenerator.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  UndoManager.cpp
+  WidgetTypes.cpp
+  CommandManager.cpp
+  MainMenuControl.cpp
+  SettingsManager.cpp
+  WidgetSelectorManager.cpp
+  HotKeyManager.cpp
+  MessageBoxManager.cpp
+  DialogManager.cpp
+  SettingsSector.cpp
+  MessageBoxFadeControl.cpp
+  Dialog.cpp
+  StateManager.cpp
+  EditorState.cpp
+  Application.cpp
+  TestState.cpp
+  BackgroundControl.cpp
+  MainPaneControl.cpp
+  ToolsControl.cpp
+  SelectionAreaControl.cpp
+  WidgetCreatorManager.cpp
+  RecentFilesManager.cpp
+  BackwardCompatibilityManager.cpp
+  WorkspaceControl.cpp
+  PositionSelectorControl.cpp
+  SettingsResourcesControl.cpp
+  TextFieldControl.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsWidgetsControl.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Common.h
+  EditorToolTip.h
+  EditorWidgets.h
+  resource.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetTypes.h
+  CommandManager.h
+  MainMenuControl.h
+  SettingsManager.h
+  WidgetSelectorManager.h
+  HotKeyManager.h
+  HotKeyCommand.h
+  Localise.h
   MessageBoxManager.h
   DialogManager.h
   SettingsSector.h
@@ -56,87 +183,11 @@ set (HEADER_FILES
   SettingsGeneralControl.h
   SettingsWidgetsControl.h
 )
-set (SOURCE_FILES
-  EditorToolTip.cpp
-  EditorWidgets.cpp
-  UndoManager.cpp
-  WidgetTypes.cpp
-  CommandManager.cpp
-  MainMenuControl.cpp
-  SettingsManager.cpp
-  WidgetSelectorManager.cpp
-  HotKeyManager.cpp
-  editor.ico
-  LayoutEditor.rc
-  PanelControllers.cpp
-  PanelItems.cpp
-  PanelMainProperties.cpp
-  PanelProperties.cpp
-  PanelUserData.cpp
-  PropertiesPanelView.cpp
-  SettingsWindow.cpp
-  WidgetsWindow.cpp
-  OpenSaveFileDialog.cpp
-  Parse.cpp
-  GroupMessage.cpp
-  CodeGenerator.cpp
-  MessageBoxManager.cpp
-  DialogManager.cpp
-  SettingsSector.cpp
-  MessageBoxFadeControl.cpp
-  Dialog.cpp
-  StateManager.cpp
-  EditorState.cpp
-  Application.cpp
-  TestState.cpp
-  BackgroundControl.cpp
-  MainPaneControl.cpp
-  ToolsControl.cpp
-  SelectionAreaControl.cpp
-  WidgetCreatorManager.cpp
-  RecentFilesManager.cpp
-  BackwardCompatibilityManager.cpp
-  WorkspaceControl.cpp
-  PositionSelectorControl.cpp
-  SettingsResourcesControl.cpp
-  TextFieldControl.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsWidgetsControl.cpp
-  ../../Common/Precompiled.cpp
-)
-SOURCE_GROUP("Source Files" FILES
-  EditorToolTip.cpp
-  EditorWidgets.cpp
-  UndoManager.cpp
-  WidgetTypes.cpp
-  CommandManager.cpp
-  MainMenuControl.cpp
-  SettingsManager.cpp
-  WidgetSelectorManager.cpp
-  HotKeyManager.cpp
-)
-SOURCE_GROUP("Header Files" FILES
-  Common.h
-  EditorToolTip.h
-  EditorWidgets.h
-  resource.h
-  UndoManager.h
-  WidgetContainer.h
-  WidgetTypes.h
-  CommandManager.h
-  MainMenuControl.h
-  SettingsManager.h
-  WidgetSelectorManager.h
-  HotKeyManager.h
-  HotKeyCommand.h
-  Localise.h
-)
 SOURCE_GROUP("Resources" FILES
   editor.ico
   LayoutEditor.rc
-  CMakeLists.txt
   ../../Common/Precompiled.cpp
+  CMakeLists.txt
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h

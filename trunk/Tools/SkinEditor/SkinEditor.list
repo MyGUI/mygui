@@ -216,6 +216,17 @@ SOURCE_GROUP("Source Files" FILES
   StateManager.cpp
   EditorState.cpp
   TestState.cpp
+  SettingsManager.cpp
+  RecentFilesManager.cpp
+  SettingsSector.cpp
+  SettingsWindow.cpp
+  TextureToolControl.cpp
+  TextureBrowseControl.cpp
+  TextureBrowseCell.cpp
+  SettingsResourcesControl.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsGeneralControl.cpp
+  ColourManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Binary.h
@@ -285,11 +296,22 @@ SOURCE_GROUP("Header Files" FILES
   StateController.h
   EditorState.h
   TestState.h
+  SettingsManager.h
+  RecentFilesManager.h
+  SettingsSector.h
+  SettingsWindow.h
+  TextureToolControl.h
+  TextureBrowseControl.h
+  TextureBrowseCell.h
+  SettingsResourcesControl.h
+  SettingsResourcePathsControl.h
+  SettingsGeneralControl.h
+  ColourManager.h
 )
 SOURCE_GROUP("Resources" FILES
+  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
-  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("" FILES
 )
