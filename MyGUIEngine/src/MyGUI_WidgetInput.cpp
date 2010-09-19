@@ -36,6 +36,10 @@ namespace MyGUI
 	{
 	}
 
+	WidgetInput::~WidgetInput()
+	{
+	}
+
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
 		if (_filename.empty())
@@ -142,6 +146,136 @@ namespace MyGUI
 	{
 		onKeyChangeRootFocus(_focus);
 		eventRootKeyChangeFocus(static_cast<Widget*>(this), _focus);
+	}
+
+	void WidgetInput::setNeedToolTip(bool _value)
+	{
+		mNeedToolTip = _value;
+	}
+
+	bool WidgetInput::getNeedToolTip() const
+	{
+		return mNeedToolTip;
+	}
+
+	void WidgetInput::setPointer(const std::string& _value)
+	{
+		mPointer = _value;
+	}
+
+	const std::string& WidgetInput::getPointer() const
+	{
+		return mPointer;
+	}
+
+	void WidgetInput::setNeedKeyFocus(bool _value)
+	{
+		mNeedKeyFocus = _value;
+	}
+
+	bool WidgetInput::getNeedKeyFocus() const
+	{
+		return mNeedKeyFocus;
+	}
+
+	void WidgetInput::setNeedMouseFocus(bool _value)
+	{
+		mNeedMouseFocus = _value;
+	}
+
+	bool WidgetInput::getNeedMouseFocus() const
+	{
+		return mNeedMouseFocus;
+	}
+
+	void WidgetInput::setInheritsPick(bool _value)
+	{
+		mInheritsPick = _value;
+	}
+
+	bool WidgetInput::getInheritsPick() const
+	{
+		return mInheritsPick;
+	}
+
+	bool WidgetInput::getRootMouseFocus() const
+	{
+		return mRootMouseFocus;
+	}
+
+	bool WidgetInput::getRootKeyFocus() const
+	{
+		return mRootKeyFocus;
+	}
+
+	void WidgetInput::_setRootMouseFocus(bool _value)
+	{
+		mRootMouseFocus = _value;
+	}
+
+	void WidgetInput::_setRootKeyFocus(bool _value)
+	{
+		mRootKeyFocus = _value;
+	}
+
+	void WidgetInput::onMouseLostFocus(Widget* _new)
+	{
+	}
+
+	void WidgetInput::onMouseSetFocus(Widget* _old)
+	{
+	}
+
+	void WidgetInput::onMouseDrag(int _left, int _top, MouseButton _id)
+	{
+	}
+
+	void WidgetInput::onMouseMove(int _left, int _top)
+	{
+	}
+
+	void WidgetInput::onMouseWheel(int _rel)
+	{
+	}
+
+	void WidgetInput::onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	{
+	}
+
+	void WidgetInput::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	{
+	}
+
+	void WidgetInput::onMouseButtonClick()
+	{
+	}
+
+	void WidgetInput::onMouseButtonDoubleClick()
+	{
+	}
+
+	void WidgetInput::onKeyLostFocus(Widget* _new)
+	{
+	}
+
+	void WidgetInput::onKeySetFocus(Widget* _old)
+	{
+	}
+
+	void WidgetInput::onKeyButtonPressed(KeyCode _key, Char _char)
+	{
+	}
+
+	void WidgetInput::onKeyButtonReleased(KeyCode _key)
+	{
+	}
+
+	void WidgetInput::onMouseChangeRootFocus(bool _focus)
+	{
+	}
+
+	void WidgetInput::onKeyChangeRootFocus(bool _focus)
+	{
 	}
 
 } // namespace MyGUI

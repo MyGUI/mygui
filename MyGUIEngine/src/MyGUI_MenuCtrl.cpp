@@ -678,4 +678,113 @@ namespace MyGUI
 		return mClient == nullptr ? this : mClient;
 	}
 
+	size_t MenuCtrl::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	void MenuCtrl::setItemData(MenuItem* _item, Any _data)
+	{
+		setItemDataAt(getItemIndex(_item), _data);
+	}
+
+	void MenuCtrl::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	void MenuCtrl::clearItemData(MenuItem* _item)
+	{
+		clearItemDataAt(getItemIndex(_item));
+	}
+
+	void MenuCtrl::setItemId(MenuItem* _item, const std::string& _id)
+	{
+		setItemIdAt(getItemIndex(_item), _id);
+	}
+
+	const std::string& MenuCtrl::getItemId(MenuItem* _item)
+	{
+		return getItemIdAt(getItemIndex(_item));
+	}
+
+	void MenuCtrl::setItemName(MenuItem* _item, const UString& _name)
+	{
+		setItemNameAt(getItemIndex(_item), _name);
+	}
+
+	const UString& MenuCtrl::getItemName(MenuItem* _item)
+	{
+		return getItemNameAt(getItemIndex(_item));
+	}
+
+	void MenuCtrl::setItemChildVisible(MenuItem* _item, bool _visible)
+	{
+		setItemChildVisibleAt(getItemIndex(_item), _visible);
+	}
+
+	MenuCtrl* MenuCtrl::getItemChild(MenuItem* _item)
+	{
+		return getItemChildAt(getItemIndex(_item));
+	}
+
+	MenuCtrl* MenuCtrl::createItemChildAt(size_t _index)
+	{
+		return createItemChildTAt<MenuCtrl>(_index);
+	}
+
+	MenuCtrl* MenuCtrl::createItemChild(MenuItem* _item)
+	{
+		return createItemChildAt(getItemIndex(_item));
+	}
+
+	void MenuCtrl::removeItemChild(MenuItem* _item)
+	{
+		removeItemChildAt(getItemIndex(_item));
+	}
+
+	MenuItemType MenuCtrl::getItemType(MenuItem* _item)
+	{
+		return getItemTypeAt(getItemIndex(_item));
+	}
+
+	void MenuCtrl::setItemType(MenuItem* _item, MenuItemType _type)
+	{
+		setItemTypeAt(getItemIndex(_item), _type);
+	}
+
+	void MenuCtrl::setPopupAccept(bool _value)
+	{
+		mPopupAccept = _value;
+	}
+
+	bool MenuCtrl::getPopupAccept() const
+	{
+		return mPopupAccept;
+	}
+
+	MenuItem* MenuCtrl::getMenuItemParent()
+	{
+		return mOwner;
+	}
+
+	const std::string& MenuCtrl::getSkinByType(MenuItemType _type)
+	{
+		return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
+	}
+
+	size_t MenuCtrl::getIconIndexByType(MenuItemType _type)
+	{
+		return _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone;
+	}
+
+	MenuItemType MenuCtrl::getItemType(bool _submenu, bool _separator)
+	{
+		if (_submenu)
+			return MenuItemType::Popup;
+		else if (_separator)
+			return MenuItemType::Separator;
+		return MenuItemType::Normal;
+	}
+
 } // namespace MyGUI

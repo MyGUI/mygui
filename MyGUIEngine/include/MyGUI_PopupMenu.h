@@ -35,7 +35,6 @@ namespace MyGUI
 
 	public:
 		PopupMenu();
-
 	};
 
 } // namespace MyGUI

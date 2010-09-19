@@ -446,10 +446,14 @@ namespace MyGUI
 
 	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
-		else if (_key == "Snap") setSnap(utility::parseValue<bool>(_value));
-		else if (_key == "MinSize") setMinSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
+		if (_key == "AutoAlpha")
+			setAutoAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "Snap")
+			setSnap(utility::parseValue<bool>(_value));
+		else if (_key == "MinSize")
+			setMinSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "MaxSize")
+			setMaxSize(utility::parseValue<IntSize>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -463,7 +467,7 @@ namespace MyGUI
 		return mCurrentActionScale;
 	}
 
-	bool Window::getAutoAlpha()
+	bool Window::getAutoAlpha() const
 	{
 		return mIsAutoAlpha;
 	}
@@ -498,7 +502,7 @@ namespace MyGUI
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
-	bool Window::getSnap()
+	bool Window::getSnap() const
 	{
 		return mSnap;
 	}

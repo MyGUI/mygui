@@ -33,7 +33,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RawRect : public SubSkin
+	class MYGUI_EXPORT RawRect :
+		public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( RawRect )
 

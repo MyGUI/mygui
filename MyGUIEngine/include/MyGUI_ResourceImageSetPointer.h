@@ -29,13 +29,14 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceImageSetPointer : public IPointer
+	class MYGUI_EXPORT ResourceImageSetPointer :
+		public IPointer
 	{
 		MYGUI_RTTI_DERIVED( ResourceImageSetPointer )
 
 	public:
 		ResourceImageSetPointer();
-		virtual ~ResourceImageSetPointer() { }
+		virtual ~ResourceImageSetPointer();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 

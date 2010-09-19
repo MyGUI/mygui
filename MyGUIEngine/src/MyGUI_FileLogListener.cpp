@@ -27,6 +27,14 @@
 namespace MyGUI
 {
 
+	FileLogListener::FileLogListener()
+	{
+	}
+
+	FileLogListener::~FileLogListener()
+	{
+	}
+
 	void FileLogListener::open()
 	{
 		/*time_t ctTime;
@@ -74,4 +82,14 @@ namespace MyGUI
 		}
 	}
 
-}
+	void FileLogListener::setFileName(const std::string& _value)
+	{
+		mFileName = _value;
+	}
+
+	const std::string& FileLogListener::getFileName() const
+	{
+		return mFileName;
+	}
+
+} // namespace MyGUI

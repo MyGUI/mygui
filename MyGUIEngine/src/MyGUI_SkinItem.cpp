@@ -166,4 +166,14 @@ namespace MyGUI
 		_updateSkinItemView();
 	}
 
+	ISubWidgetText* SkinItem::getSubWidgetText()
+	{
+		return mText;
+	}
+
+	ISubWidgetRect* SkinItem::getSubWidgetMain()
+	{
+		return mMainSkin;
+	}
+
 } // namespace MyGUI

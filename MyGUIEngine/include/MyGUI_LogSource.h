@@ -29,6 +29,7 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT LogSource
 	{
 	public:
@@ -54,6 +55,7 @@ namespace MyGUI
 		VectorLogListeners mListeners;
 		ILogFilter* mFilter;
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_LOG_SOURCE_H__

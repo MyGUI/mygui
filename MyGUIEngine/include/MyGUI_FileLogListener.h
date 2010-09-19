@@ -29,11 +29,13 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT FileLogListener :
 		public ILogListener
 	{
 	public:
-		virtual ~FileLogListener() { }
+		FileLogListener();
+		virtual ~FileLogListener();
 
 		//! @copydoc ILogListener::open()
 		virtual void open();
@@ -45,20 +47,15 @@ namespace MyGUI
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
 		/** Set listener's file name where it wirte log. */
-		void setFileName(const std::string& _value)
-		{
-			mFileName = _value;
-		}
+		void setFileName(const std::string& _value);
 		/** Get listener's file name where it wirte log. */
-		const std::string& getFileName() const
-		{
-			return mFileName;
-		}
+		const std::string& getFileName() const;
 
 	private:
 		std::ofstream mStream;
 		std::string mFileName;
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_FILE_LOG_LISTENER_H__

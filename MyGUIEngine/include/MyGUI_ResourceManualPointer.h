@@ -34,8 +34,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceManualPointer )
 
 	public:
-		ResourceManualPointer() { }
-		virtual ~ResourceManualPointer() { }
+		ResourceManualPointer();
+		virtual ~ResourceManualPointer();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 

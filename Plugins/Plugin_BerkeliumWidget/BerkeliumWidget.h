@@ -60,7 +60,7 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 		virtual void onMouseMove(int _left, int _top);
 		virtual void onMouseWheel(int _rel);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);

@@ -34,7 +34,8 @@ namespace MyGUI
 	typedef std::vector<RenderItem*> VectorRenderItem;
 	typedef std::vector<ILayerItem*> VectorLayerItem;
 
-	class MYGUI_EXPORT LayerNode : public ILayerNode
+	class MYGUI_EXPORT LayerNode :
+		public ILayerNode
 	{
 		MYGUI_RTTI_DERIVED( LayerNode )
 
@@ -43,16 +44,10 @@ namespace MyGUI
 		virtual ~LayerNode();
 
 		// леер, которому мы принадлежим
-		virtual ILayer* getLayer() const
-		{
-			return mLayer;
-		}
+		virtual ILayer* getLayer() const;
 
 		// возвращает отца или nullptr
-		virtual ILayerNode* getParent() const
-		{
-			return mParent;
-		}
+		virtual ILayerNode* getParent() const;
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
@@ -81,12 +76,7 @@ namespace MyGUI
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
-		virtual void dumpStatisticToLog(size_t _level);
-
-		bool isOutOfDate() const
-		{
-			return mOutOfDate;
-		}
+		bool isOutOfDate() const;
 
 	protected:
 		void updateCompression();

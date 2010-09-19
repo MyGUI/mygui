@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
+	typedef delegates::CMultiDelegate1<float> EventHandle_FrameEventDelegate;
 
 	class MYGUI_EXPORT Gui :
 		public Singleton<Gui>,
@@ -66,25 +66,13 @@ namespace MyGUI
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
-		{
-			return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
-		}
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "");
 		/** See Gui::createWidgetT */
-		Widget* createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
-		{
-			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
-		}
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "");
 		/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
-		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
-		{
-			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * mViewSize.width), (int)(_coord.top * mViewSize.height), (int)(_coord.width * mViewSize.width), (int)(_coord.height * mViewSize.height)), _align, _layer, _name);
-		}
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "");
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
-		{
-			return createWidgetT(_type, _skin, IntCoord((int)(_left * mViewSize.width), (int)(_top * mViewSize.height), (int)(_width * mViewSize.width), (int)(_height * mViewSize.height)), _align, _layer, _name);
-		}
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "");
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of Widget* */
@@ -129,10 +117,7 @@ namespace MyGUI
 		/** Find widget by name and prefix
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
-		{
-			return findWidgetT(_prefix + _name, _throw);
-		}
+		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 
 		/** Find widget by name and cast it to T type.
 			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
@@ -155,25 +140,23 @@ namespace MyGUI
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(Widget* _widget)
-		{
-			_destroyChildWidget(_widget);
-		}
+		void destroyChildWidget(Widget* _widget);
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget()
-		{
-			_destroyAllChildWidget();
-		}
+		void destroyAllChildWidget();
 
 		/** Get root widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator() const
-		{
-			return EnumeratorWidgetPtr(mWidgetChild);
-		}
+		EnumeratorWidgetPtr getEnumerator() const;
+
+	/*events:*/
+		/** Event : Multidelegate. GUI per frame call.\n
+			signature : void method(float _time)\n
+			@param _time Time elapsed since last frame
+		*/
+		EventHandle_FrameEventDelegate
+			eventFrameStart;
 
 	/*internal:*/
-
 		/** Inject frame entered event (called be renderer, do not call it manually).
 			This function is called every frame by renderer.
 		*/
@@ -184,13 +167,6 @@ namespace MyGUI
 
 		/** Resize GUI area (called by renderer, do not call it manually). */
 		void _resizeWindow(const IntSize& _size);
-
-	/*events:*/
-		/** Event : Multidelegate. GUI per frame call.\n
-			signature : void method(float _time)\n
-			@param _time Time elapsed since last frame
-		*/
-		FrameEventDelegate eventFrameStart;
 
 	private:
 		// создает виджет

@@ -153,7 +153,7 @@ namespace Hikari
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
 
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseMove(int _left, int _top);
 		virtual void onMouseWheel(int _rel);
 		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);

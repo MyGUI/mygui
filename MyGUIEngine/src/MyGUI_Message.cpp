@@ -401,17 +401,27 @@ namespace MyGUI
 
 	void Message::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "MessageText") setMessageText(_value);
-		else if (_key == "Modal") setMessageModal(utility::parseValue<bool>(_value));
-		else if (_key == "MessageButton") setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
-		else if (_key == "SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
-		else if (_key == "Fade") setWindowFade(utility::parseValue<bool>(_value));
+		if (_key == "MessageText")
+			setMessageText(_value);
+		else if (_key == "Modal")
+			setMessageModal(utility::parseValue<bool>(_value));
+		else if (_key == "MessageButton")
+			setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
+		else if (_key == "SmoothShow")
+			setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "Fade")
+			setWindowFade(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	const std::string& Message::getDefaultLayer() const
+	{
+		return mDefaultLayer;
 	}
 
 } // namespace MyGUI

@@ -212,4 +212,39 @@ namespace MyGUI
 		return mManualRender;
 	}
 
+	void RenderItem::outOfDate()
+	{
+		mOutDate = true;
+	}
+
+	size_t RenderItem::getNeedVertexCount() const
+	{
+		return mNeedVertexCount;
+	}
+
+	size_t RenderItem::getVertexCount() const
+	{
+		return mCountVertex;
+	}
+
+	bool RenderItem::getCurrentUpdate() const
+	{
+		return mCurrentUpdate;
+	}
+
+	Vertex* RenderItem::getCurrentVertextBuffer() const
+	{
+		return mCurrentVertext;
+	}
+
+	void RenderItem::setLastVertexCount(size_t _count)
+	{
+		mLastVertextCount = _count;
+	}
+
+	IRenderTarget* RenderItem::getRenderTarget()
+	{
+		return mRenderTarget;
+	}
+
 } // namespace MyGUI

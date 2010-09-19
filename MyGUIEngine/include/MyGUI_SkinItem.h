@@ -30,6 +30,7 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT SkinItem :
 		public LayerItem
 	{
@@ -37,15 +38,9 @@ namespace MyGUI
 		SkinItem();
 
 		/** Get text sub widget or nullptr if no text sub widget */
-		ISubWidgetText* getSubWidgetText()
-		{
-			return mText;
-		}
+		ISubWidgetText* getSubWidgetText();
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
-		ISubWidgetRect* getSubWidgetMain()
-		{
-			return mMainSkin;
-		}
+		ISubWidgetRect* getSubWidgetMain();
 
 		void _setTextureName(const std::string& _texture);
 		const std::string& _getTextureName() const;
@@ -79,6 +74,7 @@ namespace MyGUI
 
 		bool mSubSkinsVisible;
 	};
+
 } // namespace MyGUI
 
 #endif // __MYGUI_SKIN_ITEM_H__

@@ -177,4 +177,14 @@ namespace MyGUI
 		initialise();
 	}
 
+	ITexture* ResourceManualFont::getTextureFont()
+	{
+		return mTexture;
+	}
+
+	int ResourceManualFont::getDefaultHeight()
+	{
+		return mDefaultHeight;
+	}
+
 } // namespace MyGUI

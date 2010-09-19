@@ -846,4 +846,64 @@ namespace MyGUI
 		return mClient == nullptr ? this : mClient;
 	}
 
+	size_t ListCtrl::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	void ListCtrl::addItem(Any _data)
+	{
+		insertItemAt(ITEM_NONE, _data);
+	}
+
+	void ListCtrl::redrawAllItems()
+	{
+		_updateAllVisible(ITEM_NONE, true, true);
+	}
+
+	size_t ListCtrl::getIndexSelected() const
+	{
+		return mIndexSelect;
+	}
+
+	void ListCtrl::clearIndexSelected()
+	{
+		setIndexSelected(ITEM_NONE);
+	}
+
+	void ListCtrl::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	Widget* ListCtrl::getWidgetDrag()
+	{
+		return mItemDrag;
+	}
+
+	void ListCtrl::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void ListCtrl::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void ListCtrl::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	void ListCtrl::_setScrollViewPage(size_t _size)
+	{
+		mScrollViewPage = _size;
+	}
+
+	size_t ListCtrl::calcIndexByWidget(Widget* _widget)
+	{
+		return *_widget->_getInternalData<size_t>();
+	}
+
 } // namespace MyGUI

@@ -131,11 +131,16 @@ namespace MyGUI
 
 	void StaticText::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "TextColour") setTextColour(utility::parseValue<Colour>(_value));
-		else if (_key == "TextAlign") setTextAlign(utility::parseValue<Align>(_value));
-		else if (_key == "FontName") setFontName(_value);
-		else if (_key == "FontHeight") setFontHeight(utility::parseValue<int>(_value));
-		else if (_key == "Caption") setCaptionWithNewLine(_value);
+		if (_key == "TextColour")
+			setTextColour(utility::parseValue<Colour>(_value));
+		else if (_key == "TextAlign")
+			setTextAlign(utility::parseValue<Align>(_value));
+		else if (_key == "FontName")
+			setFontName(_value);
+		else if (_key == "FontHeight")
+			setFontHeight(utility::parseValue<int>(_value));
+		else if (_key == "Caption")
+			setCaptionWithNewLine(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

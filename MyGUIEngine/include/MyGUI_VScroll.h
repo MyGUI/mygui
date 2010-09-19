@@ -43,44 +43,26 @@ namespace MyGUI
 		/** Set scroll range */
 		void setScrollRange(size_t _value);
 		/** Get scroll range */
-		size_t getScrollRange()
-		{
-			return mScrollRange;
-		}
+		size_t getScrollRange() const;
 
 		/** Set scroll position (value from 0 to range - 1) */
 		void setScrollPosition(size_t _value);
 		/** Get scroll position (value from 0 to range - 1) */
-		size_t getScrollPosition()
-		{
-			return mScrollPosition;
-		}
+		size_t getScrollPosition() const;
 
 		/** Set scroll page
 			@param _page Tracker step when buttons pressed
 		*/
-		void setScrollPage(size_t _value)
-		{
-			mScrollPage = _value;
-		}
+		void setScrollPage(size_t _value);
 		/** Get scroll page */
-		size_t getScrollPage()
-		{
-			return mScrollPage;
-		}
+		size_t getScrollPage() const;
 
 		/** Set scroll view page
 			@param _viewPage Tracker step when pressed on scroll line
 		*/
-		void setScrollViewPage(size_t _value)
-		{
-			mScrollViewPage = _value;
-		}
+		void setScrollViewPage(size_t _value);
 		/** Get scroll view page */
-		size_t getScrollViewPage()
-		{
-			return mScrollViewPage;
-		}
+		size_t getScrollViewPage() const;
 
 		/** Get size in pixels of area where scroll moves */
 		virtual int getLineSize();
@@ -93,29 +75,17 @@ namespace MyGUI
 		virtual int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
-		void setMinTrackSize(int _value)
-		{
-			mMinTrackSize = _value;
-		}
+		void setMinTrackSize(int _value);
 		/** Get minimal track size */
-		int getMinTrackSize()
-		{
-			return mMinTrackSize;
-		}
+		int getMinTrackSize() const;
 
 		/** Enable or disable move to click mode.\n
 			Move to click mode: Tracker moves to cursor when pressed on scroll line.\n
 			Disabled (false) by default.
 		*/
-		void setMoveToClick(bool _value)
-		{
-			mMoveToClick = _value;
-		}
+		void setMoveToClick(bool _value);
 		/** Get move to click mode flag */
-		bool getMoveToClick()
-		{
-			return mMoveToClick;
-		}
+		bool getMoveToClick() const;
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -125,20 +95,11 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 	/*events:*/
 		/** Event : scroll tracker position changed.\n
@@ -146,7 +107,8 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT>
+			eventScrollChangePosition;
 
 	protected:
 		virtual void initialiseOverride();
@@ -187,7 +149,6 @@ namespace MyGUI
 
 		int mMinTrackSize;
 		bool mMoveToClick;
-
 	};
 
 } // namespace MyGUI

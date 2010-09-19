@@ -421,16 +421,103 @@ namespace MyGUI
 
 	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
-		else if (_key == "FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
-		else if (_key == "MaxListLength") setMaxListLength(utility::parseValue<int>(_value));
-		else if (_key == "SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
+		if (_key == "ModeDrop")
+			setComboModeDrop(utility::parseValue<bool>(_value));
+		else if (_key == "FlowDirection")
+			setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		else if (_key == "MaxListLength")
+			setMaxListLength(utility::parseValue<int>(_value));
+		else if (_key == "SmoothShow")
+			setSmoothShow(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	size_t ComboBox::getItemCount() const
+	{
+		return mList->getItemCount();
+	}
+
+	void ComboBox::addItem(const UString& _name, Any _data)
+	{
+		return insertItemAt(ITEM_NONE, _name, _data);
+	}
+
+	size_t ComboBox::getIndexSelected()
+	{
+		return mItemIndex;
+	}
+
+	void ComboBox::clearIndexSelected()
+	{
+		setIndexSelected(ITEM_NONE);
+	}
+
+	void ComboBox::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	const UString& ComboBox::getItemNameAt(size_t _index)
+	{
+		return mList->getItemNameAt(_index);
+	}
+
+	void ComboBox::beginToItemAt(size_t _index)
+	{
+		mList->beginToItemAt(_index);
+	}
+
+	void ComboBox::beginToItemFirst()
+	{
+		if (getItemCount())
+			beginToItemAt(0);
+	}
+
+	void ComboBox::beginToItemLast()
+	{
+		if (getItemCount())
+			beginToItemAt(getItemCount() - 1);
+	}
+
+	void ComboBox::beginToItemSelected()
+	{
+		if (getIndexSelected() != ITEM_NONE)
+			beginToItemAt(getIndexSelected());
+	}
+
+	bool ComboBox::getComboModeDrop() const
+	{
+		return mModeDrop;
+	}
+
+	void ComboBox::setSmoothShow(bool _value)
+	{
+		mShowSmooth = _value;
+	}
+
+	bool ComboBox::getSmoothShow() const
+	{
+		return mShowSmooth;
+	}
+
+	void ComboBox::setMaxListLength(int _value)
+	{
+		mMaxListLength = _value;
+	}
+
+	int ComboBox::getMaxListLength() const
+	{
+		return mMaxListLength;
+	}
+
+	FlowDirection ComboBox::getFlowDirection() const
+	{
+		return mFlowDirection;
 	}
 
 } // namespace MyGUI

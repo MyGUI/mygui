@@ -44,34 +44,13 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		const IntSize& getSize() const
-		{
-			return mSize;
-		}
-		const std::string& getTextureName() const
-		{
-			return mTexture;
-		}
-		const VectorSubWidgetInfo& getBasisInfo() const
-		{
-			return mBasis;
-		}
-		const MapWidgetStateInfo& getStateInfo() const
-		{
-			return mStates;
-		}
-		const MapString& getProperties() const
-		{
-			return mProperties;
-		}
-		const VectorChildSkinInfo& getChild() const
-		{
-			return mChilds;
-		}
-		const std::string& getSkinName() const
-		{
-			return mSkinName;
-		}
+		const IntSize& getSize() const;
+		const std::string& getTextureName() const;
+		const VectorSubWidgetInfo& getBasisInfo() const;
+		const MapWidgetStateInfo& getStateInfo() const;
+		const MapString& getProperties() const;
+		const VectorChildSkinInfo& getChild() const;
+		const std::string& getSkinName() const;
 
 	private:
 		void setInfo(const IntSize& _size, const std::string& _texture);

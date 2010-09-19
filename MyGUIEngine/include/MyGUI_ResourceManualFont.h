@@ -34,10 +34,6 @@ namespace MyGUI
 	{
 		MYGUI_RTTI_DERIVED( ResourceManualFont )
 
-	private:
-		typedef std::vector<RangeInfo> VectorRangeInfo;
-		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
-
 	public:
 		ResourceManualFont();
 		virtual ~ResourceManualFont();
@@ -46,16 +42,10 @@ namespace MyGUI
 
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
-		virtual ITexture* getTextureFont()
-		{
-			return mTexture;
-		}
+		virtual ITexture* getTextureFont();
 
 		// дефолтная высота, указанная в настройках шрифта
-		virtual int getDefaultHeight()
-		{
-			return mDefaultHeight;
-		}
+		virtual int getDefaultHeight();
 
 	private:
 		void addGlyph(Char _index, const IntCoord& _coord);
@@ -64,6 +54,7 @@ namespace MyGUI
 
 		void addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
+		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
 		void addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
 		void checkTexture();
 
@@ -78,6 +69,7 @@ namespace MyGUI
 		VectorPairCodeCoord mVectorPairCodeCoord;
 
 		// вся информация о символах
+		typedef std::vector<RangeInfo> VectorRangeInfo;
 		VectorRangeInfo mVectorRangeInfo;
 
 		MyGUI::ITexture* mTexture;

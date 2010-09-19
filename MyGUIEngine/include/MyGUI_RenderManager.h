@@ -59,17 +59,11 @@ namespace MyGUI
 		virtual VertexColourType getVertexFormat() = 0;
 
 		/** Check if texture format supported by hardware */
-		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage)
-		{
-			return true;
-		}
+		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
 #if MYGUI_DEBUG_MODE == 1
 		/** Check if texture is valid */
-		virtual bool checkTexture(ITexture* _texture)
-		{
-			return true;
-		}
+		virtual bool checkTexture(ITexture* _texture);
 #endif
 	};
 

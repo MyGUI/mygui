@@ -100,11 +100,6 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool Edit::isVisibleHScroll()")
 		bool isShowHScroll();
 
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour);
 		MYGUI_OBSOLETE(" is deprecated, use : size_t Edit::getTextSelectionStart() , size_t getTextSelectionEnd()")
@@ -127,11 +122,6 @@ namespace MyGUI
 	class MemberObsolete<ItemBox>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ItemBox::getItemIndexSelected()")
 		size_t getItemIndexSelected();
 		MYGUI_OBSOLETE(" is deprecated, use : void ItemBox::setIndexSelected(size_t _index)")
@@ -164,11 +154,6 @@ namespace MyGUI
 	class MemberObsolete<List>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : size_t List::getIndexSelected()")
 		size_t getItemIndexSelected();
 		MYGUI_OBSOLETE(" is deprecated, use : void List::setIndexSelected(size_t _index)")
@@ -294,11 +279,6 @@ namespace MyGUI
 	class MemberObsolete<Progress>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : void Progress::setFlowDirection(FlowDirection _value)")
 		void setProgressStartPoint(Align _value);
 		MYGUI_OBSOLETE(" is deprecated, use : FlowDirection Progress::getFlowDirection()")
@@ -309,11 +289,6 @@ namespace MyGUI
 	class MemberObsolete<ScrollView>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : void ScrollView::setVisibleVScroll(bool _visible)")
 		void showVScroll(bool _visible);
 		MYGUI_OBSOLETE(" is deprecated, use : bool ScrollView::isVisibleVScroll()")
@@ -328,11 +303,6 @@ namespace MyGUI
 	class MemberObsolete<Tab>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
-
 		MYGUI_OBSOLETE(" is deprecated, use : int Tab::getButtonWidthAt(size_t _index)")
 		int getSheetButtonWidthIndex(size_t _index);
 		MYGUI_OBSOLETE(" is deprecated, use : int Tab::getButtonWidth(TabItem* _item)")
@@ -382,21 +352,12 @@ namespace MyGUI
 	class MemberObsolete<VScroll>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height);
 	};
 
 	template <>
 	class MemberObsolete<Widget>
 	{
 	public:
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
-		//void setPosition(const IntCoord& _coord);
-		//MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		//void setPosition(int _left, int _top, int _width, int _height):
-
 		MYGUI_OBSOLETE(" is deprecated, use : bool Widget::getEnabled() const")
 		bool isEnabled();
 		MYGUI_OBSOLETE(" is deprecated, use : bool Widget::getInheritsAlpha() const")

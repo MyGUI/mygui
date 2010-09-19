@@ -134,16 +134,16 @@ namespace Hikari
 		return mControl->callFunction(funcName, args);
 	}
 
-	void HikariWidget::onMouseDrag(int _left, int _top)
+	void HikariWidget::onMouseDrag(int _left, int _top, MyGUI::MouseButton _id)
 	{
 		mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void HikariWidget::onMouseMove(int _left, int _top)
 	{
 		mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseMove(_left, _top);
 	}
 
 	void HikariWidget::onMouseWheel(int _rel)
@@ -169,8 +169,10 @@ namespace Hikari
 
 	void HikariWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Source") load(_value);
-		else if (_key == "Transparent") setTransparent(MyGUI::utility::parseValue<bool>(_value));
+		if (_key == "Source")
+			load(_value);
+		else if (_key == "Transparent")
+			setTransparent(MyGUI::utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setProperty(_key, _value);

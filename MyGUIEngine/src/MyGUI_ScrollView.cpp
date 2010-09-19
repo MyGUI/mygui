@@ -242,16 +242,60 @@ namespace MyGUI
 
 	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
-		else if (_key == "VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "CanvasAlign") setCanvasAlign(utility::parseValue<Align>(_value));
-		else if (_key == "CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
+		if (_key == "VisibleVScroll")
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleHScroll")
+			setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "CanvasAlign")
+			setCanvasAlign(utility::parseValue<Align>(_value));
+		else if (_key == "CanvasSize")
+			setCanvasSize(utility::parseValue<IntSize>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void ScrollView::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void ScrollView::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void ScrollView::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	bool ScrollView::isVisibleVScroll() const
+	{
+		return mVisibleVScroll;
+	}
+
+	bool ScrollView::isVisibleHScroll() const
+	{
+		return mVisibleHScroll;
+	}
+
+	Align ScrollView::getCanvasAlign() const
+	{
+		return mContentAlign;
+	}
+
+	void ScrollView::setCanvasSize(int _width, int _height)
+	{
+		setCanvasSize(IntSize(_width, _height));
+	}
+
+	Align ScrollView::getContentAlign()
+	{
+		return mContentAlign;
 	}
 
 } // namespace MyGUI

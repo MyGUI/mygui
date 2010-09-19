@@ -106,4 +106,9 @@ namespace MyGUI
 #endif
 	}
 
+	std::string DynLib::getName(void) const
+	{
+		return mName;
+	}
+
 } // namespace MyGUI

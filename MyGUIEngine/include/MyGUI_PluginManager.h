@@ -84,6 +84,6 @@ namespace MyGUI
 		bool mIsInitialise;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_PLUGIN_MANAGER_H__

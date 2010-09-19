@@ -31,6 +31,14 @@ namespace MyGUI
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
+	ResourceImageSet::ResourceImageSet()
+	{
+	}
+
+	ResourceImageSet::~ResourceImageSet()
+	{
+	}
+
 	void ResourceImageSet::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
@@ -167,6 +175,59 @@ namespace MyGUI
 			}
 		}
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+	}
+
+	size_t ResourceImageSet::getGroupIndex(const std::string& _name)
+	{
+		for (size_t index = 0; index < mGroups.size(); ++index)
+		{
+			if (mGroups[index].name == _name)
+				return index;
+		}
+		return ITEM_NONE;
+	}
+
+	size_t ResourceImageSet::getGroupIndex(const IntSize& _size)
+	{
+		for (size_t index = 0; index < mGroups.size(); ++index)
+		{
+			if (mGroups[index].size == _size)
+				return index;
+		}
+		return ITEM_NONE;
+	}
+
+	size_t ResourceImageSet::getImageIndex(GroupImage& _group, const std::string& _name)
+	{
+		VectorIndexImage& indexes = _group.indexes;
+		for (size_t index = 0; index < indexes.size(); ++index)
+		{
+			if (indexes[index].name == _name)
+				return index;
+		}
+		return ITEM_NONE;
+	}
+
+	const IntSize& ResourceImageSet::getGroupSize(size_t _index)
+	{
+		if (_index >= mGroups.size())
+			return mSizeEmpty;
+		return mGroups[_index].size;
+	}
+
+	const IntSize& ResourceImageSet::getGroupSize(const std::string& _group)
+	{
+		for (size_t index = 0; index < mGroups.size(); ++index)
+		{
+			if (mGroups[index].name == _group)
+				return mGroups[index].size;
+		}
+		return mSizeEmpty;
+	}
+
+	EnumeratorGroupImage ResourceImageSet::getEnumerator() const
+	{
+		return EnumeratorGroupImage(mGroups);
 	}
 
 } // namespace MyGUI

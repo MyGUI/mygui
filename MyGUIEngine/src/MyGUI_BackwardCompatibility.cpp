@@ -148,9 +148,6 @@ namespace MyGUI
 		return static_cast<Edit*>(this)->isVisibleHScroll();
 	}
 
-	//void MemberObsolete<Edit>::setPosition(const IntCoord& _coord) { static_cast<Edit*>(this)->setCoord(_coord); }
-	//void MemberObsolete<Edit>::setPosition(int _left, int _top, int _width, int _height) { static_cast<Edit*>(this)->setCoord(_left, _top, _width, _height); }
-
 	void MemberObsolete<Edit>::setTextColour(size_t _start, size_t _count, const Colour& _colour)
 	{
 		static_cast<Edit*>(this)->setTextIntervalColour(_start, _count, _colour);
@@ -185,9 +182,6 @@ namespace MyGUI
 		static_cast<Edit*>(this)->setTextSelectionColour(_colour);
 	}
 
-
-	//void MemberObsolete<ItemBox>::setPosition(const IntCoord& _coord) { static_cast<ItemBox*>(this)->setCoord(_coord); }
-	//void MemberObsolete<ItemBox>::setPosition(int _left, int _top, int _width, int _height) { static_cast<ItemBox*>(this)->setCoord(_left, _top, _width, _height); }
 
 	size_t MemberObsolete<ItemBox>::getItemIndexSelected()
 	{
@@ -240,9 +234,6 @@ namespace MyGUI
 		static_cast<ItemBox*>(this)->resetDrag();
 	}
 
-
-	//void MemberObsolete<List>::setPosition(const IntCoord& _coord) { static_cast<List*>(this)->setCoord(_coord); }
-	//void MemberObsolete<List>::setPosition(int _left, int _top, int _width, int _height) { static_cast<List*>(this)->setCoord(_left, _top, _width, _height); }
 
 	size_t MemberObsolete<List>::getItemIndexSelected()
 	{
@@ -451,9 +442,6 @@ namespace MyGUI
 	}
 
 
-	//void MemberObsolete<Progress>::setPosition(const IntCoord& _coord) { static_cast<Progress*>(this)->setCoord(_coord); }
-	//void MemberObsolete<Progress>::setPosition(int _left, int _top, int _width, int _height) { static_cast<Progress*>(this)->setCoord(_left, _top, _width, _height); }
-
 	void MemberObsolete<Progress>::setProgressStartPoint(Align _value)
 	{
 		if (_value == Align::Right)
@@ -479,9 +467,6 @@ namespace MyGUI
 	}
 
 
-	//void MemberObsolete<ScrollView>::setPosition(const IntCoord& _coord) { static_cast<ScrollView*>(this)->setCoord(_coord); }
-	//void MemberObsolete<ScrollView>::setPosition(int _left, int _top, int _width, int _height) { static_cast<ScrollView*>(this)->setCoord(_left, _top, _width, _height); }
-
 	void MemberObsolete<ScrollView>::showVScroll(bool _visible)
 	{
 		static_cast<ScrollView*>(this)->setVisibleVScroll(_visible);
@@ -499,9 +484,6 @@ namespace MyGUI
 		return static_cast<ScrollView*>(this)->isVisibleHScroll();
 	}
 
-
-	//void MemberObsolete<Tab>::setPosition(const IntCoord& _coord) { static_cast<Tab*>(this)->setCoord(_coord); }
-	//void MemberObsolete<Tab>::setPosition(int _left, int _top, int _width, int _height) { static_cast<Tab*>(this)->setCoord(_left, _top, _width, _height); }
 
 	int MemberObsolete<Tab>::getSheetButtonWidthIndex(size_t _index)
 	{
@@ -589,12 +571,6 @@ namespace MyGUI
 		static_cast<Tab*>(this)->setIndexSelected(_index);
 	}
 
-	//void MemberObsolete<VScroll>::setPosition(const IntCoord& _coord) { static_cast<VScroll*>(this)->setCoord(_coord); }
-	//void MemberObsolete<VScroll>::setPosition(int _left, int _top, int _width, int _height) { static_cast<VScroll*>(this)->setCoord(_left, _top, _width, _height); }
-
-
-	//void MemberObsolete<Widget>::setPosition(const IntCoord& _coord) { static_cast<Widget*>(this)->setCoord(_coord); }
-	//void MemberObsolete<Widget>::setPosition(int _left, int _top, int _width, int _height) { static_cast<Widget*>(this)->setCoord(_left, _top, _width, _height); }
 
 	bool MemberObsolete<Widget>::isEnabled()
 	{
@@ -621,9 +597,6 @@ namespace MyGUI
 		return static_cast<Widget*>(this)->getVisible();
 	}
 
-
-	//void MemberObsolete<Window>::setPosition(const IntCoord& _coord) { static_cast<Window*>(this)->setCoord(_coord); }
-	//void MemberObsolete<Window>::setPosition(int _left, int _top, int _width, int _height) { static_cast<Window*>(this)->setCoord(_left, _top, _width, _height); }
 
 	void MemberObsolete<Window>::showSmooth(bool _reset)
 	{

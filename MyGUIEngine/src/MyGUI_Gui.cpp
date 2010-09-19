@@ -304,4 +304,44 @@ namespace MyGUI
 			(*iter)->_setAlign(oldViewSize);
 	}
 
+	Widget* Gui::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
+	}
+	/** See Gui::createWidgetT */
+	Widget* Gui::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
+	}
+	/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
+	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * mViewSize.width), (int)(_coord.top * mViewSize.height), (int)(_coord.width * mViewSize.width), (int)(_coord.height * mViewSize.height)), _align, _layer, _name);
+	}
+	/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
+	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return createWidgetT(_type, _skin, IntCoord((int)(_left * mViewSize.width), (int)(_top * mViewSize.height), (int)(_width * mViewSize.width), (int)(_height * mViewSize.height)), _align, _layer, _name);
+	}
+
+	Widget* Gui::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	{
+		return findWidgetT(_prefix + _name, _throw);
+	}
+
+	void Gui::destroyChildWidget(Widget* _widget)
+	{
+		_destroyChildWidget(_widget);
+	}
+
+	void Gui::destroyAllChildWidget()
+	{
+		_destroyAllChildWidget();
+	}
+
+	EnumeratorWidgetPtr Gui::getEnumerator() const
+	{
+		return EnumeratorWidgetPtr(mWidgetChild);
+	}
+
 } // namespace MyGUI

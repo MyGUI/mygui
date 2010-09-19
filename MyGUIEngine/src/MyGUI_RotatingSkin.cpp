@@ -438,4 +438,9 @@ namespace MyGUI
 		);
 	}
 
+	float RotatingSkin::getAngle() const
+	{
+		return mAngle;
+	}
+
 } // namespace MyGUI

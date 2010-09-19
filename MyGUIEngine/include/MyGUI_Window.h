@@ -56,7 +56,7 @@ namespace MyGUI
 		/** Enable or disable auto alpha mode */
 		void setAutoAlpha(bool _value);
 		/** Get auto alpha mode flag */
-		bool getAutoAlpha();
+		bool getAutoAlpha() const;
 
 		/** Set window caption */
 		virtual void setCaption(const UString& _value);
@@ -94,10 +94,10 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
-		/** Get snap to borders mode flag */
-		bool getSnap();
 		/** Enable or disable snap to borders mode */
 		void setSnap(bool _value);
+		/** Get snap to borders mode flag */
+		bool getSnap() const;
 
 		const IntCoord& getActionScale();
 
@@ -107,13 +107,15 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/
-		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef> eventWindowButtonPressed;
+		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef>
+			eventWindowButtonPressed;
 
 		/** Event : Window coordinate changed (window was resized or moved).\n
 			signature : void method(MyGUI::Window* _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
+		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr>
+			eventWindowChangeCoord;
 
 	protected:
 		virtual void initialiseOverride();
