@@ -50,7 +50,8 @@ namespace tools
 		}
 
 		mData.clear();
-		return false;
+
+		return result;
 	}
 
 	void CommandManager::registerCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
