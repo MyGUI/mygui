@@ -11,7 +11,10 @@
 namespace tools
 {
 
+	class SelectorControl;
+
 	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
+	typedef MyGUI::delegates::CMultiDelegate2<SelectorControl*, int> EventHandle_ChangeWheel;
 
 	class SelectorControl :
 		public wraps::BaseLayout
@@ -36,6 +39,7 @@ namespace tools
 		MyGUI::IntCoord getActionScale();
 
 		EventHandle_ChangePosition eventChangePosition;
+		EventHandle_ChangeWheel eventMouseWheel;
 
 	protected:
 		void setPropertyColour(const std::string& _propertyName);
@@ -43,6 +47,7 @@ namespace tools
 	private:
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 		void notifyFrameStart(float _time);
+		void notifyMouseWheel(MyGUI::Widget* _sender, int _wheel);
 
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();

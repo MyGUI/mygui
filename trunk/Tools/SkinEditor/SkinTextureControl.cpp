@@ -14,8 +14,7 @@ namespace tools
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
-		mGridStep(0),
-		mCurrentScaleValue(100)
+		mGridStep(0)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -40,12 +39,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeTop));
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
-		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &SkinTextureControl::CommandChangeNextScale));
-		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &SkinTextureControl::CommandChangePrevScale));
-		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &SkinTextureControl::CommandChangeScale));
-
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
 
@@ -378,73 +372,6 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
-	}
-
-	void SkinTextureControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		for (VectorSizeT::const_iterator item = mScaleValue.begin(); item != mScaleValue.end(); ++item)
-		{
-			if ((*item) == mCurrentScaleValue)
-			{
-				++item;
-				if (item != mScaleValue.end())
-				{
-					mCurrentScaleValue = *item;
-					setScale((double)mCurrentScaleValue / (double)100);
-				}
-				break;
-			}
-		}
-
-		_result = true;
-	}
-
-	void SkinTextureControl::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		for (VectorSizeT::const_iterator item = mScaleValue.begin(); item != mScaleValue.end(); ++item)
-		{
-			if ((*item) == mCurrentScaleValue)
-			{
-				if (item != mScaleValue.begin())
-				{
-					--item;
-					mCurrentScaleValue = *item;
-					setScale((double)mCurrentScaleValue / (double)100);
-				}
-				break;
-			}
-		}
-
-		_result = true;
-	}
-
-	void SkinTextureControl::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkMenuCommand())
-			return;
-
-		size_t scaleValue = MyGUI::utility::parseValue<size_t>(CommandManager::getInstance().getCommandData());
-		if (scaleValue == mCurrentScaleValue)
-			return;
-
-		if (std::find(mScaleValue.begin(), mScaleValue.end(), scaleValue) == mScaleValue.end())
-			return;
-
-		mCurrentScaleValue = scaleValue;
-		setScale((double)mCurrentScaleValue / (double)100);
-
-		_result = true;
-	}
-
-	bool SkinTextureControl::checkMenuCommand()
-	{
-		return mMainWidget->getInheritedVisible() && !mAreaSelectorControl->getCapture();
 	}
 
 } // namespace tools
