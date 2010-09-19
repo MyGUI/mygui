@@ -181,4 +181,9 @@ namespace Hikari
 		eventChangeProperty(this, _key, _value);
 	}
 
+	FlashControl* HikariWidget::getControl()
+	{
+		return mControl;
+	}
+
 } // namespace Hikari
