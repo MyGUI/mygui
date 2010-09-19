@@ -61,7 +61,8 @@ namespace tools
 
 		notifyMouseDrag(nullptr,
 			mImageColourPicker->getAbsoluteLeft() + (mColourRect->getWidth() / 2),
-			mImageColourPicker->getAbsoluteTop() + (mColourRect->getHeight() / 2));
+			mImageColourPicker->getAbsoluteTop() + (mColourRect->getHeight() / 2),
+			MyGUI::MouseButton::Left);
 	}
 
 	void ColourPanel::createTexture()
@@ -102,8 +103,11 @@ namespace tools
 		mTexture->unlock();
 	}
 
-	void ColourPanel::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	void ColourPanel::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
+		if (_id != MyGUI::MouseButton::Left)
+			return;
+
 		MyGUI::Widget* parent = mImageColourPicker->getParent();
 		MyGUI::IntPoint point(_left - parent->getAbsoluteLeft(), _top - parent->getAbsoluteTop());
 
@@ -119,7 +123,8 @@ namespace tools
 
 	void ColourPanel::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(nullptr, _left, _top);
+		if (_id == MyGUI::MouseButton::Left)
+			notifyMouseDrag(nullptr, _left, _top, _id);
 	}
 
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint& _point)

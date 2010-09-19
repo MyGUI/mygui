@@ -317,7 +317,7 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 		virtual void onKeyLostFocus(Widget* _new);
 		virtual void onKeySetFocus(Widget* _old);
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
@@ -327,7 +327,7 @@ namespace MyGUI
 		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 
 		void notifyScrollChangePosition(VScroll* _sender, size_t _position);

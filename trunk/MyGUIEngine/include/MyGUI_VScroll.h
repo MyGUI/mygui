@@ -159,7 +159,7 @@ namespace MyGUI
 
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);

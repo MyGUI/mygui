@@ -57,11 +57,11 @@ namespace MyGUI
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void DDContainer::onMouseDrag(int _left, int _top)
+	void DDContainer::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		mouseDrag();
+		mouseDrag(_id);
 
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void DDContainer::mouseButtonPressed(MouseButton _id)
@@ -94,8 +94,11 @@ namespace MyGUI
 		}
 	}
 
-	void DDContainer::mouseDrag()
+	void DDContainer::mouseDrag(MouseButton _id)
 	{
+		if (MouseButton::Left != _id)
+			return;
+
 		// нужно ли обновить данные
 		bool update = false;
 
@@ -261,7 +264,7 @@ namespace MyGUI
 
 	void DDContainer::notifyInvalideDrop(DDContainer* _sender)
 	{
-		mouseDrag();
+		mouseDrag(MouseButton::Left);
 	}
 
 	void DDContainer::setPropertyOverride(const std::string& _key, const std::string& _value)

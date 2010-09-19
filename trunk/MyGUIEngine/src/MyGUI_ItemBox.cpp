@@ -556,9 +556,9 @@ namespace MyGUI
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void ItemBox::onMouseDrag(int _left, int _top)
+	void ItemBox::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void ItemBox::removeDropItems()
@@ -604,9 +604,9 @@ namespace MyGUI
 		requestDrawItem(this, mItemDrag, data);
 	}
 
-	void ItemBox::notifyMouseDrag(Widget* _sender, int _left, int _top)
+	void ItemBox::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		mouseDrag();
+		mouseDrag(_id);
 	}
 
 	void ItemBox::notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)

@@ -121,7 +121,7 @@ namespace MyGUI
 	protected:
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 
 		virtual void notifyInvalideDrop(DDContainer* _sender);
 
@@ -129,7 +129,7 @@ namespace MyGUI
 		virtual void updateDropItems();
 		virtual void updateDropItemsState(const DDWidgetState& _state);
 
-		void mouseDrag();
+		void mouseDrag(MouseButton _id);
 		void mouseButtonReleased(MouseButton _id);
 		void mouseButtonPressed(MouseButton _id);
 

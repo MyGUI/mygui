@@ -222,7 +222,7 @@ namespace MyGUI
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 
 		virtual void onMouseWheel(int _rel);
 		virtual void onKeyLostFocus(Widget* _new);
@@ -235,7 +235,7 @@ namespace MyGUI
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 		virtual size_t _getItemIndex(Widget* _item);
-		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
