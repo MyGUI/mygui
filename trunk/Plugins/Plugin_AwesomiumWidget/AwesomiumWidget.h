@@ -28,10 +28,7 @@ namespace Awesomium
 	public:
 		AwesomiumWidget();
 
-		Awesomium::WebView* getControl()
-		{
-			return mControl;
-		}
+		Awesomium::WebView* getControl();
 
 		void loadURL(const std::string& _url);
 
@@ -50,7 +47,7 @@ namespace Awesomium
 		void update(bool _update = false);
 
 		virtual void onMouseMove(int _left, int _top);
-		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseDrag(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseWheel(int _rel);
 		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
