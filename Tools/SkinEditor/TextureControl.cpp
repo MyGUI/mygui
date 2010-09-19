@@ -22,10 +22,12 @@ namespace tools
 		assignWidget(mBackground, "Background");
 
 		mTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
+		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 	}
 
 	TextureControl::~TextureControl()
 	{
+		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 		mTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 	}
 
@@ -103,6 +105,35 @@ namespace tools
 
 	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
+	}
+
+	bool TextureControl::getSelectorsCapture()
+	{
+		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
+			if ((*item)->getCapture())
+				return true;
+		return false;
+	}
+
+	void TextureControl::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
+	{
+		onMouseWheel(_rel);
+	}
+
+	void TextureControl::onMouseWheel(int _rel)
+	{
+	}
+
+	void TextureControl::registerSelectorControl(SelectorControl* _control)
+	{
+		mSelectors.push_back(_control);
+		_control->setScale(mScaleValue);
+		_control->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifySelecetionWheel);
+	}
+
+	void TextureControl::notifySelecetionWheel(SelectorControl* _control, int _wheelValue)
+	{
+		onMouseWheel(_wheelValue);
 	}
 
 } // namespace tools
