@@ -253,7 +253,8 @@ namespace demo
 		};
 	}
 
-	class Unlink : public MyGUI::IUnlinkWidget
+	class Unlink :
+		public MyGUI::IUnlinkWidget
 	{
 	public:
 		void _unlinkWidget(MyGUI::Widget* _widget)

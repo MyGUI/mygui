@@ -11,7 +11,8 @@
 namespace wrapper
 {
 
-	class MemberVariable : public Member
+	class MemberVariable :
+		public Member
 	{
 	public:
 		typedef std::pair<std::string, std::string> PairString;

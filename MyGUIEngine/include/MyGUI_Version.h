@@ -32,22 +32,42 @@ namespace MyGUI
 	class MYGUI_EXPORT Version
 	{
 	public:
-		Version() : mMajor(0), mMinor(0), mPatch(0) { }
-		Version(int _major, int _minor, int _patch) : mMajor(_major), mMinor(_minor), mPatch(_patch) { }
-		Version(int _major, int _minor) : mMajor(_major), mMinor(_minor), mPatch(0) { }
+		Version() :
+			mMajor(0),
+			mMinor(0),
+			mPatch(0)
+		{
+		}
+
+		Version(unsigned int _major, unsigned int _minor, unsigned int _patch) :
+			mMajor(_major),
+			mMinor(_minor),
+			mPatch(_patch)
+		{
+		}
+
+		Version(unsigned int _major, unsigned int _minor) :
+			mMajor(_major),
+			mMinor(_minor),
+			mPatch(0)
+		{
+		}
 
 		friend bool operator < (Version const& a, Version const& b)
 		{
 			return (a.mMajor < b.mMajor) ? true : (a.mMinor < b.mMinor);
 		}
+
 		friend bool operator >= (Version const& a, Version const& b)
 		{
 			return !(a < b);
 		}
+
 		friend bool operator > (Version const& a, Version const& b)
 		{
 			return (b < a);
 		}
+
 		friend bool operator <= (Version const& a, Version const& b)
 		{
 			return !(a > b);
@@ -57,18 +77,19 @@ namespace MyGUI
 		{
 			return !(a < b) && !(a > b);
 		}
+
 		friend bool operator != (Version const& a, Version const& b)
 		{
 			return !(a == b);
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Version&  _value )
+		friend std::ostream& operator << (std::ostream& _stream, const Version&  _value)
 		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Version&  _value )
+		friend std::istream& operator >> (std::istream& _stream, Version&  _value)
 		{
 			std::string value;
 			_stream >> value;
@@ -76,32 +97,38 @@ namespace MyGUI
 			return _stream;
 		}
 
-		int getMajor() const
+		unsigned int getMajor() const
 		{
 			return mMajor;
 		}
-		int getMinor() const
+
+		unsigned int getMinor() const
 		{
 			return mMinor;
 		}
-		int getPatch() const
+
+		unsigned int getPatch() const
 		{
 			return mPatch;
 		}
 
 		std::string print() const
 		{
-			if (mPatch == 0) return utility::toString(mMajor, ".", mMinor);
+			if (mPatch == 0)
+				return utility::toString(mMajor, ".", mMinor);
 			return utility::toString(mMajor, ".", mMinor, ".", mPatch);
 		}
 
 		static Version parse(const std::string& _value)
 		{
 			const std::vector<std::string>& vec = utility::split(_value, ".");
-			if (vec.empty()) return Version();
-			int major = utility::parseValue<int>(vec[0]);
-			int minor = vec.size() > 1 ? utility::parseValue<int>(vec[1]) : 0;
-			int patch = vec.size() > 2 ? utility::parseValue<int>(vec[2]) : 0;
+			if (vec.empty())
+				return Version();
+
+			unsigned int major = utility::parseValue<unsigned int>(vec[0]);
+			unsigned int minor = vec.size() > 1 ? utility::parseValue<unsigned int>(vec[1]) : 0;
+			unsigned int patch = vec.size() > 2 ? utility::parseValue<unsigned int>(vec[2]) : 0;
+
 			return Version(major, minor, patch);
 		}
 

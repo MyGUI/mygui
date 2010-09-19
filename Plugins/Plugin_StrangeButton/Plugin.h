@@ -14,9 +14,9 @@
 namespace plugin
 {
 
-	class Plugin : public MyGUI::IPlugin
+	class Plugin :
+		public MyGUI::IPlugin
 	{
-
 	public:
 		Plugin();
 		~Plugin();

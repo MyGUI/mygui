@@ -39,7 +39,8 @@ namespace MyGUI
 	typedef std::vector<ILayerNode*> VectorILayerNode;
 	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
 
-	class MYGUI_EXPORT ILayerNode : public IObject
+	class MYGUI_EXPORT ILayerNode :
+		public IObject
 	{
 		MYGUI_RTTI_DERIVED( ILayerNode )
 

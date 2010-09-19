@@ -41,7 +41,6 @@ namespace MyGUI
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node) = 0;
 		virtual void detachFromLayer() = 0;
 		virtual void upLayerItem() = 0;
-
 	};
 
 } // namespace MyGUI

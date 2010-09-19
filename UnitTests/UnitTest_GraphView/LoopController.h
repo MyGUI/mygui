@@ -14,7 +14,8 @@
 namespace animation
 {
 
-	class LoopController : public IAnimationNode
+	class LoopController :
+		public IAnimationNode
 	{
 	public:
 		LoopController() :

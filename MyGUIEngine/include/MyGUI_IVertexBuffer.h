@@ -38,7 +38,6 @@ namespace MyGUI
 
 		virtual Vertex* lock() = 0;
 		virtual void unlock() = 0;
-
 	};
 
 } // namespace MyGUI

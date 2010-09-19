@@ -4,7 +4,8 @@
 #include "KeyboardHook.h"
 #include "HikariWidget.h"
 
-class HookListenerImpl : public HookListener
+class HookListenerImpl :
+	public HookListener
 {
 public:
 	virtual void handleKeyMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

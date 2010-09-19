@@ -13,7 +13,8 @@
 namespace wrapper
 {
 
-	class MemberFunction : public Member
+	class MemberFunction :
+		public Member
 	{
 	public:
 		MemberFunction(xml::ElementPtr _element) :

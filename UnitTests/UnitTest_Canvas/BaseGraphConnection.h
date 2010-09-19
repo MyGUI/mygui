@@ -17,7 +17,8 @@ namespace wraps
 	typedef std::vector<BaseGraphConnection*> VectorConnection;
 	typedef MyGUI::Enumerator<VectorConnection> EnumeratorConnection;
 
-	class BaseGraphConnection : public BaseLayout
+	class BaseGraphConnection :
+		public BaseLayout
 	{
 	public:
 		BaseGraphConnection(MyGUI::WidgetPtr _widget) :

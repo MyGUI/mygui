@@ -122,4 +122,5 @@ namespace MyGUI
 			mDelayDynLib.clear();
 		}
 	}
-}
+
+} // namespace MyGUI

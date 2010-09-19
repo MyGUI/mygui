@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	class PanelDynamic : public wraps::BasePanelViewItem
+	class PanelDynamic :
+		public wraps::BasePanelViewItem
 	{
 	public:
 		PanelDynamic();

@@ -30,6 +30,7 @@ namespace MyGUI
 	// информация, об одном сабвиджете
 	struct SubWidgetInfo
 	{
+	public:
 		SubWidgetInfo(const std::string& _type, const IntCoord& _coord, Align _align) :
 			coord(_coord),
 			align(_align),
@@ -37,6 +38,7 @@ namespace MyGUI
 		{
 		}
 
+	public:
 		IntCoord coord;
 		Align align;
 		std::string type;

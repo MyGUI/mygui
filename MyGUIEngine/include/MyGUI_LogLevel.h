@@ -26,6 +26,7 @@
 
 namespace MyGUI
 {
+
 	struct MYGUI_EXPORT LogLevel
 	{
 		enum Enum
@@ -37,6 +38,16 @@ namespace MyGUI
 			MAX
 		};
 
+		LogLevel() :
+			value(Info)
+		{
+		}
+
+		LogLevel(Enum _value) :
+			value(_value)
+		{
+		}
+
 		static LogLevel parse(const std::string& _value)
 		{
 			LogLevel type;
@@ -44,28 +55,29 @@ namespace MyGUI
 			while (true)
 			{
 				const char* name = type.getValueName(value);
-				if (strcmp(name, "") == 0 || name == _value) break;
+				if (strcmp(name, "") == 0 || name == _value)
+					break;
 				value++;
 			}
 			type.value = (Enum)value;
 			return type;
 		}
 
-		LogLevel() : value(Info) { }
-		LogLevel(Enum _value) : value(_value) { }
-
 		friend bool operator < (LogLevel const& a, LogLevel const& b)
 		{
 			return a.value < b.value;
 		}
+
 		friend bool operator >= (LogLevel const& a, LogLevel const& b)
 		{
 			return !(a < b);
 		}
+
 		friend bool operator > (LogLevel const& a, LogLevel const& b)
 		{
 			return (b < a);
 		}
+
 		friend bool operator <= (LogLevel const& a, LogLevel const& b)
 		{
 			return !(a > b);
@@ -75,18 +87,19 @@ namespace MyGUI
 		{
 			return !(a < b) && !(a > b);
 		}
+
 		friend bool operator != (LogLevel const& a, LogLevel const& b)
 		{
 			return !(a == b);
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const LogLevel&  _value )
+		friend std::ostream& operator << (std::ostream& _stream, const LogLevel&  _value)
 		{
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, LogLevel&  _value )
+		friend std::istream& operator >> (std::istream& _stream, LogLevel&  _value)
 		{
 			std::string value;
 			_stream >> value;
@@ -109,6 +122,7 @@ namespace MyGUI
 	private:
 		Enum value;
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_LOG_LEVEL_H__

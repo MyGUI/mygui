@@ -95,10 +95,10 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void RotatingSkin::_setAlign(const IntSize& _oldsize/*, bool _update*/)
+	void RotatingSkin::_setAlign(const IntSize& _oldsize)
 	{
 		// необходимо разобраться
-		bool need_update = true;//_update;
+		bool need_update = true;
 
 		// первоначальное выравнивание
 		if (mAlign.isHStretch())

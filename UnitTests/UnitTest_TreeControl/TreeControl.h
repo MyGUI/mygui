@@ -12,7 +12,8 @@ namespace MyGUI
 {
 	class TreeControlItem;
 
-	class TreeControl : public Widget
+	class TreeControl :
+		public Widget
 	{
 		MYGUI_RTTI_DERIVED( TreeControl )
 
@@ -22,7 +23,8 @@ namespace MyGUI
 		typedef delegates::CMultiDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
 		typedef delegates::CMultiDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
 
-		class Node : public GenericNode<Node, TreeControl>
+		class Node :
+			public GenericNode<Node, TreeControl>
 		{
 		public:
 			Node();

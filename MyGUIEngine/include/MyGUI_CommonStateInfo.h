@@ -70,21 +70,29 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TileRectStateInfo )
 
 	public:
-		TileRectStateInfo() : mTileH(true), mTileV(true) { }
+		TileRectStateInfo() :
+			mTileH(true),
+			mTileV(true)
+		{
+		}
+
 		virtual ~TileRectStateInfo() { }
 
 		const FloatRect& getRect() const
 		{
 			return mRect;
 		}
+
 		const IntSize& getTileSize() const
 		{
 			return mTileSize;
 		}
+
 		bool getTileH() const
 		{
 			return mTileH;
 		}
+
 		bool getTileV() const
 		{
 			return mTileV;
@@ -129,13 +137,19 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( EditTextStateInfo )
 
 	public:
-		EditTextStateInfo() : mColour(Colour::White), mShift(false) { }
+		EditTextStateInfo() :
+			mColour(Colour::White),
+			mShift(false)
+		{
+		}
+
 		virtual ~EditTextStateInfo() { }
 
 		const Colour& getColour() const
 		{
 			return mColour;
 		}
+
 		bool getShift() const
 		{
 			return mShift;

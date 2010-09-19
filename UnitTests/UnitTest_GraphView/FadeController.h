@@ -14,7 +14,8 @@
 namespace animation
 {
 
-	class FadeController : public IAnimationNode
+	class FadeController :
+		public IAnimationNode
 	{
 	public:
 		FadeController() :

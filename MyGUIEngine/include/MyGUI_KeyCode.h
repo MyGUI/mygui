@@ -179,20 +179,26 @@ namespace MyGUI
 			MediaSelect		= 0xED
 		};
 
-		KeyCode(Enum _value = None) : value(_value) { }
+		KeyCode(Enum _value = None) :
+			value(_value)
+		{
+		}
 
 		friend bool operator < (KeyCode const& a, KeyCode const& b)
 		{
 			return (a.value < b.value);
 		}
+
 		friend bool operator >= (KeyCode const& a, KeyCode const& b)
 		{
 			return !(a < b);
 		}
+
 		friend bool operator > (KeyCode const& a, KeyCode const& b)
 		{
 			return (b < a);
 		}
+
 		friend bool operator <= (KeyCode const& a, KeyCode const& b)
 		{
 			return !(a > b);
@@ -202,6 +208,7 @@ namespace MyGUI
 		{
 			return !(a < b) && !(a > b);
 		}
+
 		friend bool operator != (KeyCode const& a, KeyCode const& b)
 		{
 			return !(a == b);

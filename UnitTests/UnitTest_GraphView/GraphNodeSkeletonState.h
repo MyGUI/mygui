@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class GraphNodeSkeletonState : public BaseAnimationNode
+	class GraphNodeSkeletonState :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodeSkeletonState(const std::string& _name) :

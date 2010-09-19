@@ -13,7 +13,8 @@
 namespace wraps
 {
 
-	class ContextMenu : public BaseLayout
+	class ContextMenu :
+		public BaseLayout
 	{
 	public:
 		ContextMenu(const std::string& _layout) :

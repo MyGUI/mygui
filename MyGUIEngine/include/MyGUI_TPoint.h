@@ -28,61 +28,78 @@ namespace MyGUI
 {
 	namespace types
 	{
-		template< typename T > struct TPoint
+
+		template<typename T>
+		struct TPoint
 		{
-			T left, top;
+			T left;
+			T top;
 
-			TPoint() : left( 0 ), top( 0 ) { }
-			TPoint( T const& _left, T const& _top) : left( _left ), top( _top ) { }
-			TPoint( TPoint const& o ) : left( o.left ), top( o.top ) { }
-
-			TPoint& operator-=( TPoint const& o )
+			TPoint() :
+				left(0),
+				top(0)
 			{
-				left -= o.left;
-				top -= o.top;
+			}
+
+			TPoint(T const& _left, T const& _top) :
+				left(_left),
+				top(_top)
+			{
+			}
+
+			TPoint(TPoint const& _obj) :
+				left(_obj.left),
+				top(_obj.top)
+			{
+			}
+
+			TPoint& operator -= (TPoint const& _obj)
+			{
+				left -= _obj.left;
+				top -= _obj.top;
 				return *this;
 			}
 
-			TPoint& operator+=( TPoint const& o )
+			TPoint& operator += (TPoint const& _obj)
 			{
-				left += o.left;
-				top += o.top;
+				left += _obj.left;
+				top += _obj.top;
 				return *this;
 			}
 
-			TPoint operator-( TPoint const& o ) const
+			TPoint operator - (TPoint const& _obj) const
 			{
-				return TPoint(left - o.left, top - o.top);
+				return TPoint(left - _obj.left, top - _obj.top);
 			}
 
-			TPoint operator+( TPoint const& o ) const
+			TPoint operator + (TPoint const& _obj) const
 			{
-				return TPoint(left + o.left, top + o.top);
+				return TPoint(left + _obj.left, top + _obj.top);
 			}
 
-			TPoint& operator=( TPoint const& o )
+			TPoint& operator = (TPoint const& _obj)
 			{
-				left = o.left;
-				top = o.top;
+				left = _obj.left;
+				top = _obj.top;
 				return *this;
 			}
 
-			template< typename U >
-			TPoint& operator=( TPoint<U> const& o )
+			template<typename U>
+			TPoint& operator = (TPoint<U> const& _obj)
 			{
-				left = o.left;
-				top = o.top;
+				left = _obj.left;
+				top = _obj.top;
 				return *this;
 			}
 
-			bool operator==( TPoint const& o ) const
+			bool operator == (TPoint const& _obj) const
 			{
-				return ((left == o.left) && (top == o.top));
+				return ((left == _obj.left) && (top == _obj.top));
 			}
 
-			bool operator!=( TPoint const& o ) const
+			bool operator != (TPoint const& _obj) const
 			{
-				return ! ((left == o.left) && (top == o.top));
+				return ! ((left == _obj.left) && (top == _obj.top));
 			}
 
 			void clear()
@@ -90,7 +107,7 @@ namespace MyGUI
 				left = top = 0;
 			}
 
-			void set( T const& _left, T const& _top)
+			void set(T const& _left, T const& _top)
 			{
 				left = _left;
 				top = _top;
@@ -120,35 +137,40 @@ namespace MyGUI
 				TPoint<T> result;
 				std::istringstream stream(_value);
 				stream >> result.left >> result.top;
-				if (stream.fail()) return TPoint<T>();
+				if (stream.fail())
+				{
+					return TPoint<T>();
+				}
 				else
 				{
 					int item = stream.get();
 					while (item != -1)
 					{
-						if (item != ' ' && item != '\t') return TPoint<T>();
+						if (item != ' ' && item != '\t')
+							return TPoint<T>();
 						item = stream.get();
 					}
 				}
 				return result;
 			}
 
-			friend std::ostream& operator << ( std::ostream& _stream, const TPoint<T>&  _value )
+			friend std::ostream& operator << (std::ostream& _stream, const TPoint<T>&  _value)
 			{
 				_stream << _value.left << " " << _value.top;
 				return _stream;
 			}
 
-			friend std::istream& operator >> ( std::istream& _stream, TPoint<T>&  _value )
+			friend std::istream& operator >> (std::istream& _stream, TPoint<T>&  _value)
 			{
 				_stream >> _value.left >> _value.top;
-				if (_stream.fail()) _value.clear();
+				if (_stream.fail())
+					_value.clear();
 				return _stream;
 			}
-
 		};
 
 	} // namespace types
+
 } // namespace MyGUI
 
 #endif // __MYGUI_TPONT_H__

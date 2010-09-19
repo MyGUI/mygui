@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	class FontView : public wraps::BaseLayout
+	class FontView :
+		public wraps::BaseLayout
 	{
 	public:
 		FontView();

@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class GraphNodeEventController : public BaseAnimationNode
+	class GraphNodeEventController :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodeEventController(const std::string& _name) :

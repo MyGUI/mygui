@@ -14,7 +14,8 @@
 namespace animation
 {
 
-	class SkeletonState : public IAnimationNode
+	class SkeletonState :
+		public IAnimationNode
 	{
 	public:
 		SkeletonState() :

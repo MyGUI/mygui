@@ -23,65 +23,35 @@
 #define __MYGUI_WIDGET_USER_DATA_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_WidgetDefines.h"
 #include "MyGUI_Any.h"
 
 namespace MyGUI
 {
+
 	/** UserData is parent of Widget class. Used to store any user data and strings inside widget */
 	class MYGUI_EXPORT UserData
 	{
 	public:
-		UserData() { }
-		virtual ~UserData() { }
+		UserData();
+		virtual ~UserData();
 
 		/** Set user string */
-		void setUserString(const std::string& _key, const std::string& _value)
-		{
-			mMapUserString[_key] = _value;
-		}
+		void setUserString(const std::string& _key, const std::string& _value);
 
 		/** Get user string or "" if not found */
-		const std::string& getUserString(const std::string& _key)
-		{
-			MapString::iterator iter = mMapUserString.find(_key);
-			if (iter == mMapUserString.end())
-			{
-				static std::string empty;
-				return empty;
-			}
-			return iter->second;
-		}
+		const std::string& getUserString(const std::string& _key) const;
 
 		/** Delete user string */
-		bool clearUserString(const std::string& _key)
-		{
-			MapString::iterator iter = mMapUserString.find(_key);
-			if (iter != mMapUserString.end())
-			{
-				mMapUserString.erase(iter);
-				return true;
-			}
-			return false;
-		}
+		bool clearUserString(const std::string& _key);
 
 		/** Return true if user string with such key exist */
-		bool isUserString(const std::string& _key)
-		{
-			return mMapUserString.find(_key) != mMapUserString.end();
-		}
+		bool isUserString(const std::string& _key) const;
 
 		/** Delete all user strings */
-		void clearUserStrings()
-		{
-			mMapUserString.clear();
-		}
+		void clearUserStrings();
 
 		/** Set any user data to store inside widget */
-		void setUserData(Any _data)
-		{
-			mUserData = _data;
-		}
+		void setUserData(Any _data);
 
 		/** Get user data and cast it to ValueType */
 		template <typename ValueType>
@@ -91,10 +61,7 @@ namespace MyGUI
 		}
 
 	/*internal:*/
-		void _setInternalData(Any _data)
-		{
-			mInternalData = _data;
-		}
+		void _setInternalData(Any _data);
 
 		template <typename ValueType>
 		ValueType* _getInternalData(bool _throw = true)
@@ -109,7 +76,6 @@ namespace MyGUI
 
 		// для внутренниего использования
 		Any mInternalData;
-
 	};
 
 } // namespace MyGUI

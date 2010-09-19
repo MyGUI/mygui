@@ -15,7 +15,8 @@ namespace demo
 	};
 
 	template <typename Type>
-	class GraphNodeConstruct : public IGraphNodeConstruct
+	class GraphNodeConstruct :
+		public IGraphNodeConstruct
 	{
 	public:
 		GraphNodeConstruct() { }

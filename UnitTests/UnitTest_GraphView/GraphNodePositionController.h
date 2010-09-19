@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class GraphNodePositionController : public BaseAnimationNode
+	class GraphNodePositionController :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodePositionController(const std::string& _name) :

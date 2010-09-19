@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class GraphNodeLoopController : public BaseAnimationNode
+	class GraphNodeLoopController :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodeLoopController(const std::string& _name) :

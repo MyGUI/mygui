@@ -13,7 +13,8 @@
 namespace demo
 {
 
-	class GraphNodeGroup2Controller : public BaseAnimationNode
+	class GraphNodeGroup2Controller :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodeGroup2Controller(const std::string& _name) :

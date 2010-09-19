@@ -13,7 +13,8 @@
 namespace demo
 {
 
-	class GraphView : public wraps::BaseGraphView
+	class GraphView :
+		public wraps::BaseGraphView
 	{
 	public:
 		GraphView() :

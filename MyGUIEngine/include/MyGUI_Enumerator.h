@@ -63,7 +63,9 @@ namespace MyGUI
 	class Enumerator
 	{
 	private:
-		Enumerator() { }
+		Enumerator()
+		{
+		}
 
 	public:
 		explicit Enumerator(const T& _container) :
@@ -82,14 +84,16 @@ namespace MyGUI
 
 		bool next()
 		{
-			if (m_current == m_end) return false;
+			if (m_current == m_end)
+				return false;
 			else if (m_first)
 			{
 				m_first = false;
 				return true;
 			}
 			++ m_current;
-			if (m_current == m_end) return false;
+			if (m_current == m_end)
+				return false;
 			return true;
 		}
 
@@ -98,6 +102,7 @@ namespace MyGUI
 			assert(m_current != m_end);
 			return (*m_current);
 		}
+
 		typename T::const_reference current()
 		{
 			assert(m_current != m_end);
