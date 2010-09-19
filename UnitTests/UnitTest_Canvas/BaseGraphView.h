@@ -26,7 +26,9 @@ namespace wraps
 		MyGUI::IntSize end_offset;
 	};
 
-	class BaseGraphView : public BaseLayout, public IGraphController
+	class BaseGraphView :
+		public BaseLayout,
+		public IGraphController
 	{
 	public:
 		typedef std::vector<BaseGraphNode*> VectorGraphNode;

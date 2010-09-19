@@ -29,61 +29,77 @@ namespace MyGUI
 	namespace types
 	{
 
-		template< typename T > struct TSize
+		template<typename T>
+		struct TSize
 		{
-			T width, height;
+			T width;
+			T height;
 
-			TSize() : width( 0 ), height( 0 ) { }
-			TSize( T const& w, T const& h) : width( w ), height( h ) { }
-			TSize( TSize const& o ) : width( o.width ), height( o.height ) { }
-
-			TSize& operator-=( TSize const& o )
+			TSize() :
+				width(0),
+				height(0)
 			{
-				width -= o.width;
-				height -= o.height;
+			}
+
+			TSize(T const& _width, T const& _height) :
+				width(_width),
+				height(_height)
+			{
+			}
+
+			TSize(TSize const& _obj) :
+				width(_obj.width),
+				height(_obj.height)
+			{
+			}
+
+			TSize& operator -= (TSize const& _obj)
+			{
+				width -= _obj.width;
+				height -= _obj.height;
 				return *this;
 			}
 
-			TSize& operator+=( TSize const& o )
+			TSize& operator += (TSize const& _obj)
 			{
-				width += o.width;
-				height += o.height;
+				width += _obj.width;
+				height += _obj.height;
 				return *this;
 			}
 
-			TSize operator-( TSize const& o ) const
+			TSize operator - (TSize const& _obj) const
 			{
-				return TSize(width - o.width, height - o.height);
+				return TSize(width - _obj.width, height - _obj.height);
 			}
 
-			TSize operator+( TSize const& o ) const
+			TSize operator + (TSize const& _obj) const
 			{
-				return TSize(width + o.width, height + o.height);
+				return TSize(width + _obj.width, height + _obj.height);
 			}
 
-			TSize& operator=( TSize const& o )
+			TSize& operator = (TSize const& _obj)
 			{
-				width = o.width;
-				height = o.height;
+				width = _obj.width;
+				height = _obj.height;
 				return *this;
 			}
 
-			template< typename U >
-			TSize& operator=( TSize<U> const& o )
+			template<typename U>
+			TSize& operator = (TSize<U> const& _obj)
 			{
-				width = o.width;
-				height = o.height;
+				width = _obj.width;
+				height = _obj.height;
 				return *this;
 			}
 
-			bool operator==( TSize const& o ) const
+			bool operator == (TSize const& _obj) const
 			{
-				return ((width == o.width) && (height == o.height));
+				return ((width == _obj.width) && (height == _obj.height));
 			}
 
-			bool operator!=( TSize const& o ) const
+			bool operator != (TSize const& _obj) const
 			{
-				return ! ((width == o.width) && (height == o.height));
+				return !((width == _obj.width) && (height == _obj.height));
 			}
 
 			void clear()
@@ -91,10 +107,10 @@ namespace MyGUI
 				width = height = 0;
 			}
 
-			void set( T const& w, T const& h)
+			void set(T const& _width, T const& _height)
 			{
-				width = w;
-				height = h;
+				width = _width;
+				height = _height;
 			}
 
 			void swap(TSize& _value)
@@ -121,35 +137,40 @@ namespace MyGUI
 				TSize<T> result;
 				std::istringstream stream(_value);
 				stream >> result.width >> result.height;
-				if (stream.fail()) return TSize<T>();
+				if (stream.fail())
+				{
+					return TSize<T>();
+				}
 				else
 				{
 					int item = stream.get();
 					while (item != -1)
 					{
-						if (item != ' ' && item != '\t') return TSize<T>();
+						if (item != ' ' && item != '\t')
+							return TSize<T>();
 						item = stream.get();
 					}
 				}
 				return result;
 			}
 
-			friend std::ostream& operator << ( std::ostream& _stream, const TSize<T>&  _value )
+			friend std::ostream& operator << (std::ostream& _stream, const TSize<T>&  _value)
 			{
 				_stream << _value.width << " " << _value.height;
 				return _stream;
 			}
 
-			friend std::istream& operator >> ( std::istream& _stream, TSize<T>&  _value )
+			friend std::istream& operator >> (std::istream& _stream, TSize<T>&  _value)
 			{
 				_stream >> _value.width >> _value.height;
-				if (_stream.fail()) _value.clear();
+				if (_stream.fail())
+					_value.clear();
 				return _stream;
 			}
-
 		};
 
 	} // namespace types
+
 } // namespace MyGUI
 
 #endif // __MYGUI_TSIZE_H__

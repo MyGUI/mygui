@@ -27,6 +27,7 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT ILogFilter
 	{
 	public:
@@ -40,6 +41,7 @@ namespace MyGUI
 			return true;
 		}
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_I_LOG_FILTER_H__

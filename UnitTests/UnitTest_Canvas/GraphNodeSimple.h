@@ -13,7 +13,8 @@
 namespace demo
 {
 
-	class GraphNodeSimple : public wraps::BaseGraphNode
+	class GraphNodeSimple :
+		public wraps::BaseGraphNode
 	{
 	public:
 		GraphNodeSimple(const std::string& _name) :

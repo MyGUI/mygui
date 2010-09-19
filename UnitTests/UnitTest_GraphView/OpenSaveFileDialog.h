@@ -13,7 +13,8 @@
 namespace common
 {
 
-	class OpenSaveFileDialog : public wraps::BaseLayout
+	class OpenSaveFileDialog :
+		public wraps::BaseLayout
 	{
 	public:
 		typedef MyGUI::delegates::CDelegate2<OpenSaveFileDialog*, bool> EventHandle_Result;

@@ -39,6 +39,11 @@ namespace MyGUI
 			MAX
 		};
 
+		FlowDirection(Enum _value = LeftToRight) :
+			value(_value)
+		{
+		}
+
 		static FlowDirection parse(const std::string& _value)
 		{
 			FlowDirection type;
@@ -53,12 +58,11 @@ namespace MyGUI
 			return type;
 		}
 
-		FlowDirection(Enum _value = LeftToRight) : value(_value) { }
-
 		bool isHorizontal() const
 		{
 			return value == LeftToRight || value == RightToLeft;
 		}
+
 		bool isVertical() const
 		{
 			return !isHorizontal();
@@ -68,6 +72,7 @@ namespace MyGUI
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (FlowDirection const& a, FlowDirection const& b)
 		{
 			return a.value != b.value;

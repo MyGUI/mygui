@@ -29,6 +29,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT VertexColourType
 	{
+	public:
 		enum Enum
 		{
 			ColourARGB, // D3D style compact colour
@@ -36,12 +37,16 @@ namespace MyGUI
 			MAX
 		};
 
-		VertexColourType(Enum _value = MAX) : value(_value) { }
+		VertexColourType(Enum _value = MAX) :
+			value(_value)
+		{
+		}
 
 		friend bool operator == (VertexColourType const& a, VertexColourType const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (VertexColourType const& a, VertexColourType const& b)
 		{
 			return a.value != b.value;
@@ -62,12 +67,16 @@ namespace MyGUI
 			R8G8B8A8 // 32-bit pixel format, 8 bits for red, green, blue and alpha.
 		};
 
-		PixelFormat(Enum _value = Unknow) : value(_value) { }
+		PixelFormat(Enum _value = Unknow) :
+			value(_value)
+		{
+		}
 
 		friend bool operator == (PixelFormat const& a, PixelFormat const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (PixelFormat const& a, PixelFormat const& b)
 		{
 			return a.value != b.value;
@@ -90,12 +99,16 @@ namespace MyGUI
 			RenderTarget = MYGUI_FLAG(5)
 		};
 
-		TextureUsage(Enum _value = Default) : value(_value) { }
+		TextureUsage(Enum _value = Default) :
+			value(_value)
+		{
+		}
 
 		friend bool operator == (TextureUsage const& a, TextureUsage const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (TextureUsage const& a, TextureUsage const& b)
 		{
 			return a.value != b.value;
@@ -106,10 +119,12 @@ namespace MyGUI
 			value = Enum(int(value) | int(_other.value));
 			return *this;
 		}
+
 		friend TextureUsage operator | (Enum const& a, Enum const& b)
 		{
 			return TextureUsage(Enum(int(a) | int(b)));
 		}
+
 		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b)
 		{
 			return TextureUsage(Enum(int(a.value) | int(b.value)));

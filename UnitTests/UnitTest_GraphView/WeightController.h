@@ -8,7 +8,8 @@
 namespace animation
 {
 
-	class WeightController : public IAnimationNode
+	class WeightController :
+		public IAnimationNode
 	{
 	public:
 		WeightController()

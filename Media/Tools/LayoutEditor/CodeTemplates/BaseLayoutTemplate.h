@@ -7,11 +7,13 @@ namespace #{Panel_Namespace}
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(#{Panel_Name}, "#{Layout_Name}");
-	class #{Panel_Name} : public wraps::BaseLayout
+	class #{Panel_Name} :
+		public wraps::BaseLayout
 	{
 	public:
 		#{Panel_Name}(MyGUI::Widget* _parent = nullptr);
 		virtual ~#{Panel_Name}();
+
 	private:
 	//%LE Widget_Declaration list start
 	//%LE Widget_Declaration list end

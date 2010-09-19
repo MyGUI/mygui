@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	class PanelStatic : public wraps::BasePanelViewItem
+	class PanelStatic :
+		public wraps::BasePanelViewItem
 	{
 	public:
 		PanelStatic();

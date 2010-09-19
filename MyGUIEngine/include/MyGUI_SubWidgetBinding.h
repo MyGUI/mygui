@@ -35,44 +35,14 @@ namespace MyGUI
 		friend class ResourceSkin;
 
 	public:
-		SubWidgetBinding()
-		{
-			clear();
-		}
+		SubWidgetBinding();
+		SubWidgetBinding(const IntCoord& _coord, Align _aligin, const std::string& _type);
 
-		SubWidgetBinding(const IntCoord& _coord, Align _aligin, const std::string& _type)
-		{
-			create(_coord, _aligin, _type);
-		}
+		void create(const IntCoord& _coord, Align _aligin, const std::string& _type);
 
-		void create(const IntCoord& _coord, Align _aligin, const std::string& _type)
-		{
-			clear();
-			mOffset = _coord;
-			mAlign = _aligin;
-			mType = _type;
-		}
+		void clear();
 
-		void clear()
-		{
-			mType = "";
-			mAlign = Align::Default;
-			mStates.clear();
-		}
-
-		void add(const std::string& _name, IStateInfo* _data, const std::string& _skin)
-		{
-			// ищем такой же ключ
-			MapStateInfo::const_iterator iter = mStates.find(_name);
-			if (iter != mStates.end())
-			{
-				delete _data;
-				MYGUI_LOG(Warning, "state with name '" << _name << "' already exist in skin '" << _skin << "'");
-				return;
-			}
-			// добавляем
-			mStates[_name] = _data;
-		}
+		void add(const std::string& _name, IStateInfo* _data, const std::string& _skin);
 
 	private:
 		IntCoord mOffset;

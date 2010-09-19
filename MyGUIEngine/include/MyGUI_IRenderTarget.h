@@ -43,7 +43,6 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) = 0;
 
 		virtual const RenderTargetInfo& getInfo() = 0;
-
 	};
 
 } // namespace MyGUI

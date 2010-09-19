@@ -27,6 +27,7 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT ILogListener
 	{
 	public:
@@ -41,6 +42,7 @@ namespace MyGUI
 		/** Log message.*/
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) { }
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_I_LOG_LISTENER_H__

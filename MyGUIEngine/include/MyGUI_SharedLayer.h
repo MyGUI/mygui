@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SharedLayer :
 		public ILayer
 	{
-		MYGUI_RTTI_DERIVED(SharedLayer)
+		MYGUI_RTTI_DERIVED( SharedLayer )
 
 	public:
 		SharedLayer();

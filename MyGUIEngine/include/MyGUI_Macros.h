@@ -40,5 +40,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-
 #endif // __MYGUI_MACROS_H__

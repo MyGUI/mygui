@@ -37,6 +37,11 @@ namespace MyGUI
 			MAX
 		};
 
+		MenuItemType(Enum _value = MAX) :
+			value(_value)
+		{
+		}
+
 		static MenuItemType parse(const std::string& _value)
 		{
 			MenuItemType type;
@@ -44,31 +49,31 @@ namespace MyGUI
 			while (true)
 			{
 				const char* name = type.getValueName(value);
-				if (strcmp(name, "") == 0 || name == _value) break;
+				if (strcmp(name, "") == 0 || name == _value)
+					break;
 				value++;
 			}
 			type.value = MenuItemType::Enum(value);
 			return type;
 		}
 
-		MenuItemType(Enum _value = MAX) : value(_value) { }
-
 		friend bool operator == (MenuItemType const& a, MenuItemType const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (MenuItemType const& a, MenuItemType const& b)
 		{
 			return a.value != b.value;
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const MenuItemType&  _value )
+		friend std::ostream& operator << (std::ostream& _stream, const MenuItemType&  _value)
 		{
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, MenuItemType&  _value )
+		friend std::istream& operator >> (std::istream& _stream, MenuItemType&  _value)
 		{
 			std::string value;
 			_stream >> value;

@@ -12,7 +12,8 @@
 namespace wrapper
 {
 
-	class Wrapper : public ICommonTypeHolder
+	class Wrapper :
+		public ICommonTypeHolder
 	{
 	public:
 		typedef std::vector<ClassAttribute> VectorClassAttribute;

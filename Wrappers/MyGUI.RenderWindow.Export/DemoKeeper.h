@@ -14,7 +14,8 @@ namespace demo
 
 	typedef void (MYGUICALLBACK* HandleFrameStart)(float _time);
 
-	class DemoKeeper : public base::BaseManager
+	class DemoKeeper :
+		public base::BaseManager
 	{
 	public:
 		DemoKeeper() : mFrameStartDelegate(nullptr) { }

@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class GraphNodeWeightController : public BaseAnimationNode
+	class GraphNodeWeightController :
+		public BaseAnimationNode
 	{
 	public:
 		GraphNodeWeightController(const std::string& _name) :

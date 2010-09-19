@@ -30,6 +30,6 @@ namespace MyGUI
 		}
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_GENERIC_FACTORY_H__

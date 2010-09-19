@@ -12,7 +12,8 @@
 namespace editor
 {
 
-	class Controller : public base::BaseManager
+	class Controller :
+		public base::BaseManager
 	{
 	public:
 		Controller();

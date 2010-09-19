@@ -29,7 +29,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ISubWidgetText : public ISubWidget
+	class MYGUI_EXPORT ISubWidgetText :
+		public ISubWidget
 	{
 		MYGUI_RTTI_DERIVED( ISubWidgetText )
 
@@ -41,11 +42,13 @@ namespace MyGUI
 		{
 			return 0;
 		}
+
 		/** Get index of end of selection */
 		virtual size_t getTextSelectionEnd() const
 		{
 			return 0;
 		}
+
 		/** Set text selection */
 		virtual void setTextSelection(size_t _start, size_t _end) { }
 
@@ -54,6 +57,7 @@ namespace MyGUI
 		{
 			return true;
 		}
+
 		virtual void setSelectBackground(bool _normal) { }
 
 		// нужно ли инвертировать выделение
@@ -61,6 +65,7 @@ namespace MyGUI
 		{
 			return true;
 		}
+
 		virtual void setInvertSelected(bool _value) { }
 
 		// управление видимостью курсора
@@ -68,6 +73,7 @@ namespace MyGUI
 		{
 			return false;
 		}
+
 		virtual void setVisibleCursor(bool _value) { }
 
 		// управление положением курсора
@@ -75,6 +81,7 @@ namespace MyGUI
 		{
 			return 0;
 		}
+
 		virtual void setCursorPosition(size_t _index) { }
 
 		virtual void setWordWrap(bool _value) { }
@@ -152,7 +159,6 @@ namespace MyGUI
 		}
 
 		virtual void setShiftText(bool _value) { }
-
 	};
 
 } // namespace MyGUI

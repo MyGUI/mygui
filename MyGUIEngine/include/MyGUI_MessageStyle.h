@@ -30,7 +30,6 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT MessageBoxStyle
 	{
-
 		enum Enum
 		{
 			None = MYGUI_FLAG_NONE,
@@ -71,17 +70,22 @@ namespace MyGUI
 			Icon8 = MYGUI_FLAG(_IndexIcon1 + 7)
 		};
 
-		MessageBoxStyle(Enum _value = None) : value(_value) { }
+		MessageBoxStyle(Enum _value = None) :
+			value(_value)
+		{
+		}
 
 		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
 		{
 			value = Enum(int(value) | int(_other.value));
 			return *this;
 		}
+
 		friend MessageBoxStyle operator | (Enum const& a, Enum const& b)
 		{
 			return MessageBoxStyle(Enum(int(a) | int(b)));
 		}
+
 		MessageBoxStyle operator | (Enum const& a)
 		{
 			return MessageBoxStyle(Enum(int(value) | int(a)));
@@ -91,18 +95,19 @@ namespace MyGUI
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
 			return a.value != b.value;
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const MessageBoxStyle&  _value )
+		friend std::ostream& operator << (std::ostream& _stream, const MessageBoxStyle&  _value)
 		{
 			//_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, MessageBoxStyle&  _value )
+		friend std::istream& operator >> (std::istream& _stream, MessageBoxStyle&  _value)
 		{
 			std::string value;
 			_stream >> value;
@@ -118,7 +123,8 @@ namespace MyGUI
 
 			while (num != 0)
 			{
-				if ((num & 1) == 1) return index;
+				if ((num & 1) == 1)
+					return index;
 
 				++index;
 				num >>= 1;
@@ -135,7 +141,8 @@ namespace MyGUI
 
 			while (num != 0)
 			{
-				if ((num & 1) == 1) return index;
+				if ((num & 1) == 1)
+					return index;
 
 				++index;
 				num >>= 1;
@@ -155,7 +162,7 @@ namespace MyGUI
 			{
 				if ((num & 1) == 1)
 				{
-					buttons.push_back( MessageBoxStyle::Enum( MYGUI_FLAG(index) ) );
+					buttons.push_back(MessageBoxStyle::Enum( MYGUI_FLAG(index)));
 				}
 
 				++index;

@@ -28,7 +28,6 @@
 namespace MyGUI
 {
 
-
 	struct MYGUI_EXPORT ControllerInfo
 	{
 		std::string type;
@@ -37,12 +36,15 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT WidgetInfo
 	{
+	public:
 		WidgetInfo() :
 			align(Align::Default),
 			style(WidgetStyle::Child),
 			positionType(None)
-		{ }
+		{
+		}
 
+	public:
 		std::vector<WidgetInfo> childWidgetsInfo;
 		// not map because there might be several properties with same name (for example List items)
 		VectorStringPairs properties;
@@ -55,7 +57,7 @@ namespace MyGUI
 		std::string name;
 		std::string layer;
 
-		enum PositionType {Pixels, Relative, None};
+		enum PositionType { Pixels, Relative, None };
 		PositionType positionType;
 		IntCoord intCoord;
 		FloatCoord floatCoord;

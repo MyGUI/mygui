@@ -12,17 +12,18 @@
 namespace demo
 {
 
-	class EditorWindow : public wraps::BaseLayout
+	class EditorWindow :
+		public wraps::BaseLayout
 	{
 	public:
 		EditorWindow();
 
 		void clearView();
+
 		MyGUI::Widget* getView()
 		{
 			return mMainWidget;
 		}
-
 	};
 
 } // namespace demo

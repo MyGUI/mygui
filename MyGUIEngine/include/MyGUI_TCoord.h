@@ -31,16 +31,47 @@ namespace MyGUI
 	namespace types
 	{
 
-		template< typename T > struct TCoord
+		template<typename T>
+		struct TCoord
 		{
-			T left, top, width, height;
+			T left;
+			T top;
+			T width;
+			T height;
 
-			TCoord() : left( 0 ), top( 0 ), width( 0 ), height( 0 ) { }
-			TCoord( T const& _left, T const& _top, T const& _width, T const& _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
-			TCoord( TCoord const& _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
-			TCoord( TPoint<T> const& _point, TSize<T> const& _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
+			TCoord() :
+				left(0),
+				top(0),
+				width(0),
+				height(0)
+			{
+			}
 
-			TCoord& operator-=( TCoord const& _obj )
+			TCoord(T const& _left, T const& _top, T const& _width, T const& _height) :
+				left(_left),
+				top(_top),
+				width(_width),
+				height(_height)
+			{
+			}
+
+			TCoord(TCoord const& _obj) :
+				left(_obj.left),
+				top(_obj.top),
+				width(_obj.width),
+				height(_obj.height)
+			{
+			}
+
+			TCoord(TPoint<T> const& _point, TSize<T> const& _size) :
+				left(_point.left),
+				top(_point.top),
+				width(_size.width),
+				height(_size.height)
+			{
+			}
+
+			TCoord& operator -= (TCoord const& _obj)
 			{
 				left -= _obj.left;
 				top -= _obj.top;
@@ -49,7 +80,7 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord& operator+=( TCoord const& _obj )
+			TCoord& operator += (TCoord const& _obj)
 			{
 				left += _obj.left;
 				top += _obj.top;
@@ -58,37 +89,37 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord operator-( TCoord const& _obj ) const
+			TCoord operator - (TCoord const& _obj) const
 			{
 				return TCoord(left - _obj.left, top - _obj.top, width - _obj.width, height - _obj.height);
 			}
 
-			TCoord operator-( TPoint<T> const& _obj ) const
+			TCoord operator - (TPoint<T> const& _obj) const
 			{
 				return TCoord(left - _obj.left, top - _obj.top, width, height);
 			}
 
-			TCoord operator-( TSize<T> const& _obj ) const
+			TCoord operator - (TSize<T> const& _obj) const
 			{
 				return TCoord(left, top, width - _obj.width, height - _obj.height);
 			}
 
-			TCoord operator+( TCoord const& _obj ) const
+			TCoord operator + (TCoord const& _obj) const
 			{
 				return TCoord(left + _obj.left, top + _obj.top, width + _obj.width, height + _obj.height);
 			}
 
-			TCoord operator+( TPoint<T> const& _obj ) const
+			TCoord operator + (TPoint<T> const& _obj) const
 			{
 				return TCoord(left + _obj.left, top + _obj.top, width, height);
 			}
 
-			TCoord operator+( TSize<T> const& _obj ) const
+			TCoord operator + (TSize<T> const& _obj) const
 			{
 				return TCoord(left, top, width + _obj.width, height + _obj.height);
 			}
 
-			TCoord& operator=( TCoord const& _obj )
+			TCoord& operator = (TCoord const& _obj)
 			{
 				left = _obj.left;
 				top = _obj.top;
@@ -98,7 +129,7 @@ namespace MyGUI
 			}
 
 			template< typename U >
-			TCoord& operator=( TCoord<U> const& _obj )
+			TCoord& operator = (TCoord<U> const& _obj)
 			{
 				left = _obj.left;
 				top = _obj.top;
@@ -107,29 +138,28 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord& operator=( TPoint<T> const& _obj )
+			TCoord& operator = (TPoint<T> const& _obj)
 			{
 				left = _obj.left;
 				top = _obj.top;
 				return *this;
 			}
 
-			TCoord& operator=( TSize<T> const& _obj )
+			TCoord& operator = (TSize<T> const& _obj)
 			{
 				width = _obj.width;
 				height = _obj.height;
 				return *this;
 			}
 
-
-			bool operator==( TCoord const& _obj ) const
+			bool operator == (TCoord const& _obj) const
 			{
 				return ((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 			}
 
-			bool operator!=( TCoord const& _obj ) const
+			bool operator != (TCoord const& _obj) const
 			{
-				return ! ((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
+				return !((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 			}
 
 			T right() const
@@ -147,7 +177,7 @@ namespace MyGUI
 				left = top = width = height = 0;
 			}
 
-			void set( T const& _left, T const& _top, T const& _width, T const& _height )
+			void set(T const& _left, T const& _top, T const& _width, T const& _height)
 			{
 				left = _left;
 				top = _top;
@@ -179,7 +209,7 @@ namespace MyGUI
 
 			bool inside(const TPoint<T>&  _value) const
 			{
-				return ( (_value.left >= left) && (_value.left <= right()) && (_value.top >= top) && (_value.top <= bottom()) );
+				return ((_value.left >= left) && (_value.left <= right()) && (_value.top >= top) && (_value.top <= bottom()));
 			}
 
 			std::string print() const
@@ -194,35 +224,40 @@ namespace MyGUI
 				TCoord<T> result;
 				std::istringstream stream(_value);
 				stream >> result.left >> result.top >> result.width >> result.height;
-				if (stream.fail()) return TCoord<T>();
+				if (stream.fail())
+				{
+					return TCoord<T>();
+				}
 				else
 				{
 					int item = stream.get();
 					while (item != -1)
 					{
-						if (item != ' ' && item != '\t') return TCoord<T>();
+						if (item != ' ' && item != '\t')
+							return TCoord<T>();
 						item = stream.get();
 					}
 				}
 				return result;
 			}
 
-			friend std::ostream& operator << ( std::ostream& _stream, const TCoord<T>&  _value )
+			friend std::ostream& operator << (std::ostream& _stream, const TCoord<T>&  _value)
 			{
 				_stream << _value.left << " " << _value.top << " " << _value.width << " " << _value.height;
 				return _stream;
 			}
 
-			friend std::istream& operator >> ( std::istream& _stream, TCoord<T>&  _value )
+			friend std::istream& operator >> (std::istream& _stream, TCoord<T>&  _value)
 			{
 				_stream >> _value.left >> _value.top >> _value.width >> _value.height;
-				if (_stream.fail()) _value.clear();
+				if (_stream.fail())
+					_value.clear();
 				return _stream;
 			}
-
 		};
 
 	} // namespace types
+
 } // namespace MyGUI
 
 #endif // __MyGUI_TCOORD_H__

@@ -2014,4 +2014,4 @@ namespace MyGUI
 		}
 	}
 
-}
+} // namespace MyGUI

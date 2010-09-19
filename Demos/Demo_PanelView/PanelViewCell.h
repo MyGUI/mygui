@@ -11,7 +11,8 @@
 namespace demo
 {
 
-	class PanelViewCell : public wraps::BasePanelViewCell
+	class PanelViewCell :
+		public wraps::BasePanelViewCell
 	{
 	public:
 		PanelViewCell(MyGUI::Widget* _parent) : BasePanelViewCell("PanelCell.layout", _parent)

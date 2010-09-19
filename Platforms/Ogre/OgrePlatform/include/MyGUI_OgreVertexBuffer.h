@@ -23,7 +23,8 @@
 namespace MyGUI
 {
 
-	class OgreVertexBuffer : public IVertexBuffer
+	class OgreVertexBuffer :
+		public IVertexBuffer
 	{
 	public:
 		OgreVertexBuffer();
