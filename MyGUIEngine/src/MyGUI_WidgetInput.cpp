@@ -66,10 +66,10 @@ namespace MyGUI
 		eventMouseSetFocus(static_cast<Widget*>(this), _old);
 	}
 
-	void WidgetInput::_riseMouseDrag(int _left, int _top)
+	void WidgetInput::_riseMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		onMouseDrag(_left, _top);
-		eventMouseDrag(static_cast<Widget*>(this), _left, _top);
+		onMouseDrag(_left, _top, _id);
+		eventMouseDrag(static_cast<Widget*>(this), _left, _top, _id);
 	}
 
 	void WidgetInput::_riseMouseMove(int _left, int _top)

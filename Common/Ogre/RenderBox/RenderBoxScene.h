@@ -28,7 +28,7 @@ namespace wraps
 			mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 			mMouseRotation(false),
 			mLastPointerX(0),
-			mLeftPressed(false),
+			mMousePressed(false),
 			mAutoRotation(false),
 			mFrameAdvise(false)
 		{
@@ -187,7 +187,7 @@ namespace wraps
 		}
 
 	private:
-		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (mMouseRotation)
 			{
@@ -199,21 +199,26 @@ namespace wraps
 
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
-			if (_id == MyGUI::MouseButton::Left)
+			if (mMouseRotation)
 			{
-				if (mMouseRotation)
+				if (_id == MyGUI::MouseButton::Left)
 				{
 					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastLeftPressed();
 					mLastPointerX = point.left;
-					mLeftPressed = true;
+					mMousePressed = true;
+				}
+				if (_id == MyGUI::MouseButton::Right)
+				{
+					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastRightPressed();
+					mLastPointerX = point.left;
+					mMousePressed = true;
 				}
 			}
 		}
 
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
-			if (MyGUI::MouseButton::Left == _id)
-				mLeftPressed = false;
+			mMousePressed = false;
 		}
 
 		void frameAdvise(bool _advise)
@@ -232,7 +237,7 @@ namespace wraps
 
 		void frameEntered(float _time)
 		{
-			if (!mLeftPressed)
+			if (!mMousePressed)
 			{
 				if (mAutoRotation && mNode)
 					mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
@@ -332,7 +337,7 @@ namespace wraps
 		int mRotationSpeed;
 		bool mMouseRotation;
 		int mLastPointerX;
-		bool mLeftPressed;
+		bool mMousePressed;
 		bool mAutoRotation;
 
 		bool mFrameAdvise;

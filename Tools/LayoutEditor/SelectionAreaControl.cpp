@@ -184,9 +184,10 @@ namespace tools
 		WidgetCreatorManager::getInstance().notifyMouseMouseMove(MyGUI::IntPoint(_left, _top));
 	}
 
-	void SelectionAreaControl::notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	void SelectionAreaControl::notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		WidgetCreatorManager::getInstance().notifyMouseMouseDrag(MyGUI::IntPoint(_left, _top));
+		if (_id == MyGUI::MouseButton::Left)
+			WidgetCreatorManager::getInstance().notifyMouseMouseDrag(MyGUI::IntPoint(_left, _top));
 	}
 
 	void SelectionAreaControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)

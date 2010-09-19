@@ -129,12 +129,12 @@ namespace MyGUI
 		Base::onKeyChangeRootFocus(_focus);
 	}
 
-	void Window::onMouseDrag(int _left, int _top)
+	void Window::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
 		// на тот случай, если двигать окно, можно за любое место виджета
-		notifyMouseDrag(this, _left, _top);
+		notifyMouseDrag(this, _left, _top, _id);
 
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
@@ -165,8 +165,11 @@ namespace MyGUI
 		eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
-	void Window::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
+	void Window::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
 	{
+		if (_id != MouseButton::Left)
+			return;
+
 		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
 		IntCoord coord = mCurrentActionScale;

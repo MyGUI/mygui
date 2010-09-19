@@ -31,7 +31,7 @@ namespace tools
 		virtual void onEndModal();
 
 	private:
-		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
 		void notifyScrollChangePositionAlpha(MyGUI::VScroll* _sender, size_t _position);

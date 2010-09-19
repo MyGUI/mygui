@@ -121,14 +121,14 @@ namespace MyGUI
 
 		void onMouseChangeRootFocus(bool _focus);
 		void onKeyChangeRootFocus(bool _focus);
-		void onMouseDrag(int _left, int _top);
+		void onMouseDrag(int _left, int _top, MouseButton _id);
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
 		void notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyPressedButtonEvent(MyGUI::Widget* _sender);
-		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
 
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();

@@ -174,8 +174,11 @@ namespace MyGUI
 		mMouseLeftPressed = false;
 	}
 
-	void Edit::notifyMouseDrag(Widget* _sender, int _left, int _top)
+	void Edit::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
+		if (_id != MouseButton::Left)
+			return;
+
 		if (mClientText == nullptr)
 			return;
 
@@ -242,11 +245,11 @@ namespace MyGUI
 		mClientText->setTextSelection(mStartSelect, mEndSelect);
 	}
 
-	void Edit::onMouseDrag(int _left, int _top)
+	void Edit::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
-		notifyMouseDrag(nullptr, _left, _top);
+		notifyMouseDrag(nullptr, _left, _top, _id);
 
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void Edit::onKeySetFocus(Widget* _old)

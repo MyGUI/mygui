@@ -16,7 +16,7 @@ namespace tools
 
 	private:
 		void notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top);
-		void notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 	};
