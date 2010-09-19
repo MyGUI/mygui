@@ -14,7 +14,8 @@
 namespace animation
 {
 
-	class IAnimationGraph : public IAnimationNode
+	class IAnimationGraph :
+		public IAnimationNode
 	{
 	public:
 		IAnimationGraph() : IAnimationNode() { }

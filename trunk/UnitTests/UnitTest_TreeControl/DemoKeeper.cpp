@@ -16,7 +16,8 @@
 MyGUI::UString gMediaBase;
 typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
 
-class SampleLayout : public wraps::BaseLayout
+class SampleLayout :
+	public wraps::BaseLayout
 {
 public:
 	SampleLayout();

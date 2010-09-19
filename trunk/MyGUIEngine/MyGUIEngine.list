@@ -166,6 +166,7 @@ set (HEADER_FILES
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
   include/MyGUI_ResourceImageSetData.h
+  include/MyGUI_TextViewData.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -259,6 +260,11 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
+  src/MyGUI_BiIndexBase.cpp
+  src/MyGUI_WidgetUserData.cpp
+  src/MyGUI_ChildSkinInfo.cpp
+  src/MyGUI_SubWidgetBinding.cpp
+  src/MyGUI_TextView.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp

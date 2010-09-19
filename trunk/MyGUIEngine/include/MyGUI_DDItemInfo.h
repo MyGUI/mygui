@@ -39,12 +39,16 @@ namespace MyGUI
 			Refuse /**< drag DDContainer over another DDContainer that refuse dropping on it */
 		};
 
-		DDItemState(Enum _value = None) : value(_value) { }
+		DDItemState(Enum _value = None) :
+			value(_value)
+		{
+		}
 
 		friend bool operator == (DDItemState const& a, DDItemState const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (DDItemState const& a, DDItemState const& b)
 		{
 			return a.value != b.value;
@@ -108,7 +112,8 @@ namespace MyGUI
 			update(true),
 			accept(false),
 			refuse(false)
-		{ }
+		{
+		}
 
 		/** Index of element */
 		size_t index;

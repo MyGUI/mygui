@@ -14,7 +14,8 @@
 namespace demo
 {
 
-	class BaseAnimationNode : public wraps::BaseGraphNode
+	class BaseAnimationNode :
+		public wraps::BaseGraphNode
 	{
 	public:
 		BaseAnimationNode(const std::string& _layout, const std::string& _type, const std::string& _name) :

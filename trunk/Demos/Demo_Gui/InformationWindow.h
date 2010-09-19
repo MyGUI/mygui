@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	class InformationWindow : public wraps::BaseLayout
+	class InformationWindow :
+		public wraps::BaseLayout
 	{
 	public:
 		InformationWindow(MyGUI::Widget* _parent);

@@ -29,7 +29,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ISubWidgetRect : public ISubWidget
+	class MYGUI_EXPORT ISubWidgetRect :
+		public ISubWidget
 	{
 		MYGUI_RTTI_DERIVED( ISubWidgetRect )
 
@@ -38,7 +39,6 @@ namespace MyGUI
 
 		virtual void _setUVSet(const FloatRect& _rect) { }
 		virtual void _setColour(const Colour& _value) { }
-
 	};
 
 } // namespace MyGUI

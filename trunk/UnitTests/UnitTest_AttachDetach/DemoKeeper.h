@@ -11,14 +11,14 @@
 namespace demo
 {
 
-	class DemoKeeper : public base::BaseManager
+	class DemoKeeper :
+		public base::BaseManager
 	{
 	public:
 		virtual void createScene();
 		virtual void destroyScene();
 
 		void notifyFrameStarted(float _time);
-
 	};
 
 } // namespace demo

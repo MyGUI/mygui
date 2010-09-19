@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	class TextureView : public wraps::BaseLayout
+	class TextureView :
+		public wraps::BaseLayout
 	{
 	public:
 		TextureView();

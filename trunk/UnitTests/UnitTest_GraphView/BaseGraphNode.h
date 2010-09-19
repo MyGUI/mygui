@@ -14,7 +14,8 @@
 namespace wraps
 {
 
-	class BaseGraphNode : public BaseLayout
+	class BaseGraphNode :
+		public BaseLayout
 	{
 	public:
 		BaseGraphNode(const std::string& _layout) :

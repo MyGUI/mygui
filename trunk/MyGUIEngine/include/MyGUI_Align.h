@@ -50,16 +50,21 @@ namespace MyGUI
 			Default = Left | Top /**< default value (value from left and top) */
 		};
 
-		Align(Enum _value = Default) : value(_value) { }
+		Align(Enum _value = Default) :
+			value(_value)
+		{
+		}
 
 		bool isHCenter() const
 		{
 			return HCenter == (value & ((int)HStretch));
 		}
+
 		bool isVCenter() const
 		{
 			return VCenter == (value & ((int)VStretch));
 		}
+
 		bool isCenter() const
 		{
 			return Center == (value & ((int)Stretch));
@@ -69,10 +74,12 @@ namespace MyGUI
 		{
 			return Left == (value & ((int)HStretch));
 		}
+
 		bool isRight() const
 		{
 			return Right == (value & ((int)HStretch));
 		}
+
 		bool isHStretch() const
 		{
 			return HStretch == (value & ((int)HStretch));
@@ -82,10 +89,12 @@ namespace MyGUI
 		{
 			return Top == (value & ((int)VStretch));
 		}
+
 		bool isBottom() const
 		{
 			return (Bottom == (value & ((int)VStretch)));
 		}
+
 		bool isVStretch() const
 		{
 			return (VStretch == (value & ((int)VStretch)));
@@ -95,6 +104,7 @@ namespace MyGUI
 		{
 			return (Stretch == (value & ((int)Stretch)));
 		}
+
 		bool isDefault() const
 		{
 			return (Default == (value & ((int)Stretch)));
@@ -105,10 +115,12 @@ namespace MyGUI
 			value = Enum(int(value) | int(_other.value));
 			return *this;
 		}
+
 		friend Align operator | (Enum const& a, Enum const& b)
 		{
 			return Align(Enum(int(a) | int(b)));
 		}
+
 		friend Align operator | (Align const& a, Align const& b)
 		{
 			return Align(Enum(int(a.value) | int(b.value)));
@@ -118,6 +130,7 @@ namespace MyGUI
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (Align const& a, Align const& b)
 		{
 			return a.value != b.value;
@@ -147,19 +160,27 @@ namespace MyGUI
 
 			if (value & Left)
 			{
-				if (value & Right) result = "HStretch";
-				else result = "Left";
+				if (value & Right)
+					result = "HStretch";
+				else
+					result = "Left";
 			}
-			else if (value & Right) result = "Right";
-			else result = "HCenter";
+			else if (value & Right)
+				result = "Right";
+			else
+				result = "HCenter";
 
 			if (value & Top)
 			{
-				if (value & Bottom) result += " VStretch";
-				else result += " Top";
+				if (value & Bottom)
+					result += " VStretch";
+				else
+					result += " Top";
 			}
-			else if (value & Bottom) result += " Bottom";
-			else result += " VCenter";
+			else if (value & Bottom)
+				result += " Bottom";
+			else
+				result += " VCenter";
 
 			return result;
 		}
@@ -180,7 +201,6 @@ namespace MyGUI
 			MapAlign::const_iterator iter = map_names.find(value);
 			if (iter != map_names.end())
 				_value.value = Enum(int(_value.value) | int(iter->second));
-
 
 			if (!_stream.eof())
 			{

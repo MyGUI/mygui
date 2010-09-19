@@ -23,8 +23,10 @@
 #define __MYGUI_SINGLETON_H__
 
 #include "MyGUI_Diagnostic.h"
+
 namespace MyGUI
 {
+
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC || MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 	template <class T>
 	class Singleton
@@ -41,20 +43,24 @@ namespace MyGUI
 			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");
 			msInstance = static_cast<T*>(this);
 		}
+
 		virtual ~Singleton()
 		{
 			MYGUI_ASSERT(nullptr != msInstance, "Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
 			msInstance = nullptr;
 		}
+
 		static T& getInstance()
 		{
 			MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance " << getClassTypeName() << " was not created");
 			return (*getInstancePtr());
 		}
+
 		static T* getInstancePtr()
 		{
 			return msInstance;
 		}
+
 		static const char* getClassTypeName()
 		{
 			return mClassTypeName;
@@ -62,6 +68,7 @@ namespace MyGUI
 
 	private:
 		static T* msInstance;
+
 	protected:
 		static const char* mClassTypeName;
 	};

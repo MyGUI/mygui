@@ -16,7 +16,8 @@ namespace animation
 	};
 
 	template <typename Type>
-	class AnimationNodeConstruct : public IAnimationNodeConstruct
+	class AnimationNodeConstruct :
+		public IAnimationNodeConstruct
 	{
 	public:
 		AnimationNodeConstruct() { }

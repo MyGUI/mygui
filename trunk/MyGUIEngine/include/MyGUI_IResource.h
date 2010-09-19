@@ -35,7 +35,8 @@ namespace MyGUI
 
 	class ResourceManager;
 
-	class MYGUI_EXPORT IResource : public ISerializable
+	class MYGUI_EXPORT IResource :
+		public ISerializable
 	{
 		// для серелизации и удаления
 		friend class ResourceManager;
@@ -48,20 +49,19 @@ namespace MyGUI
 			return mResourceName;
 		}
 
-	protected:
-		IResource() { }
 	private:
 		// constructors and operator =, without implementation, just for private
 		IResource(IResource const&);
 		IResource& operator = (IResource const&);
 
 	protected:
+		IResource() { }
+		virtual ~IResource() { }
+
 		virtual void deserialization(xml::ElementPtr _node, Version _version)
 		{
 			_node->findAttribute("name", mResourceName);
 		}
-
-		virtual ~IResource() { }
 
 	protected:
 		std::string mResourceName;

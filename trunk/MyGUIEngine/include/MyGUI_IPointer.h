@@ -28,7 +28,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT IPointer : public IResource
+	class MYGUI_EXPORT IPointer :
+		public IResource
 	{
 		MYGUI_RTTI_DERIVED( IPointer )
 
@@ -38,7 +39,6 @@ namespace MyGUI
 
 		virtual void setImage(StaticImage* _image) = 0;
 		virtual void setPosition(StaticImage* _image, const IntPoint& _point) = 0;
-
 	};
 
 } // namespace MyGUI

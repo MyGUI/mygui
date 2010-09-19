@@ -8,7 +8,8 @@
 namespace animation
 {
 
-	class Group2Controller : public IAnimationNode
+	class Group2Controller :
+		public IAnimationNode
 	{
 	public:
 		Group2Controller()

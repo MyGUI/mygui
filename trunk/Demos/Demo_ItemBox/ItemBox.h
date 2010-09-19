@@ -13,12 +13,12 @@
 namespace demo
 {
 
-	class ItemBox : public wraps::BaseItemBox<CellView>
+	class ItemBox :
+		public wraps::BaseItemBox<CellView>
 	{
 	public:
 		ItemBox(MyGUI::Widget* _parent);
 		virtual ~ItemBox();
-
 	};
 
 } // namespace demo

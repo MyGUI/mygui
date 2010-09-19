@@ -42,7 +42,8 @@ namespace wrapper
 		virtual std::string getTemplatePrefix(const std::string& _template, const std::string& _rettype, const VectorParam& _params, const std::string& _namespace) = 0;
 	};
 
-	class ClassAttribute : public ITypeHolder
+	class ClassAttribute :
+		public ITypeHolder
 	{
 	public:
 		typedef std::vector<Member*> VectorMember;

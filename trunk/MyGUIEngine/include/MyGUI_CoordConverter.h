@@ -84,7 +84,6 @@ namespace MyGUI
 		{
 			return FloatPoint(_point.left / (float)_view.width, _point.top / (float)_view.height);
 		}
-
 	};
 
 } // namespace MyGUI

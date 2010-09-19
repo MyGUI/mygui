@@ -21,7 +21,8 @@ namespace demo
 
 	typedef MyGUI::delegates::CDelegate2<int, size_t> EventHandle_EventDirector;
 
-	class PanelDirector : public wraps::BasePanelViewItem
+	class PanelDirector :
+		public wraps::BasePanelViewItem
 	{
 	public:
 		PanelDirector();

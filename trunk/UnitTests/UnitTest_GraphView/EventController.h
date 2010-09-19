@@ -8,7 +8,8 @@
 namespace animation
 {
 
-	class EventController : public IAnimationNode
+	class EventController :
+		public IAnimationNode
 	{
 	public:
 		EventController()

@@ -69,7 +69,6 @@ namespace MyGUI
 			}
 			return result;
 		}
-
 	};
 
 } // namespace MyGUI

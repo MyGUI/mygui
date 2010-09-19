@@ -23,7 +23,8 @@ namespace wraps
 		virtual void changePosition(BaseGraphNode* _node) = 0;
 	};
 
-	class BaseGraphNode : public BaseLayout
+	class BaseGraphNode :
+		public BaseLayout
 	{
 	public:
 		BaseGraphNode(const std::string& _layout) :

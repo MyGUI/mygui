@@ -43,7 +43,7 @@ namespace MyGUI
 	{
 		friend class GenericFactory<ResourceImageSet>;
 
-		MYGUI_RTTI_DERIVED(ResourceImageSet)
+		MYGUI_RTTI_DERIVED( ResourceImageSet )
 
 	public:
 		ImageIndexInfo getIndexInfo(const std::string& _group, const std::string& _index);

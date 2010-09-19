@@ -29,6 +29,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT RenderTargetInfo
 	{
+	public:
 		RenderTargetInfo() :
 			maximumDepth(0),
 			pixScaleX(1),
@@ -47,6 +48,7 @@ namespace MyGUI
 			topOffset = _top;
 		}
 
+	public:
 		float maximumDepth;
 		float pixScaleX;
 		float pixScaleY;

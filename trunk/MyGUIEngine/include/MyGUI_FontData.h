@@ -44,12 +44,16 @@ namespace MyGUI
 			MAX
 		};
 
-		FontCodeType(Enum _value = MAX) : value(_value) { }
+		FontCodeType(Enum _value = MAX) :
+			value(_value)
+		{
+		}
 
 		friend bool operator == (FontCodeType const& a, FontCodeType const& b)
 		{
 			return a.value == b.value;
 		}
+
 		friend bool operator != (FontCodeType const& a, FontCodeType const& b)
 		{
 			return a.value != b.value;
@@ -62,11 +66,17 @@ namespace MyGUI
 	// информация об одном символе
 	struct GlyphInfo
 	{
+	public:
+		GlyphInfo() :
+			codePoint(0),
+			width(0)
+		{
+		}
+
+	public:
 		FloatRect uvRect;
 		Char codePoint;
 		int width;
-
-		GlyphInfo() : codePoint(0), width(0) { }
 	};
 
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;
@@ -76,8 +86,17 @@ namespace MyGUI
 	class PairCodePoint
 	{
 	public:
-		PairCodePoint() : first(0), last(0) { }
-		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
+		PairCodePoint() :
+			first(0),
+			last(0)
+		{
+		}
+
+		PairCodePoint(Char _first, Char _last) :
+			first(_first),
+			last(_last)
+		{
+		}
 
 		// проверяет входит ли символ в диапазон
 		bool isExist(Char _code) const
@@ -94,7 +113,12 @@ namespace MyGUI
 	class RangeInfo
 	{
 	public:
-		RangeInfo() : first(0), last(0) { }
+		RangeInfo() :
+			first(0),
+			last(0)
+		{
+		}
+
 		RangeInfo(Char _first, Char _last) :
 			first(_first),
 			last(_last)
@@ -113,6 +137,7 @@ namespace MyGUI
 		{
 			return isExist(_code) ? &range[_code - first] : nullptr;
 		}
+
 		void setInfo(Char _code, GlyphInfo* _value)
 		{
 			if (isExist(_code)) range[_code - first] = *_value;
@@ -128,7 +153,11 @@ namespace MyGUI
 	class PairCodeCoord
 	{
 	public:
-		PairCodeCoord() : code(0) { }
+		PairCodeCoord() :
+			code(0)
+		{
+		}
+
 		PairCodeCoord(Char _code, const IntCoord& _coord) :
 			code(_code),
 			coord(_coord)
@@ -140,6 +169,7 @@ namespace MyGUI
 			return code < _value.code;
 		}
 
+	public:
 		Char code;
 		IntCoord coord;
 	};

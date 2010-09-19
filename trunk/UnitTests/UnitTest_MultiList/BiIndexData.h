@@ -11,7 +11,8 @@
 namespace unittest
 {
 
-	class BiIndexData : public MyGUI::BiIndexBase
+	class BiIndexData :
+		public MyGUI::BiIndexBase
 	{
 	public:
 		size_t getItemCount() const

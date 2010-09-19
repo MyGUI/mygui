@@ -8,7 +8,8 @@
 namespace animation
 {
 
-	class PositionController : public IAnimationNode
+	class PositionController :
+		public IAnimationNode
 	{
 	public:
 		PositionController()
