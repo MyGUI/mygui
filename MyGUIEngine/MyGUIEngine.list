@@ -44,6 +44,7 @@ set (HEADER_FILES
   include/MyGUI_TextIterator.h
   include/MyGUI_TextureUtility.h
   include/MyGUI_TextView.h
+  include/MyGUI_TextViewData.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
   include/MyGUI_Utility.h
@@ -59,7 +60,9 @@ set (HEADER_FILES
   include/MyGUI_LogSource.h
   include/MyGUI_LogStream.h
   include/MyGUI.h
+  include/MyGUI_BackwardCompatibility.h
   include/MyGUI_Common.h
+  include/MyGUI_DeprecatedTypes.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
   include/MyGUI_GenericFactory.h
@@ -69,8 +72,6 @@ set (HEADER_FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_WidgetDefines.h
-  include/MyGUI_BackwardCompatibility.h
-  include/MyGUI_DeprecatedTypes.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
   include/MyGUI_IObject.h
@@ -127,6 +128,7 @@ set (HEADER_FILES
   include/MyGUI_FontData.h
   include/MyGUI_LayoutData.h
   include/MyGUI_MaskPickInfo.h
+  include/MyGUI_ResourceImageSetData.h
   include/MyGUI_SubWidgetBinding.h
   include/MyGUI_SubWidgetInfo.h
   include/MyGUI_Align.h
@@ -165,8 +167,6 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
-  include/MyGUI_ResourceImageSetData.h
-  include/MyGUI_TextViewData.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -213,11 +213,13 @@ set (SOURCE_FILES
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerPosition.cpp
+  src/MyGUI_BackwardCompatibility.cpp
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
-  src/MyGUI_BackwardCompatibility.cpp
+  src/MyGUI_BiIndexBase.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_WidgetInput.cpp
+  src/MyGUI_WidgetUserData.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
   src/MyGUI_ResourceLayout.cpp
@@ -225,7 +227,9 @@ set (SOURCE_FILES
   src/MyGUI_ResourceManualPointer.cpp
   src/MyGUI_ResourceSkin.cpp
   src/MyGUI_ResourceTrueTypeFont.cpp
+  src/MyGUI_ChildSkinInfo.cpp
   src/MyGUI_MaskPickInfo.cpp
+  src/MyGUI_SubWidgetBinding.cpp
   src/MyGUI_Any.cpp
   src/MyGUI_Colour.cpp
   src/MyGUI_ClipboardManager.cpp
@@ -252,6 +256,7 @@ set (SOURCE_FILES
   src/MyGUI_DynLib.cpp
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
+  src/MyGUI_TextView.cpp
   src/MyGUI_Timer.cpp
   src/MyGUI_UString.cpp
   src/MyGUI_XmlDocument.cpp
@@ -260,11 +265,6 @@ set (SOURCE_FILES
   src/MyGUI_LevelLogFilter.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogSource.cpp
-  src/MyGUI_BiIndexBase.cpp
-  src/MyGUI_WidgetUserData.cpp
-  src/MyGUI_ChildSkinInfo.cpp
-  src/MyGUI_SubWidgetBinding.cpp
-  src/MyGUI_TextView.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -321,16 +321,20 @@ SOURCE_GROUP("Source Files\\Core\\Controller" FILES
   src/MyGUI_ControllerPosition.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
+  src/MyGUI_BiIndexBase.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_WidgetInput.cpp
+  src/MyGUI_WidgetUserData.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
+  src/MyGUI_BackwardCompatibility.cpp
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
-  src/MyGUI_BackwardCompatibility.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
+  src/MyGUI_ChildSkinInfo.cpp
   src/MyGUI_MaskPickInfo.cpp
+  src/MyGUI_SubWidgetBinding.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp
@@ -381,6 +385,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DynLib.cpp
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
+  src/MyGUI_TextView.cpp
   src/MyGUI_Timer.cpp
   src/MyGUI_UString.cpp
   src/MyGUI_XmlDocument.cpp
@@ -448,6 +453,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_TextIterator.h
   include/MyGUI_TextureUtility.h
   include/MyGUI_TextView.h
+  include/MyGUI_TextViewData.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
   include/MyGUI_Utility.h
@@ -474,7 +480,9 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
+  include/MyGUI_BackwardCompatibility.h
   include/MyGUI_Common.h
+  include/MyGUI_DeprecatedTypes.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
   include/MyGUI_GenericFactory.h
@@ -484,8 +492,6 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_WidgetDefines.h
-  include/MyGUI_BackwardCompatibility.h
-  include/MyGUI_DeprecatedTypes.h
 )
 SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES
   include/MyGUI_IStateInfo.h
@@ -531,11 +537,11 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Interface" FILES
   include/MyGUI_IResource.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
-  include/MyGUI_ResourceImageSetData.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_FontData.h
   include/MyGUI_LayoutData.h
   include/MyGUI_MaskPickInfo.h
+  include/MyGUI_ResourceImageSetData.h
   include/MyGUI_SubWidgetBinding.h
   include/MyGUI_SubWidgetInfo.h
 )
