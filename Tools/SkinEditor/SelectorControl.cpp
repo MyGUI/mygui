@@ -31,6 +31,8 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
+		mMainWidget->eventMouseWheel += MyGUI::newDelegate(this, &SelectorControl::notifyMouseWheel);
+
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 	}
@@ -39,6 +41,8 @@ namespace tools
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
+
+		mMainWidget->eventMouseWheel -= MyGUI::newDelegate(this, &SelectorControl::notifyMouseWheel);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -183,6 +187,11 @@ namespace tools
 		mPropertyColour = _propertyName;
 		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
 		setColour(colour);
+	}
+
+	void SelectorControl::notifyMouseWheel(MyGUI::Widget* _sender, int _wheel)
+	{
+		eventMouseWheel(this, _wheel);
 	}
 
 } // namespace tools

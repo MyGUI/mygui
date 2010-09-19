@@ -31,9 +31,7 @@ namespace tools
 		void addSelectorControl(T * & _control)
 		{
 			assignBase(_control, "Texture");
-			mSelectors.push_back(_control);
-
-			_control->setScale(mScaleValue);
+			registerSelectorControl(_control);
 		}
 
 		void setColour(MyGUI::Colour _value);
@@ -44,8 +42,14 @@ namespace tools
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
+		bool getSelectorsCapture();
+
+		virtual void onMouseWheel(int _rel);
+
 	private:
 		void notifyChangePosition();
+		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
+		void notifySelecetionWheel(SelectorControl* _control, int _wheelValue);
 
 		void updateTexture();
 		void updateCoord();
@@ -54,6 +58,8 @@ namespace tools
 
 		void updateRegionCoord();
 		void updateColours();
+
+		void registerSelectorControl(SelectorControl* _control);
 
 	private:
 		MyGUI::ScrollView* mView;
