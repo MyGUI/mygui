@@ -36,6 +36,10 @@ namespace MyGUI
 	{
 	}
 
+	ControllerFadeAlpha::~ControllerFadeAlpha()
+	{
+	}
+
 	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
 		// подготовка виджета, блокируем если только нужно
@@ -96,9 +100,27 @@ namespace MyGUI
 
 	void ControllerFadeAlpha::setProperty(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Alpha") setAlpha(utility::parseValue<float>(_value));
-		else if (_key == "Coef") setCoef(utility::parseValue<float>(_value));
-		else if (_key == "Enabled") setEnabled(utility::parseValue<bool>(_value));
+		if (_key == "Alpha")
+			setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Coef")
+			setCoef(utility::parseValue<float>(_value));
+		else if (_key == "Enabled")
+			setEnabled(utility::parseValue<bool>(_value));
+	}
+
+	void ControllerFadeAlpha::setAlpha(float _value)
+	{
+		mAlpha = _value;
+	}
+
+	void ControllerFadeAlpha::setCoef(float _value)
+	{
+		mCoef = _value;
+	}
+
+	void ControllerFadeAlpha::setEnabled(bool _value)
+	{
+		mEnabled = _value;
 	}
 
 } // namespace MyGUI

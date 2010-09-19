@@ -80,10 +80,7 @@ namespace MyGUI
 		void unload();
 
 		//! Get the name of the library
-		std::string getName(void) const
-		{
-			return mName;
-		}
+		std::string getName(void) const;
 
 		/**
 			Returns the address of the given symbol from the loaded library.
@@ -99,7 +96,6 @@ namespace MyGUI
 		//! Gets the last loading error
 		std::string dynlibError() const;
 
-
 	protected:
 		//!	Name of library
 		std::string mName;
@@ -108,6 +104,6 @@ namespace MyGUI
 		MYGUI_DYNLIB_HANDLE mInstance;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_DYNLIB_H__

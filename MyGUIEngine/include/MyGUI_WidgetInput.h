@@ -75,72 +75,42 @@ namespace MyGUI
 	{
 	public:
 		WidgetInput();
-		virtual ~WidgetInput() { }
+		virtual ~WidgetInput();
 
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
-		void setNeedToolTip(bool _value)
-		{
-			mNeedToolTip = _value;
-		}
+		void setNeedToolTip(bool _value);
 		/** Get need tool tip mode flag */
-		bool getNeedToolTip() const
-		{
-			return mNeedToolTip;
-		}
+		bool getNeedToolTip() const;
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _value)
-		{
-			mPointer = _value;
-		}
+		void setPointer(const std::string& _value);
 		/** Get mouse pointer name for this widget */
-		const std::string& getPointer() const
-		{
-			return mPointer;
-		}
+		const std::string& getPointer() const;
 
 		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _value)
-		{
-			mNeedKeyFocus = _value;
-		}
+		void setNeedKeyFocus(bool _value);
 		/** Is need key focus
 			If disable this widget won't be reacting on keyboard at all.\n
 			Enabled (true) by default.
 		*/
-		bool getNeedKeyFocus() const
-		{
-			return mNeedKeyFocus;
-		}
+		bool getNeedKeyFocus() const;
 
 		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _value)
-		{
-			mNeedMouseFocus = _value;
-		}
+		void setNeedMouseFocus(bool _value);
 		/** Is need mouse focus
 			If disable this widget won't be reacting on mouse at all.\n
 			Enabled (true) by default.
 		*/
-		bool getNeedMouseFocus() const
-		{
-			return mNeedMouseFocus;
-		}
+		bool getNeedMouseFocus() const;
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
 			need mouse focus (was set setNeedKeyFocus(false) ).\n
 			Disabled (false) by default.
 		*/
-		void setInheritsPick(bool _value)
-		{
-			mInheritsPick = _value;
-		}
+		void setInheritsPick(bool _value);
 		/** Get inherits mode flag */
-		bool getInheritsPick() const
-		{
-			return mInheritsPick;
-		}
+		bool getInheritsPick() const;
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
@@ -149,28 +119,24 @@ namespace MyGUI
 
 		bool isMaskPickInside(const IntPoint& _point, const IntCoord& _coord) const;
 
-		bool getRootMouseFocus() const
-		{
-			return mRootMouseFocus;
-		}
-		bool getRootKeyFocus() const
-		{
-			return mRootKeyFocus;
-		}
+		bool getRootMouseFocus() const;
+		bool getRootKeyFocus() const;
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
 			@param _sender widget that called this event
 			@param _new widget with mouse focus or nullptr
 		*/
-		EventHandle_WidgetWidget eventMouseLostFocus;
+		EventHandle_WidgetWidget
+			eventMouseLostFocus;
 
 		/** Event : Widget got mouse focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _old)\n
 			@param _sender widget that called this event
 			@param _old widget with mouse focus or nullptr
 		*/
-		EventHandle_WidgetWidget eventMouseSetFocus;
+		EventHandle_WidgetWidget
+			eventMouseSetFocus;
 
 		/** Event : Widget mouse move with captured widget.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top)\n
@@ -178,7 +144,8 @@ namespace MyGUI
 			@param _left - pointer position
 			@param _top - pointer position
 		*/
-		EventPair3to4<EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton> eventMouseDrag;
+		EventPair3to4<EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton>
+			eventMouseDrag;
 
 		/** Event : Mouse move over widget.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top)\n
@@ -186,14 +153,16 @@ namespace MyGUI
 			@param _left - pointer position
 			@param _top - pointer position
 		*/
-		EventHandle_WidgetIntInt eventMouseMove;
+		EventHandle_WidgetIntInt
+			eventMouseMove;
 
 		/** Event : Mouse wheel over widget.\n
 			signature : void method(MyGUI::Widget* _sender, int _rel)\n
 			@param _sender widget that called this event
 			@param _rel relative wheel position
 		*/
-		EventHandle_WidgetInt eventMouseWheel;
+		EventHandle_WidgetInt
+			eventMouseWheel;
 
 		/** Event : Mouse button pressed.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -202,7 +171,8 @@ namespace MyGUI
 			@param _top - pointer position
 			@param _id Mouse button id
 		*/
-		EventHandle_WidgetIntIntButton eventMouseButtonPressed;
+		EventHandle_WidgetIntIntButton
+			eventMouseButtonPressed;
 
 		/** Event : Mouse button released.\n
 			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -211,33 +181,38 @@ namespace MyGUI
 			@param _top - pointer position
 			@param _id Mouse button id
 		*/
-		EventHandle_WidgetIntIntButton eventMouseButtonReleased;
+		EventHandle_WidgetIntIntButton
+			eventMouseButtonReleased;
 
 		/** Event : Mouse button pressed and released.\n
 			signature : void method(MyGUI::Widget* _sender)
 			@param _sender widget that called this event
 		*/
-		EventHandle_WidgetVoid eventMouseButtonClick;
+		EventHandle_WidgetVoid
+			eventMouseButtonClick;
 
 		/** Event : Mouse button double click.\n
 			signature : void method(MyGUI::Widget* _sender)
 			@param _sender widget that called this event
 		*/
-		EventHandle_WidgetVoid eventMouseButtonDoubleClick;
+		EventHandle_WidgetVoid
+			eventMouseButtonDoubleClick;
 
 		/** Event : Widget lost keyboard focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
 			@param _sender widget that called this event
 			@param _new widget with keyboard focus or nullptr
 		*/
-		EventHandle_WidgetWidget eventKeyLostFocus;
+		EventHandle_WidgetWidget
+			eventKeyLostFocus;
 
 		/** Event : Widget got keyboard focus.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _old)\n
 			@param _sender widget that called this event
 			@param _old widget with keyboard focus or nullptr
 		*/
-		EventHandle_WidgetWidget eventKeySetFocus;
+		EventHandle_WidgetWidget
+			eventKeySetFocus;
 
 		/** Event : Key pressed.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
@@ -245,14 +220,16 @@ namespace MyGUI
 			@param _key code
 			@param _char of pressed symbol (for multilanguage applications)
 		*/
-		EventHandle_WidgetKeyCodeChar eventKeyButtonPressed;
+		EventHandle_WidgetKeyCodeChar
+			eventKeyButtonPressed;
 
 		/** Event : Key released.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::KeyCode _key)\n
 			@param _sender widget that called this event
 			@param _key code
 		*/
-		EventHandle_WidgetKeyCode eventKeyButtonReleased;
+		EventHandle_WidgetKeyCode
+			eventKeyButtonReleased;
 
 		/** Event : Root widget changed mouse focus.\n
 			info : this event sends only to root widget\n
@@ -260,7 +237,8 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _focus Is widget got mouse focus.
 		*/
-		EventHandle_WidgetBool  eventRootMouseChangeFocus;
+		EventHandle_WidgetBool
+			eventRootMouseChangeFocus;
 
 		/** Event : Root widget changed keyboard focus.\n
 			info : this event sends only to root widget\n
@@ -268,14 +246,16 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _focus Is widget got keyboard focus.
 		*/
-		EventHandle_WidgetBool eventRootKeyChangeFocus;
+		EventHandle_WidgetBool
+			eventRootKeyChangeFocus;
 
 		/** Event : Event about changing tooltip state.\n
 			signature : void method(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 			@param _sender widget that called this event
 			@param _info about tooltip
 		*/
-		EventHandle_WidgetToolTip eventToolTip;
+		EventHandle_WidgetToolTip
+			eventToolTip;
 
 	/*internal:*/
 		void _riseMouseLostFocus(Widget* _new);
@@ -294,31 +274,25 @@ namespace MyGUI
 		void _riseMouseChangeRootFocus(bool _focus);
 		void _riseKeyChangeRootFocus(bool _focus);
 
-		void _setRootMouseFocus(bool _value)
-		{
-			mRootMouseFocus = _value;
-		}
-		void _setRootKeyFocus(bool _value)
-		{
-			mRootKeyFocus = _value;
-		}
+		void _setRootMouseFocus(bool _value);
+		void _setRootKeyFocus(bool _value);
 
 	protected:
-		virtual void onMouseLostFocus(Widget* _new) { }
-		virtual void onMouseSetFocus(Widget* _old) { }
-		virtual void onMouseDrag(int _left, int _top, MouseButton _id) { }
-		virtual void onMouseMove(int _left, int _top) { }
-		virtual void onMouseWheel(int _rel) { }
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id) { }
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id) { }
-		virtual void onMouseButtonClick() { }
-		virtual void onMouseButtonDoubleClick() { }
-		virtual void onKeyLostFocus(Widget* _new) { }
-		virtual void onKeySetFocus(Widget* _old) { }
-		virtual void onKeyButtonPressed(KeyCode _key, Char _char) { }
-		virtual void onKeyButtonReleased(KeyCode _key) { }
-		virtual void onMouseChangeRootFocus(bool _focus) { }
-		virtual void onKeyChangeRootFocus(bool _focus) { }
+		virtual void onMouseLostFocus(Widget* _new);
+		virtual void onMouseSetFocus(Widget* _old);
+		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
+		virtual void onMouseMove(int _left, int _top);
+		virtual void onMouseWheel(int _rel);
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonClick();
+		virtual void onMouseButtonDoubleClick();
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void onKeyButtonReleased(KeyCode _key);
+		virtual void onMouseChangeRootFocus(bool _focus);
+		virtual void onKeyChangeRootFocus(bool _focus);
 
 	private:
 		std::string mPointer;

@@ -27,30 +27,26 @@
 
 namespace MyGUI
 {
+
 	class MYGUI_EXPORT ConsoleLogListener :
 		public ILogListener
 	{
 	public:
 		ConsoleLogListener();
-		virtual ~ConsoleLogListener() { }
+		virtual ~ConsoleLogListener();
 
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
 		/** Is log listener enabled. */
-		bool getEnabled() const
-		{
-			return mEnabled;
-		}
+		bool getEnabled() const;
 		/** Enable or disable log listener. */
-		void setEnabled(bool _value)
-		{
-			mEnabled = _value;
-		}
+		void setEnabled(bool _value);
 
 	private:
 		bool mEnabled;
 	};
-}
+
+} // namespace MyGUI
 
 #endif // __MYGUI_CONSOLE_LOG_LISTENER_H__

@@ -31,24 +31,13 @@ namespace MyGUI
 	class MYGUI_EXPORT MaskPickInfo
 	{
 	public:
-		MaskPickInfo() : width(0), height(0) { }
+		MaskPickInfo();
 
 		bool load(const std::string& _file);
 
-		bool pick(const IntPoint& _point, const IntCoord& _coord) const
-		{
-			if ((0 == _coord.width) || (0 == _coord.height)) return false;
+		bool pick(const IntPoint& _point, const IntCoord& _coord) const;
 
-			int x = ((_point.left * width) - 1) / _coord.width;
-			int y = ((_point.top * height) - 1) / _coord.height;
-
-			return 0 != data[(size_t)(y * width + x)];
-		}
-
-		bool empty() const
-		{
-			return data.empty();
-		}
+		bool empty() const;
 
 	private:
 		std::vector<uint8> data;

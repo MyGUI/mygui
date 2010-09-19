@@ -41,6 +41,10 @@ namespace MyGUI
 	{
 	}
 
+	ControllerEdgeHide::~ControllerEdgeHide()
+	{
+	}
+
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
 		recalculateTime(_widget);
@@ -130,9 +134,12 @@ namespace MyGUI
 
 	void ControllerEdgeHide::setProperty(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Time") setTime(utility::parseValue<float>(_value));
-		else if (_key == "RemainPixels") setRemainPixels(utility::parseValue<int>(_value));
-		else if (_key == "ShadowSize") setShadowSize(utility::parseValue<int>(_value));
+		if (_key == "Time")
+			setTime(utility::parseValue<float>(_value));
+		else if (_key == "RemainPixels")
+			setRemainPixels(utility::parseValue<int>(_value));
+		else if (_key == "ShadowSize")
+			setShadowSize(utility::parseValue<int>(_value));
 	}
 
 	void ControllerEdgeHide::recalculateTime(Widget* _widget)
@@ -165,6 +172,21 @@ namespace MyGUI
 			mElapsedTime = (asin( pow( 2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 		else
 			mElapsedTime = (asin(-pow(-2 * k + 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
+	}
+
+	void ControllerEdgeHide::setTime(float _value)
+	{
+		mTime = _value;
+	}
+
+	void ControllerEdgeHide::setRemainPixels(int _value)
+	{
+		mRemainPixels = _value;
+	}
+
+	void ControllerEdgeHide::setShadowSize(int _value)
+	{
+		mShadowSize = _value;
 	}
 
 } // namespace MyGUI

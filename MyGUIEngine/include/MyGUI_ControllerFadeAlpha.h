@@ -37,32 +37,22 @@ namespace MyGUI
 
 	public:
 		ControllerFadeAlpha();
-		virtual ~ControllerFadeAlpha() { }
+		virtual ~ControllerFadeAlpha();
 
 		/**
 			@param _alpha that will be as result of changing
 		*/
-		void setAlpha(float _value)
-		{
-			mAlpha = _value;
-		}
+		void setAlpha(float _value);
 
 		/**
 			@param _coef of alpha changing speed (1. mean that alpha will change from 0 to 1 at 1 second)
 		*/
-		void setCoef(float _value)
-		{
-			mCoef = _value;
-		}
+		void setCoef(float _value);
 
 		/**
 			@param _enabled if true then widget will be inactive after start of alpha changing
 		*/
-		void setEnabled(bool _value)
-		{
-			mEnabled = _value;
-		}
-
+		void setEnabled(bool _value);
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -74,9 +64,8 @@ namespace MyGUI
 		float mAlpha;
 		float mCoef;
 		bool mEnabled;
-
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_CONTROLLER_FADE_ALPHA_H__

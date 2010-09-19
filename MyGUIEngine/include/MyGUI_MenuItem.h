@@ -86,10 +86,7 @@ namespace MyGUI
 		void setItemChildVisible(bool _value);
 
 		/** Get parent MenuCtrl */
-		MenuCtrl* getMenuCtrlParent()
-		{
-			return mOwner;
-		}
+		MenuCtrl* getMenuCtrlParent();
 
 		/** Get child item (submenu) */
 		MenuCtrl* getItemChild();
@@ -104,7 +101,6 @@ namespace MyGUI
 
 	private:
 		MenuCtrl* mOwner;
-
 	};
 
 } // namespace MyGUI

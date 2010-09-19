@@ -36,4 +36,19 @@ namespace MyGUI
 	{
 	}
 
+	void SharedLayerNode::addUsing()
+	{
+		mCountUsing++;
+	}
+
+	void SharedLayerNode::removeUsing()
+	{
+		mCountUsing--;
+	}
+
+	size_t SharedLayerNode::countUsing() const
+	{
+		return mCountUsing;
+	}
+
 } // namespace MyGUI

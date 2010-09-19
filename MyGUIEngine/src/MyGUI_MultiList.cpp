@@ -610,4 +610,59 @@ namespace MyGUI
 		mVectorColumnInfo[_column].list->setItemDataAt(index, _data);
 	}
 
+	size_t MultiList::getColumnCount() const
+	{
+		return mVectorColumnInfo.size();
+	}
+
+	void MultiList::addColumn(const UString& _name, int _width, Any _data)
+	{
+		insertColumnAt(ITEM_NONE, _name, _width, _data);
+	}
+
+	void MultiList::clearColumnDataAt(size_t _index)
+	{
+		setColumnDataAt(_index, Any::Null);
+	}
+
+	void MultiList::addItem(const UString& _name, Any _data)
+	{
+		insertItemAt(ITEM_NONE, _name, _data);
+	}
+
+	void MultiList::setItemNameAt(size_t _index, const UString& _name)
+	{
+		setSubItemNameAt(0, _index, _name);
+	}
+
+	const UString& MultiList::getItemNameAt(size_t _index)
+	{
+		return getSubItemNameAt(0, _index);
+	}
+
+	size_t MultiList::getIndexSelected() const
+	{
+		return mItemSelected;
+	}
+
+	void MultiList::clearIndexSelected()
+	{
+		setIndexSelected(ITEM_NONE);
+	}
+
+	void MultiList::setItemDataAt(size_t _index, Any _data)
+	{
+		setSubItemDataAt(0, _index, _data);
+	}
+
+	void MultiList::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	void MultiList::clearSubItemDataAt(size_t _column, size_t _index)
+	{
+		setSubItemDataAt(_column, _index, Any::Null);
+	}
+
 } // namespace MyGUI

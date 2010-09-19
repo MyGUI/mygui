@@ -67,10 +67,7 @@ namespace MyGUI
 		/** Check is layer exist */
 		bool isExist(const std::string& _name) const;
 		/** Get layer nodes Enumerator */
-		EnumeratorLayer getEnumerator() const
-		{
-			return EnumeratorLayer(mLayerNodes);
-		}
+		EnumeratorLayer getEnumerator() const;
 
 		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;
@@ -80,9 +77,6 @@ namespace MyGUI
 
 		/** Render all layers to specified target */
 		void renderToTarget(IRenderTarget* _target, bool _update);
-
-		/** Collect and dump statistic about layers and batches into log. */
-		virtual void dumpStatisticToLog();
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);

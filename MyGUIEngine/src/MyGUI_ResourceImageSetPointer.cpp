@@ -32,6 +32,10 @@ namespace MyGUI
 	{
 	}
 
+	ResourceImageSetPointer::~ResourceImageSetPointer()
+	{
+	}
+
 	void ResourceImageSetPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
@@ -43,9 +47,12 @@ namespace MyGUI
 			const std::string& key = info->findAttribute("key");
 			const std::string& value = info->findAttribute("value");
 
-			if (key == "Point") mPoint = IntPoint::parse(value);
-			else if (key == "Size") mSize = IntSize::parse(value);
-			else if (key == "Resource") mImageSet = ResourceManager::getInstance().getByName(value)->castType<ResourceImageSet>();
+			if (key == "Point")
+				mPoint = IntPoint::parse(value);
+			else if (key == "Size")
+				mSize = IntSize::parse(value);
+			else if (key == "Resource")
+				mImageSet = ResourceManager::getInstance().getByName(value)->castType<ResourceImageSet>();
 		}
 	}
 

@@ -20,8 +20,8 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Gui.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_SubWidgetManager.h"
@@ -1125,21 +1125,36 @@ namespace MyGUI
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
-		if (_key == "Position") setPosition(utility::parseValue<IntPoint>(_value));
-		else if (_key == "Size") setSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "Coord") setCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "Visible") setVisible(utility::parseValue<bool>(_value));
-		else if (_key == "Alpha") setAlpha(utility::parseValue<float>(_value));
-		else if (_key == "Colour") setColour(utility::parseValue<Colour>(_value));
-		else if (_key == "InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
-		else if (_key == "InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
-		else if (_key == "MaskPick") setMaskPick(_value);
-		else if (_key == "State") setState(_value);
-		else if (_key == "NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
-		else if (_key == "NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
-		else if (_key == "Enabled") setEnabled(utility::parseValue<bool>(_value));
-		else if (_key == "NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
-		else if (_key == "Pointer") setPointer(_value);
+		if (_key == "Position")
+			setPosition(utility::parseValue<IntPoint>(_value));
+		else if (_key == "Size")
+			setSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Coord")
+			setCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Visible")
+			setVisible(utility::parseValue<bool>(_value));
+		else if (_key == "Alpha")
+			setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Colour")
+			setColour(utility::parseValue<Colour>(_value));
+		else if (_key == "InheritsAlpha")
+			setInheritsAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "InheritsPick")
+			setInheritsPick(utility::parseValue<bool>(_value));
+		else if (_key == "MaskPick")
+			setMaskPick(_value);
+		else if (_key == "State")
+			setState(_value);
+		else if (_key == "NeedKey")
+			setNeedKeyFocus(utility::parseValue<bool>(_value));
+		else if (_key == "NeedMouse")
+			setNeedMouseFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Enabled")
+			setEnabled(utility::parseValue<bool>(_value));
+		else if (_key == "NeedToolTip")
+			setNeedToolTip(utility::parseValue<bool>(_value));
+		else if (_key == "Pointer")
+			setPointer(_value);
 		else
 		{
 			MYGUI_LOG(Warning, "Widget property '" << _key << "' not found" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
@@ -1264,12 +1279,12 @@ namespace MyGUI
 		return mRealAlpha;
 	}
 
-	bool Widget::getInheritedEnabled()
+	bool Widget::getInheritedEnabled() const
 	{
 		return mInheritsEnabled;
 	}
 
-	bool Widget::getInheritedVisible()
+	bool Widget::getInheritedVisible() const
 	{
 		return mInheritsVisible;
 	}

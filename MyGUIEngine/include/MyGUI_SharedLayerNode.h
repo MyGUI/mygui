@@ -28,7 +28,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SharedLayerNode : public LayerNode
+	class MYGUI_EXPORT SharedLayerNode :
+		public LayerNode
 	{
 		MYGUI_RTTI_DERIVED( SharedLayerNode )
 
@@ -36,18 +37,9 @@ namespace MyGUI
 		explicit SharedLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		virtual ~SharedLayerNode();
 
-		void addUsing()
-		{
-			mCountUsing++;
-		}
-		void removeUsing()
-		{
-			mCountUsing--;
-		}
-		size_t countUsing() const
-		{
-			return mCountUsing;
-		}
+		void addUsing();
+		void removeUsing();
+		size_t countUsing() const;
 
 	private:
 		size_t mCountUsing;

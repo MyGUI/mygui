@@ -52,10 +52,7 @@ namespace MyGUI
 		void setSmoothShow(bool _value);
 
 		/** Get name of default layer for Message*/
-		const std::string& getDefaultLayer()
-		{
-			return mDefaultLayer;
-		}
+		const std::string& getDefaultLayer() const;
 
 		/** Set message icon*/
 		void setMessageIcon(MessageBoxStyle _value);
@@ -99,7 +96,8 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _result - id of pressed button
 		*/
-		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
+		EventHandle_MessagePtrMessageStyle
+			eventMessageBoxResult;
 
 	protected:
 		virtual void initialiseOverride();
@@ -140,7 +138,6 @@ namespace MyGUI
 		StaticImage* mIcon;
 		int mLeftOffset1;
 		int mLeftOffset2;
-
 	};
 
 } // namespace MyGUI

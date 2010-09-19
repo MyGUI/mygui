@@ -485,19 +485,51 @@ namespace MyGUI
 
 	void StaticImage::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ImageTexture") setImageTexture(_value);
-		else if (_key == "ImageRegion") setImageCoord(utility::parseValue<IntCoord>(_value));
-		else if (_key == "ImageTile") setImageTile(utility::parseValue<IntSize>(_value));
-		else if (_key == "ImageIndex") setItemSelect(utility::parseValue<size_t>(_value));
-		else if (_key == "ImageResource") setItemResource(_value);
-		else if (_key == "ImageGroup") setItemGroup(_value);
-		else if (_key == "ImageName") setItemName(_value);
+		if (_key == "ImageTexture")
+			setImageTexture(_value);
+		else if (_key == "ImageRegion")
+			setImageCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "ImageTile")
+			setImageTile(utility::parseValue<IntSize>(_value));
+		else if (_key == "ImageIndex")
+			setItemSelect(utility::parseValue<size_t>(_value));
+		else if (_key == "ImageResource")
+			setItemResource(_value);
+		else if (_key == "ImageGroup")
+			setItemGroup(_value);
+		else if (_key == "ImageName")
+			setItemName(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	size_t StaticImage::getItemCount() const
+	{
+		return mItems.size();
+	}
+
+	size_t StaticImage::getItemSelect() const
+	{
+		return mIndexSelect;
+	}
+
+	void StaticImage::resetItemSelect()
+	{
+		setItemSelect(ITEM_NONE);
+	}
+
+	void StaticImage::addItem(const IntCoord& _item)
+	{
+		insertItem(ITEM_NONE, _item);
+	}
+
+	ResourceImageSetPtr StaticImage::getItemResource()
+	{
+		return mResource;
 	}
 
 } // namespace MyGUI

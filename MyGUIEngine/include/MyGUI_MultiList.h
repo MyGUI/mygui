@@ -54,10 +54,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of columns
-		size_t getColumnCount()
-		{
-			return mVectorColumnInfo.size();
-		}
+		size_t getColumnCount() const;
 
 		/** Insert new column
 			@param _column New column will be inserted before _column
@@ -70,10 +67,7 @@ namespace MyGUI
 			@param _width Width of new column
 			@param _name Name of new column
 		*/
-		void addColumn(const UString& _name, int _width, Any _data = Any::Null)
-		{
-			insertColumnAt(ITEM_NONE, _name, _width, _data);
-		}
+		void addColumn(const UString& _name, int _width, Any _data = Any::Null);
 
 		/** Delete column */
 		void removeColumnAt(size_t _column);
@@ -113,10 +107,7 @@ namespace MyGUI
 		void setColumnDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearColumnDataAt(size_t _index)
-		{
-			setColumnDataAt(_index, Any::Null);
-		}
+		void clearColumnDataAt(size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -143,10 +134,7 @@ namespace MyGUI
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		/** Add new item at the end */
-		void addItem(const UString& _name, Any _data = Any::Null)
-		{
-			insertItemAt(ITEM_NONE, _name, _data);
-		}
+		void addItem(const UString& _name, Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -162,51 +150,33 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name
-		void setItemNameAt(size_t _index, const UString& _name)
-		{
-			setSubItemNameAt(0, _index, _name);
-		}
+		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index)
-		{
-			return getSubItemNameAt(0, _index);
-		}
+		const UString& getItemNameAt(size_t _index);
 
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getIndexSelected()
-		{
-			return mItemSelected;
-		}
+		size_t getIndexSelected() const;
 
 		/** Select specified _index */
 		void setIndexSelected(size_t _index);
 
 		/** Clear item selection */
-		void clearIndexSelected()
-		{
-			setIndexSelected(ITEM_NONE);
-		}
+		void clearIndexSelected();
 
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
 
 		//! Replace an item data at a specified position
-		void setItemDataAt(size_t _index, Any _data)
-		{
-			setSubItemDataAt(0, _index, _data);
-		}
+		void setItemDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index)
-		{
-			setItemDataAt(_index, Any::Null);
-		}
+		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -241,10 +211,7 @@ namespace MyGUI
 		void setSubItemDataAt(size_t _column, size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearSubItemDataAt(size_t _column, size_t _index)
-		{
-			setSubItemDataAt(_column, _index, Any::Null);
-		}
+		void clearSubItemDataAt(size_t _column, size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -263,14 +230,16 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT>
+			eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT>
+			eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
 			signature : void method(MyGUI::MultiList* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
@@ -280,7 +249,8 @@ namespace MyGUI
 			@param _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
+		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef
+			requestOperatorLess;
 
 	protected:
 		virtual void initialiseOverride();

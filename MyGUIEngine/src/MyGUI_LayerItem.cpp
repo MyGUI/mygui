@@ -34,6 +34,10 @@ namespace MyGUI
 	{
 	}
 
+	LayerItem::~LayerItem()
+	{
+	}
+
 	void LayerItem::addChildItem(LayerItem* _item)
 	{
 		mLayerItems.push_back(_item);
@@ -207,6 +211,11 @@ namespace MyGUI
 			// очищаем
 			mLayerNode = nullptr;
 		}
+	}
+
+	ILayer* LayerItem::getLayer() const
+	{
+		return mLayer;
 	}
 
 } // namespace MyGUI

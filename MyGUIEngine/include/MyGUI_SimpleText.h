@@ -31,7 +31,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SimpleText : public EditText
+	class MYGUI_EXPORT SimpleText :
+		public EditText
 	{
 		MYGUI_RTTI_DERIVED( SimpleText )
 
@@ -42,7 +43,6 @@ namespace MyGUI
 		virtual void setViewOffset(const IntPoint& _point);
 
 		virtual void doRender();
-
 	};
 
 } // namespace MyGUI

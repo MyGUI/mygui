@@ -52,10 +52,7 @@ namespace MyGUI
 		/** Get default skin name.
 			Default skin used when creating widget with skin that doesn't exist.
 		*/
-		const std::string getDefaultSkin() const
-		{
-			return mDefaultName;
-		}
+		const std::string getDefaultSkin() const;
 		/** Set default skin name.
 			Default skin used when creating widget with skin that doesn't exist.
 		*/

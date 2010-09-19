@@ -36,7 +36,8 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT EditText : public ISubWidgetText
+	class MYGUI_EXPORT EditText :
+		public ISubWidgetText
 	{
 		MYGUI_RTTI_DERIVED( EditText )
 
@@ -84,10 +85,7 @@ namespace MyGUI
 		virtual void setVisibleCursor(bool _value);
 
 		/** Get invert selected text color property. */
-		virtual bool getInvertSelected() const
-		{
-			return mInvertSelect;
-		}
+		virtual bool getInvertSelected() const;
 		/** Enable or disable inverting color of selected text.\n
 			Enabled (true) by default.
 		*/
@@ -96,17 +94,17 @@ namespace MyGUI
 		virtual size_t getCursorPosition() const;
 		virtual void setCursorPosition(size_t _index);
 
-		virtual IntSize getTextSize();/* const*/
+		virtual IntSize getTextSize();
 
 		// устанавливает смещение текста в пикселях
 		virtual void setViewOffset(const IntPoint& _point);
 		virtual IntPoint getViewOffset() const;
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getCursorPosition(const IntPoint& _point);/* const*/
+		virtual size_t getCursorPosition(const IntPoint& _point);
 
 		// возвращает положение курсора в обсолютных координатах
-		virtual IntCoord getCursorCoord(size_t _position);/* const*/
+		virtual IntCoord getCursorCoord(size_t _position);
 
 		void setShiftText(bool _shift);
 
@@ -118,7 +116,7 @@ namespace MyGUI
 		virtual void _updateView();
 		virtual void _correctView();
 
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize);
 
 	private:
 		void _setTextColour(const Colour& _value);

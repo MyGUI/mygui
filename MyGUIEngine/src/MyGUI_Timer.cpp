@@ -35,7 +35,6 @@ namespace MyGUI
 	Timer::Timer() :
 		mTimeStart(0)
 	{
-
 	}
 
 	void Timer::reset()
@@ -69,6 +68,5 @@ namespace MyGUI
 		//return ( unsigned long )(( double )( clock() ) / (( double )CLOCKS_PER_SEC / 1000.0 ) );
 #endif
 	}
-
 
 } // namespace MyGUI

@@ -66,6 +66,6 @@ namespace MyGUI
 		VectorDynLib mDelayDynLib;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_DYN_LIB_MANAGER_H__

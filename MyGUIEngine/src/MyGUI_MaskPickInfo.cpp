@@ -28,6 +28,12 @@
 namespace MyGUI
 {
 
+	MaskPickInfo::MaskPickInfo() :
+		width(0),
+		height(0)
+	{
+	}
+
 	bool MaskPickInfo::load(const std::string& _file)
 	{
 		if (!DataManager::getInstance().isDataExist(_file))
@@ -71,6 +77,21 @@ namespace MyGUI
 		render.destroyTexture(texture);
 
 		return true;
+	}
+
+	bool MaskPickInfo::pick(const IntPoint& _point, const IntCoord& _coord) const
+	{
+		if ((0 == _coord.width) || (0 == _coord.height)) return false;
+
+		int x = ((_point.left * width) - 1) / _coord.width;
+		int y = ((_point.top * height) - 1) / _coord.height;
+
+		return 0 != data[(size_t)(y * width + x)];
+	}
+
+	bool MaskPickInfo::empty() const
+	{
+		return data.empty();
 	}
 
 } // namespace MyGUI

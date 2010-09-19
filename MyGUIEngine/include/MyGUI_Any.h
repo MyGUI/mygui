@@ -78,89 +78,47 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Any
 	{
-
-	private:
-		struct AnyEmpty { };
-
 	public:
-		static AnyEmpty Null;
+		static struct AnyEmpty { } Null;
 
-	public:
-		Any() :
-			mContent(nullptr)
-		{
-		}
+		Any();
+		Any(const Any::AnyEmpty& value);
+		Any(const Any& other);
 
-		template<typename ValueType> Any(const ValueType& value) :
+		template<typename ValueType>
+		Any(const ValueType& value) :
 			mContent(new Holder<ValueType>(value))
 		{
 		}
 
-		Any(const Any::AnyEmpty& value) :
-			mContent(nullptr)
-		{
-		}
+		~Any();
 
-		Any(const Any& other) :
-			mContent(other.mContent ? other.mContent->clone() : nullptr)
-		{
-		}
+		Any& swap(Any& rhs);
 
-		~Any()
-		{
-			delete mContent;
-		}
-
-		Any& swap(Any& rhs)
-		{
-			std::swap(mContent, rhs.mContent);
-			return *this;
-		}
-
-		template<typename ValueType> Any& operator = (const ValueType& rhs)
+		template<typename ValueType>
+		Any& operator = (const ValueType& rhs)
 		{
 			Any(rhs).swap(*this);
 			return *this;
 		}
 
-		Any& operator = (const Any::AnyEmpty& rhs)
-		{
-			delete mContent;
-			mContent = nullptr;
-			return *this;
-		}
+		Any& operator = (const Any::AnyEmpty& rhs);
+		Any& operator = (const Any& rhs);
 
-		Any& operator = (const Any& rhs)
-		{
-			Any(rhs).swap(*this);
-			return *this;
-		}
+		bool empty() const;
 
-		bool empty() const
-		{
-			return !mContent;
-		}
-
-		const std::type_info& getType() const
-		{
-			return mContent ? mContent->getType() : typeid(void);
-		}
+		const std::type_info& getType() const;
 
 		template<typename ValueType>
 		ValueType* castType(bool _throw = true) const
 		{
 			if (this->getType() == typeid(ValueType))
-			{
 				return &static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
-			}
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
 			return nullptr;
 		}
 
-		void* castUnsafe() const
-		{
-			return mContent ? static_cast<Any::Holder<void*> *>(this->mContent)->held : nullptr;
-		}
+		void* castUnsafe() const;
 
 	private:
 		class Placeholder
@@ -171,10 +129,11 @@ namespace MyGUI
 		public:
 			virtual const std::type_info& getType() const = 0;
 			virtual Placeholder* clone() const = 0;
-
 		};
 
-		template<typename ValueType> class Holder : public Placeholder
+		template<typename ValueType>
+		class Holder :
+			public Placeholder
 		{
 		public:
 			Holder(const ValueType& value) :
@@ -198,13 +157,10 @@ namespace MyGUI
 
 		private:
 			Holder& operator=(const Holder&);
-
 		};
 
-
-	private: // representation
+	private:
 		Placeholder* mContent;
-
 	};
 
 } // namespace MyGUI

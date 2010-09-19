@@ -41,7 +41,7 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 		ControllerPosition();
-		virtual ~ControllerPosition() { }
+		virtual ~ControllerPosition();
 
 		void setCoord(const IntCoord& _value);
 
@@ -54,18 +54,12 @@ namespace MyGUI
 		/**
 			@param _value seconds in which widget planned to reach destination coordinate
 		*/
-		void setTime(float _value)
-		{
-			mTime = _value;
-		}
+		void setTime(float _value);
 
 		/**
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
-		void setAction(FrameAction::IDelegate* _value)
-		{
-			eventFrameAction = _value;
-		}
+		void setAction(FrameAction::IDelegate* _value);
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -93,6 +87,6 @@ namespace MyGUI
 		FrameAction eventFrameAction;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_CONTROLLER_POSITION_H__

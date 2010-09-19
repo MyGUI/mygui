@@ -40,10 +40,7 @@ namespace MyGUI
 		void shutdown();
 
 		void setDelayVisible(float _value);
-		float getDelayVisible() const
-		{
-			return mDelayVisible;
-		}
+		float getDelayVisible() const;
 
 	/*internal:*/
 		void _unlinkWidget(Widget* _widget);
@@ -70,6 +67,6 @@ namespace MyGUI
 		bool mIsInitialise;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_TOOL_TIP_MANAGER_H__

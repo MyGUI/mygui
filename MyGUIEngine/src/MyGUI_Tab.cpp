@@ -705,16 +705,143 @@ namespace MyGUI
 
 	void Tab::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
-		else if (_key == "ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
-		else if (_key == "SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
-		else if (_key == "SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
+		if (_key == "ButtonWidth")
+			setButtonDefaultWidth(utility::parseValue<int>(_value));
+		else if (_key == "ButtonAutoWidth")
+			setButtonAutoWidth(utility::parseValue<bool>(_value));
+		else if (_key == "SmoothShow")
+			setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "SelectItem")
+			setIndexSelected(utility::parseValue<size_t>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void Tab::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void Tab::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void Tab::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	size_t Tab::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	TabItem* Tab::insertItem(TabItem* _to, const UString& _name, Any _data)
+	{
+		return insertItemAt(getItemIndex(_to), _name, _data);
+	}
+
+	TabItem* Tab::addItem(const UString& _name, Any _data)
+	{
+		return insertItemAt(ITEM_NONE, _name, _data);
+	}
+
+	void Tab::removeItem(TabItem* _item)
+	{
+		removeItemAt(getItemIndex(_item));
+	}
+
+	size_t Tab::getIndexSelected() const
+	{
+		return mIndexSelect;
+	}
+
+	void Tab::setItemSelected(TabItem* _item)
+	{
+		setIndexSelected(getItemIndex(_item));
+	}
+
+	void Tab::setItemData(TabItem* _item, Any _data)
+	{
+		setItemDataAt(getItemIndex(_item), _data);
+	}
+
+	void Tab::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	void Tab::clearItemData(TabItem* _item)
+	{
+		clearItemDataAt(getItemIndex(_item));
+	}
+
+	void Tab::setItemName(TabItem* _item, const UString& _name)
+	{
+		setItemNameAt(getItemIndex(_item), _name);
+	}
+
+	const UString& Tab::getItemName(TabItem* _item)
+	{
+		return getItemNameAt(getItemIndex(_item));
+	}
+
+	void Tab::beginToItem(TabItem* _item)
+	{
+		beginToItemAt(getItemIndex(_item));
+	}
+
+	void Tab::beginToItemFirst()
+	{
+		if (getItemCount())
+			beginToItemAt(0);
+	}
+
+	void Tab::beginToItemLast()
+	{
+		if (getItemCount())
+			beginToItemAt(getItemCount() - 1);
+	}
+
+	void Tab::beginToItemSelected()
+	{
+		if (getIndexSelected() != ITEM_NONE)
+			beginToItemAt(getIndexSelected());
+	}
+
+	void Tab::setButtonWidth(TabItem* _item, int _width)
+	{
+		setButtonWidthAt(getItemIndex(_item), _width);
+	}
+
+	int Tab::getButtonWidth(TabItem* _item)
+	{
+		return getButtonWidthAt(getItemIndex(_item));
+	}
+
+	int Tab::getButtonDefaultWidth() const
+	{
+		return mButtonDefaultWidth;
+	}
+
+	bool Tab::getButtonAutoWidth() const
+	{
+		return mButtonAutoWidth;
+	}
+
+	void Tab::setSmoothShow(bool _value)
+	{
+		mSmoothShow = _value;
+	}
+
+	bool Tab::getSmoothShow() const
+	{
+		return mSmoothShow;
 	}
 
 } // namespace MyGUI

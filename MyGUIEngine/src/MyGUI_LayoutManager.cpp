@@ -20,9 +20,9 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
+#include "MyGUI_LayoutManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_FactoryManager.h"
-#include "MyGUI_LayoutManager.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI

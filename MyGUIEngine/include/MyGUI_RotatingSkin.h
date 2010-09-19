@@ -30,7 +30,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
+	class MYGUI_EXPORT RotatingSkin :
+		public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( RotatingSkin )
 
@@ -41,10 +42,7 @@ namespace MyGUI
 		/** Set angle of rotation in radians */
 		void setAngle(float _angle);
 		/** Get angle of rotation in radians */
-		float getAngle() const
-		{
-			return mAngle;
-		}
+		float getAngle() const;
 
 		/** Set center of rotation
 			@param _center Center point.
@@ -70,10 +68,11 @@ namespace MyGUI
 		virtual void _updateView();
 		virtual void _correctView();
 
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
+
 	protected:
 		void _rebuildGeometry();
 
@@ -83,6 +82,7 @@ namespace MyGUI
 
 		// get point position relative to rectangle
 		FloatPoint _getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2);
+
 	private:
 		bool mGeometryOutdated;
 
@@ -93,8 +93,6 @@ namespace MyGUI
 		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
 		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
 
-		// common variables (same in SubSkin and TileRect)
-		//FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;

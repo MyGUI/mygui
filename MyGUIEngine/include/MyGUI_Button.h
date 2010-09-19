@@ -40,10 +40,7 @@ namespace MyGUI
 		//! Set button selected state
 		void setStateSelected(bool _value);
 		//! Get buton selected
-		bool getStateSelected()
-		{
-			return mStateSelected;
-		}
+		bool getStateSelected();
 
 		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _value);
@@ -56,16 +53,10 @@ namespace MyGUI
 		*/
 		void setModeImage(bool _value);
 		/** Get Image mode flag */
-		bool getModeImage()
-		{
-			return mModeImage;
-		}
+		bool getModeImage();
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
-		StaticImage* getStaticImage()
-		{
-			return mImage;
-		}
+		StaticImage* getStaticImage();
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);
@@ -99,7 +90,6 @@ namespace MyGUI
 
 		StaticImage* mImage;
 		bool mModeImage;
-
 	};
 
 } // namespace MyGUI

@@ -35,7 +35,6 @@ namespace MyGUI
 
 	public:
 		MenuBar();
-
 	};
 
 } // namespace MyGUI

@@ -138,14 +138,21 @@ namespace MyGUI
 
 	void MenuItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "MenuItemId") setItemId(_value);
-		else if (_key == "MenuItemType") setItemType(utility::parseValue<MenuItemType>(_value));
+		if (_key == "MenuItemId")
+			setItemId(_value);
+		else if (_key == "MenuItemType")
+			setItemType(utility::parseValue<MenuItemType>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	MenuCtrl* MenuItem::getMenuCtrlParent()
+	{
+		return mOwner;
 	}
 
 } // namespace MyGUI

@@ -25,6 +25,7 @@
 
 namespace MyGUI
 {
+
 	LogSource::LogSource() :
 		mFilter(nullptr)
 	{
@@ -74,4 +75,4 @@ namespace MyGUI
 			(*listener)->log(_section, _level, _time, _message, _file, _line);
 	}
 
-}
+} // namespace MyGUI

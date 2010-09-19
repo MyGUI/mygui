@@ -28,7 +28,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT MainSkin : public SubSkin
+	class MYGUI_EXPORT MainSkin :
+		public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( MainSkin )
 
@@ -37,7 +38,7 @@ namespace MyGUI
 		virtual ~MainSkin();
 
 	/*internal:*/
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize);
 	};
 
 } // namespace MyGUI

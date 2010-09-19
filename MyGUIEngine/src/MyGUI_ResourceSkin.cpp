@@ -263,4 +263,39 @@ namespace MyGUI
 		}
 	}
 
+	const IntSize& ResourceSkin::getSize() const
+	{
+		return mSize;
+	}
+
+	const std::string& ResourceSkin::getTextureName() const
+	{
+		return mTexture;
+	}
+
+	const VectorSubWidgetInfo& ResourceSkin::getBasisInfo() const
+	{
+		return mBasis;
+	}
+
+	const MapWidgetStateInfo& ResourceSkin::getStateInfo() const
+	{
+		return mStates;
+	}
+
+	const MapString& ResourceSkin::getProperties() const
+	{
+		return mProperties;
+	}
+
+	const VectorChildSkinInfo& ResourceSkin::getChild() const
+	{
+		return mChilds;
+	}
+
+	const std::string& ResourceSkin::getSkinName() const
+	{
+		return mSkinName;
+	}
+
 } // namespace MyGUI

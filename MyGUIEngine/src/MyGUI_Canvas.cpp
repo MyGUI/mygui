@@ -272,4 +272,99 @@ namespace MyGUI
 			getSubWidgetMain()->_setUVSet(_rect);
 	}
 
+	bool Canvas::isLocked() const
+	{
+		return mTexture->isLocked();
+	}
+
+	int Canvas::getTextureRealWidth() const
+	{
+		return (int) mTexture->getWidth();
+	}
+
+	int Canvas::getTextureRealHeight() const
+	{
+		return (int) mTexture->getHeight();
+	}
+
+	IntSize Canvas::getTextureRealSize() const
+	{
+		return IntSize( getTextureRealWidth(), getTextureRealHeight() );
+	}
+
+	int Canvas::getTextureSrcWidth() const
+	{
+		return mReqTexSize.width;
+	}
+
+	int Canvas::getTextureSrcHeight() const
+	{
+		return mReqTexSize.height;
+	}
+
+	IntSize Canvas::getTextureSrcSize() const
+	{
+		return mReqTexSize;
+	}
+
+	PixelFormat Canvas::getTextureFormat() const
+	{
+		return mTexture->getFormat();
+	}
+
+	const std::string& Canvas::getTextureName() const
+	{
+		return mTexture->getName();
+	}
+
+	void Canvas::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void Canvas::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	Canvas::TextureResizeMode Canvas::getResizeMode() const
+	{
+		return mTexResizeMode;
+	}
+
+	void Canvas::setResizeMode(TextureResizeMode _value)
+	{
+		mTexResizeMode = _value;
+	}
+
+	bool Canvas::isTextureCreated() const
+	{
+		return mTexture != nullptr;
+	}
+
+	bool Canvas::isTextureManaged() const
+	{
+		return mTexManaged;
+	}
+
+	ITexture* Canvas::getTexture() const
+	{
+		return mTexture;
+	}
+
+	void Canvas::setTextureManaged(bool _value)
+	{
+		mTexManaged = _value;
+	}
+
+	TextureUsage Canvas::getDefaultTextureUsage()
+	{
+		return TextureUsage::Stream | TextureUsage::Write;
+	}
+
+	PixelFormat Canvas::getDefaultTextureFormat()
+	{
+		return PixelFormat::R8G8B8A8;
+	}
+
 } // namespace MyGUI

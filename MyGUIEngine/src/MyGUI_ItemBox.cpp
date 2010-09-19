@@ -870,4 +870,54 @@ namespace MyGUI
 		return mClient == nullptr ? this : mClient;
 	}
 
+	size_t ItemBox::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	void ItemBox::addItem(Any _data)
+	{
+		insertItemAt(ITEM_NONE, _data);
+	}
+
+	size_t ItemBox::getIndexSelected()
+	{
+		return mIndexSelect;
+	}
+
+	void ItemBox::clearIndexSelected()
+	{
+		setIndexSelected(ITEM_NONE);
+	}
+
+	void ItemBox::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	bool ItemBox::getItemBoxAlignVert()
+	{
+		return mAlignVert;
+	}
+
+	Widget* ItemBox::getWidgetDrag()
+	{
+		return mItemDrag;
+	}
+
+	void ItemBox::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void ItemBox::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void ItemBox::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
 } // namespace MyGUI

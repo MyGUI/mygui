@@ -281,25 +281,19 @@ namespace MyGUI
 		}
 	}
 
-	void LayerNode::dumpStatisticToLog(size_t _level)
+	ILayer* LayerNode::getLayer() const
 	{
-		static const char* spacer = "                                                                                                                        ";
-		std::string offset(" ", _level);
-		MYGUI_LOG(Info, offset << " - Node batch_count='" << mFirstRenderItems.size() + mSecondRenderItems.size() << spacer);
+		return mLayer;
+	}
 
-		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
-		{
-			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
-		}
-		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
-		{
-			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
-		}
+	ILayerNode* LayerNode::getParent() const
+	{
+		return mParent;
+	}
 
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
-			(*iter)->dumpStatisticToLog(_level + 1);
-		}
+	bool LayerNode::isOutOfDate() const
+	{
+		return mOutOfDate;
 	}
 
 } // namespace MyGUI

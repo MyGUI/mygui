@@ -40,6 +40,10 @@ namespace MyGUI
 	{
 	}
 
+	ScrollViewBase::~ScrollViewBase()
+	{
+	}
+
 	void ScrollViewBase::updateScrollSize()
 	{
 		if (mClient == nullptr)
@@ -321,6 +325,44 @@ namespace MyGUI
 			if (nullptr != mHScroll) mHScroll->setScrollPosition(offset.left);
 			setContentPosition(offset);
 		}
+	}
+
+	IntSize ScrollViewBase::getContentSize()
+	{
+		return IntSize();
+	}
+
+	IntPoint ScrollViewBase::getContentPosition()
+	{
+		return IntPoint();
+	}
+
+	void ScrollViewBase::setContentPosition(const IntPoint& _value)
+	{
+	}
+
+	IntSize ScrollViewBase::getViewSize()
+	{
+		return IntSize();
+	}
+
+	size_t ScrollViewBase::getHScrollPage()
+	{
+		return 1;
+	}
+
+	size_t ScrollViewBase::getVScrollPage()
+	{
+		return 1;
+	}
+
+	Align ScrollViewBase::getContentAlign()
+	{
+		return Align::Center;
+	}
+
+	void ScrollViewBase::eraseContent()
+	{
 	}
 
 } // namespace MyGUI

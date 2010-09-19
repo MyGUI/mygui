@@ -145,19 +145,6 @@ namespace MyGUI
 		return EnumeratorILayerNode(mChildItems);
 	}
 
-	void OverlappedLayer::dumpStatisticToLog()
-	{
-		static const char* spacer = "                                                                                                                        ";
-		MYGUI_LOG(Info, spacer);
-		MYGUI_LOG(Info, "Layer name='" << getName() << "'" << " type='" << getTypeName() << "'" << spacer);
-		MYGUI_LOG(Info, "Count root nodes : " << mChildItems.size() << spacer);
-
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
-			(*iter)->dumpStatisticToLog(0);
-		}
-	}
-
 	const IntSize& OverlappedLayer::getSize() const
 	{
 		return RenderManager::getInstance().getViewSize();

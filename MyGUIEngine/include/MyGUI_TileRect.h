@@ -34,7 +34,8 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class MYGUI_EXPORT TileRect : public ISubWidgetRect
+	class MYGUI_EXPORT TileRect :
+		public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( TileRect )
 
@@ -58,13 +59,12 @@ namespace MyGUI
 		virtual void _updateView();
 		virtual void _correctView();
 
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
 
 	protected:
-		//FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;

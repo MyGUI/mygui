@@ -42,32 +42,20 @@ namespace MyGUI
 		/** Set progress range */
 		void setProgressRange(size_t _value);
 		/** Get progress range */
-		size_t getProgressRange()
-		{
-			return mRange;
-		}
+		size_t getProgressRange() const;
 
 		/** Set progress position */
 		void setProgressPosition(size_t _value);
 		/** Get progress position */
-		size_t getProgressPosition()
-		{
-			return mEndPosition;
-		}
+		size_t getProgressPosition() const;
 
 		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _value);
 		/** Get progress auto tracking flag */
-		bool getProgressAutoTrack()
-		{
-			return mAutoTrack;
-		}
+		bool getProgressAutoTrack() const;
 
 		void setFlowDirection(FlowDirection _value);
-		FlowDirection getFlowDirection()
-		{
-			return mFlowDirection;
-		}
+		FlowDirection getFlowDirection() const;
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -77,20 +65,11 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 	protected:
 		virtual void initialiseOverride();
