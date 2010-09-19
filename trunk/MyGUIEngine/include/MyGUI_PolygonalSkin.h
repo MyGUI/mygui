@@ -30,7 +30,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT PolygonalSkin : public ISubWidgetRect
+	class MYGUI_EXPORT PolygonalSkin :
+		public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( PolygonalSkin )
 
@@ -60,10 +61,11 @@ namespace MyGUI
 		virtual void _updateView();
 		virtual void _correctView();
 
-		virtual void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		virtual void _setAlign(const IntSize& _oldsize);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
+
 	protected:
 		void _rebuildGeometry();
 		FloatPoint _getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2);
@@ -82,8 +84,6 @@ namespace MyGUI
 
 		size_t mVertexCount;
 
-		// common variables (same in SubSkin and TileRect)
-		//FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;

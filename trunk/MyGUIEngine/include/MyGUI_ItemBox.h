@@ -52,19 +52,13 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() const
-		{
-			return mItemsInfo.size();
-		}
+		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(Any _data = Any::Null)
-		{
-			insertItemAt(ITEM_NONE, _data);
-		}
+		void addItem(Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -83,19 +77,13 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getIndexSelected()
-		{
-			return mIndexSelect;
-		}
+		size_t getIndexSelected();
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);
 
 		//! Clear item selection
-		void clearIndexSelected()
-		{
-			setIndexSelected(ITEM_NONE);
-		}
+		void clearIndexSelected();
 
 
 		//------------------------------------------------------------------------------//
@@ -105,10 +93,7 @@ namespace MyGUI
 		void setItemDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index)
-		{
-			setItemDataAt(_index, Any::Null);
-		}
+		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -122,19 +107,13 @@ namespace MyGUI
 		/** Set vertical alignment grid mode */
 		void setItemBoxAlignVert(bool _value);
 		/** Get vertical alignment grid mode flag */
-		bool getItemBoxAlignVert()
-		{
-			return mAlignVert;
-		}
+		bool getItemBoxAlignVert();
 
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(Widget* _widget);
 
 		/** Get widget created for drop */
-		Widget* getWidgetDrag()
-		{
-			return mItemDrag;
-		}
+		Widget* getWidgetDrag();
 
 		/** Get item Widget pointer by item index if it is visible
 			@note returned widget can be deleted, so this pointer
@@ -154,20 +133,11 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 	/*events:*/
 		/** Event : Request for creating new item.\n
@@ -175,7 +145,8 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item widget item pointer
 		*/
-		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
+		EventHandle_ItemBoxPtrWidgetPtr
+			requestCreateWidgetItem;
 
 		/** Event : Request for item coordinate.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
@@ -183,7 +154,8 @@ namespace MyGUI
 			@param _coord write heer item coordinate
 			@param _drag is this item dragging
 		*/
-		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
+		EventHandle_ItemBoxPtrIntCoordRefBool
+			requestCoordItem;
 
 		/** Event : Request for item redraw.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
@@ -191,35 +163,40 @@ namespace MyGUI
 			@param _item widget item pointer
 			@param _info item info
 		*/
-		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
+		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef
+			requestDrawItem;
 
 		/** Event : Doubleclick or enter pressed on item.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
+		EventHandle_ItemBoxPtrSizeT
+			eventSelectItemAccept;
 
 		/** Event : Position of selected item was changed.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
+		EventHandle_ItemBoxPtrSizeT
+			eventChangeItemPosition;
 
 		/** Event : Click on item.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
+		EventHandle_ItemBoxPtrSizeT
+			eventMouseItemActivate;
 
 		/** Event : Notify about event in item widget.\n
 			signature : void method(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
-		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
+		EventHandle_ItemBoxPtrCIBNotifyCellDataRef
+			eventNotifyItem;
 
 	protected:
 		virtual void initialiseOverride();
@@ -343,7 +320,6 @@ namespace MyGUI
 		bool mAlignVert;
 
 		std::string mDragLayer;
-
 	};
 
 } // namespace MyGUI

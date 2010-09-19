@@ -20,8 +20,8 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
+#include "MyGUI_Gui.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
@@ -1934,26 +1934,146 @@ namespace MyGUI
 
 	void Edit::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
-		else if (_key == "TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
-		else if (_key == "ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
-		else if (_key == "Password") setEditPassword(utility::parseValue<bool>(_value));
-		else if (_key == "MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
-		else if (_key == "PasswordChar") setPasswordChar(_value);
-		else if (_key == "MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
-		else if (_key == "OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
-		else if (_key == "Static") setEditStatic(utility::parseValue<bool>(_value));
-		else if (_key == "VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
-		else if (_key == "VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
-		else if (_key == "TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
-		else if (_key == "InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
+		if (_key == "CursorPosition")
+			setTextCursor(utility::parseValue<size_t>(_value));
+		else if (_key == "TextSelect")
+			setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
+		else if (_key == "ReadOnly")
+			setEditReadOnly(utility::parseValue<bool>(_value));
+		else if (_key == "Password")
+			setEditPassword(utility::parseValue<bool>(_value));
+		else if (_key == "MultiLine")
+			setEditMultiLine(utility::parseValue<bool>(_value));
+		else if (_key == "PasswordChar")
+			setPasswordChar(_value);
+		else if (_key == "MaxTextLength")
+			setMaxTextLength(utility::parseValue<size_t>(_value));
+		else if (_key == "OverflowToTheLeft")
+			setOverflowToTheLeft(utility::parseValue<bool>(_value));
+		else if (_key == "Static")
+			setEditStatic(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleVScroll")
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "VisibleHScroll")
+			setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "WordWrap")
+			setEditWordWrap(utility::parseValue<bool>(_value));
+		else if (_key == "TabPrinting")
+			setTabPrinting(utility::parseValue<bool>(_value));
+		else if (_key == "InvertSelected")
+			setInvertSelected(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	size_t Edit::getTextCursor() const
+	{
+		return mCursorPosition;
+	}
+
+	size_t Edit::getTextLength() const
+	{
+		return mTextLength;
+	}
+
+	void Edit::setOverflowToTheLeft(bool _value)
+	{
+		mOverflowToTheLeft = _value;
+	}
+
+	bool Edit::getOverflowToTheLeft() const
+	{
+		return mOverflowToTheLeft;
+	}
+
+	void Edit::setMaxTextLength(size_t _value)
+	{
+		mMaxTextLength = _value;
+	}
+
+	size_t Edit::getMaxTextLength() const
+	{
+		return mMaxTextLength;
+	}
+
+	bool Edit::getEditReadOnly() const
+	{
+		return mModeReadOnly;
+	}
+
+	bool Edit::getEditPassword() const
+	{
+		return mModePassword;
+	}
+
+	bool Edit::getEditMultiLine() const
+	{
+		return mModeMultiline;
+	}
+
+	bool Edit::getEditStatic() const
+	{
+		return mModeStatic;
+	}
+
+	Char Edit::getPasswordChar() const
+	{
+		return mCharPassword;
+	}
+
+	bool Edit::getEditWordWrap() const
+	{
+		return mModeWordWrap;
+	}
+
+	void Edit::setTabPrinting(bool _value)
+	{
+		mTabPrinting = _value;
+	}
+
+	bool Edit::getTabPrinting() const
+	{
+		return mTabPrinting;
+	}
+
+	void Edit::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void Edit::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void Edit::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	bool Edit::isVisibleVScroll() const
+	{
+		return mVisibleVScroll;
+	}
+
+	bool Edit::isVisibleHScroll() const
+	{
+		return mVisibleHScroll;
+	}
+
+	void Edit::commandResetRedo()
+	{
+		mVectorRedoChangeInfo.clear();
+	}
+
+	void Edit::commandResetHistory()
+	{
+		mVectorRedoChangeInfo.clear();
+		mVectorUndoChangeInfo.clear();
 	}
 
 } // namespace MyGUI

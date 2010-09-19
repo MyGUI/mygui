@@ -149,4 +149,58 @@ namespace MyGUI
 		//FIXME
 	}
 
+	size_t ListBox::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	void ListBox::addItem(const UString& _name, Any _data)
+	{
+		insertItemAt(ITEM_NONE, _name, _data);
+	}
+
+	size_t ListBox::getIndexSelected() const
+	{
+		return Base::getIndexSelected();
+	}
+
+	void ListBox::setIndexSelected(size_t _index)
+	{
+		Base::setIndexSelected(_index);
+	}
+
+	void ListBox::clearIndexSelected()
+	{
+		Base::clearIndexSelected();
+	}
+
+	void ListBox::setItemDataAt(size_t _index, Any _data)
+	{
+		Base::setItemDataAt(_index, _data);
+	}
+
+	//! Clear an item data at a specified position
+	void ListBox::clearItemDataAt(size_t _index)
+	{
+		Base::clearItemDataAt(_index);
+	}
+
+	void ListBox::beginToItemFirst()
+	{
+		if (getItemCount())
+			beginToItemAt(0);
+	}
+
+	void ListBox::beginToItemLast()
+	{
+		if (getItemCount())
+			beginToItemAt(getItemCount() - 1);
+	}
+
+	void ListBox::beginToItemSelected()
+	{
+		if (getIndexSelected() != ITEM_NONE)
+			beginToItemAt(getIndexSelected());
+	}
+
 } // namespace MyGUI

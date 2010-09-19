@@ -39,7 +39,6 @@ namespace MyGUI
 		typedef std::vector<RangeInfo> VectorRangeInfo;
 		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
 
-	public:
 		ResourceTrueTypeFont();
 		virtual ~ResourceTrueTypeFont();
 
@@ -47,16 +46,10 @@ namespace MyGUI
 
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
-		virtual ITexture* getTextureFont()
-		{
-			return mTexture;
-		}
+		virtual ITexture* getTextureFont();
 
 		// получившаяся высота при генерации в пикселях
-		virtual int getDefaultHeight()
-		{
-			return mHeightPix;
-		}
+		virtual int getDefaultHeight();
 
 	private:
 		void addCodePointRange(Char _first, Char _second);
@@ -93,7 +86,11 @@ namespace MyGUI
 		int mHeightPix;
 
 		// отдельная информация о символах
-		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
+		GlyphInfo mSpaceGlyphInfo;
+		GlyphInfo mTabGlyphInfo;
+		GlyphInfo mSelectGlyphInfo;
+		GlyphInfo mSelectDeactiveGlyphInfo;
+		GlyphInfo mCursorGlyphInfo;
 
 		// символы которые не нужно рисовать
 		VectorPairCodePoint mVectorHideCodePoint;
@@ -102,7 +99,6 @@ namespace MyGUI
 		VectorRangeInfo mVectorRangeInfo;
 
 		MyGUI::ITexture* mTexture;
-
 	};
 
 } // namespace MyGUI

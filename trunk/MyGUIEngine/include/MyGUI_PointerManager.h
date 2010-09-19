@@ -46,10 +46,7 @@ namespace MyGUI
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
-		bool isVisible() const
-		{
-			return mVisible;
-		}
+		bool isVisible() const;
 
 		/** Set pointer that will be shown
 			@param _name of pointer
@@ -59,18 +56,12 @@ namespace MyGUI
 		void resetToDefaultPointer();
 
 		/** Get default pointer */
-		const std::string& getDefaultPointer() const
-		{
-			return mDefaultName;
-		}
+		const std::string& getDefaultPointer() const;
 		/** Set default pointer */
 		void setDefaultPointer(const std::string& _value);
 
 		/** Get layer name where pointer rendered */
-		const std::string& getLayerName() const
-		{
-			return mLayerName;
-		}
+		const std::string& getLayerName() const;
 		/** Set layer where pointer rendered */
 		void setLayerName(const std::string& _value);
 
@@ -83,7 +74,7 @@ namespace MyGUI
 			@param _pointerName Name of current mouse pointer
 		*/
 		delegates::CMultiDelegate1<const std::string&>
-		eventChangeMousePointer;
+			eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget);

@@ -28,6 +28,14 @@
 namespace MyGUI
 {
 
+	ResourceManualPointer::ResourceManualPointer()
+	{
+	}
+
+	ResourceManualPointer::~ResourceManualPointer()
+	{
+	}
+
 	void ResourceManualPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);

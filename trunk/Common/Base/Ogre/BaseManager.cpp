@@ -456,10 +456,6 @@ namespace base
 			bool visible = mFocusInfo->getFocusVisible();
 			mFocusInfo->setFocusVisible(!visible);
 		}
-		else if (_key == MyGUI::KeyCode::F11)
-		{
-			MyGUI::LayerManager::getInstance().dumpStatisticToLog();
-		}
 
 		// change polygon mode
 		else if (_key == MyGUI::KeyCode::F5)

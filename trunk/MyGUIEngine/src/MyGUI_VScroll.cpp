@@ -353,17 +353,87 @@ namespace MyGUI
 
 	void VScroll::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Range") setScrollRange(utility::parseValue<size_t>(_value));
-		else if (_key == "RangePosition") setScrollPosition(utility::parseValue<size_t>(_value));
-		else if (_key == "Page") setScrollPage(utility::parseValue<size_t>(_value));
-		else if (_key == "ViewPage") setScrollViewPage(utility::parseValue<size_t>(_value));
-		else if (_key == "MoveToClick") setMoveToClick(utility::parseValue<bool>(_value));
+		if (_key == "Range")
+			setScrollRange(utility::parseValue<size_t>(_value));
+		else if (_key == "RangePosition")
+			setScrollPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "Page")
+			setScrollPage(utility::parseValue<size_t>(_value));
+		else if (_key == "ViewPage")
+			setScrollViewPage(utility::parseValue<size_t>(_value));
+		else if (_key == "MoveToClick")
+			setMoveToClick(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	size_t VScroll::getScrollRange() const
+	{
+		return mScrollRange;
+	}
+
+	size_t VScroll::getScrollPosition() const
+	{
+		return mScrollPosition;
+	}
+
+	void VScroll::setScrollPage(size_t _value)
+	{
+		mScrollPage = _value;
+	}
+
+	size_t VScroll::getScrollPage() const
+	{
+		return mScrollPage;
+	}
+
+	void VScroll::setScrollViewPage(size_t _value)
+	{
+		mScrollViewPage = _value;
+	}
+
+	size_t VScroll::getScrollViewPage() const
+	{
+		return mScrollViewPage;
+	}
+
+	void VScroll::setMinTrackSize(int _value)
+	{
+		mMinTrackSize = _value;
+	}
+
+	int VScroll::getMinTrackSize() const
+	{
+		return mMinTrackSize;
+	}
+
+	void VScroll::setMoveToClick(bool _value)
+	{
+		mMoveToClick = _value;
+	}
+
+	bool VScroll::getMoveToClick() const
+	{
+		return mMoveToClick;
+	}
+
+	void VScroll::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void VScroll::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void VScroll::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
 } // namespace MyGUI

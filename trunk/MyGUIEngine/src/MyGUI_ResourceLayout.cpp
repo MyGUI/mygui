@@ -191,4 +191,9 @@ namespace MyGUI
 		return wid;
 	}
 
+	const VectorWidgetInfo& ResourceLayout::getLayoutData() const
+	{
+		return mLayoutData;
+	}
+
 } // namespace MyGUI

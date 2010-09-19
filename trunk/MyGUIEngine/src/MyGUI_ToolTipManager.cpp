@@ -207,4 +207,9 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
+	float ToolTipManager::getDelayVisible() const
+	{
+		return mDelayVisible;
+	}
+
 } // namespace MyGUI

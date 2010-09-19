@@ -32,6 +32,8 @@
 namespace MyGUI
 {
 
+	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_AddUserStringDelegate;
+
 	class MYGUI_EXPORT LayoutManager :
 		public Singleton<LayoutManager>,
 		public MemberObsolete<LayoutManager>
@@ -59,7 +61,6 @@ namespace MyGUI
 		/** Check if skin with specified name exist */
 		bool isExist(const std::string& _name) const;
 
-		typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> AddUserStringDelegate;
 		/** Event : Multidelegate. UserString was added from layout.\n
 			signature : void method(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
 			@param _widget Widget that got new UserString.
@@ -67,7 +68,8 @@ namespace MyGUI
 			@param _key UserString value.
 			@note Happens only when UserString was loaded from layout, but not when it was added in code.
 		*/
-		AddUserStringDelegate eventAddUserString;
+		EventHandle_AddUserStringDelegate
+			eventAddUserString;
 
 		const std::string& getCurrentLayout() const;
 

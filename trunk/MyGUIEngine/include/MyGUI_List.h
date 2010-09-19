@@ -45,20 +45,14 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() const
-		{
-			return mItemsInfo.size();
-		}
+		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const UString& _name, Any _data = Any::Null)
-		{
-			insertItemAt(ITEM_NONE, _name, _data);
-		}
-
+		void addItem(const UString& _name, Any _data = Any::Null);
+	
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 
@@ -77,19 +71,13 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getIndexSelected()
-		{
-			return mIndexSelect;
-		}
+		size_t getIndexSelected() const;
 
 		/** Select specified _index */
 		void setIndexSelected(size_t _index);
 
 		/** Clear item selection */
-		void clearIndexSelected()
-		{
-			setIndexSelected(ITEM_NONE);
-		}
+		void clearIndexSelected();
 
 
 		//------------------------------------------------------------------------------//
@@ -99,10 +87,7 @@ namespace MyGUI
 		void setItemDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index)
-		{
-			setItemDataAt(_index, Any::Null);
-		}
+		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -130,22 +115,13 @@ namespace MyGUI
 		void beginToItemAt(size_t _index);
 
 		//! Move all elements so first becomes visible
-		void beginToItemFirst()
-		{
-			if (getItemCount()) beginToItemAt(0);
-		}
+		void beginToItemFirst();
 
 		//! Move all elements so last becomes visible
-		void beginToItemLast()
-		{
-			if (getItemCount()) beginToItemAt(getItemCount() - 1);
-		}
+		void beginToItemLast();
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected()
-		{
-			if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected());
-		}
+		void beginToItemSelected();
 
 		//------------------------------------------------------------------------------//
 
@@ -160,10 +136,7 @@ namespace MyGUI
 		*/
 		bool isItemVisibleAt(size_t _index, bool _fill = true);
 		//! Same as List::isItemVisibleAt for selected item
-		bool isItemSelectedVisible(bool _fill = true)
-		{
-			return isItemVisibleAt(mIndexSelect, _fill);
-		}
+		bool isItemSelectedVisible(bool _fill = true);
 
 
 		//! Set scroll visible when it needed
@@ -181,20 +154,11 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top)
-		{
-			setPosition(IntPoint(_left, _top));
-		}
+		void setPosition(int _left, int _top);
 		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height)
-		{
-			setSize(IntSize(_width, _height));
-		}
+		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height)
-		{
-			setCoord(IntCoord(_left, _top, _width, _height));
-		}
+		void setCoord(int _left, int _top, int _width, int _height);
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in List
@@ -206,35 +170,40 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
+			eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
+			eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
 			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemActivate;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
+			eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
 			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of focused item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemFocus;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
+			eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
 			signature : void method(MyGUI::List* _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position of scroll
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangeScroll;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
+			eventListChangeScroll;
 
 	/*internal:*/
 		// дебажная проверка на правильность выравнивания списка

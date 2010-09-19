@@ -79,9 +79,6 @@ namespace MyGUI
 
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
-
-		virtual void dumpStatisticToLog(size_t _level) { }
-
 	};
 
 } // namespace MyGUI

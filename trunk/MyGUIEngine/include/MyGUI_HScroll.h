@@ -47,7 +47,6 @@ namespace MyGUI
 	private:
 		void TrackMove(int _left, int _top);
 		void updateTrack();
-
 	};
 
 } // namespace MyGUI

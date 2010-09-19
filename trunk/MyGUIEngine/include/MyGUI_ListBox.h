@@ -40,19 +40,13 @@ namespace MyGUI
 		// манипул€ции айтемами
 
 		//! Get number of items
-		size_t getItemCount() const
-		{
-			return mItemsInfo.size();
-		}
+		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const UString& _name, Any _data = Any::Null)
-		{
-			insertItemAt(ITEM_NONE, _name, _data);
-		}
+		void addItem(const UString& _name, Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -70,39 +64,23 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипул€ции выделени€ми
 
-		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getIndexSelected()
-		{
-			return Base::getIndexSelected();
-		}
-
 		/** Select specified _index */
-		void setIndexSelected(size_t _index)
-		{
-			Base::setIndexSelected(_index);
-		}
+		void setIndexSelected(size_t _index);
+		/** Get index of selected item (ITEM_NONE if none selected) */
+		size_t getIndexSelected() const;
 
 		/** Clear item selection */
-		void clearIndexSelected()
-		{
-			Base::clearIndexSelected();
-		}
+		void clearIndexSelected();
 
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции данными
 
 		//! Replace an item data at a specified position
-		void setItemDataAt(size_t _index, Any _data)
-		{
-			Base::setItemDataAt(_index, _data);
-		}
+		void setItemDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
-		void clearItemDataAt(size_t _index)
-		{
-			Base::clearItemDataAt(_index);
-		}
+		void clearItemDataAt(size_t _index);
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -129,22 +107,13 @@ namespace MyGUI
 		void beginToItemAt(size_t _index);
 
 		//! Move all elements so first becomes visible
-		void beginToItemFirst()
-		{
-			if (getItemCount()) beginToItemAt(0);
-		}
+		void beginToItemFirst();
 
 		//! Move all elements so last becomes visible
-		void beginToItemLast()
-		{
-			if (getItemCount()) beginToItemAt(getItemCount() - 1);
-		}
+		void beginToItemLast();
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected()
-		{
-			if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected());
-		}
+		void beginToItemSelected();
 
 
 	protected:
@@ -161,7 +130,6 @@ namespace MyGUI
 
 		typedef std::vector<UString> VectorUTFString;
 		VectorUTFString mItemsInfo;
-
 	};
 
 } // namespace MyGUI

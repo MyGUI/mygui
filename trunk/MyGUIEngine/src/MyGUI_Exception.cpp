@@ -42,6 +42,10 @@ namespace MyGUI
 	{
 	}
 
+	Exception::~Exception() throw()
+	{
+	}
+
 	Exception& Exception::operator = (const Exception& _rhs)
 	{
 		mDescription = _rhs.mDescription;
@@ -51,7 +55,6 @@ namespace MyGUI
 		mFullDesc = _rhs.mFullDesc;
 		return *this;
 	}
-
 
 	const std::string& Exception::getFullDescription() const
 	{
@@ -68,6 +71,32 @@ namespace MyGUI
 		}
 
 		return mFullDesc;
+	}
+
+	const std::string& Exception::getSource() const
+	{
+		return mSource;
+	}
+
+	const std::string& Exception::getFile() const
+	{
+		return mFile;
+	}
+
+	long Exception::getLine() const
+	{
+		return mLine;
+	}
+
+	const std::string& Exception::getDescription() const
+	{
+		return mDescription;
+	}
+
+	// Override std::exception::what
+	const char* Exception::what() const throw()
+	{
+		return getFullDescription().c_str();
 	}
 
 } // namespace MyGUI

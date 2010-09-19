@@ -833,4 +833,9 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
+	bool EditText::getInvertSelected() const
+	{
+		return mInvertSelect;
+	}
+
 } // namespace MyGUI

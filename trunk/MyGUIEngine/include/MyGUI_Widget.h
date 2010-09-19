@@ -156,7 +156,7 @@ namespace MyGUI
 		bool getVisible() const;
 
 		/** Return widget's visibility based on it's and parents visibility. */
-		bool getInheritedVisible();
+		bool getInheritedVisible() const;
 
 		/** Set align */
 		virtual void setAlign(Align _value);
@@ -180,7 +180,7 @@ namespace MyGUI
 		*/
 		void setInheritsAlpha(bool _value);
 		/** Get inherits alpha mode flag */
-		bool getInheritsAlpha()  const;
+		bool getInheritsAlpha() const;
 
 		/** Set widget's state */
 		bool setState(const std::string& _value);
@@ -216,7 +216,7 @@ namespace MyGUI
 		bool getEnabled() const;
 
 		/** Is widget enabled and it's and parents enabled. */
-		bool getInheritedEnabled();
+		bool getInheritedEnabled() const;
 
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
@@ -262,7 +262,8 @@ namespace MyGUI
 			@param _key
 			@param _value
 		*/
-		EventHandle_WidgetStringString eventChangeProperty;
+		EventHandle_WidgetStringString
+			eventChangeProperty;
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера

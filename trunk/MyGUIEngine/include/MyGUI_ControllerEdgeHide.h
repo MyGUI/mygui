@@ -43,31 +43,22 @@ namespace MyGUI
 
 	public:
 		ControllerEdgeHide();
-		virtual ~ControllerEdgeHide() { }
+		virtual ~ControllerEdgeHide();
 
 		/**
 			@param _value in which widget will be hidden or shown
 		*/
-		void setTime(float _value)
-		{
-			mTime = _value;
-		}
+		void setTime(float _value);
 
 		/**
 			@param _remainPixels how many pixels you will see afterr full hide
 		*/
-		void setRemainPixels(int _value)
-		{
-			mRemainPixels = _value;
-		}
+		void setRemainPixels(int _value);
 
 		/**
 			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
 		*/
-		void setShadowSize(int _value)
-		{
-			mShadowSize = _value;
-		}
+		void setShadowSize(int _value);
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -87,6 +78,6 @@ namespace MyGUI
 		MyGUI::IntCoord mLastCoord;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_CONTROLLER_EDGE_HIDE_H__

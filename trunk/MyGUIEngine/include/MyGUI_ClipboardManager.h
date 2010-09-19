@@ -66,6 +66,6 @@ namespace MyGUI
 		bool mIsInitialise;
 	};
 
-}
+} // namespace MyGUI
 
 #endif // __MYGUI_CLIPBOARD_MANAGER_H__

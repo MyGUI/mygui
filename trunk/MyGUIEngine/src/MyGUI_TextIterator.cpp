@@ -550,4 +550,29 @@ namespace MyGUI
 
 	}
 
+	void TextIterator::clearTagColour()
+	{
+		getTagColour(true);
+	}
+
+	size_t TextIterator::getPosition() const
+	{
+		return mPosition;
+	}
+
+	const UString& TextIterator::getText() const
+	{
+		return mText;
+	}
+
+	void TextIterator::clearText()
+	{
+		clear();
+	}
+
+	UString TextIterator::getTextNewLine()
+	{
+		return L"\n";
+	}
+
 } // namespace MyGUI

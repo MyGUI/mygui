@@ -911,4 +911,67 @@ namespace MyGUI
 		return mClient == nullptr ? this : mClient;
 	}
 
+	size_t List::getItemCount() const
+	{
+		return mItemsInfo.size();
+	}
+
+	void List::addItem(const UString& _name, Any _data)
+	{
+		insertItemAt(ITEM_NONE, _name, _data);
+	}
+
+	size_t List::getIndexSelected() const
+	{
+		return mIndexSelect;
+	}
+
+	void List::clearIndexSelected()
+	{
+		setIndexSelected(ITEM_NONE);
+	}
+
+	void List::clearItemDataAt(size_t _index)
+	{
+		setItemDataAt(_index, Any::Null);
+	}
+
+	void List::beginToItemFirst()
+	{
+		if (getItemCount())
+			beginToItemAt(0);
+	}
+
+	void List::beginToItemLast()
+	{
+		if (getItemCount())
+			beginToItemAt(getItemCount() - 1);
+	}
+
+	void List::beginToItemSelected()
+	{
+		if (getIndexSelected() != ITEM_NONE)
+			beginToItemAt(getIndexSelected());
+	}
+
+	bool List::isItemSelectedVisible(bool _fill)
+	{
+		return isItemVisibleAt(mIndexSelect, _fill);
+	}
+
+	void List::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void List::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void List::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
 } // namespace MyGUI

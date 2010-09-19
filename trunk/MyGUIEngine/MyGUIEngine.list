@@ -165,6 +165,7 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_ResourceImageSetData.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -524,6 +525,7 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Interface" FILES
   include/MyGUI_IResource.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
+  include/MyGUI_ResourceImageSetData.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_FontData.h
   include/MyGUI_LayoutData.h

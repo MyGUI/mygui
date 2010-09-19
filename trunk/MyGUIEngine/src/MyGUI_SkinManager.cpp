@@ -133,4 +133,9 @@ namespace MyGUI
 		mDefaultName = _value;
 	}
 
+	const std::string SkinManager::getDefaultSkin() const
+	{
+		return mDefaultName;
+	}
+
 } // namespace MyGUI

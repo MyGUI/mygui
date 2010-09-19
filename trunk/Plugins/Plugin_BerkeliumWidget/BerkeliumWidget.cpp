@@ -119,12 +119,12 @@ namespace MyGUI
 		unlock();
 	}
 
-	void BerkeliumWidget::onMouseDrag(int _left, int _top)
+	void BerkeliumWidget::onMouseDrag(int _left, int _top, MouseButton _id)
 	{
 		if (mWindow != nullptr)
 			mWindow->mouseMoved(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 
-		Base::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void BerkeliumWidget::onMouseMove(int _left, int _top)
@@ -217,7 +217,8 @@ namespace MyGUI
 
 	void BerkeliumWidget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "SourceURL") loadURL(_value);
+		if (_key == "SourceURL")
+			loadURL(_value);
 		else
 		{
 			Base::setProperty(_key, _value);

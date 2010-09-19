@@ -32,17 +32,14 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT LayerItem : public ILayerItem
+	class MYGUI_EXPORT LayerItem :
+		public ILayerItem
 	{
 	public:
 		LayerItem();
-		virtual ~LayerItem() { }
+		virtual ~LayerItem();
 
-	public:
-		ILayer* getLayer() const
-		{
-			return mLayer;
-		}
+		ILayer* getLayer() const;
 
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
 		virtual void detachFromLayer();

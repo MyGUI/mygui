@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SharedLayer :
 		public ILayer
 	{
-		MYGUI_RTTI_DERIVED( SharedLayer )
+		MYGUI_RTTI_DERIVED(SharedLayer)
 
 	public:
 		SharedLayer();
@@ -61,8 +61,6 @@ namespace MyGUI
 
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-
-		virtual void dumpStatisticToLog();
 
 	protected:
 		bool mIsPick;

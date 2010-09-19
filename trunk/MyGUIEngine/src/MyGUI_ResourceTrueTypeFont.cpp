@@ -514,4 +514,15 @@ namespace MyGUI
 		initialise();
 	}
 
+	ITexture* ResourceTrueTypeFont::getTextureFont()
+	{
+		return mTexture;
+	}
+
+	// получившаяся высота при генерации в пикселях
+	int ResourceTrueTypeFont::getDefaultHeight()
+	{
+		return mHeightPix;
+	}
+
 } // namespace MyGUI
