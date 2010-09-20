@@ -15,19 +15,26 @@ namespace tools
 		mView(nullptr),
 		mTexture(nullptr),
 		mBackground(nullptr),
-		mScaleValue(1.0)
+		mScaleValue(1.0),
+		mMouseCapture(false)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackground, "Background");
 
 		mTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
+		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 	}
 
 	TextureControl::~TextureControl()
 	{
 		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
+		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 		mTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 	}
 
@@ -109,6 +116,9 @@ namespace tools
 
 	bool TextureControl::getSelectorsCapture()
 	{
+		if (mMouseCapture)
+			return true;
+
 		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
 			if ((*item)->getCapture())
 				return true;
@@ -117,7 +127,8 @@ namespace tools
 
 	void TextureControl::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
 	{
-		onMouseWheel(_rel);
+		if (!mMouseCapture)
+			onMouseWheel(_rel);
 	}
 
 	void TextureControl::onMouseWheel(int _rel)
@@ -128,12 +139,48 @@ namespace tools
 	{
 		mSelectors.push_back(_control);
 		_control->setScale(mScaleValue);
-		_control->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifySelecetionWheel);
+		_control->getMainWidget()->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
+		_control->getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		_control->getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		_control->getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 	}
 
-	void TextureControl::notifySelecetionWheel(SelectorControl* _control, int _wheelValue)
+	void TextureControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		onMouseWheel(_wheelValue);
+		if (_id == MyGUI::MouseButton::Right)
+		{
+			mMouseCapture = true;
+			mRightMouseClick = MyGUI::InputManager::getInstance().getMousePositionByLayer();
+			mViewOffset = mView->getViewOffset();
+
+			mTexture->setPointer("hand");
+			MyGUI::PointerManager::getInstance().setPointer("hand");
+			MyGUI::PointerManager::getInstance().eventChangeMousePointer("hand");
+		}
+	}
+
+	void TextureControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Right)
+		{
+			mMouseCapture = false;
+
+			mTexture->setPointer("arrow");
+			MyGUI::PointerManager::getInstance().setPointer("arrow");
+			MyGUI::PointerManager::getInstance().eventChangeMousePointer("arrow");
+		}
+	}
+
+	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Right)
+		{
+			MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
+			MyGUI::IntPoint mouseOffset = mousePoint - mRightMouseClick;
+
+			MyGUI::IntPoint offset = mViewOffset + mouseOffset;
+			mView->setViewOffset(offset);
+		}
 	}
 
 } // namespace tools
