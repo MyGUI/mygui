@@ -230,11 +230,6 @@ namespace MyGUI
 		updateView();
 	}
 
-	const IntCoord& ScrollView::getClientCoord()
-	{
-		return mClient == nullptr ? getCoord() : mClient->getCoord();
-	}
-
 	IntSize ScrollView::getCanvasSize()
 	{
 		return mRealClient == nullptr ? IntSize() : mRealClient->getSize();
@@ -296,6 +291,35 @@ namespace MyGUI
 	Align ScrollView::getContentAlign()
 	{
 		return mContentAlign;
+	}
+
+	void ScrollView::setViewOffset(const IntPoint& _value)
+	{
+		IntPoint value = _value;
+		IntPoint currentOffset = mRealClient->getPosition();
+
+		if (value.left > 0)
+			value.left = currentOffset.left;
+		else if (value.left < -(int)mHRange)
+			value.left = -(int)mHRange;
+
+		if (value.top > 0)
+			value.top = currentOffset.top;
+		else if (value.top < -(int)mVRange)
+			value.top = -(int)mVRange;
+
+		if (mHScroll != nullptr)
+			mHScroll->setScrollPosition(-value.left);
+
+		if (mVScroll != nullptr)
+			mVScroll->setScrollPosition(-value.top);
+
+		mRealClient->setPosition(value);
+	}
+
+	IntPoint ScrollView::getViewOffset()
+	{
+		return mRealClient->getPosition();
 	}
 
 } // namespace MyGUI
