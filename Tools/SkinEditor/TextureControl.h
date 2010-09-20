@@ -48,8 +48,10 @@ namespace tools
 
 	private:
 		void notifyChangePosition();
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
-		void notifySelecetionWheel(SelectorControl* _control, int _wheelValue);
 
 		void updateTexture();
 		void updateCoord();
@@ -72,6 +74,10 @@ namespace tools
 		MyGUI::Colour mCurrentColour;
 
 		std::vector<SelectorControl*> mSelectors;
+
+		MyGUI::IntPoint mRightMouseClick;
+		MyGUI::IntPoint mViewOffset;
+		bool mMouseCapture;
 	};
 
 } // namespace tools
