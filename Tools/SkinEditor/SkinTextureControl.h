@@ -47,14 +47,15 @@ namespace tools
 		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandMoveTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeRight(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeTop(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);

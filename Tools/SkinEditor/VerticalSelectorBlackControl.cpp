@@ -13,6 +13,7 @@ namespace tools
 		SelectorControl("VerticalSelectorControl.layout", _parent)
 	{
 		setPropertyColour("ColourSelectorInactive");
+		mMainWidget->setNeedMouseFocus(false);
 	}
 
 	VerticalSelectorBlackControl::~VerticalSelectorBlackControl()

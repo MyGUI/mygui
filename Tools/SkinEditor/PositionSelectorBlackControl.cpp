@@ -13,6 +13,7 @@ namespace tools
 		SelectorControl("PositionSelectorControl.layout", _parent)
 	{
 		setPropertyColour("ColourSelectorInactive");
+		mMainWidget->setNeedMouseFocus(false);
 	}
 
 	PositionSelectorBlackControl::~PositionSelectorBlackControl()

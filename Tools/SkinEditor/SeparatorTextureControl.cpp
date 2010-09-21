@@ -5,6 +5,8 @@
 */
 #include "Precompiled.h"
 #include "SeparatorTextureControl.h"
+#include "SettingsManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
@@ -12,7 +14,9 @@ namespace tools
 		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
-		mVerticalSelectorControl(nullptr)
+		mVerticalSelectorControl(nullptr),
+		mGridStep(0),
+		mValue(0)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -27,12 +31,26 @@ namespace tools
 		mHorizontalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
 		mVerticalSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
 
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandMoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandMoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveBottom));
+
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SeparatorTextureControl::notifySettingsChanged);
+
 		initialiseAdvisor();
 	}
 
 	SeparatorTextureControl::~SeparatorTextureControl()
 	{
 		shutdownAdvisor();
+
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifySettingsChanged);
 
 		mHorizontalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
 		mVerticalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
@@ -157,19 +175,20 @@ namespace tools
 		if (getCurrentSeparator() != nullptr)
 		{
 			MyGUI::UString value = getCurrentSeparator()->getPropertySet()->getPropertyValue("Offset");
-			MyGUI::Align corner = getCurrentSeparator()->getCorner();
+			MyGUI::Align corner = getCorner();
 
 			int offset = 0;
 			if (MyGUI::utility::parseComplex(value, offset))
 			{
+				mValue = offset;
 				if (corner.isTop())
-					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, offset, mTextureRegion.width, 1));
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mValue, mTextureRegion.width, 1));
 				else if (corner.isLeft())
-					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(offset, 0, 1, mTextureRegion.height));
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mValue, 0, 1, mTextureRegion.height));
 				else if (corner.isBottom())
-					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mTextureRegion.height - offset, mTextureRegion.width, 1));
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mTextureRegion.height - mValue, mTextureRegion.width, 1));
 				else if (corner.isRight())
-					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mTextureRegion.width - offset, 0, 1, mTextureRegion.height));
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mTextureRegion.width - mValue, 0, 1, mTextureRegion.height));
 			}
 		}
 	}
@@ -181,7 +200,7 @@ namespace tools
 
 		if (getCurrentSeparator() != nullptr)
 		{
-			MyGUI::Align corner = getCurrentSeparator()->getCorner();
+			MyGUI::Align corner = getCorner();
 
 			if (getCurrentSeparator()->getPropertySet()->getPropertyValue("Visible") == "True")
 			{
@@ -195,23 +214,52 @@ namespace tools
 
 	void SeparatorTextureControl::notifyChangePosition()
 	{
-		if (getCurrentSeparator() != nullptr)
-		{
-			MyGUI::Align corner = getCurrentSeparator()->getCorner();
+		MyGUI::IntPoint pointValue(mVerticalSelectorControl->getPosition().left, mHorizontalSelectorControl->getPosition().top);
 
-			if (corner.isTop())
-				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
-					MyGUI::utility::toString(mHorizontalSelectorControl->getPosition().top), mTypeName);
-			else if (corner.isLeft())
-				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
-					MyGUI::utility::toString(mVerticalSelectorControl->getPosition().left), mTypeName);
-			else if (corner.isBottom())
-				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
-					MyGUI::utility::toString(mTextureRegion.height - mHorizontalSelectorControl->getPosition().top), mTypeName);
-			else if (corner.isRight())
-				getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset",
-					MyGUI::utility::toString(mTextureRegion.width -  mVerticalSelectorControl->getPosition().left), mTypeName);
+		// снапим к гриду
+		if (!MyGUI::InputManager::getInstance().isShiftPressed())
+		{
+			MyGUI::IntPoint point = pointValue;
+			MyGUI::IntCoord actionScaleH = mHorizontalSelectorControl->getActionScale();
+			MyGUI::IntCoord actionScaleV = mVerticalSelectorControl->getActionScale();
+
+			if (actionScaleV.left != 0)
+			{
+				point.left = toGrid(point.left + (mGridStep / 2));
+			}
+
+			if (actionScaleH.top != 0)
+			{
+				point.top = toGrid(point.top + (mGridStep / 2));
+			}
+
+			if (point != pointValue)
+			{
+				pointValue = point;
+				MyGUI::Align corner = getCorner();
+				if (corner.isTop())
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, pointValue.top, mTextureRegion.width, 1));
+				else if (corner.isLeft())
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(pointValue.left, 0, 1, mTextureRegion.height));
+				else if (corner.isBottom())
+					mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, pointValue.top, mTextureRegion.width, 1));
+				else if (corner.isRight())
+					mVerticalSelectorControl->setCoord(MyGUI::IntCoord(pointValue.left, 0, 1, mTextureRegion.height));
+			}
 		}
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue = pointValue.top;
+		else if (corner.isLeft())
+			mValue = pointValue.left;
+		else if (corner.isBottom())
+			mValue = mTextureRegion.height - pointValue.top;
+		else if (corner.isRight())
+			mValue = mTextureRegion.width -  pointValue.left;
+
+		if (getCurrentSeparator() != nullptr)
+			getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset", MyGUI::utility::toString(mValue), mTypeName);
 	}
 
 	void SeparatorTextureControl::updateUnselectedStates()
@@ -328,6 +376,212 @@ namespace tools
 				mVerticalBlackSelectors[index]->setVisible(false);
 			}
 		}
+	}
+
+	int SeparatorTextureControl::toGrid(int _value)
+	{
+		if (mGridStep < 1)
+			return _value;
+		return _value / mGridStep * mGridStep;
+	}
+
+	void SeparatorTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "Settings")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		}
+	}
+
+	void SeparatorTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isLeft())
+			mValue --;
+		else if (corner.isRight())
+			mValue ++;
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isLeft())
+			mValue ++;
+		else if (corner.isRight())
+			mValue --;
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue --;
+		else if (corner.isBottom())
+			mValue ++;
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue ++;
+		else if (corner.isBottom())
+			mValue --;
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isLeft())
+			mValue = toGrid(--mValue);
+		else if (corner.isRight())
+		{
+			int value = mTextureRegion.width - mValue;
+			value = toGrid(--value);
+			mValue = mTextureRegion.width - value;
+		}
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isLeft())
+			mValue = toGrid(mValue + mGridStep);
+		else if (corner.isRight())
+		{
+			int value = mTextureRegion.width - mValue;
+			value = toGrid(value + mGridStep);
+			mValue = mTextureRegion.width - value;
+		}
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue = toGrid(--mValue);
+		else if (corner.isBottom())
+		{
+			int value = mTextureRegion.height - mValue;
+			value = toGrid(--value);
+			mValue = mTextureRegion.height - value;
+		}
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void SeparatorTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue = toGrid(mValue + mGridStep);
+		else if (corner.isBottom())
+		{
+			int value = mTextureRegion.height - mValue;
+			value = toGrid(value + mGridStep);
+			mValue = mTextureRegion.height - value;
+		}
+
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	bool SeparatorTextureControl::checkCommand()
+	{
+		return 
+			mMainWidget->getRootKeyFocus() &&
+			!mHorizontalSelectorControl->getCapture() &&
+			!mVerticalSelectorControl->getCapture();
+	}
+
+	void SeparatorTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mValue = _point.top;
+		else if (corner.isLeft())
+			mValue = _point.left;
+		else if (corner.isBottom())
+			mValue = mTextureRegion.height - _point.top;
+		else if (corner.isRight())
+			mValue = mTextureRegion.width -  _point.left;
+
+		updateFromPointValue();
+	}
+
+	void SeparatorTextureControl::updateFromPointValue()
+	{
+		MyGUI::Align corner = getCorner();
+		if (corner.isTop())
+			mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mValue, mTextureRegion.width, 1));
+		else if (corner.isLeft())
+			mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mValue, 0, 1, mTextureRegion.height));
+		else if (corner.isBottom())
+			mHorizontalSelectorControl->setCoord(MyGUI::IntCoord(0, mTextureRegion.height - mValue, mTextureRegion.width, 1));
+		else if (corner.isRight())
+			mVerticalSelectorControl->setCoord(MyGUI::IntCoord(mTextureRegion.width - mValue, 0, 1, mTextureRegion.height));
+
+		if (getCurrentSeparator() != nullptr)
+			getCurrentSeparator()->getPropertySet()->setPropertyValue("Offset", MyGUI::utility::toString(mValue), mTypeName);
+	}
+
+	MyGUI::Align SeparatorTextureControl::getCorner()
+	{
+		if (getCurrentSeparator() != nullptr)
+			return getCurrentSeparator()->getCorner();
+		return MyGUI::Align::Default;
 	}
 
 } // namespace tools

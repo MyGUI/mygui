@@ -175,50 +175,6 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		mCoordValue.width --;
-		updateFromCoordValue();
-
-		_result = true;
-	}
-
-	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		mCoordValue.width ++;
-		updateFromCoordValue();
-
-		_result = true;
-	}
-
-	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		mCoordValue.height --;
-		updateFromCoordValue();
-
-		_result = true;
-	}
-
-	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		mCoordValue.height ++;
-		updateFromCoordValue();
-
-		_result = true;
-	}
-
 	void SkinTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
@@ -302,6 +258,50 @@ namespace tools
 			return;
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width ++;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height ++;
 		updateFromCoordValue();
 
 		_result = true;
