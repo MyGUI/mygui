@@ -28,12 +28,12 @@ namespace demo
 		unittest_list = new unittest::UnitTest_List();
 		unittest_multilist = new unittest::UnitTest_MultiList();
 
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
 		if (unittest_multilist)
 		{

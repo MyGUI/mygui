@@ -69,7 +69,8 @@ namespace demo
 
 	void eventDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
 	{
-		if (!_result) return;
+		if (!_result)
+			return;
 
 		if (_info.receiver_index == MyGUI::ITEM_NONE)
 		{
@@ -90,9 +91,9 @@ namespace demo
 		}
 	}
 
-	void init(MyGUI::Gui* _gui)
+	void init()
 	{
-		MyGUI::ItemBox* box1 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		box1->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box1->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box1->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
@@ -104,7 +105,7 @@ namespace demo
 		box1->addItem((int)43);
 		box1->addItem((int)54);
 
-		MyGUI::ItemBox* box2 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box2 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		box2->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box2->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box2->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
@@ -128,7 +129,7 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
-		init(getGUI());
+		init();
 	}
 
 	void DemoKeeper::destroyScene()

@@ -93,12 +93,12 @@ namespace demo
 		mContextMenu = new wraps::ContextMenu("ContextMenu.layout");
 		mContextMenu->eventMenuAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
 		for (VectorBaseAnimationNode::iterator item = mNodes.begin(); item != mNodes.end(); ++ item)
 		{

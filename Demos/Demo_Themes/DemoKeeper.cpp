@@ -49,7 +49,7 @@ namespace demo
 			colourWidgets(mDemoView, MyGUI::Colour::Green);
 		}
 
-		mComboSkins = getGUI()->findWidget<MyGUI::ComboBox>("Combo");
+		mComboSkins = MyGUI::Gui::getInstance().findWidget<MyGUI::ComboBox>("Combo");
 		mComboSkins->setComboModeDrop(true);
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");
