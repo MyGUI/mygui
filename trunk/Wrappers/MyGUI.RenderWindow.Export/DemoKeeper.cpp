@@ -16,12 +16,12 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}
 
 	void DemoKeeper::notifyFrameStart(float _time)

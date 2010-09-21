@@ -72,7 +72,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		mPanel3 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 700, 500), MyGUI::Align::Default, "Overlapped");
+		mPanel3 = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 700, 500), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption("GraphView");
 		mScrollView3 = mPanel3->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mScrollView3->setCanvasAlign(MyGUI::Align::Default);

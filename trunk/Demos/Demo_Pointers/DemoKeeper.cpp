@@ -94,7 +94,7 @@ namespace demo
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		if (!getGUI())
+		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
 		// при зажатой правой вращаем сцену
@@ -126,7 +126,7 @@ namespace demo
 
 	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		if (!getGUI())
+		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
 		if (!MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id))
@@ -144,7 +144,7 @@ namespace demo
 
 	void DemoKeeper::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
-		if (!getGUI())
+		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
 		if (_id == MyGUI::MouseButton::Right)

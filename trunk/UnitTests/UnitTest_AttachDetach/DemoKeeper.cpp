@@ -268,12 +268,12 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::WidgetManager::getInstance().registerUnlinker(&unlink_holder);
-		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 		MyGUI::WidgetManager::getInstance().unregisterUnlinker(&unlink_holder);
 	}
 

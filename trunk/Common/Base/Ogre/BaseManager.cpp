@@ -503,4 +503,39 @@ namespace base
 		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
+	void BaseManager::quit()
+	{
+		mExit = true;
+	}
+
+	const std::string& BaseManager::getRootMedia()
+	{
+		return mRootMedia;
+	}
+
+	void BaseManager::setResourceFilename(const std::string& _flename)
+	{
+		mResourceFileName = _flename;
+	}
+
+	diagnostic::StatisticInfo* BaseManager::getStatisticInfo()
+	{
+		return mInfo;
+	}
+
+	diagnostic::InputFocusInfo* BaseManager::getFocusInput()
+	{
+		return mFocusInfo;
+	}
+
+	Ogre::SceneManager* BaseManager::getSceneManager()
+	{
+		return mSceneManager;
+	}
+
+	Ogre::Camera* BaseManager::getCamera()
+	{
+		return mCamera;
+	}
+
 } // namespace base
