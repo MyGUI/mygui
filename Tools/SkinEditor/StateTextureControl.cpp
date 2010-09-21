@@ -6,12 +6,15 @@
 #include "Precompiled.h"
 #include "StateTextureControl.h"
 #include "SkinManager.h"
+#include "SettingsManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
 	StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr),
+		mGridStep(0)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -23,12 +26,26 @@ namespace tools
 
 		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &StateTextureControl::CommandMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &StateTextureControl::CommandMoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &StateTextureControl::CommandMoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &StateTextureControl::CommandMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveBottom));
+
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &StateTextureControl::notifySettingsChanged);
+
 		initialiseAdvisor();
 	}
 
 	StateTextureControl::~StateTextureControl()
 	{
 		shutdownAdvisor();
+
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &StateTextureControl::notifySettingsChanged);
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 	}
@@ -53,7 +70,8 @@ namespace tools
 		MyGUI::IntPoint position;
 		if (MyGUI::utility::parseComplex(value, position.left, position.top))
 		{
-			mAreaSelectorControl->setPosition(position);
+			mPointValue = position;
+			mAreaSelectorControl->setPosition(mPointValue);
 		}
 	}
 
@@ -206,14 +224,127 @@ namespace tools
 
 	void StateTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
-		MyGUI::IntPoint point;
-		point.left = _point.left - (mSizeValue.width / 2);
-		point.top = _point.top - (mSizeValue.height / 2);
+		mPointValue.left = _point.left - (mSizeValue.width / 2);
+		mPointValue.top = _point.top - (mSizeValue.height / 2);
 
-		mAreaSelectorControl->setPosition(point);
+		updateFromPointValue();
+	}
+
+	void StateTextureControl::updateFromPointValue()
+	{
+		mAreaSelectorControl->setPosition(mPointValue);
 
 		if (getCurrentState() != nullptr)
-			getCurrentState()->getPropertySet()->setPropertyValue("Position", point.print(), mTypeName);
+			getCurrentState()->getPropertySet()->setPropertyValue("Position", mPointValue.print(), mTypeName);
+	}
+
+	void StateTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.left --;
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.left ++;
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.top --;
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.top ++;
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.left = toGrid(--mPointValue.left);
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.left = toGrid(mPointValue.left + mGridStep);
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.top = toGrid(--mPointValue.top);
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	void StateTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mPointValue.top = toGrid(mPointValue.top + mGridStep);
+		updateFromPointValue();
+
+		_result = true;
+	}
+
+	bool StateTextureControl::checkCommand()
+	{
+		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+	}
+
+	int StateTextureControl::toGrid(int _value)
+	{
+		if (mGridStep < 1)
+			return _value;
+		return _value / mGridStep * mGridStep;
+	}
+
+	void StateTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "Settings")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		}
 	}
 
 } // namespace tools
