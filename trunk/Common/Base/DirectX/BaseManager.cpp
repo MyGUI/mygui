@@ -482,4 +482,29 @@ namespace base
 		}
 	}
 
+	void BaseManager::quit()
+	{
+		mExit = true;
+	}
+
+	const std::string& BaseManager::getRootMedia()
+	{
+		return mRootMedia;
+	}
+
+	void BaseManager::setResourceFilename(const std::string& _flename)
+	{
+		mResourceFileName = _flename;
+	}
+
+	diagnostic::StatisticInfo* BaseManager::getStatisticInfo()
+	{
+		return mInfo;
+	}
+
+	diagnostic::InputFocusInfo* BaseManager::getFocusInput()
+	{
+		return mFocusInfo;
+	}
+
 } // namespace base
