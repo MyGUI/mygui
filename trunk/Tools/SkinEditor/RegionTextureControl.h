@@ -36,11 +36,14 @@ namespace tools
 	private:
 		void notifyChangePosition();
 
+		void onMouseButtonClick(const MyGUI::IntPoint& _point);
+
 		void updateTextureControl();
 		void updateTextureName();
 		void updateRegionSize();
 		void updateRegionPosition();
 		void updateTextureVisible();
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		void updatePosition();
 		void updateVisible();
@@ -48,6 +51,29 @@ namespace tools
 		void updateUnselectedStates();
 		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord);
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
+
+		void updateFromCoordValue();
+		bool checkCommand();
+
+		int toGrid(int _value);
+
+		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		MyGUI::UString mTextureName;
@@ -59,6 +85,8 @@ namespace tools
 		PositionSelectorControl* mPositionSelectorControl;
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
+		MyGUI::IntCoord mCoordValue;
+		int mGridStep;
 	};
 
 } // namespace tools
