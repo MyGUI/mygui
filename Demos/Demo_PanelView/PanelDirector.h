@@ -40,7 +40,6 @@ namespace demo
 		MyGUI::Button* mCheckShowStatic;
 		MyGUI::Button* mCheckShowDynamic;
 		MyGUI::ComboBox* mComboCount;
-
 	};
 
 } // namespace demo

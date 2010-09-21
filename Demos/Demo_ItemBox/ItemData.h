@@ -60,10 +60,12 @@ namespace demo
 		{
 			return count;
 		}
+
 		demo::ResourceItemInfoPtr getInfo() const
 		{
 			return mResourceInfo;
 		}
+
 		MyGUI::ResourceImageSetPtr getImage() const
 		{
 			return mResourceImage;
@@ -73,7 +75,6 @@ namespace demo
 		size_t count;
 		demo::ResourceItemInfoPtr mResourceInfo;
 		MyGUI::ResourceImageSetPtr mResourceImage;
-
 	};
 
 } // namespace demo

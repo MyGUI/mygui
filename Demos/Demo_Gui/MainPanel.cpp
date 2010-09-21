@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	MainPanel::MainPanel() : BaseLayout("MainPanel.layout")
+	MainPanel::MainPanel() :
+		BaseLayout("MainPanel.layout")
 	{
 		mMainWidget->setPosition(10, 10);
 
@@ -31,9 +32,12 @@ namespace demo
 
 	void MainPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		if (_sender == mButtonNew) eventAction(EventNew, 0);
-		else if (_sender == mButtonLoad) eventAction(EventLoad, 0);
-		else if (_sender == mButtonQuit) eventAction(EventQuit, 0);
+		if (_sender == mButtonNew)
+			eventAction(EventNew, 0);
+		else if (_sender == mButtonLoad)
+			eventAction(EventLoad, 0);
+		else if (_sender == mButtonQuit)
+			eventAction(EventQuit, 0);
 	}
 
 	void MainPanel::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)

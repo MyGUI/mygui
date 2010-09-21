@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	ToolTip::ToolTip() : BaseLayout("ToolTip.layout")
+	ToolTip::ToolTip() :
+		BaseLayout("ToolTip.layout")
 	{
 		assignWidget(mTextName, "text_Name");
 		assignWidget(mTextCount, "text_Count");

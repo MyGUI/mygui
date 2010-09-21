@@ -28,7 +28,6 @@ namespace demo
 
 	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo& _info, ColourWindowCellData* _data)
 	{
-
 		if (_info.update)
 		{
 			mText->setCaption(_data->getName());
@@ -52,7 +51,6 @@ namespace demo
 		{
 			mColour->setVisible(false);
 		}
-
 	}
 
 } // namespace demo

@@ -49,7 +49,6 @@ namespace demo
 
 		FontView* mFontView;
 		TextureView* mTextureView;
-
 	};
 
 } // namespace demo

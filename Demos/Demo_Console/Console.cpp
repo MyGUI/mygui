@@ -151,4 +151,44 @@ namespace demo
 		}
 	}
 
+	void Console::addToConsole(const MyGUI::UString& _reason, const MyGUI::UString& _key, const MyGUI::UString& _value)
+	{
+		addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
+	}
+
+	const MyGUI::UString& Console::getConsoleStringCurrent()
+	{
+		return mStringCurrent;
+	}
+
+	const MyGUI::UString& Console::getConsoleStringError()
+	{
+		return mStringError;
+	}
+
+	const MyGUI::UString& Console::getConsoleStringSuccess()
+	{
+		return mStringSuccess;
+	}
+
+	const MyGUI::UString& Console::getConsoleStringUnknow()
+	{
+		return mStringUnknow;
+	}
+
+	const MyGUI::UString& Console::getConsoleStringFormat()
+	{
+		return mStringFormat;
+	}
+
+	bool Console::getVisible()
+	{
+		return mMainWidget->getVisible();
+	}
+
+	void Console::setVisible(bool _visible)
+	{
+		mMainWidget->setVisible(_visible);
+	}
+
 } // namespace demo

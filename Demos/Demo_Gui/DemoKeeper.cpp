@@ -85,11 +85,14 @@ namespace demo
 
 	int getRand(int _min, int _max)
 	{
-		if (_max < _min) std::swap(_max, _min);
+		if (_max < _min)
+			std::swap(_max, _min);
 		int range = _max - _min;
-		if (range == 0) return 0;
+		if (range == 0)
+			return 0;
 		int result = ::rand() % range;
-		if (result < 0) result = -result;
+		if (result < 0)
+			result = -result;
 		return _min + result;
 	}
 

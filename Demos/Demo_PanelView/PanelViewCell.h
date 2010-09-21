@@ -15,7 +15,8 @@ namespace demo
 		public wraps::BasePanelViewCell
 	{
 	public:
-		PanelViewCell(MyGUI::Widget* _parent) : BasePanelViewCell("PanelCell.layout", _parent)
+		PanelViewCell(MyGUI::Widget* _parent) :
+			BasePanelViewCell("PanelCell.layout", _parent)
 		{
 			assignWidget(mTextCaption, "text_Caption");
 			assignWidget(mButtonMinimize, "button_Minimize");
@@ -36,18 +37,17 @@ namespace demo
 		{
 			if (_id == MyGUI::MouseButton::Left)
 			{
-				setMinimized( ! isMinimized() );
+				setMinimized(!isMinimized());
 			}
 		}
 
 		void notifyMouseButtonDoubleClick(MyGUI::Widget* _sender)
 		{
-			setMinimized( ! isMinimized() );
+			setMinimized(!isMinimized());
 		}
 
 	private:
 		MyGUI::Button* mButtonMinimize;
-
 	};
 
 } // namespace demo

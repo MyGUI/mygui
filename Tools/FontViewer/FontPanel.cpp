@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	FontPanel::FontPanel() : wraps::BaseLayout("FontPanel.layout")
+	FontPanel::FontPanel() :
+		wraps::BaseLayout("FontPanel.layout")
 	{
 		assignWidget(mComboFont, "combo_Fonts");
 		assignWidget(mEditSize, "edit_Size");

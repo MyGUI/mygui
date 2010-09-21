@@ -17,10 +17,6 @@ namespace demo
 
 	namespace formates
 	{
-#ifdef max
-#	undef max
-#	undef min
-#endif
 		template<typename T> inline std::string format()
 		{
 			return MyGUI::utility::toString("[ ", (std::numeric_limits<T>::min)(), " | ", (std::numeric_limits<T>::max)(), " ]");
@@ -47,10 +43,7 @@ namespace demo
 		Console();
 
 		void addToConsole(const MyGUI::UString& _line);
-		void addToConsole(const MyGUI::UString& _reason, const MyGUI::UString& _key, const MyGUI::UString& _value)
-		{
-			addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
-		}
+		void addToConsole(const MyGUI::UString& _reason, const MyGUI::UString& _key, const MyGUI::UString& _value);
 
 		void clearConsole();
 
@@ -71,37 +64,17 @@ namespace demo
 		*/
 		CommandDelegate eventConsoleUnknowCommand;
 
-		const MyGUI::UString& getConsoleStringCurrent()
-		{
-			return mStringCurrent;
-		}
-		const MyGUI::UString& getConsoleStringError()
-		{
-			return mStringError;
-		}
-		const MyGUI::UString& getConsoleStringSuccess()
-		{
-			return mStringSuccess;
-		}
-		const MyGUI::UString& getConsoleStringUnknow()
-		{
-			return mStringUnknow;
-		}
-		const MyGUI::UString& getConsoleStringFormat()
-		{
-			return mStringFormat;
-		}
+		const MyGUI::UString& getConsoleStringCurrent();
+		const MyGUI::UString& getConsoleStringError();
+		const MyGUI::UString& getConsoleStringSuccess();
+		const MyGUI::UString& getConsoleStringUnknow();
+		const MyGUI::UString& getConsoleStringFormat();
 
-		bool getVisible()
-		{
-			return mMainWidget->getVisible();
-		}
-		void setVisible(bool _visible)
-		{
-			mMainWidget->setVisible(_visible);
-		}
+		bool getVisible();
+		void setVisible(bool _visible);
 
-		template <typename T> bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = "")
+		template <typename T>
+		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = "")
 		{
 			if (_value.empty())
 			{

@@ -47,4 +47,9 @@ namespace demo
 		return "";
 	}
 
+	bool ResourcePointerContext::isHighLevel()
+	{
+		return mHighLevel;
+	}
+
 }

@@ -20,10 +20,7 @@ namespace demo
 
 		void clearView();
 
-		MyGUI::Widget* getView()
-		{
-			return mMainWidget;
-		}
+		MyGUI::Widget* getView();
 	};
 
 } // namespace demo

@@ -8,6 +8,11 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mFrameStartDelegate(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -28,6 +33,11 @@ namespace demo
 	{
 		if (mFrameStartDelegate  != nullptr)
 			mFrameStartDelegate(_time);
+	}
+
+	void DemoKeeper::setFrameEvent(HandleFrameStart _delegate)
+	{
+		mFrameStartDelegate = _delegate;
 	}
 
 } // namespace demo

@@ -11,6 +11,7 @@
 
 namespace demo
 {
+
 	class IPointerSetter
 	{
 	public:

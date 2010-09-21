@@ -11,8 +11,10 @@ namespace demo
 
 	void CellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
-		if (_drop) _coord.set(0, 0, 90, 74);
-		else _coord.set(0, 0, 90, 74);
+		if (_drop)
+			_coord.set(0, 0, 90, 74);
+		else
+			_coord.set(0, 0, 90, 74);
 	}
 
 	CellView::CellView(MyGUI::Widget* _parent) :
@@ -27,7 +29,6 @@ namespace demo
 
 	void CellView::update(const MyGUI::IBDrawItemInfo& _info, ItemData* _data)
 	{
-
 		if (_info.update)
 		{
 			if (!_data->isEmpty())
@@ -45,8 +46,10 @@ namespace demo
 
 			static MyGUI::ResourceImageSetPtr resource_back = nullptr;
 			static MyGUI::ResourceImageSetPtr resource_select = nullptr;
-			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getByName("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
-			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getByName("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_back == nullptr)
+				resource_back = MyGUI::ResourceManager::getInstance().getByName("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_select == nullptr)
+				resource_select = MyGUI::ResourceManager::getInstance().getByName("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
 			mImageBack->setItemResourcePtr(resource_back);
 			mImageBack->setItemGroup("States");
@@ -61,9 +64,12 @@ namespace demo
 
 			if (!_data->isEmpty())
 			{
-				if (_info.drop_refuse) mImageItem->setItemName("Refuse");
-				else if (_info.drop_accept) mImageItem->setItemName("Accept");
-				else mImageItem->setItemName("Normal");
+				if (_info.drop_refuse)
+					mImageItem->setItemName("Refuse");
+				else if (_info.drop_accept)
+					mImageItem->setItemName("Accept");
+				else
+					mImageItem->setItemName("Normal");
 				mImageItem->setVisible(true);
 			}
 			else
@@ -75,11 +81,15 @@ namespace demo
 		{
 			if (_info.active)
 			{
-				if (_info.select) mImageBack->setItemName("Select");
-				else mImageBack->setItemName("Active");
+				if (_info.select)
+					mImageBack->setItemName("Select");
+				else
+					mImageBack->setItemName("Active");
 			}
-			else if (_info.select) mImageBack->setItemName("Pressed");
-			else mImageBack->setItemName("Normal");
+			else if (_info.select)
+				mImageBack->setItemName("Pressed");
+			else
+				mImageBack->setItemName("Normal");
 
 			if (_info.drop_refuse)
 			{
@@ -107,7 +117,6 @@ namespace demo
 				mImageItem->setVisible(false);
 			}
 		}
-
 	}
 
 } // namespace demo

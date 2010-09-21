@@ -16,7 +16,10 @@ namespace demo
 		public wraps::BasePanelView<PanelViewCell>
 	{
 	public:
-		PanelView(MyGUI::Widget* _parent) : wraps::BasePanelView<PanelViewCell>("", _parent) { }
+		PanelView(MyGUI::Widget* _parent) :
+			wraps::BasePanelView<PanelViewCell>("", _parent)
+		{
+		}
 	};
 
 } // namespace demo

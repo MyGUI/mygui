@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	FontView::FontView() : wraps::BaseLayout("FontView.layout")
+	FontView::FontView() :
+		wraps::BaseLayout("FontView.layout")
 	{
 		assignWidget(mEditView, "edit_View");
 	}

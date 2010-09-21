@@ -28,16 +28,15 @@ namespace demo
 		{
 			return m_name;
 		}
+
 		const MyGUI::Colour& getColour() const
 		{
 			return m_colour;
 		}
 
-
 	private:
 		MyGUI::Colour m_colour;
 		std::string m_name;
-
 	};
 
 } // namespace demo

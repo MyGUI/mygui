@@ -12,6 +12,7 @@
 
 namespace demo
 {
+
 	class CellView :
 		public wraps::BaseCellView<ItemData*>
 	{
