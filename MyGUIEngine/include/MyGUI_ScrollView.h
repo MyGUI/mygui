@@ -75,8 +75,7 @@ namespace MyGUI
 		/** Get canvas size */
 		IntSize getCanvasSize();
 
-		// размер окна, через которые видно данные
-		virtual IntSize getViewSize();
+		IntCoord getViewCoord();
 
 		void setViewOffset(const IntPoint& _value);
 		IntPoint getViewOffset();
@@ -100,6 +99,8 @@ namespace MyGUI
 		virtual IntSize getContentSize();
 		// смещение данных
 		virtual IntPoint getContentPosition();
+		// размер окна, через которые видно данные
+		virtual IntSize getViewSize();
 		virtual void setContentPosition(const IntPoint& _point);
 		// размер на который прокручиваются данные при щелчке по скролу
 		virtual size_t getVScrollPage();

@@ -322,4 +322,9 @@ namespace MyGUI
 		return mRealClient->getPosition();
 	}
 
+	IntCoord ScrollView::getViewCoord()
+	{
+		return mClient == nullptr ? IntCoord() : mClient->getCoord();
+	}
+
 } // namespace MyGUI
