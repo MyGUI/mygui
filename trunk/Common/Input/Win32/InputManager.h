@@ -31,10 +31,7 @@ namespace input
 		virtual void injectKeyRelease(MyGUI::KeyCode _key) { }
 
 		virtual void onFileDrop(const std::wstring& _filename) { }
-		virtual bool onWinodwClose(size_t _handle)
-		{
-			return true;
-		}
+		virtual bool onWinodwClose(size_t _handle) { return true; }
 
 		void setMousePosition(int _x, int _y);
 		void updateCursorPosition();
