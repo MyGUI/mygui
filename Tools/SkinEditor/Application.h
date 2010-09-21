@@ -33,16 +33,15 @@ namespace tools
 		void setCaption(const MyGUI::UString& _value);
 
 		typedef std::vector<std::wstring> VectorWString;
-		const VectorWString& getParams()
-		{
-			return mParams;
-		}
+		const VectorWString& getParams();
 
 		virtual void resumeState();
 
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
+		void commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result);
+		void commandFocusVisible(const MyGUI::UString& _commandName, bool& _result);
 		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
 
 	private:

@@ -133,4 +133,16 @@
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
+	<Command>
+		<Name>Command_StatisticInfo</Name>
+		<KeyCode>F11</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Control</Modifier>
+	</Command>
+	<Command>
+		<Name>Command_FocusVisible</Name>
+		<KeyCode>F12</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier>Control</Modifier>
+	</Command>
 </MyGUI>
