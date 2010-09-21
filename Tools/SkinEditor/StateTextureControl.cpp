@@ -112,10 +112,33 @@ namespace tools
 
 	void StateTextureControl::notifyChangePosition()
 	{
-		MyGUI::IntPoint point = mAreaSelectorControl->getPosition();
+		mPointValue = mAreaSelectorControl->getPosition();
+
+		// снапим к гриду
+		if (!MyGUI::InputManager::getInstance().isShiftPressed())
+		{
+			MyGUI::IntPoint point = mPointValue;
+			MyGUI::IntCoord actionScale = mAreaSelectorControl->getActionScale();
+
+			if (actionScale.left != 0)
+			{
+				point.left = toGrid(point.left + (mGridStep / 2));
+			}
+
+			if (actionScale.top != 0)
+			{
+				point.top = toGrid(point.top + (mGridStep / 2));
+			}
+
+			if (point != mPointValue)
+			{
+				mPointValue = point;
+				mAreaSelectorControl->setPosition(mPointValue);
+			}
+		}
 
 		if (getCurrentState() != nullptr)
-			getCurrentState()->getPropertySet()->setPropertyValue("Position", point.print(), mTypeName);
+			getCurrentState()->getPropertySet()->setPropertyValue("Position", mPointValue.print(), mTypeName);
 	}
 
 	void StateTextureControl::updateSkinProperties()
@@ -328,7 +351,9 @@ namespace tools
 
 	bool StateTextureControl::checkCommand()
 	{
-		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+		return 
+			mMainWidget->getRootKeyFocus() &&
+			!mAreaSelectorControl->getCapture();
 	}
 
 	int StateTextureControl::toGrid(int _value)

@@ -13,6 +13,7 @@ namespace tools
 		SelectorControl("HorizontalSelectorControl.layout", _parent)
 	{
 		setPropertyColour("ColourSelectorInactive");
+		mMainWidget->setNeedMouseFocus(false);
 	}
 
 	HorizontalSelectorBlackControl::~HorizontalSelectorBlackControl()
