@@ -298,15 +298,29 @@ namespace MyGUI
 		IntPoint value = _value;
 		IntPoint currentOffset = mRealClient->getPosition();
 
-		if (value.left > 0)
+		if (mHRange != 0)
+		{
+			if (value.left > 0)
+				value.left = 0;
+			else if (value.left < -(int)mHRange)
+				value.left = -(int)mHRange;
+		}
+		else
+		{
 			value.left = currentOffset.left;
-		else if (value.left < -(int)mHRange)
-			value.left = -(int)mHRange;
+		}
 
-		if (value.top > 0)
+		if (mVRange != 0)
+		{
+			if (value.top > 0)
+				value.top = 0;
+			else if (value.top < -(int)mVRange)
+				value.top = -(int)mVRange;
+		}
+		else
+		{
 			value.top = currentOffset.top;
-		else if (value.top < -(int)mVRange)
-			value.top = -(int)mVRange;
+		}
 
 		if (mHScroll != nullptr)
 			mHScroll->setScrollPosition(-value.left);
