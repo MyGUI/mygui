@@ -95,17 +95,12 @@ namespace tools
 			mAreaSelectorControl->setVisible(true);
 
 			mCoordValue = coord;
-			updateRegionCoord();
+			mAreaSelectorControl->setCoord(mCoordValue);
 		}
 		else
 		{
 			mAreaSelectorControl->setVisible(false);
 		}
-	}
-
-	void SkinTextureControl::updateRegionCoord()
-	{
-		mAreaSelectorControl->setCoord(mCoordValue);
 	}
 
 	void SkinTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
