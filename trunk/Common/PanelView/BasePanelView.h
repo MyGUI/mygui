@@ -36,7 +36,7 @@ namespace wraps
 			mScrollView->setVisibleHScroll(false);
 			mNeedUpdate = false;
 
-			mOldClientWidth = mScrollView->getClientCoord().width;
+			mOldClientWidth = mScrollView->getViewCoord().width;
 
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
 		}
@@ -148,7 +148,7 @@ namespace wraps
 			// ставим высоту холста, и спрашиваем получившуюся ширину клиента
 			mScrollView->setCanvasSize(0, height);
 			// ширина клиента могла поменятся
-			const MyGUI::IntSize& size = mScrollView->getClientCoord().size();
+			const MyGUI::IntSize& size = mScrollView->getViewCoord().size();
 			mScrollView->setCanvasSize(size.width, height);
 
 			bool change = mFirstInitialise;
