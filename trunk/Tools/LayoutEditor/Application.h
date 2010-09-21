@@ -36,9 +36,9 @@ namespace tools
 		virtual void resumeState();
 
 	private:
-		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void commandFocusVisible(const MyGUI::UString& _commandName, bool& _result);
+		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		VectorWString mParams;

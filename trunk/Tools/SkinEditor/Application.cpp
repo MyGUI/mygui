@@ -94,6 +94,8 @@ namespace tools
 		for (SettingsSector::VectorUString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 
+		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
+		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
 
 		mEditorState = new EditorState();
@@ -317,6 +319,25 @@ namespace tools
 	void Application::resumeState()
 	{
 		quit();
+	}
+
+	void Application::commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result)
+	{
+		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
+
+		_result = true;
+	}
+
+	void Application::commandFocusVisible(const MyGUI::UString& _commandName, bool& _result)
+	{
+		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+
+		_result = true;
+	}
+
+	const Application::VectorWString& Application::getParams()
+	{
+		return mParams;
 	}
 
 } // namespace tools
