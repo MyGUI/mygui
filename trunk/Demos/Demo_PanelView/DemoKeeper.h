@@ -34,7 +34,6 @@ namespace demo
 		PanelDirector* mPanelDirector;
 		PanelDynamic* mPanelDynamic;
 		PanelStatic* mPanelStatic;
-
 	};
 
 } // namespace demo

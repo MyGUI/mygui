@@ -32,12 +32,10 @@ namespace plugin
 
 	void Plugin::initialize()
 	{
-
 		MYGUI_LOGGING(LogSection, Info, "initialize");
 
 		// создаем фабрики
 		MyGUI::FactoryManager::getInstance().registerFactory<StrangeButton>("Widget");
-
 	}
 
 	void Plugin::shutdown()
@@ -46,7 +44,6 @@ namespace plugin
 
 		// удаляем фабрику
 		MyGUI::FactoryManager::getInstance().unregisterFactory<StrangeButton>("Widget");
-
 	}
 
 	const std::string& Plugin::getName() const

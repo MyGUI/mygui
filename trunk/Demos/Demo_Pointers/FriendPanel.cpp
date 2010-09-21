@@ -24,4 +24,9 @@ namespace demo
 		return mMainWidget->getAbsoluteRect().inside(MyGUI::IntPoint(_x, _y));
 	}
 
+	void FriendPanel::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
+	}
+
 } // namespace demo

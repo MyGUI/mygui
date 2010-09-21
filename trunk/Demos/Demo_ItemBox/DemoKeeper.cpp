@@ -53,18 +53,15 @@ namespace demo
 	{
 		if (_result)
 		{
-
 			ItemData* sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			ItemData* receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 			receiver_data->add(sender_data);
 			sender_data->clear();
 
-
 			static_cast<ItemBox*>(_info.receiver)->setItemData(_info.receiver_index, receiver_data);
 			static_cast<ItemBox*>(_info.sender)->setItemData(_info.sender_index, sender_data);
 		}
-
 	}
 
 	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout* _sender, const MyGUI::IBNotifyItemData& _info)
@@ -149,7 +146,6 @@ namespace demo
 		mItemBoxH->getItemBox()->eventChangeDDState = newDelegate(this, &DemoKeeper::notifyDropState);
 		mItemBoxH->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 		mItemBoxH->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
-
 	}
 
 	void DemoKeeper::destroyScene()

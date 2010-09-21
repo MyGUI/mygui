@@ -26,7 +26,6 @@ namespace demo
 	private:
 		MyGUI::VectorWidgetPtr mItemsText;
 		MyGUI::VectorWidgetPtr mItemsEdit;
-
 	};
 
 } // namespace demo

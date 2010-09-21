@@ -30,7 +30,6 @@ namespace demo
 	private:
 		MyGUI::Widget* mDemoView;
 		MyGUI::ComboBox* mComboSkins;
-
 	};
 
 } // namespace demo

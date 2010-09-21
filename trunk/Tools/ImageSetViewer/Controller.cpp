@@ -10,7 +10,8 @@
 namespace editor
 {
 
-	Controller::Controller() : mView(nullptr)
+	Controller::Controller() :
+		mView(nullptr)
 	{
 	}
 

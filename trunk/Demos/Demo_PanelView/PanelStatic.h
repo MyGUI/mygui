@@ -20,7 +20,6 @@ namespace demo
 
 		virtual void initialise();
 		virtual void shutdown();
-
 	};
 
 } // namespace demo

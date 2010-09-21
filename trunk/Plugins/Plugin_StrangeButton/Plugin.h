@@ -37,10 +37,8 @@ namespace plugin
 		//! Get name
 		virtual const std::string& getName() const;
 
-
 	private:
 		static const std::string LogSection;
-
 	};
 
 } // namespace plugin

@@ -21,10 +21,7 @@ namespace demo
 		virtual ~ColourPanel();
 
 		void setColour(const MyGUI::Colour& _colour);
-		const MyGUI::Colour& getColour() const
-		{
-			return mCurrentColour;
-		}
+		const MyGUI::Colour& getColour() const;
 
 		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
 
