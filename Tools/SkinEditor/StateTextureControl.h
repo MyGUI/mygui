@@ -29,6 +29,7 @@ namespace tools
 	private:
 		void notifyChangePosition();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
+		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		virtual void updateSkinProperties();
 		virtual void updateStateProperties();
@@ -48,6 +49,20 @@ namespace tools
 		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
+		bool checkCommand();
+
+		void updateFromPointValue();
+		int toGrid(int _value);
+
+		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+
 	private:
 		PositionSelectorControl* mAreaSelectorControl;
 
@@ -55,6 +70,8 @@ namespace tools
 		MyGUI::IntSize mSizeValue;
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
+		int mGridStep;
+		MyGUI::IntPoint mPointValue;
 	};
 
 } // namespace tools

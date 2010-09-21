@@ -38,7 +38,6 @@ namespace tools
 		void updateTexture();
 		void updateCoord();
 
-		void updateRegionCoord();
 		void updateFromCoordValue();
 		bool checkCommand();
 
