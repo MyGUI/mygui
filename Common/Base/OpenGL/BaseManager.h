@@ -36,35 +36,17 @@ namespace base
 		bool create();
 		void destroy();
 		void run();
-		void quit()
-		{
-			mExit = true;
-		}
+		void quit();
 
 		void setWindowCaption(const std::wstring& _text);
 		void createDefaultScene() { }
 
-		MyGUI::Gui* getGUI()
-		{
-			return mGUI;
-		}
-		const std::string& getRootMedia()
-		{
-			return mRootMedia;
-		}
-		void setResourceFilename(const std::string& _flename)
-		{
-			mResourceFileName = _flename;
-		}
+		const std::string& getRootMedia();
+		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
-		diagnostic::StatisticInfo* getStatisticInfo()
-		{
-			return mInfo;
-		}
-		diagnostic::InputFocusInfo* getFocusInput()
-		{
-			return mFocusInfo;
-		}
+
+		diagnostic::StatisticInfo* getStatisticInfo();
+		diagnostic::InputFocusInfo* getFocusInput();
 
 	/*internal:*/
 		void _windowResized();
