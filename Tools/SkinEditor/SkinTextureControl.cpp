@@ -40,7 +40,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
 
 		initialiseAdvisor();

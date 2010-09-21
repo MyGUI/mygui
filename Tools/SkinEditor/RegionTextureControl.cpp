@@ -5,6 +5,8 @@
 */
 #include "Precompiled.h"
 #include "RegionTextureControl.h"
+#include "CommandManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -12,7 +14,8 @@ namespace tools
 		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mAreaSelectorControl(nullptr),
-		mPositionSelectorControl(nullptr)
+		mPositionSelectorControl(nullptr),
+		mGridStep(0)
 	{
 		mTypeName = MyGUI::utility::toString((int)this);
 
@@ -27,11 +30,33 @@ namespace tools
 
 		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
 
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &RegionTextureControl::CommandMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &RegionTextureControl::CommandMoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &RegionTextureControl::CommandMoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &RegionTextureControl::CommandMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &RegionTextureControl::CommandSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &RegionTextureControl::CommandSizeRight));
+		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &RegionTextureControl::CommandSizeTop));
+		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &RegionTextureControl::CommandSizeBottom));
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeRight));
+		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeTop));
+		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeBottom));
+
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &RegionTextureControl::notifySettingsChanged);
+
 		initialiseAdvisor();
 	}
 
 	RegionTextureControl::~RegionTextureControl()
 	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &RegionTextureControl::notifySettingsChanged);
+
 		shutdownAdvisor();
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
@@ -160,7 +185,8 @@ namespace tools
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
 		{
-			mAreaSelectorControl->setCoord(coord);
+			mCoordValue = coord;
+			mAreaSelectorControl->setCoord(mCoordValue);
 			mPositionSelectorControl->setCoord(coord);
 		}
 	}
@@ -187,10 +213,55 @@ namespace tools
 
 	void RegionTextureControl::notifyChangePosition()
 	{
-		MyGUI::IntCoord coord = mAreaSelectorControl->getCoord();
+		mCoordValue = mAreaSelectorControl->getCoord();
+
+		// снапим к гриду
+		if (!MyGUI::InputManager::getInstance().isShiftPressed())
+		{
+			MyGUI::IntCoord coord = mCoordValue;
+			MyGUI::IntCoord actionScale = mAreaSelectorControl->getActionScale();
+
+			if (actionScale.left != 0 && actionScale.width != 0)
+			{
+				int right = coord.right();
+				coord.width = toGrid(coord.width + (mGridStep / 2));
+				coord.left = right - coord.width;
+			}
+			else if (actionScale.width != 0)
+			{
+				int right = toGrid(coord.right() + (mGridStep / 2));
+				coord.width = right - coord.left;
+			}
+			else if (actionScale.left != 0)
+			{
+				coord.left = toGrid(coord.left + (mGridStep / 2));
+			}
+
+			if (actionScale.top != 0 && actionScale.height != 0)
+			{
+				int bottom = coord.bottom();
+				coord.height = toGrid(coord.height + (mGridStep / 2));
+				coord.top = bottom - coord.height;
+			}
+			else if (actionScale.height != 0)
+			{
+				int bottom = toGrid(coord.bottom() + (mGridStep / 2));
+				coord.height = bottom - coord.top;
+			}
+			else if (actionScale.top != 0)
+			{
+				coord.top = toGrid(coord.top + (mGridStep / 2));
+			}
+
+			if (coord != mCoordValue)
+			{
+				mCoordValue = coord;
+				mAreaSelectorControl->setCoord(mCoordValue);
+			}
+		}
 
 		if (getCurrentRegion() != nullptr)
-			getCurrentRegion()->getPropertySet()->setPropertyValue("Position", coord.print(), mTypeName);
+			getCurrentRegion()->getPropertySet()->setPropertyValue("Position", mCoordValue.print(), mTypeName);
 	}
 
 	void RegionTextureControl::updateUnselectedStates()
@@ -267,6 +338,228 @@ namespace tools
 	{
 		if (_sender->getName() == "Visible" || _sender->getName() == "Offset")
 			updateUnselectedStates();
+	}
+
+	void RegionTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
+		mCoordValue.left = _point.left - (mCoordValue.width / 2);
+		mCoordValue.top = _point.top - (mCoordValue.height / 2);
+
+		updateFromCoordValue();
+	}
+
+	void RegionTextureControl::updateFromCoordValue()
+	{
+		mAreaSelectorControl->setCoord(mCoordValue);
+
+		if (getCurrentRegion() != nullptr)
+		{
+			if (getCurrentRegion()->getPropertySet()->getPropertyValue("Visible") == "True")
+			{
+				if (getCurrentRegion()->getPropertySet()->getPropertyValue("Enabled") == "True")
+				{
+					if (!getCurrentRegion()->getPropertySet()->getPropertyReadOnly("Position"))
+						getCurrentRegion()->getPropertySet()->setPropertyValue("Position", mCoordValue.print(), mTypeName);
+				}
+			}
+		}
+	}
+
+	bool RegionTextureControl::checkCommand()
+	{
+		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
+	}
+
+	int RegionTextureControl::toGrid(int _value)
+	{
+		if (mGridStep < 1)
+			return _value;
+		return _value / mGridStep * mGridStep;
+	}
+
+	void RegionTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left ++;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top ++;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left = toGrid(--mCoordValue.left);
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top = toGrid(--mCoordValue.top);
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.width ++;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height --;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mCoordValue.height ++;
+		updateFromCoordValue();
+
+		_result = true;
+	}
+
+	void RegionTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	{
+		if (_sectorName == "Settings")
+		{
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		}
 	}
 
 } // namespace tools
