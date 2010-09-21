@@ -95,7 +95,7 @@ namespace tools
 
 	void TextureToolControl::onMouseWheel(int _rel)
 	{
-		if (_rel > 0)
+		if (_rel < 0)
 			doPrevScale();
 		else
 			doNextScale();

@@ -128,7 +128,11 @@ namespace tools
 	void TextureControl::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
 	{
 		if (!mMouseCapture)
+		{
+			saveMouseRelative();
 			onMouseWheel(_rel);
+			loadMouseRelative();
+		}
 	}
 
 	void TextureControl::onMouseWheel(int _rel)
@@ -181,6 +185,32 @@ namespace tools
 			MyGUI::IntPoint offset = mViewOffset + mouseOffset;
 			mView->setViewOffset(offset);
 		}
+	}
+
+	void TextureControl::saveMouseRelative()
+	{
+		MyGUI::IntSize canvasSize = mView->getCanvasSize();
+		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
+		MyGUI::IntPoint mouseOffset = mousePoint - mTexture->getAbsolutePosition();
+
+		mMouseRelative.set((float)mouseOffset.left / (float)canvasSize.width, (float)mouseOffset.top / (float)canvasSize.height);
+	}
+
+	void TextureControl::loadMouseRelative()
+	{
+		MyGUI::IntPoint viewOffset = mView->getViewOffset();
+		MyGUI::IntCoord viewCoord = mView->getViewCoord();
+		MyGUI::IntSize canvasSize = mView->getCanvasSize();
+		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
+
+		// смещение мыши относительно вью
+		MyGUI::IntPoint mouseOffset = mousePoint - mView->getAbsolutePosition() - viewCoord.point();
+		// смещение нужной точки внутри текстуры в пикселях
+		MyGUI::IntPoint canvasPointOffset((int)(mMouseRelative.left * (float)canvasSize.width), (int)(mMouseRelative.top * (float)canvasSize.height));
+		// смещение вью в пикселях
+		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
+
+		mView->setViewOffset(MyGUI::IntPoint(-canvasOffset.left, -canvasOffset.top));
 	}
 
 } // namespace tools
