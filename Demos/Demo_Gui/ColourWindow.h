@@ -37,7 +37,6 @@ namespace demo
 		MyGUI::Edit* mLine;
 
 		ColourWindowBox* mBox;
-
 	};
 
 } // namespace demo

@@ -55,11 +55,11 @@ namespace editor
 			MyGUI::GroupImage group;
 			size_t index;
 		};
+
 		typedef std::vector<PairAnim> VectorPairAnim;
 		VectorPairAnim mVectorAnimImages;
 
 		float m_CurrentTime;
-
 	};
 
 } // namespace editor

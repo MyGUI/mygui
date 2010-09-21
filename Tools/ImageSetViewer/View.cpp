@@ -9,7 +9,8 @@
 namespace editor
 {
 
-	View::View() : BaseLayout("View.layout")
+	View::View() :
+		BaseLayout("View.layout")
 	{
 		assignWidget(mImageView, "view_Image");
 		assignWidget(mMultiList, "multi_List");
@@ -121,7 +122,6 @@ namespace editor
 		{
 			addIndex(_image, _group, _group.indexes[pos], _size);
 		}
-
 	}
 
 	void View::addAnimGroup(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage& _group, MyGUI::IntSize& _size)

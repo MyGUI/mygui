@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	EditorWindow::EditorWindow() : BaseLayout("EditorWindow.layout")
+	EditorWindow::EditorWindow() :
+		BaseLayout("EditorWindow.layout")
 	{
 	}
 
@@ -18,5 +19,9 @@ namespace demo
 		MyGUI::WidgetManager::getInstance().destroyWidgets(mMainWidget->getEnumerator());
 	}
 
+	MyGUI::Widget* EditorWindow::getView()
+	{
+		return mMainWidget;
+	}
 
 } // namespace demo

@@ -9,7 +9,8 @@
 namespace demo
 {
 
-	TextureView::TextureView() : BaseLayout("TextureView.layout")
+	TextureView::TextureView() :
+		BaseLayout("TextureView.layout")
 	{
 		assignWidget(mScrollView, "view_Texture");
 		assignWidget(mImageBack, "image_Back");

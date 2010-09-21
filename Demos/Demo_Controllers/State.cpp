@@ -203,4 +203,9 @@ namespace demo
 		return controller;
 	}
 
+	MyGUI::Widget* State::getClient()
+	{
+		return mMainWidget->getClientWidget();
+	}
+
 } // namespace demo

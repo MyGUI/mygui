@@ -26,7 +26,6 @@ namespace editor
 
 	private:
 		View* mView;
-
 	};
 
 } // namespace editor

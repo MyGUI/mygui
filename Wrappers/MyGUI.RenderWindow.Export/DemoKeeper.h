@@ -18,21 +18,17 @@ namespace demo
 		public base::BaseManager
 	{
 	public:
-		DemoKeeper() : mFrameStartDelegate(nullptr) { }
+		DemoKeeper();
 
 		virtual void setupResources();
 		virtual void createScene();
 		virtual void destroyScene();
 
 		void notifyFrameStart(float _time);
-		void setFrameEvent(HandleFrameStart _delegate)
-		{
-			mFrameStartDelegate = _delegate;
-		}
+		void setFrameEvent(HandleFrameStart _delegate);
 
 	private:
 		HandleFrameStart mFrameStartDelegate;
-
 	};
 
 } // namespace demo

@@ -290,4 +290,9 @@ namespace demo
 		else return _colour.alpha;
 	}
 
+	const MyGUI::Colour& ColourPanel::getColour() const
+	{
+		return mCurrentColour;
+	}
+
 } // namespace demo

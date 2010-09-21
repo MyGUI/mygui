@@ -32,24 +32,14 @@ namespace demo
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
 	public:
-		const std::string& getItemName()
-		{
-			return mItemName;
-		}
-		const std::string& getItemDescription()
-		{
-			return mItemDescription;
-		}
-		const std::string& getItemResourceImage()
-		{
-			return mItemResourceImage;
-		}
+		const std::string& getItemName();
+		const std::string& getItemDescription();
+		const std::string& getItemResourceImage();
 
 	private:
 		std::string mItemName;
 		std::string mItemDescription;
 		std::string mItemResourceImage;
-
 	};
 
 } // namespace demo

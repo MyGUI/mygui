@@ -16,14 +16,13 @@ namespace demo
 		public wraps::BaseLayout
 	{
 	public:
-
-		typedef enum
+		enum TypeEvents
 		{
 			EventNew,
 			EventLoad,
 			EventQuit,
 			EventCreate
-		} TypeEvents;
+		};
 
 	public:
 		MainPanel();

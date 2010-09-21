@@ -38,7 +38,6 @@ namespace demo
 		ToolTip* mToolTip;
 		ItemBoxWindow* mItemBoxV;
 		ItemBoxWindow* mItemBoxH;
-
 	};
 
 } // namespace demo
