@@ -46,6 +46,9 @@ namespace tools
 
 		virtual void onMouseWheel(int _rel);
 
+		void saveMouseRelative();
+		void loadMouseRelative();
+
 	private:
 		void notifyChangePosition();
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
@@ -78,6 +81,8 @@ namespace tools
 		MyGUI::IntPoint mRightMouseClick;
 		MyGUI::IntPoint mViewOffset;
 		bool mMouseCapture;
+
+		MyGUI::FloatPoint mMouseRelative;
 	};
 
 } // namespace tools
