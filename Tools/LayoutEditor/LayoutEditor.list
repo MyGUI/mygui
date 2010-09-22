@@ -55,6 +55,9 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
+  MyGUI_RTTLayer.h
+  TextureControl.h
+  SelectorControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -104,6 +107,9 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
+  MyGUI_RTTLayer.cpp
+  TextureControl.cpp
+  SelectorControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
