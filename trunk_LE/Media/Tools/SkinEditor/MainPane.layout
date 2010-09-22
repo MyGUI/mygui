@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="42 66 526 366" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Tab" skin="Tab" position="0 32 526 334" align="Stretch" name="Tab">
+            <Widget type="TabItem" skin="" position="4 26 517 302">
+                <Property key="Caption" value="#{TabSkins}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="SkinControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 517 302">
+                <Property key="Caption" value="#{TabStates}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="StateControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 517 302">
+                <Property key="Caption" value="#{TabSeparators}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="SeparatorControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 517 302">
+                <Property key="Caption" value="#{TabRegions}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 517 302" align="Stretch" name="RegionControl"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 526 26" align="HStretch Top" name="MainMenuControl"/>
+    </Widget>
+</MyGUI>

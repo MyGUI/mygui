@@ -1,0 +1,45 @@
+set (HEADER_FILES
+  ColourWindow.h
+  ColourWindowBox.h
+  ColourWindowCellData.h
+  ColourWindowCellView.h
+  DemoKeeper.h
+  EditorWindow.h
+  InformationWindow.h
+  MainPanel.h
+)
+set (SOURCE_FILES
+  ColourWindow.cpp
+  ColourWindowBox.cpp
+  ColourWindowCellView.cpp
+  DemoKeeper.cpp
+  EditorWindow.cpp
+  InformationWindow.cpp
+  MainPanel.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  ColourWindow.cpp
+  ColourWindowBox.cpp
+  ColourWindowCellView.cpp
+  DemoKeeper.cpp
+  EditorWindow.cpp
+  InformationWindow.cpp
+  MainPanel.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  ColourWindow.h
+  ColourWindowBox.h
+  ColourWindowCellData.h
+  ColourWindowCellView.h
+  DemoKeeper.h
+  EditorWindow.h
+  InformationWindow.h
+  MainPanel.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)

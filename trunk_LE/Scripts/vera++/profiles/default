@@ -1,0 +1,41 @@
+# This file defines the set of scripts (rules) that should be executed
+# by default (if no specific profile is named when vera++ is launched).
+# removed :
+#   L002 Don't use tab characters
+#   L004 Line cannot be too long
+#   T002 Reserved names should not be used for preprocessor macros
+#   T010 Identifiers should not be composed of 'l' and 'O' characters only
+#   T012 Negation operator should not be used in its short form
+#   T013 Source files should contain the copyright notice
+#   T014 Source files should refer the Boost Software License
+#   T016 Calls to min/max should be protected against accidental macro substitution
+#   T019 Control structures should have complete curly-braced block of code
+#
+# modified :
+#   T003 union and enum removed from list of words that require space after it
+#   F002 rule "directory name should not contain the dot" removed
+
+set rules {
+    F001
+    F002
+
+    L001
+    L003
+    L005
+    L006
+
+    T001
+    T003
+    T004
+    T005
+    T006
+    T007
+    T008
+    T009
+    T010
+    T011
+    T015
+    T017
+    T018
+    NoLeadingSpaces
+}

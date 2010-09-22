@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceSkin" name = "VSliderEmpty" size = "15 55" texture = "#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value = "1 -1" />
+		<Property key="MinTrackSize" value = "7" />
+		<Property key="MoveToClick" value = "true" />
+		<Child type="Button" skin="Default" offset = "0 1 15 1" align = "Stretch" name = "FirstPart"/>
+		<Child type="Button" skin="Default" offset = "0 49 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+		<Child type="Button" skin="VScrollTrackSlider" offset = "1 18 15 7" align = "HStretch Top" name = "Track"/>
+	</Resource>
+	
+	<Resource type="ResourceSkin" name="BackgroundTile" size="32 32" texture="BackgroundTile.png">
+		<BasisSkin type="TileRect" offset="0 0 32 32" align="Stretch">
+			<State name="normal" offset="0 0 32 32">
+				<Property key="TileSize" value="32 32"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="StaticImageFilterNone" size="16 16">
+		<BasisSkin type="FilterNone" offset="0 0 16 16"/>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="PositionBorderWhite" size="50 50" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Property key="MainMove" value="true"/>
+		<Child type="Widget" skin="MarkerWhite" offset="0 0 50 1" align="HStretch Top"/>
+		<Child type="Widget" skin="MarkerWhite" offset="0 49 50 1" align="HStretch Bottom"/>
+		<Child type="Widget" skin="MarkerWhite" offset="0 1 1 48" align="Left VStretch"/>
+		<Child type="Widget" skin="MarkerWhite" offset="49 1 1 48" align="Right VStretch"/>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="VerticalBorderWhite" size="9 50" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_horz"/>
+		<BasisSkin type="SubSkin" offset="4 0 1 50" align="Stretch">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="HorizintalBorderWhite" size="50 9" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_vert"/>
+		<BasisSkin type="SubSkin" offset="0 4 50 1" align="Stretch">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="LeftTopBorderWhite" size="6 6" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_left"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Top">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="RightTopBorderWhite" size="6 6" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_right"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Right Top">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="LeftBottomBorderWhite" size="6 6" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_right"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Bottom">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="RightBottomBorderWhite" size="6 6" texture="#{MyGUI_Theme_Texture}">
+		<Property key="Pointer" value="size_left"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Bottom">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="StretchBorderWhite" size="62 62" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Property key="MainMove" value="true"/>
+		<Child type="Button" skin="LeftTopBorderWhite" offset="0 0 6 6" align="Left Top" name="Action">
+			<Property key="Scale" value="1 1 -1 -1"/>
+		</Child>
+		<Child type="Button" skin="RightBottomBorderWhite" offset="56 56 6 6" align="Right Bottom" name="Action">
+			<Property key="Scale" value="0 0 1 1"/>
+		</Child>
+		<Child type="Button" skin="RightTopBorderWhite" offset="56 0 6 6" align="Right Top" name="Action">
+			<Property key="Scale" value="0 1 1 -1"/>
+		</Child>
+		<Child type="Button" skin="LeftBottomBorderWhite" offset="0 56 6 6" align="Left Bottom" name="Action">
+			<Property key="Scale" value="1 0 -1 1"/>
+		</Child>
+		<Child type="Button" skin="VerticalBorderWhite" offset="2 6 9 50" align="Left VStretch" name="Action">
+			<Property key="Scale" value="1 0 -1 0"/>
+		</Child>
+		<Child type="Button" skin="VerticalBorderWhite" offset="51 6 9 50" align="Right VStretch" name="Action">
+			<Property key="Scale" value="0 0 1 0"/>
+		</Child>
+		<Child type="Button" skin="HorizintalBorderWhite" offset="6 2 50 9" align="HStretch Top" name="Action">
+			<Property key="Scale" value="0 1 0 -1"/>
+		</Child>
+		<Child type="Button" skin="HorizintalBorderWhite" offset="6 51 50 9" align="HStretch Bottom" name="Action">
+			<Property key="Scale" value="0 0 0 1"/>
+		</Child>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="HorizontalSeparatorWhite" size="50 9" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Child type="Button" skin="HorizintalBorderWhite" offset="0 0 50 9" align="HStretch Top" name="Action">
+			<Property key="Scale" value="0 1 0 0"/>
+		</Child>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="VerticalSeparatorWhite" size="9 50" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Child type="Widget" skin="VerticalBorderWhite" offset="0 0 9 50" align="Left VStretch" name="Action">
+			<Property key="Scale" value="1 0 0 0"/>
+		</Child >
+	</Resource>
+
+
+</MyGUI>
+

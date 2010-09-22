@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="fileContentType" id="qqq" final="">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="List"/>
+			<xs:enumeration value="Location"/>
+			<xs:enumeration value="Resource"/>
+			<xs:enumeration value="Pointer"/>
+			<xs:enumeration value="Skin"/>
+			<xs:enumeration value="Font"/>
+			<xs:enumeration value="Layer"/>
+			<xs:enumeration value="Language"/>
+			<xs:enumeration value="Lang"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VersionType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-2][0-9]?[0-9]?.[0-2][0-9]?[0-9]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Coords">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\-?[0-9]{1,5}(\s\-?[0-9]{1,5}){3}\s*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Size">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{1,5}\s[0-9]{1,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Point">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\-?[0-9]{1,5}\s\-?[0-9]{1,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BaseRoot">
+		<xs:sequence>
+			<xs:element name="Help" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="version" type="VersionType"/>
+	</xs:complexType>
+	<xs:simpleType name="Guid">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\{?[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}\}?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LocationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FileSystem"/>
+			<xs:enumeration value="Zip"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

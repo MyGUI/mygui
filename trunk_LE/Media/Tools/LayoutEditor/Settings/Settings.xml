@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Settings">
+    <WidgetsWindow>
+        <Property key="widgetsButtonWidth" value="130"/>
+        <Property key="widgetsButtonHeight" value="24"/>
+        <Property key="widgetsButtonsInOneLine" value="2"/>
+    </WidgetsWindow>
+	<Settings>
+		<Property key="Grid" value="5"/>
+		<Property key="ShowName" value="1"/>
+		<Property key="ShowType" value="1"/>
+		<Property key="ShowSkin" value="1"/>
+		<Property key="PropertyItemHeight" value="22"/>
+		<Property key="MaxRecentFolders" value="10"/>
+		<Property key="MaxRecentFiles" value="10"/>
+	</Settings>
+</MyGUI>

@@ -1,0 +1,27 @@
+set (HEADER_FILES
+  DemoKeeper.h
+  MyGUI_RTTLayer.h
+)
+set (SOURCE_FILES
+  DemoKeeper.cpp
+  MyGUI_RTTLayer.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files\\Layer" FILES
+  MyGUI_RTTLayer.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files\\Layer" FILES
+  MyGUI_RTTLayer.h
+)
+SOURCE_GROUP("Header Files" FILES
+  DemoKeeper.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)
