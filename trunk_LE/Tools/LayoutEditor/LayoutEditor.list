@@ -58,6 +58,10 @@ set (HEADER_FILES
   MyGUI_RTTLayer.h
   TextureControl.h
   SelectorControl.h
+  TextureToolControl.h
+  MyGUI_FilterNoneSkin.h
+  ColourManager.cpp
+  ColourPanel.cpp
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -110,6 +114,10 @@ set (SOURCE_FILES
   MyGUI_RTTLayer.cpp
   TextureControl.cpp
   SelectorControl.cpp
+  TextureToolControl.cpp
+  MyGUI_FilterNoneSkin.cpp
+  ColourManager.h
+  ColourPanel.h
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

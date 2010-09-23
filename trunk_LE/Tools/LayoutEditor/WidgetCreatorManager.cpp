@@ -5,7 +5,7 @@
 */
 #include "Precompiled.h"
 #include "WidgetCreatorManager.h"
-#include "WidgetSelectorManager.h"
+/*#include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
@@ -205,9 +205,9 @@ namespace tools
 				parent = nullptr;
 
 			if (parent != nullptr)
-				mNewWidget = parent->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default/*, tmpname*/);
+				mNewWidget = parent->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default);
 			else
-				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER/*, tmpname*/);
+				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER);
 
 			if (mNewWidget->isType<MyGUI::StaticText>())
 				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));
@@ -367,3 +367,4 @@ namespace tools
 	}
 
 } // namespace tools
+*/

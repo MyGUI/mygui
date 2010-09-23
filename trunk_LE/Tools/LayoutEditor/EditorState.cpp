@@ -27,7 +27,7 @@ namespace tools
 		mMessageBoxFadeControl(nullptr),
 		mBackgroundControl(nullptr),
 		mMainPaneControl(nullptr),
-		mSelectionAreaControl(nullptr),
+		//mSelectionAreaControl(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml")
 	{
@@ -70,7 +70,7 @@ namespace tools
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
-		mSelectionAreaControl = new SelectionAreaControl();
+		//mSelectionAreaControl = new SelectionAreaControl();
 
 		updateCaption();
 
@@ -89,8 +89,8 @@ namespace tools
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
-		delete mSelectionAreaControl;
-		mSelectionAreaControl = nullptr;
+		//delete mSelectionAreaControl;
+		//mSelectionAreaControl = nullptr;
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
@@ -277,7 +277,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		WidgetCreatorManager::getInstance().resetCreatorInfo();
+		//WidgetCreatorManager::getInstance().resetCreatorInfo();
 		EditorWidgets::getInstance().clear();
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);

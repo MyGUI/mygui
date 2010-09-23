@@ -69,7 +69,7 @@ namespace tools
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 		BackgroundControl* mBackgroundControl;
 		MainPaneControl* mMainPaneControl;
-		SelectionAreaControl* mSelectionAreaControl;
+		//SelectionAreaControl* mSelectionAreaControl;
 
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;

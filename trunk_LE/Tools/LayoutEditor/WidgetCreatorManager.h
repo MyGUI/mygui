@@ -6,7 +6,7 @@
 #ifndef __WIDGET_CREATOR_MANAGER_H__
 #define __WIDGET_CREATOR_MANAGER_H__
 
-#include <MyGUI.h>
+/*#include <MyGUI.h>
 #include "WidgetContainer.h"
 #include "PositionSelectorControl.h"
 
@@ -72,5 +72,5 @@ namespace tools
 	};
 
 } // namespace tools
-
+*/
 #endif // __WIDGET_CREATOR_MANAGER_H__

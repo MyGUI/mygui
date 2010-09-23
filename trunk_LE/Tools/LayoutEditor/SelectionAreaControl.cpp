@@ -1,6 +1,6 @@
 #include "Precompiled.h"
-#include "Common.h"
 #include "SelectionAreaControl.h"
+/*#include "Common.h"
 #include "PropertiesPanelView.h"
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
@@ -207,15 +207,8 @@ namespace tools
 		if (mGridStep < 1)
 			return _value;
 
-		/*MyGUI::Widget* parent = _widget->getParent();
-		if (parent != nullptr)
-		{
-			if (_horizont)
-				return _value / mGridStep * mGridStep - (parent->getAbsoluteLeft() % mGridStep);
-			return _value / mGridStep * mGridStep - (parent->getAbsoluteTop() % mGridStep);
-		}*/
-
 		return _value / mGridStep * mGridStep;
 	}
 
 } // namespace tools
+*/

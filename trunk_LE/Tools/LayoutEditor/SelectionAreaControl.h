@@ -1,7 +1,7 @@
 #ifndef __SELCTION_AREA_CONTROL_H__
 #define __SELCTION_AREA_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+/*#include "BaseLayout/BaseLayout.h"
 #include "PropertiesPanelView.h"
 
 namespace tools
@@ -37,5 +37,5 @@ namespace tools
 	};
 
 } // namespace tools
-
+*/
 #endif // __SELCTION_AREA_CONTROL_H__

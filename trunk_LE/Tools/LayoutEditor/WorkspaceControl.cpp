@@ -1,27 +1,29 @@
 #include "Precompiled.h"
 #include "WorkspaceControl.h"
-#include "WidgetCreatorManager.h"
+//#include "WidgetCreatorManager.h"
 
 namespace tools
 {
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("WorkspaceControl.layout", _parent)
+		TextureToolControl(_parent)
 	{
-		mMainWidget->eventMouseMove += newDelegate(this, &WorkspaceControl::notifyMouseMouseMove);
-		mMainWidget->eventMouseDrag += newDelegate(this, &WorkspaceControl::notifyMouseMouseDrag);
-		mMainWidget->eventMouseButtonPressed += newDelegate(this, &WorkspaceControl::notifyMouseButtonPressed);
-		mMainWidget->eventMouseButtonReleased += newDelegate(this, &WorkspaceControl::notifyMouseButtonReleased);
+		//mMainWidget->eventMouseMove += newDelegate(this, &WorkspaceControl::notifyMouseMouseMove);
+		//mMainWidget->eventMouseDrag += newDelegate(this, &WorkspaceControl::notifyMouseMouseDrag);
+		//mMainWidget->eventMouseButtonPressed += newDelegate(this, &WorkspaceControl::notifyMouseButtonPressed);
+		//mMainWidget->eventMouseButtonReleased += newDelegate(this, &WorkspaceControl::notifyMouseButtonReleased);
+		setTextureName("TextureLayer_LayoutEditor_Widgets");
+		setTextureRegion(MyGUI::IntCoord(0, 0, 1024, 1024));
 	}
 
 	WorkspaceControl::~WorkspaceControl()
 	{
-		mMainWidget->eventMouseMove -= newDelegate(this, &WorkspaceControl::notifyMouseMouseMove);
-		mMainWidget->eventMouseDrag -= newDelegate(this, &WorkspaceControl::notifyMouseMouseDrag);
-		mMainWidget->eventMouseButtonPressed -= newDelegate(this, &WorkspaceControl::notifyMouseButtonPressed);
-		mMainWidget->eventMouseButtonReleased -= newDelegate(this, &WorkspaceControl::notifyMouseButtonReleased);
+		//mMainWidget->eventMouseMove -= newDelegate(this, &WorkspaceControl::notifyMouseMouseMove);
+		//mMainWidget->eventMouseDrag -= newDelegate(this, &WorkspaceControl::notifyMouseMouseDrag);
+		//mMainWidget->eventMouseButtonPressed -= newDelegate(this, &WorkspaceControl::notifyMouseButtonPressed);
+		//mMainWidget->eventMouseButtonReleased -= newDelegate(this, &WorkspaceControl::notifyMouseButtonReleased);
 	}
 
-	void WorkspaceControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
+	/*void WorkspaceControl::notifyMouseMouseMove(MyGUI::Widget* _sender, int _left, int _top)
 	{
 		WidgetCreatorManager::getInstance().notifyMouseMouseMove(MyGUI::IntPoint(_left, _top));
 	}
@@ -42,6 +44,6 @@ namespace tools
 	{
 		if (_id == MyGUI::MouseButton::Left)
 			WidgetCreatorManager::getInstance().notifyMouseButtonReleased(MyGUI::IntPoint(_left, _top));
-	}
+	}*/
 
 } // namespace tools

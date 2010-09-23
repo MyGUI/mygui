@@ -37,12 +37,12 @@ namespace tools
 
 		initialise();
 
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
+		//WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
 	}
 
 	WidgetsWindow::~WidgetsWindow()
 	{
-		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
+		//WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
 
 		delete mToolTip;
 		mToolTip = nullptr;
@@ -100,10 +100,10 @@ namespace tools
 
 	void WidgetsWindow::notifySelectWidgetType(MyGUI::Widget* _sender)
 	{
-		if (_sender->castType<MyGUI::Button>()->getStateSelected())
+		/*if (_sender->castType<MyGUI::Button>()->getStateSelected())
 			WidgetCreatorManager::getInstance().resetCreatorInfo();
 		else
-			WidgetCreatorManager::getInstance().setCreatorInfo(_sender->getUserString("widget"), _sender->getUserString("skin"));
+			WidgetCreatorManager::getInstance().setCreatorInfo(_sender->getUserString("widget"), _sender->getUserString("skin"));*/
 	}
 
 	void WidgetsWindow::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
@@ -123,7 +123,7 @@ namespace tools
 		}
 	}
 
-	void WidgetsWindow::notifyChangeCreatorMode(bool _modeCreate)
+	/*void WidgetsWindow::notifyChangeCreatorMode(bool _modeCreate)
 	{
 		if (_modeCreate)
 		{
@@ -142,6 +142,6 @@ namespace tools
 				(*item)->castType<MyGUI::Button>()->setStateSelected(false);
 			}
 		}
-	}
+	}*/
 
 } // namespace tools
