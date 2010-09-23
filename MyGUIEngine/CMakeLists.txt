@@ -14,6 +14,14 @@ if (MYGUI_USE_FREETYPE)
 	add_definitions(-DMYGUI_USE_FREETYPE)
 endif ()
 
+# Get Svn revision
+set (file_name ${MYGUI_SOURCE_DIR}/.svn/entries)
+if (EXISTS "${file_name}")
+	file(STRINGS ${file_name} variable)
+	LIST(GET variable 3 revision)
+	add_definitions(-DMYGUI_SVN_REVISION=${revision})
+endif ()
+
 if (MYGUI_DONT_USE_OBSOLETE)
 	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
 endif ()
