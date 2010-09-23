@@ -52,7 +52,7 @@ namespace MyGUI
 
 		//! Add an item to the end of a array
 		void addItem(const UString& _name, Any _data = Any::Null);
-	
+
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 

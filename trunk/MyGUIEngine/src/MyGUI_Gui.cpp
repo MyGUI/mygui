@@ -74,10 +74,18 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
+#ifdef MYGUI_SVN_REVISION
+		MYGUI_LOG(Info, "* MyGUI version "
+			<< MYGUI_VERSION_MAJOR << "."
+			<< MYGUI_VERSION_MINOR << "."
+			<< MYGUI_VERSION_PATCH << "."
+			<< MYGUI_SVN_REVISION);
+#else
 		MYGUI_LOG(Info, "* MyGUI version "
 			<< MYGUI_VERSION_MAJOR << "."
 			<< MYGUI_VERSION_MINOR << "."
 			<< MYGUI_VERSION_PATCH);
+#endif
 
 		// создаем и инициализируем синглтоны
 		mResourceManager = new ResourceManager();
