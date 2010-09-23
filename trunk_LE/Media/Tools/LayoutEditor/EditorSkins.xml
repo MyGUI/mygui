@@ -104,7 +104,21 @@
 			<Property key="Scale" value="0 0 0 1"/>
 		</Child>
 	</Resource>
-	
+
+	<Resource type="ResourceSkin" name="HorizontalSeparatorWhite" size="50 9" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Child type="Button" skin="HorizintalBorderWhite" offset="0 0 50 9" align="HStretch Top" name="Action">
+			<Property key="Scale" value="0 1 0 0"/>
+		</Child>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="VerticalSeparatorWhite" size="9 50" texture="#{MyGUI_Theme_Texture}">
+		<Property key="ToStick" value="false"/>
+		<Child type="Widget" skin="VerticalBorderWhite" offset="0 0 9 50" align="Left VStretch" name="Action">
+			<Property key="Scale" value="1 0 0 0"/>
+		</Child >
+	</Resource>
+
 	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="EditorSelections.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "16 0 1 1"/>
@@ -215,8 +229,8 @@
 	<Resource type="ResourceSkin" name="LE_ItemBoxEmpty" size="16 16" texture="EditorSelections.png" align="Left Top">
 		<Property key="NeedKey" value="true"/>
 
-		<Child type="VScroll" skin="WOT_VScroll" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>
-		<Child type="Widget" skin="WOT_DefaultClient" offset="0 0 0 16" align="Stretch" name="Client"/>
+		<Child type="VScroll" skin="VScroll" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>
+		<Child type="Widget" skin="DefaultClient" offset="0 0 0 16" align="Stretch" name="Client"/>
 
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "32 0 1 1"/>
@@ -249,18 +263,4 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="HorizontalSeparatorWhite" size="50 9" texture="#{MyGUI_Theme_Texture}">
-		<Property key="ToStick" value="false"/>
-		<Child type="Button" skin="HorizintalBorderWhite" offset="0 0 50 9" align="HStretch Top" name="Action">
-			<Property key="Scale" value="0 1 0 0"/>
-		</Child>
-	</Resource>
-
-	<Resource type="ResourceSkin" name="VerticalSeparatorWhite" size="9 50" texture="#{MyGUI_Theme_Texture}">
-		<Property key="ToStick" value="false"/>
-		<Child type="Widget" skin="VerticalBorderWhite" offset="0 0 9 50" align="Left VStretch" name="Action">
-			<Property key="Scale" value="1 0 0 0"/>
-		</Child >
-	</Resource>
-	
 </MyGUI>
