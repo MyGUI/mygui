@@ -269,7 +269,7 @@ namespace MyGUI
 			VectorRenderItem::iterator iter2 = iter1 + 1;
 			while (iter2 != mFirstRenderItems.end())
 			{
-				if ((*iter1)->getNeedVertexCount() == 0)
+				if ((*iter1)->getNeedVertexCount() == 0 && !(*iter1)->getManualRender())
 				{
 					RenderItem* tmp = (*iter1);
 					(*iter1) = (*iter2);
