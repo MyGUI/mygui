@@ -32,23 +32,26 @@ namespace tools
 
 		int toGrid(int _value);
 
-		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
-		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
-		void CommandMoveTop(const MyGUI::UString& _commandName, bool& _result);
-		void CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void Command_MoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void Command_MoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void Command_MoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void Command_MoveBottom(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridMoveLeft(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridMoveRight(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridMoveTop(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
 
-		void CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeRight(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeTop(const MyGUI::UString& _commandName, bool& _result);
-		void CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
-		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+		void Command_SizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void Command_SizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void Command_SizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void Command_SizeBottom(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridSizeLeft(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridSizeRight(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridSizeTop(const MyGUI::UString& _commandName, bool& _result);
+		void Command_GridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void Command_Delete(const MyGUI::UString& _commandName, bool& _result);
+		void Command_NextItem(const MyGUI::UString& _commandName, bool& _result);
 
 		void selectWidget(const MyGUI::IntPoint& _mousePosition);
 		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);

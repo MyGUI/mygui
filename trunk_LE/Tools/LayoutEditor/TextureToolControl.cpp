@@ -19,9 +19,9 @@ namespace tools
 		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
 		setColour(colour);
 
-		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeNextScale));
-		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangePrevScale));
-		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeScale));
+		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangeNextScale));
+		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangePrevScale));
+		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangeScale));
 
 		mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 
@@ -45,7 +45,7 @@ namespace tools
 		}
 	}
 
-	void TextureToolControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::Command_ChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -55,7 +55,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::Command_ChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -65,7 +65,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::Command_ChangeScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkMenuCommand())
 			return;

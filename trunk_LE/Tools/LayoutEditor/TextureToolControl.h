@@ -24,9 +24,9 @@ namespace tools
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
-		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
-		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
-		void CommandChangeScale(const MyGUI::UString& _commandName, bool& _result);
+		void Command_ChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
+		void Command_ChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
+		void Command_ChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 		bool checkCommand();
 		bool checkMenuCommand();

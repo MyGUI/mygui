@@ -32,22 +32,26 @@ namespace tools
 
 		PropertiesPanelView::getInstance().eventChangeCoord += MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 
-		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::CommandMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &WorkspaceControl::CommandMoveRight));
-		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &WorkspaceControl::CommandMoveTop));
-		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::CommandMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::CommandSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &WorkspaceControl::CommandSizeRight));
-		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &WorkspaceControl::CommandSizeTop));
-		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::CommandSizeBottom));
-		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridMoveRight));
-		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridMoveTop));
-		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridSizeRight));
-		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridSizeTop));
-		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::CommandGridSizeBottom));
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveBottom));
+		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeLeft));
+		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeRight));
+		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeTop));
+		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeBottom));
+
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeRight));
+		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeTop));
+		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeBottom));
+
+		CommandManager::getInstance().registerCommand("Command_Delete", MyGUI::newDelegate(this, &WorkspaceControl::Command_Delete));
+		CommandManager::getInstance().registerCommand("Command_NextItem", MyGUI::newDelegate(this, &WorkspaceControl::Command_NextItem));
 	}
 
 	WorkspaceControl::~WorkspaceControl()
@@ -173,7 +177,7 @@ namespace tools
 		updateSelectionFromValue();
 	}
 
-	void WorkspaceControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_MoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -184,7 +188,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_MoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -195,7 +199,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_MoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -206,7 +210,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_MoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -217,7 +221,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -228,7 +232,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -239,7 +243,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridMoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -250,7 +254,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -261,7 +265,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -272,7 +276,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -283,7 +287,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridSizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -294,7 +298,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_GridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -305,7 +309,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_SizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -316,7 +320,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_SizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -327,7 +331,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_SizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -338,7 +342,7 @@ namespace tools
 		_result = true;
 	}
 
-	void WorkspaceControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	void WorkspaceControl::Command_SizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -476,6 +480,46 @@ namespace tools
 	void WorkspaceControl::onMouseMove()
 	{
 		mSelectDepth = 0;
+	}
+
+	void WorkspaceControl::Command_Delete(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		if (mCurrentWidget == nullptr)
+			return;
+
+		EditorWidgets::getInstance().remove(mCurrentWidget);
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+		UndoManager::getInstance().addValue();
+
+		_result = true;
+	}
+
+	void WorkspaceControl::Command_NextItem(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		if (mCurrentWidget == nullptr)
+			return;
+		if (mCurrentWidget->getParent() == nullptr)
+			return;
+		if (!mCurrentWidget->getParent()->isType<MyGUI::Tab>())
+			return;
+
+		MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
+		size_t sheet = tab->getIndexSelected();
+		sheet++;
+		if (sheet >= tab->getItemCount())
+			sheet = 0;
+		if (tab->getItemCount())
+			tab->setIndexSelected(sheet);
+
+		WidgetSelectorManager::getInstance().setSelectedWidget(tab->getItemSelected());
+
+		_result = true;
 	}
 
 } // namespace tools
