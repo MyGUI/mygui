@@ -8,11 +8,13 @@
 
 namespace tools
 {
+
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
 		mGridStep(0),
-		mCurrentWidget(nullptr)
+		mCurrentWidget(nullptr),
+		mSelectDepth(0)
 	{
 		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
@@ -142,6 +144,7 @@ namespace tools
 	void WorkspaceControl::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
+		mSelectDepth = 0;
 
 		if (mCurrentWidget != nullptr)
 		{
@@ -374,6 +377,90 @@ namespace tools
 			else
 				mAreaSelectorControl->setCoord(mCoordValue);
 		}
+	}
+
+	void WorkspaceControl::selectWidget(const MyGUI::IntPoint& _mousePosition)
+	{
+		// здесь кликать вглубь
+		MyGUI::Widget* item = getTopWidget(_mousePosition);
+		if (nullptr != item)
+		{
+			// find widget registered as container
+			while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+				item = item->getParent();
+			MyGUI::Widget* oldItem = item;
+
+			// try to selectin depth
+			size_t depth = mSelectDepth;
+			while (depth && (nullptr != item))
+			{
+				item = item->getParent();
+				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
+					item = item->getParent();
+				depth--;
+			}
+
+			if (nullptr == item)
+			{
+				item = oldItem;
+				mSelectDepth = 0;
+			}
+
+			// found widget
+			if (nullptr != item)
+			{
+				depth =  mSelectDepth;
+				WidgetSelectorManager::getInstance().setSelectedWidget(item);
+				mSelectDepth = depth + 1;
+			}
+			else
+			{
+				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+				//mSelectDepth = 0;
+			}
+		}
+		else
+		{
+			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+			//mSelectDepth = 0;
+		}
+	}
+
+	MyGUI::Widget* WorkspaceControl::getTopWidget(const MyGUI::IntPoint& _point)
+	{
+		MyGUI::Widget* result = nullptr;
+
+		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
+		while (container.next())
+		{
+			if (checkContainer(container.current(), result, _point))
+				break;
+		}
+
+		return result;
+	}
+
+	bool WorkspaceControl::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
+	{
+		if (_container->widget->getAbsoluteCoord().inside(_point))
+		{
+			_result = _container->widget;
+
+			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+			{
+				if (_container->widget->isType<MyGUI::Tab>() && (*item)->widget->isType<MyGUI::TabItem>())
+				{
+					if (_container->widget->castType<MyGUI::Tab>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
+						continue;
+				}
+
+				if (checkContainer(*item, _result, _point))
+					break;
+			}
+
+			return true;
+		}
+		return false;
 	}
 
 } // namespace tools

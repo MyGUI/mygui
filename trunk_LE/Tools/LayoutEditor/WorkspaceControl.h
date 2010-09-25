@@ -8,6 +8,7 @@
 
 namespace tools
 {
+
 	class WorkspaceControl :
 		public TextureToolControl
 	{
@@ -45,11 +46,16 @@ namespace tools
 		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
 
+		void selectWidget(const MyGUI::IntPoint& _mousePosition);
+		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
+		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
 		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
+		size_t mSelectDepth;
 	};
 
 } // namespace tools
