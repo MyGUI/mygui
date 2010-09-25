@@ -34,7 +34,7 @@ namespace MyGUI
 	RenderItem::RenderItem() :
 		mTexture(nullptr),
 		mNeedVertexCount(0),
-		mOutDate(false),
+		mOutOfDate(false),
 		mCountVertex(0),
 		mCurrentUpdate(true),
 		mCurrentVertext(nullptr),
@@ -62,7 +62,7 @@ namespace MyGUI
 
 		mCurrentUpdate = _update;
 
-		if (mOutDate || _update)
+		if (mOutOfDate || _update)
 		{
 			mCountVertex = 0;
 			Vertex* buffer = (Vertex*)mVertexBuffer->lock();
@@ -83,7 +83,7 @@ namespace MyGUI
 
 			mVertexBuffer->unlock();
 
-			mOutDate = false;
+			mOutOfDate = false;
 		}
 
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
@@ -118,7 +118,7 @@ namespace MyGUI
 			{
 				mNeedVertexCount -= (*iter).second;
 				mDrawItems.erase(iter);
-				mOutDate = true;
+				mOutOfDate = true;
 
 				mVertexBuffer->setVertextCount(mNeedVertexCount);
 
@@ -148,7 +148,7 @@ namespace MyGUI
 
 		mDrawItems.push_back(DrawItemInfo(_item, _count));
 		mNeedVertexCount += _count;
-		mOutDate = true;
+		mOutOfDate = true;
 
 		mVertexBuffer->setVertextCount(mNeedVertexCount);
 	}
@@ -165,7 +165,7 @@ namespace MyGUI
 					mNeedVertexCount -= (*iter).second;
 					mNeedVertexCount += _count;
 					(*iter).second = _count;
-					mOutDate = true;
+					mOutOfDate = true;
 
 					mVertexBuffer->setVertextCount(mNeedVertexCount);
 				}
@@ -214,7 +214,12 @@ namespace MyGUI
 
 	void RenderItem::outOfDate()
 	{
-		mOutDate = true;
+		mOutOfDate = true;
+	}
+
+	bool RenderItem::isOutOfDate() const
+	{
+		return mOutOfDate;
 	}
 
 	size_t RenderItem::getNeedVertexCount() const
