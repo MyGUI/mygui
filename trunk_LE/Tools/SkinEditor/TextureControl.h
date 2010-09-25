@@ -40,10 +40,10 @@ namespace tools
 		void setScale(double _value);
 
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		virtual void onMouseMove();
+		virtual void onMouseWheel(int _rel);
 
 		bool getSelectorsCapture();
-
-		virtual void onMouseWheel(int _rel);
 
 		void saveMouseRelative();
 		void loadMouseRelative();
@@ -53,6 +53,7 @@ namespace tools
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseMove(MyGUI::Widget* _sender, int _left, int _top);
 		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
 
 		void updateTexture();
