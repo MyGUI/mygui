@@ -4,6 +4,7 @@
 	@date		12/2009
 */
 
+#include "Precompiled.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RTTLayer.h"
 #include "MyGUI_Enumerator.h"
@@ -16,7 +17,8 @@ namespace MyGUI
 {
 
 	RTTLayer::RTTLayer() :
-		mTexture(nullptr)
+		mTexture(nullptr),
+		mOutOfDate(false)
 	{
 	}
 
@@ -38,25 +40,27 @@ namespace MyGUI
 		{
 			const std::string& key = propert->findAttribute("key");
 			const std::string& value = propert->findAttribute("value");
-			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
-			if (key == "TextureName") setTextureName(value);
+			if (key == "TextureSize")
+				setTextureSize(utility::parseValue<IntSize>(value));
+			if (key == "TextureName")
+				setTextureName(value);
 		}
 	}
 
 	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		bool out_date = false;
+		bool outOfDate = mOutOfDate;
 
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter)->castType<LayerNode>()->isOutOfDate())
 			{
-				out_date = true;
+				outOfDate = true;
 				break;
 			}
 		}
 
-		if (out_date || _update)
+		if (outOfDate || _update)
 		{
 			MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
 			if (target != nullptr)
@@ -70,13 +74,16 @@ namespace MyGUI
 
 				target->end();
 			}
-
 		}
+
+		mOutOfDate = false;
 	}
 
 	void RTTLayer::setTextureSize(const IntSize& _size)
 	{
-		if (mTextureSize == _size) return;
+		if (mTextureSize == _size)
+			return;
+
 		mTextureSize = _size;
 		if (mTexture)
 		{
@@ -88,17 +95,22 @@ namespace MyGUI
 		std::string name = mTextureName.empty() ? MyGUI::utility::toString((size_t)this, getClassTypeName()) : mTextureName;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
 		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+
+		mOutOfDate = true;
 	}
 
 	void RTTLayer::setTextureName(const std::string& _name)
 	{
 		mTextureName = _name;
+
 		if (mTexture != nullptr)
 		{
 			IntSize size = mTextureSize;
 			mTextureSize.clear();
 			setTextureSize(size);
 		}
+
+		mOutOfDate = true;
 	}
 
 } // namespace MyGUI
