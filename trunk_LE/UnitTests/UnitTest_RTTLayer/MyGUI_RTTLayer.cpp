@@ -49,16 +49,7 @@ namespace MyGUI
 
 	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		bool outOfDate = mOutOfDate;
-
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
-			if ((*iter)->castType<LayerNode>()->isOutOfDate())
-			{
-				outOfDate = true;
-				break;
-			}
-		}
+		bool outOfDate = mOutOfDate || isOutOfDate();
 
 		if (outOfDate || _update)
 		{
@@ -68,9 +59,7 @@ namespace MyGUI
 				target->begin();
 
 				for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-				{
 					(*iter)->renderToTarget(target, _update);
-				}
 
 				target->end();
 			}
