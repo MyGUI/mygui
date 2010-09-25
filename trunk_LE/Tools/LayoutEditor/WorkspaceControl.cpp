@@ -397,6 +397,7 @@ namespace tools
 				item = item->getParent();
 				while ((nullptr == EditorWidgets::getInstance().find(item)) && (nullptr != item))
 					item = item->getParent();
+				MYGUI_ASSERT(depth != 0, "depth != 0");
 				depth--;
 			}
 
@@ -463,7 +464,18 @@ namespace tools
 
 	void WorkspaceControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
+		if (mLastClickPoint != _point)
+		{
+			mSelectDepth = 0;
+			mLastClickPoint = _point;
+		}
+
 		selectWidget(_point);
+	}
+
+	void WorkspaceControl::onMouseMove()
+	{
+		mSelectDepth = 0;
 	}
 
 } // namespace tools

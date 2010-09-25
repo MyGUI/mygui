@@ -18,6 +18,7 @@ namespace tools
 
 	protected:
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		virtual void onMouseMove();
 
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
@@ -59,6 +60,7 @@ namespace tools
 		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
 		size_t mSelectDepth;
+		MyGUI::IntPoint mLastClickPoint;
 	};
 
 } // namespace tools

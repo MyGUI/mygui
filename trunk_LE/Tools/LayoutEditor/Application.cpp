@@ -46,7 +46,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
-		setResourceFilename("");
+		setResourceFilename("Editor.xml");
 	}
 
 	void Application::createScene()
@@ -54,7 +54,7 @@ namespace tools
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
-		MyGUI::ResourceManager::getInstance().load("Editor.xml");
+		MyGUI::ResourceManager::getInstance().load("EditorLayer.xml");
 
 		getStatisticInfo()->setVisible(false);
 
