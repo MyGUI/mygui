@@ -39,7 +39,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
-		setResourceFilename("editor.xml");
+		setResourceFilename("Editor.xml");
 	}
 
 	void Application::createScene()
