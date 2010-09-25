@@ -5,9 +5,9 @@
 */
 
 #include "Precompiled.h"
+#include "PropertiesPanelView.h"
 #include "Common.h"
 #include "Localise.h"
-#include "PropertiesPanelView.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"

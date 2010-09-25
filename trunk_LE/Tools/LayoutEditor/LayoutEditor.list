@@ -60,8 +60,9 @@ set (HEADER_FILES
   SelectorControl.h
   TextureToolControl.h
   MyGUI_FilterNoneSkin.h
-  ColourManager.cpp
-  ColourPanel.cpp
+  ColourManager.h
+  ColourPanel.h
+  AreaSelectorControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -116,8 +117,9 @@ set (SOURCE_FILES
   SelectorControl.cpp
   TextureToolControl.cpp
   MyGUI_FilterNoneSkin.cpp
-  ColourManager.h
-  ColourPanel.h
+  ColourManager.cpp
+  ColourPanel.cpp
+  AreaSelectorControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp

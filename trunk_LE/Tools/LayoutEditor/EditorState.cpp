@@ -55,7 +55,6 @@ namespace tools
 		mBackgroundControl = new BackgroundControl();
 		mMainPaneControl = new MainPaneControl();
 
-		// settings window
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
