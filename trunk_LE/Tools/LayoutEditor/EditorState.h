@@ -8,7 +8,6 @@
 #include "MessageBoxFadeControl.h"
 #include "StateController.h"
 #include "MainPaneControl.h"
-#include "SelectionAreaControl.h"
 
 namespace tools
 {
@@ -69,7 +68,6 @@ namespace tools
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 		BackgroundControl* mBackgroundControl;
 		MainPaneControl* mMainPaneControl;
-		//SelectionAreaControl* mSelectionAreaControl;
 
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;

@@ -442,7 +442,7 @@ namespace tools
 		else if (action == "Skin")
 		{
 			widgetContainer->skin = value;
-			if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) || widgetContainer->skin.empty())
+			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
 			{
 				MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
 				ew->clear();
@@ -581,6 +581,11 @@ namespace tools
 	void PropertiesPanelView::setCoord(const MyGUI::IntCoord& _coord)
 	{
 		setPositionText(_coord.print());
+	}
+
+	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)
+	{
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName);
 	}
 
 } // namespace tools
