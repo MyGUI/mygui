@@ -30,7 +30,8 @@ namespace MyGUI
 {
 
 	OverlappedLayer::OverlappedLayer() :
-		mIsPick(false)
+		mIsPick(false),
+		mOutOfDate(false)
 	{
 	}
 
@@ -49,7 +50,8 @@ namespace MyGUI
 			{
 				const std::string& key = propert->findAttribute("key");
 				const std::string& value = propert->findAttribute("value");
-				if (key == "Pick") mIsPick = utility::parseValue<bool>(value);
+				if (key == "Pick")
+					mIsPick = utility::parseValue<bool>(value);
 			}
 		}
 		else
@@ -64,6 +66,8 @@ namespace MyGUI
 		ILayerNode* node = new LayerNode(this);
 		mChildItems.push_back(node);
 
+		mOutOfDate = true;
+
 		return node;
 	}
 
@@ -74,6 +78,9 @@ namespace MyGUI
 		if (parent)
 		{
 			parent->destroyChildItemNode(_item);
+
+			mOutOfDate = true;
+
 			return;
 		}
 
@@ -84,9 +91,13 @@ namespace MyGUI
 			{
 				delete _item;
 				mChildItems.erase(iter);
+
+				mOutOfDate = true;
+
 				return;
 			}
 		}
+
 		MYGUI_EXCEPT("item node not found");
 	}
 
@@ -97,16 +108,24 @@ namespace MyGUI
 		if (parent != nullptr)
 		{
 			parent->upChildItemNode(_item);
+
+			mOutOfDate = true;
+
 			return;
 		}
 
-		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) return;
+		if ((2 > mChildItems.size()) || (mChildItems.back() == _item))
+			return;
+
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
 				mChildItems.erase(iter);
 				mChildItems.push_back(_item);
+
+				mOutOfDate = true;
+
 				return;
 			}
 		}
@@ -116,12 +135,15 @@ namespace MyGUI
 
 	ILayerItem* OverlappedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
-		if (!mIsPick) return nullptr;
+		if (!mIsPick)
+			return nullptr;
+
 		VectorILayerNode::const_reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (item != nullptr) return item;
+			if (item != nullptr)
+				return item;
 			++iter;
 		}
 		return nullptr;
@@ -135,9 +157,9 @@ namespace MyGUI
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
 			(*iter)->renderToTarget(_target, _update);
-		}
+
+		mOutOfDate = false;
 	}
 
 	EnumeratorILayerNode OverlappedLayer::getEnumerator() const
@@ -148,6 +170,17 @@ namespace MyGUI
 	const IntSize& OverlappedLayer::getSize() const
 	{
 		return RenderManager::getInstance().getViewSize();
+	}
+
+	bool OverlappedLayer::isOutOfDate() const
+	{
+		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		{
+			if (static_cast<const LayerNode*>(*iter)->isOutOfDate())
+				return true;
+		}
+
+		return mOutOfDate;
 	}
 
 } // namespace MyGUI

@@ -31,7 +31,8 @@ namespace MyGUI
 
 	SharedLayer::SharedLayer() :
 		mIsPick(false),
-		mChildItem(nullptr)
+		mChildItem(nullptr),
+		mOutOfDate(false)
 	{
 	}
 
@@ -50,7 +51,8 @@ namespace MyGUI
 			{
 				const std::string& key = propert->findAttribute("key");
 				const std::string& value = propert->findAttribute("value");
-				if (key == "Pick") mIsPick = utility::parseValue<bool>(value);
+				if (key == "Pick")
+					mIsPick = utility::parseValue<bool>(value);
 			}
 		}
 		else
@@ -62,11 +64,12 @@ namespace MyGUI
 	ILayerNode* SharedLayer::createChildItemNode()
 	{
 		if (mChildItem == nullptr)
-		{
 			mChildItem = new SharedLayerNode(this);
-		}
 
 		mChildItem->addUsing();
+
+		mOutOfDate = true;
+
 		return mChildItem;
 	}
 
@@ -81,6 +84,9 @@ namespace MyGUI
 				delete mChildItem;
 				mChildItem = nullptr;
 			}
+
+			mOutOfDate = true;
+
 			return;
 		}
 		//MYGUI_EXCEPT("item node not found");
@@ -91,18 +97,21 @@ namespace MyGUI
 		// если есть отец, то пусть сам рулит
 		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
-		{
 			parent->upChildItemNode(_item);
-		}
+
+		mOutOfDate = true;
 	}
 
 	ILayerItem* SharedLayer::getLayerItemByPoint(int _left, int _top) const
 	{
-		if (!mIsPick) return nullptr;
+		if (!mIsPick)
+			return nullptr;
+
 		if (mChildItem != nullptr)
 		{
 			ILayerItem* item = mChildItem->getLayerItemByPoint(_left, _top);
-			if (item != nullptr) return item;
+			if (item != nullptr)
+				return item;
 		}
 		return nullptr;
 	}
@@ -114,7 +123,10 @@ namespace MyGUI
 
 	void SharedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);
+		if (mChildItem != nullptr)
+			mChildItem->renderToTarget(_target, _update);
+
+		mOutOfDate = false;
 	}
 
 	EnumeratorILayerNode SharedLayer::getEnumerator() const
@@ -126,8 +138,10 @@ namespace MyGUI
 		}
 		else
 		{
-			if (nodes.empty()) nodes.push_back(mChildItem);
-			else nodes[0] = mChildItem;
+			if (nodes.empty())
+				nodes.push_back(mChildItem);
+			else
+				nodes[0] = mChildItem;
 		}
 
 		return EnumeratorILayerNode(nodes);
@@ -136,6 +150,14 @@ namespace MyGUI
 	const IntSize& SharedLayer::getSize() const
 	{
 		return RenderManager::getInstance().getViewSize();
+	}
+
+	bool SharedLayer::isOutOfDate() const
+	{
+		if (mChildItem->isOutOfDate())
+			return true;
+
+		return mOutOfDate;
 	}
 
 } // namespace MyGUI
