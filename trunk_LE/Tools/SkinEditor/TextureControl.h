@@ -39,7 +39,6 @@ namespace tools
 
 		void setScale(double _value);
 
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
 		bool getSelectorsCapture();
@@ -83,6 +82,7 @@ namespace tools
 		bool mMouseCapture;
 
 		MyGUI::FloatPoint mMouseRelative;
+		bool mMouseLeftPressed;
 	};
 
 } // namespace tools

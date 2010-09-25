@@ -16,6 +16,9 @@ namespace tools
 		WorkspaceControl(MyGUI::Widget* _parent = nullptr);
 		virtual ~WorkspaceControl();
 
+	protected:
+		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangePosition();

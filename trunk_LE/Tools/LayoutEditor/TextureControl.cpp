@@ -16,13 +16,13 @@ namespace tools
 		mTexture(nullptr),
 		mBackground(nullptr),
 		mScaleValue(1.0),
-		mMouseCapture(false)
+		mMouseCapture(false),
+		mMouseLeftPressed(false)
 	{
 		assignWidget(mView, "View");
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackground, "Background");
 
-		mTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
 		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
@@ -35,7 +35,6 @@ namespace tools
 		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
 		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-		mTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonClick);
 	}
 
 	void TextureControl::updateScale()
@@ -102,14 +101,6 @@ namespace tools
 		updateScale();
 	}
 
-	void TextureControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
-	{
-		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastLeftPressed() - mTexture->getAbsolutePosition();
-		point.left = (int)((double)point.left / mScaleValue);
-		point.top = (int)((double)point.top / mScaleValue);
-		onMouseButtonClick(point);
-	}
-
 	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 	}
@@ -127,6 +118,8 @@ namespace tools
 
 	void TextureControl::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
 	{
+		mMouseLeftPressed = false;
+
 		if (!mMouseCapture)
 		{
 			saveMouseRelative();
@@ -161,6 +154,10 @@ namespace tools
 			MyGUI::PointerManager::getInstance().setPointer("hand");
 			MyGUI::PointerManager::getInstance().eventChangeMousePointer("hand");
 		}
+		else if (_id == MyGUI::MouseButton::Left)
+		{
+			mMouseLeftPressed = true;
+		}
 	}
 
 	void TextureControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
@@ -173,10 +170,25 @@ namespace tools
 			MyGUI::PointerManager::getInstance().setPointer("arrow");
 			MyGUI::PointerManager::getInstance().eventChangeMousePointer("arrow");
 		}
+		else if (_id == MyGUI::MouseButton::Left)
+		{
+			if (!mMouseCapture && mMouseLeftPressed)
+			{
+				mMouseLeftPressed = false;
+
+				MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastLeftPressed() - mTexture->getAbsolutePosition();
+				point.left = (int)((double)point.left / mScaleValue);
+				point.top = (int)((double)point.top / mScaleValue);
+
+				onMouseButtonClick(point);
+			}
+		}
 	}
 
 	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
+		mMouseLeftPressed = false;
+
 		if (_id == MyGUI::MouseButton::Right)
 		{
 			MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();

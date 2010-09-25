@@ -416,13 +416,11 @@ namespace tools
 			else
 			{
 				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-				//mSelectDepth = 0;
 			}
 		}
 		else
 		{
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-			//mSelectDepth = 0;
 		}
 	}
 
@@ -461,6 +459,11 @@ namespace tools
 			return true;
 		}
 		return false;
+	}
+
+	void WorkspaceControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	{
+		selectWidget(_point);
 	}
 
 } // namespace tools
