@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "WorkspaceControl.h"
+#include "SettingsManager.h"
 //#include "WidgetCreatorManager.h"
 
 namespace tools
@@ -11,8 +12,10 @@ namespace tools
 		//mMainWidget->eventMouseDrag += newDelegate(this, &WorkspaceControl::notifyMouseMouseDrag);
 		//mMainWidget->eventMouseButtonPressed += newDelegate(this, &WorkspaceControl::notifyMouseButtonPressed);
 		//mMainWidget->eventMouseButtonReleased += newDelegate(this, &WorkspaceControl::notifyMouseButtonReleased);
-		setTextureName("TextureLayer_LayoutEditor_Widgets");
-		setTextureRegion(MyGUI::IntCoord(0, 0, 1024, 1024));
+		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
+		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
+		setTextureName(sector->getPropertyValue("TextureName"));
+		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height));
 	}
 
 	WorkspaceControl::~WorkspaceControl()

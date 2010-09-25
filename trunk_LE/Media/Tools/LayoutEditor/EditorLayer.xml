@@ -9,9 +9,6 @@
 		<Property key="Pick" value="true"/>
 	</Layer>
 
-	<!--Layer type="OverlappedLayer" name="LayoutEditor_Widgets">
-		<Property key="Pick" value="true"/>
-	</Layer-->
 	<Layer type="RTTLayer" name="LayoutEditor_Widgets">
 		<Property key="Pick" value="false"/>
 		<Property key="TextureSize" value="1024 1024"/>

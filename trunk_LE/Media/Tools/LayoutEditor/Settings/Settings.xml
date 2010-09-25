@@ -25,4 +25,8 @@
 		<Property key="ScaleValue.4" value="800"/>
 		<Property key="ScaleValue.5" value="1600"/>
 	</TextureScale>
+	<Workspace>
+		<Property key="TextureName" value="TextureLayer_LayoutEditor_Widgets"/>
+		<Property key="TextureSize" value="1024 1024"/>
+	</Workspace>
 </MyGUI>
