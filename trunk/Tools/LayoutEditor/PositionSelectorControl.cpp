@@ -10,22 +10,13 @@ namespace tools
 {
 
 	PositionSelectorControl::PositionSelectorControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PositionSelectorControl.layout", _parent)
+		SelectorControl("PositionSelectorControl.layout", _parent)
 	{
+		setPropertyColour("ColourSelector");
 	}
 
 	PositionSelectorControl::~PositionSelectorControl()
 	{
-	}
-
-	void PositionSelectorControl::setVisible(bool _value)
-	{
-		mMainWidget->setVisible(_value);
-	}
-
-	void PositionSelectorControl::setCoord(const MyGUI::IntCoord& _value)
-	{
-		mMainWidget->setCoord(_value);
 	}
 
 } // namespace tools

@@ -48,6 +48,8 @@ namespace tools
 		void hideWidgetsPairs(MyGUI::Widget* _window);
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 
+		bool isSkinExist(const std::string& _skinName);
+
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;

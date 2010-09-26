@@ -30,7 +30,6 @@ set (HEADER_FILES
   BackgroundControl.h
   MainPaneControl.h
   ToolsControl.h
-  SelectionAreaControl.h
   WidgetCreatorManager.h
   RecentFilesManager.h
   BackwardCompatibilityManager.h
@@ -58,6 +57,11 @@ set (HEADER_FILES
   MyGUI_RTTLayer.h
   TextureControl.h
   SelectorControl.h
+  TextureToolControl.h
+  MyGUI_FilterNoneSkin.h
+  ColourManager.h
+  ColourPanel.h
+  AreaSelectorControl.h
 )
 set (SOURCE_FILES
   EditorToolTip.cpp
@@ -81,7 +85,6 @@ set (SOURCE_FILES
   BackgroundControl.cpp
   MainPaneControl.cpp
   ToolsControl.cpp
-  SelectionAreaControl.cpp
   WidgetCreatorManager.cpp
   RecentFilesManager.cpp
   BackwardCompatibilityManager.cpp
@@ -110,6 +113,11 @@ set (SOURCE_FILES
   MyGUI_RTTLayer.cpp
   TextureControl.cpp
   SelectorControl.cpp
+  TextureToolControl.cpp
+  MyGUI_FilterNoneSkin.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  AreaSelectorControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
@@ -133,7 +141,6 @@ SOURCE_GROUP("Source Files" FILES
   BackgroundControl.cpp
   MainPaneControl.cpp
   ToolsControl.cpp
-  SelectionAreaControl.cpp
   WidgetCreatorManager.cpp
   RecentFilesManager.cpp
   BackwardCompatibilityManager.cpp
@@ -177,7 +184,6 @@ SOURCE_GROUP("Header Files" FILES
   BackgroundControl.h
   MainPaneControl.h
   ToolsControl.h
-  SelectionAreaControl.h
   WidgetCreatorManager.h
   RecentFilesManager.h
   BackwardCompatibilityManager.h

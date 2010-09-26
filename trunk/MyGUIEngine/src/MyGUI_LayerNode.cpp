@@ -40,22 +40,15 @@ namespace MyGUI
 	LayerNode::~LayerNode()
 	{
 		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
-		{
 			delete (*iter);
-		}
 		mFirstRenderItems.clear();
 
 		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
-		{
 			delete (*iter);
-		}
 		mSecondRenderItems.clear();
 
-		// удаляем дочерние узлы
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
 			delete (*iter);
-		}
 		mChildItems.clear();
 	}
 
@@ -63,6 +56,9 @@ namespace MyGUI
 	{
 		LayerNode* layer = new LayerNode(mLayer, this);
 		mChildItems.push_back(layer);
+
+		mOutOfDate = true;
+
 		return layer;
 	}
 
@@ -74,6 +70,9 @@ namespace MyGUI
 			{
 				delete _node;
 				mChildItems.erase(iter);
+
+				mOutOfDate = true;
+
 				return;
 			}
 		}
@@ -88,6 +87,9 @@ namespace MyGUI
 			{
 				mChildItems.erase(iter);
 				mChildItems.push_back(_item);
+
+				mOutOfDate = true;
+
 				return;
 			}
 		}
@@ -112,19 +114,14 @@ namespace MyGUI
 
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
-		{
 			(*iter)->renderToTarget(_target, _update);
-		}
+
 		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
-		{
 			(*iter)->renderToTarget(_target, _update);
-		}
 
 		// теперь отрисовываем дочерние узлы
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-		{
 			(*iter)->renderToTarget(_target, _update);
-		}
 
 		mOutOfDate = false;
 	}
@@ -135,13 +132,15 @@ namespace MyGUI
 		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (nullptr != item) return item;
+			if (nullptr != item)
+				return item;
 		}
 
 		for (VectorLayerItem::const_iterator iter = mLayerItems.begin(); iter != mLayerItems.end(); ++iter)
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (nullptr != item) return item;
+			if (nullptr != item)
+				return item;
 		}
 
 		return nullptr;
@@ -159,6 +158,8 @@ namespace MyGUI
 				item->setTexture(_texture);
 				item->setManualRender(_manualRender);
 				mFirstRenderItems.push_back(item);
+
+				mOutOfDate = false;
 
 				return item;
 			}
@@ -179,18 +180,25 @@ namespace MyGUI
 							continue;
 						}
 						else if ((*next)->getTexture() == _texture)
+						{
 							iter = next;
+						}
 					}
 
 					break;
 				}
 
 				(*iter)->setTexture(_texture);
+
+				mOutOfDate = false;
+
 				return (*iter);
 			}
 			// последний буфер с нужной текстурой
 			else if ((*iter)->getTexture() == _texture)
 			{
+				mOutOfDate = false;
+
 				return *iter;
 			}
 
@@ -199,6 +207,8 @@ namespace MyGUI
 			item->setTexture(_texture);
 			item->setManualRender(_manualRender);
 			mFirstRenderItems.push_back(item);
+
+			mOutOfDate = false;
 
 			return item;
 		}
@@ -209,14 +219,18 @@ namespace MyGUI
 			// либо такая же текстура, либо пустой буфер
 			if ((*iter)->getTexture() == _texture)
 			{
+				mOutOfDate = false;
+
 				return (*iter);
 			}
 			else if ((*iter)->getNeedVertexCount() == 0)
 			{
 				(*iter)->setTexture(_texture);
+
+				mOutOfDate = false;
+
 				return (*iter);
 			}
-
 		}
 		// не найденно создадим новый
 		RenderItem* item = new RenderItem();
@@ -224,6 +238,9 @@ namespace MyGUI
 		item->setManualRender(_manualRender);
 
 		mSecondRenderItems.push_back(item);
+
+		mOutOfDate = false;
+
 		return mSecondRenderItems.back();
 	}
 
@@ -231,6 +248,8 @@ namespace MyGUI
 	{
 		mLayerItems.push_back(_item);
 		_item->attachItemToNode(mLayer, this);
+
+		mOutOfDate = true;
 	}
 
 	void LayerNode::detachLayerItem(ILayerItem* _item)
@@ -241,6 +260,9 @@ namespace MyGUI
 			{
 				(*iter) = mLayerItems.back();
 				mLayerItems.pop_back();
+
+				mOutOfDate = true;
+
 				return;
 			}
 		}
@@ -269,7 +291,7 @@ namespace MyGUI
 			VectorRenderItem::iterator iter2 = iter1 + 1;
 			while (iter2 != mFirstRenderItems.end())
 			{
-				if ((*iter1)->getNeedVertexCount() == 0)
+				if ((*iter1)->getNeedVertexCount() == 0 && !(*iter1)->getManualRender())
 				{
 					RenderItem* tmp = (*iter1);
 					(*iter1) = (*iter2);
@@ -279,6 +301,8 @@ namespace MyGUI
 				++iter2;
 			}
 		}
+
+		mOutOfDate = true;
 	}
 
 	ILayer* LayerNode::getLayer() const
@@ -293,6 +317,24 @@ namespace MyGUI
 
 	bool LayerNode::isOutOfDate() const
 	{
+		for (VectorRenderItem::const_iterator item = mFirstRenderItems.begin(); item != mFirstRenderItems.end(); ++item)
+		{
+			if ((*item)->isOutOfDate())
+				return true;
+		}
+
+		for (VectorRenderItem::const_iterator item = mSecondRenderItems.begin(); item != mSecondRenderItems.end(); ++item)
+		{
+			if ((*item)->isOutOfDate())
+				return true;
+		}
+
+		for (VectorILayerNode::const_iterator item = mChildItems.begin(); item != mChildItems.end(); ++item)
+		{
+			if (static_cast<const LayerNode*>(*item)->isOutOfDate())
+				return true;
+		}
+
 		return mOutOfDate;
 	}
 

@@ -308,8 +308,8 @@ namespace tools
 
 		// проверяем скин на присутствие
 		std::string skin = container->skin;
-		bool exist = MyGUI::SkinManager::getInstance().isExist(container->skin);
-		if ( !exist && !container->skin.empty())
+		bool exist = isSkinExist(container->skin);
+		if (!exist && !container->skin.empty())
 		{
 			skin = WidgetTypes::getInstance().findWidgetStyle(container->type)->default_skin;
 
@@ -580,6 +580,11 @@ namespace tools
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Skin"))
 			mSkinReplaces[node->findAttribute("key")] = node->getContent();
+	}
+
+	bool EditorWidgets::isSkinExist(const std::string& _skinName)
+	{
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName);
 	}
 
 } // namespace tools
