@@ -6,7 +6,7 @@
 #ifndef __WIDGET_CREATOR_MANAGER_H__
 #define __WIDGET_CREATOR_MANAGER_H__
 
-/*#include <MyGUI.h>
+#include <MyGUI.h>
 #include "WidgetContainer.h"
 #include "PositionSelectorControl.h"
 
@@ -24,8 +24,8 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void notifyMouseMouseMove(const MyGUI::IntPoint& _point);
-		void notifyMouseMouseDrag(const MyGUI::IntPoint& _point);
+		//void notifyMouseMouseMove(const MyGUI::IntPoint& _point);
+		void notifyMouseDrag(const MyGUI::IntPoint& _point);
 		void notifyMouseButtonPressed(const MyGUI::IntPoint& _point);
 		void notifyMouseButtonReleased(const MyGUI::IntPoint& _point);
 
@@ -39,28 +39,28 @@ namespace tools
 		Event_ChangeCreatorMode eventChangeCreatorMode;
 
 	private:
-		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
+		//void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
-		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
-		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+		//MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
+		//bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
 
-		void createNewWidget();
-		void moveNewWidget();
-		void finishNewWidget();
+		void createNewWidget(const MyGUI::IntPoint& _point);
+		void moveNewWidget(const MyGUI::IntPoint& _point);
+		void finishNewWidget(const MyGUI::IntPoint& _point);
 
 		void resetWidget();
-		void selectWidget();
+		//void selectWidget();
 
 		int toGrid(int _value);
-		MyGUI::IntCoord getCoordNewWidget();
+		MyGUI::IntCoord getCoordNewWidget(const MyGUI::IntPoint& _point);
 
-		MyGUI::IntPoint getMousePosition();
+		//MyGUI::IntPoint getMousePosition();
 
 	private:
-		size_t mSelectDepth;
-		bool mMouseButtonPressed;
-		MyGUI::IntPoint mLastClick;
+		//size_t mSelectDepth;
+		//bool mMouseButtonPressed;
+		//MyGUI::IntPoint mLastClick;
 		bool mCreateMode;
 		std::string mWidgetType;
 		std::string mWidgetSkin;
@@ -72,5 +72,5 @@ namespace tools
 	};
 
 } // namespace tools
-*/
+
 #endif // __WIDGET_CREATOR_MANAGER_H__

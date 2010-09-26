@@ -5,7 +5,7 @@
 */
 #include "Precompiled.h"
 #include "WidgetCreatorManager.h"
-/*#include "WidgetSelectorManager.h"
+#include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
@@ -17,8 +17,8 @@ template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTyp
 namespace tools
 {
 	WidgetCreatorManager::WidgetCreatorManager() :
-		mSelectDepth(0),
-		mMouseButtonPressed(false),
+		//mSelectDepth(0),
+		//mMouseButtonPressed(false),
 		mCreateMode(false),
 		mStartNewWidget(false),
 		mNewWidget(nullptr),
@@ -39,12 +39,12 @@ namespace tools
 		mPositionSelectorControl = new PositionSelectorControl();
 		mPositionSelectorControl->setVisible(false);
 
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
+		//WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
 	}
 
 	void WidgetCreatorManager::shutdown()
 	{
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
+		//WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifySettingsChanged);
 
 		resetWidget();
@@ -53,13 +53,13 @@ namespace tools
 		mPositionSelectorControl = nullptr;
 	}
 
-	void WidgetCreatorManager::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
+	/*void WidgetCreatorManager::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
 	{
 		if (_currentWidget == nullptr)
 			mSelectDepth = 0;
-	}
+	}*/
 
-	void WidgetCreatorManager::notifyMouseMouseMove(const MyGUI::IntPoint& _point)
+	/*void WidgetCreatorManager::notifyMouseMouseMove(const MyGUI::IntPoint& _point)
 	{
 		mMouseButtonPressed = false;
 
@@ -68,39 +68,39 @@ namespace tools
 		{
 			mSelectDepth = 0;
 		}
-	}
+	}*/
 
-	void WidgetCreatorManager::notifyMouseMouseDrag(const MyGUI::IntPoint& _point)
+	void WidgetCreatorManager::notifyMouseDrag(const MyGUI::IntPoint& _point)
 	{
-		mMouseButtonPressed = false;
+		//mMouseButtonPressed = false;
 
 		if (getCreateMode())
-			WidgetCreatorManager::getInstance().moveNewWidget();
+			moveNewWidget(_point);
 	}
 
 	void WidgetCreatorManager::notifyMouseButtonPressed(const MyGUI::IntPoint& _point)
 	{
-		mLastClick = _point;
-		mMouseButtonPressed = true;
+		//mLastClick = _point;
+		//mMouseButtonPressed = true;
 
 		if (getCreateMode())
-			createNewWidget();
+			createNewWidget(_point);
 	}
 
 	void WidgetCreatorManager::notifyMouseButtonReleased(const MyGUI::IntPoint& _point)
 	{
 		if (getCreateMode())
-			finishNewWidget();
+			finishNewWidget(_point);
 
-		if (mMouseButtonPressed)
+		/*if (mMouseButtonPressed)
 		{
 			mMouseButtonPressed = false;
 
-			selectWidget();
-		}
+			WidgetSelectorManager::getInstance().selectWidget();
+		}*/
 	}
 
-	MyGUI::Widget* WidgetCreatorManager::getTopWidget(const MyGUI::IntPoint& _point)
+	/*MyGUI::Widget* WidgetCreatorManager::getTopWidget(const MyGUI::IntPoint& _point)
 	{
 		MyGUI::Widget* result = nullptr;
 
@@ -135,7 +135,7 @@ namespace tools
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	void WidgetCreatorManager::setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin)
 	{
@@ -170,10 +170,10 @@ namespace tools
 		return mWidgetSkin;
 	}
 
-	void WidgetCreatorManager::createNewWidget()
+	void WidgetCreatorManager::createNewWidget(const MyGUI::IntPoint& _point)
 	{
 		mStartNewWidget = true;
-		mStartPoint = getMousePosition();
+		mStartPoint = _point;//getMousePosition();
 		mStartPoint.left += mGridStep / 2;
 		mStartPoint.top += mGridStep / 2;
 
@@ -181,7 +181,7 @@ namespace tools
 		resetWidget();
 	}
 
-	void WidgetCreatorManager::moveNewWidget()
+	void WidgetCreatorManager::moveNewWidget(const MyGUI::IntPoint& _point)
 	{
 		if (mNewWidget == nullptr)
 		{
@@ -190,7 +190,8 @@ namespace tools
 				return;
 
 			// выделяем верний виджет
-			selectWidget();
+			// FIXME
+			//WidgetSelectorManager::getInstance().selectWidget();
 
 			// если будет глючить то вернуть
 			//std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
@@ -225,17 +226,17 @@ namespace tools
 			mPositionSelectorControl->setVisible(true);
 		}
 
-		MyGUI::IntCoord coord = getCoordNewWidget();
+		MyGUI::IntCoord coord = getCoordNewWidget(_point);
 
 		mNewWidget->setCoord(coord);
 		mPositionSelectorControl->setCoord(mNewWidget->getAbsoluteCoord());
 	}
 
-	void WidgetCreatorManager::finishNewWidget()
+	void WidgetCreatorManager::finishNewWidget(const MyGUI::IntPoint& _point)
 	{
 		if (mNewWidget != nullptr)
 		{
-			MyGUI::IntCoord coord = getCoordNewWidget();
+			MyGUI::IntCoord coord = getCoordNewWidget(_point);
 
 			if (coord.width != 0 && coord.height != 0)
 			{
@@ -273,7 +274,7 @@ namespace tools
 		}
 	}
 
-	void WidgetCreatorManager::selectWidget()
+	/*void WidgetCreatorManager::selectWidget()
 	{
 		// здесь кликать вглубь
 		MyGUI::Widget* item = getTopWidget(getMousePosition());
@@ -317,7 +318,7 @@ namespace tools
 			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 			mSelectDepth = 0;
 		}
-	}
+	}*/
 
 	void WidgetCreatorManager::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
@@ -335,9 +336,9 @@ namespace tools
 		return _value / mGridStep * mGridStep;
 	}
 
-	MyGUI::IntCoord WidgetCreatorManager::getCoordNewWidget()
+	MyGUI::IntCoord WidgetCreatorManager::getCoordNewWidget(const MyGUI::IntPoint& _point)
 	{
-		MyGUI::IntPoint point = getMousePosition();
+		MyGUI::IntPoint point = _point;//getMousePosition();
 		point.left += mGridStep / 2;
 		point.top += mGridStep / 2;
 
@@ -360,11 +361,10 @@ namespace tools
 		return coord;
 	}
 
-	MyGUI::IntPoint WidgetCreatorManager::getMousePosition()
+	/*MyGUI::IntPoint WidgetCreatorManager::getMousePosition()
 	{
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
 		return point;
-	}
+	}*/
 
 } // namespace tools
-*/

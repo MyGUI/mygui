@@ -39,9 +39,12 @@ namespace tools
 
 		void setScale(double _value);
 
-		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 		virtual void onMouseMove();
 		virtual void onMouseWheel(int _rel);
+		virtual void onMouseButtonPressed(const MyGUI::IntPoint& _point);
+		virtual void onMouseButtonReleased(const MyGUI::IntPoint& _point);
+		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		virtual void onMouseDrag(const MyGUI::IntPoint& _point);
 
 		bool getSelectorsCapture();
 
@@ -65,6 +68,8 @@ namespace tools
 		void updateColours();
 
 		void registerSelectorControl(SelectorControl* _control);
+
+		MyGUI::IntPoint getMousePosition();
 
 	private:
 		MyGUI::ScrollView* mView;

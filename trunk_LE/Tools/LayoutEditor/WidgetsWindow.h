@@ -21,7 +21,7 @@ namespace tools
 	private:
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
-		//void notifyChangeCreatorMode(bool _modeCreate);
+		void notifyChangeCreatorMode(bool _modeCreate);
 
 		void initialise();
 

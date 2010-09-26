@@ -17,14 +17,18 @@ namespace tools
 		virtual ~WorkspaceControl();
 
 	protected:
-		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 		virtual void onMouseMove();
+		virtual void onMouseButtonPressed(const MyGUI::IntPoint& _point);
+		virtual void onMouseButtonReleased(const MyGUI::IntPoint& _point);
+		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		virtual void onMouseDrag(const MyGUI::IntPoint& _point);
 
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangePosition();
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyPropertyChangeCoord(const MyGUI::IntCoord& _coordValue);
+		void notifyChangeCreatorMode(bool _createMode);
 
 		void updateFromCoordValue();
 		void updateSelectionFromValue();
@@ -53,17 +57,11 @@ namespace tools
 		void Command_Delete(const MyGUI::UString& _commandName, bool& _result);
 		void Command_NextItem(const MyGUI::UString& _commandName, bool& _result);
 
-		void selectWidget(const MyGUI::IntPoint& _mousePosition);
-		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
-		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
-
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
 		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
-		size_t mSelectDepth;
-		MyGUI::IntPoint mLastClickPoint;
 	};
 
 } // namespace tools

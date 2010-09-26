@@ -7,6 +7,7 @@
 #define __WIDGET_SELECTOR_MANAGER_H__
 
 #include <MyGUI.h>
+#include "WidgetContainer.h"
 
 namespace tools
 {
@@ -27,8 +28,17 @@ namespace tools
 
 		Event_ChangeSelectedWidget eventChangeSelectedWidget;
 
+		void selectWidget(const MyGUI::IntPoint& _mousePosition);
+		void resetDepth();
+
+	private:
+		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
+		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+
 	private:
 		MyGUI::Widget* mCurrentWidget;
+		size_t mSelectDepth;
+		MyGUI::IntPoint mLastClickPoint;
 	};
 
 } // namespace tools

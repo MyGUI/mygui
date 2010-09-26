@@ -103,15 +103,27 @@ namespace tools
 		updateScale();
 	}
 
-	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
-	{
-	}
-
 	void TextureControl::onMouseMove()
 	{
 	}
 
 	void TextureControl::onMouseWheel(int _rel)
+	{
+	}
+
+	void TextureControl::onMouseButtonPressed(const MyGUI::IntPoint& _point)
+	{
+	}
+
+	void TextureControl::onMouseButtonReleased(const MyGUI::IntPoint& _point)
+	{
+	}
+
+	void TextureControl::onMouseDrag(const MyGUI::IntPoint& _point)
+	{
+	}
+
+	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 	}
 
@@ -164,6 +176,7 @@ namespace tools
 		else if (_id == MyGUI::MouseButton::Left)
 		{
 			mMouseLeftPressed = true;
+			onMouseButtonPressed(getMousePosition());
 		}
 	}
 
@@ -182,13 +195,9 @@ namespace tools
 			if (!mMouseCapture && mMouseLeftPressed)
 			{
 				mMouseLeftPressed = false;
-
-				MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastLeftPressed() - mTexture->getAbsolutePosition();
-				point.left = (int)((double)point.left / mScaleValue);
-				point.top = (int)((double)point.top / mScaleValue);
-
-				onMouseButtonClick(point);
+				onMouseButtonClick(getMousePosition());
 			}
+			onMouseButtonReleased(getMousePosition());
 		}
 	}
 
@@ -203,6 +212,10 @@ namespace tools
 
 			MyGUI::IntPoint offset = mViewOffset + mouseOffset;
 			mView->setViewOffset(offset);
+		}
+		else if (_id == MyGUI::MouseButton::Left)
+		{
+			onMouseDrag(getMousePosition());
 		}
 	}
 
@@ -237,6 +250,15 @@ namespace tools
 		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
 
 		mView->setViewOffset(MyGUI::IntPoint(-canvasOffset.left, -canvasOffset.top));
+	}
+
+	MyGUI::IntPoint TextureControl::getMousePosition()
+	{
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition() - mTexture->getAbsolutePosition();
+		point.left = (int)((double)point.left / mScaleValue);
+		point.top = (int)((double)point.top / mScaleValue);
+
+		return point;
 	}
 
 } // namespace tools
