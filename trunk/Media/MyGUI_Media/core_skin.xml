@@ -720,7 +720,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "ComboBox" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="HeightList" value = "250" />
+		<Property key="MaxListLength" value = "250" />
 		<Property key="SmoothShow" value = "true" />
 
 		<Child type="StaticText" skin="EditClient" offset = "2 1 5 22" align = "Stretch" name = "Client"/>
