@@ -35,6 +35,7 @@ namespace tools
 		bool checkCommand();
 
 		int toGrid(int _value);
+		void updateSelectorEnabled();
 
 		void Command_MoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void Command_MoveRight(const MyGUI::UString& _commandName, bool& _result);
@@ -62,6 +63,7 @@ namespace tools
 		MyGUI::IntCoord mCoordValue;
 		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
+		bool mMoveableWidget;
 	};
 
 } // namespace tools

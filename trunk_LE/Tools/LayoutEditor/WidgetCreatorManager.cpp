@@ -70,36 +70,6 @@ namespace tools
 		}
 	}*/
 
-	void WidgetCreatorManager::notifyMouseDrag(const MyGUI::IntPoint& _point)
-	{
-		//mMouseButtonPressed = false;
-
-		if (getCreateMode())
-			moveNewWidget(_point);
-	}
-
-	void WidgetCreatorManager::notifyMouseButtonPressed(const MyGUI::IntPoint& _point)
-	{
-		//mLastClick = _point;
-		//mMouseButtonPressed = true;
-
-		if (getCreateMode())
-			createNewWidget(_point);
-	}
-
-	void WidgetCreatorManager::notifyMouseButtonReleased(const MyGUI::IntPoint& _point)
-	{
-		if (getCreateMode())
-			finishNewWidget(_point);
-
-		/*if (mMouseButtonPressed)
-		{
-			mMouseButtonPressed = false;
-
-			WidgetSelectorManager::getInstance().selectWidget();
-		}*/
-	}
-
 	/*MyGUI::Widget* WidgetCreatorManager::getTopWidget(const MyGUI::IntPoint& _point)
 	{
 		MyGUI::Widget* result = nullptr;

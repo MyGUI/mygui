@@ -24,10 +24,9 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		//void notifyMouseMouseMove(const MyGUI::IntPoint& _point);
-		void notifyMouseDrag(const MyGUI::IntPoint& _point);
-		void notifyMouseButtonPressed(const MyGUI::IntPoint& _point);
-		void notifyMouseButtonReleased(const MyGUI::IntPoint& _point);
+		void createNewWidget(const MyGUI::IntPoint& _point);
+		void moveNewWidget(const MyGUI::IntPoint& _point);
+		void finishNewWidget(const MyGUI::IntPoint& _point);
 
 		void setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin);
 		void resetCreatorInfo();
@@ -44,10 +43,6 @@ namespace tools
 
 		//MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
 		//bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
-
-		void createNewWidget(const MyGUI::IntPoint& _point);
-		void moveNewWidget(const MyGUI::IntPoint& _point);
-		void finishNewWidget(const MyGUI::IntPoint& _point);
 
 		void resetWidget();
 		//void selectWidget();

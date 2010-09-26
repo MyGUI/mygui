@@ -14,7 +14,8 @@ namespace tools
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
 		mGridStep(0),
-		mCurrentWidget(nullptr)
+		mCurrentWidget(nullptr),
+		mMoveableWidget(false)
 	{
 		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
@@ -76,11 +77,9 @@ namespace tools
 	void WorkspaceControl::notifyChangePosition()
 	{
 		MyGUI::IntCoord coord = mAreaSelectorControl->getCoord();
-		/*if (WidgetCreatorManager::getInstance().getCreateMode())
-		{
-			//mAreaSelectorControl->setCoord();
+
+		if (!mMoveableWidget)
 			return;
-		}*/
 
 		mCoordValue = coord;
 
@@ -162,6 +161,10 @@ namespace tools
 			mAreaSelectorControl->setVisible(true);
 			mCoordValue = mCurrentWidget->getCoord();
 
+			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
+			mMoveableWidget = widgetType->resizeable;
+
+			updateSelectorEnabled();
 			updateSelectionFromValue();
 		}
 		else
@@ -189,6 +192,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.left --;
 		updateFromCoordValue();
 
@@ -198,6 +204,9 @@ namespace tools
 	void WorkspaceControl::Command_MoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.left ++;
@@ -211,6 +220,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.top --;
 		updateFromCoordValue();
 
@@ -220,6 +232,9 @@ namespace tools
 	void WorkspaceControl::Command_MoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.top ++;
@@ -233,6 +248,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.left = toGrid(--mCoordValue.left);
 		updateFromCoordValue();
 
@@ -242,6 +260,9 @@ namespace tools
 	void WorkspaceControl::Command_GridMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
@@ -255,6 +276,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.top = toGrid(--mCoordValue.top);
 		updateFromCoordValue();
 
@@ -264,6 +288,9 @@ namespace tools
 	void WorkspaceControl::Command_GridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
@@ -277,6 +304,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
 		updateFromCoordValue();
 
@@ -286,6 +316,9 @@ namespace tools
 	void WorkspaceControl::Command_GridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
@@ -299,6 +332,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
 		updateFromCoordValue();
 
@@ -308,6 +344,9 @@ namespace tools
 	void WorkspaceControl::Command_GridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
@@ -321,6 +360,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.width --;
 		updateFromCoordValue();
 
@@ -330,6 +372,9 @@ namespace tools
 	void WorkspaceControl::Command_SizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.width ++;
@@ -343,6 +388,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (!mMoveableWidget)
+			return;
+
 		mCoordValue.height --;
 		updateFromCoordValue();
 
@@ -352,6 +400,9 @@ namespace tools
 	void WorkspaceControl::Command_SizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (!mMoveableWidget)
 			return;
 
 		mCoordValue.height ++;
@@ -427,7 +478,7 @@ namespace tools
 		if (!mCurrentWidget->getParent()->isType<MyGUI::Tab>())
 			return;
 
-		MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
+		MyGUI::Tab* tab = mCurrentWidget->getParent()->castType<MyGUI::Tab>();
 		size_t sheet = tab->getIndexSelected();
 		sheet++;
 		if (sheet >= tab->getItemCount())
@@ -442,25 +493,30 @@ namespace tools
 
 	void WorkspaceControl::notifyChangeCreatorMode(bool _createMode)
 	{
-		mAreaSelectorControl->setEnabled(!_createMode);
+		updateSelectorEnabled();
 	}
 
 	void WorkspaceControl::onMouseButtonPressed(const MyGUI::IntPoint& _point)
 	{
 		if (WidgetCreatorManager::getInstance().getCreateMode())
-			WidgetCreatorManager::getInstance().notifyMouseButtonPressed(_point);
+			WidgetCreatorManager::getInstance().createNewWidget(_point);
 	}
 
 	void WorkspaceControl::onMouseButtonReleased(const MyGUI::IntPoint& _point)
 	{
 		if (WidgetCreatorManager::getInstance().getCreateMode())
-			WidgetCreatorManager::getInstance().notifyMouseButtonReleased(_point);
+			WidgetCreatorManager::getInstance().finishNewWidget(_point);
 	}
 
 	void WorkspaceControl::onMouseDrag(const MyGUI::IntPoint& _point)
 	{
 		if (WidgetCreatorManager::getInstance().getCreateMode())
-			WidgetCreatorManager::getInstance().notifyMouseDrag(_point);
+			WidgetCreatorManager::getInstance().moveNewWidget(_point);
+	}
+
+	void WorkspaceControl::updateSelectorEnabled()
+	{
+		mAreaSelectorControl->setEnabled(!WidgetCreatorManager::getInstance().getCreateMode() && mMoveableWidget);
 	}
 
 } // namespace tools
