@@ -8,11 +8,12 @@
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
-#include "PositionSelectorControl.h"
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_ChangeCreatorMode;
+	typedef MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&> Event_ChangeSelector;
 
 	class WidgetCreatorManager :
 		public MyGUI::Singleton<WidgetCreatorManager>
@@ -36,26 +37,17 @@ namespace tools
 		const std::string& getWidgetSkin();
 
 		Event_ChangeCreatorMode eventChangeCreatorMode;
+		Event_ChangeSelector eventChangeSelector;
 
 	private:
-		//void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
-		//MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
-		//bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
-
 		void resetWidget();
-		//void selectWidget();
 
 		int toGrid(int _value);
 		MyGUI::IntCoord getCoordNewWidget(const MyGUI::IntPoint& _point);
 
-		//MyGUI::IntPoint getMousePosition();
-
 	private:
-		//size_t mSelectDepth;
-		//bool mMouseButtonPressed;
-		//MyGUI::IntPoint mLastClick;
 		bool mCreateMode;
 		std::string mWidgetType;
 		std::string mWidgetSkin;
@@ -63,7 +55,6 @@ namespace tools
 		MyGUI::IntPoint mStartPoint;
 		MyGUI::Widget* mNewWidget;
 		int mGridStep;
-		PositionSelectorControl* mPositionSelectorControl;
 	};
 
 } // namespace tools

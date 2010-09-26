@@ -15,7 +15,8 @@ namespace tools
 		mAreaSelectorControl(nullptr),
 		mGridStep(0),
 		mCurrentWidget(nullptr),
-		mMoveableWidget(false)
+		mMoveableWidget(false),
+		mPositionSelectorCreatorControl(nullptr)
 	{
 		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
@@ -24,6 +25,10 @@ namespace tools
 
 		addSelectorControl(mAreaSelectorControl);
 		mAreaSelectorControl->eventChangePosition += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
+
+		addSelectorControl(mPositionSelectorCreatorControl);
+		mPositionSelectorCreatorControl->setEnabled(false);
+		mPositionSelectorCreatorControl->setVisible(false);
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &WorkspaceControl::notifySettingsChanged);
@@ -55,10 +60,12 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_NextItem", MyGUI::newDelegate(this, &WorkspaceControl::Command_NextItem));
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
+		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 	}
 
 	WorkspaceControl::~WorkspaceControl()
 	{
+		WidgetCreatorManager::getInstance().eventChangeSelector -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		PropertiesPanelView::getInstance().eventChangeCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
@@ -525,6 +532,19 @@ namespace tools
 	void WorkspaceControl::updateSelectorEnabled()
 	{
 		mAreaSelectorControl->setEnabled(!WidgetCreatorManager::getInstance().getCreateMode() && mMoveableWidget);
+	}
+
+	void WorkspaceControl::notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord)
+	{
+		if (_visible)
+		{
+			mPositionSelectorCreatorControl->setVisible(true);
+			mPositionSelectorCreatorControl->setCoord(_coord);
+		}
+		else
+		{
+			mPositionSelectorCreatorControl->setVisible(false);
+		}
 	}
 
 } // namespace tools

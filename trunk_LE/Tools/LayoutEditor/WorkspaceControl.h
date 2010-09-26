@@ -5,6 +5,7 @@
 #include "PropertiesPanelView.h"
 #include "WidgetsWindow.h"
 #include "AreaSelectorControl.h"
+#include "PositionSelectorControl.h"
 
 namespace tools
 {
@@ -29,6 +30,7 @@ namespace tools
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyPropertyChangeCoord(const MyGUI::IntCoord& _coordValue);
 		void notifyChangeCreatorMode(bool _createMode);
+		void notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord);
 
 		void updateFromCoordValue();
 		void updateSelectionFromValue();
@@ -64,6 +66,7 @@ namespace tools
 		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
 		bool mMoveableWidget;
+		PositionSelectorControl* mPositionSelectorCreatorControl;
 	};
 
 } // namespace tools
