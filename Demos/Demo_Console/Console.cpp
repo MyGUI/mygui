@@ -143,6 +143,25 @@ namespace demo
 		mDelegates[_command] = _delegate;
 	}
 
+	void Console::unregisterConsoleDelegate(const MyGUI::UString& _command)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_command);
+		if (iter != mDelegates.end())
+		{
+			mDelegates.erase(iter);
+			for (int i = 0; i < mComboCommand->getItemCount(); ++i)
+			{
+				if (mComboCommand->getItemNameAt(i) == _command)
+				{
+					mComboCommand->removeItemAt(i);
+					break;
+				}
+			}
+		}
+		else
+			MYGUI_LOG(Warning, "console - command '" << _command << "' doesn't exist");
+	}
+
 	void Console::internalCommand(MyGUI::Widget* _sender, const MyGUI::UString& _key, const MyGUI::UString& _value)
 	{
 		if (_key == "clear")

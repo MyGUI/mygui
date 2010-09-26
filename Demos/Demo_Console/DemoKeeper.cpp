@@ -46,6 +46,11 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
+		mConsole->unregisterConsoleDelegate("colour");
+		mConsole->unregisterConsoleDelegate("show");
+		mConsole->unregisterConsoleDelegate("alpha");
+		mConsole->unregisterConsoleDelegate("coord");
+
 		delete mConsole;
 		mConsole = nullptr;
 	}
