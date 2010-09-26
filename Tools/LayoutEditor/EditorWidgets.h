@@ -64,6 +64,8 @@ namespace tools
 		void destroyAllSectors();
 		void destroyAllWidgets();
 
+		bool isSkinExist(const std::string& _skinName);
+
 	private:
 		//int mGlobalCounter;
 		bool mWidgetsChanged;

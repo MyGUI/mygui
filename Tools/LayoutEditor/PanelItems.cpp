@@ -125,7 +125,10 @@ namespace tools
 	{
 		std::string action;
 		// FIXME/2 как-то громоздко и не настраиваемо...
-		if (mCurrentWidget->getTypeName() == "Tab") action = "Tab_AddSheet";
+		if (mCurrentWidget->isType<MyGUI::Tab>())
+		{
+			action = "Tab_AddSheet";
+		}
 		else
 		{
 			// for example "ComboBox_AddItem", "List_AddItem", etc...
@@ -175,8 +178,8 @@ namespace tools
 							if (iterProperty->second == _value)
 							{
 								widgetContainer->mProperty.erase(iterProperty);
-								if (mCurrentWidget->getTypeName() == "ComboBox") mCurrentWidget->castType<MyGUI::ComboBox>()->removeItemAt(index);
-								else if (mCurrentWidget->getTypeName() == "List") mCurrentWidget->castType<MyGUI::List>()->removeItemAt(index);
+								if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->removeItemAt(index);
+								else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->removeItemAt(index);
 								//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->removeItemAt(index);
 								//else if (mCurrentWidget->getTypeName() == "Message") ->castType<MyGUI::Message>(mCurrentWidget)->deleteItem(index);
 								return;
@@ -273,7 +276,7 @@ namespace tools
 		std::string lastitem = mList->getItemNameAt(item);
 		mList->setItemNameAt(item, value);
 
-		if (mCurrentWidget->getTypeName() == "Tab")
+		if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
 			action = "Caption";
 			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
@@ -305,8 +308,8 @@ namespace tools
 				if (iterProperty->second == lastitem)
 				{
 					iterProperty->second = value;
-					if (mCurrentWidget->getTypeName() == "ComboBox") mCurrentWidget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
-					else if (mCurrentWidget->getTypeName() == "List") mCurrentWidget->castType<MyGUI::List>()->setItemNameAt(index, value);
+					if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
+					else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->setItemNameAt(index, value);
 					//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
 					return;
 				}

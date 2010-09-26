@@ -61,9 +61,12 @@ namespace MyGUI
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
+		bool isOutOfDate() const;
+
 	protected:
 		bool mIsPick;
 		VectorILayerNode mChildItems;
+		bool mOutOfDate;
 	};
 
 } // namespace MyGUI

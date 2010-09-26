@@ -18,6 +18,9 @@
 #include "WidgetCreatorManager.h"
 #include "RecentFilesManager.h"
 #include "BackwardCompatibilityManager.h"
+#include "MyGUI_FilterNoneSkin.h"
+#include "MyGUI_RTTLayer.h"
+#include "ColourManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -43,11 +46,16 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
-		setResourceFilename("editor.xml");
+		setResourceFilename("Editor.xml");
 	}
 
 	void Application::createScene()
 	{
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+
+		MyGUI::ResourceManager::getInstance().load("EditorLayer.xml");
+
 		getStatisticInfo()->setVisible(false);
 
 		// set locale language if it was taken from OS
@@ -98,6 +106,9 @@ namespace tools
 		new BackwardCompatibilityManager();
 		BackwardCompatibilityManager::getInstance().initialise();
 
+		new ColourManager();
+		ColourManager::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -137,6 +148,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+
+		ColourManager::getInstance().shutdown();
+		delete ColourManager::getInstancePtr();
 
 		BackwardCompatibilityManager::getInstance().shutdown();
 		delete BackwardCompatibilityManager::getInstancePtr();
@@ -179,6 +193,9 @@ namespace tools
 
 		SettingsManager::getInstance().shutdown();
 		delete SettingsManager::getInstancePtr();
+
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
 	}
 
 	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)

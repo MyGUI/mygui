@@ -12,6 +12,13 @@
 	<Tag name="RecentFiles">Предыдущие файлы </Tag>
 	<Tag name="Quit">Выход</Tag>
 
+	<Tag name="MenuColours">Цвета</Tag>
+	<Tag name="MenuColourBackground">Цвет фона ...</Tag>
+	<Tag name="MenuColourSelector">Цвет рамки ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Цвет неактивной рамки ...</Tag>
+
+	<Tag name="MenuScale">Масштаб</Tag>
+
 	<Tag name="Properties">Свойства</Tag>
 	<Tag name="Main_properties">Основные свойства</Tag>
 	<Tag name="Widget_type_propertes">Свойства #{widget_type}</Tag>
@@ -87,5 +94,12 @@
 	<Tag name="ColourGreen">Зеленый</Tag>
 	<Tag name="ColourBlue">Синий</Tag>
 	<Tag name="ColourAlpha">Альфа</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
 	
 </MyGUI>

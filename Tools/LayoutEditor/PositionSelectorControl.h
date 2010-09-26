@@ -6,20 +6,17 @@
 #ifndef __POSITION_SELECTOR_CONTROL_H__
 #define __POSITION_SELECTOR_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#include "SelectorControl.h"
 
 namespace tools
 {
 
 	class PositionSelectorControl :
-		public wraps::BaseLayout
+		public SelectorControl
 	{
 	public:
-		PositionSelectorControl(MyGUI::Widget* _parent = nullptr);
+		PositionSelectorControl(MyGUI::Widget* _parent);
 		virtual ~PositionSelectorControl();
-
-		void setVisible(bool _value);
-		void setCoord(const MyGUI::IntCoord& _value);
 	};
 
 } // namespace tools

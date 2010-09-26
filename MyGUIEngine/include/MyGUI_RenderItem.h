@@ -53,6 +53,7 @@ namespace MyGUI
 		void reallockDrawItem(ISubWidget* _item, size_t _count);
 
 		void outOfDate();
+		bool isOutOfDate() const;
 
 		size_t getNeedVertexCount() const;
 		size_t getVertexCount() const;
@@ -75,7 +76,7 @@ namespace MyGUI
 
 		size_t mNeedVertexCount;
 
-		bool mOutDate;
+		bool mOutOfDate;
 		VectorDrawItem mDrawItems;
 
 		// колличество отрендренных реально вершин
