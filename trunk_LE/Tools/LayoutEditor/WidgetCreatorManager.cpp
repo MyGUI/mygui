@@ -191,7 +191,7 @@ namespace tools
 
 			// выделяем верний виджет
 			// FIXME
-			//WidgetSelectorManager::getInstance().selectWidget();
+			WidgetSelectorManager::getInstance().selectWidget(mStartPoint);
 
 			// если будет глючить то вернуть
 			//std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", mWidgetType, EditorWidgets::getInstance().getNextGlobalCounter());
