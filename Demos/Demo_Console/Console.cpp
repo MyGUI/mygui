@@ -149,7 +149,7 @@ namespace demo
 		if (iter != mDelegates.end())
 		{
 			mDelegates.erase(iter);
-			for (int i = 0; i < mComboCommand->getItemCount(); ++i)
+			for (size_t i = 0; i < mComboCommand->getItemCount(); ++i)
 			{
 				if (mComboCommand->getItemNameAt(i) == _command)
 				{
