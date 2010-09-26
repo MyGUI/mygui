@@ -19,6 +19,10 @@
 
 	<Tag name="MenuScale">Масштаб</Tag>
 
+	<Tag name="MenuEdit">Редактирование</Tag>
+	<Tag name="MenuUndo">Отменить</Tag>
+	<Tag name="MenuRedo">Повторить</Tag>
+
 	<Tag name="Properties">Свойства</Tag>
 	<Tag name="Main_properties">Основные свойства</Tag>
 	<Tag name="Widget_type_propertes">Свойства #{widget_type}</Tag>

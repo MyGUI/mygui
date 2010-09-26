@@ -205,6 +205,8 @@ namespace tools
 		mCoordValue.left --;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -218,6 +220,8 @@ namespace tools
 
 		mCoordValue.left ++;
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -233,6 +237,8 @@ namespace tools
 		mCoordValue.top --;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -246,6 +252,8 @@ namespace tools
 
 		mCoordValue.top ++;
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -261,6 +269,8 @@ namespace tools
 		mCoordValue.left = toGrid(--mCoordValue.left);
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -274,6 +284,8 @@ namespace tools
 
 		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -289,6 +301,8 @@ namespace tools
 		mCoordValue.top = toGrid(--mCoordValue.top);
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -302,6 +316,8 @@ namespace tools
 
 		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -317,6 +333,8 @@ namespace tools
 		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -330,6 +348,8 @@ namespace tools
 
 		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -345,6 +365,8 @@ namespace tools
 		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -358,6 +380,8 @@ namespace tools
 
 		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -373,6 +397,8 @@ namespace tools
 		mCoordValue.width --;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -386,6 +412,8 @@ namespace tools
 
 		mCoordValue.width ++;
 		updateFromCoordValue();
+
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
 
 		_result = true;
 	}
@@ -401,6 +429,8 @@ namespace tools
 		mCoordValue.height --;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -415,6 +445,8 @@ namespace tools
 		mCoordValue.height ++;
 		updateFromCoordValue();
 
+		UndoManager::getInstance().addValue(PR_KEY_POSITION);
+
 		_result = true;
 	}
 
@@ -426,8 +458,6 @@ namespace tools
 			mCurrentWidget->setCoord(mCoordValue);
 
 		updateSelectionFromValue();
-
-		UndoManager::getInstance().addValue(PR_POSITION);
 	}
 
 	bool WorkspaceControl::checkCommand()
