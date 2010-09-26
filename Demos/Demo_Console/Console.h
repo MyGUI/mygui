@@ -59,6 +59,9 @@ namespace demo
 		*/
 		void registerConsoleDelegate(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate);
 
+		/** Remove command. */
+		void unregisterConsoleDelegate(const MyGUI::UString& _command);
+
 		/** Event : Unknown command.\n
 			signature : void method(const MyGUI::UString & _key, const MyGUI::UString & _value)
 		*/
