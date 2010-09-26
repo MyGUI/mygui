@@ -26,6 +26,7 @@ namespace tools
 		mPosition = 0;
 		mLastProperty = PR_DEFAULT;
 		mEditorWidgets = _ew;
+		UndoManager::getInstance().addValue();
 		setUnsaved(false);
 	}
 
@@ -40,9 +41,10 @@ namespace tools
 
 	void UndoManager::undo()
 	{
+		if (mPosition == mOperations.GetSize() - 1) return;
+
 		setUnsaved(true);
 
-		if (mPosition == mOperations.GetSize() - 1) return;
 		mPosition++;
 		mEditorWidgets->clear();
 		mEditorWidgets->loadxmlDocument(mOperations[mPosition]);
@@ -50,9 +52,10 @@ namespace tools
 
 	void UndoManager::redo()
 	{
+		if (mPosition == 0) return;
+
 		setUnsaved(true);
 
-		if (mPosition == 0) return;
 		mPosition--;
 		mEditorWidgets->clear();
 		mEditorWidgets->loadxmlDocument(mOperations[mPosition]);
