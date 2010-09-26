@@ -24,6 +24,10 @@
 	<Tag name="MenuColourSelectorInactive">Inactive selector colour ...</Tag>
 
 	<Tag name="MenuScale">Scale</Tag>
+
+	<Tag name="MenuEdit">Edit</Tag>
+	<Tag name="MenuUndo">Undo</Tag>
+	<Tag name="MenuRedo">Redo</Tag>
 	
 	<Tag name="Add">Add</Tag>
 	<Tag name="Delete">Delete</Tag>
