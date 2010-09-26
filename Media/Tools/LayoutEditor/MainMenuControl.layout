@@ -58,6 +58,21 @@
 				</Widget>
 			</Widget>
 			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{MenuEdit}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Edit"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuUndo}"/>
+						<Property key="MenuItemId" value="Command_Undo"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuRedo}"/>
+						<Property key="MenuItemId" value="Command_Redo"/>
+					</Widget>
+				</Widget>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
 				<Property key="Caption" value="#{Widgets}"/>
 				<Property key="MenuItemType" value="Popup"/>
 				<Property key="MenuItemId" value="Widgets"/>
@@ -76,10 +91,6 @@
 						<Property key="Caption" value="#{MenuColourSelector}"/>
 						<Property key="MenuItemId" value="Command_ChangeColourSelector"/>
 					</Widget>
-					<!--Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Caption" value="#{MenuColourSelectorInactive}"/>
-						<Property key="MenuItemId" value="Command_ChangeColourSelectorInactive"/>
-					</Widget-->
 				</Widget>
 			</Widget>
 			<Widget type="MenuItem" skin="MenuBarButton">

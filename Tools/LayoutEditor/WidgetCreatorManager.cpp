@@ -115,8 +115,8 @@ namespace tools
 			else
 				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER);
 
-			if (mNewWidget->isType<MyGUI::StaticText>())
-				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));
+			/*if (mNewWidget->isType<MyGUI::StaticText>())
+				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));*/
 
 			// переводим старт поинт в координаты отца
 			if (parent != nullptr)
