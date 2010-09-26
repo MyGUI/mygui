@@ -142,7 +142,7 @@ namespace tools
 	{
 		mMouseLeftPressed = false;
 
-		if (!mMouseCapture)
+		if (!getSelectorsCapture())
 		{
 			saveMouseRelative();
 			onMouseWheel(_rel);
