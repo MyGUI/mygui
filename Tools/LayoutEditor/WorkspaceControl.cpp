@@ -553,6 +553,8 @@ namespace tools
 
 	void WorkspaceControl::onMouseButtonReleased(const MyGUI::IntPoint& _point)
 	{
+		UndoManager::getInstance().dropLastProperty();
+
 		if (WidgetCreatorManager::getInstance().getCreateMode())
 			WidgetCreatorManager::getInstance().finishNewWidget(_point);
 	}
