@@ -471,14 +471,22 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (mCurrentWidget == nullptr)
-			return;
-		if (mCurrentWidget->getParent() == nullptr)
-			return;
-		if (!mCurrentWidget->getParent()->isType<MyGUI::Tab>())
+		MyGUI::Tab* tab = nullptr;
+
+		if (mCurrentWidget != nullptr)
+		{
+			if (mCurrentWidget->isType<MyGUI::Tab>())
+				tab = mCurrentWidget->castType<MyGUI::Tab>();
+			else if (mCurrentWidget->getParent() != nullptr && mCurrentWidget->getParent()->isType<MyGUI::Tab>())
+				tab = mCurrentWidget->getParent()->castType<MyGUI::Tab>();
+		}
+
+		if (tab == nullptr)
 			return;
 
-		MyGUI::Tab* tab = mCurrentWidget->getParent()->castType<MyGUI::Tab>();
+		if (tab->getItemCount() == 0)
+			return;
+
 		size_t sheet = tab->getIndexSelected();
 		sheet++;
 		if (sheet >= tab->getItemCount())
