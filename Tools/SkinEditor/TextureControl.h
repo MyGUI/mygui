@@ -39,12 +39,14 @@ namespace tools
 
 		void setScale(double _value);
 
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		virtual void onMouseMove();
+		virtual void onMouseWheel(int _rel);
+		virtual void onMouseButtonPressed(const MyGUI::IntPoint& _point);
+		virtual void onMouseButtonReleased(const MyGUI::IntPoint& _point);
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		virtual void onMouseDrag(const MyGUI::IntPoint& _point);
 
 		bool getSelectorsCapture();
-
-		virtual void onMouseWheel(int _rel);
 
 		void saveMouseRelative();
 		void loadMouseRelative();
@@ -54,6 +56,7 @@ namespace tools
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseMove(MyGUI::Widget* _sender, int _left, int _top);
 		void notifyMouseWheel(MyGUI::Widget* _sender, int _rel);
 
 		void updateTexture();
@@ -65,6 +68,8 @@ namespace tools
 		void updateColours();
 
 		void registerSelectorControl(SelectorControl* _control);
+
+		MyGUI::IntPoint getMousePosition();
 
 	private:
 		MyGUI::ScrollView* mView;
@@ -83,6 +88,7 @@ namespace tools
 		bool mMouseCapture;
 
 		MyGUI::FloatPoint mMouseRelative;
+		bool mMouseLeftPressed;
 	};
 
 } // namespace tools

@@ -27,7 +27,6 @@ namespace tools
 		mMessageBoxFadeControl(nullptr),
 		mBackgroundControl(nullptr),
 		mMainPaneControl(nullptr),
-		mSelectionAreaControl(nullptr),
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml")
 	{
@@ -55,7 +54,6 @@ namespace tools
 		mBackgroundControl = new BackgroundControl();
 		mMainPaneControl = new MainPaneControl();
 
-		// settings window
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
@@ -69,8 +67,6 @@ namespace tools
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
-
-		mSelectionAreaControl = new SelectionAreaControl();
 
 		updateCaption();
 
@@ -88,9 +84,6 @@ namespace tools
 	void EditorState::cleanupState()
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
-
-		delete mSelectionAreaControl;
-		mSelectionAreaControl = nullptr;
 
 		delete mMessageBoxFadeControl;
 		mMessageBoxFadeControl = nullptr;
@@ -277,7 +270,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		WidgetCreatorManager::getInstance().resetCreatorInfo();
+		//WidgetCreatorManager::getInstance().resetCreatorInfo();
 		EditorWidgets::getInstance().clear();
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);

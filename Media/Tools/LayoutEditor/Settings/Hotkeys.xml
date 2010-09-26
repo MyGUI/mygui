@@ -169,4 +169,16 @@
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
+	<Command>
+		<Name>Command_Delete</Name>
+		<KeyCode>Delete</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier></Modifier>
+	</Command>
+	<Command>
+		<Name>Command_NextItem</Name>
+		<KeyCode>Tab</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier></Modifier>
+	</Command>
 </MyGUI>

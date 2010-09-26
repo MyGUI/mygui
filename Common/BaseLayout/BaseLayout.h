@@ -105,10 +105,8 @@ namespace wraps
 		void shutdown()
 		{
 			// удал€ем все классы
-			for (VectorBasePtr::iterator iter = mListBase.begin(); iter != mListBase.end(); ++iter)
-			{
+			for (VectorBasePtr::reverse_iterator iter = mListBase.rbegin(); iter != mListBase.rend(); ++iter)
 				delete (*iter);
-			}
 			mListBase.clear();
 
 			// удал€ем все рутовые виджеты

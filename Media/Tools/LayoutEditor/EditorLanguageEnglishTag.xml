@@ -18,6 +18,13 @@
 	<Tag name="Properties_not_available">#808080#{widget_type} properties</Tag>
 	<Tag name="Items">Items</Tag>
 
+	<Tag name="MenuColours">Colours</Tag>
+	<Tag name="MenuColourBackground">Background colour ...</Tag>
+	<Tag name="MenuColourSelector">Selector colour ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Inactive selector colour ...</Tag>
+
+	<Tag name="MenuScale">Scale</Tag>
+	
 	<Tag name="Add">Add</Tag>
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Select">Select</Tag>
@@ -87,5 +94,12 @@
 	<Tag name="ColourGreen">Green</Tag>
 	<Tag name="ColourBlue">Blue</Tag>
 	<Tag name="ColourAlpha">Alpha</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
 	
 </MyGUI>

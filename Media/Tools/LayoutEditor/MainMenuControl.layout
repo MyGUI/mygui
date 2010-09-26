@@ -63,6 +63,56 @@
 				<Property key="MenuItemId" value="Widgets"/>
 				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
 			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{MenuColours}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Colours"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuColourBackground}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourBackground"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuColourSelector}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourSelector"/>
+					</Widget>
+					<!--Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuColourSelectorInactive}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourSelectorInactive"/>
+					</Widget-->
+				</Widget>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{MenuScale}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Sacle"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale50}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.50"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale100}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.100"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale200}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.200"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale400}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.400"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale800}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.800"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{Scale1600}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.1600"/>
+					</Widget>
+				</Widget>
+			</Widget>
 		</Widget>
 	</Widget>
 </MyGUI>

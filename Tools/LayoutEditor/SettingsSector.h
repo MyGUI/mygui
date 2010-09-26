@@ -56,6 +56,18 @@ namespace tools
 
 		VectorUString getPropertyValueList(const MyGUI::UString& _propertyName);
 
+		template <typename Type>
+		std::vector<Type> getPropertyValueList(const MyGUI::UString& _propertyName)
+		{
+			std::vector<Type> result;
+
+			VectorUString values = getPropertyValueList(_propertyName);
+			for (VectorUString::const_iterator item = values.begin(); item != values.end(); ++item)
+				result.push_back(MyGUI::utility::parseValue<Type>(*item));
+
+			return result;
+		}
+
 		void clearProperty(const MyGUI::UString& _propertyName);
 
 		EventSettingsChanged eventSettingsChanged;
