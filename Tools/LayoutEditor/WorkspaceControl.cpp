@@ -173,6 +173,10 @@ namespace tools
 
 			updateSelectorEnabled();
 			updateSelectionFromValue();
+
+			// возвращаем себе кей фокус
+			if (!mMainWidget->getRootKeyFocus())
+				MyGUI::InputManager::getInstance().setKeyFocusWidget(mMainWidget);
 		}
 		else
 		{
