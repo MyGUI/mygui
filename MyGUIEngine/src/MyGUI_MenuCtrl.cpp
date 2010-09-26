@@ -334,7 +334,14 @@ namespace MyGUI
 
 	void MenuCtrl::notifyMenuCtrlAccept(MenuItem* _item)
 	{
-		eventMenuCtrlAccept(this, _item);
+		if (mHideByAccept)
+		{
+			setVisibleSmooth(false);
+		}
+		else
+		{
+			InputManager::getInstance().setKeyFocusWidget(nullptr);
+		}
 
 		MenuItem* parent_item = getMenuItemParent();
 		if (parent_item)
@@ -346,14 +353,7 @@ namespace MyGUI
 			}
 		}
 
-		if (mHideByAccept)
-		{
-			setVisibleSmooth(false);
-		}
-		else
-		{
-			InputManager::getInstance().setKeyFocusWidget(nullptr);
-		}
+		eventMenuCtrlAccept(this, _item);
 	}
 
 	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
