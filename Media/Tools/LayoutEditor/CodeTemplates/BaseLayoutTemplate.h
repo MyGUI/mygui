@@ -19,6 +19,6 @@ namespace #{Panel_Namespace}
 	//%LE Widget_Declaration list end
 	};
 
-} // #{Panel_Namespace}
+} // namespace #{Panel_Namespace}
 
 #endif // _#{Uppercase_Panel_Name}_H_
