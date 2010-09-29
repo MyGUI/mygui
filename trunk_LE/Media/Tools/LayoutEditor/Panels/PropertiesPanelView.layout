@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Widget" skin="Default" position="10 10 280 600" align="Stretch" name="_Main">
-        <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 280 600" align="Stretch" name="scroll_View">
-            <Property key="VisibleHScroll" value="false"/>
-        </Widget>
-    </Widget>
-</MyGUI>

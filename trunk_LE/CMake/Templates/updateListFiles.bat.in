@@ -1,2 +1,0 @@
-chdir @MYGUI_SOURCE_DIR@/Scripts
-@MYGUI_SOURCE_DIR@/Scripts/parseXML.exe @MYGUI_BINARY_DIR@

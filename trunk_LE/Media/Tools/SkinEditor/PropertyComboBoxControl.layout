@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Widget" skin="PanelEmpty" position="16 40 232 26" align="Stretch" layer="Overlapped" name="_Main">
-        <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ComboBox" skin="ComboBox" position="0 0 232 26" align="Stretch" name="ComboBox">
-            <Property key="ModeDrop" value="true"/>
-        </Widget>
-    </Widget>
-</MyGUI>

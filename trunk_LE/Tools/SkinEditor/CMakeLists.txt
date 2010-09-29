@@ -1,1 +1,0 @@
-mygui_tool(SkinEditor)

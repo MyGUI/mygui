@@ -1,1 +1,0 @@
-mygui_plugin(Plugin_HikariWidget)

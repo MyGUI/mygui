@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="LECodeTemplate" name="C++ BaseLayout">
-    <File template="BaseLayoutTemplate.h" out_file="#{Include_Directory}/#{Panel_Name}.h"/>
-    <File template="BaseLayoutTemplate.cpp" out_file="#{Source_Directory}/#{Panel_Name}.cpp"/>
-    <String key="Code_Widget_Name" value="m#{Widget_Name}#{Widget_Type}"/>
-    <String key="Widget_Declaration" value="		ATTRIBUTE_FIELD_WIDGET_NAME(#{Panel_Name}, #{Code_Widget_Name}, &quot;#{Widget_Name}&quot;);\n		MyGUI::#{Widget_Type}* #{Code_Widget_Name};\n"/>
-</MyGUI>

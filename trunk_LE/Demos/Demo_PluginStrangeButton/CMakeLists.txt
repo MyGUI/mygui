@@ -1,2 +1,0 @@
-mygui_demo(Demo_PluginStrangeButton)
-add_dependencies(Demo_PluginStrangeButton Plugin_StrangeButton)

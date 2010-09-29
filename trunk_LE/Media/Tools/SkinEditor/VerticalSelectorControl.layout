@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Window" skin="VerticalSeparatorWhite" position="30 30 9 50" align="Default" layer="Popup" name="_Main">
-		<Widget type="Widget" skin="PanelEmpty" position="4 0 1 50" align="Stretch" name="Projection">
-			<Property key="NeedMouse" value="false"/>
-		</Widget>
-	</Widget>
-</MyGUI>
