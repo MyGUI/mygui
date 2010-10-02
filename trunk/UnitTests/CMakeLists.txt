@@ -1,7 +1,7 @@
 if (MYGUI_BUILD_TEST_APP)
 	add_subdirectory(TestApp)
 endif ()
-if (MYGUI_BUILD_TESTS)
+if (MYGUI_BUILD_UNITTESTS)
 	add_subdirectory(UnitTest_AttachDetach)
 	add_subdirectory(UnitTest_Canvas)
 	#add_subdirectory(UnitTest_Containers)

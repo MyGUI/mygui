@@ -118,10 +118,10 @@ set(MYGUI_RENDERSYSTEM 2 CACHE STRING
   3 - OpenGL"
 )
 
-option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
+option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
-option(MYGUI_BUILD_TESTS "Build the unit tests" FALSE)
+option(MYGUI_BUILD_UNITTESTS "Build the unit tests" FALSE)
 option(MYGUI_BUILD_TEST_APP "Build TestApp" FALSE)
 option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 
@@ -220,7 +220,7 @@ add_subdirectory(MyGUIEngine)
 # Setup Platforms
 add_subdirectory(Platforms)
 
-if (MYGUI_BUILD_SAMPLES OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
+if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(Common)
 endif ()
 
@@ -229,7 +229,7 @@ if (MYGUI_BUILD_PLUGINS)
 	add_subdirectory(Plugins)
 endif ()
 
-if (MYGUI_BUILD_SAMPLES)
+if (MYGUI_BUILD_DEMOS)
 	add_subdirectory(Demos)
 endif ()
 
@@ -239,7 +239,7 @@ if (MYGUI_BUILD_TOOLS)
 endif ()
 
 # Setup tests
-if (MYGUI_BUILD_TESTS OR MYGUI_BUILD_TEST_APP)
+if (MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 	add_subdirectory(UnitTests)
 endif ()
 
