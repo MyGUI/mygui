@@ -60,12 +60,12 @@ namespace MyGUI
 		size_t pos = 0;
 		for (size_t pos_pix = 0; pos_pix < size; pos_pix++)
 		{
-			bool white = false;
+			bool white = true;
 			for (size_t in_pix = 0; in_pix < pixel_size; in_pix++)
 			{
 				if (0xFF != buffer[pos])
 				{
-					white = true;
+					white = false;
 				}
 				pos++;
 			}
