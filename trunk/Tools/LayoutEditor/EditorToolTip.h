@@ -7,6 +7,7 @@
 #define __EDITOR_TOOL_TIP_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "SkinInfo.h"
 
 namespace tools
 {
@@ -16,7 +17,7 @@ namespace tools
 	public:
 		EditorToolTip();
 
-		void show(MyGUI::Widget* _sender);
+		void show(const SkinInfo& _data);
 		void hide();
 		void move(const MyGUI::IntPoint& _point);
 

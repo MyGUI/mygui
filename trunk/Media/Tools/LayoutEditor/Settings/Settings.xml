@@ -3,7 +3,6 @@
     <WidgetsWindow>
         <Property key="widgetsButtonWidth" value="130"/>
         <Property key="widgetsButtonHeight" value="24"/>
-        <Property key="widgetsButtonsInOneLine" value="2"/>
     </WidgetsWindow>
 	<Settings>
 		<Property key="Grid" value="5"/>
