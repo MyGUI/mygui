@@ -2,6 +2,13 @@
 
 <MyGUI type="Resource" version="1.1">
 
+	<!--Resource type="ResourceSkin" name = "ScrollViewEmpty" size = "18 18" texture = "#{MyGUI_Theme_Texture}">
+		<Property key="NeedKey" value = "true" />
+		<Child type="Widget" skin="Default" offset = "0 0 3 3" align = "Stretch" name = "Client"/>
+		<Child type="VScroll" skin="VScroll" offset = "3 0 15 3" align = "Right VStretch" name = "VScroll"/>
+		<Child type="HScroll" skin="HScroll" offset = "0 3 3 15" align = "HStretch Bottom" name = "HScroll"/>
+	</Resource-->
+	
 	<Resource type="ResourceSkin" name = "VSliderEmpty" size = "15 55" texture = "#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value = "1 -1" />
 		<Property key="MinTrackSize" value = "7" />
