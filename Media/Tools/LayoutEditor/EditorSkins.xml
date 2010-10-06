@@ -11,6 +11,13 @@
 		<Child type="Button" skin="VScrollTrackSlider" offset = "1 18 15 7" align = "HStretch Top" name = "Track"/>
 	</Resource>
 
+	<Resource type="ResourceSkin" name = "ItemBoxEmptyV" size = "18 3" texture = "#{MyGUI_Theme_Texture}">
+		<Property key="AlignVert" value = "true" />
+		<Property key="DragLayer" value = "DragAndDrop" />
+		<Child type="VScroll" skin="VScroll" offset = "3 0 15 3" align = "Right VStretch" name = "VScroll"/>
+		<Child type="Widget" skin="Default" offset = "0 0 3 3" align = "Stretch" name = "Client"/>
+	</Resource>
+	
 	<Resource type="ResourceSkin" name="BackgroundTile" size="32 32" texture="BackgroundTile.png">
 		<BasisSkin type="TileRect" offset="0 0 32 32" align="Stretch">
 			<State name="normal" offset="0 0 32 32">

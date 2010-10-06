@@ -24,22 +24,26 @@ namespace tools
 		mLastWidget = nullptr;
 	}
 
-	void EditorToolTip::show(MyGUI::Widget* _sender)
+	void EditorToolTip::show(const SkinInfo& _data)
 	{
 		static const MyGUI::UString colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
 
-		std::string widget = _sender->getUserString("widget");
+		std::string skin = _data.widget_skin;
+
+		MyGUI::ResourceSkin* skinInfo = MyGUI::SkinManager::getInstance().getByName(skin);
+		MyGUI::IntSize skinDefaultSize;
+		if (skinInfo != nullptr)
+			skinDefaultSize = skinInfo->getSize();
+
+		std::string widget = _data.widget_type;
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
-		std::string skin = _sender->getUserString("skin");
 		std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
 			"\nSkin: " + skin +
-			"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height");
+			"\nDefaultSize: " + MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height);
 
 		mText->setCaption(text);
 
-		int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
-		int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
 
 		const int MARGIN = 5;
 		const int LINE_HEIGHT = 22;
@@ -57,24 +61,27 @@ namespace tools
 				for (size_t pos = 0; pos < child.size(); ++pos)
 				{
 					const std::string& child_skin = child[pos].skin;
-					if (!manager.isExist(child_skin)) continue;
+					if (!manager.isExist(child_skin))
+						continue;
 					const MyGUI::ResourceSkin* child_info = manager.getByName(child_skin);
 					const MyGUI::IntSize& child_size = child[pos].coord.size();
 					MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 
-					if (max_size.width < dif_size.width) max_size.width = dif_size.width;
-					if (max_size.height < dif_size.height) max_size.height = dif_size.height;
+					if (max_size.width < dif_size.width)
+						max_size.width = dif_size.width;
+					if (max_size.height < dif_size.height)
+						max_size.height = dif_size.height;
 				}
 			}
 
-			width += max_size.width;
-			height += max_size.height;
+			skinDefaultSize.width += max_size.width;
+			skinDefaultSize.height += max_size.height;
 		}
 
-		mMainWidget->setSize(std::max(mMinWidth, width + 2 * MARGIN), std::max(mMinHeight, height + LINE_HEIGHT * LINES + 2 * MARGIN));
+		mMainWidget->setSize(std::max(mMinWidth, skinDefaultSize.width + 2 * MARGIN), std::max(mMinHeight, skinDefaultSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		if (mLastWidget)
 			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
-		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, width, height, MyGUI::Align::Default);
+		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, skinDefaultSize.width, skinDefaultSize.height, MyGUI::Align::Default);
 		mLastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
 
 		mMainWidget->setVisible(true);

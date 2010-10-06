@@ -19,23 +19,30 @@ namespace tools
 		virtual ~WidgetsWindow();
 
 	private:
+		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item);
+		void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag);
+		void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info);
+
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
 		void notifyChangeCreatorMode(bool _modeCreate);
 
 		void initialise();
 
+		SkinInfo getCellData(MyGUI::Widget* _widget);
+		bool getCellSelected(MyGUI::Widget* _widget);
+
 	private:
 		MyGUI::Tab* mTabSkins;
 
 		int mWidgetsButtonWidth;
 		int mWidgetsButtonHeight;
-		int mWidgetsButtonsInOneLine;
-		int mMaxLines;
 
 		std::string mSkinSheetName;
-		MyGUI::VectorWidgetPtr mWidgets;
 		EditorToolTip* mToolTip;
+
+		typedef std::vector<MyGUI::ItemBox*> VectorItemBox;
+		VectorItemBox mItemBoxs;
 	};
 
 } // namespace tools
