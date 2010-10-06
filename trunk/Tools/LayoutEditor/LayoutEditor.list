@@ -1,45 +1,54 @@
 set (HEADER_FILES
+  Application.h
+  AreaSelectorControl.h
+  BackgroundControl.h
+  BackwardCompatibilityManager.h
+  ColourManager.h
+  ColourPanel.h
+  CommandManager.h
   Common.h
+  CyclicBuffer.h
+  Dialog.h
+  DialogManager.h
+  EditorState.h
   EditorToolTip.h
   EditorWidgets.h
+  HotKeyCommand.h
+  HotKeyManager.h
+  Localise.h
+  MainMenuControl.h
+  MainPaneControl.h
+  MainWorkspaceControl.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
+  MyGUI_RTTLayer.h
+  PositionSelectorControl.h
+  PossibleValue.h
+  RecentFilesManager.h
   resource.h
+  SelectorControl.h
+  SettingsGeneralControl.h
+  SettingsManager.h
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+  SettingsSector.h
+  SettingsWidgetsControl.h
+  SkinInfo.h
+  StateController.h
+  StateManager.h
+  TestState.h
+  TextFieldControl.h
+  TextureControl.h
+  TextureToolControl.h
+  ToolsControl.h
   UndoManager.h
   WidgetContainer.h
-  WidgetTypes.h
-  CommandManager.h
-  MainMenuControl.h
-  SettingsManager.h
-  WidgetSelectorManager.h
-  HotKeyManager.h
-  HotKeyCommand.h
-  Localise.h
-  MessageBoxManager.h
-  DialogManager.h
-  SettingsSector.h
-  MessageBoxFadeControl.h
-  CyclicBuffer.h
-  SkinInfo.h
-  WidgetStyle.h
-  PossibleValue.h
-  Dialog.h
-  StateManager.h
-  StateController.h
-  Application.h
-  EditorState.h
-  TestState.h
-  BackgroundControl.h
-  MainPaneControl.h
-  ToolsControl.h
   WidgetCreatorManager.h
-  RecentFilesManager.h
-  BackwardCompatibilityManager.h
+  WidgetSelectorManager.h
+  WidgetStyle.h
+  WidgetTypes.h
   WorkspaceControl.h
-  PositionSelectorControl.h
-  SettingsResourcesControl.h
-  TextFieldControl.h
-  SettingsResourcePathsControl.h
-  SettingsGeneralControl.h
-  SettingsWidgetsControl.h
   PanelControllers.h
   PanelItems.h
   PanelMainProperties.h
@@ -54,47 +63,48 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
-  MyGUI_RTTLayer.h
-  TextureControl.h
-  SelectorControl.h
-  TextureToolControl.h
-  MyGUI_FilterNoneSkin.h
-  ColourManager.h
-  ColourPanel.h
-  AreaSelectorControl.h
 )
 set (SOURCE_FILES
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  BackwardCompatibilityManager.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  Dialog.cpp
+  DialogManager.cpp
+  EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  UndoManager.cpp
-  WidgetTypes.cpp
-  CommandManager.cpp
-  MainMenuControl.cpp
-  SettingsManager.cpp
-  WidgetSelectorManager.cpp
   HotKeyManager.cpp
-  MessageBoxManager.cpp
-  DialogManager.cpp
-  SettingsSector.cpp
-  MessageBoxFadeControl.cpp
-  Dialog.cpp
-  StateManager.cpp
-  EditorState.cpp
-  Application.cpp
-  TestState.cpp
-  BackgroundControl.cpp
+  MainMenuControl.cpp
   MainPaneControl.cpp
-  ToolsControl.cpp
-  WidgetCreatorManager.cpp
-  RecentFilesManager.cpp
-  BackwardCompatibilityManager.cpp
-  WorkspaceControl.cpp
+  MainWorkspaceControl.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  MyGUI_RTTLayer.cpp
   PositionSelectorControl.cpp
-  SettingsResourcesControl.cpp
-  TextFieldControl.cpp
-  SettingsResourcePathsControl.cpp
+  RecentFilesManager.cpp
+  SelectorControl.cpp
   SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
   SettingsWidgetsControl.cpp
+  StateManager.cpp
+  TestState.cpp
+  TextFieldControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  ToolsControl.cpp
+  UndoManager.cpp
+  WidgetCreatorManager.cpp
+  WidgetSelectorManager.cpp
+  WidgetTypes.cpp
+  WorkspaceControl.cpp
   editor.ico
   LayoutEditor.rc
   ../../Common/Precompiled.cpp
@@ -110,90 +120,100 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
-  MyGUI_RTTLayer.cpp
-  TextureControl.cpp
-  SelectorControl.cpp
-  TextureToolControl.cpp
-  MyGUI_FilterNoneSkin.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  AreaSelectorControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  BackwardCompatibilityManager.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  Dialog.cpp
+  DialogManager.cpp
+  EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  UndoManager.cpp
-  WidgetTypes.cpp
-  CommandManager.cpp
-  MainMenuControl.cpp
-  SettingsManager.cpp
-  WidgetSelectorManager.cpp
   HotKeyManager.cpp
-  MessageBoxManager.cpp
-  DialogManager.cpp
-  SettingsSector.cpp
-  MessageBoxFadeControl.cpp
-  Dialog.cpp
-  StateManager.cpp
-  EditorState.cpp
-  Application.cpp
-  TestState.cpp
-  BackgroundControl.cpp
+  MainMenuControl.cpp
   MainPaneControl.cpp
-  ToolsControl.cpp
-  WidgetCreatorManager.cpp
-  RecentFilesManager.cpp
-  BackwardCompatibilityManager.cpp
-  WorkspaceControl.cpp
+  MainWorkspaceControl.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  MyGUI_RTTLayer.cpp
   PositionSelectorControl.cpp
-  SettingsResourcesControl.cpp
-  TextFieldControl.cpp
-  SettingsResourcePathsControl.cpp
+  RecentFilesManager.cpp
+  SelectorControl.cpp
   SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
   SettingsWidgetsControl.cpp
+  StateManager.cpp
+  TestState.cpp
+  TextFieldControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  ToolsControl.cpp
+  UndoManager.cpp
+  WidgetCreatorManager.cpp
+  WidgetSelectorManager.cpp
+  WidgetTypes.cpp
+  WorkspaceControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  Application.h
+  AreaSelectorControl.h
+  BackgroundControl.h
+  BackwardCompatibilityManager.h
+  ColourManager.h
+  ColourPanel.h
+  CommandManager.h
   Common.h
+  CyclicBuffer.h
+  Dialog.h
+  DialogManager.h
+  EditorState.h
   EditorToolTip.h
   EditorWidgets.h
+  HotKeyCommand.h
+  HotKeyManager.h
+  Localise.h
+  MainMenuControl.h
+  MainPaneControl.h
+  MainWorkspaceControl.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
+  MyGUI_RTTLayer.h
+  PositionSelectorControl.h
+  PossibleValue.h
+  RecentFilesManager.h
   resource.h
+  SelectorControl.h
+  SettingsGeneralControl.h
+  SettingsManager.h
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+  SettingsSector.h
+  SettingsWidgetsControl.h
+  SkinInfo.h
+  StateController.h
+  StateManager.h
+  TestState.h
+  TextFieldControl.h
+  TextureControl.h
+  TextureToolControl.h
+  ToolsControl.h
   UndoManager.h
   WidgetContainer.h
-  WidgetTypes.h
-  CommandManager.h
-  MainMenuControl.h
-  SettingsManager.h
-  WidgetSelectorManager.h
-  HotKeyManager.h
-  HotKeyCommand.h
-  Localise.h
-  MessageBoxManager.h
-  DialogManager.h
-  SettingsSector.h
-  MessageBoxFadeControl.h
-  CyclicBuffer.h
-  SkinInfo.h
-  WidgetStyle.h
-  PossibleValue.h
-  Dialog.h
-  StateManager.h
-  StateController.h
-  Application.h
-  EditorState.h
-  TestState.h
-  BackgroundControl.h
-  MainPaneControl.h
-  ToolsControl.h
   WidgetCreatorManager.h
-  RecentFilesManager.h
-  BackwardCompatibilityManager.h
+  WidgetSelectorManager.h
+  WidgetStyle.h
+  WidgetTypes.h
   WorkspaceControl.h
-  PositionSelectorControl.h
-  SettingsResourcesControl.h
-  TextFieldControl.h
-  SettingsResourcePathsControl.h
-  SettingsGeneralControl.h
-  SettingsWidgetsControl.h
 )
 SOURCE_GROUP("Resources" FILES
   editor.ico
