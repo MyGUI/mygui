@@ -28,6 +28,7 @@ set (HEADER_FILES
   RecentFilesManager.h
   resource.h
   SelectorControl.h
+  SeparatorPartControl.h
   SettingsGeneralControl.h
   SettingsManager.h
   SettingsResourcePathsControl.h
@@ -88,6 +89,7 @@ set (SOURCE_FILES
   PositionSelectorControl.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
+  SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
   SettingsResourcePathsControl.cpp
@@ -145,6 +147,7 @@ SOURCE_GROUP("Source Files" FILES
   PositionSelectorControl.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
+  SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
   SettingsResourcePathsControl.cpp
@@ -193,6 +196,7 @@ SOURCE_GROUP("Header Files" FILES
   RecentFilesManager.h
   resource.h
   SelectorControl.h
+  SeparatorPartControl.h
   SettingsGeneralControl.h
   SettingsManager.h
   SettingsResourcePathsControl.h
