@@ -22,8 +22,10 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		bool load(const MyGUI::UString& _fileName/*, const std::string& _itemName, bool& _projectMode*/);
+		bool load(const MyGUI::UString& _fileName);
+		bool loadFromProject(const MyGUI::UString& _fileName, const std::string& _itemName);
 		bool save(const MyGUI::UString& _fileName);
+		bool saveToProject(const MyGUI::UString& _fileName, const std::string& _itemName);
 		void clear();
 
 		void loadxmlDocument(MyGUI::xml::Document* doc, bool _test = false);
