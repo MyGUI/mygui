@@ -273,7 +273,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		//WidgetCreatorManager::getInstance().resetCreatorInfo();
+		WidgetCreatorManager::getInstance().resetCreatorInfo();
 		EditorWidgets::getInstance().clear();
 
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
@@ -288,13 +288,11 @@ namespace tools
 
 	void EditorState::load()
 	{
-		if (EditorWidgets::getInstance().load(mFileName/*, mItemFileName, mProjectMode*/))
+		//if (EditorWidgets::getInstance().loadFromProject(mFileName, mItemFileName))
+		if (EditorWidgets::getInstance().load(mFileName))
 		{
-			//if (!mProjectMode)
-			//{
-				if (mFileName != mDefaultFileName)
-					RecentFilesManager::getInstance().addRecentFile(mFileName);
-			//}
+			if (mFileName != mDefaultFileName)
+				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
 			UndoManager::getInstance().addValue();
 			UndoManager::getInstance().setUnsaved(false);
@@ -315,6 +313,7 @@ namespace tools
 
 	bool EditorState::save()
 	{
+		//if (EditorWidgets::getInstance().saveToProject(mFileName, mItemFileName))
 		if (EditorWidgets::getInstance().save(mFileName))
 		{
 			if (mFileName != mDefaultFileName)

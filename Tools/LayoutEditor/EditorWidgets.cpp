@@ -47,10 +47,8 @@ namespace tools
 		mWidgets.clear();
 	}
 
-	bool EditorWidgets::load(const MyGUI::UString& _fileName/*, const std::string& _itemName, bool& _projectMode*/)
+	bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	{
-		//_projectMode = false;
-
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
 		{
@@ -65,52 +63,66 @@ namespace tools
 			return false;
 		}
 
-		std::string type;
-		if (root->findAttribute("type", type))
+		if (root->findAttribute("type") == "Layout")
 		{
-			if (type == "Layout")
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next())
 			{
-				//_projectMode = false;
-
-				// берем детей и крутимся
-				MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-				while (element.next())
-				{
-					if (element->getName() == "Widget")
-						parseWidget(element, nullptr);
-					else
-						loadSector(element.current());
-				}
+				if (element->getName() == "Widget")
+					parseWidget(element, nullptr);
+				else
+					loadSector(element.current());
 			}
-			/*else if (type == "Resource")
-			{
-				_projectMode = true;
+		}
+		else
+		{
+			return false;
+		}
 
-				// берем детей и крутимся
-				MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-				while (element.next("Resource"))
+		mWidgetsChanged = true;
+		return true;
+	}
+
+	bool EditorWidgets::loadFromProject(const MyGUI::UString& _fileName, const std::string& _itemName)
+	{
+		MyGUI::xml::Document doc;
+		if (!doc.open(_fileName))
+		{
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
+			return false;
+		}
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		{
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
+			return false;
+		}
+
+		if (root->findAttribute("type") == "Resource")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Resource"))
+			{
+				if (element->findAttribute("type") == "ResourceLayout"
+					&& element->findAttribute("name") == _itemName)
 				{
-					if (element->getName() == "Resource")
+					MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
+					while (widget.next())
 					{
-						if (element->findAttribute("type") == "ResourceLayout"
-							&& element->findAttribute("name") == _itemName)
-						{
-							MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
-							while (widget.next())
-							{
-								if (widget->getName() == "Widget")
-									parseWidget(widget, nullptr);
-								else
-									loadSector(widget.current());
-							}
-						}
+						if (widget->getName() == "Widget")
+							parseWidget(widget, nullptr);
+						else
+							loadSector(widget.current());
 					}
 				}
-			}*/
-			else
-			{
-				return false;
 			}
+		}
+		else
+		{
+			return false;
 		}
 
 		mWidgetsChanged = true;
@@ -119,8 +131,6 @@ namespace tools
 
 	bool EditorWidgets::save(const MyGUI::UString& _fileName)
 	{
-		std::string _instance = "Editor";
-
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -138,11 +148,89 @@ namespace tools
 
 		if (!doc.save(_fileName))
 		{
-			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
 			return false;
 		}
 
 		return true;
+	}
+
+	bool EditorWidgets::saveToProject(const MyGUI::UString& _fileName, const std::string& _itemName)
+	{
+		MyGUI::xml::Document doc;
+		if (!doc.open(_fileName))
+		{
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
+			return false;
+		}
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		{
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
+			return false;
+		}
+
+		if (root->findAttribute("type") == "Resource")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Resource"))
+			{
+				if (element->findAttribute("type") == "ResourceLayout"
+					&& element->findAttribute("name") == _itemName)
+				{
+					element->clear();
+					element->addAttribute("type", "ResourceLayout");
+					element->addAttribute("name", _itemName);
+
+					for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+					{
+						// в корень только сирот
+						if (nullptr == (*iter)->widget->getParent())
+							serialiseWidget(*iter, element.current(), true);
+					}
+
+					saveSectors(element.current());
+
+					if (!doc.save(_fileName))
+					{
+						MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
+						return false;
+					}
+
+					return true;
+				}
+			}
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+
+		/*MyGUI::xml::Document doc;
+		doc.createDeclaration();
+		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
+		root->addAttribute("type", "Layout");
+		root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
+
+		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+		{
+			// в корень только сирот
+			if (nullptr == (*iter)->widget->getParent())
+				serialiseWidget(*iter, root, true);
+		}
+
+		saveSectors(root);
+
+		if (!doc.save(_fileName))
+		{
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
+			return false;
+		}*/
+
+		return false;
 	}
 
 	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document* doc, bool _test)
