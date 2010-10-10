@@ -14,6 +14,7 @@
 #define MYGUI_COMPILER 1
 #define MYGUI_EXPORT_DLL
 #define MYGUI_DEBUG_MODE 0
+#define namespace //
 
 #define min min
 #define max max
