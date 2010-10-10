@@ -43,7 +43,7 @@ namespace MyGUI
 		{
 			enum Enum
 			{
-				Comment,
+				//Comment,
 				Declaration,
 				Normal,
 				MAX

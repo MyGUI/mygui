@@ -114,14 +114,16 @@ namespace MyGUI
 
 		bool ElementEnumerator::next()
 		{
-			if (m_current == m_end) return false;
+			if (m_current == m_end)
+				return false;
 			else if (m_first)
 			{
 				m_first = false;
 				return true;
 			}
 			++ m_current;
-			if (m_current == m_end) return false;
+			if (m_current == m_end)
+				return false;
 			return true;
 		}
 
@@ -129,7 +131,8 @@ namespace MyGUI
 		{
 			while (next())
 			{
-				if ((*m_current)->getName() == _name) return true;
+				if ((*m_current)->getName() == _name)
+					return true;
 			}
 			return false;
 		}
@@ -157,11 +160,14 @@ namespace MyGUI
 		void Element::save(std::ostream& _stream, size_t _level)
 		{
 			// сначала табуляции намутим
-			for (size_t tab = 0; tab < _level; ++tab) _stream  << "    ";
+			for (size_t tab = 0; tab < _level; ++tab)
+				_stream  << "    ";
 
 			// теперь заголовок тега
-			if (mType == ElementType::Declaration) _stream << "<?";
-			else _stream << "<";
+			if (mType == ElementType::Declaration)
+				_stream << "<?";
+			else
+				_stream << "<";
 			_stream << mName;
 
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
@@ -173,13 +179,16 @@ namespace MyGUI
 			// если детей нет то закрываем
 			if (empty && mContent.empty())
 			{
-				if (mType == ElementType::Declaration) _stream << "?>\n";
-				else _stream << "/>\n";
+				if (mType == ElementType::Declaration)
+					_stream << "?>\n";
+				else
+					_stream << "/>\n";
 			}
 			else
 			{
 				_stream << ">";
-				if (!empty) _stream << "\n";
+				if (!empty)
+					_stream << "\n";
 				// если есть тело то сначало оно
 				if (!mContent.empty())
 				{
@@ -189,7 +198,8 @@ namespace MyGUI
 					}
 					_stream << utility::convert_to_xml(mContent);
 
-					if (!empty) _stream << "\n";
+					if (!empty)
+						_stream << "\n";
 				}
 				// если есть детишки путь сохранятся
 				for (size_t child = 0; child < mChilds.size(); child++)
@@ -204,7 +214,6 @@ namespace MyGUI
 				}
 				_stream << "</" << mName << ">\n";
 			}
-
 		}
 
 		ElementPtr Element::createChild(const std::string& _name, const std::string& _content)
@@ -239,7 +248,8 @@ namespace MyGUI
 		{
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
 			{
-				if ( (*iter).first == _name) return (*iter).second;
+				if ((*iter).first == _name)
+					return (*iter).second;
 			}
 			return "";
 		}
@@ -291,7 +301,10 @@ namespace MyGUI
 
 		void Element::addContent(const std::string& _content)
 		{
-			if (mContent.empty()) mContent = _content;
+			if (mContent.empty())
+			{
+				mContent = _content;
+			}
 			else
 			{
 				mContent += " ";
@@ -448,13 +461,17 @@ namespace MyGUI
 			{
 				// берем новую строку
 				_stream->readline(read, '\n');
-				if (read.empty()) continue;
-				if (read[read.size()-1] == '\r') read.erase(read.size() - 1, 1);
-				if (read.empty()) continue;
+				if (read.empty())
+					continue;
+				if (read[read.size()-1] == '\r')
+					read.erase(read.size() - 1, 1);
+				if (read.empty())
+					continue;
 
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
-				if (read.empty()) continue;
+				if (read.empty())
+					continue;
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 
@@ -488,7 +505,8 @@ namespace MyGUI
 			_stream << (char)0xBFu;
 
 			mDeclaration->save(_stream, 0);
-			if (mRoot) mRoot->save(_stream, 0);
+			if (mRoot)
+				mRoot->save(_stream, 0);
 
 			return true;
 		}
@@ -503,32 +521,36 @@ namespace MyGUI
 
 		bool Document::parseTag(ElementPtr& _currentNode, std::string _content)
 		{
-
 			// убераем лишнее
 			MyGUI::utility::trim(_content);
 
 			if (_content.empty())
 			{
 				// создаем пустой тег
-				if (_currentNode) _currentNode = _currentNode->createChild("");
+				if (_currentNode)
+				{
+					_currentNode = _currentNode->createChild("");
+				}
 				else
 				{
 					_currentNode = new Element("", 0);
 					// если это первый то запоминаем
-					if (!mRoot) mRoot = _currentNode;
+					if (!mRoot)
+						mRoot = _currentNode;
 				}
 				return true;
 			}
 
 			char simbol = _content[0];
-			bool tag_info = false;
+			bool tagDeclaration = false;
 
-			if (simbol == '!') return true; // проверяем на коментарии
+			if (simbol == '!')
+				return true; // проверяем на коментарии
 
 			// проверяем на информационный тег
 			if (simbol == '?')
 			{
-				tag_info = true;
+				tagDeclaration = true;
 				_content.erase(0, 1); // удаляем первый символ
 			}
 
@@ -581,10 +603,13 @@ namespace MyGUI
 					_content.clear();
 				}
 
-				if (_currentNode) _currentNode = _currentNode->createChild(cut);
+				if (_currentNode)
+				{
+					_currentNode = _currentNode->createChild(cut);
+				}
 				else
 				{
-					if (tag_info)
+					if (tagDeclaration)
 					{
 						// информационный тег
 						if (mDeclaration)
@@ -592,7 +617,7 @@ namespace MyGUI
 							mLastError = ErrorType::MoreThanOneXMLDeclaration;
 							return false;
 						}
-						_currentNode = new Element(cut, 0, ElementType::Comment);
+						_currentNode = new Element(cut, 0, ElementType::Declaration);
 						mDeclaration = _currentNode;
 					}
 					else
@@ -610,7 +635,8 @@ namespace MyGUI
 
 				// проверим на пустоту
 				start = _content.find_last_not_of(" \t");
-				if (start == _content.npos) return true;
+				if (start == _content.npos)
+					return true;
 
 				// сразу отделим закрывающийся тэг
 				bool close = false;
@@ -671,7 +697,8 @@ namespace MyGUI
 
 					// в строке не осталось символов
 					start = _content.find_first_not_of(" \t");
-					if (start == _content.npos) break;
+					if (start == _content.npos)
+						break;
 
 					mCol += start;
 				}
@@ -691,15 +718,19 @@ namespace MyGUI
 		{
 			// в ключе не должно быть ковычек и пробелов
 			MyGUI::utility::trim(_key);
-			if (_key.empty()) return false;
+			if (_key.empty())
+				return false;
 			size_t start = _key.find_first_of(" \t\"\'&");
-			if (start != _key.npos) return false;
+			if (start != _key.npos)
+				return false;
 
 			// в значении, ковычки по бокам
 			MyGUI::utility::trim(_value);
-			if (_value.size() < 2) return false;
+			if (_value.size() < 2)
+				return false;
 			if (((_value[0] != '"') || (_value[_value.length()-1] != '"')) &&
-				((_value[0] != '\'') || (_value[_value.length()-1] != '\''))) return false;
+				((_value[0] != '\'') || (_value[_value.length()-1] != '\'')))
+				return false;
 			bool ok = true;
 			_value = utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);
 			return ok;
@@ -722,8 +753,10 @@ namespace MyGUI
 				pos = _text.find_first_of(buff, pos);
 
 				// если уже конец, то досвидания
-				if (pos == _text.npos) break;
-
+				if (pos == _text.npos)
+				{
+					break;
+				}
 				// нашли ковычку
 				else if (_text[pos] == '"')
 				{
@@ -731,11 +764,15 @@ namespace MyGUI
 					pos ++;
 				}
 				// если мы в ковычках, то идем дальше
-				else if (kov) pos ++;
-
+				else if (kov)
+				{
+					pos ++;
+				}
 				// мы не в ковычках
-				else break;
-
+				else
+				{
+					break;
+				}
 			}
 
 			return pos;
@@ -789,13 +826,15 @@ namespace MyGUI
 				if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-'))
 				{
 					end = _line.find("-->", start + 4);
-					if (end == _line.npos) break;
+					if (end == _line.npos)
+						break;
 					end += 2;
 				}
 				else
 				{
 					end = find(_line, '>', start + 1);
-					if (end == _line.npos) break;
+					if (end == _line.npos)
+						break;
 				}
 				// проверяем на наличее тела
 				size_t body = _line.find_first_not_of(" \t<");
@@ -830,16 +869,10 @@ namespace MyGUI
 		std::string Document::getLastError()
 		{
 			const std::string& error = mLastError.print();
-			if (error.empty()) return error;
+			if (error.empty())
+				return error;
 			return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
 		}
-
-		/*Document Document::createCopyFromElement(ElementPtr _node)
-		{
-			Document doc;
-			doc.mRoot = _node->createCopy();
-			return doc;
-		}*/
 
 	} // namespace xml
 
