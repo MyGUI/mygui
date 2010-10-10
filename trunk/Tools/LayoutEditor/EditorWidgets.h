@@ -22,7 +22,7 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		bool load(const MyGUI::UString& _fileName);
+		bool load(const MyGUI::UString& _fileName/*, const std::string& _itemName, bool& _projectMode*/);
 		bool save(const MyGUI::UString& _fileName);
 		void clear();
 
@@ -40,8 +40,6 @@ namespace tools
 		EnumeratorWidgetContainer getWidgets();
 
 		SettingsSector* getSector(const MyGUI::UString& _sectorName);
-
-		//int getNextGlobalCounter();
 
 		std::string getSkinReplace(const std::string& _skinName);
 
@@ -67,7 +65,6 @@ namespace tools
 		bool isSkinExist(const std::string& _skinName);
 
 	private:
-		//int mGlobalCounter;
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
 		VectorString mIgnoreParameters;

@@ -32,7 +32,7 @@ namespace tools
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ExportManager::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
+		mOpenSaveFileDialog->addFileMask("*.xml");
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
 	}
