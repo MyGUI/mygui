@@ -1,6 +1,6 @@
 #include "Precompiled.h"
-#include "Common.h"
 #include "EditorState.h"
+#include "Common.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
@@ -28,7 +28,8 @@ namespace tools
 		mBackgroundControl(nullptr),
 		mMainPaneControl(nullptr),
 		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml")
+		mDefaultFileName("unnamed.xml"),
+		mProjectMode(false)
 	{
 		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
 		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
@@ -49,7 +50,8 @@ namespace tools
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");
-		addUserTag("CurrentFileName", mFileName);
+		setFileName(mFileName);
+		setItemFileName(mItemFileName);
 
 		mBackgroundControl = new BackgroundControl();
 		mMainPaneControl = new MainPaneControl();
@@ -61,7 +63,8 @@ namespace tools
 		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->setFileMask("*.layout");
+		mOpenSaveFileDialog->addFileMask("*.layout");
+		mOpenSaveFileDialog->addFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
@@ -285,10 +288,13 @@ namespace tools
 
 	void EditorState::load()
 	{
-		if (EditorWidgets::getInstance().load(mFileName))
+		if (EditorWidgets::getInstance().load(mFileName/*, mItemFileName, mProjectMode*/))
 		{
-			if (mFileName != mDefaultFileName)
-				RecentFilesManager::getInstance().addRecentFile(mFileName);
+			//if (!mProjectMode)
+			//{
+				if (mFileName != mDefaultFileName)
+					RecentFilesManager::getInstance().addRecentFile(mFileName);
+			//}
 
 			UndoManager::getInstance().addValue();
 			UndoManager::getInstance().setUnsaved(false);
@@ -332,7 +338,11 @@ namespace tools
 	void EditorState::updateCaption()
 	{
 		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
-		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
+
+		if (mProjectMode)
+			Application::getInstance().setCaption(replaceTags("CaptionProjectMainWindow"));
+		else
+			Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
 	}
 
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
@@ -498,7 +508,14 @@ namespace tools
 		addUserTag("CurrentFileName", mFileName);
 		size_t pos = mFileName.find_last_of("\\/");
 		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(mFileName.find_last_of("\\/") + 1);
+
 		addUserTag("CurrentFileName_Short", shortName);
+	}
+
+	void EditorState::setItemFileName(const MyGUI::UString& _itemFileName)
+	{
+		mItemFileName = _itemFileName;
+		addUserTag("CurrentItemFileName", mItemFileName);
 	}
 
 } // namespace tools

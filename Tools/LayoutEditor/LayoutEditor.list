@@ -25,6 +25,7 @@ set (HEADER_FILES
   MyGUI_RTTLayer.h
   PositionSelectorControl.h
   PossibleValue.h
+  ProjectControl.h
   RecentFilesManager.h
   resource.h
   SelectorControl.h
@@ -87,6 +88,7 @@ set (SOURCE_FILES
   MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
   PositionSelectorControl.cpp
+  ProjectControl.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
   SeparatorPartControl.cpp
@@ -145,6 +147,7 @@ SOURCE_GROUP("Source Files" FILES
   MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
   PositionSelectorControl.cpp
+  ProjectControl.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
   SeparatorPartControl.cpp
@@ -193,6 +196,7 @@ SOURCE_GROUP("Header Files" FILES
   MyGUI_RTTLayer.h
   PositionSelectorControl.h
   PossibleValue.h
+  ProjectControl.h
   RecentFilesManager.h
   resource.h
   SelectorControl.h
@@ -220,10 +224,10 @@ SOURCE_GROUP("Header Files" FILES
   WorkspaceControl.h
 )
 SOURCE_GROUP("Resources" FILES
+  CMakeLists.txt
   editor.ico
   LayoutEditor.rc
   ../../Common/Precompiled.cpp
-  CMakeLists.txt
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h
@@ -244,26 +248,26 @@ SOURCE_GROUP("Panels" FILES
   PropertiesPanelView.cpp
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
-  OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
 )
 SOURCE_GROUP("Windows" FILES
-  SettingsWindow.h
-  WidgetsWindow.h
   SettingsWindow.cpp
+  SettingsWindow.h
   WidgetsWindow.cpp
+  WidgetsWindow.h
 )
 SOURCE_GROUP("Parse" FILES
-  Parse.h
   Parse.cpp
+  Parse.h
 )
 SOURCE_GROUP("GroupedMessage" FILES
-  GroupMessage.h
   GroupMessage.cpp
+  GroupMessage.h
 )
 SOURCE_GROUP("CodeGenerator" FILES
-  CodeGenerator.h
   CodeGenerator.cpp
+  CodeGenerator.h
 )
 SOURCE_GROUP("" FILES
 )

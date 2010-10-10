@@ -63,6 +63,7 @@ namespace tools
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
 		// if you want to test LanguageManager uncomment next line
 		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
+		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("English");
 
 		new SettingsManager();
 		SettingsManager::getInstance().initialise("le_user_settings.xml");

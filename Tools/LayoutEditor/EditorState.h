@@ -59,6 +59,7 @@ namespace tools
 		void showSaveAsWindow();
 
 		void setFileName(const MyGUI::UString& _fileName);
+		void setItemFileName(const MyGUI::UString& _itemFileName);
 
 	private:
 		SettingsWindow* mSettingsWindow;
@@ -72,6 +73,9 @@ namespace tools
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
+
+		bool mProjectMode;
+		MyGUI::UString mItemFileName;
 	};
 
 } // namespace tools

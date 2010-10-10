@@ -4,9 +4,11 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PropertiesPanelView.h"
 #include "WidgetsWindow.h"
+#include "ProjectControl.h"
 
 namespace tools
 {
+
 	class ToolsControl :
 		public wraps::BaseLayout
 	{
@@ -17,6 +19,7 @@ namespace tools
 	private:
 		PropertiesPanelView* mPropertiesPanelView;
 		WidgetsWindow* mWidgetsWindow;
+		ProjectControl* mProjectControl;
 	};
 
 } // namespace tools

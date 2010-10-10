@@ -13,7 +13,6 @@ namespace tools
 	const std::string LogSection = "LayoutEditor";
 
 	EditorWidgets::EditorWidgets() :
-		//mGlobalCounter(0),
 		mWidgetsChanged(false)
 	{
 	}
@@ -25,7 +24,6 @@ namespace tools
 
 	void EditorWidgets::initialise()
 	{
-		//mGlobalCounter = 0;
 		mWidgetsChanged = true;
 
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("IgnoreParameters") = MyGUI::newDelegate(this, &EditorWidgets::loadIgnoreParameters);
@@ -49,21 +47,21 @@ namespace tools
 		mWidgets.clear();
 	}
 
-	bool EditorWidgets::load(const MyGUI::UString& _fileName)
+	bool EditorWidgets::load(const MyGUI::UString& _fileName/*, const std::string& _itemName, bool& _projectMode*/)
 	{
-		std::string _instance = "Editor";
+		//_projectMode = false;
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
 		{
-			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
 			return false;
 		}
 
 		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if ( (nullptr == root) || (root->getName() != "MyGUI") )
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
 		{
-			MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
+			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : '" << _fileName << "', tag 'MyGUI' not found");
 			return false;
 		}
 
@@ -72,6 +70,8 @@ namespace tools
 		{
 			if (type == "Layout")
 			{
+				//_projectMode = false;
+
 				// берем детей и крутимся
 				MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 				while (element.next())
@@ -82,6 +82,31 @@ namespace tools
 						loadSector(element.current());
 				}
 			}
+			/*else if (type == "Resource")
+			{
+				_projectMode = true;
+
+				// берем детей и крутимся
+				MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+				while (element.next("Resource"))
+				{
+					if (element->getName() == "Resource")
+					{
+						if (element->findAttribute("type") == "ResourceLayout"
+							&& element->findAttribute("name") == _itemName)
+						{
+							MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
+							while (widget.next())
+							{
+								if (widget->getName() == "Widget")
+									parseWidget(widget, nullptr);
+								else
+									loadSector(widget.current());
+							}
+						}
+					}
+				}
+			}*/
 			else
 			{
 				return false;
@@ -233,7 +258,6 @@ namespace tools
 		{
 			remove(mWidgets[mWidgets.size()-1]);
 		}
-		//mGlobalCounter = 0;
 
 		destroyAllSectors();
 	}
@@ -298,13 +322,6 @@ namespace tools
 				container->name = MyGUI::utility::toString(container->name, renameN++);
 			}
 		}
-
-		/*std::string tmpname = container->name;
-		if (tmpname.empty())
-			tmpname = MyGUI::utility::toString(container->type, getNextGlobalCounter());
-
-		//может и не стоит
-		tmpname = "LayoutEditorWidget_" + tmpname;*/
 
 		// проверяем скин на присутствие
 		std::string skin = container->skin;
@@ -556,11 +573,6 @@ namespace tools
 		mSettings.push_back(sector);
 		return sector;
 	}
-
-	/*int EditorWidgets::getNextGlobalCounter()
-	{
-		return ++ mGlobalCounter;
-	}*/
 
 	EnumeratorWidgetContainer EditorWidgets::getWidgets()
 	{

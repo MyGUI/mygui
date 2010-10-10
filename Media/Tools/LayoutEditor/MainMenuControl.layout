@@ -58,6 +58,12 @@
 				</Widget>
 			</Widget>
 			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{Project}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Project"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
 				<Property key="Caption" value="#{MenuEdit}"/>
 				<Property key="MenuItemType" value="Popup"/>
 				<Property key="MenuItemId" value="Edit"/>

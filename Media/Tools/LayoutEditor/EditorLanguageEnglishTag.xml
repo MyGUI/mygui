@@ -18,6 +18,8 @@
 	<Tag name="Properties_not_available">#808080#{widget_type} properties</Tag>
 	<Tag name="Items">Items</Tag>
 
+	<Tag name="Project">Project</Tag>
+
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>
 	<Tag name="MenuColourSelector">Selector colour ...</Tag>
@@ -58,6 +60,7 @@
 	<Tag name="Error">Error</Tag>
 
 	<Tag name="CaptionMainWindow">Layout editor - '#{CurrentFileName}' #{HasChanged}</Tag>
+	<Tag name="CaptionProjectMainWindow">Layout editor - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
