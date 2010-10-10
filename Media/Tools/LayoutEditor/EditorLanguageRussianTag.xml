@@ -19,7 +19,7 @@
 
 	<Tag name="MenuScale">Масштаб</Tag>
 
-	<Tag name="MenuEdit">Редактирование</Tag>
+	<Tag name="MenuEdit">Правка</Tag>
 	<Tag name="MenuUndo">Отменить</Tag>
 	<Tag name="MenuRedo">Повторить</Tag>
 
@@ -29,6 +29,8 @@
 	<Tag name="Properties_not_available">#808080Свойства #{widget_type}</Tag>
 	<Tag name="Items">Элементы</Tag>
 
+	<Tag name="Project">Проект</Tag>
+	
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
 	<Tag name="Select">Выбрать</Tag>
@@ -58,6 +60,7 @@
 	<Tag name="Error">Ошибка</Tag>
 
 	<Tag name="CaptionMainWindow">Редактор макетов - '#{CurrentFileName}' #{HasChanged}</Tag>
+	<Tag name="CaptionProjectMainWindow">Редактор макетов - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
