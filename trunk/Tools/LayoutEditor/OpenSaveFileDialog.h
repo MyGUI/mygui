@@ -59,7 +59,6 @@ namespace tools
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
-		typedef std::vector<MyGUI::UString> VectorUString;
 		VectorUString mFileMasks;
 
 		MyGUI::UString mMode;
