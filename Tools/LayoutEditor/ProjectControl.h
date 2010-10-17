@@ -7,8 +7,8 @@
 #define __PEOJECT_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-//#include "EditorToolTip.h"
 #include "OpenSaveFileDialog.h"
+#include "TextFieldControl.h"
 
 namespace tools
 {
@@ -21,11 +21,16 @@ namespace tools
 
 	private:
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
+		void notifyMessageBoxResultDelete(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyTextFieldEndDialog(Dialog* _sender, bool _result);
 
 		bool checkCommand();
 
+		void command_ProjectCreate(const MyGUI::UString& _commandName, bool& _result);
 		void command_ProjectLoad(const MyGUI::UString& _commandName, bool& _result);
 		void command_ProjectClose(const MyGUI::UString& _commandName, bool& _result);
+		void command_ProjectDeleteItem(const MyGUI::UString& _commandName, bool& _result);
+		void command_ProjectRenameItem(const MyGUI::UString& _commandName, bool& _result);
 
 		void clear();
 		bool load();
@@ -33,8 +38,16 @@ namespace tools
 		void setFileName(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
 		void updateCaption();
 
+		bool deleteItemFromProject(size_t _index);
+		bool renameItemInProject(size_t _index, const MyGUI::UString& _name);
+
+		bool isExistFile(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
+		void createProject(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
+
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;
+		TextFieldControl* mTextFieldControl;
+
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;
 
