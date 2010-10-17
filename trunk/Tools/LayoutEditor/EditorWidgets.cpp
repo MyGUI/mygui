@@ -1,6 +1,6 @@
 #include "Precompiled.h"
-#include "Common.h"
 #include "EditorWidgets.h"
+#include "Common.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
 #include "BackwardCompatibilityManager.h"
@@ -49,6 +49,17 @@ namespace tools
 
 	bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	{
+		size_t index = _fileName.find("|");
+		if (index != MyGUI::UString::npos)
+		{
+			MyGUI::UString fileName = _fileName.substr(0, index);
+			MyGUI::UString itemIndex = _fileName.substr(index + 1);
+
+			return loadFromProject(fileName, MyGUI::utility::parseValue<size_t>(itemIndex));
+		}
+
+		mCurrentFileName = _fileName;
+
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
 		{
@@ -84,8 +95,10 @@ namespace tools
 		return true;
 	}
 
-	bool EditorWidgets::loadFromProject(const MyGUI::UString& _fileName, const std::string& _itemName)
+	bool EditorWidgets::loadFromProject(const MyGUI::UString& _fileName, size_t _index)
 	{
+		mCurrentFileName = _fileName;
+
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
 		{
@@ -106,16 +119,23 @@ namespace tools
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout"
-					&& element->findAttribute("name") == _itemName)
+				if (element->findAttribute("type") == "ResourceLayout")
 				{
-					MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
-					while (widget.next())
+					if (_index == 0)
 					{
-						if (widget->getName() == "Widget")
-							parseWidget(widget, nullptr);
-						else
-							loadSector(widget.current());
+						MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
+						while (widget.next())
+						{
+							if (widget->getName() == "Widget")
+								parseWidget(widget, nullptr);
+							else
+								loadSector(widget.current());
+						}
+						break;
+					}
+					else
+					{
+						_index --;
 					}
 				}
 			}
@@ -131,6 +151,17 @@ namespace tools
 
 	bool EditorWidgets::save(const MyGUI::UString& _fileName)
 	{
+		size_t index = _fileName.find("|");
+		if (index != MyGUI::UString::npos)
+		{
+			MyGUI::UString fileName = _fileName.substr(0, index);
+			MyGUI::UString itemIndex = _fileName.substr(index + 1);
+
+			return saveToProject(fileName, MyGUI::utility::parseValue<size_t>(itemIndex));
+		}
+
+		mCurrentFileName = _fileName;
+
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -155,8 +186,10 @@ namespace tools
 		return true;
 	}
 
-	bool EditorWidgets::saveToProject(const MyGUI::UString& _fileName, const std::string& _itemName)
+	bool EditorWidgets::saveToProject(const MyGUI::UString& _fileName, size_t _index)
 	{
+		mCurrentFileName = _fileName;
+
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
 		{
@@ -177,29 +210,37 @@ namespace tools
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
-				if (element->findAttribute("type") == "ResourceLayout"
-					&& element->findAttribute("name") == _itemName)
+				if (element->findAttribute("type") == "ResourceLayout")
 				{
-					element->clear();
-					element->addAttribute("type", "ResourceLayout");
-					element->addAttribute("name", _itemName);
-
-					for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+					if (_index == 0)
 					{
-						// в корень только сирот
-						if (nullptr == (*iter)->widget->getParent())
-							serialiseWidget(*iter, element.current(), true);
+						std::string name = element->findAttribute("name");
+
+						element->clear();
+						element->addAttribute("type", "ResourceLayout");
+						element->addAttribute("name", name);
+
+						for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+						{
+							// в корень только сирот
+							if (nullptr == (*iter)->widget->getParent())
+								serialiseWidget(*iter, element.current(), true);
+						}
+
+						saveSectors(element.current());
+
+						if (!doc.save(_fileName))
+						{
+							MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
+							return false;
+						}
+
+						return true;
 					}
-
-					saveSectors(element.current());
-
-					if (!doc.save(_fileName))
+					else
 					{
-						MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
-						return false;
+						_index --;
 					}
-
-					return true;
 				}
 			}
 			return false;
@@ -342,6 +383,8 @@ namespace tools
 
 	void EditorWidgets::clear()
 	{
+		mCurrentFileName.clear();
+
 		while (!mWidgets.empty())
 		{
 			remove(mWidgets[mWidgets.size()-1]);
@@ -685,6 +728,11 @@ namespace tools
 	bool EditorWidgets::isSkinExist(const std::string& _skinName)
 	{
 		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName);
+	}
+
+	const MyGUI::UString& EditorWidgets::getCurrentFileName()
+	{
+		return mCurrentFileName;
 	}
 
 } // namespace tools

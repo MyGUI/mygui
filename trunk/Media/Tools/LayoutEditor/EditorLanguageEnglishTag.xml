@@ -24,6 +24,7 @@
 	<Tag name="MenuProjectClose">Project close</Tag>
 	<Tag name="MenuProjectDeleteItem">Delete current layout from project</Tag>
 	<Tag name="MenuProjectRenameItem">Rename current layout in project ...</Tag>
+	<Tag name="MenuProjectAddItem">Add layout in project</Tag>
 
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>
@@ -35,7 +36,7 @@
 	<Tag name="MenuEdit">Edit</Tag>
 	<Tag name="MenuUndo">Undo</Tag>
 	<Tag name="MenuRedo">Redo</Tag>
-	
+
 	<Tag name="Add">Add</Tag>
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Select">Select</Tag>
@@ -88,6 +89,8 @@
 	<Tag name="MessageFailedLoadProject">Failed to load project '#{CurrentProjectName}'</Tag>
 	<Tag name="MessageDeleteLayout">Are you sure you want to delete layout?</Tag>
 	<Tag name="MessageFileExist">File is exists.</Tag>
+	<Tag name="MessageProjectItemOpen">Project item is open.</Tag>
+	<Tag name="MessageProjectNotOpen">Project not found.</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">pixels</Tag>
