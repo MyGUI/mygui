@@ -20,32 +20,8 @@ namespace demo
 		GraphView() :
 			wraps::BaseGraphView("GraphView.layout", nullptr)
 		{
-			MyGUI::CanvasPtr canvas = nullptr;
-			assignWidget(canvas, "Canvas");
-			wrapCanvas(canvas);
-
-			assignWidget(mScrollView, "ScrollView");
-
-			//mScrollView->setCanvasSize(16, 16);
-			//canvas->setCoord(0, 0, 16, 16);
-
-			//eventChangeSize = MyGUI::newDelegate(this, &GraphView::notifyChangeSize);
-
-			//notifyChangeSize(this, MyGUI::IntSize());
+			setCanvasWidget("Canvas");
 		}
-
-	private:
-		/*void notifyChangeSize(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
-		{
-			const MyGUI::IntCoord& coord = mScrollView->getClientCoord();
-			if (_size.width < coord.width) _size.width = coord.width;
-			if (_size.height < coord.height) _size.height = coord.height;
-			mScrollView->setCanvasSize(_size);
-		}*/
-
-	private:
-		MyGUI::ScrollViewPtr mScrollView;
-
 	};
 
 } // namespace demo

@@ -29,10 +29,7 @@ namespace wraps
 			mIsDrug(false),
 			mConnectionStart(nullptr)
 		{
-			if (mMainWidget->isType<MyGUI::Canvas>())
-			{
-				wrapCanvas(mMainWidget->castType<MyGUI::Canvas>());
-			}
+			//wrapCanvas(mMainWidget);
 		}
 
 		void addItem(BaseGraphNode* _node)
@@ -132,7 +129,7 @@ namespace wraps
 			@param _sender
 			@param _size
 		*/
-		//MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
+		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
 
 		/** Event : Node closed.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
@@ -142,12 +139,11 @@ namespace wraps
 		MyGUI::delegates::CDelegate2<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
 
 	protected:
-		void wrapCanvas(MyGUI::CanvasPtr _canvas)
+		void setCanvasWidget(const std::string& _widgetName)
 		{
-			mCanvas = _canvas;
-			mCanvas->requestUpdateCanvas = MyGUI::newDelegate( this, &BaseGraphView::requestUpdateCanvas );
-			mCanvas->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
-			mCanvas->updateTexture();
+			assignWidget(mCanvas, _widgetName);
+
+			updateCanvas(mCanvas);
 		}
 
 	private:
@@ -211,7 +207,7 @@ namespace wraps
 					mDrugLine.point_end = mDrugLine.point_start;
 
 					mConnectionStart = _connection;
-					mCanvas->updateTexture();
+					updateCanvas(mCanvas);
 				}
 				// разрываем существующий
 				else
@@ -272,7 +268,7 @@ namespace wraps
 						mDrugLine.point_end = mDrugLine.point_start;
 
 						mConnectionStart = drag_node;
-						mCanvas->updateTexture();
+						updateCanvas(mCanvas);
 
 						updateDrag(nullptr);
 					}
@@ -293,7 +289,7 @@ namespace wraps
 				mIsDrug = false;
 				mConnectionStart = nullptr;
 
-				mCanvas->updateTexture();
+				updateCanvas(mCanvas);
 			}
 		}
 
@@ -353,21 +349,19 @@ namespace wraps
 					mDrugLine.colour = MyGUI::Colour::White;
 				}
 
-				mCanvas->updateTexture();
+				updateCanvas(mCanvas);
 			}
 		}
 
 		virtual void changePosition(BaseGraphNode* _node)
 		{
-			//eventChangeSize(this, getViewSize());
-			// вот апдейт главный для перерисовки
-			mCanvas->updateTexture();
+			eventChangeSize(this, getViewSize());
+
+			updateCanvas(mCanvas);
 		}
 
-		void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
+		void updateCanvas(MyGUI::Widget* _canvas)
 		{
-			if ( ! _event.textureChanged && ! _event.requested ) return;
-
 			clearCanvas(_canvas);
 
 			// проходим по всем нодам и перерисовываем связи
@@ -433,7 +427,7 @@ namespace wraps
 			eventConnectPoint(this, _from, _to);
 		}
 
-		void clearCanvas(MyGUI::Canvas* _canvas)
+		void clearCanvas(MyGUI::Widget* _canvas)
 		{
 			size_t i = 0;
 			while (i < _canvas->getChildCount())
@@ -449,7 +443,7 @@ namespace wraps
 			}
 		}
 
-		void drawSpline(MyGUI::Canvas* _canvas, const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
+		void drawSpline(MyGUI::Widget* _canvas, const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
 		{
 			MyGUI::Widget* widget = _canvas->createWidget<MyGUI::StaticImage>("PolygonalSkin", _canvas->getCoord(), MyGUI::Align::Default);
 			widget->setNeedMouseFocus(false);
@@ -481,13 +475,13 @@ namespace wraps
 			polygonalSkin->setPoints(splinePoints);
 		}
 
-		void drawCurve(MyGUI::Canvas* _canvas, const ConnectionInfo& _info)
+		void drawCurve(MyGUI::Widget* _canvas, const ConnectionInfo& _info)
 		{
 			drawSpline(_canvas, _info, 3, MyGUI::Colour(0.3, 0.3, 0.3, 0.8));
 			drawSpline(_canvas, _info, 0, _info.colour);
 		}
 
-		/*MyGUI::IntSize getViewSize()
+		MyGUI::IntSize getViewSize()
 		{
 			MyGUI::IntSize result;
 			for (size_t index = 0; index < mNodes.size(); ++index)
@@ -502,12 +496,12 @@ namespace wraps
 			result.height += 10;
 
 			return result;
-		}*/
+		}
 
 	private:
 		VectorGraphNode mNodes;
 
-		MyGUI::CanvasPtr mCanvas;
+		MyGUI::Widget* mCanvas;
 		bool mIsDrug;
 		ConnectionInfo mDrugLine;
 		BaseGraphConnection* mConnectionStart;
