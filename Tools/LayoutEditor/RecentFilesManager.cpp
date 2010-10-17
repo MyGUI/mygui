@@ -15,7 +15,8 @@ namespace tools
 {
 	RecentFilesManager::RecentFilesManager() :
 		mMaxRecentFolders(8),
-		mMaxRecentFiles(8)
+		mMaxRecentFiles(8),
+		mMaxRecentProjects(8)
 	{
 	}
 
@@ -29,12 +30,17 @@ namespace tools
 			mMaxRecentFolders = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<size_t>("MaxRecentFolders");
 		if (SettingsManager::getInstance().getSector("Settings")->getExistProperty("MaxRecentFiles"))
 			mMaxRecentFiles = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<size_t>("MaxRecentFiles");
+		if (SettingsManager::getInstance().getSector("Settings")->getExistProperty("MaxRecentProjects"))
+			mMaxRecentProjects = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<size_t>("MaxRecentProjects");
+
 		mRecentFolder = SettingsManager::getInstance().getSector("Files")->getPropertyValue("RecentFolder");
 		mRecentFolders = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentFolders");
 		mRecentFiles = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentFiles");
+		mRecentProjects = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentProjects");
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
 		checkArray(mRecentFiles, mMaxRecentFiles);
+		checkArray(mRecentProjects, mMaxRecentProjects);
 	}
 
 	void RecentFilesManager::shutdown()
@@ -42,6 +48,7 @@ namespace tools
 		SettingsManager::getInstance().getSector("Files")->setPropertyValue("RecentFolder", mRecentFolder);
 		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFolders", mRecentFolders);
 		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFiles", mRecentFiles);
+		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentProjects", mRecentProjects);
 	}
 
 	void RecentFilesManager::addRecentFolder(const MyGUI::UString& _folder)
@@ -91,6 +98,18 @@ namespace tools
 	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFiles()
 	{
 		return mRecentFiles;
+	}
+
+	void RecentFilesManager::addRecentProject(const MyGUI::UString& _fileName)
+	{
+		mRecentProjects.insert(mRecentProjects.begin(), _fileName);
+
+		checkArray(mRecentProjects, mMaxRecentProjects);
+	}
+
+	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentProjects()
+	{
+		return mRecentProjects;
 	}
 
 } // namespace tools
