@@ -27,9 +27,24 @@ namespace wraps
 			BaseLayout(_layout, _parent),
 			mCanvas(nullptr),
 			mIsDrug(false),
-			mConnectionStart(nullptr)
+			mConnectionStart(nullptr),
+			mInvalidate(false)
 		{
-			//wrapCanvas(mMainWidget);
+			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
+		}
+
+		virtual ~BaseGraphView()
+		{
+			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
+		}
+
+		void BaseGraphView::notifyFrameStart(float _time)
+		{
+			if (mInvalidate)
+			{
+				mInvalidate = false;
+				updateCanvasImpl();
+			}
 		}
 
 		void addItem(BaseGraphNode* _node)
@@ -143,7 +158,7 @@ namespace wraps
 		{
 			assignWidget(mCanvas, _widgetName);
 
-			updateCanvas(mCanvas);
+			updateCanvas();
 		}
 
 	private:
@@ -207,7 +222,8 @@ namespace wraps
 					mDrugLine.point_end = mDrugLine.point_start;
 
 					mConnectionStart = _connection;
-					updateCanvas(mCanvas);
+
+					updateCanvas();
 				}
 				// разрываем существующий
 				else
@@ -268,7 +284,8 @@ namespace wraps
 						mDrugLine.point_end = mDrugLine.point_start;
 
 						mConnectionStart = drag_node;
-						updateCanvas(mCanvas);
+
+						updateCanvas();
 
 						updateDrag(nullptr);
 					}
@@ -289,7 +306,7 @@ namespace wraps
 				mIsDrug = false;
 				mConnectionStart = nullptr;
 
-				updateCanvas(mCanvas);
+				updateCanvas();
 			}
 		}
 
@@ -349,7 +366,7 @@ namespace wraps
 					mDrugLine.colour = MyGUI::Colour::White;
 				}
 
-				updateCanvas(mCanvas);
+				updateCanvas();
 			}
 		}
 
@@ -357,12 +374,17 @@ namespace wraps
 		{
 			eventChangeSize(this, getViewSize());
 
-			updateCanvas(mCanvas);
+			updateCanvas();
 		}
 
-		void updateCanvas(MyGUI::Widget* _canvas)
+		void updateCanvas()
 		{
-			clearCanvas(_canvas);
+			mInvalidate = true;
+		}
+
+		void updateCanvasImpl()
+		{
+			clearCanvas();
 
 			// проходим по всем нодам и перерисовываем связи
 			for (size_t index = 0; index < mNodes.size(); ++index)
@@ -383,14 +405,14 @@ namespace wraps
 							node_point->getOffset(),
 							connect_point->getOffset());
 
-						drawCurve(_canvas, info);
+						drawCurve(info);
 					}
 				}
 			}
 
 			// ниточка для драга
 			if (mIsDrug)
-				drawCurve(_canvas, mDrugLine);
+				drawCurve(mDrugLine);
 		}
 
 		void connectPoint(BaseGraphConnection* _connection)
@@ -427,14 +449,14 @@ namespace wraps
 			eventConnectPoint(this, _from, _to);
 		}
 
-		void clearCanvas(MyGUI::Widget* _canvas)
+		void clearCanvas()
 		{
 			size_t i = 0;
-			while (i < _canvas->getChildCount())
+			while (i < mCanvas->getChildCount())
 			{
-				if (_canvas->getChildAt(i)->isType<MyGUI::StaticImage>())
+				if (mCanvas->getChildAt(i)->isType<MyGUI::StaticImage>())
 				{
-					MyGUI::WidgetManager::getInstance().destroyWidget(_canvas->getChildAt(i));
+					MyGUI::WidgetManager::getInstance().destroyWidget(mCanvas->getChildAt(i));
 				}
 				else
 				{
@@ -443,9 +465,9 @@ namespace wraps
 			}
 		}
 
-		void drawSpline(MyGUI::Widget* _canvas, const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
+		void drawSpline(const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
 		{
-			MyGUI::Widget* widget = _canvas->createWidget<MyGUI::StaticImage>("PolygonalSkin", _canvas->getCoord(), MyGUI::Align::Default);
+			MyGUI::Widget* widget = mCanvas->createWidget<MyGUI::StaticImage>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
 			widget->setNeedMouseFocus(false);
 
 			MyGUI::ISubWidget* main = widget->getSubWidgetMain();
@@ -475,10 +497,10 @@ namespace wraps
 			polygonalSkin->setPoints(splinePoints);
 		}
 
-		void drawCurve(MyGUI::Widget* _canvas, const ConnectionInfo& _info)
+		void drawCurve(const ConnectionInfo& _info)
 		{
-			drawSpline(_canvas, _info, 3, MyGUI::Colour(0.3, 0.3, 0.3, 0.8));
-			drawSpline(_canvas, _info, 0, _info.colour);
+			drawSpline(_info, 3, MyGUI::Colour(0.3, 0.3, 0.3, 0.8));
+			drawSpline(_info, 0, _info.colour);
 		}
 
 		MyGUI::IntSize getViewSize()
@@ -505,6 +527,7 @@ namespace wraps
 		bool mIsDrug;
 		ConnectionInfo mDrugLine;
 		BaseGraphConnection* mConnectionStart;
+		bool mInvalidate;
 	};
 
 } // namespace wraps
