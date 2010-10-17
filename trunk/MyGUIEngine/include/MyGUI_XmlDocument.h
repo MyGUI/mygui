@@ -43,7 +43,7 @@ namespace MyGUI
 		{
 			enum Enum
 			{
-				//Comment,
+				Comment,
 				Declaration,
 				Normal,
 				MAX
@@ -185,7 +185,7 @@ namespace MyGUI
 			void save(std::ostream& _stream, size_t _level);
 
 		public:
-			ElementPtr createChild(const std::string& _name, const std::string& _content = "");
+			ElementPtr createChild(const std::string& _name, const std::string& _content = "", ElementType _type = ElementType::Normal);
 
 			template <typename T>
 			void addAttribute(const std::string& _key, const T& _value)

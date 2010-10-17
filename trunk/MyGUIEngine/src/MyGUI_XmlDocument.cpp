@@ -166,8 +166,11 @@ namespace MyGUI
 			// теперь заголовок тега
 			if (mType == ElementType::Declaration)
 				_stream << "<?";
+			else if (mType == ElementType::Comment)
+				_stream << "<!--";
 			else
 				_stream << "<";
+
 			_stream << mName;
 
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
@@ -181,6 +184,8 @@ namespace MyGUI
 			{
 				if (mType == ElementType::Declaration)
 					_stream << "?>\n";
+				else if (mType == ElementType::Comment)
+					_stream << "-->\n";
 				else
 					_stream << "/>\n";
 			}
@@ -216,9 +221,9 @@ namespace MyGUI
 			}
 		}
 
-		ElementPtr Element::createChild(const std::string& _name, const std::string& _content)
+		ElementPtr Element::createChild(const std::string& _name, const std::string& _content, ElementType _type)
 		{
-			ElementPtr node = new Element(_name, this, ElementType::Normal, _content);
+			ElementPtr node = new Element(_name, this, _type, _content);
 			mChilds.push_back(node);
 			return node;
 		}
@@ -544,17 +549,24 @@ namespace MyGUI
 			char simbol = _content[0];
 			bool tagDeclaration = false;
 
+			// проверяем на коментарии
 			if (simbol == '!')
-				return true; // проверяем на коментарии
-
+			{
+				if (_currentNode != 0)
+				{
+					//_currentNode->createChild("", _content, ElementType::Comment);
+				}
+				return true;
+			}
 			// проверяем на информационный тег
-			if (simbol == '?')
+			else if (simbol == '?')
 			{
 				tagDeclaration = true;
 				_content.erase(0, 1); // удаляем первый символ
 			}
 
-			size_t start, end;
+			size_t start = 0;
+			size_t end = 0;
 			// проверяем на закрытие тега
 			if (simbol == '/')
 			{
@@ -819,7 +831,8 @@ namespace MyGUI
 			{
 				// сначала ищем по угловым скобкам
 				size_t start = find(_line, '<');
-				if (start == _line.npos) break;
+				if (start == _line.npos)
+					break;
 				size_t end = _line.npos;
 
 				// пытаемся вырезать многострочный коментарий
