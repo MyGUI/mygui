@@ -28,7 +28,8 @@ namespace wraps
 			mCanvas(nullptr),
 			mIsDrug(false),
 			mConnectionStart(nullptr),
-			mInvalidate(false)
+			mInvalidate(false),
+			mCurrentIndexConnection(0)
 		{
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
@@ -451,29 +452,40 @@ namespace wraps
 
 		void clearCanvas()
 		{
-			size_t i = 0;
-			while (i < mCanvas->getChildCount())
+			for (MyGUI::VectorWidgetPtr::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
+				(*item)->setVisible(false);
+			mCurrentIndexConnection = 0;
+		}
+
+		MyGUI::Widget* getNextWidget()
+		{
+			MyGUI::Widget* result = nullptr;
+
+			if (mCurrentIndexConnection < mConnections.size())
 			{
-				if (mCanvas->getChildAt(i)->isType<MyGUI::StaticImage>())
-				{
-					MyGUI::WidgetManager::getInstance().destroyWidget(mCanvas->getChildAt(i));
-				}
-				else
-				{
-					++i;
-				}
+				result = mConnections[mCurrentIndexConnection];
 			}
+			else
+			{
+				result = mCanvas->createWidget<MyGUI::Widget>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
+				result->setNeedMouseFocus(false);
+				mConnections.push_back(result);
+			}
+
+			mCurrentIndexConnection++;
+
+			result->setVisible(true);
+			return result;
 		}
 
 		void drawSpline(const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
 		{
-			MyGUI::Widget* widget = mCanvas->createWidget<MyGUI::StaticImage>("PolygonalSkin", mCanvas->getCoord(), MyGUI::Align::Default);
-			widget->setNeedMouseFocus(false);
+			MyGUI::Widget* widget = getNextWidget();
+			widget->setColour(_colour);
 
 			MyGUI::ISubWidget* main = widget->getSubWidgetMain();
 			MyGUI::PolygonalSkin* polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
 			polygonalSkin->setWidth(4.0f);
-			widget->setColour(_colour);
 
 			const size_t PointsNumber = 16;
 			std::vector<MyGUI::FloatPoint> basePoints;
@@ -528,6 +540,8 @@ namespace wraps
 		ConnectionInfo mDrugLine;
 		BaseGraphConnection* mConnectionStart;
 		bool mInvalidate;
+		MyGUI::VectorWidgetPtr mConnections;
+		size_t mCurrentIndexConnection;
 	};
 
 } // namespace wraps
