@@ -2,7 +2,7 @@
 <MyGUI>
 	<Tag name="File">Файл</Tag>
 	<Tag name="Widgets">Виджеты</Tag>
-	<Tag name="Load">Открыть</Tag>
+	<Tag name="Load">Открыть ...</Tag>
 	<Tag name="Save">Сохранить</Tag>
 	<Tag name="Save_as">Сохранить как...</Tag>
 	<Tag name="Clear">Очистить</Tag>
@@ -30,7 +30,9 @@
 	<Tag name="Items">Элементы</Tag>
 
 	<Tag name="Project">Проект</Tag>
-	
+	<Tag name="MenuProjectLoad">Открыть проект ...</Tag>
+	<Tag name="MenuProjectClose">Закрыть проект</Tag>
+
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
 	<Tag name="Select">Выбрать</Tag>
@@ -77,6 +79,7 @@
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedSaveFile">Ошибка сохранения файла '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedLoadProject">Ошибка загрузки проекта '#{CurrentProjectName}'</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">пиксели</Tag>

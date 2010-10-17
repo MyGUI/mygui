@@ -61,7 +61,16 @@
 				<Property key="Caption" value="#{Project}"/>
 				<Property key="MenuItemType" value="Popup"/>
 				<Property key="MenuItemId" value="Project"/>
-				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectLoad}"/>
+						<Property key="MenuItemId" value="Command_ProjectLoad"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectClose}"/>
+						<Property key="MenuItemId" value="Command_ProjectClose"/>
+					</Widget>
+				</Widget>
 			</Widget>
 			<Widget type="MenuItem" skin="MenuBarButton">
 				<Property key="Caption" value="#{MenuEdit}"/>
