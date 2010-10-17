@@ -360,7 +360,8 @@ namespace wraps
 		virtual void changePosition(BaseGraphNode* _node)
 		{
 			//eventChangeSize(this, getViewSize());
-			//mCanvas->updateTexture();
+			// вот апдейт главный для перерисовки
+			mCanvas->updateTexture();
 		}
 
 		void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
