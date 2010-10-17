@@ -64,7 +64,7 @@ namespace tools
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->addFileMask("*.layout");
-		mOpenSaveFileDialog->addFileMask("*.xml");
+		//mOpenSaveFileDialog->addFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
