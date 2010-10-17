@@ -9,7 +9,7 @@
 	<Tag name="Settings">Settings</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
 	<Tag name="Code_Generator">Code generator</Tag>
-	<Tag name="RecentFiles">Recent Files </Tag>
+	<Tag name="RecentFiles">Recent files</Tag>
 	<Tag name="Quit">Quit</Tag>
 
 	<Tag name="Properties">Properties</Tag>
@@ -20,11 +20,11 @@
 
 	<Tag name="Project">Project</Tag>
 	<Tag name="MenuProjectCreate">Create project ...</Tag>
-	<Tag name="MenuProjectLoad">Project load ...</Tag>
-	<Tag name="MenuProjectClose">Project close</Tag>
+	<Tag name="MenuProjectLoad">Load project ...</Tag>
+	<Tag name="MenuProjectClose">Close project</Tag>
 	<Tag name="MenuProjectDeleteItem">Delete current layout from project</Tag>
 	<Tag name="MenuProjectRenameItem">Rename current layout in project ...</Tag>
-	<Tag name="MenuProjectAddItem">Add layout in project</Tag>
+	<Tag name="MenuProjectAddItem">Add layout to project</Tag>
 
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>
@@ -88,8 +88,8 @@
 	<Tag name="MessageFailedSaveFile">Failed to save file '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedLoadProject">Failed to load project '#{CurrentProjectName}'</Tag>
 	<Tag name="MessageDeleteLayout">Are you sure you want to delete layout?</Tag>
-	<Tag name="MessageFileExist">File is exists.</Tag>
-	<Tag name="MessageProjectItemOpen">Project item is open.</Tag>
+	<Tag name="MessageFileExist">File already exist.</Tag>
+	<Tag name="MessageProjectItemOpen">Project item is opened in editor, close it and try again.</Tag>
 	<Tag name="MessageProjectNotOpen">Project not found.</Tag>
 
 	<Tag name="to_percents">%</Tag>
