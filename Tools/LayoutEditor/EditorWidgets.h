@@ -23,9 +23,7 @@ namespace tools
 		void shutdown();
 
 		bool load(const MyGUI::UString& _fileName);
-		bool loadFromProject(const MyGUI::UString& _fileName, const std::string& _itemName);
 		bool save(const MyGUI::UString& _fileName);
-		bool saveToProject(const MyGUI::UString& _fileName, const std::string& _itemName);
 		void clear();
 
 		void loadxmlDocument(MyGUI::xml::Document* doc, bool _test = false);
@@ -44,6 +42,8 @@ namespace tools
 		SettingsSector* getSector(const MyGUI::UString& _sectorName);
 
 		std::string getSkinReplace(const std::string& _skinName);
+
+		const MyGUI::UString& getCurrentFileName();
 
 		Event_ChangeWidgets eventChangeWidgets;
 
@@ -66,6 +66,9 @@ namespace tools
 
 		bool isSkinExist(const std::string& _skinName);
 
+		bool loadFromProject(const MyGUI::UString& _fileName, size_t _index);
+		bool saveToProject(const MyGUI::UString& _fileName, size_t _index);
+
 	private:
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
@@ -75,6 +78,8 @@ namespace tools
 
 		typedef std::map<std::string, std::string> MapString;
 		MapString mSkinReplaces;
+
+		MyGUI::UString mCurrentFileName;
 	};
 
 } // namespace tools

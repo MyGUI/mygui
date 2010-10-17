@@ -35,16 +35,17 @@ namespace tools
 		void load();
 		void loadDropFile();
 
-		void commandLoad(const MyGUI::UString& _commandName, bool& _result);
-		void commandSave(const MyGUI::UString& _commandName, bool& _result);
-		void commandSaveAs(const MyGUI::UString& _commandName, bool& _result);
-		void commandClear(const MyGUI::UString& _commandName, bool& _result);
-		void commandTest(const MyGUI::UString& _commandName, bool& _result);
-		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
-		void commandSettings(const MyGUI::UString& _commandName, bool& _result);
-		void commandCodeGenerator(const MyGUI::UString& _commandName, bool& _result);
-		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
-		void commandFileDrop(const MyGUI::UString& _commandName, bool& _result);
+		void command_Load(const MyGUI::UString& _commandName, bool& _result);
+		void command_Save(const MyGUI::UString& _commandName, bool& _result);
+		void command_SaveAs(const MyGUI::UString& _commandName, bool& _result);
+		void command_Clear(const MyGUI::UString& _commandName, bool& _result);
+		void command_Test(const MyGUI::UString& _commandName, bool& _result);
+		void command_Quit(const MyGUI::UString& _commandName, bool& _result);
+		void command_Settings(const MyGUI::UString& _commandName, bool& _result);
+		void command_CodeGenerator(const MyGUI::UString& _commandName, bool& _result);
+		void command_RecentFiles(const MyGUI::UString& _commandName, bool& _result);
+		void command_FileDrop(const MyGUI::UString& _commandName, bool& _result);
+		void command_SaveItemAs(const MyGUI::UString& _commandName, bool& _result);
 
 		void updateCaption();
 		bool checkCommand();
@@ -59,7 +60,9 @@ namespace tools
 		void showSaveAsWindow();
 
 		void setFileName(const MyGUI::UString& _fileName);
-		void setItemFileName(const MyGUI::UString& _itemFileName);
+		MyGUI::UString convertProjectName(const MyGUI::UString& _fileName);
+
+		bool isProjectFile(const MyGUI::UString& _fileName);
 
 	private:
 		SettingsWindow* mSettingsWindow;
@@ -73,9 +76,6 @@ namespace tools
 		MyGUI::UString mFileName;
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
-
-		bool mProjectMode;
-		MyGUI::UString mItemFileName;
 	};
 
 } // namespace tools

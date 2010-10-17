@@ -27,20 +27,20 @@ namespace tools
 		mMessageBoxFadeControl(nullptr),
 		mBackgroundControl(nullptr),
 		mMainPaneControl(nullptr),
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
-		mProjectMode(false)
+		mFileName("unnamed.layout"),
+		mDefaultFileName("unnamed.layout")
 	{
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::commandCodeGenerator));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
+		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::command_Load));
+		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::command_Save));
+		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::command_SaveAs));
+		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::command_Clear));
+		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::command_Test));
+		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::command_Quit));
+		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::command_Settings));
+		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::command_CodeGenerator));
+		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::command_RecentFiles));
+		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::command_FileDrop));
+		CommandManager::getInstance().registerCommand("Command_SaveItemAs", MyGUI::newDelegate(this, &EditorState::command_SaveItemAs));
 	}
 
 	EditorState::~EditorState()
@@ -51,7 +51,6 @@ namespace tools
 	{
 		addUserTag("\\n", "\n");
 		setFileName(mFileName);
-		setItemFileName(mItemFileName);
 
 		mBackgroundControl = new BackgroundControl();
 		mMainPaneControl = new MainPaneControl();
@@ -64,7 +63,6 @@ namespace tools
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->addFileMask("*.layout");
-		//mOpenSaveFileDialog->addFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
@@ -119,21 +117,21 @@ namespace tools
 		mSettingsWindow->endModal();
 	}
 
-	void EditorState::commandTest(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Test(const MyGUI::UString& _commandName, bool& _result)
 	{
 		StateManager::getInstance().stateEvent(this, "Test");
 
 		_result = true;
 	}
 
-	void EditorState::commandSettings(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Settings(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mSettingsWindow->doModal();
 
 		_result = true;
 	}
 
-	void EditorState::commandCodeGenerator(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_CodeGenerator(const MyGUI::UString& _commandName, bool& _result)
 	{
 		mCodeGenerator->loadTemplate();
 		mCodeGenerator->doModal();
@@ -141,12 +139,12 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_RecentFiles(const MyGUI::UString& _commandName, bool& _result)
 	{
-		commandFileDrop(_commandName, _result);
+		command_FileDrop(_commandName, _result);
 	}
 
-	void EditorState::commandLoad(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Load(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -170,7 +168,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandSave(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Save(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -183,7 +181,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandSaveAs(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_SaveAs(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -193,7 +191,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandClear(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Clear(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -217,7 +215,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandQuit(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_Quit(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -241,7 +239,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandFileDrop(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_FileDrop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -271,6 +269,19 @@ namespace tools
 		_result = true;
 	}
 
+	void EditorState::command_SaveItemAs(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+	
+		setFileName(CommandManager::getInstance().getCommandData());
+
+		save();
+		updateCaption();
+
+		_result = true;
+	}
+
 	void EditorState::clear()
 	{
 		WidgetCreatorManager::getInstance().resetCreatorInfo();
@@ -288,10 +299,9 @@ namespace tools
 
 	void EditorState::load()
 	{
-		//if (EditorWidgets::getInstance().loadFromProject(mFileName, mItemFileName))
 		if (EditorWidgets::getInstance().load(mFileName))
 		{
-			if (mFileName != mDefaultFileName)
+			if (mFileName != mDefaultFileName && !isProjectFile(mFileName))
 				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
 			UndoManager::getInstance().addValue();
@@ -313,10 +323,9 @@ namespace tools
 
 	bool EditorState::save()
 	{
-		//if (EditorWidgets::getInstance().saveToProject(mFileName, mItemFileName))
 		if (EditorWidgets::getInstance().save(mFileName))
 		{
-			if (mFileName != mDefaultFileName)
+			if (mFileName != mDefaultFileName && !isProjectFile(mFileName))
 				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
 			UndoManager::getInstance().addValue();
@@ -338,9 +347,9 @@ namespace tools
 	{
 		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
 
-		if (mProjectMode)
+		/*if (mProjectMode)
 			Application::getInstance().setCaption(replaceTags("CaptionProjectMainWindow"));
-		else
+		else*/
 			Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
 	}
 
@@ -504,17 +513,59 @@ namespace tools
 	void EditorState::setFileName(const MyGUI::UString& _fileName)
 	{
 		mFileName = _fileName;
-		addUserTag("CurrentFileName", mFileName);
-		size_t pos = mFileName.find_last_of("\\/");
-		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(mFileName.find_last_of("\\/") + 1);
+		addUserTag("CurrentFileName", convertProjectName(mFileName));
 
+		size_t pos = mFileName.find_last_of("\\/");
+		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(pos + 1);
 		addUserTag("CurrentFileName_Short", shortName);
 	}
 
-	void EditorState::setItemFileName(const MyGUI::UString& _itemFileName)
+	MyGUI::UString EditorState::convertProjectName(const MyGUI::UString& _fileName)
 	{
-		mItemFileName = _itemFileName;
-		addUserTag("CurrentItemFileName", mItemFileName);
+		size_t index = _fileName.find("|");
+		if (index == MyGUI::UString::npos)
+			return _fileName;
+
+		MyGUI::UString fileName = _fileName.substr(0, index);
+		MyGUI::UString itemIndexName = _fileName.substr(index + 1);
+		size_t itemIndex = MyGUI::utility::parseValue<size_t>(itemIndexName);
+
+		MyGUI::xml::Document doc;
+		if (!doc.open(fileName))
+			return _fileName;
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
+			return _fileName;
+
+		if (root->findAttribute("type") == "Resource")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Resource"))
+			{
+				if (element->findAttribute("type") == "ResourceLayout")
+				{
+					if (itemIndex == 0)
+					{
+						// поменять на теги
+						return MyGUI::utility::toString(fileName, " [", element->findAttribute("name"), "]");
+					}
+					else
+					{
+						itemIndex --;
+					}
+				}
+			}
+		}
+
+		return _fileName;
+	}
+
+	bool EditorState::isProjectFile(const MyGUI::UString& _fileName)
+	{
+		size_t index = _fileName.find("|");
+		return (index != MyGUI::UString::npos);
 	}
 
 } // namespace tools
