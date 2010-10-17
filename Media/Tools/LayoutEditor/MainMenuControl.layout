@@ -63,12 +63,27 @@
 				<Property key="MenuItemId" value="Project"/>
 				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
 					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectCreate}"/>
+						<Property key="MenuItemId" value="Command_ProjectCreate"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Caption" value="#{MenuProjectLoad}"/>
 						<Property key="MenuItemId" value="Command_ProjectLoad"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Caption" value="#{MenuProjectClose}"/>
 						<Property key="MenuItemId" value="Command_ProjectClose"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator">
+						<Property key="MenuItemType" value="Separator"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectDeleteItem}"/>
+						<Property key="MenuItemId" value="Command_ProjectDeleteItem"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectRenameItem}"/>
+						<Property key="MenuItemId" value="Command_ProjectRenameItem"/>
 					</Widget>
 				</Widget>
 			</Widget>

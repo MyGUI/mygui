@@ -19,8 +19,11 @@
 	<Tag name="Items">Items</Tag>
 
 	<Tag name="Project">Project</Tag>
+	<Tag name="MenuProjectCreate">Create project ...</Tag>
 	<Tag name="MenuProjectLoad">Project load ...</Tag>
 	<Tag name="MenuProjectClose">Project close</Tag>
+	<Tag name="MenuProjectDeleteItem">Delete current layout from project</Tag>
+	<Tag name="MenuProjectRenameItem">Rename current layout in project ...</Tag>
 
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>
@@ -65,14 +68,17 @@
 	<Tag name="CaptionProjectMainWindow">Layout editor - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
+	<Tag name="CaptionOpenFile">Create file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
 	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionTestWindow">Test</Tag>
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
 	<Tag name="CaptionAddResource">Enter file name</Tag>
+	<Tag name="CaptionRenameLayout">Enter layout name</Tag>
 
 	<Tag name="ButtonOpenFile">Open</Tag>
+	<Tag name="ButtonCreateFile">Create</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>
 	<Tag name="ButtonOpenFolder">Select</Tag>
 
@@ -80,6 +86,8 @@
 	<Tag name="MessageFailedLoadFile">Failed to load file '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedSaveFile">Failed to save file '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedLoadProject">Failed to load project '#{CurrentProjectName}'</Tag>
+	<Tag name="MessageDeleteLayout">Are you sure you want to delete layout?</Tag>
+	<Tag name="MessageFileExist">File is exists.</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">pixels</Tag>
