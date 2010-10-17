@@ -43,7 +43,7 @@ namespace tools
 		void command_Quit(const MyGUI::UString& _commandName, bool& _result);
 		void command_Settings(const MyGUI::UString& _commandName, bool& _result);
 		void command_CodeGenerator(const MyGUI::UString& _commandName, bool& _result);
-		void command_RecentFiles(const MyGUI::UString& _commandName, bool& _result);
+		void command_OpenRecentFile(const MyGUI::UString& _commandName, bool& _result);
 		void command_FileDrop(const MyGUI::UString& _commandName, bool& _result);
 		void command_SaveItemAs(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateItemName(const MyGUI::UString& _commandName, bool& _result);
