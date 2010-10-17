@@ -478,7 +478,9 @@ namespace tools
 		}
 		else
 		{
-			name = "unnamed";
+			name = EditorWidgets::getInstance().getCurrentItemName();
+			if (name.empty())
+				name = "unnamed";
 		}
 
 		size_t indexItem = MyGUI::ITEM_NONE;
