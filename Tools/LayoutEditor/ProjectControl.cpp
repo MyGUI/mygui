@@ -12,6 +12,7 @@
 #include "DialogManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
+#include "EditorWidgets.h"
 
 namespace tools
 {
@@ -25,6 +26,8 @@ namespace tools
 	{
 		assignWidget(mList, "List");
 		assignWidget(mProjectNameText, "ProjectName");
+
+		mList->eventListSelectAccept += MyGUI::newDelegate(this, &ProjectControl::notifyListSelectAccept);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->addFileMask("*.xml");
@@ -40,10 +43,13 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ProjectClose", MyGUI::newDelegate(this, &ProjectControl::command_ProjectClose));
 		CommandManager::getInstance().registerCommand("Command_ProjectDeleteItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectDeleteItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectRenameItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectRenameItem));
+		CommandManager::getInstance().registerCommand("Command_ProjectAddItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectAddItem));
 	}
 
 	ProjectControl::~ProjectControl()
 	{
+		mList->eventListSelectAccept -= MyGUI::newDelegate(this, &ProjectControl::notifyListSelectAccept);
+
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
 
@@ -143,6 +149,16 @@ namespace tools
 		if (index == MyGUI::ITEM_NONE)
 			return;
 
+		if (isProjectItemOpen())
+		{
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				replaceTags("Error"),
+				replaceTags("MessageProjectItemOpen"),
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
+			);
+			return;
+		}
+
 		MyGUI::Message* message = MessageBoxManager::getInstance().create(
 			replaceTags("Warning"),
 			replaceTags("MessageDeleteLayout"),
@@ -163,9 +179,43 @@ namespace tools
 		if (index == MyGUI::ITEM_NONE)
 			return;
 
+		if (isProjectItemOpen())
+		{
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				replaceTags("Error"),
+				replaceTags("MessageProjectItemOpen"),
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
+			);
+			return;
+		}
+
 		mTextFieldControl->setCaption(replaceTags("CaptionRenameLayout"));
 		mTextFieldControl->setTextField(mList->getItemNameAt(index));
 		mTextFieldControl->doModal();
+
+		_result = true;
+	}
+
+	void ProjectControl::command_ProjectAddItem(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		if (mProjectName.empty())
+		{
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				replaceTags("Error"),
+				replaceTags("MessageProjectNotOpen"),
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
+			);
+			return;
+		}
+
+		saveItemToProject();
+		load();
+
+		if (mList->getItemCount() != 0)
+			mList->setIndexSelected(mList->getItemCount() - 1);
 
 		_result = true;
 	}
@@ -396,6 +446,94 @@ namespace tools
 		doc.save(common::concatenatePath(mProjectPath, mProjectName));
 
 		updateCaption();
+	}
+
+	void ProjectControl::notifyListSelectAccept(MyGUI::List* _sender, size_t _index)
+	{
+		if (_index == MyGUI::ITEM_NONE)
+			return;
+
+		MyGUI::UString data = MyGUI::utility::toString(common::concatenatePath(mProjectPath, mProjectName), "|", _index);
+		CommandManager::getInstance().setCommandData(data);
+		CommandManager::getInstance().executeCommand("Command_FileDrop");
+	}
+
+	bool ProjectControl::isProjectItemOpen()
+	{
+		return EditorWidgets::getInstance().getCurrentFileName() == common::concatenatePath(mProjectPath, mProjectName);
+	}
+
+	void ProjectControl::saveItemToProject()
+	{
+		MyGUI::UString name = EditorWidgets::getInstance().getCurrentFileName();
+
+		size_t index = name.find_last_of("\\/");
+		name = (index == MyGUI::UString::npos) ? name : name.substr(index + 1);
+
+		MyGUI::UString endName = ".layout";
+		index = name.find(endName);
+		if (index != MyGUI::UString::npos && (index + endName.size()) == name.size())
+		{
+			name = name.substr(0, index);
+		}
+		else
+		{
+			name = "unnamed";
+		}
+
+		size_t indexItem = MyGUI::ITEM_NONE;
+		addItemToProject(name, indexItem);
+
+		if (indexItem != MyGUI::ITEM_NONE)
+		{
+			MyGUI::UString fileName = MyGUI::utility::toString(common::concatenatePath(mProjectPath, mProjectName), "|", indexItem);
+			CommandManager::getInstance().setCommandData(fileName);
+			CommandManager::getInstance().executeCommand("Command_SaveItemAs");
+		}
+	}
+
+	bool ProjectControl::addItemToProject(const MyGUI::UString& _name, size_t& _index)
+	{
+		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+
+		MyGUI::xml::Document doc;
+		if (!doc.open(fileName))
+		{
+			MYGUI_LOGGING(LogSection, Error, doc.getLastError());
+			return false;
+		}
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if ((nullptr == root) || (root->getName() != "MyGUI"))
+		{
+			MYGUI_LOGGING(LogSection, Error, "'" << fileName << "', tag 'MyGUI' not found");
+			return false;
+		}
+
+		if (root->findAttribute("type") == "Resource")
+		{
+			MyGUI::xml::ElementPtr node = root->createChild("Resource");
+			node->addAttribute("type", "ResourceLayout");
+			node->addAttribute("name", _name);
+
+			_index = 0;
+
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Resource"))
+			{
+				if (element->findAttribute("type") == "ResourceLayout")
+				{
+					_index++;
+				}
+			}
+
+			if (_index == 0)
+				_index = MyGUI::ITEM_NONE;
+			else
+				_index --;
+		}
+
+		return doc.save(fileName);
 	}
 
 } // namespace tools

@@ -85,6 +85,10 @@
 						<Property key="Caption" value="#{MenuProjectRenameItem}"/>
 						<Property key="MenuItemId" value="Command_ProjectRenameItem"/>
 					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectAddItem}"/>
+						<Property key="MenuItemId" value="Command_ProjectAddItem"/>
+					</Widget>
 				</Widget>
 			</Widget>
 			<Widget type="MenuItem" skin="MenuBarButton">

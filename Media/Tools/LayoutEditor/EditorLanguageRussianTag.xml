@@ -35,6 +35,7 @@
 	<Tag name="MenuProjectClose">Закрыть проект</Tag>
 	<Tag name="MenuProjectDeleteItem">Удалить текущий макет из проекта</Tag>
 	<Tag name="MenuProjectRenameItem">Переименовать текущий макет в проекте ...</Tag>
+	<Tag name="MenuProjectAddItem">Добавить макет в проект</Tag>
 
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
@@ -88,6 +89,8 @@
 	<Tag name="MessageFailedLoadProject">Ошибка загрузки проекта '#{CurrentProjectName}'</Tag>
 	<Tag name="MessageDeleteLayout">Вы уверены, что хотите удалить макет?</Tag>
 	<Tag name="MessageFileExist">Файл уже существует.</Tag>
+	<Tag name="MessageProjectItemOpen">Один из макетов проекта открыт в редакторе, закройте его и повторите попытку.</Tag>
+	<Tag name="MessageProjectNotOpen">Не найден проект.</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">пиксели</Tag>
