@@ -59,6 +59,7 @@ namespace tools
 		}
 
 		mCurrentFileName = _fileName;
+		mCurrentItemName.clear();
 
 		MyGUI::xml::Document doc;
 		if (!doc.open(_fileName))
@@ -123,6 +124,8 @@ namespace tools
 				{
 					if (_index == 0)
 					{
+						mCurrentItemName = element->findAttribute("name");
+
 						MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
 						while (widget.next())
 						{
@@ -161,6 +164,7 @@ namespace tools
 		}
 
 		mCurrentFileName = _fileName;
+		mCurrentItemName.clear();
 
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
@@ -214,11 +218,11 @@ namespace tools
 				{
 					if (_index == 0)
 					{
-						std::string name = element->findAttribute("name");
+						mCurrentItemName = element->findAttribute("name");
 
 						element->clear();
 						element->addAttribute("type", "ResourceLayout");
-						element->addAttribute("name", name);
+						element->addAttribute("name", mCurrentItemName);
 
 						for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 						{
@@ -384,6 +388,7 @@ namespace tools
 	void EditorWidgets::clear()
 	{
 		mCurrentFileName.clear();
+		mCurrentItemName.clear();
 
 		while (!mWidgets.empty())
 		{
@@ -733,6 +738,11 @@ namespace tools
 	const MyGUI::UString& EditorWidgets::getCurrentFileName()
 	{
 		return mCurrentFileName;
+	}
+
+	const MyGUI::UString& EditorWidgets::getCurrentItemName()
+	{
+		return mCurrentItemName;
 	}
 
 } // namespace tools
