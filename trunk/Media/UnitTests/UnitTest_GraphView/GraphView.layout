@@ -5,7 +5,8 @@
 		<Property key="Caption" value="GraphView"/>
 		<Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 662 387" align="Stretch" name="ScrollView">
 			<Property key="CanvasAlign" value="Default"/>
-			<Widget type="Canvas" skin="Canvas" position="0 0 100 100" align="Stretch" name="Canvas">
+			<Property key="CanvasSize" value="1024 1024"/>
+			<Widget type="Canvas" skin="Canvas" position="0 0 1024 1024" align="Stretch" name="Canvas">
 				<Property key="InheritsAlpha" value="false"/>
 			</Widget>
 		</Widget>

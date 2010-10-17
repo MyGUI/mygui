@@ -132,7 +132,7 @@ namespace wraps
 			@param _sender
 			@param _size
 		*/
-		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
+		//MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
 
 		/** Event : Node closed.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
@@ -359,8 +359,8 @@ namespace wraps
 
 		virtual void changePosition(BaseGraphNode* _node)
 		{
-			eventChangeSize(this, getViewSize());
-			mCanvas->updateTexture();
+			//eventChangeSize(this, getViewSize());
+			//mCanvas->updateTexture();
 		}
 
 		void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
@@ -451,6 +451,7 @@ namespace wraps
 		void drawSpline(MyGUI::Canvas* _canvas, const ConnectionInfo& _info, int _offset, const MyGUI::Colour& _colour)
 		{
 			MyGUI::Widget* widget = _canvas->createWidget<MyGUI::StaticImage>("PolygonalSkin", _canvas->getCoord(), MyGUI::Align::Default);
+			widget->setNeedMouseFocus(false);
 
 			MyGUI::ISubWidget* main = widget->getSubWidgetMain();
 			MyGUI::PolygonalSkin* polygonalSkin = main->castType<MyGUI::PolygonalSkin>();
@@ -485,7 +486,7 @@ namespace wraps
 			drawSpline(_canvas, _info, 0, _info.colour);
 		}
 
-		MyGUI::IntSize getViewSize()
+		/*MyGUI::IntSize getViewSize()
 		{
 			MyGUI::IntSize result;
 			for (size_t index = 0; index < mNodes.size(); ++index)
@@ -500,7 +501,7 @@ namespace wraps
 			result.height += 10;
 
 			return result;
-		}
+		}*/
 
 	private:
 		VectorGraphNode mNodes;
