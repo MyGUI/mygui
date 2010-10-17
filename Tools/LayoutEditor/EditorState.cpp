@@ -41,6 +41,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::command_RecentFiles));
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::command_FileDrop));
 		CommandManager::getInstance().registerCommand("Command_SaveItemAs", MyGUI::newDelegate(this, &EditorState::command_SaveItemAs));
+		CommandManager::getInstance().registerCommand("Command_UpdateItemName", MyGUI::newDelegate(this, &EditorState::command_UpdateItemName));
 	}
 
 	EditorState::~EditorState()
@@ -282,6 +283,17 @@ namespace tools
 		_result = true;
 	}
 
+	void EditorState::command_UpdateItemName(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		setFileName(mFileName);
+		updateCaption();
+
+		_result = true;
+	}
+
 	void EditorState::clear()
 	{
 		WidgetCreatorManager::getInstance().resetCreatorInfo();
@@ -346,11 +358,7 @@ namespace tools
 	void EditorState::updateCaption()
 	{
 		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
-
-		/*if (mProjectMode)
-			Application::getInstance().setCaption(replaceTags("CaptionProjectMainWindow"));
-		else*/
-			Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
+		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
 	}
 
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)

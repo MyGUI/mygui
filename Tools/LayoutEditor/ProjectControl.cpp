@@ -179,16 +179,6 @@ namespace tools
 		if (index == MyGUI::ITEM_NONE)
 			return;
 
-		if (isProjectItemOpen())
-		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageProjectItemOpen"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
-			return;
-		}
-
 		mTextFieldControl->setCaption(replaceTags("CaptionRenameLayout"));
 		mTextFieldControl->setTextField(mList->getItemNameAt(index));
 		mTextFieldControl->doModal();
@@ -420,6 +410,8 @@ namespace tools
 				mList->setIndexSelected(index);
 			else if (mList->getItemCount() != 0)
 				mList->setIndexSelected(mList->getItemCount() - 1);
+
+			CommandManager::getInstance().executeCommand("Command_UpdateItemName");
 		}
 	}
 

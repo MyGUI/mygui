@@ -46,6 +46,7 @@ namespace tools
 		void command_RecentFiles(const MyGUI::UString& _commandName, bool& _result);
 		void command_FileDrop(const MyGUI::UString& _commandName, bool& _result);
 		void command_SaveItemAs(const MyGUI::UString& _commandName, bool& _result);
+		void command_UpdateItemName(const MyGUI::UString& _commandName, bool& _result);
 
 		void updateCaption();
 		bool checkCommand();
