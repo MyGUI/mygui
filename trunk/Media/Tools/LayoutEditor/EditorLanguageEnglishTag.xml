@@ -2,7 +2,7 @@
 <MyGUI>
 	<Tag name="File">File</Tag>
 	<Tag name="Widgets">Widgets</Tag>
-	<Tag name="Load">Load</Tag>
+	<Tag name="Load">Load ...</Tag>
 	<Tag name="Save">Save</Tag>
 	<Tag name="Save_as">Save as...</Tag>
 	<Tag name="Clear">Clear</Tag>
@@ -19,6 +19,8 @@
 	<Tag name="Items">Items</Tag>
 
 	<Tag name="Project">Project</Tag>
+	<Tag name="MenuProjectLoad">Project load ...</Tag>
+	<Tag name="MenuProjectClose">Project close</Tag>
 
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>
@@ -77,6 +79,7 @@
 	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
 	<Tag name="MessageFailedLoadFile">Failed to load file '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedSaveFile">Failed to save file '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedLoadProject">Failed to load project '#{CurrentProjectName}'</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">pixels</Tag>
