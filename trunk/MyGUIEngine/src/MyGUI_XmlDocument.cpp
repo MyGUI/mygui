@@ -137,6 +137,18 @@ namespace MyGUI
 			return false;
 		}
 
+		ElementPtr ElementEnumerator::operator->() const
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
+
+		ElementPtr ElementEnumerator::current()
+		{
+			assert(m_current != m_end);
+			return (*m_current);
+		}
+
 		//----------------------------------------------------------------------//
 		// class Element
 		//----------------------------------------------------------------------//
@@ -228,6 +240,16 @@ namespace MyGUI
 			return node;
 		}
 
+		void Element::removeChild(ElementPtr _child)
+		{
+			VectorElement::iterator item = std::find(mChilds.begin(), mChilds.end(), _child);
+			if (item != mChilds.end())
+			{
+				delete (*item);
+				mChilds.erase(item);
+			}
+		}
+
 		void Element::clear()
 		{
 			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter) delete *iter;
@@ -315,6 +337,41 @@ namespace MyGUI
 				mContent += " ";
 				mContent += _content;
 			}
+		}
+
+		void Element::setContent(const std::string& _content)
+		{
+			mContent = _content;
+		}
+
+		const std::string& Element::getName() const
+		{
+			return mName;
+		}
+
+		const std::string& Element::getContent() const
+		{
+			return mContent;
+		}
+
+		const VectorAttributes& Element::getAttributes() const
+		{
+			return mAttributes;
+		}
+
+		ElementPtr Element::getParent() const
+		{
+			return mParent;
+		}
+
+		ElementEnumerator Element::getElementEnumerator()
+		{
+			return ElementEnumerator(mChilds.begin(), mChilds.end());
+		}
+
+		ElementType Element::getType() const
+		{
+			return mType;
 		}
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && !defined(STLPORT)
@@ -885,6 +942,36 @@ namespace MyGUI
 			if (error.empty())
 				return error;
 			return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
+		}
+
+		bool Document::open(const UString& _filename)
+		{
+			return open(_filename.asWStr());
+		}
+
+		bool Document::save(const UString& _filename)
+		{
+			return save(_filename.asWStr());
+		}
+
+		void Document::clearLastError()
+		{
+			mLastError = ErrorType::MAX;
+		}
+
+		ElementPtr Document::getRoot() const
+		{
+			return mRoot;
+		}
+
+		void Document::setLastFileError(const std::string& _filename)
+		{
+			mLastErrorFile = _filename;
+		}
+
+		void Document::setLastFileError(const std::wstring& _filename)
+		{
+			mLastErrorFile = UString(_filename).asUTF8();
 		}
 
 	} // namespace xml

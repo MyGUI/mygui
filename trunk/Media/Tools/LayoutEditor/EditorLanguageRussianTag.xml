@@ -30,8 +30,11 @@
 	<Tag name="Items">Элементы</Tag>
 
 	<Tag name="Project">Проект</Tag>
+	<Tag name="MenuProjectCreate">Создать проект ...</Tag>
 	<Tag name="MenuProjectLoad">Открыть проект ...</Tag>
 	<Tag name="MenuProjectClose">Закрыть проект</Tag>
+	<Tag name="MenuProjectDeleteItem">Удалить текущий макет из проекта</Tag>
+	<Tag name="MenuProjectRenameItem">Переименовать текущий макет в проекте ...</Tag>
 
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
@@ -65,14 +68,17 @@
 	<Tag name="CaptionProjectMainWindow">Редактор макетов - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
+	<Tag name="CaptionCreateFile">Создание файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
 	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionTestWindow">Тестирование</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 	<Tag name="CaptionAddResource">Введите имя файла</Tag>
+	<Tag name="CaptionRenameLayout">Введите имя макета</Tag>
 
 	<Tag name="ButtonOpenFile">Открыть</Tag>
+	<Tag name="ButtonCreateFile">Создать</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 	<Tag name="ButtonOpenFolder">Выбрать</Tag>
 
@@ -80,6 +86,8 @@
 	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedSaveFile">Ошибка сохранения файла '#{CurrentFileName}'</Tag>
 	<Tag name="MessageFailedLoadProject">Ошибка загрузки проекта '#{CurrentProjectName}'</Tag>
+	<Tag name="MessageDeleteLayout">Вы уверены, что хотите удалить макет?</Tag>
+	<Tag name="MessageFileExist">Файл уже существует.</Tag>
 
 	<Tag name="to_percents">%</Tag>
 	<Tag name="to_pixels">пиксели</Tag>

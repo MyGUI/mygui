@@ -132,16 +132,8 @@ namespace MyGUI
 			bool next();
 			bool next(const std::string& _name);
 
-			ElementPtr operator->() const
-			{
-				assert(m_current != m_end);
-				return (*m_current);
-			}
-			ElementPtr current()
-			{
-				assert(m_current != m_end);
-				return (*m_current);
-			}
+			ElementPtr operator->() const;
+			ElementPtr current();
 
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -186,11 +178,12 @@ namespace MyGUI
 
 		public:
 			ElementPtr createChild(const std::string& _name, const std::string& _content = "", ElementType _type = ElementType::Normal);
+			void removeChild(ElementPtr _child);
 
 			template <typename T>
 			void addAttribute(const std::string& _key, const T& _value)
 			{
-				mAttributes.push_back(PairAttribute(_key, utility::toString(_value)));
+				addAttribute(_key, utility::toString(_value));
 			}
 
 			void addAttribute(const std::string& _key, const std::string& _value);
@@ -202,7 +195,7 @@ namespace MyGUI
 			template <typename T>
 			void addContent(const T& _content)
 			{
-				mContent.empty() ? mContent = utility::toString(_content) : mContent += utility::toString(" ", _content);
+				addContent(utility::toString(_content));
 			}
 
 			void addContent(const std::string& _content);
@@ -210,45 +203,27 @@ namespace MyGUI
 			template <typename T>
 			void setContent(const T& _content)
 			{
-				mContent = utility::toString(_content);
+				setContent(utility::toString(_content));
 			}
 
-			void setContent(const std::string& _content)
-			{
-				mContent = _content;
-			}
+			void setContent(const std::string& _content);
 
 			void clear();
 
 			bool findAttribute(const std::string& _name, std::string& _value);
 			std::string findAttribute(const std::string& _name);
 
-			const std::string& getName() const
-			{
-				return mName;
-			}
-			const std::string& getContent() const
-			{
-				return mContent;
-			}
-			const VectorAttributes& getAttributes() const
-			{
-				return mAttributes;
-			}
-			ElementPtr getParent() const
-			{
-				return mParent;
-			}
+			const std::string& getName() const;
 
-			ElementEnumerator getElementEnumerator()
-			{
-				return ElementEnumerator(mChilds.begin(), mChilds.end());
-			}
+			const std::string& getContent() const;
 
-			ElementType getType() const
-			{
-				return mType;
-			}
+			const VectorAttributes& getAttributes() const;
+
+			ElementPtr getParent() const;
+
+			ElementEnumerator getElementEnumerator();
+
+			ElementType getType() const;
 
 			ElementPtr createCopy();
 
@@ -330,10 +305,7 @@ namespace MyGUI
 			// открывает обычным потоком
 			bool open(std::istream& _stream);
 
-			bool open(const UString& _filename)
-			{
-				return open(_filename.asWStr());
-			}
+			bool open(const UString& _filename);
 
 			bool open(IDataStream* _data);
 
@@ -345,27 +317,18 @@ namespace MyGUI
 
 			bool save(std::ostream& _stream);
 
-			bool save(const UString& _filename)
-			{
-				return save(_filename.asWStr());
-			}
+			bool save(const UString& _filename);
 
 			void clear();
 
 			std::string getLastError();
 
-			void clearLastError()
-			{
-				mLastError = ErrorType::MAX;
-			}
+			void clearLastError();
 
 			ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
 			ElementPtr createRoot(const std::string& _name);
 
-			ElementPtr getRoot() const
-			{
-				return mRoot;
-			}
+			ElementPtr getRoot() const;
 
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -379,15 +342,8 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 		private:
-			void setLastFileError(const std::string& _filename)
-			{
-				mLastErrorFile = _filename;
-			}
-
-			void setLastFileError(const std::wstring& _filename)
-			{
-				mLastErrorFile = UString(_filename).asUTF8();
-			}
+			void setLastFileError(const std::string& _filename);
+			void setLastFileError(const std::wstring& _filename);
 
 			bool parseTag(ElementPtr& _currentNode, std::string _content);
 
