@@ -38,7 +38,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::command_Quit));
 		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::command_Settings));
 		CommandManager::getInstance().registerCommand("Command_CodeGenerator", MyGUI::newDelegate(this, &EditorState::command_CodeGenerator));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::command_RecentFiles));
+		CommandManager::getInstance().registerCommand("Command_OpenRecentFile", MyGUI::newDelegate(this, &EditorState::command_OpenRecentFile));
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::command_FileDrop));
 		CommandManager::getInstance().registerCommand("Command_SaveItemAs", MyGUI::newDelegate(this, &EditorState::command_SaveItemAs));
 		CommandManager::getInstance().registerCommand("Command_UpdateItemName", MyGUI::newDelegate(this, &EditorState::command_UpdateItemName));
@@ -140,7 +140,7 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::command_RecentFiles(const MyGUI::UString& _commandName, bool& _result)
+	void EditorState::command_OpenRecentFile(const MyGUI::UString& _commandName, bool& _result)
 	{
 		command_FileDrop(_commandName, _result);
 	}

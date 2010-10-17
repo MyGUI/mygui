@@ -44,6 +44,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ProjectDeleteItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectDeleteItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectRenameItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectRenameItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectAddItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectAddItem));
+		CommandManager::getInstance().registerCommand("Command_OpenRecentProject", MyGUI::newDelegate(this, &ProjectControl::command_OpenRecentProject));
 	}
 
 	ProjectControl::~ProjectControl()
@@ -210,6 +211,46 @@ namespace tools
 		_result = true;
 	}
 
+	void ProjectControl::command_OpenRecentProject(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		MyGUI::UString data = CommandManager::getInstance().getCommandData();
+		if (data.empty())
+			return;
+
+		clear();
+
+		MyGUI::UString filePath = "";
+		MyGUI::UString fileName = data;
+
+		size_t index = data.find_last_of("\\/");
+		if (index != MyGUI::UString::npos)
+		{
+			filePath = data.substr(0, index);
+			fileName = data.substr(index + 1);
+		}
+
+		RecentFilesManager::getInstance().setRecentFolder(filePath);
+		setFileName(filePath, fileName);
+
+		if (!load())
+		{
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
+				replaceTags("Error"),
+				replaceTags("MessageFailedLoadProject"),
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
+			);
+
+			clear();
+		}
+
+		updateCaption();
+
+		_result = true;
+	}
+
 	bool ProjectControl::checkCommand()
 	{
 		if (DialogManager::getInstance().getAnyDialog())
@@ -261,6 +302,8 @@ namespace tools
 		{
 			return false;
 		}
+
+		RecentFilesManager::getInstance().addRecentProject(fileName);
 
 		return true;
 	}
@@ -435,7 +478,10 @@ namespace tools
 		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Resource");
 
-		doc.save(common::concatenatePath(mProjectPath, mProjectName));
+		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
+		doc.save(fileName);
+
+		RecentFilesManager::getInstance().addRecentProject(fileName);
 
 		updateCaption();
 	}

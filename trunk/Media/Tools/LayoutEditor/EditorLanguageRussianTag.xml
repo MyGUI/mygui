@@ -33,8 +33,9 @@
 	<Tag name="MenuProjectCreate">Создать проект ...</Tag>
 	<Tag name="MenuProjectLoad">Открыть проект ...</Tag>
 	<Tag name="MenuProjectClose">Закрыть проект</Tag>
-	<Tag name="MenuProjectDeleteItem">Удалить текущий макет из проекта</Tag>
-	<Tag name="MenuProjectRenameItem">Переименовать текущий макет в проекте ...</Tag>
+	<Tag name="MenuRecentProjects">Предыдущие проекты </Tag>
+	<Tag name="MenuProjectDeleteItem">Удалить выделенный макет из проекта</Tag>
+	<Tag name="MenuProjectRenameItem">Переименовать выделенный макет в проекте ...</Tag>
 	<Tag name="MenuProjectAddItem">Добавить макет в проект</Tag>
 
 	<Tag name="Add">Добавить</Tag>
@@ -101,6 +102,7 @@
 	<Tag name="PatternWidgetSkin">#{ColourMenuSkin}#{WidgetSkin} </Tag>
 
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
+	<Tag name="FormatRecentProject">#{IndexRecentProject}: #{RecentProject}</Tag>
 
 	<Tag name="CG_PanelName">Имя панели</Tag>
 	<Tag name="CG_PanelNamespace">Namespace</Tag>

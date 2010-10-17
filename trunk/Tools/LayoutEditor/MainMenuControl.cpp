@@ -37,6 +37,7 @@ namespace tools
 	void MainMenuControl::createMainMenu()
 	{
 		updateRecentFilesMenu();
+		updateRecentProjectsMenu();
 
 		// меню для виджетов
 		mPopupMenuWidgets = mBar->findItemById("Widgets", true)->getItemChild();
@@ -151,7 +152,28 @@ namespace tools
 				{
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);
-					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_OpenRecentFile", *iter);
+				}
+			}
+		}
+	}
+
+	void MainMenuControl::updateRecentProjectsMenu()
+	{
+		MyGUI::MenuItem* recentProjectsMenu = mBar->findItemById("RecentProjects", true);
+		if (recentProjectsMenu != nullptr)
+		{
+			recentProjectsMenu->getItemChild()->removeAllItems();
+			// список последних открытых проектов
+			const RecentFilesManager::VectorUString& recentProjects = RecentFilesManager::getInstance().getRecentProjects();
+			if (!recentProjects.empty())
+			{
+				size_t index = 1;
+				for (RecentFilesManager::VectorUString::const_iterator iter = recentProjects.begin(); iter != recentProjects.end(); ++iter, ++index)
+				{
+					addUserTag("IndexRecentProject", MyGUI::utility::toString(index));
+					addUserTag("RecentProject", *iter);
+					recentProjectsMenu->getItemChild()->addItem(replaceTags("FormatRecentProject"), MyGUI::MenuItemType::Normal, "Command_OpenRecentProject", *iter);
 				}
 			}
 		}

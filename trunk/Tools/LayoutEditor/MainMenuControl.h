@@ -34,6 +34,7 @@ namespace tools
 		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
 
 		void updateRecentFilesMenu();
+		void updateRecentProjectsMenu();
 
 	private:
 		MyGUI::MenuBar* mBar;

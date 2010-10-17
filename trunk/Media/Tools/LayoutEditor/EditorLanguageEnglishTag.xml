@@ -22,6 +22,7 @@
 	<Tag name="MenuProjectCreate">Create project ...</Tag>
 	<Tag name="MenuProjectLoad">Load project ...</Tag>
 	<Tag name="MenuProjectClose">Close project</Tag>
+	<Tag name="MenuRecentProjects">Recent projects </Tag>
 	<Tag name="MenuProjectDeleteItem">Delete selected layout from project</Tag>
 	<Tag name="MenuProjectRenameItem">Rename selected layout in project ...</Tag>
 	<Tag name="MenuProjectAddItem">Add layout to project</Tag>
@@ -101,6 +102,7 @@
 	<Tag name="PatternWidgetSkin">#{ColourMenuSkin}#{WidgetSkin} </Tag>
 
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
+	<Tag name="FormatRecentProject">#{IndexRecentProject}: #{RecentProject}</Tag>
 
 	<Tag name="CG_PanelName">Panel name</Tag>
 	<Tag name="CG_PanelNamespace">Namespace</Tag>
