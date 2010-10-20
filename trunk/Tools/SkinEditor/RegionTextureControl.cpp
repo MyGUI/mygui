@@ -17,7 +17,7 @@ namespace tools
 		mPositionSelectorControl(nullptr),
 		mGridStep(0)
 	{
-		mTypeName = MyGUI::utility::toString((int)this);
+		mTypeName = MyGUI::utility::toString((size_t)this);
 
 		// сразу рисуем рамки для стейтов
 		std::vector<MyGUI::IntCoord> coords(10);

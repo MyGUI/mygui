@@ -156,8 +156,12 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 		add_definitions(-w)
 	else ()
 		if (MYGUI_RENDERSYSTEM EQUAL 2)
-			# to avoid warnings from OGRE sources
+			# to avoid warnings from OGRE
 			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+		endif ()
+		if (MYGUI_SAMPLES_INPUT EQUAL 1 OR MYGUI_SAMPLES_INPUT EQUAL 3)
+			# to avoid warnings from OIS
+			add_definitions(-isystem ${OIS_INCLUDE_DIR})
 		endif ()
 		if (NOT APPLE)
 			add_definitions(-fdiagnostics-show-option)

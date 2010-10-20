@@ -12,7 +12,7 @@ namespace tools
 	PropertyControl::PropertyControl() :
 		mProperty(nullptr)
 	{
-		mTypeName = MyGUI::utility::toString((int)this);
+		mTypeName = MyGUI::utility::toString((size_t)this);
 	}
 
 	PropertyControl::~PropertyControl()
