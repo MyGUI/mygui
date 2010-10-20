@@ -12,7 +12,7 @@ namespace tools
 		Dialog()
 	{
 		initialiseByAttributes(this);
-		mTextureName = MyGUI::utility::toString((int)this, "_ColourGradient");
+		mTextureName = MyGUI::utility::toString((size_t)this, "_ColourGradient");
 
 		mCurrentColour = MyGUI::Colour::Green;
 		mBaseColour = MyGUI::Colour::Green;

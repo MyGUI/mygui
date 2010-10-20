@@ -39,7 +39,7 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
 
-		void BaseGraphView::notifyFrameStart(float _time)
+		void notifyFrameStart(float _time)
 		{
 			if (mInvalidate)
 			{

@@ -16,7 +16,7 @@ namespace tools
 		mAreaSelectorControl(nullptr),
 		mGridStep(0)
 	{
-		mTypeName = MyGUI::utility::toString((int)this);
+		mTypeName = MyGUI::utility::toString((size_t)this);
 
 		addSelectorControl(mAreaSelectorControl);
 

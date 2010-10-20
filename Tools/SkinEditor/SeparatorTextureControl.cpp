@@ -18,7 +18,7 @@ namespace tools
 		mGridStep(0),
 		mValue(0)
 	{
-		mTypeName = MyGUI::utility::toString((int)this);
+		mTypeName = MyGUI::utility::toString((size_t)this);
 
 		// сразу рисуем рамки для стейтов
 		std::vector<int> coordsHor(2);
