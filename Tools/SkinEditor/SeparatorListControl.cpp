@@ -25,7 +25,7 @@ namespace tools
 		mList(nullptr),
 		mPresets(nullptr)
 	{
-		mTypeName = MyGUI::utility::toString((int)this);
+		mTypeName = MyGUI::utility::toString((size_t)this);
 
 		assignWidget(mList, "List");
 		assignWidget(mPresets, "Presets");
