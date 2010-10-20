@@ -46,7 +46,7 @@ namespace tools
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") = MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
-		MyGUI::ResourceManager::getInstance().load("controllers.xml");
+		MyGUI::ResourceManager::getInstance().load("Controllers.xml");
 	}
 
 	void PanelControllers::shutdown()
