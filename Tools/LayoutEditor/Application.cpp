@@ -110,7 +110,7 @@ namespace tools
 		new ColourManager();
 		ColourManager::getInstance().initialise();
 
-		MyGUI::ResourceManager::getInstance().load("initialise.xml");
+		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
 		for (SettingsSector::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
