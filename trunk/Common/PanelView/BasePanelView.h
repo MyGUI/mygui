@@ -46,6 +46,9 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
 
 			removeAllItems();
+
+			if (mNeedUpdate)
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEntered);
 		}
 
 		//! Get number of items
