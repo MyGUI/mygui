@@ -68,11 +68,11 @@ namespace base
 		void createGui();
 		void destroyGui();
 
-		void windowAdjustSettings(HWND hWnd, int width, int height);
+		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 		void updateFPS();
 
 		void resizeRender(int _width, int _height);
-		bool createRender(int _width, int _height);
+		bool createRender(int _width, int _height, bool _windowed);
 		void drawOneFrame();
 		void destroyRender();
 

@@ -101,6 +101,7 @@ namespace base
 	{
 		const unsigned int width = 1024;
 		const unsigned int height = 768;
+		bool windowed = true;
 
 		// регистрируем класс окна
 		WNDCLASS wc =
@@ -111,8 +112,7 @@ namespace base
 		RegisterClass(&wc);
 
 		// создаем главное окно
-		hWnd = CreateWindow(wc.lpszClassName, TEXT("OpenGL Render Window"),
-			WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME,
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("OpenGL Render Window"), WS_POPUP,
 			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
 		{
@@ -122,12 +122,12 @@ namespace base
 
 		hInstance = wc.hInstance;
 
-		if (!createRender(width, height))
+		windowAdjustSettings(hWnd, width, height, !windowed);
+
+		if (!createRender(width, height, windowed))
 		{
 			return false;
 		}
-
-		windowAdjustSettings(hWnd, width, height);
 
 		createInput((size_t)hWnd);
 		createGui();
@@ -270,7 +270,7 @@ namespace base
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
-	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height)
+	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
 		// стиль окна
 		HWND hwndAfter = 0;
@@ -279,10 +279,19 @@ namespace base
 
 		RECT rc = { 0, 0, width, height };
 
-		style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-		style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
-		hwndAfter = HWND_NOTOPMOST;
-		AdjustWindowRect(&rc, style, false);
+		if (fullScreen)
+		{
+			style = WS_POPUP | WS_VISIBLE;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
+			hwndAfter = HWND_TOPMOST;
+		}
+		else
+		{
+			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
+			hwndAfter = HWND_NOTOPMOST;
+			AdjustWindowRect(&rc, style, false);
+		}
 
 		SetWindowLong(hWnd, GWL_STYLE, style);
 		SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
@@ -292,8 +301,8 @@ namespace base
 
 		int w = rc.right - rc.left;
 		int h = rc.bottom - rc.top;
-		int x = (desk_width  - w) / 2;
-		int y = (desk_height - h) / 2;
+		int x = fullScreen ? 0 : (desk_width  - w) / 2;
+		int y = fullScreen ? 0 : (desk_height - h) / 2;
 
 		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 	}
@@ -386,7 +395,7 @@ namespace base
 		glLoadIdentity();
 	}
 
-	bool BaseManager::createRender(int _width, int _height)
+	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		int bits = 16;
 
