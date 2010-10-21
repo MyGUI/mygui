@@ -30,6 +30,10 @@
 #include <MyGUI_OgreRenderManager.h>
 #include <MyGUI_OgreTexture.h>
 #include <MyGUI_OgreVertexBuffer.h>
+#elif MYGUI_OPENGL_PLATFORM
+#include <MyGUI_OpenGlRenderManager.h>
+#elif MYGUI_DIRECTX_PLATFORM
+#include <MyGUI_DirectXRenderManager.h>
 #endif
 
 namespace MyGUI
@@ -77,6 +81,10 @@ namespace MyGUI
 		operation->vertexData->vertexCount = _count;
 
 		OgreRenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
+#elif MYGUI_OPENGL_PLATFORM
+		OpenGLRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+#elif MYGUI_DIRECTX_PLATFORM
+		DirectXRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #endif
 	}
 
