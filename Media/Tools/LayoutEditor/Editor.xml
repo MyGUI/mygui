@@ -12,5 +12,5 @@
 	<!--List file="EditorLayer.xml"/-->
 
 	<List file="EditorSkins.xml"/>
-	<List file="EditorSettings.xml"/>
+	<!--List file="EditorSettings.xml"/-->
 </MyGUI>

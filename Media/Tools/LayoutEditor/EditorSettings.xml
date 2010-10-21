@@ -7,7 +7,6 @@
 	</MyGUI>
 
 	<MyGUI type="Pointer">
-		<Property key="Skin" value="skin_Pointer"/>
 		<Property key="Default" value="arrow"/>
 		<Property key="Layer" value="Pointer"/>
 	</MyGUI>
