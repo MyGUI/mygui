@@ -96,6 +96,10 @@ namespace base
 
 	bool BaseManager::create()
 	{
+		const unsigned int width = 1024;
+		const unsigned int height = 768;
+		bool windowed = true;
+
 		// регистрируем класс окна
 		WNDCLASS wc =
 		{
@@ -115,13 +119,9 @@ namespace base
 
 		hInstance = wc.hInstance;
 
-		const unsigned int width = 1024;
-		const unsigned int height = 768;
-		bool windowed = true;
+		windowAdjustSettings(hWnd, width, height, !windowed);
 
 		createRender(width, height, windowed);
-
-		windowAdjustSettings(hWnd, width, height, !mD3dpp.Windowed);
 
 		createInput((size_t)hWnd);
 		_windowResized();
