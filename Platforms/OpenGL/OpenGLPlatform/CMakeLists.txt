@@ -9,6 +9,7 @@ include_directories(
 
 include(MyGUI.OpenGLPlatform.list)
 
+add_definitions(-DGLEW_STATIC)
 add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.OpenGLPlatform MyGUIEngine)
