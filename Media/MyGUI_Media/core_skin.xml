@@ -41,10 +41,6 @@
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name = "skin_Pointer" size = "16 16">
-		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
-	</Resource>
-
 	<Resource type="ResourceSkin" name = "Canvas" size = "16 16">
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Resource>
