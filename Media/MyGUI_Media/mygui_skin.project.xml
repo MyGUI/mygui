@@ -2971,7 +2971,7 @@
                 <Property name="Coord" type="IntCoord" read_only="False">2 202 15 19</Property>
             </PropertySet>
         </SkinItem>
-        <SkinItem name="ListBoxItem">
+        <SkinItem name="ListBoxItemSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
@@ -4753,7 +4753,7 @@
                 <Property name="Coord" type="IntCoord" read_only="False">307 95 23 22</Property>
             </PropertySet>
         </SkinItem>
-        <SkinItem name="MarkerWhite">
+        <SkinItem name="MarkerWhiteSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">False</Property>
@@ -4949,6 +4949,1392 @@
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">384 6 2 2</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="CaptionEmptySkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">3</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">5</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 3 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 0 60 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 0 5 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 0 5 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 28 5 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 28 60 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 28 3 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 3 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 0 60 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">3 3 60 23</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 2 68 28</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="CaptionEmptySmallSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 172</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">3</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">5</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 3 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 0 60 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 0 5 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 0 5 18</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">63 18 5 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 18 60 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 18 3 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 3 18</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">3 0 60 18</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">3 3 60 13</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 172 68 18</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="CaptionSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 36</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 36</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 70</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 70</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">16</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">18</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 16 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">16 0 34 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">50 0 18 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">50 0 18 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">50 28 18 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">16 28 34 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 28 16 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 16 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">16 0 34 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">10 4 46 16</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 36 68 28</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="CaptionWithButtonSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 104</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 104</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 138</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 138</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">15</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">40</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 15 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">15 0 13 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">28 0 40 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">28 0 40 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">28 28 40 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">15 28 13 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 28 15 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 15 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">15 0 13 28</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">10 4 23 16</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 104 68 28</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="WindowFrameSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">262 198</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">2</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">6</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">4</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">6</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 4 2</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">4 0 13 2</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">17 0 6 2</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">17 2 6 12</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">17 14 6 6</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">4 14 13 6</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 14 4 6</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 2 4 12</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">4 2 13 12</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">0 0 32 32</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">262 198 23 20</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="WindowResizeLeftSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 209</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 209</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 196</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 196</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 9 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 0 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 0 0 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 9 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 9 9 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 9 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 0 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 9 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">0 0 32 32</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 196 9 9</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="WindowResizeRightSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">247 209</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">247 209</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">247 196</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">247 196</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 9 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 0 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 0 0 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">9 9 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 9 9 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 9 0 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 0 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 9 9</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">0 0 32 32</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">mygui_skin.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">247 196 9 9</Property>
             </PropertySet>
         </SkinItem>
     </SkinManager>
