@@ -732,7 +732,7 @@ namespace tools
 
 	bool EditorWidgets::isSkinExist(const std::string& _skinName)
 	{
-		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName);
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) || MyGUI::LayoutManager::getInstance().isExist(_skinName);
 	}
 
 	const MyGUI::UString& EditorWidgets::getCurrentFileName()

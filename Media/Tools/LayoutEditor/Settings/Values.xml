@@ -80,6 +80,7 @@
 	</Value>
 
 	<Value name="Layer">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
 		<!--Property key="Fade"/-->
 		<!--Property key="Pointer"/-->
 		<Property key="ToolTip"/>
