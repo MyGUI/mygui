@@ -56,22 +56,22 @@ namespace tools
 		separator = mSeparators.createChild();
 		separator->setName("Top");
 		separator->setCorner(MyGUI::Align::Top);
-		separator->getPropertySet()->setPropertyValue("Offset", "6", "");
+		separator->getPropertySet()->setPropertyValue("Offset", "1", "");
 
 		separator = mSeparators.createChild();
 		separator->setName("Bottom");
 		separator->setCorner(MyGUI::Align::Bottom);
-		separator->getPropertySet()->setPropertyValue("Offset", "6", "");
+		separator->getPropertySet()->setPropertyValue("Offset", "1", "");
 
 		separator = mSeparators.createChild();
 		separator->setName("Left");
 		separator->setCorner(MyGUI::Align::Left);
-		separator->getPropertySet()->setPropertyValue("Offset", "6", "");
+		separator->getPropertySet()->setPropertyValue("Offset", "1", "");
 
 		separator = mSeparators.createChild();
 		separator->setName("Right");
 		separator->setCorner(MyGUI::Align::Right);
-		separator->getPropertySet()->setPropertyValue("Offset", "6", "");
+		separator->getPropertySet()->setPropertyValue("Offset", "1", "");
 
 
 		RegionItem* region = nullptr;
