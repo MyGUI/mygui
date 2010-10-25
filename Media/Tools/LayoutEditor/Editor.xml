@@ -6,6 +6,7 @@
 	<List file="core_font.xml"/>
 	<List file="core_resource.xml"/>
 	<List file="core_skin.xml"/>
+	<List file="mygui_skin_blue_white.xml"/>
 	<List file="core_pointer.xml"/>
 	
 	<!-- загружается из кода после регистрации лееров -->
