@@ -39,7 +39,8 @@ namespace tools
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
 		mCurrentWidget(nullptr),
-		mPropertyItemHeight(0)
+		mPropertyItemHeight(0),
+		mToolTip(nullptr)
 	{
 		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 		ERROR_VALUE = replaceTags("ColourError");
@@ -52,6 +53,8 @@ namespace tools
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 			mOldSize = window->getSize();
 		}
+
+		mToolTip = new EditorToolTip();
 
 		mPanelMainProperties = new PanelMainProperties();
 		mPanelView->addItem(mPanelMainProperties);
@@ -96,6 +99,9 @@ namespace tools
 	PropertiesPanelView::~PropertiesPanelView()
 	{
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+
+		delete mToolTip;
+		mToolTip = nullptr;
 
 		mPanelView->removeAllItems();
 		delete mPanelMainProperties;
@@ -239,10 +245,15 @@ namespace tools
 
 		PropertyType widget_for_type;
 
+		bool needTooltip = false;
 		std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
 
 		if ("Name" == _type) widget_for_type = PropertyType_Edit;
-		else if ("Skin" == _type) widget_for_type = PropertyType_ComboBox;
+		else if ("Skin" == _type)
+		{
+			widget_for_type = PropertyType_ComboBox;
+			needTooltip = true;
+		}
 		else if ("Position" == _type) widget_for_type = PropertyType_Edit;
 		else if ("Layer" == _type) widget_for_type = PropertyType_ComboBox;
 		else if ("String" == _type) widget_for_type = PropertyType_Edit;
@@ -293,6 +304,11 @@ namespace tools
 				editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 				editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
+				if (needTooltip)
+				{
+					editOrCombo->setNeedToolTip(true);
+					editOrCombo->eventToolTip += newDelegate (this, &PropertiesPanelView::notifyToolTip);
+				}
 			}
 			else if (widget_for_type == PropertyType_EditAcceptOnly)
 			{
@@ -336,7 +352,10 @@ namespace tools
 
 					MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
 					if (resourceLayout != nullptr)
-						values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
+					{
+						if (resourceLayout->getResourceName().find(".layout") == MyGUI::UString::npos)
+							values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
+					}
 				}
 			}
 			else
@@ -591,6 +610,31 @@ namespace tools
 	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)
 	{
 		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) || MyGUI::LayoutManager::getInstance().isExist(_skinName);
+	}
+
+	void PropertiesPanelView::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
+	{
+		if (_info.type == MyGUI::ToolTipInfo::Show)
+		{
+			SkinInfo data = getCellData(_sender, _info.index);
+			mToolTip->show(data);
+			mToolTip->move(_info.point);
+		}
+		else if (_info.type == MyGUI::ToolTipInfo::Hide)
+		{
+			mToolTip->hide();
+		}
+		else if (_info.type == MyGUI::ToolTipInfo::Move)
+		{
+			mToolTip->move(_info.point);
+		}
+	}
+
+	SkinInfo PropertiesPanelView::getCellData(MyGUI::Widget* _sender, size_t _index)
+	{
+		MyGUI::ComboBox* box = _sender->castType<MyGUI::ComboBox>();
+		MyGUI::UString name = box->getItemNameAt(_index);
+		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "Widget", "");
 	}
 
 } // namespace tools

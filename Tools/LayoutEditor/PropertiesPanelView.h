@@ -13,6 +13,7 @@
 #include "PanelItems.h"
 #include "PanelUserData.h"
 #include "PanelControllers.h"
+#include "EditorToolTip.h"
 
 namespace tools
 {
@@ -50,6 +51,9 @@ namespace tools
 
 		bool isSkinExist(const std::string& _skinName);
 
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
+		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;
@@ -76,6 +80,8 @@ namespace tools
 
 		MyGUI::Widget* mCurrentWidget;
 		int mPropertyItemHeight;
+
+		EditorToolTip* mToolTip;
 	};
 
 } // namespace tools
