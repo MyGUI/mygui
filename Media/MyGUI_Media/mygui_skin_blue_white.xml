@@ -44,7 +44,7 @@
             <State name="pushed_checked" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="PlusMinusSkin" size="18 18" texture="mygui_skin_blue_white.png">
+    <Resource type="ResourceSkin" name="ButtonPlusMinusSkin" size="18 18" texture="mygui_skin_blue_white.png">
         <BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
             <State name="disabled" offset="49 2 18 18"/>
             <State name="normal" offset="49 23 18 18"/>
@@ -56,7 +56,7 @@
             <State name="pushed_checked" offset="49 149 18 18"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="CloseSkin" size="18 17" texture="mygui_skin_blue_white.png">
+    <Resource type="ResourceSkin" name="ButtonCloseSkin" size="18 17" texture="mygui_skin_blue_white.png">
         <BasisSkin type="SubSkin" offset="0 0 18 17" align="Stretch">
             <State name="disabled" offset="72 1 18 17"/>
             <State name="normal" offset="72 21 18 17"/>
@@ -64,7 +64,7 @@
             <State name="pushed" offset="72 59 18 17"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="AcceptSkin" size="17 15" texture="mygui_skin_blue_white.png">
+    <Resource type="ResourceSkin" name="ButtonAcceptSkin" size="17 15" texture="mygui_skin_blue_white.png">
         <BasisSkin type="SubSkin" offset="0 0 17 15" align="Stretch">
             <State name="disabled" offset="72 82 17 15"/>
             <State name="normal" offset="72 98 17 15"/>
@@ -72,12 +72,36 @@
             <State name="pushed" offset="72 130 17 15"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="DownSkin" size="14 11" texture="mygui_skin_blue_white.png">
+    <Resource type="ResourceSkin" name="ButtonDownSkin" size="14 11" texture="mygui_skin_blue_white.png">
         <BasisSkin type="SubSkin" offset="0 0 14 11" align="Stretch">
             <State name="disabled" offset="95 2 14 11"/>
             <State name="normal" offset="95 15 14 11"/>
             <State name="highlighted" offset="95 28 14 11"/>
             <State name="pushed" offset="95 41 14 11"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ButtonUpSkin" size="14 11" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="0 0 14 11" align="Stretch">
+            <State name="disabled" offset="95 54 14 11"/>
+            <State name="normal" offset="95 68 14 11"/>
+            <State name="highlighted" offset="95 82 14 11"/>
+            <State name="pushed" offset="95 96 14 11"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ButtonLeftSkin" size="12 14" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="0 0 12 14" align="Stretch">
+            <State name="disabled" offset="95 114 12 14"/>
+            <State name="normal" offset="95 130 12 14"/>
+            <State name="highlighted" offset="95 146 12 14"/>
+            <State name="pushed" offset="95 162 12 14"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ButtonRightSkin" size="12 14" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="0 0 12 14" align="Stretch">
+            <State name="disabled" offset="95 180 12 14"/>
+            <State name="normal" offset="95 196 12 14"/>
+            <State name="highlighted" offset="95 212 12 14"/>
+            <State name="pushed" offset="95 228 12 14"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="SliderTrackVSkin" size="14 7" texture="mygui_skin_blue_white.png">
