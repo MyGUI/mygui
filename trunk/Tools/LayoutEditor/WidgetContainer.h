@@ -40,16 +40,6 @@ namespace tools
 			mController.clear();
 		}
 
-		MyGUI::Widget* widget;
-		std::vector<WidgetContainer*> childContainers;
-		MyGUI::VectorStringPairs mProperty;
-		MyGUI::VectorStringPairs mUserString;
-		std::vector<ControllerInfo*> mController;
-		std::string type;
-		std::string skin;
-		std::string align;
-		std::string name;
-		std::string layer;
 		// not for saving
 		std::string position(bool _percent = true)
 		{
@@ -63,7 +53,31 @@ namespace tools
 			}
 			return widget->getCoord().print();
 		}
+
+		void setLayerName(const std::string& _layerName)
+		{
+			layer = _layerName;
+		}
+
+		const std::string& getLayerName()
+		{
+			return layer;
+		}
+
+	public:
+		MyGUI::Widget* widget;
+		std::vector<WidgetContainer*> childContainers;
+		MyGUI::VectorStringPairs mProperty;
+		MyGUI::VectorStringPairs mUserString;
+		std::vector<ControllerInfo*> mController;
+		std::string type;
+		std::string skin;
+		std::string align;
+		std::string name;
 		bool relative_mode;
+
+	private:
+		std::string layer;
 	};
 
 } // namespace tools
