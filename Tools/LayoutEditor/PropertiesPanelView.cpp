@@ -326,12 +326,17 @@ namespace tools
 			{
 				values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
+				// добавляем скины и шаблоны
 				MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
 				while (resource.next())
 				{
-					MyGUI::ResourceSkin* skin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
-					if (skin != nullptr)
-						values.push_back(replaceTags("ColourDefault") + skin->getResourceName());
+					MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
+					if (resourceSkin != nullptr)
+						values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
+
+					MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
+					if (resourceLayout != nullptr)
+						values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
 				}
 			}
 			else
@@ -585,7 +590,7 @@ namespace tools
 
 	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)
 	{
-		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName);
+		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) || MyGUI::LayoutManager::getInstance().isExist(_skinName);
 	}
 
 } // namespace tools

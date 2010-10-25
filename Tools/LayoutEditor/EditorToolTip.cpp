@@ -49,21 +49,20 @@ namespace tools
 		const int LINE_HEIGHT = 22;
 		const int LINES = 3;
 
-		MyGUI::SkinManager& manager = MyGUI::SkinManager::getInstance();
-		if (manager.isExist(skin))
+		if (MyGUI::SkinManager::getInstance().isExist(skin))
 		{
 			MyGUI::IntSize max_size;
 
-			MyGUI::ResourceSkin* info = manager.getByName(skin);
+			MyGUI::ResourceSkin* info = MyGUI::SkinManager::getInstance().getByName(skin);
 			if (info != nullptr)
 			{
 				const MyGUI::VectorChildSkinInfo& child = info->getChild();
 				for (size_t pos = 0; pos < child.size(); ++pos)
 				{
 					const std::string& child_skin = child[pos].skin;
-					if (!manager.isExist(child_skin))
+					if (!MyGUI::SkinManager::getInstance().isExist(child_skin))
 						continue;
-					const MyGUI::ResourceSkin* child_info = manager.getByName(child_skin);
+					const MyGUI::ResourceSkin* child_info = MyGUI::SkinManager::getInstance().getByName(child_skin);
 					const MyGUI::IntSize& child_size = child[pos].coord.size();
 					MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 
