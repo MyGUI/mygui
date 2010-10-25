@@ -482,9 +482,9 @@ namespace tools
 
 		if (nullptr == _parent)
 		{
-			std::string layer = DEFAULT_EDITOR_LAYER;
-			if (_test && MyGUI::LayerManager::getInstance().isExist(container->getLayerName()))
-				layer = container->getLayerName();
+			std::string layer = _test ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
+			//if (_test && MyGUI::LayerManager::getInstance().isExist(container->getLayerName()))
+			//	layer = container->getLayerName();
 			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer/*, tmpname*/);
 		}
 		else
