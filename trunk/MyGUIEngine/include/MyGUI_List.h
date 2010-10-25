@@ -240,6 +240,12 @@ namespace MyGUI
 		// ищет и выделяет елемент
 		void _selectIndex(size_t _index, bool _select);
 
+		// метод для запроса номера айтема и контейнера
+		virtual size_t _getItemIndex(Widget* _item);
+
+		// сбрасывает зависимости, при любом колличественном изменении
+		virtual void _resetContainer(bool _update);
+
 	private:
 		void _checkMapping(const std::string& _owner);
 
@@ -250,7 +256,8 @@ namespace MyGUI
 		VScroll* mWidgetScroll;
 
 		// наши дети в строках
-		std::vector<Button*> mWidgetLines;
+		typedef std::vector<Button*> VectorButton;
+		VectorButton mWidgetLines;
 
 		int mHeightLine; // высота одной строки
 		int mTopIndex; // индекс самого верхнего элемента
