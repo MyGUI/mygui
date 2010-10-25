@@ -493,7 +493,7 @@ namespace tools
 		}
 		else if (action == "Layer")
 		{
-			widgetContainer->layer = value;
+			widgetContainer->setLayerName(value);
 			return;
 		}
 		else
