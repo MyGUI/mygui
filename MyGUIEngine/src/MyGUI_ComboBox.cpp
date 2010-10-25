@@ -75,10 +75,12 @@ namespace MyGUI
 		if (mList != nullptr)
 		{
 			mList->setVisible(false);
+			mList->setNeedToolTip(true);
 			mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
 			mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
 			mList->eventListMouseItemActivate += newDelegate(this, &ComboBox::notifyListMouseItemActivate);
 			mList->eventListChangePosition += newDelegate(this, &ComboBox::notifyListChangePosition);
+			mList->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
 
 		// подписываем дочерние классы на скролл
@@ -518,6 +520,12 @@ namespace MyGUI
 	FlowDirection ComboBox::getFlowDirection() const
 	{
 		return mFlowDirection;
+	}
+
+	void ComboBox::notifyToolTip(Widget* _sender, const ToolTipInfo& _info)
+	{
+		if (getNeedToolTip())
+			eventToolTip(this, _info);
 	}
 
 } // namespace MyGUI
