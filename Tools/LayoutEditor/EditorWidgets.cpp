@@ -318,8 +318,8 @@ namespace tools
 	{
 		if (nullptr == _container->widget->getParent())
 		{
-			if ("" == _container->layer)
-				_container->layer = DEFAULT_LAYER;
+			//if ("" == _container->getLayerName())
+				//_container->layer = DEFAULT_LAYER;
 			mWidgets.push_back(_container);
 		}
 		else
@@ -434,7 +434,7 @@ namespace tools
 		_widget->findAttribute("name", container->name);
 		_widget->findAttribute("type", container->type);
 		_widget->findAttribute("skin", container->skin);
-		_widget->findAttribute("layer", container->layer);
+		container->setLayerName(_widget->findAttribute("layer"));
 		if (_widget->findAttribute("align", container->align)) align = MyGUI::Align::parse(container->align);
 		if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
 		if (_widget->findAttribute("position_real", position))
@@ -483,8 +483,8 @@ namespace tools
 		if (nullptr == _parent)
 		{
 			std::string layer = DEFAULT_EDITOR_LAYER;
-			if (_test && MyGUI::LayerManager::getInstance().isExist(container->layer))
-				layer = container->layer;
+			if (_test && MyGUI::LayerManager::getInstance().isExist(container->getLayerName()))
+				layer = container->getLayerName();
 			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer/*, tmpname*/);
 		}
 		else
@@ -616,8 +616,8 @@ namespace tools
 		if ("" != _container->align)
 			node->addAttribute("align", _container->align);
 
-		if ("" != _container->layer)
-			node->addAttribute("layer", _container->layer);
+		if ("" != _container->getLayerName())
+			node->addAttribute("layer", _container->getLayerName());
 
 		if ("" != _container->name)
 			node->addAttribute("name", _container->name);
