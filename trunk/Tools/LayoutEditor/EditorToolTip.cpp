@@ -32,9 +32,19 @@ namespace tools
 		std::string skin = _data.widget_skin;
 
 		MyGUI::ResourceSkin* skinInfo = MyGUI::SkinManager::getInstance().getByName(skin);
+		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(skin, false);
+
 		MyGUI::IntSize skinDefaultSize;
 		if (skinInfo != nullptr)
+		{
 			skinDefaultSize = skinInfo->getSize();
+		}
+		else if (templateInfo != nullptr)
+		{
+			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
+			if (data.size() == 1)
+				skinDefaultSize = data.at(0).intCoord.size();
+		}
 
 		std::string widget = _data.widget_type;
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
