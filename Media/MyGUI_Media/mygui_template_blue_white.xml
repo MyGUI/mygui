@@ -1,9 +1,42 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource">
     <Resource type="ResourceLayout" name="ButtonTemplate">
-        <Widget type="Button" skin="ButtonSkin" position="20 20 29 26" name="Root">
+        <Widget type="Widget" skin="ButtonSkin" position="20 20 29 26" name="Root">
             <Property key="Text_FontName" value="Default"/>
             <Property key="Text_TextAlign" value="Center"/>
         </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="CheckBoxTemplate">
+        <Widget type="Widget" skin="CheckBoxSkin" position="20 20 23 21" name="Root">
+            <Property key="Text_TextAlign" value="Default"/>
+            <Property key="Text_FontName" value="Default"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="RadioButtonTemplate">
+        <Widget type="Widget" skin="RadioButtonSkin" position="20 20 21 20" name="Root">
+            <Property key="Text_TextAlign" value="Default"/>
+            <Property key="Text_FontName" value="Default"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonPlusMinusTemplate">
+        <Widget type="Widget" skin="ButtonPlusMinusSkin" position="20 20 18 18" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonCloseTemplate">
+        <Widget type="Widget" skin="ButtonCloseSkin" position="20 20 18 17" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonAcceptTemplate">
+        <Widget type="Widget" skin="ButtonAcceptSkin" position="20 20 17 15" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonDownTemplate">
+        <Widget type="Widget" skin="ButtonDownSkin" position="20 20 14 11" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonUpTemplate">
+        <Widget type="Widget" skin="ButtonUpSkin" position="20 20 14 11" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonLeftTemplate">
+        <Widget type="Widget" skin="ButtonLeftSkin" position="20 20 12 14" name="Root"/>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonRightTemplate">
+        <Widget type="Widget" skin="ButtonRightSkin" position="20 20 12 14" name="Root"/>
     </Resource>
 </MyGUI>
