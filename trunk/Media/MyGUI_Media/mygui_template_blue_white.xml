@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource">
+    <Resource type="ResourceLayout" name="ButtonTemplate">
+        <Widget type="Button" skin="ButtonSkin" position="20 20 29 26" layer="Back">
+            <Property key="Text_FontName" value="Default"/>
+            <Property key="Text_TextAlign" value="Center"/>
+        </Widget>
+    </Resource>
+</MyGUI>
