@@ -18,25 +18,4 @@
             <Property key="Text_FontName" value="Default"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="ButtonPlusMinusTemplate">
-        <Widget type="Widget" skin="ButtonPlusMinusSkin" position="20 20 18 18" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonCloseTemplate">
-        <Widget type="Widget" skin="ButtonCloseSkin" position="20 20 18 17" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonAcceptTemplate">
-        <Widget type="Widget" skin="ButtonAcceptSkin" position="20 20 17 15" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonDownTemplate">
-        <Widget type="Widget" skin="ButtonDownSkin" position="20 20 14 11" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonUpTemplate">
-        <Widget type="Widget" skin="ButtonUpSkin" position="20 20 14 11" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonLeftTemplate">
-        <Widget type="Widget" skin="ButtonLeftSkin" position="20 20 12 14" name="Root"/>
-    </Resource>
-    <Resource type="ResourceLayout" name="ButtonRightTemplate">
-        <Widget type="Widget" skin="ButtonRightSkin" position="20 20 12 14" name="Root"/>
-    </Resource>
 </MyGUI>
