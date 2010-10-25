@@ -418,7 +418,14 @@ namespace MyGUI
 		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
 
 		void* buffer_ptr = mTexture->lock(TextureUsage::Write);
-		memcpy(buffer_ptr, imageData, data_size);
+		if (buffer_ptr != nullptr)
+		{
+			memcpy(buffer_ptr, imageData, data_size);
+		}
+		else
+		{
+			MYGUI_LOG(Error, "ResourceTrueTypeFont, error lock texture, pointer is nullptr");
+		}
 		mTexture->unlock();
 
 		delete [] imageData;
