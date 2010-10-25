@@ -178,6 +178,7 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyEditTextChange(Edit* _sender);
+		void notifyToolTip(Widget* _sender, const ToolTipInfo& _info);
 
 		void showList();
 		void hideList();
