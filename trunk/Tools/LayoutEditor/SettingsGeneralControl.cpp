@@ -14,17 +14,21 @@ namespace tools
 		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
 		mGridStep(0),
 		mGridEdit(nullptr),
-		mLayoutVersion(nullptr)
+		mLayoutVersion(nullptr),
+		mLoadLastProject(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mLayoutVersion, "LayoutVersion");
+		assignWidget(mLoadLastProject, "LoadLastProject");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+		mLoadLastProject->eventMouseButtonPressed += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonPressed);
 	}
 
 	SettingsGeneralControl::~SettingsGeneralControl()
 	{
+		mLoadLastProject->eventMouseButtonPressed -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonPressed);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 	}
@@ -42,6 +46,7 @@ namespace tools
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
+		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
@@ -54,6 +59,7 @@ namespace tools
 		}
 
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LoadLastProject", mLoadLastProject->getStateSelected());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
@@ -66,6 +72,11 @@ namespace tools
 	void SettingsGeneralControl::notifyNewGridStepAccept(MyGUI::Edit* _sender)
 	{
 		notifyNewGridStep(_sender);
+	}
+
+	void SettingsGeneralControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		mLoadLastProject->setStateSelected(!mLoadLastProject->getStateSelected());
 	}
 
 } // namespace tools

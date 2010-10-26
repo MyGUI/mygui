@@ -22,7 +22,8 @@ namespace tools
 
 	private:
 		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
-		void notifyNewGridStepAccept(MyGUI::Edit* _sender); // calls previous method
+		void notifyNewGridStepAccept(MyGUI::Edit* _sender);
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 
 		int getGridStep();
 		void setGridStep();
@@ -32,6 +33,7 @@ namespace tools
 
 		MyGUI::Edit* mGridEdit;
 		MyGUI::ComboBox* mLayoutVersion;
+		MyGUI::Button* mLoadLastProject;
 	};
 
 } // namespace tools

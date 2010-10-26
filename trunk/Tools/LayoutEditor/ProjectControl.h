@@ -51,6 +51,7 @@ namespace tools
 		void createProject(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName);
 
 		bool isProjectItemOpen();
+		void loadLastProject();
 
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;

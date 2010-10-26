@@ -21,11 +21,19 @@
     <Resource type="ResourceLayout" name="ScrollHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <UserString key="MinTrackSize" value="10"/>
-            <Widget type="Widget" skin="PanelEmpty" position="14 0 97 15" align="Stretch">
-                <Widget type="Button" skin="ScrollTrackHSkin" position="3 1 19 14" align="Left VCenter" name="Track"/>
+            <Widget type="Widget" skin="PanelEmpty" position="14 0 97 15" align="HStretch Top">
+                <Widget type="Button" skin="ScrollTrackHSkin" position="3 1 19 14" align="Left Top" name="Track"/>
             </Widget>
-            <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left VCenter" name="Start"/>
-            <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right VCenter" name="End"/>
+            <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left Top" name="Start"/>
+            <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right Top" name="End"/>
+        </Widget>
+        <Widget type="HScroll" skin="ScrollHTemplate" position="25 75 125 15">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="99"/>
+        </Widget>
+        <Widget type="HScroll" skin="HScroll" position="25 100 125 15">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="99"/>
         </Widget>
     </Resource>
 </MyGUI>
