@@ -101,6 +101,12 @@ namespace MyGUI
 			mMinTrackSize = utility::parseValue<int>(getUserString("MinTrackSize"));
 		if (isUserString("TrackRangeMargins"))
 			utility::parseComplex<size_t>(getUserString("TrackRangeMargins"), mSkinRangeStart, mSkinRangeEnd);
+
+		if (mWidgetTrack != nullptr)
+		{
+			if (mWidgetTrack->isUserString("MinTrackSize"))
+				mMinTrackSize = utility::parseValue<int>(mWidgetTrack->getUserString("MinTrackSize"));
+		}
 	}
 
 	void VScroll::shutdownOverride()
@@ -127,8 +133,10 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight()))
 		{
 			mWidgetTrack->setVisible(false);
-			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos / 2);
-			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos / 2);
+			if (nullptr != mWidgetFirstPart)
+				mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos / 2);
+			if (nullptr != mWidgetSecondPart)
+				mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos / 2);
 			return;
 		}
 		// если скрыт то покажем
@@ -141,14 +149,14 @@ namespace MyGUI
 		pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
-		if ( nullptr != mWidgetFirstPart )
+		if (nullptr != mWidgetFirstPart)
 		{
-			int height = pos + mWidgetTrack->getHeight() / 2 - mWidgetFirstPart->getTop();
+			int height = pos - mWidgetFirstPart->getTop();
 			mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), height);
 		}
-		if ( nullptr != mWidgetSecondPart )
+		if (nullptr != mWidgetSecondPart)
 		{
-			int top = pos + mWidgetTrack->getHeight() / 2;
+			int top = pos + mWidgetTrack->getHeight();
 			int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
 			mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 		}
@@ -163,9 +171,12 @@ namespace MyGUI
 
 		// расчитываем позицию виджета
 		int start = mPreActionOffset.top + (_top - point.top);
-		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
-		else if (start > (mCoord.height - (int)mSkinRangeEnd - mWidgetTrack->getHeight())) start = (mCoord.height - (int)mSkinRangeEnd - mWidgetTrack->getHeight());
-		if (mWidgetTrack->getTop() != start) mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
+		if (start < (int)mSkinRangeStart)
+			start = (int)mSkinRangeStart;
+		else if (start > (getTrackPlaceLength() - (int)mSkinRangeEnd - mWidgetTrack->getHeight()))
+			start = (getTrackPlaceLength() - (int)mSkinRangeEnd - mWidgetTrack->getHeight());
+		if (mWidgetTrack->getTop() != start)
+			mWidgetTrack->setPosition(mWidgetTrack->getLeft(), start);
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
@@ -174,11 +185,17 @@ namespace MyGUI
 		pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 
 		// проверяем на выходы и изменения
-		if (pos < 0) pos = 0;
-		else if (pos >= (int)mScrollRange) pos = (int)mScrollRange - 1;
-		if (pos == (int)mScrollPosition) return;
+		if (pos < 0)
+			pos = 0;
+		else if (pos >= (int)mScrollRange)
+			pos = (int)mScrollRange - 1;
+		if (pos == (int)mScrollPosition)
+			return;
 
 		mScrollPosition = pos;
+
+		updateTrack();
+
 		// отсылаем событие
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
@@ -188,71 +205,88 @@ namespace MyGUI
 		// диспечерезируем нажатие своих детей как свое
 		eventMouseButtonPressed(this, _left, _top, _id);
 
-		if (MouseButton::Left != _id) return;
+		if (MouseButton::Left != _id)
+			return;
 
-		if (mMoveToClick && mWidgetTrack != _sender)
+		if (mMoveToClick &&
+			_sender != mWidgetTrack &&
+			_sender != mWidgetStart &&
+			_sender != mWidgetEnd)
 		{
-			mPreActionOffset = InputManager::getInstance().getLastLeftPressed();
-			const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() - getAbsolutePosition();
+			if (mWidgetTrack != nullptr)
+			{
+				mPreActionOffset = InputManager::getInstance().getLastLeftPressed();
+				const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() - mWidgetTrack->getParent()->getAbsolutePosition();
 
-			TrackMove(point.left, point.top);
+				mPreActionOffset.left -= getTrackSize() / 2;
+				mPreActionOffset.top -= getTrackSize() / 2;
 
+				TrackMove(point.left, point.top);
+			}
 		}
 		else if (_sender == mWidgetStart)
 		{
 			// минимальное значение
-			if (mScrollPosition == 0) return;
+			if (mScrollPosition == 0)
+				return;
 
 			// расчитываем следующее положение
-			if (mScrollPosition > mScrollPage) mScrollPosition -= mScrollPage;
-			else mScrollPosition = 0;
+			if (mScrollPosition > mScrollPage)
+				mScrollPosition -= mScrollPage;
+			else
+				mScrollPosition = 0;
 
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
-
 		}
 		else if (_sender == mWidgetEnd)
 		{
 			// максимальное значение
-			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)) ) return;
+			if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
+				return;
 
 			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollPage) < (mScrollRange - 1)) mScrollPosition += mScrollPage;
-			else mScrollPosition = mScrollRange - 1;
+			if ((mScrollPosition + mScrollPage) < (mScrollRange - 1))
+				mScrollPosition += mScrollPage;
+			else
+				mScrollPosition = mScrollRange - 1;
 
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
-
 		}
 		else if (_sender == mWidgetFirstPart)
 		{
 			// минимальное значение
-			if (mScrollPosition == 0) return;
+			if (mScrollPosition == 0)
+				return;
 
 			// расчитываем следующее положение
-			if (mScrollPosition > mScrollViewPage) mScrollPosition -= mScrollViewPage;
-			else mScrollPosition = 0;
+			if (mScrollPosition > mScrollViewPage)
+				mScrollPosition -= mScrollViewPage;
+			else
+				mScrollPosition = 0;
 
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
-
 		}
 		else if (_sender == mWidgetSecondPart)
 		{
 			// максимальное значение
-			if ( (mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)) ) return;
+			if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
+				return;
 
 			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1)) mScrollPosition += mScrollViewPage;
-			else mScrollPosition = mScrollRange - 1;
+			if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1))
+				mScrollPosition += mScrollViewPage;
+			else
+				mScrollPosition = mScrollRange - 1;
 
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);
 			updateTrack();
-
 		}
 		else if (_sender == mWidgetTrack)
 		{
@@ -274,7 +308,9 @@ namespace MyGUI
 
 	void VScroll::setScrollRange(size_t _range)
 	{
-		if (_range == mScrollRange) return;
+		if (_range == mScrollRange)
+			return;
+
 		mScrollRange = _range;
 		mScrollPosition = (mScrollPosition < mScrollRange) ? mScrollPosition : 0;
 		updateTrack();
@@ -282,8 +318,12 @@ namespace MyGUI
 
 	void VScroll::setScrollPosition(size_t _position)
 	{
-		if (_position == mScrollPosition) return;
-		if (_position >= mScrollRange) _position = 0;
+		if (_position == mScrollPosition)
+			return;
+
+		if (_position >= mScrollRange)
+			_position = 0;
+
 		mScrollPosition = _position;
 		updateTrack();
 	}
@@ -321,7 +361,7 @@ namespace MyGUI
 
 	int VScroll::getLineSize()
 	{
-		return mCoord.height - (int)(mSkinRangeStart + mSkinRangeEnd);
+		return getTrackPlaceLength() - (int)(mSkinRangeStart + mSkinRangeEnd);
 	}
 
 	void VScroll::onMouseWheel(int _rel)
@@ -333,14 +373,19 @@ namespace MyGUI
 
 	void VScroll::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mScrollRange < 2) return;
+		if (mScrollRange < 2)
+			return;
 
 		int offset = mScrollPosition;
-		if (_rel < 0) offset += SCROLL_MOUSE_WHEEL;
-		else offset -= SCROLL_MOUSE_WHEEL;
+		if (_rel < 0)
+			offset += SCROLL_MOUSE_WHEEL;
+		else
+			offset -= SCROLL_MOUSE_WHEEL;
 
-		if (offset < 0) offset = 0;
-		else if (offset > (int)(mScrollRange - 1)) offset = mScrollRange - 1;
+		if (offset < 0)
+			offset = 0;
+		else if (offset > (int)(mScrollRange - 1))
+			offset = mScrollRange - 1;
 
 		if ((size_t)offset != mScrollPosition)
 		{
@@ -434,6 +479,13 @@ namespace MyGUI
 	void VScroll::setCoord(int _left, int _top, int _width, int _height)
 	{
 		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	int VScroll::getTrackPlaceLength()
+	{
+		if (mWidgetTrack != nullptr)
+			return mWidgetTrack->getParent()->getHeight();
+		return 0;
 	}
 
 } // namespace MyGUI

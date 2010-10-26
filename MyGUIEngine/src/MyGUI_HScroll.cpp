@@ -45,8 +45,10 @@ namespace MyGUI
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth()))
 		{
 			mWidgetTrack->setVisible(false);
-			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos / 2, mWidgetFirstPart->getHeight());
-			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos / 2, mWidgetSecondPart->getHeight());
+			if (nullptr != mWidgetFirstPart)
+				mWidgetFirstPart->setSize(pos / 2, mWidgetFirstPart->getHeight());
+			if (nullptr != mWidgetSecondPart)
+				mWidgetSecondPart->setCoord(pos / 2 + (int)mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos / 2, mWidgetSecondPart->getHeight());
 			return;
 		}
 		// если скрыт то покажем
@@ -59,14 +61,14 @@ namespace MyGUI
 		pos = (int)(((size_t)(pos - getTrackSize()) * mScrollPosition) / (mScrollRange - 1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
-		if ( nullptr != mWidgetFirstPart )
+		if (nullptr != mWidgetFirstPart)
 		{
-			int height = pos + mWidgetTrack->getWidth() / 2 - mWidgetFirstPart->getLeft();
+			int height = pos - mWidgetFirstPart->getLeft();
 			mWidgetFirstPart->setSize(height, mWidgetFirstPart->getHeight());
 		}
-		if ( nullptr != mWidgetSecondPart )
+		if (nullptr != mWidgetSecondPart)
 		{
-			int top = pos + mWidgetTrack->getWidth() / 2;
+			int top = pos + mWidgetTrack->getWidth();
 			int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
 			mWidgetSecondPart->setCoord(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
 		}
@@ -81,9 +83,12 @@ namespace MyGUI
 
 		// расчитываем позицию виджета
 		int start = mPreActionOffset.left + (_left - point.left);
-		if (start < (int)mSkinRangeStart) start = (int)mSkinRangeStart;
-		else if (start > (mCoord.width - (int)mSkinRangeEnd - mWidgetTrack->getWidth())) start = (mCoord.width - (int)mSkinRangeEnd - mWidgetTrack->getWidth());
-		if (mWidgetTrack->getLeft() != start) mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
+		if (start < (int)mSkinRangeStart)
+			start = (int)mSkinRangeStart;
+		else if (start > (getTrackPlaceLength() - (int)mSkinRangeEnd - mWidgetTrack->getWidth()))
+			start = (getTrackPlaceLength() - (int)mSkinRangeEnd - mWidgetTrack->getWidth());
+		if (mWidgetTrack->getLeft() != start)
+			mWidgetTrack->setPosition(IntPoint(start, mWidgetTrack->getTop()));
 
 		// расчитываем положение соответствующее позиции
 		// плюс пол позиции
@@ -92,11 +97,17 @@ namespace MyGUI
 		pos = pos * (int)(mScrollRange - 1) / (getLineSize() - getTrackSize());
 
 		// проверяем на выходы и изменения
-		if (pos < 0) pos = 0;
-		else if (pos >= (int)mScrollRange) pos = (int)mScrollRange - 1;
-		if (pos == (int)mScrollPosition) return;
+		if (pos < 0)
+			pos = 0;
+		else if (pos >= (int)mScrollRange)
+			pos = (int)mScrollRange - 1;
+		if (pos == (int)mScrollPosition)
+			return;
 
 		mScrollPosition = pos;
+
+		updateTrack();
+
 		// отсылаем событие
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
@@ -113,9 +124,11 @@ namespace MyGUI
 		return mWidgetTrack == nullptr ? 1 : mWidgetTrack->getWidth();
 	}
 
-	int HScroll::getLineSize()
+	int HScroll::getTrackPlaceLength()
 	{
-		return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);
+		if (mWidgetTrack != nullptr)
+			return mWidgetTrack->getParent()->getWidth();
+		return 0;
 	}
 
 } // namespace MyGUI
