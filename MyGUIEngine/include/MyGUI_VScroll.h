@@ -65,7 +65,7 @@ namespace MyGUI
 		size_t getScrollViewPage() const;
 
 		/** Get size in pixels of area where scroll moves */
-		virtual int getLineSize();
+		int getLineSize();
 
 		/** Set size of track in pixels
 			@param _value in pixels, if less than MinTrackSize, MinTrackSize used
@@ -126,14 +126,16 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
+		virtual int getTrackPlaceLength();
+
 	protected:
 		// наши кнопки
 		Button* mWidgetStart;
 		Button* mWidgetEnd;
 		Button* mWidgetTrack;
 		// куски между кнопками
-		Button* mWidgetFirstPart;
-		Button* mWidgetSecondPart;
+		Widget* mWidgetFirstPart;
+		Widget* mWidgetSecondPart;
 
 		// смещение внутри окна
 		IntPoint mPreActionOffset;
