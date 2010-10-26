@@ -24,12 +24,15 @@ namespace tools
 		BaseLayout("ProjectControl.layout", _parent),
 		mOpenSaveFileDialog(nullptr),
 		mTextFieldControl(nullptr),
+		mToolTip(nullptr),
 		mList(nullptr)
 	{
 		assignWidget(mList, "List");
 		assignWidget(mProjectNameText, "ProjectName");
 
+		mList->setNeedToolTip(true);
 		mList->eventListSelectAccept += MyGUI::newDelegate(this, &ProjectControl::notifyListSelectAccept);
+		mList->eventToolTip += MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->addFileMask("*.xml");
@@ -39,6 +42,8 @@ namespace tools
 
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyTextFieldEndDialog);
+
+		mToolTip = new EditorToolTip();
 
 		CommandManager::getInstance().registerCommand("Command_ProjectCreate", MyGUI::newDelegate(this, &ProjectControl::command_ProjectCreate));
 		CommandManager::getInstance().registerCommand("Command_ProjectLoad", MyGUI::newDelegate(this, &ProjectControl::command_ProjectLoad));
@@ -56,6 +61,10 @@ namespace tools
 	ProjectControl::~ProjectControl()
 	{
 		mList->eventListSelectAccept -= MyGUI::newDelegate(this, &ProjectControl::notifyListSelectAccept);
+		mList->eventToolTip -= MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
+
+		delete mToolTip;
+		mToolTip = nullptr;
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -633,6 +642,31 @@ namespace tools
 		}
 
 		updateCaption();
+	}
+
+	void ProjectControl::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
+	{
+		if (_info.type == MyGUI::ToolTipInfo::Show)
+		{
+			SkinInfo data = getCellData(_sender, _info.index);
+			mToolTip->show(data);
+			mToolTip->move(_info.point);
+		}
+		else if (_info.type == MyGUI::ToolTipInfo::Hide)
+		{
+			mToolTip->hide();
+		}
+		else if (_info.type == MyGUI::ToolTipInfo::Move)
+		{
+			mToolTip->move(_info.point);
+		}
+	}
+
+	SkinInfo ProjectControl::getCellData(MyGUI::Widget* _sender, size_t _index)
+	{
+		MyGUI::List* box = _sender->castType<MyGUI::List>();
+		MyGUI::UString name = box->getItemNameAt(_index);
+		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "Widget", "");
 	}
 
 } // namespace tools

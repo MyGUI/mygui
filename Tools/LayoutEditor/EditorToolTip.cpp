@@ -42,8 +42,14 @@ namespace tools
 		else if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			if (data.size() == 1)
-				skinDefaultSize = data.at(0).intCoord.size();
+			for (MyGUI::VectorWidgetInfo::const_iterator item = data.begin(); item != data.end(); ++item)
+			{
+				if (item->name == "Root")
+				{
+					skinDefaultSize = item->intCoord.size();
+					break;
+				}
+			}
 		}
 
 		std::string widget = _data.widget_type;

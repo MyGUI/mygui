@@ -9,6 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "OpenSaveFileDialog.h"
 #include "TextFieldControl.h"
+#include "EditorToolTip.h"
 
 namespace tools
 {
@@ -24,6 +25,7 @@ namespace tools
 		void notifyMessageBoxResultDelete(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyTextFieldEndDialog(Dialog* _sender, bool _result);
 		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 
 		bool checkCommand();
 
@@ -53,9 +55,12 @@ namespace tools
 		bool isProjectItemOpen();
 		void loadLastProject();
 
+		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TextFieldControl* mTextFieldControl;
+		EditorToolTip* mToolTip;
 
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;
