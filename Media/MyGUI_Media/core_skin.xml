@@ -1700,7 +1700,7 @@
 		<Property key="MinTrackSize" value = "19" />
 
 		<Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "Stretch" name = "FirstPart"/>
-		<Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+		<Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 14" align = "HStretch Bottom" name = "SecondPart"/>
 
 		<Child type="Button" skin="ButtonUp" offset = "1 2 14 12" align = "HStretch Top" name = "Start"/>
 		<Child type="Button" skin="ButtonDown" offset = "1 37 14 12" align = "HStretch Bottom" name = "End"/>
@@ -1769,7 +1769,7 @@
 		<Property key="MinTrackSize" value = "19" />
 
 		<Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "Stretch" name = "FirstPart"/>
-		<Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "Right VStretch" name = "SecondPart"/>
+		<Child type="Button" skin="HScrollRightPart" offset = "21 0 14 15" align = "Right VStretch" name = "SecondPart"/>
 
 		<Child type="Button" skin="ButtonLeft" offset = "2 1 12 14" align = "Left VStretch" name = "Start"/>
 		<Child type="Button" skin="ButtonRight" offset = "36 1 12 14" align = "Right VStretch" name = "End"/>
