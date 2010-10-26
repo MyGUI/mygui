@@ -629,9 +629,12 @@ namespace tools
 		{
 			if (_info.type == MyGUI::ToolTipInfo::Show)
 			{
-				SkinInfo data = getCellData(_sender, _info.index);
-				mToolTip->show(data);
-				mToolTip->move(_info.point);
+				if (_info.index != MyGUI::ITEM_NONE)
+				{
+					SkinInfo data = getCellData(_sender, _info.index);
+					mToolTip->show(data);
+					mToolTip->move(_info.point);
+				}
 			}
 			else if (_info.type == MyGUI::ToolTipInfo::Hide)
 			{
