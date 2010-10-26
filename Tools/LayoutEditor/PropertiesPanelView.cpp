@@ -248,29 +248,42 @@ namespace tools
 		bool needTooltip = false;
 		std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
 
-		if ("Name" == _type) widget_for_type = PropertyType_Edit;
+		if ("Name" == _type)
+			widget_for_type = PropertyType_Edit;
 		else if ("Skin" == _type)
-		{
 			widget_for_type = PropertyType_ComboBox;
-			needTooltip = true;
-		}
-		else if ("Position" == _type) widget_for_type = PropertyType_Edit;
-		else if ("Layer" == _type) widget_for_type = PropertyType_ComboBox;
-		else if ("String" == _type) widget_for_type = PropertyType_Edit;
-		else if ("StringAccept" == _type) widget_for_type = PropertyType_EditAcceptOnly;
-		else if ("Align" == _type) widget_for_type = PropertyType_ComboBox;
-		else if ("FileName" == _type) widget_for_type = PropertyType_Edit;
+		else if ("Position" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("Layer" == _type)
+			widget_for_type = PropertyType_ComboBox;
+		else if ("String" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("StringAccept" == _type)
+			widget_for_type = PropertyType_EditAcceptOnly;
+		else if ("Align" == _type)
+			widget_for_type = PropertyType_ComboBox;
+		else if ("FileName" == _type)
+			widget_for_type = PropertyType_Edit;
 		// не совсем правильно FIXME
-		else if ("1 int" == _type) widget_for_type = PropertyType_Edit;
-		else if ("2 int" == _type) widget_for_type = PropertyType_Edit;
-		else if ("4 int" == _type) widget_for_type = PropertyType_Edit;
-		else if ("alpha" == _type) widget_for_type = PropertyType_Edit;
-		else if ("1 float" == _type) widget_for_type = PropertyType_Edit;
-		else if ("2 float" == _type) widget_for_type = PropertyType_Edit;
+		else if ("1 int" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("2 int" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("4 int" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("alpha" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("1 float" == _type)
+			widget_for_type = PropertyType_Edit;
+		else if ("2 float" == _type)
+			widget_for_type = PropertyType_Edit;
 		// надо сделать проще FIXME
-		else if ("Colour" == _type) widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
-		else if ("MessageButton" == _type) widget_for_type = PropertyType_ComboBox;
-		else widget_for_type = PropertyType_ComboBox;
+		else if ("Colour" == _type)
+			widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
+		else if ("MessageButton" == _type)
+			widget_for_type = PropertyType_ComboBox;
+		else
+			widget_for_type = PropertyType_ComboBox;
 
 		if (mPropertiesText[_window].size() < mPairsCounter)
 		{
@@ -304,11 +317,9 @@ namespace tools
 				editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 				editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
-				if (needTooltip)
-				{
-					editOrCombo->setNeedToolTip(true);
-					editOrCombo->eventToolTip += newDelegate (this, &PropertiesPanelView::notifyToolTip);
-				}
+
+				editOrCombo->setNeedToolTip(true);
+				editOrCombo->eventToolTip += newDelegate (this, &PropertiesPanelView::notifyToolTip);
 			}
 			else if (widget_for_type == PropertyType_EditAcceptOnly)
 			{
@@ -614,19 +625,22 @@ namespace tools
 
 	void PropertiesPanelView::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
-		if (_info.type == MyGUI::ToolTipInfo::Show)
+		if (_sender->getUserString("type") == "Skin")
 		{
-			SkinInfo data = getCellData(_sender, _info.index);
-			mToolTip->show(data);
-			mToolTip->move(_info.point);
-		}
-		else if (_info.type == MyGUI::ToolTipInfo::Hide)
-		{
-			mToolTip->hide();
-		}
-		else if (_info.type == MyGUI::ToolTipInfo::Move)
-		{
-			mToolTip->move(_info.point);
+			if (_info.type == MyGUI::ToolTipInfo::Show)
+			{
+				SkinInfo data = getCellData(_sender, _info.index);
+				mToolTip->show(data);
+				mToolTip->move(_info.point);
+			}
+			else if (_info.type == MyGUI::ToolTipInfo::Hide)
+			{
+				mToolTip->hide();
+			}
+			else if (_info.type == MyGUI::ToolTipInfo::Move)
+			{
+				mToolTip->move(_info.point);
+			}
 		}
 	}
 
