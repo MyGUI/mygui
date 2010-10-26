@@ -16,7 +16,8 @@ namespace tools
 		mSettingsResourcesControl(nullptr),
 		mSettingsResourcePathsControl(nullptr),
 		mSettingsGeneralControl(nullptr),
-		mSettingsWidgetsControl(nullptr)
+		mSettingsWidgetsControl(nullptr),
+		mSettingsUpdateResourcesControl(nullptr)
 	{
 		assignWidget(mButtonOk, "Ok");
 		assignWidget(mButtonCancel, "Cancel");
@@ -25,6 +26,7 @@ namespace tools
 		assignBase(mSettingsResourcePathsControl, "SettingsResourcePathsControl");
 		assignBase(mSettingsGeneralControl, "SettingsGeneralControl");
 		assignBase(mSettingsWidgetsControl, "SettingsWidgetsControl");
+		assignBase(mSettingsUpdateResourcesControl, "SettingsUpdateResourcesControl");
 
 		mButtonOk->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOk);
 		mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
@@ -72,6 +74,7 @@ namespace tools
 		mSettingsResourcePathsControl->saveSettings();
 		mSettingsGeneralControl->saveSettings();
 		mSettingsWidgetsControl->saveSettings();
+		mSettingsUpdateResourcesControl->saveSettings();
 	}
 
 	void SettingsWindow::loadSettings()
@@ -80,6 +83,7 @@ namespace tools
 		mSettingsResourcePathsControl->loadSettings();
 		mSettingsGeneralControl->loadSettings();
 		mSettingsWidgetsControl->loadSettings();
+		mSettingsUpdateResourcesControl->loadSettings();
 	}
 
 	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
