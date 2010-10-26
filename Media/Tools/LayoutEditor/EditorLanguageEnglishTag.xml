@@ -53,6 +53,7 @@
 	<Tag name="Show_widget_type">Show widget type</Tag>
 	<Tag name="Show_widget_skin">Show widget skin</Tag>
 	<Tag name="Autohide_editor_panels">Autohide editor panels</Tag>
+	<Tag name="SettingsLoadLastProject">Load last project</Tag>
 
 	<Tag name="Key">Key</Tag>
 	<Tag name="Value">Value</Tag>
