@@ -583,7 +583,7 @@ namespace tools
 			return;
 
 		typedef std::vector<MyGUI::UString> VectorUString;
-		VectorUString resources = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("UpdateResources");
+		VectorUString resources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("UpdateResources");
 		if (resources.empty())
 			return;
 
