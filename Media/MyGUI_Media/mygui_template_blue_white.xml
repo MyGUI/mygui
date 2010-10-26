@@ -20,9 +20,14 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
-            <UserString key="MinTrackSize" value="10"/>
-            <Widget type="Widget" skin="PanelEmpty" position="14 0 97 15" align="HStretch Top">
-                <Widget type="Button" skin="ScrollTrackHSkin" position="3 1 19 14" align="Left Top" name="Track"/>
+            <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="HStretch Top" name="TrackPlace">
+                <Property key="Widget_NeedKey" value="false"/>
+                <Property key="Widget_InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollTrackHSkin" position="35 1 19 14" align="Left Top" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="54 0 44 15" name="SecondPart"/>
             </Widget>
             <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left Top" name="Start"/>
             <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right Top" name="End"/>
@@ -30,10 +35,41 @@
         <Widget type="HScroll" skin="ScrollHTemplate" position="25 75 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
         <Widget type="HScroll" skin="HScroll" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollVTemplate">
+        <Widget type="Widget" skin="ScrollPanelVSkin" position="25 50 15 125" name="Root">
+            <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="HStretch Top" name="TrackPlace">
+                <Property key="Widget_NeedKey" value="false"/>
+                <Property key="Widget_InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollTrackVSkin" position="1 25 14 19" align="Left Top" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 44 15 55" name="SecondPart"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonUpSkin" position="1 2 14 11" align="Left Top" name="Start"/>
+            <Widget type="Button" skin="ButtonDownSkin" position="1 113 14 11" align="Left Bottom" name="End"/>
+        </Widget>
+        <Widget type="VScroll" skin="ScrollVTemplate" position="50 50 15 125">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
+        </Widget>
+        <Widget type="VScroll" skin="VScroll" position="75 50 15 125">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
     </Resource>
 </MyGUI>
