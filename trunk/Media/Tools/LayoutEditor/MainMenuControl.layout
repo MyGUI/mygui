@@ -39,6 +39,10 @@
 						<Property key="Caption" value="#{Code_Generator}"/>
 						<Property key="MenuItemId" value="Command_CodeGenerator"/>
 					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuUpdateResources}"/>
+						<Property key="MenuItemId" value="Command_UpdateResources"/>
+					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
 						<Property key="MenuItemType" value="Separator"/>
 					</Widget>
@@ -88,10 +92,6 @@
 					<Widget type="MenuItem" skin="PopupMenuLine">
 						<Property key="Caption" value="#{MenuProjectAddItem}"/>
 						<Property key="MenuItemId" value="Command_ProjectAddItem"/>
-					</Widget>
-					<Widget type="MenuItem" skin="PopupMenuLine">
-						<Property key="Caption" value="#{MenuProjectUpdateItems}"/>
-						<Property key="MenuItemId" value="Command_ProjectUpdateItems"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
 						<Property key="MenuItemType" value="Separator"/>

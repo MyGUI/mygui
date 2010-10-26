@@ -37,7 +37,7 @@
 	<Tag name="MenuProjectDeleteItem">Удалить выделенный макет из проекта</Tag>
 	<Tag name="MenuProjectRenameItem">Переименовать выделенный макет в проекте ...</Tag>
 	<Tag name="MenuProjectAddItem">Добавить макет в проект</Tag>
-	<Tag name="MenuProjectUpdateItems">Обновить макеты проекта</Tag>
+	<Tag name="MenuUpdateResources">Обновить ресурсы</Tag>
 
 	<Tag name="Add">Добавить</Tag>
 	<Tag name="Delete">Удалить</Tag>
