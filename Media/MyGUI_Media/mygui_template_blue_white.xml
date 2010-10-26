@@ -18,4 +18,14 @@
             <Property key="Text_FontName" value="Default"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ScrollHTemplate">
+        <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <UserString key="MinTrackSize" value="10"/>
+            <Widget type="Widget" skin="PanelEmpty" position="14 0 97 15" align="Stretch">
+                <Widget type="Button" skin="ScrollTrackHSkin" position="3 1 19 14" align="Left VCenter" name="Track"/>
+            </Widget>
+            <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left VCenter" name="Start"/>
+            <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right VCenter" name="End"/>
+        </Widget>
+    </Resource>
 </MyGUI>
