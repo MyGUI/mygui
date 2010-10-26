@@ -89,6 +89,10 @@
 						<Property key="Caption" value="#{MenuProjectAddItem}"/>
 						<Property key="MenuItemId" value="Command_ProjectAddItem"/>
 					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuLine">
+						<Property key="Caption" value="#{MenuProjectUpdateItems}"/>
+						<Property key="MenuItemId" value="Command_ProjectUpdateItems"/>
+					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuSeparator">
 						<Property key="MenuItemType" value="Separator"/>
 					</Widget>
