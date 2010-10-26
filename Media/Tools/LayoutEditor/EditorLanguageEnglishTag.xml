@@ -26,7 +26,7 @@
 	<Tag name="MenuProjectDeleteItem">Delete selected layout from project</Tag>
 	<Tag name="MenuProjectRenameItem">Rename selected layout in project ...</Tag>
 	<Tag name="MenuProjectAddItem">Add layout to project</Tag>
-	<Tag name="MenuProjectUpdateItems">Update project layouts</Tag>
+	<Tag name="MenuUpdateResources">Update resources</Tag>
 
 	<Tag name="MenuColours">Colours</Tag>
 	<Tag name="MenuColourBackground">Background colour ...</Tag>

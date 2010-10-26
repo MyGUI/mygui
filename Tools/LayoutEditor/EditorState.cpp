@@ -42,6 +42,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::command_FileDrop));
 		CommandManager::getInstance().registerCommand("Command_SaveItemAs", MyGUI::newDelegate(this, &EditorState::command_SaveItemAs));
 		CommandManager::getInstance().registerCommand("Command_UpdateItemName", MyGUI::newDelegate(this, &EditorState::command_UpdateItemName));
+		CommandManager::getInstance().registerCommand("Command_UpdateResources", MyGUI::newDelegate(this, &EditorState::command_UpdateResources));
 	}
 
 	EditorState::~EditorState()
@@ -574,6 +575,28 @@ namespace tools
 	{
 		size_t index = _fileName.find("|");
 		return (index != MyGUI::UString::npos);
+	}
+
+	void EditorState::command_UpdateResources(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		typedef std::vector<MyGUI::UString> VectorUString;
+		VectorUString resources = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("UpdateResources");
+		if (resources.empty())
+			return;
+
+		for (VectorUString::iterator resource = resources.begin(); resource != resources.end(); ++resource)
+			MyGUI::ResourceManager::getInstance().load(*resource);
+
+		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+		EditorWidgets::getInstance().clear();
+		EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+		delete savedDoc;
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+		_result = true;
 	}
 
 } // namespace tools
