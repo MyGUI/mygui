@@ -51,7 +51,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ProjectDeleteItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectDeleteItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectRenameItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectRenameItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectAddItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectAddItem));
-		CommandManager::getInstance().registerCommand("Command_ProjectUpdateItems", MyGUI::newDelegate(this, &ProjectControl::command_ProjectUpdateItems));
+		CommandManager::getInstance().registerCommand("Command_UpdateResources", MyGUI::newDelegate(this, &ProjectControl::command_UpdateResources));
 		CommandManager::getInstance().registerCommand("Command_OpenRecentProject", MyGUI::newDelegate(this, &ProjectControl::command_OpenRecentProject));
 
 		if (SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"))
@@ -226,20 +226,13 @@ namespace tools
 		_result = true;
 	}
 
-	void ProjectControl::command_ProjectUpdateItems(const MyGUI::UString& _commandName, bool& _result)
+	void ProjectControl::command_UpdateResources(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
 
 		if (mProjectName.empty())
-		{
-			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
-				replaceTags("Error"),
-				replaceTags("MessageProjectNotOpen"),
-				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
-			);
 			return;
-		}
 
 		MyGUI::ResourceManager::getInstance().load(mProjectName);
 

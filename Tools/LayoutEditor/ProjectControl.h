@@ -35,7 +35,7 @@ namespace tools
 		void command_ProjectDeleteItem(const MyGUI::UString& _commandName, bool& _result);
 		void command_ProjectRenameItem(const MyGUI::UString& _commandName, bool& _result);
 		void command_ProjectAddItem(const MyGUI::UString& _commandName, bool& _result);
-		void command_ProjectUpdateItems(const MyGUI::UString& _commandName, bool& _result);
+		void command_UpdateResources(const MyGUI::UString& _commandName, bool& _result);
 		void command_OpenRecentProject(const MyGUI::UString& _commandName, bool& _result);
 
 		void clear();
