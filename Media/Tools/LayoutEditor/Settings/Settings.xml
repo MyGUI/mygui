@@ -16,6 +16,7 @@
 		<Property key="ColourBackground" value="0 0 0 0"/>
 		<Property key="ColourSelector" value="0 1 0 1"/>
 		<Property key="ColourSelectorInactive" value="0 0 0 0.5"/>
+		<Property key="LoadLastProject" value="false"/>
 	</Settings>
 	<TextureScale>
 		<Property key="ScaleValue.0" value="50"/>

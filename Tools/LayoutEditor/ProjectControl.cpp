@@ -13,6 +13,8 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
+#include "WidgetSelectorManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -46,6 +48,9 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ProjectAddItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectAddItem));
 		CommandManager::getInstance().registerCommand("Command_ProjectUpdateItems", MyGUI::newDelegate(this, &ProjectControl::command_ProjectUpdateItems));
 		CommandManager::getInstance().registerCommand("Command_OpenRecentProject", MyGUI::newDelegate(this, &ProjectControl::command_OpenRecentProject));
+
+		if (SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"))
+			loadLastProject();
 	}
 
 	ProjectControl::~ProjectControl()
@@ -229,6 +234,12 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load(mProjectName);
 
+		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+		EditorWidgets::getInstance().clear();
+		EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+		delete savedDoc;
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
 		_result = true;
 	}
 
@@ -333,6 +344,9 @@ namespace tools
 	{
 		mProjectName = _fileName;
 		mProjectPath = _filePath;
+
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LastProjectName", mProjectName);
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LastProjectPath", mProjectPath);
 
 		addUserTag("CurrentProjectName", mProjectName);
 	}
@@ -595,6 +609,30 @@ namespace tools
 		}
 
 		return doc.save(fileName);
+	}
+
+	void ProjectControl::loadLastProject()
+	{
+		MyGUI::UString projectName = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("LastProjectName");
+		MyGUI::UString projectPath = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("LastProjectPath");
+
+		if (projectName.empty())
+			return;
+
+		setFileName(projectPath, projectName);
+
+		if (!load())
+		{
+			/*MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				replaceTags("Error"),
+				replaceTags("MessageFailedLoadProject"),
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
+			);*/
+
+			clear();
+		}
+
+		updateCaption();
 	}
 
 } // namespace tools
