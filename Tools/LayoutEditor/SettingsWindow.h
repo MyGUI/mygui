@@ -12,6 +12,7 @@
 #include "SettingsResourcePathsControl.h"
 #include "SettingsGeneralControl.h"
 #include "SettingsWidgetsControl.h"
+#include "SettingsUpdateResourcesControl.h"
 
 namespace tools
 {
@@ -42,6 +43,7 @@ namespace tools
 		SettingsResourcePathsControl* mSettingsResourcePathsControl;
 		SettingsGeneralControl* mSettingsGeneralControl;
 		SettingsWidgetsControl* mSettingsWidgetsControl;
+		SettingsUpdateResourcesControl* mSettingsUpdateResourcesControl;
 	};
 
 } // namespace tools

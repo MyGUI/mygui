@@ -35,6 +35,7 @@ set (HEADER_FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsSector.h
+  SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
   StateController.h
@@ -97,6 +98,7 @@ set (SOURCE_FILES
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsSector.cpp
+  SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
   StateManager.cpp
   TestState.cpp
@@ -156,6 +158,7 @@ SOURCE_GROUP("Source Files" FILES
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsSector.cpp
+  SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
   StateManager.cpp
   TestState.cpp
@@ -206,6 +209,7 @@ SOURCE_GROUP("Header Files" FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsSector.h
+  SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
   StateController.h

@@ -54,6 +54,8 @@
 	<Tag name="Show_widget_skin">Show widget skin</Tag>
 	<Tag name="Autohide_editor_panels">Autohide editor panels</Tag>
 	<Tag name="SettingsLoadLastProject">Load last project</Tag>
+	<Tag name="SettingsTabUpdateResources">Update</Tag>
+	<Tag name="SettingsTextUpdateResources">Resources for update</Tag>
 
 	<Tag name="Key">Key</Tag>
 	<Tag name="Value">Value</Tag>

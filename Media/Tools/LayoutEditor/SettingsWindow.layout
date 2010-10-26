@@ -1,33 +1,37 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX" position="32 64 448 296" align="Left Top" layer="Overlapped" name="_Main">
-        <Property key="Caption" value="#{Settings}"/>
-        <Property key="Snap" value="true"/>
-        <Property key="Visible" value="false"/>
-        <Property key="MinSize" value="448 296"/>
-        <Widget type="Tab" skin="Tab" position="5 6 429 216" align="Stretch">
-            <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Caption" value="#{GeneralSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsGeneralControl"/>
+<MyGUI type="Layout" version="3.1.0">
+    <Widget type="Window" skin="WindowCSX" position="32 64 573 296" align="Left Top" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="#{Settings}"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Widget_Visible" value="false"/>
+        <Property key="Window_MinSize" value="448 296"/>
+        <Widget type="Tab" skin="Tab" position="5 6 554 216" align="Stretch">
+            <Widget type="TabItem" skin="" position="4 26 545 184">
+                <Property key="Widget_Caption" value="#{GeneralSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 545 184" align="Stretch" name="SettingsGeneralControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Caption" value="#{WidgetsSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsWidgetsControl"/>
+            <Widget type="TabItem" skin="" position="4 26 545 184">
+                <Property key="Widget_Caption" value="#{WidgetsSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 545 184" align="Stretch" name="SettingsWidgetsControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Caption" value="#{FoldersSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcePathsControl"/>
+            <Widget type="TabItem" skin="" position="4 26 545 184">
+                <Property key="Widget_Caption" value="#{FoldersSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 545 184" align="Stretch" name="SettingsResourcePathsControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
-                <Property key="Caption" value="#{ResourcesSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcesControl"/>
+            <Widget type="TabItem" skin="" position="4 26 545 184">
+                <Property key="Widget_Caption" value="#{ResourcesSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 545 184" align="Stretch" name="SettingsResourcesControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 26 545 184" name="SettingsUpdateResourcesControl">
+                <Property key="Widget_Caption" value="#{SettingsTabUpdateResources}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 545 184" align="Stretch"/>
             </Widget>
         </Widget>
-        <Widget type="Button" skin="Button" position="313 229 120 26" align="Right Bottom" name="Ok">
-            <Property key="Caption" value="#{Ok}"/>
+        <Widget type="Button" skin="Button" position="438 229 120 26" align="Right Bottom" name="Ok">
+            <Property key="Widget_Caption" value="#{Ok}"/>
         </Widget>
         <Widget type="Button" skin="Button" position="6 228 120 26" align="Left Bottom" name="Cancel">
-            <Property key="Caption" value="#{Cancel}"/>
+            <Property key="Widget_Caption" value="#{Cancel}"/>
         </Widget>
     </Widget>
 </MyGUI>

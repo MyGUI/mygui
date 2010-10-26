@@ -54,6 +54,8 @@
 	<Tag name="Show_widget_skin">Показывать скин виджета</Tag>
 	<Tag name="Autohide_editor_panels">Автоскрытие панелей редактора</Tag>
 	<Tag name="SettingsLoadLastProject">Загружать последний проект</Tag>
+	<Tag name="SettingsTabUpdateResources">Обновление</Tag>
+	<Tag name="SettingsTextUpdateResources">Ресурсы для обновления</Tag>
 
 	<Tag name="Key">Ключ</Tag>
 	<Tag name="Value">Значение</Tag>
