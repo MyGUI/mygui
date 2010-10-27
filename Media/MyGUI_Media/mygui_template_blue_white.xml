@@ -4,22 +4,26 @@
         <Widget type="Widget" skin="ButtonSkin" position="20 20 29 26" name="Root">
             <Property key="Text_FontName" value="Default"/>
             <Property key="Text_TextAlign" value="Center"/>
+            <UserString key="TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="CheckBoxTemplate">
         <Widget type="Widget" skin="CheckBoxSkin" position="20 20 23 21" name="Root">
             <Property key="Text_TextAlign" value="Default"/>
             <Property key="Text_FontName" value="Default"/>
+            <UserString key="TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="RadioButtonTemplate">
         <Widget type="Widget" skin="RadioButtonSkin" position="20 20 21 20" name="Root">
             <Property key="Text_TextAlign" value="Default"/>
             <Property key="Text_FontName" value="Default"/>
+            <UserString key="TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ScrollHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <UserString key="TargetWidgetType" value="HScroll"/>
             <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -47,6 +51,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollVTemplate">
         <Widget type="Widget" skin="ScrollPanelVSkin" position="25 50 15 125" name="Root">
+            <UserString key="TargetWidgetType" value="VScroll"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -66,6 +71,31 @@
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
         <Widget type="VScroll" skin="VScroll" position="75 50 15 125">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderHTemplate">
+        <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <UserString key="TargetWidgetType" value="HScroll"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
+                <Property key="Widget_NeedKey" value="false"/>
+                <Property key="Widget_InheritsPick" value="true"/>
+                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" name="SecondPart"/>
+            </Widget>
+        </Widget>
+        <Widget type="HScroll" skin="SliderHTemplate" position="25 75 125 15">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="0"/>
+            <Property key="Scroll_Page" value="1"/>
+            <Property key="Scroll_ViewPage" value="1"/>
+            <Property key="Scroll_MoveToClick" value="true"/>
+        </Widget>
+        <Widget type="HScroll" skin="HSlider" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="0"/>
             <Property key="Scroll_Page" value="1"/>
