@@ -102,4 +102,23 @@
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="SliderVTemplate">
+        <Widget type="Widget" skin="ScrollPanelVSkin" position="20 20 15 125" name="Root">
+            <Property key="Scroll_MoveToClick" value="true"/>
+            <UserString key="TargetWidgetType" value="VScroll"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
+                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" name="SecondPart"/>
+            </Widget>
+        </Widget>
+        <Widget type="VScroll" skin="SliderVTemplate" position="50 20 15 125">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="99"/>
+        </Widget>
+        <Widget type="VScroll" skin="VSlider" position="80 20 15 125">
+            <Property key="Progress_Range" value="100"/>
+            <Property key="Progress_Position" value="99"/>
+        </Widget>
+    </Resource>
 </MyGUI>
