@@ -180,7 +180,19 @@ namespace tools
 			mPairsCounter = 0;
 			mPanelMainProperties->update(mCurrentWidget);
 
-			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
+			std::string widgetTypeName = mCurrentWidget->getTypeName();
+
+			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
+			for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+			{
+				if ((*item).first == "TargetWidgetType")
+				{
+					widgetTypeName = (*item).second;
+					break;
+				}
+			}
+
+			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
 			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 			{
 				mPairsCounter = 0;
