@@ -575,6 +575,13 @@ namespace tools
 
 	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test)
 	{
+		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
+		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+		{
+			if ((*item).first == "TargetWidgetType")
+				return true;
+		}
+
 		try
 		{
 			if (_key == "Image_Texture")
