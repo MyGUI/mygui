@@ -79,6 +79,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="SliderHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <Property key="Scroll_MoveToClick" value="true"/>
             <UserString key="TargetWidgetType" value="HScroll"/>
             <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
@@ -93,7 +94,6 @@
             <Property key="Progress_Position" value="0"/>
             <Property key="Scroll_Page" value="1"/>
             <Property key="Scroll_ViewPage" value="1"/>
-            <Property key="Scroll_MoveToClick" value="true"/>
         </Widget>
         <Widget type="HScroll" skin="HSlider" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
