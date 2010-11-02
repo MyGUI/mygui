@@ -85,11 +85,8 @@ namespace tools
 			y += mPropertyItemHeight;
 		}
 
-		if (widgetType->skin.size() > 1)
-		{
-			eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y);
-			y += mPropertyItemHeight;
-		}
+		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y);
+		y += mPropertyItemHeight;
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
 		mPanelCell->setClientHeight(y);
