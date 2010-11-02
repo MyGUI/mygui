@@ -21,9 +21,14 @@ namespace tools
 
 		void addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name);
 
-		const SkinGroups& getSkinGroups()
+		const SkinGroups& getSkinGroups() const
 		{
 			return mSkinGroups;
+		}
+
+		VectorWidgetType getWidgetTypes() const
+		{
+			return mWidgetTypes;
 		}
 
 	private:
