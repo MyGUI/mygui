@@ -59,7 +59,7 @@ namespace tools
 			layer = _layerName;
 		}
 
-		const std::string& getLayerName()
+		const std::string& getLayerName() const
 		{
 			return layer;
 		}

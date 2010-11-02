@@ -73,6 +73,9 @@ namespace tools
 			mButtonRelativePosition->setVisible(false);
 		}
 
+		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y);
+		y += mPropertyItemHeight;
+
 		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 		y += mPropertyItemHeight;
 
