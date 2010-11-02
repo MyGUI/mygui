@@ -262,6 +262,8 @@ namespace tools
 
 		if ("Name" == _type)
 			widget_for_type = PropertyType_Edit;
+		else if ("Type" == _type)
+			widget_for_type = PropertyType_ComboBox;
 		else if ("Skin" == _type)
 			widget_for_type = PropertyType_ComboBox;
 		else if ("Position" == _type)
@@ -381,6 +383,14 @@ namespace tools
 					}
 				}
 			}
+			else if (_type == "Type")
+			{
+				VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
+				for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
+				{
+					values.push_back((*iter)->name);
+				}
+			}
 			else
 			{
 				values = WidgetTypes::getInstance().findPossibleValues(_type);
@@ -484,6 +494,18 @@ namespace tools
 				widgetContainer->name = value;
 				ew->invalidateWidgets();
 			}
+			return;
+		}
+		else if (action == "Type")
+		{
+			widgetContainer->type = value;
+
+			MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
+			ew->clear();
+			ew->loadxmlDocument(savedDoc);
+			delete savedDoc;
+			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
 			return;
 		}
 		else if (action == "Skin")
