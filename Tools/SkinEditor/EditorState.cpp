@@ -103,7 +103,8 @@ namespace tools
 	void EditorState::updateCaption()
 	{
 		addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
-		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
+
+		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
 	void EditorState::commandLoad(const MyGUI::UString& _commandName, bool& _result)

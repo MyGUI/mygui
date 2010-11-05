@@ -21,6 +21,8 @@ namespace tools
 		SkinControl(MyGUI::Widget* _parent);
 		virtual ~SkinControl();
 
+		void setActivate(bool _value);
+
 	private:
 		SkinListControl* mSkinListControl;
 		SkinPropertyControl* mSkinPropertyControl;

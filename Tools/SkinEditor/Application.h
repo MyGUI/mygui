@@ -30,8 +30,6 @@ namespace tools
 		virtual bool onWinodwClose(size_t _handle);
 		virtual void prepare();
 
-		void setCaption(const MyGUI::UString& _value);
-
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
 
@@ -40,9 +38,10 @@ namespace tools
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
-		void commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result);
-		void commandFocusVisible(const MyGUI::UString& _commandName, bool& _result);
-		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
+		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
+		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
+		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
+		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		virtual void setupResources();

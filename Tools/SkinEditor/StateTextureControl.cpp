@@ -8,6 +8,7 @@
 #include "SkinManager.h"
 #include "SettingsManager.h"
 #include "CommandManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -39,6 +40,8 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &StateTextureControl::notifySettingsChanged);
 
 		initialiseAdvisor();
+
+		updateCaption();
 	}
 
 	StateTextureControl::~StateTextureControl()
@@ -349,13 +352,6 @@ namespace tools
 		_result = true;
 	}
 
-	bool StateTextureControl::checkCommand()
-	{
-		return 
-			mMainWidget->getRootKeyFocus() &&
-			!mAreaSelectorControl->getCapture();
-	}
-
 	int StateTextureControl::toGrid(int _value)
 	{
 		if (mGridStep < 1)
@@ -370,6 +366,28 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
+	}
+
+	void StateTextureControl::onChangeScale()
+	{
+		updateCaption();
+	}
+
+	void StateTextureControl::updateCaption()
+	{
+		if (getActivate())
+		{
+			int scale = (int)(getScale() * (double)100);
+			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+
+			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
+		}
+	}
+
+	void StateTextureControl::onChangeActivate()
+	{
+		if (getActivate())
+			updateCaption();
 	}
 
 } // namespace tools

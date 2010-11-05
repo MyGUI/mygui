@@ -21,6 +21,8 @@ namespace tools
 		StatesControl(MyGUI::Widget* _parent);
 		virtual ~StatesControl();
 
+		void setActivate(bool _value);
+
 	private:
 		StatesListControl* mStatesListControl;
 		StatePropertyControl* mStatePropertyControl;

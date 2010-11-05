@@ -24,4 +24,9 @@ namespace tools
 	{
 	}
 
+	void SkinControl::setActivate(bool _value)
+	{
+		mSkinTextureControl->setActivate(_value);
+	}
+
 } // namespace tools

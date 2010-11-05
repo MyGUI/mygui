@@ -34,6 +34,9 @@ namespace tools
 
 		void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
+		virtual void onChangeScale();
+		virtual void onChangeActivate();
+
 	private:
 		void notifyChangePosition();
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
@@ -52,7 +55,6 @@ namespace tools
 		void addCoord(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert, MyGUI::Align _corner, const MyGUI::UString& _position);
 		void drawUnselectedStates(std::vector<int>& _coordsHor, std::vector<int>& _coordsVert);
 
-		bool checkCommand();
 		int toGrid(int _value);
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
@@ -65,6 +67,8 @@ namespace tools
 		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
 
 		MyGUI::Align getCorner();
+
+		void updateCaption();
 
 	private:
 		MyGUI::UString mTextureName;

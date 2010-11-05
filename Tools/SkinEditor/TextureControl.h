@@ -38,6 +38,9 @@ namespace tools
 		MyGUI::Colour getColour();
 
 		void setScale(double _value);
+		double getScale();
+
+		virtual void onChangeScale();
 
 		virtual void onMouseMove();
 		virtual void onMouseWheel(int _rel);

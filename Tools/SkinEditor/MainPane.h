@@ -26,11 +26,16 @@ namespace tools
 		void setVisible(bool _value);
 
 	private:
+		void notifyTabChangeSelect(MyGUI::Tab* _sender, size_t _index);
+
+	private:
 		SkinControl* mSkinControl;
 		StatesControl* mStatesControl;
 		SeparatorControl* mSeparatorControl;
 		RegionControl* mRegionControl;
 		MainMenuControl* mMainMenuControl;
+
+		MyGUI::Tab* mTab;
 	};
 
 } // namespace tools
