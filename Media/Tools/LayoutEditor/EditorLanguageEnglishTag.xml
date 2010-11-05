@@ -70,8 +70,8 @@
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
 
-	<Tag name="CaptionMainWindow">Layout editor - '#{CurrentFileName}' #{HasChanged}</Tag>
-	<Tag name="CaptionProjectMainWindow">Layout editor - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Layout editor - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionProjectMainWindow">Layout editor - '#{CurrentFileName}' [#{CurrentItemFileName}] #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionOpenFile">Create file</Tag>

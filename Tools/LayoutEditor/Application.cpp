@@ -121,9 +121,10 @@ namespace tools
 		for (SettingsSector::VectorUString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 
-		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::commandStatisticInfo));
-		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::commandFocusVisible));
-		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::commandQuitApp));
+		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::command_StatisticInfo));
+		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::command_FocusVisible));
+		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::command_QuitApp));
+		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &Application::command_UpdateAppCaption));
 
 		mEditorState = new EditorState();
 		mTestState = new TestState();
@@ -330,21 +331,21 @@ namespace tools
 		return false;
 	}
 
-	void Application::commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result)
+	void Application::command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
 
 		_result = true;
 	}
 
-	void Application::commandFocusVisible(const MyGUI::UString& _commandName, bool& _result)
+	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
 
 		_result = true;
 	}
 
-	void Application::commandQuitApp(const MyGUI::UString& _commandName, bool& _result)
+	void Application::command_QuitApp(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (DialogManager::getInstance().getAnyDialog())
 		{
@@ -365,9 +366,11 @@ namespace tools
 		_result = true;
 	}
 
-	void Application::setCaption(const MyGUI::UString& _value)
+	void Application::command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result)
 	{
-		setWindowCaption(_value);
+		setWindowCaption(replaceTags("CaptionMainWindow"));
+
+		_result = true;
 	}
 
 	void Application::resumeState()
