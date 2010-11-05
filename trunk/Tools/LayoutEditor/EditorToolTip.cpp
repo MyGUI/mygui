@@ -27,8 +27,8 @@ namespace tools
 
 	void EditorToolTip::show(const SkinInfo& _data)
 	{
-		static const MyGUI::UString colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-		static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
+		const MyGUI::UString& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString& colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
 
 		std::string skin = _data.widget_skin;
 		std::string widget = _data.widget_type;

@@ -66,6 +66,7 @@ namespace tools
 		void destroyAllWidgets();
 
 		bool isSkinExist(const std::string& _skinName);
+		bool checkTemplate(const std::string& _skinName);
 
 		bool loadFromProject(const MyGUI::UString& _fileName, size_t _index);
 		bool saveToProject(const MyGUI::UString& _fileName, size_t _index);
