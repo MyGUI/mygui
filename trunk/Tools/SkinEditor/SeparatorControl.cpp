@@ -24,4 +24,9 @@ namespace tools
 	{
 	}
 
+	void SeparatorControl::setActivate(bool _value)
+	{
+		mSeparatorTextureControl->setActivate(_value);
+	}
+
 } // namespace tools

@@ -26,6 +26,9 @@ namespace tools
 	protected:
 		void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
+		virtual void onChangeScale();
+		virtual void onChangeActivate();
+
 	private:
 		void notifyChangePosition();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -49,8 +52,6 @@ namespace tools
 		void addCoord(std::vector<MyGUI::IntCoord>& _coords, const MyGUI::UString& _coord, const MyGUI::UString& _position);
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
-		bool checkCommand();
-
 		void updateFromPointValue();
 		int toGrid(int _value);
 
@@ -62,6 +63,8 @@ namespace tools
 		void CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void updateCaption();
 
 	private:
 		PositionSelectorControl* mAreaSelectorControl;

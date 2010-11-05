@@ -8,6 +8,7 @@
 #include "SkinManager.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -43,6 +44,8 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
 
 		initialiseAdvisor();
+
+		updateCaption();
 	}
 
 	SkinTextureControl::~SkinTextureControl()
@@ -108,11 +111,6 @@ namespace tools
 		mCoordValue.top = _point.top - (mCoordValue.height / 2);
 
 		updateFromCoordValue();
-	}
-
-	bool SkinTextureControl::checkCommand()
-	{
-		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
 	}
 
 	void SkinTextureControl::updateFromCoordValue()
@@ -366,6 +364,28 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
+	}
+
+	void SkinTextureControl::onChangeScale()
+	{
+		updateCaption();
+	}
+
+	void SkinTextureControl::updateCaption()
+	{
+		if (getActivate())
+		{
+			int scale = (int)(getScale() * (double)100);
+			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+
+			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
+		}
+	}
+
+	void SkinTextureControl::onChangeActivate()
+	{
+		if (getActivate())
+			updateCaption();
 	}
 
 } // namespace tools

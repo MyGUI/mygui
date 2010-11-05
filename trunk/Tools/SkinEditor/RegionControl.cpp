@@ -24,4 +24,9 @@ namespace tools
 	{
 	}
 
+	void RegionControl::setActivate(bool _value)
+	{
+		mRegionTextureControl->setActivate(_value);
+	}
+
 } // namespace tools
