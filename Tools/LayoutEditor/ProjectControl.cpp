@@ -196,7 +196,7 @@ namespace tools
 			return;
 
 		mTextFieldControl->setCaption(replaceTags("CaptionRenameLayout"));
-		mTextFieldControl->setTextField(mList->getItemNameAt(index));
+		mTextFieldControl->setTextField(MyGUI::TextIterator::getOnlyText(mList->getItemNameAt(index)));
 		mTextFieldControl->doModal();
 
 		_result = true;
@@ -218,6 +218,7 @@ namespace tools
 		}
 
 		saveItemToProject();
+		updateProjectSkins();
 		load();
 
 		if (mList->getItemCount() != 0)
@@ -234,7 +235,7 @@ namespace tools
 		if (mProjectName.empty())
 			return;
 
-		MyGUI::ResourceManager::getInstance().load(mProjectName);
+		updateProjectSkins();
 
 		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();
@@ -243,6 +244,11 @@ namespace tools
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
 		_result = true;
+	}
+
+	void ProjectControl::updateProjectSkins()
+	{
+		MyGUI::ResourceManager::getInstance().load(mProjectName);
 	}
 
 	void ProjectControl::command_OpenRecentProject(const MyGUI::UString& _commandName, bool& _result)
@@ -305,6 +311,7 @@ namespace tools
 	bool ProjectControl::load()
 	{
 		mList->removeAllItems();
+		MyGUI::VectorString items;
 
 		MyGUI::UString fileName = common::concatenatePath(mProjectPath, mProjectName);
 
@@ -329,7 +336,7 @@ namespace tools
 			while (element.next("Resource"))
 			{
 				if (element->findAttribute("type") == "ResourceLayout")
-					mList->addItem(element->findAttribute("name"));
+					items.push_back(element->findAttribute("name"));
 			}
 		}
 		else
@@ -337,9 +344,49 @@ namespace tools
 			return false;
 		}
 
+		const MyGUI::UString& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString& colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
+
+		for (MyGUI::VectorString::const_iterator item = items.begin(); item != items.end(); ++item)
+		{
+			bool successItem = checkItem(*item, items);
+			mList->addItem(successItem ? (*item) : (colour_error + (*item)));
+		}
+
 		RecentFilesManager::getInstance().addRecentProject(fileName);
 
 		return true;
+	}
+
+	bool ProjectControl::checkItem(const std::string& _name, const MyGUI::VectorString& _items)
+	{
+		size_t count = 0;
+		for (MyGUI::VectorString::const_iterator item = _items.begin(); item != _items.end(); ++item)
+		{
+			if ((*item) == _name)
+				count++;
+		}
+
+		if (count > 1)
+			return false;
+
+		return checkTemplate(_name);
+	}
+
+	bool ProjectControl::checkTemplate(const std::string& _skinName)
+	{
+		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
+		if (templateInfo != nullptr)
+		{
+			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
+			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			{
+				if (container->name == "Root")
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	void ProjectControl::setFileName(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)
@@ -461,6 +508,7 @@ namespace tools
 				return;
 
 			deleteItemFromProject(index);
+			updateProjectSkins();
 			load();
 
 			if (index < mList->getItemCount())
@@ -484,6 +532,7 @@ namespace tools
 				return;
 
 			renameItemInProject(index, mTextFieldControl->getTextField());
+			updateProjectSkins();
 			load();
 
 			if (index < mList->getItemCount())

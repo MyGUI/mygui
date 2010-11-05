@@ -56,6 +56,10 @@ namespace tools
 		void loadLastProject();
 
 		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+		bool checkItem(const std::string& _name, const MyGUI::VectorString& _items);
+		bool checkTemplate(const std::string& _skinName);
+
+		void updateProjectSkins();
 
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;
