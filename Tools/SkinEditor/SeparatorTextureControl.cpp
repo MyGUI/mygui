@@ -7,6 +7,7 @@
 #include "SeparatorTextureControl.h"
 #include "SettingsManager.h"
 #include "CommandManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -44,6 +45,8 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SeparatorTextureControl::notifySettingsChanged);
 
 		initialiseAdvisor();
+
+		updateCaption();
 	}
 
 	SeparatorTextureControl::~SeparatorTextureControl()
@@ -538,14 +541,6 @@ namespace tools
 		_result = true;
 	}
 
-	bool SeparatorTextureControl::checkCommand()
-	{
-		return 
-			mMainWidget->getRootKeyFocus() &&
-			!mHorizontalSelectorControl->getCapture() &&
-			!mVerticalSelectorControl->getCapture();
-	}
-
 	void SeparatorTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 		MyGUI::Align corner = getCorner();
@@ -582,6 +577,28 @@ namespace tools
 		if (getCurrentSeparator() != nullptr)
 			return getCurrentSeparator()->getCorner();
 		return MyGUI::Align::Default;
+	}
+
+	void SeparatorTextureControl::onChangeScale()
+	{
+		updateCaption();
+	}
+
+	void SeparatorTextureControl::updateCaption()
+	{
+		if (getActivate())
+		{
+			int scale = (int)(getScale() * (double)100);
+			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+
+			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
+		}
+	}
+
+	void SeparatorTextureControl::onChangeActivate()
+	{
+		if (getActivate())
+			updateCaption();
 	}
 
 } // namespace tools

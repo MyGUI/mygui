@@ -7,6 +7,7 @@
 #include "RegionTextureControl.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -51,6 +52,8 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &RegionTextureControl::notifySettingsChanged);
 
 		initialiseAdvisor();
+
+		updateCaption();
 	}
 
 	RegionTextureControl::~RegionTextureControl()
@@ -365,11 +368,6 @@ namespace tools
 		}
 	}
 
-	bool RegionTextureControl::checkCommand()
-	{
-		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
-	}
-
 	int RegionTextureControl::toGrid(int _value)
 	{
 		if (mGridStep < 1)
@@ -560,6 +558,28 @@ namespace tools
 			if (_propertyName == "Grid")
 				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
+	}
+
+	void RegionTextureControl::onChangeScale()
+	{
+		updateCaption();
+	}
+
+	void RegionTextureControl::updateCaption()
+	{
+		if (getActivate())
+		{
+			int scale = (int)(getScale() * (double)100);
+			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+
+			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
+		}
+	}
+
+	void RegionTextureControl::onChangeActivate()
+	{
+		if (getActivate())
+			updateCaption();
 	}
 
 } // namespace tools

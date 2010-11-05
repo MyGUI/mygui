@@ -33,6 +33,9 @@ namespace tools
 		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
 
+		virtual void onChangeScale();
+		virtual void onChangeActivate();
+
 	private:
 		void notifyChangePosition();
 
@@ -53,7 +56,6 @@ namespace tools
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 		void updateFromCoordValue();
-		bool checkCommand();
 
 		int toGrid(int _value);
 
@@ -74,6 +76,8 @@ namespace tools
 		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void updateCaption();
 
 	private:
 		MyGUI::UString mTextureName;

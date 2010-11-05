@@ -24,4 +24,9 @@ namespace tools
 	{
 	}
 
+	void StatesControl::setActivate(bool _value)
+	{
+		mStateTextureControl->setActivate(_value);
+	}
+
 } // namespace tools

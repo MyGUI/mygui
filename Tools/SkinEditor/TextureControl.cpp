@@ -101,6 +101,8 @@ namespace tools
 	{
 		mScaleValue = _value;
 		updateScale();
+
+		onChangeScale();
 	}
 
 	void TextureControl::onMouseMove()
@@ -259,6 +261,15 @@ namespace tools
 		point.top = (int)((double)point.top / mScaleValue);
 
 		return point;
+	}
+
+	void TextureControl::onChangeScale()
+	{
+	}
+
+	double TextureControl::getScale()
+	{
+		return mScaleValue;
 	}
 
 } // namespace tools

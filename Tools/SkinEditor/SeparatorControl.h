@@ -21,6 +21,8 @@ namespace tools
 		SeparatorControl(MyGUI::Widget* _parent);
 		virtual ~SeparatorControl();
 
+		void setActivate(bool _value);
+
 	private:
 		SeparatorListControl* mSeparatorListControl;
 		SeparatorPropertyControl* mSeparatorPropertyControl;

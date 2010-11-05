@@ -21,6 +21,8 @@ namespace tools
 		RegionControl(MyGUI::Widget* _parent);
 		virtual ~RegionControl();
 
+		void setActivate(bool _value);
+
 	private:
 		RegionListControl* mRegionListControl;
 		RegionPropertyControl* mRegionPropertyControl;

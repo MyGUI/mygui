@@ -25,6 +25,9 @@ namespace tools
 	protected:
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
+		virtual void onChangeScale();
+		virtual void onChangeActivate();
+
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
@@ -39,7 +42,6 @@ namespace tools
 		void updateCoord();
 
 		void updateFromCoordValue();
-		bool checkCommand();
 
 		int toGrid(int _value);
 
@@ -60,6 +62,8 @@ namespace tools
 		void CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result);
 		void CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result);
+
+		void updateCaption();
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
