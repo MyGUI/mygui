@@ -37,7 +37,7 @@
 	<Tag name="Warning">Внимание</Tag>
 	<Tag name="Error">Ошибка</Tag>
 
-	<Tag name="CaptionMainWindow">Редактор скинов - '#{CurrentFileName}' #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Редактор скинов - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
