@@ -31,14 +31,13 @@ namespace tools
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
 
-		void setCaption(const MyGUI::UString& _value);
-
 		virtual void resumeState();
 
 	private:
-		void commandStatisticInfo(const MyGUI::UString& _commandName, bool& _result);
-		void commandFocusVisible(const MyGUI::UString& _commandName, bool& _result);
-		void commandQuitApp(const MyGUI::UString& _commandName, bool& _result);
+		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
+		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
+		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
+		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		VectorWString mParams;

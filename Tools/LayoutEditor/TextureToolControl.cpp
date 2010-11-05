@@ -14,14 +14,15 @@ namespace tools
 
 	TextureToolControl::TextureToolControl(MyGUI::Widget* _parent) :
 		TextureControl("TextureControl.layout", _parent),
-		mCurrentScaleValue(100)
+		mCurrentScaleValue(100),
+		mActivate(true)
 	{
 		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
 		setColour(colour);
 
-		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangeNextScale));
-		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangePrevScale));
-		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::Command_ChangeScale));
+		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeNextScale));
+		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangePrevScale));
+		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeScale));
 
 		mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 
@@ -45,7 +46,7 @@ namespace tools
 		}
 	}
 
-	void TextureToolControl::Command_ChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -55,7 +56,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::Command_ChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -65,7 +66,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::Command_ChangeScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControl::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkMenuCommand())
 			return;
@@ -85,12 +86,17 @@ namespace tools
 
 	bool TextureToolControl::checkMenuCommand()
 	{
-		return mMainWidget->getInheritedVisible() && !getSelectorsCapture();
+		return
+			mActivate &&
+			!getSelectorsCapture();
 	}
 
 	bool TextureToolControl::checkCommand()
 	{
-		return mMainWidget->getRootKeyFocus() && !getSelectorsCapture();
+		return
+			mMainWidget->getRootKeyFocus() &&
+			mActivate &&
+			!getSelectorsCapture();
 	}
 
 	void TextureToolControl::onMouseWheel(int _rel)
@@ -137,6 +143,22 @@ namespace tools
 			}
 		}
 		return false;
+	}
+
+	void TextureToolControl::setActivate(bool _value)
+	{
+		mActivate = _value;
+
+		onChangeActivate();
+	}
+
+	bool TextureToolControl::getActivate()
+	{
+		return mActivate;
+	}
+
+	void TextureToolControl::onChangeActivate()
+	{
 	}
 
 } // namespace tools

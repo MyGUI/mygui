@@ -24,6 +24,8 @@ namespace tools
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 		virtual void onMouseDrag(const MyGUI::IntPoint& _point);
 
+		virtual void onChangeScale();
+
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangePosition();
@@ -34,10 +36,11 @@ namespace tools
 
 		void updateFromCoordValue();
 		void updateSelectionFromValue();
-		bool checkCommand();
 
 		int toGrid(int _value);
 		void updateSelectorEnabled();
+
+		void updateCaption();
 
 		void Command_MoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void Command_MoveRight(const MyGUI::UString& _commandName, bool& _result);
