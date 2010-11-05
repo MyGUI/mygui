@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "EditorToolTip.h"
 #include "MyGUI_SkinManager.h"
+#include "EditorWidgets.h"
 
 namespace tools
 {
@@ -30,36 +31,44 @@ namespace tools
 		static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
 
 		std::string skin = _data.widget_skin;
+		std::string widget = _data.widget_type;
 
 		MyGUI::ResourceSkin* skinInfo = MyGUI::SkinManager::getInstance().getByName(skin);
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(skin, false);
+
+		bool templateRootFound = false;
 
 		MyGUI::IntSize skinDefaultSize;
 		if (skinInfo != nullptr)
 		{
 			skinDefaultSize = skinInfo->getSize();
+			templateRootFound = true;
 		}
 		else if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator item = data.begin(); item != data.end(); ++item)
+			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
 			{
-				if (item->name == "Root")
+				if (container->name == "Root")
 				{
-					skinDefaultSize = item->intCoord.size();
+					skinDefaultSize = container->intCoord.size();
+					templateRootFound = true;
+
+					MyGUI::MapString::const_iterator item = container->userStrings.find("TargetWidgetType");
+					if (item != container->userStrings.end())
+						widget = (*item).second;
+
 					break;
 				}
 			}
 		}
 
-		std::string widget = _data.widget_type;
 		bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
 		std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
 			"\nSkin: " + skin +
-			"\nDefaultSize: " + MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height);
+			"\nDefaultSize: " + (templateRootFound ? MyGUI::utility::toString(skinDefaultSize.width, " x ", skinDefaultSize.height) : (colour_error + "'Root' widget not found"));
 
 		mText->setCaption(text);
-
 
 		const int MARGIN = 5;
 		const int LINE_HEIGHT = 22;
@@ -93,7 +102,10 @@ namespace tools
 			skinDefaultSize.height += max_size.height;
 		}
 
-		mMainWidget->setSize(std::max(mMinWidth, skinDefaultSize.width + 2 * MARGIN), std::max(mMinHeight, skinDefaultSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
+		int width = std::max(mMinWidth, skinDefaultSize.width + 2 * MARGIN);
+		width = std::max(width, mText->getTextSize().width + 2 * MARGIN);
+
+		mMainWidget->setSize(width, std::max(mMinHeight, skinDefaultSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		if (mLastWidget)
 			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
 		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, skinDefaultSize.width, skinDefaultSize.height, MyGUI::Align::Default);
