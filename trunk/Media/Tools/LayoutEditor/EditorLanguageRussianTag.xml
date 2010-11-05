@@ -70,8 +70,8 @@
 	<Tag name="Warning">Внимание</Tag>
 	<Tag name="Error">Ошибка</Tag>
 
-	<Tag name="CaptionMainWindow">Редактор макетов - '#{CurrentFileName}' #{HasChanged}</Tag>
-	<Tag name="CaptionProjectMainWindow">Редактор макетов - '#{CurrentFileName}' [#{CurrentItemFileName}] #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Редактор макетов - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionProjectMainWindow">Редактор макетов - '#{CurrentFileName}' [#{CurrentItemFileName}] #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionCreateFile">Создание файла</Tag>

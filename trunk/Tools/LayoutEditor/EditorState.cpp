@@ -359,7 +359,8 @@ namespace tools
 	void EditorState::updateCaption()
 	{
 		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
-		Application::getInstance().setCaption(replaceTags("CaptionMainWindow"));
+
+		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)

@@ -18,18 +18,23 @@ namespace tools
 		TextureToolControl(MyGUI::Widget* _parent);
 		virtual ~TextureToolControl();
 
+		void setActivate(bool _value);
+		bool getActivate();
+
 	protected:
 		virtual void onMouseWheel(int _rel);
+
+		virtual void onChangeActivate();
+
+		bool checkCommand();
+		bool checkMenuCommand();
 
 	private:
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
-		void Command_ChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
-		void Command_ChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
-		void Command_ChangeScale(const MyGUI::UString& _commandName, bool& _result);
-
-		bool checkCommand();
-		bool checkMenuCommand();
+		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
+		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);
+		void CommandChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 		bool doPrevScale();
 		bool doNextScale();
@@ -38,6 +43,8 @@ namespace tools
 		typedef std::vector<size_t> VectorSizeT;
 		VectorSizeT mScaleValue;
 		size_t mCurrentScaleValue;
+
+		bool mActivate;
 	};
 
 } // namespace tools

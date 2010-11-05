@@ -6,6 +6,7 @@
 #include "PropertiesPanelView.h"
 #include "CommandManager.h"
 #include "UndoManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -61,6 +62,8 @@ namespace tools
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
+
+		updateCaption();
 	}
 
 	WorkspaceControl::~WorkspaceControl()
@@ -464,11 +467,6 @@ namespace tools
 		updateSelectionFromValue();
 	}
 
-	bool WorkspaceControl::checkCommand()
-	{
-		return mMainWidget->getRootKeyFocus() && !mAreaSelectorControl->getCapture();
-	}
-
 	void WorkspaceControl::updateSelectionFromValue()
 	{
 		// саму рамку отображаем в глобальных
@@ -580,6 +578,22 @@ namespace tools
 		else
 		{
 			mPositionSelectorCreatorControl->setVisible(false);
+		}
+	}
+
+	void WorkspaceControl::onChangeScale()
+	{
+		updateCaption();
+	}
+
+	void WorkspaceControl::updateCaption()
+	{
+		if (getActivate())
+		{
+			int scale = (int)(getScale() * (double)100);
+			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+
+			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 		}
 	}
 
