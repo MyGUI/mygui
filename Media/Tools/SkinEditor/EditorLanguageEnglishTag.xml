@@ -37,7 +37,7 @@
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
 
-	<Tag name="CaptionMainWindow">Skin editor - '#{CurrentFileName}' #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Skin editor - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
