@@ -739,7 +739,26 @@ namespace tools
 
 	bool EditorWidgets::isSkinExist(const std::string& _skinName)
 	{
-		return _skinName == "Default" || MyGUI::SkinManager::getInstance().isExist(_skinName) || MyGUI::LayoutManager::getInstance().isExist(_skinName);
+		return
+			_skinName == "Default" ||
+			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
+			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
+	}
+
+	bool EditorWidgets::checkTemplate(const std::string& _skinName)
+	{
+		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
+		if (templateInfo != nullptr)
+		{
+			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
+			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			{
+				if (container->name == "Root")
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	const MyGUI::UString& EditorWidgets::getCurrentFileName()

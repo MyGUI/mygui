@@ -50,6 +50,7 @@ namespace tools
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 
 		bool isSkinExist(const std::string& _skinName);
+		bool checkTemplate(const std::string& _skinName);
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
