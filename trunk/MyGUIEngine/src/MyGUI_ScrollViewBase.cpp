@@ -58,7 +58,7 @@ namespace MyGUI
 		{
 			if (mVScroll != nullptr)
 			{
-				if (( ! mVScroll->getVisible()) && (mVisibleVScroll))
+				if (!mVScroll->getVisible() && mVisibleVScroll)
 				{
 					mVScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
@@ -146,7 +146,7 @@ namespace MyGUI
 		{
 			if (mHScroll != nullptr)
 			{
-				if (( ! mHScroll->getVisible()) && (mVisibleHScroll))
+				if (!mHScroll->getVisible() && mVisibleHScroll)
 				{
 					mHScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
