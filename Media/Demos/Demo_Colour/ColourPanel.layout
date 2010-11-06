@@ -56,7 +56,7 @@
         </Widget>
         <Widget type="Button" skin="Button" position="304 41 107 26" name="Button_Cancel">
             <Property key="Caption" value="Cancel"/>
-            <Property key="Widget_Enabled" value="false"/>
+            <Property key="Enabled" value="false"/>
         </Widget>
     </Widget>
 </MyGUI>

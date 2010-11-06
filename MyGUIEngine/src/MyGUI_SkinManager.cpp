@@ -29,6 +29,7 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_IStateInfo.h"
+#include "MyGUI_LayoutManager.h"
 
 namespace MyGUI
 {
@@ -115,7 +116,7 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
 			if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
 			{
-				MYGUI_LOG(Error, "Skin '" << _name << "' not found. Replaced with default skin.");
+				MYGUI_LOG(Error, "Skin '" << _name << "' not found. Replaced with default skin." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 		}
 
