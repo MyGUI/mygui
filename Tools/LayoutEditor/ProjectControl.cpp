@@ -243,6 +243,9 @@ namespace tools
 		delete savedDoc;
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
+		// перегружаем список
+		load();
+
 		_result = true;
 	}
 
