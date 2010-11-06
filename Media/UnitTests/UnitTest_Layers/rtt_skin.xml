@@ -45,7 +45,7 @@
 		<Property key="TrackSkin" value="rtt_KeyboardProgressTrack"/>
 		<Property key="TrackWidth" value="17"/>
 		<Property key="TrackFill" value="false"/>
-		<Property key="StartPoint" value="Bottom"/>
+		<Property key="FlowDirection" value="BottomToUp"/>
 
 		<Child type="Widget" skin="Default" offset="0 0 45 17" align="Stretch" name="Client"/>
 
@@ -86,7 +86,7 @@
 	</Resource>
 	
 	<Resource type="ResourceSkin" name="rtt_MonitorEdit" size="16 16" texture="rtt_source.png">
-		<Child type="Widget" skin="rtt_MonitorEditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+		<Child type="StaticText" skin="rtt_MonitorEditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
 	</Resource>
 	
 </MyGUI>

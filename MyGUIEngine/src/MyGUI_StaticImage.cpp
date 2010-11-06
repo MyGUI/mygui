@@ -487,7 +487,7 @@ namespace MyGUI
 	{
 		if (_key == "ImageTexture")
 			setImageTexture(_value);
-		else if (_key == "ImageRegion")
+		else if (_key == "ImageCoord")
 			setImageCoord(utility::parseValue<IntCoord>(_value));
 		else if (_key == "ImageTile")
 			setImageTile(utility::parseValue<IntSize>(_value));
