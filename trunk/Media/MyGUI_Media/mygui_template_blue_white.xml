@@ -140,25 +140,20 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="EditBoxTemplate">
-        <Widget type="Button" skin="EditBoxSkin" position="65 10 146 146" name="Root">
+        <Widget type="Button" skin="EditBoxSkin" position="65 10 70 70" name="Root">
+            <Property key="MultiLine" value="true"/>
             <UserString key="TargetWidgetType" value="Edit"/>
-            <Widget type="StaticText" skin="EditClient" position="2 3 124 123" align="Stretch" name="Client">
-                <Property key="TextAlign" value="Left VCenter"/>
+            <Widget type="StaticText" skin="EditClient" position="2 3 48 47" align="Stretch" name="Client">
+                <Property key="TextAlign" value="Default"/>
             </Widget>
-            <Widget type="HScroll" skin="ScrollHTemplate" position="2 127 125 15" align="HStretch Bottom" name="HScroll"/>
-            <Widget type="VScroll" skin="ScrollVTemplate" position="127 2 15 125" align="Right VStretch" name="VScroll"/>
+            <Widget type="HScroll" skin="ScrollHTemplate" position="2 51 49 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="VScroll" skin="ScrollVTemplate" position="51 2 15 49" align="Right VStretch" name="VScroll"/>
         </Widget>
         <Widget type="Edit" skin="EditBoxTemplate" position="65 165 146 146">
-            <Property key="TextAlign" value="Default"/>
-            <Property key="MultiLine" value="false"/>
-            <Property key="Caption" value="eiurtyweiurtweoiuyrtoiweuyrtoiuwertyweoiurytoiweuyrotweyrtoiweuyrtoiweyotruiwyeotriuyweoirutyweoiutryweoirutywoieuyrtwoieutyrwoieuyrtoiwueyrtuiweyotriuyweoirutyweoityroiweuyrtoiweyrtoiuwyerotiuuyweoritywoeityroiweuyrtoiuwyeouritywoeirtyowieuytroie"/>
-            <Property key="VisibleVScroll" value="false"/>
+            <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
         <Widget type="Edit" skin="EditStretch" position="220 165 146 146">
-            <Property key="TextAlign" value="Default"/>
-            <Property key="MultiLine" value="false"/>
-            <Property key="VisibleVScroll" value="false"/>
-            <Property key="Caption" value="rghfkjghdkfjhglsdkfjhgkljsdfhgkljsdhfgkljshdfklgjhsdklfhglksjdhfklghjsdlkfgjhsdklfjghlskdjhfgklsdjhfglksdjfghklsdfjghskldjfhgklsdhjfgklhsdlkfghjsdklfghjlskdjfghdklsfjghlsdkjghlsdkfjghlsdkfj"/>
+            <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
     </Resource>
 </MyGUI>
