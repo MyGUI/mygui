@@ -1815,30 +1815,33 @@ namespace MyGUI
 		eraseText(_start, _count, false);
 	}
 
-	void Edit::setEditReadOnly(bool _read)
+	void Edit::setEditReadOnly(bool _value)
 	{
-		mModeReadOnly = _read;
+		mModeReadOnly = _value;
 		// сбрасываем историю
 		commandResetHistory();
 	}
 
-	void Edit::setEditMultiLine(bool _multi)
+	void Edit::setEditMultiLine(bool _value)
 	{
-		mModeMultiline = _multi;
-		// на всякий, для уберания переносов
+		mModeMultiline = _value;
+		// на всякий, для убирания переносов
 		if (!mModeMultiline)
 		{
 			setText(getRealString(), false);
 		}
 		// обновляем по размерам
-		else updateView();
+		else
+		{
+			updateView();
+		}
 		// сбрасываем историю
 		commandResetHistory();
 	}
 
-	void Edit::setEditStatic(bool _static)
+	void Edit::setEditStatic(bool _value)
 	{
-		mModeStatic = _static;
+		mModeStatic = _value;
 		resetSelect();
 
 		if (mClient != nullptr)
@@ -1850,9 +1853,10 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::setPasswordChar(const UString& _char)
+	void Edit::setPasswordChar(const UString& _value)
 	{
-		if (!_char.empty()) setPasswordChar(_char[0]);
+		if (!_value.empty())
+			setPasswordChar(_value[0]);
 	}
 
 	void Edit::setVisibleVScroll(bool _value)
