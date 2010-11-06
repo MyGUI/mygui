@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="StatisticRect" size="11 10" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="FontName" value="font_Micro.11"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="1 1 1"/>
+		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
+			<State name="normal" offset="674 74 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 0 9 1" align="HStretch Top">
+			<State name="normal" offset="676 74 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="10 0 1 1" align="HStretch Top">
+			<State name="normal" offset="684 74 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 1 1 8" align="Left VStretch">
+			<State name="normal" offset="674 77 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 1 9 8" align="Stretch">
+			<State name="normal" offset="676 77 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="10 1 1 8" align="Right VStretch">
+			<State name="normal" offset="684 77 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 9 1 1" align="Left Bottom">
+			<State name="normal" offset="674 83 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 9 9 1" align="HStretch Bottom">
+			<State name="normal" offset="676 83 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="10 9 1 1" align="Right Bottom">
+			<State name="normal" offset="684 83 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="4 2 3 6"  align="Stretch"/>
+	</Resource>
+</MyGUI>
+
