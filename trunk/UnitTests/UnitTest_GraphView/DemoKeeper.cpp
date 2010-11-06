@@ -74,6 +74,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
+
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);

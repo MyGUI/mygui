@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="PanelEmpty" size="16 16">
+	</Resource>
+	<Resource type="ResourceSkin" name="RotatingSkin" size="16 16">
+		<BasisSkin type="RotatingSkin" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="StaticText" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="StaticImage" size="16 16">
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditClient" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<Property key="Pointer" value="beam"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditClientSimple" size="16 16">
+ 		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditEmpty" size="16 16">
+		<Child type="StaticText" skin="EditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonStaticImage" size="16 16">
+		<Property key="NeedMouse" value="false"/>
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonImage" size="16 16">
+		<Property key="ModeImage" value="true"/>
+		<Child type="StaticImage" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonImageText" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Center"/>
+		<Property key="ModeImage" value="true"/>
+		<Child type="StaticImage" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch">
+			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="WordWrapSimple" size="32 32">
+		<Property key="WordWrap" value="true"/>
+		<Child type="StaticText" skin="EditClientSimple" offset="0 0 32 32" align="Stretch" name="Client"/>
+	</Resource>
+</MyGUI>
+

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Overlapped" name="_Main">
-        <Property key="Window_MinMax" value="500 500 1000 1000"/>
+        <Property key="MinSize" value="500 500"/>
         <Property key="Caption" value="WindowCSX"/>
         <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch" layer="Back">
             <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
@@ -85,7 +85,7 @@
                     <Property key="AutoTrack" value="true"/>
                 </Widget>
                 <Widget type="ScrollView" skin="ScrollView" position="9 39 312 197" align="Stretch" layer="Back">
-                    <Property key="ScrollView_CanvasSize" value="400 400"/>
+                    <Property key="CanvasSize" value="400 400"/>
                     <Widget type="Tab" skin="Tab" position="29 53 243 195" layer="Back">
                         <Widget type="TabItem" skin="Default" position="4 26 234 163" layer="Back">
                             <Property key="Caption" value="item1"/>

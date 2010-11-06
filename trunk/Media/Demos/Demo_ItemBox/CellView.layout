@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
 	<Widget type="Widget" skin="Default" position="0 0 90 74" align="Stretch" name="_Main">
 		<Property key="NeedMouse" value="false"/>
-		<Property key="Widget_NeedKey" value="false"/>
+		<Property key="NeedKey" value="false"/>
 		<Widget type="StaticImage" skin="Demo_StaticImage" position="0 0 90 74" align="Stretch" name="image_Back">
 			<Widget type="StaticImage" skin="Demo_StaticImage" position="0 0 90 74" align="Stretch" name="image_Border">
 				<Widget type="StaticImage" skin="Demo_StaticImage" position="8 0 74 74" align="Stretch" name="image_Item"/>
