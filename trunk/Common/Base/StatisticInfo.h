@@ -15,7 +15,6 @@ namespace diagnostic
 
 	class StatisticInfo
 	{
-
 	public:
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
@@ -23,11 +22,15 @@ namespace diagnostic
 		StatisticInfo() :
 			mInfo(nullptr)
 		{
+			MyGUI::ResourceManager::getInstance().load("MyGUI_StatisticSkin.xml");
+
 			const std::string layer = "Statistic";
-			if ( ! MyGUI::LayerManager::getInstance().isExist(layer)) return;
+			if ( ! MyGUI::LayerManager::getInstance().isExist(layer))
+				return;
 
 			const std::string skin = "StatisticRect";
-			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
+			if ( ! MyGUI::SkinManager::getInstance().isExist(skin))
+				return;
 
 			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 		}
@@ -123,7 +126,6 @@ namespace diagnostic
 	private:
 		MyGUI::StaticText* mInfo;
 		VectorPairString mParams;
-
 	};
 
 } // namespace diagnostic

@@ -15,6 +15,9 @@
 	<Resource type="ResourceSkin" name="StaticImage" size="16 16">
 		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
 	</Resource>
+	<Resource type="ResourceSkin" name="Canvas" size="16 16">
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
 	<Resource type="ResourceSkin" name="EditClient" size="16 16">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
