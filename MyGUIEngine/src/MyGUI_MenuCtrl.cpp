@@ -307,7 +307,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
 		ItemInfo& info = mItemsInfo[_index];
-		if (info.type == _type) return;
+		if (info.type == _type)
+			return;
 
 		// сохраняем данные
 		info.type = _type;
@@ -446,7 +447,7 @@ namespace MyGUI
 		else
 		{
 			if ((item->getItemType() == MenuItemType::Popup && mPopupAccept) ||
-					item->getItemType() == MenuItemType::Normal)
+				item->getItemType() == MenuItemType::Normal)
 			{
 				notifyMenuCtrlAccept(item);
 			}
@@ -460,7 +461,7 @@ namespace MyGUI
 		{
 			mIsMenuDrop = false;
 		}
-		if ( ! _focus && mHideByLostKey)
+		if (!_focus && mHideByLostKey)
 		{
 			setVisibleSmooth(false);
 			eventMenuCtrlClose(this);
@@ -503,6 +504,10 @@ namespace MyGUI
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
+
+		mChangeChildSkin = true;
+		_item->changeWidgetSkin(mSkinLine);
+		mChangeChildSkin = false;
 
 		// его сет капшен, обновит размер
 		_item->setCaption(_name);
@@ -587,7 +592,7 @@ namespace MyGUI
 		removeItemAt(getItemIndex(_item));
 	}
 
-	MenuItem* MenuCtrl::getItemAt(size_t _index)
+	Widget* MenuCtrl::getItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
 		return mItemsInfo[_index].item;
