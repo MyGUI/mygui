@@ -275,7 +275,7 @@ namespace tools
 	{
 		if (!checkCommand())
 			return;
-	
+
 		setFileName(CommandManager::getInstance().getCommandData());
 
 		save();

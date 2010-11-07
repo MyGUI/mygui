@@ -225,7 +225,7 @@ namespace MyGUI
 
 		if (offset >= mRangeIndex)
 			offset = mRangeIndex;
-		else if (offset < 0) 
+		else if (offset < 0)
 			offset = 0;
 
 		if ((int)mWidgetScroll->getScrollPosition() == offset)
