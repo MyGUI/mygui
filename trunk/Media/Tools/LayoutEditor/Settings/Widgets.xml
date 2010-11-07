@@ -306,6 +306,7 @@
 		<Parameter key="NeedMouse" value="Bool"/>
 		<Parameter key="Enabled" value="Bool"/>
 		<Parameter key="NeedToolTip" value="Bool"/>
+		<Parameter key="Pointer" value="String"/>
 	</Widget>
 
 	<Widget name="Window">

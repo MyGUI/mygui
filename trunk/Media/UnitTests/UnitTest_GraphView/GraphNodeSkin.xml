@@ -6,7 +6,6 @@
 		<Property key="FontName" value="font_DejaVuSans.14"/>
 		<Property key="TextAlign" value="Center"/>
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
-
 		<BasisSkin type="SubSkin" offset="0 0 10 18" align="Left VStretch">
 			<State name="normal" offset="356 198 10 18"/>
 		</BasisSkin>
@@ -37,11 +36,9 @@
 
 	<Resource type="ResourceSkin" name="WindowSmallC" size="75 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
-
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
 		</Child>
-
 		<BasisSkin type="SubSkin" offset="6 18 4 3" align="Left Top">
 			<State name="normal" offset="384 173 4 3"/>
 		</BasisSkin>
@@ -51,7 +48,6 @@
 		<BasisSkin type="SubSkin" offset="64 18 6 3" align="Right Top">
 			<State name="normal" offset="401 173 6 3"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="6 21 4 22" align="Left VStretch">
 			<State name="normal" offset="384 176 4 12"/>
 		</BasisSkin>
@@ -61,7 +57,6 @@
 		<BasisSkin type="SubSkin" offset="64 21 6 22" align="Right VStretch">
 			<State name="normal" offset="401 176 6 12"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="6 43 4 6" align="Left Bottom">
 			<State name="normal" offset="384 188 4 6"/>
 		</BasisSkin>
@@ -71,20 +66,16 @@
 		<BasisSkin type="SubSkin" offset="64 43 6 6" align="Right Bottom">
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
-
 	</Resource>
 
 	<Resource type="ResourceSkin" name="WindowSmallCX" size="75 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
-
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
 		</Child>
-
 		<Child type="Button" skin="ButtonX" offset="54 5 11 11" align="Right Top" name="Button">
 			<Property key="Event" value="close"/>
 		</Child>
-
 		<BasisSkin type="SubSkin" offset="6 18 4 3" align="Left Top">
 			<State name="normal" offset="384 173 4 3"/>
 		</BasisSkin>
@@ -94,7 +85,6 @@
 		<BasisSkin type="SubSkin" offset="64 18 6 3" align="Right Top">
 			<State name="normal" offset="401 173 6 3"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="6 21 4 22" align="Left VStretch">
 			<State name="normal" offset="384 176 4 12"/>
 		</BasisSkin>
@@ -104,7 +94,6 @@
 		<BasisSkin type="SubSkin" offset="64 21 6 22" align="Right VStretch">
 			<State name="normal" offset="401 176 6 12"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="6 43 4 6" align="Left Bottom">
 			<State name="normal" offset="384 188 4 6"/>
 		</BasisSkin>
@@ -114,7 +103,6 @@
 		<BasisSkin type="SubSkin" offset="64 43 6 6" align="Right Bottom">
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
-
 	</Resource>
 	
 </MyGUI>
