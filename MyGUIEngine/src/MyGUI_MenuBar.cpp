@@ -30,6 +30,7 @@ namespace MyGUI
 		mHideByAccept = false;
 		mMenuDropMode = true;
 		mIsMenuDrop = false;
+		mResizeToContent = false;
 	}
 
 } // namespace MyGUI
