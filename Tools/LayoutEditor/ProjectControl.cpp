@@ -347,8 +347,7 @@ namespace tools
 			return false;
 		}
 
-		const MyGUI::UString& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-		const MyGUI::UString& colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
+		const std::string& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 
 		for (MyGUI::VectorString::const_iterator item = items.begin(); item != items.end(); ++item)
 		{
