@@ -75,11 +75,12 @@ namespace MyGUI
 		if (mList != nullptr)
 		{
 			mList->setVisible(false);
-			mList->setNeedToolTip(true);
 			mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
 			mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);
 			mList->eventListMouseItemActivate += newDelegate(this, &ComboBox::notifyListMouseItemActivate);
 			mList->eventListChangePosition += newDelegate(this, &ComboBox::notifyListChangePosition);
+
+			mList->setNeedToolTip(true);
 			mList->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
 
@@ -88,6 +89,9 @@ namespace MyGUI
 		{
 			mClient->eventMouseWheel += newDelegate(this, &ComboBox::notifyMouseWheel);
 			mClient->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyMousePressed);
+
+			mClient->setNeedToolTip(true);
+			mClient->eventToolTip += newDelegate(this, &ComboBox::notifyToolTip);
 		}
 
 		// подписываемся на изменения текста
@@ -108,12 +112,15 @@ namespace MyGUI
 
 	void ComboBox::notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MouseButton::Left != _id) return;
+		if (MouseButton::Left != _id)
+			return;
 
 		mDropMouse = true;
 
-		if (mListShow) hideList();
-		else showList();
+		if (mListShow)
+			hideList();
+		else
+			showList();
 	}
 
 	void ComboBox::notifyListLostFocus(Widget* _sender, Widget* _new)
@@ -128,7 +135,7 @@ namespace MyGUI
 				return;
 
 			// в режиме дропа все окна учавствуют
-			if ((mModeDrop) && (focus == mClient))
+			if (mModeDrop && focus == mClient)
 				return;
 		}
 
@@ -175,7 +182,6 @@ namespace MyGUI
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
-
 	}
 
 	void ComboBox::notifyListMouseItemActivate(List* _widget, size_t _position)
@@ -194,16 +200,21 @@ namespace MyGUI
 
 	void ComboBox::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mList->getItemCount() == 0) return;
-		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
-		if (InputManager::getInstance().isCaptureMouse()) return;
+		if (mList->getItemCount() == 0)
+			return;
+		if (InputManager::getInstance().getKeyFocusWidget() != this)
+			return;
+		if (InputManager::getInstance().isCaptureMouse())
+			return;
 
 		if (_rel > 0)
 		{
 			if (mItemIndex != 0)
 			{
-				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
-				else mItemIndex --;
+				if (mItemIndex == ITEM_NONE)
+					mItemIndex = 0;
+				else
+					mItemIndex --;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
@@ -214,8 +225,10 @@ namespace MyGUI
 		{
 			if ((mItemIndex + 1) < mList->getItemCount())
 			{
-				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
-				else mItemIndex ++;
+				if (mItemIndex == ITEM_NONE)
+					mItemIndex = 0;
+				else
+					mItemIndex ++;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
@@ -232,7 +245,8 @@ namespace MyGUI
 		mDropMouse = true;
 
 		// показываем список
-		if (mModeDrop) notifyButtonPressed(nullptr, _left, _top, _id);
+		if (mModeDrop)
+			notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
 	void ComboBox::notifyEditTextChange(Edit* _sender)
