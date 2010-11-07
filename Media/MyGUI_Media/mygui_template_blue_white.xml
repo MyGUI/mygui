@@ -156,4 +156,150 @@
             <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="WindowTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionEmptySkin" position="0 0 68 28" align="HStretch Top" name="Caption">
+                <Property key="TextAlign" value="Center"/>
+                <Property key="FontName" value="Default"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="Window" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="Default"/>
+                <Property key="TextAlign" value="Center"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowCTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="WindowC" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCSTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
+                <Property key="TextAlign" value="Center"/>
+                <Property key="FontName" value="Default"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Button" skin="WindowResizeRightSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                    <Property key="Pointer" value="size_left"/>
+                    <UserString key="Action" value="Right Bottom"/>
+                </Widget>
+                <Widget type="Button" skin="WindowResizeLeftSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                    <Property key="Pointer" value="size_right"/>
+                    <UserString key="Action" value="Left Bottom"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowCSTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="WindowCS" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCXTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="Default"/>
+                <Property key="TextAlign" value="Center"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameForButtonSkin" position="44 0 24 28" align="Right Top">
+                <Widget type="Button" skin="ButtonCloseSkin" position="0 6 18 17" align="Right Top" name="Button">
+                    <UserString key="Event" value="close"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowCXTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="WindowCSX" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCSXTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="Default"/>
+                <Property key="TextAlign" value="Center"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Button" skin="WindowResizeRightSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                    <Property key="Pointer" value="size_left"/>
+                    <UserString key="Action" value="Right Bottom"/>
+                </Widget>
+                <Widget type="Button" skin="WindowResizeLeftSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                    <Property key="Pointer" value="size_right"/>
+                    <UserString key="Action" value="Left Bottom"/>
+                </Widget>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameForButtonSkin" position="44 0 24 28" align="Right Top">
+                <Widget type="Button" skin="ButtonCloseSkin" position="0 6 18 17" align="Right Top" name="Button">
+                    <UserString key="Event" value="close"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowCSXTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="WindowCSX" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowToolTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 38" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Window"/>
+            <Widget type="Button" skin="CaptionEmptySmallSkin" position="0 0 68 18" align="HStretch Top" name="Caption">
+                <Property key="TextAlign" value="Center"/>
+                <Property key="FontName" value="Default"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 18 68 20" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+            </Widget>
+        </Widget>
+        <Widget type="Window" skin="WindowToolTemplate" position="15 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+        <Widget type="Window" skin="Window" position="105 75 68 49">
+            <Property key="Caption" value="Text"/>
+        </Widget>
+    </Resource>
 </MyGUI>
