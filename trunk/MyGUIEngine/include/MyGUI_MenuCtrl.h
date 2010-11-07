@@ -271,6 +271,9 @@ namespace MyGUI
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
+		virtual void addItem(const MyGUI::UString& _name);
+		virtual void insertItemAt(size_t _index, const MyGUI::UString& _name);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -309,6 +312,7 @@ namespace MyGUI
 		bool mMenuDropMode;
 		bool mIsMenuDrop;
 		bool mHideByLostKey;
+		bool mResizeToContent;
 
 	private:
 		VectorMenuItemInfo mItemsInfo;
