@@ -180,6 +180,17 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			itemContainer->addItem(_value);
+
+			MyGUI::Widget* item = itemContainer->getItemAt(itemContainer->getItemCount() - 1);
+
+			if (item != nullptr)
+			{
+				WidgetContainer* container = new WidgetContainer(item->getTypeName(), "", item, "");
+				if (!_value.empty())
+					container->mProperty.push_back(MyGUI::PairString("Caption", _value));
+				EditorWidgets::getInstance().add(container);
+			}
+
 			UndoManager::getInstance().addValue();
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())
@@ -208,6 +219,9 @@ namespace tools
 
 		if (itemContainer != nullptr)
 		{
+			MyGUI::Widget* item = itemContainer->getItemAt(_index);
+			EditorWidgets::getInstance().remove(item);
+
 			itemContainer->removeItemAt(_index);
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())

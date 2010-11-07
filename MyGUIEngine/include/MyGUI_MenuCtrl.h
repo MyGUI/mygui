@@ -116,7 +116,7 @@ namespace MyGUI
 
 
 		//! Get item from specified position
-		MenuItem* getItemAt(size_t _index);
+		Widget* getItemAt(size_t _index);
 
 		//! Get item index
 		size_t getItemIndex(MenuItem* _item);
