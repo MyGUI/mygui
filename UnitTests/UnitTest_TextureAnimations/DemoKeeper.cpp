@@ -26,6 +26,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::ResourceManager::getInstance().load("WindowSkin.xml");
+
 		MyGUI::FactoryManager::getInstance().registerFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 

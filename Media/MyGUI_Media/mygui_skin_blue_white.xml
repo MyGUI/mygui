@@ -797,12 +797,12 @@
             <State name="pushed" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="CaptionWithButtonSkin" size="68 28" texture="mygui_skin_blue_white.png">
-        <BasisSkin type="SubSkin" offset="28 0 40 28" align="Right VStretch">
-            <State name="disabled" offset="262 104 40 28"/>
-            <State name="normal" offset="262 104 40 28"/>
-            <State name="highlighted" offset="262 138 40 28"/>
-            <State name="pushed" offset="262 138 40 28"/>
+    <Resource type="ResourceSkin" name="CaptionWithButtonSkin" size="44 28" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="28 0 16 28" align="Right VStretch">
+            <State name="disabled" offset="262 104 16 28"/>
+            <State name="normal" offset="262 104 16 28"/>
+            <State name="highlighted" offset="262 138 16 28"/>
+            <State name="pushed" offset="262 138 16 28"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 0 15 28" align="Left VStretch">
             <State name="disabled" offset="234 104 15 28"/>
@@ -821,6 +821,17 @@
             <State name="normal" colour="0 0 0" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="0"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="WindowFrameForButtonSkin" size="24 28" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="17 0 7 28" align="Right VStretch">
+            <State name="normal" offset="295 104 7 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 0 4 28" align="Left VStretch">
+            <State name="normal" offset="278 104 4 28"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 0 13 28" align="Stretch">
+            <State name="normal" offset="282 104 13 28"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="WindowFrameSkin" size="23 20" texture="mygui_skin_blue_white.png">
