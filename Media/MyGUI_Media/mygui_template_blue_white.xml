@@ -302,4 +302,18 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MenuBarTemplate">
+        <Widget type="Widget" skin="MenuSkin" position="5 5 29 26" name="Root">
+            <UserString key="TargetWidgetType" value="MenuBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 25 20" align="Stretch"/>
+        </Widget>
+        <Widget type="MenuBar" skin="MenuBar" position="5 35 120 26">
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="test1"/>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="test2"/>
+			</Widget>
+		</Widget>
+	</Resource>
 </MyGUI>
