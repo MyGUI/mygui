@@ -52,7 +52,8 @@ namespace MyGUI
 		mOwner(nullptr),
 		mAnimateSmooth(false),
 		mChangeChildSkin(false),
-		mClient(nullptr)
+		mClient(nullptr),
+		mResizeToContent(true)
 	{
 	}
 
@@ -121,17 +122,6 @@ namespace MyGUI
 
 		Base::shutdownOverride();
 	}
-
-	/*Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
-	{
-		Widget* widget = nullptr;
-		if (mWidgetClient != nullptr)
-			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
-		else
-			widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
-
-		return widget;
-	}*/
 
 	void MenuCtrl::onWidgetCreated(Widget* _widget)
 	{
@@ -214,9 +204,9 @@ namespace MyGUI
 				size.height += height + mDistanceButton;
 
 				int width = iter->width;
-				if (width > size.width) size.width = width;
+				if (width > size.width)
+					size.width = width;
 			}
-
 		}
 		else
 		{
@@ -230,7 +220,8 @@ namespace MyGUI
 			size.width = mCoord.width;
 		}
 
-		setSize(size + mCoord.size() - _getClientWidget()->getSize());
+		if (mResizeToContent)
+			setSize(size + mCoord.size() - _getClientWidget()->getSize());
 	}
 
 	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
@@ -785,6 +776,16 @@ namespace MyGUI
 		else if (_separator)
 			return MenuItemType::Separator;
 		return MenuItemType::Normal;
+	}
+
+	void MenuCtrl::addItem(const MyGUI::UString& _name)
+	{
+		addItem(_name, MenuItemType::Normal);
+	}
+
+	void MenuCtrl::insertItemAt(size_t _index, const MyGUI::UString& _name)
+	{
+		insertItemAt(_index, _name, MenuItemType::Normal);
 	}
 
 } // namespace MyGUI
