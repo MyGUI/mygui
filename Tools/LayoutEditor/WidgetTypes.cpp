@@ -35,7 +35,7 @@ namespace tools
 		return findWidgetStyle("Widget");
 	}
 
-	std::vector<std::string> WidgetTypes::findPossibleValues(const std::string& _name)
+	WidgetTypes::VectorString WidgetTypes::findPossibleValues(const std::string& _name)
 	{
 		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
 		{
@@ -44,7 +44,7 @@ namespace tools
 				return (*iter)->values;
 			}
 		}
-		return std::vector<std::string>();
+		return VectorString();
 	}
 
 	WidgetStyle* WidgetTypes::getWidgetType(const std::string& _name)
@@ -120,7 +120,6 @@ namespace tools
 
 	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
 	{
-
 		PossibleValue* possible_value = nullptr;
 		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
 		{
@@ -185,6 +184,30 @@ namespace tools
 		}
 
 		mSkinGroups.clear();
+	}
+
+	const SkinGroups& WidgetTypes::getSkinGroups() const
+	{
+		return mSkinGroups;
+	}
+
+	VectorWidgetType WidgetTypes::getWidgetTypes() const
+	{
+		return mWidgetTypes;
+	}
+
+	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(const std::string& _skinName)
+	{
+		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++item)
+		{
+			for (WidgetStyle::VectorString::const_iterator skin = (*item)->skin.begin(); skin != (*item)->skin.end(); ++skin)
+			{
+				if ((*skin) == _skinName)
+					return (*item);
+			}
+		}
+
+		return nullptr;
 	}
 
 } // namespace tools

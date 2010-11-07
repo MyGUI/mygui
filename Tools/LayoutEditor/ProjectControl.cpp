@@ -714,7 +714,7 @@ namespace tools
 	{
 		MyGUI::List* box = _sender->castType<MyGUI::List>();
 		MyGUI::UString name = box->getItemNameAt(_index);
-		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "Widget", "");
+		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 	}
 
 } // namespace tools

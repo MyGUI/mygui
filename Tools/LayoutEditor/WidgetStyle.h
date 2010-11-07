@@ -21,7 +21,8 @@ namespace tools
 
 		std::string name;
 		std::string base;
-		std::vector<std::string> skin;
+		typedef std::vector<std::string> VectorString;
+		VectorString skin;
 		std::string default_skin;
 		MyGUI::VectorStringPairs parameter;
 		// can have child widgets
