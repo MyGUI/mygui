@@ -23,14 +23,16 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");
-		void syncItems(bool _apply, bool _add = false, std::string _value = "");
+		void syncItems(bool _apply, bool _add = false, const std::string& _value = "");
 		void notifyAddItem(MyGUI::Widget* _sender = 0);
 		void notifyDeleteItem(MyGUI::Widget* _sender);
 		void notifySelectSheet(MyGUI::Widget* _sender);
 		void notifyUpdateItem(MyGUI::Edit* _widget);
 		void notifySelectItem(MyGUI::List* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
+
+		void addSheetToTab(MyGUI::Widget* _tab, const std::string& _caption = "");
+		void addItemToMenu(MyGUI::Widget* _tab, const std::string& _caption = "");
 
 	private:
 		MyGUI::Edit* mEdit;
