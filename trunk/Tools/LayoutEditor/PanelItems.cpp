@@ -114,7 +114,8 @@ namespace tools
 		MyGUI::Tab* tab = _container->castType<MyGUI::Tab>();
 		MyGUI::TabItem* sheet = tab->addItem(_caption);
 		WidgetContainer* wc = new WidgetContainer("TabItem", "", sheet, "");
-		if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Caption", _caption));
+		if (!_caption.empty())
+			wc->mProperty.push_back(MyGUI::PairString("Caption", _caption));
 		EditorWidgets::getInstance().add(wc);
 	}
 
@@ -159,13 +160,7 @@ namespace tools
 		}*/
 		else
 		{
-			std::string action;
-			// FIXME как-то громоздко и не настраиваемо...
-			if (mCurrentWidget->isType<MyGUI::Tab>())
-				action = "Tab_AddSheet";
-			// for example "ComboBox_AddItem", "List_AddItem", etc...
-			else
-				action = mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -180,15 +175,14 @@ namespace tools
 
 	void PanelItems::addItem(const std::string& _value)
 	{
-		std::string action;
-		// FIXME как-то громоздко и не настраиваемо...
-		if (mCurrentWidget->isType<MyGUI::Tab>())
-			action = "Tab_AddSheet";
-		// for example "ComboBox_AddItem", "List_AddItem", etc...
-		else
-			action = mCurrentWidget->getTypeName() + "_AddItem";
+		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
 
-		if (action == "Tab_AddSheet")
+		if (itemContainer != nullptr)
+		{
+			itemContainer->addItem(_value);
+			UndoManager::getInstance().addValue();
+		}
+		else if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
 			addSheetToTab(mCurrentWidget, _value);
 			UndoManager::getInstance().addValue();
@@ -200,6 +194,8 @@ namespace tools
 		}*/
 		else
 		{
+			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
+
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			widgetContainer->widget->setProperty(action, _value);
 			widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
@@ -208,18 +204,15 @@ namespace tools
 
 	void PanelItems::removeItem(size_t _index)
 	{
-		std::string _value = mList->getItemNameAt(_index);
+		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
 
-		std::string action;
-		// FIXME как-то громоздко и не настраиваемо...
-		if (mCurrentWidget->isType<MyGUI::Tab>())
-			action = "Tab_AddSheet";
-		// for example "ComboBox_AddItem", "List_AddItem", etc...
-		else
-			action = mCurrentWidget->getTypeName() + "_AddItem";
-
-		if (action == "Tab_AddSheet")
+		if (itemContainer != nullptr)
 		{
+			itemContainer->removeItemAt(_index);
+		}
+		else if (mCurrentWidget->isType<MyGUI::Tab>())
+		{
+			std::string _value = mList->getItemNameAt(_index);
 			MyGUI::TabItem* item = mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value);
 			EditorWidgets::getInstance().remove(item);
 		}
@@ -231,6 +224,9 @@ namespace tools
 		}*/
 		else
 		{
+			std::string _value = mList->getItemNameAt(_index);
+			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
+
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			int index = 0;
 			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
