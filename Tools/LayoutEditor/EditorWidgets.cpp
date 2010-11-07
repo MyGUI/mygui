@@ -445,7 +445,8 @@ namespace tools
 		}
 
 		// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
-		if (!container->name.empty())
+		// теперь нет
+		/*if (!container->name.empty())
 		{
 			WidgetContainer* iter = find(container->name);
 			if (nullptr != iter)
@@ -457,7 +458,7 @@ namespace tools
 				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Warning);
 				container->name = MyGUI::utility::toString(container->name, renameN++);
 			}
-		}
+		}*/
 
 		// проверяем скин на присутствие
 		std::string skin = container->skin;
