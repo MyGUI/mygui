@@ -257,7 +257,6 @@ namespace tools
 
 		PropertyType widget_for_type;
 
-		bool needTooltip = false;
 		std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
 
 		if ("Name" == _type)
