@@ -112,16 +112,27 @@ namespace tools
 		}
 	}
 
-	void PanelItems::addSheetToTab(MyGUI::Widget* _tab, std::string _caption)
+	void PanelItems::addSheetToTab(MyGUI::Widget* _container, const std::string& _caption)
 	{
-		MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
+		MyGUI::Tab* tab = _container->castType<MyGUI::Tab>();
 		MyGUI::TabItem* sheet = tab->addItem(_caption);
 		WidgetContainer* wc = new WidgetContainer("TabItem", "", sheet, "");
 		if (!_caption.empty()) wc->mProperty.push_back(MyGUI::PairString("Caption", _caption));
 		EditorWidgets::getInstance().add(wc);
 	}
 
-	void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
+	void PanelItems::addItemToMenu(MyGUI::Widget* _container, const std::string& _caption)
+	{
+		MyGUI::MenuCtrl* menu = _container->castType<MyGUI::MenuCtrl>();
+		MyGUI::MenuItem* item = menu->addItem(_caption);
+
+		WidgetContainer* itemContainer = new WidgetContainer("MenuItem", "", item, "");
+		if (!_caption.empty())
+			itemContainer->mProperty.push_back(MyGUI::PairString("Caption", _caption));
+		EditorWidgets::getInstance().add(itemContainer);
+	}
+
+	void PanelItems::syncItems(bool _apply, bool _add, const std::string& _value)
 	{
 		std::string action;
 		// FIXME/2 как-то громоздко и не настраиваемо...
@@ -147,7 +158,7 @@ namespace tools
 				}
 				else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 				{
-					mCurrentWidget->castType<MyGUI::MenuCtrl>()->addItem(_value);
+					addItemToMenu(mCurrentWidget, _value);
 					UndoManager::getInstance().addValue();
 				}
 				else
@@ -160,7 +171,8 @@ namespace tools
 			{
 				if (action == "Tab_AddSheet")
 				{
-					EditorWidgets::getInstance().remove(mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value));
+					MyGUI::TabItem* item = mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value);
+					EditorWidgets::getInstance().remove(item);
 				}
 				else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
 				{
