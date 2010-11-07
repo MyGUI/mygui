@@ -42,6 +42,8 @@ namespace MyGUI
 		virtual void removeItemAt(size_t _index) { }
 		virtual void removeAllItems() { }
 
+		virtual Widget* getItemAt(size_t _index) { return nullptr; }
+
 		virtual void setItemNameAt(size_t _index, const UString& _name) { }
 		virtual const UString& getItemNameAt(size_t _index) { return mEmptyName; }
 

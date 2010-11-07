@@ -3,7 +3,7 @@
 	<Widget type="Widget" skin="PanelEmpty" position="10 10 300 26" align="Stretch" layer="Overlapped" name="_Main">
 		<UserString key="SnapTo" value="Stretch"/>
 		<Widget type="MenuBar" skin="MenuBar" position="0 0 300 26" align="Stretch" name="Menu">
-			<Widget type="MenuItem" skin="MenuBarButton">
+			<Widget type="MenuItem" skin="">
 				<Property key="Caption" value="#{File}"/>
 				<Property key="MenuItemType" value="Popup"/>
 				<Property key="MenuItemId" value="File"/>
