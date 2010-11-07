@@ -156,7 +156,7 @@ namespace MyGUI
 		if (MouseButton::Left == _id)
 		{
 			mPreActionCoord = mCoord;
-			mCurrentActionScale = IntCoord::parse(_sender->getUserString("Scale"));
+			mCurrentActionScale = getActionScale(_sender);
 		}
 	}
 
@@ -518,6 +518,47 @@ namespace MyGUI
 		{
 			mCurrentActionScale.clear();
 		}
+	}
+
+	IntCoord Window::getActionScale(Widget* _widget)
+	{
+		if (_widget->isUserString("Scale"))
+		{
+			return IntCoord::parse(_widget->getUserString("Scale"));
+		}
+		else if (_widget->isUserString("Action"))
+		{
+			const std::string& action = _widget->getUserString("Action");
+			if (action == "Move")
+				return IntCoord(1, 1, 0, 0);
+
+			IntCoord coord;
+			Align align = Align::parse(action);
+
+			if (align.isLeft())
+			{
+				coord.left = 1;
+				coord.width = -1;
+			}
+			else if (align.isRight())
+			{
+				coord.width = 1;
+			}
+
+			if (align.isTop())
+			{
+				coord.top = 1;
+				coord.height = -1;
+			}
+			else if (align.isBottom())
+			{
+				coord.height = 1;
+			}
+
+			return coord;
+		}
+
+		return IntCoord();
 	}
 
 } // namespace MyGUI

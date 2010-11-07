@@ -208,6 +208,8 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		Widget* findWidget(const std::string& _name);
 
+		void findWidgets(const std::string& _name, VectorWidgetPtr& _result);
+
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _value);
 		/** Enable or disable widget without changing widget's state */

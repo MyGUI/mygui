@@ -142,6 +142,7 @@ namespace MyGUI
 	private:
 		float getAlphaVisible();
 		void getSnappedCoord(IntCoord& _coord);
+		IntCoord getActionScale(Widget* _widget);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
