@@ -1093,13 +1093,26 @@ namespace MyGUI
 		VectorWidgetPtr result;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-		{
-			Widget* find = (*iter)->findWidget(_name);
-			if (nullptr != find)
-				result.push_back(find);
-		}
+			(*iter)->findWidgets(_name, result);
 
 		return result;
+	}
+
+	void Widget::findWidgets(const std::string& _name, VectorWidgetPtr& _result)
+	{
+		if (_name == mName)
+			_result.push_back(this);
+
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr)
+		{
+			mWidgetClient->findWidgets(_name, _result);
+		}
+		else
+		{
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+				(*widget)->findWidgets(_name, _result);
+		}
 	}
 
 	void Widget::destroySkinWidget(Widget* _widget)
