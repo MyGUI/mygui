@@ -86,12 +86,10 @@ namespace tools
 
 	void WorkspaceControl::notifyChangePosition()
 	{
-		MyGUI::IntCoord coord = mAreaSelectorControl->getCoord();
-
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue = coord;
+		mCoordValue = mAreaSelectorControl->getCoord();
 
 		// конвертируем в локальные координаты
 		if (mCurrentWidget != nullptr)
