@@ -450,16 +450,27 @@
             <State name="pushed_checked" offset="178 172 9 5"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="MenuSkin" size="27 26" texture="mygui_skin_blue_white.png">
+        <BasisSkin type="SubSkin" offset="21 0 6 26" align="Right VStretch">
+            <State name="normal" offset="223 2 6 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 0 6 26" align="Left VStretch">
+            <State name="normal" offset="202 2 6 26"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="6 0 15 26" align="Stretch">
+            <State name="normal" offset="208 2 15 26"/>
+        </BasisSkin>
+    </Resource>
     <Resource type="ResourceSkin" name="MenuItemSkin" size="25 20" texture="mygui_skin_blue_white.png">
         <BasisSkin type="SubSkin" offset="0 0 25 20" align="Stretch">
-            <State name="disabled" offset="203 2 25 20"/>
-            <State name="normal" offset="203 2 25 20"/>
-            <State name="highlighted" offset="203 24 25 20"/>
-            <State name="pushed" offset="203 71 25 20"/>
-            <State name="disabled_checked" offset="203 2 25 20"/>
-            <State name="normal_checked" offset="203 47 25 20"/>
-            <State name="highlighted_checked" offset="203 71 25 20"/>
-            <State name="pushed_checked" offset="203 71 25 20"/>
+            <State name="disabled" offset="203 31 25 20"/>
+            <State name="normal" offset="203 31 25 20"/>
+            <State name="highlighted" offset="203 55 25 20"/>
+            <State name="pushed" offset="203 102 25 20"/>
+            <State name="disabled_checked" offset="203 31 25 20"/>
+            <State name="normal_checked" offset="203 78 25 20"/>
+            <State name="highlighted_checked" offset="203 102 25 20"/>
+            <State name="pushed_checked" offset="203 102 25 20"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ScrollPanelHSkin" size="19 15" texture="mygui_skin_blue_white.png">
