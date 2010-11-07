@@ -429,11 +429,13 @@ namespace tools
 	bool PropertiesPanelView::checkType(MyGUI::Edit* _edit, const std::string& _type)
 	{
 		bool success = true;
+
 		if ("Name" == _type)
 		{
+			// теперь имя может быть не уникальным
 			const MyGUI::UString& text = _edit->getOnlyText();
 			size_t index = _edit->getTextCursor();
-			WidgetContainer* textWC = EditorWidgets::getInstance().find(text);
+			/*WidgetContainer* textWC = EditorWidgets::getInstance().find(text);
 			if ((!text.empty()) && (nullptr != textWC) &&
 				(EditorWidgets::getInstance().find(mCurrentWidget) != textWC))
 			{
@@ -441,7 +443,7 @@ namespace tools
 				_edit->setCaption(colour + text);
 				success = false;
 			}
-			else
+			else*/
 			{
 				_edit->setCaption(text);
 				success = true;
@@ -449,8 +451,7 @@ namespace tools
 			_edit->setTextCursor(index);
 		}
 		//else if ("Skin" == _type) widget_for_type = PropertyType_ComboBox;
-		//else
-		if ("Position" == _type)
+		else if ("Position" == _type)
 		{
 			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
 				success = utility::checkParse<float>(_edit, 4);
@@ -489,11 +490,11 @@ namespace tools
 
 		if (action == "Name")
 		{
-			if (goodData)
-			{
+			//if (goodData)
+			//{
 				widgetContainer->name = value;
 				ew->invalidateWidgets();
-			}
+			//}
 			return;
 		}
 		else if (action == "Type")
