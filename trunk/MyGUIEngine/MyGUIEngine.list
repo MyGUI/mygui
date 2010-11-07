@@ -74,6 +74,7 @@ set (HEADER_FILES
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
+  include/MyGUI_IItemContainer.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -463,6 +464,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
+  include/MyGUI_IItemContainer.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h

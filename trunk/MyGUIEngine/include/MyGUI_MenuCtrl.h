@@ -30,6 +30,7 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
 {
@@ -39,6 +40,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget,
+		public IItemContainer,
 		public MemberObsolete<MenuCtrl>
 	{
 		MYGUI_RTTI_DERIVED( MenuCtrl )
