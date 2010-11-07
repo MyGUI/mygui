@@ -683,12 +683,9 @@ namespace tools
 		{
 			if (_info.type == MyGUI::ToolTipInfo::Show)
 			{
-				if (_info.index != MyGUI::ITEM_NONE)
-				{
-					SkinInfo data = getCellData(_sender, _info.index);
-					mToolTip->show(data);
-					mToolTip->move(_info.point);
-				}
+				SkinInfo data = getCellData(_sender, _info.index);
+				mToolTip->show(data);
+				mToolTip->move(_info.point);
 			}
 			else if (_info.type == MyGUI::ToolTipInfo::Hide)
 			{
@@ -704,8 +701,16 @@ namespace tools
 	SkinInfo PropertiesPanelView::getCellData(MyGUI::Widget* _sender, size_t _index)
 	{
 		MyGUI::ComboBox* box = _sender->castType<MyGUI::ComboBox>();
-		MyGUI::UString name = box->getItemNameAt(_index);
-		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "Widget", "");
+		if (_index != MyGUI::ITEM_NONE)
+		{
+			MyGUI::UString name = box->getItemNameAt(_index);
+			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
+		}
+		else
+		{
+			MyGUI::UString name = box->getCaption();
+			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
+		}
 	}
 
 } // namespace tools

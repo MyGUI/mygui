@@ -8,6 +8,7 @@
 #include "EditorToolTip.h"
 #include "MyGUI_SkinManager.h"
 #include "EditorWidgets.h"
+#include "WidgetTypes.h"
 
 namespace tools
 {
@@ -43,6 +44,13 @@ namespace tools
 		{
 			skinDefaultSize = skinInfo->getSize();
 			templateRootFound = true;
+
+			if (widget.empty())
+			{
+				WidgetStyle* style = WidgetTypes::getInstance().findWidgetStyleBySkin(skin);
+				if (style != nullptr)
+					widget = style->name;
+			}
 		}
 		else if (templateInfo != nullptr)
 		{
