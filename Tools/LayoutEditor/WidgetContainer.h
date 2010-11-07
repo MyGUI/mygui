@@ -25,7 +25,6 @@ namespace tools
 			type(_type),
 			skin(_skin),
 			name(_name),
-			layer(""),
 			relative_mode(false)
 		{ }
 
