@@ -586,6 +586,9 @@ namespace tools
 		if ("" != _container->align)
 			node->addAttribute("align", _container->align);
 
+		if ("" != _container->style)
+			node->addAttribute("style", _container->style);
+
 		if ("" != _container->getLayerName())
 			node->addAttribute("layer", _container->getLayerName());
 
