@@ -23,10 +23,11 @@
 #define __MYGUI_I_ITEM_CONTAINER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticText.h"
 
 namespace MyGUI
 {
+
+	class IItem;
 
 	class MYGUI_EXPORT IItemContainer
 	{
@@ -37,15 +38,17 @@ namespace MyGUI
 		virtual size_t getItemCount() const { return 0; }
 
 		virtual void addItem(const MyGUI::UString& _name) { }
-		virtual void insertItemAt(size_t _index, const MyGUI::UString& _name) { }
+		//virtual void insertItemAt(size_t _index, const MyGUI::UString& _name) { }
 
 		virtual void removeItemAt(size_t _index) { }
-		virtual void removeAllItems() { }
+		//virtual void removeAllItems() { }
 
 		virtual Widget* getItemAt(size_t _index) { return nullptr; }
 
 		virtual void setItemNameAt(size_t _index, const UString& _name) { }
 		virtual const UString& getItemNameAt(size_t _index) { return mEmptyName; }
+
+		virtual void _setItemSelected(IItem* _item) { }
 
 	private:
 		MyGUI::UString mEmptyName;

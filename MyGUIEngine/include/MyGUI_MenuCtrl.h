@@ -30,6 +30,7 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
@@ -273,6 +274,8 @@ namespace MyGUI
 
 		virtual void addItem(const MyGUI::UString& _name);
 		virtual void insertItemAt(size_t _index, const MyGUI::UString& _name);
+
+		virtual void _setItemSelected(IItem* _item);
 
 	protected:
 		virtual void initialiseOverride();
