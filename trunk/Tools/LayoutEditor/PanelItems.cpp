@@ -144,9 +144,9 @@ namespace tools
 
 		if (itemContainer != nullptr)
 		{
-			size_t count = itemContainer->getItemCount();
+			size_t count = itemContainer->_getItemCount();
 			for (size_t index = 0; index < count; ++ index)
-				mList->addItem(itemContainer->getItemNameAt(index));
+				mList->addItem(itemContainer->_getItemNameAt(index));
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
@@ -185,9 +185,9 @@ namespace tools
 
 		if (itemContainer != nullptr)
 		{
-			itemContainer->addItem(_value);
+			itemContainer->_addItem(_value);
 
-			MyGUI::Widget* item = itemContainer->getItemAt(itemContainer->getItemCount() - 1);
+			MyGUI::Widget* item = itemContainer->_getItemAt(itemContainer->_getItemCount() - 1);
 
 			if (item != nullptr)
 			{
@@ -225,10 +225,12 @@ namespace tools
 
 		if (itemContainer != nullptr)
 		{
-			MyGUI::Widget* item = itemContainer->getItemAt(_index);
+			MyGUI::Widget* item = itemContainer->_getItemAt(_index);
+			// при удалении виджета он пропадет из контейнера
 			EditorWidgets::getInstance().remove(item);
 
-			itemContainer->removeItemAt(_index);
+			// внутри реально не удаляется, времено
+			itemContainer->_removeItemAt(_index);
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
@@ -329,7 +331,7 @@ namespace tools
 
 		if (itemContainer != nullptr)
 		{
-			itemContainer->setItemNameAt(item, value);
+			itemContainer->_setItemNameAt(item, value);
 			return;
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())

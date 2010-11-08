@@ -600,7 +600,7 @@ namespace MyGUI
 		removeItemAt(getItemIndex(_item));
 	}
 
-	Widget* MenuCtrl::getItemAt(size_t _index)
+	MenuItem* MenuCtrl::getItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
 		return mItemsInfo[_index].item;
@@ -791,14 +791,39 @@ namespace MyGUI
 		return MenuItemType::Normal;
 	}
 
-	void MenuCtrl::addItem(const MyGUI::UString& _name)
+	size_t MenuCtrl::_getItemCount()
+	{
+		return getItemCount();
+	}
+
+	void MenuCtrl::_addItem(const MyGUI::UString& _name)
 	{
 		addItem(_name, MenuItemType::Normal);
 	}
 
-	void MenuCtrl::insertItemAt(size_t _index, const MyGUI::UString& _name)
+	void MenuCtrl::_removeItemAt(size_t _index)
 	{
-		insertItemAt(_index, _name, MenuItemType::Normal);
+		//removeItemAt(_index);
+
+		if (mItemsInfo.size() == 0)
+		{
+			setSize(200, 200);
+		}
+	}
+
+	Widget* MenuCtrl::_getItemAt(size_t _index)
+	{
+		return getItemAt(_index);
+	}
+
+	void MenuCtrl::_setItemNameAt(size_t _index, const UString& _name)
+	{
+		setItemNameAt(_index, _name);
+	}
+
+	const UString& MenuCtrl::_getItemNameAt(size_t _index)
+	{
+		return getItemNameAt(_index);
 	}
 
 	void MenuCtrl::_setItemSelected(IItem* _item)
@@ -806,46 +831,57 @@ namespace MyGUI
 		MenuItem* item = static_cast<MenuItem*>(_item);
 		if (mMenuDropMode)
 		{
-			//if (mIsMenuDrop)
-			//{
-				/*if (item->getItemType() == MenuItemType::Popup)
-				{
-					item->setStateSelected(false);
-					item->setItemChildVisible(false);
-					mIsMenuDrop = false;
-				}*/
-			//}
-			//else
-			//{
-				for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
-				{
-					if ((*iter).type == MenuItemType::Popup)
-					{
-						(*iter).item->setStateSelected(false);
-
-						if ((*iter).submenu != nullptr)
-							(*iter).submenu->setVisible(false);
-					}
-				}
-
-				if (item->getItemType() == MenuItemType::Popup)
-				{
-					//mIsMenuDrop = true;
-					item->setStateSelected(true);
-					_setItemChildVisibleAt(getItemIndex(item), true, false);
-					//item->setItemChildVisible(true);
-					//InputManager::getInstance().setKeyFocusWidget(item);
-				}
-			//}
-		}
-		/*else
-		{
-			if ((item->getItemType() == MenuItemType::Popup && mPopupAccept) ||
-				item->getItemType() == MenuItemType::Normal)
+			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
-				notifyMenuCtrlAccept(item);
+				if ((*iter).type == MenuItemType::Popup)
+				{
+					(*iter).item->setStateSelected(false);
+
+					if ((*iter).submenu != nullptr)
+						(*iter).submenu->setVisible(false);
+				}
 			}
-		}*/
+
+			if (item->getItemType() == MenuItemType::Popup)
+			{
+				//mIsMenuDrop = true;
+				item->setStateSelected(true);
+				size_t index = getItemIndex(item);
+
+				if (mItemsInfo[index].submenu)
+				{
+					int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
+
+					const IntCoord& coord = mItemsInfo[index].item->getAbsoluteCoord();
+					IntPoint point(getAbsoluteRect().right, coord.top - offset);
+
+					MenuCtrl* menu = mItemsInfo[index].submenu;
+
+					if (mAlignVert)
+					{
+						if (point.left + menu->getWidth() > menu->getParentSize().width)
+							point.left -= menu->getWidth();
+						if (point.top + menu->getHeight() > menu->getParentSize().height)
+							point.top -= menu->getHeight();
+					}
+					else
+					{
+						point.set(coord.left, getAbsoluteRect().bottom);
+					}
+
+					menu->setPosition(point);
+					menu->setVisible(true);
+				}
+
+				_updateItems(index);
+			}
+		}
+	}
+
+	void MenuCtrl::_updateItems(size_t _index)
+	{
+		if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount() == 0)
+			mItemsInfo[_index].submenu->setSize(IntSize(100, 100));
 	}
 
 } // namespace MyGUI
