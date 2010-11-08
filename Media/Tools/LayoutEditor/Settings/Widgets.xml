@@ -169,6 +169,8 @@
 		<Property key="DefaultSkin" value="PopupMenu"/>
 		<Property key="Base" value="MenuCtrl"/>
 
+		<Property key="Resizeable" value="false"/>
+
 		<Property key="Skin" value="PopupMenu"/>
 
 		<Property key="ItemManager" value="true"/>

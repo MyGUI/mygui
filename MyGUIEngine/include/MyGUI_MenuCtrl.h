@@ -117,7 +117,7 @@ namespace MyGUI
 
 
 		//! Get item from specified position
-		Widget* getItemAt(size_t _index);
+		MenuItem* getItemAt(size_t _index);
 
 		//! Get item index
 		size_t getItemIndex(MenuItem* _item);
@@ -272,10 +272,15 @@ namespace MyGUI
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
-		virtual void addItem(const MyGUI::UString& _name);
-		virtual void insertItemAt(size_t _index, const MyGUI::UString& _name);
-
+		virtual size_t _getItemCount();
+		virtual void _addItem(const MyGUI::UString& _name);
+		virtual void _removeItemAt(size_t _index);
+		virtual Widget* _getItemAt(size_t _index);
+		virtual void _setItemNameAt(size_t _index, const UString& _name);
+		virtual const UString& _getItemNameAt(size_t _index);
 		virtual void _setItemSelected(IItem* _item);
+
+		void _updateItems(size_t _index);
 
 	protected:
 		virtual void initialiseOverride();
