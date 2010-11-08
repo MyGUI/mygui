@@ -73,6 +73,7 @@ namespace tools
 		std::string skin;
 		std::string align;
 		std::string name;
+		std::string style;
 		bool relative_mode;
 
 	private:

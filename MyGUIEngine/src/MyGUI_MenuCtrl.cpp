@@ -350,13 +350,17 @@ namespace MyGUI
 
 	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
 	{
+		_setItemChildVisibleAt(_index, _visible, true);
+	}
+
+	void MenuCtrl::_setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth)
+	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemChildVisibleAt");
 
 		if (_visible)
 		{
 			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount())
 			{
-
 				int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
 
 				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
@@ -377,14 +381,20 @@ namespace MyGUI
 				}
 
 				menu->setPosition(point);
-				menu->setVisibleSmooth(true);
+				if (_smooth)
+					menu->setVisibleSmooth(true);
+				else
+					menu->setVisible(true);
 			}
 		}
 		else
 		{
 			if (mItemsInfo[_index].submenu)
 			{
-				mItemsInfo[_index].submenu->setVisibleSmooth(false);
+				if (_smooth)
+					mItemsInfo[_index].submenu->setVisibleSmooth(false);
+				else
+					mItemsInfo[_index].submenu->setVisible(false);
 			}
 		}
 	}
@@ -516,7 +526,6 @@ namespace MyGUI
 
 	void MenuCtrl::setVisible(bool _visible)
 	{
-
 		if (mAnimateSmooth)
 		{
 			ControllerManager::getInstance().removeItem(this);
@@ -797,25 +806,37 @@ namespace MyGUI
 		MenuItem* item = static_cast<MenuItem*>(_item);
 		if (mMenuDropMode)
 		{
-			if (mIsMenuDrop)
-			{
+			//if (mIsMenuDrop)
+			//{
 				/*if (item->getItemType() == MenuItemType::Popup)
 				{
 					item->setStateSelected(false);
 					item->setItemChildVisible(false);
 					mIsMenuDrop = false;
 				}*/
-			}
-			else
-			{
+			//}
+			//else
+			//{
+				for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+				{
+					if ((*iter).type == MenuItemType::Popup)
+					{
+						(*iter).item->setStateSelected(false);
+
+						if ((*iter).submenu != nullptr)
+							(*iter).submenu->setVisible(false);
+					}
+				}
+
 				if (item->getItemType() == MenuItemType::Popup)
 				{
-					mIsMenuDrop = true;
+					//mIsMenuDrop = true;
 					item->setStateSelected(true);
-					item->setItemChildVisible(true);
+					_setItemChildVisibleAt(getItemIndex(item), true, false);
+					//item->setItemChildVisible(true);
 					//InputManager::getInstance().setKeyFocusWidget(item);
 				}
-			}
+			//}
 		}
 		/*else
 		{
