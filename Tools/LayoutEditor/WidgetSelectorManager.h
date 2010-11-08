@@ -33,7 +33,7 @@ namespace tools
 
 	private:
 		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
-		bool checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+		void checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
