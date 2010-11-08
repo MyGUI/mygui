@@ -249,31 +249,6 @@ namespace tools
 			}
 			return false;
 		}
-		else
-		{
-			return false;
-		}
-
-		/*MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Layout");
-		root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
-
-		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
-		{
-			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent())
-				serialiseWidget(*iter, root, true);
-		}
-
-		saveSectors(root);
-
-		if (!doc.save(_fileName))
-		{
-			MYGUI_LOGGING(LogSection, Error, getClassTypeName() << " : " << doc.getLastError());
-			return false;
-		}*/
 
 		return false;
 	}
@@ -429,36 +404,25 @@ namespace tools
 		// парсим атрибуты виджета
 		MyGUI::IntCoord coord;
 		MyGUI::Align align = MyGUI::Align::Default;
+		MyGUI::WidgetStyle widgetStyle = MyGUI::WidgetStyle::Child;
 		std::string position;
 
 		_widget->findAttribute("name", container->name);
 		_widget->findAttribute("type", container->type);
 		_widget->findAttribute("skin", container->skin);
 		container->setLayerName(_widget->findAttribute("layer"));
-		if (_widget->findAttribute("align", container->align)) align = MyGUI::Align::parse(container->align);
-		if (_widget->findAttribute("position", position)) coord = MyGUI::IntCoord::parse(position);
+		if (_widget->findAttribute("style", container->style))
+			widgetStyle = MyGUI::WidgetStyle::parse(container->style);
+		if (_widget->findAttribute("align", container->align))
+			align = MyGUI::Align::parse(container->align);
+		if (_widget->findAttribute("position", position))
+			coord = MyGUI::IntCoord::parse(position);
 		if (_widget->findAttribute("position_real", position))
 		{
 			container->relative_mode = true;
 			//FIXME парент может быть и не кроппед
 			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? MyGUI::RenderManager::getInstance().getViewSize() : _parent->getClientCoord().size());
 		}
-
-		// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
-		// теперь нет
-		/*if (!container->name.empty())
-		{
-			WidgetContainer* iter = find(container->name);
-			if (nullptr != iter)
-			{
-				static long renameN = 0;
-				// FIXME : not translated string
-				std::string mess = MyGUI::utility::toString("Widget with name '", container->name, "' already exist. Renamed to '", container->name, renameN, "'.");
-				MYGUI_LOGGING(LogSection, Warning, mess);
-				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Warning);
-				container->name = MyGUI::utility::toString(container->name, renameN++);
-			}
-		}*/
 
 		// проверяем скин на присутствие
 		std::string skin = container->skin;
@@ -481,16 +445,15 @@ namespace tools
 		if (!_test)
 			skin = getSkinReplace(skin);
 
+		std::string layer = _test ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
+
 		if (nullptr == _parent)
 		{
-			std::string layer = _test ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
-			//if (_test && MyGUI::LayerManager::getInstance().isExist(container->getLayerName()))
-			//	layer = container->getLayerName();
-			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer/*, tmpname*/);
+			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer);
 		}
 		else
 		{
-			container->widget = _parent->createWidgetT(container->type, skin, coord, align/*, tmpname*/);
+			container->widget = _parent->createWidgetT(widgetStyle, container->type, skin, coord, align, layer);
 		}
 
 		add(container);
@@ -570,7 +533,6 @@ namespace tools
 
 				container->mController.push_back(controllerInfo);
 			}
-
 		};
 	}
 

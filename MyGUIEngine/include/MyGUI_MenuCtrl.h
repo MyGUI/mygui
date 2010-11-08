@@ -309,6 +309,8 @@ namespace MyGUI
 
 		Widget* _getClientWidget();
 
+		void _setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth);
+
 	protected:
 		bool mHideByAccept;
 		// нужно ли выбрасывать по нажатию
