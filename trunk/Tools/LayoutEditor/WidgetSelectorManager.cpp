@@ -114,7 +114,7 @@ namespace tools
 
 	bool WidgetSelectorManager::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
 	{
-		if (_container->widget->getAbsoluteCoord().inside(_point))
+		if (_container->widget->getAbsoluteCoord().inside(_point) && _container->widget->getVisible())
 		{
 			_result = _container->widget;
 
