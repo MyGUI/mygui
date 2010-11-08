@@ -84,7 +84,13 @@ namespace tools
 			return;
 		}
 
-		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_currentWidget->getTypeName());
+		MyGUI::IItem* item = dynamic_cast<MyGUI::IItem*>(mCurrentWidget);
+		if (item != nullptr && item->getItemContainer() != nullptr)
+		{
+			item->getItemContainer()->_setItemSelected(item);
+		}
+
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 
 		if (widgetType->many_items)
 		{

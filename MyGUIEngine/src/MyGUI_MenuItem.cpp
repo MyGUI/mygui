@@ -155,4 +155,9 @@ namespace MyGUI
 		return mOwner;
 	}
 
+	IItemContainer* MenuItem::getItemContainer()
+	{
+		return mOwner;
+	}
+
 } // namespace MyGUI

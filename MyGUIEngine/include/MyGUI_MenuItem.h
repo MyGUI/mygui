@@ -25,12 +25,14 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_MenuCtrl.h"
+#include "MyGUI_IItem.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT MenuItem :
 		public Button,
+		public IItem,
 		public MemberObsolete<MenuItem>
 	{
 		MYGUI_RTTI_DERIVED( MenuItem )
@@ -90,6 +92,9 @@ namespace MyGUI
 
 		/** Get child item (submenu) */
 		MenuCtrl* getItemChild();
+
+	/*internal:*/
+		virtual IItemContainer* getItemContainer();
 
 	protected:
 		virtual void initialiseOverride();
