@@ -95,7 +95,7 @@ namespace tools
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
-			if (parent != nullptr)
+			if (parent != nullptr && !mCurrentWidget->isRootWidget())
 				mCoordValue = mCoordValue - parent->getAbsolutePosition();
 		}
 
@@ -192,7 +192,7 @@ namespace tools
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
-			if (parent != nullptr)
+			if (parent != nullptr && !mCurrentWidget->isRootWidget())
 				mCoordValue = mCoordValue - parent->getAbsolutePosition();
 		}
 
@@ -471,7 +471,7 @@ namespace tools
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
-			if (parent != nullptr)
+			if (parent != nullptr && !mCurrentWidget->isRootWidget())
 				mAreaSelectorControl->setCoord(mCoordValue + parent->getAbsolutePosition());
 			else
 				mAreaSelectorControl->setCoord(mCoordValue);
