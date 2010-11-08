@@ -452,7 +452,6 @@ namespace MyGUI
 				notifyMenuCtrlAccept(item);
 			}
 		}
-
 	}
 
 	void MenuCtrl::onKeyChangeRootFocus(bool _focus)
@@ -791,6 +790,41 @@ namespace MyGUI
 	void MenuCtrl::insertItemAt(size_t _index, const MyGUI::UString& _name)
 	{
 		insertItemAt(_index, _name, MenuItemType::Normal);
+	}
+
+	void MenuCtrl::_setItemSelected(IItem* _item)
+	{
+		MenuItem* item = static_cast<MenuItem*>(_item);
+		if (mMenuDropMode)
+		{
+			if (mIsMenuDrop)
+			{
+				/*if (item->getItemType() == MenuItemType::Popup)
+				{
+					item->setStateSelected(false);
+					item->setItemChildVisible(false);
+					mIsMenuDrop = false;
+				}*/
+			}
+			else
+			{
+				if (item->getItemType() == MenuItemType::Popup)
+				{
+					mIsMenuDrop = true;
+					item->setStateSelected(true);
+					item->setItemChildVisible(true);
+					//InputManager::getInstance().setKeyFocusWidget(item);
+				}
+			}
+		}
+		/*else
+		{
+			if ((item->getItemType() == MenuItemType::Popup && mPopupAccept) ||
+				item->getItemType() == MenuItemType::Normal)
+			{
+				notifyMenuCtrlAccept(item);
+			}
+		}*/
 	}
 
 } // namespace MyGUI
