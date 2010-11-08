@@ -104,35 +104,29 @@ namespace tools
 
 		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
 		while (container.next())
-		{
-			if (checkContainer(container.current(), result, _point))
-				break;
-		}
+			checkContainer(container.current(), result, _point);
 
 		return result;
 	}
 
-	bool WidgetSelectorManager::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
+	void WidgetSelectorManager::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
 	{
-		if (_container->widget->getAbsoluteCoord().inside(_point) && _container->widget->getVisible())
-		{
+		if (!_container->widget->getVisible())
+			return;
+
+		if (_container->widget->getAbsoluteCoord().inside(_point))
 			_result = _container->widget;
 
-			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+		{
+			if (_container->widget->isType<MyGUI::Tab>() && (*item)->widget->isType<MyGUI::TabItem>())
 			{
-				if (_container->widget->isType<MyGUI::Tab>() && (*item)->widget->isType<MyGUI::TabItem>())
-				{
-					if (_container->widget->castType<MyGUI::Tab>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
-						continue;
-				}
-
-				if (checkContainer(*item, _result, _point))
-					break;
+				if (_container->widget->castType<MyGUI::Tab>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
+					continue;
 			}
 
-			return true;
+			checkContainer(*item, _result, _point);
 		}
-		return false;
 	}
 
 	void WidgetSelectorManager::resetDepth()
