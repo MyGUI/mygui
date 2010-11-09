@@ -66,7 +66,7 @@ namespace MyGUI
 		if (parent)
 		{
 			mOwner = parent->castType<MenuItem>(false);
-			if ( ! mOwner )
+			if (!mOwner)
 			{
 				Widget* client = parent;
 				parent = client->getParent();
@@ -117,7 +117,6 @@ namespace MyGUI
 
 	void MenuCtrl::shutdownOverride()
 	{
-		// FIXME перенесенно из деструктора, может косячить при смене скина
 		mShutdown = true;
 
 		Base::shutdownOverride();
@@ -149,9 +148,10 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemAt");
 
-		if ( mItemsInfo[_index].submenu )
+		if (mItemsInfo[_index].submenu)
 		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
+			mItemsInfo[_index].submenu = nullptr;
 		}
 		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].item);
 	}
@@ -160,9 +160,10 @@ namespace MyGUI
 	{
 		while (mItemsInfo.size() > 0)
 		{
-			if ( mItemsInfo.back().submenu )
+			if (mItemsInfo.back().submenu)
 			{
 				WidgetManager::getInstance().destroyWidget(mItemsInfo.back().submenu);
+				mItemsInfo.back().submenu = nullptr;
 			}
 			WidgetManager::getInstance().destroyWidget(mItemsInfo.back().item);
 		}
@@ -177,12 +178,15 @@ namespace MyGUI
 	void MenuCtrl::setButtonImageIndex(Button* _button, size_t _index)
 	{
 		StaticImage* image = _button->getStaticImage();
-		if ( nullptr == image ) return;
+		if (nullptr == image)
+			return;
+
 		if (image->getItemResource())
 		{
 			static const size_t CountIcons = 2;
 			static const char* IconNames[CountIcons + 1] = { "None", "Popup", "" };
-			if (_index >= CountIcons) _index = CountIcons;
+			if (_index >= CountIcons)
+				_index = CountIcons;
 			image->setItemName(IconNames[_index]);
 		}
 		else
@@ -371,9 +375,9 @@ namespace MyGUI
 				if (mAlignVert)
 				{
 					if (point.left + menu->getWidth() > menu->getParentSize().width)
-						point.left -= menu->getWidth();
+						point.left -= menu->getWidth() + getWidth();
 					if (point.top + menu->getHeight() > menu->getParentSize().height)
-						point.top -= menu->getHeight();
+						point.top -= menu->getHeight() + getHeight();
 				}
 				else
 				{
@@ -490,6 +494,7 @@ namespace MyGUI
 		if (mItemsInfo[index].submenu != nullptr)
 		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
+			mItemsInfo[index].submenu = nullptr;
 		}
 		mItemsInfo[index].submenu = _widget;
 		// скрываем менюшку
@@ -610,7 +615,8 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].item == _item) return pos;
+			if (mItemsInfo[pos].item == _item)
+				return pos;
 		}
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
 	}
@@ -619,39 +625,42 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
+			if (mItemsInfo[pos].name == _name)
+				return mItemsInfo[pos].item;
 		}
 		return nullptr;
 	}
 
 	MenuItem* MenuCtrl::getItemById(const std::string& _id)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
-			if (mItemsInfo[pos].id == _id) return mItemsInfo[pos].item;
+			if (mItemsInfo[index].id == _id)
+				return mItemsInfo[index].item;
 		}
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
 	}
 
 	size_t MenuCtrl::getItemIndexById(const std::string& _id)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
-			if (mItemsInfo[pos].id == _id) return pos;
+			if (mItemsInfo[index].id == _id)
+				return index;
 		}
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
 	}
 
 	MenuItem* MenuCtrl::findItemById(const std::string& _id, bool _recursive)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
-			if (mItemsInfo[pos].id == _id)
-				return mItemsInfo[pos].item;
+			if (mItemsInfo[index].id == _id)
+				return mItemsInfo[index].item;
 
-			if (_recursive && mItemsInfo[pos].submenu != nullptr)
+			if (_recursive && mItemsInfo[index].submenu != nullptr)
 			{
-				MenuItem* find = mItemsInfo[pos].submenu->findItemById(_id, _recursive);
+				MenuItem* find = mItemsInfo[index].submenu->findItemById(_id, _recursive);
 				if (find != nullptr)
 					return find;
 			}
@@ -661,18 +670,20 @@ namespace MyGUI
 
 	size_t MenuCtrl::findItemIndexWith(const UString& _name)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
-			if (mItemsInfo[pos].name == _name) return pos;
+			if (mItemsInfo[index].name == _name)
+				return index;
 		}
 		return ITEM_NONE;
 	}
 
 	size_t MenuCtrl::findItemIndex(MenuItem* _item)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
-			if (mItemsInfo[pos].item == _item) return pos;
+			if (mItemsInfo[index].item == _item)
+				return index;
 		}
 		return ITEM_NONE;
 	}
@@ -844,7 +855,6 @@ namespace MyGUI
 
 			if (item->getItemType() == MenuItemType::Popup)
 			{
-				//mIsMenuDrop = true;
 				item->setStateSelected(true);
 				size_t index = getItemIndex(item);
 
@@ -860,9 +870,9 @@ namespace MyGUI
 					if (mAlignVert)
 					{
 						if (point.left + menu->getWidth() > menu->getParentSize().width)
-							point.left -= menu->getWidth();
+							point.left -= menu->getWidth() + getWidth();
 						if (point.top + menu->getHeight() > menu->getParentSize().height)
-							point.top -= menu->getHeight();
+							point.top -= menu->getHeight() + getHeight();
 					}
 					else
 					{
