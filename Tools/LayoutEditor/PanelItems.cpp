@@ -84,11 +84,7 @@ namespace tools
 			return;
 		}
 
-		MyGUI::IItem* item = dynamic_cast<MyGUI::IItem*>(mCurrentWidget);
-		if (item != nullptr && item->getItemContainer() != nullptr)
-		{
-			item->getItemContainer()->_setItemSelected(item);
-		}
+		selectItem(mCurrentWidget);
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 
@@ -113,6 +109,16 @@ namespace tools
 		{
 			setVisible(false);
 		}
+	}
+
+	void PanelItems::selectItem(MyGUI::Widget* _widget)
+	{
+		MyGUI::IItem* item = dynamic_cast<MyGUI::IItem*>(_widget);
+		if (item != nullptr && item->getItemContainer() != nullptr)
+			item->getItemContainer()->_setItemSelected(item);
+
+		if (_widget->getParent() != nullptr)
+			selectItem(_widget->getParent());
 	}
 
 	void PanelItems::addSheetToTab(MyGUI::Widget* _container, const std::string& _caption)
