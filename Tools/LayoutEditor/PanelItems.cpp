@@ -226,11 +226,10 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			MyGUI::Widget* item = itemContainer->_getItemAt(_index);
-			// при удалении виджета он пропадет из контейнера
-			EditorWidgets::getInstance().remove(item);
-
-			// внутри реально не удаляется, времено
 			itemContainer->_removeItemAt(_index);
+
+			// при удалении виджета он сам удалит контейнер
+			//EditorWidgets::getInstance().remove(item);
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())
 		{

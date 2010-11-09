@@ -4,6 +4,7 @@
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
 #include "BackwardCompatibilityManager.h"
+#include "WidgetSelectorManager.h"
 
 template <> tools::EditorWidgets* MyGUI::Singleton<tools::EditorWidgets>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName("EditorWidgets");
@@ -301,7 +302,7 @@ namespace tools
 		{
 			MyGUI::Widget* parent = _container->widget->getParent();
 			WidgetContainer* containerParent = find(parent);
-			while (NULL == containerParent)
+			while (nullptr == containerParent)
 			{
 				parent = parent->getParent();
 				if (parent == nullptr)
@@ -338,7 +339,7 @@ namespace tools
 			{
 				MyGUI::Widget* parent = _container->widget->getParent();
 				WidgetContainer* containerParent = find(parent);
-				while (NULL == containerParent)
+				while (nullptr == containerParent)
 				{
 					parent = parent->getParent();
 					if (parent == nullptr)
@@ -358,6 +359,51 @@ namespace tools
 			delete _container;
 		}
 		mWidgetsChanged = true;
+	}
+
+	bool EditorWidgets::unbind(WidgetContainer* _container)
+	{
+		bool result = false;
+
+		std::vector<WidgetContainer*>::reverse_iterator iter;
+		while (_container->childContainers.empty() == false)
+		{
+			iter = _container->childContainers.rbegin();
+			if (unbind(*iter))
+				result = true;
+		}
+
+		if (nullptr != _container)
+		{
+			if (nullptr == _container->widget->getParent())
+			{
+				mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
+			}
+			else
+			{
+				MyGUI::Widget* parent = _container->widget->getParent();
+				WidgetContainer* containerParent = find(parent);
+				while (nullptr == containerParent)
+				{
+					parent = parent->getParent();
+					if (parent == nullptr)
+					{
+						// такого не должно быть, или утечка памяти,
+						// так как удалять нельзя им пользуется код вызывающий данную функцию
+						return result;
+					}
+					containerParent = find(parent);
+				}
+
+				containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
+			}
+
+			delete _container;
+			result = true;
+		}
+
+		mWidgetsChanged = true;
+		return result;
 	}
 
 	void EditorWidgets::clear()
@@ -380,7 +426,7 @@ namespace tools
 
 	WidgetContainer* EditorWidgets::find(const std::string& _name)
 	{
-		return _find(NULL, _name, mWidgets);
+		return _find(nullptr, _name, mWidgets);
 	}
 
 	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
@@ -735,6 +781,15 @@ namespace tools
 	const MyGUI::UString& EditorWidgets::getCurrentItemName()
 	{
 		return mCurrentItemName;
+	}
+
+	void EditorWidgets::_unlinkWidget(MyGUI::Widget* _widget)
+	{
+		bool result = unbind(find(_widget));
+		mWidgetsChanged = true;
+
+		if (result)
+			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 	}
 
 } // namespace tools
