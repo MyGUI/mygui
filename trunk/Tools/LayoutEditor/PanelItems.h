@@ -37,6 +37,8 @@ namespace tools
 		void addSheetToTab(MyGUI::Widget* _tab, const std::string& _caption = "");
 		//void addItemToMenu(MyGUI::Widget* _tab, const std::string& _caption = "");
 
+		void selectItem(MyGUI::Widget* _widget);
+
 	private:
 		MyGUI::Edit* mEdit;
 		MyGUI::List* mList;
