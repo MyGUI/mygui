@@ -119,6 +119,9 @@ namespace MyGUI
 	{
 		mShutdown = true;
 
+		if (mOwner != nullptr)
+			mOwner->getMenuCtrlParent()->_notifyDeletePopup(mOwner);
+
 		Base::shutdownOverride();
 	}
 
@@ -291,6 +294,12 @@ namespace MyGUI
 		update();
 	}
 
+	void MenuCtrl::_notifyDeletePopup(MenuItem* _item)
+	{
+		size_t index = getItemIndex(_item);
+		mItemsInfo[index].submenu = nullptr;
+	}
+
 	void MenuCtrl::_notifyUpdateName(MenuItem* _item)
 	{
 		size_t index = getItemIndex(_item);
@@ -389,6 +398,8 @@ namespace MyGUI
 					menu->setVisibleSmooth(true);
 				else
 					menu->setVisible(true);
+
+				MyGUI::LayerManager::getInstance().upLayerItem(menu);
 			}
 		}
 		else

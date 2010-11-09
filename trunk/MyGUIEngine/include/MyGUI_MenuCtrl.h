@@ -269,6 +269,7 @@ namespace MyGUI
 
 	/*internal:*/
 		void _notifyDeleteItem(MenuItem* _item);
+		void _notifyDeletePopup(MenuItem* _item);
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
