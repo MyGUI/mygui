@@ -803,7 +803,7 @@ namespace MyGUI
 
 	void MenuCtrl::_removeItemAt(size_t _index)
 	{
-		//removeItemAt(_index);
+		removeItemAt(_index);
 
 		if (mItemsInfo.size() == 0)
 		{

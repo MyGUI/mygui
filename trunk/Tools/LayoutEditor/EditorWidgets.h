@@ -13,7 +13,8 @@ namespace tools
 	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
 
 	class EditorWidgets :
-		public MyGUI::Singleton<EditorWidgets>
+		public MyGUI::Singleton<EditorWidgets>,
+		public MyGUI::IUnlinkWidget
 	{
 	public:
 		EditorWidgets();
@@ -48,6 +49,8 @@ namespace tools
 
 		Event_ChangeWidgets eventChangeWidgets;
 
+		virtual void _unlinkWidget(MyGUI::Widget* _widget);
+
 	private:
 		WidgetContainer* _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
@@ -70,6 +73,8 @@ namespace tools
 
 		bool loadFromProject(const MyGUI::UString& _fileName, size_t _index);
 		bool saveToProject(const MyGUI::UString& _fileName, size_t _index);
+
+		bool unbind(WidgetContainer* _container);
 
 	private:
 		bool mWidgetsChanged;
