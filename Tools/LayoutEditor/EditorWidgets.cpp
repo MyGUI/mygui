@@ -31,10 +31,12 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("SkinReplace") = MyGUI::newDelegate(this, &EditorWidgets::loadSkinReplace);
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
+		MyGUI::WidgetManager::getInstance().registerUnlinker(this);
 	}
 
 	void EditorWidgets::shutdown()
 	{
+		MyGUI::WidgetManager::getInstance().unregisterUnlinker(this);
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 
 		destroyAllWidgets();
@@ -785,11 +787,15 @@ namespace tools
 
 	void EditorWidgets::_unlinkWidget(MyGUI::Widget* _widget)
 	{
-		bool result = unbind(find(_widget));
-		mWidgetsChanged = true;
+		WidgetContainer* container = find(_widget);
+		if (container != nullptr)
+		{
+			bool result = unbind(container);
+			mWidgetsChanged = true;
 
-		if (result)
-			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+			if (result)
+				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+		}
 	}
 
 } // namespace tools
