@@ -851,51 +851,48 @@ namespace MyGUI
 	void MenuCtrl::_setItemSelected(IItem* _item)
 	{
 		MenuItem* item = static_cast<MenuItem*>(_item);
-		if (mMenuDropMode)
+		for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 		{
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			if ((*iter).type == MenuItemType::Popup)
 			{
-				if ((*iter).type == MenuItemType::Popup)
-				{
-					(*iter).item->setStateSelected(false);
+				(*iter).item->setStateSelected(false);
 
-					if ((*iter).submenu != nullptr)
-						(*iter).submenu->setVisible(false);
-				}
+				if ((*iter).submenu != nullptr)
+					(*iter).submenu->setVisible(false);
 			}
+		}
 
-			if (item->getItemType() == MenuItemType::Popup)
+		if (item->getItemType() == MenuItemType::Popup)
+		{
+			item->setStateSelected(true);
+			size_t index = getItemIndex(item);
+
+			if (mItemsInfo[index].submenu)
 			{
-				item->setStateSelected(true);
-				size_t index = getItemIndex(item);
+				int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
 
-				if (mItemsInfo[index].submenu)
+				const IntCoord& coord = mItemsInfo[index].item->getAbsoluteCoord();
+				IntPoint point(getAbsoluteRect().right, coord.top - offset);
+
+				MenuCtrl* menu = mItemsInfo[index].submenu;
+
+				if (mAlignVert)
 				{
-					int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
-
-					const IntCoord& coord = mItemsInfo[index].item->getAbsoluteCoord();
-					IntPoint point(getAbsoluteRect().right, coord.top - offset);
-
-					MenuCtrl* menu = mItemsInfo[index].submenu;
-
-					if (mAlignVert)
-					{
-						if (point.left + menu->getWidth() > menu->getParentSize().width)
-							point.left -= menu->getWidth() + getWidth();
-						if (point.top + menu->getHeight() > menu->getParentSize().height)
-							point.top -= menu->getHeight() + getHeight();
-					}
-					else
-					{
-						point.set(coord.left, getAbsoluteRect().bottom);
-					}
-
-					menu->setPosition(point);
-					menu->setVisible(true);
+					if (point.left + menu->getWidth() > menu->getParentSize().width)
+						point.left -= menu->getWidth() + getWidth();
+					if (point.top + menu->getHeight() > menu->getParentSize().height)
+						point.top -= menu->getHeight() + getHeight();
+				}
+				else
+				{
+					point.set(coord.left, getAbsoluteRect().bottom);
 				}
 
-				_updateItems(index);
+				menu->setPosition(point);
+				menu->setVisible(true);
 			}
+
+			_updateItems(index);
 		}
 	}
 
