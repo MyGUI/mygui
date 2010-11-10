@@ -827,10 +827,7 @@ namespace MyGUI
 	{
 		removeItemAt(_index);
 
-		if (mItemsInfo.size() == 0)
-		{
-			setSize(200, 200);
-		}
+		_updateSizeForEmpty();
 	}
 
 	Widget* MenuCtrl::_getItemAt(size_t _index)
@@ -898,8 +895,14 @@ namespace MyGUI
 
 	void MenuCtrl::_updateItems(size_t _index)
 	{
-		if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount() == 0)
-			mItemsInfo[_index].submenu->setSize(IntSize(100, 100));
+		if (mItemsInfo[_index].submenu != nullptr)
+			mItemsInfo[_index].submenu->_updateSizeForEmpty();
+	}
+
+	void MenuCtrl::_updateSizeForEmpty()
+	{
+		if (mItemsInfo.size() == 0)
+			setSize(100, 100);
 	}
 
 } // namespace MyGUI

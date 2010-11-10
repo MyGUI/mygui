@@ -282,6 +282,7 @@ namespace MyGUI
 		virtual void _setItemSelected(IItem* _item);
 
 		void _updateItems(size_t _index);
+		void _updateSizeForEmpty();
 
 	protected:
 		virtual void initialiseOverride();
