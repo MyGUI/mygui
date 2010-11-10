@@ -26,7 +26,8 @@ namespace MyGUI
 {
 
 	MenuItem::MenuItem() :
-		mOwner(nullptr)
+		mOwner(nullptr),
+		mMinSize(10, 10)
 	{
 	}
 
@@ -46,6 +47,9 @@ namespace MyGUI
 			MYGUI_ASSERT(parent->isType<MenuCtrl>(), "MenuItem must have parent MenuCtrl");
 		}
 		mOwner = parent->castType<MenuCtrl>();
+
+		//if (isUserString("MinSize"))
+			//mMinSize = IntSize::parse(getUserString("MinSize"));
 
 		//FIXME нам нуженфокус клавы
 		setNeedKeyFocus(true);
@@ -155,9 +159,18 @@ namespace MyGUI
 		return mOwner;
 	}
 
-	IItemContainer* MenuItem::getItemContainer()
+	IItemContainer* MenuItem::_getItemContainer()
 	{
 		return mOwner;
+	}
+
+	IntSize MenuItem::_getContentSize()
+	{
+		ISubWidgetText* text = getSubWidgetText();
+		if (text == nullptr)
+			return mMinSize;
+
+		return text->getTextSize() + (getSize() - text->getSize());
 	}
 
 } // namespace MyGUI
