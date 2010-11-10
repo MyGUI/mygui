@@ -185,6 +185,37 @@ namespace tools
 		}
 	}
 
+	void PanelItems::setContainerProperty(WidgetContainer* _container, const std::string& _key, const std::string& _value)
+	{
+		if (_value.empty())
+		{
+			for (MyGUI::VectorStringPairs::iterator item = _container->mProperty.begin(); item != _container->mProperty.end(); ++ item)
+			{
+				if ((*item).first == _key)
+				{
+					_container->mProperty.erase(item);
+					break;
+				}
+			}
+		}
+		else
+		{
+			bool found = false;
+			for (MyGUI::VectorStringPairs::iterator item = _container->mProperty.begin(); item != _container->mProperty.end(); ++ item)
+			{
+				if ((*item).first == _key)
+				{
+					(*item).second = _value;
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+				_container->mProperty.push_back(MyGUI::PairString(_key, _value));
+		}
+	}
+
 	void PanelItems::addItem(const std::string& _value)
 	{
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
@@ -198,8 +229,7 @@ namespace tools
 			if (item != nullptr)
 			{
 				WidgetContainer* container = new WidgetContainer(item->getTypeName(), "", item, "");
-				if (!_value.empty())
-					container->mProperty.push_back(MyGUI::PairString("Caption", _value));
+				setContainerProperty(container, "Caption", _value);
 				EditorWidgets::getInstance().add(container);
 			}
 
@@ -337,6 +367,8 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			itemContainer->_setItemNameAt(item, value);
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(itemContainer->_getItemAt(item));
+			setContainerProperty(widgetContainer, "Caption", value);
 			return;
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())

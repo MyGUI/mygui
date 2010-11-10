@@ -8,6 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
+#include "WidgetContainer.h"
 
 namespace tools
 {
@@ -38,6 +39,8 @@ namespace tools
 		//void addItemToMenu(MyGUI::Widget* _tab, const std::string& _caption = "");
 
 		void selectItem(MyGUI::Widget* _widget);
+
+		void setContainerProperty(WidgetContainer* _container, const std::string& _key, const std::string& _value);
 
 	private:
 		MyGUI::Edit* mEdit;
