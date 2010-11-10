@@ -329,19 +329,15 @@ namespace MyGUI
 	private:
 		VectorMenuItemInfo mItemsInfo;
 
-		int mHeightLine;
-		std::string mSkinLine;
-
-		int mSubmenuImageSize;
+		std::string mItemNormalSkin;
+		std::string mItemPopupSkin;
+		std::string mItemSeparatorSkin;
 
 		std::string mSubMenuSkin;
 		std::string mSubMenuLayer;
 
 		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
 		bool mShutdown;
-
-		int mSeparatorHeight;
-		std::string mSeparatorSkin;
 
 		bool mAlignVert;
 		int mDistanceButton;

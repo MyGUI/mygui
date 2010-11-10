@@ -305,15 +305,46 @@
     <Resource type="ResourceLayout" name="MenuBarTemplate">
         <Widget type="Widget" skin="MenuSkin" position="5 5 29 26" name="Root">
             <UserString key="TargetWidgetType" value="MenuBar"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 2 25 20" align="Stretch"/>
+            <UserString key="DistanceButton" value="6"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="SubMenuSkin" value="PopupMenu"/>
+            <UserString key="AlignVert" value="false"/>
+            <UserString key="NormalSkin" value="MenuBarButtonTemplate"/>
+            <UserString key="PopupSkin" value="MenuBarButtonTemplate"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 25 20" align="Stretch" name="Client"/>
         </Widget>
-        <Widget type="MenuBar" skin="MenuBar" position="5 35 120 26">
-			<Widget type="MenuItem" skin="MenuBarButton">
-				<Property key="Caption" value="test1"/>
-			</Widget>
-			<Widget type="MenuItem" skin="MenuBarButton">
-				<Property key="Caption" value="test2"/>
-			</Widget>
-		</Widget>
-	</Resource>
+        <Widget type="MenuBar" skin="MenuBar" position="5 75 120 26">
+            <Widget type="MenuItem" skin="MenuBarButton" position="0 0 49 21">
+                <Property key="Caption" value="test1"/>
+                <Property key="MenuItemType" value="Popup"/>
+            </Widget>
+            <Widget type="MenuItem" skin="MenuBarButton" position="49 0 49 21">
+                <Property key="Caption" value="test2"/>
+                <Property key="MenuItemType" value="Popup"/>
+            </Widget>
+        </Widget>
+        <Widget type="MenuBar" skin="MenuBarTemplate" position="5 40 120 26">
+            <Widget type="MenuItem" skin="" position="0 0 45 25">
+                <Property key="Caption" value="test1"/>
+                <Property key="MenuItemType" value="Popup"/>
+            </Widget>
+            <Widget type="MenuItem" skin="" position="51 0 45 25">
+                <Property key="Caption" value="test2"/>
+                <Property key="MenuItemType" value="Popup"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBarButtonTemplate">
+        <Widget type="Widget" skin="MenuItemSkin" position="20 25 25 20" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="TargetWidgetType" value="Button"/>
+        </Widget>
+        <Widget type="Button" skin="MenuBarButtonTemplate" position="20 60 100 60">
+            <Property key="Caption" value="test"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="20 135 100 60">
+            <Property key="Caption" value="test"/>
+        </Widget>
+    </Resource>
 </MyGUI>

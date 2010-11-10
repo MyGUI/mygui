@@ -42,10 +42,7 @@ namespace MyGUI
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
 		mHideByLostKey(false),
-		mHeightLine(1),
-		mSubmenuImageSize(0),
 		mShutdown(false),
-		mSeparatorHeight(0),
 		mAlignVert(true),
 		mDistanceButton(0),
 		mPopupAccept(false),
@@ -86,30 +83,32 @@ namespace MyGUI
 			setWidgetClient(mClient);
 		}
 
+		//OBSOLETE
 		if (isUserString("SkinLine"))
-			mSkinLine = getUserString("SkinLine");
-		if (isUserString("HeightLine"))
-			mHeightLine = utility::parseValue<int>(getUserString("HeightLine"));
-		if (isUserString("SeparatorHeight"))
-			mSeparatorHeight = utility::parseValue<int>(getUserString("SeparatorHeight"));
-		if (isUserString("SubmenuImageSize"))
-			mSubmenuImageSize = utility::parseValue<int>(getUserString("SubmenuImageSize"));
+		{
+			mItemNormalSkin = getUserString("SkinLine");
+			mItemPopupSkin = mItemNormalSkin;
+		}
+
+		if (isUserString("SeparatorSkin"))
+			mItemSeparatorSkin = getUserString("SeparatorSkin");
+
+		if (isUserString("NormalSkin"))
+			mItemNormalSkin = getUserString("NormalSkin");
+
+		if (isUserString("PopupSkin"))
+			mItemPopupSkin = getUserString("PopupSkin");
+
 		if (isUserString("DistanceButton"))
 			mDistanceButton = utility::parseValue<int>(getUserString("DistanceButton"));
+
 		if (isUserString("AlignVert"))
 			mAlignVert = utility::parseValue<bool>(getUserString("AlignVert"));
-		if (isUserString("SeparatorSkin"))
-			mSeparatorSkin = getUserString("SeparatorSkin");
+
 		if (isUserString("SubMenuSkin"))
 			mSubMenuSkin = getUserString("SubMenuSkin");
 		if (isUserString("SubMenuLayer"))
 			mSubMenuLayer = getUserString("SubMenuLayer");
-
-		if (mHeightLine < 1)
-			mHeightLine = 1;
-
-		if (mSeparatorHeight < 1)
-			mSeparatorHeight = mHeightLine;
 
 		// FIXME добавленно, так как шетдаун вызывается и при смене скина
 		mShutdown = false;
@@ -206,25 +205,22 @@ namespace MyGUI
 		{
 			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
-				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
-				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), height);
-				size.height += height + mDistanceButton;
+				IntSize contentSize = iter->item->_getContentSize();
+				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), contentSize.height);
+				size.height += contentSize.height + mDistanceButton;
 
-				int width = iter->width;
-				if (width > size.width)
-					size.width = width;
+				if (contentSize.width > size.width)
+					size.width = contentSize.width;
 			}
 		}
 		else
 		{
 			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
-				int width = iter->type == MenuItemType::Separator ? mSeparatorHeight : iter->width;
-				iter->item->setCoord(size.width, 0, width, mHeightLine);
-				size.width += width + mDistanceButton;
+				IntSize contentSize = iter->item->_getContentSize();
+				iter->item->setCoord(size.width, 0, contentSize.width, contentSize.height);
+				size.width += contentSize.width + mDistanceButton;
 			}
-			size.height = mHeightLine;
-			size.width = mCoord.width;
 		}
 
 		if (mResizeToContent)
@@ -517,7 +513,6 @@ namespace MyGUI
 	void MenuCtrl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
-		_item->setCoord(0, 0, _getClientWidget()->getWidth(), mHeightLine);
 		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
 		_item->eventMouseButtonClick += newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus += newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
@@ -531,7 +526,7 @@ namespace MyGUI
 		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
 
 		mChangeChildSkin = true;
-		_item->changeWidgetSkin(mSkinLine);
+		_item->changeWidgetSkin(mItemNormalSkin);
 		mChangeChildSkin = false;
 
 		// его сет капшен, обновит размер
@@ -796,7 +791,11 @@ namespace MyGUI
 
 	const std::string& MenuCtrl::getSkinByType(MenuItemType _type)
 	{
-		return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
+		if (_type == MenuItemType::Popup)
+			return mItemPopupSkin;
+		else if (_type == MenuItemType::Separator)
+			return mItemSeparatorSkin;
+		return mItemNormalSkin;
 	}
 
 	size_t MenuCtrl::getIconIndexByType(MenuItemType _type)
