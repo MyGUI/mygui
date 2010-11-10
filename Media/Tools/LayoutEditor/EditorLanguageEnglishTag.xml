@@ -87,6 +87,7 @@
 	<Tag name="ButtonCreateFile">Create</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>
 	<Tag name="ButtonOpenFolder">Select</Tag>
+	<Tag name="ButtonPopupMode">Popup mode</Tag>
 
 	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
 	<Tag name="MessageFailedLoadFile">Failed to load file '#{CurrentFileName}'</Tag>
