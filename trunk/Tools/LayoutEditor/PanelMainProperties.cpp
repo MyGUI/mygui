@@ -79,7 +79,7 @@ namespace tools
 		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 		y += mPropertyItemHeight;
 
-		if (nullptr == mCurrentWidget->getParent())
+		if (mCurrentWidget->isRootWidget())
 		{
 			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y);
 			y += mPropertyItemHeight;

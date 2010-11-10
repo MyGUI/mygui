@@ -26,6 +26,7 @@ namespace tools
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		void notifySelectWidgetType(MyGUI::Widget* _sender);
 		void notifyChangeCreatorMode(bool _modeCreate);
+		void notifyMouseButtonClickPopupMode(MyGUI::Widget* _sender);
 
 		void initialise();
 
@@ -34,6 +35,7 @@ namespace tools
 
 	private:
 		MyGUI::Tab* mTabSkins;
+		MyGUI::Button* mPopupMode;
 
 		int mWidgetsButtonWidth;
 		int mWidgetsButtonHeight;

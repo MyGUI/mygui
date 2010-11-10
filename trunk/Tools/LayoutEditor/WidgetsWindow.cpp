@@ -20,11 +20,15 @@ namespace tools
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
 		BaseLayout("WidgetsWindow.layout", _parent),
 		mTabSkins(nullptr),
+		mPopupMode(nullptr),
 		mWidgetsButtonWidth(0),
 		mWidgetsButtonHeight(0),
 		mToolTip(nullptr)
 	{
 		assignWidget(mTabSkins, "tabSkins");
+		assignWidget(mPopupMode, "PopupMode");
+
+		mPopupMode->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 
 		mWidgetsButtonWidth = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonWidth");
 		mWidgetsButtonHeight = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonHeight");
@@ -53,6 +57,8 @@ namespace tools
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonWidth", mWidgetsButtonWidth);
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonHeight", mWidgetsButtonHeight);
 		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("lastSkinGroup", mSkinSheetName);
+
+		mPopupMode->eventMouseButtonClick -= MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 	}
 
 	void WidgetsWindow::initialise()
@@ -137,6 +143,8 @@ namespace tools
 				}
 			}
 		}
+
+		mPopupMode->setStateSelected(WidgetCreatorManager::getInstance().getPopupMode());
 	}
 
 	void WidgetsWindow::requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
@@ -166,6 +174,14 @@ namespace tools
 		}
 
 		button->setStateSelected(_info.select);
+	}
+
+	void WidgetsWindow::notifyMouseButtonClickPopupMode(MyGUI::Widget* _sender)
+	{
+		if (mPopupMode->getStateSelected())
+			WidgetCreatorManager::getInstance().setPopupMode(false);
+		else
+			WidgetCreatorManager::getInstance().setPopupMode(true);
 	}
 
 } // namespace tools

@@ -32,6 +32,9 @@ namespace tools
 		void setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin);
 		void resetCreatorInfo();
 
+		void setPopupMode(bool _value);
+		bool getPopupMode() const;
+
 		bool getCreateMode();
 		const std::string& getWidgetType();
 		const std::string& getWidgetSkin();
@@ -46,6 +49,7 @@ namespace tools
 
 		int toGrid(int _value);
 		MyGUI::IntCoord getCoordNewWidget(const MyGUI::IntPoint& _point);
+		void resetAllCreatorInfo();
 
 	private:
 		bool mCreateMode;
@@ -55,6 +59,7 @@ namespace tools
 		MyGUI::IntPoint mStartPoint;
 		MyGUI::Widget* mNewWidget;
 		int mGridStep;
+		bool mPopupMode;
 	};
 
 } // namespace tools
