@@ -21,7 +21,8 @@ namespace tools
 		mCreateMode(false),
 		mStartNewWidget(false),
 		mNewWidget(nullptr),
-		mGridStep(0)
+		mGridStep(0),
+		mPopupMode(false)
 	{
 	}
 
@@ -56,6 +57,16 @@ namespace tools
 		mWidgetType = "";
 		mWidgetSkin = "";
 		mCreateMode = false;
+
+		eventChangeCreatorMode(mCreateMode);
+	}
+
+	void WidgetCreatorManager::resetAllCreatorInfo()
+	{
+		mWidgetType = "";
+		mWidgetSkin = "";
+		mCreateMode = false;
+		mPopupMode = false;
 
 		eventChangeCreatorMode(mCreateMode);
 	}
@@ -99,7 +110,8 @@ namespace tools
 				return;
 
 			// выделяем верний виджет
-			WidgetSelectorManager::getInstance().selectWidget(mStartPoint);
+			if (!mPopupMode)
+				WidgetSelectorManager::getInstance().selectWidget(mStartPoint);
 
 			MyGUI::Widget* parent = WidgetSelectorManager::getInstance().getSelectedWidget();
 
@@ -111,15 +123,23 @@ namespace tools
 				parent = nullptr;
 
 			if (parent != nullptr)
-				mNewWidget = parent->createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default);
+				mNewWidget = parent->createWidgetT(
+					mPopupMode ? MyGUI::WidgetStyle::Popup : MyGUI::WidgetStyle::Child,
+					mWidgetType,
+					EditorWidgets::getInstance().getSkinReplace(mWidgetSkin),
+					MyGUI::IntCoord(),
+					MyGUI::Align::Default,
+					DEFAULT_EDITOR_LAYER);
 			else
-				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(mWidgetType, EditorWidgets::getInstance().getSkinReplace(mWidgetSkin), MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER);
-
-			/*if (mNewWidget->isType<MyGUI::StaticText>())
-				mNewWidget->castType<MyGUI::StaticText>()->setCaption(MyGUI::utility::toString("#888888", mWidgetSkin));*/
+				mNewWidget = MyGUI::Gui::getInstance().createWidgetT(
+					mWidgetType,
+					EditorWidgets::getInstance().getSkinReplace(mWidgetSkin),
+					MyGUI::IntCoord(),
+					MyGUI::Align::Default,
+					DEFAULT_EDITOR_LAYER);
 
 			// переводим старт поинт в координаты отца
-			if (parent != nullptr)
+			if (parent != nullptr && !mNewWidget->isRootWidget())
 				mStartPoint -= parent->getAbsolutePosition();
 
 			if (!MyGUI::InputManager::getInstance().isShiftPressed())
@@ -147,13 +167,16 @@ namespace tools
 
 				// создали виджет, все счастливы
 				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
+				if (mPopupMode)
+					widgetContainer->style = mNewWidget->getWidgetStyle().print();
 				mNewWidget = nullptr;
 
 				EditorWidgets::getInstance().add(widgetContainer);
 				UndoManager::getInstance().addValue();
 
 				// чтобы выделился созданый виджет
-				resetCreatorInfo();
+				resetAllCreatorInfo();
+
 				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
 			}
 			else
@@ -163,7 +186,7 @@ namespace tools
 			}
 		}
 
-		resetCreatorInfo();
+		resetAllCreatorInfo();
 
 		eventChangeSelector(false, MyGUI::IntCoord());
 	}
@@ -204,7 +227,7 @@ namespace tools
 		}
 
 		MyGUI::Widget* parent = mNewWidget->getParent();
-		if (parent != nullptr)
+		if (parent != nullptr && !mNewWidget->isRootWidget())
 			point -= parent->getAbsolutePosition();
 
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
@@ -220,6 +243,19 @@ namespace tools
 			abs(point.top - mStartPoint.top));
 
 		return coord;
+	}
+
+	void WidgetCreatorManager::setPopupMode(bool _value)
+	{
+		mPopupMode = _value;
+		mCreateMode = true;
+
+		eventChangeCreatorMode(mCreateMode);
+	}
+
+	bool WidgetCreatorManager::getPopupMode() const
+	{
+		return mPopupMode;
 	}
 
 } // namespace tools

@@ -87,6 +87,7 @@
 	<Tag name="ButtonCreateFile">Создать</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 	<Tag name="ButtonOpenFolder">Выбрать</Tag>
+	<Tag name="ButtonPopupMode">Popup режим</Tag>
 
 	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
 	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>
