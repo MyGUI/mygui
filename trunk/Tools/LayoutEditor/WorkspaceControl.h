@@ -33,6 +33,7 @@ namespace tools
 		void notifyPropertyChangeCoord(const MyGUI::IntCoord& _coordValue);
 		void notifyChangeCreatorMode(bool _createMode);
 		void notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord);
+		void notifyFrameStart(float _time);
 
 		void updateFromCoordValue();
 		void updateSelectionFromValue();

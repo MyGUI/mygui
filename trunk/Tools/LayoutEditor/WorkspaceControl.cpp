@@ -64,10 +64,14 @@ namespace tools
 		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 
 		updateCaption();
+
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &WorkspaceControl::notifyFrameStart);
 	}
 
 	WorkspaceControl::~WorkspaceControl()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &WorkspaceControl::notifyFrameStart);
+
 		WidgetCreatorManager::getInstance().eventChangeSelector -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		PropertiesPanelView::getInstance().eventChangeCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
@@ -175,7 +179,7 @@ namespace tools
 			updateSelectorEnabled();
 			updateSelectionFromValue();
 
-			// возвращаем себе кей фокус
+			// FIXME возвращаем себе кей фокус
 			if (!mMainWidget->getRootKeyFocus())
 				MyGUI::InputManager::getInstance().setKeyFocusWidget(mMainWidget);
 		}
@@ -592,6 +596,20 @@ namespace tools
 			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
 
 			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
+		}
+	}
+
+	void WorkspaceControl::notifyFrameStart(float _time)
+	{
+		if (getSelectorsCapture())
+			return;
+		if (mCurrentWidget == nullptr)
+			return;
+
+		if (mAreaSelectorControl->getCoord() != mCurrentWidget->getAbsoluteCoord())
+		{
+			mCoordValue = mCurrentWidget->getCoord();
+			updateSelectionFromValue();
 		}
 	}
 
