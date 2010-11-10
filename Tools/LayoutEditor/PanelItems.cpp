@@ -114,8 +114,8 @@ namespace tools
 	void PanelItems::selectItem(MyGUI::Widget* _widget)
 	{
 		MyGUI::IItem* item = dynamic_cast<MyGUI::IItem*>(_widget);
-		if (item != nullptr && item->getItemContainer() != nullptr)
-			item->getItemContainer()->_setItemSelected(item);
+		if (item != nullptr && item->_getItemContainer() != nullptr)
+			item->_getItemContainer()->_setItemSelected(item);
 
 		if (_widget->getParent() != nullptr)
 			selectItem(_widget->getParent());

@@ -929,7 +929,7 @@
 			<State name="normal_checked" offset="318 115 1 1"/>
 			<State name="pushed" offset="330 115 1 1"/>
 		</BasisSkin>
-		<BasisSkin type="SimpleText" offset="14 0 2 5"  align="Stretch">
+		<BasisSkin type="SimpleText" offset="14 2 2 1"  align="Stretch">
 			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
@@ -953,13 +953,13 @@
 
 	<Resource type="ResourceSkin" name="PopupMenu" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
-		<Property key="SubmenuImageSize" value="12"/>
+		<!--Property key="SubmenuImageSize" value="12"/-->
 		<Property key="SubMenuLayer" value="Popup"/>
 		<Property key="SubMenuSkin" value="PopupMenu"/>
 		<Property key="SkinLine" value="PopupMenuLine"/>
-		<Property key="HeightLine" value="20"/>
 		<Property key="SeparatorSkin" value="PopupMenuSeparator"/>
-		<Property key="SeparatorHeight" value="10"/>
+		<!--Property key="HeightLine" value="20"/-->
+		<!--Property key="SeparatorHeight" value="10"/-->
 		<Property key="AlignVert" value="true"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 3 3" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
@@ -1012,7 +1012,7 @@
 			<State name="normal_checked" offset="285 72 10 22"/>
 			<State name="pushed" offset="285 96 10 22"/>
 		</BasisSkin>
-		<BasisSkin type="SimpleText" offset="6 0 15 22" align="Stretch">
+		<BasisSkin type="SimpleText" offset="6 2 15 18" align="Stretch">
 			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
@@ -1024,10 +1024,10 @@
 	<Resource type="ResourceSkin" name="MenuBar" size="27 26" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="MenuBarButton"/>
-		<Property key="DistanceButton" value="6"/>
+		<!--Property key="DistanceButton" value="6"/-->
 		<Property key="SubMenuSkin" value="PopupMenu"/>
 		<Property key="SubMenuLayer" value="Popup"/>
-		<Property key="HeightLine" value="22"/>
+		<!--Property key="HeightLine" value="22"/-->
 		<Property key="AlignVert" value="false"/>
 		<Child type="Widget" skin="Default" offset="6 1 15 22" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 26" align="Left VStretch">

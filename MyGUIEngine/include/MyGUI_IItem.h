@@ -35,7 +35,7 @@ namespace MyGUI
 		IItem() { }
 		virtual ~IItem() { }
 
-		virtual IItemContainer* getItemContainer() { return nullptr; }
+		virtual IItemContainer* _getItemContainer() { return nullptr; }
 	};
 
 } // namespace MyGUI

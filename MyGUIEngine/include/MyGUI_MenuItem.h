@@ -94,7 +94,8 @@ namespace MyGUI
 		MenuCtrl* getItemChild();
 
 	/*internal:*/
-		virtual IItemContainer* getItemContainer();
+		virtual IItemContainer* _getItemContainer();
+		IntSize _getContentSize();
 
 	protected:
 		virtual void initialiseOverride();
@@ -106,6 +107,7 @@ namespace MyGUI
 
 	private:
 		MenuCtrl* mOwner;
+		IntSize mMinSize;
 	};
 
 } // namespace MyGUI
