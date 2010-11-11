@@ -93,6 +93,9 @@ namespace MyGUI
 		/** Get child item (submenu) */
 		MenuCtrl* getItemChild();
 
+		bool getItemChecked() const;
+		void setItemChecked(bool _value);
+
 	/*internal:*/
 		virtual IItemContainer* _getItemContainer();
 		IntSize _getContentSize();
@@ -101,13 +104,18 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
 		virtual void onWidgetCreated(Widget* _widget);
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+	private:
+		void updateCheck();
 
 	private:
 		MenuCtrl* mOwner;
 		IntSize mMinSize;
+		Widget* mCheck;
+		bool mCheckValue;
 	};
 
 } // namespace MyGUI

@@ -212,15 +212,28 @@ namespace MyGUI
 				if (contentSize.width > size.width)
 					size.width = contentSize.width;
 			}
+			if (!mItemsInfo.empty())
+				size.height -= mDistanceButton;
 		}
 		else
 		{
+			int maxHeight = 0;
 			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
 				IntSize contentSize = iter->item->_getContentSize();
-				iter->item->setCoord(size.width, 0, contentSize.width, contentSize.height);
+				if (maxHeight < contentSize.height)
+					maxHeight = contentSize.height;
+			}
+
+			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			{
+				IntSize contentSize = iter->item->_getContentSize();
+				iter->item->setCoord(size.width, 0, contentSize.width, maxHeight);
 				size.width += contentSize.width + mDistanceButton;
 			}
+
+			if (!mItemsInfo.empty())
+				size.width -= mDistanceButton;
 		}
 
 		if (mResizeToContent)
