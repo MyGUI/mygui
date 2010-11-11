@@ -144,6 +144,7 @@
 
 		<Parameter key="MenuItemId" value="String"/>
 		<Parameter key="MenuItemType" value="MenuItemType"/>
+		<Parameter key="MenuItemChecked" value="Bool"/>
 	</Widget>
 
 	<Widget name="Message">
