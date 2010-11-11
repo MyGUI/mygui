@@ -27,7 +27,9 @@ namespace MyGUI
 
 	MenuItem::MenuItem() :
 		mOwner(nullptr),
-		mMinSize(10, 10)
+		mMinSize(10, 10),
+		mCheck(nullptr),
+		mCheckValue(false)
 	{
 	}
 
@@ -48,11 +50,15 @@ namespace MyGUI
 		}
 		mOwner = parent->castType<MenuCtrl>();
 
+		assignWidget(mCheck, "Check");
+
 		//if (isUserString("MinSize"))
 			//mMinSize = IntSize::parse(getUserString("MinSize"));
 
 		//FIXME нам нуженфокус клавы
 		setNeedKeyFocus(true);
+
+		updateCheck();
 	}
 
 	void MenuItem::shutdownOverride()
@@ -146,6 +152,8 @@ namespace MyGUI
 			setItemId(_value);
 		else if (_key == "MenuItemType")
 			setItemType(utility::parseValue<MenuItemType>(_value));
+		if (_key == "MenuItemChecked")
+			setItemChecked(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -171,6 +179,23 @@ namespace MyGUI
 			return mMinSize;
 
 		return text->getTextSize() + (getSize() - text->getSize());
+	}
+
+	void MenuItem::updateCheck()
+	{
+		if (mCheck != nullptr)
+			mCheck->setVisible(mCheckValue);
+	}
+
+	bool MenuItem::getItemChecked() const
+	{
+		return mCheckValue;
+	}
+
+	void MenuItem::setItemChecked(bool _value)
+	{
+		mCheckValue = _value;
+		updateCheck();
 	}
 
 } // namespace MyGUI
