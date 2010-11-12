@@ -181,4 +181,10 @@
 		<Pressed>true</Pressed>
 		<Modifier></Modifier>
 	</Command>
+	<Command>
+		<Name>Command_FreeChildMode</Name>
+		<KeyCode>F4</KeyCode>
+		<Pressed>true</Pressed>
+		<Modifier></Modifier>
+	</Command>
 </MyGUI>
