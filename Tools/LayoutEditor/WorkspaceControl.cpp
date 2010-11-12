@@ -17,7 +17,8 @@ namespace tools
 		mGridStep(0),
 		mCurrentWidget(nullptr),
 		mMoveableWidget(false),
-		mPositionSelectorCreatorControl(nullptr)
+		mPositionSelectorCreatorControl(nullptr),
+		mFreeChildMode(false)
 	{
 		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
@@ -59,6 +60,8 @@ namespace tools
 
 		CommandManager::getInstance().registerCommand("Command_Delete", MyGUI::newDelegate(this, &WorkspaceControl::Command_Delete));
 		CommandManager::getInstance().registerCommand("Command_NextItem", MyGUI::newDelegate(this, &WorkspaceControl::Command_NextItem));
+
+		CommandManager::getInstance().registerCommand("Command_FreeChildMode", MyGUI::newDelegate(this, &WorkspaceControl::Command_FreeChildMode));
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
@@ -150,7 +153,7 @@ namespace tools
 
 		PropertiesPanelView::getInstance().setCoord(mCoordValue);
 		if (mCurrentWidget != nullptr)
-			mCurrentWidget->setCoord(mCoordValue);
+			setWidgetCoord(mCurrentWidget, mCoordValue);
 
 		UndoManager::getInstance().addValue(PR_POSITION);
 	}
@@ -464,7 +467,7 @@ namespace tools
 		// тут работаем с локальными координатами
 		PropertiesPanelView::getInstance().setCoord(mCoordValue);
 		if (mCurrentWidget != nullptr)
-			mCurrentWidget->setCoord(mCoordValue);
+			setWidgetCoord(mCurrentWidget, mCoordValue);
 
 		updateSelectionFromValue();
 	}
@@ -540,6 +543,16 @@ namespace tools
 		_result = true;
 	}
 
+	void WorkspaceControl::Command_FreeChildMode(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		mFreeChildMode = !mFreeChildMode;
+
+		_result = true;
+	}
+
 	void WorkspaceControl::notifyChangeCreatorMode(bool _createMode)
 	{
 		updateSelectorEnabled();
@@ -610,6 +623,43 @@ namespace tools
 		{
 			mCoordValue = mCurrentWidget->getCoord();
 			updateSelectionFromValue();
+		}
+	}
+
+	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord)
+	{
+		if (mFreeChildMode)
+		{
+			typedef std::pair<MyGUI::Widget*, MyGUI::IntCoord> PairWidgetCoord;
+			typedef std::vector<PairWidgetCoord> VectorPairWidgetCoord;
+			VectorPairWidgetCoord coords;
+
+			// запоминаем позиции детей
+			for (size_t index = 0; index < _widget->getChildCount(); ++ index)
+			{
+				MyGUI::Widget* child = _widget->getChildAt(index);
+				if (!child->isRootWidget())
+					coords.push_back(PairWidgetCoord(child, child->getCoord()));
+			}
+
+			// на сколько сдвинут виджет
+			MyGUI::IntCoord coordDiff = _coord - _widget->getCoord();
+			_widget->setCoord(_coord);
+
+			// восттанавливаем обсолютное положение детей
+			for (VectorPairWidgetCoord::iterator item = coords.begin(); item != coords.end(); ++ item)
+			{
+				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find((*item).first);
+				if (widgetContainer != nullptr)
+				{
+					MyGUI::IntCoord coord = (*item).second;
+					(*item).first->setCoord(coord.left - coordDiff.left, coord.top - coordDiff.top, coord.width, coord.height);
+				}
+			}
+		}
+		else
+		{
+			_widget->setCoord(_coord);
 		}
 	}
 

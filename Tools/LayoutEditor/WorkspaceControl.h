@@ -64,6 +64,10 @@ namespace tools
 		void Command_Delete(const MyGUI::UString& _commandName, bool& _result);
 		void Command_NextItem(const MyGUI::UString& _commandName, bool& _result);
 
+		void Command_FreeChildMode(const MyGUI::UString& _commandName, bool& _result);
+
+		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
@@ -71,6 +75,7 @@ namespace tools
 		MyGUI::Widget* mCurrentWidget;
 		bool mMoveableWidget;
 		PositionSelectorControl* mPositionSelectorCreatorControl;
+		bool mFreeChildMode;
 	};
 
 } // namespace tools
