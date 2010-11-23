@@ -111,6 +111,8 @@ option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
+SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Direct3D 9
