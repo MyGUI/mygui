@@ -131,6 +131,8 @@ namespace tools
 
 	void OpenSaveFileDialog::update()
 	{
+		if (mCurrentFolder.empty())
+			mCurrentFolder = "/";
 		mCurrentFolderField->setCaption(mCurrentFolder);
 
 		mListFiles->removeAllItems();
