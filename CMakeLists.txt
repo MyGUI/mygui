@@ -111,8 +111,6 @@ option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
-SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
-
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Direct3D 9
@@ -144,9 +142,20 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
+if (MSVC)
+	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
+endif ()
+
 # Used to not annoy users with high level warnings (should be TRUE for developers)
 option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
-option(MYGUI_CHECK_MEMORY_LEAKS "Check memory leaks. Developers should enable this." FALSE)
+if (MSVC)
+	option(MYGUI_CHECK_MEMORY_LEAKS "Check memory leaks. Developers should enable this." FALSE)
+endif ()
+
+if (MYGUI_USE_PROJECT_FOLDERS)
+	SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+endif ()
+
 if (MYGUI_CHECK_MEMORY_LEAKS)
 	add_definitions(-DMYGUI_CHECK_MEMORY_LEAKS)
 endif ()
