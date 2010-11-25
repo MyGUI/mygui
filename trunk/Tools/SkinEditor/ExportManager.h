@@ -7,7 +7,7 @@
 #define __EXPORT_MANAGER_H__
 
 #include <MyGUI.h>
-#include "OpenSaveFileDialog.h"
+#include "Tools/OpenSaveFileDialog.h"
 
 namespace tools
 {

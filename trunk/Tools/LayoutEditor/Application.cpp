@@ -12,7 +12,7 @@
 #include "WidgetSelectorManager.h"
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "StateManager.h"
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
@@ -46,6 +46,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Tools");
 		setResourceFilename("Editor.xml");
 	}
 

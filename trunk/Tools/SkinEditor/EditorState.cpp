@@ -11,7 +11,7 @@
 #include "CommandManager.h"
 #include "ActionManager.h"
 #include "MessageBoxManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 

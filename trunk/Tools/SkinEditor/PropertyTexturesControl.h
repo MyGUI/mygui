@@ -9,7 +9,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 #include "TextureBrowseControl.h"
-#include "Dialog.h"
+#include "Tools/Dialog.h"
 
 namespace tools
 {

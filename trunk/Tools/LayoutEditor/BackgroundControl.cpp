@@ -5,7 +5,7 @@
 */
 #include "Precompiled.h"
 #include "BackgroundControl.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 
 namespace tools
 {

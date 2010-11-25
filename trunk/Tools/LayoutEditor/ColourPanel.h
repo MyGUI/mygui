@@ -7,7 +7,7 @@
 #define __COLOUR_PANEL_H__
 
 #include <MyGUI.h>
-#include "Dialog.h"
+#include "Tools/Dialog.h"
 
 namespace tools
 {

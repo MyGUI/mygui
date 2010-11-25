@@ -7,7 +7,7 @@
 #include "TestState.h"
 #include "CommandManager.h"
 #include "StateManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "MessageBoxManager.h"
 #include "EditorWidgets.h"
 #include "WidgetSelectorManager.h"
