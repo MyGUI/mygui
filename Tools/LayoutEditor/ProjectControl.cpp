@@ -35,7 +35,7 @@ namespace tools
 		mList->eventToolTip += MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->addFileMask("*.xml");
+		mOpenSaveFileDialog->setFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
