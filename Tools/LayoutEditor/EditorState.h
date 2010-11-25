@@ -2,7 +2,7 @@
 #define __EDITOR_STATE_H__
 
 #include "SettingsWindow.h"
-#include "OpenSaveFileDialog.h"
+#include "Tools/OpenSaveFileDialog.h"
 #include "BackgroundControl.h"
 #include "CodeGenerator.h"
 #include "MessageBoxFadeControl.h"

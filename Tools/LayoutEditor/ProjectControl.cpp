@@ -9,7 +9,7 @@
 #include "RecentFilesManager.h"
 #include "CommandManager.h"
 #include "MessageBoxManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
 #include "EditorWidgets.h"

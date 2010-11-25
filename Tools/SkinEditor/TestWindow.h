@@ -7,7 +7,7 @@
 #define __TEST_WINDOW_H__
 
 #include <MyGUI.h>
-#include "Dialog.h"
+#include "Tools/Dialog.h"
 #include "BackgroundControl.h"
 #include "SkinItem.h"
 

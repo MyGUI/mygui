@@ -49,16 +49,16 @@ set (HEADER_FILES
   RegionTextureControl.h
   ActionManager.h
   MainMenuControl.h
-  OpenSaveFileDialog.h
+  ../../Common/Tools/OpenSaveFileDialog.h
   CommandManager.h
   ColourPanel.h
-  Dialog.h
+  ../../Common/Tools/Dialog.h
   TestWindow.h
   BackgroundControl.h
   ExportManager.h
   Localise.h
   MessageBoxManager.h
-  DialogManager.h
+  ../../Common/Tools/DialogManager.h
   MessageBoxFadeControl.h
   HotKeyCommand.h
   HotKeyManager.h
@@ -126,15 +126,15 @@ set (SOURCE_FILES
   RegionTextureControl.cpp
   ActionManager.cpp
   MainMenuControl.cpp
-  OpenSaveFileDialog.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
   CommandManager.cpp
   ColourPanel.cpp
-  Dialog.cpp
+  ../../Common/Tools/Dialog.cpp
   TestWindow.cpp
   BackgroundControl.cpp
   ExportManager.cpp
   MessageBoxManager.cpp
-  DialogManager.cpp
+  ../../Common/Tools/DialogManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
   StateManager.cpp
@@ -202,15 +202,12 @@ SOURCE_GROUP("Source Files" FILES
   RegionTextureControl.cpp
   ActionManager.cpp
   MainMenuControl.cpp
-  OpenSaveFileDialog.cpp
   CommandManager.cpp
   ColourPanel.cpp
-  Dialog.cpp
   TestWindow.cpp
   BackgroundControl.cpp
   ExportManager.cpp
   MessageBoxManager.cpp
-  DialogManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
   StateManager.cpp
@@ -279,16 +276,13 @@ SOURCE_GROUP("Header Files" FILES
   RegionTextureControl.h
   ActionManager.h
   MainMenuControl.h
-  OpenSaveFileDialog.h
   CommandManager.h
   ColourPanel.h
-  Dialog.h
   TestWindow.h
   BackgroundControl.h
   ExportManager.h
   Localise.h
   MessageBoxManager.h
-  DialogManager.h
   MessageBoxFadeControl.h
   HotKeyCommand.h
   HotKeyManager.h
