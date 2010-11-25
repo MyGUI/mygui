@@ -30,7 +30,7 @@ namespace MyGUI
 		destroy();
 	}
 
-	void OpenGLVertexBuffer::setVertextCount(size_t _count)
+	void OpenGLVertexBuffer::setVertexCount(size_t _count)
 	{
 		if (_count != mNeedVertexCount)
 		{
@@ -40,7 +40,7 @@ namespace MyGUI
 		}
 	}
 
-	size_t OpenGLVertexBuffer::getVertextCount()
+	size_t OpenGLVertexBuffer::getVertexCount()
 	{
 		return mNeedVertexCount;
 	}

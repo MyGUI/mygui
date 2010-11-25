@@ -67,12 +67,12 @@ namespace MyGUI
 		createVertexBuffer();
 	}
 
-	void OgreVertexBuffer::setVertextCount(size_t _count)
+	void OgreVertexBuffer::setVertexCount(size_t _count)
 	{
 		mNeedVertexCount = _count;
 	}
 
-	size_t OgreVertexBuffer::getVertextCount()
+	size_t OgreVertexBuffer::getVertexCount()
 	{
 		return mNeedVertexCount;
 	}
