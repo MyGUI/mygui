@@ -17,7 +17,8 @@ namespace tools
 		mEditFileName(nullptr),
 		mCurrentFolderField(nullptr),
 		mButtonOpenSave(nullptr),
-		mFolderMode(false)
+		mFolderMode(false),
+		mFileMask("*.*")
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
@@ -34,7 +35,6 @@ namespace tools
 		mWindow = mMainWidget->castType<MyGUI::Window>();
 		mWindow->eventWindowButtonPressed += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
-		mFileMasks.push_back("*.*");
 		mCurrentFolder = common::getSystemCurrentFolder();
 
 		mMainWidget->setVisible(false);
@@ -149,17 +149,14 @@ namespace tools
 
 		if (!mFolderMode)
 		{
-			for (VectorUString::const_iterator mask = mFileMasks.begin(); mask != mFileMasks.end(); ++mask)
-			{
-				// add files by given mask
-				infos.clear();
-				getSystemFileList(infos, mCurrentFolder, *mask);
+			// add files by given mask
+			infos.clear();
+			getSystemFileList(infos, mCurrentFolder, mFileMask);
 
-				for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
-				{
-					if (!(*item).folder)
-						mListFiles->addItem((*item).name, *item);
-				}
+			for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
+			{
+				if (!(*item).folder)
+					mListFiles->addItem((*item).name, *item);
 			}
 		}
 	}
@@ -170,22 +167,15 @@ namespace tools
 		mEditFileName->setCaption(_value);
 	}
 
-	void OpenSaveFileDialog::clearFileMasks()
+	void OpenSaveFileDialog::setFileMask(const MyGUI::UString& _value)
 	{
-		mFileMasks.clear();
-		mFileMasks.push_back("*.*");
-
+		mFileMask = _value;
 		update();
 	}
 
-	void OpenSaveFileDialog::addFileMask(const MyGUI::UString& _value)
+	const MyGUI::UString& OpenSaveFileDialog::getFileMask() const
 	{
-		if (mFileMasks.size() == 1 && mFileMasks[0] == "*.*")
-			mFileMasks.clear();
-
-		mFileMasks.push_back(_value);
-
-		update();
+		return mFileMask;
 	}
 
 	void OpenSaveFileDialog::onDoModal()
