@@ -112,12 +112,12 @@ namespace demo
 
 							//MyGUI::Widget* widget = rttnode->castType<MyGUI::Widget>(false);
 							//if (widget != nullptr)
-							//	widget->setCaption(rtt ? "RTT mode" : "Vertext mode");
+							//	widget->setCaption(rtt ? "RTT mode" : "Vertex mode");
 
 
 							/*for (SetWidget::iterator item=mWidgets.begin(); item!=mWidgets.end(); ++item)
 							{
-								(*item)->setCaption(mIsRTT ? "RTT mode" : "Vertext mode");
+								(*item)->setCaption(mIsRTT ? "RTT mode" : "Vertex mode");
 							}*/
 						}
 					}
