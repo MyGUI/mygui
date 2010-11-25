@@ -8,8 +8,8 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "WidgetContainer.h"
-#include "Dialog.h"
-#include "OpenSaveFileDialog.h"
+#include "Tools/Dialog.h"
+#include "Tools/OpenSaveFileDialog.h"
 
 namespace tools
 {

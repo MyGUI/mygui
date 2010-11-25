@@ -12,7 +12,7 @@
 #include "ExportManager.h"
 #include "MyGUI_FilterNoneSkin.h"
 #include "MessageBoxManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "HotKeyManager.h"
 #include "StateManager.h"
 #include "RecentFilesManager.h"
@@ -40,6 +40,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
+		addResourceLocation(getRootMedia() + "/Common/Tools");
 		setResourceFilename("Editor.xml");
 	}
 

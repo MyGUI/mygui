@@ -7,7 +7,7 @@
 #define __SETTINGS_WINDOW_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "Dialog.h"
+#include "Tools/Dialog.h"
 #include "SettingsResourcesControl.h"
 #include "SettingsResourcePathsControl.h"
 #include "SettingsGeneralControl.h"

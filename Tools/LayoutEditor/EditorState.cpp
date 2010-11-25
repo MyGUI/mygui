@@ -11,7 +11,7 @@
 #include "WidgetSelectorManager.h"
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
-#include "DialogManager.h"
+#include "Tools/DialogManager.h"
 #include "StateManager.h"
 #include "Localise.h"
 #include "Application.h"
