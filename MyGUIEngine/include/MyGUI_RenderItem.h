@@ -59,7 +59,7 @@ namespace MyGUI
 		size_t getVertexCount() const;
 
 		bool getCurrentUpdate() const;
-		Vertex* getCurrentVertextBuffer() const;
+		Vertex* getCurrentVertexBuffer() const;
 
 		void setLastVertexCount(size_t _count);
 
@@ -83,8 +83,8 @@ namespace MyGUI
 		size_t mCountVertex;
 
 		bool mCurrentUpdate;
-		Vertex* mCurrentVertext;
-		size_t mLastVertextCount;
+		Vertex* mCurrentVertex;
+		size_t mLastVertexCount;
 
 		IVertexBuffer* mVertexBuffer;
 		IRenderTarget* mRenderTarget;

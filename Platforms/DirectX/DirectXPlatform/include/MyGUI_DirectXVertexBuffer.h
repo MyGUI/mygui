@@ -23,8 +23,8 @@ namespace MyGUI
 		DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager);
 		virtual ~DirectXVertexBuffer();
 
-		virtual void setVertextCount(size_t _count);
-		virtual size_t getVertextCount();
+		virtual void setVertexCount(size_t _count);
+		virtual size_t getVertexCount();
 
 		virtual Vertex* lock();
 		virtual void unlock();

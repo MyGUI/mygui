@@ -20,8 +20,8 @@ namespace MyGUI
 		OpenGLVertexBuffer();
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void setVertextCount(size_t _count);
-		virtual size_t getVertextCount();
+		virtual void setVertexCount(size_t _count);
+		virtual size_t getVertexCount();
 
 		virtual Vertex* lock();
 		virtual void unlock();

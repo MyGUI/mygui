@@ -101,7 +101,7 @@ namespace MyGUI
 	{
 		if (!mVisible || mEmptyView) return;
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		Vertex* _vertex = mRenderItem->getCurrentVertexBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 

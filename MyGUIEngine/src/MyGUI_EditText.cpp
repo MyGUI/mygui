@@ -551,7 +551,7 @@ namespace MyGUI
 
 		if (mTextOutDate) updateRawData();
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		Vertex* _vertex = mRenderItem->getCurrentVertexBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 

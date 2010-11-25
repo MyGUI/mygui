@@ -29,7 +29,7 @@ namespace MyGUI
 		destroy();
 	}
 
-	void DirectXVertexBuffer::setVertextCount(size_t _count)
+	void DirectXVertexBuffer::setVertexCount(size_t _count)
 	{
 		if (_count != mNeedVertexCount)
 		{
@@ -38,7 +38,7 @@ namespace MyGUI
 		}
 	}
 
-	size_t DirectXVertexBuffer::getVertextCount()
+	size_t DirectXVertexBuffer::getVertexCount()
 	{
 		return mNeedVertexCount;
 	}
