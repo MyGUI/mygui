@@ -31,8 +31,8 @@ namespace tools
 		typedef std::vector<MyGUI::UString> VectorUString;
 		void setRecentFilders(const VectorUString& _listFolders);
 
-		void addFileMask(const MyGUI::UString& _value);
-		void clearFileMasks();
+		void setFileMask(const MyGUI::UString& _value);
+		const MyGUI::UString& getFileMask() const;
 
 	protected:
 		virtual void onDoModal();
@@ -59,7 +59,7 @@ namespace tools
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;
-		VectorUString mFileMasks;
+		MyGUI::UString mFileMask;
 
 		MyGUI::UString mMode;
 		bool mFolderMode;
