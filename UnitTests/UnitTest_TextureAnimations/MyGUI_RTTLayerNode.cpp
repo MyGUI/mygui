@@ -70,7 +70,7 @@ namespace MyGUI
 		if (mVertexBuffer == nullptr)
 		{
 			mVertexBuffer = render.createVertexBuffer();
-			mVertexBuffer->setVertextCount(VertexQuad::VertexCount);
+			mVertexBuffer->setVertexCount(VertexQuad::VertexCount);
 			mData.resize(1);
 
 			_update = true;
@@ -137,7 +137,7 @@ namespace MyGUI
 		if (mIsAnimate)
 		{
 			// блитим анимацию
-			mVertexBuffer->setVertextCount(count_quad * VertexQuad::VertexCount);
+			mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
 			for (size_t index = 0; index < count_quad; ++index)
@@ -159,7 +159,7 @@ namespace MyGUI
 
 			if (_update || need_update)
 			{
-				mVertexBuffer->setVertextCount(count_quad * VertexQuad::VertexCount);
+				mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 				VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
 				// копируем дефолтные данные
