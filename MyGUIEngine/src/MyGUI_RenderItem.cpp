@@ -37,8 +37,8 @@ namespace MyGUI
 		mOutOfDate(false),
 		mCountVertex(0),
 		mCurrentUpdate(true),
-		mCurrentVertext(nullptr),
-		mLastVertextCount(0),
+		mCurrentVertex(nullptr),
+		mLastVertexCount(0),
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr),
 		mCompression(false),
@@ -70,15 +70,15 @@ namespace MyGUI
 			for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
 			{
 				// перед вызовом запоминаем позицию в буфере
-				mCurrentVertext = buffer;
-				mLastVertextCount = 0;
+				mCurrentVertex = buffer;
+				mLastVertexCount = 0;
 
 				(*iter).first->doRender();
 
 				// колличество отрисованных вершин
-				MYGUI_DEBUG_ASSERT(mLastVertextCount <= (*iter).second, "It is too much vertexes");
-				buffer += mLastVertextCount;
-				mCountVertex += mLastVertextCount;
+				MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
+				buffer += mLastVertexCount;
+				mCountVertex += mLastVertexCount;
 			}
 
 			mVertexBuffer->unlock();
@@ -120,7 +120,7 @@ namespace MyGUI
 				mDrawItems.erase(iter);
 				mOutOfDate = true;
 
-				mVertexBuffer->setVertextCount(mNeedVertexCount);
+				mVertexBuffer->setVertexCount(mNeedVertexCount);
 
 				// если все отдетачились, расскажем отцу
 				if (mDrawItems.empty())
@@ -150,7 +150,7 @@ namespace MyGUI
 		mNeedVertexCount += _count;
 		mOutOfDate = true;
 
-		mVertexBuffer->setVertextCount(mNeedVertexCount);
+		mVertexBuffer->setVertexCount(mNeedVertexCount);
 	}
 
 	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
@@ -167,7 +167,7 @@ namespace MyGUI
 					(*iter).second = _count;
 					mOutOfDate = true;
 
-					mVertexBuffer->setVertextCount(mNeedVertexCount);
+					mVertexBuffer->setVertexCount(mNeedVertexCount);
 				}
 				return;
 			}
@@ -180,7 +180,7 @@ namespace MyGUI
 		if (mTexture == _value)
 			return;
 
-		MYGUI_DEBUG_ASSERT(mVertexBuffer->getVertextCount() == 0, "change texture only empty buffer");
+		MYGUI_DEBUG_ASSERT(mVertexBuffer->getVertexCount() == 0, "change texture only empty buffer");
 		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
 
 		mTexture = _value;
@@ -237,14 +237,14 @@ namespace MyGUI
 		return mCurrentUpdate;
 	}
 
-	Vertex* RenderItem::getCurrentVertextBuffer() const
+	Vertex* RenderItem::getCurrentVertexBuffer() const
 	{
-		return mCurrentVertext;
+		return mCurrentVertex;
 	}
 
 	void RenderItem::setLastVertexCount(size_t _count)
 	{
-		mLastVertextCount = _count;
+		mLastVertexCount = _count;
 	}
 
 	IRenderTarget* RenderItem::getRenderTarget()
