@@ -82,7 +82,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT(resource != nullptr, "Layout '" << _file << "' couldn't be loaded");
 
-		VectorWidgetPtr result =  resource->createLayout(_prefix, _parent);
+		VectorWidgetPtr result = resource->createLayout(_prefix, _parent);
 
 		mCurrentLayoutName = "";
 
