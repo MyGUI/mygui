@@ -9,12 +9,6 @@ if (MYGUI_BUILD_PLUGINS)
 		endif()
 	endif()
 
-	if (MYGUI_BUILD_AWESOMIUM_PLUGIN)
-		if (WIN32 OR APPLE)
-			add_dependencies(LayoutEditor Plugin_AwesomiumWidget)
-		endif ()
-	endif()
-
 	if (MYGUI_BUILD_BERKELIUM_PLUGIN)
 		add_dependencies(LayoutEditor Plugin_BerkeliumWidget)
 	endif()
