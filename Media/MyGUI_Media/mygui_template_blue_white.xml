@@ -448,4 +448,54 @@
             <Widget type="Widget" skin="MenuItemPopupButtonSkin" position="31 1 10 12" align="Right VCenter"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ProgressBarTemplate">
+        <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <UserString key="TargetWidgetType" value="Progress"/>
+            <UserString key="TrackWidth" value="7"/>
+            <UserString key="TrackFill" value="false"/>
+            <UserString key="TrackSkin" value="SliderTrackHSkin"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="HStretch Top" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+            </Widget>
+        </Widget>
+        <Widget type="Progress" skin="ProgressBarTemplate" position="25 75 125 15">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="100"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
+        </Widget>
+        <Widget type="Progress" skin="Progress" position="25 100 125 15">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="100"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ProgressBarFillTemplate">
+        <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <UserString key="TargetWidgetType" value="Progress"/>
+            <UserString key="TrackFill" value="true"/>
+            <UserString key="TrackSkin" value="ProgressTrackHSkin"/>
+            <UserString key="TrackWidth" value="6"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="HStretch Top" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+            </Widget>
+        </Widget>
+        <Widget type="Progress" skin="ProgressBarFillTemplate" position="25 75 125 15">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="1"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
+        </Widget>
+        <Widget type="Progress" skin="ProgressFill" position="25 100 125 15">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="1"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
+        </Widget>
+    </Resource>
 </MyGUI>
