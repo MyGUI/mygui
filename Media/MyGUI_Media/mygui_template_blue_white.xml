@@ -2209,4 +2209,13 @@
             <Property key="List_AddItem" value=""/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ItemBoxTemplate">
+        <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
+            <UserString key="TargetWidgetType" value="ItemBox"/>
+            <UserString key="DragLayer" value="DragAndDrop"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
+            <Widget type="VScroll" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="HScroll" skin="ScrollHTemplate" position="3 35 32 15" align="HStretch Bottom"/>
+        </Widget>
+    </Resource>
 </MyGUI>

@@ -931,7 +931,6 @@ namespace MyGUI
 		mPropertyRename["ListSmoothShow"] = "SmoothShow";
 		mPropertyRename["HeightList"] = "MaxListLength";
 
-		mPropertyIgnore.insert("AlignVert");
 		mPropertyIgnore.insert("DragLayer");
 		mPropertyIgnore.insert("SkinLine");
 		mPropertyIgnore.insert("HeightLine");
@@ -942,7 +941,6 @@ namespace MyGUI
 		mPropertyIgnore.insert("SubmenuImageSize");
 		mPropertyIgnore.insert("SubMenuSkin");
 		mPropertyIgnore.insert("SubMenuLayer");
-		mPropertyIgnore.insert("AlignVert");
 		mPropertyIgnore.insert("DistanceButton");
 		mPropertyIgnore.insert("ButtonSkin");
 		mPropertyIgnore.insert("ButtonType");
