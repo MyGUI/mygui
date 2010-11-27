@@ -249,6 +249,11 @@ namespace MyGUI
 		/** Get parent menu item or nullptr if no item */
 		MenuItem* getMenuItemParent();
 
+		void setAlignVert(bool _value);
+
+		bool getAlignVert() const;
+
+
 
 	/*events:*/
 		/** Event : Enter pressed or mouse clicked.\n
@@ -291,6 +296,8 @@ namespace MyGUI
 		virtual void onKeyChangeRootFocus(bool _focus);
 
 		virtual void onWidgetCreated(Widget* _widget);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);
