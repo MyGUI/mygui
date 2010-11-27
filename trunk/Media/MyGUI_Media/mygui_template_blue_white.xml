@@ -2229,4 +2229,34 @@
             <Property key="CanvasSize" value="100 100"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MessageBoxTemplate">
+        <Widget type="Widget" skin="PanelEmpty" position="15 10 160 123" name="Root">
+            <Property key="Snap" value="true"/>
+            <UserString key="TargetWidgetType" value="Message"/>
+            <UserString key="DefaultLayer" value="Info"/>
+            <UserString key="ButtonSkin" value="ButtonTemplate"/>
+            <Widget type="Button" skin="CaptionSkin" position="0 0 160 28" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="Default"/>
+                <Property key="TextAlign" value="Center"/>
+                <UserString key="Action" value="Move"/>
+            </Widget>
+            <Widget type="Widget" skin="WindowFrameSkin" position="0 28 160 94" align="Stretch">
+                <Widget type="StaticText" skin="StaticText" position="60 5 92 50" align="Stretch" name="Text">
+                    <Property key="TextColour" value="0 0 0"/>
+                </Widget>
+                <Widget type="StaticImage" skin="StaticImage" position="7 5 50 50" name="Icon">
+                    <Property key="ImageResource" value="pic_CoreMessageIcon"/>
+                    <Property key="ImageGroup" value="Icons"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="7 59 145 26" align="HStretch Bottom" name="ButtonPlace">
+                    <Widget type="Button" skin="ButtonTemplate" position="25 0 100 26" name="ButtonTemplate"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Message" skin="MessageBoxTemplate" position="15 140 379 123">
+            <Property key="MessageButton" value="Retry"/>
+            <Property key="Caption" value="Caption"/>
+            <Property key="MessageText" value="ytuytuiytiuytiuytuiytiuyti\nuytuiytuiyt"/>
+        </Widget>
+    </Resource>
 </MyGUI>

@@ -42,6 +42,9 @@ namespace MyGUI
 	public:
 		Message();
 
+		/** @copydoc Widget::setVisible */
+		virtual void setVisible(bool _value);
+
 		/** Set message text*/
 		void setMessageText(const UString& _value);
 
@@ -57,7 +60,7 @@ namespace MyGUI
 		/** Set message icon*/
 		void setMessageIcon(MessageBoxStyle _value);
 		/** Set fade under message*/
-		void setWindowFade(bool _value);
+		//void setWindowFade(bool _value);
 
 		void endMessage(MessageBoxStyle _result);
 		void endMessage();
@@ -133,7 +136,7 @@ namespace MyGUI
 		bool mSmoothShow;
 
 		std::string mDefaultLayer, mDefaultCaption;
-		std::string mFadeSkin, mFadeLayer;
+		//std::string mFadeSkin, mFadeLayer;
 		Widget* mWidgetFade;
 		StaticImage* mIcon;
 		int mLeftOffset1;
