@@ -103,6 +103,8 @@
 
 		<Property key="Skin" value="ItemBoxV"/>
 		<Property key="Skin" value="ItemBoxH"/>
+
+		<Parameter key="AlignVert" value="Bool"/>
 	</Widget>
 
 	<Widget name="List">

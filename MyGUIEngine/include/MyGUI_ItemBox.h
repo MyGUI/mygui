@@ -107,7 +107,7 @@ namespace MyGUI
 		/** Set vertical alignment grid mode */
 		void setItemBoxAlignVert(bool _value);
 		/** Get vertical alignment grid mode flag */
-		bool getItemBoxAlignVert();
+		bool getItemBoxAlignVert() const;
 
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(Widget* _widget);
@@ -258,6 +258,8 @@ namespace MyGUI
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		size_t calcIndexByWidget(Widget* _widget);

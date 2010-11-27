@@ -58,8 +58,8 @@ namespace MyGUI
 
 		mDragLayer = "DragAndDrop";
 
-		if (isUserString("AlignVert"))
-			mAlignVert = utility::parseBool(getUserString("AlignVert"));
+		/*if (isUserString("AlignVert"))
+			mAlignVert = utility::parseBool(getUserString("AlignVert"));*/
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
@@ -473,7 +473,8 @@ namespace MyGUI
 
 	void ItemBox::setItemBoxAlignVert(bool _vert)
 	{
-		if (mAlignVert == _vert) return;
+		if (mAlignVert == _vert)
+			return;
 		mAlignVert = _vert;
 
 		mCountItemInLine = -1;
@@ -895,7 +896,7 @@ namespace MyGUI
 		setItemDataAt(_index, Any::Null);
 	}
 
-	bool ItemBox::getItemBoxAlignVert()
+	bool ItemBox::getItemBoxAlignVert() const
 	{
 		return mAlignVert;
 	}
@@ -918,6 +919,18 @@ namespace MyGUI
 	void ItemBox::setCoord(int _left, int _top, int _width, int _height)
 	{
 		setCoord(IntCoord(_left, _top, _width, _height));
+	}
+
+	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "AlignVert")
+			setItemBoxAlignVert(utility::parseValue<bool>(_value));
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
