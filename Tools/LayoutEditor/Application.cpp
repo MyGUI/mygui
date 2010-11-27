@@ -94,6 +94,9 @@ namespace tools
 		new EditorWidgets();
 		EditorWidgets::getInstance().initialise();
 
+		new BackwardCompatibilityManager();
+		BackwardCompatibilityManager::getInstance().initialise();
+
 		new UndoManager();
 		UndoManager::getInstance().initialise(EditorWidgets::getInstancePtr());
 
@@ -105,9 +108,6 @@ namespace tools
 
 		new RecentFilesManager();
 		RecentFilesManager::getInstance().initialise();
-
-		new BackwardCompatibilityManager();
-		BackwardCompatibilityManager::getInstance().initialise();
 
 		new ColourManager();
 		ColourManager::getInstance().initialise();
