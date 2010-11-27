@@ -51,17 +51,26 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		assignWidget(mClient, "Client");
+		assignWidget(mClient, "TrackPlace");
 
 		if (nullptr == mClient)
-			mClient = this;
+		{
+			//OBSOLETE
+			assignWidget(mClient, "Client");
+
+			if (nullptr == mClient)
+				mClient = this;
+		}
 
 		if (isUserString("TrackSkin"))
 			mTrackSkin = getUserString("TrackSkin");
 		if (isUserString("TrackWidth"))
 			mTrackWidth = utility::parseValue<int>(getUserString("TrackWidth"));
+		//OBSOLETE
 		if (isUserString("TrackMin"))
 			mTrackMin = utility::parseValue<int>(getUserString("TrackMin"));
+		else
+			mTrackMin = mTrackWidth;
 		if (isUserString("TrackStep"))
 			mTrackStep = utility::parseValue<int>(getUserString("TrackStep"));
 		if (isUserString("TrackFill"))
