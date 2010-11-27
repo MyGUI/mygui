@@ -704,8 +704,8 @@
 		<Property key="ButtonSize" value="100 26"/>
 		<Property key="ButtonOffset" value="20 43"/>
 		<Property key="DefaultLayer" value="Info"/>
-		<Property key="FadeSkin" value="MarkerBlack"/>
-		<Property key="FadeLayer" value="FadeMiddle"/>
+		<!--Property key="FadeSkin" value="MarkerBlack"/-->
+		<!--Property key="FadeLayer" value="FadeMiddle"/-->
 		<Child type="StaticText" skin="MessageClient" offset="10 35 32 -36" align="Stretch" name="Text"/>
 		<Child type="StaticImage" skin="MessageIcon" offset="6 34 50 50" align="Default" name="Icon"/>
 		<Child type="Button" skin="WindowCaption" offset="0 0 68 28" align="HStretch Top" name="Caption">

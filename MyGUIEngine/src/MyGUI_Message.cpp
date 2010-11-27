@@ -69,20 +69,36 @@ namespace MyGUI
 			mLeftOffset2 = mIcon->getRight() + 3;
 		}
 
+		mButtonType = Button::getClassTypeName();
+
 		if (isUserString("ButtonSkin"))
 			mButtonSkin = getUserString("ButtonSkin");
 		if (isUserString("ButtonType"))
 			mButtonType = getUserString("ButtonType");
 		if (isUserString("DefaultLayer"))
 			mDefaultLayer = getUserString("DefaultLayer");
-		if (isUserString("FadeSkin"))
-			mFadeSkin = getUserString("FadeSkin");
-		if (isUserString("FadeLayer"))
-			mFadeLayer = getUserString("FadeLayer");
+		//if (isUserString("FadeSkin"))
+		//	mFadeSkin = getUserString("FadeSkin");
+		//if (isUserString("FadeLayer"))
+		//	mFadeLayer = getUserString("FadeLayer");
 		if (isUserString("ButtonSize"))
 			mButtonSize = IntSize::parse(getUserString("ButtonSize"));
 		if (isUserString("ButtonOffset"))
 			mButtonOffset = IntSize::parse(getUserString("ButtonOffset"));
+
+		Widget* widget = nullptr;
+		assignWidget(widget, "ButtonPlace");
+		if (widget != nullptr)
+		{
+			mButtonOffset.set(widget->getLeft(), getHeight() - widget->getBottom());
+			widget->setVisible(false);
+		}
+
+		assignWidget(widget, "ButtonTemplate");
+		if (widget != nullptr)
+		{
+			mButtonSize = widget->getSize();
+		}
 	}
 
 	void Message::shutdownOverride()
@@ -225,10 +241,10 @@ namespace MyGUI
 		}
 	}
 
-	void Message::setWindowFade(bool _fade)
+	/*void Message::setWindowFade(bool _fade)
 	{
 		//пока пропустим
-		/*if (_fade)
+		if (_fade)
 		{
 			if (nullptr == mWidgetFade)
 			{
@@ -254,8 +270,8 @@ namespace MyGUI
 				WidgetManager::getInstance().destroyWidget(mWidgetFade);
 				mWidgetFade = nullptr;
 			}
-		}*/
-	}
+		}
+	}*/
 
 	const char* Message::getIconName(size_t _index)
 	{
@@ -283,7 +299,7 @@ namespace MyGUI
 		mess->setMessageText(_message);
 
 		mess->setSmoothShow(true);
-		if (_modal) mess->setWindowFade(true);
+		//if (_modal) mess->setWindowFade(true);
 
 		mess->setMessageStyle(_style);
 
@@ -327,8 +343,7 @@ namespace MyGUI
 		int offset = (size.width - width) / 2;
 		offset += mButtonOffset.width;
 
-		const IntSize& view = RenderManager::getInstance().getViewSize();
-		setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
+		setSize(size);
 
 		if (nullptr != mIcon)
 		{
@@ -409,8 +424,8 @@ namespace MyGUI
 			setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
-		else if (_key == "Fade")
-			setWindowFade(utility::parseValue<bool>(_value));
+//		else if (_key == "Fade")
+//			setWindowFade(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -422,6 +437,15 @@ namespace MyGUI
 	const std::string& Message::getDefaultLayer() const
 	{
 		return mDefaultLayer;
+	}
+
+	void Message::setVisible(bool _value)
+	{
+		const IntSize& view = RenderManager::getInstance().getViewSize();
+		const IntSize& size = getSize();
+		setPosition((view.width - size.width) / 2, (view.height - size.height) / 2);
+
+		Base::setVisible(_value);
 	}
 
 } // namespace MyGUI
