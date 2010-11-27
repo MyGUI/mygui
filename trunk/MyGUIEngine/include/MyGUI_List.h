@@ -246,6 +246,8 @@ namespace MyGUI
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);
 
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
 	private:
 		void _checkMapping(const std::string& _owner);
 
