@@ -30,13 +30,11 @@ namespace tools
 
 		void notifyAddItem(MyGUI::Widget* _sender = 0);
 		void notifyDeleteItem(MyGUI::Widget* _sender);
-		void notifySelectSheet(MyGUI::Widget* _sender);
 		void notifyUpdateItem(MyGUI::Edit* _widget);
 		void notifySelectItem(MyGUI::List* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
 
 		void addSheetToTab(MyGUI::Widget* _tab, const std::string& _caption = "");
-		//void addItemToMenu(MyGUI::Widget* _tab, const std::string& _caption = "");
 
 		void selectItem(MyGUI::Widget* _widget);
 
@@ -47,7 +45,6 @@ namespace tools
 		MyGUI::List* mList;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
-		MyGUI::Button* mButtonSelect;
 
 		MyGUI::Widget* mCurrentWidget;
 
