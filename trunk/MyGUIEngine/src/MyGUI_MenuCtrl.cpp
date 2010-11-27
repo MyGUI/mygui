@@ -102,8 +102,8 @@ namespace MyGUI
 		if (isUserString("DistanceButton"))
 			mDistanceButton = utility::parseValue<int>(getUserString("DistanceButton"));
 
-		if (isUserString("AlignVert"))
-			mAlignVert = utility::parseValue<bool>(getUserString("AlignVert"));
+		//if (isUserString("AlignVert"))
+			//mAlignVert = utility::parseValue<bool>(getUserString("AlignVert"));
 
 		if (isUserString("SubMenuSkin"))
 			mSubMenuSkin = getUserString("SubMenuSkin");
@@ -915,6 +915,30 @@ namespace MyGUI
 	{
 		if (mItemsInfo.size() == 0)
 			setSize(100, 100);
+	}
+
+	void MenuCtrl::setAlignVert(bool _value)
+	{
+		mAlignVert = _value;
+
+		update();
+	}
+
+	bool MenuCtrl::getAlignVert() const
+	{
+		return mAlignVert;
+	}
+
+	void MenuCtrl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "AlignVert")
+			setAlignVert(utility::parseValue<bool>(_value));
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
