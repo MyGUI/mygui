@@ -445,6 +445,8 @@ namespace MyGUI
 			setMaxListLength(utility::parseValue<int>(_value));
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "AddItem")
+			addItem(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

@@ -3767,7 +3767,7 @@
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">38 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3775,7 +3775,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">38 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3783,7 +3783,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">2 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 190</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3791,7 +3791,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">26 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 204</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3799,7 +3799,7 @@
             <StateItem name="Selected Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">38 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3807,7 +3807,7 @@
             <StateItem name="Selected Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">14 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 204</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3815,7 +3815,7 @@
             <StateItem name="Selected Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">26 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3823,7 +3823,7 @@
             <StateItem name="Selected Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">26 225</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3868,7 +3868,7 @@
             </RegionItem>
             <RegionItem name="Top">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">2 0 6 2</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">2 0 39 2</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
@@ -3878,7 +3878,7 @@
             </RegionItem>
             <RegionItem name="Right Top">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">8 0 2 2</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">41 0 2 2</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">Right Top</Property>
@@ -3888,7 +3888,7 @@
             </RegionItem>
             <RegionItem name="Right">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">8 2 2 6</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">41 2 2 6</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
@@ -3898,7 +3898,7 @@
             </RegionItem>
             <RegionItem name="Right Bottom">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">8 8 2 2</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">41 8 2 2</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
@@ -3908,7 +3908,7 @@
             </RegionItem>
             <RegionItem name="Bottom">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">2 8 6 2</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">2 8 39 2</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
@@ -3938,7 +3938,7 @@
             </RegionItem>
             <RegionItem name="Center">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="True">2 2 6 6</Property>
+                    <Property name="Position" type="IntCoord" read_only="True">2 2 39 6</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="True">Stretch</Property>
@@ -3948,7 +3948,7 @@
             </RegionItem>
             <RegionItem name="Text">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="False">2 2 6 6</Property>
+                    <Property name="Position" type="IntCoord" read_only="False">2 2 39 6</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="False">Stretch</Property>
@@ -3958,7 +3958,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">2 225 10 10</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">27 190 43 10</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="SeparatorDownHSkin">

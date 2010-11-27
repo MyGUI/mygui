@@ -172,7 +172,7 @@ namespace tools
 		}*/
 		else
 		{
-			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem"; //mCurrentWidget->getTypeName() + "_AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -247,7 +247,7 @@ namespace tools
 		}*/
 		else
 		{
-			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem";//mCurrentWidget->getTypeName() + "_AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			widgetContainer->widget->setProperty(action, _value);
@@ -282,7 +282,7 @@ namespace tools
 		else
 		{
 			std::string _value = mList->getItemNameAt(_index);
-			std::string action = mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem";//mCurrentWidget->getTypeName() + "_AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			int index = 0;
@@ -391,7 +391,7 @@ namespace tools
 		}*/
 		else
 		{
-			action = mCurrentWidget->getTypeName() + "_AddItem";
+			action = "AddItem"; //mCurrentWidget->getTypeName() + "_AddItem";
 		}
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
