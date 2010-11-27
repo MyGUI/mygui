@@ -80,15 +80,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Layout")
 		{
-			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
-			while (element.next())
-			{
-				if (element->getName() == "Widget")
-					parseWidget(element, nullptr);
-				else
-					loadSector(element.current());
-			}
+			loadWidgetsFromXmlNode(root);
 		}
 		else
 		{
@@ -129,14 +121,8 @@ namespace tools
 					{
 						mCurrentItemName = element->findAttribute("name");
 
-						MyGUI::xml::ElementEnumerator widget = element->getElementEnumerator();
-						while (widget.next())
-						{
-							if (widget->getName() == "Widget")
-								parseWidget(widget, nullptr);
-							else
-								loadSector(widget.current());
-						}
+						loadWidgetsFromXmlNode(element.current());
+
 						break;
 					}
 					else
@@ -173,16 +159,8 @@ namespace tools
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 		root->addAttribute("type", "Layout");
-		root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
 
-		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
-		{
-			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent())
-				serialiseWidget(*iter, root, true);
-		}
-
-		saveSectors(root);
+		saveWidgetsToXmlNode(root, true);
 
 		if (!doc.save(_fileName))
 		{
@@ -227,14 +205,7 @@ namespace tools
 						element->addAttribute("type", "ResourceLayout");
 						element->addAttribute("name", mCurrentItemName);
 
-						for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
-						{
-							// в корень только сирот
-							if (nullptr == (*iter)->widget->getParent())
-								serialiseWidget(*iter, element.current(), true);
-						}
-
-						saveSectors(element.current());
+						saveWidgetsToXmlNode(element.current(), true);
 
 						if (!doc.save(_fileName))
 						{
@@ -256,7 +227,7 @@ namespace tools
 		return false;
 	}
 
-	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document* doc, bool _test)
+	void EditorWidgets::loadxmlDocument(MyGUI::xml::Document* doc, bool _testMode)
 	{
 		MyGUI::xml::ElementPtr root = doc->getRoot();
 
@@ -265,10 +236,7 @@ namespace tools
 		{
 			if (type == "Layout")
 			{
-				// берем детей и крутимся
-				MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
-				while (widget.next("Widget"))
-					parseWidget(widget, 0, _test);
+				loadWidgetsFromXmlNode(root, _testMode);
 			}
 		}
 		mWidgetsChanged = true;
@@ -282,12 +250,7 @@ namespace tools
 		MyGUI::xml::ElementPtr root = doc->createRoot("MyGUI");
 		root->addAttribute("type", "Layout");
 
-		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
-		{
-			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent())
-				serialiseWidget(*iter, root);
-		}
+		saveWidgetsToXmlNode(root);
 
 		return doc;
 	}
@@ -446,7 +409,7 @@ namespace tools
 		return nullptr;
 	}
 
-	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _test)
+	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode)
 	{
 		WidgetContainer* container = new WidgetContainer();
 		// парсим атрибуты виджета
@@ -490,10 +453,10 @@ namespace tools
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 
-		if (!_test)
+		if (!_testMode)
 			skin = getSkinReplace(skin);
 
-		std::string layer = _test ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
+		std::string layer = _testMode ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
 
 		if (nullptr == _parent)
 		{
@@ -514,7 +477,7 @@ namespace tools
 
 			if (widget->getName() == "Widget")
 			{
-				parseWidget(widget, container->widget, _test);
+				parseWidget(widget, container->widget, _testMode);
 			}
 			else if (widget->getName() == "Property")
 			{
@@ -531,7 +494,7 @@ namespace tools
 					key = key.substr(indexSeparator + 1);
 
 				// и пытаемся парсить свойство
-				if (tryToApplyProperty(container->widget, key, value, _test) == false)
+				if (tryToApplyProperty(container->widget, key, value, _testMode) == false)
 					continue;
 
 				container->mProperty.push_back(MyGUI::PairString(key, value));
@@ -555,7 +518,7 @@ namespace tools
 				controllerInfo->mType = type;
 
 				MyGUI::ControllerItem* item = nullptr;
-				if (_test)
+				if (_testMode)
 				{
 					item = MyGUI::ControllerManager::getInstance().createItem(type);
 				}
@@ -584,7 +547,7 @@ namespace tools
 		};
 	}
 
-	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test)
+	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode)
 	{
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
 		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
@@ -604,7 +567,7 @@ namespace tools
 				}
 			}
 
-			if (_test || std::find(mIgnoreParameters.begin(), mIgnoreParameters.end(), _key) == mIgnoreParameters.end())
+			if (_testMode || std::find(mIgnoreParameters.begin(), mIgnoreParameters.end(), _key) == mIgnoreParameters.end())
 			{
 				_widget->setProperty(_key, _value);
 			}
@@ -796,6 +759,33 @@ namespace tools
 			if (result)
 				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 		}
+	}
+
+	void EditorWidgets::loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode)
+	{
+		// берем детей и крутимся
+		MyGUI::xml::ElementEnumerator element = _root->getElementEnumerator();
+		while (element.next())
+		{
+			if (element->getName() == "Widget")
+				parseWidget(element, nullptr, _testMode);
+			else
+				loadSector(element.current());
+		}
+	}
+
+	void EditorWidgets::saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility)
+	{
+		_root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
+
+		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+		{
+			// в корень только сирот
+			if (nullptr == (*iter)->widget->getParent())
+				serialiseWidget(*iter, _root, _compatibility);
+		}
+
+		saveSectors(_root);
 	}
 
 } // namespace tools
