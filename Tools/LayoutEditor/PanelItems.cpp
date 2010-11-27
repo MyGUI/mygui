@@ -22,7 +22,6 @@ namespace tools
 		mList(nullptr),
 		mButtonAdd(nullptr),
 		mButtonDelete(nullptr),
-		mButtonSelect(nullptr),
 		mCurrentWidget(nullptr),
 		mButtonLeft(0),
 		mButtonRight(0),
@@ -38,16 +37,14 @@ namespace tools
 		assignWidget(mList, "list");
 		assignWidget(mButtonAdd, "buttonAdd");
 		assignWidget(mButtonDelete, "buttonDelete");
-		assignWidget(mButtonSelect, "buttonSelect");
 
 		mButtonAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifyAddItem);
 		mButtonDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifyDeleteItem);
-		mButtonSelect->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelItems::notifySelectSheet);
 		mEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelItems::notifyUpdateItem);
 		mList->eventListChangePosition += MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
 
 		mButtonLeft = mButtonAdd->getLeft();
-		mButtonRight = mMainWidget->getWidth() - mButtonSelect->getRight();
+		mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
 		mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 	}
 
@@ -59,19 +56,9 @@ namespace tools
 	{
 		int width = mMainWidget->getClientCoord().width;
 
-		if (mButtonSelect->getVisible())
-		{
-			int one_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 3;
-			mButtonAdd->setSize(one_width, mButtonAdd->getHeight());
-			mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), one_width, mButtonDelete->getHeight());
-			mButtonSelect->setCoord(mButtonDelete->getRight() + mButtonSpace, mButtonSelect->getTop(), width - (mButtonDelete->getRight() + mButtonSpace + mButtonRight), mButtonSelect->getHeight());
-		}
-		else
-		{
-			int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
-			mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
-			mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
-		}
+		int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
+		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
+		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
 	}
 
 	void PanelItems::update(MyGUI::Widget* _currentWidget)
@@ -95,11 +82,6 @@ namespace tools
 			mPanelCell->setCaption(replaceTags("Items"));
 
 			updateList();
-
-			if (widgetType->name == "Tab")
-				mButtonSelect->setVisible(true);
-			else
-				mButtonSelect->setVisible(false);
 
 			mEdit->setCaption("");
 			//обновляем кнопки
@@ -131,17 +113,6 @@ namespace tools
 		EditorWidgets::getInstance().add(wc);
 	}
 
-	/*void PanelItems::addItemToMenu(MyGUI::Widget* _container, const std::string& _caption)
-	{
-		MyGUI::MenuCtrl* menu = _container->castType<MyGUI::MenuCtrl>();
-		MyGUI::MenuItem* item = menu->addItem(_caption);
-
-		WidgetContainer* itemContainer = new WidgetContainer("MenuItem", "", item, "");
-		if (!_caption.empty())
-			itemContainer->mProperty.push_back(MyGUI::PairString("Caption", _caption));
-		EditorWidgets::getInstance().add(itemContainer);
-	}*/
-
 	void PanelItems::updateList()
 	{
 		mList->removeAllItems();
@@ -162,17 +133,9 @@ namespace tools
 				mList->addItem(tab->getItemNameAt(i));
 			}
 		}
-		/*else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
-		{
-			MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
-			for (size_t i = 0; i < menu->getItemCount(); ++i)
-			{
-				mList->addItem(menu->getItemNameAt(i));
-			}
-		}*/
 		else
 		{
-			std::string action = "AddItem"; //mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
@@ -240,14 +203,9 @@ namespace tools
 			addSheetToTab(mCurrentWidget, _value);
 			UndoManager::getInstance().addValue();
 		}
-		/*else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
-		{
-			addItemToMenu(mCurrentWidget, _value);
-			UndoManager::getInstance().addValue();
-		}*/
 		else
 		{
-			std::string action = "AddItem";//mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			widgetContainer->widget->setProperty(action, _value);
@@ -273,16 +231,10 @@ namespace tools
 			MyGUI::TabItem* item = mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value);
 			EditorWidgets::getInstance().remove(item);
 		}
-		/*else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
-		{
-			size_t item_index = mCurrentWidget->castType<MyGUI::MenuCtrl>()->findItemIndexWith(_value);
-			if (item_index != MyGUI::ITEM_NONE)
-				mCurrentWidget->castType<MyGUI::MenuCtrl>()->removeItemAt(item_index);
-		}*/
 		else
 		{
 			std::string _value = mList->getItemNameAt(_index);
-			std::string action = "AddItem";//mCurrentWidget->getTypeName() + "_AddItem";
+			std::string action = "AddItem";
 
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			int index = 0;
@@ -295,8 +247,6 @@ namespace tools
 						widgetContainer->mProperty.erase(iterProperty);
 						if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->removeItemAt(index);
 						else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->removeItemAt(index);
-						//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->removeItemAt(index);
-						//else if (mCurrentWidget->getTypeName() == "Message") ->castType<MyGUI::Message>(mCurrentWidget)->deleteItem(index);
 						return;
 					}
 					++index;
@@ -320,30 +270,6 @@ namespace tools
 
 		removeItem(item);
 		mList->removeItemAt(item);
-		UndoManager::getInstance().addValue();
-	}
-
-	void PanelItems::notifySelectSheet(MyGUI::Widget* _sender)
-	{
-		size_t item = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item) return;
-		MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-		std::string action = "Tab_SelectSheet";
-		std::string value = MyGUI::utility::toString(item);
-		widgetContainer->widget->setProperty(action, value);
-
-		action = "Sheet_Select";
-		for (size_t i = 0; i < tab->getItemCount(); ++i)
-		{
-			WidgetContainer* sheetContainer = EditorWidgets::getInstance().find(tab->getItemAt(i));
-
-			if (i == item)
-				utility::mapSet(sheetContainer->mProperty, action, "true");
-			else
-				utility::mapErase(sheetContainer->mProperty, action);
-		}
 		UndoManager::getInstance().addValue();
 	}
 
@@ -381,17 +307,9 @@ namespace tools
 			utility::mapSet(widgetContainer->mProperty, action, value);
 			return;
 		}
-		/*else if (mCurrentWidget->isType<MyGUI::MenuCtrl>())
-		{
-			MyGUI::MenuCtrl* menu = mCurrentWidget->castType<MyGUI::MenuCtrl>();
-			for (size_t i = 0; i < menu->getItemCount(); ++i)
-			{
-				menu->setItemNameAt(i, mList->getItemNameAt(i));
-			}
-		}*/
 		else
 		{
-			action = "AddItem"; //mCurrentWidget->getTypeName() + "_AddItem";
+			action = "AddItem";
 		}
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
@@ -405,7 +323,6 @@ namespace tools
 					iterProperty->second = value;
 					if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
 					else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->setItemNameAt(index, value);
-					//else if (mCurrentWidget->getTypeName() == "MenuBar") mCurrentWidget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
 					return;
 				}
 				++index;
@@ -416,7 +333,8 @@ namespace tools
 	void PanelItems::notifySelectItem(MyGUI::List* _widget, size_t _position)
 	{
 		size_t index = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == index) return;
+		if (MyGUI::ITEM_NONE == index)
+			return;
 
 		const MyGUI::UString& value = mList->getItemNameAt(index);
 		mEdit->setOnlyText(value);
