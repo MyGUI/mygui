@@ -27,7 +27,7 @@ namespace tools
 		bool save(const MyGUI::UString& _fileName);
 		void clear();
 
-		void loadxmlDocument(MyGUI::xml::Document* doc, bool _test = false);
+		void loadxmlDocument(MyGUI::xml::Document* doc, bool _testMode = false);
 		MyGUI::xml::Document* savexmlDocument();
 		WidgetContainer* find(MyGUI::Widget* _widget);
 		WidgetContainer* find(const std::string& _name);
@@ -35,7 +35,7 @@ namespace tools
 		void remove(MyGUI::Widget* _widget);
 		void remove(WidgetContainer* _container);
 
-		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test = false);
+		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode = false);
 
 		void invalidateWidgets();
 		EnumeratorWidgetContainer getWidgets();
@@ -54,7 +54,7 @@ namespace tools
 	private:
 		WidgetContainer* _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
-		void parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _test = false);
+		void parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode = false);
 		void serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility = false);
 
 		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
@@ -76,6 +76,8 @@ namespace tools
 
 		bool unbind(WidgetContainer* _container);
 
+		void loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode = false);
+		void saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility = false);
 	private:
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
