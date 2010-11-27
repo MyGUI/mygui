@@ -1371,7 +1371,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="ListCtrl" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<!--Resource type="ResourceSkin" name="ListCtrl" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="VScroll" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
 		<Child type="HScroll" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
@@ -1400,7 +1400,7 @@
 		<BasisSkin type="SubSkin" offset="6 6 5 5" align="Right Bottom">
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
-	</Resource>
+	</Resource-->
 	
 </MyGUI>
 
