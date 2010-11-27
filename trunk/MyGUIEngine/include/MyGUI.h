@@ -46,8 +46,6 @@
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_Canvas.h"
-#include "MyGUI_ListCtrl.h"
-#include "MyGUI_ListBox.h"
 
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SubWidgetManager.h"
