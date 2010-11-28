@@ -79,6 +79,39 @@ namespace demo
 		node->addAttribute("value", _value);
 	}
 
+	void FontPanel::saveTexture(const std::string& _fontName, const std::string& _fileName)
+	{
+		MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(_fontName);
+		MyGUI::ITexture* texture = font->getTextureFont();
+		texture->saveToFile(_fileName);
+	}
+
+	void FontPanel::saveFontTTFXml(const std::string& _fontName, const std::string& _fileName)
+	{
+		MyGUI::xml::Document document;
+		document.createDeclaration();
+		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
+		generateFontTTFXml(root, _fontName);
+
+		if (document.save(_fileName))
+			MyGUI::Message::createMessageBox("Message", "success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+		else
+			MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+	}
+
+	void FontPanel::saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName)
+	{
+		MyGUI::xml::Document document;
+		document.createDeclaration();
+		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
+		generateFontManualXml(root, _textureName, _fontName);
+
+		if (document.save(_fileName))
+			MyGUI::Message::createMessageBox("Message", "success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+		else
+			MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+	}
+
 	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
 	{
 		// шрифтов нету
@@ -89,23 +122,16 @@ namespace demo
 
 		if (_widget == mButtonSave)
 		{
-			MyGUI::xml::Document document;
-			document.createDeclaration();
-			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-			generateFontTTFXml(root, MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".", mFontHeight));
+			std::string textureName = mEditSaveFileName->getOnlyText() + ".png"; 
+			saveTexture(mFontName, textureName);
 
-			if (!document.save(mEditSaveFileName->getOnlyText() + ".xml"))
-			{
-				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
-			}
-			else
-			{
-				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "success", mEditSaveFileName->getOnlyText() + ".xml", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
-			}
+			std::string fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".ttf.", mFontHeight);
+			std::string fileName = mEditSaveFileName->getOnlyText() + ".ttf.xml";
+			saveFontTTFXml(fontName, fileName);
 
-			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
-			MyGUI::ITexture* texture = font->getTextureFont();
-			texture->saveToFile(mEditSaveFileName->getOnlyText() + ".png");
+			fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".manual.", mFontHeight);
+			fileName = mEditSaveFileName->getOnlyText() + ".manual.xml";
+			saveFontManualXml(fontName, textureName, fileName);
 		}
 		else if (_widget == mButtonGenerate)
 		{
@@ -161,6 +187,61 @@ namespace demo
 			node_codes->createChild("Code")->addAttribute("range", mEditRange2->getOnlyText());
 		if (mEditHide->getOnlyText() != "")
 			node_codes->createChild("Code")->addAttribute("hide", mEditHide->getOnlyText());
+	}
+
+	void FontPanel::generateFontManualXml(MyGUI::xml::ElementPtr _root, const std::string& _textureName, const std::string& _fontName)
+	{
+		_root->addAttribute("type", "Resource");
+		_root->addAttribute("version", "1.1");
+
+		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
+		node->addAttribute("type", "ResourceManualFont");
+		node->addAttribute("name", _fontName);
+
+		addProperty(node, "Source", _textureName);
+		addProperty(node, "DefaultHeight", mFontHeight);
+
+		MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
+		MyGUI::xml::Element* codes = node->createChild("Codes");
+
+		addCode(codes, MyGUI::FontCodeType::Cursor, font);
+		addCode(codes, MyGUI::FontCodeType::Selected, font);
+		addCode(codes, MyGUI::FontCodeType::SelectedBack, font);
+
+		addCode(codes, 32, font);
+		addCode(codes, 9, font);
+
+		MyGUI::IntSize range1 = MyGUI::IntSize::parse(mEditRange1->getOnlyText());
+		MyGUI::IntSize range2 = MyGUI::IntSize::parse(mEditRange2->getOnlyText());
+		MyGUI::IntSize hide1 = MyGUI::IntSize::parse(mEditHide->getOnlyText());
+
+		for (int index = range1.width; index <= range1.height; ++ index)
+		{
+			if (index < hide1.width || index > hide1.height)
+				addCode(codes, index, font);
+		}
+
+		for (int index = range2.width; index <= range2.height; ++ index)
+		{
+			if (index < hide1.width || index > hide1.height)
+				addCode(codes, index, font);
+		}
+	}
+
+	void FontPanel::addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::IFont* _font)
+	{
+		MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
+		MyGUI::xml::Element* node = _node->createChild("Code");
+		node->addAttribute("index", _code);
+		node->addAttribute("coord", getCoord(info->uvRect, _font->getTextureFont()->getWidth(), _font->getTextureFont()->getHeight(), info->width, _font->getDefaultHeight()));
+	}
+
+	MyGUI::IntCoord FontPanel::getCoord(const MyGUI::FloatRect& _rect, int _textureWidth, int _textureHeight, int _charWidth, int _fontHeight)
+	{
+		int left = (int)((float)_rect.left * (float)_textureWidth);
+		int top = (int)((float)_rect.top * (float)_textureHeight);
+
+		return MyGUI::IntCoord(left, top, _charWidth, _fontHeight);
 	}
 
 } // namespace demo
