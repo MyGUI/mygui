@@ -25,6 +25,14 @@ namespace demo
 		void update();
 		void notifyMouseButtonClick(MyGUI::Widget* _widget);
 		void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName);
+		void generateFontManualXml(MyGUI::xml::ElementPtr _root, const std::string& _textureName, const std::string& _fontName);
+
+		void saveTexture(const std::string& _fontName, const std::string& _fileName);
+		void saveFontTTFXml(const std::string& _fontName, const std::string& _fileName);
+		void saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName);
+
+		void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::IFont* _font);
+		MyGUI::IntCoord getCoord(const MyGUI::FloatRect& _rect, int _textureWidth, int _textureHeight, int _charWidth, int _fontHeight);
 
 	private:
 		MyGUI::ComboBox* mComboFont;
