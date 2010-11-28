@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -73,10 +74,7 @@ namespace MyGUI
 	const std::string& StaticText::getFontName()
 	{
 		if (nullptr == getSubWidgetText())
-		{
-			static std::string empty;
-			return empty;
-		}
+			return Constants::getString();
 		return getSubWidgetText()->getFontName();
 	}
 
@@ -100,11 +98,7 @@ namespace MyGUI
 	const UString& StaticText::getCaption()
 	{
 		if (nullptr == getSubWidgetText())
-		{
-			// FIXME сделать одну пустую строку
-			static UString empty;
-			return empty;
-		}
+			return Constants::getUString();
 		return getSubWidgetText()->getCaption();
 	}
 

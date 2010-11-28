@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_WidgetUserData.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -42,12 +43,9 @@ namespace MyGUI
 	const std::string& UserData::getUserString(const std::string& _key) const
 	{
 		MapString::const_iterator iter = mMapUserString.find(_key);
-		if (iter == mMapUserString.end())
-		{
-			static std::string empty;
-			return empty;
-		}
-		return iter->second;
+		if (iter != mMapUserString.end())
+			return iter->second;
+		return Constants::getString();
 	}
 
 	bool UserData::clearUserString(const std::string& _key)

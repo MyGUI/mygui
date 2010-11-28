@@ -30,6 +30,7 @@ set (HEADER_FILES
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
   include/MyGUI_Bitwise.h
+  include/MyGUI_Constants.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_DataFileStream.h
   include/MyGUI_DataStream.h
@@ -249,6 +250,7 @@ set (SOURCE_FILES
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
   src/MyGUI_WidgetManager.cpp
+  src/MyGUI_Constants.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
@@ -273,8 +275,6 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_HScroll.cpp
   src/MyGUI_ItemBox.cpp
   src/MyGUI_List.cpp
-  src/MyGUI_ListBox.cpp
-  src/MyGUI_ListCtrl.cpp
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
@@ -378,6 +378,7 @@ SOURCE_GROUP("Source Files\\Utility\\Logging" FILES
   src/MyGUI_LogSource.cpp
 )
 SOURCE_GROUP("Source Files\\Utility" FILES
+  src/MyGUI_Constants.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
@@ -406,8 +407,6 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_HScroll.h
   include/MyGUI_ItemBox.h
   include/MyGUI_List.h
-  include/MyGUI_ListBox.h
-  include/MyGUI_ListCtrl.h
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
@@ -439,6 +438,7 @@ SOURCE_GROUP("Header Files\\Utility\\Logging" FILES
 )
 SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_Bitwise.h
+  include/MyGUI_Constants.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_DataFileStream.h
   include/MyGUI_DataStream.h

@@ -23,12 +23,11 @@
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
 
-	std::string ResourceImageSet::mTextureEmpty;
-	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
 	ResourceImageSet::ResourceImageSet()
@@ -99,7 +98,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string& _index)
@@ -114,7 +113,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, size_t _index)
@@ -129,7 +128,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index)
@@ -143,7 +142,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index)
@@ -158,7 +157,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, const std::string& _index)
@@ -174,7 +173,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
+		return ImageIndexInfo(Constants::getString(), Constants::getIntSize(), 0, mFramesEmpty);
 	}
 
 	size_t ResourceImageSet::getGroupIndex(const std::string& _name)
@@ -211,7 +210,7 @@ namespace MyGUI
 	const IntSize& ResourceImageSet::getGroupSize(size_t _index)
 	{
 		if (_index >= mGroups.size())
-			return mSizeEmpty;
+			return Constants::getIntSize();
 		return mGroups[_index].size;
 	}
 
@@ -222,7 +221,7 @@ namespace MyGUI
 			if (mGroups[index].name == _group)
 				return mGroups[index].size;
 		}
-		return mSizeEmpty;
+		return Constants::getIntSize();
 	}
 
 	EnumeratorGroupImage ResourceImageSet::getEnumerator() const
