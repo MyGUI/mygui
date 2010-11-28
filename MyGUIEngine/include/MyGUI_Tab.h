@@ -27,6 +27,8 @@
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_IItem.h"
+#include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
 {
@@ -35,6 +37,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Tab :
 		public Widget,
+		public IItemContainer,
 		public MemberObsolete<Tab>
 	{
 		// для уведобления об удалении
@@ -232,6 +235,18 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT>
 			eventTabChangeSelect;
+
+	/*internal:*/
+		virtual size_t _getItemCount();
+
+		virtual void _addItem(const MyGUI::UString& _name);
+
+		virtual void _removeItemAt(size_t _index);
+
+		virtual Widget* _getItemAt(size_t _index);
+
+		virtual void _setItemNameAt(size_t _index, const UString& _name);
+		virtual const UString& _getItemNameAt(size_t _index);
 
 	protected:
 		virtual void initialiseOverride();

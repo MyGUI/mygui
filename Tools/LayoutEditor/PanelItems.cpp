@@ -14,7 +14,6 @@
 
 namespace tools
 {
-	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 	PanelItems::PanelItems() :
 		BasePanelViewItem("PanelItems.layout"),
@@ -103,16 +102,6 @@ namespace tools
 			selectItem(_widget->getParent());
 	}
 
-	void PanelItems::addSheetToTab(MyGUI::Widget* _container, const std::string& _caption)
-	{
-		MyGUI::Tab* tab = _container->castType<MyGUI::Tab>();
-		MyGUI::TabItem* sheet = tab->addItem(_caption);
-		WidgetContainer* wc = new WidgetContainer("TabItem", "", sheet, "");
-		if (!_caption.empty())
-			wc->mProperty.push_back(MyGUI::PairString("Caption", _caption));
-		EditorWidgets::getInstance().add(wc);
-	}
-
 	void PanelItems::updateList()
 	{
 		mList->removeAllItems();
@@ -124,14 +113,6 @@ namespace tools
 			size_t count = itemContainer->_getItemCount();
 			for (size_t index = 0; index < count; ++ index)
 				mList->addItem(itemContainer->_getItemNameAt(index));
-		}
-		else if (mCurrentWidget->isType<MyGUI::Tab>())
-		{
-			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
-			for (size_t i = 0; i < tab->getItemCount(); ++i)
-			{
-				mList->addItem(tab->getItemNameAt(i));
-			}
 		}
 	}
 
@@ -192,11 +173,6 @@ namespace tools
 
 			UndoManager::getInstance().addValue();
 		}
-		else if (mCurrentWidget->isType<MyGUI::Tab>())
-		{
-			addSheetToTab(mCurrentWidget, _value);
-			UndoManager::getInstance().addValue();
-		}
 	}
 
 	void PanelItems::removeItem(size_t _index)
@@ -210,16 +186,8 @@ namespace tools
 			if (item == nullptr)
 				erasePropertyValue(mCurrentWidget, _index, "AddItem");
 
-			itemContainer->_removeItemAt(_index);
-
 			// при удалении виджета он сам удалит контейнер
-			//EditorWidgets::getInstance().remove(item);
-		}
-		else if (mCurrentWidget->isType<MyGUI::Tab>())
-		{
-			std::string _value = mList->getItemNameAt(_index);
-			MyGUI::TabItem* item = mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value);
-			EditorWidgets::getInstance().remove(item);
+			itemContainer->_removeItemAt(_index);
 		}
 	}
 
@@ -250,7 +218,6 @@ namespace tools
 			return;
 		}
 
-		ON_EXIT(UndoManager::getInstance().addValue());
 		std::string value = mEdit->getOnlyText();
 		mList->setItemNameAt(item, value);
 
@@ -268,14 +235,8 @@ namespace tools
 			{
 				setPropertyValue(mCurrentWidget, item, "AddItem", value);
 			}
-		}
-		else if (mCurrentWidget->isType<MyGUI::Tab>())
-		{
-			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
-			MyGUI::TabItem* sheet = tab->getItemAt(item);
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(sheet);
-			sheet->setProperty("Caption", value);
-			utility::mapSet(widgetContainer->mProperty, "Caption", value);
+
+			UndoManager::getInstance().addValue();
 		}
 	}
 
