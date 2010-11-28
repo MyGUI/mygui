@@ -29,6 +29,8 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_FlowDirection.h"
+#include "MyGUI_IItem.h"
+#include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
 {
@@ -37,6 +39,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ComboBox :
 		public Edit,
+		public IItemContainer,
 		public MemberObsolete<ComboBox>
 	{
 		MYGUI_RTTI_DERIVED( ComboBox )
@@ -160,6 +163,16 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT>
 			eventComboChangePosition;
+
+	/*internal:*/
+		virtual size_t _getItemCount();
+
+		virtual void _addItem(const MyGUI::UString& _name);
+
+		virtual void _removeItemAt(size_t _index);
+
+		virtual void _setItemNameAt(size_t _index, const UString& _name);
+		virtual const UString& _getItemNameAt(size_t _index);
 
 	protected:
 		virtual void initialiseOverride();

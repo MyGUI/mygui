@@ -38,7 +38,11 @@ namespace tools
 
 		void selectItem(MyGUI::Widget* _widget);
 
-		void setContainerProperty(WidgetContainer* _container, const std::string& _key, const std::string& _value);
+		void setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value);
+
+		void setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue);
+		void erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName);
+		void addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue);
 
 	private:
 		MyGUI::Edit* mEdit;

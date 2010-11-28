@@ -544,4 +544,29 @@ namespace MyGUI
 			eventToolTip(this, _info);
 	}
 
+	size_t ComboBox::_getItemCount()
+	{
+		return getItemCount();
+	}
+
+	void ComboBox::_addItem(const MyGUI::UString& _name)
+	{
+		addItem(_name);
+	}
+
+	void ComboBox::_removeItemAt(size_t _index)
+	{
+		removeItemAt(_index);
+	}
+
+	void ComboBox::_setItemNameAt(size_t _index, const UString& _name)
+	{
+		setItemNameAt(_index, _name);
+	}
+
+	const UString& ComboBox::_getItemNameAt(size_t _index)
+	{
+		return getItemNameAt(_index);
+	}
+
 } // namespace MyGUI
