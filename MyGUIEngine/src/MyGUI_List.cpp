@@ -1049,4 +1049,29 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
+	size_t List::_getItemCount()
+	{
+		return getItemCount();
+	}
+
+	void List::_addItem(const MyGUI::UString& _name)
+	{
+		addItem(_name);
+	}
+
+	void List::_removeItemAt(size_t _index)
+	{
+		removeItemAt(_index);
+	}
+
+	void List::_setItemNameAt(size_t _index, const UString& _name)
+	{
+		setItemNameAt(_index, _name);
+	}
+
+	const UString& List::_getItemNameAt(size_t _index)
+	{
+		return getItemNameAt(_index);
+	}
+
 } // namespace MyGUI

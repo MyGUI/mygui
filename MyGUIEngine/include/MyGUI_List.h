@@ -26,6 +26,8 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_IItem.h"
+#include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
 {
@@ -34,6 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT List :
 		public Widget,
+		public IItemContainer,
 		public MemberObsolete<List>
 	{
 		MYGUI_RTTI_DERIVED( List )
@@ -212,6 +215,15 @@ namespace MyGUI
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
+
+		virtual size_t _getItemCount();
+
+		virtual void _addItem(const MyGUI::UString& _name);
+
+		virtual void _removeItemAt(size_t _index);
+
+		virtual void _setItemNameAt(size_t _index, const UString& _name);
+		virtual const UString& _getItemNameAt(size_t _index);
 
 	protected:
 		virtual void initialiseOverride();
