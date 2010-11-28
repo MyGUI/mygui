@@ -23,6 +23,7 @@
 #define __MYGUI_I_ITEM_CONTAINER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -44,12 +45,9 @@ namespace MyGUI
 		virtual Widget* _getItemAt(size_t _index) { return nullptr; }
 
 		virtual void _setItemNameAt(size_t _index, const UString& _name) { }
-		virtual const UString& _getItemNameAt(size_t _index) { return mEmptyName; }
+		virtual const UString& _getItemNameAt(size_t _index) { return Constants::getUString(); }
 
 		virtual void _setItemSelected(IItem* _item) { }
-
-	private:
-		MyGUI::UString mEmptyName;
 	};
 
 } // namespace MyGUI

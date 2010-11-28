@@ -103,8 +103,7 @@ namespace tools
 		if (proper != nullptr)
 			return proper->getValue();
 
-		static MyGUI::UString empty;
-		return empty;
+		return MyGUI::Constants::getUString();
 	}
 
 	void PropertySet::setPropertyReadOnly(const MyGUI::UString& _propertyName, bool _value)
