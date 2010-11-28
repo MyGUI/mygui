@@ -844,4 +844,34 @@ namespace MyGUI
 		return mSmoothShow;
 	}
 
+	size_t Tab::_getItemCount()
+	{
+		return getItemCount();
+	}
+
+	void Tab::_addItem(const MyGUI::UString& _name)
+	{
+		addItem(_name);
+	}
+
+	void Tab::_removeItemAt(size_t _index)
+	{
+		removeItemAt(_index);
+	}
+
+	Widget* Tab::_getItemAt(size_t _index)
+	{
+		return getItemAt(_index);
+	}
+
+	void Tab::_setItemNameAt(size_t _index, const UString& _name)
+	{
+		setItemNameAt(_index, _name);
+	}
+
+	const UString& Tab::_getItemNameAt(size_t _index)
+	{
+		return getItemNameAt(_index);
+	}
+
 } // namespace MyGUI
