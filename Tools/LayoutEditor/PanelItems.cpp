@@ -133,30 +133,19 @@ namespace tools
 				mList->addItem(tab->getItemNameAt(i));
 			}
 		}
-		else
-		{
-			std::string action = "AddItem";
-
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			{
-				if (iterProperty->first == action)
-				{
-					mList->addItem(iterProperty->second);
-				}
-			}
-		}
 	}
 
-	void PanelItems::setContainerProperty(WidgetContainer* _container, const std::string& _key, const std::string& _value)
+	void PanelItems::setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
 	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
+
 		if (_value.empty())
 		{
-			for (MyGUI::VectorStringPairs::iterator item = _container->mProperty.begin(); item != _container->mProperty.end(); ++ item)
+			for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++ item)
 			{
 				if ((*item).first == _key)
 				{
-					_container->mProperty.erase(item);
+					widgetContainer->mProperty.erase(item);
 					break;
 				}
 			}
@@ -164,7 +153,7 @@ namespace tools
 		else
 		{
 			bool found = false;
-			for (MyGUI::VectorStringPairs::iterator item = _container->mProperty.begin(); item != _container->mProperty.end(); ++ item)
+			for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++ item)
 			{
 				if ((*item).first == _key)
 				{
@@ -175,7 +164,7 @@ namespace tools
 			}
 
 			if (!found)
-				_container->mProperty.push_back(MyGUI::PairString(_key, _value));
+				widgetContainer->mProperty.push_back(MyGUI::PairString(_key, _value));
 		}
 	}
 
@@ -192,8 +181,13 @@ namespace tools
 			if (item != nullptr)
 			{
 				WidgetContainer* container = new WidgetContainer(item->getTypeName(), "", item, "");
-				setContainerProperty(container, "Caption", _value);
 				EditorWidgets::getInstance().add(container);
+
+				setContainerProperty(item, "Caption", _value);
+			}
+			else
+			{
+				addPropertyValue(mCurrentWidget, "AddItem", _value);
 			}
 
 			UndoManager::getInstance().addValue();
@@ -202,14 +196,6 @@ namespace tools
 		{
 			addSheetToTab(mCurrentWidget, _value);
 			UndoManager::getInstance().addValue();
-		}
-		else
-		{
-			std::string action = "AddItem";
-
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			widgetContainer->widget->setProperty(action, _value);
-			widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
 		}
 	}
 
@@ -220,6 +206,10 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			MyGUI::Widget* item = itemContainer->_getItemAt(_index);
+
+			if (item == nullptr)
+				erasePropertyValue(mCurrentWidget, _index, "AddItem");
+
 			itemContainer->_removeItemAt(_index);
 
 			// при удалении виджета он сам удалит контейнер
@@ -230,28 +220,6 @@ namespace tools
 			std::string _value = mList->getItemNameAt(_index);
 			MyGUI::TabItem* item = mCurrentWidget->castType<MyGUI::Tab>()->findItemWith(_value);
 			EditorWidgets::getInstance().remove(item);
-		}
-		else
-		{
-			std::string _value = mList->getItemNameAt(_index);
-			std::string action = "AddItem";
-
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			int index = 0;
-			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			{
-				if (iterProperty->first == action)
-				{
-					if (iterProperty->second == _value)
-					{
-						widgetContainer->mProperty.erase(iterProperty);
-						if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->removeItemAt(index);
-						else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->removeItemAt(index);
-						return;
-					}
-					++index;
-				}
-			}
 		}
 	}
 
@@ -283,9 +251,7 @@ namespace tools
 		}
 
 		ON_EXIT(UndoManager::getInstance().addValue());
-		std::string action;
 		std::string value = mEdit->getOnlyText();
-		std::string lastitem = mList->getItemNameAt(item);
 		mList->setItemNameAt(item, value);
 
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
@@ -293,40 +259,23 @@ namespace tools
 		if (itemContainer != nullptr)
 		{
 			itemContainer->_setItemNameAt(item, value);
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(itemContainer->_getItemAt(item));
-			setContainerProperty(widgetContainer, "Caption", value);
-			return;
+			MyGUI::Widget* widget = itemContainer->_getItemAt(item);
+			if (widget != nullptr)
+			{
+				setContainerProperty(widget, "Caption", value);
+			}
+			else
+			{
+				setPropertyValue(mCurrentWidget, item, "AddItem", value);
+			}
 		}
 		else if (mCurrentWidget->isType<MyGUI::Tab>())
 		{
-			action = "Caption";
 			MyGUI::Tab* tab = mCurrentWidget->castType<MyGUI::Tab>();
 			MyGUI::TabItem* sheet = tab->getItemAt(item);
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(sheet);
 			sheet->setProperty("Caption", value);
-			utility::mapSet(widgetContainer->mProperty, action, value);
-			return;
-		}
-		else
-		{
-			action = "AddItem";
-		}
-
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		int index = 0;
-		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-		{
-			if (iterProperty->first == action)
-			{
-				if (iterProperty->second == lastitem)
-				{
-					iterProperty->second = value;
-					if (mCurrentWidget->isType<MyGUI::ComboBox>()) mCurrentWidget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
-					else if (mCurrentWidget->isType<MyGUI::List>()) mCurrentWidget->castType<MyGUI::List>()->setItemNameAt(index, value);
-					return;
-				}
-				++index;
-			}
+			utility::mapSet(widgetContainer->mProperty, "Caption", value);
 		}
 	}
 
@@ -343,6 +292,48 @@ namespace tools
 		{
 			mCurrentWidget->castType<MyGUI::Tab>()->setIndexSelected(index);
 		}
+	}
+
+	void PanelItems::setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue)
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
+
+		for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++item)
+		{
+			if ((*item).first == _propertyName)
+			{
+				if (_index == 0)
+				{
+					(*item).second = _propertyValue;
+					break;
+				}
+				-- _index;
+			}
+		}
+	}
+
+	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName)
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
+
+		for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++item)
+		{
+			if ((*item).first == _propertyName)
+			{
+				if (_index == 0)
+				{
+					widgetContainer->mProperty.erase(item);
+					break;
+				}
+				-- _index;
+			}
+		}
+	}
+
+	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue)
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
+		widgetContainer->mProperty.push_back(MyGUI::PairString(_propertyName, _propertyValue));
 	}
 
 } // namespace tools
