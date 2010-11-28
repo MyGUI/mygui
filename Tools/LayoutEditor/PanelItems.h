@@ -34,8 +34,6 @@ namespace tools
 		void notifySelectItem(MyGUI::List* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
 
-		void addSheetToTab(MyGUI::Widget* _tab, const std::string& _caption = "");
-
 		void selectItem(MyGUI::Widget* _widget);
 
 		void setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value);
