@@ -71,8 +71,6 @@ namespace MyGUI
 	private:
 		VectorGroupImage mGroups;
 
-		static std::string mTextureEmpty;
-		static IntSize mSizeEmpty;
 		static std::vector<IntPoint> mFramesEmpty;
 	};
 
