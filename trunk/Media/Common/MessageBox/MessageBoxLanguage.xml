@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Language">
+	<Language default="English">
+		<Info name="English">
+			<Source>MessageBoxLanguageEnglishTag.xml</Source>
+		</Info>
+		<Info name="Russian">
+			<Source>MessageBoxLanguageRussianTag.xml</Source>
+		</Info>
+	</Language>
+</MyGUI>
