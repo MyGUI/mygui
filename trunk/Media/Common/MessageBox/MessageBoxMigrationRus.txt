@@ -1,0 +1,26 @@
+1. добавить в проект путь к ресурсам MesageBox
+addResourceLocation(getRootMedia() + "/Common/MessageBox");
+
+2. загрузить теги для языков
+MyGUI::ResourceManager::getInstance().load("MessageBoxLanguage.xml");
+
+3. загрузить иконки
+MyGUI::ResourceManager::getInstance().load("MessageBoxIcons.xml");
+
+4. добавить в проект файлы
+Common/MessageBox/MessageBox.h
+Common/MessageBox/MessageBox.cpp
+
+5. подключить заголовок класса
+#include "MessageBox/MessageBox.h"
+
+6. поменять неймспейс
+с MyGUI::Message
+на tools::Message
+
+7. поменять неймспейс
+с MyGUI::MessageBoxStyle
+на tools::MessageBoxStyle
+
+8. в методе Message::createMessageBox теперь не нужен первый параметр "имя скина"
+
