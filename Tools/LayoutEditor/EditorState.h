@@ -25,10 +25,10 @@ namespace tools
 		virtual void resumeState();
 
 	private:
-		void notifyMessageBoxResultLoad(Message* _sender, MessageBoxStyle _result);
-		void notifyMessageBoxResultClear(Message* _sender, MessageBoxStyle _result);
-		void notifyMessageBoxResultQuit(Message* _sender, MessageBoxStyle _result);
-		void notifyMessageBoxResultLoadDropFile(Message* _sender, MessageBoxStyle _result);
+		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void clear();
 		bool save();

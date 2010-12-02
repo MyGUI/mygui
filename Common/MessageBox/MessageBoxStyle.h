@@ -8,7 +8,7 @@
 
 #include <MyGUI.h>
 
-namespace tools
+namespace MyGUI
 {
 
 	struct MessageBoxStyle
@@ -113,7 +113,7 @@ namespace tools
 				num >>= 1;
 			}
 
-			return MyGUI::ITEM_NONE;
+			return ITEM_NONE;
 		}
 
 		// возвращает индекс иконки
@@ -131,7 +131,7 @@ namespace tools
 				num >>= 1;
 			}
 
-			return MyGUI::ITEM_NONE;
+			return ITEM_NONE;
 		}
 
 		// возвращает список кнопок
@@ -161,7 +161,7 @@ namespace tools
 		{
 			MessageBoxStyle result(MessageBoxStyle::Enum(0));
 			const MapAlign& map_names = result.getValueNames();
-			const std::vector<std::string>& vec = MyGUI::utility::split(_value);
+			const std::vector<std::string>& vec = utility::split(_value);
 			for (size_t pos = 0; pos < vec.size(); pos++)
 			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
@@ -224,6 +224,6 @@ namespace tools
 		Enum value;
 	};
 
-} // namespace tools
+} // namespace MyGUI
 
 #endif // __MESSAGE_BOX_STYLE_H__

@@ -5,6 +5,7 @@
 */
 #include "Precompiled.h"
 #include "FontPanel.h"
+#include "MessageBox/MessageBox.h"
 
 namespace demo
 {

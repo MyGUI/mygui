@@ -37,7 +37,6 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Canvas.h"
-#include "MyGUI_Message.h"
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_ResourceManager.h"
@@ -869,14 +868,6 @@ namespace MyGUI
 			}
 			return false;
 		}
-		else if (_key == "Message_AddButton")
-		{
-			MYGUI_LOG(Warning, "Message_AddButton is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Message* widget = _owner->castType<Message>(false);
-			if (widget != nullptr)
-				widget->addButtonName(_value);
-			return false;
-		}
 		else if (_key == "ImageRect")
 		{
 			MYGUI_LOG(Warning, "ImageRect is deprecated, use ImageCoord" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
@@ -910,9 +901,6 @@ namespace MyGUI
 		mPropertyRename["Edit_ShowHScroll"] = "VisibleHScroll";
 		mPropertyRename["ScrollView_VScroll"] = "VisibleVScroll";
 		mPropertyRename["ScrollView_HScroll"] = "VisibleHScroll";
-		mPropertyRename["Message_Caption"] = "Caption";
-		mPropertyRename["Message_Message"] = "MessageText";
-		mPropertyRename["Message_Button"] = "MessageButton";
 		mPropertyRename["Progress_Position"] = "RangePosition";
 		mPropertyRename["Scroll_Position"] = "RangePosition";
 		mPropertyRename["Tab_SelectSheet"] = "SelectItem";
