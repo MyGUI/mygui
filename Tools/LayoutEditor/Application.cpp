@@ -47,6 +47,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
+		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		setResourceFilename("Editor.xml");
 	}
 
@@ -356,7 +357,7 @@ namespace tools
 		{
 			if (MessageBoxManager::getInstance().hasAny())
 			{
-				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxManager::getInstance().endTop(MessageBoxStyle::Cancel);
 			}
 			else
 			{
