@@ -10,7 +10,6 @@ set (HEADER_FILES
   CyclicBuffer.h
   ../../Common/Tools/Dialog.h
   ../../Common/Tools/DialogManager.h
-  ../../Common/MessageBox/MessageBox.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
@@ -78,7 +77,6 @@ set (SOURCE_FILES
   CommandManager.cpp
   ../../Common/Tools/Dialog.cpp
   ../../Common/Tools/DialogManager.cpp
-  ../../Common/MessageBox/MessageBox.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp

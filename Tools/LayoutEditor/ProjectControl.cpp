@@ -89,7 +89,7 @@ namespace tools
 					/*Message* message = */MessageBoxManager::getInstance().create(
 						replaceTags("Error"),
 						replaceTags("MessageFailedLoadProject"),
-						MessageBoxStyle::IconError | MessageBoxStyle::Ok
+						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 					);
 
 					clear();
@@ -104,7 +104,7 @@ namespace tools
 					/*Message* message = */MessageBoxManager::getInstance().create(
 						replaceTags("Error"),
 						replaceTags("MessageFileExist"),
-						MessageBoxStyle::IconError | MessageBoxStyle::Ok
+						MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 					);
 				}
 				else
@@ -167,20 +167,20 @@ namespace tools
 
 		if (isProjectItemOpen())
 		{
-			/*Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageProjectItemOpen"),
-				MessageBoxStyle::IconError | MessageBoxStyle::Ok
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 			);
 			return;
 		}
 
-		Message* message = MessageBoxManager::getInstance().create(
+		MyGUI::Message* message = MessageBoxManager::getInstance().create(
 			replaceTags("Warning"),
 			replaceTags("MessageDeleteLayout"),
-			MessageBoxStyle::IconQuest
-				| MessageBoxStyle::Yes
-				| MessageBoxStyle::No);
+			MyGUI::MessageBoxStyle::IconQuest
+				| MyGUI::MessageBoxStyle::Yes
+				| MyGUI::MessageBoxStyle::No);
 		message->eventMessageBoxResult += MyGUI::newDelegate(this, &ProjectControl::notifyMessageBoxResultDelete);
 
 		_result = true;
@@ -209,10 +209,10 @@ namespace tools
 
 		if (mProjectName.empty())
 		{
-			/*Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageProjectNotOpen"),
-				MessageBoxStyle::IconError | MessageBoxStyle::Ok
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 			);
 			return;
 		}
@@ -280,10 +280,10 @@ namespace tools
 
 		if (!load())
 		{
-			/*Message* message = */MessageBoxManager::getInstance().create(
+			/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				replaceTags("MessageFailedLoadProject"),
-				MessageBoxStyle::IconError | MessageBoxStyle::Ok
+				MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok
 			);
 
 			clear();
@@ -501,9 +501,9 @@ namespace tools
 		return renamed;
 	}
 
-	void ProjectControl::notifyMessageBoxResultDelete(Message* _sender, MessageBoxStyle _result)
+	void ProjectControl::notifyMessageBoxResultDelete(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
-		if (_result == MessageBoxStyle::Yes)
+		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
 			size_t index = mList->getIndexSelected();
 			if (index == MyGUI::ITEM_NONE)

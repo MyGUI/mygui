@@ -357,7 +357,7 @@ namespace tools
 		{
 			if (MessageBoxManager::getInstance().hasAny())
 			{
-				MessageBoxManager::getInstance().endTop(MessageBoxStyle::Cancel);
+				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
 			}
 			else
 			{

@@ -684,62 +684,6 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="MessageClient" size="16 16">
-		<Property key="FontName" value="Default"/>
-		<Property key="TextAlign" value="Left VCenter"/>
-		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
-		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
-	</Resource>
-
-	<Resource type="ResourceSkin" name="MessageIcon" size="50 50">
-		<Property key="ImageResource" value="pic_CoreMessageIcon"/>
-		<Property key="ImageGroup" value="Icons"/>
-		<BasisSkin type="MainSkin" offset="0 0 50 50" align="Stretch"/>
-	</Resource>
-
-	<Resource type="ResourceSkin" name="Message" size="68 49" texture="#{MyGUI_Theme_Texture}" >
-		<Property key="Snap" value="true"/>
-		<Property key="ButtonSkin" value="Button"/>
-		<Property key="ButtonType" value="Button"/>
-		<Property key="ButtonSize" value="100 26"/>
-		<Property key="ButtonOffset" value="20 43"/>
-		<Property key="DefaultLayer" value="Info"/>
-		<!--Property key="FadeSkin" value="MarkerBlack"/-->
-		<!--Property key="FadeLayer" value="FadeMiddle"/-->
-		<Child type="StaticText" skin="MessageClient" offset="10 35 32 -36" align="Stretch" name="Text"/>
-		<Child type="StaticImage" skin="MessageIcon" offset="6 34 50 50" align="Default" name="Icon"/>
-		<Child type="Button" skin="WindowCaption" offset="0 0 68 28" align="HStretch Top" name="Caption">
-			<Property key="Scale" value="1 1 0 0"/>
-		</Child>
-		<BasisSkin type="SubSkin" offset="0 28 4 3" align="Left Top">
-			<State name="normal" offset="384 173 4 3"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="4 28 58 3" align="HStretch Top">
-			<State name="normal" offset="390 173 3 3"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="62 28 6 3" align="Right Top">
-			<State name="normal" offset="401 173 6 3"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="0 31 4 12" align="Left VStretch">
-			<State name="normal" offset="384 176 4 12"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="4 31 58 12" align="Stretch">
-			<State name="normal" offset="432 5 65 57"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="62 31 6 12" align="Right VStretch">
-			<State name="normal" offset="401 176 6 12"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="0 43 4 6" align="Left Bottom">
-			<State name="normal" offset="384 188 4 6"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="4 43 58 6" align="HStretch Bottom">
-			<State name="normal" offset="390 188 3 6"/>
-		</BasisSkin>
-		<BasisSkin type="SubSkin" offset="62 43 6 6" align="Right Bottom">
-			<State name="normal" offset="401 188 6 6"/>
-		</BasisSkin>
-	</Resource>
-
 	<Resource type="ResourceSkin" name="Panel" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>

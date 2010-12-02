@@ -4,8 +4,7 @@
 	<List file="EditorTheme.xml"/>
 	<List file="EditorLanguage.xml"/>
 
-	<List file="MessageBoxLanguage.xml"/>
-	<List file="MessageBoxIcons.xml"/>
+	<List file="MessageBoxResources.xml"/>
 
 	<List file="core_font.xml"/>
 	<List file="core_resource.xml"/>

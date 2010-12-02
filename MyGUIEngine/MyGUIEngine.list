@@ -4,7 +4,6 @@ set (HEADER_FILES
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h
-  include/MyGUI_MessageStyle.h
   include/MyGUI_WidgetToolTip.h
   include/MyGUI_Button.h
   include/MyGUI_Canvas.h
@@ -17,7 +16,6 @@ set (HEADER_FILES
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
-  include/MyGUI_Message.h
   include/MyGUI_MultiList.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_Progress.h
@@ -181,7 +179,6 @@ set (SOURCE_FILES
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
-  src/MyGUI_Message.cpp
   src/MyGUI_MultiList.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_Progress.cpp
@@ -278,7 +275,6 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
-  src/MyGUI_Message.cpp
   src/MyGUI_MultiList.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_Progress.cpp
@@ -395,7 +391,6 @@ SOURCE_GROUP("Header Files\\Widget\\Types" FILES
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h
-  include/MyGUI_MessageStyle.h
   include/MyGUI_WidgetToolTip.h
 )
 SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
@@ -410,7 +405,6 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
-  include/MyGUI_Message.h
   include/MyGUI_MultiList.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_Progress.h
