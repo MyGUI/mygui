@@ -149,7 +149,7 @@
 		<Parameter key="MenuItemChecked" value="Bool"/>
 	</Widget>
 
-	<Widget name="Message">
+	<!--Widget name="Message">
 		<Property key="DefaultSkin" value="Message"/>
 		<Property key="Base" value="Window"/>
 
@@ -159,7 +159,7 @@
 		<Parameter key="Modal" value="Bool"/>
 		<Parameter key="MessageButton" value="MessageButton"/>
 		<Parameter key="MessageSmoothShow" value="Bool"/>
-	</Widget>
+	</Widget-->
 
 	<Widget name="MultiList">
 		<Property key="DefaultSkin" value="MultiList"/>

@@ -50,6 +50,7 @@ set (HEADER_FILES
   ActionManager.h
   MainMenuControl.h
   ../../Common/Tools/OpenSaveFileDialog.h
+  ../../Common/MessageBox/MessageBox.h
   CommandManager.h
   ColourPanel.h
   ../../Common/Tools/Dialog.h
@@ -130,6 +131,7 @@ set (SOURCE_FILES
   CommandManager.cpp
   ColourPanel.cpp
   ../../Common/Tools/Dialog.cpp
+  ../../Common/MessageBox/MessageBox.cpp
   TestWindow.cpp
   BackgroundControl.cpp
   ExportManager.cpp

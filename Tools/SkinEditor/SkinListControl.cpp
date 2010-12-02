@@ -80,17 +80,17 @@ namespace tools
 		SkinItem* item = SkinManager::getInstance().getItemSelected();
 		if (item != nullptr)
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageDeleteSkin"),
-				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
+				MessageBoxStyle::IconQuest | MessageBoxStyle::Yes | MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
 		}
 	}
 
-	void SkinListControl::notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style)
+	void SkinListControl::notifyDeleteMessageBoxResult(Message* _sender, MessageBoxStyle _style)
 	{
-		if (_style == MyGUI::MessageBoxStyle::Yes)
+		if (_style == MessageBoxStyle::Yes)
 		{
 			SkinItem* item = SkinManager::getInstance().getItemSelected();
 

@@ -24,10 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_ResourceImageSet.h"
-#include "MyGUI_EventPair.h"
 #include "MyGUI_MessageStyle.h"
-#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -41,9 +38,6 @@ namespace MyGUI
 
 	public:
 		Message();
-
-		/** @copydoc Widget::setVisible */
-		virtual void setVisible(bool _value);
 
 		/** Set message text*/
 		void setMessageText(const UString& _value);
@@ -59,8 +53,6 @@ namespace MyGUI
 
 		/** Set message icon*/
 		void setMessageIcon(MessageBoxStyle _value);
-		/** Set fade under message*/
-		//void setWindowFade(bool _value);
 
 		void endMessage(MessageBoxStyle _result);
 		void endMessage();
@@ -121,23 +113,21 @@ namespace MyGUI
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
-		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
-
-	private:
 		IntSize mOffsetText;
 		StaticText* mWidgetText;
 
-		std::string mButtonSkin, mButtonType;
-		IntSize mButtonSize, mButtonOffset;
+		std::string mButtonSkin;
+		std::string mButtonType;
+		IntSize mButtonSize;
+		IntSize mButtonOffset;
 
 		std::vector<Button*> mVectorButton;
 		MessageBoxStyle mInfoOk;
 		MessageBoxStyle mInfoCancel;
 		bool mSmoothShow;
 
-		std::string mDefaultLayer, mDefaultCaption;
-		//std::string mFadeSkin, mFadeLayer;
-		Widget* mWidgetFade;
+		std::string mDefaultLayer;
+		std::string mDefaultCaption;
 		StaticImage* mIcon;
 		int mLeftOffset1;
 		int mLeftOffset2;
