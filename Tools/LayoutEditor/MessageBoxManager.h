@@ -7,9 +7,11 @@
 #define __MESSAGE_BOX_MANAGER_H__
 
 #include <MyGUI.h>
+#include "MessageBox/MessageBox.h"
 
 namespace tools
 {
+
 	class MessageBoxManager :
 		public MyGUI::Singleton<MessageBoxManager>
 	{
@@ -20,16 +22,16 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		MyGUI::Message* create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style);
+		Message* create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MessageBoxStyle _style);
 		bool hasAny();
-		void endTop(MyGUI::MessageBoxStyle _button);
+		void endTop(MessageBoxStyle _button);
 
 	private:
-		void registerMessageBox(MyGUI::Message* _message);
-		void notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void registerMessageBox(Message* _message);
+		void notifMessageBoxResultRegister(Message* _sender, MessageBoxStyle _result);
 
 	private:
-		typedef std::vector<MyGUI::Message*> VectorMessage;
+		typedef std::vector<Message*> VectorMessage;
 		VectorMessage mMessages;
 	};
 

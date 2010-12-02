@@ -11,6 +11,7 @@ template <> const char* MyGUI::Singleton<tools::MessageBoxManager>::mClassTypeNa
 
 namespace tools
 {
+
 	MessageBoxManager::MessageBoxManager()
 	{
 	}
@@ -27,9 +28,9 @@ namespace tools
 	{
 	}
 
-	MyGUI::Message* MessageBoxManager::create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style)
+	Message* MessageBoxManager::create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MessageBoxStyle _style)
 	{
-		MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", _caption, _message, _style);
+		Message* message = Message::createMessageBox(_caption, _message, _style);
 		registerMessageBox(message);
 
 		return message;
@@ -40,19 +41,19 @@ namespace tools
 		return !mMessages.empty();
 	}
 
-	void MessageBoxManager::endTop(MyGUI::MessageBoxStyle _button)
+	void MessageBoxManager::endTop(MessageBoxStyle _button)
 	{
 		if (!mMessages.empty())
 			mMessages.back()->endMessage(_button);
 	}
 
-	void MessageBoxManager::registerMessageBox(MyGUI::Message* _message)
+	void MessageBoxManager::registerMessageBox(Message* _message)
 	{
 		mMessages.push_back(_message);
 		_message->eventMessageBoxResult += MyGUI::newDelegate(this, &MessageBoxManager::notifMessageBoxResultRegister);
 	}
 
-	void MessageBoxManager::notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void MessageBoxManager::notifMessageBoxResultRegister(Message* _sender, MessageBoxStyle _result)
 	{
 		VectorMessage::iterator item = std::find(mMessages.begin(), mMessages.end(), _sender);
 		if (item != mMessages.end())

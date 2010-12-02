@@ -10,6 +10,7 @@
 #include "Tools/OpenSaveFileDialog.h"
 #include "TextFieldControl.h"
 #include "EditorToolTip.h"
+#include "MessageBox/MessageBox.h"
 
 namespace tools
 {
@@ -22,7 +23,7 @@ namespace tools
 
 	private:
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
-		void notifyMessageBoxResultDelete(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultDelete(Message* _sender, MessageBoxStyle _result);
 		void notifyTextFieldEndDialog(Dialog* _sender, bool _result);
 		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
