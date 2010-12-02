@@ -41,6 +41,7 @@ namespace tools
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
+		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		setResourceFilename("Editor.xml");
 	}
 
@@ -303,7 +304,7 @@ namespace tools
 		{
 			if (MessageBoxManager::getInstance().hasAny())
 			{
-				MessageBoxManager::getInstance().endTop(MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxManager::getInstance().endTop(MessageBoxStyle::Cancel);
 			}
 			else
 			{

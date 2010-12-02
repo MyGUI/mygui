@@ -114,13 +114,13 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxStyle::IconQuest
+					| MessageBoxStyle::Yes
+					| MessageBoxStyle::No
+					| MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoad);
 		}
 		else
@@ -161,13 +161,13 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxStyle::IconQuest
+					| MessageBoxStyle::Yes
+					| MessageBoxStyle::No
+					| MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultClear);
 		}
 		else
@@ -185,13 +185,13 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxStyle::IconQuest
+					| MessageBoxStyle::Yes
+					| MessageBoxStyle::No
+					| MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultQuit);
 		}
 		else
@@ -213,13 +213,13 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+			Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
 				replaceTags("MessageUnsavedData"),
-				MyGUI::MessageBoxStyle::IconQuest
-					| MyGUI::MessageBoxStyle::Yes
-					| MyGUI::MessageBoxStyle::No
-					| MyGUI::MessageBoxStyle::Cancel);
+				MessageBoxStyle::IconQuest
+					| MessageBoxStyle::Yes
+					| MessageBoxStyle::No
+					| MessageBoxStyle::Cancel);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &EditorState::notifyMessageBoxResultLoadDropFile);
 		}
 		else
@@ -244,16 +244,16 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void EditorState::notifyMessageBoxResultLoad(Message* _sender, MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
 
 			showLoadWindow();
 		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
+		else if (_result == MessageBoxStyle::No)
 		{
 			clear();
 
@@ -261,16 +261,16 @@ namespace tools
 		}
 	}
 
-	void EditorState::notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void EditorState::notifyMessageBoxResultLoadDropFile(Message* _sender, MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
 
 			loadDropFile();
 		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
+		else if (_result == MessageBoxStyle::No)
 		{
 			clear();
 
@@ -323,14 +323,14 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-	void EditorState::notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void EditorState::notifyMessageBoxResultClear(Message* _sender, MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MessageBoxStyle::Yes)
 		{
 			save();
 			clear();
 		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
+		else if (_result == MessageBoxStyle::No)
 		{
 			clear();
 		}
@@ -345,14 +345,14 @@ namespace tools
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void EditorState::notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
+	void EditorState::notifyMessageBoxResultQuit(Message* _sender, MessageBoxStyle _result)
 	{
-		if (_result == MyGUI::MessageBoxStyle::Yes)
+		if (_result == MessageBoxStyle::Yes)
 		{
 			save();
 			StateManager::getInstance().stateEvent(this, "Exit");
 		}
-		else if (_result == MyGUI::MessageBoxStyle::No)
+		else if (_result == MessageBoxStyle::No)
 		{
 			StateManager::getInstance().stateEvent(this, "Exit");
 		}
@@ -414,11 +414,11 @@ namespace tools
 
 			if (!result)
 			{
-				/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+				/*Message* message =*/ MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					replaceTags("MessageIncorrectFileFormat"),
-					MyGUI::MessageBoxStyle::IconError
-						| MyGUI::MessageBoxStyle::Yes);
+					MessageBoxStyle::IconError
+						| MessageBoxStyle::Yes);
 
 				mFileName = mDefaultFileName;
 				addUserTag("CurrentFileName", mFileName);
@@ -428,11 +428,11 @@ namespace tools
 		}
 		else
 		{
-			/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+			/*Message* message =*/ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
 				doc.getLastError(),
-				MyGUI::MessageBoxStyle::IconError
-					| MyGUI::MessageBoxStyle::Yes);
+				MessageBoxStyle::IconError
+					| MessageBoxStyle::Yes);
 		}
 
 		ActionManager::getInstance().setChanges(false);

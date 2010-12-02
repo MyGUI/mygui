@@ -10,6 +10,7 @@
 #include "MainPane.h"
 #include "Tools/OpenSaveFileDialog.h"
 #include "MessageBoxFadeControl.h"
+#include "MessageBox/MessageBox.h"
 #include "SettingsWindow.h"
 
 namespace tools
@@ -28,10 +29,10 @@ namespace tools
 		virtual void resumeState();
 
 	private:
-		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultClear(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultQuit(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
-		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
+		void notifyMessageBoxResultLoad(Message* _sender, MessageBoxStyle _result);
+		void notifyMessageBoxResultClear(Message* _sender, MessageBoxStyle _result);
+		void notifyMessageBoxResultQuit(Message* _sender, MessageBoxStyle _result);
+		void notifyMessageBoxResultLoadDropFile(Message* _sender, MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyChanges(bool _changes);
