@@ -36,7 +36,6 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_Progress.h"
-#include "MyGUI_Message.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiList.h"
 #include "MyGUI_MenuCtrl.h"

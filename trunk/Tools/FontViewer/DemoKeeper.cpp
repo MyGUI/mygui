@@ -20,15 +20,16 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/FontViewer");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 	}
 
 	void DemoKeeper::createScene()
 	{
+		MyGUI::ResourceManager::getInstance().load("MessageBoxResources.xml");
+
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
-
-		MyGUI::ResourceManager::getInstance().load("external.xml");
 
 		mFontPanel = new FontPanel();
 	}

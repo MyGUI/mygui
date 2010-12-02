@@ -50,7 +50,6 @@ set (HEADER_FILES
   ActionManager.h
   MainMenuControl.h
   ../../Common/Tools/OpenSaveFileDialog.h
-  ../../Common/MessageBox/MessageBox.h
   CommandManager.h
   ColourPanel.h
   ../../Common/Tools/Dialog.h
@@ -58,8 +57,8 @@ set (HEADER_FILES
   BackgroundControl.h
   ExportManager.h
   Localise.h
-  MessageBoxManager.h
   ../../Common/Tools/DialogManager.h
+  MessageBoxManager.h
   MessageBoxFadeControl.h
   HotKeyCommand.h
   HotKeyManager.h
@@ -131,12 +130,11 @@ set (SOURCE_FILES
   CommandManager.cpp
   ColourPanel.cpp
   ../../Common/Tools/Dialog.cpp
-  ../../Common/MessageBox/MessageBox.cpp
   TestWindow.cpp
   BackgroundControl.cpp
   ExportManager.cpp
-  MessageBoxManager.cpp
   ../../Common/Tools/DialogManager.cpp
+  MessageBoxManager.cpp
   MessageBoxFadeControl.cpp
   HotKeyManager.cpp
   StateManager.cpp

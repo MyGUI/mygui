@@ -22,16 +22,16 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		Message* create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MessageBoxStyle _style);
+		MyGUI::Message* create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style);
 		bool hasAny();
-		void endTop(MessageBoxStyle _button);
+		void endTop(MyGUI::MessageBoxStyle _button);
 
 	private:
-		void registerMessageBox(Message* _message);
-		void notifMessageBoxResultRegister(Message* _sender, MessageBoxStyle _result);
+		void registerMessageBox(MyGUI::Message* _message);
+		void notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	private:
-		typedef std::vector<Message*> VectorMessage;
+		typedef std::vector<MyGUI::Message*> VectorMessage;
 		VectorMessage mMessages;
 	};
 
