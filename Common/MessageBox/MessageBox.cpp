@@ -310,7 +310,7 @@ namespace tools
 	const char* Message::getButtonTag(size_t _index)
 	{
 		static const size_t Count = 9;
-		static const char* Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
+		static const char* Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", "" };
 		if (_index >= Count)
 			return Names[Count];
 		return Names[_index];
