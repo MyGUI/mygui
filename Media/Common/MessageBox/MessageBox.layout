@@ -4,7 +4,7 @@
         <Property key="Snap" value="true"/>
         <UserString key="ButtonSkin" value="Button"/>
         <Widget type="StaticImage" skin="StaticImage" position="5 5 50 50" name="Icon">
-            <Property key="ImageResource" value="pic_CoreMessageIcon"/>
+            <Property key="ImageResource" value="MessageBoxIcon"/>
             <Property key="ImageGroup" value="Icons"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="60 5 92 50" align="Stretch" name="Text">
