@@ -72,7 +72,8 @@ namespace wraps
 
 		void initialise(const std::string& _layout, MyGUI::Widget* _parent = nullptr)
 		{
-			const std::string MAIN_WINDOW = "_Main";
+			const std::string MAIN_WINDOW1 = "_Main";
+			const std::string MAIN_WINDOW2 = "Root";
 			mLayoutName = _layout;
 
 			// оборачиваем
@@ -86,10 +87,11 @@ namespace wraps
 				mPrefix = MyGUI::utility::toString(this, "_");
 				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
 
-				const std::string main_name = mPrefix + MAIN_WINDOW;
+				const std::string mainName1 = mPrefix + MAIN_WINDOW1;
+				const std::string mainName2 = mPrefix + MAIN_WINDOW2;
 				for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
 				{
-					if ((*iter)->getName() == main_name)
+					if ((*iter)->getName() == mainName1 || (*iter)->getName() == mainName2)
 					{
 						mMainWidget = (*iter);
 
@@ -98,7 +100,7 @@ namespace wraps
 						break;
 					}
 				}
-				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
+				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW1 << "' or '" << MAIN_WINDOW2 << "' in layout '" << mLayoutName << "' not found.");
 			}
 		}
 

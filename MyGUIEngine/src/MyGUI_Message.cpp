@@ -36,16 +36,11 @@
 namespace MyGUI
 {
 
-	const float MESSAGE_ALPHA_MAX = 0.5f;
-	const float MESSAGE_ALPHA_MIN = 0.0f;
-	const float MESSAGE_SPEED_COEF = 3.0f;
-
 	Message::Message() :
 		mWidgetText(nullptr),
 		mInfoOk(MessageBoxStyle::None),
 		mInfoCancel(MessageBoxStyle::None),
 		mSmoothShow(false),
-		mWidgetFade(nullptr),
 		mIcon(nullptr),
 		mLeftOffset1(0),
 		mLeftOffset2(0)
@@ -77,10 +72,6 @@ namespace MyGUI
 			mButtonType = getUserString("ButtonType");
 		if (isUserString("DefaultLayer"))
 			mDefaultLayer = getUserString("DefaultLayer");
-		//if (isUserString("FadeSkin"))
-		//	mFadeSkin = getUserString("FadeSkin");
-		//if (isUserString("FadeLayer"))
-		//	mFadeLayer = getUserString("FadeLayer");
 		if (isUserString("ButtonSize"))
 			mButtonSize = IntSize::parse(getUserString("ButtonSize"));
 		if (isUserString("ButtonOffset"))
@@ -128,7 +119,8 @@ namespace MyGUI
 		MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_IndexUserButton1)));
 
 		// запоминаем кнопки для отмены и подтверждения
-		if (mVectorButton.empty()) mInfoOk = info;
+		if (mVectorButton.empty())
+			mInfoOk = info;
 		mInfoCancel = info;
 
 		Widget* widget = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
@@ -144,7 +136,9 @@ namespace MyGUI
 
 	void Message::setMessageIcon(MessageBoxStyle _icon)
 	{
-		if (nullptr == mIcon) return;
+		if (nullptr == mIcon)
+			return;
+
 		if (mIcon->getItemResource() != nullptr)
 		{
 			mIcon->setItemName( getIconName(_icon.getIconIndex()) );
@@ -175,7 +169,8 @@ namespace MyGUI
 			mVectorButton.back()->_setInternalData(info);
 
 			// первая кнопка
-			if (mVectorButton.size() == 1) mInfoOk = info;
+			if (mVectorButton.size() == 1)
+				mInfoOk = info;
 			// последняя кнопка
 			mInfoCancel = info;
 		}
@@ -197,37 +192,28 @@ namespace MyGUI
 	void Message::clearButton()
 	{
 		for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
-		{
 			WidgetManager::getInstance().destroyWidget(*iter);
-		}
 		mVectorButton.clear();
 	}
 
 	void Message::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		Base::onKeyButtonPressed(_key, _char);
-		if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) _destroyMessage(mInfoOk);
-		else if (_key == KeyCode::Escape) _destroyMessage(mInfoCancel);
+
+		if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
+			_destroyMessage(mInfoOk);
+		else if (_key == KeyCode::Escape)
+			_destroyMessage(mInfoCancel);
 	}
 
 	void Message::_destroyMessage(MessageBoxStyle _result)
 	{
 		eventMessageBoxResult(this, _result);
-		if (nullptr != mWidgetFade)
-		{
-			if (mSmoothShow)
-			{
-				ControllerFadeAlpha* controller = createControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
-				controller->eventPostAction += newDelegate(action::actionWidgetDestroy);
-				ControllerManager::getInstance().addItem(mWidgetFade, controller);
-			}
-			else
-			{
-				WidgetManager::getInstance().destroyWidget(mWidgetFade);
-			}
-		}
-		if (mSmoothShow) destroySmooth();
-		else WidgetManager::getInstance().destroyWidget(this);
+
+		if (mSmoothShow)
+			destroySmooth();
+		else
+			WidgetManager::getInstance().destroyWidget(this);
 	}
 
 	void Message::setSmoothShow(bool _smooth)
@@ -241,43 +227,12 @@ namespace MyGUI
 		}
 	}
 
-	/*void Message::setWindowFade(bool _fade)
-	{
-		//пока пропустим
-		if (_fade)
-		{
-			if (nullptr == mWidgetFade)
-			{
-				const IntSize& size = RenderManager::getInstance().getViewSize();
-				mWidgetFade = Gui::getInstance().createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, size.width, size.height), Align::Stretch, mFadeLayer);
-				if (mSmoothShow)
-				{
-					mWidgetFade->setVisible(false);
-
-					ControllerFadeAlpha* controller = createControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
-					ControllerManager::getInstance().addItem(mWidgetFade, controller);
-				}
-				else
-				{
-					mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
-				}
-			}
-		}
-		else
-		{
-			if (nullptr != mWidgetFade)
-			{
-				WidgetManager::getInstance().destroyWidget(mWidgetFade);
-				mWidgetFade = nullptr;
-			}
-		}
-	}*/
-
 	const char* Message::getIconName(size_t _index)
 	{
 		static const size_t CountIcons = 4;
 		static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
-		if (_index >= CountIcons) return IconNames[CountIcons];
+		if (_index >= CountIcons)
+			return IconNames[CountIcons];
 		return IconNames[_index];
 	}
 
@@ -299,7 +254,6 @@ namespace MyGUI
 		mess->setMessageText(_message);
 
 		mess->setSmoothShow(true);
-		//if (_modal) mess->setWindowFade(true);
 
 		mess->setMessageStyle(_style);
 
@@ -316,8 +270,10 @@ namespace MyGUI
 			}
 		}
 
-		if (_layer.empty()) LayerManager::getInstance().attachToLayerNode(mess->getDefaultLayer(), mess);
-		if (_modal) InputManager::getInstance().addWidgetModal(mess);
+		if (_layer.empty())
+			LayerManager::getInstance().attachToLayerNode(mess->getDefaultLayer(), mess);
+		if (_modal)
+			InputManager::getInstance().addWidgetModal(mess);
 
 		return mess;
 	}
@@ -343,14 +299,17 @@ namespace MyGUI
 		int offset = (size.width - width) / 2;
 		offset += mButtonOffset.width;
 
-		setSize(size);
+		const IntSize& view = RenderManager::getInstance().getViewSize();
+		setCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height);
 
 		if (nullptr != mIcon)
 		{
 			if (mWidgetText != nullptr)
 			{
-				if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
-				else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+				if (mIcon->getImageIndex() != ITEM_NONE)
+					mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+				else
+					mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 			}
 		}
 
@@ -361,22 +320,12 @@ namespace MyGUI
 		}
 	}
 
-	ControllerFadeAlpha* Message::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
-	{
-		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
-		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
-
-		controller->setAlpha(_alpha);
-		controller->setCoef(_coef);
-		controller->setEnabled(_enable);
-
-		return controller;
-	}
-
 	void Message::setMessageModal(bool _value)
 	{
-		if (_value) InputManager::getInstance().addWidgetModal(this);
-		else InputManager::getInstance().removeWidgetModal(this);
+		if (_value)
+			InputManager::getInstance().addWidgetModal(this);
+		else
+			InputManager::getInstance().removeWidgetModal(this);
 	}
 
 	UString Message::getButtonName(MessageBoxStyle _style)
@@ -384,7 +333,8 @@ namespace MyGUI
 		size_t index = _style.getButtonIndex();
 		const char* tag = getButtonTag(index);
 		UString result = LanguageManager::getInstance().replaceTags(utility::toString("#{", tag, "}"));
-		if (result == tag) return getButtonName(index);
+		if (result == tag)
+			return getButtonName(index);
 		return result;
 	}
 
@@ -392,7 +342,8 @@ namespace MyGUI
 	{
 		static const size_t Count = 9;
 		static const char* Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
-		if (_index >= Count) return Names[Count];
+		if (_index >= Count)
+			return Names[Count];
 		return Names[_index];
 	}
 
@@ -400,7 +351,8 @@ namespace MyGUI
 	{
 		static const size_t Count = 9;
 		static const char* Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
-		if (_index >= Count) return Names[Count];
+		if (_index >= Count)
+			return Names[Count];
 		return Names[_index];
 	}
 
@@ -424,8 +376,6 @@ namespace MyGUI
 			setMessageButton(utility::parseValue<MessageBoxStyle>(_value));
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
-//		else if (_key == "Fade")
-//			setWindowFade(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -437,15 +387,6 @@ namespace MyGUI
 	const std::string& Message::getDefaultLayer() const
 	{
 		return mDefaultLayer;
-	}
-
-	void Message::setVisible(bool _value)
-	{
-		const IntSize& view = RenderManager::getInstance().getViewSize();
-		const IntSize& size = getSize();
-		setPosition((view.width - size.width) / 2, (view.height - size.height) / 2);
-
-		Base::setVisible(_value);
 	}
 
 } // namespace MyGUI
