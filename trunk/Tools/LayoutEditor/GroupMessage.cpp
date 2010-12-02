@@ -65,7 +65,7 @@ namespace tools
 				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 					replaceTags("Warning"),
 					warningMess,
-					MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
+					MessageBoxStyle::IconWarning | MessageBoxStyle::Ok);
 			}
 
 			mWarningMessages.clear();
@@ -86,7 +86,7 @@ namespace tools
 				/*MyGUI::Message* message = */MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
 					errorMessages,
-					MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
+					MessageBoxStyle::IconError | MessageBoxStyle::Ok);
 			}
 
 			mErrorMessages.clear();
