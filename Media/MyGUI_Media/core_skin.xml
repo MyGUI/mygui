@@ -1166,6 +1166,7 @@
 	<Resource type="ResourceSkin" name="VScroll" size="15 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="14 12"/>
 		<Property key="MinTrackSize" value="19"/>
+		<Property key="VerticalAlignment" value="true"/>
 		<Child type="Button" skin="VScrollTopPart" offset="0 15 15 6" align="Stretch" name="FirstPart"/>
 		<Child type="Button" skin="VScrollBottomPart" offset="0 21 15 14" align="HStretch Bottom" name="SecondPart"/>
 		<Child type="Button" skin="ButtonUp" offset="1 2 14 12" align="HStretch Top" name="Start"/>
@@ -1231,6 +1232,7 @@
 	<Resource type="ResourceSkin" name="HScroll" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="14 13"/>
 		<Property key="MinTrackSize" value="19"/>
+		<Property key="VerticalAlignment" value="false"/>
 		<Child type="Button" skin="HScrollLeftPart" offset="15 0 6 15" align="Stretch" name="FirstPart"/>
 		<Child type="Button" skin="HScrollRightPart" offset="21 0 14 15" align="Right VStretch" name="SecondPart"/>
 		<Child type="Button" skin="ButtonLeft" offset="2 1 12 14" align="Left VStretch" name="Start"/>

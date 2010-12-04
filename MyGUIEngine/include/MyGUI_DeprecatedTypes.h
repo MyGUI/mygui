@@ -32,6 +32,9 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
+	class HScroll;
+	class VScroll;
+
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
 	typedef Window* WindowPtr;
