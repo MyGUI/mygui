@@ -143,7 +143,7 @@ namespace demo
 		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
 	}
 
-	void ColourPanel::notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position)
+	void ColourPanel::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
 	{
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		float sector_current = (float)_position / sector_size;

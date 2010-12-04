@@ -34,18 +34,18 @@ namespace common
 		update();
 	}
 
-	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		if (_name == "close")
 			eventEndDialog(this, false);
 	}
 
-	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::EditPtr _sender)
+	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::Edit* _sender)
 	{
 		accept();
 	}
 
-	void OpenSaveFileDialog::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void OpenSaveFileDialog::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		accept();
 	}
@@ -56,7 +56,7 @@ namespace common
 		mButtonOpenSave->setCaption(_button);
 	}
 
-	void OpenSaveFileDialog::notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index)
+	void OpenSaveFileDialog::notifyListChangePosition(MyGUI::List* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE)
 		{
@@ -70,7 +70,7 @@ namespace common
 		}
 	}
 
-	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index)
+	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::List* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE) return;
 

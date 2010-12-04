@@ -23,7 +23,7 @@ namespace wraps
 		typedef std::vector<BaseGraphNode*> VectorGraphNode;
 		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
 
-		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
+		BaseGraphView(const std::string& _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent),
 			mCanvas(nullptr),
 			mIsDrug(false),
@@ -100,7 +100,7 @@ namespace wraps
 			return false;
 		}
 
-		MyGUI::WidgetPtr getClient() const
+		MyGUI::Widget* getClient() const
 		{
 			return mCanvas;
 		}
@@ -345,7 +345,7 @@ namespace wraps
 				}
 
 				// пикаем виджет под нами
-				MyGUI::WidgetPtr widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
+				MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 				if (widget != nullptr)
 				{
 					BaseGraphConnection** connection = widget->getUserData<BaseGraphConnection*>(false);
@@ -421,7 +421,7 @@ namespace wraps
 			const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 
 			// пикаем виджет под нами
-			MyGUI::WidgetPtr widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
+			MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 			if (widget != nullptr)
 			{
 				BaseGraphConnection** connection = widget->getUserData<BaseGraphConnection*>(false);

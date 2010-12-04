@@ -969,6 +969,20 @@ namespace MyGUI
 		return _propertyName;
 	}
 
+	std::string BackwardCompatibility::getFactoryRename(const std::string& _categoryName, const std::string& _factoryName)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		/*if (_categoryName == "Widget")
+		{
+			if (_factoryName == VScroll::getClassTypeName())
+				return ScrollBar::getClassTypeName();
+			if (_factoryName == HScroll::getClassTypeName())
+				return ScrollBar::getClassTypeName();
+		}*/
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return _factoryName;
+	}
+
 	void BackwardCompatibility::shutdown()
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE

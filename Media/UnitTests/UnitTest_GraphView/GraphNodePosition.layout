@@ -12,7 +12,7 @@
             <Property key="Caption" value="Position"/>
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
-        <Widget type="HScroll" skin="HSlider" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
+        <Widget type="ScrollBar" skin="HSlider" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
             <Property key="MoveToClick" value="true"/>
             <Property key="Range" value="1000"/>
             <Property key="RangePosition" value="0"/>

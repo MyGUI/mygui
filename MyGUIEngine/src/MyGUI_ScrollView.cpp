@@ -102,7 +102,7 @@ namespace MyGUI
 		updateView();
 	}
 
-	void ScrollView::notifyScrollChangePosition(VScroll* _sender, size_t _position)
+	void ScrollView::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
 		if (mRealClient == nullptr)
 			return;

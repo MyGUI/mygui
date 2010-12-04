@@ -8,21 +8,21 @@
             <UserString key="Info" value="A item box"/>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="4 141 214 209" align="HStretch Bottom">
-            <Widget type="HScroll" skin="HSlider" position="6 6 201 15" align="HStretch Top" name="Red">
+            <Widget type="ScrollBar" skin="HSlider" position="6 6 201 15" align="HStretch Top" name="Red">
                 <Property key="Range" value="256"/>
                 <Property key="RangePosition" value="255"/>
                 <Property key="Page" value="1"/>
                 <Property key="ViewPage" value="10"/>
                 <UserString key="Info" value="A colour slider"/>
             </Widget>
-            <Widget type="HScroll" skin="HSlider" position="6 24 201 15" align="HStretch Top" name="Green">
+            <Widget type="ScrollBar" skin="HSlider" position="6 24 201 15" align="HStretch Top" name="Green">
                 <Property key="Range" value="256"/>
                 <Property key="RangePosition" value="255"/>
                 <Property key="Page" value="1"/>
                 <Property key="ViewPage" value="10"/>
                 <UserString key="Info" value="A colour slider"/>
             </Widget>
-            <Widget type="HScroll" skin="HSlider" position="6 42 201 15" align="HStretch Top" name="Blue">
+            <Widget type="ScrollBar" skin="HSlider" position="6 42 201 15" align="HStretch Top" name="Blue">
                 <Property key="Range" value="256"/>
                 <Property key="RangePosition" value="255"/>
                 <Property key="Page" value="1"/>

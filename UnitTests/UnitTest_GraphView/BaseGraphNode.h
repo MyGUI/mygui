@@ -88,7 +88,7 @@ namespace wraps
 		}
 
 	/*internal:*/
-		void _initialise(MyGUI::WidgetPtr _parent, IGraphController* _view)
+		void _initialise(MyGUI::Widget* _parent, IGraphController* _view)
 		{
 			mView = _view;
 			if ( ! mLayout.empty())
@@ -97,7 +97,7 @@ namespace wraps
 			}
 			initialise();
 
-			MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+			MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 			if (window != nullptr)
 			{
 				window->eventWindowChangeCoord += MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowChangeCoord);
@@ -118,7 +118,7 @@ namespace wraps
 		virtual void initialise() = 0;
 		virtual void shutdown() = 0;
 
-		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
+		void notifyWindowChangeCoord(MyGUI::Window* _sender)
 		{
 			MyGUI::IntCoord coord = _sender->getCoord();
 			if ((coord.left < 0) || (coord.top < 0))
@@ -131,7 +131,7 @@ namespace wraps
 			mView->changePosition(this);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 		{
 			if (_name == "close")
 				mView->close(this);
@@ -155,18 +155,18 @@ namespace wraps
 			_connection->_getMainWidget()->setUserData(_connection);
 		}
 
-		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MouseButton::Left)
 				mView->startDrag(*_sender->getUserData<BaseGraphConnection*>());
 		}
 
-		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			mView->stopDrag(*_sender->getUserData<BaseGraphConnection*>());
 		}
 
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MouseButton::Left)
 				mView->updateDrag(*_sender->getUserData<BaseGraphConnection*>());

@@ -88,7 +88,7 @@ namespace MyGUI
 		void notifyMouseDoubleClick(Widget* pSender);
 		void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
 		void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
-		void notifyScrollChangePosition(VScroll* pSender, size_t nPosition);
+		void notifyScrollChangePosition(ScrollBar* pSender, size_t nPosition);
 		void notifyExpandCollapse(Widget* pSender);
 		void notifyFrameEntered(float nTime);
 
@@ -106,7 +106,7 @@ namespace MyGUI
 		void scrollTo(size_t nPosition);
 		void sendScrollingEvents(size_t nPosition);
 
-		VScroll* mpWidgetScroll;
+		ScrollBar* mpWidgetScroll;
 		VectorTreeItemPtr mItemWidgets;
 		UString mstrSkinLine;
 		bool mbScrollAlwaysVisible;

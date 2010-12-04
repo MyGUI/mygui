@@ -531,6 +531,7 @@ namespace MyGUI
 		static void shutdown();
 		static bool isIgnoreProperty(const std::string& _key);
 		static std::string MYGUI_EXPORT getPropertyRename(const std::string& _propertyName);
+		static std::string MYGUI_EXPORT getFactoryRename(const std::string& _categoryName, const std::string& _factoryName);
 		static void registerWidgetTypes();
 
 	private:
