@@ -44,13 +44,13 @@ namespace wraps
 		MyGUI::delegates::CDelegate2<ContextMenu*, const std::string&> eventMenuAccept;
 
 	private:
-		void notifyMenuCtrlAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
+		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 		{
 			eventMenuAccept(this, _item->getItemId());
 		}
 
 	private:
-		MyGUI::PopupMenuPtr mMenu;
+		MyGUI::PopupMenu* mMenu;
 
 	};
 

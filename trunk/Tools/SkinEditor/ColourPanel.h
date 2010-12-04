@@ -33,8 +33,8 @@ namespace tools
 	private:
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
-		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
-		void notifyScrollChangePositionAlpha(MyGUI::VScroll* _sender, size_t _position);
+		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);
+		void notifyScrollChangePositionAlpha(MyGUI::ScrollBar* _sender, size_t _position);
 		void notifyEditTextChange(MyGUI::Edit* _sender);
 		void notifyEditTextChangeAlpha(MyGUI::Edit* _sender);
 		void notifyMouseButtonClickOk(MyGUI::Widget* _sender);
@@ -77,7 +77,7 @@ namespace tools
 		MyGUI::Edit* mInputAlpha;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
-		MyGUI::VScroll* mScrollRange;
+		MyGUI::ScrollBar* mScrollRange;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mOk, "button_OK");
 		MyGUI::Button* mOk;
@@ -89,7 +89,7 @@ namespace tools
 		MyGUI::Widget* mAlphaSliderBack;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSlider, "AlphaSlider");
-		MyGUI::VScroll* mAlphaSlider;
+		MyGUI::ScrollBar* mAlphaSlider;
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mBaseColour;

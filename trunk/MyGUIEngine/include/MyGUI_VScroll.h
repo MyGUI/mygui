@@ -29,6 +29,8 @@
 namespace MyGUI
 {
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 	typedef delegates::CMultiDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll :
@@ -48,6 +50,8 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT>
 			eventScrollChangePosition;
 	};
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
 

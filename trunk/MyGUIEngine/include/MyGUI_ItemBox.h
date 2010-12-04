@@ -220,7 +220,7 @@ namespace MyGUI
 
 		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
-		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
+		void notifyScrollChangePosition(ScrollBar* _sender, size_t _index);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);

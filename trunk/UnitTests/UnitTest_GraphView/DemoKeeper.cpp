@@ -248,7 +248,7 @@ namespace demo
 		mGraphView->getClient()->eventMouseButtonReleased += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
 	}
 
-	void DemoKeeper::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void DemoKeeper::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Right)
 		{

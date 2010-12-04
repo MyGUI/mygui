@@ -38,7 +38,7 @@ namespace demo
 		{
 		}
 
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+		void notifyMouseButtonClick(MyGUI::Widget* _sender)
 		{
 			onEvent();
 		}
@@ -52,7 +52,7 @@ namespace demo
 
 	private:
 		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::ButtonPtr mButtonEvent;
+		MyGUI::Button* mButtonEvent;
 
 	};
 

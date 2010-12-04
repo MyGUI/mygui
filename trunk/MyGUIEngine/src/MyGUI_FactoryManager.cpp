@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -90,7 +91,9 @@ namespace MyGUI
 		{
 			return nullptr;
 		}
-		MapFactoryItem::iterator type = category->second.find(_type);
+
+		std::string typeName = BackwardCompatibility::getFactoryRename(_category, _type);
+		MapFactoryItem::iterator type = category->second.find(typeName);
 		if (type == category->second.end())
 		{
 			return nullptr;

@@ -492,7 +492,7 @@ namespace MyGUI
 		}
 	}
 
-	void TreeControl::notifyScrollChangePosition(VScroll* pSender, size_t nPosition)
+	void TreeControl::notifyScrollChangePosition(ScrollBar* pSender, size_t nPosition)
 	{
 		scrollTo(nPosition);
 		sendScrollingEvents(nPosition);

@@ -63,7 +63,7 @@
 	<Resource type="ResourceSkin" name="ItemBoxV" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="AlignVert" value="true"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
-		<Child type="VScroll" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 3" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -94,8 +94,8 @@
 	<Resource type="ResourceSkin" name="ItemBoxH" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="AlignVert" value="false"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
-		<Child type="VScroll" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
-		<Child type="HScroll" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 -12" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -301,14 +301,14 @@
 	<Resource type="ResourceSkin" name="WordWrap" size="32 32" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="WordWrap" value="true"/>
 		<Child type="StaticText" skin="EditClientSimple" offset="0 0 16 32" align="Stretch" name="Client"/>
-		<Child type="VScroll" skin="VScroll" offset="17 0 15 32" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="17 0 15 32" align="Right VStretch" name="VScroll"/>
 	</Resource>
 
 	<Resource type="ResourceSkin" name="EditStretch" size="29 26" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TextAlign" value="Left VCenter"/>
 		<Child type="StaticText" skin="EditClient" offset="2 3 7 3" align="Stretch" name="Client"/>
-		<Child type="VScroll" skin="VScroll" offset="10 2 15 5" align="Right VStretch" name="VScroll"/>
-		<Child type="HScroll" skin="HScroll" offset="2 7 8 15" align="HStretch Bottom" name="HScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="10 2 15 5" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="HScroll" offset="2 7 8 15" align="HStretch Bottom" name="HScroll"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 8" align="Left Top">
 			<State name="disabled" offset="235 2 10 8"/>
 			<State name="normal" offset="235 29 10 8"/>
@@ -746,8 +746,8 @@
 
 	<Resource type="ResourceSkin" name="ScrollView" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
-		<Child type="VScroll" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
-		<Child type="HScroll" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
 		<Child type="Widget" skin="Default" offset="3 3 -12 -12" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -780,8 +780,8 @@
 
 	<Resource type="ResourceSkin" name="ScrollViewEmpty" size="30 30" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
-		<Child type="VScroll" skin="VScroll" offset="15 0 15 15" align="Right VStretch" name="VScroll"/>
-		<Child type="HScroll" skin="HScroll" offset="0 15 15 15" align="HStretch Bottom" name="HScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="15 0 15 15" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="HScroll" offset="0 15 15 15" align="HStretch Bottom" name="HScroll"/>
 		<Child type="Widget" skin="Default" offset="0 0 15 15" align="Stretch" name="Client"/>
 	</Resource>
 
@@ -1008,7 +1008,7 @@
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="ListLine"/>
 		<Property key="HeightLine" value="20"/>
-		<Child type="VScroll" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 3" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -1040,7 +1040,7 @@
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="ListLine"/>
 		<Property key="HeightLine" value="20"/>
-		<Child type="VScroll" skin="VScroll" offset="-7 0 16 9" align="Right VStretch" name="VScroll"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-7 0 16 9" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="Default" offset="0 0 -7 9" align="Stretch" name="Client"/>
 	</Resource>
 
@@ -1253,6 +1253,7 @@
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
 		<Property key="MoveToClick" value="true"/>
+		<Property key="VerticalAlignment" value="true"/>
 		<Child type="Button" skin="VScrollTopPart" offset="0 0 15 49" align="Stretch" name="FirstPart"/>
 		<Child type="Button" skin="VScrollBottomPart" offset="0 0 15 49" align="HStretch Bottom" name="SecondPart"/>
 		<Child type="Button" skin="VScrollTrackSlider" offset="1 18 14 7" align="HStretch Top" name="Track"/>
@@ -1271,6 +1272,7 @@
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
 		<Property key="MoveToClick" value="true"/>
+		<Property key="VerticalAlignment" value="false"/>
 		<Child type="Button" skin="HScrollRightPart"  offset="0 0 49 15" align="Right VStretch" name="SecondPart"/>
 		<Child type="Button" skin="HScrollLeftPart" offset="0 0 49 15" align="Stretch" name="FirstPart"/>
 		<Child type="Button" skin="HScrollTrackSlider" offset="18 1 7 14" align="Left VStretch" name="Track"/>

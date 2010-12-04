@@ -25,9 +25,13 @@
 namespace MyGUI
 {
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 	VScroll::VScroll()
 	{
 		mVerticalAlignment = true;
 	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

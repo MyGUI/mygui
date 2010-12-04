@@ -15,7 +15,7 @@
         <Widget type="Widget" skin="PanelSmall" position="195 7 22 177" align="Left VStretch">
             <Widget type="StaticImage" skin="StaticImage" position="2 2 16 171" align="Stretch">
                 <Property key="ImageTexture" value="ColourSlider.png"/>
-                <Widget type="VScroll" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="scroll_Range">
+                <Widget type="ScrollBar" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="scroll_Range">
                     <Property key="Range" value="512"/>
                     <Property key="RangePosition" value="0"/>
                     <Property key="Page" value="1"/>
@@ -27,7 +27,7 @@
             <Widget type="Widget" skin="BackgroundTile" position="2 2 16 171" align="Stretch">
                 <Widget type="StaticImage" skin="StaticImage" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
                     <Property key="ImageTexture" value="AlphaSlider.png"/>
-                    <Widget type="VScroll" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="AlphaSlider">
+                    <Widget type="ScrollBar" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="AlphaSlider">
                         <Property key="Range" value="512"/>
                         <Property key="RangePosition" value="0"/>
                         <Property key="Page" value="1"/>

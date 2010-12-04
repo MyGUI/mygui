@@ -16,7 +16,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
-            <UserString key="TargetWidgetType" value="HScroll"/>
+            <UserString key="TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -29,13 +29,13 @@
             <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left Top" name="Start"/>
             <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right Top" name="End"/>
         </Widget>
-        <Widget type="HScroll" skin="ScrollHTemplate" position="25 75 125 15">
+        <Widget type="ScrollBar" skin="ScrollHTemplate" position="25 75 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
             <Property key="Scroll_Page" value="1"/>
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
-        <Widget type="HScroll" skin="HScroll" position="25 100 125 15">
+        <Widget type="ScrollBar" skin="HScroll" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
             <Property key="Scroll_Page" value="1"/>
@@ -44,7 +44,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollVTemplate">
         <Widget type="Widget" skin="ScrollPanelVSkin" position="25 50 15 125" name="Root">
-            <UserString key="TargetWidgetType" value="VScroll"/>
+            <UserString key="TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="Left VStretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
@@ -57,13 +57,13 @@
             <Widget type="Button" skin="ButtonUpSkin" position="1 2 14 11" align="Left Top" name="Start"/>
             <Widget type="Button" skin="ButtonDownSkin" position="1 113 14 11" align="Left Bottom" name="End"/>
         </Widget>
-        <Widget type="VScroll" skin="ScrollVTemplate" position="50 50 15 125">
+        <Widget type="ScrollBar" skin="ScrollVTemplate" position="50 50 15 125">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="0"/>
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="VScroll" skin="VScroll" position="75 50 15 125">
+        <Widget type="ScrollBar" skin="VScroll" position="75 50 15 125">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="0"/>
             <Property key="Page" value="1"/>
@@ -73,7 +73,7 @@
     <Resource type="ResourceLayout" name="SliderHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="Scroll_MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="HScroll"/>
+            <UserString key="TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -82,13 +82,13 @@
                 <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" name="SecondPart"/>
             </Widget>
         </Widget>
-        <Widget type="HScroll" skin="SliderHTemplate" position="25 75 125 15">
+        <Widget type="ScrollBar" skin="SliderHTemplate" position="25 75 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="0"/>
             <Property key="Scroll_Page" value="1"/>
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
-        <Widget type="HScroll" skin="HSlider" position="25 100 125 15">
+        <Widget type="ScrollBar" skin="HSlider" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="0"/>
             <Property key="Scroll_Page" value="1"/>
@@ -98,18 +98,18 @@
     <Resource type="ResourceLayout" name="SliderVTemplate">
         <Widget type="Widget" skin="ScrollPanelVSkin" position="20 20 15 125" name="Root">
             <Property key="Scroll_MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="VScroll"/>
+            <UserString key="TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
                 <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" name="SecondPart"/>
             </Widget>
         </Widget>
-        <Widget type="VScroll" skin="SliderVTemplate" position="50 20 15 125">
+        <Widget type="ScrollBar" skin="SliderVTemplate" position="50 20 15 125">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
         </Widget>
-        <Widget type="VScroll" skin="VSlider" position="80 20 15 125">
+        <Widget type="ScrollBar" skin="VSlider" position="80 20 15 125">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
         </Widget>
@@ -146,8 +146,8 @@
             <Widget type="StaticText" skin="EditClient" position="2 3 48 47" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
             </Widget>
-            <Widget type="HScroll" skin="ScrollHTemplate" position="2 51 49 15" align="HStretch Bottom" name="HScroll"/>
-            <Widget type="VScroll" skin="ScrollVTemplate" position="51 2 15 49" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollHTemplate" position="2 51 49 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="ScrollBar" skin="ScrollVTemplate" position="51 2 15 49" align="Right VStretch" name="VScroll"/>
         </Widget>
         <Widget type="Edit" skin="EditBoxTemplate" position="65 165 146 146">
             <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
@@ -504,7 +504,7 @@
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListLineTemplate"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
-            <Widget type="VScroll" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
         </Widget>
         <Widget type="List" skin="ListTemplate" position="5 60 55 60">
             <Property key="AddItem" value="line1"/>
@@ -2214,16 +2214,16 @@
             <UserString key="TargetWidgetType" value="ItemBox"/>
             <UserString key="DragLayer" value="DragAndDrop"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
-            <Widget type="VScroll" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
-            <Widget type="HScroll" skin="ScrollHTemplate" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="ScrollBar" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollHTemplate" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ScrollViewTemplate">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
             <UserString key="TargetWidgetType" value="ScrollView"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
-            <Widget type="VScroll" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
-            <Widget type="HScroll" skin="ScrollHTemplate" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="ScrollBar" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollHTemplate" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
         </Widget>
         <Widget type="ScrollView" skin="ScrollViewTemplate" position="5 70 55 55">
             <Property key="CanvasSize" value="100 100"/>

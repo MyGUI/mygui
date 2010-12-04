@@ -717,7 +717,7 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::notifyScrollChangePosition(VScroll* _sender, size_t _index)
+	void ItemBox::notifyScrollChangePosition(ScrollBar* _sender, size_t _index)
 	{
 		if (_sender == mVScroll)
 		{

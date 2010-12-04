@@ -54,20 +54,20 @@ namespace common
 		EventHandle_Result eventEndDialog;
 
 	private:
-		void notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index);
-		void notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index);
-		void notifyEditSelectAccept(MyGUI::EditPtr _sender);
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name);
+		void notifyListChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
+		void notifyEditSelectAccept(MyGUI::Edit* _sender);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 		void update();
 		void accept();
 
 	private:
-		MyGUI::ListPtr mListFiles;
-		MyGUI::EditPtr mEditFileName;
-		MyGUI::EditPtr mEditCurrentFolder;
-		MyGUI::ButtonPtr mButtonOpenSave;
+		MyGUI::List* mListFiles;
+		MyGUI::Edit* mEditFileName;
+		MyGUI::Edit* mEditCurrentFolder;
+		MyGUI::Button* mButtonOpenSave;
 
 		MyGUI::UString mCurrentFolder;
 		MyGUI::UString mFileName;

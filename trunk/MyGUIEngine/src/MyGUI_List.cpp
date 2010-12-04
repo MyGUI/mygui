@@ -238,7 +238,7 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void List::notifyScrollChangePosition(VScroll* _sender, size_t _position)
+	void List::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
