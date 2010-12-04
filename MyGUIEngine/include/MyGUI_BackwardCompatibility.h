@@ -349,12 +349,6 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<VScroll>
-	{
-	public:
-	};
-
-	template <>
 	class MemberObsolete<Widget>
 	{
 	public:
@@ -537,6 +531,7 @@ namespace MyGUI
 		static void shutdown();
 		static bool isIgnoreProperty(const std::string& _key);
 		static std::string MYGUI_EXPORT getPropertyRename(const std::string& _propertyName);
+		static void registerWidgetTypes();
 
 	private:
 #ifndef MYGUI_DONT_USE_OBSOLETE

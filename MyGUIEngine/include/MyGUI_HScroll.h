@@ -35,16 +35,6 @@ namespace MyGUI
 
 	public:
 		HScroll();
-
-		//! @copydoc VScroll::setTrackSize(int _value)
-		virtual void setTrackSize(int _value);
-		//! @copydoc VScroll::getTrackSize()
-		virtual int getTrackSize();
-
-	private:
-		void TrackMove(int _left, int _top);
-		void updateTrack();
-		virtual int getTrackPlaceLength();
 	};
 
 } // namespace MyGUI

@@ -77,8 +77,6 @@ namespace MyGUI
 	class Button;
 	class Window;
 	class List;
-	class HScroll;
-	class VScroll;
 	class Edit;
 	class ComboBox;
 	class StaticText;
@@ -93,6 +91,7 @@ namespace MyGUI
 	class MenuItem;
 	class PopupMenu;
 	class MenuBar;
+	class ScrollBar;
 	class ScrollView;
 	class DDContainer;
 	class Canvas;

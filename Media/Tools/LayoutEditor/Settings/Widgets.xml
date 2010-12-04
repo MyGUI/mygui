@@ -195,6 +195,26 @@
 		<Parameter key="FlowDirection" value="FlowDirection"/>
 	</Widget>
 
+	<Widget name="ScrollBar">
+		<Property key="DefaultSkin" value="VScroll"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="VScroll"/>
+		<Property key="Skin" value="HScroll"/>
+		<Property key="Skin" value="VSlider"/>
+		<Property key="Skin" value="HSlider"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="Page" value="1 int"/>
+		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="MoveToClick" value="Bool"/>
+		<Parameter key="VerticalAlignment" value="Bool"/>
+	</Widget>
+
 	<Widget name="ScrollView">
 		<Property key="DefaultSkin" value="ScrollView"/>
 		<Property key="Base" value="Widget"/>
