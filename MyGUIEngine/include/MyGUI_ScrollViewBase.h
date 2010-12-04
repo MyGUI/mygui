@@ -56,8 +56,8 @@ namespace MyGUI
 		virtual void eraseContent();
 
 	protected:
-		VScroll* mVScroll;
-		HScroll* mHScroll;
+		ScrollBar* mVScroll;
+		ScrollBar* mHScroll;
 		Widget* mClient;
 
 		bool mVisibleHScroll;

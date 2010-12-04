@@ -232,7 +232,7 @@ namespace MyGUI
 		void onMouseWheel(int _rel);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
 
-		void notifyScrollChangePosition(VScroll* _sender, size_t _rel);
+		void notifyScrollChangePosition(ScrollBar* _sender, size_t _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDoubleClick(Widget* _sender);
 		void notifyMouseWheel(Widget* _sender, int _rel);
@@ -267,7 +267,7 @@ namespace MyGUI
 
 	private:
 		std::string mSkinLine;
-		VScroll* mWidgetScroll;
+		ScrollBar* mWidgetScroll;
 
 		// наши дети в строках
 		typedef std::vector<Button*> VectorButton;

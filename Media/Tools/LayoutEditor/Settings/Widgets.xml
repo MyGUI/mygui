@@ -89,13 +89,13 @@
 		<Parameter key="InvertSelected" value="Bool"/>
 	</Widget>
 
-	<Widget name="HScroll">
+	<!--Widget name="HScroll">
 		<Property key="DefaultSkin" value="HScroll"/>
 		<Property key="Base" value="VScroll"/>
 
 		<Property key="Skin" value="HScroll"/>
 		<Property key="Skin" value="HSlider"/>
-	</Widget>
+	</Widget-->
 
 	<Widget name="ItemBox">
 		<Property key="DefaultSkin" value="ItemBoxV"/>
@@ -288,7 +288,7 @@
 		<Property key="Resizeable" value="false"/>
 	</Widget>
 
-	<Widget name="VScroll">
+	<!--Widget name="VScroll">
 		<Property key="DefaultSkin" value="VScroll"/>
 		<Property key="Base" value="Widget"/>
 
@@ -303,7 +303,7 @@
 		<Parameter key="Page" value="1 int"/>
 		<Parameter key="ViewPage" value="1 int"/>
 		<Parameter key="MoveToClick" value="Bool"/>
-	</Widget>
+	</Widget-->
 
 	<Widget name="Widget">
 		<Property key="DefaultSkin" value=""/>

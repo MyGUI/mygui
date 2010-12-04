@@ -1547,7 +1547,7 @@ namespace MyGUI
 		return Base::getTextSize();
 	}
 
-	void Edit::notifyScrollChangePosition(VScroll* _sender, size_t _position)
+	void Edit::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
 		if (mClientText == nullptr)
 			return;

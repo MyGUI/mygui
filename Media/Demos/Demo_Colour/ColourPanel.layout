@@ -13,7 +13,7 @@
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="275 7 22 262">
-            <Widget type="VScroll" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
+            <Widget type="ScrollBar" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
                 <Property key="Range" value="512"/>
                 <Property key="RangePosition" value="0"/>
                 <Property key="Page" value="1"/>

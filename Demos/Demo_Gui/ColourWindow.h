@@ -21,15 +21,15 @@ namespace demo
 		virtual ~ColourWindow();
 
 	private:
-		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
+		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyEditSelectAccept(MyGUI::Edit* _sender);
 		int getRand(int _min, int _max);
 
 	private:
-		MyGUI::HScroll* mSliderRed;
-		MyGUI::HScroll* mSliderGreen;
-		MyGUI::HScroll* mSliderBlue;
+		MyGUI::ScrollBar* mSliderRed;
+		MyGUI::ScrollBar* mSliderGreen;
+		MyGUI::ScrollBar* mSliderBlue;
 
 		MyGUI::Widget* mColour;
 		MyGUI::RawRect* mRawColourView;

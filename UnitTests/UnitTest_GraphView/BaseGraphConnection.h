@@ -21,7 +21,7 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-		BaseGraphConnection(MyGUI::WidgetPtr _widget) :
+		BaseGraphConnection(MyGUI::Widget* _widget) :
 			BaseLayout("", _widget),
 			mOwnerNode(nullptr)
 		{
@@ -95,7 +95,7 @@ namespace wraps
 			mOwnerNode = _owner;
 		}
 
-		MyGUI::WidgetPtr _getMainWidget() const
+		MyGUI::Widget* _getMainWidget() const
 		{
 			return mMainWidget;
 		}

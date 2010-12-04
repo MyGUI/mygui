@@ -28,6 +28,8 @@
 namespace MyGUI
 {
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 	class MYGUI_EXPORT HScroll :
 		public VScroll
 	{
@@ -36,6 +38,8 @@ namespace MyGUI
 	public:
 		HScroll();
 	};
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
 

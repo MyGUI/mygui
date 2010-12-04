@@ -54,7 +54,7 @@ namespace demo
 		//mBox.shutdown();
 	}
 
-	void ColourWindow::notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position)
+	void ColourWindow::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
 	{
 		MyGUI::Colour colour(float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),

@@ -21,16 +21,17 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_HScroll.h"
-#include "MyGUI_InputManager.h"
-#include "MyGUI_Button.h"
-#include "MyGUI_ResourceSkin.h"
 
 namespace MyGUI
 {
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
 
 	HScroll::HScroll()
 	{
 		mVerticalAlignment = false;
 	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI

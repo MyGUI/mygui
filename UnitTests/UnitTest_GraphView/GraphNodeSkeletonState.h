@@ -141,7 +141,7 @@ namespace demo
 			}
 		}
 
-		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 		{
 			if (_index != MyGUI::ITEM_NONE)
 			{
@@ -157,11 +157,11 @@ namespace demo
 		wraps::BaseGraphConnection* mStopIn;
 		wraps::BaseGraphConnection* mPositionIn;
 		wraps::BaseGraphConnection* mWeightIn;
-		MyGUI::ComboBoxPtr mComboStates;
-		MyGUI::StaticTextPtr mWeightValue;
-		MyGUI::StaticTextPtr mPositionValue;
-		MyGUI::StaticTextPtr mStartValue;
-		MyGUI::StaticTextPtr mStopValue;
+		MyGUI::ComboBox* mComboStates;
+		MyGUI::StaticText* mWeightValue;
+		MyGUI::StaticText* mPositionValue;
+		MyGUI::StaticText* mStartValue;
+		MyGUI::StaticText* mStopValue;
 
 	};
 

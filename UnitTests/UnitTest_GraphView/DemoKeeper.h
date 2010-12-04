@@ -36,7 +36,7 @@ namespace demo
 		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyInvalidateNode(BaseAnimationNode* _sender);
-		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id);
 
 		void SaveGraph();

@@ -127,7 +127,7 @@ namespace demo
 			else if (_index == 1)
 			{
 				const MyGUI::IntSize size(180, 15);
-				MyGUI::HScroll* scroll = view->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -136,7 +136,7 @@ namespace demo
 			else if (_index == 2)
 			{
 				const MyGUI::IntSize size(15, 180);
-				MyGUI::VScroll* scroll = view->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ScrollBar* scroll = view->createWidget<MyGUI::ScrollBar>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);

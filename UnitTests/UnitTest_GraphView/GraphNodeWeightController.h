@@ -64,7 +64,7 @@ namespace demo
 			onChangePosition(mPosition);
 		}
 
-		void notifyEditSelectAccept(MyGUI::EditPtr _sender)
+		void notifyEditSelectAccept(MyGUI::Edit* _sender)
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
 			if (mPosition < 0) mPosition = 0;
@@ -73,7 +73,7 @@ namespace demo
 			updateWidgets();
 		}
 
-		void notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
+		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
 		{
 			double range = (double)_sender->getScrollRange() - 1;
 			double position = (double)_position;
@@ -91,8 +91,8 @@ namespace demo
 
 	private:
 		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::EditPtr mEditPosition;
-		MyGUI::HScrollPtr mScrollPosition;
+		MyGUI::Edit* mEditPosition;
+		MyGUI::ScrollBar* mScrollPosition;
 		float mPosition;
 
 	};
