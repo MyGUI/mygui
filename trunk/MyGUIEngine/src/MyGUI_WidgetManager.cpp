@@ -30,7 +30,6 @@
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_Edit.h"
-#include "MyGUI_HScroll.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_List.h"
 #include "MyGUI_MenuBar.h"
@@ -39,14 +38,16 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_Progress.h"
+#include "MyGUI_ScrollBar.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_TabItem.h"
-#include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
+
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -71,7 +72,6 @@ namespace MyGUI
 		factory.registerFactory<ComboBox>("Widget");
 		factory.registerFactory<DDContainer>("Widget");
 		factory.registerFactory<Edit>("Widget");
-		factory.registerFactory<HScroll>("Widget");
 		factory.registerFactory<ItemBox>("Widget");
 		factory.registerFactory<List>("Widget");
 		factory.registerFactory<MenuBar>("Widget");
@@ -80,14 +80,16 @@ namespace MyGUI
 		factory.registerFactory<MultiList>("Widget");
 		factory.registerFactory<PopupMenu>("Widget");
 		factory.registerFactory<Progress>("Widget");
+		factory.registerFactory<ScrollBar>("Widget");
 		factory.registerFactory<ScrollView>("Widget");
 		factory.registerFactory<StaticImage>("Widget");
 		factory.registerFactory<StaticText>("Widget");
 		factory.registerFactory<Tab>("Widget");
 		factory.registerFactory<TabItem>("Widget");
-		factory.registerFactory<VScroll>("Widget");
 		factory.registerFactory<Widget>("Widget");
 		factory.registerFactory<Window>("Widget");
+
+		BackwardCompatibility::registerWidgetTypes();
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &WidgetManager::notifyEventFrameStart);
 

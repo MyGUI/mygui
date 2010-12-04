@@ -32,6 +32,7 @@
 #include "MyGUI_Progress.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_Tab.h"
+#include "MyGUI_HScroll.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
@@ -972,6 +973,15 @@ namespace MyGUI
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		mPropertyRename.clear();
+#endif // MYGUI_DONT_USE_OBSOLETE
+	}
+
+	void BackwardCompatibility::registerWidgetTypes()
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		FactoryManager& factory = FactoryManager::getInstance();
+		factory.registerFactory<HScroll>("Widget");
+		factory.registerFactory<VScroll>("Widget");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
