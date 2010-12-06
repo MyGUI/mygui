@@ -42,6 +42,7 @@ namespace MyGUI
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
 		mHideByLostKey(false),
+		mResizeToContent(true),
 		mShutdown(false),
 		mAlignVert(true),
 		mDistanceButton(0),
@@ -49,8 +50,7 @@ namespace MyGUI
 		mOwner(nullptr),
 		mAnimateSmooth(false),
 		mChangeChildSkin(false),
-		mClient(nullptr),
-		mResizeToContent(true)
+		mClient(nullptr)
 	{
 	}
 

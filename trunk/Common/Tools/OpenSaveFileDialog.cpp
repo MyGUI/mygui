@@ -17,8 +17,8 @@ namespace tools
 		mEditFileName(nullptr),
 		mCurrentFolderField(nullptr),
 		mButtonOpenSave(nullptr),
-		mFolderMode(false),
-		mFileMask("*.*")
+		mFileMask("*.*"),
+		mFolderMode(false)
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");

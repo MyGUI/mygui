@@ -23,7 +23,12 @@ namespace demo
 			mStartIn(nullptr),
 			mStopIn(nullptr),
 			mPositionIn(nullptr),
-			mWeightIn(nullptr)
+			mWeightIn(nullptr),
+			mComboStates(nullptr),
+			mWeightValue(nullptr),
+			mPositionValue(nullptr),
+			mStartValue(nullptr),
+			mStopValue(nullptr)
 		{
 		}
 

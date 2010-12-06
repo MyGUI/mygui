@@ -21,6 +21,8 @@ namespace demo
 		GraphNodeWeightController(const std::string& _name) :
 			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name),
 			mConnectionOut(nullptr),
+			mEditPosition(nullptr),
+			mScrollPosition(nullptr),
 			mPosition(0)
 		{
 		}
