@@ -24,6 +24,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_GeometryUtility.h"
 
 namespace MyGUI
 {
@@ -61,12 +62,13 @@ namespace MyGUI
 			return;
 		}
 
-		std::vector<FloatPoint> finalPoints;
+		VectorFloatPoint finalPoints;
 		finalPoints.reserve(_points.size());
 
 		mLineLength = 0.0f;
 		FloatPoint point = _points[0];
 		finalPoints.push_back(point);
+		// ignore repeating points
 		for (std::vector<FloatPoint>::const_iterator iter = _points.begin() + 1; iter != _points.end(); ++iter)
 		{
 			if (point != *iter)
@@ -79,7 +81,14 @@ namespace MyGUI
 
 		mLinePoints = finalPoints;
 
+#ifdef MYGUI_NO_POLYGONAL_SKIN_CROPPING
 		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount * 2;
+#else
+		// it's too hard to calculate maximum possible verticies count and worst
+		// approximation gives 7 times more verticies than in not cropped geometry
+		// so we multiply count by 2, because this looks enough
+		size_t count = (mLinePoints.size() - 1) * VertexQuad::VertexCount * 2 * 2;
+#endif
 		if (count > mVertexCount)
 		{
 			mVertexCount = count;
@@ -396,6 +405,52 @@ namespace MyGUI
 				pointsUV[1] = baseVerticiesUV[3] + UVoffset;
 			}
 		}
+
+
+#ifndef MYGUI_NO_POLYGONAL_SKIN_CROPPING
+		// crop triangles
+		ICroppedRectangle* parent = mCroppedParent->getCroppedParent();
+		IntCoord cropRectangle(
+			parent->_getMarginLeft() - mCroppedParent->getLeft(),
+			parent->_getMarginTop() - mCroppedParent->getTop(),
+			parent->_getViewWidth(),
+			parent->_getViewHeight()
+			);
+
+		VectorFloatPoint newResultVerticiesPos;
+		VectorFloatPoint newResultVerticiesUV;
+		newResultVerticiesPos.reserve(mResultVerticiesPos.size());
+		newResultVerticiesUV.reserve(mResultVerticiesPos.size());
+		for (size_t i = 0; i < mResultVerticiesPos.size(); i += 3)
+		{
+			VectorFloatPoint croppedTriangle =
+				geometry_utility::cropPolygon(&mResultVerticiesPos[i], 3, cropRectangle);
+			if (croppedTriangle.size())
+			{
+				FloatPoint v0 = mResultVerticiesUV[i + 2] - mResultVerticiesUV[i];
+				FloatPoint v1 = mResultVerticiesUV[i + 1] - mResultVerticiesUV[i];
+
+				for (size_t j = 1; j < croppedTriangle.size() - 1; ++j)
+				{
+					newResultVerticiesPos.push_back(croppedTriangle[0]);
+					newResultVerticiesPos.push_back(croppedTriangle[j]);
+					newResultVerticiesPos.push_back(croppedTriangle[j+1]);
+
+					// calculate UV
+					FloatPoint point;
+					point = geometry_utility::getPositionInsideRect(croppedTriangle[0], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+					point = geometry_utility::getPositionInsideRect(croppedTriangle[j], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+					point = geometry_utility::getPositionInsideRect(croppedTriangle[j+1], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
+					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
+				}
+			}
+		}
+		std::swap(mResultVerticiesPos, newResultVerticiesPos);
+		std::swap(mResultVerticiesUV, newResultVerticiesUV);
+#endif
+
 
 		// now calculate widget base offset and then resulting position in screen coordinates
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
