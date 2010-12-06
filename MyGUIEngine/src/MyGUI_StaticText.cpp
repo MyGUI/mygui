@@ -74,7 +74,7 @@ namespace MyGUI
 	const std::string& StaticText::getFontName()
 	{
 		if (nullptr == getSubWidgetText())
-			return Constants::getString();
+			return Constants::getEmptyString();
 		return getSubWidgetText()->getFontName();
 	}
 
@@ -98,7 +98,7 @@ namespace MyGUI
 	const UString& StaticText::getCaption()
 	{
 		if (nullptr == getSubWidgetText())
-			return Constants::getUString();
+			return Constants::getEmptyUString();
 		return getSubWidgetText()->getCaption();
 	}
 
