@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_VScroll.h"
+#include "MyGUI_ScrollBar.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"

@@ -32,8 +32,6 @@
 #include "MyGUI_Progress.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_Tab.h"
-#include "MyGUI_HScroll.h"
-#include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_TabItem.h"
@@ -51,6 +49,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_DeprecatedWidgets.h"
 
 namespace MyGUI
 {
