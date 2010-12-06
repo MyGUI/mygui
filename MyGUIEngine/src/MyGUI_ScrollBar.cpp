@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_VScroll.h"
+#include "MyGUI_ScrollBar.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"

@@ -22,8 +22,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollViewBase.h"
-#include "MyGUI_VScroll.h"
-#include "MyGUI_HScroll.h"
+#include "MyGUI_ScrollBar.h"
 
 namespace MyGUI
 {
