@@ -28,7 +28,6 @@
 #include <map>
 #include <string>
 
-#include "MyGUI_Utility.h"
 #include "MyGUI_Align.h"
 #include "MyGUI_TPoint.h"
 #include "MyGUI_TSize.h"

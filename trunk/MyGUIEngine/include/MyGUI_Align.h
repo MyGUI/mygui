@@ -25,6 +25,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_Diagnostic.h"
+#include "MyGUI_StringUtility.h"
 #include <map>
 
 namespace MyGUI

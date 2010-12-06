@@ -21,7 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Exception.h"
-#include "MyGUI_Utility.h"
+#include "MyGUI_StringUtility.h"
 
 namespace MyGUI
 {
