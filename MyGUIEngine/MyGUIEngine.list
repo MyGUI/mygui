@@ -38,6 +38,7 @@ set (HEADER_FILES
   include/MyGUI_DynLib.h
   include/MyGUI_Enumerator.h
   include/MyGUI_EventPair.h
+  include/MyGUI_GeometryUtility.h
   include/MyGUI_StringUtility.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
@@ -253,6 +254,7 @@ set (SOURCE_FILES
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
+  src/MyGUI_GeometryUtility.cpp
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_TextView.cpp
@@ -381,6 +383,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
+  src/MyGUI_GeometryUtility.cpp
   src/MyGUI_TextIterator.cpp
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_TextView.cpp
@@ -445,6 +448,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_DynLib.h
   include/MyGUI_Enumerator.h
   include/MyGUI_EventPair.h
+  include/MyGUI_GeometryUtility.h
   include/MyGUI_StringUtility.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
