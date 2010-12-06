@@ -20,7 +20,8 @@ namespace demo
 	public:
 		GraphNodeEventController(const std::string& _name) :
 			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name),
-			mConnectionOut(nullptr)
+			mConnectionOut(nullptr),
+			mButtonEvent(nullptr)
 		{
 		}
 

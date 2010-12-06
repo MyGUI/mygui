@@ -86,15 +86,13 @@ namespace tools
 
 	bool TextureToolControl::checkMenuCommand()
 	{
-		return
-			mActivate &&
+		return mActivate &&
 			!getSelectorsCapture();
 	}
 
 	bool TextureToolControl::checkCommand()
 	{
-		return
-			mMainWidget->getRootKeyFocus() &&
+		return mMainWidget->getRootKeyFocus() &&
 			mActivate &&
 			!getSelectorsCapture();
 	}

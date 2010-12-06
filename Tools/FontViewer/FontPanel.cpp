@@ -123,7 +123,7 @@ namespace demo
 
 		if (_widget == mButtonSave)
 		{
-			std::string textureName = mEditSaveFileName->getOnlyText() + ".png"; 
+			std::string textureName = mEditSaveFileName->getOnlyText() + ".png";
 			saveTexture(mFontName, textureName);
 
 			std::string fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".ttf.", mFontHeight);

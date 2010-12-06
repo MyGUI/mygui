@@ -654,8 +654,7 @@ namespace tools
 
 	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)
 	{
-		return
-			_skinName == "Default" ||
+		return _skinName == "Default" ||
 			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
