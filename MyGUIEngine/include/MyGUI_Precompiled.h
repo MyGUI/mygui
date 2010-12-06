@@ -30,7 +30,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_Utility.h"
+#include "MyGUI_StringUtility.h"
 #include "MyGUI_MouseButton.h"
 #include "MyGUI_KeyCode.h"
 #include "MyGUI_Version.h"

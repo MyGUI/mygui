@@ -38,6 +38,7 @@ set (HEADER_FILES
   include/MyGUI_DynLib.h
   include/MyGUI_Enumerator.h
   include/MyGUI_EventPair.h
+  include/MyGUI_StringUtility.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
   include/MyGUI_TextureUtility.h
@@ -45,7 +46,6 @@ set (HEADER_FILES
   include/MyGUI_TextViewData.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
-  include/MyGUI_Utility.h
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_XmlDocument.h
   include/MyGUI_ConsoleLogListener.h
@@ -445,6 +445,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_DynLib.h
   include/MyGUI_Enumerator.h
   include/MyGUI_EventPair.h
+  include/MyGUI_StringUtility.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
   include/MyGUI_TextureUtility.h
@@ -452,7 +453,6 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_TextViewData.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
-  include/MyGUI_Utility.h
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_XmlDocument.h
 )
