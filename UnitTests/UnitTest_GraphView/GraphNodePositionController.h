@@ -21,8 +21,10 @@ namespace demo
 		GraphNodePositionController(const std::string& _name) :
 			BaseAnimationNode("GraphNodePosition.layout", "PositionController", _name),
 			mConnectionOut(nullptr),
-			mPosition(0),
-			mLength(1)
+			mEditPosition(nullptr),
+			mScrollPosition(nullptr),
+			mPosition(0.0f),
+			mLength(1.0f)
 		{
 		}
 

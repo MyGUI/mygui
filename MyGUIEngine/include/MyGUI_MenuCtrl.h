@@ -254,7 +254,6 @@ namespace MyGUI
 		bool getAlignVert() const;
 
 
-
 	/*events:*/
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)\n
