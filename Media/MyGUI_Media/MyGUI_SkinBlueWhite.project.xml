@@ -195,7 +195,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">2 2 23 21</Property>
             </PropertySet>
         </SkinItem>
@@ -393,7 +393,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">27 2 21 20</Property>
             </PropertySet>
         </SkinItem>
@@ -591,7 +591,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">49 86 18 18</Property>
             </PropertySet>
         </SkinItem>
@@ -789,7 +789,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">72 2 18 17</Property>
             </PropertySet>
         </SkinItem>
@@ -987,7 +987,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">72 82 17 15</Property>
             </PropertySet>
         </SkinItem>
@@ -1185,7 +1185,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">95 2 14 11</Property>
             </PropertySet>
         </SkinItem>
@@ -1383,7 +1383,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">95 54 14 11</Property>
             </PropertySet>
         </SkinItem>
@@ -1581,7 +1581,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">95 114 12 14</Property>
             </PropertySet>
         </SkinItem>
@@ -1779,7 +1779,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">95 180 12 14</Property>
             </PropertySet>
         </SkinItem>
@@ -1977,7 +1977,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 2 14 7</Property>
             </PropertySet>
         </SkinItem>
@@ -2175,7 +2175,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 37 14 19</Property>
             </PropertySet>
         </SkinItem>
@@ -2373,7 +2373,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 120 7 14</Property>
             </PropertySet>
         </SkinItem>
@@ -2571,7 +2571,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 183 19 14</Property>
             </PropertySet>
         </SkinItem>
@@ -2769,7 +2769,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">136 2 29 26</Property>
             </PropertySet>
         </SkinItem>
@@ -2967,7 +2967,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">169 2 29 26</Property>
             </PropertySet>
         </SkinItem>
@@ -3165,7 +3165,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">202 2 27 26</Property>
             </PropertySet>
         </SkinItem>
@@ -3363,7 +3363,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">203 102 25 20</Property>
             </PropertySet>
         </SkinItem>
@@ -3561,7 +3561,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">2 183 19 15</Property>
             </PropertySet>
         </SkinItem>
@@ -3759,7 +3759,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">2 202 15 19</Property>
             </PropertySet>
         </SkinItem>
@@ -3957,7 +3957,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">27 190 43 10</Property>
             </PropertySet>
         </SkinItem>
@@ -4155,7 +4155,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">2 238 10 2</Property>
             </PropertySet>
         </SkinItem>
@@ -4353,7 +4353,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">2 242 10 2</Property>
             </PropertySet>
         </SkinItem>
@@ -4551,7 +4551,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">14 238 2 6</Property>
             </PropertySet>
         </SkinItem>
@@ -4749,7 +4749,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">18 238 2 6</Property>
             </PropertySet>
         </SkinItem>
@@ -4947,7 +4947,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">309 4 66 59</Property>
             </PropertySet>
         </SkinItem>
@@ -5145,7 +5145,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">354 90 34 18</Property>
             </PropertySet>
         </SkinItem>
@@ -5343,7 +5343,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">307 70 23 22</Property>
             </PropertySet>
         </SkinItem>
@@ -5541,7 +5541,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">307 95 23 22</Property>
             </PropertySet>
         </SkinItem>
@@ -5739,7 +5739,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">384 6 2 2</Property>
             </PropertySet>
         </SkinItem>
@@ -5937,7 +5937,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">234 2 68 28</Property>
             </PropertySet>
         </SkinItem>
@@ -6135,7 +6135,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">234 172 68 18</Property>
             </PropertySet>
         </SkinItem>
@@ -6333,7 +6333,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">234 36 68 28</Property>
             </PropertySet>
         </SkinItem>
@@ -6531,7 +6531,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">234 104 44 28</Property>
             </PropertySet>
         </SkinItem>
@@ -6729,7 +6729,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">278 104 24 28</Property>
             </PropertySet>
         </SkinItem>
@@ -6927,7 +6927,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">262 198 23 20</Property>
             </PropertySet>
         </SkinItem>
@@ -7125,7 +7125,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">234 196 9 9</Property>
             </PropertySet>
         </SkinItem>
@@ -7323,7 +7323,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">247 196 9 9</Property>
             </PropertySet>
         </SkinItem>
@@ -7521,7 +7521,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">327 152 52 23</Property>
             </PropertySet>
         </SkinItem>
@@ -7719,7 +7719,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">307 214 43 39</Property>
             </PropertySet>
         </SkinItem>
@@ -7917,7 +7917,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">27 190 43 10</Property>
             </PropertySet>
         </SkinItem>
@@ -8115,7 +8115,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">74 227 10 12</Property>
             </PropertySet>
         </SkinItem>
@@ -8313,7 +8313,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">72 241 15 13</Property>
             </PropertySet>
         </SkinItem>
@@ -8511,7 +8511,7 @@
                 </PropertySet>
             </RegionItem>
             <PropertySet>
-                <Property name="Texture" type="Texture" read_only="False">mygui_skin_blue_white.png</Property>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 135 7 14</Property>
             </PropertySet>
         </SkinItem>
