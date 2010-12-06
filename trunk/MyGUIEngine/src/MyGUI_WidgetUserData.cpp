@@ -45,7 +45,7 @@ namespace MyGUI
 		MapString::const_iterator iter = mMapUserString.find(_key);
 		if (iter != mMapUserString.end())
 			return iter->second;
-		return Constants::getString();
+		return Constants::getEmptyString();
 	}
 
 	bool UserData::clearUserString(const std::string& _key)

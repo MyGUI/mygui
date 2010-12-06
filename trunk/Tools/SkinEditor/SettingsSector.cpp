@@ -69,7 +69,7 @@ namespace tools
 		if (item != mProperties.end())
 			return (*item).second;
 
-		return MyGUI::Constants::getUString();
+		return MyGUI::Constants::getEmptyUString();
 	}
 
 	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)

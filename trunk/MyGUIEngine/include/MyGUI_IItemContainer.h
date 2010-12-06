@@ -45,7 +45,7 @@ namespace MyGUI
 		virtual Widget* _getItemAt(size_t _index) { return nullptr; }
 
 		virtual void _setItemNameAt(size_t _index, const UString& _name) { }
-		virtual const UString& _getItemNameAt(size_t _index) { return Constants::getUString(); }
+		virtual const UString& _getItemNameAt(size_t _index) { return Constants::getEmptyUString(); }
 
 		virtual void _setItemSelected(IItem* _item) { }
 	};
