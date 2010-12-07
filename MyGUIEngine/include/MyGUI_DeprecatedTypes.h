@@ -59,6 +59,7 @@ namespace MyGUI
 
 	typedef TabItem Sheet;
 	typedef TabItem* SheetPtr;
+
 	typedef Canvas RenderBox;
 	typedef Canvas* RenderBoxPtr;
 

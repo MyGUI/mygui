@@ -9,6 +9,6 @@
         <Widget type="Button" skin="Button" position="5 410 107 26" align="Left Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="ItemBox" skin="ItemBoxV" position="4 4 567 397" align="Stretch" name="Textures"/>
+        <Widget type="ItemBox" skin="ItemBox" position="4 4 567 397" align="Stretch" name="Textures"/>
     </Widget>
 </MyGUI>
