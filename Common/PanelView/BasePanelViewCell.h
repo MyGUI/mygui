@@ -130,7 +130,7 @@ namespace wraps
 		}
 
 	protected:
-		MyGUI::StaticText* mTextCaption;
+		MyGUI::TextBox* mTextCaption;
 		MyGUI::Widget* mWidgetClient;
 		bool m_minimized;
 

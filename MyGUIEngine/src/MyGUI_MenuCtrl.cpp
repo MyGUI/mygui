@@ -179,7 +179,7 @@ namespace MyGUI
 
 	void MenuCtrl::setButtonImageIndex(Button* _button, size_t _index)
 	{
-		ImageBox* image = _button->getStaticImage();
+		ImageBox* image = _button->getImageBox();
 		if (nullptr == image)
 			return;
 

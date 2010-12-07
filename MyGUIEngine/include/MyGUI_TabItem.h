@@ -23,14 +23,14 @@
 #define __MYGUI_TAB_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_Tab.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT TabItem :
-		public StaticText
+		public TextBox
 	{
 		MYGUI_RTTI_DERIVED( TabItem )
 

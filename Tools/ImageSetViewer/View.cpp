@@ -135,7 +135,7 @@ namespace editor
 		image->setItemGroup(_group.name);
 		//image->setItemName(_index.name);
 
-		MyGUI::StaticText* text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
+		MyGUI::TextBox* text = mImageView->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
 		//text->setEditReadOnly(true);
 		//text->setCaption("Animatable group");
 		//MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();

@@ -51,7 +51,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("PolygonalSkin (aka line).");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("PolygonalSkin (aka line).");
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 		window->setCaption("Click Me!");

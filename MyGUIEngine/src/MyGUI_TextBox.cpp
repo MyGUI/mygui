@@ -20,89 +20,89 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
 
-	StaticText::StaticText()
+	TextBox::TextBox()
 	{
 	}
 
-	IntCoord StaticText::getTextRegion()
+	IntCoord TextBox::getTextRegion()
 	{
 		return (nullptr == getSubWidgetText()) ? IntCoord() : getSubWidgetText()->getCoord();
 	}
 
-	IntSize StaticText::getTextSize()
+	IntSize TextBox::getTextSize()
 	{
 		return (nullptr == getSubWidgetText()) ? IntSize() : getSubWidgetText()->getTextSize();
 	}
 
-	void StaticText::setTextAlign(Align _align)
+	void TextBox::setTextAlign(Align _align)
 	{
 		if (getSubWidgetText() != nullptr)
 			getSubWidgetText()->setTextAlign(_align);
 	}
 
-	Align StaticText::getTextAlign()
+	Align TextBox::getTextAlign()
 	{
 		if (getSubWidgetText() != nullptr)
 			return getSubWidgetText()->getTextAlign();
 		return Align::Default;
 	}
 
-	void StaticText::setTextColour(const Colour& _colour)
+	void TextBox::setTextColour(const Colour& _colour)
 	{
 		if (nullptr != getSubWidgetText())
 			getSubWidgetText()->setTextColour(_colour);
 	}
 
-	const Colour& StaticText::getTextColour()
+	const Colour& TextBox::getTextColour()
 	{
 		return (nullptr == getSubWidgetText()) ? Colour::Zero : getSubWidgetText()->getTextColour();
 	}
 
-	void StaticText::setFontName(const std::string& _font)
+	void TextBox::setFontName(const std::string& _font)
 	{
 		if (nullptr != getSubWidgetText())
 			getSubWidgetText()->setFontName(_font);
 	}
 
-	const std::string& StaticText::getFontName()
+	const std::string& TextBox::getFontName()
 	{
 		if (nullptr == getSubWidgetText())
 			return Constants::getEmptyString();
 		return getSubWidgetText()->getFontName();
 	}
 
-	void StaticText::setFontHeight(int _height)
+	void TextBox::setFontHeight(int _height)
 	{
 		if (nullptr != getSubWidgetText())
 			getSubWidgetText()->setFontHeight(_height);
 	}
 
-	int StaticText::getFontHeight()
+	int TextBox::getFontHeight()
 	{
 		return (nullptr == getSubWidgetText()) ? 0 : getSubWidgetText()->getFontHeight();
 	}
 
-	void StaticText::setCaption(const UString& _caption)
+	void TextBox::setCaption(const UString& _caption)
 	{
 		if (nullptr != getSubWidgetText())
 			getSubWidgetText()->setCaption(_caption);
 	}
 
-	const UString& StaticText::getCaption()
+	const UString& TextBox::getCaption()
 	{
 		if (nullptr == getSubWidgetText())
 			return Constants::getEmptyUString();
 		return getSubWidgetText()->getCaption();
 	}
 
-	void StaticText::setCaptionWithNewLine(const std::string& _value)
+	void TextBox::setCaptionWithNewLine(const std::string& _value)
 	{
 		// change '\n' on char 10
 		size_t pos = _value.find("\\n");
@@ -123,7 +123,7 @@ namespace MyGUI
 		}
 	}
 
-	void StaticText::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "TextColour")
 			setTextColour(utility::parseValue<Colour>(_value));

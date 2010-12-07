@@ -16,7 +16,7 @@
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="4 105 248 56" layer="Back" name="PanelPointer">
             <Property key="Pointer" value="hand"/>
-            <Widget type="StaticText" skin="StaticText" position="0 0 248 56" layer="Back">
+            <Widget type="TextBox" skin="TextBox" position="0 0 248 56" layer="Back">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="Caption" value="&apos;hand&apos; pointer"/>
                 <Property key="NeedMouse" value="false"/>

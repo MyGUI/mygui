@@ -43,15 +43,15 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="260 61 73 26" align="Right Top">
+        <Widget type="TextBox" skin="TextBox" position="260 61 73 26" align="Right Top">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{ColourBlue}"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="260 33 73 26" align="Right Top">
+        <Widget type="TextBox" skin="TextBox" position="260 33 73 26" align="Right Top">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{ColourGreen}"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="260 7 73 24" align="Right Top">
+        <Widget type="TextBox" skin="TextBox" position="260 7 73 24" align="Right Top">
             <Property key="Caption" value="#{ColourRed}"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
@@ -76,7 +76,7 @@
         <Widget type="Button" skin="Button" position="395 41 107 26" align="Right Top" name="button_Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="260 89 73 26" align="Right Top">
+        <Widget type="TextBox" skin="TextBox" position="260 89 73 26" align="Right Top">
             <Property key="Caption" value="#{ColourAlpha}"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>

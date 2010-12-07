@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Widgets">
-	<Widget name="StaticImage">
+	<!--Widget name="VScroll">
+		<Property key="DefaultSkin" value="VScroll"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="VScroll"/>
+		<Property key="Skin" value="VSlider"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="Page" value="1 int"/>
+		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="MoveToClick" value="Bool"/>
+	</Widget-->
+
+	<!--Widget name="Message">
+		<Property key="DefaultSkin" value="Message"/>
+		<Property key="Base" value="Window"/>
+
+		<Property key="Skin" value="Message" group="Other"/>
+
+		<Parameter key="MessageText" value="String"/>
+		<Parameter key="Modal" value="Bool"/>
+		<Parameter key="MessageButton" value="MessageButton"/>
+		<Parameter key="MessageSmoothShow" value="Bool"/>
+	</Widget-->
+
+	<!--Widget name="ListBox">
+		<Property key="Base" value="ListCtrl"/>
 	</Widget>
+
+	<Widget name="ListCtrl">
+		<Property key="Base" value="DDContainer"/>
+	</Widget-->
+
+	<!--Widget name="HScroll">
+		<Property key="DefaultSkin" value="HScroll"/>
+		<Property key="Base" value="VScroll"/>
+
+		<Property key="Skin" value="HScroll"/>
+		<Property key="Skin" value="HSlider"/>
+	</Widget-->
+
+	<Widget name="StaticImage"/>
+	<Widget name="StaticText"/>
 </MyGUI>

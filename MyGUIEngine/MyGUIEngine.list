@@ -21,7 +21,7 @@ set (HEADER_FILES
   include/MyGUI_Progress.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
-  include/MyGUI_StaticText.h
+  include/MyGUI_TextBox.h
   include/MyGUI_Tab.h
   include/MyGUI_TabItem.h
   include/MyGUI_Widget.h
@@ -185,7 +185,7 @@ set (SOURCE_FILES
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
-  src/MyGUI_StaticText.cpp
+  src/MyGUI_TextBox.cpp
   src/MyGUI_Tab.cpp
   src/MyGUI_TabItem.cpp
   src/MyGUI_Widget.cpp
@@ -281,7 +281,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
-  src/MyGUI_StaticText.cpp
+  src/MyGUI_TextBox.cpp
   src/MyGUI_Tab.cpp
   src/MyGUI_TabItem.cpp
   src/MyGUI_Widget.cpp
@@ -411,7 +411,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_Progress.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
-  include/MyGUI_StaticText.h
+  include/MyGUI_TextBox.h
   include/MyGUI_Tab.h
   include/MyGUI_TabItem.h
   include/MyGUI_Widget.h
