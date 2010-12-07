@@ -1256,7 +1256,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="Progress" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="ProgressBar" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackSkin" value="HScrollTrackSlider"/>
 		<Property key="TrackWidth" value="7"/>
 		<Property key="TrackFill" value="false"/>
@@ -1272,7 +1272,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="ProgressFill" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="ProgressBarFill" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackSkin" value="HScrollTrack"/>
 		<Property key="TrackMin" value="15"/>
 		<Property key="TrackFill" value="true"/>

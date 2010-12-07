@@ -47,4 +47,5 @@
 
 	<Widget name="StaticImage"/>
 	<Widget name="StaticText"/>
+	<Widget name="Progress"/>
 </MyGUI>

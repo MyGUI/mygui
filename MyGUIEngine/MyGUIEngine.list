@@ -18,7 +18,7 @@ set (HEADER_FILES
   include/MyGUI_MenuItem.h
   include/MyGUI_MultiList.h
   include/MyGUI_PopupMenu.h
-  include/MyGUI_Progress.h
+  include/MyGUI_ProgressBar.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
   include/MyGUI_TextBox.h
@@ -182,7 +182,7 @@ set (SOURCE_FILES
   src/MyGUI_MenuItem.cpp
   src/MyGUI_MultiList.cpp
   src/MyGUI_PopupMenu.cpp
-  src/MyGUI_Progress.cpp
+  src/MyGUI_ProgressBar.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
   src/MyGUI_TextBox.cpp
@@ -278,7 +278,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_MenuItem.cpp
   src/MyGUI_MultiList.cpp
   src/MyGUI_PopupMenu.cpp
-  src/MyGUI_Progress.cpp
+  src/MyGUI_ProgressBar.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
   src/MyGUI_TextBox.cpp
@@ -408,7 +408,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_MenuItem.h
   include/MyGUI_MultiList.h
   include/MyGUI_PopupMenu.h
-  include/MyGUI_Progress.h
+  include/MyGUI_ProgressBar.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
   include/MyGUI_TextBox.h
