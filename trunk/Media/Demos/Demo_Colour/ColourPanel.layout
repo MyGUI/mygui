@@ -3,8 +3,8 @@
     <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
         <Property key="Caption" value="Colour picker"/>
         <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
-            <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
-                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 256 256" name="widget_ColourRect">
+                <Widget type="ImageBox" skin="ImageBox" position="0 0 16 16" name="image_Picker">
                     <Property key="ImageTexture" value="Pick.png"/>
                     <Property key="ImageCoord" value="0 0 16 16"/>
                     <Property key="ImageTile" value="16 16"/>

@@ -56,13 +56,13 @@ namespace tools
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourRect, "widget_ColourRect");
-		MyGUI::StaticImage* mColourRect;
+		MyGUI::ImageBox* mColourRect;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourView, "widget_ColourView");
 		MyGUI::Widget* mColourView;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mImageColourPicker, "image_Picker");
-		MyGUI::StaticImage* mImageColourPicker;
+		MyGUI::ImageBox* mImageColourPicker;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditRed, "edit_Red");
 		MyGUI::Edit* mEditRed;

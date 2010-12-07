@@ -3,8 +3,8 @@
     <Widget type="Window" skin="WindowCX" position="22 44 518 226" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{CaptionColourPicker}"/>
         <Widget type="Widget" skin="PanelSmall" position="7 7 177 177" align="Left VStretch">
-            <Widget type="StaticImage" skin="StaticImage" position="2 2 171 171" align="Stretch" name="widget_ColourRect">
-                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 171 171" align="Stretch" name="widget_ColourRect">
+                <Widget type="ImageBox" skin="ImageBox" position="0 0 16 16" name="image_Picker">
                     <Property key="ImageTexture" value="Pick.png"/>
                     <Property key="ImageCoord" value="0 0 16 16"/>
                     <Property key="ImageTile" value="16 16"/>
@@ -13,7 +13,7 @@
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="195 7 22 177" align="Left VStretch">
-            <Widget type="StaticImage" skin="StaticImage" position="2 2 16 171" align="Stretch">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 16 171" align="Stretch">
                 <Property key="ImageTexture" value="ColourSlider.png"/>
                 <Widget type="ScrollBar" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="scroll_Range">
                     <Property key="Range" value="512"/>
@@ -25,7 +25,7 @@
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="230 7 22 177" align="Left VStretch">
             <Widget type="Widget" skin="BackgroundTile" position="2 2 16 171" align="Stretch">
-                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
+                <Widget type="ImageBox" skin="ImageBox" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
                     <Property key="ImageTexture" value="AlphaSlider.png"/>
                     <Widget type="ScrollBar" skin="VSliderEmpty" position="0 0 16 171" align="Stretch" name="AlphaSlider">
                         <Property key="Range" value="512"/>

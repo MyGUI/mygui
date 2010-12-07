@@ -56,13 +56,13 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceImageSetPointer::setImage(StaticImage* _image)
+	void ResourceImageSetPointer::setImage(ImageBox* _image)
 	{
 		if (mImageSet != nullptr)
 			_image->setItemResourceInfo(mImageSet->getIndexInfo(0, 0));
 	}
 
-	void ResourceImageSetPointer::setPosition(StaticImage* _image, const IntPoint& _point)
+	void ResourceImageSetPointer::setPosition(ImageBox* _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}

@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	MyGUI::StaticImage* image;
+	MyGUI::ImageBox* image;
 	MyGUI::RotatingSkin* rotato;
 
 	void DemoKeeper::setupResources()
@@ -27,7 +27,7 @@ namespace demo
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 		window->setMinSize(100, 100);
 
-		image = window->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
+		image = window->createWidget<MyGUI::ImageBox>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
 		image->setImageTexture("wallpaper0.png");
 
 		MyGUI::ISubWidget* main = image->getSubWidgetMain();

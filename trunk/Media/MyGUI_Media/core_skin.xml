@@ -866,7 +866,7 @@
 	<Resource type="ResourceSkin" name="PopupMenuLine" size="30 5" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
-		<Child type="StaticImage" skin="PopupMenuLineIcon" offset="18 0 12 15" align="Right VCenter" name="Image"/>
+		<Child type="ImageBox" skin="PopupMenuLineIcon" offset="18 0 12 15" align="Right VCenter" name="Image"/>
 		<BasisSkin type="MainSkin" offset="0 0 30 5">
 			<State name="normal" offset="343 115 1 1"/>
 			<State name="highlighted" offset="306 115 1 1"/>
@@ -988,7 +988,7 @@
 	<Resource type="ResourceSkin" name="ListLine" size="5 5" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
-		<Child type="StaticImage" skin="PopupMenuLineIcon" offset="-10 0 12 15" align="Right VCenter" name="Image"/>
+		<Child type="ImageBox" skin="PopupMenuLineIcon" offset="-10 0 12 15" align="Right VCenter" name="Image"/>
 		<BasisSkin type="MainSkin" offset="0 0 5 5">
 			<State name="normal" offset="343 115 1 1"/>
 			<State name="highlighted" offset="306 115 1 1"/>
@@ -1054,7 +1054,7 @@
 	<Resource type="ResourceSkin" name="MultiListButton" size="29 21" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="HCenter VCenter"/>
-		<Child type="StaticImage" skin="MultiListButtonIcon" offset="8 0 14 10" align="Right VCenter" name="Image"/>
+		<Child type="ImageBox" skin="MultiListButtonIcon" offset="8 0 14 10" align="Right VCenter" name="Image"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 21" align="Left VStretch">
 			<State name="disabled" offset="169 2 10 21"/>
 			<State name="normal" offset="169 24 10 21"/>

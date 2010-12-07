@@ -32,7 +32,7 @@
 			<State name="pushed" offset="330 115 1 1"/>
 		</BasisSkin>
 
-		<Child type="StaticImage" skin="TreeLineIcon" align="Default" offset="16 1 16 16" name="Image"/>
+		<Child type="ImageBox" skin="TreeLineIcon" align="Default" offset="16 1 16 16" name="Image"/>
 
 		<BasisSkin type="EditText" offset="34 3 0 0" align="Stretch">
 			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>

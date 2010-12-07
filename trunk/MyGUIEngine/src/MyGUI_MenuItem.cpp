@@ -152,7 +152,7 @@ namespace MyGUI
 			setItemId(_value);
 		else if (_key == "MenuItemType")
 			setItemType(utility::parseValue<MenuItemType>(_value));
-		if (_key == "MenuItemChecked")
+		else if (_key == "MenuItemChecked")
 			setItemChecked(utility::parseValue<bool>(_value));
 		else
 		{

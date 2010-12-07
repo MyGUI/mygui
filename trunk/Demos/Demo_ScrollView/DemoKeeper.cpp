@@ -32,7 +32,7 @@ namespace demo
 		MyGUI::ScrollView* scroll_view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(2, 2, window->getClientCoord().width - 2, window->getClientCoord().height - 2), MyGUI::Align::Stretch);
 
 		scroll_view->setCanvasSize(256, 256);
-		MyGUI::StaticImage* image = scroll_view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Default);
+		MyGUI::ImageBox* image = scroll_view->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Default);
 		image->setImageTexture("Crystal_Clear_View.png");
 	}
 

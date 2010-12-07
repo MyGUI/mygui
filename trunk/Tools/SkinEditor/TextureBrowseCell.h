@@ -25,7 +25,7 @@ namespace tools
 		MyGUI::Widget* mSelector;
 		MyGUI::Widget* mBack;
 		MyGUI::Widget* mParentBack;
-		MyGUI::StaticImage* mImage;
+		MyGUI::ImageBox* mImage;
 	};
 
 } // namespace tools

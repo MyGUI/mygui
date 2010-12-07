@@ -76,7 +76,7 @@ namespace tools
 
 	private:
 		MyGUI::ScrollView* mView;
-		MyGUI::StaticImage* mTexture;
+		MyGUI::ImageBox* mTexture;
 		MyGUI::Widget* mBackground;
 
 		double mScaleValue;

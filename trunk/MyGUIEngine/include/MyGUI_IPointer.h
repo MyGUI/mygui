@@ -37,8 +37,8 @@ namespace MyGUI
 		IPointer() { }
 		virtual ~IPointer() { }
 
-		virtual void setImage(StaticImage* _image) = 0;
-		virtual void setPosition(StaticImage* _image, const IntPoint& _point) = 0;
+		virtual void setImage(ImageBox* _image) = 0;
+		virtual void setPosition(ImageBox* _image, const IntPoint& _point) = 0;
 	};
 
 } // namespace MyGUI

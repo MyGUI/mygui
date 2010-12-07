@@ -30,6 +30,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_IStateInfo.h"
 #include "MyGUI_LayoutManager.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
@@ -107,16 +108,17 @@ namespace MyGUI
 
 	ResourceSkin* SkinManager::getByName(const std::string& _name) const
 	{
+		std::string skinName = BackwardCompatibility::getSkinRename(_name);
 		IResource* result = nullptr;
-		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
-			result = ResourceManager::getInstance().getByName(_name, false);
+		if (!skinName.empty() && skinName != RESOURCE_DEFAULT_NAME)
+			result = ResourceManager::getInstance().getByName(skinName, false);
 
 		if (result == nullptr)
 		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
-			if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
+			if (!skinName.empty() && skinName != RESOURCE_DEFAULT_NAME)
 			{
-				MYGUI_LOG(Error, "Skin '" << _name << "' not found. Replaced with default skin." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+				MYGUI_LOG(Error, "Skin '" << skinName << "' not found. Replaced with default skin." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
 		}
 

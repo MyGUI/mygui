@@ -42,7 +42,7 @@ namespace editor
 
 		struct PairAnim
 		{
-			PairAnim(MyGUI::StaticText* _text, MyGUI::StaticImage* _image, const MyGUI::GroupImage& _group) :
+			PairAnim(MyGUI::StaticText* _text, MyGUI::ImageBox* _image, const MyGUI::GroupImage& _group) :
 				text(_text),
 				image(_image),
 				group(_group),
@@ -51,7 +51,7 @@ namespace editor
 			}
 
 			MyGUI::StaticText* text;
-			MyGUI::StaticImage* image;
+			MyGUI::ImageBox* image;
 			MyGUI::GroupImage group;
 			size_t index;
 		};
