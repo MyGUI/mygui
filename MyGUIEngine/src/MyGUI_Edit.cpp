@@ -164,7 +164,8 @@ namespace MyGUI
 		mCursorTimer = 0;
 		updateSelectText();
 
-		if (_id == MouseButton::Left) mMouseLeftPressed = true;
+		if (_id == MouseButton::Left)
+			mMouseLeftPressed = true;
 	}
 
 	void Edit::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
@@ -182,7 +183,8 @@ namespace MyGUI
 			return;
 
 		// в статике все недоступно
-		if (mModeStatic) return;
+		if (mModeStatic)
+			return;
 
 		// останавливаем курсор
 		mClientText->setVisibleCursor(true);
@@ -194,17 +196,21 @@ namespace MyGUI
 		size_t Old = mCursorPosition;
 		IntPoint point(_left, _top);
 		mCursorPosition = mClientText->getCursorPosition(point);
-		if (Old == mCursorPosition) return;
+		if (Old == mCursorPosition)
+			return;
 
 		mClientText->setCursorPosition(mCursorPosition);
 
 		// если не было выделения
-		if (mStartSelect == ITEM_NONE) mStartSelect = Old;
+		if (mStartSelect == ITEM_NONE)
+			mStartSelect = Old;
 
 		// меняем выделение
 		mEndSelect = (size_t)mCursorPosition;
-		if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
-		else mClientText->setTextSelection(mStartSelect, mEndSelect);
+		if (mStartSelect > mEndSelect)
+			mClientText->setTextSelection(mEndSelect, mStartSelect);
+		else
+			mClientText->setTextSelection(mStartSelect, mEndSelect);
 
 	}
 
@@ -229,13 +235,15 @@ namespace MyGUI
 
 		while (iterBack != text.rend())
 		{
-			if (((*iterBack) < 265) && (ispunct(*iterBack) || isspace(*iterBack))) break;
+			if (((*iterBack) < 265) && (ispunct(*iterBack) || isspace(*iterBack)))
+				break;
 			iterBack++;
 			mStartSelect--;
 		}
 		while (iterForw != text.end())
 		{
-			if (((*iterForw) < 265) && (ispunct(*iterForw) || isspace(*iterForw))) break;
+			if (((*iterForw) < 265) && (ispunct(*iterForw) || isspace(*iterForw)))
+				break;
 			iterForw++;
 			mEndSelect++;
 		}
@@ -338,7 +346,8 @@ namespace MyGUI
 		}
 		else if (_key == KeyCode::Delete)
 		{
-			if (input.isShiftPressed()) commandCut();
+			if (input.isShiftPressed())
+				commandCut();
 			else if (!mModeReadOnly)
 			{
 				// если нуно то удаляем выделенный текст
@@ -356,8 +365,10 @@ namespace MyGUI
 		}
 		else if (_key == KeyCode::Insert)
 		{
-			if (input.isShiftPressed()) commandPast();
-			else if (input.isControlPressed()) commandCopy();
+			if (input.isShiftPressed())
+				commandPast();
+			else if (input.isControlPressed())
+				commandCopy();
 
 		}
 		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
@@ -422,7 +433,7 @@ namespace MyGUI
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
-			if ( old == mCursorPosition )
+			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != 0)
 				{
@@ -450,7 +461,7 @@ namespace MyGUI
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
-			if ( old == mCursorPosition )
+			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != mTextLength)
 				{
@@ -474,13 +485,13 @@ namespace MyGUI
 		else if (_key == KeyCode::Home)
 		{
 			// в начало строки
-			if ( !input.isControlPressed())
+			if (!input.isControlPressed())
 			{
 				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MIN_POSITION;
 				size_t old = mCursorPosition;
 				mCursorPosition = mClientText->getCursorPosition(point);
-				if ( old != mCursorPosition )
+				if (old != mCursorPosition)
 				{
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
@@ -509,13 +520,13 @@ namespace MyGUI
 		else if (_key == KeyCode::End)
 		{
 			// в конец строки
-			if ( !  input.isControlPressed())
+			if (!input.isControlPressed())
 			{
 				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 				point.left = EDIT_CURSOR_MAX_POSITION;
 				size_t old = mCursorPosition;
 				mCursorPosition = mClientText->getCursorPosition(point);
-				if ( old != mCursorPosition )
+				if (old != mCursorPosition)
 				{
 					mClientText->setCursorPosition(mCursorPosition);
 					updateSelectText();
@@ -549,7 +560,7 @@ namespace MyGUI
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
-			if ( old == mCursorPosition )
+			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != 0)
 				{
@@ -578,7 +589,7 @@ namespace MyGUI
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
-			if ( old == mCursorPosition )
+			if (old == mCursorPosition)
 			{
 				if (mCursorPosition != mTextLength)
 				{
@@ -609,7 +620,6 @@ namespace MyGUI
 		}
 		else if (_char != 0)
 		{
-
 			// если не нажат контрл, то обрабатываем как текст
 			if (!input.isControlPressed())
 			{
@@ -624,7 +634,8 @@ namespace MyGUI
 						deleteTextSelect(true);
 						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
 						// проверяем на возможность объединения
-						if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
+						if ((size + 2) == mVectorUndoChangeInfo.size())
+							commandMerge();
 						// отсылаем событие о изменении
 						eventEditTextChange(this);
 					}
@@ -684,7 +695,8 @@ namespace MyGUI
 			if (mCursorTimer > EDIT_CURSOR_TIMER)
 			{
 				mClientText->setVisibleCursor(!mClientText->isVisibleCursor());
-				while (mCursorTimer > EDIT_CURSOR_TIMER) mCursorTimer -= EDIT_CURSOR_TIMER;
+				while (mCursorTimer > EDIT_CURSOR_TIMER)
+					mCursorTimer -= EDIT_CURSOR_TIMER;
 			}
 		}
 
@@ -695,7 +707,6 @@ namespace MyGUI
 
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER)
 			{
-
 				IntPoint mouse = InputManager::getInstance().getMousePositionByLayer();
 				const IntRect& view = mClient->getAbsoluteRect();
 				mouse.left -= view.left;
@@ -745,13 +756,15 @@ namespace MyGUI
 					size_t old = mCursorPosition;
 					mCursorPosition = mClientText->getCursorPosition(point);
 
-					if ( old != mCursorPosition )
+					if (old != mCursorPosition)
 					{
 						mClientText->setCursorPosition(mCursorPosition);
 
 						mEndSelect = (size_t)mCursorPosition;
-						if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
-						else mClientText->setTextSelection(mStartSelect, mEndSelect);
+						if (mStartSelect > mEndSelect)
+							mClientText->setTextSelection(mEndSelect, mStartSelect);
+						else
+							mClientText->setTextSelection(mStartSelect, mEndSelect);
 
 						// пытаемся показать курсор
 						updateViewWithCursor();
@@ -803,11 +816,14 @@ namespace MyGUI
 
 		if (mClientText != nullptr)
 		{
-			if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
-			else mClientText->setTextSelection(mStartSelect, mEndSelect);
+			if (mStartSelect > mEndSelect)
+				mClientText->setTextSelection(mEndSelect, mStartSelect);
+			else
+				mClientText->setTextSelection(mStartSelect, mEndSelect);
 		}
 
-		if (mCursorPosition == mEndSelect) return;
+		if (mCursorPosition == mEndSelect)
+			return;
 		// курсор на конец выделения
 		mCursorPosition = mEndSelect;
 
@@ -818,7 +834,8 @@ namespace MyGUI
 
 	bool Edit::deleteTextSelect(bool _history)
 	{
-		if ( ! isTextSelection()) return false;
+		if (!isTextSelection())
+			return false;
 
 		// начало и конец выделения
 		size_t start = getTextSelectionStart();
@@ -841,12 +858,14 @@ namespace MyGUI
 
 	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo* _info)
 	{
-		if (_info != nullptr) _info->push_back(TextCommandInfo(_undo, _redo, _length));
+		if (_info != nullptr)
+			_info->push_back(TextCommandInfo(_undo, _redo, _length));
 	}
 
 	void Edit::commandMerge()
 	{
-		if (mVectorUndoChangeInfo.size() < 2) return; // на всякий
+		if (mVectorUndoChangeInfo.size() < 2)
+			return; // на всякий
 		// сохраняем последние набор отмен
 		VectorChangeInfo info = mVectorUndoChangeInfo.back();
 		mVectorUndoChangeInfo.pop_back();
@@ -860,7 +879,8 @@ namespace MyGUI
 
 	bool Edit::commandUndo()
 	{
-		if (mVectorUndoChangeInfo.empty()) return false;
+		if (mVectorUndoChangeInfo.empty())
+			return false;
 
 		// сбрасываем выделение
 		resetSelect();
@@ -877,9 +897,10 @@ namespace MyGUI
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::reverse_iterator iter = info.rbegin(); iter != info.rend(); iter++)
 		{
-
-			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.erase((*iter).start, (*iter).text.size());
-			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE) text.insert((*iter).start, (*iter).text);
+			if ((*iter).type == TextCommandInfo::COMMAND_INSERT)
+				text.erase((*iter).start, (*iter).text.size());
+			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE)
+				text.insert((*iter).start, (*iter).text);
 			else
 			{
 				mCursorPosition = (*iter).undo;
@@ -903,7 +924,8 @@ namespace MyGUI
 
 	bool Edit::commandRedo()
 	{
-		if (mVectorRedoChangeInfo.empty()) return false;
+		if (mVectorRedoChangeInfo.empty())
+			return false;
 
 		// сбрасываем выделение
 		resetSelect();
@@ -920,9 +942,10 @@ namespace MyGUI
 		// восстанавливаем последовательность
 		for (VectorChangeInfo::iterator iter = info.begin(); iter != info.end(); ++iter)
 		{
-
-			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
-			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE) text.erase((*iter).start, (*iter).text.size());
+			if ((*iter).type == TextCommandInfo::COMMAND_INSERT)
+				text.insert((*iter).start, (*iter).text);
+			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE)
+				text.erase((*iter).start, (*iter).text.size());
 			else
 			{
 				mCursorPosition = (*iter).redo;
@@ -947,10 +970,13 @@ namespace MyGUI
 
 	void Edit::saveInHistory(VectorChangeInfo* _info)
 	{
-		if (_info == nullptr) return;
+		if (_info == nullptr)
+			return;
 		// если нет информации об изменении
-		if ( _info->empty() ) return;
-		if ( (_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION)) return;
+		if ( _info->empty())
+			return;
+		if ((_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION))
+			return;
 
 		mVectorUndoChangeInfo.push_back(*_info);
 		// проверяем на максимальный размер
@@ -1000,12 +1026,14 @@ namespace MyGUI
 			}
 
 			// а теперь просто до конца диапазона
-			else if (pos == end) break;
+			else if (pos == end)
+				break;
 
 		}
 
 		// возвращаем строку
-		if (need_colour) return colour + iterator.getFromStart();
+		if (need_colour)
+			return colour + iterator.getFromStart();
 		return iterator.getFromStart();
 	}
 
@@ -1017,7 +1045,8 @@ namespace MyGUI
 
 		// история изменений
 		VectorChangeInfo* history = nullptr;
-		if (_history) history = new VectorChangeInfo();
+		if (_history)
+			history = new VectorChangeInfo();
 
 		// конец диапазона
 		size_t end = _start + _count;
@@ -1031,7 +1060,6 @@ namespace MyGUI
 		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-
 			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
@@ -1039,7 +1067,8 @@ namespace MyGUI
 			iterator.getTagColour(colour);
 
 			// еще рано
-			if (pos < _start) continue;
+			if (pos < _start)
+				continue;
 
 			// ставим начальный тег
 			else if (pos == _start)
@@ -1069,17 +1098,18 @@ namespace MyGUI
 			delete history;
 		}
 		// сбрасываем историю
-		else commandResetHistory();
+		else
+			commandResetHistory();
 
 		// и возвращаем строку на место
 		setRealString(iterator.getText());
-
 	}
 
 	void Edit::setTextSelectColour(const Colour& _colour, bool _history)
 	{
 		// нужно выделение
-		if ( !isTextSelection()) return;
+		if ( !isTextSelection())
+			return;
 		// начало и конец выделения
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
@@ -1088,7 +1118,8 @@ namespace MyGUI
 
 	UString Edit::getTextSelection()
 	{
-		if ( !isTextSelection()) return "";
+		if ( !isTextSelection())
+			return "";
 		size_t start = getTextSelectionStart();
 		size_t end =  getTextSelectionEnd();
 		return getTextInterval(start, end - start);
@@ -1096,8 +1127,10 @@ namespace MyGUI
 
 	void Edit::setEditPassword(bool _password)
 	{
-		if (mModePassword == _password) return;
+		if (mModePassword == _password)
+			return;
 		mModePassword = _password;
+
 		if (mModePassword)
 		{
 			if (mClientText != nullptr)
@@ -1127,7 +1160,8 @@ namespace MyGUI
 
 		// история изменений
 		VectorChangeInfo* history = nullptr;
-		if (_history) history = new VectorChangeInfo();
+		if (_history)
+			history = new VectorChangeInfo();
 
 		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
@@ -1160,7 +1194,8 @@ namespace MyGUI
 			delete history;
 		}
 		// сбрасываем историю
-		else commandResetHistory();
+		else
+			commandResetHistory();
 
 		// и возвращаем строку на место
 		setRealString(iterator.getText());
@@ -1177,13 +1212,16 @@ namespace MyGUI
 		resetSelect();
 
 		// если строка пустая, или размер максимален
-		if (_text.empty()) return;
+		if (_text.empty())
+			return;
 
-		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength)) return;
+		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength))
+			return;
 
 		// история изменений
 		VectorChangeInfo* history = nullptr;
-		if (_history) history = new VectorChangeInfo();
+		if (_history)
+			history = new VectorChangeInfo();
 
 		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
@@ -1197,20 +1235,21 @@ namespace MyGUI
 		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-
 			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
 			// текущий цвет
-			if (need_colour) iterator.getTagColour(colour);
+			if (need_colour)
+				iterator.getTagColour(colour);
 
 			// если дошли то выходим
-			if (pos == _start) break;
-
+			if (pos == _start)
+				break;
 		}
 
 		// если нужен цвет то вставляем
-		if (need_colour) iterator.setTagColour(colour);
+		if (need_colour)
+			iterator.setTagColour(colour);
 
 		// а теперь вставляем строку
 		iterator.insertText(_text, mModeMultiline || mModeWordWrap);
@@ -1241,7 +1280,8 @@ namespace MyGUI
 			delete history;
 		}
 		// сбрасываем историю
-		else commandResetHistory();
+		else
+			commandResetHistory();
 
 		// и возвращаем строку на место
 		setRealString(iterator.getText());
@@ -1255,14 +1295,16 @@ namespace MyGUI
 	void Edit::eraseText(size_t _start, size_t _count, bool _history)
 	{
 		// чета маловато
-		if (_count == 0) return;
+		if (_count == 0)
+			return;
 
 		// сбрасываем выделение
 		resetSelect();
 
 		// история изменений
 		VectorChangeInfo* history = nullptr;
-		if (_history) history = new VectorChangeInfo();
+		if (_history)
+			history = new VectorChangeInfo();
 
 		// итератор нашей строки
 		TextIterator iterator(getRealString(), history);
@@ -1276,7 +1318,6 @@ namespace MyGUI
 		// цикл прохода по строке
 		while (iterator.moveNext())
 		{
-
 			// текущаяя позиция
 			size_t pos = iterator.getPosition();
 
@@ -1292,7 +1333,7 @@ namespace MyGUI
 			else if (pos == _start)
 			{
 				// если до диапазона был цвет, то нужно закрыть тег
-				if ( ! colour.empty())
+				if (!colour.empty())
 				{
 					need_colour = true;
 					colour.clear();
@@ -1313,8 +1354,10 @@ namespace MyGUI
 			else if (pos == end)
 			{
 				// нужно ставить тег или нет
-				if ( ! colour.empty()) need_colour = true;
-				if ( iterator.getTagColour(colour)) need_colour = false;
+				if (!colour.empty())
+					need_colour = true;
+				if (iterator.getTagColour(colour))
+					need_colour = false;
 
 				break;
 			}
@@ -1324,7 +1367,8 @@ namespace MyGUI
 		// удаляем диапазон
 		iterator.eraseFromStart();
 		// и вставляем последний цвет
-		if (need_colour) iterator.setTagColour(colour);
+		if (need_colour)
+			iterator.setTagColour(colour);
 
 		// сохраняем позицию для восстановления курсора
 		commandPosition(_start + _count, _start, mTextLength, history);
@@ -1340,7 +1384,8 @@ namespace MyGUI
 			delete history;
 		}
 		// сбрасываем историю
-		else commandResetHistory();
+		else
+			commandResetHistory();
 
 		// и возвращаем строку на место
 		setRealString(iterator.getText());
@@ -1354,7 +1399,7 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		if ( isTextSelection() && (!mModePassword) )
+		if (isTextSelection() && (!mModePassword))
 		{
 			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
 			if (!mModeReadOnly)
@@ -1364,21 +1409,24 @@ namespace MyGUI
 				eventEditTextChange(this);
 			}
 		}
-		else ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		else
+			ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelection() && (!mModePassword) ) ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
-		else ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		if (isTextSelection() && (!mModePassword))
+			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
+		else
+			ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
 		// копируем из буфера обмена
 		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
-		if ( (!mModeReadOnly) && ( !clipboard.empty()) )
+		if ((!mModeReadOnly) && (!clipboard.empty()))
 		{
 			// попытка объединения двух комманд
 			size_t size = mVectorUndoChangeInfo.size();
@@ -1386,7 +1434,8 @@ namespace MyGUI
 			deleteTextSelect(true);
 			insertText(clipboard, mCursorPosition, true);
 			// проверяем на возможность объединения
-			if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
+			if ((size + 2) == mVectorUndoChangeInfo.size())
+				commandMerge();
 			// отсылаем событие о изменении
 			eventEditTextChange(this);
 		}
@@ -1394,8 +1443,10 @@ namespace MyGUI
 
 	const UString& Edit::getRealString()
 	{
-		if (mModePassword) return mPasswordText;
-		else if (mClientText == nullptr) return mPasswordText;
+		if (mModePassword)
+			return mPasswordText;
+		else if (mClientText == nullptr)
+			return mPasswordText;
 
 		return mClientText->getCaption();
 	}
@@ -1487,16 +1538,17 @@ namespace MyGUI
 	{
 		if (!mModeStatic)
 		{
-
 			InputManager& input = InputManager::getInstance();
-			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) )
+			if ((input.isShiftPressed()) && (mStartSelect != ITEM_NONE))
 			{
 				// меняем выделение
 				mEndSelect = (size_t)mCursorPosition;
 				if (mClientText != nullptr)
 				{
-					if (mStartSelect > mEndSelect) mClientText->setTextSelection(mEndSelect, mStartSelect);
-					else mClientText->setTextSelection(mStartSelect, mEndSelect);
+					if (mStartSelect > mEndSelect)
+						mClientText->setTextSelection(mEndSelect, mStartSelect);
+					else
+						mClientText->setTextSelection(mStartSelect, mEndSelect);
 				}
 
 			}
@@ -1574,11 +1626,15 @@ namespace MyGUI
 		{
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.top;
-			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
-			else  offset -= EDIT_MOUSE_WHEEL;
+			if (_rel < 0)
+				offset += EDIT_MOUSE_WHEEL;
+			else
+				offset -= EDIT_MOUSE_WHEEL;
 
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = mVRange;
+			if (offset < 0)
+				offset = 0;
+			else if (offset > (int)mVRange)
+				offset = mVRange;
 
 			if (offset != point.top)
 			{
@@ -1592,11 +1648,15 @@ namespace MyGUI
 		{
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.left;
-			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
-			else  offset -= EDIT_MOUSE_WHEEL;
+			if (_rel < 0)
+				offset += EDIT_MOUSE_WHEEL;
+			else
+				offset -= EDIT_MOUSE_WHEEL;
 
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = mHRange;
+			if (offset < 0)
+				offset = 0;
+			else if (offset > (int)mHRange)
+				offset = mHRange;
 
 			if (offset != point.left)
 			{
@@ -1681,13 +1741,15 @@ namespace MyGUI
 				{
 					offset.left = point.left - (view.left - cursor.left);
 					// добавляем смещение, только если курсор не перепрыгнет
-					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left -= int(EDIT_OFFSET_HORZ_CURSOR);
+					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR)
+						offset.left -= int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 				else if (cursor.right > view.right)
 				{
 					offset.left = point.left + (cursor.right - view.right);
 					// добавляем смещение, только если курсор не перепрыгнет
-					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR) offset.left += int(EDIT_OFFSET_HORZ_CURSOR);
+					if ((float(view.width()) - EDIT_OFFSET_HORZ_CURSOR) > EDIT_OFFSET_HORZ_CURSOR)
+						offset.left += int(EDIT_OFFSET_HORZ_CURSOR);
 				}
 			}
 
@@ -1726,36 +1788,44 @@ namespace MyGUI
 
 	IntSize Edit::getViewSize()
 	{
-		return mClient == nullptr ? getSize() : mClient->getSize();
+		if (mClientText != nullptr)
+			return mClient->getSize();
+		return ScrollViewBase::getViewSize();
 	}
 
 	IntSize Edit::getContentSize()
 	{
-		return mClientText == nullptr ? IntSize() : mClientText->getTextSize();
+		if (mClientText != nullptr)
+			return mClientText->getTextSize();
+		return ScrollViewBase::getContentSize();
 	}
 
 	size_t Edit::getVScrollPage()
 	{
 		if (mClientText != nullptr)
 			return (size_t)mClientText->getFontHeight();
-		return (size_t)getFontHeight();
+		return ScrollViewBase::getVScrollPage();
 	}
 
 	size_t Edit::getHScrollPage()
 	{
 		if (mClientText != nullptr)
 			return (size_t)mClientText->getFontHeight();
-		return (size_t)getFontHeight();
+		return ScrollViewBase::getHScrollPage();
 	}
 
 	IntPoint Edit::getContentPosition()
 	{
-		return mClientText == nullptr ? IntPoint() : mClientText->getViewOffset();
+		if (mClientText != nullptr)
+			return mClientText->getViewOffset();
+		return ScrollViewBase::getContentPosition();
 	}
 
 	Align Edit::getContentAlign()
 	{
-		return mClientText == nullptr ? Align::Default : mClientText->getTextAlign();
+		if (mClientText != nullptr)
+			return mClientText->getTextAlign();
+		return ScrollViewBase::getContentAlign();
 	}
 
 	void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)
@@ -1775,7 +1845,7 @@ namespace MyGUI
 
 	bool Edit::isTextSelection()
 	{
-		return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) );
+		return (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect);
 	}
 
 	void Edit::deleteTextSelection()
