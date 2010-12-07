@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="Panel" position="40 408 360 296" layer="Main" name="_Main">
-        <Widget type="StaticImage" skin="StaticImage" position="11 12 128 128" layer="Back">
+        <Widget type="ImageBox" skin="ImageBox" position="11 12 128 128" layer="Back">
             <Property key="ImageTexture" value="Crystal_Clear_app_babelfish.png"/>
         </Widget>
     </Widget>

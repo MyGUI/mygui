@@ -22,8 +22,8 @@ namespace demo
 
 	private:
 		MyGUI::ScrollView* mScrollView;
-		MyGUI::StaticImage* mImageBack;
-		MyGUI::StaticImage* mImageTexture;
+		MyGUI::ImageBox* mImageBack;
+		MyGUI::ImageBox* mImageTexture;
 	};
 
 } // namespace demo

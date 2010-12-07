@@ -971,15 +971,26 @@ namespace MyGUI
 	std::string BackwardCompatibility::getFactoryRename(const std::string& _categoryName, const std::string& _factoryName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		/*if (_categoryName == "Widget")
+		if (_categoryName == "Widget")
 		{
-			if (_factoryName == VScroll::getClassTypeName())
-				return ScrollBar::getClassTypeName();
-			if (_factoryName == HScroll::getClassTypeName())
-				return ScrollBar::getClassTypeName();
-		}*/
+			if (_factoryName == "StaticImage")
+			{
+				MYGUI_LOG(Warning, "StaticImage factory is deprecated, use " << ImageBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
+		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
+	}
+
+	std::string BackwardCompatibility::getSkinRename(const std::string& _skinName)
+	{
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		if (_skinName == "StaticImage")
+		{
+			MYGUI_LOG(Warning, "StaticImage skin is deprecated, use ImageBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+		return _skinName;
 	}
 
 	void BackwardCompatibility::shutdown()

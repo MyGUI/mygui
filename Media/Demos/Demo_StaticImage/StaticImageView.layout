@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowC" position="224 40 440 512" layer="Overlapped" name="_Main">
-        <Property key="Caption" value="StaticImage demo"/>
+        <Property key="Caption" value="ImageBox demo"/>
         <Widget type="ComboBox" skin="ComboBox" position="92 9 328 26" name="combo_Resource">
             <Property key="ModeDrop" value="true"/>
         </Widget>
@@ -65,7 +65,7 @@
         </Widget>
         <Widget type="ScrollView" skin="ScrollView" position="4 257 423 216" name="view_Image">
             <Property key="CanvasAlign" value="Center"/>
-            <Widget type="StaticImage" skin="StaticImage" position="244 265 160 192" name="image_Image"/>
+            <Widget type="ImageBox" skin="ImageBox" position="244 265 160 192" name="image_Image"/>
         </Widget>
     </Widget>
 </MyGUI>

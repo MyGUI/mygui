@@ -23,9 +23,9 @@ namespace demo
 		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
 
 	private:
-		MyGUI::StaticImage* mImageBack;
-		MyGUI::StaticImage* mImageBorder;
-		MyGUI::StaticImage* mImageItem;
+		MyGUI::ImageBox* mImageBack;
+		MyGUI::ImageBox* mImageBorder;
+		MyGUI::ImageBox* mImageItem;
 		MyGUI::StaticText* mTextBack;
 		MyGUI::StaticText* mTextFront;
 	};

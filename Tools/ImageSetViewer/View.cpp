@@ -130,7 +130,7 @@ namespace editor
 		const int offset_height = 10;
 		const int text_height = 26;
 
-		MyGUI::StaticImage* image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
+		MyGUI::ImageBox* image = mImageView->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
 		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		//image->setItemName(_index.name);
@@ -153,7 +153,7 @@ namespace editor
 		const int offset_height = 10;
 		const int text_height = 26;
 
-		MyGUI::StaticImage* image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
+		MyGUI::ImageBox* image = mImageView->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
 		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);

@@ -49,7 +49,7 @@ namespace demo
 		mMainPanel->addObject("Horizontal Scrollbar");
 		mMainPanel->addObject("Vertical Scrollbar");
 		mMainPanel->addObject("StaticText");
-		mMainPanel->addObject("StaticImage");
+		mMainPanel->addObject("ImageBox");
 		mMainPanel->addObject("Render to Texture");
 
 		mEditorWindow = new EditorWindow();
@@ -151,7 +151,7 @@ namespace demo
 			else if (_index == 4)
 			{
 				const MyGUI::IntSize size(50, 50);
-				MyGUI::StaticImage* image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::ImageBox* image = view->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				image->setImageInfo("core.png", MyGUI::IntCoord(50, 203, 50, 50), MyGUI::IntSize(50, 50));
 				image->setImageIndex(0);
 			}

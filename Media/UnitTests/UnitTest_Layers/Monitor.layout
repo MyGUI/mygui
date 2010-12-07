@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="StaticImage" position="32 64 1024 512" layer="RTT_Monitor" name="_Main">
+    <Widget type="ImageBox" skin="ImageBox" position="32 64 1024 512" layer="RTT_Monitor" name="_Main">
         <Property key="ImageTexture" value="MonitorBack.png"/>
         <Property key="ImageCoord" value="0 0 1024 512"/>
         <Property key="ImageTile" value="1024 512"/>
@@ -24,7 +24,7 @@
 			<Property key="RangePosition" value="8"/>
 			<Controller type="ControllerSmoothProgress"/>
 		</Widget>
-        <Widget type="StaticImage" skin="StaticImage" position="49 140 210 210" name="Ship">
+        <Widget type="ImageBox" skin="ImageBox" position="49 140 210 210" name="Ship">
             <Property key="ImageResource" value="pic_Ship"/>
             <Property key="ImageGroup" value="Ship"/>
             <Property key="ImageName" value="None"/>

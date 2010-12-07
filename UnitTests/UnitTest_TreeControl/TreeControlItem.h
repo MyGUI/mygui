@@ -25,7 +25,7 @@ namespace MyGUI
 		{
 			return mpButtonExpandCollapse;
 		}
-		StaticImage* getIcon() const
+		ImageBox* getIcon() const
 		{
 			return mpIcon;
 		}
@@ -40,7 +40,7 @@ namespace MyGUI
 
 	private:
 		Button* mpButtonExpandCollapse;
-		StaticImage* mpIcon;
+		ImageBox* mpIcon;
 		//int mnLevelOffset;
 	};
 

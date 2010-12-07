@@ -379,7 +379,7 @@ namespace MyGUI
 		bool mSmoothShow;
 
 		std::string mDefaultCaption;
-		StaticImage* mIcon;
+		ImageBox* mIcon;
 		int mLeftOffset1;
 		int mLeftOffset2;
 	};

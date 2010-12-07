@@ -82,7 +82,7 @@ namespace MyGUI
 		factory.registerFactory<Progress>("Widget");
 		factory.registerFactory<ScrollBar>("Widget");
 		factory.registerFactory<ScrollView>("Widget");
-		factory.registerFactory<StaticImage>("Widget");
+		factory.registerFactory<ImageBox>("Widget");
 		factory.registerFactory<StaticText>("Widget");
 		factory.registerFactory<Tab>("Widget");
 		factory.registerFactory<TabItem>("Widget");

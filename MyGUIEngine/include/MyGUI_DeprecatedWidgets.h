@@ -66,6 +66,11 @@ namespace MyGUI
 		}
 	};
 
+	class MYGUI_EXPORT StaticImage :
+		public ImageBox
+	{
+	};
+
 } // namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE

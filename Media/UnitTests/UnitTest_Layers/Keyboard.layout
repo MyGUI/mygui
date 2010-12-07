@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="StaticImage" skin="StaticImage" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
+    <Widget type="ImageBox" skin="ImageBox" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
         <Property key="ImageTexture" value="KeyboardBack.png"/>
         <UserString key="Command" value="dev_None"/>
         <Widget type="Button" skin="rtt_KeyboardLamp" position="720 56 38 39">

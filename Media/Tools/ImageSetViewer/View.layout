@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="16 48 720 576" layer="Overlapped" name="_Main">
-        <Property key="Caption" value="StaticImage demo"/>
+        <Property key="Caption" value="ImageBox demo"/>
         <Property key="MinSize" value="456 432"/>
         <Widget type="ScrollView" skin="ScrollView" position="5 262 701 271" align="Stretch" name="view_Image">
             <Property key="CanvasAlign" value="Default"/>
