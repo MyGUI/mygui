@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_ResourceSkin.h"
@@ -33,7 +33,7 @@ namespace MyGUI
 
 	const size_t IMAGE_MAX_INDEX = 256;
 
-	StaticImage::StaticImage() :
+	ImageBox::ImageBox() :
 		mIndexSelect(ITEM_NONE),
 		mFrameAdvise(false),
 		mCurrentTime(0),
@@ -42,14 +42,14 @@ namespace MyGUI
 	{
 	}
 
-	void StaticImage::shutdownOverride()
+	void ImageBox::shutdownOverride()
 	{
 		frameAdvise(false);
 
 		Base::shutdownOverride();
 	}
 
-	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)
+	void ImageBox::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
@@ -64,7 +64,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageTile(const IntSize& _tile)
+	void ImageBox::setImageTile(const IntSize& _tile)
 	{
 		mSizeTile = _tile;
 
@@ -77,7 +77,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageCoord(const IntCoord& _coord)
+	void ImageBox::setImageCoord(const IntCoord& _coord)
 	{
 		mRectImage.left = _coord.left;
 		mRectImage.top = _coord.top;
@@ -93,7 +93,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageRect(const IntRect& _rect)
+	void ImageBox::setImageRect(const IntRect& _rect)
 	{
 		mRectImage = _rect;
 
@@ -106,7 +106,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageTexture(const std::string& _texture)
+	void ImageBox::setImageTexture(const std::string& _texture)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
@@ -124,7 +124,7 @@ namespace MyGUI
 		}
 	}
 
-	void StaticImage::recalcIndexes()
+	void ImageBox::recalcIndexes()
 	{
 		mItems.clear();
 
@@ -157,7 +157,7 @@ namespace MyGUI
 		}
 	}
 
-	void StaticImage::updateSelectIndex(size_t _index)
+	void ImageBox::updateSelectIndex(size_t _index)
 	{
 		mIndexSelect = _index;
 
@@ -193,9 +193,9 @@ namespace MyGUI
 		}
 	}
 
-	void StaticImage::deleteItem(size_t _index)
+	void ImageBox::deleteItem(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::deleteItem");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::deleteItem");
 
 		mItems.erase(mItems.begin() + _index);
 
@@ -206,15 +206,15 @@ namespace MyGUI
 		}
 	}
 
-	void StaticImage::deleteAllItems()
+	void ImageBox::deleteAllItems()
 	{
 		updateSelectIndex(ITEM_NONE);
 		mItems.clear();
 	}
 
-	void StaticImage::insertItem(size_t _index, const IntCoord& _item)
+	void ImageBox::insertItem(size_t _index, const IntCoord& _item)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "StaticImage::insertItem");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItems.size(), "ImageBox::insertItem");
 		if (_index == ITEM_NONE) _index = mItems.size();
 
 		VectorImages::iterator iter = mItems.insert(mItems.begin() + _index, ImageItem());
@@ -224,9 +224,9 @@ namespace MyGUI
 		if ((mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect)) updateSelectIndex(mIndexSelect++);
 	}
 
-	void StaticImage::setItem(size_t _index, const IntCoord& _item)
+	void ImageBox::setItem(size_t _index, const IntCoord& _item)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItem");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::setItem");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
 		iter->images.clear();
@@ -235,7 +235,7 @@ namespace MyGUI
 		if (_index == mIndexSelect) updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::frameEntered(float _frame)
+	void ImageBox::frameEntered(float _frame)
 	{
 		if (mIndexSelect == ITEM_NONE) return;
 
@@ -255,90 +255,90 @@ namespace MyGUI
 		_setUVSet(iter->images[mCurrentFrame]);
 	}
 
-	void StaticImage::deleteAllItemFrames(size_t _index)
+	void ImageBox::deleteAllItemFrames(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::clearItemFrame");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::clearItemFrame");
 		VectorImages::iterator iter = mItems.begin() + _index;
 		iter->images.clear();
 	}
 
-	void StaticImage::addItemFrame(size_t _index, const IntCoord& _item)
+	void ImageBox::addItemFrame(size_t _index, const IntCoord& _item)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::addItemFrame");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::addItemFrame");
 		VectorImages::iterator iter = mItems.begin() + _index;
 		iter->images.push_back(CoordConverter::convertTextureCoord(_item, mSizeTexture));
 	}
 
-	void StaticImage::setItemFrameRate(size_t _index, float _rate)
+	void ImageBox::setItemFrameRate(size_t _index, float _rate)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItemFrameRate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::setItemFrameRate");
 		VectorImages::iterator iter = mItems.begin() + _index;
 		iter->frame_rate = _rate;
 	}
 
-	float StaticImage::getItemFrameRate(size_t _index)
+	float ImageBox::getItemFrameRate(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::getItemFrameRate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::getItemFrameRate");
 		VectorImages::iterator iter = mItems.begin() + _index;
 		return iter->frame_rate;
 	}
 
-	void StaticImage::addItemFrameDublicate(size_t _index, size_t _indexSourceFrame)
+	void ImageBox::addItemFrameDublicate(size_t _index, size_t _indexSourceFrame)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::addItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::addItemFrameDublicate");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::addItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::addItemFrameDublicate");
 		iter->images.push_back(iter->images[_indexSourceFrame]);
 	}
 
-	void StaticImage::insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item)
+	void ImageBox::insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::insertItemFrame");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::insertItemFrame");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrame");
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::insertItemFrame");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
 		iter->images.insert(iter->images.begin() + _indexFrame,
 			CoordConverter::convertTextureCoord(_item, mSizeTexture));
 	}
 
-	void StaticImage::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
+	void ImageBox::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::insertItemFrameDublicate");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::insertItemFrameDublicate");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
-		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::insertItemFrameDublicate");
 
 		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);
 	}
 
-	void StaticImage::setItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item)
+	void ImageBox::setItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::setItemFrame");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::setItemFrame");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE(_indexFrame, iter->images.size(), "StaticImage::setItemFrame");
+		MYGUI_ASSERT_RANGE(_indexFrame, iter->images.size(), "ImageBox::setItemFrame");
 
 		iter->images[_indexFrame] = CoordConverter::convertTextureCoord(_item, mSizeTexture);
 	}
 
-	void StaticImage::deleteItemFrame(size_t _index, size_t _indexFrame)
+	void ImageBox::deleteItemFrame(size_t _index, size_t _indexFrame)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::deleteItemFrame");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::deleteItemFrame");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::deleteItemFrame");
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::deleteItemFrame");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
-	void StaticImage::setItemResourceInfo(const ImageIndexInfo& _info)
+	void ImageBox::setItemResourceInfo(const ImageIndexInfo& _info)
 	{
 		mCurrentTextureName = _info.texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
@@ -363,14 +363,14 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	bool StaticImage::setItemResource(const std::string& _name)
+	bool ImageBox::setItemResource(const std::string& _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getByName(_name, false);
 		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
 		return resource != nullptr;
 	}
 
-	void StaticImage::setItemResourcePtr(ResourceImageSetPtr _resource)
+	void ImageBox::setItemResourcePtr(ResourceImageSetPtr _resource)
 	{
 		if (mResource == _resource)
 			return;
@@ -413,7 +413,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemGroup(const std::string& _group)
+	void ImageBox::setItemGroup(const std::string& _group)
 	{
 		if (mItemGroup == _group)
 			return;
@@ -423,7 +423,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemName(const std::string& _name)
+	void ImageBox::setItemName(const std::string& _name)
 	{
 		if (mItemName == _name)
 			return;
@@ -433,7 +433,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name)
+	void ImageBox::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name)
 	{
 		mResource = _resource;
 		mItemGroup = _group;
@@ -442,13 +442,13 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::frameAdvise(bool _advise)
+	void ImageBox::frameAdvise(bool _advise)
 	{
 		if ( _advise )
 		{
 			if ( ! mFrameAdvise )
 			{
-				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &ImageBox::frameEntered );
 				mFrameAdvise = true;
 			}
 		}
@@ -456,34 +456,34 @@ namespace MyGUI
 		{
 			if ( mFrameAdvise )
 			{
-				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &ImageBox::frameEntered );
 				mFrameAdvise = false;
 			}
 		}
 	}
 
-	void StaticImage::setImageIndex(size_t _index)
+	void ImageBox::setImageIndex(size_t _index)
 	{
 		setItemSelect(_index);
 	}
 
-	size_t StaticImage::getImageIndex()
+	size_t ImageBox::getImageIndex()
 	{
 		return getItemSelect();
 	}
 
-	void StaticImage::setItemSelect(size_t _index)
+	void ImageBox::setItemSelect(size_t _index)
 	{
 		if (mIndexSelect != _index) updateSelectIndex(_index);
 	}
 
-	void StaticImage::_setUVSet(const FloatRect& _rect)
+	void ImageBox::_setUVSet(const FloatRect& _rect)
 	{
 		if (nullptr != getSubWidgetMain())
 			getSubWidgetMain()->_setUVSet(_rect);
 	}
 
-	void StaticImage::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ImageBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "ImageTexture")
 			setImageTexture(_value);
@@ -507,27 +507,27 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	size_t StaticImage::getItemCount() const
+	size_t ImageBox::getItemCount() const
 	{
 		return mItems.size();
 	}
 
-	size_t StaticImage::getItemSelect() const
+	size_t ImageBox::getItemSelect() const
 	{
 		return mIndexSelect;
 	}
 
-	void StaticImage::resetItemSelect()
+	void ImageBox::resetItemSelect()
 	{
 		setItemSelect(ITEM_NONE);
 	}
 
-	void StaticImage::addItem(const IntCoord& _item)
+	void ImageBox::addItem(const IntCoord& _item)
 	{
 		insertItem(ITEM_NONE, _item);
 	}
 
-	ResourceImageSetPtr StaticImage::getItemResource()
+	ResourceImageSetPtr ImageBox::getItemResource()
 	{
 		return mResource;
 	}

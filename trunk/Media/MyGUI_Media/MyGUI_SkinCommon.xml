@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceSkin" name="PanelEmpty" size="16 16">
 	</Resource>
@@ -12,7 +11,7 @@
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
 		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="StaticImage" size="16 16">
+	<Resource type="ResourceSkin" name="ImageBox" size="16 16">
 		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
 	</Resource>
 	<Resource type="ResourceSkin" name="Canvas" size="16 16">

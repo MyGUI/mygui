@@ -23,7 +23,7 @@
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_MenuItem.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
