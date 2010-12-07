@@ -41,7 +41,7 @@
 #include "MyGUI_ScrollBar.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_ImageBox.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Widget.h"
@@ -83,7 +83,7 @@ namespace MyGUI
 		factory.registerFactory<ScrollBar>("Widget");
 		factory.registerFactory<ScrollView>("Widget");
 		factory.registerFactory<ImageBox>("Widget");
-		factory.registerFactory<StaticText>("Widget");
+		factory.registerFactory<TextBox>("Widget");
 		factory.registerFactory<Tab>("Widget");
 		factory.registerFactory<TabItem>("Widget");
 		factory.registerFactory<Widget>("Widget");

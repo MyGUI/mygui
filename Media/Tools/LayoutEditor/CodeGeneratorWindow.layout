@@ -5,23 +5,23 @@
         <Property key="Snap" value="true"/>
         <Property key="Visible" value="false"/>
         <Property key="MinSize" value="392 266"/>
-        <Widget type="StaticText" skin="StaticText" position="8 8 368 24" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox" position="8 8 368 24" align="HStretch Top">
             <Property key="Caption" value="#{CG_PanelName}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="8 32 368 26" align="HStretch Top" name="PanelName"/>
-        <Widget type="StaticText" skin="StaticText" position="8 64 368 24" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox" position="8 64 368 24" align="HStretch Top">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{CG_PanelNamespace}"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="8 88 368 26" align="HStretch Top" name="PanelNamespace">
             <Property key="Caption" value="wrappers"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="8 120 368 24" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox" position="8 120 368 24" align="HStretch Top">
             <Property key="Caption" value="#{CG_IncludeDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="8 176 368 24" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox" position="8 176 368 24" align="HStretch Top">
             <Property key="Caption" value="#{CG_SourceDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>

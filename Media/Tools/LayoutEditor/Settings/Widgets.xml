@@ -4,7 +4,7 @@
 
 	<Widget name="Button">
 		<Property key="DefaultSkin" value="Button"/>
-		<Property key="Base" value="StaticText"/>
+		<Property key="Base" value="TextBox"/>
 
 		<Property key="Skin" value="Button"/>
 		<Property key="Skin" value="ButtonSmall"/>
@@ -63,7 +63,7 @@
 
 	<Widget name="Edit">
 		<Property key="DefaultSkin" value="Edit"/>
-		<Property key="Base" value="StaticText"/>
+		<Property key="Base" value="TextBox"/>
 
 		<Property key="Skin" value="Edit"/>
 		<Property key="Skin" value="EditStretch"/>
@@ -89,14 +89,6 @@
 		<Parameter key="InvertSelected" value="Bool"/>
 	</Widget>
 
-	<!--Widget name="HScroll">
-		<Property key="DefaultSkin" value="HScroll"/>
-		<Property key="Base" value="VScroll"/>
-
-		<Property key="Skin" value="HScroll"/>
-		<Property key="Skin" value="HSlider"/>
-	</Widget-->
-
 	<Widget name="ItemBox">
 		<Property key="DefaultSkin" value="ItemBoxV"/>
 		<Property key="Base" value="DDContainer"/>
@@ -114,14 +106,6 @@
 		<Property key="Skin" value="List"/>
 
 		<Property key="ItemManager" value="true"/>
-	</Widget>
-
-	<Widget name="ListBox">
-		<Property key="Base" value="ListCtrl"/>
-	</Widget>
-
-	<Widget name="ListCtrl">
-		<Property key="Base" value="DDContainer"/>
 	</Widget>
 
 	<Widget name="MenuBar">
@@ -148,18 +132,6 @@
 		<Parameter key="MenuItemType" value="MenuItemType"/>
 		<Parameter key="MenuItemChecked" value="Bool"/>
 	</Widget>
-
-	<!--Widget name="Message">
-		<Property key="DefaultSkin" value="Message"/>
-		<Property key="Base" value="Window"/>
-
-		<Property key="Skin" value="Message" group="Other"/>
-
-		<Parameter key="MessageText" value="String"/>
-		<Parameter key="Modal" value="Bool"/>
-		<Parameter key="MessageButton" value="MessageButton"/>
-		<Parameter key="MessageSmoothShow" value="Bool"/>
-	</Widget-->
 
 	<Widget name="MultiList">
 		<Property key="DefaultSkin" value="MultiList"/>
@@ -251,11 +223,11 @@
 		<Parameter key="ImageName" value="String"/>
 	</Widget>
 
-	<Widget name="StaticText">
-		<Property key="DefaultSkin" value="StaticText"/>
+	<Widget name="TextBox">
+		<Property key="DefaultSkin" value="TextBox"/>
 		<Property key="Base" value="Widget"/>
 
-		<Property key="Skin" value="StaticText"/>
+		<Property key="Skin" value="TextBox"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
@@ -282,28 +254,11 @@
 
 	<Widget name="TabItem">
 		<Property key="DefaultSkin" value=""/>
-		<Property key="Base" value="StaticText"/>
+		<Property key="Base" value="TextBox"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
 	</Widget>
-
-	<!--Widget name="VScroll">
-		<Property key="DefaultSkin" value="VScroll"/>
-		<Property key="Base" value="Widget"/>
-
-		<Property key="Skin" value="VScroll"/>
-		<Property key="Skin" value="VSlider"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Child" value="true"/>
-
-		<Parameter key="Range" value="1 int"/>
-		<Parameter key="RangePosition" value="1 int"/>
-		<Parameter key="Page" value="1 int"/>
-		<Parameter key="ViewPage" value="1 int"/>
-		<Parameter key="MoveToClick" value="Bool"/>
-	</Widget-->
 
 	<Widget name="Widget">
 		<Property key="DefaultSkin" value=""/>
@@ -337,7 +292,7 @@
 	<Widget name="Window">
 		<Property key="DefaultSkin" value="Window"/>
 		<!-- временно он от статик текста для работы заголовка в редакторе -->
-		<Property key="Base" value="StaticText"/>
+		<Property key="Base" value="TextBox"/>
 
 		<Property key="Skin" value="Window"/>
 		<Property key="Skin" value="WindowC"/>

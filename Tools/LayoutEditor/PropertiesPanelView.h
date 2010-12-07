@@ -62,9 +62,9 @@ namespace tools
 		// properties window
 		size_t mPairsCounter;
 
-		typedef std::vector<MyGUI::StaticText*> VectorStaticText;
-		typedef std::map<MyGUI::Widget*, VectorStaticText> MapVectorStaticText;
-		MapVectorStaticText mPropertiesText;
+		typedef std::vector<MyGUI::TextBox*> VectorTextBox;
+		typedef std::map<MyGUI::Widget*, VectorTextBox> MapVectorTextBox;
+		MapVectorTextBox mPropertiesText;
 
 		typedef std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> MapVectorWidget;
 		MapVectorWidget mPropertiesElement;

@@ -41,14 +41,14 @@ namespace demo
 	{
 		createDefaultScene();
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		mMainPanel = new MainPanel();
 		mMainPanel->eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);
 		mMainPanel->addObject("FrameWindow");
 		mMainPanel->addObject("Horizontal Scrollbar");
 		mMainPanel->addObject("Vertical Scrollbar");
-		mMainPanel->addObject("StaticText");
+		mMainPanel->addObject("TextBox");
 		mMainPanel->addObject("ImageBox");
 		mMainPanel->addObject("Render to Texture");
 
@@ -145,8 +145,8 @@ namespace demo
 			else if (_index == 3)
 			{
 				const MyGUI::IntSize size(80, 26);
-				MyGUI::StaticText* text = view->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
-				text->setCaption("StaticText");
+				MyGUI::TextBox* text = view->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				text->setCaption("TextBox");
 			}
 			else if (_index == 4)
 			{

@@ -4,7 +4,7 @@
         <Property key="NeedMouse" value="false"/>
         <Property key="NeedKey" value="false"/>
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="StaticText" skin="StaticText" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
+        <Widget type="TextBox" skin="TextBox" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
             <Property key="TextAlign" value="Center"/>
             <Property key="TextColour" value="1 1 1"/>
         </Widget>

@@ -23,7 +23,7 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		MyGUI::StaticText* m_button;
+		MyGUI::TextBox* m_button;
 	};
 
 } // namespace demo

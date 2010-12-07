@@ -33,7 +33,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_RenderManager.h"

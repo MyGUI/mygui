@@ -51,6 +51,8 @@ namespace MyGUI
 		void setStateCheck(bool _value);
 		MYGUI_OBSOLETE(" is deprecated, use : bool Button::getStateSelected()")
 		bool getStateCheck();
+		MYGUI_OBSOLETE(" is deprecated, use : bool Button::getImageBox()")
+		ImageBox* getStaticImage();
 	};
 
 	template <>

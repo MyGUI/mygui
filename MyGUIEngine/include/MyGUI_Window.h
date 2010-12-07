@@ -23,7 +23,7 @@
 #define __MYGUI_WINDOW_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 
@@ -37,7 +37,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
 	class MYGUI_EXPORT Window :
-		public StaticText, // FIXME пока для кэпшена вместо виджета текст
+		public TextBox, // FIXME пока для кэпшена вместо виджета текст
 		public MemberObsolete<Window>
 	{
 		MYGUI_RTTI_DERIVED( Window )
@@ -64,7 +64,7 @@ namespace MyGUI
 		virtual const UString& getCaption();
 
 		/** Get window caption widget */
-		StaticText* getCaptionWidget();
+		TextBox* getCaptionWidget();
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize& _value);
@@ -147,7 +147,7 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		StaticText* mWidgetCaption;
+		TextBox* mWidgetCaption;
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;

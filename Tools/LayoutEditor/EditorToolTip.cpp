@@ -116,8 +116,8 @@ namespace tools
 		mMainWidget->setSize(width, std::max(mMinHeight, skinDefaultSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		if (mLastWidget)
 			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
-		mLastWidget = mMainWidget->createWidgetT("StaticText", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, skinDefaultSize.width, skinDefaultSize.height, MyGUI::Align::Default);
-		mLastWidget->castType<MyGUI::StaticText>()->setCaption(skin);
+		mLastWidget = mMainWidget->createWidgetT("TextBox", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, skinDefaultSize.width, skinDefaultSize.height, MyGUI::Align::Default);
+		mLastWidget->castType<MyGUI::TextBox>()->setCaption(skin);
 
 		mMainWidget->setVisible(true);
 	}

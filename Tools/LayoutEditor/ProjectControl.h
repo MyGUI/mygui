@@ -71,7 +71,7 @@ namespace tools
 		MyGUI::UString mProjectPath;
 
 		MyGUI::List* mList;
-		MyGUI::StaticText* mProjectNameText;
+		MyGUI::TextBox* mProjectNameText;
 	};
 
 } // namespace tools

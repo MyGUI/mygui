@@ -23,7 +23,7 @@
 #define __MYGUI_EDIT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_EventPair.h"
@@ -35,7 +35,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate1<Edit*> EventHandle_EditPtr;
 
 	class MYGUI_EXPORT Edit :
-		public StaticText,
+		public TextBox,
 		public ScrollViewBase,
 		public MemberObsolete<Edit>
 	{
@@ -227,20 +227,20 @@ namespace MyGUI
 		void setHScrollPosition(size_t _index);
 
 
-		//! @copydoc StaticText::setFontName
+		//! @copydoc TextBox::setFontName
 		virtual void setFontName(const std::string& _value);
-		//! @copydoc StaticText::setFontHeight
+		//! @copydoc TextBox::setFontHeight
 		virtual void setFontHeight(int _value);
 
-		//! @copydoc StaticText::setTextAlign
+		//! @copydoc TextBox::setTextAlign
 		virtual void setTextAlign(Align _value);
-		//! @copydoc StaticText::setTextColour
+		//! @copydoc TextBox::setTextColour
 		virtual void setTextColour(const Colour& _value);
 
-		//! @copydoc StaticText::getTextRegion
+		//! @copydoc TextBox::getTextRegion
 		virtual IntCoord getTextRegion();
 
-		//! @copydoc StaticText::getTextSize
+		//! @copydoc TextBox::getTextSize
 		virtual IntSize getTextSize();
 
 	/*events:*/

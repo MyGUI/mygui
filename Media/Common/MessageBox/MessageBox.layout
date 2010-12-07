@@ -7,7 +7,7 @@
             <Property key="ImageResource" value="MessageBoxIcon"/>
             <Property key="ImageGroup" value="Icons"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="60 5 92 50" align="Stretch" name="Text">
+        <Widget type="TextBox" skin="TextBox" position="60 5 92 50" align="Stretch" name="Text">
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="20 60 120 26" align="HStretch Bottom" name="ButtonPlace">

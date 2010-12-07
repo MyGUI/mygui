@@ -79,7 +79,7 @@ namespace MyGUI
 	class List;
 	class Edit;
 	class ComboBox;
-	class StaticText;
+	class TextBox;
 	class Tab;
 	class TabItem;
 	class Progress;

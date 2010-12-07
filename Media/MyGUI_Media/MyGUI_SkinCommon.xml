@@ -5,7 +5,7 @@
 	<Resource type="ResourceSkin" name="RotatingSkin" size="16 16">
 		<BasisSkin type="RotatingSkin" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="StaticText" size="16 16">
+	<Resource type="ResourceSkin" name="TextBox" size="16 16">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
@@ -31,7 +31,7 @@
 		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
 	<Resource type="ResourceSkin" name="EditEmpty" size="16 16">
-		<Child type="StaticText" skin="EditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+		<Child type="TextBox" skin="EditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
 	</Resource>
 	<Resource type="ResourceSkin" name="ButtonStaticImage" size="16 16">
 		<Property key="NeedMouse" value="false"/>
@@ -56,7 +56,7 @@
 	</Resource>
 	<Resource type="ResourceSkin" name="WordWrapSimple" size="32 32">
 		<Property key="WordWrap" value="true"/>
-		<Child type="StaticText" skin="EditClientSimple" offset="0 0 32 32" align="Stretch" name="Client"/>
+		<Child type="TextBox" skin="EditClientSimple" offset="0 0 32 32" align="Stretch" name="Client"/>
 	</Resource>
 </MyGUI>
 

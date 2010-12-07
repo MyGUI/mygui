@@ -17,22 +17,22 @@
             <UserString key="Type" value="ExtensionOut"/>
             <UserString key="Direction" value="1 0"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="18 141 113 16" align="HStretch Bottom" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 141 113 16" align="HStretch Bottom" layer="Back">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="Вход 2"/>
             <Property key="FontName" value="font_DejaVuSans.14"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="18 123 113 16" align="HStretch Bottom" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 123 113 16" align="HStretch Bottom" layer="Back">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="Caption" value="Вход 1"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="18 26 113 16" align="HStretch Top" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 26 113 16" align="HStretch Top" layer="Back">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="Caption" value="Выход 1"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="18 44 113 16" align="HStretch Top" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 44 113 16" align="HStretch Top" layer="Back">
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Выход 2"/>

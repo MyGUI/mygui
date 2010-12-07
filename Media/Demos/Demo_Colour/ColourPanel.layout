@@ -29,11 +29,11 @@
             <Property key="TextAlign" value="Center"/>
             <Property key="MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="304 241 48 26">
+        <Widget type="TextBox" skin="TextBox" position="304 241 48 26">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Blue"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="304 213 48 26">
+        <Widget type="TextBox" skin="TextBox" position="304 213 48 26">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Green"/>
         </Widget>
@@ -42,7 +42,7 @@
             <Property key="Caption" value="256"/>
             <Property key="MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="304 187 48 24">
+        <Widget type="TextBox" skin="TextBox" position="304 187 48 24">
             <Property key="Caption" value="Red"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>

@@ -21,7 +21,7 @@ namespace tools
 		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
 
 	private:
-		MyGUI::StaticText* mTextureName;
+		MyGUI::TextBox* mTextureName;
 		MyGUI::Widget* mSelector;
 		MyGUI::Widget* mBack;
 		MyGUI::Widget* mParentBack;

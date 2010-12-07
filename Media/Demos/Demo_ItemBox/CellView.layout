@@ -6,11 +6,11 @@
 		<Widget type="ImageBox" skin="Demo_StaticImage" position="0 0 90 74" align="Stretch" name="image_Back">
 			<Widget type="ImageBox" skin="Demo_StaticImage" position="0 0 90 74" align="Stretch" name="image_Border">
 				<Widget type="ImageBox" skin="Demo_StaticImage" position="8 0 74 74" align="Stretch" name="image_Item"/>
-				<Widget type="StaticText" skin="StaticText" position="14 0 72 72" align="Stretch" name="text_Back">
+				<Widget type="TextBox" skin="TextBox" position="14 0 72 72" align="Stretch" name="text_Back">
 					<Property key="TextAlign" value="Right Bottom"/>
 					<Property key="TextColour" value="0 0 0"/>
 				</Widget>
-				<Widget type="StaticText" skin="StaticText" position="14 0 71 71" align="Stretch" name="text_Front">
+				<Widget type="TextBox" skin="TextBox" position="14 0 71 71" align="Stretch" name="text_Front">
 					<Property key="TextAlign" value="Right Bottom"/>
 					<Property key="TextColour" value="1 1 1"/>
 				</Widget>

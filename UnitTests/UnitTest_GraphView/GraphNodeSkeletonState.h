@@ -163,10 +163,10 @@ namespace demo
 		wraps::BaseGraphConnection* mPositionIn;
 		wraps::BaseGraphConnection* mWeightIn;
 		MyGUI::ComboBox* mComboStates;
-		MyGUI::StaticText* mWeightValue;
-		MyGUI::StaticText* mPositionValue;
-		MyGUI::StaticText* mStartValue;
-		MyGUI::StaticText* mStopValue;
+		MyGUI::TextBox* mWeightValue;
+		MyGUI::TextBox* mPositionValue;
+		MyGUI::TextBox* mStartValue;
+		MyGUI::TextBox* mStopValue;
 
 	};
 

@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_STATIC_TEXT_H__
-#define __MYGUI_STATIC_TEXT_H__
+#ifndef __MYGUI_TEXT_BOX_H__
+#define __MYGUI_TEXT_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -28,13 +28,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT StaticText :
+	class MYGUI_EXPORT TextBox :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( StaticText )
+		MYGUI_RTTI_DERIVED( TextBox )
 
 	public:
-		StaticText();
+		TextBox();
 
 		/** Get text region coordinate */
 		virtual IntCoord getTextRegion();
@@ -76,4 +76,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_STATIC_TEXT_H__
+#endif // __MYGUI_TEXT_BOX_H__
