@@ -93,8 +93,7 @@
 		<Property key="DefaultSkin" value="ItemBoxV"/>
 		<Property key="Base" value="DDContainer"/>
 
-		<Property key="Skin" value="ItemBoxV"/>
-		<Property key="Skin" value="ItemBoxH"/>
+		<Property key="Skin" value="ItemBox"/>
 
 		<Parameter key="AlignVert" value="Bool"/>
 	</Widget>
