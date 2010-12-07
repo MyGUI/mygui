@@ -41,7 +41,7 @@ namespace demo
 		createEntities();
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("");
 
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>("Resource");
 

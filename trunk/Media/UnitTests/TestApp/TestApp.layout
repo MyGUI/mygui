@@ -141,7 +141,7 @@
         <Widget type="ComboBox" skin="ComboBox" position="84 9 232 26" name="Combo">
 			<Property key="ComboBox_AddItem" value="line1"/>
 		</Widget>
-		<Widget type="StaticText" skin="StaticText" position="12 9 60 23">
+		<Widget type="TextBox" skin="TextBox" position="12 9 60 23">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Theme"/>
         </Widget>

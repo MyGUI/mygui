@@ -12,7 +12,7 @@ namespace demo
 
 	void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::StaticText* text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
+		MyGUI::TextBox* text = _item->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
 		_item->setUserData(text);
 	}
@@ -24,7 +24,7 @@ namespace demo
 
 	void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 	{
-		MyGUI::StaticText* text = *_item->getUserData<MyGUI::StaticText*>();
+		MyGUI::TextBox* text = *_item->getUserData<MyGUI::TextBox*>();
 		int data = *_sender->getItemDataAt<int>(_info.index);
 		if (_info.drag)
 		{
@@ -127,7 +127,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::StaticText>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
 		init();
 	}

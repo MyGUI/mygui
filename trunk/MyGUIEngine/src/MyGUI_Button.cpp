@@ -213,7 +213,7 @@ namespace MyGUI
 		return mModeImage;
 	}
 
-	ImageBox* Button::getStaticImage()
+	ImageBox* Button::getImageBox()
 	{
 		return mImage;
 	}

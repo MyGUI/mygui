@@ -32,7 +32,7 @@ namespace diagnostic
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin))
 				return;
 
-			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 		}
 
 		~StatisticInfo()
@@ -124,7 +124,7 @@ namespace diagnostic
 		}
 
 	private:
-		MyGUI::StaticText* mInfo;
+		MyGUI::TextBox* mInfo;
 		VectorPairString mParams;
 	};
 

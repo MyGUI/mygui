@@ -472,7 +472,7 @@ namespace MyGUI
 		return mIsAutoAlpha;
 	}
 
-	StaticText* Window::getCaptionWidget()
+	TextBox* Window::getCaptionWidget()
 	{
 		return mWidgetCaption;
 	}

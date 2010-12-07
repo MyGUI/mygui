@@ -24,8 +24,8 @@ namespace demo
 		void move(const MyGUI::IntPoint& _point);
 
 	private:
-		MyGUI::StaticText* mTextName;
-		MyGUI::StaticText* mTextCount;
+		MyGUI::TextBox* mTextName;
+		MyGUI::TextBox* mTextCount;
 		MyGUI::Edit* mTextDesc;
 		MyGUI::ImageBox* mImageInfo;
 

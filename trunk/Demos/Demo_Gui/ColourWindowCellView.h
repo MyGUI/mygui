@@ -22,7 +22,7 @@ namespace demo
 		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
 
 	private:
-		MyGUI::StaticText* mText;
+		MyGUI::TextBox* mText;
 		MyGUI::Widget* mColour;
 		MyGUI::RawRect* mRawColourView;
 	};

@@ -53,7 +53,7 @@ namespace demo
 			if (mCurrentPosition < mNeedCaption.size())
 			{
 				mCurrentPosition ++;
-				MyGUI::StaticText* text = _widget->castType<MyGUI::StaticText>(false);
+				MyGUI::TextBox* text = _widget->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
 				{
 					if (mCurrentPosition == mNeedCaption.size())
@@ -71,7 +71,7 @@ namespace demo
 				mNeedCaption = _value;
 				mCurrentPosition = 0;
 
-				MyGUI::StaticText* text = _sender->castType<MyGUI::StaticText>(false);
+				MyGUI::TextBox* text = _sender->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
 					text->setCaption("");
 			}

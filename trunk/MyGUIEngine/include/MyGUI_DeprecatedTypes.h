@@ -43,7 +43,6 @@ namespace MyGUI
 	typedef VScroll* VScrollPtr;
 	typedef Edit* EditPtr;
 	typedef ComboBox* ComboBoxPtr;
-	typedef StaticText* StaticTextPtr;
 	typedef Tab* TabPtr;
 	typedef TabItem* TabItemPtr;
 	typedef Progress* ProgressPtr;
@@ -65,6 +64,9 @@ namespace MyGUI
 
 	typedef ImageBox StaticImage;
 	typedef StaticImage* StaticImagePtr;
+
+	typedef TextBox StaticText;
+	typedef StaticText* StaticTextPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

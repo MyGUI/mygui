@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSmall" position="0 32 200 168" align="HStretch Top" layer="Back" name="_Main">
-        <Widget type="StaticText" skin="StaticText" position="19 3 156 20" align="HStretch Top" name="text_Caption">
+        <Widget type="TextBox" skin="TextBox" position="19 3 156 20" align="HStretch Top" name="text_Caption">
             <Property key="Caption" value="Caption"/>
             <Property key="TextAlign" value="Center"/>
         </Widget>

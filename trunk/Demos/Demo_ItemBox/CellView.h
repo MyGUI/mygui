@@ -26,8 +26,8 @@ namespace demo
 		MyGUI::ImageBox* mImageBack;
 		MyGUI::ImageBox* mImageBorder;
 		MyGUI::ImageBox* mImageItem;
-		MyGUI::StaticText* mTextBack;
-		MyGUI::StaticText* mTextFront;
+		MyGUI::TextBox* mTextBack;
+		MyGUI::TextBox* mTextFront;
 	};
 
 } // namespace demo

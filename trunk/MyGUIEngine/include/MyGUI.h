@@ -28,7 +28,7 @@
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_List.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 #include "MyGUI_ImageBox.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_TabItem.h"

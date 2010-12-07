@@ -48,7 +48,7 @@ namespace demo
 		MyGUI::Edit* mEditRange2;
 		MyGUI::Edit* mEditHide;
 		MyGUI::Button* mButtonGenerate;
-		MyGUI::StaticText* mTextPix;
+		MyGUI::TextBox* mTextPix;
 		MyGUI::Edit* mEditSaveFileName;
 		MyGUI::Button* mButtonSave;
 

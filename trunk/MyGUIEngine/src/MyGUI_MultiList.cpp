@@ -383,7 +383,7 @@ namespace MyGUI
 
 	void MultiList::setButtonImageIndex(Button* _button, size_t _index)
 	{
-		ImageBox* image = _button->getStaticImage();
+		ImageBox* image = _button->getImageBox();
 		if ( nullptr == image ) return;
 		if (image->getItemResource())
 		{

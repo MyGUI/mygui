@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Left Top" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="StaticText" skin="StaticText" position="5 8 107 24">
+        <Widget type="TextBox" skin="TextBox" position="5 8 107 24">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{Grid_step}"/>
         </Widget>

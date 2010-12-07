@@ -72,6 +72,10 @@ namespace MyGUI
 	{
 		return static_cast<Button*>(this)->getStateSelected();
 	}
+	ImageBox* MemberObsolete<Button>::getStaticImage()
+	{
+		return static_cast<Button*>(this)->getImageBox();
+	}
 
 
 	size_t MemberObsolete<ComboBox>::getItemIndexSelected()
@@ -977,6 +981,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "StaticImage factory is deprecated, use " << ImageBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "StaticText")
+			{
+				MYGUI_LOG(Warning, "StaticText factory is deprecated, use " << TextBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -988,6 +996,10 @@ namespace MyGUI
 		if (_skinName == "StaticImage")
 		{
 			MYGUI_LOG(Warning, "StaticImage skin is deprecated, use ImageBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "StaticText")
+		{
+			MYGUI_LOG(Warning, "StaticText skin is deprecated, use TextBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _skinName;
@@ -1007,6 +1019,7 @@ namespace MyGUI
 		factory.registerFactory<HScroll>("Widget");
 		factory.registerFactory<VScroll>("Widget");
 		factory.registerFactory<ImageBox>("Widget", "StaticImage");
+		factory.registerFactory<TextBox>("Widget", "StaticText");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

@@ -126,7 +126,7 @@
     <Resource type="ResourceLayout" name="EditBoxSimpleTemplate">
         <Widget type="Button" skin="EditBoxSkin" position="65 10 29 26" name="Root">
             <UserString key="TargetWidgetType" value="Edit"/>
-            <Widget type="StaticText" skin="EditClient" position="2 2 23 20" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClient" position="2 2 23 20" align="Stretch" name="Client">
                 <Property key="Text_TextAlign" value="Left VCenter"/>
             </Widget>
         </Widget>
@@ -143,7 +143,7 @@
         <Widget type="Button" skin="EditBoxSkin" position="65 10 70 70" name="Root">
             <Property key="MultiLine" value="true"/>
             <UserString key="TargetWidgetType" value="Edit"/>
-            <Widget type="StaticText" skin="EditClient" position="2 3 48 47" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClient" position="2 3 48 47" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
             </Widget>
             <Widget type="ScrollBar" skin="ScrollHTemplate" position="2 51 49 15" align="HStretch Bottom" name="HScroll"/>
@@ -2234,7 +2234,7 @@
             <Property key="MaxListLength" value="200"/>
             <Property key="SmoothShow" value="true"/>
             <UserString key="TargetWidgetType" value="ComboBox"/>
-            <Widget type="StaticText" skin="EditClient" position="2 2 75 20" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClient" position="2 2 75 20" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="TextColour" value="0 0 0"/>
             </Widget>

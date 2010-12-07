@@ -156,7 +156,7 @@ namespace tools
 		}
 
 		// delete(hide) all previous properties
-		for (MapVectorStaticText::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
+		for (MapVectorTextBox::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
 		{
 			hideWidgetsPairs(iterVector->first);
 		}
@@ -217,7 +217,7 @@ namespace tools
 	void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
 	{
 		mPairsCounter = 0;
-		for (VectorStaticText::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
+		for (VectorTextBox::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
 		{
 			(*iter)->setVisible(false);
 		}
@@ -243,7 +243,7 @@ namespace tools
 			w1 = w1 - x1;
 		}
 
-		MyGUI::StaticText* text;
+		MyGUI::TextBox* text;
 		MyGUI::Widget* editOrCombo;
 		//int string_int_float; // 0 - string, 1 - int, 2 - float
 
@@ -300,7 +300,7 @@ namespace tools
 
 		if (mPropertiesText[_window].size() < mPairsCounter)
 		{
-			text = _window->createWidget<MyGUI::StaticText>("StaticText", x1, y, w1, h, MyGUI::Align::Default);
+			text = _window->createWidget<MyGUI::TextBox>("TextBox", x1, y, w1, h, MyGUI::Align::Default);
 			text->setTextAlign(MyGUI::Align::Right);
 
 			mPropertiesText[_window].push_back(text);
@@ -420,8 +420,8 @@ namespace tools
 		if (window)
 		{
 			MyGUI::Widget* widget = mPropertiesElement[window][1];
-			if (widget->isType<MyGUI::StaticText>())
-				widget->castType<MyGUI::StaticText>()->setCaption(_caption);
+			if (widget->isType<MyGUI::TextBox>())
+				widget->castType<MyGUI::TextBox>()->setCaption(_caption);
 		}
 	}
 

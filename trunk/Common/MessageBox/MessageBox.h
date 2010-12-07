@@ -366,7 +366,7 @@ namespace MyGUI
 
 	private:
 		IntSize mOffsetText;
-		StaticText* mWidgetText;
+		TextBox* mWidgetText;
 
 		std::string mButtonSkin;
 		std::string mButtonType;

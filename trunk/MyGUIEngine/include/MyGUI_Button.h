@@ -23,13 +23,13 @@
 #define __MYGUI_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_StaticText.h"
+#include "MyGUI_TextBox.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT Button :
-		public StaticText,
+		public TextBox,
 		public MemberObsolete<Button>
 	{
 		MYGUI_RTTI_DERIVED( Button )
@@ -56,7 +56,7 @@ namespace MyGUI
 		bool getModeImage();
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
-		ImageBox* getStaticImage();
+		ImageBox* getImageBox();
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);

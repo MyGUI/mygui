@@ -6,7 +6,7 @@
             <UserString key="Direction" value="1 0"/>
             <UserString key="Name" value="Weight"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="18 26 66 16" align="HStretch Top" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 26 66 16" align="HStretch Top" layer="Back">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="Caption" value="Weight"/>
