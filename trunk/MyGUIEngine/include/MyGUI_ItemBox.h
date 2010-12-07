@@ -105,9 +105,9 @@ namespace MyGUI
 
 
 		/** Set vertical alignment grid mode */
-		void setItemBoxAlignVert(bool _value);
+		void setVerticalAlignment(bool _value);
 		/** Get vertical alignment grid mode flag */
-		bool getItemBoxAlignVert() const;
+		bool getVerticalAlignment() const;
 
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(Widget* _widget);

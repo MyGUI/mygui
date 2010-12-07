@@ -150,6 +150,11 @@ namespace MyGUI
 		Widget* getWidgetDrop();
 		MYGUI_OBSOLETE(" is deprecated, use : void ItemBox::resetDrag()")
 		void resetDrop();
+
+		MYGUI_OBSOLETE(" is deprecated, use : void ItemBox::setVerticalAlignment(bool _value)")
+		void setItemBoxAlignVert(bool _value);
+		MYGUI_OBSOLETE(" is deprecated, use : bool ItemBox::getVerticalAlignment() const")
+		bool getItemBoxAlignVert();
 	};
 
 	template <>

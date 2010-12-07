@@ -470,7 +470,7 @@ namespace MyGUI
 		eventSelectItemAccept(this, index);
 	}
 
-	void ItemBox::setItemBoxAlignVert(bool _vert)
+	void ItemBox::setVerticalAlignment(bool _vert)
 	{
 		if (mAlignVert == _vert)
 			return;
@@ -895,7 +895,7 @@ namespace MyGUI
 		setItemDataAt(_index, Any::Null);
 	}
 
-	bool ItemBox::getItemBoxAlignVert() const
+	bool ItemBox::getVerticalAlignment() const
 	{
 		return mAlignVert;
 	}
@@ -922,8 +922,8 @@ namespace MyGUI
 
 	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "AlignVert")
-			setItemBoxAlignVert(utility::parseValue<bool>(_value));
+		if (_key == "VerticalAlignment")
+			setVerticalAlignment(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

@@ -90,12 +90,12 @@
 	</Widget>
 
 	<Widget name="ItemBox">
-		<Property key="DefaultSkin" value="ItemBoxV"/>
+		<Property key="DefaultSkin" value="ItemBox"/>
 		<Property key="Base" value="DDContainer"/>
 
 		<Property key="Skin" value="ItemBox"/>
 
-		<Parameter key="AlignVert" value="Bool"/>
+		<Parameter key="VerticalAlignment" value="Bool"/>
 	</Widget>
 
 	<Widget name="List">
