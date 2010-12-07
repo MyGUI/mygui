@@ -21,7 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceManualPointer.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_TextureUtility.h"
 

@@ -9,6 +9,7 @@
 	<List file="core_font.xml"/>
 	<List file="core_resource.xml"/>
 	<List file="MyGUI_SkinCommon.xml"/>
+	<List file="MyGUI_SkinBackwardCompatibility.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="core_pointer.xml"/>
 	<List file="core_layer.xml"/>

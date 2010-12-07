@@ -49,7 +49,6 @@ namespace MyGUI
 	typedef Progress* ProgressPtr;
 	typedef ItemBox* ItemBoxPtr;
 	typedef MultiList* MultiListPtr;
-	typedef StaticImage* StaticImagePtr;
 	typedef Message* MessagePtr;
 	typedef MenuCtrl* MenuCtrlPtr;
 	typedef MenuItem* MenuItemPtr;
@@ -58,13 +57,14 @@ namespace MyGUI
 	typedef ScrollView* ScrollViewPtr;
 	typedef DDContainer* DDContainerPtr;
 	typedef Canvas* CanvasPtr;
-	typedef ListCtrl* ListCtrlPtr;
-	typedef ListBox* ListBoxPtr;
 
 	typedef TabItem Sheet;
 	typedef TabItem* SheetPtr;
 	typedef Canvas RenderBox;
 	typedef Canvas* RenderBoxPtr;
+
+	typedef ImageBox StaticImage;
+	typedef StaticImage* StaticImagePtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

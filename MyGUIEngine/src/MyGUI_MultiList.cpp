@@ -23,7 +23,7 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"

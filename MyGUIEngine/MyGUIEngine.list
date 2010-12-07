@@ -10,6 +10,7 @@ set (HEADER_FILES
   include/MyGUI_ComboBox.h
   include/MyGUI_DDContainer.h
   include/MyGUI_Edit.h
+  include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
   include/MyGUI_List.h
   include/MyGUI_MenuBar.h
@@ -20,7 +21,6 @@ set (HEADER_FILES
   include/MyGUI_Progress.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
-  include/MyGUI_StaticImage.h
   include/MyGUI_StaticText.h
   include/MyGUI_Tab.h
   include/MyGUI_TabItem.h
@@ -60,6 +60,7 @@ set (HEADER_FILES
   include/MyGUI_BackwardCompatibility.h
   include/MyGUI_Common.h
   include/MyGUI_DeprecatedTypes.h
+  include/MyGUI_DeprecatedWidgets.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
   include/MyGUI_GenericFactory.h
@@ -173,6 +174,7 @@ set (SOURCE_FILES
   src/MyGUI_ComboBox.cpp
   src/MyGUI_DDContainer.cpp
   src/MyGUI_Edit.cpp
+  src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
   src/MyGUI_List.cpp
   src/MyGUI_MenuBar.cpp
@@ -183,7 +185,6 @@ set (SOURCE_FILES
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
-  src/MyGUI_StaticImage.cpp
   src/MyGUI_StaticText.cpp
   src/MyGUI_Tab.cpp
   src/MyGUI_TabItem.cpp
@@ -269,6 +270,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_ComboBox.cpp
   src/MyGUI_DDContainer.cpp
   src/MyGUI_Edit.cpp
+  src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
   src/MyGUI_List.cpp
   src/MyGUI_MenuBar.cpp
@@ -279,7 +281,6 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollBar.cpp
   src/MyGUI_ScrollView.cpp
-  src/MyGUI_StaticImage.cpp
   src/MyGUI_StaticText.cpp
   src/MyGUI_Tab.cpp
   src/MyGUI_TabItem.cpp
@@ -399,6 +400,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_ComboBox.h
   include/MyGUI_DDContainer.h
   include/MyGUI_Edit.h
+  include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
   include/MyGUI_List.h
   include/MyGUI_MenuBar.h
@@ -409,7 +411,6 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_Progress.h
   include/MyGUI_ScrollBar.h
   include/MyGUI_ScrollView.h
-  include/MyGUI_StaticImage.h
   include/MyGUI_StaticText.h
   include/MyGUI_Tab.h
   include/MyGUI_TabItem.h
@@ -477,6 +478,7 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_BackwardCompatibility.h
   include/MyGUI_Common.h
   include/MyGUI_DeprecatedTypes.h
+  include/MyGUI_DeprecatedWidgets.h
   include/MyGUI_Diagnostic.h
   include/MyGUI_Exception.h
   include/MyGUI_GenericFactory.h

@@ -85,7 +85,7 @@ namespace MyGUI
 	class Progress;
 	class ItemBox;
 	class MultiList;
-	class StaticImage;
+	class ImageBox;
 	class Message;
 	class MenuCtrl;
 	class MenuItem;
@@ -95,8 +95,6 @@ namespace MyGUI
 	class ScrollView;
 	class DDContainer;
 	class Canvas;
-	class ListCtrl;
-	class ListBox;
 
 	// Define version
 	#define MYGUI_VERSION_MAJOR 3

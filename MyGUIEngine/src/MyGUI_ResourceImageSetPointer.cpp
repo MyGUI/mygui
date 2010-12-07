@@ -21,7 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceImageSetPointer.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_ResourceManager.h"
 
 namespace MyGUI

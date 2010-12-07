@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_STATIC_IMAGE_H__
-#define __MYGUI_STATIC_IMAGE_H__
+#ifndef __MYGUI_IMAGE_BOX_H__
+#define __MYGUI_IMAGE_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -30,13 +30,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT StaticImage :
+	class MYGUI_EXPORT ImageBox :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( StaticImage )
+		MYGUI_RTTI_DERIVED( ImageBox )
 
 	public:
-		StaticImage();
+		ImageBox();
 
 		//------------------------------------------------------------------------------//
 		// The simple interface
@@ -119,13 +119,13 @@ namespace MyGUI
 		*/
 		void insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item);
 
-		/** Add copy of frame (similar to StaticImage::addItemFrame but we copy frame coordinates)
+		/** Add copy of frame (similar to ImageBox::addItemFrame but we copy frame coordinates)
 			@param _index Image item index
 			@param _indexSourceFrame Frame index of frame that we copying
 		*/
 		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
 
-		/** Insert copy of frame (similar to StaticImage::insertItemFrame but we copy frame coordinates)
+		/** Insert copy of frame (similar to ImageBox::insertItemFrame but we copy frame coordinates)
 			@param _index Image item index
 			@param _indexFrame Frame index where we insert frame
 			@param _indexSourceFrame Frame index of frame that we copying
@@ -165,7 +165,7 @@ namespace MyGUI
 		// The interface with support of resources
 		//------------------------------------------------------------------------------//
 
-		/** Select current items resource used in StaticImage
+		/** Select current items resource used in ImageBox
 			@param _id Resource name
 			@return false if resource with such name not exist
 		*/
@@ -176,14 +176,14 @@ namespace MyGUI
 		/** Select current item mane */
 		void setItemName(const std::string& _value);
 
-		/** Select current items resource used in StaticImage
+		/** Select current items resource used in ImageBox
 			@param _resource Resource pointer
 		*/
 		void setItemResourcePtr(ResourceImageSetPtr _resource);
 		/** Set current item */
 		void setItemResourceInfo(const ImageIndexInfo& _info);
 
-		/** Get current items resource used in StaticImage */
+		/** Get current items resource used in ImageBox */
 		ResourceImageSetPtr getItemResource();
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
@@ -227,4 +227,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_STATIC_IMAGE_H__
+#endif // __MYGUI_IMAGE_BOX_H__

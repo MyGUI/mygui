@@ -995,6 +995,7 @@ namespace MyGUI
 		FactoryManager& factory = FactoryManager::getInstance();
 		factory.registerFactory<HScroll>("Widget");
 		factory.registerFactory<VScroll>("Widget");
+		factory.registerFactory<ImageBox>("Widget", "StaticImage");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

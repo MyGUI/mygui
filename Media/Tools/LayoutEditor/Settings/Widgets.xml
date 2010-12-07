@@ -231,12 +231,12 @@
 		<Parameter key="CanvasSize" value="2 int"/>
 	</Widget>
 
-	<Widget name="StaticImage">
-		<Property key="DefaultSkin" value="StaticImage"/>
+	<Widget name="ImageBox">
+		<Property key="DefaultSkin" value="ImageBox"/>
 		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="RotatingSkin"/>
-		<Property key="Skin" value="StaticImage"/>
+		<Property key="Skin" value="ImageBox"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
