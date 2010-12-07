@@ -63,7 +63,7 @@ namespace MyGUI
 	typedef Canvas RenderBox;
 	typedef Canvas* RenderBoxPtr;
 
-	class StaticImage;
+	typedef ImageBox StaticImage;
 	typedef StaticImage* StaticImagePtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
