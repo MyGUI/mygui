@@ -1736,11 +1736,15 @@ namespace MyGUI
 
 	size_t Edit::getVScrollPage()
 	{
+		if (mClientText != nullptr)
+			return (size_t)mClientText->getFontHeight();
 		return (size_t)getFontHeight();
 	}
 
 	size_t Edit::getHScrollPage()
 	{
+		if (mClientText != nullptr)
+			return (size_t)mClientText->getFontHeight();
 		return (size_t)getFontHeight();
 	}
 
