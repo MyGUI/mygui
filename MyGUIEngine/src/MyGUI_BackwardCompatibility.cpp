@@ -237,6 +237,15 @@ namespace MyGUI
 		static_cast<ItemBox*>(this)->resetDrag();
 	}
 
+	void MemberObsolete<ItemBox>::setItemBoxAlignVert(bool _value)
+	{
+		static_cast<ItemBox*>(this)->setVerticalAlignment(_value);
+	}
+	bool MemberObsolete<ItemBox>::getItemBoxAlignVert()
+	{
+		return static_cast<ItemBox*>(this)->getVerticalAlignment();
+	}
+
 
 	size_t MemberObsolete<List>::getItemIndexSelected()
 	{
@@ -892,11 +901,6 @@ namespace MyGUI
 	void BackwardCompatibility::initialise()
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		FactoryManager& factory = FactoryManager::getInstance();
-
-		factory.registerFactory<RenderBox>("Widget");
-		factory.registerFactory<Sheet>("Widget");
-
 		mPropertyRename["Widget_Caption"] = "Caption";
 		mPropertyRename["Button_Pressed"] = "StateSelected";
 		mPropertyRename["ButtonPressed"] = "StateSelected";
@@ -922,6 +926,7 @@ namespace MyGUI
 		mPropertyRename["ToStick"] = "Snap";
 		mPropertyRename["ListSmoothShow"] = "SmoothShow";
 		mPropertyRename["HeightList"] = "MaxListLength";
+		mPropertyRename["AlignVert"] = "VerticalAlignment";
 
 		mPropertyIgnore.insert("DragLayer");
 		mPropertyIgnore.insert("SkinLine");
@@ -977,7 +982,23 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (_categoryName == "Widget")
 		{
-			if (_factoryName == "StaticImage")
+			if (_factoryName == "HScroll")
+			{
+				MYGUI_LOG(Warning, "HScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
+			else if (_factoryName == "VScroll")
+			{
+				MYGUI_LOG(Warning, "VScroll factory is deprecated, use " << ScrollBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
+			else if (_factoryName == "RenderBox")
+			{
+				MYGUI_LOG(Warning, "RenderBox factory is deprecated, use " << Canvas::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
+			else if (_factoryName == "Sheet")
+			{
+				MYGUI_LOG(Warning, "Sheet factory is deprecated, use " << TabItem::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
+			else if (_factoryName == "StaticImage")
 			{
 				MYGUI_LOG(Warning, "StaticImage factory is deprecated, use " << ImageBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
@@ -1001,6 +1022,14 @@ namespace MyGUI
 		{
 			MYGUI_LOG(Warning, "StaticText skin is deprecated, use TextBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
+		else if (_skinName == "ItemBoxH")
+		{
+			MYGUI_LOG(Warning, "ItemBoxH skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "ItemBoxV")
+		{
+			MYGUI_LOG(Warning, "ItemBoxV skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _skinName;
 	}
@@ -1018,6 +1047,8 @@ namespace MyGUI
 		FactoryManager& factory = FactoryManager::getInstance();
 		factory.registerFactory<HScroll>("Widget");
 		factory.registerFactory<VScroll>("Widget");
+		factory.registerFactory<Canvas>("Widget", "RenderBox");
+		factory.registerFactory<TabItem>("Widget", "Sheet");
 		factory.registerFactory<ImageBox>("Widget", "StaticImage");
 		factory.registerFactory<TextBox>("Widget", "StaticText");
 #endif // MYGUI_DONT_USE_OBSOLETE

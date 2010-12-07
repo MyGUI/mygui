@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowCS" position="50 100 365 256" layer="Overlapped" name="_Main">
         <Property key="Caption" value="drag and drop demo"/>
 		<Property key="MinSize" value="170 100"/>
-		<Widget type="ItemBox" skin="ItemBoxV" position="0 0 356 220" align="Stretch" name="box_Items">
+		<Widget type="ItemBox" skin="ItemBox" position="0 0 356 220" align="Stretch" name="box_Items">
             <Property key="NeedToolTip" value="true"/>
         </Widget>
     </Widget>
