@@ -33,7 +33,7 @@
 #include "MyGUI_Tab.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_Progress.h"
+#include "MyGUI_ProgressBar.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiList.h"
 #include "MyGUI_MenuCtrl.h"

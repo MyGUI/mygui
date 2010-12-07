@@ -45,7 +45,6 @@ namespace MyGUI
 	typedef ComboBox* ComboBoxPtr;
 	typedef Tab* TabPtr;
 	typedef TabItem* TabItemPtr;
-	typedef Progress* ProgressPtr;
 	typedef ItemBox* ItemBoxPtr;
 	typedef MultiList* MultiListPtr;
 	typedef Message* MessagePtr;
@@ -68,6 +67,9 @@ namespace MyGUI
 
 	typedef TextBox StaticText;
 	typedef StaticText* StaticTextPtr;
+
+	typedef ProgressBar Progress;
+	typedef Progress* ProgressPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

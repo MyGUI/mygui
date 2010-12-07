@@ -2,7 +2,7 @@
 
 <MyGUI type="Widgets">
 
-	<Widget name="Progress">
+	<Widget name="ProgressBar">
 		<Property key="Skin" value="rtt_MonitorProgress" group="rtt"/>
 		<Property key="Skin" value="rtt_KeyboardProgress" group="rtt"/>
 	</Widget>

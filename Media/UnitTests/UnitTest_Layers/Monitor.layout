@@ -4,22 +4,22 @@
         <Property key="ImageTexture" value="MonitorBack.png"/>
         <Property key="ImageCoord" value="0 0 1024 512"/>
         <Property key="ImageTile" value="1024 512"/>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59" name="Energy">
+        <Widget type="ProgressBar" skin="rtt_MonitorProgress" position="400 152 280 59" name="Energy">
             <Property key="Range" value="10"/>
             <Property key="RangePosition" value="4"/>
 			<Controller type="ControllerSmoothProgress"/>
 		</Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59" name="Explosion">
+        <Widget type="ProgressBar" skin="rtt_MonitorProgress" position="400 238 280 59" name="Explosion">
             <Property key="Range" value="10"/>
             <Property key="RangePosition" value="1"/>
 			<Controller type="ControllerSmoothProgress"/>
 		</Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59" name="Target">
+        <Widget type="ProgressBar" skin="rtt_MonitorProgress" position="400 320 280 59" name="Target">
             <Property key="Range" value="10"/>
             <Property key="RangePosition" value="3"/>
 			<Controller type="ControllerSmoothProgress"/>
 		</Widget>
-		<Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" name="HP">
+		<Widget type="ProgressBar" skin="rtt_MonitorProgress" position="400 400 280 59" name="HP">
 			<Property key="Range" value="10"/>
 			<Property key="RangePosition" value="8"/>
 			<Controller type="ControllerSmoothProgress"/>

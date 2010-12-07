@@ -283,12 +283,12 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Progress>
+	class MemberObsolete<ProgressBar>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : void Progress::setFlowDirection(FlowDirection _value)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ProgressBar::setFlowDirection(FlowDirection _value)")
 		void setProgressStartPoint(Align _value);
-		MYGUI_OBSOLETE(" is deprecated, use : FlowDirection Progress::getFlowDirection()")
+		MYGUI_OBSOLETE(" is deprecated, use : FlowDirection ProgressBar::getFlowDirection()")
 		Align getProgressStartPoint();
 	};
 

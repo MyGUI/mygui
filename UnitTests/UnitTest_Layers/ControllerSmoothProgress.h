@@ -47,7 +47,7 @@ namespace demo
 			mCurrentPosition = 0;
 			mNeedPosition = 0;
 
-			MyGUI::Progress* progress = _widget->castType<MyGUI::Progress>(false);
+			MyGUI::ProgressBar* progress = _widget->castType<MyGUI::ProgressBar>(false);
 			if (progress != nullptr)
 			{
 				_widget->eventChangeProperty += MyGUI::newDelegate(this, &ControllerSmoothProgress::notifyChangeProperty);
@@ -58,7 +58,7 @@ namespace demo
 		{
 			if (mCurrentPosition != mNeedPosition)
 			{
-				MyGUI::Progress* progress = _widget->castType<MyGUI::Progress>(false);
+				MyGUI::ProgressBar* progress = _widget->castType<MyGUI::ProgressBar>(false);
 				if (progress != nullptr)
 				{
 					if (mCurrentPosition > mNeedPosition)
@@ -79,7 +79,7 @@ namespace demo
 		{
 			if (_key == "RangePosition")
 			{
-				MyGUI::Progress* progress = _sender->castType<MyGUI::Progress>(false);
+				MyGUI::ProgressBar* progress = _sender->castType<MyGUI::ProgressBar>(false);
 				if (progress != nullptr)
 				{
 					progress->setProgressPosition(mCurrentPosition);

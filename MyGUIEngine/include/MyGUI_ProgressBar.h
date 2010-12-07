@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_PROGRESS_H__
-#define __MYGUI_PROGRESS_H__
+#ifndef __MYGUI_PROGRESS_BAR_H__
+#define __MYGUI_PROGRESS_BAR_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Align.h"
@@ -30,14 +30,14 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Progress :
+	class MYGUI_EXPORT ProgressBar :
 		public Widget,
-		public MemberObsolete<Progress>
+		public MemberObsolete<ProgressBar>
 	{
-		MYGUI_RTTI_DERIVED( Progress )
+		MYGUI_RTTI_DERIVED( ProgressBar )
 
 	public:
-		Progress();
+		ProgressBar();
 
 		/** Set progress range */
 		void setProgressRange(size_t _value);
@@ -106,4 +106,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_PROGRESS_H__
+#endif // __MYGUI_PROGRESS_BAR_H__

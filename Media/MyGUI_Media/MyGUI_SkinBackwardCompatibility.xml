@@ -100,5 +100,35 @@
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
 		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
 	</Resource>
+	<Resource type="ResourceSkin" name="Progress" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackSkin" value="HScrollTrackSlider"/>
+		<Property key="TrackWidth" value="7"/>
+		<Property key="TrackFill" value="false"/>
+		<Child type="Widget" skin="Default" offset="2 1 46 14" align="Stretch" name="Client"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Left VStretch">
+			<State name="normal" offset="301 2 6 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 37 15" align="HStretch VStretch">
+			<State name="normal" offset="307 2 37 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="43 0 6 15" align="Right VStretch">
+			<State name="normal" offset="344 2 6 15"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ProgressFill" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackSkin" value="HScrollTrack"/>
+		<Property key="TrackMin" value="15"/>
+		<Property key="TrackFill" value="true"/>
+		<Child type="Widget" skin="Default" offset="2 1 46 14" align="Stretch" name="Client"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Left VStretch">
+			<State name="normal" offset="301 2 6 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 37 15" align="HStretch VStretch">
+			<State name="normal" offset="307 2 37 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="43 0 6 15" align="Right VStretch">
+			<State name="normal" offset="344 2 6 15"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
 

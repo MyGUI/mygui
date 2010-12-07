@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Progress.h"
+#include "MyGUI_ProgressBar.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Gui.h"
@@ -33,7 +33,7 @@ namespace MyGUI
 	const size_t PROGRESS_AUTO_RANGE = 1000;
 	const float PROGRESS_AUTO_COEF = 400;
 
-	Progress::Progress() :
+	ProgressBar::ProgressBar() :
 		mTrackWidth(1),
 		mTrackStep(0),
 		mTrackMin(0),
@@ -47,7 +47,7 @@ namespace MyGUI
 	{
 	}
 
-	void Progress::initialiseOverride()
+	void ProgressBar::initialiseOverride()
 	{
 		Base::initialiseOverride();
 
@@ -83,14 +83,14 @@ namespace MyGUI
 			mTrackWidth = 1;
 	}
 
-	void Progress::shutdownOverride()
+	void ProgressBar::shutdownOverride()
 	{
 		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}
 
-	void Progress::setProgressRange(size_t _range)
+	void ProgressBar::setProgressRange(size_t _range)
 	{
 		if (mAutoTrack) return;
 		mRange = _range;
@@ -99,7 +99,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void Progress::setProgressPosition(size_t _pos)
+	void ProgressBar::setProgressPosition(size_t _pos)
 	{
 		if (mAutoTrack) return;
 		mEndPosition = _pos;
@@ -107,27 +107,27 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void Progress::setProgressAutoTrack(bool _auto)
+	void ProgressBar::setProgressAutoTrack(bool _auto)
 	{
 		if (mAutoTrack == _auto) return;
 		mAutoTrack = _auto;
 
 		if (mAutoTrack)
 		{
-			Gui::getInstance().eventFrameStart += newDelegate(this, &Progress::frameEntered);
+			Gui::getInstance().eventFrameStart += newDelegate(this, &ProgressBar::frameEntered);
 			mRange = PROGRESS_AUTO_RANGE;
 			mEndPosition = mStartPosition = 0;
 			mAutoPosition = 0.0f;
 		}
 		else
 		{
-			Gui::getInstance().eventFrameStart -= newDelegate(this, &Progress::frameEntered);
+			Gui::getInstance().eventFrameStart -= newDelegate(this, &ProgressBar::frameEntered);
 			mRange = mEndPosition = mStartPosition = 0;
 		}
 		updateTrack();
 	}
 
-	void Progress::frameEntered(float _time)
+	void ProgressBar::frameEntered(float _time)
 	{
 		if (!mAutoTrack) return;
 		mAutoPosition += (PROGRESS_AUTO_COEF * _time);
@@ -144,26 +144,26 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void Progress::setPosition(const IntPoint& _point)
+	void ProgressBar::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
 
-	void Progress::setSize(const IntSize& _size)
+	void ProgressBar::setSize(const IntSize& _size)
 	{
 		updateTrack();
 
 		Base::setSize(_size);
 	}
 
-	void Progress::setCoord(const IntCoord& _coord)
+	void ProgressBar::setCoord(const IntCoord& _coord)
 	{
 		updateTrack();
 
 		Base::setCoord(_coord);
 	}
 
-	void Progress::updateTrack()
+	void ProgressBar::updateTrack()
 	{
 		// все скрыто
 		if ((0 == mRange) || (0 == mEndPosition))
@@ -293,7 +293,7 @@ namespace MyGUI
 		}
 	}
 
-	void Progress::setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height)
+	void ProgressBar::setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height)
 	{
 		if (mFlowDirection == FlowDirection::LeftToRight) _widget->setCoord(_left, _top, _width, _height);
 		else if (mFlowDirection == FlowDirection::RightToLeft) _widget->setCoord(mClient->getWidth() - _left - _width, _top, _width, _height);
@@ -301,23 +301,23 @@ namespace MyGUI
 		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mClient->getHeight() - _left - _width, _height, _width);
 	}
 
-	int Progress::getClientWidth()
+	int ProgressBar::getClientWidth()
 	{
 		return mFlowDirection.isHorizontal() ? mClient->getWidth() : mClient->getHeight();
 	}
 
-	int Progress::getClientHeight()
+	int ProgressBar::getClientHeight()
 	{
 		return mFlowDirection.isHorizontal() ? mClient->getHeight() : mClient->getWidth();
 	}
 
-	void Progress::setFlowDirection(FlowDirection _value)
+	void ProgressBar::setFlowDirection(FlowDirection _value)
 	{
 		mFlowDirection = _value;
 		updateTrack();
 	}
 
-	void Progress::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ProgressBar::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Range")
 			setProgressRange(utility::parseValue<size_t>(_value));
@@ -335,37 +335,37 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	size_t Progress::getProgressRange() const
+	size_t ProgressBar::getProgressRange() const
 	{
 		return mRange;
 	}
 
-	size_t Progress::getProgressPosition() const
+	size_t ProgressBar::getProgressPosition() const
 	{
 		return mEndPosition;
 	}
 
-	bool Progress::getProgressAutoTrack() const
+	bool ProgressBar::getProgressAutoTrack() const
 	{
 		return mAutoTrack;
 	}
 
-	FlowDirection Progress::getFlowDirection() const
+	FlowDirection ProgressBar::getFlowDirection() const
 	{
 		return mFlowDirection;
 	}
 
-	void Progress::setPosition(int _left, int _top)
+	void ProgressBar::setPosition(int _left, int _top)
 	{
 		setPosition(IntPoint(_left, _top));
 	}
 
-	void Progress::setSize(int _width, int _height)
+	void ProgressBar::setSize(int _width, int _height)
 	{
 		setSize(IntSize(_width, _height));
 	}
 
-	void Progress::setCoord(int _left, int _top, int _width, int _height)
+	void ProgressBar::setCoord(int _left, int _top, int _width, int _height)
 	{
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
