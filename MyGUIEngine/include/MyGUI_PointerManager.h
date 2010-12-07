@@ -25,7 +25,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
 #include "MyGUI_IUnlinkWidget.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_IPointer.h"
 #include "MyGUI_BackwardCompatibility.h"
 

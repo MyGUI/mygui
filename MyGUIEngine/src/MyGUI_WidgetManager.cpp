@@ -40,7 +40,7 @@
 #include "MyGUI_Progress.h"
 #include "MyGUI_ScrollBar.h"
 #include "MyGUI_ScrollView.h"
-#include "MyGUI_StaticImage.h"
+#include "MyGUI_ImageBox.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_TabItem.h"

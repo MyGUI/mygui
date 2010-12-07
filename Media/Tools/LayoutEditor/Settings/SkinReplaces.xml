@@ -7,5 +7,6 @@
 	<Skin key="StaticText">LE_StaticText</Skin>
 	<Skin key="EditClient">LE_StaticText</Skin>
 	<Skin key="StaticImage">LE_StaticImage</Skin>
+	<Skin key="ImageBox">LE_StaticImage</Skin>
 	<Skin key="ItemBoxEmpty">LE_ItemBoxEmpty</Skin>
 </MyGUI>

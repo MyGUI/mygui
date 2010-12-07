@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="StaticImage" size="16 16">
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
+</MyGUI>
+
