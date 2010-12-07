@@ -39,22 +39,22 @@
         <Widget type="Button" skin="rtt_KeyboardLamp" position="936 95 38 39">
             <Controller type="ControllerRandomSelected"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_KeyboardProgress" position="47 59 45 68">
+        <Widget type="ProgressBar" skin="rtt_KeyboardProgress" position="47 59 45 68">
             <Property key="Range" value="4"/>
             <Property key="RangePosition" value="2"/>
             <Controller type="ControllerRandomProgress"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_KeyboardProgress" position="102 59 45 68">
+        <Widget type="ProgressBar" skin="rtt_KeyboardProgress" position="102 59 45 68">
             <Property key="Range" value="4"/>
             <Property key="RangePosition" value="3"/>
             <Controller type="ControllerRandomProgress"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_KeyboardProgress" position="196 59 45 68">
+        <Widget type="ProgressBar" skin="rtt_KeyboardProgress" position="196 59 45 68">
             <Property key="Range" value="4"/>
             <Property key="RangePosition" value="4"/>
             <Controller type="ControllerRandomProgress"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_KeyboardProgress" position="253 59 45 68">
+        <Widget type="ProgressBar" skin="rtt_KeyboardProgress" position="253 59 45 68">
             <Property key="Range" value="4"/>
             <Property key="RangePosition" value="1"/>
             <Controller type="ControllerRandomProgress"/>

@@ -11,7 +11,7 @@
                     <Property key="Caption" value="EditStretch"/>
                     <Property key="MultiLine" value="true"/>
                 </Widget>
-                <Widget type="Progress" skin="ProgressFill" position="214 16 400 16" align="HStretch Top" layer="Back">
+                <Widget type="ProgressBar" skin="ProgressFill" position="214 16 400 16" align="HStretch Top" layer="Back">
                     <Property key="AutoTrack" value="true"/>
                 </Widget>
                 <Widget type="Button" skin="Button" position="21 167 181 26" layer="Back">
@@ -81,7 +81,7 @@
                 <Property key="Caption" value="item2"/>
                 <Widget type="MenuBar" skin="MenuBar" position="8 7 608 26" align="HStretch Top" layer="Back"/>
                 <Widget type="MultiList" skin="MultiList" position="7 270 222 200" align="Left Bottom" layer="Back"/>
-                <Widget type="Progress" skin="Progress" position="8 245 604 15" align="HStretch Bottom" layer="Back">
+                <Widget type="ProgressBar" skin="ProgressBar" position="8 245 604 15" align="HStretch Bottom" layer="Back">
                     <Property key="AutoTrack" value="true"/>
                 </Widget>
                 <Widget type="ScrollView" skin="ScrollView" position="9 39 312 197" align="Stretch" layer="Back">

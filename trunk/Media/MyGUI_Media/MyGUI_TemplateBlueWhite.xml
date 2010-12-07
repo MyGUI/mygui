@@ -451,7 +451,7 @@
     <Resource type="ResourceLayout" name="ProgressBarTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="Progress"/>
+            <UserString key="TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackWidth" value="7"/>
             <UserString key="TrackFill" value="false"/>
             <UserString key="TrackSkin" value="SliderTrackHSkin"/>
@@ -460,13 +460,13 @@
                 <Property key="InheritsPick" value="true"/>
             </Widget>
         </Widget>
-        <Widget type="Progress" skin="ProgressBarTemplate" position="25 75 125 15">
+        <Widget type="ProgressBar" skin="ProgressBarTemplate" position="25 75 125 15">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="100"/>
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="Progress" skin="Progress" position="25 100 125 15">
+        <Widget type="ProgressBar" skin="ProgressBar" position="25 100 125 15">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="100"/>
             <Property key="Page" value="1"/>
@@ -476,7 +476,7 @@
     <Resource type="ResourceLayout" name="ProgressBarFillTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="Progress"/>
+            <UserString key="TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackFill" value="true"/>
             <UserString key="TrackSkin" value="ProgressTrackHSkin"/>
             <UserString key="TrackWidth" value="6"/>
@@ -485,13 +485,13 @@
                 <Property key="InheritsPick" value="true"/>
             </Widget>
         </Widget>
-        <Widget type="Progress" skin="ProgressBarFillTemplate" position="25 75 125 15">
+        <Widget type="ProgressBar" skin="ProgressBarFillTemplate" position="25 75 125 15">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="1"/>
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="Progress" skin="ProgressFill" position="25 100 125 15">
+        <Widget type="ProgressBar" skin="ProgressBarFill" position="25 100 125 15">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="1"/>
             <Property key="Page" value="1"/>

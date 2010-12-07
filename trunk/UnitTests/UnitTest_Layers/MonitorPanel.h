@@ -29,13 +29,13 @@ namespace demo
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mDescription, "Description");
 		MyGUI::TextBox* mDescription;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mEnergy, "Energy");
-		MyGUI::Progress* mEnergy;
+		MyGUI::ProgressBar* mEnergy;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mExplosion, "Explosion");
-		MyGUI::Progress* mExplosion;
+		MyGUI::ProgressBar* mExplosion;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mTarget, "Target");
-		MyGUI::Progress* mTarget;
+		MyGUI::ProgressBar* mTarget;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mHP, "HP");
-		MyGUI::Progress* mHP;
+		MyGUI::ProgressBar* mHP;
 	};
 
 } // namespace demo

@@ -82,7 +82,7 @@ namespace MyGUI
 	class TextBox;
 	class Tab;
 	class TabItem;
-	class Progress;
+	class ProgressBar;
 	class ItemBox;
 	class MultiList;
 	class ImageBox;

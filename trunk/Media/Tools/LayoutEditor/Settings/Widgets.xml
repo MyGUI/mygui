@@ -150,12 +150,12 @@
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="Progress">
-		<Property key="DefaultSkin" value="Progress"/>
+	<Widget name="ProgressBar">
+		<Property key="DefaultSkin" value="ProgressBar"/>
 		<Property key="Base" value="Widget"/>
 
-		<Property key="Skin" value="Progress"/>
-		<Property key="Skin" value="ProgressFill"/>
+		<Property key="Skin" value="ProgressBar"/>
+		<Property key="Skin" value="ProgressBarFill"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>

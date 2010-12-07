@@ -29,7 +29,7 @@
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_MultiList.h"
-#include "MyGUI_Progress.h"
+#include "MyGUI_ProgressBar.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_Widget.h"
@@ -454,25 +454,25 @@ namespace MyGUI
 	}
 
 
-	void MemberObsolete<Progress>::setProgressStartPoint(Align _value)
+	void MemberObsolete<ProgressBar>::setProgressStartPoint(Align _value)
 	{
 		if (_value == Align::Right)
-			static_cast<Progress*>(this)->setFlowDirection(FlowDirection::RightToLeft);
+			static_cast<ProgressBar*>(this)->setFlowDirection(FlowDirection::RightToLeft);
 		else if (_value == Align::Top)
-			static_cast<Progress*>(this)->setFlowDirection(FlowDirection::TopToBottom);
+			static_cast<ProgressBar*>(this)->setFlowDirection(FlowDirection::TopToBottom);
 		else if (_value == Align::Bottom)
-			static_cast<Progress*>(this)->setFlowDirection(FlowDirection::BottomToTop);
+			static_cast<ProgressBar*>(this)->setFlowDirection(FlowDirection::BottomToTop);
 		else
-			static_cast<Progress*>(this)->setFlowDirection(FlowDirection::LeftToRight);
+			static_cast<ProgressBar*>(this)->setFlowDirection(FlowDirection::LeftToRight);
 	}
 
-	Align MemberObsolete<Progress>::getProgressStartPoint()
+	Align MemberObsolete<ProgressBar>::getProgressStartPoint()
 	{
-		if (static_cast<Progress*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
+		if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
 			return Align::Right;
-		else if (static_cast<Progress*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
+		else if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
 			return Align::Top;
-		else if (static_cast<Progress*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
+		else if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
 			return Align::Bottom;
 
 		return Align::Left;
@@ -1006,6 +1006,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "StaticText factory is deprecated, use " << TextBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "Progress")
+			{
+				MYGUI_LOG(Warning, "Progress factory is deprecated, use " << ProgressBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1030,6 +1034,10 @@ namespace MyGUI
 		{
 			MYGUI_LOG(Warning, "ItemBoxV skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
+		else if (_skinName == "Progress")
+		{
+			MYGUI_LOG(Warning, "Progress skin is deprecated, use ProgressBar" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _skinName;
 	}
@@ -1051,6 +1059,7 @@ namespace MyGUI
 		factory.registerFactory<TabItem>("Widget", "Sheet");
 		factory.registerFactory<ImageBox>("Widget", "StaticImage");
 		factory.registerFactory<TextBox>("Widget", "StaticText");
+		factory.registerFactory<ProgressBar>("Widget", "Progress");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
