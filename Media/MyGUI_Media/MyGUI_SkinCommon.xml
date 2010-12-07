@@ -39,13 +39,13 @@
 	</Resource>
 	<Resource type="ResourceSkin" name="ButtonImage" size="16 16">
 		<Property key="ModeImage" value="true"/>
-		<Child type="StaticImage" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+		<Child type="ImageBox" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
 	</Resource>
 	<Resource type="ResourceSkin" name="ButtonImageText" size="16 16">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
 		<Property key="ModeImage" value="true"/>
-		<Child type="StaticImage" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+		<Child type="ImageBox" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
 		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch">
 			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
 			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>

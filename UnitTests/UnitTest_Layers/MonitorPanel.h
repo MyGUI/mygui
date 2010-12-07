@@ -25,7 +25,7 @@ namespace demo
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mShipImage, "Ship");
-		MyGUI::StaticImage* mShipImage;
+		MyGUI::ImageBox* mShipImage;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mDescription, "Description");
 		MyGUI::StaticText* mDescription;
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mEnergy, "Energy");

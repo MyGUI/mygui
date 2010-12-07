@@ -13,7 +13,7 @@
             <Widget type="Widget" skin="PanelEmpty" position="3 3 173 170" align="Stretch" name="ParentBack">
                 <Widget type="Widget" skin="BackgroundTile" position="37 41 99 88" align="Default" name="Back">
                     <Property key="InheritsAlpha" value="false"/>
-                    <Widget type="StaticImage" skin="StaticImage" position="0 0 99 88" align="Stretch" name="Image"/>
+                    <Widget type="ImageBox" skin="ImageBox" position="0 0 99 88" align="Stretch" name="Image"/>
                 </Widget>
             </Widget>
         </Widget>

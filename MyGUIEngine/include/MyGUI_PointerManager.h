@@ -106,7 +106,7 @@ namespace MyGUI
 		std::string mSkinName;
 
 		Widget* mWidgetOwner;
-		StaticImage* mMousePointer;
+		ImageBox* mMousePointer;
 		IPointer* mPointer;
 		std::string mCurrentMousePointer;
 

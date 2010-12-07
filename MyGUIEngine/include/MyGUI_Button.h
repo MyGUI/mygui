@@ -56,7 +56,7 @@ namespace MyGUI
 		bool getModeImage();
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
-		StaticImage* getStaticImage();
+		ImageBox* getStaticImage();
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);
@@ -88,7 +88,7 @@ namespace MyGUI
 		// статус кнопки нажата или нет
 		bool mStateSelected;
 
-		StaticImage* mImage;
+		ImageBox* mImage;
 		bool mModeImage;
 	};
 

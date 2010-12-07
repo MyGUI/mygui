@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSmall" position="544 232 158 158" layer="ToolTip" name="_Main">
-        <Widget type="StaticImage" skin="StaticImage" position="112 37 32 32" align="Right Top" name="image_Info"/>
+        <Widget type="ImageBox" skin="ImageBox" position="112 37 32 32" align="Right Top" name="image_Info"/>
         <Widget type="StaticText" skin="StaticText" position="8 8 142 16" name="text_Name">
             <Property key="TextAlign" value="Center"/>
             <Property key="Caption" value="Name"/>

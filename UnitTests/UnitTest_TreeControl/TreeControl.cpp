@@ -365,7 +365,7 @@ namespace MyGUI
 				pButtonExpandCollapse->setVisible(pNode->hasChildren());
 				pButtonExpandCollapse->setStateSelected(!pNode->isExpanded());
 
-				StaticImage* pIcon = pItem->getIcon();
+				ImageBox* pIcon = pItem->getIcon();
 				if (pIcon)
 				{
 					ResourceImageSetPtr pIconResource = pIcon->getItemResource();

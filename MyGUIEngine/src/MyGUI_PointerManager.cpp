@@ -73,7 +73,7 @@ namespace MyGUI
 		mWidgetOwner = nullptr;
 		mVisible = true;
 
-		mSkinName = "StaticImage";
+		mSkinName = "ImageBox";
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -320,7 +320,7 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-			mMousePointer = static_cast<StaticImage*>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
+			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(WidgetStyle::Overlapped, ImageBox::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
 	}
 
 	IPointer* PointerManager::getByName(const std::string& _name) const

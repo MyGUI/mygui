@@ -27,7 +27,7 @@ namespace demo
 		MyGUI::StaticText* mTextName;
 		MyGUI::StaticText* mTextCount;
 		MyGUI::Edit* mTextDesc;
-		MyGUI::StaticImage* mImageInfo;
+		MyGUI::ImageBox* mImageInfo;
 
 		int mOffsetHeight;
 	};

@@ -54,13 +54,13 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManualPointer::setImage(StaticImage* _image)
+	void ResourceManualPointer::setImage(ImageBox* _image)
 	{
 		_image->deleteAllItems();
 		_image->setImageInfo(mTexture, mTextureCoord, mTextureCoord.size());
 	}
 
-	void ResourceManualPointer::setPosition(StaticImage* _image, const IntPoint& _point)
+	void ResourceManualPointer::setPosition(ImageBox* _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}
