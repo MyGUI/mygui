@@ -32,20 +32,13 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	class HScroll;
-	class VScroll;
-
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
 	typedef Window* WindowPtr;
-	typedef HScroll* HScrollPtr;
-	typedef VScroll* VScrollPtr;
 	typedef ComboBox* ComboBoxPtr;
-	typedef Tab* TabPtr;
 	typedef TabItem* TabItemPtr;
 	typedef ItemBox* ItemBoxPtr;
 	typedef MultiList* MultiListPtr;
-	typedef Message* MessagePtr;
 	typedef MenuCtrl* MenuCtrlPtr;
 	typedef MenuItem* MenuItemPtr;
 	typedef PopupMenu* PopupMenuPtr;
@@ -53,6 +46,12 @@ namespace MyGUI
 	typedef ScrollView* ScrollViewPtr;
 	typedef DDContainer* DDContainerPtr;
 	typedef Canvas* CanvasPtr;
+
+	class HScroll;
+	typedef HScroll* HScrollPtr;
+
+	class VScroll;
+	typedef VScroll* VScrollPtr;
 
 	typedef TabItem Sheet;
 	typedef TabItem* SheetPtr;
@@ -74,6 +73,9 @@ namespace MyGUI
 
 	typedef EditBox Edit;
 	typedef Edit* EditPtr;
+
+	typedef TabControl Tab;
+	typedef Tab* TabPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="25 25 600 315" align="Stretch" layer="Back" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Tab" skin="Tab" position="0 0 600 315" align="Stretch">
+        <Widget type="TabControl" skin="Tab" position="0 0 600 315" align="Stretch">
             <Widget type="TabItem" skin="" position="4 26 591 283">
                 <Property key="Caption" value="#{Properties}"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 591 283" align="Stretch" name="PropertiesControl"/>

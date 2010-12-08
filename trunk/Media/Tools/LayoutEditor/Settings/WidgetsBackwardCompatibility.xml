@@ -50,4 +50,5 @@
 	<Widget name="Progress"/>
 	<Widget name="List"/>
 	<Widget name="Edit"/>
+	<Widget name="Tab"/>
 </MyGUI>

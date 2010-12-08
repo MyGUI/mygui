@@ -31,7 +31,7 @@ namespace tools
 		bool child;
 		// can be selected
 		bool resizeable;
-		// have many items (such as ListBox, ComboBox, Tab, MenuBar, etc...)
+		// have many items (such as ListBox, ComboBox, TabControl, MenuBar, etc...)
 		bool many_items;
 	};
 

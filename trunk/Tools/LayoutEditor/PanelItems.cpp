@@ -249,9 +249,9 @@ namespace tools
 		const MyGUI::UString& value = mList->getItemNameAt(index);
 		mEdit->setOnlyText(value);
 
-		if (mCurrentWidget->isType<MyGUI::Tab>())
+		if (mCurrentWidget->isType<MyGUI::TabControl>())
 		{
-			mCurrentWidget->castType<MyGUI::Tab>()->setIndexSelected(index);
+			mCurrentWidget->castType<MyGUI::TabControl>()->setIndexSelected(index);
 		}
 	}
 
