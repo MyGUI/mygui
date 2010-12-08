@@ -27,7 +27,7 @@ namespace unittest
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const MyGUI::UString& _name, MyGUI::Any _data = MyGUI::Any::Null)
 		{
-			MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
+			MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListBox::insertItemAt");
 			if (_index == MyGUI::ITEM_NONE) _index = mItemsInfo.size();
 			mItemsInfo.insert(mItemsInfo.begin() + _index, ItemInfo(_name, _data));
 		}
@@ -41,7 +41,7 @@ namespace unittest
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::removeItemAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::removeItemAt");
 			mItemsInfo.erase(mItemsInfo.begin() + _index);
 		}
 
@@ -54,8 +54,8 @@ namespace unittest
 		//! Swap items at a specified position
 		void swapItemsAt(size_t _index1, size_t _index2)
 		{
-			MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "List::swapItemsAt");
-			MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "List::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "ListBox::swapItemsAt");
+			MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "ListBox::swapItemsAt");
 			if (_index1 == _index2) return;
 			std::swap(mItemsInfo[_index1], mItemsInfo[_index2]);
 		}
@@ -77,7 +77,7 @@ namespace unittest
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, MyGUI::Any _data)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemDataAt");
 			mItemsInfo[_index].data = _data;
 		}
 
@@ -91,7 +91,7 @@ namespace unittest
 		template <typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 
@@ -102,14 +102,14 @@ namespace unittest
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const MyGUI::UString& _name)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemNameAt");
 			mItemsInfo[_index].name = _name;
 		}
 
 		//! Get item name from specified position
 		const MyGUI::UString& getItemNameAt(size_t _index)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 			return mItemsInfo[_index].name;
 		}
 

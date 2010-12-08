@@ -22,7 +22,7 @@ namespace tools
 		virtual ~RegionListControl();
 
 	private:
-		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
 
 		virtual void updateRegionProperties();
 		virtual void updateSeparatorProperties();
@@ -45,7 +45,7 @@ namespace tools
 		RegionItem* getRegion(MyGUI::Align _align);
 
 	private:
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 		MyGUI::UString mTypeName;
 
 		MyGUI::IntCoord mCoordValue;

@@ -30,7 +30,7 @@ namespace tools
 	private:
 		MyGUI::Button* mResourceAdd;
 		MyGUI::Button* mResourceDelete;
-		MyGUI::List* mResources;
+		MyGUI::ListBox* mResources;
 
 		TextFieldControl* mTextFieldControl;
 	};

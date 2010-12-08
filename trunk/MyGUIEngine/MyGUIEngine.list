@@ -12,7 +12,7 @@ set (HEADER_FILES
   include/MyGUI_Edit.h
   include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
-  include/MyGUI_List.h
+  include/MyGUI_ListBox.h
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
@@ -176,7 +176,7 @@ set (SOURCE_FILES
   src/MyGUI_Edit.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
-  src/MyGUI_List.cpp
+  src/MyGUI_ListBox.cpp
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
@@ -272,7 +272,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Edit.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
-  src/MyGUI_List.cpp
+  src/MyGUI_ListBox.cpp
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
@@ -402,7 +402,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_Edit.h
   include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
-  include/MyGUI_List.h
+  include/MyGUI_ListBox.h
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h

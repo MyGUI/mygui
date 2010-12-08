@@ -2,6 +2,6 @@
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="List" skin="List" position="0 0 248 464" align="Stretch" name="List"/>
+        <Widget type="ListBox" skin="ListBox" position="0 0 248 464" align="Stretch" name="List"/>
     </Widget>
 </MyGUI>

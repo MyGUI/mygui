@@ -35,7 +35,7 @@
             <Property key="Scroll_Page" value="1"/>
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
-        <Widget type="ScrollBar" skin="HScroll" position="25 100 125 15">
+        <Widget type="ScrollBar" skin="ScrollBarH" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
             <Property key="Scroll_Page" value="1"/>
@@ -63,7 +63,7 @@
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="ScrollBar" skin="VScroll" position="75 50 15 125">
+        <Widget type="ScrollBar" skin="ScrollBarV" position="75 50 15 125">
             <Property key="Range" value="100"/>
             <Property key="RangePosition" value="0"/>
             <Property key="Page" value="1"/>
@@ -88,7 +88,7 @@
             <Property key="Scroll_Page" value="1"/>
             <Property key="Scroll_ViewPage" value="1"/>
         </Widget>
-        <Widget type="ScrollBar" skin="HSlider" position="25 100 125 15">
+        <Widget type="ScrollBar" skin="SliderH" position="25 100 125 15">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="0"/>
             <Property key="Scroll_Page" value="1"/>
@@ -109,7 +109,7 @@
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
         </Widget>
-        <Widget type="ScrollBar" skin="VSlider" position="80 20 15 125">
+        <Widget type="ScrollBar" skin="SliderV" position="80 20 15 125">
             <Property key="Progress_Range" value="100"/>
             <Property key="Progress_Position" value="99"/>
         </Widget>
@@ -500,13 +500,13 @@
     </Resource>
     <Resource type="ResourceLayout" name="ListTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 40" name="Root">
-            <UserString key="TargetWidgetType" value="List"/>
+            <UserString key="TargetWidgetType" value="ListBox"/>
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListLineTemplate"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
             <Widget type="ScrollBar" skin="ScrollVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
         </Widget>
-        <Widget type="List" skin="ListTemplate" position="5 60 55 60">
+        <Widget type="ListBox" skin="ListTemplate" position="5 60 55 60">
             <Property key="AddItem" value="line1"/>
             <Property key="AddItem" value="line2"/>
             <Property key="AddItem" value="line3"/>
@@ -2122,7 +2122,7 @@
             <Property key="AddItem" value="line3"/>
             <Property key="AddItem" value="line3"/>
         </Widget>
-        <Widget type="List" skin="List" position="70 60 55 60">
+        <Widget type="ListBox" skin="ListBox" position="70 60 55 60">
             <Property key="AddItem" value="line1"/>
             <Property key="AddItem" value="line2"/>
             <Property key="AddItem" value="line3"/>
@@ -2238,7 +2238,7 @@
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="TextColour" value="0 0 0"/>
             </Widget>
-            <Widget type="List" skin="ListTemplate" position="65 38 100 200" style="Popup" layer="Popup" name="List">
+            <Widget type="ListBox" skin="ListTemplate" position="65 38 100 200" style="Popup" layer="Popup" name="List">
                 <Property key="Visible" value="false"/>
             </Widget>
             <Widget type="Button" skin="ButtonDownSkin" position="79 7 14 11" align="Right VCenter" name="Button"/>

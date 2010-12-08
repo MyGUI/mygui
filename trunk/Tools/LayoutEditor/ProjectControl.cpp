@@ -574,7 +574,7 @@ namespace tools
 		updateCaption();
 	}
 
-	void ProjectControl::notifyListSelectAccept(MyGUI::List* _sender, size_t _index)
+	void ProjectControl::notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE)
 			return;
@@ -711,7 +711,7 @@ namespace tools
 
 	SkinInfo ProjectControl::getCellData(MyGUI::Widget* _sender, size_t _index)
 	{
-		MyGUI::List* box = _sender->castType<MyGUI::List>();
+		MyGUI::ListBox* box = _sender->castType<MyGUI::ListBox>();
 		MyGUI::UString name = box->getItemNameAt(_index);
 		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 	}

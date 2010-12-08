@@ -115,6 +115,7 @@ namespace tools
 		mPropertyNames["3.1.0-ScrollView-VisibleHScroll"] = "ScrollView_HScroll";
 
 		mPropertyNames["3.1.0-List-AddItem"] = "List_AddItem";
+		mPropertyNames["3.1.0-ListBox-AddItem"] = "List_AddItem";
 		mPropertyNames["3.1.0-ComboBox-AddItem"] = "Combo_AddItem";
 	}
 

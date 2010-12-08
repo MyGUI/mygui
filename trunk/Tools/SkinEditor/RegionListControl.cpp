@@ -29,7 +29,7 @@ namespace tools
 		mList->eventListChangePosition -= MyGUI::newDelegate(this, &RegionListControl::notifyChangePosition);
 	}
 
-	void RegionListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
+	void RegionListControl::notifyChangePosition(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (getCurrentSkin() != nullptr)
 		{

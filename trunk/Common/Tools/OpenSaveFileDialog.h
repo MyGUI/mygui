@@ -42,8 +42,8 @@ namespace tools
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 		void notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyListChangePosition(MyGUI::List* _sender, size_t _index);
-		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
+		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
+		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
 		void notifyEditSelectAccept(MyGUI::Edit* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
@@ -52,7 +52,7 @@ namespace tools
 
 	private:
 		MyGUI::Window* mWindow;
-		MyGUI::List* mListFiles;
+		MyGUI::ListBox* mListFiles;
 		MyGUI::Edit* mEditFileName;
 		MyGUI::ComboBox* mCurrentFolderField;
 		MyGUI::Button* mButtonOpenSave;

@@ -158,45 +158,45 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<List>
+	class MemberObsolete<ListBox>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : size_t List::getIndexSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t ListBox::getIndexSelected()")
 		size_t getItemIndexSelected();
-		MYGUI_OBSOLETE(" is deprecated, use : void List::setIndexSelected(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::setIndexSelected(size_t _index)")
 		void setItemSelectedAt(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::clearIndexSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::clearIndexSelected()")
 		void clearItemSelected();
 
-		MYGUI_OBSOLETE(" is deprecated, use : void List::insertItemAt(size_t _index, const UString& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::insertItemAt(size_t _index, const UString& _name)")
 		void insertItem(size_t _index, const UString& _item);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::setItemNameAt(size_t _index, const UString& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::setItemNameAt(size_t _index, const UString& _name)")
 		void setItem(size_t _index, const UString& _item);
-		MYGUI_OBSOLETE(" is deprecated, use : const UString& List::getItemNameAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : const UString& ListBox::getItemNameAt(size_t _index)")
 		const UString& getItem(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::removeItemAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::removeAllItems()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::removeAllItems()")
 		void deleteAllItems();
-		MYGUI_OBSOLETE(" is deprecated, use : size_t List::findItemIndexWith(const UString& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t ListBox::findItemIndexWith(const UString& _name)")
 		size_t findItem(const UString& _item);
-		MYGUI_OBSOLETE(" is deprecated, use : size_t List::getIndexSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t ListBox::getIndexSelected()")
 		size_t getItemSelect();
-		MYGUI_OBSOLETE(" is deprecated, use : void List::clearIndexSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::clearIndexSelected()")
 		void resetItemSelect();
-		MYGUI_OBSOLETE(" is deprecated, use : void List::setIndexSelected(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::setIndexSelected(size_t _index)")
 		void setItemSelect(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::beginToItemAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::beginToItemAt(size_t _index)")
 		void beginToIndex(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void List::beginToItemFirst()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::beginToItemFirst()")
 		void beginToStart();
-		MYGUI_OBSOLETE(" is deprecated, use : void List::beginToItemLast()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::beginToItemLast()")
 		void beginToEnd();
-		MYGUI_OBSOLETE(" is deprecated, use : void List::beginToItemSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : void ListBox::beginToItemSelected()")
 		void beginToSelect();
-		MYGUI_OBSOLETE(" is deprecated, use : bool List::isItemVisibleAt(size_t _index, bool _fill)")
+		MYGUI_OBSOLETE(" is deprecated, use : bool ListBox::isItemVisibleAt(size_t _index, bool _fill)")
 		bool isItemVisible(size_t _index, bool _fill = true);
-		MYGUI_OBSOLETE(" is deprecated, use : bool List::isItemSelectedVisible(bool _fill)")
+		MYGUI_OBSOLETE(" is deprecated, use : bool ListBox::isItemSelectedVisible(bool _fill)")
 		bool isItemSelectVisible(bool _fill = true);
 	};
 
