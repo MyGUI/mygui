@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 232 26" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Edit" skin="Edit" position="0 0 204 26" align="Stretch" name="Edit"/>
+        <Widget type="EditBox" skin="Edit" position="0 0 204 26" align="Stretch" name="Edit"/>
         <Widget type="Widget" skin="Panel" position="206 0 26 26" align="Right VStretch">
             <Widget type="Widget" skin="MarkerWhite" position="2 2 20 20" name="Colour"/>
         </Widget>

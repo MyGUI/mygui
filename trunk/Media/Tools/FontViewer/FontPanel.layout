@@ -13,14 +13,14 @@
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Size"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 59 146 26" align="HStretch Top" name="edit_Size">
+        <Widget type="EditBox" skin="Edit" position="93 59 146 26" align="HStretch Top" name="edit_Size">
             <Property key="Caption" value="18"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 91 80 24">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Resolution"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 91 146 26" align="HStretch Top" name="edit_Resolution">
+        <Widget type="EditBox" skin="Edit" position="93 91 146 26" align="HStretch Top" name="edit_Resolution">
             <Property key="Caption" value="50"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 123 80 24">
@@ -36,35 +36,35 @@
             <Property key="Caption" value="Space"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 155 146 26" align="HStretch Top" name="edit_Space">
+        <Widget type="EditBox" skin="Edit" position="93 155 146 26" align="HStretch Top" name="edit_Space">
             <Property key="Caption" value="4"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 187 80 24">
             <Property key="Caption" value="Tab"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 187 146 26" align="HStretch Top" name="edit_Tab">
+        <Widget type="EditBox" skin="Edit" position="93 187 146 26" align="HStretch Top" name="edit_Tab">
             <Property key="Caption" value="8"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 219 80 24">
             <Property key="Caption" value="Cursor"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 219 146 26" align="HStretch Top" name="edit_Cursor">
+        <Widget type="EditBox" skin="Edit" position="93 219 146 26" align="HStretch Top" name="edit_Cursor">
             <Property key="Caption" value="2"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 251 80 24">
             <Property key="Caption" value="Distance"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 251 146 26" align="HStretch Top" name="edit_Distance">
+        <Widget type="EditBox" skin="Edit" position="93 251 146 26" align="HStretch Top" name="edit_Distance">
             <Property key="Caption" value="5"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 283 80 24">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Offset"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 283 146 26" align="HStretch Top" name="edit_Offset">
+        <Widget type="EditBox" skin="Edit" position="93 283 146 26" align="HStretch Top" name="edit_Offset">
             <Property key="Caption" value="0"/>
         </Widget>
         <Widget type="Button" skin="Button" position="5 411 234 26" align="HStretch Top" name="button_Generate">
@@ -74,11 +74,11 @@
             <Property key="TextAlign" value="Center"/>
             <Property key="Caption" value="Height of a font is 0 pixels"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="6 475 178 26" name="edit_SaveFileName"/>
+        <Widget type="EditBox" skin="Edit" position="6 475 178 26" name="edit_SaveFileName"/>
         <Widget type="Button" skin="Button" position="189 474 49 27" name="button_Save">
             <Property key="Caption" value="Save"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 315 146 26" layer="Back" name="edit_Range1">
+        <Widget type="EditBox" skin="Edit" position="93 315 146 26" layer="Back" name="edit_Range1">
             <Property key="Caption" value="33 126"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 315 80 24" layer="Back">
@@ -89,13 +89,13 @@
             <Property key="Caption" value="Range"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 347 146 26" layer="Back" name="edit_Range2">
+        <Widget type="EditBox" skin="Edit" position="93 347 146 26" layer="Back" name="edit_Range2">
             <Property key="Caption" value="1025 1105"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 379 80 24" layer="Back">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Hide"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="93 379 146 26" layer="Back" name="edit_Hide"/>
+        <Widget type="EditBox" skin="Edit" position="93 379 146 26" layer="Back" name="edit_Hide"/>
     </Widget>
 </MyGUI>

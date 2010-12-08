@@ -89,7 +89,7 @@ namespace demo
 
 	void Console::notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 	{
-		MyGUI::Edit* edit = _sender->castType<MyGUI::Edit>();
+		MyGUI::EditBox* edit = _sender->castType<MyGUI::EditBox>();
 		size_t len = edit->getCaption().length();
 		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{

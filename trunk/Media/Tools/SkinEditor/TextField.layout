@@ -4,7 +4,7 @@
         <Property key="MinSize" value="280 112"/>
         <Property key="MaxSize" value="280 112"/>
         <UserString key="SnapTo" value="Center"/>
-        <Widget type="Edit" skin="Edit" position="4 9 264 24" align="HStretch Top" name="Text"/>
+        <Widget type="EditBox" skin="Edit" position="4 9 264 24" align="HStretch Top" name="Text"/>
         <Widget type="Button" skin="Button" position="163 41 104 24" align="Right Top" name="Ok">
             <Property key="Caption" value="#{Ok}"/>
         </Widget>

@@ -178,9 +178,9 @@ namespace tools
 		updateFromPoint(point);
 	}
 
-	void ColourPanel::notifyEditTextChange(MyGUI::Edit* _sender)
+	void ColourPanel::notifyEditTextChange(MyGUI::EditBox* _sender)
 	{
-		MyGUI::Edit* edit = static_cast<MyGUI::Edit*>(_sender);
+		MyGUI::EditBox* edit = static_cast<MyGUI::EditBox*>(_sender);
 		size_t cursor = edit->getTextCursor();
 		size_t num = MyGUI::utility::parseSizeT(edit->getOnlyText());
 		if (num > 255) num = 255;
@@ -337,7 +337,7 @@ namespace tools
 		return mCurrentColour;
 	}
 
-	void ColourPanel::notifyEditTextChangeAlpha(MyGUI::Edit* _sender)
+	void ColourPanel::notifyEditTextChangeAlpha(MyGUI::EditBox* _sender)
 	{
 		MyGUI::UString value = _sender->getOnlyText();
 

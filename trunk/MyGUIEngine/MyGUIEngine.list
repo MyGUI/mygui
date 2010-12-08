@@ -9,7 +9,7 @@ set (HEADER_FILES
   include/MyGUI_Canvas.h
   include/MyGUI_ComboBox.h
   include/MyGUI_DDContainer.h
-  include/MyGUI_Edit.h
+  include/MyGUI_EditBox.h
   include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
   include/MyGUI_ListBox.h
@@ -173,7 +173,7 @@ set (SOURCE_FILES
   src/MyGUI_Canvas.cpp
   src/MyGUI_ComboBox.cpp
   src/MyGUI_DDContainer.cpp
-  src/MyGUI_Edit.cpp
+  src/MyGUI_EditBox.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
   src/MyGUI_ListBox.cpp
@@ -269,7 +269,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Canvas.cpp
   src/MyGUI_ComboBox.cpp
   src/MyGUI_DDContainer.cpp
-  src/MyGUI_Edit.cpp
+  src/MyGUI_EditBox.cpp
   src/MyGUI_ImageBox.cpp
   src/MyGUI_ItemBox.cpp
   src/MyGUI_ListBox.cpp
@@ -399,7 +399,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_Canvas.h
   include/MyGUI_ComboBox.h
   include/MyGUI_DDContainer.h
-  include/MyGUI_Edit.h
+  include/MyGUI_EditBox.h
   include/MyGUI_ImageBox.h
   include/MyGUI_ItemBox.h
   include/MyGUI_ListBox.h

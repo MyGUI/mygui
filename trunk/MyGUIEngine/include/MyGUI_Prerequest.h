@@ -77,7 +77,7 @@ namespace MyGUI
 	class Button;
 	class Window;
 	class ListBox;
-	class Edit;
+	class EditBox;
 	class ComboBox;
 	class TextBox;
 	class Tab;

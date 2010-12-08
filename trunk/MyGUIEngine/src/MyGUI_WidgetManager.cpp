@@ -29,7 +29,7 @@
 #include "MyGUI_Canvas.h"
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_DDContainer.h"
-#include "MyGUI_Edit.h"
+#include "MyGUI_EditBox.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_ListBox.h"
 #include "MyGUI_MenuBar.h"
@@ -71,7 +71,7 @@ namespace MyGUI
 		factory.registerFactory<Canvas>("Widget");
 		factory.registerFactory<ComboBox>("Widget");
 		factory.registerFactory<DDContainer>("Widget");
-		factory.registerFactory<Edit>("Widget");
+		factory.registerFactory<EditBox>("Widget");
 		factory.registerFactory<ItemBox>("Widget");
 		factory.registerFactory<ListBox>("Widget");
 		factory.registerFactory<MenuBar>("Widget");

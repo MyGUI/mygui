@@ -26,7 +26,7 @@
 
 #include "MyGUI_Button.h"
 #include "MyGUI_ComboBox.h"
-#include "MyGUI_Edit.h"
+#include "MyGUI_EditBox.h"
 #include "MyGUI_ListBox.h"
 #include "MyGUI_TextBox.h"
 #include "MyGUI_ImageBox.h"

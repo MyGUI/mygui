@@ -19,7 +19,7 @@
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
+        <Widget type="EditBox" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
             <Property key="FontName" value="font_DejaVuSans.14"/>
         </Widget>
     </Widget>

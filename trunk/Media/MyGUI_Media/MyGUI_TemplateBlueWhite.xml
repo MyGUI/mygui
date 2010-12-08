@@ -125,16 +125,16 @@
     </Resource>
     <Resource type="ResourceLayout" name="EditBoxSimpleTemplate">
         <Widget type="Button" skin="EditBoxSkin" position="65 10 29 26" name="Root">
-            <UserString key="TargetWidgetType" value="Edit"/>
+            <UserString key="TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClient" position="2 2 23 20" align="Stretch" name="Client">
                 <Property key="Text_TextAlign" value="Left VCenter"/>
             </Widget>
         </Widget>
-        <Widget type="Edit" skin="EditBoxSimpleTemplate" position="65 40 85 60">
+        <Widget type="EditBox" skin="EditBoxSimpleTemplate" position="65 40 85 60">
             <Property key="Widget_Caption" value="test"/>
             <Property key="Text_TextAlign" value="Default"/>
         </Widget>
-        <Widget type="Edit" skin="EditStretch" position="66 106 84 69">
+        <Widget type="EditBox" skin="EditStretch" position="66 106 84 69">
             <Property key="Widget_Caption" value="test"/>
             <Property key="Text_TextAlign" value="Default"/>
         </Widget>
@@ -142,17 +142,17 @@
     <Resource type="ResourceLayout" name="EditBoxTemplate">
         <Widget type="Button" skin="EditBoxSkin" position="65 10 70 70" name="Root">
             <Property key="MultiLine" value="true"/>
-            <UserString key="TargetWidgetType" value="Edit"/>
+            <UserString key="TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClient" position="2 3 48 47" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
             </Widget>
             <Widget type="ScrollBar" skin="ScrollHTemplate" position="2 51 49 15" align="HStretch Bottom" name="HScroll"/>
             <Widget type="ScrollBar" skin="ScrollVTemplate" position="51 2 15 49" align="Right VStretch" name="VScroll"/>
         </Widget>
-        <Widget type="Edit" skin="EditBoxTemplate" position="65 165 146 146">
+        <Widget type="EditBox" skin="EditBoxTemplate" position="65 165 146 146">
             <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
-        <Widget type="Edit" skin="EditStretch" position="220 165 146 146">
+        <Widget type="EditBox" skin="EditStretch" position="220 165 146 146">
             <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
     </Resource>

@@ -11,7 +11,7 @@
 		<UserString key="Format" value = "#00FFFFformat : #000000" />
 
 		<Widget type="Widget" skin="PanelSmall" position="4 4 401 245" align="Stretch">
-			<Widget type="Edit" skin="WordWrap" position="4 3 392 237" align="Stretch" name="list_History">
+			<Widget type="EditBox" skin="WordWrap" position="4 3 392 237" align="Stretch" name="list_History">
 				<Property key="ReadOnly" value="true"/>
 			</Widget>
 		</Widget>

@@ -38,10 +38,10 @@ namespace tools
 		void notifyOk(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName);
-		void notifyTextAccept(MyGUI::Edit* _sender);
+		void notifyTextAccept(MyGUI::EditBox* _sender);
 
 	private:
-		MyGUI::Edit* mText;
+		MyGUI::EditBox* mText;
 		MyGUI::Button* mOk;
 		MyGUI::Button* mCancel;
 	};

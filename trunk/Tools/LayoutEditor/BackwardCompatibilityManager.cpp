@@ -110,6 +110,8 @@ namespace tools
 		mPropertyNames["3.1.0-ProgressBar-RangePosition"] = "Progress_Position";
 		mPropertyNames["3.1.0-Edit-VisibleVScroll"] = "Edit_ShowVScroll";
 		mPropertyNames["3.1.0-Edit-VisibleHScroll"] = "Edit_ShowHScroll";
+		mPropertyNames["3.1.0-EditBox-VisibleVScroll"] = "Edit_ShowVScroll";
+		mPropertyNames["3.1.0-EditBox-VisibleHScroll"] = "Edit_ShowHScroll";
 		mPropertyNames["3.1.0-Message-Caption"] = "Message_Caption";
 		mPropertyNames["3.1.0-ScrollView-VisibleVScroll"] = "ScrollView_VScroll";
 		mPropertyNames["3.1.0-ScrollView-VisibleHScroll"] = "ScrollView_HScroll";
