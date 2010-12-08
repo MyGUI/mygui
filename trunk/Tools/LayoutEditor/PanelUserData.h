@@ -28,14 +28,14 @@ namespace tools
 		void notifyAddUserData(MyGUI::Widget* _sender = 0);
 		void notifyDeleteUserData(MyGUI::Widget* _sender);
 		void notifyUpdateUserData(MyGUI::EditBox* _widget);
-		void notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index);
+		void notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index);
 
 	private:
 		MyGUI::EditBox* mEditKey;
 		MyGUI::EditBox* mEditValue;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
-		MyGUI::MultiList* mMultilist;
+		MyGUI::MultiListBox* mMultilist;
 
 		MyGUI::Widget* mCurrentWidget;
 

@@ -84,7 +84,7 @@ namespace MyGUI
 	class TabItem;
 	class ProgressBar;
 	class ItemBox;
-	class MultiList;
+	class MultiListBox;
 	class ImageBox;
 	class MenuCtrl;
 	class MenuItem;

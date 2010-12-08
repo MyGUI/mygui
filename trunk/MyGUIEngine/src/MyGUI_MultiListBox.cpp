@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_MultiList.h"
+#include "MyGUI_MultiListBox.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ImageBox.h"
@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	MultiList::MultiList() :
+	MultiListBox::MultiListBox() :
 		mHeightButton(0),
 		mWidthBar(0),
 		mButtonMain(nullptr),
@@ -46,7 +46,7 @@ namespace MyGUI
 	{
 	}
 
-	void MultiList::initialiseOverride()
+	void MultiListBox::initialiseOverride()
 	{
 		Base::initialiseOverride();
 
@@ -82,7 +82,7 @@ namespace MyGUI
 			mClient = this;
 	}
 
-	void MultiList::shutdownOverride()
+	void MultiListBox::shutdownOverride()
 	{
 		mClient = nullptr;
 
@@ -91,9 +91,9 @@ namespace MyGUI
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы со столбцами
-	void MultiList::insertColumnAt(size_t _column, const UString& _name, int _width, Any _data)
+	void MultiListBox::insertColumnAt(size_t _column, const UString& _name, int _width, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiList::insertColumnAt");
+		MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiListBox::insertColumnAt");
 		if (_column == ITEM_NONE) _column = mVectorColumnInfo.size();
 
 		// скрываем у крайнего скролл
@@ -105,13 +105,13 @@ namespace MyGUI
 		column.width = _width < 0 ? 0 : _width;
 
 		column.list = mClient->createWidget<ListBox>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
-		column.list->eventListChangePosition += newDelegate(this, &MultiList::notifyListChangePosition);
-		column.list->eventListMouseItemFocus += newDelegate(this, &MultiList::notifyListChangeFocus);
-		column.list->eventListChangeScroll += newDelegate(this, &MultiList::notifyListChangeScrollPosition);
-		column.list->eventListSelectAccept += newDelegate(this, &MultiList::notifyListSelectAccept);
+		column.list->eventListChangePosition += newDelegate(this, &MultiListBox::notifyListChangePosition);
+		column.list->eventListMouseItemFocus += newDelegate(this, &MultiListBox::notifyListChangeFocus);
+		column.list->eventListChangeScroll += newDelegate(this, &MultiListBox::notifyListChangeScrollPosition);
+		column.list->eventListSelectAccept += newDelegate(this, &MultiListBox::notifyListSelectAccept);
 
 		column.button = mClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
-		column.button->eventMouseButtonClick += newDelegate(this, &MultiList::notifyButtonClick);
+		column.button->eventMouseButtonClick += newDelegate(this, &MultiListBox::notifyButtonClick);
 		column.name = _name;
 		column.data = _data;
 
@@ -131,35 +131,35 @@ namespace MyGUI
 		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
-	void MultiList::setColumnNameAt(size_t _column, const UString& _name)
+	void MultiListBox::setColumnNameAt(size_t _column, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnNameAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnNameAt");
 		mVectorColumnInfo[_column].name = _name;
 		redrawButtons();
 	}
 
-	void MultiList::setColumnWidthAt(size_t _column, int _width)
+	void MultiListBox::setColumnWidthAt(size_t _column, int _width)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnWidthAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnWidthAt");
 		mVectorColumnInfo[_column].width = _width < 0 ? 0 : _width;
 		updateColumns();
 	}
 
-	const UString& MultiList::getColumnNameAt(size_t _column)
+	const UString& MultiListBox::getColumnNameAt(size_t _column)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnNameAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getColumnNameAt");
 		return mVectorColumnInfo[_column].name;
 	}
 
-	int MultiList::getColumnWidthAt(size_t _column)
+	int MultiListBox::getColumnWidthAt(size_t _column)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnWidthAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getColumnWidthAt");
 		return mVectorColumnInfo[_column].width;
 	}
 
-	void MultiList::removeColumnAt(size_t _column)
+	void MultiListBox::removeColumnAt(size_t _column)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::removeColumnAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::removeColumnAt");
 
 		ColumnInfo& info = mVectorColumnInfo[_column];
 
@@ -184,7 +184,7 @@ namespace MyGUI
 		updateColumns();
 	}
 
-	void MultiList::removeAllColumns()
+	void MultiListBox::removeAllColumns()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
@@ -200,7 +200,7 @@ namespace MyGUI
 		mItemSelected = ITEM_NONE;
 	}
 
-	void MultiList::sortByColumn(size_t _column, bool _backward)
+	void MultiListBox::sortByColumn(size_t _column, bool _backward)
 	{
 		mSortColumnIndex = _column;
 		if (_backward)
@@ -220,13 +220,13 @@ namespace MyGUI
 		}
 	}
 
-	size_t MultiList::getItemCount() const
+	size_t MultiListBox::getItemCount() const
 	{
 		if (mVectorColumnInfo.empty()) return 0;
 		return mVectorColumnInfo.front().list->getItemCount();
 	}
 
-	void MultiList::removeAllItems()
+	void MultiListBox::removeAllItems()
 	{
 		BiIndexBase::removeAllItems();
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
@@ -237,14 +237,14 @@ namespace MyGUI
 		mItemSelected = ITEM_NONE;
 	}
 
-	/*size_t MultiList::getItemIndexSelected()
+	/*size_t MultiListBox::getItemIndexSelected()
 	{
 		if (mVectorColumnInfo.empty()) return ITEM_NONE;
 		size_t item = mVectorColumnInfo.front().list->getItemIndexSelected();
 		return (ITEM_NONE == item) ? ITEM_NONE : BiIndexBase::convertToFace(item);
 	}*/
 
-	void MultiList::updateBackSelected(size_t _index)
+	void MultiListBox::updateBackSelected(size_t _index)
 	{
 		if (_index == ITEM_NONE)
 		{
@@ -263,21 +263,21 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::setIndexSelected(size_t _index)
+	void MultiListBox::setIndexSelected(size_t _index)
 	{
 		if (_index == mItemSelected) return;
 
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setIndexSelected");
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setIndexSelected");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::setIndexSelected");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::setIndexSelected");
 
 		mItemSelected = _index;
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const UString& _name)
+	void MultiListBox::setSubItemNameAt(size_t _column, size_t _index, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
-		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setSubItemAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::setSubItemAt");
 
 		size_t index = BiIndexBase::convertToBack(_index);
 		mVectorColumnInfo[_column].list->setItemNameAt(index, _name);
@@ -286,25 +286,25 @@ namespace MyGUI
 		if (_column == mSortColumnIndex) frameAdvise(true);
 	}
 
-	const UString& MultiList::getSubItemNameAt(size_t _column, size_t _index)
+	const UString& MultiListBox::getSubItemNameAt(size_t _column, size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
-		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemNameAt");
 
 		size_t index = BiIndexBase::convertToBack(_index);
 		return mVectorColumnInfo[_column].list->getItemNameAt(index);
 	}
 
-	size_t MultiList::findSubItemWith(size_t _column, const UString& _name)
+	size_t MultiListBox::findSubItemWith(size_t _column, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::findSubItemWith");
 
 		size_t index = mVectorColumnInfo[_column].list->findItemIndexWith(_name);
 		return BiIndexBase::convertToFace(index);
 	}
 	//----------------------------------------------------------------------------------//
 
-	void MultiList::updateOnlyEmpty()
+	void MultiListBox::updateOnlyEmpty()
 	{
 		if (nullptr == mButtonMain) return;
 		// кнопка, для заполнения пустоты
@@ -316,7 +316,7 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyListChangePosition(ListBox* _sender, size_t _position)
+	void MultiListBox::notifyListChangePosition(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -331,13 +331,13 @@ namespace MyGUI
 		eventListChangePosition(this, mItemSelected);
 	}
 
-	void MultiList::notifyListSelectAccept(ListBox* _sender, size_t _position)
+	void MultiListBox::notifyListSelectAccept(ListBox* _sender, size_t _position)
 	{
 		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiList::notifyListChangeFocus(ListBox* _sender, size_t _position)
+	void MultiListBox::notifyListChangeFocus(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -350,7 +350,7 @@ namespace MyGUI
 		mLastMouseFocusIndex = _position;
 	}
 
-	void MultiList::notifyListChangeScrollPosition(ListBox* _sender, size_t _position)
+	void MultiListBox::notifyListChangeScrollPosition(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -359,13 +359,13 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyButtonClick(MyGUI::Widget* _sender)
+	void MultiListBox::notifyButtonClick(MyGUI::Widget* _sender)
 	{
 		size_t index = *_sender->_getInternalData<size_t>();
 		sortByColumn(index, index == mSortColumnIndex);
 	}
 
-	void MultiList::redrawButtons()
+	void MultiListBox::redrawButtons()
 	{
 		size_t pos = 0;
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
@@ -381,7 +381,7 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::setButtonImageIndex(Button* _button, size_t _index)
+	void MultiListBox::setButtonImageIndex(Button* _button, size_t _index)
 	{
 		ImageBox* image = _button->getImageBox();
 		if ( nullptr == image ) return;
@@ -398,18 +398,18 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::frameEntered(float _frame)
+	void MultiListBox::frameEntered(float _frame)
 	{
 		sortList();
 	}
 
-	void MultiList::frameAdvise(bool _advise)
+	void MultiListBox::frameAdvise(bool _advise)
 	{
 		if ( _advise )
 		{
 			if ( ! mFrameAdvise )
 			{
-				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &MultiList::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &MultiListBox::frameEntered );
 				mFrameAdvise = true;
 			}
 		}
@@ -417,13 +417,13 @@ namespace MyGUI
 		{
 			if ( mFrameAdvise )
 			{
-				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &MultiList::frameEntered );
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &MultiListBox::frameEntered );
 				mFrameAdvise = false;
 			}
 		}
 	}
 
-	Widget* MultiList::getSeparator(size_t _index)
+	Widget* MultiListBox::getSeparator(size_t _index)
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty()) return nullptr;
 		// последний столбик
@@ -438,7 +438,7 @@ namespace MyGUI
 		return mSeparators[_index];
 	}
 
-	void MultiList::updateColumns()
+	void MultiListBox::updateColumns()
 	{
 		mWidthBar = 0;
 		size_t index = 0;
@@ -465,7 +465,7 @@ namespace MyGUI
 		updateOnlyEmpty();
 	}
 
-	void MultiList::flipList()
+	void MultiListBox::flipList()
 	{
 		if (ITEM_NONE == mSortColumnIndex) return;
 
@@ -489,7 +489,7 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	bool MultiList::compare(ListBox* _list, size_t _left, size_t _right)
+	bool MultiListBox::compare(ListBox* _list, size_t _left, size_t _right)
 	{
 		bool result = false;
 		if (mSortUp) std::swap(_left, _right);
@@ -498,7 +498,7 @@ namespace MyGUI
 		return result;
 	}
 
-	void MultiList::sortList()
+	void MultiListBox::sortList()
 	{
 		if (ITEM_NONE == mSortColumnIndex) return;
 
@@ -536,10 +536,10 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	void MultiList::insertItemAt(size_t _index, const UString& _name, Any _data)
+	void MultiListBox::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
-		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::insertItemAt");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiListBox::insertItemAt");
 		if (ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
 		// если надо, то меняем выделенный элемент
@@ -559,10 +559,10 @@ namespace MyGUI
 		frameAdvise(true);
 	}
 
-	void MultiList::removeItemAt(size_t _index)
+	void MultiListBox::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::removeItemAt");
-		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::removeItemAt");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::removeItemAt");
 
 		size_t index = BiIndexBase::removeItemAt(_index);
 
@@ -582,11 +582,11 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	void MultiList::swapItemsAt(size_t _index1, size_t _index2)
+	void MultiListBox::swapItemsAt(size_t _index1, size_t _index2)
 	{
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::removeItemAt");
-		MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
-		MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::swapItemsAt");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
+		MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 
 		// при сортированном, меняем только индексы
 		BiIndexBase::swapItemsFaceAt(_index1, _index2);
@@ -595,72 +595,72 @@ namespace MyGUI
 		// FIXME
 	}
 
-	void MultiList::setColumnDataAt(size_t _index, Any _data)
+	void MultiListBox::setColumnDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiList::setColumnDataAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::setColumnDataAt");
 		mVectorColumnInfo[_index].data = _data;
 	}
 
-	void MultiList::setSubItemDataAt(size_t _column, size_t _index, Any _data)
+	void MultiListBox::setSubItemDataAt(size_t _column, size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemDataAt");
-		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemDataAt");
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setSubItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::setSubItemDataAt");
 
 		size_t index = BiIndexBase::convertToBack(_index);
 		mVectorColumnInfo[_column].list->setItemDataAt(index, _data);
 	}
 
-	size_t MultiList::getColumnCount() const
+	size_t MultiListBox::getColumnCount() const
 	{
 		return mVectorColumnInfo.size();
 	}
 
-	void MultiList::addColumn(const UString& _name, int _width, Any _data)
+	void MultiListBox::addColumn(const UString& _name, int _width, Any _data)
 	{
 		insertColumnAt(ITEM_NONE, _name, _width, _data);
 	}
 
-	void MultiList::clearColumnDataAt(size_t _index)
+	void MultiListBox::clearColumnDataAt(size_t _index)
 	{
 		setColumnDataAt(_index, Any::Null);
 	}
 
-	void MultiList::addItem(const UString& _name, Any _data)
+	void MultiListBox::addItem(const UString& _name, Any _data)
 	{
 		insertItemAt(ITEM_NONE, _name, _data);
 	}
 
-	void MultiList::setItemNameAt(size_t _index, const UString& _name)
+	void MultiListBox::setItemNameAt(size_t _index, const UString& _name)
 	{
 		setSubItemNameAt(0, _index, _name);
 	}
 
-	const UString& MultiList::getItemNameAt(size_t _index)
+	const UString& MultiListBox::getItemNameAt(size_t _index)
 	{
 		return getSubItemNameAt(0, _index);
 	}
 
-	size_t MultiList::getIndexSelected() const
+	size_t MultiListBox::getIndexSelected() const
 	{
 		return mItemSelected;
 	}
 
-	void MultiList::clearIndexSelected()
+	void MultiListBox::clearIndexSelected()
 	{
 		setIndexSelected(ITEM_NONE);
 	}
 
-	void MultiList::setItemDataAt(size_t _index, Any _data)
+	void MultiListBox::setItemDataAt(size_t _index, Any _data)
 	{
 		setSubItemDataAt(0, _index, _data);
 	}
 
-	void MultiList::clearItemDataAt(size_t _index)
+	void MultiListBox::clearItemDataAt(size_t _index)
 	{
 		setItemDataAt(_index, Any::Null);
 	}
 
-	void MultiList::clearSubItemDataAt(size_t _column, size_t _index)
+	void MultiListBox::clearSubItemDataAt(size_t _column, size_t _index)
 	{
 		setSubItemDataAt(_column, _index, Any::Null);
 	}
