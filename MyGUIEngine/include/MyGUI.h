@@ -30,7 +30,7 @@
 #include "MyGUI_ListBox.h"
 #include "MyGUI_TextBox.h"
 #include "MyGUI_ImageBox.h"
-#include "MyGUI_Tab.h"
+#include "MyGUI_TabControl.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_ProgressBar.h"

@@ -34,12 +34,12 @@ namespace MyGUI
 		Base::initialiseOverride();
 
 		// FIXME проверить смену скина ибо должно один раз вызываться
-		//mOwner = getParent()->castType<Tab>();
+		//mOwner = getParent()->castType<TabControl>();
 	}
 
 	void TabItem::shutdownOverride()
 	{
-		Tab* owner = getParent() != nullptr ? getParent()->castType<Tab>(false) : nullptr;
+		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)
 			owner->_notifyDeleteItem(this);
 
@@ -48,7 +48,7 @@ namespace MyGUI
 
 	void TabItem::setCaption(const UString& _value)
 	{
-		Tab* owner = getParent() != nullptr ? getParent()->castType<Tab>(false) : nullptr;
+		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)
 			owner->setItemName(this, _value);
 		else
@@ -57,7 +57,7 @@ namespace MyGUI
 
 	const UString& TabItem::getCaption()
 	{
-		Tab* owner = getParent() != nullptr ? getParent()->castType<Tab>(false) : nullptr;
+		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)
 			return owner->getItemName(this);
 		return Base::getCaption();
@@ -65,7 +65,7 @@ namespace MyGUI
 
 	void TabItem::setButtonWidth(int _width)
 	{
-		Tab* owner = getParent() != nullptr ? getParent()->castType<Tab>(false) : nullptr;
+		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)
 			owner->setButtonWidth(this, _width);
 	}

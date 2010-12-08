@@ -138,14 +138,14 @@ namespace tools
 				// если выбрали виджет на табе, то поднять лист таба
 				if (parent->isType<MyGUI::TabItem>())
 				{
-					MyGUI::Tab* tab = parent->getParent()->castType<MyGUI::Tab>();
+					MyGUI::TabControl* tab = parent->getParent()->castType<MyGUI::TabControl>();
 					MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
 					tab->setItemSelected(sheet);
 				}
 				// если выбрали лист таба, то поднять лист таба
 				if (mCurrentWidget->isType<MyGUI::TabItem>())
 				{
-					MyGUI::Tab* tab = parent->castType<MyGUI::Tab>();
+					MyGUI::TabControl* tab = parent->castType<MyGUI::TabControl>();
 					MyGUI::TabItem* sheet = mCurrentWidget->castType<MyGUI::TabItem>();
 					tab->setItemSelected(sheet);
 				}

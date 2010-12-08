@@ -797,7 +797,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="Tab" size="43 60" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="TabControl" size="43 60" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="OffsetBar" value="17"/>
 		<Property key="ButtonSkin" value="TabButton"/>
 		<Property key="EmptyBarSkin" value="TabEmpty"/>

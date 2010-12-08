@@ -235,5 +235,39 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="Tab" size="43 60" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="OffsetBar" value="17"/>
+		<Property key="ButtonSkin" value="TabButton"/>
+		<Property key="EmptyBarSkin" value="TabEmpty"/>
+		<Child type="Widget" skin="Default" offset="4 26 34 28" align="Stretch" name="Sheet"/>
+		<Child type="Widget" skin="Default" offset="8 0 22 26" align="HStretch Top" name="Bar"/>
+		<Child type="Button" skin="ButtonLeft" offset="13 4 12 14" align="Right Top" name="Left"/>
+		<Child type="Button" skin="ButtonRight" offset="29 4 12 14" align="Right Top" name="Right"/>
+		<Child type="Widget" skin="TabPatch" offset="13 21 17 5" align="Right Top" name="ShowPatch"/>
+		<BasisSkin type="SubSkin" offset="0 21 8 5" align="Left Top">
+			<State name="normal" offset="524 64 8 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="30 21 13 5" align="Right Top">
+			<State name="normal" offset="554 64 13 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 26 4 29" align="Left VStretch">
+			<State name="normal" offset="524 69 4 29"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 26 33 29" align="Stretch">
+			<State name="normal" offset="528 69 33 29"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="37 26 6 29" align="Right VStretch">
+			<State name="normal" offset="561 69 6 29"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 55 4 5" align="Left Bottom">
+			<State name="normal" offset="524 98 4 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 55 33 5" align="HStretch Bottom">
+			<State name="normal" offset="528 98 33 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="37 55 8 5" align="Right Bottom">
+			<State name="normal" offset="561 98 8 5"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
 

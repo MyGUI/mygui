@@ -24,7 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextBox.h"
-#include "MyGUI_Tab.h"
+#include "MyGUI_TabControl.h"
 
 namespace MyGUI
 {

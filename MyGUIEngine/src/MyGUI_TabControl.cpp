@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Tab.h"
+#include "MyGUI_TabControl.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Button.h"
@@ -32,7 +32,7 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab() :
+	TabControl::TabControl() :
 		mOffsetTab(0),
 		mButtonShow(false),
 		mWidthBar(0),
@@ -52,7 +52,7 @@ namespace MyGUI
 	{
 	}
 
-	void Tab::initialiseOverride()
+	void TabControl::initialiseOverride()
 	{
 		Base::initialiseOverride();
 
@@ -69,21 +69,21 @@ namespace MyGUI
 		if (mButtonLeft != nullptr)
 		{
 			mButtonLeft->setVisible(false);
-			mButtonLeft->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
+			mButtonLeft->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
 		assignWidget(mButtonRight, "Right");
 		if (mButtonRight != nullptr)
 		{
 			mButtonRight->setVisible(false);
-			mButtonRight->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
+			mButtonRight->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
 		assignWidget(mButtonList, "List");
 		if (mButtonList != nullptr)
 		{
 			mButtonList->setVisible(false);
-			mButtonList->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedButtonEvent);
+			mButtonList->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
 		assignWidget(mButtonDecor, "ButtonDecor");
@@ -123,7 +123,7 @@ namespace MyGUI
 		mShutdown = false;
 	}
 
-	void Tab::shutdownOverride()
+	void TabControl::shutdownOverride()
 	{
 		mWidgetsPatch.clear();
 		mWidgetBar = nullptr;
@@ -139,7 +139,7 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	void Tab::onWidgetCreated(Widget* _widget)
+	void TabControl::onWidgetCreated(Widget* _widget)
 	{
 		Base::onWidgetCreated(_widget);
 
@@ -153,9 +153,9 @@ namespace MyGUI
 		}
 	}
 
-	TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
+	TabItem* TabControl::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "TabControl::insertItem");
 
 		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false);
 
@@ -168,10 +168,10 @@ namespace MyGUI
 		return widget->castType<TabItem>();
 	}
 
-	void Tab::swapItems(size_t _index1, size_t _index2)
+	void TabControl::swapItems(size_t _index1, size_t _index2)
 	{
-		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "Tab::swapItems");
-		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "Tab::swapItems");
+		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "TabControl::swapItems");
+		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "TabControl::swapItems");
 
 		if (_index1 != _index2)
 		{
@@ -180,28 +180,28 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::setPosition(const IntPoint& _point)
+	void TabControl::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 
 		updateBar();
 	}
 
-	void Tab::setSize(const IntSize& _size)
+	void TabControl::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
 
 		updateBar();
 	}
 
-	void Tab::setCoord(const IntCoord& _coord)
+	void TabControl::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
 		updateBar();
 	}
 
-	void Tab::updateBar()
+	void TabControl::updateBar()
 	{
 		// подстраховка
 		if (_getWidgetBar()->getWidth() < 1) return;
@@ -333,7 +333,7 @@ namespace MyGUI
 
 	}
 
-	void Tab::notifyPressedButtonEvent(MyGUI::Widget* _sender)
+	void TabControl::notifyPressedButtonEvent(MyGUI::Widget* _sender)
 	{
 		if (_sender == mButtonLeft)
 		{
@@ -357,7 +357,7 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::notifyPressedBarButtonEvent(MyGUI::Widget* _sender)
+	void TabControl::notifyPressedBarButtonEvent(MyGUI::Widget* _sender)
 	{
 		size_t select = *_sender->_getInternalData<size_t>() + mStartIndex;
 		// щелкнули по той же кнопке
@@ -394,9 +394,9 @@ namespace MyGUI
 		eventTabChangeSelect(this, mIndexSelect);
 	}
 
-	void Tab::beginToItemAt(size_t _index)
+	void TabControl::beginToItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::beginToItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::beginToItemAt");
 
 		// подстраховка
 		if (_getWidgetBar()->getWidth() < 1) return;
@@ -429,14 +429,14 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::setButtonDefaultWidth(int _width)
+	void TabControl::setButtonDefaultWidth(int _width)
 	{
 		mButtonDefaultWidth = _width;
 		if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
 		setButtonAutoWidth(false);
 	}
 
-	void Tab::setButtonAutoWidth(bool _auto)
+	void TabControl::setButtonAutoWidth(bool _auto)
 	{
 		mButtonAutoWidth = _auto;
 
@@ -453,9 +453,9 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setButtonWidthAt(size_t _index, int _width)
+	void TabControl::setButtonWidthAt(size_t _index, int _width)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setButtonWidthAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setButtonWidthAt");
 
 		if (_width <= 0)
 		{
@@ -469,9 +469,9 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setItemNameAt(size_t _index, const UString& _name)
+	void TabControl::setItemNameAt(size_t _index, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setItemNameAt");
 		mItemsInfo[_index].name = _name;
 
 		int width;
@@ -484,9 +484,9 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setIndexSelected(size_t _index)
+	void TabControl::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setIndexSelected");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setIndexSelected");
 		if (mIndexSelect == _index) return;
 		size_t old = mIndexSelect;
 		mIndexSelect = _index;
@@ -501,13 +501,13 @@ namespace MyGUI
 		beginToItemSelected();
 	}
 
-	void Tab::actionWidgetHide(Widget* _widget)
+	void TabControl::actionWidgetHide(Widget* _widget)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);
 	}
 
-	void Tab::_showItem(TabItem* _item, bool _show, bool _smooth)
+	void TabControl::_showItem(TabItem* _item, bool _show, bool _smooth)
 	{
 		if (!_smooth)
 		{
@@ -527,20 +527,20 @@ namespace MyGUI
 		else
 		{
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, TAB_SPEED_FADE_COEF, false);
-			controller->eventPostAction += newDelegate(this, &Tab::actionWidgetHide);
+			controller->eventPostAction += newDelegate(this, &TabControl::actionWidgetHide);
 			ControllerManager::getInstance().addItem(_item, controller);
 		}
 	}
 
-	void Tab::_createItemButton()
+	void TabControl::_createItemButton()
 	{
 		Button* button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
-		button->eventMouseButtonClick += newDelegate(this, &Tab::notifyPressedBarButtonEvent);
+		button->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedBarButtonEvent);
 		button->_setInternalData(mItemButton.size()); // порядковый номер
 		mItemButton.push_back(button);
 	}
 
-	int Tab::_getTextWidth(const UString& _text)
+	int TabControl::_getTextWidth(const UString& _text)
 	{
 		if (0 == mItemButton.size()) _createItemButton();
 
@@ -556,7 +556,7 @@ namespace MyGUI
 		return size.width + mItemButton[0]->getWidth() - coord.width;
 	}
 
-	void Tab::_notifyDeleteItem(TabItem* _sheet)
+	void TabControl::_notifyDeleteItem(TabItem* _sheet)
 	{
 		// общий шутдаун виджета
 		if (mShutdown) return;
@@ -581,7 +581,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::_insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data)
+	void TabControl::_insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data)
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -602,37 +602,37 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setItemDataAt(size_t _index, Any _data)
+	void TabControl::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setItemDataAt");
 		mItemsInfo[_index].data = _data;
 	}
 
-	int Tab::getButtonWidthAt(size_t _index)
+	int TabControl::getButtonWidthAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getButtonWidthAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getButtonWidthAt");
 		return mItemsInfo[_index].width;
 	}
 
-	const UString& Tab::getItemNameAt(size_t _index)
+	const UString& TabControl::getItemNameAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemNameAt");
 		return mItemsInfo[_index].name;
 	}
 
-	TabItem* Tab::getItemAt(size_t _index)
+	TabItem* TabControl::getItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemAt");
 		return mItemsInfo[_index].item;
 	}
 
-	void Tab::removeItemAt(size_t _index)
+	void TabControl::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::removeItemAt");
 		this->_destroyChildWidget(mItemsInfo[_index].item);
 	}
 
-	void Tab::removeAllItems()
+	void TabControl::removeAllItems()
 	{
 		while (mItemsInfo.size() > 0)
 		{
@@ -640,7 +640,7 @@ namespace MyGUI
 		}
 	}
 
-	ControllerFadeAlpha* Tab::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	ControllerFadeAlpha* TabControl::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
 	{
 		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
 		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
@@ -652,16 +652,16 @@ namespace MyGUI
 		return controller;
 	}
 
-	size_t Tab::getItemIndex(TabItem* _item)
+	size_t TabControl::getItemIndex(TabItem* _item)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item) return pos;
 		}
-		MYGUI_EXCEPT("item (" << _item << ") not found, source 'Tab::getItemIndex'");
+		MYGUI_EXCEPT("item (" << _item << ") not found, source 'TabControl::getItemIndex'");
 	}
 
-	size_t Tab::findItemIndex(TabItem* _item)
+	size_t TabControl::findItemIndex(TabItem* _item)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -670,7 +670,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t Tab::findItemIndexWith(const UString& _name)
+	size_t TabControl::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -679,7 +679,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	TabItem* Tab::findItemWith(const UString& _name)
+	TabItem* TabControl::findItemWith(const UString& _name)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -688,22 +688,22 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	TabItem* Tab::getItemSelected()
+	TabItem* TabControl::getItemSelected()
 	{
 		return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr;
 	}
 
-	Widget* Tab::_getWidgetTemplate()
+	Widget* TabControl::_getWidgetTemplate()
 	{
 		return mItemTemplate == nullptr ? this : mItemTemplate;
 	}
 
-	Widget* Tab::_getWidgetBar()
+	Widget* TabControl::_getWidgetBar()
 	{
 		return mWidgetBar == nullptr ? this : mWidgetBar;
 	}
 
-	void Tab::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TabControl::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "ButtonWidth")
 			setButtonDefaultWidth(utility::parseValue<int>(_value));
@@ -721,155 +721,155 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	void Tab::setPosition(int _left, int _top)
+	void TabControl::setPosition(int _left, int _top)
 	{
 		setPosition(IntPoint(_left, _top));
 	}
 
-	void Tab::setSize(int _width, int _height)
+	void TabControl::setSize(int _width, int _height)
 	{
 		setSize(IntSize(_width, _height));
 	}
 
-	void Tab::setCoord(int _left, int _top, int _width, int _height)
+	void TabControl::setCoord(int _left, int _top, int _width, int _height)
 	{
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
-	size_t Tab::getItemCount() const
+	size_t TabControl::getItemCount() const
 	{
 		return mItemsInfo.size();
 	}
 
-	TabItem* Tab::insertItem(TabItem* _to, const UString& _name, Any _data)
+	TabItem* TabControl::insertItem(TabItem* _to, const UString& _name, Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _data);
 	}
 
-	TabItem* Tab::addItem(const UString& _name, Any _data)
+	TabItem* TabControl::addItem(const UString& _name, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _data);
 	}
 
-	void Tab::removeItem(TabItem* _item)
+	void TabControl::removeItem(TabItem* _item)
 	{
 		removeItemAt(getItemIndex(_item));
 	}
 
-	size_t Tab::getIndexSelected() const
+	size_t TabControl::getIndexSelected() const
 	{
 		return mIndexSelect;
 	}
 
-	void Tab::setItemSelected(TabItem* _item)
+	void TabControl::setItemSelected(TabItem* _item)
 	{
 		setIndexSelected(getItemIndex(_item));
 	}
 
-	void Tab::setItemData(TabItem* _item, Any _data)
+	void TabControl::setItemData(TabItem* _item, Any _data)
 	{
 		setItemDataAt(getItemIndex(_item), _data);
 	}
 
-	void Tab::clearItemDataAt(size_t _index)
+	void TabControl::clearItemDataAt(size_t _index)
 	{
 		setItemDataAt(_index, Any::Null);
 	}
 
-	void Tab::clearItemData(TabItem* _item)
+	void TabControl::clearItemData(TabItem* _item)
 	{
 		clearItemDataAt(getItemIndex(_item));
 	}
 
-	void Tab::setItemName(TabItem* _item, const UString& _name)
+	void TabControl::setItemName(TabItem* _item, const UString& _name)
 	{
 		setItemNameAt(getItemIndex(_item), _name);
 	}
 
-	const UString& Tab::getItemName(TabItem* _item)
+	const UString& TabControl::getItemName(TabItem* _item)
 	{
 		return getItemNameAt(getItemIndex(_item));
 	}
 
-	void Tab::beginToItem(TabItem* _item)
+	void TabControl::beginToItem(TabItem* _item)
 	{
 		beginToItemAt(getItemIndex(_item));
 	}
 
-	void Tab::beginToItemFirst()
+	void TabControl::beginToItemFirst()
 	{
 		if (getItemCount())
 			beginToItemAt(0);
 	}
 
-	void Tab::beginToItemLast()
+	void TabControl::beginToItemLast()
 	{
 		if (getItemCount())
 			beginToItemAt(getItemCount() - 1);
 	}
 
-	void Tab::beginToItemSelected()
+	void TabControl::beginToItemSelected()
 	{
 		if (getIndexSelected() != ITEM_NONE)
 			beginToItemAt(getIndexSelected());
 	}
 
-	void Tab::setButtonWidth(TabItem* _item, int _width)
+	void TabControl::setButtonWidth(TabItem* _item, int _width)
 	{
 		setButtonWidthAt(getItemIndex(_item), _width);
 	}
 
-	int Tab::getButtonWidth(TabItem* _item)
+	int TabControl::getButtonWidth(TabItem* _item)
 	{
 		return getButtonWidthAt(getItemIndex(_item));
 	}
 
-	int Tab::getButtonDefaultWidth() const
+	int TabControl::getButtonDefaultWidth() const
 	{
 		return mButtonDefaultWidth;
 	}
 
-	bool Tab::getButtonAutoWidth() const
+	bool TabControl::getButtonAutoWidth() const
 	{
 		return mButtonAutoWidth;
 	}
 
-	void Tab::setSmoothShow(bool _value)
+	void TabControl::setSmoothShow(bool _value)
 	{
 		mSmoothShow = _value;
 	}
 
-	bool Tab::getSmoothShow() const
+	bool TabControl::getSmoothShow() const
 	{
 		return mSmoothShow;
 	}
 
-	size_t Tab::_getItemCount()
+	size_t TabControl::_getItemCount()
 	{
 		return getItemCount();
 	}
 
-	void Tab::_addItem(const MyGUI::UString& _name)
+	void TabControl::_addItem(const MyGUI::UString& _name)
 	{
 		addItem(_name);
 	}
 
-	void Tab::_removeItemAt(size_t _index)
+	void TabControl::_removeItemAt(size_t _index)
 	{
 		removeItemAt(_index);
 	}
 
-	Widget* Tab::_getItemAt(size_t _index)
+	Widget* TabControl::_getItemAt(size_t _index)
 	{
 		return getItemAt(_index);
 	}
 
-	void Tab::_setItemNameAt(size_t _index, const UString& _name)
+	void TabControl::_setItemNameAt(size_t _index, const UString& _name)
 	{
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& Tab::_getItemNameAt(size_t _index)
+	const UString& TabControl::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
 	}
