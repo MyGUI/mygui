@@ -6,7 +6,7 @@
         <Widget type="ScrollView" skin="ScrollView" position="5 262 701 271" align="Stretch" name="view_Image">
             <Property key="CanvasAlign" value="Default"/>
         </Widget>
-        <Widget type="MultiList" skin="MultiList" position="5 5 701 195" align="HStretch Top" layer="Back" name="multi_List"/>
+        <Widget type="MultiListBox" skin="MultiList" position="5 5 701 195" align="HStretch Top" layer="Back" name="multi_List"/>
         <Widget type="EditBox" skin="Edit" position="5 204 700 26" layer="Back" name="edit_ResourceName">
             <Property key="ReadOnly" value="true"/>
         </Widget>

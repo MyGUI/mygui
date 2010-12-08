@@ -9,6 +9,6 @@
         <Widget type="Button" skin="ButtonSmall" position="134 114 119 24" align="HStretch Top" name="buttonDelete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
-        <Widget type="MultiList" skin="MultiList" position="3 28 250 85" align="HStretch Top" name="multilist"/>
+        <Widget type="MultiListBox" skin="MultiList" position="3 28 250 85" align="HStretch Top" name="multilist"/>
     </Widget>
 </MyGUI>

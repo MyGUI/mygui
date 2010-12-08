@@ -28,7 +28,7 @@
 #include "MyGUI_ListBox.h"
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_MenuItem.h"
-#include "MyGUI_MultiList.h"
+#include "MyGUI_MultiListBox.h"
 #include "MyGUI_ProgressBar.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_TabControl.h"
@@ -363,94 +363,94 @@ namespace MyGUI
 	}
 
 
-	size_t MemberObsolete<MultiList>::getItemIndexSelected()
+	size_t MemberObsolete<MultiListBox>::getItemIndexSelected()
 	{
-		return static_cast<MultiList*>(this)->getIndexSelected();
+		return static_cast<MultiListBox*>(this)->getIndexSelected();
 	}
-	void MemberObsolete<MultiList>::setItemSelectedAt(size_t _index)
+	void MemberObsolete<MultiListBox>::setItemSelectedAt(size_t _index)
 	{
-		static_cast<MultiList*>(this)->setIndexSelected(_index);
+		static_cast<MultiListBox*>(this)->setIndexSelected(_index);
 	}
-	void MemberObsolete<MultiList>::clearItemSelected()
+	void MemberObsolete<MultiListBox>::clearItemSelected()
 	{
-		static_cast<MultiList*>(this)->clearIndexSelected();
+		static_cast<MultiListBox*>(this)->clearIndexSelected();
 	}
 
-	size_t MemberObsolete<MultiList>::findItem(size_t _column, const UString& _name)
+	size_t MemberObsolete<MultiListBox>::findItem(size_t _column, const UString& _name)
 	{
-		return static_cast<MultiList*>(this)->findSubItemWith(_column, _name);
+		return static_cast<MultiListBox*>(this)->findSubItemWith(_column, _name);
 	}
-	const UString& MemberObsolete<MultiList>::getSubItem(size_t _column, size_t _index)
+	const UString& MemberObsolete<MultiListBox>::getSubItem(size_t _column, size_t _index)
 	{
-		return static_cast<MultiList*>(this)->getSubItemNameAt(_column, _index);
+		return static_cast<MultiListBox*>(this)->getSubItemNameAt(_column, _index);
 	}
-	void MemberObsolete<MultiList>::setSubItem(size_t _column, size_t _index, const UString& _name)
+	void MemberObsolete<MultiListBox>::setSubItem(size_t _column, size_t _index, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->setSubItemNameAt(_column, _index, _name);
+		static_cast<MultiListBox*>(this)->setSubItemNameAt(_column, _index, _name);
 	}
-	void MemberObsolete<MultiList>::deleteColumn(size_t _column)
+	void MemberObsolete<MultiListBox>::deleteColumn(size_t _column)
 	{
-		static_cast<MultiList*>(this)->removeColumnAt(_column);
+		static_cast<MultiListBox*>(this)->removeColumnAt(_column);
 	}
-	void MemberObsolete<MultiList>::deleteAllColumns()
+	void MemberObsolete<MultiListBox>::deleteAllColumns()
 	{
-		static_cast<MultiList*>(this)->removeAllColumns();
+		static_cast<MultiListBox*>(this)->removeAllColumns();
 	}
-	int MemberObsolete<MultiList>::getColumnWidth(size_t _column)
+	int MemberObsolete<MultiListBox>::getColumnWidth(size_t _column)
 	{
-		return static_cast<MultiList*>(this)->getColumnWidthAt(_column);
+		return static_cast<MultiListBox*>(this)->getColumnWidthAt(_column);
 	}
-	const UString& MemberObsolete<MultiList>::getColumnName(size_t _column)
+	const UString& MemberObsolete<MultiListBox>::getColumnName(size_t _column)
 	{
-		return static_cast<MultiList*>(this)->getColumnNameAt(_column);
+		return static_cast<MultiListBox*>(this)->getColumnNameAt(_column);
 	}
-	void MemberObsolete<MultiList>::setColumnWidth(size_t _column, int _width)
+	void MemberObsolete<MultiListBox>::setColumnWidth(size_t _column, int _width)
 	{
-		static_cast<MultiList*>(this)->setColumnWidthAt(_column, _width);
+		static_cast<MultiListBox*>(this)->setColumnWidthAt(_column, _width);
 	}
-	void MemberObsolete<MultiList>::addColumn(int _width, const UString& _name)
+	void MemberObsolete<MultiListBox>::addColumn(int _width, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->addColumn(_name, _width);
+		static_cast<MultiListBox*>(this)->addColumn(_name, _width);
 	}
-	void MemberObsolete<MultiList>::setColumnName(size_t _column, const UString& _name)
+	void MemberObsolete<MultiListBox>::setColumnName(size_t _column, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->setColumnNameAt(_column, _name);
+		static_cast<MultiListBox*>(this)->setColumnNameAt(_column, _name);
 	}
-	void MemberObsolete<MultiList>::insertColumn(size_t _column, int _width, const UString& _name)
+	void MemberObsolete<MultiListBox>::insertColumn(size_t _column, int _width, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->insertColumnAt(_column, _name, _width);
+		static_cast<MultiListBox*>(this)->insertColumnAt(_column, _name, _width);
 	}
-	size_t MemberObsolete<MultiList>::getItemSelect()
+	size_t MemberObsolete<MultiListBox>::getItemSelect()
 	{
-		return static_cast<MultiList*>(this)->getIndexSelected();
+		return static_cast<MultiListBox*>(this)->getIndexSelected();
 	}
-	void MemberObsolete<MultiList>::resetItemSelect()
+	void MemberObsolete<MultiListBox>::resetItemSelect()
 	{
-		static_cast<MultiList*>(this)->clearIndexSelected();
+		static_cast<MultiListBox*>(this)->clearIndexSelected();
 	}
-	void MemberObsolete<MultiList>::setItemSelect(size_t _index)
+	void MemberObsolete<MultiListBox>::setItemSelect(size_t _index)
 	{
-		static_cast<MultiList*>(this)->setIndexSelected(_index);
+		static_cast<MultiListBox*>(this)->setIndexSelected(_index);
 	}
-	void MemberObsolete<MultiList>::insertItem(size_t _index, const UString& _name)
+	void MemberObsolete<MultiListBox>::insertItem(size_t _index, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->insertItemAt(_index, _name);
+		static_cast<MultiListBox*>(this)->insertItemAt(_index, _name);
 	}
-	void MemberObsolete<MultiList>::setItem(size_t _index, const UString& _name)
+	void MemberObsolete<MultiListBox>::setItem(size_t _index, const UString& _name)
 	{
-		static_cast<MultiList*>(this)->setItemNameAt(_index, _name);
+		static_cast<MultiListBox*>(this)->setItemNameAt(_index, _name);
 	}
-	const UString& MemberObsolete<MultiList>::getItem(size_t _index)
+	const UString& MemberObsolete<MultiListBox>::getItem(size_t _index)
 	{
-		return static_cast<MultiList*>(this)->getItemNameAt(_index);
+		return static_cast<MultiListBox*>(this)->getItemNameAt(_index);
 	}
-	void MemberObsolete<MultiList>::deleteItem(size_t _index)
+	void MemberObsolete<MultiListBox>::deleteItem(size_t _index)
 	{
-		static_cast<MultiList*>(this)->removeItemAt(_index);
+		static_cast<MultiListBox*>(this)->removeItemAt(_index);
 	}
-	void MemberObsolete<MultiList>::deleteAllItems()
+	void MemberObsolete<MultiListBox>::deleteAllItems()
 	{
-		static_cast<MultiList*>(this)->removeAllItems();
+		static_cast<MultiListBox*>(this)->removeAllItems();
 	}
 
 
@@ -1022,6 +1022,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "Tab factory is deprecated, use " << TabControl::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "MultiList")
+			{
+				MYGUI_LOG(Warning, "MultiList factory is deprecated, use " << MultiListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1095,6 +1099,7 @@ namespace MyGUI
 		factory.registerFactory<ListBox>("Widget", "List");
 		factory.registerFactory<EditBox>("Widget", "Edit");
 		factory.registerFactory<TabControl>("Widget", "Tab");
+		factory.registerFactory<MultiListBox>("Widget", "MultiList");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

@@ -16,7 +16,7 @@ set (HEADER_FILES
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
-  include/MyGUI_MultiList.h
+  include/MyGUI_MultiListBox.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_ProgressBar.h
   include/MyGUI_ScrollBar.h
@@ -180,7 +180,7 @@ set (SOURCE_FILES
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
-  src/MyGUI_MultiList.cpp
+  src/MyGUI_MultiListBox.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_ProgressBar.cpp
   src/MyGUI_ScrollBar.cpp
@@ -276,7 +276,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_MenuBar.cpp
   src/MyGUI_MenuCtrl.cpp
   src/MyGUI_MenuItem.cpp
-  src/MyGUI_MultiList.cpp
+  src/MyGUI_MultiListBox.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_ProgressBar.cpp
   src/MyGUI_ScrollBar.cpp
@@ -406,7 +406,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_MenuBar.h
   include/MyGUI_MenuCtrl.h
   include/MyGUI_MenuItem.h
-  include/MyGUI_MultiList.h
+  include/MyGUI_MultiListBox.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_ProgressBar.h
   include/MyGUI_ScrollBar.h

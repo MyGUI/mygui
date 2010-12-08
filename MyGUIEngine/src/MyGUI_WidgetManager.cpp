@@ -35,7 +35,7 @@
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_MenuItem.h"
-#include "MyGUI_MultiList.h"
+#include "MyGUI_MultiListBox.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_ProgressBar.h"
 #include "MyGUI_ScrollBar.h"
@@ -77,7 +77,7 @@ namespace MyGUI
 		factory.registerFactory<MenuBar>("Widget");
 		factory.registerFactory<MenuCtrl>("Widget");
 		factory.registerFactory<MenuItem>("Widget");
-		factory.registerFactory<MultiList>("Widget");
+		factory.registerFactory<MultiListBox>("Widget");
 		factory.registerFactory<PopupMenu>("Widget");
 		factory.registerFactory<ProgressBar>("Widget");
 		factory.registerFactory<ScrollBar>("Widget");

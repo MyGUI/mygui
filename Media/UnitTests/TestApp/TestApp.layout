@@ -80,7 +80,7 @@
             <Widget type="TabItem" skin="Default" position="4 26 623 478">
                 <Property key="Caption" value="item2"/>
                 <Widget type="MenuBar" skin="MenuBar" position="8 7 608 26" align="HStretch Top"/>
-                <Widget type="MultiList" skin="MultiList" position="7 270 222 200" align="Left Bottom"/>
+                <Widget type="MultiListBox" skin="MultiList" position="7 270 222 200" align="Left Bottom"/>
                 <Widget type="ProgressBar" skin="ProgressBar" position="8 245 604 15" align="HStretch Bottom">
                     <Property key="AutoTrack" value="true"/>
                 </Widget>

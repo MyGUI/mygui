@@ -132,7 +132,7 @@
 		<Parameter key="MenuItemChecked" value="Bool"/>
 	</Widget>
 
-	<Widget name="MultiList">
+	<Widget name="MultiListBox">
 		<Property key="DefaultSkin" value="MultiList"/>
 		<Property key="Base" value="Widget"/>
 

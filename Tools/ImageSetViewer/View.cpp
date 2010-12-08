@@ -34,7 +34,7 @@ namespace editor
 		}
 	}
 
-	void View::notifyListChangePosition(MyGUI::MultiList* _sender, size_t _index)
+	void View::notifyListChangePosition(MyGUI::MultiListBox* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE)
 		{
