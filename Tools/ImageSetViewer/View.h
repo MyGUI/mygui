@@ -27,14 +27,14 @@ namespace editor
 		void addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage& _group, const MyGUI::IndexImage& _index, MyGUI::IntSize& _size);
 
 		void notifyFrameStart(float _time);
-		void notifyListChangePosition(MyGUI::MultiList* _sender, size_t _index);
+		void notifyListChangePosition(MyGUI::MultiListBox* _sender, size_t _index);
 
 		void updateColumn();
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
 	private:
 
-		MyGUI::MultiList* mMultiList;
+		MyGUI::MultiListBox* mMultiList;
 		MyGUI::ScrollView* mImageView;
 
 		MyGUI::EditBox* mEditResourceName;

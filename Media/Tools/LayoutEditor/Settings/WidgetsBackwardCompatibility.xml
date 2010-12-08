@@ -51,4 +51,5 @@
 	<Widget name="List"/>
 	<Widget name="Edit"/>
 	<Widget name="Tab"/>
+	<Widget name="MultiList"/>
 </MyGUI>

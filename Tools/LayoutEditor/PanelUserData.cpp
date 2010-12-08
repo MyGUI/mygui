@@ -143,7 +143,7 @@ namespace tools
 		UndoManager::getInstance().addValue();
 	}
 
-	void PanelUserData::notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index)
+	void PanelUserData::notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index)
 	{
 		size_t item = mMultilist->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;

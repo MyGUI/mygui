@@ -15,7 +15,7 @@ namespace unittest
 	class UnitTest_MultiList
 	{
 	private:
-		MyGUI::MultiList* original_list;
+		MyGUI::MultiListBox* original_list;
 		//unittest::BiIndexData * original_list;
 		unittest::Mirror_MultiList* mirror_list;
 		size_t count_items;
@@ -32,7 +32,7 @@ namespace unittest
 	public:
 		UnitTest_MultiList()
 		{
-			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiList>("MultiList", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>("MultiList", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
 			//original_list = new unittest::BiIndexData();
 			mirror_list = new unittest::Mirror_MultiList();
 			count_items = 0;

@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MULTI_LIST_H__
-#define __MYGUI_MULTI_LIST_H__
+#ifndef __MYGUI_MULTI_LIST_BOX_H__
+#define __MYGUI_MULTI_LIST_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -35,18 +35,18 @@ namespace MyGUI
 	//OBSOLETE
 	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&> EventHandle_WidgetIntUTFStringUTFStringBool;
 
-	typedef delegates::CDelegate5<MultiList*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
-	typedef delegates::CMultiDelegate2<MultiList*, size_t> EventHandle_MultiListPtrSizeT;
+	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
+	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
 
-	class MYGUI_EXPORT MultiList :
+	class MYGUI_EXPORT MultiListBox :
 		public Widget,
 		public BiIndexBase,
-		public MemberObsolete<MultiList>
+		public MemberObsolete<MultiListBox>
 	{
-		MYGUI_RTTI_DERIVED( MultiList )
+		MYGUI_RTTI_DERIVED( MultiListBox )
 
 	public:
-		MultiList();
+		MultiListBox();
 
 		//------------------------------------------------------------------------------//
 		// Methods for work with columns (RU:методы для работы со столбцами)
@@ -113,7 +113,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getColumnDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiList::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::getItemDataAt");
 			return mVectorColumnInfo[_index].data.castType<ValueType>(_throw);
 		}
 
@@ -217,8 +217,8 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemDataAt");
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemDataAt");
+			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemDataAt");
 
 			size_t index = BiIndexBase::convertToBack(_index);
 			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
@@ -226,7 +226,7 @@ namespace MyGUI
 
 	/*events:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
@@ -234,7 +234,7 @@ namespace MyGUI
 			eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
@@ -242,7 +242,7 @@ namespace MyGUI
 			eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
-			signature : void method(MyGUI::MultiList* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
+			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
 			@param _sender widget that called this event
 			@param _column Index of column
 			@param _firstItem Strings for compare
@@ -326,4 +326,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MULTI_LIST_H__
+#endif // __MYGUI_MULTI_LIST_BOX_H__
