@@ -33,10 +33,10 @@ namespace tools
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
-		bool checkType(MyGUI::Edit* _edit, const std::string& _type);
+		bool checkType(MyGUI::EditBox* _edit, const std::string& _type);
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
-		void notifyTryApplyProperties(MyGUI::Edit* _sender); // calls notifyApplyProperties
-		void notifyForceApplyProperties(MyGUI::Edit* _widget); // calls notifyApplyProperties
+		void notifyTryApplyProperties(MyGUI::EditBox* _sender); // calls notifyApplyProperties
+		void notifyForceApplyProperties(MyGUI::EditBox* _widget); // calls notifyApplyProperties
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
 		std::string splitString(std::string& str, char separator);

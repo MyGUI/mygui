@@ -37,7 +37,7 @@
 
 	<Widget name="ComboBox">
 		<Property key="DefaultSkin" value="ComboBox"/>
-		<Property key="Base" value="Edit"/>
+		<Property key="Base" value="EditBox"/>
 
 		<Property key="Skin" value="ComboBox"/>
 
@@ -61,7 +61,7 @@
 		<Parameter key="NeedDragDrop" value="Bool"/>
 	</Widget>
 
-	<Widget name="Edit">
+	<Widget name="EditBox">
 		<Property key="DefaultSkin" value="Edit"/>
 		<Property key="Base" value="TextBox"/>
 

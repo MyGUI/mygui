@@ -11,7 +11,7 @@ namespace tools
 {
 	namespace utility
 	{
-		bool checkParseFileName(MyGUI::Edit* _edit)
+		bool checkParseFileName(MyGUI::EditBox* _edit)
 		{
 			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 			const MyGUI::UString& text = _edit->getOnlyText();

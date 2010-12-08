@@ -6,7 +6,7 @@
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{Grid_step}"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="120 8 288 24" align="HStretch Top" name="gridEdit">
+        <Widget type="EditBox" skin="Edit" position="120 8 288 24" align="HStretch Top" name="gridEdit">
             <Property key="Caption" value="8"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="5 37 107 24">

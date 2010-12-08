@@ -40,7 +40,6 @@ namespace MyGUI
 	typedef Window* WindowPtr;
 	typedef HScroll* HScrollPtr;
 	typedef VScroll* VScrollPtr;
-	typedef Edit* EditPtr;
 	typedef ComboBox* ComboBoxPtr;
 	typedef Tab* TabPtr;
 	typedef TabItem* TabItemPtr;
@@ -72,6 +71,9 @@ namespace MyGUI
 
 	typedef ListBox List;
 	typedef List* ListPtr;
+
+	typedef EditBox Edit;
+	typedef Edit* EditPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

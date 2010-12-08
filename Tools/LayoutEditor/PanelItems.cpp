@@ -209,7 +209,7 @@ namespace tools
 		UndoManager::getInstance().addValue();
 	}
 
-	void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
+	void PanelItems::notifyUpdateItem(MyGUI::EditBox* _widget)
 	{
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item)

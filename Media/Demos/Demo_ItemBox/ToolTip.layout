@@ -12,6 +12,6 @@
         <Widget type="TextBox" skin="TextBox" position="61 40 45 16" name="text_Count">
             <Property key="Caption" value="XXX"/>
         </Widget>
-        <Widget type="Edit" skin="WordWrapSimple" position="8 82 145 68" align="Stretch" name="text_Desc"/>
+        <Widget type="EditBox" skin="WordWrapSimple" position="8 82 145 68" align="Stretch" name="text_Desc"/>
     </Widget>
 </MyGUI>

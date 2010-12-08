@@ -63,7 +63,7 @@ namespace demo
 		mRawColourView->setRectColour(colour, colour, colour, colour);
 	}
 
-	void ColourWindow::notifyEditSelectAccept(MyGUI::Edit* _sender)
+	void ColourWindow::notifyEditSelectAccept(MyGUI::EditBox* _sender)
 	{
 		notifyMouseButtonClick(nullptr);
 	}

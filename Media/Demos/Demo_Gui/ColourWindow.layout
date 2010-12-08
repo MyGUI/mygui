@@ -33,14 +33,14 @@
                 <UserString key="Info" value="The colour that will be used for the selection when added to the list"/>
                 <Widget type="Widget" skin="RawRect" position="3 3 194 11" align="Stretch" layer="Back" name="Colour"/>
             </Widget>
-            <Widget type="Edit" skin="Edit" position="7 83 151 26" align="HStretch Top" name="Line">
+            <Widget type="EditBox" skin="Edit" position="7 83 151 26" align="HStretch Top" name="Line">
                 <UserString key="Info" value="An edit box: this text will be added to the list"/>
             </Widget>
             <Widget type="Button" skin="Button" position="161 83 45 26" align="Right Top" name="Add">
                 <Property key="Caption" value="Add"/>
                 <UserString key="Info" value="Adds the text to the list"/>
             </Widget>
-            <Widget type="Edit" skin="EditStretch" position="8 116 198 84" align="HStretch Top">
+            <Widget type="EditBox" skin="EditStretch" position="8 116 198 84" align="HStretch Top">
 				<Property key="WordWrap" value="true"/>
 				<Property key="Static" value="true"/>
 				<Property key="TextAlign" value="Center"/>

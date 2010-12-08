@@ -36,20 +36,20 @@ namespace demo
 
 	private:
 		MyGUI::ComboBox* mComboFont;
-		MyGUI::Edit* mEditSize;
-		MyGUI::Edit* mEditResolution;
+		MyGUI::EditBox* mEditSize;
+		MyGUI::EditBox* mEditResolution;
 		MyGUI::ComboBox* mComboAntialias;
-		MyGUI::Edit* mEditSpace;
-		MyGUI::Edit* mEditTab;
-		MyGUI::Edit* mEditCursor;
-		MyGUI::Edit* mEditDistance;
-		MyGUI::Edit* mEditOffset;
-		MyGUI::Edit* mEditRange1;
-		MyGUI::Edit* mEditRange2;
-		MyGUI::Edit* mEditHide;
+		MyGUI::EditBox* mEditSpace;
+		MyGUI::EditBox* mEditTab;
+		MyGUI::EditBox* mEditCursor;
+		MyGUI::EditBox* mEditDistance;
+		MyGUI::EditBox* mEditOffset;
+		MyGUI::EditBox* mEditRange1;
+		MyGUI::EditBox* mEditRange2;
+		MyGUI::EditBox* mEditHide;
 		MyGUI::Button* mButtonGenerate;
 		MyGUI::TextBox* mTextPix;
-		MyGUI::Edit* mEditSaveFileName;
+		MyGUI::EditBox* mEditSaveFileName;
 		MyGUI::Button* mButtonSave;
 
 		std::string mFontName;

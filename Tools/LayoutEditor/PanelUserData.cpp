@@ -118,7 +118,7 @@ namespace tools
 		UndoManager::getInstance().addValue();
 	}
 
-	void PanelUserData::notifyUpdateUserData(MyGUI::Edit* _widget)
+	void PanelUserData::notifyUpdateUserData(MyGUI::EditBox* _widget)
 	{
 		size_t item = mMultilist->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item)

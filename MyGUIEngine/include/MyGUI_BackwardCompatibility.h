@@ -90,33 +90,33 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Edit>
+	class MemberObsolete<EditBox>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setVisibleVScroll(bool _visible)")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setVisibleVScroll(bool _visible)")
 		void showVScroll(bool _visible);
-		MYGUI_OBSOLETE(" is deprecated, use : bool Edit::isVisibleVScroll()")
+		MYGUI_OBSOLETE(" is deprecated, use : bool EditBox::isVisibleVScroll()")
 		bool isShowVScroll();
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setVisibleHScroll(bool _visible)")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setVisibleHScroll(bool _visible)")
 		void showHScroll(bool _visible);
-		MYGUI_OBSOLETE(" is deprecated, use : bool Edit::isVisibleHScroll()")
+		MYGUI_OBSOLETE(" is deprecated, use : bool EditBox::isVisibleHScroll()")
 		bool isShowHScroll();
 
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour);
-		MYGUI_OBSOLETE(" is deprecated, use : size_t Edit::getTextSelectionStart() , size_t getTextSelectionEnd()")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t EditBox::getTextSelectionStart() , size_t getTextSelectionEnd()")
 		void getTextSelect(size_t& _start, size_t& _end);
-		MYGUI_OBSOLETE(" is deprecated, use : UString Edit::getTextInterval(size_t _start, size_t _count)")
+		MYGUI_OBSOLETE(" is deprecated, use : UString EditBox::getTextInterval(size_t _start, size_t _count)")
 		UString getText(size_t _start, size_t _count);
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setTextSelection(size_t _start, size_t _end)")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setTextSelection(size_t _start, size_t _end)")
 		void setTextSelect(size_t _start, size_t _end);
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::deleteTextSelection()")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::deleteTextSelection()")
 		void deleteTextSelect();
-		MYGUI_OBSOLETE(" is deprecated, use : UString Edit::getTextSelection()")
+		MYGUI_OBSOLETE(" is deprecated, use : UString EditBox::getTextSelection()")
 		UString getSelectedText();
-		MYGUI_OBSOLETE(" is deprecated, use : bool Edit::isTextSelection()")
+		MYGUI_OBSOLETE(" is deprecated, use : bool EditBox::isTextSelection()")
 		bool isTextSelect();
-		MYGUI_OBSOLETE(" is deprecated, use : void Edit::setTextSelectionColour(const Colour& _colour)")
+		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setTextSelectionColour(const Colour& _colour)")
 		void setTextSelectColour(const Colour& _colour);
 	};
 

@@ -78,7 +78,7 @@ namespace tools
 		mMainWidget->setUserData(_data);
 	}
 
-	void TextFieldControl::notifyTextAccept(MyGUI::Edit* _sender)
+	void TextFieldControl::notifyTextAccept(MyGUI::EditBox* _sender)
 	{
 		eventEndDialog(this, true);
 	}

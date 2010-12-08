@@ -25,7 +25,7 @@ namespace tools
 		virtual void updateProperty();
 
 	private:
-		void notifyEditTextChange(MyGUI::Edit* _sender);
+		void notifyEditTextChange(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
@@ -42,7 +42,7 @@ namespace tools
 		void updateSetProperty();
 
 	private:
-		MyGUI::Edit* mEdit;
+		MyGUI::EditBox* mEdit;
 		MyGUI::Widget* mColour;
 
 		ColourPanel* mColourPanel;

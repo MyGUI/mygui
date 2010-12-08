@@ -29,7 +29,7 @@ namespace demo
 			text->setCaption(MyGUI::utility::toString("line ", pos + 1, " : "));
 			mItemsText.push_back(text);
 
-			MyGUI::Edit* edit = mWidgetClient->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(width_step + width_step + width, height_current, mWidgetClient->getWidth() - (width_step + width_step + width_step + width), height), MyGUI::Align::HStretch | MyGUI::Align::Top);
+			MyGUI::EditBox* edit = mWidgetClient->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(width_step + width_step + width, height_current, mWidgetClient->getWidth() - (width_step + width_step + width_step + width), height), MyGUI::Align::HStretch | MyGUI::Align::Top);
 			mItemsEdit.push_back(edit);
 
 			height_current += height_step;

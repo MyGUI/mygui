@@ -42,13 +42,13 @@ namespace tools
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");
-		MyGUI::Edit* mPanelNameEdit;
+		MyGUI::EditBox* mPanelNameEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNamespaceEdit, "PanelNamespace");
-		MyGUI::Edit* mPanelNamespaceEdit;
+		MyGUI::EditBox* mPanelNamespaceEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mSourceDirectoryEdit, "SourceDirectory");
-		MyGUI::Edit* mSourceDirectoryEdit;
+		MyGUI::EditBox* mSourceDirectoryEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mIncludeDirectoryEdit, "IncludeDirectory");
-		MyGUI::Edit* mIncludeDirectoryEdit;
+		MyGUI::EditBox* mIncludeDirectoryEdit;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mGenerateButton, "Generate");
 		MyGUI::Button* mGenerateButton;
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mCancel, "Cancel");

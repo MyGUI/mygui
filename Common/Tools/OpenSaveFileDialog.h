@@ -44,7 +44,7 @@ namespace tools
 		void notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
-		void notifyEditSelectAccept(MyGUI::Edit* _sender);
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void update();
@@ -53,7 +53,7 @@ namespace tools
 	private:
 		MyGUI::Window* mWindow;
 		MyGUI::ListBox* mListFiles;
-		MyGUI::Edit* mEditFileName;
+		MyGUI::EditBox* mEditFileName;
 		MyGUI::ComboBox* mCurrentFolderField;
 		MyGUI::Button* mButtonOpenSave;
 

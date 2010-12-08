@@ -23,7 +23,7 @@
         <Widget type="Widget" skin="PanelSmall" position="304 74 107 107">
             <Widget type="Widget" skin="MarkerWhite" position="2 2 101 101" name="widget_ColourView"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="356 242 56 26" name="edit_Blue">
+        <Widget type="EditBox" skin="Edit" position="356 242 56 26" name="edit_Blue">
             <Property key="CursorPosition" value="0"/>
             <Property key="Caption" value="256"/>
             <Property key="TextAlign" value="Center"/>
@@ -37,7 +37,7 @@
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Green"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="356 215 56 26" name="edit_Green">
+        <Widget type="EditBox" skin="Edit" position="356 215 56 26" name="edit_Green">
             <Property key="TextAlign" value="Center"/>
             <Property key="Caption" value="256"/>
             <Property key="MaxTextLength" value="3"/>
@@ -46,7 +46,7 @@
             <Property key="Caption" value="Red"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="356 188 56 26" name="edit_Red">
+        <Widget type="EditBox" skin="Edit" position="356 188 56 26" name="edit_Red">
             <Property key="Caption" value="256"/>
             <Property key="TextAlign" value="Center"/>
             <Property key="MaxTextLength" value="3"/>

@@ -29,7 +29,7 @@
             <Property key="ImageGroup" value="Ship"/>
             <Property key="ImageName" value="None"/>
         </Widget>
-        <Widget type="Edit" skin="rtt_MonitorEdit" position="752 136 224 224" name="Description">
+        <Widget type="EditBox" skin="rtt_MonitorEdit" position="752 136 224 224" name="Description">
             <Property key="MultiLine" value="true"/>
             <Property key="Static" value="true"/>
             <Property key="WordWrap" value="true"/>

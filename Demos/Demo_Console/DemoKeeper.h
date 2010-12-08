@@ -30,7 +30,7 @@ namespace demo
 
 	private:
 		Console* mConsole;
-		MyGUI::Edit* mEdit;
+		MyGUI::EditBox* mEdit;
 	};
 
 } // namespace demo

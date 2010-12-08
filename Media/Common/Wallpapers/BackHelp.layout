@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
 	<Widget type="Widget" skin="PanelSmall" position="-400 -128 400 128" align="Default" layer="Statistic">
-		<Widget type="Edit" skin="WordWrapSimple" position="10 10 380 108" align="Stretch" name="Text">
+		<Widget type="EditBox" skin="WordWrapSimple" position="10 10 380 108" align="Stretch" name="Text">
 		</Widget>
 		<Widget type="ImageBox" skin="ImageBox" style="Popup" position="0 0 48 48" align="Default" layer="Back">
 			<Property key="ImageResource" value="pic_CoreMessageIcon"/>

@@ -55,17 +55,17 @@
             <Property key="Caption" value="#{ColourRed}"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="338 62 44 26" align="Right Top" name="edit_Blue">
+        <Widget type="EditBox" skin="Edit" position="338 62 44 26" align="Right Top" name="edit_Blue">
             <Property key="Caption" value="256"/>
             <Property key="TextAlign" value="Center"/>
             <Property key="MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="338 35 44 26" align="Right Top" name="edit_Green">
+        <Widget type="EditBox" skin="Edit" position="338 35 44 26" align="Right Top" name="edit_Green">
             <Property key="TextAlign" value="Center"/>
             <Property key="Caption" value="256"/>
             <Property key="MaxTextLength" value="3"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="338 8 44 26" align="Right Top" name="edit_Red">
+        <Widget type="EditBox" skin="Edit" position="338 8 44 26" align="Right Top" name="edit_Red">
             <Property key="Caption" value="256"/>
             <Property key="TextAlign" value="Center"/>
             <Property key="MaxTextLength" value="3"/>
@@ -80,7 +80,7 @@
             <Property key="Caption" value="#{ColourAlpha}"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="338 89 44 26" align="Right Top" name="InputAlpha">
+        <Widget type="EditBox" skin="Edit" position="338 89 44 26" align="Right Top" name="InputAlpha">
             <Property key="TextAlign" value="Center"/>
             <Property key="Caption" value="0.5"/>
             <Property key="MaxTextLength" value="4"/>

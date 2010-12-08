@@ -30,7 +30,7 @@ namespace tools
 
 		void notifyAddItem(MyGUI::Widget* _sender = 0);
 		void notifyDeleteItem(MyGUI::Widget* _sender);
-		void notifyUpdateItem(MyGUI::Edit* _widget);
+		void notifyUpdateItem(MyGUI::EditBox* _widget);
 		void notifySelectItem(MyGUI::ListBox* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
 
@@ -43,7 +43,7 @@ namespace tools
 		void addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue);
 
 	private:
-		MyGUI::Edit* mEdit;
+		MyGUI::EditBox* mEdit;
 		MyGUI::ListBox* mList;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;

@@ -39,11 +39,11 @@
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 64 117 2" align="HStretch Top" layer="Back"/>
         <Widget type="Widget" skin="Separator4" position="14 118 117 2" align="HStretch Bottom" layer="Back"/>
-        <Widget type="Edit" skin="Edit" position="13 72 121 20" align="HStretch Top" layer="Back">
+        <Widget type="EditBox" skin="Edit" position="13 72 121 20" align="HStretch Top" layer="Back">
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="Caption" value="Object"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="13 94 121 20" align="HStretch Top" layer="Back">
+        <Widget type="EditBox" skin="Edit" position="13 94 121 20" align="HStretch Top" layer="Back">
             <Property key="FontName" value="font_DejaVuSans.14"/>
             <Property key="Caption" value="Walk"/>
         </Widget>

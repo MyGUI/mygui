@@ -23,7 +23,7 @@ namespace demo
 	private:
 		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyEditSelectAccept(MyGUI::Edit* _sender);
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 		int getRand(int _min, int _max);
 
 	private:
@@ -34,7 +34,7 @@ namespace demo
 		MyGUI::Widget* mColour;
 		MyGUI::RawRect* mRawColourView;
 		MyGUI::Button* mAdd;
-		MyGUI::Edit* mLine;
+		MyGUI::EditBox* mLine;
 
 		ColourWindowBox* mBox;
 	};
