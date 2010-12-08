@@ -24,7 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Edit.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_ControllerFadeAlpha.h"
@@ -185,9 +185,9 @@ namespace MyGUI
 	private:
 		void notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyListLostFocus(Widget* _sender, MyGUI::Widget* _new);
-		void notifyListSelectAccept(List* _widget, size_t _position);
-		void notifyListMouseItemActivate(List* _widget, size_t _position);
-		void notifyListChangePosition(List* _widget, size_t _position);
+		void notifyListSelectAccept(ListBox* _widget, size_t _position);
+		void notifyListMouseItemActivate(ListBox* _widget, size_t _position);
+		void notifyListChangePosition(ListBox* _widget, size_t _position);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyEditTextChange(Edit* _sender);
@@ -203,7 +203,7 @@ namespace MyGUI
 
 	private:
 		Button* mButton;
-		List* mList;
+		ListBox* mList;
 
 		bool mListShow;
 		int mMaxListLength;

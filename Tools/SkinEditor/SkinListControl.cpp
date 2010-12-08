@@ -52,7 +52,7 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void SkinListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
+	void SkinListControl::notifyChangePosition(MyGUI::ListBox* _sender, size_t _index)
 	{
 		SkinItem* item = nullptr;
 

@@ -24,7 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_BiIndexBase.h"
 #include "MyGUI_EventPair.h"
@@ -256,17 +256,17 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		void notifyListChangePosition(List* _sender, size_t _position);
-		void notifyListChangeFocus(List* _sender, size_t _position);
-		void notifyListChangeScrollPosition(List* _sender, size_t _position);
+		void notifyListChangePosition(ListBox* _sender, size_t _position);
+		void notifyListChangeFocus(ListBox* _sender, size_t _position);
+		void notifyListChangeScrollPosition(ListBox* _sender, size_t _position);
 		void notifyButtonClick(Widget* _sender);
-		void notifyListSelectAccept(List* _sender, size_t _position);
+		void notifyListSelectAccept(ListBox* _sender, size_t _position);
 
 		void updateColumns();
 		void redrawButtons();
 		void updateOnlyEmpty();
 
-		bool compare(List* _list, size_t _left, size_t _right);
+		bool compare(ListBox* _list, size_t _left, size_t _right);
 		void sortList();
 		void flipList();
 
@@ -283,7 +283,7 @@ namespace MyGUI
 	private:
 		struct ColumnInfo
 		{
-			List* list;
+			ListBox* list;
 			Button* button;
 			int width;
 			UString name;

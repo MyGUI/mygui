@@ -14,14 +14,14 @@ namespace unittest
 	class UnitTest_List
 	{
 	private:
-		MyGUI::List* original_list;
+		MyGUI::ListBox* original_list;
 		unittest::Mirror_List* mirror_list;
 		size_t count_items;
 
 	public:
 		UnitTest_List()
 		{
-			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::List>("List", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::ListBox>("ListBox", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
 			mirror_list = new unittest::Mirror_List();
 			count_items = 0;
 		}

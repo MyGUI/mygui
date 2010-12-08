@@ -38,7 +38,6 @@ namespace MyGUI
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
 	typedef Window* WindowPtr;
-	typedef List* ListPtr;
 	typedef HScroll* HScrollPtr;
 	typedef VScroll* VScrollPtr;
 	typedef Edit* EditPtr;
@@ -70,6 +69,9 @@ namespace MyGUI
 
 	typedef ProgressBar Progress;
 	typedef Progress* ProgressPtr;
+
+	typedef ListBox List;
+	typedef List* ListPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

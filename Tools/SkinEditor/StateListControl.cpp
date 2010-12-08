@@ -54,7 +54,7 @@ namespace tools
 		mPresets->beginToItemFirst();
 	}
 
-	void StatesListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
+	void StatesListControl::notifyChangePosition(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (getCurrentSkin() != nullptr)
 		{

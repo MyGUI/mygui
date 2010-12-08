@@ -46,7 +46,7 @@ namespace tools
 		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SeparatorListControl::notifyChangePosition);
 	}
 
-	void SeparatorListControl::notifyChangePosition(MyGUI::List* _sender, size_t _index)
+	void SeparatorListControl::notifyChangePosition(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (getCurrentSkin() != nullptr)
 		{

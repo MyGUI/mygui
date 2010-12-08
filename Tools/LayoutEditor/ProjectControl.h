@@ -25,7 +25,7 @@ namespace tools
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 		void notifyMessageBoxResultDelete(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 		void notifyTextFieldEndDialog(Dialog* _sender, bool _result);
-		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
+		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 
 		bool checkCommand();
@@ -70,7 +70,7 @@ namespace tools
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;
 
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 		MyGUI::TextBox* mProjectNameText;
 	};
 

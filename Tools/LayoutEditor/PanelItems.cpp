@@ -240,7 +240,7 @@ namespace tools
 		}
 	}
 
-	void PanelItems::notifySelectItem(MyGUI::List* _widget, size_t _position)
+	void PanelItems::notifySelectItem(MyGUI::ListBox* _widget, size_t _position)
 	{
 		size_t index = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == index)

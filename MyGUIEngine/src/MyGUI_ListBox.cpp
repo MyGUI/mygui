@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ScrollBar.h"
 #include "MyGUI_ResourceSkin.h"
@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	List::List() :
+	ListBox::ListBox() :
 		mWidgetScroll(nullptr),
 		mHeightLine(1),
 		mTopIndex(0),
@@ -44,7 +44,7 @@ namespace MyGUI
 	{
 	}
 
-	void List::initialiseOverride()
+	void ListBox::initialiseOverride()
 	{
 		Base::initialiseOverride();
 
@@ -64,15 +64,15 @@ namespace MyGUI
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
-			mClient->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+			mClient->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
 			setWidgetClient(mClient);
 		}
 
 		assignWidget(mWidgetScroll, "VScroll");
 		if (mWidgetScroll != nullptr)
 		{
-			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &List::notifyScrollChangePosition);
-			mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
+			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &ListBox::notifyScrollChangePosition);
+			mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
 			mWidgetScroll->setScrollPage((size_t)mHeightLine);
 			mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 		}
@@ -81,7 +81,7 @@ namespace MyGUI
 		updateLine();
 	}
 
-	void List::shutdownOverride()
+	void ListBox::shutdownOverride()
 	{
 		mWidgetScroll = nullptr;
 		mClient = nullptr;
@@ -89,14 +89,14 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	void List::onMouseWheel(int _rel)
+	void ListBox::onMouseWheel(int _rel)
 	{
 		notifyMouseWheel(nullptr, _rel);
 
 		Base::onMouseWheel(_rel);
 	}
 
-	void List::onKeyButtonPressed(KeyCode _key, Char _char)
+	void ListBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (getItemCount() == 0)
 		{
@@ -209,7 +209,7 @@ namespace MyGUI
 		Base::onKeyButtonPressed(_key, _char);
 	}
 
-	void List::notifyMouseWheel(Widget* _sender, int _rel)
+	void ListBox::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mRangeIndex <= 0)
 			return;
@@ -238,13 +238,13 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void List::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
+	void ListBox::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
 	}
 
-	void List::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
+	void ListBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		if (MouseButton::Left != _id)
 			return;
@@ -270,9 +270,9 @@ namespace MyGUI
 		{
 
 #if MYGUI_DEBUG_MODE == 1
-			_checkMapping("List::notifyMousePressed");
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMousePressed");
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "List::notifyMousePressed");
+			_checkMapping("ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
 #endif
 
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
@@ -290,18 +290,18 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void List::notifyMouseDoubleClick(Widget* _sender)
+	void ListBox::notifyMouseDoubleClick(Widget* _sender)
 	{
 		if (mIndexSelect != ITEM_NONE)
 			eventListSelectAccept(this, mIndexSelect);
 	}
 
-	void List::setPosition(const IntPoint& _point)
+	void ListBox::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
 
-	void List::setSize(const IntSize& _size)
+	void ListBox::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
 
@@ -309,7 +309,7 @@ namespace MyGUI
 		updateLine();
 	}
 
-	void List::setCoord(const IntCoord& _coord)
+	void ListBox::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
@@ -317,7 +317,7 @@ namespace MyGUI
 		updateLine();
 	}
 
-	void List::updateScroll()
+	void ListBox::updateScroll()
 	{
 		mRangeIndex = (mHeightLine * (int)mItemsInfo.size()) - _getClientWidget()->getHeight();
 
@@ -346,7 +346,7 @@ namespace MyGUI
 			mWidgetScroll->setTrackSize(mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size());
 	}
 
-	void List::updateLine(bool _reset)
+	void ListBox::updateLine(bool _reset)
 	{
 		// сбрасываем
 		if (_reset)
@@ -371,11 +371,11 @@ namespace MyGUI
 				Widget* widget = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
 				Button* line = widget->castType<Button>();
 				// подписываемся на всякие там события
-				line->eventMouseButtonPressed += newDelegate(this, &List::notifyMousePressed);
-				line->eventMouseButtonDoubleClick += newDelegate(this, &List::notifyMouseDoubleClick);
-				line->eventMouseWheel += newDelegate(this, &List::notifyMouseWheel);
-				line->eventMouseSetFocus += newDelegate(this, &List::notifyMouseSetFocus);
-				line->eventMouseLostFocus += newDelegate(this, &List::notifyMouseLostFocus);
+				line->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
+				line->eventMouseButtonDoubleClick += newDelegate(this, &ListBox::notifyMouseDoubleClick);
+				line->eventMouseWheel += newDelegate(this, &ListBox::notifyMouseWheel);
+				line->eventMouseSetFocus += newDelegate(this, &ListBox::notifyMouseSetFocus);
+				line->eventMouseLostFocus += newDelegate(this, &ListBox::notifyMouseLostFocus);
 				line->_setContainer(this);
 				// присваиваем порядковый номер, для простоты просчета
 				line->_setInternalData((size_t)mWidgetLines.size());
@@ -454,11 +454,11 @@ namespace MyGUI
 		mOldSize.height = mCoord.height;
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::updateLine");
+		_checkMapping("ListBox::updateLine");
 #endif
 	}
 
-	void List::_redrawItemRange(size_t _start)
+	void ListBox::_redrawItemRange(size_t _start)
 	{
 		// перерисовываем линии, только те, что видны
 		size_t pos = _start;
@@ -507,12 +507,12 @@ namespace MyGUI
 		}
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::_redrawItemRange");
+		_checkMapping("ListBox::_redrawItemRange");
 #endif
 	}
 
 	// перерисовывает индекс
-	void List::_redrawItem(size_t _index)
+	void ListBox::_redrawItem(size_t _index)
 	{
 		// невидно
 		if (_index < (size_t)mTopIndex)
@@ -522,18 +522,18 @@ namespace MyGUI
 		if (_index >= mLastRedrawLine)
 			return;
 
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::_redrawItem");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::_redrawItem");
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::_redrawItem");
+		_checkMapping("ListBox::_redrawItem");
 #endif
 	}
 
-	void List::insertItemAt(size_t _index, const UString& _name, Any _data)
+	void ListBox::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListBox::insertItemAt");
 		if (_index == ITEM_NONE)
 			_index = mItemsInfo.size();
 
@@ -589,13 +589,13 @@ namespace MyGUI
 		}
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::insertItemAt");
+		_checkMapping("ListBox::insertItemAt");
 #endif
 	}
 
-	void List::removeItemAt(size_t _index)
+	void ListBox::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::removeItemAt");
 
 		// удяляем физически строку
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
@@ -661,13 +661,13 @@ namespace MyGUI
 		}
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::removeItemAt");
+		_checkMapping("ListBox::removeItemAt");
 #endif
 	}
 
-	void List::setIndexSelected(size_t _index)
+	void ListBox::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setIndexSelected");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ListBox::setIndexSelected");
 		if (mIndexSelect != _index)
 		{
 			_selectIndex(mIndexSelect, false);
@@ -676,7 +676,7 @@ namespace MyGUI
 		}
 	}
 
-	void List::_selectIndex(size_t _index, bool _select)
+	void ListBox::_selectIndex(size_t _index, bool _select)
 	{
 		if (_index == ITEM_NONE)
 			return;
@@ -694,13 +694,13 @@ namespace MyGUI
 			static_cast<Button*>(mWidgetLines[index])->setStateSelected(_select);
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::_selectIndex");
+		_checkMapping("ListBox::_selectIndex");
 #endif
 	}
 
-	void List::beginToItemAt(size_t _index)
+	void ListBox::beginToItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::beginToItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::beginToItemAt");
 		if (mRangeIndex <= 0)
 			return;
 
@@ -716,12 +716,12 @@ namespace MyGUI
 		notifyScrollChangePosition(nullptr, offset);
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::beginToItemAt");
+		_checkMapping("ListBox::beginToItemAt");
 #endif
 	}
 
 	// видим ли мы элемент, полностью или нет
-	bool List::isItemVisibleAt(size_t _index, bool _fill)
+	bool ListBox::isItemVisibleAt(size_t _index, bool _fill)
 	{
 		// если элемента нет, то мы его не видим (в том числе когда их вообще нет)
 		if (_index >= mItemsInfo.size())
@@ -756,7 +756,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void List::removeAllItems()
+	void ListBox::removeAllItems()
 	{
 		mTopIndex = 0;
 		mIndexSelect = ITEM_NONE;
@@ -777,42 +777,42 @@ namespace MyGUI
 		updateLine(true);
 
 #if MYGUI_DEBUG_MODE == 1
-		_checkMapping("List::removeAllItems");
+		_checkMapping("ListBox::removeAllItems");
 #endif
 	}
 
-	void List::setItemNameAt(size_t _index, const UString& _name)
+	void ListBox::setItemNameAt(size_t _index, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemNameAt");
 		mItemsInfo[_index].first = _name;
 		_redrawItem(_index);
 	}
 
-	void List::setItemDataAt(size_t _index, Any _data)
+	void ListBox::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemDataAt");
 		mItemsInfo[_index].second = _data;
 		_redrawItem(_index);
 	}
 
-	const UString& List::getItemNameAt(size_t _index)
+	const UString& ListBox::getItemNameAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 		return mItemsInfo[_index].first;
 	}
 
-	void List::notifyMouseSetFocus(Widget* _sender, Widget* _old)
+	void ListBox::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 
 #if MYGUI_DEBUG_MODE == 1
-		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMouseSetFocus");
+		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMouseSetFocus");
 #endif
 
 		mLineActive = *_sender->_getInternalData<size_t>();
 		eventListMouseItemFocus(this, mLineActive);
 	}
 
-	void List::notifyMouseLostFocus(Widget* _sender, Widget* _new)
+	void ListBox::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
 		if ((nullptr == _new) || (_new->getParent() != _getClientWidget()))
 		{
@@ -821,13 +821,13 @@ namespace MyGUI
 		}
 	}
 
-	void List::_setItemFocus(size_t _index, bool _focus)
+	void ListBox::_setItemFocus(size_t _index, bool _focus)
 	{
-		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "List::_setItemFocus");
+		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "ListBox::_setItemFocus");
 		static_cast<Button*>(mWidgetLines[_index])->_setMouseFocus(_focus);
 	}
 
-	void List::setScrollVisible(bool _visible)
+	void ListBox::setScrollVisible(bool _visible)
 	{
 		if (mNeedVisibleScroll == _visible)
 			return;
@@ -835,7 +835,7 @@ namespace MyGUI
 		updateScroll();
 	}
 
-	void List::setScrollPosition(size_t _position)
+	void ListBox::setScrollPosition(size_t _position)
 	{
 		if (mWidgetScroll != nullptr)
 		{
@@ -847,7 +847,7 @@ namespace MyGUI
 		}
 	}
 
-	void List::_setScrollView(size_t _position)
+	void ListBox::_setScrollView(size_t _position)
 	{
 		mOffsetTop = ((int)_position % mHeightLine);
 
@@ -872,17 +872,17 @@ namespace MyGUI
 		_redrawItemRange(mLastRedrawLine);
 	}
 
-	void List::_sendEventChangeScroll(size_t _position)
+	void ListBox::_sendEventChangeScroll(size_t _position)
 	{
 		eventListChangeScroll(this, _position);
 		if (ITEM_NONE != mLineActive)
 			eventListMouseItemFocus(this, mLineActive);
 	}
 
-	void List::swapItemsAt(size_t _index1, size_t _index2)
+	void ListBox::swapItemsAt(size_t _index1, size_t _index2)
 	{
-		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "List::swapItemsAt");
-		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "List::swapItemsAt");
+		MYGUI_ASSERT_RANGE(_index1, mItemsInfo.size(), "ListBox::swapItemsAt");
+		MYGUI_ASSERT_RANGE(_index2, mItemsInfo.size(), "ListBox::swapItemsAt");
 
 		if (_index1 == _index2)
 			return;
@@ -893,7 +893,7 @@ namespace MyGUI
 		_redrawItem(_index2);
 	}
 
-	void List::_checkMapping(const std::string& _owner)
+	void ListBox::_checkMapping(const std::string& _owner)
 	{
 		size_t count_pressed = 0;
 		size_t count_show = 0;
@@ -908,7 +908,7 @@ namespace MyGUI
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
-	void List::_checkAlign()
+	void ListBox::_checkAlign()
 	{
 		// максимальная высота всех строк
 		int max_height = mItemsInfo.size() * mHeightLine;
@@ -931,7 +931,7 @@ namespace MyGUI
 		}
 	}
 
-	size_t List::findItemIndexWith(const UString& _name)
+	size_t ListBox::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -941,80 +941,80 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	int List::getOptimalHeight()
+	int ListBox::getOptimalHeight()
 	{
 		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
 	}
 
-	Widget* List::_getClientWidget()
+	Widget* ListBox::_getClientWidget()
 	{
 		return mClient == nullptr ? this : mClient;
 	}
 
-	size_t List::getItemCount() const
+	size_t ListBox::getItemCount() const
 	{
 		return mItemsInfo.size();
 	}
 
-	void List::addItem(const UString& _name, Any _data)
+	void ListBox::addItem(const UString& _name, Any _data)
 	{
 		insertItemAt(ITEM_NONE, _name, _data);
 	}
 
-	size_t List::getIndexSelected() const
+	size_t ListBox::getIndexSelected() const
 	{
 		return mIndexSelect;
 	}
 
-	void List::clearIndexSelected()
+	void ListBox::clearIndexSelected()
 	{
 		setIndexSelected(ITEM_NONE);
 	}
 
-	void List::clearItemDataAt(size_t _index)
+	void ListBox::clearItemDataAt(size_t _index)
 	{
 		setItemDataAt(_index, Any::Null);
 	}
 
-	void List::beginToItemFirst()
+	void ListBox::beginToItemFirst()
 	{
 		if (getItemCount())
 			beginToItemAt(0);
 	}
 
-	void List::beginToItemLast()
+	void ListBox::beginToItemLast()
 	{
 		if (getItemCount())
 			beginToItemAt(getItemCount() - 1);
 	}
 
-	void List::beginToItemSelected()
+	void ListBox::beginToItemSelected()
 	{
 		if (getIndexSelected() != ITEM_NONE)
 			beginToItemAt(getIndexSelected());
 	}
 
-	bool List::isItemSelectedVisible(bool _fill)
+	bool ListBox::isItemSelectedVisible(bool _fill)
 	{
 		return isItemVisibleAt(mIndexSelect, _fill);
 	}
 
-	void List::setPosition(int _left, int _top)
+	void ListBox::setPosition(int _left, int _top)
 	{
 		setPosition(IntPoint(_left, _top));
 	}
 
-	void List::setSize(int _width, int _height)
+	void ListBox::setSize(int _width, int _height)
 	{
 		setSize(IntSize(_width, _height));
 	}
 
-	void List::setCoord(int _left, int _top, int _width, int _height)
+	void ListBox::setCoord(int _left, int _top, int _width, int _height)
 	{
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
-	size_t List::_getItemIndex(Widget* _item)
+	size_t ListBox::_getItemIndex(Widget* _item)
 	{
 		for (VectorButton::iterator iter = mWidgetLines.begin(); iter != mWidgetLines.end(); ++iter)
 		{
@@ -1024,7 +1024,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void List::_resetContainer(bool _update)
+	void ListBox::_resetContainer(bool _update)
 	{
 		// обязательно у базового
 		Base::_resetContainer(_update);
@@ -1037,7 +1037,7 @@ namespace MyGUI
 		}
 	}
 
-	void List::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ListBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "AddItem")
 			addItem(_value);
@@ -1049,27 +1049,27 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	size_t List::_getItemCount()
+	size_t ListBox::_getItemCount()
 	{
 		return getItemCount();
 	}
 
-	void List::_addItem(const MyGUI::UString& _name)
+	void ListBox::_addItem(const MyGUI::UString& _name)
 	{
 		addItem(_name);
 	}
 
-	void List::_removeItemAt(size_t _index)
+	void ListBox::_removeItemAt(size_t _index)
 	{
 		removeItemAt(_index);
 	}
 
-	void List::_setItemNameAt(size_t _index, const UString& _name)
+	void ListBox::_setItemNameAt(size_t _index, const UString& _name)
 	{
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& List::_getItemNameAt(size_t _index)
+	const UString& ListBox::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
 	}

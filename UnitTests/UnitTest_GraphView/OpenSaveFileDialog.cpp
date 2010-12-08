@@ -56,7 +56,7 @@ namespace common
 		mButtonOpenSave->setCaption(_button);
 	}
 
-	void OpenSaveFileDialog::notifyListChangePosition(MyGUI::List* _sender, size_t _index)
+	void OpenSaveFileDialog::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE)
 		{
@@ -70,7 +70,7 @@ namespace common
 		}
 	}
 
-	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::List* _sender, size_t _index)
+	void OpenSaveFileDialog::notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE) return;
 

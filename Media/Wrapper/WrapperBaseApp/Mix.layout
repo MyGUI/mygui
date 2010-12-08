@@ -51,7 +51,7 @@
 					<Property key="MultiLine" value="true"/>
 					<Property key="Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
                 </Widget>
-                <Widget type="ScrollBar" skin="HScroll" position="56 247 560 16" align="HStretch Top" layer="Back">
+                <Widget type="ScrollBar" skin="ScrollBarH" position="56 247 560 16" align="HStretch Top" layer="Back">
                     <Property key="Range" value="1000"/>
                     <Property key="RangePosition" value="50"/>
                     <Property key="Page" value="1"/>
@@ -65,7 +65,7 @@
                     <Property key="Page" value="1"/>
                     <Property key="ViewPage" value="10"/>
                 </Widget>
-                <Widget type="List" skin="List" position="288 303 329 165" align="Right VStretch" layer="Back">
+                <Widget type="ListBox" skin="ListBox" position="288 303 329 165" align="Right VStretch" layer="Back">
                     <Property key="List_AddItem" value="line1"/>
                     <Property key="List_AddItem" value="line2"/>
                     <Property key="List_AddItem" value="line3"/>
@@ -121,7 +121,7 @@
                         <Property key="Caption" value="item7"/>
                     </Widget>
                 </Widget>
-                <Widget type="ScrollBar" skin="VScroll" position="328 40 16 196" align="Right VStretch" layer="Back">
+                <Widget type="ScrollBar" skin="ScrollBarV" position="328 40 16 196" align="Right VStretch" layer="Back">
                     <Property key="Range" value="100"/>
                     <Property key="RangePosition" value="10"/>
                     <Property key="Page" value="1"/>

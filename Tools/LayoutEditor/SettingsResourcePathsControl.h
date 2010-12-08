@@ -30,7 +30,7 @@ namespace tools
 	private:
 		MyGUI::Button* mResourcePathAdd;
 		MyGUI::Button* mResourcePathDelete;
-		MyGUI::List* mResourcePaths;
+		MyGUI::ListBox* mResourcePaths;
 
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 	};

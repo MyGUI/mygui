@@ -22,7 +22,7 @@ namespace tools
 		virtual ~StatesListControl();
 
 	private:
-		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 
 		virtual void updateStateProperties();
@@ -38,7 +38,7 @@ namespace tools
 
 	private:
 		MyGUI::UString mTypeName;
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 		MyGUI::ComboBox* mPresets;
 	};
 

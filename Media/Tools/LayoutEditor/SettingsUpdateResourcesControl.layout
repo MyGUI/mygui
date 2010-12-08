@@ -6,7 +6,7 @@
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{SettingsTextUpdateResources}"/>
         </Widget>
-        <Widget type="List" skin="List" position="3 37 415 112" align="Stretch" name="Resources"/>
+        <Widget type="ListBox" skin="ListBox" position="3 37 415 112" align="Stretch" name="Resources"/>
         <Widget type="Button" skin="Button" position="298 156 120 26" align="Right Bottom" name="ResourceAdd">
             <Property key="Caption" value="#{Add}"/>
         </Widget>

@@ -31,7 +31,7 @@ namespace tools
 		void notifyAddItem(MyGUI::Widget* _sender = 0);
 		void notifyDeleteItem(MyGUI::Widget* _sender);
 		void notifyUpdateItem(MyGUI::Edit* _widget);
-		void notifySelectItem(MyGUI::List* _widget, size_t _position);
+		void notifySelectItem(MyGUI::ListBox* _widget, size_t _position);
 		virtual void notifyChangeWidth(int _width);
 
 		void selectItem(MyGUI::Widget* _widget);
@@ -44,7 +44,7 @@ namespace tools
 
 	private:
 		MyGUI::Edit* mEdit;
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
 
