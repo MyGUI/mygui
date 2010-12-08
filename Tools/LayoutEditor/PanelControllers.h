@@ -33,7 +33,7 @@ namespace tools
 
 		void notifyAdd(MyGUI::Widget* _sender = 0);
 		void notifyDelete(MyGUI::Widget* _sender);
-		void notifySelectItem(MyGUI::List* _sender, size_t _index);
+		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 
 		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
@@ -41,7 +41,7 @@ namespace tools
 		MyGUI::ComboBox* mControllerName;
 		MyGUI::Button* mButtonAdd;
 		MyGUI::Button* mButtonDelete;
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 
 		MyGUI::Widget* mCurrentWidget;
 

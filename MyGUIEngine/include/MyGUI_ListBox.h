@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_LIST_H__
-#define __MYGUI_LIST_H__
+#ifndef __MYGUI_LIST_BOX_H__
+#define __MYGUI_LIST_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
@@ -32,17 +32,17 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<List*, size_t> EventHandle_ListPtrSizeT;
+	typedef delegates::CMultiDelegate2<ListBox*, size_t> EventHandle_ListPtrSizeT;
 
-	class MYGUI_EXPORT List :
+	class MYGUI_EXPORT ListBox :
 		public Widget,
 		public IItemContainer,
-		public MemberObsolete<List>
+		public MemberObsolete<ListBox>
 	{
-		MYGUI_RTTI_DERIVED( List )
+		MYGUI_RTTI_DERIVED( ListBox )
 
 	public:
-		List();
+		ListBox();
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -96,7 +96,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
 			return mItemsInfo[_index].second.castType<ValueType>(_throw);
 		}
 
@@ -138,7 +138,7 @@ namespace MyGUI
 					true: function return true when at least part of item is visible
 		*/
 		bool isItemVisibleAt(size_t _index, bool _fill = true);
-		//! Same as List::isItemVisibleAt for selected item
+		//! Same as ListBox::isItemVisibleAt for selected item
 		bool isItemSelectedVisible(bool _fill = true);
 
 
@@ -164,12 +164,12 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height);
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
-		//! Return optimal height to fit all items in List
+		//! Return optimal height to fit all items in ListBox
 		int getOptimalHeight();
 
 	/*events:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::List* _sender, size_t _index)\n
+			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
@@ -177,7 +177,7 @@ namespace MyGUI
 			eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::List* _sender, size_t _index)\n
+			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
@@ -185,7 +185,7 @@ namespace MyGUI
 			eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
-			signature : void method(MyGUI::List* _sender, size_t _index)\n
+			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
@@ -193,7 +193,7 @@ namespace MyGUI
 			eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
-			signature : void method(MyGUI::List* _sender, size_t _index)\n
+			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of focused item
 		*/
@@ -201,7 +201,7 @@ namespace MyGUI
 			eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
-			signature : void method(MyGUI::List* _sender, size_t _position)\n
+			signature : void method(MyGUI::ListBox* _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position of scroll
 		*/
@@ -296,4 +296,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LIST_H__
+#endif // __MYGUI_LIST_BOX_H__

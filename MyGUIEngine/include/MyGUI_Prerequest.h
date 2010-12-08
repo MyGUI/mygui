@@ -76,7 +76,7 @@ namespace MyGUI
 	class Widget;
 	class Button;
 	class Window;
-	class List;
+	class ListBox;
 	class Edit;
 	class ComboBox;
 	class TextBox;

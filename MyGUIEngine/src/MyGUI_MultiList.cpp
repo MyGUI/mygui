@@ -24,7 +24,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ImageBox.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
 
@@ -104,7 +104,7 @@ namespace MyGUI
 		ColumnInfo column;
 		column.width = _width < 0 ? 0 : _width;
 
-		column.list = mClient->createWidget<List>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
+		column.list = mClient->createWidget<ListBox>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
 		column.list->eventListChangePosition += newDelegate(this, &MultiList::notifyListChangePosition);
 		column.list->eventListMouseItemFocus += newDelegate(this, &MultiList::notifyListChangeFocus);
 		column.list->eventListChangeScroll += newDelegate(this, &MultiList::notifyListChangeScrollPosition);
@@ -316,7 +316,7 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyListChangePosition(List* _sender, size_t _position)
+	void MultiList::notifyListChangePosition(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -331,13 +331,13 @@ namespace MyGUI
 		eventListChangePosition(this, mItemSelected);
 	}
 
-	void MultiList::notifyListSelectAccept(List* _sender, size_t _position)
+	void MultiList::notifyListSelectAccept(ListBox* _sender, size_t _position)
 	{
 		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiList::notifyListChangeFocus(List* _sender, size_t _position)
+	void MultiList::notifyListChangeFocus(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -350,7 +350,7 @@ namespace MyGUI
 		mLastMouseFocusIndex = _position;
 	}
 
-	void MultiList::notifyListChangeScrollPosition(List* _sender, size_t _position)
+	void MultiList::notifyListChangeScrollPosition(ListBox* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
@@ -489,7 +489,7 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	bool MultiList::compare(List* _list, size_t _left, size_t _right)
+	bool MultiList::compare(ListBox* _list, size_t _left, size_t _right)
 	{
 		bool result = false;
 		if (mSortUp) std::swap(_left, _right);
@@ -502,7 +502,7 @@ namespace MyGUI
 	{
 		if (ITEM_NONE == mSortColumnIndex) return;
 
-		List* list = mVectorColumnInfo[mSortColumnIndex].list;
+		ListBox* list = mVectorColumnInfo[mSortColumnIndex].list;
 
 		size_t count = list->getItemCount();
 		if (0 == count) return;

@@ -110,7 +110,7 @@ namespace tools
 		notifySelectItem(mList, mList->getIndexSelected());
 	}
 
-	void PanelControllers::notifySelectItem(MyGUI::List* _sender, size_t _index)
+	void PanelControllers::notifySelectItem(MyGUI::ListBox* _sender, size_t _index)
 	{
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item)

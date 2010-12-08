@@ -21,7 +21,7 @@ namespace tools
 		virtual ~SkinListControl();
 
 	private:
-		void notifyChangePosition(MyGUI::List* _sender, size_t _index);
+		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyCreate(MyGUI::Widget* _sender);
 		void notifyRename(MyGUI::Widget* _sender);
 		void notifyDelete(MyGUI::Widget* _sender);
@@ -43,7 +43,7 @@ namespace tools
 		std::string getLastTextureName();
 
 	private:
-		MyGUI::List* mList;
+		MyGUI::ListBox* mList;
 		MyGUI::Button* mCreate;
 		MyGUI::Button* mRename;
 		MyGUI::Button* mDelete;

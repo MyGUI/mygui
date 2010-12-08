@@ -130,5 +130,110 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="List" size="11 11" texture="#{MyGUI_Theme_Texture}">
+		<Property key="NeedKey" value="true"/>
+		<Property key="SkinLine" value="ListLine"/>
+		<Property key="HeightLine" value="20"/>
+		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
+		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 3" align="Stretch" name="Client"/>
+		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
+			<State name="normal" offset="429 70 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="3 0 3 3" align="HStretch Top">
+			<State name="normal" offset="435 70 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 5 3" align="Right Top">
+			<State name="normal" offset="447 70 5 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 3 3 3" align="Left VStretch">
+			<State name="normal" offset="429 76 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 3 5 3" align="Right VStretch">
+			<State name="normal" offset="447 76 5 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 6 3 5" align="Left Bottom">
+			<State name="normal" offset="429 87 3 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="3 6 3 5" align="HStretch Bottom">
+			<State name="normal" offset="435 87 3 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 6 5 5" align="Right Bottom">
+			<State name="normal" offset="447 87 5 5"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="VScroll" size="15 49" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value="14 12"/>
+		<Property key="MinTrackSize" value="19"/>
+		<Property key="VerticalAlignment" value="true"/>
+		<Child type="Button" skin="VScrollTopPart" offset="0 15 15 6" align="Stretch" name="FirstPart"/>
+		<Child type="Button" skin="VScrollBottomPart" offset="0 21 15 14" align="HStretch Bottom" name="SecondPart"/>
+		<Child type="Button" skin="ButtonUp" offset="1 2 14 12" align="HStretch Top" name="Start"/>
+		<Child type="Button" skin="ButtonDown" offset="1 37 14 12" align="HStretch Bottom" name="End"/>
+		<Child type="Button" skin="VScrollTrack" offset="1 18 14 19" align="HStretch Top" name="Track"/>
+		<BasisSkin type="SubSkin" offset="0 0 15 6" align="HStretch Top">
+			<State name="normal" offset="301 55 15 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 6 15 37" align="Stretch">
+			<State name="normal" offset="301 61 15 37"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 43 15 6" align="HStretch Bottom">
+			<State name="normal" offset="301 98 15 6"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="HScroll" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value="14 13"/>
+		<Property key="MinTrackSize" value="19"/>
+		<Property key="VerticalAlignment" value="false"/>
+		<Child type="Button" skin="HScrollLeftPart" offset="15 0 6 15" align="Stretch" name="FirstPart"/>
+		<Child type="Button" skin="HScrollRightPart" offset="21 0 14 15" align="Right VStretch" name="SecondPart"/>
+		<Child type="Button" skin="ButtonLeft" offset="2 1 12 14" align="Left VStretch" name="Start"/>
+		<Child type="Button" skin="ButtonRight" offset="36 1 12 14" align="Right VStretch" name="End"/>
+		<Child type="Button" skin="HScrollTrack" offset="18 1 19 14" align="Left VStretch" name="Track"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Left VStretch">
+			<State name="normal" offset="301 2 6 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 37 15" align="HStretch VStretch">
+			<State name="normal" offset="307 2 37 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="43 0 6 15" align="Right VStretch">
+			<State name="normal" offset="344 2 6 15"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="VSlider" size="15 49" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value="2 1"/>
+		<Property key="MinTrackSize" value="7"/>
+		<Property key="MoveToClick" value="true"/>
+		<Property key="VerticalAlignment" value="true"/>
+		<Child type="Button" skin="VScrollTopPart" offset="0 0 15 49" align="Stretch" name="FirstPart"/>
+		<Child type="Button" skin="VScrollBottomPart" offset="0 0 15 49" align="HStretch Bottom" name="SecondPart"/>
+		<Child type="Button" skin="VScrollTrackSlider" offset="1 18 14 7" align="HStretch Top" name="Track"/>
+		<BasisSkin type="SubSkin" offset="0 0 15 6" align="HStretch Top">
+			<State name="normal" offset="301 55 15 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 6 15 37" align="Stretch">
+			<State name="normal" offset="301 61 15 37"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 43 15 6" align="HStretch Bottom">
+			<State name="normal" offset="301 98 15 6"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="HSlider" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+		<Property key="TrackRangeMargins" value="2 1"/>
+		<Property key="MinTrackSize" value="7"/>
+		<Property key="MoveToClick" value="true"/>
+		<Property key="VerticalAlignment" value="false"/>
+		<Child type="Button" skin="HScrollRightPart"  offset="0 0 49 15" align="Right VStretch" name="SecondPart"/>
+		<Child type="Button" skin="HScrollLeftPart" offset="0 0 49 15" align="Stretch" name="FirstPart"/>
+		<Child type="Button" skin="HScrollTrackSlider" offset="18 1 7 14" align="Left VStretch" name="Track"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Left VStretch">
+			<State name="normal" offset="301 2 6 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 37 15" align="HStretch VStretch">
+			<State name="normal" offset="307 2 37 15"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="43 0 6 15" align="Right VStretch">
+			<State name="normal" offset="344 2 6 15"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
 

@@ -31,7 +31,7 @@
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_ItemBox.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_MenuItem.h"
@@ -73,7 +73,7 @@ namespace MyGUI
 		factory.registerFactory<DDContainer>("Widget");
 		factory.registerFactory<Edit>("Widget");
 		factory.registerFactory<ItemBox>("Widget");
-		factory.registerFactory<List>("Widget");
+		factory.registerFactory<ListBox>("Widget");
 		factory.registerFactory<MenuBar>("Widget");
 		factory.registerFactory<MenuCtrl>("Widget");
 		factory.registerFactory<MenuItem>("Widget");

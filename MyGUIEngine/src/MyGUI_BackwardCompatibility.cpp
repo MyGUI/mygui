@@ -25,7 +25,7 @@
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_Edit.h"
 #include "MyGUI_ItemBox.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_MultiList.h"
@@ -247,78 +247,78 @@ namespace MyGUI
 	}
 
 
-	size_t MemberObsolete<List>::getItemIndexSelected()
+	size_t MemberObsolete<ListBox>::getItemIndexSelected()
 	{
-		return static_cast<List*>(this)->getIndexSelected();
+		return static_cast<ListBox*>(this)->getIndexSelected();
 	}
-	void MemberObsolete<List>::setItemSelectedAt(size_t _index)
+	void MemberObsolete<ListBox>::setItemSelectedAt(size_t _index)
 	{
-		static_cast<List*>(this)->setIndexSelected(_index);
+		static_cast<ListBox*>(this)->setIndexSelected(_index);
 	}
-	void MemberObsolete<List>::clearItemSelected()
+	void MemberObsolete<ListBox>::clearItemSelected()
 	{
-		static_cast<List*>(this)->clearIndexSelected();
+		static_cast<ListBox*>(this)->clearIndexSelected();
 	}
 
-	void MemberObsolete<List>::insertItem(size_t _index, const UString& _item)
+	void MemberObsolete<ListBox>::insertItem(size_t _index, const UString& _item)
 	{
-		static_cast<List*>(this)->insertItemAt(_index, _item);
+		static_cast<ListBox*>(this)->insertItemAt(_index, _item);
 	}
-	void MemberObsolete<List>::setItem(size_t _index, const UString& _item)
+	void MemberObsolete<ListBox>::setItem(size_t _index, const UString& _item)
 	{
-		static_cast<List*>(this)->setItemNameAt(_index, _item);
+		static_cast<ListBox*>(this)->setItemNameAt(_index, _item);
 	}
-	const UString& MemberObsolete<List>::getItem(size_t _index)
+	const UString& MemberObsolete<ListBox>::getItem(size_t _index)
 	{
-		return static_cast<List*>(this)->getItemNameAt(_index);
+		return static_cast<ListBox*>(this)->getItemNameAt(_index);
 	}
-	void MemberObsolete<List>::deleteItem(size_t _index)
+	void MemberObsolete<ListBox>::deleteItem(size_t _index)
 	{
-		static_cast<List*>(this)->removeItemAt(_index);
+		static_cast<ListBox*>(this)->removeItemAt(_index);
 	}
-	void MemberObsolete<List>::deleteAllItems()
+	void MemberObsolete<ListBox>::deleteAllItems()
 	{
-		static_cast<List*>(this)->removeAllItems();
+		static_cast<ListBox*>(this)->removeAllItems();
 	}
-	size_t MemberObsolete<List>::findItem(const UString& _item)
+	size_t MemberObsolete<ListBox>::findItem(const UString& _item)
 	{
-		return static_cast<List*>(this)->findItemIndexWith(_item);
+		return static_cast<ListBox*>(this)->findItemIndexWith(_item);
 	}
-	size_t MemberObsolete<List>::getItemSelect()
+	size_t MemberObsolete<ListBox>::getItemSelect()
 	{
-		return static_cast<List*>(this)->getIndexSelected();
+		return static_cast<ListBox*>(this)->getIndexSelected();
 	}
-	void MemberObsolete<List>::resetItemSelect()
+	void MemberObsolete<ListBox>::resetItemSelect()
 	{
-		static_cast<List*>(this)->clearIndexSelected();
+		static_cast<ListBox*>(this)->clearIndexSelected();
 	}
-	void MemberObsolete<List>::setItemSelect(size_t _index)
+	void MemberObsolete<ListBox>::setItemSelect(size_t _index)
 	{
-		static_cast<List*>(this)->setIndexSelected(_index);
+		static_cast<ListBox*>(this)->setIndexSelected(_index);
 	}
-	void MemberObsolete<List>::beginToIndex(size_t _index)
+	void MemberObsolete<ListBox>::beginToIndex(size_t _index)
 	{
-		static_cast<List*>(this)->beginToItemAt(_index);
+		static_cast<ListBox*>(this)->beginToItemAt(_index);
 	}
-	void MemberObsolete<List>::beginToStart()
+	void MemberObsolete<ListBox>::beginToStart()
 	{
-		static_cast<List*>(this)->beginToItemFirst();
+		static_cast<ListBox*>(this)->beginToItemFirst();
 	}
-	void MemberObsolete<List>::beginToEnd()
+	void MemberObsolete<ListBox>::beginToEnd()
 	{
-		static_cast<List*>(this)->beginToItemLast();
+		static_cast<ListBox*>(this)->beginToItemLast();
 	}
-	void MemberObsolete<List>::beginToSelect()
+	void MemberObsolete<ListBox>::beginToSelect()
 	{
-		static_cast<List*>(this)->beginToItemSelected();
+		static_cast<ListBox*>(this)->beginToItemSelected();
 	}
-	bool MemberObsolete<List>::isItemVisible(size_t _index, bool _fill)
+	bool MemberObsolete<ListBox>::isItemVisible(size_t _index, bool _fill)
 	{
-		return static_cast<List*>(this)->isItemVisibleAt(_index, _fill);
+		return static_cast<ListBox*>(this)->isItemVisibleAt(_index, _fill);
 	}
-	bool MemberObsolete<List>::isItemSelectVisible(bool _fill)
+	bool MemberObsolete<ListBox>::isItemSelectVisible(bool _fill)
 	{
-		return static_cast<List*>(this)->isItemSelectedVisible(_fill);
+		return static_cast<ListBox*>(this)->isItemSelectedVisible(_fill);
 	}
 
 
@@ -848,7 +848,7 @@ namespace MyGUI
 		else if (_key == "List_AddItem")
 		{
 			MYGUI_LOG(Warning, "List_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			List* widget = _owner->castType<List>(false);
+			ListBox* widget = _owner->castType<ListBox>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
 			return false;
@@ -1010,6 +1010,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "Progress factory is deprecated, use " << ProgressBar::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "List")
+			{
+				MYGUI_LOG(Warning, "List factory is deprecated, use " << ListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1034,9 +1038,29 @@ namespace MyGUI
 		{
 			MYGUI_LOG(Warning, "ItemBoxV skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
+		else if (_skinName == "VScroll")
+		{
+			MYGUI_LOG(Warning, "VScroll skin is deprecated, use ScrollBarV" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "HScroll")
+		{
+			MYGUI_LOG(Warning, "HScroll skin is deprecated, use ScrollBarH" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "VSlider")
+		{
+			MYGUI_LOG(Warning, "VSlider skin is deprecated, use SliderV" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "HSlider")
+		{
+			MYGUI_LOG(Warning, "HSlider skin is deprecated, use SliderH" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
 		else if (_skinName == "Progress")
 		{
 			MYGUI_LOG(Warning, "Progress skin is deprecated, use ProgressBar" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
+		else if (_skinName == "List")
+		{
+			MYGUI_LOG(Warning, "List skin is deprecated, use ListBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _skinName;
@@ -1060,6 +1084,7 @@ namespace MyGUI
 		factory.registerFactory<ImageBox>("Widget", "StaticImage");
 		factory.registerFactory<TextBox>("Widget", "StaticText");
 		factory.registerFactory<ProgressBar>("Widget", "Progress");
+		factory.registerFactory<ListBox>("Widget", "List");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

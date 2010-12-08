@@ -25,7 +25,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_LayerManager.h"
@@ -69,7 +69,7 @@ namespace MyGUI
 			std::string list_skin = getUserString("ListSkin");
 			std::string list_layer = getUserString("ListLayer");
 
-			mList = static_cast<List*>(_createSkinWidget(WidgetStyle::Popup, List::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
+			mList = static_cast<ListBox*>(_createSkinWidget(WidgetStyle::Popup, ListBox::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
 		}
 
 		if (mList != nullptr)
@@ -142,7 +142,7 @@ namespace MyGUI
 		hideList();
 	}
 
-	void ComboBox::notifyListSelectAccept(List* _widget, size_t _position)
+	void ComboBox::notifyListSelectAccept(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
@@ -157,7 +157,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyListChangePosition(List* _widget, size_t _position)
+	void ComboBox::notifyListChangePosition(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		eventComboChangePosition(this, _position);
@@ -184,7 +184,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyListMouseItemActivate(List* _widget, size_t _position)
+	void ComboBox::notifyListMouseItemActivate(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
