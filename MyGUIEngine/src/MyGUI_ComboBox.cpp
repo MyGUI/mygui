@@ -249,7 +249,7 @@ namespace MyGUI
 			notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
-	void ComboBox::notifyEditTextChange(Edit* _sender)
+	void ComboBox::notifyEditTextChange(EditBox* _sender)
 	{
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex)

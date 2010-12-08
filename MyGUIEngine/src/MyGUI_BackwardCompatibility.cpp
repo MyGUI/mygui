@@ -23,7 +23,7 @@
 #include "MyGUI_BackwardCompatibility.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ComboBox.h"
-#include "MyGUI_Edit.h"
+#include "MyGUI_EditBox.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_ListBox.h"
 #include "MyGUI_MenuCtrl.h"
@@ -134,55 +134,55 @@ namespace MyGUI
 	}
 
 
-	void MemberObsolete<Edit>::showVScroll(bool _visible)
+	void MemberObsolete<EditBox>::showVScroll(bool _visible)
 	{
-		static_cast<Edit*>(this)->setVisibleVScroll(_visible);
+		static_cast<EditBox*>(this)->setVisibleVScroll(_visible);
 	}
-	bool MemberObsolete<Edit>::isShowVScroll()
+	bool MemberObsolete<EditBox>::isShowVScroll()
 	{
-		return static_cast<Edit*>(this)->isVisibleVScroll();
+		return static_cast<EditBox*>(this)->isVisibleVScroll();
 	}
-	void MemberObsolete<Edit>::showHScroll(bool _visible)
+	void MemberObsolete<EditBox>::showHScroll(bool _visible)
 	{
-		static_cast<Edit*>(this)->setVisibleHScroll(_visible);
+		static_cast<EditBox*>(this)->setVisibleHScroll(_visible);
 	}
-	bool MemberObsolete<Edit>::isShowHScroll()
+	bool MemberObsolete<EditBox>::isShowHScroll()
 	{
-		return static_cast<Edit*>(this)->isVisibleHScroll();
+		return static_cast<EditBox*>(this)->isVisibleHScroll();
 	}
 
-	void MemberObsolete<Edit>::setTextColour(size_t _start, size_t _count, const Colour& _colour)
+	void MemberObsolete<EditBox>::setTextColour(size_t _start, size_t _count, const Colour& _colour)
 	{
-		static_cast<Edit*>(this)->setTextIntervalColour(_start, _count, _colour);
+		static_cast<EditBox*>(this)->setTextIntervalColour(_start, _count, _colour);
 	}
-	void MemberObsolete<Edit>::getTextSelect(size_t& _start, size_t& _end)
+	void MemberObsolete<EditBox>::getTextSelect(size_t& _start, size_t& _end)
 	{
-		_start = static_cast<Edit*>(this)->getTextSelectionStart();
-		_end = static_cast<Edit*>(this)->getTextSelectionEnd();
+		_start = static_cast<EditBox*>(this)->getTextSelectionStart();
+		_end = static_cast<EditBox*>(this)->getTextSelectionEnd();
 	}
-	UString MemberObsolete<Edit>::getText(size_t _start, size_t _count)
+	UString MemberObsolete<EditBox>::getText(size_t _start, size_t _count)
 	{
-		return static_cast<Edit*>(this)->getTextInterval(_start, _count);
+		return static_cast<EditBox*>(this)->getTextInterval(_start, _count);
 	}
-	void MemberObsolete<Edit>::setTextSelect(size_t _start, size_t _end)
+	void MemberObsolete<EditBox>::setTextSelect(size_t _start, size_t _end)
 	{
-		static_cast<Edit*>(this)->setTextSelection(_start, _end);
+		static_cast<EditBox*>(this)->setTextSelection(_start, _end);
 	}
-	void MemberObsolete<Edit>::deleteTextSelect()
+	void MemberObsolete<EditBox>::deleteTextSelect()
 	{
-		static_cast<Edit*>(this)->deleteTextSelection();
+		static_cast<EditBox*>(this)->deleteTextSelection();
 	}
-	UString MemberObsolete<Edit>::getSelectedText()
+	UString MemberObsolete<EditBox>::getSelectedText()
 	{
-		return static_cast<Edit*>(this)->getTextSelection();
+		return static_cast<EditBox*>(this)->getTextSelection();
 	}
-	bool MemberObsolete<Edit>::isTextSelect()
+	bool MemberObsolete<EditBox>::isTextSelect()
 	{
-		return static_cast<Edit*>(this)->isTextSelection();
+		return static_cast<EditBox*>(this)->isTextSelection();
 	}
-	void MemberObsolete<Edit>::setTextSelectColour(const Colour& _colour)
+	void MemberObsolete<EditBox>::setTextSelectColour(const Colour& _colour)
 	{
-		static_cast<Edit*>(this)->setTextSelectionColour(_colour);
+		static_cast<EditBox*>(this)->setTextSelectionColour(_colour);
 	}
 
 
@@ -1014,6 +1014,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "List factory is deprecated, use " << ListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "Edit")
+			{
+				MYGUI_LOG(Warning, "Edit factory is deprecated, use " << EditBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1085,6 +1089,7 @@ namespace MyGUI
 		factory.registerFactory<TextBox>("Widget", "StaticText");
 		factory.registerFactory<ProgressBar>("Widget", "Progress");
 		factory.registerFactory<ListBox>("Widget", "List");
+		factory.registerFactory<EditBox>("Widget", "Edit");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

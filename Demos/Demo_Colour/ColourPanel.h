@@ -29,7 +29,7 @@ namespace demo
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);
-		void notifyEditTextChange(MyGUI::Edit* _sender);
+		void notifyEditTextChange(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void updateFirst();
@@ -56,13 +56,13 @@ namespace demo
 		MyGUI::ImageBox* mImageColourPicker;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditRed, "edit_Red");
-		MyGUI::Edit* mEditRed;
+		MyGUI::EditBox* mEditRed;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditGreen, "edit_Green");
-		MyGUI::Edit* mEditGreen;
+		MyGUI::EditBox* mEditGreen;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditBlue, "edit_Blue");
-		MyGUI::Edit* mEditBlue;
+		MyGUI::EditBox* mEditBlue;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
 		MyGUI::ScrollBar* mScrollRange;

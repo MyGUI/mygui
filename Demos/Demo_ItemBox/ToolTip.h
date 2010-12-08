@@ -26,7 +26,7 @@ namespace demo
 	private:
 		MyGUI::TextBox* mTextName;
 		MyGUI::TextBox* mTextCount;
-		MyGUI::Edit* mTextDesc;
+		MyGUI::EditBox* mTextDesc;
 		MyGUI::ImageBox* mImageInfo;
 
 		int mOffsetHeight;

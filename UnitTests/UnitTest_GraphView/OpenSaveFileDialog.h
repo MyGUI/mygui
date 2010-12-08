@@ -56,7 +56,7 @@ namespace common
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
-		void notifyEditSelectAccept(MyGUI::Edit* _sender);
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
@@ -65,8 +65,8 @@ namespace common
 
 	private:
 		MyGUI::ListBox* mListFiles;
-		MyGUI::Edit* mEditFileName;
-		MyGUI::Edit* mEditCurrentFolder;
+		MyGUI::EditBox* mEditFileName;
+		MyGUI::EditBox* mEditCurrentFolder;
 		MyGUI::Button* mButtonOpenSave;
 
 		MyGUI::UString mCurrentFolder;

@@ -106,7 +106,7 @@ namespace editor
 		const int left = 10;
 		const int text_height = 26;
 
-		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(left, _size.height, 600, text_height), MyGUI::Align::Default);
+		MyGUI::EditBox* text = mImageView->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(left, _size.height, 600, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setTextAlign(MyGUI::Align::Center);
 		text->setCaption(MyGUI::utility::toString("group name : '", _group.name, "' ,  texture : '", _group.texture, "' ,  size : ", _group.size.print()));
@@ -158,7 +158,7 @@ namespace editor
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);
 
-		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
+		MyGUI::EditBox* text = mImageView->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 600, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setCaption(_index.name);
 		//MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();

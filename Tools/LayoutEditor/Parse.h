@@ -13,7 +13,7 @@ namespace tools
 	namespace utility
 	{
 		template <typename T>
-		bool checkParseInterval(MyGUI::Edit* _edit, size_t _count, T _min, T _max)
+		bool checkParseInterval(MyGUI::EditBox* _edit, size_t _count, T _min, T _max)
 		{
 			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 			const MyGUI::UString& text = _edit->getOnlyText();
@@ -56,7 +56,7 @@ namespace tools
 		}
 
 		template <typename T>
-		bool checkParse(MyGUI::Edit* _edit, size_t _count)
+		bool checkParse(MyGUI::EditBox* _edit, size_t _count)
 		{
 			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 			const MyGUI::UString& text = _edit->getOnlyText();
@@ -93,7 +93,7 @@ namespace tools
 			return success;
 		}
 
-		bool checkParseFileName(MyGUI::Edit* _edit);
+		bool checkParseFileName(MyGUI::EditBox* _edit);
 
 	} // namespace utility
 } // namespace tools

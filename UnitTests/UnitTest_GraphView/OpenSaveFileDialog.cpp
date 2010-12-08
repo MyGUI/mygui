@@ -40,7 +40,7 @@ namespace common
 			eventEndDialog(this, false);
 	}
 
-	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::Edit* _sender)
+	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::EditBox* _sender)
 	{
 		accept();
 	}

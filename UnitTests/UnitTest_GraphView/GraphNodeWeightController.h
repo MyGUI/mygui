@@ -66,7 +66,7 @@ namespace demo
 			onChangePosition(mPosition);
 		}
 
-		void notifyEditSelectAccept(MyGUI::Edit* _sender)
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender)
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
 			if (mPosition < 0) mPosition = 0;
@@ -93,7 +93,7 @@ namespace demo
 
 	private:
 		wraps::BaseGraphConnection* mConnectionOut;
-		MyGUI::Edit* mEditPosition;
+		MyGUI::EditBox* mEditPosition;
 		MyGUI::ScrollBar* mScrollPosition;
 		float mPosition;
 

@@ -109,7 +109,7 @@ namespace demo
 		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString& _key, const MyGUI::UString& _value);
 
 	private:
-		MyGUI::Edit* mListHistory;
+		MyGUI::EditBox* mListHistory;
 		MyGUI::ComboBox* mComboCommand;
 		MyGUI::Button* mButtonSubmit;
 

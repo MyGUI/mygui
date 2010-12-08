@@ -23,7 +23,7 @@
 #define __MYGUI_COMBO_BOX_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Edit.h"
+#include "MyGUI_EditBox.h"
 #include "MyGUI_ListBox.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
@@ -38,7 +38,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
 
 	class MYGUI_EXPORT ComboBox :
-		public Edit,
+		public EditBox,
 		public IItemContainer,
 		public MemberObsolete<ComboBox>
 	{
@@ -190,7 +190,7 @@ namespace MyGUI
 		void notifyListChangePosition(ListBox* _widget, size_t _position);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
-		void notifyEditTextChange(Edit* _sender);
+		void notifyEditTextChange(EditBox* _sender);
 		void notifyToolTip(Widget* _sender, const ToolTipInfo& _info);
 
 		void showList();

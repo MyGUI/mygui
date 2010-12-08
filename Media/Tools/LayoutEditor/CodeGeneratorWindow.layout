@@ -9,12 +9,12 @@
             <Property key="Caption" value="#{CG_PanelName}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="8 32 368 26" align="HStretch Top" name="PanelName"/>
+        <Widget type="EditBox" skin="Edit" position="8 32 368 26" align="HStretch Top" name="PanelName"/>
         <Widget type="TextBox" skin="TextBox" position="8 64 368 24" align="HStretch Top">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{CG_PanelNamespace}"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="8 88 368 26" align="HStretch Top" name="PanelNamespace">
+        <Widget type="EditBox" skin="Edit" position="8 88 368 26" align="HStretch Top" name="PanelNamespace">
             <Property key="Caption" value="wrappers"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="8 120 368 24" align="HStretch Top">
@@ -25,8 +25,8 @@
             <Property key="Caption" value="#{CG_SourceDirectory}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="8 200 336 26" align="HStretch Top" name="SourceDirectory"/>
-        <Widget type="Edit" skin="Edit" position="8 144 336 26" align="HStretch Top" name="IncludeDirectory"/>
+        <Widget type="EditBox" skin="Edit" position="8 200 336 26" align="HStretch Top" name="SourceDirectory"/>
+        <Widget type="EditBox" skin="Edit" position="8 144 336 26" align="HStretch Top" name="IncludeDirectory"/>
         <Widget type="Button" skin="Button" position="232 252 144 26" align="Right Bottom" name="Generate">
             <Property key="Caption" value="#{CG_Generate}"/>
         </Widget>

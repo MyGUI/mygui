@@ -10,8 +10,8 @@
         <Widget type="Button" skin="RadioBox" position="8 72 192 24" align="HStretch Top">
             <Property key="Caption" value="Radio button"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="8 104 192 24" align="HStretch Top">
-            <Property key="Caption" value="Edit"/>
+        <Widget type="EditBox" skin="Edit" position="8 104 192 24" align="HStretch Top">
+            <Property key="Caption" value="EditBox"/>
         </Widget>
     </Widget>
 </MyGUI>

@@ -42,7 +42,7 @@ namespace tools
 		}
 	}
 
-	void PropertyIntControl::notifyEditTextChange(MyGUI::Edit* _sender)
+	void PropertyIntControl::notifyEditTextChange(MyGUI::EditBox* _sender)
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)

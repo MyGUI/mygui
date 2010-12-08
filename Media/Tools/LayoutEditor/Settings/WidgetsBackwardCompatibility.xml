@@ -49,4 +49,5 @@
 	<Widget name="StaticText"/>
 	<Widget name="Progress"/>
 	<Widget name="List"/>
+	<Widget name="Edit"/>
 </MyGUI>

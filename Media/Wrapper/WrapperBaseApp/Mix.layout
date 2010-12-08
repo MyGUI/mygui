@@ -6,7 +6,7 @@
         <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch" layer="Back">
             <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
                 <Property key="Caption" value="item1"/>
-                <Widget type="Edit" skin="EditStretch" position="20 14 184 144" layer="Back">
+                <Widget type="EditBox" skin="EditStretch" position="20 14 184 144" layer="Back">
                     <Property key="TextAlign" value="Center"/>
                     <Property key="Caption" value="EditStretch"/>
                     <Property key="MultiLine" value="true"/>
@@ -42,10 +42,10 @@
                     <Property key="ComboBox_AddItem" value="line8"/>
                     <Property key="ComboBox_AddItem" value="line9"/>
                 </Widget>
-                <Widget type="Edit" skin="Edit" position="216 167 399 26" align="HStretch Top" layer="Back">
-                    <Property key="Caption" value="Edit"/>
+                <Widget type="EditBox" skin="Edit" position="216 167 399 26" align="HStretch Top" layer="Back">
+                    <Property key="Caption" value="EditBox"/>
                 </Widget>
-                <Widget type="Edit" skin="EditStretch" position="16 279 264 190" align="Stretch" layer="Back">
+                <Widget type="EditBox" skin="EditStretch" position="16 279 264 190" align="Stretch" layer="Back">
 					<Property key="TextAlign" value="Default"/>
 					<Property key="WordWrap" value="true"/>
 					<Property key="MultiLine" value="true"/>

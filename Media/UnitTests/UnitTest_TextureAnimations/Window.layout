@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowCSMX" position="176 120 256 232" layer="RTT_Test" name="_Main">
         <Property key="Caption" value="Window"/>
         <Property key="MinSize" value="100 100"/>
-        <Widget type="Edit" skin="WordWrap" position="4 4 239 188" align="Stretch">
+        <Widget type="EditBox" skin="WordWrap" position="4 4 239 188" align="Stretch">
             <Property key="Caption" value="Controls:\n    W - Create new window.\nV button on window to enlarge it.\nX button on window to close it.\nAlso try to resize window."/>
         </Widget>
     </Widget>

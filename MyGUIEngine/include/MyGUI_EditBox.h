@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_EDIT_H__
-#define __MYGUI_EDIT_H__
+#ifndef __MYGUI_EDIT_BOX_H__
+#define __MYGUI_EDIT_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextBox.h"
@@ -32,17 +32,17 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate1<Edit*> EventHandle_EditPtr;
+	typedef delegates::CMultiDelegate1<EditBox*> EventHandle_EditPtr;
 
-	class MYGUI_EXPORT Edit :
+	class MYGUI_EXPORT EditBox :
 		public TextBox,
 		public ScrollViewBase,
-		public MemberObsolete<Edit>
+		public MemberObsolete<EditBox>
 	{
-		MYGUI_RTTI_DERIVED( Edit )
+		MYGUI_RTTI_DERIVED( EditBox )
 
 	public:
-		Edit();
+		EditBox();
 
 		/** Colour interval */
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour);
@@ -195,13 +195,13 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
-		/** Show VScroll when text size larger than Edit */
+		/** Show VScroll when text size larger than EditBox */
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() const;
 		/** Get range of vertical scroll (or 0 if no scroll).
-			Range measured in pixels (full text heiht minus Edit height).
-			For example if Edit is 200 pixels height and 40 lines of text
+			Range measured in pixels (full text heiht minus EditBox height).
+			For example if EditBox is 200 pixels height and 40 lines of text
 			30 pixels height each (i.e. 600 pixels total), then return
 			value is 400 ( = 600 - 200 ).
 		*/
@@ -211,13 +211,13 @@ namespace MyGUI
 		/** Set current position of vertical scroll */
 		void setVScrollPosition(size_t _index);
 
-		/** Show HScroll when text size larger than Edit */
+		/** Show HScroll when text size larger than EditBox */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() const;
 		/** Get range of horizontal scroll (or 0 if no scroll).
-			Range measured in pixels (full text width minus Edit width).
-			For example if Edit is 200 pixels width and the longest line
+			Range measured in pixels (full text width minus EditBox width).
+			For example if EditBox is 200 pixels width and the longest line
 			is 600 pixels width, then return value is 400 ( = 600 - 200 ).
 		*/
 		size_t getHScrollRange();
@@ -245,14 +245,14 @@ namespace MyGUI
 
 	/*events:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
-			signature : void method(MyGUI::Edit* _sender)
+			signature : void method(MyGUI::EditBox* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr>
 			eventEditSelectAccept;
 
 		/** Event : Text changed.\n
-			signature : void method(MyGUI::Edit* _sender)
+			signature : void method(MyGUI::EditBox* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr>
@@ -395,4 +395,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_EDIT_H__
+#endif // __MYGUI_EDIT_BOX_H__

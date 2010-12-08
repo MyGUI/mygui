@@ -65,7 +65,7 @@ namespace tools
 		}
 	}
 
-	void PropertyColourControl::notifyEditTextChange(MyGUI::Edit* _sender)
+	void PropertyColourControl::notifyEditTextChange(MyGUI::EditBox* _sender)
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)

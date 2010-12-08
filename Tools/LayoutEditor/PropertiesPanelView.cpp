@@ -320,9 +320,9 @@ namespace tools
 		{
 			if (widget_for_type == PropertyType_Edit)
 			{
-				editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-				editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange += newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
-				editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+				editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+				editOrCombo->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
+				editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 			}
 			else if (widget_for_type == PropertyType_ComboBox)
 			{
@@ -336,8 +336,8 @@ namespace tools
 			}
 			else if (widget_for_type == PropertyType_EditAcceptOnly)
 			{
-				editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-				editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
+				editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+				editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 			}
 
 			if (mPropertiesElement[_window].size() < mPairsCounter)
@@ -405,12 +405,12 @@ namespace tools
 
 		if (_value.empty())
 		{
-			editOrCombo->castType<MyGUI::Edit>()->setCaption(DEFAULT_VALUE);
+			editOrCombo->castType<MyGUI::EditBox>()->setCaption(DEFAULT_VALUE);
 		}
 		else
 		{
-			editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
-			checkType(editOrCombo->castType<MyGUI::Edit>(), _type);
+			editOrCombo->castType<MyGUI::EditBox>()->setOnlyText(_value);
+			checkType(editOrCombo->castType<MyGUI::EditBox>(), _type);
 		}
 	}
 
@@ -425,7 +425,7 @@ namespace tools
 		}
 	}
 
-	bool PropertiesPanelView::checkType(MyGUI::Edit* _edit, const std::string& _type)
+	bool PropertiesPanelView::checkType(MyGUI::EditBox* _edit, const std::string& _type)
 	{
 		bool success = true;
 
@@ -476,7 +476,7 @@ namespace tools
 	{
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-		MyGUI::Edit* senderEdit = _sender->castType<MyGUI::Edit>();
+		MyGUI::EditBox* senderEdit = _sender->castType<MyGUI::EditBox>();
 		std::string action = senderEdit->getUserString("action");
 		std::string value = senderEdit->getOnlyText();
 		std::string type = senderEdit->getUserString("type");
@@ -620,12 +620,12 @@ namespace tools
 		}
 	}
 
-	void PropertiesPanelView::notifyTryApplyProperties(MyGUI::Edit* _sender)
+	void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditBox* _sender)
 	{
 		notifyApplyProperties(_sender, false);
 	}
 
-	void PropertiesPanelView::notifyForceApplyProperties(MyGUI::Edit* _sender)
+	void PropertiesPanelView::notifyForceApplyProperties(MyGUI::EditBox* _sender)
 	{
 		notifyApplyProperties(_sender, true);
 	}

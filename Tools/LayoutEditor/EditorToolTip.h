@@ -25,7 +25,7 @@ namespace tools
 		void setPosition(const MyGUI::IntPoint& _point);
 
 	private:
-		MyGUI::Edit* mText;
+		MyGUI::EditBox* mText;
 		MyGUI::Widget* mLastWidget;
 
 		int mMinWidth;

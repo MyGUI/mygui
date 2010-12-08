@@ -50,7 +50,7 @@ namespace tools
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 
-	void SettingsGeneralControl::notifyNewGridStepAccept(MyGUI::Edit* _sender)
+	void SettingsGeneralControl::notifyNewGridStepAccept(MyGUI::EditBox* _sender)
 	{
 		notifyNewGridStep(_sender);
 	}

@@ -24,7 +24,7 @@ namespace demo
 		int getRand(int _min, int _max);
 
 	private:
-		MyGUI::Edit* mInfo;
+		MyGUI::EditBox* mInfo;
 		MyGUI::Widget* mFocus;
 	};
 
