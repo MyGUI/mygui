@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_TAB_H__
-#define __MYGUI_TAB_H__
+#ifndef __MYGUI_TAB_CONTROL_H__
+#define __MYGUI_TAB_CONTROL_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -33,21 +33,21 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<Tab*, size_t> EventHandle_TabPtrSizeT;
+	typedef delegates::CMultiDelegate2<TabControl*, size_t> EventHandle_TabPtrSizeT;
 
-	class MYGUI_EXPORT Tab :
+	class MYGUI_EXPORT TabControl :
 		public Widget,
 		public IItemContainer,
-		public MemberObsolete<Tab>
+		public MemberObsolete<TabControl>
 	{
 		// для уведобления об удалении
 		//FIXME
 		friend class TabItem;
 
-		MYGUI_RTTI_DERIVED( Tab )
+		MYGUI_RTTI_DERIVED( TabControl )
 
 	public:
-		Tab();
+		TabControl();
 
 		struct TabItemInfo
 		{
@@ -154,7 +154,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
@@ -228,8 +228,8 @@ namespace MyGUI
 		bool getSmoothShow() const;
 
 	/*events:*/
-		/** Event : Active Tab sheet changed \n
-			signature : void method(MyGUI::Tab* _sender, size_t _index)\n
+		/** Event : Active TabControl sheet changed \n
+			signature : void method(MyGUI::TabControl* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index Index of selected sheet
 		*/
@@ -311,4 +311,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TAB_H__
+#endif // __MYGUI_TAB_CONTROL_H__

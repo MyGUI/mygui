@@ -34,7 +34,7 @@ namespace tools
 		bool getCellSelected(MyGUI::Widget* _widget);
 
 	private:
-		MyGUI::Tab* mTabSkins;
+		MyGUI::TabControl* mTabSkins;
 		MyGUI::Button* mPopupMode;
 
 		int mWidgetsButtonWidth;

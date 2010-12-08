@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowC" position="32 72 211 309" layer="Overlapped" name="_Main">
-        <Widget type="Tab" skin="Tab" position="2 2 197 268">
+        <Widget type="TabControl" skin="Tab" position="2 2 197 268">
             <Widget type="TabItem" skin="Default" position="4 26 188 236">
                 <Property key="Caption" value="File"/>
                 <Widget type="Button" skin="Button" position="14 22 160 26" name="New">

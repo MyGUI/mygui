@@ -41,7 +41,7 @@ namespace tools
 		mMainWidget->setVisible(_value);
 	}
 
-	void MainPane::notifyTabChangeSelect(MyGUI::Tab* _sender, size_t _index)
+	void MainPane::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
 	{
 		mSkinControl->setActivate(false);
 		mStatesControl->setActivate(false);

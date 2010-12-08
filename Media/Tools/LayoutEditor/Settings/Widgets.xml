@@ -238,7 +238,7 @@
 		<Parameter key="FontHeight" value="1 int"/>
 	</Widget>
 
-	<Widget name="Tab">
+	<Widget name="TabControl">
 		<Property key="DefaultSkin" value="Tab"/>
 		<Property key="Base" value="Widget"/>
 

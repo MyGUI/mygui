@@ -307,46 +307,46 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Tab>
+	class MemberObsolete<TabControl>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : int Tab::getButtonWidthAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : int TabControl::getButtonWidthAt(size_t _index)")
 		int getSheetButtonWidthIndex(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : int Tab::getButtonWidth(TabItem* _item)")
+		MYGUI_OBSOLETE(" is deprecated, use : int TabControl::getButtonWidth(TabItem* _item)")
 		int getSheetButtonWidth(TabItem* _sheet);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setButtonWidthAt(size_t _index, int _width)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setButtonWidthAt(size_t _index, int _width)")
 		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setButtonWidth(TabItem* _item, int _width)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setButtonWidth(TabItem* _item, int _width)")
 		void setSheetButtonWidth(TabItem* _sheet, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::beginToItemAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::beginToItemAt(size_t _index)")
 		void showBarButton(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::beginToItemSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::beginToItemSelected()")
 		void showBarSelectButton();
-		MYGUI_OBSOLETE(" is deprecated, use : size_t Tab::getItemCount()")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t TabControl::getItemCount()")
 		size_t getSheetCount();
-		MYGUI_OBSOLETE(" is deprecated, use : const UString& Tab::getItemName(TabItem* _item)")
+		MYGUI_OBSOLETE(" is deprecated, use : const UString& TabControl::getItemName(TabItem* _item)")
 		const UString& getSheetName(TabItem* _sheet);
-		MYGUI_OBSOLETE(" is deprecated, use : const UString& Tab::getItemNameAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : const UString& TabControl::getItemNameAt(size_t _index)")
 		const UString& getSheetNameIndex(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : TabItem* Tab::getItemAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : TabItem* TabControl::getItemAt(size_t _index)")
 		TabItem* getSheet(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setItemNameAt(size_t _index, const UString& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setItemNameAt(size_t _index, const UString& _name)")
 		void setSheetNameIndex(size_t _index, const UString& _name, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setItemName(TabItem* _item, const UString& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setItemName(TabItem* _item, const UString& _name)")
 		void setSheetName(TabItem* _sheet, const UString& _name, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : TabItem* Tab::addItem(const UString& _name, Any _data)")
+		MYGUI_OBSOLETE(" is deprecated, use : TabItem* TabControl::addItem(const UString& _name, Any _data)")
 		TabItem* addSheet(const UString& _name, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)")
+		MYGUI_OBSOLETE(" is deprecated, use : TabItem* TabControl::insertItemAt(size_t _index, const UString& _name, Any _data)")
 		TabItem* insertSheet(size_t _index, const UString& _name, int _width = DEFAULT);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::removeItemAt(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::removeItemAt(size_t _index)")
 		void removeSheetIndex(size_t _index);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::removeItem(TabItem* _item)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::removeItem(TabItem* _item)")
 		void removeSheet(TabItem* _sheet);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setIndexSelected(size_t _index)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setIndexSelected(size_t _index)")
 		void selectSheetIndex(size_t _index, bool _smooth = true);
-		MYGUI_OBSOLETE(" is deprecated, use : void Tab::setItemSelected(TabItem* _item)")
+		MYGUI_OBSOLETE(" is deprecated, use : void TabControl::setItemSelected(TabItem* _item)")
 		void selectSheet(TabItem* _sheet, bool _smooth = true);
-		MYGUI_OBSOLETE(" is deprecated, use : size_t Tab::getIndexSelected()")
+		MYGUI_OBSOLETE(" is deprecated, use : size_t TabControl::getIndexSelected()")
 		size_t getSelectSheetIndex();
 
 		MYGUI_OBSOLETE(" is deprecated, use : size_t Widget::getIndexSelected()")

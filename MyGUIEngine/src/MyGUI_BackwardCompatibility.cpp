@@ -31,7 +31,7 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_ProgressBar.h"
 #include "MyGUI_ScrollView.h"
-#include "MyGUI_Tab.h"
+#include "MyGUI_TabControl.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_TabItem.h"
@@ -497,90 +497,90 @@ namespace MyGUI
 	}
 
 
-	int MemberObsolete<Tab>::getSheetButtonWidthIndex(size_t _index)
+	int MemberObsolete<TabControl>::getSheetButtonWidthIndex(size_t _index)
 	{
-		return static_cast<Tab*>(this)->getButtonWidthAt(_index);
+		return static_cast<TabControl*>(this)->getButtonWidthAt(_index);
 	}
-	int MemberObsolete<Tab>::getSheetButtonWidth(TabItem* _sheet)
+	int MemberObsolete<TabControl>::getSheetButtonWidth(TabItem* _sheet)
 	{
-		return static_cast<Tab*>(this)->getButtonWidth(_sheet);
+		return static_cast<TabControl*>(this)->getButtonWidth(_sheet);
 	}
-	void MemberObsolete<Tab>::setSheetButtonWidthIndex(size_t _index, int _width)
+	void MemberObsolete<TabControl>::setSheetButtonWidthIndex(size_t _index, int _width)
 	{
-		static_cast<Tab*>(this)->setButtonWidthAt(_index, _width);
+		static_cast<TabControl*>(this)->setButtonWidthAt(_index, _width);
 	}
-	void MemberObsolete<Tab>::setSheetButtonWidth(TabItem* _sheet, int _width)
+	void MemberObsolete<TabControl>::setSheetButtonWidth(TabItem* _sheet, int _width)
 	{
-		static_cast<Tab*>(this)->setButtonWidth(_sheet, _width);
+		static_cast<TabControl*>(this)->setButtonWidth(_sheet, _width);
 	}
-	void MemberObsolete<Tab>::showBarButton(size_t _index)
+	void MemberObsolete<TabControl>::showBarButton(size_t _index)
 	{
-		static_cast<Tab*>(this)->beginToItemAt(_index);
+		static_cast<TabControl*>(this)->beginToItemAt(_index);
 	}
-	void MemberObsolete<Tab>::showBarSelectButton()
+	void MemberObsolete<TabControl>::showBarSelectButton()
 	{
-		static_cast<Tab*>(this)->beginToItemSelected();
+		static_cast<TabControl*>(this)->beginToItemSelected();
 	}
-	size_t MemberObsolete<Tab>::getSheetCount()
+	size_t MemberObsolete<TabControl>::getSheetCount()
 	{
-		return static_cast<Tab*>(this)->getItemCount();
+		return static_cast<TabControl*>(this)->getItemCount();
 	}
-	const UString& MemberObsolete<Tab>::getSheetName(TabItem* _sheet)
+	const UString& MemberObsolete<TabControl>::getSheetName(TabItem* _sheet)
 	{
-		return static_cast<Tab*>(this)->getItemName(_sheet);
+		return static_cast<TabControl*>(this)->getItemName(_sheet);
 	}
-	const UString& MemberObsolete<Tab>::getSheetNameIndex(size_t _index)
+	const UString& MemberObsolete<TabControl>::getSheetNameIndex(size_t _index)
 	{
-		return static_cast<Tab*>(this)->getItemNameAt(_index);
+		return static_cast<TabControl*>(this)->getItemNameAt(_index);
 	}
-	TabItem* MemberObsolete<Tab>::getSheet(size_t _index)
+	TabItem* MemberObsolete<TabControl>::getSheet(size_t _index)
 	{
-		return static_cast<Tab*>(this)->getItemAt(_index);
+		return static_cast<TabControl*>(this)->getItemAt(_index);
 	}
-	void MemberObsolete<Tab>::setSheetNameIndex(size_t _index, const UString& _name, int _width)
+	void MemberObsolete<TabControl>::setSheetNameIndex(size_t _index, const UString& _name, int _width)
 	{
-		static_cast<Tab*>(this)->setItemNameAt(_index, _name);
+		static_cast<TabControl*>(this)->setItemNameAt(_index, _name);
 	}
-	void MemberObsolete<Tab>::setSheetName(TabItem* _sheet, const UString& _name, int _width)
+	void MemberObsolete<TabControl>::setSheetName(TabItem* _sheet, const UString& _name, int _width)
 	{
-		static_cast<Tab*>(this)->setItemName(_sheet, _name);
+		static_cast<TabControl*>(this)->setItemName(_sheet, _name);
 	}
-	TabItem* MemberObsolete<Tab>::addSheet(const UString& _name, int _width)
+	TabItem* MemberObsolete<TabControl>::addSheet(const UString& _name, int _width)
 	{
-		return static_cast<Tab*>(this)->addItem(_name, _width);
+		return static_cast<TabControl*>(this)->addItem(_name, _width);
 	}
-	TabItem* MemberObsolete<Tab>::insertSheet(size_t _index, const UString& _name, int _width)
+	TabItem* MemberObsolete<TabControl>::insertSheet(size_t _index, const UString& _name, int _width)
 	{
-		return static_cast<Tab*>(this)->insertItemAt(_index, _name);
+		return static_cast<TabControl*>(this)->insertItemAt(_index, _name);
 	}
-	void MemberObsolete<Tab>::removeSheetIndex(size_t _index)
+	void MemberObsolete<TabControl>::removeSheetIndex(size_t _index)
 	{
-		static_cast<Tab*>(this)->removeItemAt(_index);
+		static_cast<TabControl*>(this)->removeItemAt(_index);
 	}
-	void MemberObsolete<Tab>::removeSheet(TabItem* _sheet)
+	void MemberObsolete<TabControl>::removeSheet(TabItem* _sheet)
 	{
-		static_cast<Tab*>(this)->removeItem(_sheet);
+		static_cast<TabControl*>(this)->removeItem(_sheet);
 	}
-	void MemberObsolete<Tab>::selectSheetIndex(size_t _index, bool _smooth)
+	void MemberObsolete<TabControl>::selectSheetIndex(size_t _index, bool _smooth)
 	{
-		static_cast<Tab*>(this)->setIndexSelected(_index);
+		static_cast<TabControl*>(this)->setIndexSelected(_index);
 	}
-	void MemberObsolete<Tab>::selectSheet(TabItem* _sheet, bool _smooth)
+	void MemberObsolete<TabControl>::selectSheet(TabItem* _sheet, bool _smooth)
 	{
-		static_cast<Tab*>(this)->setItemSelected(_sheet);
+		static_cast<TabControl*>(this)->setItemSelected(_sheet);
 	}
-	size_t MemberObsolete<Tab>::getSelectSheetIndex()
+	size_t MemberObsolete<TabControl>::getSelectSheetIndex()
 	{
-		return static_cast<Tab*>(this)->getIndexSelected();
+		return static_cast<TabControl*>(this)->getIndexSelected();
 	}
 
-	size_t MemberObsolete<Tab>::getItemIndexSelected()
+	size_t MemberObsolete<TabControl>::getItemIndexSelected()
 	{
-		return static_cast<Tab*>(this)->getIndexSelected();
+		return static_cast<TabControl*>(this)->getIndexSelected();
 	}
-	void MemberObsolete<Tab>::setItemSelectedAt(size_t _index)
+	void MemberObsolete<TabControl>::setItemSelectedAt(size_t _index)
 	{
-		static_cast<Tab*>(this)->setIndexSelected(_index);
+		static_cast<TabControl*>(this)->setIndexSelected(_index);
 	}
 
 
@@ -856,7 +856,7 @@ namespace MyGUI
 		else if (_key == "Tab_AddSheet")
 		{
 			MYGUI_LOG(Warning, "Tab_AddSheet is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Tab* widget = _owner->castType<Tab>(false);
+			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
 			return false;
@@ -864,7 +864,7 @@ namespace MyGUI
 		else if (_key == "Tab_AddItem")
 		{
 			MYGUI_LOG(Warning, "Tab_AddItem is deprecated" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-			Tab* widget = _owner->castType<Tab>(false);
+			TabControl* widget = _owner->castType<TabControl>(false);
 			if (widget != nullptr)
 				widget->addItem(_value);
 			return false;
@@ -1018,6 +1018,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "Edit factory is deprecated, use " << EditBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "Tab")
+			{
+				MYGUI_LOG(Warning, "Tab factory is deprecated, use " << TabControl::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1090,6 +1094,7 @@ namespace MyGUI
 		factory.registerFactory<ProgressBar>("Widget", "Progress");
 		factory.registerFactory<ListBox>("Widget", "List");
 		factory.registerFactory<EditBox>("Widget", "Edit");
+		factory.registerFactory<TabControl>("Widget", "Tab");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

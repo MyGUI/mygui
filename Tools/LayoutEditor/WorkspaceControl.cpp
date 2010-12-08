@@ -515,14 +515,14 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		MyGUI::Tab* tab = nullptr;
+		MyGUI::TabControl* tab = nullptr;
 
 		if (mCurrentWidget != nullptr)
 		{
-			if (mCurrentWidget->isType<MyGUI::Tab>())
-				tab = mCurrentWidget->castType<MyGUI::Tab>();
-			else if (mCurrentWidget->getParent() != nullptr && mCurrentWidget->getParent()->isType<MyGUI::Tab>())
-				tab = mCurrentWidget->getParent()->castType<MyGUI::Tab>();
+			if (mCurrentWidget->isType<MyGUI::TabControl>())
+				tab = mCurrentWidget->castType<MyGUI::TabControl>();
+			else if (mCurrentWidget->getParent() != nullptr && mCurrentWidget->getParent()->isType<MyGUI::TabControl>())
+				tab = mCurrentWidget->getParent()->castType<MyGUI::TabControl>();
 		}
 
 		if (tab == nullptr)

@@ -119,9 +119,9 @@ namespace tools
 
 		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
 		{
-			if (_container->widget->isType<MyGUI::Tab>() && (*item)->widget->isType<MyGUI::TabItem>())
+			if (_container->widget->isType<MyGUI::TabControl>() && (*item)->widget->isType<MyGUI::TabItem>())
 			{
-				if (_container->widget->castType<MyGUI::Tab>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
+				if (_container->widget->castType<MyGUI::TabControl>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
 					continue;
 			}
 

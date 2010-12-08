@@ -80,13 +80,12 @@ namespace MyGUI
 	class EditBox;
 	class ComboBox;
 	class TextBox;
-	class Tab;
+	class TabControl;
 	class TabItem;
 	class ProgressBar;
 	class ItemBox;
 	class MultiList;
 	class ImageBox;
-	class Message;
 	class MenuCtrl;
 	class MenuItem;
 	class PopupMenu;

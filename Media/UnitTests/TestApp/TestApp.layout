@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Overlapped" name="_Main">
         <Property key="Window_MinMax" value="500 500 1000 1000"/>
         <Property key="Caption" value="WindowCSX"/>
-        <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch">
+        <Widget type="TabControl" skin="Tab" position="16 42 632 510" align="Stretch">
             <Widget type="TabItem" skin="Default" position="4 26 623 478">
                 <Property key="Caption" value="item1"/>
                 <Widget type="EditBox" skin="EditStretch" position="20 14 184 144">
@@ -86,7 +86,7 @@
                 </Widget>
                 <Widget type="ScrollView" skin="ScrollView" position="9 39 312 197" align="Stretch">
                     <Property key="ScrollView_CanvasSize" value="400 400"/>
-                    <Widget type="Tab" skin="Tab" position="29 53 243 195">
+                    <Widget type="TabControl" skin="Tab" position="29 53 243 195">
                         <Widget type="TabItem" skin="Default" position="4 26 234 163">
                             <Property key="Caption" value="item1"/>
                         </Widget>
@@ -98,7 +98,7 @@
                         </Widget>
                     </Widget>
                 </Widget>
-                <Widget type="Tab" skin="Tab" position="240 269 375 201" align="HStretch Bottom">
+                <Widget type="TabControl" skin="Tab" position="240 269 375 201" align="HStretch Bottom">
                     <Widget type="TabItem" skin="Default" position="4 26 366 169">
                         <Property key="Caption" value="item1"/>
                     </Widget>
