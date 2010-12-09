@@ -96,6 +96,9 @@
 		<Property key="Skin" value="ItemBox"/>
 
 		<Parameter key="VerticalAlignment" value="Bool"/>
+
+		<!-- Layer -->
+		<TemplateData key="DragLayer" value="String"/>
 	</Widget>
 
 	<Widget name="ListBox">
@@ -105,6 +108,10 @@
 		<Property key="Skin" value="ListBox"/>
 
 		<Property key="ItemManager" value="true"/>
+
+		<TemplateData key="HeightLine" value="1 int"/>
+		<!-- Skin -->
+		<TemplateData key="SkinLine" value="String"/>
 	</Widget>
 
 	<Widget name="MenuBar">
@@ -114,6 +121,19 @@
 		<Property key="Skin" value="MenuBar"/>
 
 		<Property key="ItemManager" value="true"/>
+
+		<TemplateData key="DistanceButton" value="1 int"/>
+		<!-- Layer -->
+		<TemplateData key="SubMenuLayer" value="String"/>
+		<TemplateData key="VerticalAlignment" value="Bool"/>
+		<!-- Skin -->
+		<TemplateData key="NormalSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="PopupSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="SeparatorSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="SubMenuSkin" value="String"/>
 	</Widget>
 
 	<Widget name="MenuCtrl">
@@ -148,6 +168,18 @@
 		<Property key="Skin" value="PopupMenu"/>
 
 		<Property key="ItemManager" value="true"/>
+
+		<!-- Layer -->
+		<TemplateData key="SubMenuLayer" value="String"/>
+		<TemplateData key="VerticalAlignment" value="Bool"/>
+		<!-- Skin -->
+		<TemplateData key="NormalSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="PopupSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="SeparatorSkin" value="String"/>
+		<!-- Skin -->
+		<TemplateData key="SubMenuSkin" value="String"/>
 	</Widget>
 
 	<Widget name="ProgressBar">
@@ -164,6 +196,11 @@
 		<Parameter key="RangePosition" value="1 int"/>
 		<Parameter key="AutoTrack" value="Bool"/>
 		<Parameter key="FlowDirection" value="FlowDirection"/>
+
+		<TemplateData key="TrackWidth" value="1 int"/>
+		<TemplateData key="TrackFill" value="Bool"/>
+		<!-- Skin -->
+		<TemplateData key="TrackSkin" value="String"/>
 	</Widget>
 
 	<Widget name="ScrollBar">
@@ -184,6 +221,8 @@
 		<Parameter key="ViewPage" value="1 int"/>
 		<Parameter key="MoveToClick" value="Bool"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
+
+		<TemplateData key="MinTrackSize" value="1 int"/>
 	</Widget>
 
 	<Widget name="ScrollView">
