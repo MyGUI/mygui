@@ -44,7 +44,7 @@ namespace MyGUI
 		mHideByLostKey(false),
 		mResizeToContent(true),
 		mShutdown(false),
-		mAlignVert(true),
+		mVerticalAlignment(true),
 		mDistanceButton(0),
 		mPopupAccept(false),
 		mOwner(nullptr),
@@ -101,9 +101,6 @@ namespace MyGUI
 
 		if (isUserString("DistanceButton"))
 			mDistanceButton = utility::parseValue<int>(getUserString("DistanceButton"));
-
-		//if (isUserString("AlignVert"))
-			//mAlignVert = utility::parseValue<bool>(getUserString("AlignVert"));
 
 		if (isUserString("SubMenuSkin"))
 			mSubMenuSkin = getUserString("SubMenuSkin");
@@ -201,7 +198,7 @@ namespace MyGUI
 	{
 		IntSize size;
 
-		if (mAlignVert)
+		if (mVerticalAlignment)
 		{
 			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
 			{
@@ -390,7 +387,7 @@ namespace MyGUI
 
 				MenuCtrl* menu = mItemsInfo[_index].submenu;
 
-				if (mAlignVert)
+				if (mVerticalAlignment)
 				{
 					if (point.left + menu->getWidth() > menu->getParentSize().width)
 						point.left -= menu->getWidth() + getWidth();
@@ -525,7 +522,7 @@ namespace MyGUI
 
 	void MenuCtrl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
-		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
+		_item->setAlign(mVerticalAlignment ? Align::Top | Align::HStretch : Align::Default);
 		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
 		_item->eventMouseButtonClick += newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus += newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
@@ -885,7 +882,7 @@ namespace MyGUI
 
 				MenuCtrl* menu = mItemsInfo[index].submenu;
 
-				if (mAlignVert)
+				if (mVerticalAlignment)
 				{
 					if (point.left + menu->getWidth() > menu->getParentSize().width)
 						point.left -= menu->getWidth() + getWidth();
@@ -917,22 +914,22 @@ namespace MyGUI
 			setSize(100, 100);
 	}
 
-	void MenuCtrl::setAlignVert(bool _value)
+	void MenuCtrl::setVerticalAlignment(bool _value)
 	{
-		mAlignVert = _value;
+		mVerticalAlignment = _value;
 
 		update();
 	}
 
-	bool MenuCtrl::getAlignVert() const
+	bool MenuCtrl::getVerticalAlignment() const
 	{
-		return mAlignVert;
+		return mVerticalAlignment;
 	}
 
 	void MenuCtrl::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "AlignVert")
-			setAlignVert(utility::parseValue<bool>(_value));
+		if (_key == "VerticalAlignment")
+			setVerticalAlignment(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

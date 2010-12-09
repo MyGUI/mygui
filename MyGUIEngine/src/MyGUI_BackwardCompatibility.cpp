@@ -352,6 +352,14 @@ namespace MyGUI
 		static_cast<MenuCtrl*>(this)->setItemChildVisible(_item, false);
 	}
 
+	void MemberObsolete<MenuCtrl>::setAlignVert(bool _value)
+	{
+		static_cast<MenuCtrl*>(this)->setVerticalAlignment(_value);
+	}
+	bool MemberObsolete<MenuCtrl>::getAlignVert()
+	{
+		return static_cast<MenuCtrl*>(this)->getVerticalAlignment();
+	}
 
 	void MemberObsolete<MenuItem>::showItemChild()
 	{

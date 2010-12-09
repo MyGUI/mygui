@@ -19,7 +19,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "ItemBoxEmptyV" size = "18 3" texture = "#{MyGUI_Theme_Texture}">
-		<Property key="AlignVert" value = "true" />
+		<Property key="VerticalAlignment" value = "true" />
 		<Property key="DragLayer" value = "DragAndDrop" />
 		<Child type="ScrollBar" skin="ScrollBarV" offset = "3 0 15 3" align = "Right VStretch" name = "VScroll"/>
 		<Child type="Widget" skin="Default" offset = "0 0 3 3" align = "Stretch" name = "Client"/>
