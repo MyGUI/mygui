@@ -108,8 +108,13 @@ namespace tools
 				{
 					if (!field->findAttribute("key", key)) continue;
 					if (!field->findAttribute("value", value)) continue;
-					//widget_type->parameter.insert(MyGUI::PairString(key, value));
 					widget_type->parameter.push_back(MyGUI::PairString(key, value));
+				}
+				else if (field->getName() == "TemplateData")
+				{
+					if (!field->findAttribute("key", key)) continue;
+					if (!field->findAttribute("value", value)) continue;
+					widget_type->templateData.push_back(MyGUI::PairString(key, value));
 				}
 			}
 
