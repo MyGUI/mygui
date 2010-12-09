@@ -57,8 +57,6 @@ namespace MyGUI
 
 		mDragLayer = "DragAndDrop";
 
-		/*if (isUserString("AlignVert"))
-			mAlignVert = utility::parseBool(getUserString("AlignVert"));*/
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
