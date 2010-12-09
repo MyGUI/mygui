@@ -207,11 +207,11 @@
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
-                <Widget type="Button" skin="WindowResizeRightSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="Action">
                     <Property key="Pointer" value="size_left"/>
                     <UserString key="Action" value="Right Bottom"/>
                 </Widget>
-                <Widget type="Button" skin="WindowResizeLeftSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="Action">
                     <Property key="Pointer" value="size_right"/>
                     <UserString key="Action" value="Left Bottom"/>
                 </Widget>
@@ -260,11 +260,11 @@
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
-                <Widget type="Button" skin="WindowResizeRightSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="Action">
                     <Property key="Pointer" value="size_left"/>
                     <UserString key="Action" value="Right Bottom"/>
                 </Widget>
-                <Widget type="Button" skin="WindowResizeLeftSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="Action">
                     <Property key="Pointer" value="size_right"/>
                     <UserString key="Action" value="Left Bottom"/>
                 </Widget>
@@ -303,7 +303,7 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="MenuBarTemplate">
-        <Widget type="Widget" skin="MenuSkin" position="5 5 29 26" name="Root">
+        <Widget type="Widget" skin="MenuBarSkin" position="5 5 29 26" name="Root">
             <UserString key="TargetWidgetType" value="MenuBar"/>
             <UserString key="DistanceButton" value="6"/>
             <UserString key="SubMenuLayer" value="Popup"/>
@@ -478,7 +478,7 @@
             <Property key="MoveToClick" value="true"/>
             <UserString key="TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackFill" value="true"/>
-            <UserString key="TrackSkin" value="ProgressTrackHSkin"/>
+            <UserString key="TrackSkin" value="ProgressBarTrackHSkin"/>
             <UserString key="TrackWidth" value="6"/>
             <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="HStretch Top" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>

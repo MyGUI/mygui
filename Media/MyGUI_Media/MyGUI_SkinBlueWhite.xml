@@ -571,7 +571,7 @@
 			<State name="normal" offset="4 204 11 15"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ProgressTrackHSkin" size="7 14" texture="MyGUI_SkinBlueWhite.png">
+	<Resource type="ResourceSkin" name="ProgressBarTrackHSkin" size="7 14" texture="MyGUI_SkinBlueWhite.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="disabled" offset="113 120 2 2"/>
 			<State name="normal" offset="113 135 2 2"/>
@@ -671,7 +671,7 @@
 			<State name="normal" offset="18 240 2 2"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="MenuSkin" size="27 26" texture="MyGUI_SkinBlueWhite.png">
+	<Resource type="ResourceSkin" name="MenuBarSkin" size="27 26" texture="MyGUI_SkinBlueWhite.png">
 		<BasisSkin type="SubSkin" offset="21 0 6 26" align="Right VStretch">
 			<State name="normal" offset="223 2 6 26"/>
 		</BasisSkin>
@@ -1132,7 +1132,7 @@
             <State name="normal" offset="266 200 13 12"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="WindowResizeLeftSkin" size="9 9" texture="MyGUI_SkinBlueWhite.png">
+    <Resource type="ResourceSkin" name="WindowResizeLeftDownSkin" size="9 9" texture="MyGUI_SkinBlueWhite.png">
         <BasisSkin type="SubSkin" offset="0 0 9 9" align="Stretch">
             <State name="disabled" offset="234 209 9 9"/>
             <State name="normal" offset="234 209 9 9"/>
@@ -1140,7 +1140,7 @@
             <State name="pushed" offset="234 196 9 9"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="WindowResizeRightSkin" size="9 9" texture="MyGUI_SkinBlueWhite.png">
+    <Resource type="ResourceSkin" name="WindowResizeRightDownSkin" size="9 9" texture="MyGUI_SkinBlueWhite.png">
         <BasisSkin type="SubSkin" offset="0 0 9 9" align="Stretch">
             <State name="disabled" offset="247 209 9 9"/>
             <State name="normal" offset="247 209 9 9"/>
