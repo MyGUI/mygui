@@ -34,12 +34,11 @@ namespace MyGUI
 
 	TabControl::TabControl() :
 		mOffsetTab(0),
-		mButtonShow(false),
+		mButtonShow(true),
 		mWidthBar(0),
 		mWidgetBar(nullptr),
 		mButtonLeft(nullptr),
 		mButtonRight(nullptr),
-		mButtonList(nullptr),
 		mButtonDecor(nullptr),
 		mEmptyBarWidget(nullptr),
 		mItemTemplate(nullptr),
@@ -48,7 +47,10 @@ namespace MyGUI
 		mButtonDefaultWidth(1),
 		mSmoothShow(true),
 		mButtonAutoWidth(true),
-		mShutdown(false)
+		mShutdown(false),
+		mHeaderPlace(nullptr),
+		mControls(nullptr),
+		mEmpty(nullptr)
 	{
 	}
 
@@ -56,34 +58,30 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		if (isUserString("OffsetBar"))
-			mOffsetTab = utility::parseValue<int>(getUserString("OffsetBar"));
 		if (isUserString("ButtonSkin"))
 			mButtonSkinName = getUserString("ButtonSkin");
+
+		if (isUserString("OffsetBar"))
+			mOffsetTab = utility::parseValue<int>(getUserString("OffsetBar"));
 		if (isUserString("EmptyBarSkin"))
 			mEmptySkinName = getUserString("EmptyBarSkin");
 
 		assignWidget(mWidgetBar, "Bar");
+		if (mWidgetBar != nullptr)
+		{
+			mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
+		}
 
 		assignWidget(mButtonLeft, "Left");
 		if (mButtonLeft != nullptr)
 		{
-			mButtonLeft->setVisible(false);
 			mButtonLeft->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
 		assignWidget(mButtonRight, "Right");
 		if (mButtonRight != nullptr)
 		{
-			mButtonRight->setVisible(false);
 			mButtonRight->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
-		}
-
-		assignWidget(mButtonList, "List");
-		if (mButtonList != nullptr)
-		{
-			mButtonList->setVisible(false);
-			mButtonList->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
 		assignWidget(mButtonDecor, "ButtonDecor");
@@ -114,8 +112,15 @@ namespace MyGUI
 			showPatch->setVisible(false);
 		}
 
-		// создаем виджет, носитель скина пустоты бара
-		mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
+		assignWidget(mHeaderPlace, "HeaderPlace");
+		assignWidget(mControls, "Controls");
+		assignWidget(mEmpty, "Empty");
+
+		if (mEmpty == nullptr)
+		{
+			// создаем виджет, носитель скина пустоты бара
+			mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
+		}
 
 		updateBar();
 
@@ -129,10 +134,14 @@ namespace MyGUI
 		mWidgetBar = nullptr;
 		mButtonLeft = nullptr;
 		mButtonRight = nullptr;
-		mButtonList = nullptr;
 		mButtonDecor = nullptr;
 		mItemTemplate = nullptr;
 		mEmptyBarWidget = nullptr;
+
+		mHeaderPlace = nullptr;
+		mControls = nullptr;
+		mEmpty = nullptr;
+
 		// FIXME перенесенно из деструктора, может косячить при смене скина
 		mShutdown = true;
 
@@ -201,138 +210,6 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void TabControl::updateBar()
-	{
-		// подстраховка
-		if (_getWidgetBar()->getWidth() < 1) return;
-
-		if ((_getWidgetBar()->getWidth() < mWidthBar) && (1 < mItemsInfo.size()))
-		{
-			if (!mButtonShow)
-			{
-				mButtonShow = true;
-				if (nullptr != mButtonLeft) mButtonLeft->setVisible(true);
-				if (nullptr != mButtonRight) mButtonRight->setVisible(true);
-				if (nullptr != mButtonList) mButtonList->setVisible(true);
-				if (nullptr != mButtonDecor) mButtonDecor->setVisible(true);
-				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter) (*iter)->setVisible(true);
-				if (mWidgetBar != nullptr)
-					mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
-			}
-		}
-		else
-		{
-			if (mButtonShow)
-			{
-				mButtonShow = false;
-				if (nullptr != mButtonLeft) mButtonLeft->setVisible(false);
-				if (nullptr != mButtonRight) mButtonRight->setVisible(false);
-				if (nullptr != mButtonList) mButtonList->setVisible(false);
-				if (nullptr != mButtonDecor) mButtonDecor->setVisible(false);
-				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter) (*iter)->setVisible(false);
-				if (mWidgetBar != nullptr)
-					mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
-			}
-		}
-
-		// проверяем правильность стартового индекса
-		if (mStartIndex > 0)
-		{
-			// считаем длинну видимых кнопок
-			int width = 0;
-			for (size_t pos = mStartIndex; pos < mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
-
-			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= _getWidgetBar()->getWidth()))
-			{
-				mStartIndex--;
-				width += mItemsInfo[mStartIndex].width;
-			}
-		}
-
-		// проверяем и обновляем бар
-		int width = 0;
-		size_t count = 0;
-		size_t pos = mStartIndex;
-		for (; pos < mItemsInfo.size(); pos++)
-		{
-			// текущая кнопка не влазиет
-			if (width > _getWidgetBar()->getWidth()) break;
-
-			// следующая не влазиет
-			TabItemInfo& info = mItemsInfo[pos];
-			if ((width + info.width) > _getWidgetBar()->getWidth())
-			{
-				break;
-			}
-
-			// проверяем физическое наличие кнопки
-			if (count >= mItemButton.size()) _createItemButton();
-
-			// если кнопка не соответствует, то изменяем ее
-			Button* button = mItemButton[count]->castType<Button>();
-			button->setVisible(true);
-
-			// корректируем нажатость кнопки
-			button->setStateSelected(pos == mIndexSelect);
-
-			if (button->getCaption() != info.name)
-				button->setCaption(info.name);
-			// положение кнопки
-			IntCoord coord(width, 0, info.width, _getWidgetBar()->getHeight());
-			if (coord != button->getCoord())
-				button->setCoord(coord);
-
-			width += info.width;
-			count ++;
-		}
-
-		// скрываем кнопки что были созданны, но не видны
-		while (count < mItemButton.size())
-		{
-			mItemButton[count]->setVisible(false);
-			count ++;
-		}
-
-		bool right = true;
-		if (pos == mItemsInfo.size()) right = false;
-
-		// в редакторе падает почему то, хотя этот скин создается всегда
-		if (mEmptyBarWidget)
-		{
-			// корректируем виджет для пустоты
-			if (width < _getWidgetBar()->getWidth())
-			{
-				mEmptyBarWidget->setVisible(true);
-				mEmptyBarWidget->setCoord(width, 0, _getWidgetBar()->getWidth() - width, _getWidgetBar()->getHeight());
-			}
-			else
-			{
-				mEmptyBarWidget->setVisible(false);
-			}
-		}
-
-		// корректируем доступность стрелок
-		if (mStartIndex == 0)
-		{
-			if (nullptr != mButtonLeft) mButtonLeft->setEnabled(false);
-		}
-		else
-		{
-			if (nullptr != mButtonLeft) mButtonLeft->setEnabled(true);
-		}
-
-		if (right)
-		{
-			if (nullptr != mButtonRight) mButtonRight->setEnabled(true);
-		}
-		else
-		{
-			if (nullptr != mButtonRight) mButtonRight->setEnabled(false);
-		}
-
-	}
-
 	void TabControl::notifyPressedButtonEvent(MyGUI::Widget* _sender)
 	{
 		if (_sender == mButtonLeft)
@@ -351,9 +228,6 @@ namespace MyGUI
 				// в updateBar() будет подкорректированно если что
 				updateBar();
 			}
-		}
-		else if (_sender == mButtonList)
-		{
 		}
 	}
 
@@ -399,9 +273,11 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::beginToItemAt");
 
 		// подстраховка
-		if (_getWidgetBar()->getWidth() < 1) return;
+		if (_getWidgetBar()->getWidth() < 1)
+			return;
 
-		if (_index == mStartIndex) return;
+		if (_index == mStartIndex)
+			return;
 		else if (_index < mStartIndex)
 		{
 			mStartIndex = _index;
@@ -424,15 +300,16 @@ namespace MyGUI
 				mStartIndex ++;
 				change = true;
 			}
-			if (change) updateBar();
-
+			if (change)
+				updateBar();
 		}
 	}
 
 	void TabControl::setButtonDefaultWidth(int _width)
 	{
 		mButtonDefaultWidth = _width;
-		if (mButtonDefaultWidth < 1) mButtonDefaultWidth = 1;
+		if (mButtonDefaultWidth < 1)
+			mButtonDefaultWidth = 1;
 		setButtonAutoWidth(false);
 	}
 
@@ -443,8 +320,10 @@ namespace MyGUI
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			int width;
-			if (mButtonAutoWidth) width = _getTextWidth(mItemsInfo[pos].name);
-			else width = mButtonDefaultWidth;
+			if (mButtonAutoWidth)
+				width = _getTextWidth(mItemsInfo[pos].name);
+			else
+				width = mButtonDefaultWidth;
 
 			mWidthBar += width - mItemsInfo[pos].width;
 			mItemsInfo[pos].width = width;
@@ -459,8 +338,10 @@ namespace MyGUI
 
 		if (_width <= 0)
 		{
-			if (mButtonAutoWidth) _width = _getTextWidth(mItemsInfo[_index].name);
-			else _width = mButtonDefaultWidth;
+			if (mButtonAutoWidth)
+				_width = _getTextWidth(mItemsInfo[_index].name);
+			else
+				_width = mButtonDefaultWidth;
 		}
 
 		mWidthBar += _width - mItemsInfo[_index].width;
@@ -475,8 +356,10 @@ namespace MyGUI
 		mItemsInfo[_index].name = _name;
 
 		int width;
-		if (mButtonAutoWidth) width = _getTextWidth(_name);
-		else width = mButtonDefaultWidth;
+		if (mButtonAutoWidth)
+			width = _getTextWidth(_name);
+		else
+			width = mButtonDefaultWidth;
 
 		mWidthBar += width - mItemsInfo[_index].width;
 		mItemsInfo[_index].width = width;
@@ -487,13 +370,15 @@ namespace MyGUI
 	void TabControl::setIndexSelected(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::setIndexSelected");
-		if (mIndexSelect == _index) return;
+		if (mIndexSelect == _index)
+			return;
 		size_t old = mIndexSelect;
 		mIndexSelect = _index;
 		updateBar();
 
 		// поднимаем страницу для пикинга
-		if (mSmoothShow) _forcePeek(mItemsInfo[mIndexSelect].item);
+		if (mSmoothShow)
+			_forcePeek(mItemsInfo[mIndexSelect].item);
 
 		_showItem(mItemsInfo[mIndexSelect].item, true, mSmoothShow);
 		_showItem(mItemsInfo[old].item, false, mSmoothShow);
@@ -532,9 +417,20 @@ namespace MyGUI
 		}
 	}
 
+	Button* TabControl::createButton()
+	{
+		Widget* parent = this;
+		if (mWidgetBar != nullptr)
+			parent = mWidgetBar;
+		else if (mHeaderPlace != nullptr)
+			parent = mHeaderPlace;
+
+		return parent->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
+	}
+
 	void TabControl::_createItemButton()
 	{
-		Button* button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
+		Button* button = createButton();
 		button->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedBarButtonEvent);
 		button->_setInternalData(mItemButton.size()); // порядковый номер
 		mItemButton.push_back(button);
@@ -542,7 +438,8 @@ namespace MyGUI
 
 	int TabControl::_getTextWidth(const UString& _text)
 	{
-		if (0 == mItemButton.size()) _createItemButton();
+		if (mItemButton.empty())
+			_createItemButton();
 
 		UString save = mItemButton[0]->getCaption();
 		mItemButton[0]->setCaption(_text);
@@ -559,20 +456,24 @@ namespace MyGUI
 	void TabControl::_notifyDeleteItem(TabItem* _sheet)
 	{
 		// общий шутдаун виджета
-		if (mShutdown) return;
+		if (mShutdown)
+			return;
 
 		size_t index = getItemIndex(_sheet);
 
 		mWidthBar -= mItemsInfo[index].width;
 		mItemsInfo.erase(mItemsInfo.begin() + index);
 
-		if (0 == mItemsInfo.size()) mIndexSelect = ITEM_NONE;
+		if (0 == mItemsInfo.size())
+			mIndexSelect = ITEM_NONE;
 		else
 		{
-			if (index < mIndexSelect) mIndexSelect --;
+			if (index < mIndexSelect)
+				mIndexSelect --;
 			else if (index == mIndexSelect)
 			{
-				if (mIndexSelect == mItemsInfo.size()) mIndexSelect --;
+				if (mIndexSelect == mItemsInfo.size())
+					mIndexSelect --;
 				mItemsInfo[mIndexSelect].item->setVisible(true);
 				mItemsInfo[mIndexSelect].item->setAlpha(ALPHA_MAX);
 			}
@@ -583,7 +484,8 @@ namespace MyGUI
 
 	void TabControl::_insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data)
 	{
-		if (_index == ITEM_NONE) _index = mItemsInfo.size();
+		if (_index == ITEM_NONE)
+			_index = mItemsInfo.size();
 
 		// добавляем инфу о вкладке
 		int width = (mButtonAutoWidth ? _getTextWidth(_name) : mButtonDefaultWidth);
@@ -592,11 +494,13 @@ namespace MyGUI
 		mItemsInfo.insert(mItemsInfo.begin() + _index, TabItemInfo(width, _name, _sheet, _data));
 
 		// первая вкладка
-		if (1 == mItemsInfo.size()) mIndexSelect = 0;
+		if (1 == mItemsInfo.size())
+			mIndexSelect = 0;
 		else
 		{
 			_sheet->setVisible(false);
-			if (_index <= mIndexSelect) mIndexSelect ++;
+			if (_index <= mIndexSelect)
+				mIndexSelect ++;
 		}
 
 		updateBar();
@@ -636,7 +540,7 @@ namespace MyGUI
 	{
 		while (mItemsInfo.size() > 0)
 		{
-			this->_destroyChildWidget(mItemsInfo.back().item);
+			_destroyChildWidget(mItemsInfo.back().item);
 		}
 	}
 
@@ -656,7 +560,8 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].item == _item) return pos;
+			if (mItemsInfo[pos].item == _item)
+				return pos;
 		}
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'TabControl::getItemIndex'");
 	}
@@ -665,7 +570,8 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].item == _item) return pos;
+			if (mItemsInfo[pos].item == _item)
+				return pos;
 		}
 		return ITEM_NONE;
 	}
@@ -674,7 +580,8 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].name == _name) return pos;
+			if (mItemsInfo[pos].name == _name)
+				return pos;
 		}
 		return ITEM_NONE;
 	}
@@ -683,7 +590,8 @@ namespace MyGUI
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
-			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
+			if (mItemsInfo[pos].name == _name)
+				return mItemsInfo[pos].item;
 		}
 		return nullptr;
 	}
@@ -872,6 +780,296 @@ namespace MyGUI
 	const UString& TabControl::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
+	}
+
+	void TabControl::updateBar()
+	{
+		if (mHeaderPlace != nullptr)
+			updateBarNew();
+		else
+			updateBarOld();
+	}
+
+	void TabControl::updateBarOld()
+	{
+		// подстраховка
+		if (_getWidgetBar()->getWidth() < 1)
+			return;
+
+		if ((_getWidgetBar()->getWidth() < mWidthBar) && (1 < mItemsInfo.size()))
+		{
+			if (!mButtonShow)
+			{
+				mButtonShow = true;
+
+				if (nullptr != mButtonLeft)
+					mButtonLeft->setVisible(true);
+				if (nullptr != mButtonRight)
+					mButtonRight->setVisible(true);
+				if (nullptr != mButtonDecor)
+					mButtonDecor->setVisible(true);
+				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter)
+					(*iter)->setVisible(true);
+				if (mWidgetBar != nullptr)
+					mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
+			}
+		}
+		else
+		{
+			if (mButtonShow)
+			{
+				mButtonShow = false;
+				if (nullptr != mButtonLeft)
+					mButtonLeft->setVisible(false);
+				if (nullptr != mButtonRight)
+					mButtonRight->setVisible(false);
+				if (nullptr != mButtonDecor)
+					mButtonDecor->setVisible(false);
+				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter)
+					(*iter)->setVisible(false);
+				if (mWidgetBar != nullptr)
+					mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
+			}
+		}
+
+		// проверяем правильность стартового индекса
+		if (mStartIndex > 0)
+		{
+			// считаем длинну видимых кнопок
+			int width = 0;
+			for (size_t pos = mStartIndex; pos < mItemsInfo.size(); pos++)
+				width += mItemsInfo[pos].width;
+
+			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= _getWidgetBar()->getWidth()))
+			{
+				mStartIndex--;
+				width += mItemsInfo[mStartIndex].width;
+			}
+		}
+
+		// проверяем и обновляем бар
+		int width = 0;
+		size_t count = 0;
+		size_t pos = mStartIndex;
+		for (; pos < mItemsInfo.size(); pos++)
+		{
+			// текущая кнопка не влазиет
+			if (width > _getWidgetBar()->getWidth())
+				break;
+
+			// следующая не влазиет
+			TabItemInfo& info = mItemsInfo[pos];
+			if ((width + info.width) > _getWidgetBar()->getWidth())
+			{
+				break;
+			}
+
+			// проверяем физическое наличие кнопки
+			if (count >= mItemButton.size())
+				_createItemButton();
+
+			// если кнопка не соответствует, то изменяем ее
+			Button* button = mItemButton[count]->castType<Button>();
+			button->setVisible(true);
+
+			// корректируем нажатость кнопки
+			button->setStateSelected(pos == mIndexSelect);
+
+			if (button->getCaption() != info.name)
+				button->setCaption(info.name);
+			// положение кнопки
+			IntCoord coord(width, 0, info.width, _getWidgetBar()->getHeight());
+			if (coord != button->getCoord())
+				button->setCoord(coord);
+
+			width += info.width;
+			count ++;
+		}
+
+		// скрываем кнопки что были созданны, но не видны
+		while (count < mItemButton.size())
+		{
+			mItemButton[count]->setVisible(false);
+			count ++;
+		}
+
+		bool right = true;
+		if (pos == mItemsInfo.size())
+			right = false;
+
+		// в редакторе падает почему то, хотя этот скин создается всегда
+		if (mEmptyBarWidget != nullptr)
+		{
+			// корректируем виджет для пустоты
+			if (width < _getWidgetBar()->getWidth())
+			{
+				mEmptyBarWidget->setVisible(true);
+				mEmptyBarWidget->setCoord(width, 0, _getWidgetBar()->getWidth() - width, _getWidgetBar()->getHeight());
+			}
+			else
+			{
+				mEmptyBarWidget->setVisible(false);
+			}
+		}
+
+		// корректируем доступность стрелок
+		if (mStartIndex == 0)
+		{
+			if (nullptr != mButtonLeft)
+				mButtonLeft->setEnabled(false);
+		}
+		else
+		{
+			if (nullptr != mButtonLeft)
+				mButtonLeft->setEnabled(true);
+		}
+
+		if (right)
+		{
+			if (nullptr != mButtonRight)
+				mButtonRight->setEnabled(true);
+		}
+		else
+		{
+			if (nullptr != mButtonRight)
+				mButtonRight->setEnabled(false);
+		}
+	}
+
+	void TabControl::updateBarNew()
+	{
+		// подстраховка
+		if (mHeaderPlace->getWidth() < 1)
+			return;
+
+		if (mHeaderPlace == nullptr)
+			return;
+
+		int widthControls = 0;
+		if (mControls != nullptr)
+			widthControls = mControls->getWidth();
+
+		if ((mHeaderPlace->getWidth() < mWidthBar) && (1 < mItemsInfo.size()) && (mHeaderPlace->getWidth() >= widthControls))
+		{
+			if (!mButtonShow)
+			{
+				mButtonShow = true;
+
+				if (nullptr != mControls)
+					mControls->setVisible(true);
+			}
+
+			if (mControls != nullptr)
+				mControls->setCoord(mHeaderPlace->getWidth() - mControls->getWidth(), 0, mControls->getWidth(), mHeaderPlace->getHeight());
+		}
+		else
+		{
+			if (mButtonShow)
+			{
+				mButtonShow = false;
+
+				if (nullptr != mControls)
+					mControls->setVisible(false);
+			}
+
+			widthControls = 0;
+		}
+
+		// проверяем правильность стартового индекса
+		if (mStartIndex > 0)
+		{
+			// считаем длинну видимых кнопок
+			int width = 0;
+			for (size_t pos = mStartIndex; pos < mItemsInfo.size(); pos++)
+				width += mItemsInfo[pos].width;
+
+			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= (mHeaderPlace->getWidth() - widthControls)))
+			{
+				mStartIndex--;
+				width += mItemsInfo[mStartIndex].width;
+			}
+		}
+
+		// проверяем и обновляем бар
+		int width = 0;
+		size_t count = 0;
+		size_t pos = mStartIndex;
+		for (; pos < mItemsInfo.size(); pos++)
+		{
+			// текущая кнопка не влазиет
+			if (width > (mHeaderPlace->getWidth() - widthControls))
+				break;
+
+			// следующая не влазиет
+			TabItemInfo& info = mItemsInfo[pos];
+			if ((width + info.width) > (mHeaderPlace->getWidth() - widthControls))
+			{
+				break;
+			}
+
+			// проверяем физическое наличие кнопки
+			if (count >= mItemButton.size())
+				_createItemButton();
+
+			// если кнопка не соответствует, то изменяем ее
+			Button* button = mItemButton[count];
+			button->setVisible(true);
+
+			// корректируем нажатость кнопки
+			button->setStateSelected(pos == mIndexSelect);
+
+			if (button->getCaption() != info.name)
+				button->setCaption(info.name);
+			// положение кнопки
+			IntCoord coord(width, 0, info.width, mHeaderPlace->getHeight());
+			if (coord != button->getCoord())
+				button->setCoord(coord);
+
+			width += info.width;
+			count ++;
+		}
+
+		// скрываем кнопки что были созданны, но не видны
+		while (count < mItemButton.size())
+		{
+			mItemButton[count]->setVisible(false);
+			count ++;
+		}
+
+		bool right = true;
+		if (pos == mItemsInfo.size())
+			right = false;
+
+		if (mEmpty != nullptr)
+		{
+			// корректируем виджет для пустоты
+			mEmpty->setCoord(width, 0, mHeaderPlace->getWidth() - width - widthControls, mHeaderPlace->getHeight());
+		}
+
+		// корректируем доступность стрелок
+		if (mStartIndex == 0)
+		{
+			if (nullptr != mButtonLeft)
+				mButtonLeft->setEnabled(false);
+		}
+		else
+		{
+			if (nullptr != mButtonLeft)
+				mButtonLeft->setEnabled(true);
+		}
+
+		if (right)
+		{
+			if (nullptr != mButtonRight)
+				mButtonRight->setEnabled(true);
+		}
+		else
+		{
+			if (nullptr != mButtonRight)
+				mButtonRight->setEnabled(false);
+		}
 	}
 
 } // namespace MyGUI
