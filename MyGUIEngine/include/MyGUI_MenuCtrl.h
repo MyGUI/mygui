@@ -249,9 +249,10 @@ namespace MyGUI
 		/** Get parent menu item or nullptr if no item */
 		MenuItem* getMenuItemParent();
 
-		void setAlignVert(bool _value);
-
-		bool getAlignVert() const;
+		/** Set vertical alignment mode */
+		void setVerticalAlignment(bool _value);
+		/** Get vertical alignment mode flag */
+		bool getVerticalAlignment() const;
 
 
 	/*events:*/
@@ -345,7 +346,7 @@ namespace MyGUI
 		// флаг, чтобы отсеч уведомления от айтемов, при общем шутдауне виджета
 		bool mShutdown;
 
-		bool mAlignVert;
+		bool mVerticalAlignment;
 		int mDistanceButton;
 		bool mPopupAccept;
 		MenuItem* mOwner;

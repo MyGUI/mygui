@@ -219,6 +219,11 @@ namespace MyGUI
 		void hideItemChildAt(size_t _index);
 		MYGUI_OBSOLETE(" is deprecated, use : void setItemChildVisible(MenuItem* _item, bool _visible)")
 		void hideItemChild(MenuItem* _item);
+
+		MYGUI_OBSOLETE(" is deprecated, use : void MenuCtrl::setVerticalAlignment(bool _value)")
+		void setAlignVert(bool _value);
+		MYGUI_OBSOLETE(" is deprecated, use : bool MenuCtrl::getVerticalAlignment() const")
+		bool getAlignVert();
 	};
 
 	template <>

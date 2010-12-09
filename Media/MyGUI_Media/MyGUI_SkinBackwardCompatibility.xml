@@ -31,7 +31,7 @@
 		</BasisSkin>
 	</Resource-->
 	<Resource type="ResourceSkin" name="ItemBoxV" size="11 11" texture="#{MyGUI_Theme_Texture}">
-		<Property key="AlignVert" value="true"/>
+		<Property key="VerticalAlignment" value="true"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 3" align="Stretch" name="Client"/>
@@ -61,7 +61,7 @@
 		</BasisSkin>
 	</Resource>
 	<Resource type="ResourceSkin" name="ItemBoxH" size="11 11" texture="#{MyGUI_Theme_Texture}">
-		<Property key="AlignVert" value="false"/>
+		<Property key="VerticalAlignment" value="false"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
 		<Child type="ScrollBar" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>

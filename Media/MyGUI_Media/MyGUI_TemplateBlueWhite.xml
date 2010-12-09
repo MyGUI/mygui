@@ -307,7 +307,7 @@
             <UserString key="TargetWidgetType" value="MenuBar"/>
             <UserString key="DistanceButton" value="6"/>
             <UserString key="SubMenuLayer" value="Popup"/>
-            <UserString key="AlignVert" value="false"/>
+            <UserString key="VerticalAlignment" value="false"/>
             <UserString key="NormalSkin" value="MenuBarButtonTemplate"/>
             <UserString key="PopupSkin" value="MenuBarButtonTemplate"/>
             <UserString key="SeparatorSkin" value="MenuBarSeparatorTemplate"/>
@@ -369,7 +369,7 @@
             <UserString key="SubMenuLayer" value="Popup"/>
             <UserString key="SubMenuSkin" value="PopupMenuTemplate"/>
             <UserString key="TargetWidgetType" value="PopupMenu"/>
-            <UserString key="AlignVert" value="true"/>
+            <UserString key="VerticalAlignment" value="true"/>
             <UserString key="SeparatorSkin" value="PopupMenuSeparatorTemplate"/>
             <UserString key="NormalSkin" value="PopupMenuNormalTemplate"/>
             <UserString key="PopupSkin" value="PopupMenuPopupTemplate"/>

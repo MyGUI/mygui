@@ -61,7 +61,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name="ItemBox" size="11 11" texture="#{MyGUI_Theme_Texture}">
-		<Property key="AlignVert" value="true"/>
+		<Property key="VerticalAlignment" value="true"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="ScrollBarV" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
 		<Child type="ScrollBar" skin="ScrollBarH" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
@@ -873,7 +873,7 @@
 		<Property key="SeparatorSkin" value="PopupMenuSeparator"/>
 		<!--Property key="HeightLine" value="20"/-->
 		<!--Property key="SeparatorHeight" value="10"/-->
-		<Property key="AlignVert" value="true"/>
+		<Property key="VerticalAlignment" value="true"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 3 3" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -941,7 +941,7 @@
 		<Property key="SubMenuSkin" value="PopupMenu"/>
 		<Property key="SubMenuLayer" value="Popup"/>
 		<!--Property key="HeightLine" value="22"/-->
-		<Property key="AlignVert" value="false"/>
+		<Property key="VerticalAlignment" value="false"/>
 		<Child type="Widget" skin="Default" offset="6 1 15 22" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 26" align="Left VStretch">
 			<State name="normal" offset="202 29 10 26"/>
