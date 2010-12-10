@@ -347,6 +347,7 @@
 		<Parameter key="Snap" value="Bool"/>
 		<Parameter key="MinSize" value="2 int"/>
 		<Parameter key="MaxSize" value="2 int"/>
+		<Parameter key="Movable" value="Bool"/>
 	</Widget>
 
 </MyGUI>
