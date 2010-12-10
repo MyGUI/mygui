@@ -288,6 +288,9 @@
 		<Parameter key="ButtonWidth" value="1 int"/>
 		<Parameter key="ButtonAutoWidth" value="Bool"/>
 		<Parameter key="SmoothShow" value="Bool"/>
+
+		<!-- Skin -->
+		<TemplateData key="ButtonSkin" value="String"/>
 	</Widget>
 
 	<Widget name="TabItem">
