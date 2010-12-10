@@ -55,30 +55,46 @@ namespace tools
 
 	void RegionListControl::updateList()
 	{
-		mList->setIndexSelected(MyGUI::ITEM_NONE);
-		mList->removeAllItems();
+		size_t index = 0;
 
 		if (getCurrentSkin() != nullptr)
 		{
 			RegionItem* selectedItem = getCurrentSkin()->getRegions().getItemSelected();
+			size_t selectedIndex = MyGUI::ITEM_NONE;
 
 			ItemHolder<RegionItem>::EnumeratorItem regions = getCurrentSkin()->getRegions().getChildsEnumerator();
 			while (regions.next())
 			{
-				size_t index = mList->getItemCount();
-
 				RegionItem* item = regions.current();
 
 				bool visible = item->getPropertySet()->getPropertyValue("Visible") == "True";
 				bool enabled = item->getPropertySet()->getPropertyValue("Enabled") == "True";
+				MyGUI::UString name;
 				if (!visible || !enabled)
-					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
+					name = replaceTags("ColourDisabled") + item->getName();
 				else
-					mList->addItem(item->getName(), item);
+					name = item->getName();
+
+				if (index < mList->getItemCount())
+				{
+					mList->setItemNameAt(index, name);
+					mList->setItemDataAt(index, item);
+				}
+				else
+				{
+					mList->addItem(name, item);
+				}
 
 				if (item == selectedItem)
-					mList->setIndexSelected(index);
+					selectedIndex = index;
+
+				index ++;
 			}
+
+			while (index < mList->getItemCount())
+				mList->removeItemAt(mList->getItemCount() - 1);
+
+			mList->setIndexSelected(selectedIndex);
 		}
 	}
 

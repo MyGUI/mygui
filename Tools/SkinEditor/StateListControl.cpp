@@ -88,28 +88,44 @@ namespace tools
 
 	void StatesListControl::updateList()
 	{
-		mList->setIndexSelected(MyGUI::ITEM_NONE);
-		mList->removeAllItems();
+		size_t index = 0;
 
 		if (getCurrentSkin() != nullptr)
 		{
 			StateItem* selectedItem = getCurrentSkin()->getStates().getItemSelected();
+			size_t selectedIndex = MyGUI::ITEM_NONE;
 
 			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
 			while (states.next())
 			{
-				size_t index = mList->getItemCount();
-
 				StateItem* item = states.current();
 
+				MyGUI::UString name;
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
+					name = replaceTags("ColourDisabled") + item->getName();
 				else
-					mList->addItem(item->getName(), item);
+					name = item->getName();
+
+				if (index < mList->getItemCount())
+				{
+					mList->setItemNameAt(index, name);
+					mList->setItemDataAt(index, item);
+				}
+				else
+				{
+					mList->addItem(name, item);
+				}
 
 				if (item == selectedItem)
-					mList->setIndexSelected(index);
+					selectedIndex = index;
+
+				index ++;
 			}
+
+			while (index < mList->getItemCount())
+				mList->removeItemAt(mList->getItemCount() - 1);
+
+			mList->setIndexSelected(selectedIndex);
 		}
 	}
 
