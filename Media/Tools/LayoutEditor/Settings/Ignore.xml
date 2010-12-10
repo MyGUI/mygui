@@ -13,6 +13,7 @@
 	<Parameter key="Enabled"/>
 	<Parameter key="MinSize"/>
 	<Parameter key="MaxSize"/>
+	<Parameter key="Movable"/>
 
 	<!-- for compatibility -->
 	<Parameter key="Window_Modal"/>

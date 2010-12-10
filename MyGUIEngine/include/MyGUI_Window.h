@@ -101,6 +101,9 @@ namespace MyGUI
 
 		const IntCoord& getActionScale();
 
+		void setMovable(bool _value);
+		bool getMovable() const;
+
 	/*events:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::Window* _sender, const std::string& _name)
@@ -168,6 +171,7 @@ namespace MyGUI
 		bool mAnimateSmooth;
 
 		Widget* mClient;
+		bool mMovable;
 	};
 
 } // namespace MyGUI
