@@ -80,28 +80,44 @@ namespace tools
 
 	void SeparatorListControl::updateList()
 	{
-		mList->setIndexSelected(MyGUI::ITEM_NONE);
-		mList->removeAllItems();
+		size_t index = 0;
 
 		if (getCurrentSkin() != nullptr)
 		{
 			SeparatorItem* selectedItem = getCurrentSkin()->getSeparators().getItemSelected();
+			size_t selectedIndex = MyGUI::ITEM_NONE;
 
 			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
 			while (separators.next())
 			{
-				size_t index = mList->getItemCount();
-
 				SeparatorItem* item = separators.current();
 
+				MyGUI::UString name;
 				if (item->getPropertySet()->getPropertyValue("Visible") != "True")
-					mList->addItem(replaceTags("ColourDisabled") + item->getName(), item);
+					name = replaceTags("ColourDisabled") + item->getName();
 				else
-					mList->addItem(item->getName(), item);
+					name = item->getName();
+
+				if (index < mList->getItemCount())
+				{
+					mList->setItemNameAt(index, name);
+					mList->setItemDataAt(index, item);
+				}
+				else
+				{
+					mList->addItem(name, item);
+				}
 
 				if (item == selectedItem)
-					mList->setIndexSelected(index);
+					selectedIndex = index;
+
+				index ++;
 			}
+
+			while (index < mList->getItemCount())
+				mList->removeItemAt(mList->getItemCount() - 1);
+
+			mList->setIndexSelected(selectedIndex);
 		}
 	}
 
