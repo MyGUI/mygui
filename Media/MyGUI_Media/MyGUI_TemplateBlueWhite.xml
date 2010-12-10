@@ -156,14 +156,13 @@
             <Property key="Caption" value="test test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test\ntest test test test test test test"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowTemplate">
+    <Resource type="ResourceLayout" name="WindowTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionEmptySkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
@@ -183,7 +182,6 @@
             <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
@@ -203,17 +201,14 @@
             <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
-                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="ResizeRightBottom">
                     <Property key="Pointer" value="size_left"/>
-                    <UserString key="Action" value="Right Bottom"/>
                 </Widget>
-                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="ResizeLeftBottom">
                     <Property key="Pointer" value="size_right"/>
-                    <UserString key="Action" value="Left Bottom"/>
                 </Widget>
             </Widget>
         </Widget>
@@ -231,7 +226,6 @@
             <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
@@ -249,24 +243,21 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowCSXTemplate">
+    <Resource type="ResourceLayout" name="WindowCSXTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
-                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="ResizeRightBottom">
                     <Property key="Pointer" value="size_left"/>
-                    <UserString key="Action" value="Right Bottom"/>
                 </Widget>
-                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="Action">
+                <Widget type="Button" skin="WindowResizeLeftDownSkin" position="0 9 9 9" align="Left Bottom" name="ResizeLeftBottom">
                     <Property key="Pointer" value="size_right"/>
-                    <UserString key="Action" value="Left Bottom"/>
                 </Widget>
             </Widget>
             <Widget type="Widget" skin="WindowFrameForButtonSkin" position="44 0 24 28" align="Right Top">
@@ -289,7 +280,6 @@
             <Widget type="Button" skin="CaptionEmptySmallSkin" position="0 0 68 18" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
-                <UserString key="Action" value="Move"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 18 68 20" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
@@ -2264,40 +2254,40 @@
             <Property key="AddItem" value="test1"/>
         </Widget>
     </Resource>
-	<Resource type="ResourceLayout" name="TabHeaderButtonTemplate" version="3.2.0">
-		<Widget type="Button" skin="TabHeaderButtonSkin" position="20 25 52 23" name="Root">
-			<Property key="FontName" value="Default"/>
-			<Property key="TextAlign" value="Center"/>
-			<UserString key="TargetWidgetType" value="Button"/>
-		</Widget>
-	</Resource>
-	<Resource type="ResourceLayout" name="TabControlTemplate" version="3.2.0">
-		<Widget type="Widget" skin="PanelEmpty" position="5 5 89 60" name="Root">
-			<UserString key="TargetWidgetType" value="TabControl"/>
-			<UserString key="ButtonSkin" value="TabHeaderButtonTemplate"/>
-			<Widget type="Widget" skin="TabPanelSkin" position="0 21 89 39" align="Stretch">
-				<Widget type="Widget" skin="PanelEmpty" position="2 3 83 32" align="Stretch" name="TabItem"/>
-			</Widget>
-			<Widget type="Widget" skin="PanelEmpty" position="7 0 78 23" align="HStretch Top" name="HeaderPlace">
-				<Widget type="Widget" skin="TabHeaderEmptySkin" position="52 0 26 23" name="Controls">
-					<Widget type="Button" skin="ButtonRightSkin" position="14 4 12 14" name="Right"/>
-					<Widget type="Button" skin="ButtonLeftSkin" position="1 4 12 14" name="Left"/>
-				</Widget>
-				<Widget type="Widget" skin="TabHeaderEmptySkin" position="47 0 5 23" name="Empty"/>
-			</Widget>
-		</Widget>
-		<Widget type="TabControl" skin="TabControlTemplate" position="10 85 135 60">
-			<Widget type="TabItem" skin="" position="10 85 135 60">
-				<Property key="Caption" value="test1"/>
-			</Widget>
-			<Widget type="TabItem" skin="" position="10 85 135 60">
-				<Property key="Caption" value="test2"/>
-			</Widget>
-		</Widget>
-		<Widget type="TabControl" skin="Tab" position="110 5 89 60">
-			<Widget type="TabItem" skin="" position="4 26 80 28">
-				<Property key="Caption" value="test1"/>
-			</Widget>
-		</Widget>
-	</Resource>
+    <Resource type="ResourceLayout" name="TabHeaderButtonTemplate" version="3.2.0">
+        <Widget type="Button" skin="TabHeaderButtonSkin" position="20 25 52 23" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabControlTemplate" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 89 60" name="Root">
+            <UserString key="TargetWidgetType" value="TabControl"/>
+            <UserString key="ButtonSkin" value="TabHeaderButtonTemplate"/>
+            <Widget type="Widget" skin="TabPanelSkin" position="0 21 89 39" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="2 3 83 32" align="Stretch" name="TabItem"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="7 0 78 23" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="TabHeaderEmptySkin" position="52 0 26 23" name="Controls">
+                    <Widget type="Button" skin="ButtonRightSkin" position="14 4 12 14" name="Right"/>
+                    <Widget type="Button" skin="ButtonLeftSkin" position="1 4 12 14" name="Left"/>
+                </Widget>
+                <Widget type="Widget" skin="TabHeaderEmptySkin" position="47 0 5 23" name="Empty"/>
+            </Widget>
+        </Widget>
+        <Widget type="TabControl" skin="TabControlTemplate" position="10 85 135 60">
+            <Widget type="TabItem" skin="" position="10 85 135 60">
+                <Property key="Caption" value="test1"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="10 85 135 60">
+                <Property key="Caption" value="test2"/>
+            </Widget>
+        </Widget>
+        <Widget type="TabControl" skin="Tab" position="110 5 89 60">
+            <Widget type="TabItem" skin="" position="4 26 80 28">
+                <Property key="Caption" value="test1"/>
+            </Widget>
+        </Widget>
+    </Resource>
 </MyGUI>

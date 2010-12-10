@@ -86,6 +86,7 @@ namespace MyGUI
 		assignWidget(mWidgetCaption, "Caption");
 		if (mWidgetCaption != nullptr)
 		{
+			mWidgetCaption->setUserString("Scale", "1 1 0 0");
 			mWidgetCaption->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 			mWidgetCaption->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 			mWidgetCaption->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
@@ -103,6 +104,26 @@ namespace MyGUI
 			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 			(*iter)->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+		}
+
+		const size_t countNames = 8;
+		const char* resizers[2][countNames] =
+		{
+			"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft", 
+			"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"
+		};
+
+		for (size_t index = 0; index < countNames; ++ index)
+		{
+			Widget* widget = nullptr;
+			assignWidget(widget, resizers[0][index]);
+			if (widget != nullptr)
+			{
+				widget->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+				widget->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
+				widget->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+				widget->setUserString("Action", resizers[1][index]);
+			}
 		}
 	}
 
