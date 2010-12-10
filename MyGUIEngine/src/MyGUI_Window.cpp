@@ -44,7 +44,8 @@ namespace MyGUI
 		mIsAutoAlpha(false),
 		mSnap(false),
 		mAnimateSmooth(false),
-		mClient(nullptr)
+		mClient(nullptr),
+		mMovable(true)
 	{
 	}
 
@@ -454,6 +455,8 @@ namespace MyGUI
 			setMinSize(utility::parseValue<IntSize>(_value));
 		else if (_key == "MaxSize")
 			setMaxSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Movable")
+			setMovable(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -524,13 +527,23 @@ namespace MyGUI
 	{
 		if (_widget->isUserString("Scale"))
 		{
-			return IntCoord::parse(_widget->getUserString("Scale"));
+			IntCoord result = IntCoord::parse(_widget->getUserString("Scale"));
+
+			if (result == IntCoord(1, 1, 0, 0) && !mMovable)
+				result.clear();
+
+			return result;
 		}
 		else if (_widget->isUserString("Action"))
 		{
 			const std::string& action = _widget->getUserString("Action");
 			if (action == "Move")
-				return IntCoord(1, 1, 0, 0);
+			{
+				if (mMovable)
+					return IntCoord(1, 1, 0, 0);
+				else
+					return IntCoord();
+			}
 
 			IntCoord coord;
 			Align align = Align::parse(action);
@@ -559,6 +572,16 @@ namespace MyGUI
 		}
 
 		return IntCoord();
+	}
+
+	void Window::setMovable(bool _value)
+	{
+		mMovable = _value;
+	}
+
+	bool Window::getMovable() const
+	{
+		return mMovable;
 	}
 
 } // namespace MyGUI
