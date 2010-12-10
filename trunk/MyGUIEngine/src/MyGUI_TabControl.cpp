@@ -61,11 +61,14 @@ namespace MyGUI
 		if (isUserString("ButtonSkin"))
 			mButtonSkinName = getUserString("ButtonSkin");
 
+		// OBSOLETE
 		if (isUserString("OffsetBar"))
 			mOffsetTab = utility::parseValue<int>(getUserString("OffsetBar"));
+		// OBSOLETE
 		if (isUserString("EmptyBarSkin"))
 			mEmptySkinName = getUserString("EmptyBarSkin");
 
+		// OBSOLETE
 		assignWidget(mWidgetBar, "Bar");
 		if (mWidgetBar != nullptr)
 		{
@@ -84,6 +87,7 @@ namespace MyGUI
 			mButtonRight->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
+		// OBSOLETE
 		assignWidget(mButtonDecor, "ButtonDecor");
 		if (mButtonDecor != nullptr)
 		{
@@ -104,6 +108,7 @@ namespace MyGUI
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+		// OBSOLETE
 		Widget* showPatch = nullptr;
 		assignWidget(showPatch, "ShowPatch");
 		if (showPatch != nullptr)
@@ -119,6 +124,7 @@ namespace MyGUI
 		if (mEmpty == nullptr)
 		{
 			// создаем виджет, носитель скина пустоты бара
+			// OBSOLETE
 			mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 		}
 
