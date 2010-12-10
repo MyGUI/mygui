@@ -109,8 +109,8 @@ namespace MyGUI
 		const size_t countNames = 8;
 		const char* resizers[2][countNames] =
 		{
-			"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft", 
-			"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"
+			{"ResizeLeftTop", "ResizeTop", "ResizeRightTop", "ResizeRight", "ResizeRightBottom", "ResizeBottom", "ResizeLeftBottom", "ResizeLeft"},
+			{"Left Top", "Top", "Right Top", "Right", "Right Bottom", "Bottom", "Left Bottom", "Left"}
 		};
 
 		for (size_t index = 0; index < countNames; ++ index)
