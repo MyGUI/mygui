@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2009
-	@module
 */
 #ifndef __I_GRAPH_CONTROLLER_H__
 #define __I_GRAPH_CONTROLLER_H__

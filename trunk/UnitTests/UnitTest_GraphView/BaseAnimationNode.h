@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2009
-	@module
 */
 #ifndef __BASE_ANIMATION_NODE_H__
 #define __BASE_ANIMATION_NODE_H__
