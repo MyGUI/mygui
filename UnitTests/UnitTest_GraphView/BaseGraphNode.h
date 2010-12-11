@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2009
-	@module
 */
 #ifndef __BASE_GRAPH_NODE_H__
 #define __BASE_GRAPH_NODE_H__

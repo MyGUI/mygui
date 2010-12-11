@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 #ifndef __CONNECTION_RECEIVER_H__
 #define __CONNECTION_RECEIVER_H__

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2009
-	@module
 */
 #ifndef __GRAPH_NODE_GROUP2_CONTROLLER_H__
 #define __GRAPH_NODE_GROUP2_CONTROLLER_H__
