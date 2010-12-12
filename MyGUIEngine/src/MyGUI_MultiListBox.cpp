@@ -34,7 +34,7 @@ namespace MyGUI
 	MultiListBox::MultiListBox() :
 		mHeightButton(0),
 		mWidthBar(0),
-		mButtonMain(nullptr),
+		mWidgetEmpty(nullptr),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
@@ -42,7 +42,8 @@ namespace MyGUI
 		mOffsetButtonSeparator(2),
 		mItemSelected(ITEM_NONE),
 		mFrameAdvise(false),
-		mClient(nullptr)
+		mClient(nullptr),
+		mHeaderPlace(nullptr)
 	{
 	}
 
@@ -56,30 +57,35 @@ namespace MyGUI
 			mSkinButton = getUserString("SkinButton");
 		if (isUserString("SkinList"))
 			mSkinList = getUserString("SkinList");
-		if (isUserString("SkinButtonEmpty"))
-			skinButtonEmpty = getUserString("SkinButtonEmpty");
 		if (isUserString("SkinSeparator"))
 			mSkinSeparator = getUserString("SkinSeparator");
-		if (isUserString("HeightButton"))
-			mHeightButton = utility::parseValue<int>(getUserString("HeightButton"));
 		if (isUserString("WidthSeparator"))
 			mWidthSeparator = utility::parseValue<int>(getUserString("WidthSeparator"));
 
+		// OBSOLETE
+		if (isUserString("HeightButton"))
+			mHeightButton = utility::parseValue<int>(getUserString("HeightButton"));
 		if (mHeightButton < 0)
 			mHeightButton = 0;
 
-		if (!skinButtonEmpty.empty())
-			mButtonMain = mClient->createWidget<Button>(skinButtonEmpty,
-				IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
+		assignWidget(mHeaderPlace, "HeaderPlace");
 
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
-		{
 			setWidgetClient(mClient);
-		}
 
 		if (nullptr == mClient)
 			mClient = this;
+
+		assignWidget(mWidgetEmpty, "Empty");
+
+		if (mWidgetEmpty == nullptr)
+		{
+			if (isUserString("SkinButtonEmpty"))
+				skinButtonEmpty = getUserString("SkinButtonEmpty");
+			if (!skinButtonEmpty.empty())
+				mWidgetEmpty = mClient->createWidget<Widget>(skinButtonEmpty, IntCoord(0, 0, mClient->getWidth(), getButtonHeight()), Align::Default);
+		}
 	}
 
 	void MultiListBox::shutdownOverride()
@@ -112,7 +118,11 @@ namespace MyGUI
 		column.list->eventListChangeScroll += newDelegate(this, &MultiListBox::notifyListChangeScrollPosition);
 		column.list->eventListSelectAccept += newDelegate(this, &MultiListBox::notifyListSelectAccept);
 
-		column.button = mClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
+		if (mHeaderPlace != nullptr)
+			column.button = mHeaderPlace->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
+		else
+			column.button = mClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
+
 		column.button->eventMouseButtonClick += newDelegate(this, &MultiListBox::notifyButtonClick);
 		column.name = _name;
 		column.data = _data;
@@ -296,19 +306,26 @@ namespace MyGUI
 		size_t index = getSubItemAt(_column)->findItemIndexWith(_name);
 		return BiIndexBase::convertToFace(index);
 	}
-	//----------------------------------------------------------------------------------//
+
+	int MultiListBox::getButtonHeight()
+	{
+		if (mHeaderPlace != nullptr)
+			return mHeaderPlace->getHeight();
+		return mHeightButton;
+	}
 
 	void MultiListBox::updateOnlyEmpty()
 	{
-		if (nullptr == mButtonMain)
+		if (nullptr == mWidgetEmpty)
 			return;
+
 		// кнопка, для заполнения пустоты
 		if (mWidthBar >= mClient->getWidth())
-			mButtonMain->setVisible(false);
+			mWidgetEmpty->setVisible(false);
 		else
 		{
-			mButtonMain->setCoord(mWidthBar, 0, mClient->getWidth() - mWidthBar, mHeightButton);
-			mButtonMain->setVisible(true);
+			mWidgetEmpty->setCoord(mWidthBar, 0, mClient->getWidth() - mWidthBar, getButtonHeight());
+			mWidgetEmpty->setVisible(true);
 		}
 	}
 
@@ -450,8 +467,12 @@ namespace MyGUI
 		size_t index = 0;
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
-			(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mClient->getHeight() - mHeightButton);
-			(*iter).button->setCoord(mWidthBar, 0, (*iter).width, mHeightButton);
+			if (mHeaderPlace != nullptr)
+				(*iter).list->setCoord(mWidthBar, 0, (*iter).width, mClient->getHeight());
+			else
+				(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mClient->getHeight() - mHeightButton);
+
+			(*iter).button->setCoord(mWidthBar, 0, (*iter).width, getButtonHeight());
 			(*iter).button->_setInternalData(index);
 
 			mWidthBar += (*iter).width;

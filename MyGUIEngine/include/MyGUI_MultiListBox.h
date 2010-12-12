@@ -295,6 +295,7 @@ namespace MyGUI
 		void frameAdvise(bool _advise);
 
 		ListBox* getSubItemAt(size_t _column);
+		int getButtonHeight();
 
 	private:
 		struct ColumnInfo
@@ -318,8 +319,9 @@ namespace MyGUI
 	private:
 		int mHeightButton;
 		int mWidthBar;
-		std::string mSkinButton, mSkinList;
-		Button* mButtonMain;
+		std::string mSkinButton;
+		std::string mSkinList;
+		Widget* mWidgetEmpty;
 
 		VectorColumnInfo mVectorColumnInfo;
 
@@ -338,6 +340,7 @@ namespace MyGUI
 
 		bool mFrameAdvise;
 		Widget* mClient;
+		Widget* mHeaderPlace;
 	};
 
 } // namespace MyGUI
