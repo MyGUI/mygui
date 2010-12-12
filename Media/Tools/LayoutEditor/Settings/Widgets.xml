@@ -116,7 +116,7 @@
 
 	<Widget name="MenuBar">
 		<Property key="DefaultSkin" value="MenuBar"/>
-		<Property key="Base" value="MenuCtrl"/>
+		<Property key="Base" value="MenuControl"/>
 
 		<Property key="Skin" value="MenuBar"/>
 
@@ -136,7 +136,7 @@
 		<TemplateData key="SubMenuSkin" value="String"/>
 	</Widget>
 
-	<Widget name="MenuCtrl">
+	<Widget name="MenuControl">
 		<Property key="Base" value="Widget"/>
 	</Widget>
 
@@ -161,7 +161,7 @@
 
 	<Widget name="PopupMenu">
 		<Property key="DefaultSkin" value="PopupMenu"/>
-		<Property key="Base" value="MenuCtrl"/>
+		<Property key="Base" value="MenuControl"/>
 
 		<Property key="Resizeable" value="false"/>
 

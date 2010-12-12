@@ -14,7 +14,7 @@ set (HEADER_FILES
   include/MyGUI_ItemBox.h
   include/MyGUI_ListBox.h
   include/MyGUI_MenuBar.h
-  include/MyGUI_MenuCtrl.h
+  include/MyGUI_MenuControl.h
   include/MyGUI_MenuItem.h
   include/MyGUI_MultiListBox.h
   include/MyGUI_PopupMenu.h
@@ -178,7 +178,7 @@ set (SOURCE_FILES
   src/MyGUI_ItemBox.cpp
   src/MyGUI_ListBox.cpp
   src/MyGUI_MenuBar.cpp
-  src/MyGUI_MenuCtrl.cpp
+  src/MyGUI_MenuControl.cpp
   src/MyGUI_MenuItem.cpp
   src/MyGUI_MultiListBox.cpp
   src/MyGUI_PopupMenu.cpp
@@ -274,7 +274,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_ItemBox.cpp
   src/MyGUI_ListBox.cpp
   src/MyGUI_MenuBar.cpp
-  src/MyGUI_MenuCtrl.cpp
+  src/MyGUI_MenuControl.cpp
   src/MyGUI_MenuItem.cpp
   src/MyGUI_MultiListBox.cpp
   src/MyGUI_PopupMenu.cpp
@@ -404,7 +404,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_ItemBox.h
   include/MyGUI_ListBox.h
   include/MyGUI_MenuBar.h
-  include/MyGUI_MenuCtrl.h
+  include/MyGUI_MenuControl.h
   include/MyGUI_MenuItem.h
   include/MyGUI_MultiListBox.h
   include/MyGUI_PopupMenu.h

@@ -39,16 +39,16 @@ namespace MyGUI
 
 		// FIXME проверить смену скина ибо должно один раз вызываться
 		Widget* parent = getParent();
-		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
-		if (!parent->isType<MenuCtrl>())
+		MYGUI_ASSERT(parent, "MenuItem must have parent MenuControl");
+		if (!parent->isType<MenuControl>())
 		{
 			Widget* client = parent;
 			parent = client->getParent();
-			MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
-			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent MenuCtrl");
-			MYGUI_ASSERT(parent->isType<MenuCtrl>(), "MenuItem must have parent MenuCtrl");
+			MYGUI_ASSERT(parent, "MenuItem must have parent MenuControl");
+			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent MenuControl");
+			MYGUI_ASSERT(parent->isType<MenuControl>(), "MenuItem must have parent MenuControl");
 		}
-		mOwner = parent->castType<MenuCtrl>();
+		mOwner = parent->castType<MenuControl>();
 
 		assignWidget(mCheck, "Check");
 
@@ -73,7 +73,7 @@ namespace MyGUI
 	{
 		Base::onWidgetCreated(_widget);
 
-		MenuCtrl* child = _widget->castType<MenuCtrl>(false);
+		MenuControl* child = _widget->castType<MenuControl>(false);
 		if (child != nullptr)
 		{
 			mOwner->_wrapItemChild(this, child);
@@ -121,7 +121,7 @@ namespace MyGUI
 		return mOwner->getItemIndex(this);
 	}
 
-	MenuCtrl* MenuItem::createItemChild()
+	MenuControl* MenuItem::createItemChild()
 	{
 		return mOwner->createItemChild(this);
 	}
@@ -141,7 +141,7 @@ namespace MyGUI
 		mOwner->setItemChildVisible(this, _visible);
 	}
 
-	MenuCtrl* MenuItem::getItemChild()
+	MenuControl* MenuItem::getItemChild()
 	{
 		return mOwner->getItemChild(this);
 	}
@@ -162,7 +162,7 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	MenuCtrl* MenuItem::getMenuCtrlParent()
+	MenuControl* MenuItem::getMenuCtrlParent()
 	{
 		return mOwner;
 	}

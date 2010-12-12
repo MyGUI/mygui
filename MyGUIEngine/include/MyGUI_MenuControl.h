@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MENU_CTRL_H__
-#define __MYGUI_MENU_CTRL_H__
+#ifndef __MYGUI_MENU_CONTROL_H__
+#define __MYGUI_MENU_CONTROL_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -36,18 +36,18 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<MenuCtrl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
-	typedef delegates::CMultiDelegate1<MenuCtrl*> EventHandle_MenuCtrlPtr;
+	typedef delegates::CMultiDelegate2<MenuControl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
+	typedef delegates::CMultiDelegate1<MenuControl*> EventHandle_MenuCtrlPtr;
 
-	class MYGUI_EXPORT MenuCtrl :
+	class MYGUI_EXPORT MenuControl :
 		public Widget,
 		public IItemContainer,
-		public MemberObsolete<MenuCtrl>
+		public MemberObsolete<MenuControl>
 	{
-		MYGUI_RTTI_DERIVED( MenuCtrl )
+		MYGUI_RTTI_DERIVED( MenuControl )
 
 	public:
-		MenuCtrl();
+		MenuControl();
 
 		enum ItemImage
 		{
@@ -57,7 +57,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuCtrl* _submenu, const std::string& _id, Any _data) :
+			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, const std::string& _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -75,7 +75,7 @@ namespace MyGUI
 			/** Widget have separator after item */
 			MenuItemType type;
 			/** Sub menu (or nullptr if no submenu) */
-			MenuCtrl* submenu;
+			MenuControl* submenu;
 			/** Item id*/
 			std::string id;
 			/** User data */
@@ -145,7 +145,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getItemDataAt(size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemDataAt");
+			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
 		}
 		//! Get item data
@@ -212,16 +212,16 @@ namespace MyGUI
 		}
 
 		/** Get child item (submenu) from item by index */
-		MenuCtrl* getItemChildAt(size_t _index);
+		MenuControl* getItemChildAt(size_t _index);
 
 		/** Get child item (submenu) from item */
-		MenuCtrl* getItemChild(MenuItem* _item);
+		MenuControl* getItemChild(MenuItem* _item);
 
 		/** Create child item (submenu) for item by index */
-		MenuCtrl* createItemChildAt(size_t _index);
+		MenuControl* createItemChildAt(size_t _index);
 
 		/** Create child item (submenu) for item */
-		MenuCtrl* createItemChild(MenuItem* _item);
+		MenuControl* createItemChild(MenuItem* _item);
 
 		/** Remove child item (submenu) for item by index */
 		void removeItemChildAt(size_t _index);
@@ -257,7 +257,7 @@ namespace MyGUI
 
 	/*events:*/
 		/** Event : Enter pressed or mouse clicked.\n
-			signature : void method(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)\n
+			signature : void method(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)\n
 			@param _sender widget that called this event
 			@param _item Selected item
 		*/
@@ -265,7 +265,7 @@ namespace MyGUI
 			eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
-			signature : void method(MyGUI::MenuCtrl* _sender)\n
+			signature : void method(MyGUI::MenuControl* _sender)\n
 			@param _sender widget that called this event
 		*/
 		EventHandle_MenuCtrlPtr
@@ -276,7 +276,7 @@ namespace MyGUI
 		void _notifyDeleteItem(MenuItem* _item);
 		void _notifyDeletePopup(MenuItem* _item);
 		void _notifyUpdateName(MenuItem* _item);
-		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
+		void _wrapItemChild(MenuItem* _item, MenuControl* _widget);
 
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);
@@ -358,4 +358,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MENU_CTRL_H__
+#endif // __MYGUI_MENU_CONTROL_H__

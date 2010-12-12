@@ -23,13 +23,13 @@
 #define __MYGUI_MENU_BAR_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuControl.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT MenuBar :
-		public MenuCtrl
+		public MenuControl
 	{
 		MYGUI_RTTI_DERIVED( MenuBar )
 
