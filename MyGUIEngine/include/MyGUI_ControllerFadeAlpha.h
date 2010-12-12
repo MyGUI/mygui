@@ -40,17 +40,17 @@ namespace MyGUI
 		virtual ~ControllerFadeAlpha();
 
 		/**
-			@param _alpha that will be as result of changing
+			@param _value Alpha that will be as result of changing
 		*/
 		void setAlpha(float _value);
 
 		/**
-			@param _coef of alpha changing speed (1. mean that alpha will change from 0 to 1 at 1 second)
+			@param _value Coefficient of alpha changing speed (1. mean that alpha will change from 0 to 1 at 1 second)
 		*/
 		void setCoef(float _value);
 
 		/**
-			@param _enabled if true then widget will be inactive after start of alpha changing
+			@param _value If true then widget will be inactive after start of alpha changing
 		*/
 		void setEnabled(bool _value);
 

@@ -71,7 +71,6 @@ namespace MyGUI
 		// RU: теперь data.value == 0
 		// EN: now value == 0
 		copy_ptr->value = 0;
-
 	}
 	@endcode
 	*/

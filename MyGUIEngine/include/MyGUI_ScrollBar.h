@@ -55,14 +55,14 @@ namespace MyGUI
 		size_t getScrollPosition() const;
 
 		/** Set scroll page
-			@param _page Tracker step when buttons pressed
+			@param _value Tracker step when buttons pressed
 		*/
 		void setScrollPage(size_t _value);
 		/** Get scroll page */
 		size_t getScrollPage() const;
 
 		/** Set scroll view page
-			@param _viewPage Tracker step when pressed on scroll line
+			@param _value Tracker step when pressed on scroll line
 		*/
 		void setScrollViewPage(size_t _value);
 		/** Get scroll view page */

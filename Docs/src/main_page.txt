@@ -21,7 +21,7 @@
 	\li \link MyGUI::ItemBox ItemBox \endlink
 	\li \link MyGUI::ListBox ListBox \endlink
 	\li \link MyGUI::MenuBar MenuBar \endlink
-	\li \link MyGUI::MenuCtrl MenuCtrl \endlink
+	\li \link MyGUI::MenuControl MenuControl \endlink
 	\li \link MyGUI::MultiListBox MultiListBox \endlink
 	\li \link MyGUI::PopupMenu PopupMenu \endlink
 	\li \link MyGUI::ProgressBar ProgressBar \endlink

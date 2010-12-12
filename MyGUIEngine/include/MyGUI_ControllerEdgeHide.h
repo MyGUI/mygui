@@ -51,12 +51,12 @@ namespace MyGUI
 		void setTime(float _value);
 
 		/**
-			@param _remainPixels how many pixels you will see afterr full hide
+			@param _value How many pixels you will see after full hide
 		*/
 		void setRemainPixels(int _value);
 
 		/**
-			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
+			@param _value Added to "remain pixels" when hiding left or top (for example used for windows with shadows)
 		*/
 		void setShadowSize(int _value);
 
