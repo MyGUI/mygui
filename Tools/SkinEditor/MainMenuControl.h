@@ -19,7 +19,7 @@ namespace tools
 		virtual ~MainMenuControl();
 
 	private:
-		void notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 
 		void updateRecentFilesMenu();
 

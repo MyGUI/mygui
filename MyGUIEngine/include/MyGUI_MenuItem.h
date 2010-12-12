@@ -24,7 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuControl.h"
 #include "MyGUI_IItem.h"
 
 namespace MyGUI
@@ -70,7 +70,7 @@ namespace MyGUI
 		size_t getItemIndex();
 
 		/** Create child item (submenu), MenuItem can have only one child */
-		MenuCtrl* createItemChild();
+		MenuControl* createItemChild();
 
 		/** Create specific type child item (submenu), MenuItem can have only one child */
 		template <typename Type>
@@ -87,11 +87,11 @@ namespace MyGUI
 		/** Hide or show child item (submenu) */
 		void setItemChildVisible(bool _value);
 
-		/** Get parent MenuCtrl */
-		MenuCtrl* getMenuCtrlParent();
+		/** Get parent MenuControl */
+		MenuControl* getMenuCtrlParent();
 
 		/** Get child item (submenu) */
-		MenuCtrl* getItemChild();
+		MenuControl* getItemChild();
 
 		bool getItemChecked() const;
 		void setItemChecked(bool _value);
@@ -112,7 +112,7 @@ namespace MyGUI
 		void updateCheck();
 
 	private:
-		MenuCtrl* mOwner;
+		MenuControl* mOwner;
 		IntSize mMinSize;
 		Widget* mCheck;
 		bool mCheckValue;

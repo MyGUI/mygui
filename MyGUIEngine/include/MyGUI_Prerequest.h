@@ -86,7 +86,7 @@ namespace MyGUI
 	class ItemBox;
 	class MultiListBox;
 	class ImageBox;
-	class MenuCtrl;
+	class MenuControl;
 	class MenuItem;
 	class PopupMenu;
 	class MenuBar;
