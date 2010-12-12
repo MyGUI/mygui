@@ -57,7 +57,7 @@ namespace MyGUI
 		void setTime(float _value);
 
 		/**
-			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
+			@param _value Delegate applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
 		void setAction(FrameAction::IDelegate* _value);
 

@@ -108,7 +108,8 @@ namespace MyGUI
 			@param _skin widget skin
 			@param _coord int coordinates of widget (_left, _top, _width, _height)
 			@param _align widget align (possible values can be found in enum Align)
-			@param _name if needed (you can use it for finding widget by name later)
+			@param _layer layer where widget will be created (all layers usually defined in core_layer.xml file).
+			@param _name optional widget name (you can use it for finding widget by name later)
 		*/
 		Widget* createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
 
@@ -232,10 +233,9 @@ namespace MyGUI
 		void detachFromWidget(const std::string& _layer = "");
 
 		/** Attach widget to parent
-			@param _style Child widget type
+			@param _parent New parent
+			@param _style New widget style (see WidgetStyle::Enum)
 			@param _layer Attach to specified layer (if any)
-			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
-				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
 		void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
@@ -243,9 +243,9 @@ namespace MyGUI
 		void changeWidgetSkin(const std::string& _skinName);
 
 		/** Set widget style.
+			@param _style New widget style (see WidgetStyle::Enum)
 			@param _layer Attach to specified layer (if any)
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
-			see LayerManager::attachToLayerNode
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 		/** Get widget style */

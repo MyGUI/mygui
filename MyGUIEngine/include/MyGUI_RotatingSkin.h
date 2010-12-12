@@ -46,7 +46,6 @@ namespace MyGUI
 
 		/** Set center of rotation
 			@param _center Center point.
-			@param _local If true - _center point calculated as point on SubWidget, else calculated as point on screen.
 		*/
 		void setCenter(const IntPoint& _center);
 		/** Get center of rotation */
