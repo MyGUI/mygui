@@ -157,6 +157,8 @@
 		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="MultiList"/>
+
+		<Property key="ItemManager" value="true"/>
 	</Widget>
 
 	<Widget name="PopupMenu">

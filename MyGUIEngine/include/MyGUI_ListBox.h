@@ -216,12 +216,10 @@ namespace MyGUI
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
+		// IItemContainer impl
 		virtual size_t _getItemCount();
-
 		virtual void _addItem(const MyGUI::UString& _name);
-
 		virtual void _removeItemAt(size_t _index);
-
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 
