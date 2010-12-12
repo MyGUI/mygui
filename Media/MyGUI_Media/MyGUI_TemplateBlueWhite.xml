@@ -2290,4 +2290,21 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MultiListBoxTemplate" version="3.2.0">
+        <Widget type="Widget" skin="PanelSkin" position="5 5 55 40" name="Root">
+            <UserString key="TargetWidgetType" value="MultiListBox"/>
+            <UserString key="SkinButton" value="MultiListButton"/>
+            <UserString key="SkinList" value="MultiSubList"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 24 47 11" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 47 21" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="MultiListButton" position="0 0 47 21" name="Empty"/>
+            </Widget>
+        </Widget>
+        <Widget type="MultiListBox" skin="MultiListBoxTemplate" position="5 55 185 70">
+            <Property key="AddItem" value="test1"/>
+        </Widget>
+        <Widget type="MultiListBox" skin="MultiList" position="5 135 185 70">
+            <Property key="AddItem" value="test1"/>
+        </Widget>
+    </Resource>
 </MyGUI>
