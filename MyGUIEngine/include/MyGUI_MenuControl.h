@@ -278,6 +278,7 @@ namespace MyGUI
 		void _notifyUpdateName(MenuItem* _item);
 		void _wrapItemChild(MenuItem* _item, MenuControl* _widget);
 
+		// IItemContainer impl
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);
 		virtual void _removeItemAt(size_t _index);
