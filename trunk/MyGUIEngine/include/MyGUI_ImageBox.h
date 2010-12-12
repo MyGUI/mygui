@@ -66,7 +66,7 @@ namespace MyGUI
 		/** Set current tile index
 			@param _index - tile index
 			@remarks Tiles in file start numbering from left to right and from top to bottom.
-			\n \bExample:\n
+			\n For example:\n
 			<pre>
 				+---+---+---+
 				| 0 | 1 | 2 |
@@ -166,7 +166,7 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		/** Select current items resource used in ImageBox
-			@param _id Resource name
+			@param _name Resource name
 			@return false if resource with such name not exist
 		*/
 		bool setItemResource(const std::string& _name);

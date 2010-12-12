@@ -60,12 +60,14 @@ namespace MyGUI
 			@param _column New column will be inserted before _column
 			@param _name Name of new column
 			@param _width Width of new column
+			@param _data Any data associated with new column
 		*/
 		void insertColumnAt(size_t _column, const UString& _name, int _width, Any _data = Any::Null);
 
 		/** Add new column at last position
 			@param _width Width of new column
 			@param _name Name of new column
+			@param _data Any data associated with new column
 		*/
 		void addColumn(const UString& _name, int _width, Any _data = Any::Null);
 
@@ -87,7 +89,7 @@ namespace MyGUI
 
 		/** Set column width
 			@param _column Index of column
-			@param _name New width of column
+			@param _width New width of column
 		*/
 		void setColumnWidthAt(size_t _column, int _width);
 

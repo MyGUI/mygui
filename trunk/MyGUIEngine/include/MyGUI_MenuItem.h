@@ -40,7 +40,7 @@ namespace MyGUI
 	public:
 		MenuItem();
 
-		/** @copydoc Widget::setCaption(const UString& _value) */
+		/** @copydoc TextBox::setCaption(const UString& _value) */
 		virtual void setCaption(const UString& _value);
 
 		//! Replace an item name

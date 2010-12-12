@@ -1137,13 +1137,16 @@ namespace MyGUI
 
 	void Widget::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
+		/// @wproperty{Widget, Position, IntPoint} Set widget position.
 		if (_key == "Position")
 			setPosition(utility::parseValue<IntPoint>(_value));
+		/// @wproperty{Widget, Size, IntSize} Set widget size.
 		else if (_key == "Size")
 			setSize(utility::parseValue<IntSize>(_value));
+		/// @wproperty{Widget, Coord, IntCoord} Set widget coordinates (position and size).
 		else if (_key == "Coord")
 			setCoord(utility::parseValue<IntCoord>(_value));
+		/// @wproperty{Widget, Visible, bool} Show or hide widget.
 		else if (_key == "Visible")
 			setVisible(utility::parseValue<bool>(_value));
 		else if (_key == "Alpha")
