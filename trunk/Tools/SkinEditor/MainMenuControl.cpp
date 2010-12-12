@@ -28,7 +28,7 @@ namespace tools
 		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 	}
 
-	void MainMenuControl::notifyMenuCtrlAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
+	void MainMenuControl::notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
 		if (data != nullptr)

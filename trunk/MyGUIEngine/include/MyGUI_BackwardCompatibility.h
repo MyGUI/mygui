@@ -201,7 +201,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<MenuCtrl>
+	class MemberObsolete<MenuControl>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setVisible(bool _value)")
@@ -220,9 +220,9 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : void setItemChildVisible(MenuItem* _item, bool _visible)")
 		void hideItemChild(MenuItem* _item);
 
-		MYGUI_OBSOLETE(" is deprecated, use : void MenuCtrl::setVerticalAlignment(bool _value)")
+		MYGUI_OBSOLETE(" is deprecated, use : void MenuControl::setVerticalAlignment(bool _value)")
 		void setAlignVert(bool _value);
-		MYGUI_OBSOLETE(" is deprecated, use : bool MenuCtrl::getVerticalAlignment() const")
+		MYGUI_OBSOLETE(" is deprecated, use : bool MenuControl::getVerticalAlignment() const")
 		bool getAlignVert();
 	};
 

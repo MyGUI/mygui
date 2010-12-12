@@ -26,7 +26,7 @@
 #include "MyGUI_EditBox.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_ListBox.h"
-#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuControl.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_MultiListBox.h"
 #include "MyGUI_ProgressBar.h"
@@ -322,43 +322,43 @@ namespace MyGUI
 	}
 
 
-	void MemberObsolete<MenuCtrl>::showMenu()
+	void MemberObsolete<MenuControl>::showMenu()
 	{
-		static_cast<MenuCtrl*>(this)->setVisible(true);
+		static_cast<MenuControl*>(this)->setVisible(true);
 	}
-	void MemberObsolete<MenuCtrl>::hideMenu()
+	void MemberObsolete<MenuControl>::hideMenu()
 	{
-		static_cast<MenuCtrl*>(this)->setVisible(false);
+		static_cast<MenuControl*>(this)->setVisible(false);
 	}
-	bool MemberObsolete<MenuCtrl>::isShowMenu()
+	bool MemberObsolete<MenuControl>::isShowMenu()
 	{
-		return static_cast<MenuCtrl*>(this)->getVisible();
-	}
-
-	void MemberObsolete<MenuCtrl>::showItemChildAt(size_t _index)
-	{
-		static_cast<MenuCtrl*>(this)->setItemChildVisibleAt(_index, true);
-	}
-	void MemberObsolete<MenuCtrl>::showItemChild(MenuItem* _item)
-	{
-		static_cast<MenuCtrl*>(this)->setItemChildVisible(_item, true);
-	}
-	void MemberObsolete<MenuCtrl>::hideItemChildAt(size_t _index)
-	{
-		static_cast<MenuCtrl*>(this)->setItemChildVisibleAt(_index, false);
-	}
-	void MemberObsolete<MenuCtrl>::hideItemChild(MenuItem* _item)
-	{
-		static_cast<MenuCtrl*>(this)->setItemChildVisible(_item, false);
+		return static_cast<MenuControl*>(this)->getVisible();
 	}
 
-	void MemberObsolete<MenuCtrl>::setAlignVert(bool _value)
+	void MemberObsolete<MenuControl>::showItemChildAt(size_t _index)
 	{
-		static_cast<MenuCtrl*>(this)->setVerticalAlignment(_value);
+		static_cast<MenuControl*>(this)->setItemChildVisibleAt(_index, true);
 	}
-	bool MemberObsolete<MenuCtrl>::getAlignVert()
+	void MemberObsolete<MenuControl>::showItemChild(MenuItem* _item)
 	{
-		return static_cast<MenuCtrl*>(this)->getVerticalAlignment();
+		static_cast<MenuControl*>(this)->setItemChildVisible(_item, true);
+	}
+	void MemberObsolete<MenuControl>::hideItemChildAt(size_t _index)
+	{
+		static_cast<MenuControl*>(this)->setItemChildVisibleAt(_index, false);
+	}
+	void MemberObsolete<MenuControl>::hideItemChild(MenuItem* _item)
+	{
+		static_cast<MenuControl*>(this)->setItemChildVisible(_item, false);
+	}
+
+	void MemberObsolete<MenuControl>::setAlignVert(bool _value)
+	{
+		static_cast<MenuControl*>(this)->setVerticalAlignment(_value);
+	}
+	bool MemberObsolete<MenuControl>::getAlignVert()
+	{
+		return static_cast<MenuControl*>(this)->getVerticalAlignment();
 	}
 
 	void MemberObsolete<MenuItem>::showItemChild()
@@ -1034,6 +1034,10 @@ namespace MyGUI
 			{
 				MYGUI_LOG(Warning, "MultiList factory is deprecated, use " << MultiListBox::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}
+			else if (_factoryName == "MenuCtrl")
+			{
+				MYGUI_LOG(Warning, "MenuCtrl factory is deprecated, use " << MenuControl::getClassTypeName() << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _factoryName;
@@ -1108,6 +1112,7 @@ namespace MyGUI
 		factory.registerFactory<EditBox>("Widget", "Edit");
 		factory.registerFactory<TabControl>("Widget", "Tab");
 		factory.registerFactory<MultiListBox>("Widget", "MultiList");
+		factory.registerFactory<MenuControl>("Widget", "MenuCtrl");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

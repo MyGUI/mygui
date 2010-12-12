@@ -38,7 +38,6 @@ namespace MyGUI
 	typedef ComboBox* ComboBoxPtr;
 	typedef TabItem* TabItemPtr;
 	typedef ItemBox* ItemBoxPtr;
-	typedef MenuCtrl* MenuCtrlPtr;
 	typedef MenuItem* MenuItemPtr;
 	typedef PopupMenu* PopupMenuPtr;
 	typedef MenuBar* MenuBarPtr;
@@ -78,6 +77,9 @@ namespace MyGUI
 
 	typedef MultiListBox MultiList;
 	typedef MultiList* MultiListPtr;
+
+	typedef MenuControl MenuCtrl;
+	typedef MenuCtrl* MenuCtrlPtr;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

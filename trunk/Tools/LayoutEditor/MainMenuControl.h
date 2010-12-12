@@ -23,11 +23,11 @@ namespace tools
 
 	private:
 		void createMainMenu();
-		void notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+		void notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 
 		void widgetsUpdate();
-		void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
-		void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+		void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+		void notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 		std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 		void notifyChangeWidgets();
@@ -38,7 +38,7 @@ namespace tools
 
 	private:
 		MyGUI::MenuBar* mBar;
-		MyGUI::MenuCtrl* mPopupMenuWidgets;
+		MyGUI::MenuControl* mPopupMenuWidgets;
 	};
 
 } // namespace tools

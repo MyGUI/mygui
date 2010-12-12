@@ -49,7 +49,7 @@ namespace tools
 		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControl::notifyPopupMenuAccept);
 	}
 
-	void MainMenuControl::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
+	void MainMenuControl::notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
 		if (data != nullptr)
@@ -75,7 +75,7 @@ namespace tools
 			createWidgetPopup(widget.current(), mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 
-	void MainMenuControl::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
+	void MainMenuControl::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 	{
 		bool submenu = !_container->childContainers.empty();
 
@@ -84,7 +84,7 @@ namespace tools
 
 		if (submenu)
 		{
-			MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount() - 1);
+			MyGUI::MenuControl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount() - 1);
 			child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
 			child->setPopupAccept(true);
 
@@ -95,7 +95,7 @@ namespace tools
 		}
 	}
 
-	void MainMenuControl::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
+	void MainMenuControl::notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
 		WidgetSelectorManager::getInstance().setSelectedWidget(widget);

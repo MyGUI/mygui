@@ -20,7 +20,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuControl.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_ImageBox.h"
@@ -37,7 +37,7 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuCtrl::MenuCtrl() :
+	MenuControl::MenuControl() :
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
@@ -54,7 +54,7 @@ namespace MyGUI
 	{
 	}
 
-	void MenuCtrl::initialiseOverride()
+	void MenuControl::initialiseOverride()
 	{
 		Base::initialiseOverride();
 
@@ -111,7 +111,7 @@ namespace MyGUI
 		mShutdown = false;
 	}
 
-	void MenuCtrl::shutdownOverride()
+	void MenuControl::shutdownOverride()
 	{
 		mShutdown = true;
 
@@ -121,7 +121,7 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	void MenuCtrl::onWidgetCreated(Widget* _widget)
+	void MenuControl::onWidgetCreated(Widget* _widget)
 	{
 		Base::onWidgetCreated(_widget);
 
@@ -132,9 +132,9 @@ namespace MyGUI
 		}
 	}
 
-	MenuItem* MenuCtrl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuControl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
@@ -143,9 +143,9 @@ namespace MyGUI
 		return item;
 	}
 
-	void MenuCtrl::removeItemAt(size_t _index)
+	void MenuControl::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::removeItemAt");
 
 		if (mItemsInfo[_index].submenu)
 		{
@@ -155,7 +155,7 @@ namespace MyGUI
 		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].item);
 	}
 
-	void MenuCtrl::removeAllItems()
+	void MenuControl::removeAllItems()
 	{
 		while (mItemsInfo.size() > 0)
 		{
@@ -168,13 +168,13 @@ namespace MyGUI
 		}
 	}
 
-	const UString& MenuCtrl::getItemNameAt(size_t _index)
+	const UString& MenuControl::getItemNameAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemNameAt");
 		return mItemsInfo[_index].name;
 	}
 
-	void MenuCtrl::setButtonImageIndex(Button* _button, size_t _index)
+	void MenuControl::setButtonImageIndex(Button* _button, size_t _index)
 	{
 		ImageBox* image = _button->getImageBox();
 		if (nullptr == image)
@@ -194,7 +194,7 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::update()
+	void MenuControl::update()
 	{
 		IntSize size;
 
@@ -237,21 +237,21 @@ namespace MyGUI
 			setSize(size + mCoord.size() - _getClientWidget()->getSize());
 	}
 
-	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
+	void MenuControl::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemDataAt");
 		mItemsInfo[_index].data = _data;
 	}
 
-	MenuCtrl* MenuCtrl::getItemChildAt(size_t _index)
+	MenuControl* MenuControl::getItemChildAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemChildAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemChildAt");
 		return mItemsInfo[_index].submenu;
 	}
 
-	void MenuCtrl::removeItemChildAt(size_t _index)
+	void MenuControl::removeItemChildAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::removeItemChildAt");
 
 		if (mItemsInfo[_index].submenu != nullptr)
 		{
@@ -262,9 +262,9 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setItemNameAt(size_t _index, const UString& _name)
+	void MenuControl::setItemNameAt(size_t _index, const UString& _name)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemNameAt");
 
 		mItemsInfo[_index].name = _name;
 		MenuItem* item = mItemsInfo[_index].item;
@@ -273,19 +273,19 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setItemIdAt(size_t _index, const std::string& _id)
+	void MenuControl::setItemIdAt(size_t _index, const std::string& _id)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemIdAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemIdAt");
 		mItemsInfo[_index].id = _id;
 	}
 
-	const std::string& MenuCtrl::getItemIdAt(size_t _index)
+	const std::string& MenuControl::getItemIdAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemIdAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemIdAt");
 		return mItemsInfo[_index].id;
 	}
 
-	void MenuCtrl::_notifyDeleteItem(MenuItem* _item)
+	void MenuControl::_notifyDeleteItem(MenuItem* _item)
 	{
 		// дитю меняем скин
 		if (mChangeChildSkin)
@@ -300,13 +300,13 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_notifyDeletePopup(MenuItem* _item)
+	void MenuControl::_notifyDeletePopup(MenuItem* _item)
 	{
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].submenu = nullptr;
 	}
 
-	void MenuCtrl::_notifyUpdateName(MenuItem* _item)
+	void MenuControl::_notifyUpdateName(MenuItem* _item)
 	{
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
@@ -316,15 +316,15 @@ namespace MyGUI
 		update();
 	}
 
-	MenuItemType MenuCtrl::getItemTypeAt(size_t _index)
+	MenuItemType MenuControl::getItemTypeAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemTypeAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemTypeAt");
 		return mItemsInfo[_index].type;
 	}
 
-	void MenuCtrl::setItemTypeAt(size_t _index, MenuItemType _type)
+	void MenuControl::setItemTypeAt(size_t _index, MenuItemType _type)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemTypeAt");
 		ItemInfo& info = mItemsInfo[_index];
 		if (info.type == _type)
 			return;
@@ -343,7 +343,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::notifyMenuCtrlAccept(MenuItem* _item)
+	void MenuControl::notifyMenuCtrlAccept(MenuItem* _item)
 	{
 		if (mHideByAccept)
 		{
@@ -357,7 +357,7 @@ namespace MyGUI
 		MenuItem* parent_item = getMenuItemParent();
 		if (parent_item)
 		{
-			MenuCtrl* parent_ctrl = parent_item->getMenuCtrlParent();
+			MenuControl* parent_ctrl = parent_item->getMenuCtrlParent();
 			if (parent_ctrl)
 			{
 				parent_ctrl->notifyMenuCtrlAccept(_item);
@@ -367,14 +367,14 @@ namespace MyGUI
 		eventMenuCtrlAccept(this, _item);
 	}
 
-	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
+	void MenuControl::setItemChildVisibleAt(size_t _index, bool _visible)
 	{
 		_setItemChildVisibleAt(_index, _visible, true);
 	}
 
-	void MenuCtrl::_setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth)
+	void MenuControl::_setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemChildVisibleAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemChildVisibleAt");
 
 		if (_visible)
 		{
@@ -385,7 +385,7 @@ namespace MyGUI
 				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
 				IntPoint point(getAbsoluteRect().right, coord.top - offset);
 
-				MenuCtrl* menu = mItemsInfo[_index].submenu;
+				MenuControl* menu = mItemsInfo[_index].submenu;
 
 				if (mVerticalAlignment)
 				{
@@ -420,7 +420,7 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus)
+	void MenuControl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus)
 	{
 		MenuItem* item = _sender->castType<MenuItem>();
 		if (item->getItemType() == MenuItemType::Popup)
@@ -441,16 +441,16 @@ namespace MyGUI
 		}
 	}
 
-	Widget* MenuCtrl::createItemChildByType(size_t _index, const std::string& _type)
+	Widget* MenuControl::createItemChildByType(size_t _index, const std::string& _type)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::createItemChildByType");
 		removeItemChildAt(_index);
 		Widget* child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		MYGUI_ASSERT(child->isType<MenuCtrl>(), "child must have MenuCtrl base type");
+		MYGUI_ASSERT(child->isType<MenuControl>(), "child must have MenuControl base type");
 		return child;
 	}
 
-	void MenuCtrl::notifyMouseButtonClick(Widget* _sender)
+	void MenuControl::notifyMouseButtonClick(Widget* _sender)
 	{
 		MenuItem* item = _sender->castType<MenuItem>();
 		if (mMenuDropMode)
@@ -485,7 +485,7 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::onKeyChangeRootFocus(bool _focus)
+	void MenuControl::onKeyChangeRootFocus(bool _focus)
 	{
 		if (mMenuDropMode)
 		{
@@ -499,12 +499,12 @@ namespace MyGUI
 		Base::onKeyChangeRootFocus(_focus);
 	}
 
-	void MenuCtrl::notifyMouseSetFocus(Widget* _sender, Widget* _new)
+	void MenuControl::notifyMouseSetFocus(Widget* _sender, Widget* _new)
 	{
 		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
-	void MenuCtrl::_wrapItemChild(MenuItem* _item, MenuCtrl* _widget)
+	void MenuControl::_wrapItemChild(MenuItem* _item, MenuControl* _widget)
 	{
 		// заменяем
 		size_t index = getItemIndex(_item);
@@ -520,16 +520,16 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	void MenuControl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mVerticalAlignment ? Align::Top | Align::HStretch : Align::Default);
-		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
-		_item->eventMouseButtonClick += newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
-		_item->eventMouseSetFocus += newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
+		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuControl::notifyRootKeyChangeFocus);
+		_item->eventMouseButtonClick += newDelegate(this, &MenuControl::notifyMouseButtonClick);
+		_item->eventMouseSetFocus += newDelegate(this, &MenuControl::notifyMouseSetFocus);
 
 		setButtonImageIndex(_item, getIconIndexByType(_type ));
 
-		MenuCtrl* submenu = nullptr;
+		MenuControl* submenu = nullptr;
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
@@ -545,7 +545,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setVisible(bool _visible)
+	void MenuControl::setVisible(bool _visible)
 	{
 		if (mAnimateSmooth)
 		{
@@ -566,7 +566,7 @@ namespace MyGUI
 		Base::setVisible(_visible);
 	}
 
-	void MenuCtrl::setVisibleSmooth(bool _visible)
+	void MenuControl::setVisibleSmooth(bool _visible)
 	{
 		mAnimateSmooth = true;
 		ControllerManager::getInstance().removeItem(this);
@@ -594,7 +594,7 @@ namespace MyGUI
 		}
 	}
 
-	ControllerFadeAlpha* MenuCtrl::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	ControllerFadeAlpha* MenuControl::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
 	{
 		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
 		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
@@ -606,38 +606,38 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItem* MenuCtrl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}
 
-	MenuItem* MenuCtrl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 	}
 
-	void MenuCtrl::removeItem(MenuItem* _item)
+	void MenuControl::removeItem(MenuItem* _item)
 	{
 		removeItemAt(getItemIndex(_item));
 	}
 
-	MenuItem* MenuCtrl::getItemAt(size_t _index)
+	MenuItem* MenuControl::getItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemAt");
 		return mItemsInfo[_index].item;
 	}
 
-	size_t MenuCtrl::getItemIndex(MenuItem* _item)
+	size_t MenuControl::getItemIndex(MenuItem* _item)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
 			if (mItemsInfo[pos].item == _item)
 				return pos;
 		}
-		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
+		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuControl::getItemIndex'");
 	}
 
-	MenuItem* MenuCtrl::findItemWith(const UString& _name)
+	MenuItem* MenuControl::findItemWith(const UString& _name)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -647,27 +647,27 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	MenuItem* MenuCtrl::getItemById(const std::string& _id)
+	MenuItem* MenuControl::getItemById(const std::string& _id)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
 			if (mItemsInfo[index].id == _id)
 				return mItemsInfo[index].item;
 		}
-		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	size_t MenuCtrl::getItemIndexById(const std::string& _id)
+	size_t MenuControl::getItemIndexById(const std::string& _id)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
 			if (mItemsInfo[index].id == _id)
 				return index;
 		}
-		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	MenuItem* MenuCtrl::findItemById(const std::string& _id, bool _recursive)
+	MenuItem* MenuControl::findItemById(const std::string& _id, bool _recursive)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -684,7 +684,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	size_t MenuCtrl::findItemIndexWith(const UString& _name)
+	size_t MenuControl::findItemIndexWith(const UString& _name)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -694,7 +694,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t MenuCtrl::findItemIndex(MenuItem* _item)
+	size_t MenuControl::findItemIndex(MenuItem* _item)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -704,102 +704,102 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	Widget* MenuCtrl::_getClientWidget()
+	Widget* MenuControl::_getClientWidget()
 	{
 		return mClient == nullptr ? this : mClient;
 	}
 
-	size_t MenuCtrl::getItemCount() const
+	size_t MenuControl::getItemCount() const
 	{
 		return mItemsInfo.size();
 	}
 
-	void MenuCtrl::setItemData(MenuItem* _item, Any _data)
+	void MenuControl::setItemData(MenuItem* _item, Any _data)
 	{
 		setItemDataAt(getItemIndex(_item), _data);
 	}
 
-	void MenuCtrl::clearItemDataAt(size_t _index)
+	void MenuControl::clearItemDataAt(size_t _index)
 	{
 		setItemDataAt(_index, Any::Null);
 	}
 
-	void MenuCtrl::clearItemData(MenuItem* _item)
+	void MenuControl::clearItemData(MenuItem* _item)
 	{
 		clearItemDataAt(getItemIndex(_item));
 	}
 
-	void MenuCtrl::setItemId(MenuItem* _item, const std::string& _id)
+	void MenuControl::setItemId(MenuItem* _item, const std::string& _id)
 	{
 		setItemIdAt(getItemIndex(_item), _id);
 	}
 
-	const std::string& MenuCtrl::getItemId(MenuItem* _item)
+	const std::string& MenuControl::getItemId(MenuItem* _item)
 	{
 		return getItemIdAt(getItemIndex(_item));
 	}
 
-	void MenuCtrl::setItemName(MenuItem* _item, const UString& _name)
+	void MenuControl::setItemName(MenuItem* _item, const UString& _name)
 	{
 		setItemNameAt(getItemIndex(_item), _name);
 	}
 
-	const UString& MenuCtrl::getItemName(MenuItem* _item)
+	const UString& MenuControl::getItemName(MenuItem* _item)
 	{
 		return getItemNameAt(getItemIndex(_item));
 	}
 
-	void MenuCtrl::setItemChildVisible(MenuItem* _item, bool _visible)
+	void MenuControl::setItemChildVisible(MenuItem* _item, bool _visible)
 	{
 		setItemChildVisibleAt(getItemIndex(_item), _visible);
 	}
 
-	MenuCtrl* MenuCtrl::getItemChild(MenuItem* _item)
+	MenuControl* MenuControl::getItemChild(MenuItem* _item)
 	{
 		return getItemChildAt(getItemIndex(_item));
 	}
 
-	MenuCtrl* MenuCtrl::createItemChildAt(size_t _index)
+	MenuControl* MenuControl::createItemChildAt(size_t _index)
 	{
-		return createItemChildTAt<MenuCtrl>(_index);
+		return createItemChildTAt<MenuControl>(_index);
 	}
 
-	MenuCtrl* MenuCtrl::createItemChild(MenuItem* _item)
+	MenuControl* MenuControl::createItemChild(MenuItem* _item)
 	{
 		return createItemChildAt(getItemIndex(_item));
 	}
 
-	void MenuCtrl::removeItemChild(MenuItem* _item)
+	void MenuControl::removeItemChild(MenuItem* _item)
 	{
 		removeItemChildAt(getItemIndex(_item));
 	}
 
-	MenuItemType MenuCtrl::getItemType(MenuItem* _item)
+	MenuItemType MenuControl::getItemType(MenuItem* _item)
 	{
 		return getItemTypeAt(getItemIndex(_item));
 	}
 
-	void MenuCtrl::setItemType(MenuItem* _item, MenuItemType _type)
+	void MenuControl::setItemType(MenuItem* _item, MenuItemType _type)
 	{
 		setItemTypeAt(getItemIndex(_item), _type);
 	}
 
-	void MenuCtrl::setPopupAccept(bool _value)
+	void MenuControl::setPopupAccept(bool _value)
 	{
 		mPopupAccept = _value;
 	}
 
-	bool MenuCtrl::getPopupAccept() const
+	bool MenuControl::getPopupAccept() const
 	{
 		return mPopupAccept;
 	}
 
-	MenuItem* MenuCtrl::getMenuItemParent()
+	MenuItem* MenuControl::getMenuItemParent()
 	{
 		return mOwner;
 	}
 
-	const std::string& MenuCtrl::getSkinByType(MenuItemType _type)
+	const std::string& MenuControl::getSkinByType(MenuItemType _type)
 	{
 		if (_type == MenuItemType::Popup)
 			return mItemPopupSkin;
@@ -808,12 +808,12 @@ namespace MyGUI
 		return mItemNormalSkin;
 	}
 
-	size_t MenuCtrl::getIconIndexByType(MenuItemType _type)
+	size_t MenuControl::getIconIndexByType(MenuItemType _type)
 	{
 		return _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone;
 	}
 
-	MenuItemType MenuCtrl::getItemType(bool _submenu, bool _separator)
+	MenuItemType MenuControl::getItemType(bool _submenu, bool _separator)
 	{
 		if (_submenu)
 			return MenuItemType::Popup;
@@ -822,39 +822,39 @@ namespace MyGUI
 		return MenuItemType::Normal;
 	}
 
-	size_t MenuCtrl::_getItemCount()
+	size_t MenuControl::_getItemCount()
 	{
 		return getItemCount();
 	}
 
-	void MenuCtrl::_addItem(const MyGUI::UString& _name)
+	void MenuControl::_addItem(const MyGUI::UString& _name)
 	{
 		addItem(_name, MenuItemType::Normal);
 	}
 
-	void MenuCtrl::_removeItemAt(size_t _index)
+	void MenuControl::_removeItemAt(size_t _index)
 	{
 		removeItemAt(_index);
 
 		_updateSizeForEmpty();
 	}
 
-	Widget* MenuCtrl::_getItemAt(size_t _index)
+	Widget* MenuControl::_getItemAt(size_t _index)
 	{
 		return getItemAt(_index);
 	}
 
-	void MenuCtrl::_setItemNameAt(size_t _index, const UString& _name)
+	void MenuControl::_setItemNameAt(size_t _index, const UString& _name)
 	{
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& MenuCtrl::_getItemNameAt(size_t _index)
+	const UString& MenuControl::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
 	}
 
-	void MenuCtrl::_setItemSelected(IItem* _item)
+	void MenuControl::_setItemSelected(IItem* _item)
 	{
 		MenuItem* item = static_cast<MenuItem*>(_item);
 		for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
@@ -880,7 +880,7 @@ namespace MyGUI
 				const IntCoord& coord = mItemsInfo[index].item->getAbsoluteCoord();
 				IntPoint point(getAbsoluteRect().right, coord.top - offset);
 
-				MenuCtrl* menu = mItemsInfo[index].submenu;
+				MenuControl* menu = mItemsInfo[index].submenu;
 
 				if (mVerticalAlignment)
 				{
@@ -902,31 +902,31 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::_updateItems(size_t _index)
+	void MenuControl::_updateItems(size_t _index)
 	{
 		if (mItemsInfo[_index].submenu != nullptr)
 			mItemsInfo[_index].submenu->_updateSizeForEmpty();
 	}
 
-	void MenuCtrl::_updateSizeForEmpty()
+	void MenuControl::_updateSizeForEmpty()
 	{
 		if (mItemsInfo.size() == 0)
 			setSize(100, 100);
 	}
 
-	void MenuCtrl::setVerticalAlignment(bool _value)
+	void MenuControl::setVerticalAlignment(bool _value)
 	{
 		mVerticalAlignment = _value;
 
 		update();
 	}
 
-	bool MenuCtrl::getVerticalAlignment() const
+	bool MenuControl::getVerticalAlignment() const
 	{
 		return mVerticalAlignment;
 	}
 
-	void MenuCtrl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MenuControl::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));

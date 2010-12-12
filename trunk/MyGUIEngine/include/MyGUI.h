@@ -36,7 +36,7 @@
 #include "MyGUI_ProgressBar.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiListBox.h"
-#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuControl.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_MenuBar.h"
