@@ -237,14 +237,11 @@ namespace MyGUI
 			eventTabChangeSelect;
 
 	/*internal:*/
+		// IItemContainer impl
 		virtual size_t _getItemCount();
-
 		virtual void _addItem(const MyGUI::UString& _name);
-
 		virtual void _removeItemAt(size_t _index);
-
 		virtual Widget* _getItemAt(size_t _index);
-
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 

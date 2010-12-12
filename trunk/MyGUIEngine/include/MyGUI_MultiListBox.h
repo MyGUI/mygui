@@ -28,6 +28,8 @@
 #include "MyGUI_Any.h"
 #include "MyGUI_BiIndexBase.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_IItem.h"
+#include "MyGUI_IItemContainer.h"
 
 namespace MyGUI
 {
@@ -41,6 +43,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MultiListBox :
 		public Widget,
 		public BiIndexBase,
+		public IItemContainer,
 		public MemberObsolete<MultiListBox>
 	{
 		MYGUI_RTTI_DERIVED( MultiListBox )
@@ -219,11 +222,10 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType* getSubItemDataAt(size_t _column, size_t _index, bool _throw = true)
 		{
-			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemDataAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemDataAt");
 
 			size_t index = BiIndexBase::convertToBack(_index);
-			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
+			return getSubItemAt(_column)->getItemDataAt<ValueType>(index, _throw);
 		}
 
 	/*events:*/
@@ -254,9 +256,19 @@ namespace MyGUI
 		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef
 			requestOperatorLess;
 
+	/*internal:*/
+		// IItemContainer impl
+		virtual size_t _getItemCount();
+		virtual void _addItem(const MyGUI::UString& _name);
+		virtual void _removeItemAt(size_t _index);
+		virtual void _setItemNameAt(size_t _index, const UString& _name);
+		virtual const UString& _getItemNameAt(size_t _index);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
+
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 		void notifyListChangePosition(ListBox* _sender, size_t _position);
 		void notifyListChangeFocus(ListBox* _sender, size_t _position);
@@ -281,6 +293,8 @@ namespace MyGUI
 	private:
 		void frameEntered(float _frame);
 		void frameAdvise(bool _advise);
+
+		ListBox* getSubItemAt(size_t _column);
 
 	private:
 		struct ColumnInfo
