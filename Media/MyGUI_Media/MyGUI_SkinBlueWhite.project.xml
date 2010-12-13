@@ -3379,7 +3379,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">2 183</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">341 54</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3562,7 +3562,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">2 183 19 15</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">341 54 19 15</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="ScrollPanelVSkin">
@@ -3577,7 +3577,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">2 202</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">341 73</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3760,14 +3760,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">2 202 15 19</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">341 73 15 19</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="ListBoxItemSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3775,7 +3775,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3783,7 +3783,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 190</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 174</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3791,7 +3791,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 204</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 188</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3799,7 +3799,7 @@
             <StateItem name="Selected Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 175</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3807,7 +3807,7 @@
             <StateItem name="Selected Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 204</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 188</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3815,7 +3815,7 @@
             <StateItem name="Selected Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 202</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3823,7 +3823,7 @@
             <StateItem name="Selected Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 202</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -3958,7 +3958,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">27 190 43 10</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">204 174 43 10</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="SeparatorDownHSkin">
@@ -3973,7 +3973,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">2 238</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 235</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -4156,7 +4156,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">2 238 10 2</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">204 235 10 2</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="SeparatorUpHSkin">
@@ -4171,7 +4171,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">2 242</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 239</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -4354,7 +4354,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">2 242 10 2</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">204 239 10 2</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="SeparatorDownVSkin">
@@ -4369,7 +4369,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">18 238</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">220 235</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -4552,7 +4552,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">18 238 2 6</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">220 235 2 6</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="SeparatorUpVSkin">
@@ -4567,7 +4567,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">14 238</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">216 235</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -4750,7 +4750,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">14 238 2 6</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">216 235 2 6</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="ClientDefaultSkin">
@@ -4765,7 +4765,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">309 4</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">375 4</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -4948,7 +4948,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">309 4 66 59</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">375 4 66 59</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="ClientTileSkin">
@@ -4963,7 +4963,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">354 90</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">392 88</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -5146,7 +5146,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">354 90 34 18</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">392 88 34 18</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="PanelSkin">
@@ -5161,7 +5161,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">307 70</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">341 2</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -5344,7 +5344,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">307 70 23 22</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">341 2 23 22</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="PanelSmallSkin">
@@ -5359,7 +5359,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">307 95</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">341 27</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -5542,7 +5542,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">307 95 23 22</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">341 27 23 22</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="MarkerWhiteSkin">
@@ -5557,7 +5557,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">384 6</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">454 6</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -5740,7 +5740,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">384 6 2 2</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">454 6 2 2</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="CaptionEmptySkin">
@@ -5755,7 +5755,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 2</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -5938,7 +5938,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">234 2 68 28</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">268 2 68 28</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="CaptionEmptySmallSkin">
@@ -5953,7 +5953,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 172</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 172</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6136,14 +6136,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">234 172 68 18</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">268 172 68 18</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="CaptionSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 36</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 36</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6151,7 +6151,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 36</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 36</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6159,7 +6159,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 70</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 70</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6167,7 +6167,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 70</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 70</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6334,14 +6334,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">234 36 68 28</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">268 36 68 28</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="CaptionWithButtonSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 104</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 104</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6349,7 +6349,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 104</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 104</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6357,7 +6357,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 138</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 138</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6365,7 +6365,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 138</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 138</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6532,7 +6532,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">234 104 44 28</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">268 104 44 28</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="WindowFrameForButtonSkin">
@@ -6547,7 +6547,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">278 104</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">312 104</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6730,7 +6730,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">278 104 24 28</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">312 104 24 28</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="WindowFrameSkin">
@@ -6745,7 +6745,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">262 198</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">296 198</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6928,14 +6928,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">262 198 23 20</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">296 198 23 20</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="WindowResizeLeftDownSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 209</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 209</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6943,7 +6943,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 209</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 209</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6951,7 +6951,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 196</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 196</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -6959,7 +6959,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">234 196</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">268 196</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7126,14 +7126,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">234 196 9 9</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">268 196 9 9</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="WindowResizeRightDownSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">247 209</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">281 209</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7141,7 +7141,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">247 209</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">281 209</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7149,7 +7149,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">247 196</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">281 196</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7157,7 +7157,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">247 196</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">281 196</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7324,7 +7324,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">247 196 9 9</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">281 196 9 9</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="TabHeaderButtonSkin">
@@ -7339,7 +7339,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">379 152</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">431 152</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7347,7 +7347,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">379 183</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">431 183</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7355,7 +7355,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">379 183</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">431 183</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7371,7 +7371,7 @@
             <StateItem name="Selected Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">327 152</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">379 152</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7379,7 +7379,7 @@
             <StateItem name="Selected Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">327 183</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">379 183</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7387,7 +7387,7 @@
             <StateItem name="Selected Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">327 183</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">379 183</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7522,7 +7522,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">327 152 52 23</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">379 152 52 23</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="TabHeaderEmptySkin">
@@ -7537,7 +7537,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">438 152</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">487 152</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7720,7 +7720,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">438 152 5 23</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">487 152 5 23</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="TabPanelSkin">
@@ -7735,7 +7735,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">307 214</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">358 214</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7918,14 +7918,14 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">307 214 43 39</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">358 214 43 39</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="MenuItemNormalSkin">
             <StateItem name="Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 176</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7933,7 +7933,7 @@
             <StateItem name="Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 176</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7941,7 +7941,7 @@
             <StateItem name="Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 190</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 174</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7949,7 +7949,7 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 202</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7957,7 +7957,7 @@
             <StateItem name="Selected Disabled">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 176</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 160</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7965,7 +7965,7 @@
             <StateItem name="Selected Normal">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 204</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 188</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7973,7 +7973,7 @@
             <StateItem name="Selected Over">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 202</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -7981,7 +7981,7 @@
             <StateItem name="Selected Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">27 218</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">204 202</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
@@ -8116,7 +8116,7 @@
             </RegionItem>
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
-                <Property name="Coord" type="IntCoord" read_only="False">27 190 43 10</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">204 174 43 10</Property>
             </PropertySet>
         </SkinItem>
         <SkinItem name="MenuItemPopupButtonSkin">
@@ -8711,6 +8711,204 @@
             <PropertySet>
                 <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
                 <Property name="Coord" type="IntCoord" read_only="False">113 135 7 14</Property>
+            </PropertySet>
+        </SkinItem>
+        <SkinItem name="MultiListButtonSkin">
+            <StateItem name="Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 2</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 26</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 50</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">234 74</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Disabled">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Normal">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Over">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <StateItem name="Selected Pressed">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">0 0</Property>
+                    <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
+                    <Property name="TextShift" type="Int" read_only="False">0</Property>
+                </PropertySet>
+            </StateItem>
+            <SeparatorItem name="Top">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Bottom">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
+                    <Property name="Offset" type="Int" read_only="False">1</Property>
+                    <Property name="Corner" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Left">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">10</Property>
+                    <Property name="Corner" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <SeparatorItem name="Right">
+                <PropertySet>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Offset" type="Int" read_only="False">12</Property>
+                    <Property name="Corner" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </SeparatorItem>
+            <RegionItem name="Left Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 10 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">10 0 10 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Top">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">20 0 12 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Top</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Top</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">20 0 12 21</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Right VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Right Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">20 21 12 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Right Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Right Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">10 21 10 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">HStretch Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left Bottom">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 21 10 0</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">False</Property>
+                    <Property name="Align" type="Align" read_only="True">Left Bottom</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left Bottom</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Left">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">0 0 10 21</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Left VStretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">Left VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Center">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="True">10 0 10 21</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="True">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SubSkin</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <RegionItem name="Text">
+                <PropertySet>
+                    <Property name="Position" type="IntCoord" read_only="False">15 1 0 17</Property>
+                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Enabled" type="Bool" read_only="True">True</Property>
+                    <Property name="Align" type="Align" read_only="False">Stretch</Property>
+                    <Property name="RegionType" type="RegionType" read_only="False">SimpleText</Property>
+                    <Property name="Separator" type="" read_only="False">HCenter VCenter</Property>
+                </PropertySet>
+            </RegionItem>
+            <PropertySet>
+                <Property name="Texture" type="Texture" read_only="False">MyGUI_SkinBlueWhite.png</Property>
+                <Property name="Coord" type="IntCoord" read_only="False">234 26 32 21</Property>
             </PropertySet>
         </SkinItem>
     </SkinManager>
