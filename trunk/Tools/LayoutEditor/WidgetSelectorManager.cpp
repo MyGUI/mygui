@@ -14,7 +14,8 @@ namespace tools
 {
 	WidgetSelectorManager::WidgetSelectorManager() :
 		mCurrentWidget(nullptr),
-		mSelectDepth(0)
+		mSelectDepth(0),
+		mStoreWidgetTag("LE_StoreWidgetTag")
 	{
 	}
 
@@ -132,6 +133,67 @@ namespace tools
 	void WidgetSelectorManager::resetDepth()
 	{
 		mSelectDepth = 0;
+	}
+
+	void WidgetSelectorManager::saveSelectedWidget()
+	{
+		if (mCurrentWidget != nullptr)
+		{
+			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
+			if (container != nullptr)
+				container->mUserString.push_back(MyGUI::PairString(mStoreWidgetTag, mStoreWidgetTag));
+		}
+	}
+
+	void WidgetSelectorManager::restoreSelectedWidget()
+	{
+		MyGUI::Widget* widget = findWidgetSelected();
+		setSelectedWidget(widget);
+	}
+
+	MyGUI::Widget* WidgetSelectorManager::findWidgetSelected()
+	{
+		MyGUI::Widget* result = nullptr;
+		EnumeratorWidgetContainer container = EditorWidgets::getInstance().getWidgets();
+		while (container.next())
+		{
+			MyGUI::Widget* widget = findWidgetSelected(container.current());
+			if (widget != nullptr)
+			{
+				result = widget;
+				break;
+			}
+		}
+		return result;
+	}
+
+	MyGUI::Widget* WidgetSelectorManager::findWidgetSelected(WidgetContainer* _container)
+	{
+		MyGUI::Widget* result = nullptr;
+		for (MyGUI::VectorStringPairs::iterator item = _container->mUserString.begin(); item != _container->mUserString.end(); ++ item)
+		{
+			if ((*item).first == mStoreWidgetTag)
+			{
+				result = _container->widget;
+				_container->mUserString.erase(item);
+				break;
+			}
+		}
+
+		if (result == nullptr)
+		{
+			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+			{
+				MyGUI::Widget* widget = findWidgetSelected(*item);
+				if (widget != nullptr)
+				{
+					result = widget;
+					break;
+				}
+			}
+		}
+
+		return result;
 	}
 
 } // namespace tools
