@@ -10,6 +10,7 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "SettingsManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
@@ -17,7 +18,8 @@ namespace tools
 		BasePanelViewItem("PanelMainProperties.layout"),
 		mButtonRelativePosition(nullptr),
 		mCurrentWidget(nullptr),
-		mPropertyItemHeight(0)
+		mPropertyItemHeight(0),
+		mPositionEdit(nullptr)
 	{
 	}
 
@@ -29,10 +31,23 @@ namespace tools
 		mButtonRelativePosition->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
 
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
+
+		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &PanelMainProperties::notifyPropertyChangeCoord);
+
+		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PanelMainProperties::commandToggleRelativeMode));
 	}
 
 	void PanelMainProperties::shutdown()
 	{
+		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &PanelMainProperties::notifyPropertyChangeCoord);
+	}
+
+	void PanelMainProperties::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	{
+		if (_owner == "PropertiesPanelView" || _widget != mCurrentWidget)
+			return;
+
+		updatePositionCaption();
 	}
 
 	void PanelMainProperties::notifyToggleRelativeMode(MyGUI::Widget* _sender)
@@ -40,32 +55,49 @@ namespace tools
 		if (mCurrentWidget)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(replaceTags("to_percents"));
-			else mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
+			if (widgetContainer->relative_mode)
+				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
+			else
+				mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
 			widgetContainer->relative_mode = !widgetContainer->relative_mode;
-			eventSetPositionText(widgetContainer->position());
+		}
+
+		updatePositionCaption();
+	}
+
+	void PanelMainProperties::updatePositionCaption()
+	{
+		if (mCurrentWidget)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+
+			if (mPositionEdit != nullptr)
+				mPositionEdit->setCaption(widgetContainer->position());
 		}
 	}
 
 	void PanelMainProperties::update(MyGUI::Widget* _currentWidget)
 	{
+		MyGUI::TextBox* box = nullptr;
 		int y = 0;
 		mCurrentWidget = _currentWidget;
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);
+		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y, box);
 		y += mPropertyItemHeight;
 
 		if (widgetType->resizeable)
 		{
 			// update caption of LayoutEditor_buttonRelativePosition
 			mButtonRelativePosition->setVisible(true);
-			if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
-			else mButtonRelativePosition->setCaption(replaceTags("to_percents"));
+			if (widgetContainer->relative_mode)
+				mButtonRelativePosition->setCaption(replaceTags("to_pixels"));
+			else
+				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
-			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y);
+			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, mPositionEdit);
 			y += mPropertyItemHeight;
 		}
 		else
@@ -73,23 +105,30 @@ namespace tools
 			mButtonRelativePosition->setVisible(false);
 		}
 
-		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y);
+		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y, box);
 		y += mPropertyItemHeight;
 
-		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
+		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y, box);
 		y += mPropertyItemHeight;
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y);
+			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, box);
 			y += mPropertyItemHeight;
 		}
 
-		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y);
+		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, box);
 		y += mPropertyItemHeight;
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
 		mPanelCell->setClientHeight(y);
+	}
+
+	void PanelMainProperties::commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result)
+	{
+		notifyToggleRelativeMode();
+
+		_result = true;
 	}
 
 } // namespace tools

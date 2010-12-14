@@ -24,7 +24,7 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
-		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, MyGUI::TextBox*&> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
 
 	private:

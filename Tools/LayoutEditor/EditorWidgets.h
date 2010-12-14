@@ -8,6 +8,7 @@
 namespace tools
 {
 	typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
+	typedef MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, const std::string&> Event_ChangeWidgetCoord;
 
 	typedef std::vector<WidgetContainer*> VectorWidgetContainer;
 	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
@@ -36,6 +37,7 @@ namespace tools
 		void remove(WidgetContainer* _container);
 
 		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode = false);
+		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, const std::string& _owner);
 
 		void invalidateWidgets();
 		EnumeratorWidgetContainer getWidgets();
@@ -48,6 +50,7 @@ namespace tools
 		const MyGUI::UString& getCurrentItemName();
 
 		Event_ChangeWidgets eventChangeWidgets;
+		Event_ChangeWidgetCoord eventChangeWidgetCoord;
 
 		virtual void _unlinkWidget(MyGUI::Widget* _widget);
 
