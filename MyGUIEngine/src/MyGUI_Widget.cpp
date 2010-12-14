@@ -967,16 +967,6 @@ namespace MyGUI
 		mVisible = _value;
 
 		_updateVisible();
-
-		/*if (mInheritsVisible)
-		{
-			_setSkinItemVisible(_value);
-
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-		}*/
 	}
 
 	void Widget::_updateVisible()
@@ -990,6 +980,9 @@ namespace MyGUI
 			(*widget)->_updateVisible();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 			(*widget)->_updateVisible();
+
+		if (!value && InputManager::getInstance().getMouseFocusWidget() == this)
+			InputManager::getInstance()._resetMouseFocusWidget();
 	}
 
 	void Widget::setEnabled(bool _value)

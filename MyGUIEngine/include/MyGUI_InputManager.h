@@ -141,10 +141,10 @@ namespace MyGUI
 		delegates::CMultiDelegate1<Widget*>
 			eventChangeKeyFocus;
 
-	private:
-		// тестовый вариант, очистка фокуса мыши
-		void resetMouseFocusWidget();
+	/*internal:*/
+		void _resetMouseFocusWidget();
 
+	private:
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);
 
