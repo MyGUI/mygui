@@ -87,6 +87,9 @@ namespace MyGUI
 			if (!skinButtonEmpty.empty())
 				mWidgetEmpty = mClient->createWidget<Widget>(skinButtonEmpty, IntCoord(0, 0, mClient->getWidth(), getButtonHeight()), Align::Default);
 		}
+
+		if (getUpdateByResize())
+			updateColumns();
 	}
 
 	void MultiListBox::shutdownOverride()
@@ -866,6 +869,9 @@ namespace MyGUI
 
 	bool MultiListBox::getUpdateByResize()
 	{
+		if (mWidgetEmpty != nullptr)
+			return true;
+
 		for (VectorColumnInfo::iterator item = mVectorColumnInfo.begin(); item != mVectorColumnInfo.end(); ++item)
 		{
 			if ((*item).sizeType == ItemSizeType::Star)
