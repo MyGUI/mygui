@@ -372,13 +372,19 @@ namespace tools
 				{
 					MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
 					if (resourceSkin != nullptr)
-						values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
+					{
+						if (!MyGUI::utility::startWith(resourceSkin->getResourceName(), "LE_"))
+							values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
+					}
 
 					MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
 					if (resourceLayout != nullptr)
 					{
-						if (resourceLayout->getResourceName().find(".layout") == MyGUI::UString::npos)
-							values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
+						if (!MyGUI::utility::endWith(resourceLayout->getResourceName(), ".layout"))
+						{
+							if (!MyGUI::utility::startWith(resourceLayout->getResourceName(), "LE_"))
+								values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
+						}
 					}
 				}
 			}
