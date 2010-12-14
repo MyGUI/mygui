@@ -397,6 +397,19 @@ namespace tools
 					values.push_back((*iter)->name);
 				}
 			}
+			else if (_type == "Font")
+			{
+				values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
+				values.push_back("Default");
+
+				MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+				while (resource.next())
+				{
+					MyGUI::IFont* resourceFont = resource.current().second->castType<MyGUI::IFont>(false);
+					if (resourceFont != nullptr)
+						values.push_back(resourceFont->getResourceName());
+				}
+			}
 			else
 			{
 				values = WidgetTypes::getInstance().findPossibleValues(_type);

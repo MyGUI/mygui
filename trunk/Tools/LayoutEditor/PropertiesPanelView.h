@@ -55,9 +55,6 @@ namespace tools
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
 
-		//MyGUI::Widget* findWidgetSelected();
-		//MyGUI::Widget* findWidgetSelected(WidgetContainer* _container);
-
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;
