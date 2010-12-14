@@ -80,6 +80,8 @@ namespace MyGUI
 		/** Delete all columns */
 		void removeAllColumns();
 
+		//! Swap columns at a specified positions
+		void swapColumnsAt(size_t _index1, size_t _index2);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
@@ -90,6 +92,12 @@ namespace MyGUI
 		*/
 		void setColumnNameAt(size_t _column, const UString& _name);
 
+		/** Set column name
+			@param _item column
+			@param _name New name of column
+		*/
+		void setColumnName(MultiListItem* _item, const UString& _name);
+
 		/** Set column width
 			@param _column Index of column
 			@param _width New width of column
@@ -99,11 +107,17 @@ namespace MyGUI
 		/** Get _column name */
 		const UString& getColumnNameAt(size_t _column);
 
+		/** Get _column name */
+		const UString& getColumnName(MultiListItem* _item);
+
 		/** Get _column width */
 		int getColumnWidthAt(size_t _column);
 
 		/** Sort multilist by column */
 		void sortByColumn(size_t _column, bool _backward = false);
+
+		//! Get column index
+		size_t getColumnIndex(MultiListItem* _item);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -261,6 +275,7 @@ namespace MyGUI
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);
 		virtual void _removeItemAt(size_t _index);
+		virtual Widget* _getItemAt(size_t _index);
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 
@@ -268,7 +283,8 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		virtual void onWidgetCreated(Widget* _widget);
+		virtual void onWidgetDestroy(Widget* _widget);
 
 		void notifyListChangePosition(ListBox* _sender, size_t _position);
 		void notifyListChangeFocus(ListBox* _sender, size_t _position);
@@ -291,15 +307,9 @@ namespace MyGUI
 		void updateBackSelected(size_t _index);
 
 	private:
-		void frameEntered(float _frame);
-		void frameAdvise(bool _advise);
-
-		ListBox* getSubItemAt(size_t _column);
-		int getButtonHeight();
-
-	private:
 		struct ColumnInfo
 		{
+			MultiListItem* item;
 			ListBox* list;
 			Button* button;
 			int width;
@@ -315,6 +325,18 @@ namespace MyGUI
 			SORT_UP,
 			SORT_DOWN
 		};
+
+		void frameEntered(float _frame);
+		void frameAdvise(bool _advise);
+
+		ListBox* getSubItemAt(size_t _column);
+		int getButtonHeight();
+
+		void _wrapItem(MultiListItem* _item);
+		void _unwrapItem(MultiListItem* _item);
+		void _swapColumnsAt(size_t _index1, size_t _index2);
+
+		int getColumnWidth(ColumnInfo& _info);
 
 	private:
 		int mHeightButton;

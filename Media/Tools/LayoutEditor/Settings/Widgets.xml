@@ -161,6 +161,14 @@
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
+	<Widget name="MultiListItem">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+	</Widget>
+
 	<Widget name="PopupMenu">
 		<Property key="DefaultSkin" value="PopupMenu"/>
 		<Property key="Base" value="MenuControl"/>

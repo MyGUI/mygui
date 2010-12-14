@@ -24,6 +24,7 @@ set (HEADER_FILES
   include/MyGUI_TextBox.h
   include/MyGUI_TabControl.h
   include/MyGUI_TabItem.h
+  include/MyGUI_MultiListItem.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
   include/MyGUI_Bitwise.h
@@ -188,6 +189,7 @@ set (SOURCE_FILES
   src/MyGUI_TextBox.cpp
   src/MyGUI_TabControl.cpp
   src/MyGUI_TabItem.cpp
+  src/MyGUI_MultiListItem.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
   src/MyGUI_EditText.cpp
@@ -284,6 +286,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_TextBox.cpp
   src/MyGUI_TabControl.cpp
   src/MyGUI_TabItem.cpp
+  src/MyGUI_MultiListItem.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
 )
@@ -414,6 +417,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_TextBox.h
   include/MyGUI_TabControl.h
   include/MyGUI_TabItem.h
+  include/MyGUI_MultiListItem.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
 )
