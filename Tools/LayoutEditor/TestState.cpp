@@ -26,11 +26,12 @@ namespace tools
 
 	void TestState::initState()
 	{
+		WidgetSelectorManager::getInstance().saveSelectedWidget();
+		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
 		MyGUI::xml::Document* mTestLayout = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
-
-		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
 		delete mTestLayout;
 		mTestLayout = nullptr;
@@ -42,10 +43,10 @@ namespace tools
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, false);
 
-		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
-
 		delete mTestLayout;
 		mTestLayout = nullptr;
+
+		WidgetSelectorManager::getInstance().restoreSelectedWidget();
 	}
 
 	void TestState::pauseState()

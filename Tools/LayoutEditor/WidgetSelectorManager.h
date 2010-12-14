@@ -31,14 +31,21 @@ namespace tools
 		void selectWidget(const MyGUI::IntPoint& _mousePosition);
 		void resetDepth();
 
+		void saveSelectedWidget();
+		void restoreSelectedWidget();
+
 	private:
 		MyGUI::Widget* getTopWidget(const MyGUI::IntPoint& _point);
 		void checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point);
+
+		MyGUI::Widget* findWidgetSelected();
+		MyGUI::Widget* findWidgetSelected(WidgetContainer* _container);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
 		size_t mSelectDepth;
 		MyGUI::IntPoint mLastClickPoint;
+		std::string mStoreWidgetTag;
 	};
 
 } // namespace tools
