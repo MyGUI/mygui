@@ -30,7 +30,7 @@ namespace tools
 		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangePosition();
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
-		void notifyPropertyChangeCoord(const MyGUI::IntCoord& _coordValue);
+		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
 		void notifyChangeCreatorMode(bool _createMode);
 		void notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord);
 		void notifyFrameStart(float _time);

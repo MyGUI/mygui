@@ -20,26 +20,24 @@ namespace tools
 		virtual void initialise();
 		virtual void shutdown();
 
-		void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
 		void update(MyGUI::Widget* _currentWidget);
 
-		typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, MyGUI::TextBox*&> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
 
-		typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
-		EventHandle_EventSetPositionText eventSetPositionText;
+	private:
+		void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
 
-		//FIXME
-		MyGUI::Widget* getMainWidget()
-		{
-			return mWidgetClient;
-		}
+		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
+		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
+		void updatePositionCaption();
 
 	private:
 		MyGUI::Button* mButtonRelativePosition;
 
 		MyGUI::Widget* mCurrentWidget;
 		int mPropertyItemHeight;
+		MyGUI::TextBox* mPositionEdit;
 	};
 
 } // namespace tools

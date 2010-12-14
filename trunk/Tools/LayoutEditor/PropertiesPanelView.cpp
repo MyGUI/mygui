@@ -17,10 +17,6 @@
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
-//FIXME
-template <> tools::PropertiesPanelView* MyGUI::Singleton<tools::PropertiesPanelView>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::PropertiesPanelView>::mClassTypeName("PropertiesPanelView");
-
 namespace tools
 {
 	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
@@ -59,7 +55,6 @@ namespace tools
 		mPanelMainProperties = new PanelMainProperties();
 		mPanelView->addItem(mPanelMainProperties);
 		mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-		mPanelMainProperties->eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
 
 		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
 		{
@@ -91,7 +86,6 @@ namespace tools
 		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
-		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertiesPanelView::commandToggleRelativeMode));
 
 		notifyChangeSelectedWidget(nullptr);
 	}
@@ -152,7 +146,7 @@ namespace tools
 				coord = mCurrentWidget->getAbsoluteCoord();
 			}
 
-			eventChangeCoord(coord);
+			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 		}
 
 		// delete(hide) all previous properties
@@ -228,7 +222,7 @@ namespace tools
 		}
 	}
 
-	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
+	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field)
 	{
 		mPairsCounter++;
 		int x1 = 0;
@@ -293,8 +287,6 @@ namespace tools
 		// надо сделать проще FIXME
 		else if ("Colour" == _type)
 			widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
-		/*else if ("MessageButton" == _type)
-			widget_for_type = PropertyType_ComboBox;*/
 		else
 			widget_for_type = PropertyType_ComboBox;
 
@@ -432,17 +424,8 @@ namespace tools
 			editOrCombo->castType<MyGUI::EditBox>()->setOnlyText(_value);
 			checkType(editOrCombo->castType<MyGUI::EditBox>(), _type);
 		}
-	}
 
-	void PropertiesPanelView::setPositionText(const std::string& _caption)
-	{
-		MyGUI::Widget* window = mPanelMainProperties->getMainWidget();
-		if (window)
-		{
-			MyGUI::Widget* widget = mPropertiesElement[window][1];
-			if (widget->isType<MyGUI::TextBox>())
-				widget->castType<MyGUI::TextBox>()->setCaption(_caption);
-		}
+		_field = editOrCombo->castType<MyGUI::TextBox>();
 	}
 
 	bool PropertiesPanelView::checkType(MyGUI::EditBox* _edit, const std::string& _type)
@@ -454,22 +437,10 @@ namespace tools
 			// теперь имя может быть не уникальным
 			const MyGUI::UString& text = _edit->getOnlyText();
 			size_t index = _edit->getTextCursor();
-			/*WidgetContainer* textWC = EditorWidgets::getInstance().find(text);
-			if ((!text.empty()) && (nullptr != textWC) &&
-				(EditorWidgets::getInstance().find(mCurrentWidget) != textWC))
-			{
-				static const MyGUI::UString colour = ERROR_VALUE;
-				_edit->setCaption(colour + text);
-				success = false;
-			}
-			else*/
-			{
-				_edit->setCaption(text);
-				success = true;
-			}
+			_edit->setCaption(text);
+			success = true;
 			_edit->setTextCursor(index);
 		}
-		//else if ("Skin" == _type) widget_for_type = PropertyType_ComboBox;
 		else if ("Position" == _type)
 		{
 			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
@@ -477,17 +448,12 @@ namespace tools
 			else
 				success = utility::checkParse<int>(_edit, 4);
 		}
-		//else if ("Layer" == _type) // выбранное из комбы всегда корректно, а если в лейауте криво было - сами виноваты
-		//else if ("String" == _type) // неправильная строка? O_o
-		//else if ("Align" == _type) // выбранное из комбы всегда корректно, а если в лейауте криво было - сами виноваты
 		else if ("1 int" == _type) success = utility::checkParse<int>(_edit, 1);
 		else if ("2 int" == _type) success = utility::checkParse<int>(_edit, 2);
 		else if ("4 int" == _type) success = utility::checkParse<int>(_edit, 4);
 		else if ("alpha" == _type) success = utility::checkParseInterval<float>(_edit, 1, 0., 1.);
 		else if ("1 float" == _type) success = utility::checkParse<float>(_edit, 1);
 		else if ("2 float" == _type) success = utility::checkParse<float>(_edit, 2);
-		// надо сделать колорпикером и без проверки FIXME
-		//else if ("Colour" == _type) success = Parse::checkParse<float>(_edit, 4);
 		else if ("FileName" == _type) success = utility::checkParseFileName(_edit);
 		return success;
 	}
@@ -509,11 +475,8 @@ namespace tools
 
 		if (action == "Name")
 		{
-			//if (goodData)
-			//{
-				widgetContainer->name = value;
-				ew->invalidateWidgets();
-			//}
+			widgetContainer->name = value;
+			ew->invalidateWidgets();
 			return;
 		}
 		else if (action == "Type")
@@ -567,12 +530,12 @@ namespace tools
 				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
 				mCurrentWidget->setCoord(coord);
 
-				eventChangeCoord(mCurrentWidget->getAbsoluteCoord());
+				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 				return;
 			}
 			widgetContainer->widget->setProperty("Widget_Coord", value);
 
-			eventChangeCoord(mCurrentWidget->getAbsoluteCoord());
+			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 			return;
 		}
 		else if (action == "Align")
@@ -606,7 +569,7 @@ namespace tools
 
 		if (success)
 		{
-			eventChangeCoord(mCurrentWidget->getAbsoluteCoord());
+			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 		}
 		else
 		{
@@ -660,23 +623,6 @@ namespace tools
 	void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		notifyApplyProperties(_sender, true);
-	}
-
-	void PropertiesPanelView::commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result)
-	{
-		toggleRelativeMode();
-
-		_result = true;
-	}
-
-	void PropertiesPanelView::toggleRelativeMode()
-	{
-		mPanelMainProperties->notifyToggleRelativeMode();
-	}
-
-	void PropertiesPanelView::setCoord(const MyGUI::IntCoord& _coord)
-	{
-		setPositionText(_coord.print());
 	}
 
 	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)

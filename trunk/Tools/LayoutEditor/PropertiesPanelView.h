@@ -18,17 +18,11 @@
 namespace tools
 {
 	class PropertiesPanelView :
-		public wraps::BaseLayout,
-		public MyGUI::Singleton<PropertiesPanelView> //FIXME
+		public wraps::BaseLayout
 	{
 	public:
 		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
 		virtual ~PropertiesPanelView();
-
-		typedef MyGUI::delegates::CMultiDelegate1<const MyGUI::IntCoord&> EventHandle_EventChangeCoord;
-		EventHandle_EventChangeCoord eventChangeCoord;
-
-		void setCoord(const MyGUI::IntCoord& _coord);
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
@@ -41,13 +35,8 @@ namespace tools
 
 		std::string splitString(std::string& str, char separator);
 
-		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
-
-		void setPositionText(const std::string& _caption);
-		void toggleRelativeMode();
-
 		void hideWidgetsPairs(MyGUI::Widget* _window);
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
+		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field);
 
 		bool isSkinExist(const std::string& _skinName);
 		bool checkTemplate(const std::string& _skinName);
@@ -70,7 +59,7 @@ namespace tools
 		MapVectorWidget mPropertiesElement;
 
 		PanelMainProperties* mPanelMainProperties;
-		static const int MAX_BASE_TYPES_COUNT = 5;
+		static const int MAX_BASE_TYPES_COUNT = 15;
 		PanelProperties* mPanelsTypeProperties[MAX_BASE_TYPES_COUNT];
 		PanelItems* mPanelItems;
 		PanelUserData* mPanelUserData;
