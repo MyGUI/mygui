@@ -335,6 +335,7 @@ namespace MyGUI
 		void destroySkinWidget(Widget* _widget);
 
 		virtual void onWidgetCreated(Widget* _widget);
+		virtual void onWidgetDestroy(Widget* _widget);
 
 		void setWidgetClient(Widget* _widget);
 
