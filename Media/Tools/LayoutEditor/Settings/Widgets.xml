@@ -167,6 +167,9 @@
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="ItemSizeType" value="ItemSizeType"/>
+		<Parameter key="ItemWidth" value="1 int"/>
 	</Widget>
 
 	<Widget name="PopupMenu">

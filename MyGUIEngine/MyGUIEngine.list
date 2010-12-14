@@ -4,6 +4,7 @@ set (HEADER_FILES
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h
+  include/MyGUI_ItemSizeType.h
   include/MyGUI_WidgetToolTip.h
   include/MyGUI_Button.h
   include/MyGUI_Canvas.h
@@ -395,6 +396,7 @@ SOURCE_GROUP("Header Files\\Widget\\Types" FILES
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h
+  include/MyGUI_ItemSizeType.h
   include/MyGUI_WidgetToolTip.h
 )
 SOURCE_GROUP("Header Files\\Widget\\Widget" FILES

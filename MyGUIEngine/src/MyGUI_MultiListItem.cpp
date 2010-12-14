@@ -58,21 +58,33 @@ namespace MyGUI
 		return Base::getCaption();
 	}
 
-	/*void MultiListItem::setButtonWidth(int _width)
+	void MultiListItem::setItemSizeType(ItemSizeType _value)
 	{
-	}*/
+		MultiListBox* owner = getOwner();
+		if (owner != nullptr)
+			owner->setColumnSizeType(this, _value);
+	}
 
-	/*void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MultiListItem::setItemWidth(int _value)
 	{
-		if (_key == "ButtonWidth")
-			setButtonWidth(utility::parseValue<int>(_value));
+		MultiListBox* owner = getOwner();
+		if (owner != nullptr)
+			owner->setColumnWidth(this, _value);
+	}
+
+	void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "ItemSizeType")
+			setItemSizeType(ItemSizeType::parse(_value));
+		else if (_key == "ItemWidth")
+			setItemWidth(utility::parseValue<int>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}*/
+	}
 
 	MultiListBox* MultiListItem::getOwner()
 	{
