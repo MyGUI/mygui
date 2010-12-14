@@ -293,8 +293,8 @@ namespace tools
 		// надо сделать проще FIXME
 		else if ("Colour" == _type)
 			widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
-		else if ("MessageButton" == _type)
-			widget_for_type = PropertyType_ComboBox;
+		/*else if ("MessageButton" == _type)
+			widget_for_type = PropertyType_ComboBox;*/
 		else
 			widget_for_type = PropertyType_ComboBox;
 
