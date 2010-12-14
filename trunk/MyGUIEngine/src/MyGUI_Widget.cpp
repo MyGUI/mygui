@@ -392,6 +392,11 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
+		if (mParent != nullptr && mParent->getClientWidget() == this)
+			mParent->onWidgetDestroy(_widget);
+
+		onWidgetDestroy(_widget);
+
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
@@ -1122,6 +1127,10 @@ namespace MyGUI
 	}
 
 	void Widget::onWidgetCreated(Widget* _widget)
+	{
+	}
+
+	void Widget::onWidgetDestroy(Widget* _widget)
 	{
 	}
 
