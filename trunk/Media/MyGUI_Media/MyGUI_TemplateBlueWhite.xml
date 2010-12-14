@@ -165,7 +165,7 @@
                 <Property key="FontName" value="Default"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
             </Widget>
         </Widget>
         <Widget type="Window" skin="WindowTemplate" position="15 75 68 49">
@@ -175,7 +175,7 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowCTemplate">
+    <Resource type="ResourceLayout" name="WindowCTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
@@ -184,7 +184,7 @@
                 <Property key="TextAlign" value="Center"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
             </Widget>
         </Widget>
         <Widget type="Window" skin="WindowCTemplate" position="15 75 68 49">
@@ -194,7 +194,7 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowCSTemplate">
+    <Resource type="ResourceLayout" name="WindowCSTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
@@ -203,7 +203,7 @@
                 <Property key="FontName" value="Default"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
                 <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="ResizeRightBottom">
                     <Property key="Pointer" value="size_left"/>
                 </Widget>
@@ -219,7 +219,7 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowCXTemplate">
+    <Resource type="ResourceLayout" name="WindowCXTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
@@ -228,7 +228,7 @@
                 <Property key="TextAlign" value="Center"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameForButtonSkin" position="44 0 24 28" align="Right Top">
                 <Widget type="Button" skin="ButtonCloseSkin" position="0 6 18 17" align="Right Top" name="Button">
@@ -252,7 +252,7 @@
                 <Property key="TextAlign" value="Center"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 28 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
                 <Widget type="Button" skin="WindowResizeRightDownSkin" position="57 9 9 9" align="Right Bottom" name="ResizeRightBottom">
                     <Property key="Pointer" value="size_left"/>
                 </Widget>
@@ -273,7 +273,7 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowToolTemplate">
+    <Resource type="ResourceLayout" name="WindowToolTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 38" name="Root">
             <Property key="Snap" value="true"/>
             <UserString key="TargetWidgetType" value="Window"/>
@@ -282,7 +282,7 @@
                 <Property key="FontName" value="Default"/>
             </Widget>
             <Widget type="Widget" skin="WindowFrameSkin" position="0 18 68 20" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="4 2 58 12" align="Stretch" name="Client"/>
+                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
             </Widget>
         </Widget>
         <Widget type="Window" skin="WindowToolTemplate" position="15 75 68 49">

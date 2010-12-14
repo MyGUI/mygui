@@ -960,9 +960,6 @@
         <BasisSkin type="SubSkin" offset="0 2 4 12" align="Left VStretch">
             <State name="normal" offset="296 200 4 12"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="4 2 13 12" align="Stretch">
-            <State name="normal" offset="300 200 13 12"/>
-        </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="WindowResizeLeftDownSkin" size="9 9" texture="MyGUI_SkinBlueWhite.png">
         <BasisSkin type="SubSkin" offset="0 0 9 9" align="Stretch">
