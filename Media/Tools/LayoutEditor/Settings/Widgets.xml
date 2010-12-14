@@ -97,8 +97,7 @@
 
 		<Parameter key="VerticalAlignment" value="Bool"/>
 
-		<!-- Layer -->
-		<TemplateData key="DragLayer" value="String"/>
+		<TemplateData key="DragLayer" value="Layer"/>
 	</Widget>
 
 	<Widget name="ListBox">
@@ -110,8 +109,7 @@
 		<Property key="ItemManager" value="true"/>
 
 		<TemplateData key="HeightLine" value="1 int"/>
-		<!-- Skin -->
-		<TemplateData key="SkinLine" value="String"/>
+		<TemplateData key="SkinLine" value="Skin"/>
 	</Widget>
 
 	<Widget name="MenuBar">
@@ -123,17 +121,12 @@
 		<Property key="ItemManager" value="true"/>
 
 		<TemplateData key="DistanceButton" value="1 int"/>
-		<!-- Layer -->
-		<TemplateData key="SubMenuLayer" value="String"/>
+		<TemplateData key="SubMenuLayer" value="Layer"/>
 		<TemplateData key="VerticalAlignment" value="Bool"/>
-		<!-- Skin -->
-		<TemplateData key="NormalSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="PopupSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="SeparatorSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="SubMenuSkin" value="String"/>
+		<TemplateData key="NormalSkin" value="Skin"/>
+		<TemplateData key="PopupSkin" value="Skin"/>
+		<TemplateData key="SeparatorSkin" value="Skin"/>
+		<TemplateData key="SubMenuSkin" value="Skin"/>
 	</Widget>
 
 	<Widget name="MenuControl">
@@ -182,17 +175,12 @@
 
 		<Property key="ItemManager" value="true"/>
 
-		<!-- Layer -->
-		<TemplateData key="SubMenuLayer" value="String"/>
+		<TemplateData key="SubMenuLayer" value="Layer"/>
 		<TemplateData key="VerticalAlignment" value="Bool"/>
-		<!-- Skin -->
-		<TemplateData key="NormalSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="PopupSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="SeparatorSkin" value="String"/>
-		<!-- Skin -->
-		<TemplateData key="SubMenuSkin" value="String"/>
+		<TemplateData key="NormalSkin" value="Skin"/>
+		<TemplateData key="PopupSkin" value="Skin"/>
+		<TemplateData key="SeparatorSkin" value="Skin"/>
+		<TemplateData key="SubMenuSkin" value="Skin"/>
 	</Widget>
 
 	<Widget name="ProgressBar">
@@ -212,8 +200,7 @@
 
 		<TemplateData key="TrackWidth" value="1 int"/>
 		<TemplateData key="TrackFill" value="Bool"/>
-		<!-- Skin -->
-		<TemplateData key="TrackSkin" value="String"/>
+		<TemplateData key="TrackSkin" value="Skin"/>
 	</Widget>
 
 	<Widget name="ScrollBar">
@@ -302,8 +289,7 @@
 		<Parameter key="ButtonAutoWidth" value="Bool"/>
 		<Parameter key="SmoothShow" value="Bool"/>
 
-		<!-- Skin -->
-		<TemplateData key="ButtonSkin" value="String"/>
+		<TemplateData key="ButtonSkin" value="Skin"/>
 	</Widget>
 
 	<Widget name="TabItem">
