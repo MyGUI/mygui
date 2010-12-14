@@ -787,4 +787,9 @@ namespace tools
 		saveSectors(_root);
 	}
 
+	void EditorWidgets::onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, const std::string& _owner)
+	{
+		eventChangeWidgetCoord(_widget, _value, _owner);
+	}
+
 } // namespace tools

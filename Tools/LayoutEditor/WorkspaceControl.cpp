@@ -3,7 +3,7 @@
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
 #include "WidgetCreatorManager.h"
-#include "PropertiesPanelView.h"
+//#include "PropertiesPanelView.h"
 #include "CommandManager.h"
 #include "UndoManager.h"
 #include "Localise.h"
@@ -38,7 +38,7 @@ namespace tools
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 		notifyChangeSelectedWidget(nullptr);
 
-		PropertiesPanelView::getInstance().eventChangeCoord += MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
+		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 
 		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveLeft));
 		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveRight));
@@ -77,7 +77,7 @@ namespace tools
 
 		WidgetCreatorManager::getInstance().eventChangeSelector -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
-		PropertiesPanelView::getInstance().eventChangeCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
+		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &WorkspaceControl::notifySettingsChanged);
 
@@ -151,7 +151,6 @@ namespace tools
 			}
 		}
 
-		PropertiesPanelView::getInstance().setCoord(mCoordValue);
 		if (mCurrentWidget != nullptr)
 			setWidgetCoord(mCurrentWidget, mCoordValue);
 
@@ -192,8 +191,11 @@ namespace tools
 		}
 	}
 
-	void WorkspaceControl::notifyPropertyChangeCoord(const MyGUI::IntCoord& _coordValue)
+	void WorkspaceControl::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
 	{
+		if (_owner == "WorkspaceControl" || _widget != mCurrentWidget)
+			return;
+
 		// тут приходит в абсолютных, конвертим в локальные
 		mCoordValue = _coordValue;
 		if (mCurrentWidget != nullptr)
@@ -465,7 +467,6 @@ namespace tools
 	void WorkspaceControl::updateFromCoordValue()
 	{
 		// тут работаем с локальными координатами
-		PropertiesPanelView::getInstance().setCoord(mCoordValue);
 		if (mCurrentWidget != nullptr)
 			setWidgetCoord(mCurrentWidget, mCoordValue);
 
@@ -628,6 +629,9 @@ namespace tools
 
 	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord)
 	{
+		EditorWidgets::getInstance().onSetWidgetCoord(_widget, _coord, "WorkspaceControl");
+		//PropertiesPanelView::getInstance().setCoord(_coord);
+
 		if (mFreeChildMode)
 		{
 			typedef std::pair<MyGUI::Widget*, MyGUI::IntCoord> PairWidgetCoord;

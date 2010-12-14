@@ -30,6 +30,7 @@ namespace tools
 
 	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y)
 	{
+		MyGUI::TextBox* box = nullptr;
 		size_t count = widgetType->parameter.size();
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
@@ -43,7 +44,7 @@ namespace tools
 					break;
 				}
 			}
-			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
+			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y, box);
 			y += mPropertyItemHeight;
 		}
 
