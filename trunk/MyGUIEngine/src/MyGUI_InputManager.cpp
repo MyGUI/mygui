@@ -458,7 +458,7 @@ namespace MyGUI
 		mWidgetKeyFocus = _widget;
 	}
 
-	void InputManager::resetMouseFocusWidget()
+	void InputManager::_resetMouseFocusWidget()
 	{
 		// спускаемся по старому виджету и сбрасываем фокус
 		Widget* root_focus = mWidgetMouseFocus;
@@ -469,8 +469,17 @@ namespace MyGUI
 			root_focus = root_focus->getParent();
 		}
 
-		mLeftMouseCapture = false;
-		mRightMouseCapture = false;
+		if (mLeftMouseCapture)
+		{
+			mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
+			mLeftMouseCapture = false;
+		}
+
+		if (mRightMouseCapture)
+		{
+			mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
+			mRightMouseCapture = false;
+		}
 
 		if (nullptr != mWidgetMouseFocus)
 		{
@@ -482,11 +491,23 @@ namespace MyGUI
 	// удаляем данный виджет из всех возможных мест
 	void InputManager::_unlinkWidget(Widget* _widget)
 	{
-		if (nullptr == _widget) return;
+		if (nullptr == _widget)
+			return;
+
 		if (_widget == mWidgetMouseFocus)
 		{
-			mLeftMouseCapture = false;
-			mRightMouseCapture = false;
+			if (mLeftMouseCapture)
+			{
+				mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
+				mLeftMouseCapture = false;
+			}
+
+			if (mRightMouseCapture)
+			{
+				mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
+				mRightMouseCapture = false;
+			}
+
 			mWidgetMouseFocus = nullptr;
 		}
 		if (_widget == mWidgetKeyFocus)
@@ -508,10 +529,11 @@ namespace MyGUI
 
 	void InputManager::addWidgetModal(Widget* _widget)
 	{
-		if (nullptr == _widget) return;
+		if (nullptr == _widget)
+			return;
 		MYGUI_ASSERT(nullptr == _widget->getParent(), "Modal widget must be root");
 
-		resetMouseFocusWidget();
+		_resetMouseFocusWidget();
 		removeWidgetModal(_widget);
 		mVectorModalRootWidget.push_back(_widget);
 
@@ -522,7 +544,7 @@ namespace MyGUI
 	void InputManager::removeWidgetModal(Widget* _widget)
 	{
 		resetKeyFocusWidget(_widget);
-		resetMouseFocusWidget();
+		_resetMouseFocusWidget();
 
 		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
 		{
