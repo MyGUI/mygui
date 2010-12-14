@@ -255,7 +255,7 @@ namespace tools
 			PropertyType_Count
 		};
 
-		PropertyType widget_for_type;
+		PropertyType widget_for_type = PropertyType_Count;
 
 		std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
 
@@ -353,7 +353,8 @@ namespace tools
 		else
 		{
 			editOrCombo = mPropertiesElement[_window][mPairsCounter-1];
-			if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
+			if (widget_for_type == PropertyType_ComboBox)
+				editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
 			editOrCombo->setVisible(true);
 			editOrCombo->setCoord(x2, y, w2, h);
 		}
@@ -504,13 +505,16 @@ namespace tools
 		}
 		else if (action == "Type")
 		{
+			WidgetSelectorManager::getInstance().saveSelectedWidget();
+
 			widgetContainer->type = value;
 
 			MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
 			ew->clear();
 			ew->loadxmlDocument(savedDoc);
 			delete savedDoc;
-			WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+			WidgetSelectorManager::getInstance().restoreSelectedWidget();
 
 			return;
 		}
@@ -519,11 +523,14 @@ namespace tools
 			widgetContainer->skin = value;
 			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
 			{
+				WidgetSelectorManager::getInstance().saveSelectedWidget();
+
 				MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
 				ew->clear();
 				ew->loadxmlDocument(savedDoc);
 				delete savedDoc;
-				WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
+
+				WidgetSelectorManager::getInstance().restoreSelectedWidget();
 			}
 			else
 			{
@@ -606,7 +613,8 @@ namespace tools
 		}
 
 		// если такого свойства не было раньше, то сохраняем
-		if (!value.empty()) widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
+		if (!value.empty())
+			widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
 	}
 
 	std::string PropertiesPanelView::splitString(std::string& str, char separator)
