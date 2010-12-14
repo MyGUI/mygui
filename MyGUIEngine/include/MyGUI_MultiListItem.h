@@ -25,6 +25,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextBox.h"
 #include "MyGUI_TabControl.h"
+#include "MyGUI_ItemSizeType.h"
 
 namespace MyGUI
 {
@@ -42,13 +43,15 @@ namespace MyGUI
 		/** Get item caption */
 		virtual const UString& getCaption();
 
-		//void setButtonWidth(int _width);
+		void setItemSizeType(ItemSizeType _value);
+
+		void setItemWidth(int _value);
 
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
-		//virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
 		MultiListBox* getOwner();

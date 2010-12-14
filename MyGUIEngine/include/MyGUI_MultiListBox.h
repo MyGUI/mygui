@@ -30,6 +30,7 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"
+#include "MyGUI_ItemSizeType.h"
 
 namespace MyGUI
 {
@@ -51,6 +52,20 @@ namespace MyGUI
 	public:
 		MultiListBox();
 
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
+
+		/** @copydoc Widget::setPosition(int _left, int _top) */
+		void setPosition(int _left, int _top);
+		/** @copydoc Widget::setSize(int _width, int _height) */
+		void setSize(int _width, int _height);
+		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
+		void setCoord(int _left, int _top, int _width, int _height);
+
 		//------------------------------------------------------------------------------//
 		// Methods for work with columns (RU:методы для работы со столбцами)
 		//------------------------------------------------------------------------------//
@@ -65,14 +80,14 @@ namespace MyGUI
 			@param _width Width of new column
 			@param _data Any data associated with new column
 		*/
-		void insertColumnAt(size_t _column, const UString& _name, int _width, Any _data = Any::Null);
+		void insertColumnAt(size_t _column, const UString& _name, int _width = 0, Any _data = Any::Null);
 
 		/** Add new column at last position
 			@param _width Width of new column
 			@param _name Name of new column
 			@param _data Any data associated with new column
 		*/
-		void addColumn(const UString& _name, int _width, Any _data = Any::Null);
+		void addColumn(const UString& _name, int _width = 0, Any _data = Any::Null);
 
 		/** Delete column */
 		void removeColumnAt(size_t _column);
@@ -104,6 +119,12 @@ namespace MyGUI
 		*/
 		void setColumnWidthAt(size_t _column, int _width);
 
+		/** Set column width
+			@param _item column
+			@param _width New width of column
+		*/
+		void setColumnWidth(MultiListItem* _item, int _width);
+
 		/** Get _column name */
 		const UString& getColumnNameAt(size_t _column);
 
@@ -118,6 +139,9 @@ namespace MyGUI
 
 		//! Get column index
 		size_t getColumnIndex(MultiListItem* _item);
+
+		void setColumnSizeType(MultiListItem* _item, ItemSizeType _value);
+		void setColumnSizeTypeAt(size_t _index, ItemSizeType _value);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -286,6 +310,7 @@ namespace MyGUI
 		virtual void onWidgetCreated(Widget* _widget);
 		virtual void onWidgetDestroy(Widget* _widget);
 
+	private:
 		void notifyListChangePosition(ListBox* _sender, size_t _position);
 		void notifyListChangeFocus(ListBox* _sender, size_t _position);
 		void notifyListChangeScrollPosition(ListBox* _sender, size_t _position);
@@ -306,15 +331,16 @@ namespace MyGUI
 
 		void updateBackSelected(size_t _index);
 
-	private:
 		struct ColumnInfo
 		{
 			MultiListItem* item;
 			ListBox* list;
 			Button* button;
 			int width;
+			int realWidth;
 			UString name;
 			Any data;
+			ItemSizeType sizeType;
 		};
 
 		typedef std::vector<ColumnInfo> VectorColumnInfo;
@@ -336,7 +362,9 @@ namespace MyGUI
 		void _unwrapItem(MultiListItem* _item);
 		void _swapColumnsAt(size_t _index1, size_t _index2);
 
-		int getColumnWidth(ColumnInfo& _info);
+		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, int _lastIndexStar, int _starWidth);
+		bool getUpdateByResize();
+		int updateWidthColumns(size_t& _countStars, int& _lastIndexStar);
 
 	private:
 		int mHeightButton;
