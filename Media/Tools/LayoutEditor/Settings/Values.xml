@@ -66,9 +66,9 @@
 	</Value>
 
 	<Value name="Bool">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
 		<Property key="true"/>
 		<Property key="false"/>
-		<Property key="#{ColourDefault}[DEFAULT]"/>
 	</Value>
 
 	<Value name="Font">
@@ -92,24 +92,6 @@
 		<Property key="Middle"/>
 		<Property key="Overlapped"/>
 		<Property key="Back"/>
-	</Value>
-
-	<Value name="MessageButton">
-		<Property key="Ok"/>
-		<Property key="Yes"/>
-		<Property key="No"/>
-		<Property key="Abort"/>
-		<Property key="Retry"/>
-		<Property key="Ignore"/>
-		<Property key="Cancel"/>
-		<Property key="Try"/>
-		<Property key="Continue"/>
-		<Property key="OkCancel"/>
-		<Property key="YesNo"/>
-		<Property key="YesNoCancel"/>
-		<Property key="RetryCancel"/>
-		<Property key="AbortRetryIgnore"/>
-		<Property key="CancelTryContinue"/>
 	</Value>
 
 	<Value name="Function">
