@@ -110,15 +110,22 @@ namespace tools
 			skinDefaultSize.height += max_size.height;
 		}
 
-		int width = std::max(mMinWidth, skinDefaultSize.width + 2 * MARGIN);
-		width = std::max(width, mText->getTextSize().width + 2 * MARGIN);
-
-		mMainWidget->setSize(width, std::max(mMinHeight, skinDefaultSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		if (mLastWidget)
 			MyGUI::Gui::getInstance().destroyWidget(mLastWidget);
-		mLastWidget = mMainWidget->createWidgetT("TextBox", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, skinDefaultSize.width, skinDefaultSize.height, MyGUI::Align::Default);
-		mLastWidget->castType<MyGUI::TextBox>()->setCaption(skin);
 
+		MyGUI::IntSize widgetSize = skinDefaultSize;
+
+		mLastWidget = mMainWidget->createWidgetT("TextBox", skin, MARGIN, MARGIN + LINE_HEIGHT * LINES, widgetSize.width, widgetSize.height, MyGUI::Align::Default);
+		MyGUI::TextBox* textBox = mLastWidget->castType<MyGUI::TextBox>();
+		textBox->setCaption(skin);
+
+		MyGUI::IntSize contentSize = textBox->getSize() - textBox->getTextRegion().size() + textBox->getTextSize();
+		widgetSize.set(std::max(widgetSize.width, contentSize.width), std::max(widgetSize.height, contentSize.height));
+		textBox->setSize(widgetSize);
+
+		int width = std::max(mMinWidth, widgetSize.width + 2 * MARGIN);
+		width = std::max(width, mText->getTextSize().width + 2 * MARGIN);
+		mMainWidget->setSize(width, std::max(mMinHeight, widgetSize.height + LINE_HEIGHT * LINES + 2 * MARGIN));
 		mMainWidget->setVisible(true);
 	}
 

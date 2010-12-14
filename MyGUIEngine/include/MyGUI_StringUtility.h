@@ -409,6 +409,33 @@ namespace MyGUI
 			return false;
 		}
 
+		inline bool startWith(const std::string& _source, const std::string& _value)
+		{
+			size_t count = _value.size();
+			if (_source.size() < count)
+				return false;
+			for (size_t index = 0; index < count; ++ index)
+			{
+				if (_source[index] != _value[index])
+					return false;
+			}
+			return true;
+		}
+
+		inline bool endWith(const std::string& _source, const std::string& _value)
+		{
+			size_t count = _value.size();
+			if (_source.size() < count)
+				return false;
+			size_t offset = _source.size() - count;
+			for (size_t index = 0; index < count; ++ index)
+			{
+				if (_source[index + offset] != _value[index])
+					return false;
+			}
+			return true;
+		}
+
 	} // namespace utility
 
 } // namespace MyGUI
