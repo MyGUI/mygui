@@ -12,10 +12,15 @@
 namespace tools
 {
 	class EditorToolTip :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public MyGUI::Singleton<EditorToolTip>
 	{
 	public:
 		EditorToolTip();
+		virtual ~EditorToolTip();
+
+		void initialise();
+		void shutdown();
 
 		void show(const SkinInfo& _data);
 		void hide();

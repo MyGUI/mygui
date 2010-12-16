@@ -65,7 +65,6 @@ namespace tools
 	private:
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		TextFieldControl* mTextFieldControl;
-		EditorToolTip* mToolTip;
 
 		MyGUI::UString mProjectName;
 		MyGUI::UString mProjectPath;

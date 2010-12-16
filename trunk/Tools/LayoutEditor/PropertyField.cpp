@@ -29,12 +29,11 @@ namespace tools
 	{
 	}
 
-	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
+	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
 		mCurrentWidget = _currentWidget;
-		mToolTip = _toolTip;
 
 		int x1 = 0;
 		int x2 = 125;
@@ -373,24 +372,21 @@ namespace tools
 
 	void PropertyField::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
-		if (mToolTip == nullptr)
-			return;
-
 		if (_sender->getUserString("type") == "Skin")
 		{
 			if (_info.type == MyGUI::ToolTipInfo::Show)
 			{
 				SkinInfo data = getCellData(_sender, _info.index);
-				mToolTip->show(data);
-				mToolTip->move(_info.point);
+				EditorToolTip::getInstancePtr()->show(data);
+				EditorToolTip::getInstancePtr()->move(_info.point);
 			}
 			else if (_info.type == MyGUI::ToolTipInfo::Hide)
 			{
-				mToolTip->hide();
+				EditorToolTip::getInstancePtr()->hide();
 			}
 			else if (_info.type == MyGUI::ToolTipInfo::Move)
 			{
-				mToolTip->move(_info.point);
+				EditorToolTip::getInstancePtr()->move(_info.point);
 			}
 		}
 	}
