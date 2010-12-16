@@ -28,7 +28,7 @@ namespace tools
 	{
 	}
 
-	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
+	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -205,8 +205,6 @@ namespace tools
 			editOrCombo->castType<MyGUI::EditBox>()->setOnlyText(_value);
 			checkType(editOrCombo->castType<MyGUI::EditBox>(), _type);
 		}
-
-		_field = editOrCombo->castType<MyGUI::TextBox>();
 	}
 
 	void PropertyField::destroy()
@@ -483,6 +481,11 @@ namespace tools
 		}
 
 		return false;
+	}
+
+	MyGUI::EditBox* PropertyField::getField()
+	{
+		return mField->castType<MyGUI::EditBox>();
 	}
 
 } // namespace tools

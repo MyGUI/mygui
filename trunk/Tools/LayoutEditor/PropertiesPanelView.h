@@ -30,7 +30,7 @@ namespace tools
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
 		void hideWidgetsPairs(MyGUI::Widget* _window);
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field);
+		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, PropertyField& _field);
 
 		PanelProperties* getPropertyWindow(WidgetStyle* _style);
 

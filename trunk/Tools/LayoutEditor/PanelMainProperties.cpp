@@ -78,14 +78,15 @@ namespace tools
 
 	void PanelMainProperties::update(MyGUI::Widget* _currentWidget)
 	{
-		MyGUI::TextBox* box = nullptr;
+		PropertyField field;
+
 		int y = 0;
 		mCurrentWidget = _currentWidget;
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y, box);
+		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y, field);
 		y += mPropertyItemHeight;
 
 		if (widgetType->resizeable)
@@ -97,7 +98,9 @@ namespace tools
 			else
 				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
-			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, mPositionEdit);
+			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, field);
+			mPositionEdit = field.getField();
+
 			y += mPropertyItemHeight;
 		}
 		else
@@ -105,19 +108,19 @@ namespace tools
 			mButtonRelativePosition->setVisible(false);
 		}
 
-		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y, box);
+		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y, field);
 		y += mPropertyItemHeight;
 
-		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y, box);
+		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y, field);
 		y += mPropertyItemHeight;
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, box);
+			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, field);
 			y += mPropertyItemHeight;
 		}
 
-		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, box);
+		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, field);
 		y += mPropertyItemHeight;
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
