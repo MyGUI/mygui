@@ -14,7 +14,8 @@ namespace tools
 {
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
-		mPropertyItemHeight(0)
+		mPropertyItemHeight(0),
+		mDeep(0)
 	{
 	}
 
@@ -27,6 +28,16 @@ namespace tools
 	void PanelProperties::shutdown()
 	{
 		destroyPropertyFields();
+	}
+
+	void PanelProperties::setDeep(size_t _value)
+	{
+		mDeep = _value;
+	}
+
+	size_t PanelProperties::getDeep() const
+	{
+		return mDeep;
 	}
 
 	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget)

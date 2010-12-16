@@ -123,8 +123,6 @@ namespace tools
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item)
 		{
-			// скрываем все проперти
-			//eventHidePairs(mWidgetClient);
 			return;
 		}
 
@@ -132,7 +130,6 @@ namespace tools
 		mControllerName->setOnlyText(key);
 
 		int y = mButtonDelete->getCoord().bottom();
-		//eventHidePairs(mWidgetClient);
 		if (mControllersProperties.find(key) != mControllersProperties.end())
 		{
 			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(item);

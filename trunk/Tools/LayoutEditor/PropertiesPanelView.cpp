@@ -43,11 +43,6 @@ namespace tools
 		mPanelControllers = new PanelControllers();
 		mPanelView->addItem(mPanelControllers);
 
-		mPanels.push_back(mPanelMainProperties);
-		mPanels.push_back(mPanelItems);
-		mPanels.push_back(mPanelUserData);
-		mPanels.push_back(mPanelControllers);
-
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 
 		notifyChangeSelectedWidget(nullptr);
@@ -159,7 +154,7 @@ namespace tools
 
 			while (widgetType != nullptr && !widgetType->base.empty())
 			{
-				PanelProperties* panel = getPropertyWindow(widgetType);
+				PanelProperties* panel = getPropertyWindow(widgetType, widgetType->deep);
 				panel->setVisible(true);
 				panel->update(mCurrentWidget, widgetType);
 
@@ -168,18 +163,46 @@ namespace tools
 		}
 	}
 
-	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style)
+	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style, size_t _deep)
 	{
 		MapPropertyWindow::iterator item = mMapPropertyWindow.find(_style);
 		if (item == mMapPropertyWindow.end())
 		{
 			PanelProperties* result = new PanelProperties();
-			mPanelView->addItem(result);
+			result->setDeep(_deep);
+
+			mPanelView->insertItem(getIndexByDeep(_deep), result);
+
 			mMapPropertyWindow[_style] = result;
-			mPanels.push_back(result);
 			return result;
 		}
+
 		return (*item).second;
+	}
+
+	size_t PropertiesPanelView::getIndexByDeep(size_t _deep)
+	{
+		size_t result = 1;
+		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+		{
+			if ((*item).second->getDeep() < _deep)
+			{
+				size_t index = getIndexPanel((*item).second);
+				if (index >= result)
+					result = index + 1;
+			}
+		}
+		return result;
+	}
+
+	size_t PropertiesPanelView::getIndexPanel(PanelProperties* _panel)
+	{
+		for (size_t index = 0; index < mPanelView->getItemCount(); ++ index)
+		{
+			if (mPanelView->getItem(index) == _panel)
+				return index;
+		}
+		return MyGUI::ITEM_NONE;
 	}
 
 } // namespace tools
