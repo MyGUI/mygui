@@ -22,6 +22,7 @@
 #include "MyGUI_RTTLayer.h"
 #include "ColourManager.h"
 #include "EditorToolTip.h"
+#include "PropertyFieldManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -117,6 +118,9 @@ namespace tools
 		new EditorToolTip();
 		EditorToolTip::getInstance().initialise();
 
+		new PropertyFieldManager();
+		PropertyFieldManager::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -157,6 +161,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+
+		PropertyFieldManager::getInstance().shutdown();
+		delete PropertyFieldManager::getInstancePtr();
 
 		EditorToolTip::getInstance().shutdown();
 		delete EditorToolTip::getInstancePtr();

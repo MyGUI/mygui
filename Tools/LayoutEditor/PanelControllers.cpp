@@ -9,6 +9,7 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "SettingsManager.h"
+#include "PropertyFieldManager.h"
 
 namespace tools
 {
@@ -140,14 +141,26 @@ namespace tools
 				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
 					val = controllerInfo->mProperty[iter->first];
 
-				PropertyField field;
-				field.createPropertiesWidgetsPair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y, mCurrentWidget);
+				PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, mCurrentWidget);
 				mFields.push_back(field);
-
-				y += mPropertyItemHeight;
 			}
 		}
-		mPanelCell->setClientHeight(y);
+
+		updateSize();
+	}
+
+	void PanelControllers::updateSize()
+	{
+		int height = 0;
+
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		{
+			MyGUI::IntSize size = (*item)->getContentSize();
+			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			height += size.height;
+		}
+
+		mPanelCell->setClientHeight(height);
 	}
 
 	void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
@@ -170,7 +183,7 @@ namespace tools
 	void PanelControllers::destroyPropertyFields()
 	{
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).destroy();
+			delete (*item);
 		mFields.clear();
 	}
 

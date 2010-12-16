@@ -29,23 +29,28 @@ namespace tools
 	{
 	}
 
-	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget)
+	PropertyField::~PropertyField()
+	{
+		destroy();
+	}
+
+	void PropertyField::_create(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
 		mCurrentWidget = _currentWidget;
 
-		int x1 = 0;
-		int x2 = 125;
-		int w1 = 120;
-		int w2 = _window->getWidth() - x2;
-		const int h = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
+		//int x1 = 0;
+		//int x2 = 125;
+		//int w1 = 120;
+		//int w2 = _window->getWidth() - x2;
+		//const int h = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
-		if (_property == "Position")
+		/*if (_property == "Position")
 		{
 			x1 = 66;
 			w1 = w1 - x1;
-		}
+		}*/
 
 		MyGUI::TextBox* text = nullptr;
 		MyGUI::Widget* editOrCombo = nullptr;
@@ -100,7 +105,7 @@ namespace tools
 		else
 			widget_for_type = PropertyType_ComboBox;
 
-		text = _window->createWidget<MyGUI::TextBox>("TextBox", x1, y, w1, h, MyGUI::Align::Default);
+		text = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
 		text->setTextAlign(MyGUI::Align::Right);
 
 		std::string prop = _property;
@@ -109,13 +114,13 @@ namespace tools
 
 		if (widget_for_type == PropertyType_Edit)
 		{
-			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &PropertyField::notifyTryApplyProperties);
 			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties);
 		}
 		else if (widget_for_type == PropertyType_ComboBox)
 		{
-			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties2);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
@@ -125,7 +130,7 @@ namespace tools
 		}
 		else if (widget_for_type == PropertyType_EditAcceptOnly)
 		{
-			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties);
 		}
 
@@ -486,6 +491,20 @@ namespace tools
 	MyGUI::EditBox* PropertyField::getField()
 	{
 		return mField->castType<MyGUI::EditBox>();
+	}
+
+	MyGUI::IntSize PropertyField::getContentSize()
+	{
+		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
+	}
+
+	void PropertyField::setCoord(const MyGUI::IntCoord& _coord)
+	{
+		int w1 = 120;
+		int x2 = 125;
+
+		mText->setCoord(MyGUI::IntCoord(0, _coord.top, w1, _coord.height));
+		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));
 	}
 
 } // namespace tools

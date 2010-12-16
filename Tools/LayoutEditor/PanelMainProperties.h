@@ -31,13 +31,14 @@ namespace tools
 		void updatePositionCaption();
 		void destroyPropertyFields();
 
+		void updateSize();
+
 	private:
 		MyGUI::Button* mButtonRelativePosition;
 
 		MyGUI::Widget* mCurrentWidget;
-		int mPropertyItemHeight;
 		MyGUI::TextBox* mPositionEdit;
-		typedef std::vector<PropertyField> VectorPropertyField;
+		typedef std::vector<PropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 	};
 
