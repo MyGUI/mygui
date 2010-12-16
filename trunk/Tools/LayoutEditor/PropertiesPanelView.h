@@ -29,18 +29,11 @@ namespace tools
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
-		//void hideWidgetsPairs(MyGUI::Widget* _window);
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, PropertyField& _field);
-
 		PanelProperties* getPropertyWindow(WidgetStyle* _style);
 
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;
-
-		//typedef std::vector<PropertyField> VectorPropertyField;
-		//typedef std::map<MyGUI::Widget*, VectorPropertyField> MapInfo;
-		//MapInfo mPropertyInfo;
 
 		PanelMainProperties* mPanelMainProperties;
 
@@ -55,7 +48,6 @@ namespace tools
 		VectorPanel mPanels;
 
 		MyGUI::Widget* mCurrentWidget;
-		int mPropertyItemHeight;
 
 		EditorToolTip* mToolTip;
 	};

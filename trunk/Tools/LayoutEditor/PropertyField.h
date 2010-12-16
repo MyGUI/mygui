@@ -15,7 +15,7 @@ namespace tools
 	public:
 		PropertyField();
 
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip);
+		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip);
 		void destroy();
 
 		MyGUI::EditBox* getField();
