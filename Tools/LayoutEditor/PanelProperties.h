@@ -10,6 +10,7 @@
 #include "PanelView/BasePanelViewItem.h"
 #include "WidgetTypes.h"
 #include "WidgetContainer.h"
+#include "PropertyField.h"
 
 namespace tools
 {
@@ -24,11 +25,12 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
-		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, MyGUI::TextBox*&> EventHandle_EventCreatePair;
+		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, PropertyField&> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
 
 	private:
 		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y);
+		void destroyPropertyField();
 
 	private:
 		int mPropertyItemHeight;
