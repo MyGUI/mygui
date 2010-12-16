@@ -26,210 +26,22 @@ namespace tools
 	std::string ERROR_VALUE;
 	const int BAR_HEIGHT = 30;
 
-	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
-		BaseLayout("PropertiesPanelView.layout", _parent),
-		mPanelView(nullptr),
-		mPairsCounter(0),
-		mPanelMainProperties(nullptr),
-		mPanelItems(nullptr),
-		mPanelUserData(nullptr),
-		mPanelControllers(nullptr),
-		mCurrentWidget(nullptr),
-		mPropertyItemHeight(0),
-		mToolTip(nullptr)
+	Entry::Entry() :
+		mText(nullptr),
+		mField(nullptr)
 	{
-		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-		ERROR_VALUE = replaceTags("ColourError");
-
-		assignBase(mPanelView, "scroll_View");
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-		{
-			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
-			mOldSize = window->getSize();
-		}
-
-		mToolTip = new EditorToolTip();
-
-		mPanelMainProperties = new PanelMainProperties();
-		mPanelView->addItem(mPanelMainProperties);
-		mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-
-		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
-		{
-			mPanelsTypeProperties[i] = new PanelProperties();
-			mPanelView->addItem(mPanelsTypeProperties[i]);
-			mPanelsTypeProperties[i]->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-		}
-
-		mPanelItems = new PanelItems();
-		mPanelView->addItem(mPanelItems);
-
-		mPanelUserData = new PanelUserData();
-		mPanelView->addItem(mPanelUserData);
-
-		mPanelControllers = new PanelControllers();
-		mPanelView->addItem(mPanelControllers);
-		mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-		mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
-
-		mPanels.push_back(mPanelMainProperties);
-		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
-		{
-			mPanels.push_back(mPanelsTypeProperties[i]);
-		}
-		mPanels.push_back(mPanelItems);
-		mPanels.push_back(mPanelUserData);
-		mPanels.push_back(mPanelControllers);
-
-		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
-
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
-
-		notifyChangeSelectedWidget(nullptr);
 	}
 
-	PropertiesPanelView::~PropertiesPanelView()
-	{
-		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
-
-		delete mToolTip;
-		mToolTip = nullptr;
-
-		mPanelView->removeAllItems();
-		delete mPanelMainProperties;
-		for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
-		{
-			delete mPanelsTypeProperties[i];
-		}
-		delete mPanelItems;
-		delete mPanelUserData;
-		delete mPanelControllers;
-	}
-
-	void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::Window* _sender)
-	{
-		const MyGUI::IntSize& size = _sender->getSize();
-		if (size != mOldSize)
-		{
-			mOldSize = size;
-			mPanelView->setNeedUpdate();
-		}
-	}
-
-	void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
+	void Entry::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
 	{
 		mCurrentWidget = _currentWidget;
+		mToolTip = _toolTip;
 
-		if (nullptr != mCurrentWidget)
-		{
-			MyGUI::LayerManager::getInstance().upLayerItem(mCurrentWidget);
-			MyGUI::IntCoord coord = mCurrentWidget->getCoord();
-			MyGUI::Widget* parent = mCurrentWidget->getParent();
-			if (nullptr != parent)
-			{
-				// если выбрали виджет на табе, то поднять лист таба
-				if (parent->isType<MyGUI::TabItem>())
-				{
-					MyGUI::TabControl* tab = parent->getParent()->castType<MyGUI::TabControl>();
-					MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
-					tab->setItemSelected(sheet);
-				}
-				// если выбрали лист таба, то поднять лист таба
-				if (mCurrentWidget->isType<MyGUI::TabItem>())
-				{
-					MyGUI::TabControl* tab = parent->castType<MyGUI::TabControl>();
-					MyGUI::TabItem* sheet = mCurrentWidget->castType<MyGUI::TabItem>();
-					tab->setItemSelected(sheet);
-				}
-				coord = mCurrentWidget->getAbsoluteCoord();
-			}
-
-			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-		}
-
-		// delete(hide) all previous properties
-		for (MapVectorTextBox::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
-		{
-			hideWidgetsPairs(iterVector->first);
-		}
-
-		if (nullptr == mCurrentWidget)
-		{
-			mPanelMainProperties->setVisible(false);
-			mPanelItems->setVisible(false);
-			mPanelUserData->setVisible(false);
-			mPanelControllers->setVisible(false);
-			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
-				mPanelsTypeProperties[i]->setVisible(false);
-		}
-		else
-		{
-			mPanelMainProperties->setVisible(true);
-			mPanelItems->setVisible(true);
-			mPanelUserData->setVisible(true);
-			mPanelControllers->setVisible(true);
-
-			mPairsCounter = 0;
-			mPanelMainProperties->update(mCurrentWidget);
-
-			std::string widgetTypeName = mCurrentWidget->getTypeName();
-
-			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
-			for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
-			{
-				if ((*item).first == "TargetWidgetType")
-				{
-					widgetTypeName = (*item).second;
-					break;
-				}
-			}
-
-			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
-			for (int i = 0; i < MAX_BASE_TYPES_COUNT; ++i)
-			{
-				mPairsCounter = 0;
-				mPanelsTypeProperties[i]->setVisible(true);
-				mPanelsTypeProperties[i]->update(mCurrentWidget, widgetType);
-				if (widgetType && !widgetType->base.empty())
-				{
-					widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
-				}
-				else
-				{
-					widgetType = nullptr;
-				}
-			}
-			mPanelItems->update(mCurrentWidget);
-			mPanelUserData->update(mCurrentWidget);
-			mPairsCounter = 0;
-			mPanelControllers->update(mCurrentWidget);
-		}
-	}
-
-	void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
-	{
-		mPairsCounter = 0;
-		for (VectorTextBox::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
-		{
-			(*iter)->setVisible(false);
-		}
-
-		for (MyGUI::VectorWidgetPtr::iterator iter = mPropertiesElement[_window].begin(); iter != mPropertiesElement[_window].end(); ++iter)
-		{
-			(*iter)->setVisible(false);
-		}
-	}
-
-	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field)
-	{
-		mPairsCounter++;
 		int x1 = 0;
 		int x2 = 125;
 		int w1 = 120;
 		int w2 = _window->getWidth() - x2;
-		const int h = mPropertyItemHeight;
+		const int h = _height;
 
 		if (_property == "Position")
 		{
@@ -237,8 +49,8 @@ namespace tools
 			w1 = w1 - x1;
 		}
 
-		MyGUI::TextBox* text;
-		MyGUI::Widget* editOrCombo;
+		MyGUI::TextBox* text = nullptr;
+		MyGUI::Widget* editOrCombo = nullptr;
 		//int string_int_float; // 0 - string, 1 - int, 2 - float
 
 		enum PropertyType
@@ -290,66 +102,37 @@ namespace tools
 		else
 			widget_for_type = PropertyType_ComboBox;
 
-		if (mPropertiesText[_window].size() < mPairsCounter)
-		{
-			text = _window->createWidget<MyGUI::TextBox>("TextBox", x1, y, w1, h, MyGUI::Align::Default);
-			text->setTextAlign(MyGUI::Align::Right);
+		text = _window->createWidget<MyGUI::TextBox>("TextBox", x1, y, w1, h, MyGUI::Align::Default);
+		text->setTextAlign(MyGUI::Align::Right);
 
-			mPropertiesText[_window].push_back(text);
-		}
-		else
-		{
-			text = mPropertiesText[_window][mPairsCounter-1];
-			text->setVisible(true);
-			text->setCoord(x1, y, w1, h);
-		}
 		std::string prop = _property;
 
 		text->setCaption(prop);
 
-		if ((mPropertiesElement[_window].size() < mPairsCounter) ||
-			(type_names[widget_for_type] != mPropertiesElement[_window][mPairsCounter-1]->getTypeName()))
+		if (widget_for_type == PropertyType_Edit)
 		{
-			if (widget_for_type == PropertyType_Edit)
-			{
-				editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-				editOrCombo->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
-				editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
-			}
-			else if (widget_for_type == PropertyType_ComboBox)
-			{
-				editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-				editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
-
-				editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
-
-				editOrCombo->setNeedToolTip(true);
-				editOrCombo->eventToolTip += newDelegate (this, &PropertiesPanelView::notifyToolTip);
-			}
-			else if (widget_for_type == PropertyType_EditAcceptOnly)
-			{
-				editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
-				editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
-			}
-
-			if (mPropertiesElement[_window].size() < mPairsCounter)
-			{
-				mPropertiesElement[_window].push_back(editOrCombo);
-			}
-			else
-			{
-				MyGUI::Gui::getInstance().destroyWidget(mPropertiesElement[_window][mPairsCounter-1]);
-				mPropertiesElement[_window][mPairsCounter-1] = editOrCombo;
-			}
+			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &Entry::notifyTryApplyProperties);
+			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &Entry::notifyForceApplyProperties);
 		}
-		else
+		else if (widget_for_type == PropertyType_ComboBox)
 		{
-			editOrCombo = mPropertiesElement[_window][mPairsCounter-1];
-			if (widget_for_type == PropertyType_ComboBox)
-				editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
-			editOrCombo->setVisible(true);
-			editOrCombo->setCoord(x2, y, w2, h);
+			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &Entry::notifyForceApplyProperties2);
+
+			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
+
+			editOrCombo->setNeedToolTip(true);
+			editOrCombo->eventToolTip += newDelegate (this, &Entry::notifyToolTip);
 		}
+		else if (widget_for_type == PropertyType_EditAcceptOnly)
+		{
+			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &Entry::notifyForceApplyProperties);
+		}
+
+		mText = text;
+		mField = editOrCombo;
 
 		// fill possible values
 		if (widget_for_type == PropertyType_ComboBox)
@@ -428,37 +211,15 @@ namespace tools
 		_field = editOrCombo->castType<MyGUI::TextBox>();
 	}
 
-	bool PropertiesPanelView::checkType(MyGUI::EditBox* _edit, const std::string& _type)
+	void Entry::destroy()
 	{
-		bool success = true;
-
-		if ("Name" == _type)
-		{
-			// теперь имя может быть не уникальным
-			const MyGUI::UString& text = _edit->getOnlyText();
-			size_t index = _edit->getTextCursor();
-			_edit->setCaption(text);
-			success = true;
-			_edit->setTextCursor(index);
-		}
-		else if ("Position" == _type)
-		{
-			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
-				success = utility::checkParse<float>(_edit, 4);
-			else
-				success = utility::checkParse<int>(_edit, 4);
-		}
-		else if ("1 int" == _type) success = utility::checkParse<int>(_edit, 1);
-		else if ("2 int" == _type) success = utility::checkParse<int>(_edit, 2);
-		else if ("4 int" == _type) success = utility::checkParse<int>(_edit, 4);
-		else if ("alpha" == _type) success = utility::checkParseInterval<float>(_edit, 1, 0., 1.);
-		else if ("1 float" == _type) success = utility::checkParse<float>(_edit, 1);
-		else if ("2 float" == _type) success = utility::checkParse<float>(_edit, 2);
-		else if ("FileName" == _type) success = utility::checkParseFileName(_edit);
-		return success;
+		MyGUI::WidgetManager::getInstance().destroyWidget(mText);
+		mText = nullptr;
+		MyGUI::WidgetManager::getInstance().destroyWidget(mField);
+		mField = nullptr;
 	}
 
-	void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
+	void Entry::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
@@ -582,8 +343,10 @@ namespace tools
 		{
 			if (iterProperty->first == action)
 			{
-				if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
-				else iterProperty->second = value;
+				if (value.empty())
+					widgetContainer->mProperty.erase(iterProperty);
+				else
+					iterProperty->second = value;
 				return;
 			}
 		}
@@ -593,62 +356,22 @@ namespace tools
 			widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
 	}
 
-	std::string PropertiesPanelView::splitString(std::string& str, char separator)
-	{
-		size_t spaceIdx = str.find(separator);
-		if (spaceIdx == std::string::npos)
-		{
-			std::string tmp = str;
-			str.clear();
-			return tmp;
-		}
-		else
-		{
-			std::string tmp = str.substr(0, spaceIdx);
-			str.erase(0, spaceIdx + 1);
-			return tmp;
-		}
-	}
-
-	void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditBox* _sender)
+	void Entry::notifyTryApplyProperties(MyGUI::EditBox* _sender)
 	{
 		notifyApplyProperties(_sender, false);
 	}
 
-	void PropertiesPanelView::notifyForceApplyProperties(MyGUI::EditBox* _sender)
+	void Entry::notifyForceApplyProperties(MyGUI::EditBox* _sender)
 	{
 		notifyApplyProperties(_sender, true);
 	}
 
-	void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
+	void Entry::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		notifyApplyProperties(_sender, true);
 	}
 
-	bool PropertiesPanelView::isSkinExist(const std::string& _skinName)
-	{
-		return _skinName == "Default" ||
-			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
-			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
-	}
-
-	bool PropertiesPanelView::checkTemplate(const std::string& _skinName)
-	{
-		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
-		if (templateInfo != nullptr)
-		{
-			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
-			{
-				if (container->name == "Root")
-					return true;
-			}
-		}
-
-		return false;
-	}
-
-	void PropertiesPanelView::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
+	void Entry::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
 		if (_sender->getUserString("type") == "Skin")
 		{
@@ -669,7 +392,7 @@ namespace tools
 		}
 	}
 
-	SkinInfo PropertiesPanelView::getCellData(MyGUI::Widget* _sender, size_t _index)
+	SkinInfo Entry::getCellData(MyGUI::Widget* _sender, size_t _index)
 	{
 		MyGUI::ComboBox* box = _sender->castType<MyGUI::ComboBox>();
 		if (_index != MyGUI::ITEM_NONE)
@@ -682,6 +405,284 @@ namespace tools
 			MyGUI::UString name = box->getCaption();
 			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 		}
+	}
+
+	bool Entry::checkType(MyGUI::EditBox* _edit, const std::string& _type)
+	{
+		bool success = true;
+
+		if ("Name" == _type)
+		{
+			// теперь имя может быть не уникальным
+			const MyGUI::UString& text = _edit->getOnlyText();
+			size_t index = _edit->getTextCursor();
+			_edit->setCaption(text);
+			success = true;
+			_edit->setTextCursor(index);
+		}
+		else if ("Position" == _type)
+		{
+			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
+				success = utility::checkParse<float>(_edit, 4);
+			else
+				success = utility::checkParse<int>(_edit, 4);
+		}
+		else if ("1 int" == _type)
+			success = utility::checkParse<int>(_edit, 1);
+		else if ("2 int" == _type)
+			success = utility::checkParse<int>(_edit, 2);
+		else if ("4 int" == _type)
+			success = utility::checkParse<int>(_edit, 4);
+		else if ("alpha" == _type)
+			success = utility::checkParseInterval<float>(_edit, 1, 0., 1.);
+		else if ("1 float" == _type)
+			success = utility::checkParse<float>(_edit, 1);
+		else if ("2 float" == _type)
+			success = utility::checkParse<float>(_edit, 2);
+		else if ("FileName" == _type)
+			success = utility::checkParseFileName(_edit);
+		return success;
+	}
+
+	bool Entry::isSkinExist(const std::string& _skinName)
+	{
+		return _skinName == "Default" ||
+			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
+			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
+	}
+
+	std::string Entry::splitString(std::string& str, char separator)
+	{
+		size_t spaceIdx = str.find(separator);
+		if (spaceIdx == std::string::npos)
+		{
+			std::string tmp = str;
+			str.clear();
+			return tmp;
+		}
+		else
+		{
+			std::string tmp = str.substr(0, spaceIdx);
+			str.erase(0, spaceIdx + 1);
+			return tmp;
+		}
+	}
+
+	bool Entry::checkTemplate(const std::string& _skinName)
+	{
+		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
+		if (templateInfo != nullptr)
+		{
+			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
+			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			{
+				if (container->name == "Root")
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	PropertiesPanelView::PropertiesPanelView(MyGUI::Widget* _parent) :
+		BaseLayout("PropertiesPanelView.layout", _parent),
+		mPanelView(nullptr),
+		mPanelMainProperties(nullptr),
+		mPanelItems(nullptr),
+		mPanelUserData(nullptr),
+		mPanelControllers(nullptr),
+		mCurrentWidget(nullptr),
+		mPropertyItemHeight(0),
+		mToolTip(nullptr)
+	{
+		DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+		ERROR_VALUE = replaceTags("ColourError");
+
+		assignBase(mPanelView, "scroll_View");
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+		{
+			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
+			mOldSize = window->getSize();
+		}
+
+		mToolTip = new EditorToolTip();
+
+		mPanelMainProperties = new PanelMainProperties();
+		mPanelView->addItem(mPanelMainProperties);
+		mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+
+		mPanelItems = new PanelItems();
+		mPanelView->addItem(mPanelItems);
+
+		mPanelUserData = new PanelUserData();
+		mPanelView->addItem(mPanelUserData);
+
+		mPanelControllers = new PanelControllers();
+		mPanelView->addItem(mPanelControllers);
+		mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+		mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
+
+		mPanels.push_back(mPanelMainProperties);
+		mPanels.push_back(mPanelItems);
+		mPanels.push_back(mPanelUserData);
+		mPanels.push_back(mPanelControllers);
+
+		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
+
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+
+		notifyChangeSelectedWidget(nullptr);
+	}
+
+	PropertiesPanelView::~PropertiesPanelView()
+	{
+		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
+
+		delete mToolTip;
+		mToolTip = nullptr;
+
+		mPanelView->removeAllItems();
+		delete mPanelMainProperties;
+		delete mPanelItems;
+		delete mPanelUserData;
+		delete mPanelControllers;
+
+		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+			delete (*item).second;
+		mMapPropertyWindow.clear();
+	}
+
+	void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::Window* _sender)
+	{
+		const MyGUI::IntSize& size = _sender->getSize();
+		if (size != mOldSize)
+		{
+			mOldSize = size;
+			mPanelView->setNeedUpdate();
+		}
+	}
+
+	void PropertiesPanelView::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
+	{
+		mCurrentWidget = _currentWidget;
+
+		if (nullptr != mCurrentWidget)
+		{
+			MyGUI::LayerManager::getInstance().upLayerItem(mCurrentWidget);
+			MyGUI::IntCoord coord = mCurrentWidget->getCoord();
+			MyGUI::Widget* parent = mCurrentWidget->getParent();
+			if (nullptr != parent)
+			{
+				// если выбрали виджет на табе, то поднять лист таба
+				if (parent->isType<MyGUI::TabItem>())
+				{
+					MyGUI::TabControl* tab = parent->getParent()->castType<MyGUI::TabControl>();
+					MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
+					tab->setItemSelected(sheet);
+				}
+				// если выбрали лист таба, то поднять лист таба
+				if (mCurrentWidget->isType<MyGUI::TabItem>())
+				{
+					MyGUI::TabControl* tab = parent->castType<MyGUI::TabControl>();
+					MyGUI::TabItem* sheet = mCurrentWidget->castType<MyGUI::TabItem>();
+					tab->setItemSelected(sheet);
+				}
+				coord = mCurrentWidget->getAbsoluteCoord();
+			}
+
+			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+		}
+
+		// delete(hide) all previous properties
+		for (MapInfo::iterator item = mPropertyInfo.begin(); item != mPropertyInfo.end(); ++item)
+		{
+			hideWidgetsPairs(item->first);
+		}
+
+		if (nullptr == mCurrentWidget)
+		{
+			mPanelMainProperties->setVisible(false);
+			mPanelItems->setVisible(false);
+			mPanelUserData->setVisible(false);
+			mPanelControllers->setVisible(false);
+			for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+				(*item).second->setVisible(false);
+		}
+		else
+		{
+			mPanelMainProperties->setVisible(true);
+			mPanelItems->setVisible(true);
+			mPanelUserData->setVisible(true);
+			mPanelControllers->setVisible(true);
+
+			mPanelMainProperties->update(mCurrentWidget);
+
+			std::string widgetTypeName = mCurrentWidget->getTypeName();
+
+			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
+			for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+			{
+				if ((*item).first == "TargetWidgetType")
+				{
+					widgetTypeName = (*item).second;
+					break;
+				}
+			}
+
+			for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+			{
+				(*item).second->setVisible(false);
+				(*item).second->update(nullptr, nullptr);
+			}
+
+			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
+
+			while (widgetType != nullptr && !widgetType->base.empty())
+			{
+				PanelProperties* panel = getPropertyWindow(widgetType);
+				panel->setVisible(true);
+				panel->update(mCurrentWidget, widgetType);
+
+				widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
+			}
+
+			mPanelItems->update(mCurrentWidget);
+			mPanelUserData->update(mCurrentWidget);
+			mPanelControllers->update(mCurrentWidget);
+		}
+	}
+
+	void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
+	{
+		for (VectorEntry::iterator iter = mPropertyInfo[_window].begin(); iter != mPropertyInfo[_window].end(); ++iter)
+		{
+			(*iter).destroy();
+		}
+		mPropertyInfo[_window].clear();
+	}
+
+	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field)
+	{
+		Entry entry;
+		entry.createPropertiesWidgetsPair(_window, _property, _value, _type, y, _field, mPropertyItemHeight, mCurrentWidget, mToolTip);
+		mPropertyInfo[_window].push_back(entry);
+	}
+
+	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style)
+	{
+		MapPropertyWindow::iterator item = mMapPropertyWindow.find(_style);
+		if (item == mMapPropertyWindow.end())
+		{
+			PanelProperties* result = new PanelProperties();
+			mPanelView->addItem(result);
+			result->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+			mMapPropertyWindow[_style] = result;
+			mPanels.push_back(result);
+			return result;
+		}
+		return (*item).second;
 	}
 
 } // namespace tools
