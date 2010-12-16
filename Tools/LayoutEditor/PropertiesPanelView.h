@@ -29,7 +29,9 @@ namespace tools
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
-		PanelProperties* getPropertyWindow(WidgetStyle* _style);
+		PanelProperties* getPropertyWindow(WidgetStyle* _style, size_t _deep);
+		size_t getIndexByDeep(size_t _deep);
+		size_t getIndexPanel(PanelProperties* _panel);
 
 	private:
 		MyGUI::IntSize mOldSize;
@@ -43,9 +45,6 @@ namespace tools
 		PanelItems* mPanelItems;
 		PanelUserData* mPanelUserData;
 		PanelControllers* mPanelControllers;
-
-		typedef std::vector<wraps::BasePanelViewItem*> VectorPanel;
-		VectorPanel mPanels;
 
 		MyGUI::Widget* mCurrentWidget;
 	};

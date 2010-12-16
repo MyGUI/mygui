@@ -25,6 +25,9 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
+		void setDeep(size_t _value);
+		size_t getDeep() const;
+
 	private:
 		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
@@ -33,6 +36,7 @@ namespace tools
 		int mPropertyItemHeight;
 		typedef std::vector<PropertyField> VectorPropertyField;
 		VectorPropertyField mFields;
+		size_t mDeep;
 	};
 
 } // namespace tools
