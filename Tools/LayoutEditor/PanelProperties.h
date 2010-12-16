@@ -29,12 +29,13 @@ namespace tools
 		size_t getDeep() const;
 
 	private:
-		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget);
+		void AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
 
+		void updateSize();
+
 	private:
-		int mPropertyItemHeight;
-		typedef std::vector<PropertyField> VectorPropertyField;
+		typedef std::vector<PropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 		size_t mDeep;
 	};

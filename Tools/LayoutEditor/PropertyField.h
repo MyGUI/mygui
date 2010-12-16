@@ -14,13 +14,18 @@ namespace tools
 	{
 	public:
 		PropertyField();
+		virtual ~PropertyField();
 
-		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget);
-		void destroy();
+		void _create(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, MyGUI::Widget* _currentWidget);
 
 		MyGUI::EditBox* getField();
 
+		MyGUI::IntSize getContentSize();
+		void setCoord(const MyGUI::IntCoord& _coord);
+
 	private:
+		void destroy();
+
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
 		void notifyForceApplyProperties(MyGUI::EditBox* _widget);

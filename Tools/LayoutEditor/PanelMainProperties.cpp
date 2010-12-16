@@ -9,8 +9,8 @@
 #include "PanelMainProperties.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
-#include "SettingsManager.h"
 #include "CommandManager.h"
+#include "PropertyFieldManager.h"
 
 namespace tools
 {
@@ -18,7 +18,6 @@ namespace tools
 		BasePanelViewItem("PanelMainProperties.layout"),
 		mButtonRelativePosition(nullptr),
 		mCurrentWidget(nullptr),
-		mPropertyItemHeight(0),
 		mPositionEdit(nullptr)
 	{
 	}
@@ -29,8 +28,6 @@ namespace tools
 
 		assignWidget(mButtonRelativePosition, "buttonRelativePosition");
 		mButtonRelativePosition->eventMouseButtonClick += MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
-
-		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &PanelMainProperties::notifyPropertyChangeCoord);
 
@@ -85,16 +82,11 @@ namespace tools
 		if (mCurrentWidget == nullptr)
 			return;
 
-		int y = 0;
-
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Name", widgetContainer->name, "Name", y, _currentWidget);
+		PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Name", widgetContainer->name, "Name", _currentWidget);
 		mFields.push_back(field);
-
-		y += mPropertyItemHeight;
 
 		if (widgetType->resizeable)
 		{
@@ -105,48 +97,48 @@ namespace tools
 			else
 				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
-			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, _currentWidget);
+			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Position", widgetContainer->position(), "Position", _currentWidget);
 			mFields.push_back(field);
 
-			mPositionEdit = field.getField();
-
-			y += mPropertyItemHeight;
+			mPositionEdit = field->getField();
 		}
 		else
 		{
 			mButtonRelativePosition->setVisible(false);
 		}
 
-		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Type", widgetContainer->type, "Type", y, _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", widgetContainer->type, "Type", _currentWidget);
 		mFields.push_back(field);
 
-		y += mPropertyItemHeight;
-
-		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Align", widgetContainer->align, "Align", y, _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Align", widgetContainer->align, "Align", _currentWidget);
 		mFields.push_back(field);
-
-		y += mPropertyItemHeight;
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, _currentWidget);
+			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", _currentWidget);
 			mFields.push_back(field);
-
-			y += mPropertyItemHeight;
 		}
 
-		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Skin", widgetContainer->skin, "Skin", _currentWidget);
 		mFields.push_back(field);
 
-		y += mPropertyItemHeight;
-
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
-		mPanelCell->setClientHeight(y);
+
+		updateSize();
+	}
+
+	void PanelMainProperties::updateSize()
+	{
+		int height = 0;
+
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		{
+			MyGUI::IntSize size = (*item)->getContentSize();
+			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			height += size.height;
+		}
+
+		mPanelCell->setClientHeight(height);
 	}
 
 	void PanelMainProperties::commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result)
@@ -159,7 +151,7 @@ namespace tools
 	void PanelMainProperties::destroyPropertyFields()
 	{
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).destroy();
+			delete (*item);
 		mFields.clear();
 	}
 

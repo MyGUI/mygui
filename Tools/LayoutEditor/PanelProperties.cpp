@@ -8,13 +8,12 @@
 #include "Localise.h"
 #include "PanelProperties.h"
 #include "EditorWidgets.h"
-#include "SettingsManager.h"
+#include "PropertyFieldManager.h"
 
 namespace tools
 {
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
-		mPropertyItemHeight(0),
 		mDeep(0)
 	{
 	}
@@ -22,7 +21,6 @@ namespace tools
 	void PanelProperties::initialise()
 	{
 		mPanelCell->setCaption(replaceTags("Widget_type_propertes"));
-		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 	}
 
 	void PanelProperties::shutdown()
@@ -40,10 +38,8 @@ namespace tools
 		return mDeep;
 	}
 
-	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget)
+	void PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
 	{
-		size_t count = widgetType->parameter.size();
-
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
 			std::string value = "";
@@ -56,14 +52,9 @@ namespace tools
 				}
 			}
 
-			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y, _currentWidget);
+			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->first, value, iter->second, _currentWidget);
 			mFields.push_back(field);
-
-			y += mPropertyItemHeight;
 		}
-
-		return count;
 	}
 
 	void PanelProperties::update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType)
@@ -76,25 +67,38 @@ namespace tools
 			return;
 		}
 
-		int y = 0;
-
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _widgetType->name);
 
 		mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{Widget_type_propertes}"));
 
-		size_t count = AddParametrs(_widgetType, widgetContainer, y, _currentWidget);
+		AddParametrs(_widgetType, widgetContainer, _currentWidget);
 
-		setVisible(count > 0);
+		bool visible = mFields.size() > 0;
+		setVisible(visible);
 
-		mPanelCell->setClientHeight(y);
+		updateSize();
+	}
+
+	void PanelProperties::updateSize()
+	{
+		int height = 0;
+
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		{
+			MyGUI::IntSize size = (*item)->getContentSize();
+			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			height += size.height;
+		}
+
+		mPanelCell->setClientHeight(height);
 	}
 
 	void PanelProperties::destroyPropertyFields()
 	{
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).destroy();
+			delete (*item);
 		mFields.clear();
 	}
 
