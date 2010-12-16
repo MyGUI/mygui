@@ -66,6 +66,7 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
+  PropertyField.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -126,6 +127,7 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
+  PropertyField.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
