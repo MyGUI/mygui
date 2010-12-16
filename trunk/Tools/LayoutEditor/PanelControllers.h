@@ -33,6 +33,8 @@ namespace tools
 		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 		void destroyPropertyFields();
 
+		void updateSize();
+
 	private:
 		MyGUI::ComboBox* mControllerName;
 		MyGUI::Button* mButtonAdd;
@@ -49,7 +51,7 @@ namespace tools
 		MapMapString mControllersProperties;
 
 		int mPropertyItemHeight;
-		typedef std::vector<PropertyField> VectorPropertyField;
+		typedef std::vector<PropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 	};
 
