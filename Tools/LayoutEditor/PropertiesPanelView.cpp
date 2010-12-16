@@ -49,7 +49,7 @@ namespace tools
 		mPanelControllers = new PanelControllers();
 		mPanelView->addItem(mPanelControllers);
 		mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-		mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
+		//mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
 
 		mPanels.push_back(mPanelMainProperties);
 		mPanels.push_back(mPanelItems);
@@ -123,28 +123,46 @@ namespace tools
 		}
 
 		// delete(hide) all previous properties
-		for (MapInfo::iterator item = mPropertyInfo.begin(); item != mPropertyInfo.end(); ++item)
+		/*for (MapInfo::iterator item = mPropertyInfo.begin(); item != mPropertyInfo.end(); ++item)
 		{
 			hideWidgetsPairs(item->first);
+		}*/
+
+		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+		{
+			(*item).second->setVisible(false);
+			(*item).second->update(nullptr, nullptr);
 		}
 
 		if (nullptr == mCurrentWidget)
 		{
 			mPanelMainProperties->setVisible(false);
+			mPanelMainProperties->update(nullptr);
+
 			mPanelItems->setVisible(false);
+			mPanelItems->update(nullptr);
+
 			mPanelUserData->setVisible(false);
+			mPanelUserData->update(nullptr);
+
 			mPanelControllers->setVisible(false);
-			for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
-				(*item).second->setVisible(false);
+			mPanelControllers->update(nullptr);
+			/*for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+				(*item).second->setVisible(false);*/
 		}
 		else
 		{
 			mPanelMainProperties->setVisible(true);
-			mPanelItems->setVisible(true);
-			mPanelUserData->setVisible(true);
-			mPanelControllers->setVisible(true);
-
 			mPanelMainProperties->update(mCurrentWidget);
+
+			mPanelItems->setVisible(true);
+			mPanelItems->update(mCurrentWidget);
+
+			mPanelUserData->setVisible(true);
+			mPanelUserData->update(mCurrentWidget);
+
+			mPanelControllers->setVisible(true);
+			mPanelControllers->update(mCurrentWidget);
 
 			std::string widgetTypeName = mCurrentWidget->getTypeName();
 
@@ -158,12 +176,6 @@ namespace tools
 				}
 			}
 
-			for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
-			{
-				(*item).second->setVisible(false);
-				(*item).second->update(nullptr, nullptr);
-			}
-
 			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
 
 			while (widgetType != nullptr && !widgetType->base.empty())
@@ -174,25 +186,21 @@ namespace tools
 
 				widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
 			}
-
-			mPanelItems->update(mCurrentWidget);
-			mPanelUserData->update(mCurrentWidget);
-			mPanelControllers->update(mCurrentWidget);
 		}
 	}
 
-	void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
+	/*void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
 	{
 		for (VectorPropertyField::iterator iter = mPropertyInfo[_window].begin(); iter != mPropertyInfo[_window].end(); ++iter)
 			(*iter).destroy();
 		mPropertyInfo[_window].clear();
-	}
+	}*/
 
 	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, PropertyField& _field)
 	{
 		PropertyField entry;
 		entry.createPropertiesWidgetsPair(_window, _property, _value, _type, y, mPropertyItemHeight, mCurrentWidget, mToolTip);
-		mPropertyInfo[_window].push_back(entry);
+		//mPropertyInfo[_window].push_back(entry);
 		_field = entry;
 	}
 

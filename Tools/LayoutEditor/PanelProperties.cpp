@@ -26,13 +26,11 @@ namespace tools
 
 	void PanelProperties::shutdown()
 	{
-		destroyPropertyField();
+		destroyPropertyFields();
 	}
 
 	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y)
 	{
-		PropertyField field;
-
 		size_t count = widgetType->parameter.size();
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
@@ -46,7 +44,11 @@ namespace tools
 					break;
 				}
 			}
+
+			PropertyField field;
 			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y, field);
+			mFields.push_back(field);
+
 			y += mPropertyItemHeight;
 		}
 
@@ -55,6 +57,8 @@ namespace tools
 
 	void PanelProperties::update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType)
 	{
+		destroyPropertyFields();
+
 		if (_widgetType == nullptr)
 		{
 			setVisible(false);
@@ -71,13 +75,16 @@ namespace tools
 
 		size_t count = AddParametrs(_widgetType, widgetContainer, y);
 
-		setVisible( count > 0 );
+		setVisible(count > 0);
 
 		mPanelCell->setClientHeight(y);
 	}
 
-	void PanelProperties::destroyPropertyField()
+	void PanelProperties::destroyPropertyFields()
 	{
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			(*item).destroy();
+		mFields.clear();
 	}
 
 } // namespace tools

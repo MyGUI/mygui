@@ -51,11 +51,16 @@ namespace tools
 
 	void PanelControllers::shutdown()
 	{
+		destroyPropertyFields();
 	}
 
 	void PanelControllers::update(MyGUI::Widget* _currentWidget)
 	{
+		destroyPropertyFields();
+
 		mCurrentWidget = _currentWidget;
+		if (mCurrentWidget == nullptr)
+			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
@@ -93,7 +98,8 @@ namespace tools
 	void PanelControllers::notifyDelete(MyGUI::Widget* _sender)
 	{
 		size_t item = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item) return;
+		if (MyGUI::ITEM_NONE == item)
+			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(item));
@@ -112,13 +118,13 @@ namespace tools
 
 	void PanelControllers::notifySelectItem(MyGUI::ListBox* _sender, size_t _index)
 	{
-		PropertyField field;
+		destroyPropertyFields();
 
 		size_t item = mList->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item)
 		{
 			// скрываем все проперти
-			eventHidePairs(mWidgetClient);
+			//eventHidePairs(mWidgetClient);
 			return;
 		}
 
@@ -126,7 +132,7 @@ namespace tools
 		mControllerName->setOnlyText(key);
 
 		int y = mButtonDelete->getCoord().bottom();
-		eventHidePairs(mWidgetClient);
+		//eventHidePairs(mWidgetClient);
 		if (mControllersProperties.find(key) != mControllersProperties.end())
 		{
 			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(item);
@@ -136,7 +142,10 @@ namespace tools
 				std::string val = "";
 				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
 					val = controllerInfo->mProperty[iter->first];
+
+				PropertyField field;
 				eventCreatePair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y, field);
+				mFields.push_back(field);
 
 				y += mPropertyItemHeight;
 			}
@@ -159,6 +168,13 @@ namespace tools
 			}
 			mControllersProperties[name] = controllerProperties;
 		}
+	}
+
+	void PanelControllers::destroyPropertyFields()
+	{
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			(*item).destroy();
+		mFields.clear();
 	}
 
 } // namespace tools

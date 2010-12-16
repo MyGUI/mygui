@@ -65,6 +65,8 @@ namespace tools
 	void PanelUserData::update(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
+		if (mCurrentWidget == nullptr)
+			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 

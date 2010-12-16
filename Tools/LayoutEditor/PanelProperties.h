@@ -30,10 +30,12 @@ namespace tools
 
 	private:
 		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y);
-		void destroyPropertyField();
+		void destroyPropertyFields();
 
 	private:
 		int mPropertyItemHeight;
+		typedef std::vector<PropertyField> VectorPropertyField;
+		VectorPropertyField mFields;
 	};
 
 } // namespace tools
