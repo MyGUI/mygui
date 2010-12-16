@@ -14,6 +14,7 @@
 #include "Parse.h"
 #include "GroupMessage.h"
 #include "WidgetSelectorManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -28,7 +29,7 @@ namespace tools
 	{
 	}
 
-	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
+	void PropertyField::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -39,7 +40,7 @@ namespace tools
 		int x2 = 125;
 		int w1 = 120;
 		int w2 = _window->getWidth() - x2;
-		const int h = _height;
+		const int h = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		if (_property == "Position")
 		{
@@ -372,6 +373,9 @@ namespace tools
 
 	void PropertyField::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
+		if (mToolTip == nullptr)
+			return;
+
 		if (_sender->getUserString("type") == "Skin")
 		{
 			if (_info.type == MyGUI::ToolTipInfo::Show)

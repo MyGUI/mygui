@@ -29,7 +29,7 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y)
+	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget)
 	{
 		size_t count = widgetType->parameter.size();
 
@@ -46,7 +46,7 @@ namespace tools
 			}
 
 			PropertyField field;
-			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y, field);
+			field.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y, _currentWidget, nullptr);
 			mFields.push_back(field);
 
 			y += mPropertyItemHeight;
@@ -73,7 +73,7 @@ namespace tools
 
 		mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{Widget_type_propertes}"));
 
-		size_t count = AddParametrs(_widgetType, widgetContainer, y);
+		size_t count = AddParametrs(_widgetType, widgetContainer, y, _currentWidget);
 
 		setVisible(count > 0);
 

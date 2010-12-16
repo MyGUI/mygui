@@ -7,7 +7,6 @@
 #include "Precompiled.h"
 #include "PropertiesPanelView.h"
 #include "EditorWidgets.h"
-#include "SettingsManager.h"
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
@@ -22,7 +21,6 @@ namespace tools
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
 		mCurrentWidget(nullptr),
-		mPropertyItemHeight(0),
 		mToolTip(nullptr)
 	{
 		assignBase(mPanelView, "scroll_View");
@@ -38,7 +36,6 @@ namespace tools
 
 		mPanelMainProperties = new PanelMainProperties();
 		mPanelView->addItem(mPanelMainProperties);
-		mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
 		mPanelItems = new PanelItems();
 		mPanelView->addItem(mPanelItems);
@@ -48,15 +45,11 @@ namespace tools
 
 		mPanelControllers = new PanelControllers();
 		mPanelView->addItem(mPanelControllers);
-		mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-		//mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
 
 		mPanels.push_back(mPanelMainProperties);
 		mPanels.push_back(mPanelItems);
 		mPanels.push_back(mPanelUserData);
 		mPanels.push_back(mPanelControllers);
-
-		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
 
@@ -122,12 +115,6 @@ namespace tools
 			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 		}
 
-		// delete(hide) all previous properties
-		/*for (MapInfo::iterator item = mPropertyInfo.begin(); item != mPropertyInfo.end(); ++item)
-		{
-			hideWidgetsPairs(item->first);
-		}*/
-
 		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
 		{
 			(*item).second->setVisible(false);
@@ -147,8 +134,6 @@ namespace tools
 
 			mPanelControllers->setVisible(false);
 			mPanelControllers->update(nullptr);
-			/*for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
-				(*item).second->setVisible(false);*/
 		}
 		else
 		{
@@ -189,21 +174,6 @@ namespace tools
 		}
 	}
 
-	/*void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
-	{
-		for (VectorPropertyField::iterator iter = mPropertyInfo[_window].begin(); iter != mPropertyInfo[_window].end(); ++iter)
-			(*iter).destroy();
-		mPropertyInfo[_window].clear();
-	}*/
-
-	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, PropertyField& _field)
-	{
-		PropertyField entry;
-		entry.createPropertiesWidgetsPair(_window, _property, _value, _type, y, mPropertyItemHeight, mCurrentWidget, mToolTip);
-		//mPropertyInfo[_window].push_back(entry);
-		_field = entry;
-	}
-
 	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style)
 	{
 		MapPropertyWindow::iterator item = mMapPropertyWindow.find(_style);
@@ -211,7 +181,6 @@ namespace tools
 		{
 			PanelProperties* result = new PanelProperties();
 			mPanelView->addItem(result);
-			result->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 			mMapPropertyWindow[_style] = result;
 			mPanels.push_back(result);
 			return result;
