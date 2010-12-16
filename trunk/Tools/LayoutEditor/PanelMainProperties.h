@@ -32,6 +32,7 @@ namespace tools
 		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
 		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
 		void updatePositionCaption();
+		void destroyPropertyFields();
 
 	private:
 		MyGUI::Button* mButtonRelativePosition;
@@ -39,6 +40,8 @@ namespace tools
 		MyGUI::Widget* mCurrentWidget;
 		int mPropertyItemHeight;
 		MyGUI::TextBox* mPositionEdit;
+		typedef std::vector<PropertyField> VectorPropertyField;
+		VectorPropertyField mFields;
 	};
 
 } // namespace tools

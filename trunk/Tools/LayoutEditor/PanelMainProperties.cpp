@@ -39,6 +39,7 @@ namespace tools
 
 	void PanelMainProperties::shutdown()
 	{
+		destroyPropertyFields();
 		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &PanelMainProperties::notifyPropertyChangeCoord);
 	}
 
@@ -78,15 +79,21 @@ namespace tools
 
 	void PanelMainProperties::update(MyGUI::Widget* _currentWidget)
 	{
-		PropertyField field;
+		destroyPropertyFields();
 
-		int y = 0;
 		mCurrentWidget = _currentWidget;
+		if (mCurrentWidget == nullptr)
+			return;
+
+		PropertyField field;
+		int y = 0;
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y, field);
+		mFields.push_back(field);
+
 		y += mPropertyItemHeight;
 
 		if (widgetType->resizeable)
@@ -99,6 +106,8 @@ namespace tools
 				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
 			eventCreatePair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, field);
+			mFields.push_back(field);
+
 			mPositionEdit = field.getField();
 
 			y += mPropertyItemHeight;
@@ -109,18 +118,26 @@ namespace tools
 		}
 
 		eventCreatePair(mWidgetClient, "Type", widgetContainer->type, "Type", y, field);
+		mFields.push_back(field);
+
 		y += mPropertyItemHeight;
 
 		eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y, field);
+		mFields.push_back(field);
+
 		y += mPropertyItemHeight;
 
 		if (mCurrentWidget->isRootWidget())
 		{
 			eventCreatePair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, field);
+			mFields.push_back(field);
+
 			y += mPropertyItemHeight;
 		}
 
 		eventCreatePair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, field);
+		mFields.push_back(field);
+
 		y += mPropertyItemHeight;
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
@@ -132,6 +149,13 @@ namespace tools
 		notifyToggleRelativeMode();
 
 		_result = true;
+	}
+
+	void PanelMainProperties::destroyPropertyFields()
+	{
+		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			(*item).destroy();
+		mFields.clear();
 	}
 
 } // namespace tools
