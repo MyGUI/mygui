@@ -26,8 +26,8 @@ namespace tools
 		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, PropertyField&> EventHandle_EventCreatePair;
 		EventHandle_EventCreatePair eventCreatePair;
 
-		typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
-		EventHandle_WidgetVoid eventHidePairs;
+		//typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
+		//EventHandle_WidgetVoid eventHidePairs;
 
 	private:
 		virtual void notifyChangeWidth(int _width);
@@ -37,6 +37,7 @@ namespace tools
 		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 
 		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void destroyPropertyFields();
 
 	private:
 		MyGUI::ComboBox* mControllerName;
@@ -54,6 +55,8 @@ namespace tools
 		MapMapString mControllersProperties;
 
 		int mPropertyItemHeight;
+		typedef std::vector<PropertyField> VectorPropertyField;
+		VectorPropertyField mFields;
 	};
 
 } // namespace tools
