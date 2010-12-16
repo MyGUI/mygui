@@ -26,11 +26,13 @@ namespace tools
 
 	void PanelProperties::shutdown()
 	{
+		destroyPropertyField();
 	}
 
 	size_t PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y)
 	{
-		MyGUI::TextBox* box = nullptr;
+		PropertyField field;
+
 		size_t count = widgetType->parameter.size();
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
@@ -44,7 +46,7 @@ namespace tools
 					break;
 				}
 			}
-			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y, box);
+			eventCreatePair(mWidgetClient, iter->first, value, iter->second, y, field);
 			y += mPropertyItemHeight;
 		}
 
@@ -72,6 +74,10 @@ namespace tools
 		setVisible( count > 0 );
 
 		mPanelCell->setClientHeight(y);
+	}
+
+	void PanelProperties::destroyPropertyField()
+	{
 	}
 
 } // namespace tools

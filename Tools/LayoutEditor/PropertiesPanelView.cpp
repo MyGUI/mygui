@@ -188,11 +188,12 @@ namespace tools
 		mPropertyInfo[_window].clear();
 	}
 
-	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field)
+	void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, PropertyField& _field)
 	{
 		PropertyField entry;
-		entry.createPropertiesWidgetsPair(_window, _property, _value, _type, y, _field, mPropertyItemHeight, mCurrentWidget, mToolTip);
+		entry.createPropertiesWidgetsPair(_window, _property, _value, _type, y, mPropertyItemHeight, mCurrentWidget, mToolTip);
 		mPropertyInfo[_window].push_back(entry);
+		_field = entry;
 	}
 
 	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style)
