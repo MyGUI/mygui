@@ -25,11 +25,8 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
-		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, PropertyField&> EventHandle_EventCreatePair;
-		EventHandle_EventCreatePair eventCreatePair;
-
 	private:
-		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y);
+		size_t AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, int& y, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
 
 	private:

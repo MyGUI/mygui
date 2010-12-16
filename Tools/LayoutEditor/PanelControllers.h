@@ -23,12 +23,6 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget);
 
-		typedef MyGUI::delegates::CDelegate6<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int, PropertyField&> EventHandle_EventCreatePair;
-		EventHandle_EventCreatePair eventCreatePair;
-
-		//typedef MyGUI::delegates::CDelegate1<MyGUI::Widget*> EventHandle_WidgetVoid;
-		//EventHandle_WidgetVoid eventHidePairs;
-
 	private:
 		virtual void notifyChangeWidth(int _width);
 
