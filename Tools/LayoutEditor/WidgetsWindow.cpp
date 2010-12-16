@@ -22,8 +22,7 @@ namespace tools
 		mTabSkins(nullptr),
 		mPopupMode(nullptr),
 		mWidgetsButtonWidth(0),
-		mWidgetsButtonHeight(0),
-		mToolTip(nullptr)
+		mWidgetsButtonHeight(0)
 	{
 		assignWidget(mTabSkins, "tabSkins");
 		assignWidget(mPopupMode, "PopupMode");
@@ -34,8 +33,6 @@ namespace tools
 		mWidgetsButtonHeight = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonHeight");
 		mSkinSheetName = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue("lastSkinGroup");
 
-		mToolTip = new EditorToolTip();
-
 		initialise();
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
@@ -44,9 +41,6 @@ namespace tools
 	WidgetsWindow::~WidgetsWindow()
 	{
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WidgetsWindow::notifyChangeCreatorMode);
-
-		delete mToolTip;
-		mToolTip = nullptr;
 
 		size_t sheet_index = mTabSkins->getIndexSelected();
 		if (sheet_index != MyGUI::ITEM_NONE)
@@ -111,16 +105,16 @@ namespace tools
 		if (_info.type == MyGUI::ToolTipInfo::Show)
 		{
 			SkinInfo data = getCellData(_sender);
-			mToolTip->show(data);
-			mToolTip->move(_info.point);
+			EditorToolTip::getInstancePtr()->show(data);
+			EditorToolTip::getInstancePtr()->move(_info.point);
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Hide)
 		{
-			mToolTip->hide();
+			EditorToolTip::getInstancePtr()->hide();
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Move)
 		{
-			mToolTip->move(_info.point);
+			EditorToolTip::getInstancePtr()->move(_info.point);
 		}
 	}
 

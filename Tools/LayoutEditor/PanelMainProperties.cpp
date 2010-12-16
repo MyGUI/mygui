@@ -91,7 +91,7 @@ namespace tools
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Name", widgetContainer->name, "Name", y, _currentWidget, nullptr);
+		field.createPropertiesWidgetsPair(mWidgetClient, "Name", widgetContainer->name, "Name", y, _currentWidget);
 		mFields.push_back(field);
 
 		y += mPropertyItemHeight;
@@ -106,7 +106,7 @@ namespace tools
 				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
 			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, _currentWidget, nullptr);
+			field.createPropertiesWidgetsPair(mWidgetClient, "Position", widgetContainer->position(), "Position", y, _currentWidget);
 			mFields.push_back(field);
 
 			mPositionEdit = field.getField();
@@ -119,13 +119,13 @@ namespace tools
 		}
 
 		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Type", widgetContainer->type, "Type", y, _currentWidget, nullptr);
+		field.createPropertiesWidgetsPair(mWidgetClient, "Type", widgetContainer->type, "Type", y, _currentWidget);
 		mFields.push_back(field);
 
 		y += mPropertyItemHeight;
 
 		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Align", widgetContainer->align, "Align", y, _currentWidget, nullptr);
+		field.createPropertiesWidgetsPair(mWidgetClient, "Align", widgetContainer->align, "Align", y, _currentWidget);
 		mFields.push_back(field);
 
 		y += mPropertyItemHeight;
@@ -133,14 +133,14 @@ namespace tools
 		if (mCurrentWidget->isRootWidget())
 		{
 			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, _currentWidget, nullptr);
+			field.createPropertiesWidgetsPair(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", y, _currentWidget);
 			mFields.push_back(field);
 
 			y += mPropertyItemHeight;
 		}
 
 		//PropertyField field;
-		field.createPropertiesWidgetsPair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, _currentWidget, nullptr);
+		field.createPropertiesWidgetsPair(mWidgetClient, "Skin", widgetContainer->skin, "Skin", y, _currentWidget);
 		mFields.push_back(field);
 
 		y += mPropertyItemHeight;

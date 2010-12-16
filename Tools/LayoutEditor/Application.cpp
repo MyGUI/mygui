@@ -21,6 +21,7 @@
 #include "MyGUI_FilterNoneSkin.h"
 #include "MyGUI_RTTLayer.h"
 #include "ColourManager.h"
+#include "EditorToolTip.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -113,6 +114,9 @@ namespace tools
 		new ColourManager();
 		ColourManager::getInstance().initialise();
 
+		new EditorToolTip();
+		EditorToolTip::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -153,6 +157,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+
+		EditorToolTip::getInstance().shutdown();
+		delete EditorToolTip::getInstancePtr();
 
 		ColourManager::getInstance().shutdown();
 		delete ColourManager::getInstancePtr();

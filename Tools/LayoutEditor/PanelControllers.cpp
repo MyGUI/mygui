@@ -144,7 +144,7 @@ namespace tools
 					val = controllerInfo->mProperty[iter->first];
 
 				PropertyField field;
-				field.createPropertiesWidgetsPair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y, mCurrentWidget, nullptr);
+				field.createPropertiesWidgetsPair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y, mCurrentWidget);
 				mFields.push_back(field);
 
 				y += mPropertyItemHeight;

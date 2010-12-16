@@ -48,8 +48,6 @@ namespace tools
 		VectorPanel mPanels;
 
 		MyGUI::Widget* mCurrentWidget;
-
-		EditorToolTip* mToolTip;
 	};
 
 } // namespace tools
