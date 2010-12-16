@@ -37,9 +37,9 @@ namespace tools
 		MyGUI::Button* mButtonRelativePosition;
 
 		MyGUI::Widget* mCurrentWidget;
-		MyGUI::TextBox* mPositionEdit;
-		typedef std::vector<PropertyField*> VectorPropertyField;
+		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
+		IPropertyField* mPositionField;
 	};
 
 } // namespace tools

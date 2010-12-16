@@ -10,18 +10,34 @@
 
 namespace tools
 {
-	class PropertyField
+	class IPropertyField
+	{
+	public:
+		virtual ~IPropertyField() = 0 { }
+
+		virtual void initialise(MyGUI::Widget* _parent, const std::string& _type, MyGUI::Widget* _targetWidget) = 0;
+
+		virtual void setValue(const std::string& _value) = 0;
+		virtual void setName(const std::string& _value) = 0;
+
+		virtual MyGUI::IntSize getContentSize() = 0;
+		virtual void setCoord(const MyGUI::IntCoord& _coord) = 0;
+	};
+	
+	class PropertyField :
+		public IPropertyField
 	{
 	public:
 		PropertyField();
 		virtual ~PropertyField();
 
-		void _create(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, MyGUI::Widget* _currentWidget);
+		virtual void initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget);
 
-		MyGUI::EditBox* getField();
+		virtual void setValue(const std::string& _value);
+		virtual void setName(const std::string& _value);
 
-		MyGUI::IntSize getContentSize();
-		void setCoord(const MyGUI::IntCoord& _coord);
+		virtual MyGUI::IntSize getContentSize();
+		virtual void setCoord(const MyGUI::IntCoord& _coord);
 
 	private:
 		void destroy();
@@ -43,6 +59,7 @@ namespace tools
 		MyGUI::TextBox* mText;
 		MyGUI::Widget* mField;
 		MyGUI::Widget* mCurrentWidget;
+		std::string mType;
 	};
 
 } // namespace tools

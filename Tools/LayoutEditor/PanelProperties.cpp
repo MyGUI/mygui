@@ -52,7 +52,9 @@ namespace tools
 				}
 			}
 
-			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->first, value, iter->second, _currentWidget);
+			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, _currentWidget);
+			field->setName(iter->first);
+			field->setValue(value);
 			mFields.push_back(field);
 		}
 	}

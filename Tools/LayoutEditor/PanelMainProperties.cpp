@@ -18,7 +18,7 @@ namespace tools
 		BasePanelViewItem("PanelMainProperties.layout"),
 		mButtonRelativePosition(nullptr),
 		mCurrentWidget(nullptr),
-		mPositionEdit(nullptr)
+		mPositionField(nullptr)
 	{
 	}
 
@@ -69,8 +69,8 @@ namespace tools
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-			if (mPositionEdit != nullptr)
-				mPositionEdit->setCaption(widgetContainer->position());
+			if (mPositionField != nullptr)
+				mPositionField->setValue(widgetContainer->position());
 		}
 	}
 
@@ -85,7 +85,9 @@ namespace tools
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Name", widgetContainer->name, "Name", _currentWidget);
+		IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Name", _currentWidget);
+		field->setName("Name");
+		field->setValue(widgetContainer->name);
 		mFields.push_back(field);
 
 		if (widgetType->resizeable)
@@ -97,29 +99,39 @@ namespace tools
 			else
 				mButtonRelativePosition->setCaption(replaceTags("to_percents"));
 
-			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Position", widgetContainer->position(), "Position", _currentWidget);
+			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Position", _currentWidget);
+			field->setName("Position");
+			field->setValue(widgetContainer->position());
 			mFields.push_back(field);
 
-			mPositionEdit = field->getField();
+			mPositionField = field;
 		}
 		else
 		{
 			mButtonRelativePosition->setVisible(false);
 		}
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", widgetContainer->type, "Type", _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", _currentWidget);
+		field->setName("Type");
+		field->setValue(widgetContainer->type);
 		mFields.push_back(field);
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Align", widgetContainer->align, "Align", _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Align", _currentWidget);
+		field->setName("Align");
+		field->setValue(widgetContainer->align);
 		mFields.push_back(field);
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", widgetContainer->getLayerName(), "Layer", _currentWidget);
+			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", _currentWidget);
+			field->setName("Layer");
+			field->setValue(widgetContainer->getLayerName());
 			mFields.push_back(field);
 		}
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Skin", widgetContainer->skin, "Skin", _currentWidget);
+		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Skin", _currentWidget);
+		field->setName("Skin");
+		field->setValue(widgetContainer->skin);
 		mFields.push_back(field);
 
 		mWidgetClient->_forcePeek(mButtonRelativePosition);
@@ -153,6 +165,8 @@ namespace tools
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 			delete (*item);
 		mFields.clear();
+
+		mPositionField = nullptr;
 	}
 
 } // namespace tools
