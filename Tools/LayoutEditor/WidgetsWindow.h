@@ -41,7 +41,6 @@ namespace tools
 		int mWidgetsButtonHeight;
 
 		std::string mSkinSheetName;
-		EditorToolTip* mToolTip;
 
 		typedef std::vector<MyGUI::ItemBox*> VectorItemBox;
 		VectorItemBox mItemBoxs;

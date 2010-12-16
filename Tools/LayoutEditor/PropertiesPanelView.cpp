@@ -20,8 +20,7 @@ namespace tools
 		mPanelItems(nullptr),
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
-		mCurrentWidget(nullptr),
-		mToolTip(nullptr)
+		mCurrentWidget(nullptr)
 	{
 		assignBase(mPanelView, "scroll_View");
 
@@ -31,8 +30,6 @@ namespace tools
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 			mOldSize = window->getSize();
 		}
-
-		mToolTip = new EditorToolTip();
 
 		mPanelMainProperties = new PanelMainProperties();
 		mPanelView->addItem(mPanelMainProperties);
@@ -59,9 +56,6 @@ namespace tools
 	PropertiesPanelView::~PropertiesPanelView()
 	{
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &PropertiesPanelView::notifyChangeSelectedWidget);
-
-		delete mToolTip;
-		mToolTip = nullptr;
 
 		mPanelView->removeAllItems();
 		delete mPanelMainProperties;

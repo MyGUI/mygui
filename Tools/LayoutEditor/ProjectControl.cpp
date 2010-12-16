@@ -24,7 +24,6 @@ namespace tools
 		BaseLayout("ProjectControl.layout", _parent),
 		mOpenSaveFileDialog(nullptr),
 		mTextFieldControl(nullptr),
-		mToolTip(nullptr),
 		mList(nullptr)
 	{
 		assignWidget(mList, "List");
@@ -43,8 +42,6 @@ namespace tools
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyTextFieldEndDialog);
 
-		mToolTip = new EditorToolTip();
-
 		CommandManager::getInstance().registerCommand("Command_ProjectCreate", MyGUI::newDelegate(this, &ProjectControl::command_ProjectCreate));
 		CommandManager::getInstance().registerCommand("Command_ProjectLoad", MyGUI::newDelegate(this, &ProjectControl::command_ProjectLoad));
 		CommandManager::getInstance().registerCommand("Command_ProjectClose", MyGUI::newDelegate(this, &ProjectControl::command_ProjectClose));
@@ -62,9 +59,6 @@ namespace tools
 	{
 		mList->eventListSelectAccept -= MyGUI::newDelegate(this, &ProjectControl::notifyListSelectAccept);
 		mList->eventToolTip -= MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
-
-		delete mToolTip;
-		mToolTip = nullptr;
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -695,17 +689,17 @@ namespace tools
 			if (_info.index != MyGUI::ITEM_NONE)
 			{
 				SkinInfo data = getCellData(_sender, _info.index);
-				mToolTip->show(data);
-				mToolTip->move(_info.point);
+				EditorToolTip::getInstancePtr()->show(data);
+				EditorToolTip::getInstancePtr()->move(_info.point);
 			}
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Hide)
 		{
-			mToolTip->hide();
+			EditorToolTip::getInstancePtr()->hide();
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Move)
 		{
-			mToolTip->move(_info.point);
+			EditorToolTip::getInstancePtr()->move(_info.point);
 		}
 	}
 

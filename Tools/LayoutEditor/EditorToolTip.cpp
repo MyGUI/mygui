@@ -10,6 +10,9 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
+template <> tools::EditorToolTip* MyGUI::Singleton<tools::EditorToolTip>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::EditorToolTip>::mClassTypeName("EditorToolTip");
+
 namespace tools
 {
 	EditorToolTip::EditorToolTip() :
@@ -24,6 +27,18 @@ namespace tools
 		mMinWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
 		mMinHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
 		mLastWidget = nullptr;
+	}
+
+	EditorToolTip::~EditorToolTip()
+	{
+	}
+
+	void EditorToolTip::initialise()
+	{
+	}
+
+	void EditorToolTip::shutdown()
+	{
 	}
 
 	void EditorToolTip::show(const SkinInfo& _data)

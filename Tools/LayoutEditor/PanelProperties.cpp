@@ -46,7 +46,7 @@ namespace tools
 			}
 
 			PropertyField field;
-			field.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y, _currentWidget, nullptr);
+			field.createPropertiesWidgetsPair(mWidgetClient, iter->first, value, iter->second, y, _currentWidget);
 			mFields.push_back(field);
 
 			y += mPropertyItemHeight;
