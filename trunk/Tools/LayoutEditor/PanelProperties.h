@@ -35,7 +35,7 @@ namespace tools
 		void updateSize();
 
 	private:
-		typedef std::vector<PropertyField*> VectorPropertyField;
+		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 		size_t mDeep;
 	};

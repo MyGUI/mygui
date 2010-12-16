@@ -137,11 +137,13 @@ namespace tools
 
 			for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
 			{
-				std::string val = "";
+				std::string value = "";
 				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
-					val = controllerInfo->mProperty[iter->first];
+					value = controllerInfo->mProperty[iter->first];
 
-				PropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, mCurrentWidget);
+				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, mCurrentWidget);
+				field->setName(MyGUI::utility::toString("Controller ", item, " ", iter->first));
+				field->setValue(value);
 				mFields.push_back(field);
 			}
 		}

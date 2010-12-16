@@ -34,27 +34,13 @@ namespace tools
 		destroy();
 	}
 
-	void PropertyField::_create(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyField::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		mCurrentWidget = _currentWidget;
-
-		//int x1 = 0;
-		//int x2 = 125;
-		//int w1 = 120;
-		//int w2 = _window->getWidth() - x2;
-		//const int h = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
-
-		/*if (_property == "Position")
-		{
-			x1 = 66;
-			w1 = w1 - x1;
-		}*/
+		mType = _type;
 
 		MyGUI::TextBox* text = nullptr;
 		MyGUI::Widget* editOrCombo = nullptr;
-		//int string_int_float; // 0 - string, 1 - int, 2 - float
 
 		enum PropertyType
 		{
@@ -107,10 +93,6 @@ namespace tools
 
 		text = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
 		text->setTextAlign(MyGUI::Align::Right);
-
-		std::string prop = _property;
-
-		text->setCaption(prop);
 
 		if (widget_for_type == PropertyType_Edit)
 		{
@@ -198,18 +180,7 @@ namespace tools
 			editOrCombo->castType<MyGUI::ComboBox>()->beginToItemFirst();
 		}
 
-		editOrCombo->setUserString("action", _property);
 		editOrCombo->setUserString("type", _type);
-
-		if (_value.empty())
-		{
-			editOrCombo->castType<MyGUI::EditBox>()->setCaption(DEFAULT_VALUE);
-		}
-		else
-		{
-			editOrCombo->castType<MyGUI::EditBox>()->setOnlyText(_value);
-			checkType(editOrCombo->castType<MyGUI::EditBox>(), _type);
-		}
 	}
 
 	void PropertyField::destroy()
@@ -488,11 +459,6 @@ namespace tools
 		return false;
 	}
 
-	MyGUI::EditBox* PropertyField::getField()
-	{
-		return mField->castType<MyGUI::EditBox>();
-	}
-
 	MyGUI::IntSize PropertyField::getContentSize()
 	{
 		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
@@ -505,6 +471,27 @@ namespace tools
 
 		mText->setCoord(MyGUI::IntCoord(0, _coord.top, w1, _coord.height));
 		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));
+	}
+
+	void PropertyField::setValue(const std::string& _value)
+	{
+		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
+		if (_value.empty())
+		{
+			mField->castType<MyGUI::EditBox>()->setCaption(DEFAULT_VALUE);
+		}
+		else
+		{
+			mField->castType<MyGUI::EditBox>()->setOnlyText(_value);
+			checkType(mField->castType<MyGUI::EditBox>(), mType);
+		}
+	}
+
+	void PropertyField::setName(const std::string& _value)
+	{
+		mField->setUserString("action", _value);
+		mText->setCaption(_value);
 	}
 
 } // namespace tools

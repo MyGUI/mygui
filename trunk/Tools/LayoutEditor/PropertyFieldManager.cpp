@@ -28,10 +28,10 @@ namespace tools
 	{
 	}
 
-	PropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, MyGUI::Widget* _currentWidget)
+	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		PropertyField* result = new PropertyField();
-		result->_create(_window, _property, _value, _type, _currentWidget);
+		result->initialise(_window,  _type, _currentWidget);
 		return result;
 	}
 

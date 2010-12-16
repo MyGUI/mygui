@@ -51,7 +51,7 @@ namespace tools
 		MapMapString mControllersProperties;
 
 		int mPropertyItemHeight;
-		typedef std::vector<PropertyField*> VectorPropertyField;
+		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 	};
 
