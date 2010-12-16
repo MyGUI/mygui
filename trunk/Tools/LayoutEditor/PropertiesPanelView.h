@@ -17,6 +17,35 @@
 
 namespace tools
 {
+	class Entry
+	{
+	public:
+		Entry();
+
+		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field, int _height, MyGUI::Widget* _currentWidget, EditorToolTip* _toolTip);
+		void destroy();
+
+	private:
+		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
+		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
+		void notifyForceApplyProperties(MyGUI::EditBox* _widget);
+		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
+
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
+		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+
+		bool checkType(MyGUI::EditBox* _edit, const std::string& _type);
+		bool isSkinExist(const std::string& _skinName);
+		std::string splitString(std::string& str, char separator);
+		bool checkTemplate(const std::string& _skinName);
+
+	private:
+		MyGUI::TextBox* mText;
+		MyGUI::Widget* mField;
+		MyGUI::Widget* mCurrentWidget;
+		EditorToolTip* mToolTip;
+	};
+
 	class PropertiesPanelView :
 		public wraps::BaseLayout
 	{
@@ -27,40 +56,26 @@ namespace tools
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
-		bool checkType(MyGUI::EditBox* _edit, const std::string& _type);
-		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
-		void notifyTryApplyProperties(MyGUI::EditBox* _sender); // calls notifyApplyProperties
-		void notifyForceApplyProperties(MyGUI::EditBox* _widget); // calls notifyApplyProperties
-		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
-
-		std::string splitString(std::string& str, char separator);
 
 		void hideWidgetsPairs(MyGUI::Widget* _window);
 		void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y, MyGUI::TextBox*& _field);
 
-		bool isSkinExist(const std::string& _skinName);
-		bool checkTemplate(const std::string& _skinName);
-
-		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
-		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+		PanelProperties* getPropertyWindow(WidgetStyle* _style);
 
 	private:
 		MyGUI::IntSize mOldSize;
 		PanelView* mPanelView;
 
-		// properties window
-		size_t mPairsCounter;
+		typedef std::vector<Entry> VectorEntry;
 
-		typedef std::vector<MyGUI::TextBox*> VectorTextBox;
-		typedef std::map<MyGUI::Widget*, VectorTextBox> MapVectorTextBox;
-		MapVectorTextBox mPropertiesText;
-
-		typedef std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> MapVectorWidget;
-		MapVectorWidget mPropertiesElement;
+		typedef std::map<MyGUI::Widget*, VectorEntry> MapInfo;
+		MapInfo mPropertyInfo;
 
 		PanelMainProperties* mPanelMainProperties;
-		static const int MAX_BASE_TYPES_COUNT = 15;
-		PanelProperties* mPanelsTypeProperties[MAX_BASE_TYPES_COUNT];
+
+		typedef std::map<WidgetStyle*, PanelProperties*> MapPropertyWindow;
+		MapPropertyWindow mMapPropertyWindow;
+
 		PanelItems* mPanelItems;
 		PanelUserData* mPanelUserData;
 		PanelControllers* mPanelControllers;
