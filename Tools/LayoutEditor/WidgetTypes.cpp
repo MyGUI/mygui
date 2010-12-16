@@ -17,9 +17,12 @@ namespace tools
 
 	void WidgetTypes::shutdown()
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter) delete *iter;
+		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
+			delete *iter;
 		mWidgetTypes.clear();
-		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter) delete *iter;
+
+		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
+			delete *iter;
 		mPossibleValues.clear();
 	}
 
@@ -52,7 +55,8 @@ namespace tools
 		// ищем тип, если нет, то создаем
 		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
-			if ((*iter)->name == _name) return (*iter);
+			if ((*iter)->name == _name)
+				return (*iter);
 		}
 
 		WidgetStyle* type = new WidgetStyle(_name);
@@ -84,8 +88,10 @@ namespace tools
 
 				if (field->getName() == "Property")
 				{
-					if (!field->findAttribute("key", key)) continue;
-					if (!field->findAttribute("value", value)) continue;
+					if (!field->findAttribute("key", key))
+						continue;
+					if (!field->findAttribute("value", value))
+						continue;
 					field->findAttribute("group", group);
 					if (key == "Skin")
 					{
@@ -93,34 +99,47 @@ namespace tools
 						if (button_name.empty())
 							button_name = value;
 
-						if (group.empty()) group = DEFAULT_GOROUP_NAME;
+						if (group.empty())
+							group = DEFAULT_GOROUP_NAME;
 						mSkinGroups[group].push_back(SkinInfo(value, widget_type->name, button_name));
 						widget_type->skin.push_back(value);
 					}
-					else if (key == "DefaultSkin") widget_type->default_skin = value;
-					else if (key == "Parent") widget_type->parent = MyGUI::utility::parseBool(value);
-					else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
-					else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
-					else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
-					else if (key == "Base") widget_type->base = value;
+					else if (key == "DefaultSkin")
+						widget_type->default_skin = value;
+					else if (key == "Parent")
+						widget_type->parent = MyGUI::utility::parseBool(value);
+					else if (key == "Child")
+						widget_type->child = MyGUI::utility::parseBool(value);
+					else if (key == "Resizeable")
+						widget_type->resizeable = MyGUI::utility::parseBool(value);
+					else if (key == "ItemManager")
+						widget_type->many_items = MyGUI::utility::parseBool(value);
+					else if (key == "Base")
+						widget_type->base = value;
 				}
 				else if (field->getName() == "Parameter")
 				{
-					if (!field->findAttribute("key", key)) continue;
-					if (!field->findAttribute("value", value)) continue;
+					if (!field->findAttribute("key", key))
+						continue;
+					if (!field->findAttribute("value", value))
+						continue;
 					widget_type->parameter.push_back(MyGUI::PairString(key, value));
 				}
 				else if (field->getName() == "TemplateData")
 				{
-					if (!field->findAttribute("key", key)) continue;
-					if (!field->findAttribute("value", value)) continue;
+					if (!field->findAttribute("key", key))
+						continue;
+					if (!field->findAttribute("value", value))
+						continue;
 					widget_type->templateData.push_back(MyGUI::PairString(key, value));
 				}
 			}
 
-			if (widget_type->base.empty() && widget_type->name != "Widget") widget_type->base = "Widget";
-
+			if (widget_type->base.empty() && widget_type->name != "Widget")
+				widget_type->base = "Widget";
 		}
+
+		updateDeep();
 	}
 
 	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
@@ -172,21 +191,18 @@ namespace tools
 
 				if (field->getName() == "Property")
 				{
-					if (!field->findAttribute("key", key)) continue;
+					if (!field->findAttribute("key", key))
+						continue;
 					possible_value->values.push_back(MyGUI::LanguageManager::getInstance().replaceTags(key));
 				}
-
 			}
 		}
-
 	}
 
 	void WidgetTypes::clearAllSkins()
 	{
 		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
-		{
 			(*iter)->skin.clear();
-		}
 
 		mSkinGroups.clear();
 	}
@@ -213,6 +229,25 @@ namespace tools
 		}
 
 		return nullptr;
+	}
+
+	void WidgetTypes::updateDeep()
+	{
+		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++ item)
+			(*item)->deep = updateDeep(*item);
+	}
+
+	size_t WidgetTypes::updateDeep(WidgetStyle* _style)
+	{
+		size_t result = 0;
+
+		while (_style != nullptr && !_style->base.empty())
+		{
+			_style = findWidgetStyle(_style->base);
+			++ result;
+		}
+
+		return result;
 	}
 
 } // namespace tools
