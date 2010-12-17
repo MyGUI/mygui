@@ -66,9 +66,9 @@ set (HEADER_FILES
   Parse.h
   GroupMessage.h
   CodeGenerator.h
-  IPropertyField.h
-  PropertyField.h
   PropertyFieldManager.h
+  IPropertyField.h
+  PropertyFieldComboBox.h
   PropertyFieldEditBox.h
   PropertyFieldEditBoxAccept.h
 )
@@ -131,8 +131,8 @@ set (SOURCE_FILES
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
-  PropertyField.cpp
   PropertyFieldManager.cpp
+  PropertyFieldComboBox.cpp
   PropertyFieldEditBox.cpp
   PropertyFieldEditBoxAccept.cpp
 )

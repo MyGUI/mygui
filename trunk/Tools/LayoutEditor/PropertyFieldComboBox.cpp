@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "PropertyField.h"
+#include "PropertyFieldComboBox.h"
 #include "Common.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
