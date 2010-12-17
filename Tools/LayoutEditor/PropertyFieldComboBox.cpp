@@ -77,6 +77,7 @@ namespace tools
 					widgetContainer->mProperty.erase(iterProperty);
 				else
 					iterProperty->second = _value;
+				break;
 			}
 		}
 

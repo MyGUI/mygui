@@ -6,20 +6,49 @@
 
 #include "Precompiled.h"
 #include "PropertyFieldPosition.h"
-#include "Parse.h"
 #include "Localise.h"
-#include "EditorWidgets.h"
+#include "UndoManager.h"
+#include "SettingsManager.h"
+#include "Parse.h"
 
 namespace tools
 {
+	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldPosition::PropertyFieldPosition(MyGUI::Widget* _parent) :
-		PropertyFieldEditBox(_parent)
+		BaseLayout("PropertyFieldPosition.layout", _parent),
+		mText(nullptr),
+		mField(nullptr),
+		mButton(nullptr)
 	{
+		assignWidget(mText, "Text");
+		assignWidget(mField, "Field");
+
+		mField->eventEditTextChange += newDelegate (this, &PropertyFieldPosition::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldPosition::notifyForceApplyProperties);
 	}
 
 	PropertyFieldPosition::~PropertyFieldPosition()
 	{
+	}
+
+	void PropertyFieldPosition::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
+	{
+		mCurrentWidget = _currentWidget;
+		mType = _type;
+	}
+
+	void PropertyFieldPosition::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
+	{
+		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
+		std::string value = mField->getOnlyText();
+		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
+			value = "";
+
+		onAction(value, _force);
+
+		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 	void PropertyFieldPosition::onAction(const std::string& _value, bool _force)
@@ -56,6 +85,16 @@ namespace tools
 		}
 	}
 
+	void PropertyFieldPosition::notifyTryApplyProperties(MyGUI::EditBox* _sender)
+	{
+		notifyApplyProperties(_sender, false);
+	}
+
+	void PropertyFieldPosition::notifyForceApplyProperties(MyGUI::EditBox* _sender)
+	{
+		notifyApplyProperties(_sender, true);
+	}
+
 	bool PropertyFieldPosition::onCheckValue()
 	{
 		bool success = true;
@@ -66,6 +105,37 @@ namespace tools
 			success = utility::checkParse<int>(mField, 4);
 
 		return success;
+	}
+
+	MyGUI::IntSize PropertyFieldPosition::getContentSize()
+	{
+		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
+	}
+
+	void PropertyFieldPosition::setCoord(const MyGUI::IntCoord& _coord)
+	{
+		mMainWidget->setCoord(_coord);
+	}
+
+	void PropertyFieldPosition::setValue(const std::string& _value)
+	{
+		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
+		if (_value.empty())
+		{
+			mField->setCaption(DEFAULT_VALUE);
+		}
+		else
+		{
+			mField->setOnlyText(_value);
+			onCheckValue();
+		}
+	}
+
+	void PropertyFieldPosition::setName(const std::string& _value)
+	{
+		mName = _value;
+		mText->setCaption(_value);
 	}
 
 } // namespace tools
