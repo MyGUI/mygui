@@ -53,11 +53,6 @@ namespace tools
 		mField->beginToItemFirst();
 	}
 
-	/*void PropertyFieldSkin::onAction(const std::string& _value)
-	{
-		eventAction(mType, _value);
-	}*/
-
 	void PropertyFieldSkin::onToolTip(const MyGUI::ToolTipInfo& _info)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show)
