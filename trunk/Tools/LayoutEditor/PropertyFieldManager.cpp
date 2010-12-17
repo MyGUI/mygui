@@ -10,14 +10,10 @@
 #include "PropertyFieldSkin.h"
 #include "PropertyFieldType.h"
 #include "PropertyFieldFont.h"
-#include "PropertyFieldAlign.h"
-#include "PropertyFieldLayer.h"
-#include "PropertyFieldName.h"
 #include "PropertyFieldFileName.h"
 #include "PropertyFieldNumeric.h"
 #include "PropertyFieldAlpha.h"
 #include "PropertyFieldPosition.h"
-//#include "PropertyFieldController.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -45,9 +41,7 @@ namespace tools
 	{
 		IPropertyField* result = nullptr;
 
-		/*if (MyGUI::utility::startWith(_type, "Controller"))
-			result = new PropertyFieldController(_window);
-		else */if ("Name" == _type)
+		if ("Name" == _type)
 			result = new PropertyFieldEditBox(_window);
 		else if ("Type" == _type)
 			result = new PropertyFieldType(_window);

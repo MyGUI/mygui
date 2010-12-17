@@ -34,9 +34,4 @@ namespace tools
 		mField->beginToItemFirst();
 	}
 
-	/*void PropertyFieldType::onAction(const std::string& _value)
-	{
-		eventAction(mType, _value);
-	}*/
-
 } // namespace tools

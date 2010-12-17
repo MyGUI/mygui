@@ -73,14 +73,10 @@ set (HEADER_FILES
   PropertyFieldSkin.h
   PropertyFieldType.h
   PropertyFieldFont.h
-  PropertyFieldAlign.h
-  PropertyFieldLayer.h
-  PropertyFieldName.h
   PropertyFieldFileName.h
   PropertyFieldNumeric.h
   PropertyFieldAlpha.h
   PropertyFieldPosition.h
-  PropertyFieldController.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -147,14 +143,10 @@ set (SOURCE_FILES
   PropertyFieldSkin.cpp
   PropertyFieldType.cpp
   PropertyFieldFont.cpp
-  PropertyFieldAlign.cpp
-  PropertyFieldLayer.cpp
-  PropertyFieldName.cpp
   PropertyFieldFileName.cpp
   PropertyFieldNumeric.cpp
   PropertyFieldAlpha.cpp
   PropertyFieldPosition.cpp
-  PropertyFieldController.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
