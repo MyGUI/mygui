@@ -18,10 +18,7 @@
 
 namespace tools
 {
-	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
-
 	const std::string DEFAULT_STRING = "[DEFAULT]";
-	const int BAR_HEIGHT = 30;
 
 	PropertyFieldComboBox::PropertyFieldComboBox() :
 		mText(nullptr),
@@ -50,8 +47,13 @@ namespace tools
 		mField->setNeedToolTip(true);
 		mField->eventToolTip += newDelegate (this, &PropertyFieldComboBox::notifyToolTip);
 
+		onFillValues();
+	}
+
+	void PropertyFieldComboBox::onFillValues()
+	{
 		std::vector<std::string> values;
-		if (_type == "Skin")
+		if (mType == "Skin")
 		{
 			values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
@@ -77,7 +79,7 @@ namespace tools
 				}
 			}
 		}
-		else if (_type == "Type")
+		else if (mType == "Type")
 		{
 			VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
 			for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
@@ -85,7 +87,7 @@ namespace tools
 				values.push_back((*iter)->name);
 			}
 		}
-		else if (_type == "Font")
+		else if (mType == "Font")
 		{
 			values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
 			values.push_back("Default");
@@ -100,14 +102,12 @@ namespace tools
 		}
 		else
 		{
-			values = WidgetTypes::getInstance().findPossibleValues(_type);
+			values = WidgetTypes::getInstance().findPossibleValues(mType);
 		}
 
 		for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
 		mField->beginToItemFirst();
-
-		mField->setUserString("type", _type);
 	}
 
 	void PropertyFieldComboBox::destroy()
@@ -118,49 +118,46 @@ namespace tools
 		mField = nullptr;
 	}
 
-	void PropertyFieldComboBox::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
+	void PropertyFieldComboBox::notifyApplyProperties(MyGUI::Widget* _sender)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+		std::string value = mField->getOnlyText();
 
-		EditorWidgets* ew = &EditorWidgets::getInstance();
-		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-		MyGUI::EditBox* senderEdit = _sender->castType<MyGUI::EditBox>();
-		std::string action = senderEdit->getUserString("action");
-		std::string value = senderEdit->getOnlyText();
-		std::string type = senderEdit->getUserString("type");
-
-		ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES););
-
-		bool goodData = checkType(senderEdit, type);
-
-		if (value == DEFAULT_STRING && senderEdit->getCaption() == DEFAULT_VALUE)
+		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
 			value = "";
+
+		onAction(value);
+	}
+
+	void PropertyFieldComboBox::onAction(const std::string& _value)
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+
+		std::string action = mField->getUserString("action");
 
 		if (action == "Type")
 		{
 			WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-			widgetContainer->type = value;
+			widgetContainer->type = _value;
 
-			MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
-			ew->clear();
-			ew->loadxmlDocument(savedDoc);
+			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+			EditorWidgets::getInstance().clear();
+			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
 			delete savedDoc;
 
 			WidgetSelectorManager::getInstance().restoreSelectedWidget();
-
-			return;
 		}
 		else if (action == "Skin")
 		{
-			widgetContainer->skin = value;
+			widgetContainer->skin = _value;
 			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
 			{
 				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-				MyGUI::xml::Document* savedDoc = ew->savexmlDocument();
-				ew->clear();
-				ew->loadxmlDocument(savedDoc);
+				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+				EditorWidgets::getInstance().clear();
+				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
 				delete savedDoc;
 
 				WidgetSelectorManager::getInstance().restoreSelectedWidget();
@@ -170,66 +167,54 @@ namespace tools
 				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
 				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 			}
-			return;
 		}
 		else if (action == "Align")
 		{
-			widgetContainer->align = value;
-			widgetContainer->widget->setAlign(MyGUI::Align::parse(value));
-			return;
+			widgetContainer->align = _value;
+			widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
 		}
 		else if (action == "Layer")
 		{
-			widgetContainer->setLayerName(value);
-			return;
-		}
-
-		bool success = false;
-		if (goodData || _force)
-			success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
-		else
-			return;
-
-		if (success)
-		{
-			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+			widgetContainer->setLayerName(_value);
 		}
 		else
 		{
-			senderEdit->setCaption(DEFAULT_VALUE);
-			return;
-		}
+			bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, action, _value);
 
-		// если такое св-во было, то заменим (или удалим если стерли) значение
-		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-		{
-			if (iterProperty->first == action)
+			bool found = false;
+			// если такое св-во было, то заменим (или удалим если стерли) значение
+			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
-				if (value.empty())
-					widgetContainer->mProperty.erase(iterProperty);
-				else
-					iterProperty->second = value;
-				return;
+				if (iterProperty->first == action)
+				{
+					found = true;
+					if (_value.empty())
+						widgetContainer->mProperty.erase(iterProperty);
+					else
+						iterProperty->second = _value;
+				}
 			}
+
+			// если такого свойства не было раньше, то сохраняем
+			if (!_value.empty() && !found)
+				widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
 		}
 
-		// если такого свойства не было раньше, то сохраняем
-		if (!value.empty())
-			widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
+		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		notifyApplyProperties(_sender, true);
+		notifyApplyProperties(_sender);
 	}
 
-	void PropertyFieldComboBox::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
+	void PropertyFieldComboBox::onToolTip(const MyGUI::ToolTipInfo& _info)
 	{
-		if (_sender->getUserString("type") == "Skin")
+		if (mType == "Skin")
 		{
 			if (_info.type == MyGUI::ToolTipInfo::Show)
 			{
-				SkinInfo data = getCellData(_sender, _info.index);
+				SkinInfo data = getCellData(_info.index);
 				EditorToolTip::getInstancePtr()->show(data);
 				EditorToolTip::getInstancePtr()->move(_info.point);
 			}
@@ -244,25 +229,23 @@ namespace tools
 		}
 	}
 
-	SkinInfo PropertyFieldComboBox::getCellData(MyGUI::Widget* _sender, size_t _index)
+	void PropertyFieldComboBox::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
-		MyGUI::ComboBox* box = _sender->castType<MyGUI::ComboBox>();
+		onToolTip(_info);
+	}
+
+	SkinInfo PropertyFieldComboBox::getCellData(size_t _index)
+	{
 		if (_index != MyGUI::ITEM_NONE)
 		{
-			MyGUI::UString name = box->getItemNameAt(_index);
+			MyGUI::UString name = mField->getItemNameAt(_index);
 			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 		}
 		else
 		{
-			MyGUI::UString name = box->getCaption();
+			MyGUI::UString name = mField->getCaption();
 			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 		}
-	}
-
-	bool PropertyFieldComboBox::checkType(MyGUI::EditBox* _edit, const std::string& _type)
-	{
-		bool success = true;
-		return success;
 	}
 
 	bool PropertyFieldComboBox::isSkinExist(const std::string& _skinName)
@@ -308,12 +291,11 @@ namespace tools
 
 		if (_value.empty())
 		{
-			mField->castType<MyGUI::EditBox>()->setCaption(DEFAULT_VALUE);
+			mField->setCaption(DEFAULT_VALUE);
 		}
 		else
 		{
-			mField->castType<MyGUI::EditBox>()->setOnlyText(_value);
-			checkType(mField->castType<MyGUI::EditBox>(), mType);
+			mField->setOnlyText(_value);
 		}
 	}
 

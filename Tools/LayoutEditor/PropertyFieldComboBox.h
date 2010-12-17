@@ -26,16 +26,20 @@ namespace tools
 		virtual MyGUI::IntSize getContentSize();
 		virtual void setCoord(const MyGUI::IntCoord& _coord);
 
+	protected:
+		virtual void onFillValues();
+		virtual void onAction(const std::string& _value);
+		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
+
 	private:
 		void destroy();
 
-		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
+		void notifyApplyProperties(MyGUI::Widget* _sender);
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
-		SkinInfo getCellData(MyGUI::Widget* _sender, size_t _index);
+		SkinInfo getCellData(size_t _index);
 
-		bool checkType(MyGUI::EditBox* _edit, const std::string& _type);
 		bool isSkinExist(const std::string& _skinName);
 		bool checkTemplate(const std::string& _skinName);
 
