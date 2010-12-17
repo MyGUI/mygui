@@ -33,56 +33,40 @@ namespace tools
 
 	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
-		enum PropertyType
-		{
-			PropertyType_Edit,
-			PropertyType_ComboBox,
-			PropertyType_EditAcceptOnly,
-			PropertyType_Count
-		};
-
-		PropertyType widget_for_type = PropertyType_Count;
+		IPropertyField* result = nullptr;
 
 		if ("Name" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("Type" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("Skin" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("Position" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("Layer" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("String" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("StringAccept" == _type)
-			widget_for_type = PropertyType_EditAcceptOnly;
-		else if ("Align" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("FileName" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("1 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("2 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("4 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("alpha" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("1 float" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("2 float" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("Colour" == _type)
-			widget_for_type = PropertyType_Edit;
-		else
-			widget_for_type = PropertyType_ComboBox;
-
-		IPropertyField* result = nullptr;
-		if (widget_for_type == PropertyType_Edit)
 			result = new PropertyFieldEditBox();
-		else if (widget_for_type == PropertyType_EditAcceptOnly)
+		else if ("Type" == _type)
+			result = new PropertyFieldComboBox();
+		else if ("Skin" == _type)
+			result = new PropertyFieldComboBox();
+		else if ("Position" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("Layer" == _type)
+			result = new PropertyFieldComboBox();
+		else if ("String" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("StringAccept" == _type)
 			result = new PropertyFieldEditBoxAccept();
+		else if ("Align" == _type)
+			result = new PropertyFieldComboBox();
+		else if ("FileName" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("1 int" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("2 int" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("4 int" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("alpha" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("1 float" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("2 float" == _type)
+			result = new PropertyFieldEditBox();
+		else if ("Colour" == _type)
+			result = new PropertyFieldEditBox();
 		else
 			result = new PropertyFieldComboBox();
 
