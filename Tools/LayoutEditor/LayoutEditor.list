@@ -77,6 +77,7 @@ set (HEADER_FILES
   PropertyFieldNumeric.h
   PropertyFieldAlpha.h
   PropertyFieldPosition.h
+  PropertyFieldColour.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -147,6 +148,7 @@ set (SOURCE_FILES
   PropertyFieldNumeric.cpp
   PropertyFieldAlpha.cpp
   PropertyFieldPosition.cpp
+  PropertyFieldColour.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp

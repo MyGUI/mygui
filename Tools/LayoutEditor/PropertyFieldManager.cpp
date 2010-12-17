@@ -14,6 +14,7 @@
 #include "PropertyFieldNumeric.h"
 #include "PropertyFieldAlpha.h"
 #include "PropertyFieldPosition.h"
+#include "PropertyFieldColour.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -63,7 +64,7 @@ namespace tools
 		mFactories["1 float"] = GenericFactory<PropertyFieldNumeric>::getFactory();
 		mFactories["2 float"] = GenericFactory<PropertyFieldNumeric>::getFactory();
 		mFactories["Alpha"] = GenericFactory<PropertyFieldAlpha>::getFactory();
-		mFactories["Colour"] = GenericFactory<PropertyFieldEditBox>::getFactory();
+		mFactories["Colour"] = GenericFactory<PropertyFieldColour>::getFactory();
 		mFactories["Bool"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["TextAlign"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["FlowDirection"] = GenericFactory<PropertyFieldComboBox>::getFactory();
