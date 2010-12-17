@@ -35,10 +35,4 @@ namespace tools
 		ew->invalidateWidgets();
 	}
 
-	bool PropertyFieldName::onCheckValue()
-	{
-		bool success = true;
-		return success;
-	}
-
 } // namespace tools

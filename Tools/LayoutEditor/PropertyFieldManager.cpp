@@ -14,6 +14,10 @@
 #include "PropertyFieldLayer.h"
 #include "PropertyFieldName.h"
 #include "PropertyFieldFileName.h"
+#include "PropertyFieldNumeric.h"
+#include "PropertyFieldAlpha.h"
+#include "PropertyFieldPosition.h"
+#include "PropertyFieldController.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -41,7 +45,9 @@ namespace tools
 	{
 		IPropertyField* result = nullptr;
 
-		if ("Name" == _type)
+		if (MyGUI::utility::startWith(_type, "Controller"))
+			result = new PropertyFieldController(_window);
+		else if ("Name" == _type)
 			result = new PropertyFieldName(_window);
 		else if ("Type" == _type)
 			result = new PropertyFieldType(_window);
@@ -50,7 +56,7 @@ namespace tools
 		else if ("Font" == _type)
 			result = new PropertyFieldFont(_window);
 		else if ("Position" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldPosition(_window);
 		else if ("Layer" == _type)
 			result = new PropertyFieldLayer(_window);
 		else if ("String" == _type)
@@ -60,17 +66,17 @@ namespace tools
 		else if ("FileName" == _type)
 			result = new PropertyFieldFileName(_window);
 		else if ("1 int" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldNumeric(_window);
 		else if ("2 int" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldNumeric(_window);
 		else if ("4 int" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldNumeric(_window);
 		else if ("1 float" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldNumeric(_window);
 		else if ("2 float" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldNumeric(_window);
 		else if ("Alpha" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldAlpha(_window);
 		else if ("Colour" == _type)
 			result = new PropertyFieldEditBox(_window);
 		else
