@@ -6,14 +6,8 @@
 
 #include "Precompiled.h"
 #include "PropertyFieldEditBox.h"
-#include "Common.h"
 #include "Localise.h"
-#include "EditorWidgets.h"
-#include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "Parse.h"
-#include "GroupMessage.h"
-#include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
 
 namespace tools
