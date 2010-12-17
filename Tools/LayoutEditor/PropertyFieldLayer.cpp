@@ -12,7 +12,8 @@
 namespace tools
 {
 
-	PropertyFieldLayer::PropertyFieldLayer()
+	PropertyFieldLayer::PropertyFieldLayer(MyGUI::Widget* _parent) :
+		PropertyFieldComboBox(_parent)
 	{
 	}
 

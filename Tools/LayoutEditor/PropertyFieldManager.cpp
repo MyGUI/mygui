@@ -43,21 +43,21 @@ namespace tools
 		if ("Name" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("Type" == _type)
-			result = new PropertyFieldType();
+			result = new PropertyFieldType(_window);
 		else if ("Skin" == _type)
-			result = new PropertyFieldSkin();
+			result = new PropertyFieldSkin(_window);
 		else if ("Font" == _type)
-			result = new PropertyFieldFont();
+			result = new PropertyFieldFont(_window);
 		else if ("Position" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("Layer" == _type)
-			result = new PropertyFieldLayer();
+			result = new PropertyFieldLayer(_window);
 		else if ("String" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("StringAccept" == _type)
 			result = new PropertyFieldEditBoxAccept();
 		else if ("Align" == _type)
-			result = new PropertyFieldAlign();
+			result = new PropertyFieldAlign(_window);
 		else if ("FileName" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("1 int" == _type)
@@ -75,7 +75,7 @@ namespace tools
 		else if ("Colour" == _type)
 			result = new PropertyFieldEditBox();
 		else
-			result = new PropertyFieldComboBox();
+			result = new PropertyFieldComboBox(_window);
 
 		result->initialise(_window,  _type, _currentWidget);
 		return result;
