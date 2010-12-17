@@ -64,73 +64,36 @@ namespace tools
 
 		bool goodData = onCheckValue();
 
-		if (mName == "Position")
+		if (goodData || _force)
 		{
-			if (goodData)
-			{
-				if (widgetContainer->relative_mode)
-				{
-					std::istringstream str(_value);
-					MyGUI::FloatCoord float_coord;
-					str >> float_coord;
-					float_coord.left = float_coord.left / 100;
-					float_coord.top = float_coord.top / 100;
-					float_coord.width = float_coord.width / 100;
-					float_coord.height = float_coord.height / 100;
-					MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
-					mCurrentWidget->setCoord(coord);
+			bool success = ew->tryToApplyProperty(widgetContainer->widget, mName, _value);
 
-					EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-				}
-				else
-				{
-					widgetContainer->widget->setProperty("Coord", _value);
-					EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-				}
-			}
-		}
-		else
-		{
-			std::string tmp = mName;
-			if (splitString(tmp, ' ') == "Controller")
+			if (success)
 			{
-				int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
-				std::string key = splitString(tmp, ' ');
-				widgetContainer->mController[n]->mProperty[key] = _value;
+				// непонятно как сюда попало
+				//EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
+
+				bool found = false;
+				// если такое св-во было, то заменим (или удалим если стерли) значение
+				for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+				{
+					if (iterProperty->first == mName)
+					{
+						found = true;
+						if (_value.empty())
+							widgetContainer->mProperty.erase(iterProperty);
+						else
+							iterProperty->second = _value;
+					}
+				}
+
+				// если такого свойства не было раньше, то сохраняем
+				if (!_value.empty() && !found)
+					widgetContainer->mProperty.push_back(MyGUI::PairString(mName, _value));
 			}
 			else
 			{
-				if (goodData || _force)
-				{
-					bool success = ew->tryToApplyProperty(widgetContainer->widget, mName, _value);
-
-					if (success)
-					{
-						EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-
-						bool found = false;
-						// если такое св-во было, то заменим (или удалим если стерли) значение
-						for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-						{
-							if (iterProperty->first == mName)
-							{
-								found = true;
-								if (_value.empty())
-									widgetContainer->mProperty.erase(iterProperty);
-								else
-									iterProperty->second = _value;
-							}
-						}
-
-						// если такого свойства не было раньше, то сохраняем
-						if (!_value.empty() && !found)
-							widgetContainer->mProperty.push_back(MyGUI::PairString(mName, _value));
-					}
-					else
-					{
-						mField->setCaption(DEFAULT_VALUE);
-					}
-				}
+				mField->setCaption(DEFAULT_VALUE);
 			}
 		}
 	}
@@ -148,45 +111,7 @@ namespace tools
 	bool PropertyFieldEditBox::onCheckValue()
 	{
 		bool success = true;
-
-		if ("1 int" == mType)
-			success = utility::checkParse<int>(mField, 1);
-		else if ("2 int" == mType)
-			success = utility::checkParse<int>(mField, 2);
-		else if ("4 int" == mType)
-			success = utility::checkParse<int>(mField, 4);
-		else if ("1 float" == mType)
-			success = utility::checkParse<float>(mField, 1);
-		else if ("2 float" == mType)
-			success = utility::checkParse<float>(mField, 2);
-		else if ("Alpha" == mType)
-			success = utility::checkParseInterval<float>(mField, 1, 0., 1.);
-		else if ("Position" == mType)
-		{
-			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
-				success = utility::checkParse<float>(mField, 4);
-			else
-				success = utility::checkParse<int>(mField, 4);
-		}
-
 		return success;
-	}
-
-	std::string PropertyFieldEditBox::splitString(std::string& str, char separator)
-	{
-		size_t spaceIdx = str.find(separator);
-		if (spaceIdx == std::string::npos)
-		{
-			std::string tmp = str;
-			str.clear();
-			return tmp;
-		}
-		else
-		{
-			std::string tmp = str.substr(0, spaceIdx);
-			str.erase(0, spaceIdx + 1);
-			return tmp;
-		}
 	}
 
 	MyGUI::IntSize PropertyFieldEditBox::getContentSize()
