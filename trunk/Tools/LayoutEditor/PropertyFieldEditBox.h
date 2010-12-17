@@ -39,7 +39,7 @@ namespace tools
 		virtual bool onCheckValue();
 		virtual void onAction(const std::string& _value, bool _force);
 
-	private:
+	protected:
 		MyGUI::TextBox* mText;
 		MyGUI::EditBox* mField;
 		MyGUI::Widget* mCurrentWidget;
