@@ -12,6 +12,8 @@
 #include "PropertyFieldFont.h"
 #include "PropertyFieldAlign.h"
 #include "PropertyFieldLayer.h"
+#include "PropertyFieldName.h"
+#include "PropertyFieldFileName.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -40,7 +42,7 @@ namespace tools
 		IPropertyField* result = nullptr;
 
 		if ("Name" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldName(_window);
 		else if ("Type" == _type)
 			result = new PropertyFieldType(_window);
 		else if ("Skin" == _type)
@@ -56,7 +58,7 @@ namespace tools
 		else if ("Align" == _type)
 			result = new PropertyFieldAlign(_window);
 		else if ("FileName" == _type)
-			result = new PropertyFieldEditBox(_window);
+			result = new PropertyFieldFileName(_window);
 		else if ("1 int" == _type)
 			result = new PropertyFieldEditBox(_window);
 		else if ("2 int" == _type)

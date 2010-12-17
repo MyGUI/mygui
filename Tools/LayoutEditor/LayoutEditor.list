@@ -75,6 +75,8 @@ set (HEADER_FILES
   PropertyFieldFont.h
   PropertyFieldAlign.h
   PropertyFieldLayer.h
+  PropertyFieldName.h
+  PropertyFieldFileName.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -143,6 +145,8 @@ set (SOURCE_FILES
   PropertyFieldFont.cpp
   PropertyFieldAlign.cpp
   PropertyFieldLayer.cpp
+  PropertyFieldName.cpp
+  PropertyFieldFileName.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
