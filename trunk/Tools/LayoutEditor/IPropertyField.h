@@ -13,7 +13,7 @@ namespace tools
 	class IPropertyField
 	{
 	public:
-		virtual ~IPropertyField() = 0 { }
+		virtual ~IPropertyField() { }
 
 		virtual void initialise(MyGUI::Widget* _parent, const std::string& _type, MyGUI::Widget* _targetWidget) = 0;
 
