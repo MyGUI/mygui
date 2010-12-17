@@ -21,6 +21,23 @@ template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTyp
 namespace tools
 {
 
+	template <typename Type>
+	class GenericFactory
+	{
+	public:
+		typedef MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*> Delegate;
+		static typename Delegate::IDelegate* getFactory()
+		{
+			return MyGUI::newDelegate(createFromFactory);
+		}
+
+	private:
+		static void createFromFactory(IPropertyField*& _instance, MyGUI::Widget* _parent)
+		{
+			_instance = new Type(_parent);
+		}
+	};
+
 	PropertyFieldManager::PropertyFieldManager()
 	{
 	}
@@ -31,6 +48,28 @@ namespace tools
 
 	void PropertyFieldManager::initialise()
 	{
+		mFactories["Name"] = GenericFactory<PropertyFieldEditBox>::getFactory();
+		mFactories["Type"] = GenericFactory<PropertyFieldType>::getFactory();
+		mFactories["Skin"] = GenericFactory<PropertyFieldSkin>::getFactory();
+		mFactories["Font"] = GenericFactory<PropertyFieldFont>::getFactory();
+		mFactories["Position"] = GenericFactory<PropertyFieldPosition>::getFactory();
+		mFactories["Layer"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["String"] = GenericFactory<PropertyFieldEditBox>::getFactory();
+		mFactories["Align"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["FileName"] = GenericFactory<PropertyFieldFileName>::getFactory();
+		mFactories["1 int"] = GenericFactory<PropertyFieldNumeric>::getFactory();
+		mFactories["2 int"] = GenericFactory<PropertyFieldNumeric>::getFactory();
+		mFactories["4 int"] = GenericFactory<PropertyFieldNumeric>::getFactory();
+		mFactories["1 float"] = GenericFactory<PropertyFieldNumeric>::getFactory();
+		mFactories["2 float"] = GenericFactory<PropertyFieldNumeric>::getFactory();
+		mFactories["Alpha"] = GenericFactory<PropertyFieldAlpha>::getFactory();
+		mFactories["Colour"] = GenericFactory<PropertyFieldEditBox>::getFactory();
+		mFactories["Bool"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["TextAlign"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["FlowDirection"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["CanvasAlign"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["MenuItemType"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["ItemSizeType"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 	}
 
 	void PropertyFieldManager::shutdown()
@@ -41,41 +80,10 @@ namespace tools
 	{
 		IPropertyField* result = nullptr;
 
-		if ("Name" == _type)
-			result = new PropertyFieldEditBox(_window);
-		else if ("Type" == _type)
-			result = new PropertyFieldType(_window);
-		else if ("Skin" == _type)
-			result = new PropertyFieldSkin(_window);
-		else if ("Font" == _type)
-			result = new PropertyFieldFont(_window);
-		else if ("Position" == _type)
-			result = new PropertyFieldPosition(_window);
-		else if ("Layer" == _type)
-			result = new PropertyFieldComboBox(_window);
-		else if ("String" == _type)
-			result = new PropertyFieldEditBox(_window);
-		else if ("Align" == _type)
-			result = new PropertyFieldComboBox(_window);
-		else if ("FileName" == _type)
-			result = new PropertyFieldFileName(_window);
-		else if ("1 int" == _type)
-			result = new PropertyFieldNumeric(_window);
-		else if ("2 int" == _type)
-			result = new PropertyFieldNumeric(_window);
-		else if ("4 int" == _type)
-			result = new PropertyFieldNumeric(_window);
-		else if ("1 float" == _type)
-			result = new PropertyFieldNumeric(_window);
-		else if ("2 float" == _type)
-			result = new PropertyFieldNumeric(_window);
-		else if ("Alpha" == _type)
-			result = new PropertyFieldAlpha(_window);
-		else if ("Colour" == _type)
-			result = new PropertyFieldEditBox(_window);
-		else
-			result = new PropertyFieldComboBox(_window);
+		MapFactoryItem::iterator item = mFactories.find(_type);
+		MYGUI_ASSERT(item != mFactories.end(), "Factory PropertyField '" << _type << "' not found.");
 
+		(*item).second(result, _window);
 		result->initialise(_type, _currentWidget);
 		return result;
 	}
