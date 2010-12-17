@@ -52,60 +52,9 @@ namespace tools
 
 	void PropertyFieldComboBox::onFillValues()
 	{
-		std::vector<std::string> values;
-		if (mType == "Skin")
-		{
-			values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
+		WidgetStyle::VectorString values = WidgetTypes::getInstance().findPossibleValues(mType);
 
-			// добавляем скины и шаблоны
-			MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-			while (resource.next())
-			{
-				MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
-				if (resourceSkin != nullptr)
-				{
-					if (!MyGUI::utility::startWith(resourceSkin->getResourceName(), "LE_"))
-						values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
-				}
-
-				MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
-				if (resourceLayout != nullptr)
-				{
-					if (!MyGUI::utility::endWith(resourceLayout->getResourceName(), ".layout"))
-					{
-						if (!MyGUI::utility::startWith(resourceLayout->getResourceName(), "LE_"))
-							values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
-					}
-				}
-			}
-		}
-		else if (mType == "Type")
-		{
-			VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
-			for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
-			{
-				values.push_back((*iter)->name);
-			}
-		}
-		else if (mType == "Font")
-		{
-			values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
-			values.push_back("Default");
-
-			MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-			while (resource.next())
-			{
-				MyGUI::IFont* resourceFont = resource.current().second->castType<MyGUI::IFont>(false);
-				if (resourceFont != nullptr)
-					values.push_back(resourceFont->getResourceName());
-			}
-		}
-		else
-		{
-			values = WidgetTypes::getInstance().findPossibleValues(mType);
-		}
-
-		for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
+		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
 		mField->beginToItemFirst();
 	}
@@ -135,70 +84,25 @@ namespace tools
 
 		std::string action = mField->getUserString("action");
 
-		if (action == "Type")
+		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, action, _value);
+
+		bool found = false;
+		// если такое св-во было, то заменим (или удалим если стерли) значение
+		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
-			WidgetSelectorManager::getInstance().saveSelectedWidget();
-
-			widgetContainer->type = _value;
-
-			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-			EditorWidgets::getInstance().clear();
-			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-			delete savedDoc;
-
-			WidgetSelectorManager::getInstance().restoreSelectedWidget();
-		}
-		else if (action == "Skin")
-		{
-			widgetContainer->skin = _value;
-			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
+			if (iterProperty->first == action)
 			{
-				WidgetSelectorManager::getInstance().saveSelectedWidget();
-
-				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-				EditorWidgets::getInstance().clear();
-				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-				delete savedDoc;
-
-				WidgetSelectorManager::getInstance().restoreSelectedWidget();
-			}
-			else
-			{
-				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
+				found = true;
+				if (_value.empty())
+					widgetContainer->mProperty.erase(iterProperty);
+				else
+					iterProperty->second = _value;
 			}
 		}
-		else if (action == "Align")
-		{
-			widgetContainer->align = _value;
-			widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
-		}
-		else if (action == "Layer")
-		{
-			widgetContainer->setLayerName(_value);
-		}
-		else
-		{
-			bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, action, _value);
 
-			bool found = false;
-			// если такое св-во было, то заменим (или удалим если стерли) значение
-			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			{
-				if (iterProperty->first == action)
-				{
-					found = true;
-					if (_value.empty())
-						widgetContainer->mProperty.erase(iterProperty);
-					else
-						iterProperty->second = _value;
-				}
-			}
-
-			// если такого свойства не было раньше, то сохраняем
-			if (!_value.empty() && !found)
-				widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
-		}
+		// если такого свойства не было раньше, то сохраняем
+		if (!_value.empty() && !found)
+			widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
 
 		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
@@ -210,65 +114,11 @@ namespace tools
 
 	void PropertyFieldComboBox::onToolTip(const MyGUI::ToolTipInfo& _info)
 	{
-		if (mType == "Skin")
-		{
-			if (_info.type == MyGUI::ToolTipInfo::Show)
-			{
-				SkinInfo data = getCellData(_info.index);
-				EditorToolTip::getInstancePtr()->show(data);
-				EditorToolTip::getInstancePtr()->move(_info.point);
-			}
-			else if (_info.type == MyGUI::ToolTipInfo::Hide)
-			{
-				EditorToolTip::getInstancePtr()->hide();
-			}
-			else if (_info.type == MyGUI::ToolTipInfo::Move)
-			{
-				EditorToolTip::getInstancePtr()->move(_info.point);
-			}
-		}
 	}
 
 	void PropertyFieldComboBox::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
 		onToolTip(_info);
-	}
-
-	SkinInfo PropertyFieldComboBox::getCellData(size_t _index)
-	{
-		if (_index != MyGUI::ITEM_NONE)
-		{
-			MyGUI::UString name = mField->getItemNameAt(_index);
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
-		}
-		else
-		{
-			MyGUI::UString name = mField->getCaption();
-			return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
-		}
-	}
-
-	bool PropertyFieldComboBox::isSkinExist(const std::string& _skinName)
-	{
-		return _skinName == "Default" ||
-			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
-			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
-	}
-
-	bool PropertyFieldComboBox::checkTemplate(const std::string& _skinName)
-	{
-		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
-		if (templateInfo != nullptr)
-		{
-			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
-			{
-				if (container->name == "Root")
-					return true;
-			}
-		}
-
-		return false;
 	}
 
 	MyGUI::IntSize PropertyFieldComboBox::getContentSize()
