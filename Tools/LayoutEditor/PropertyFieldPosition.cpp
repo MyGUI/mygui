@@ -8,7 +8,6 @@
 #include "PropertyFieldPosition.h"
 #include "Localise.h"
 #include "UndoManager.h"
-#include "SettingsManager.h"
 #include "Parse.h"
 #include "CommandManager.h"
 
@@ -119,7 +118,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldPosition::getContentSize()
 	{
-		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
+		return MyGUI::IntSize(0, mMainWidget->getHeight());
 	}
 
 	void PropertyFieldPosition::setCoord(const MyGUI::IntCoord& _coord)

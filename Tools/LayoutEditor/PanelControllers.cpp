@@ -8,7 +8,6 @@
 #include "PanelControllers.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
-#include "SettingsManager.h"
 #include "PropertyFieldManager.h"
 
 namespace tools
@@ -23,7 +22,6 @@ namespace tools
 		mButtonLeft(0),
 		mButtonRight(0),
 		mButtonSpace(0),
-		mPropertyItemHeight(0),
 		mIndexSelected(MyGUI::ITEM_NONE)
 	{
 	}
@@ -44,8 +42,6 @@ namespace tools
 		mButtonLeft = mButtonAdd->getLeft();
 		mButtonRight = mMainWidget->getWidth() - mButtonDelete->getRight();
 		mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
-
-		mPropertyItemHeight = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight");
 
 		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("ControllerTypes") = MyGUI::newDelegate(this, &PanelControllers::loadControllerTypes);
 		MyGUI::ResourceManager::getInstance().load("Controllers.xml");
