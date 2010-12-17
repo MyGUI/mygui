@@ -9,12 +9,14 @@
 #include "PanelProperties.h"
 #include "EditorWidgets.h"
 #include "PropertyFieldManager.h"
+#include "UndoManager.h"
 
 namespace tools
 {
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
-		mDeep(0)
+		mDeep(0),
+		mCurrentWidget(nullptr)
 	{
 	}
 
@@ -55,6 +57,7 @@ namespace tools
 			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, _currentWidget);
 			field->setName(iter->first);
 			field->setValue(value);
+			field->eventAction = MyGUI::newDelegate(this, &PanelProperties::notifyAction);
 			mFields.push_back(field);
 		}
 	}
@@ -63,19 +66,17 @@ namespace tools
 	{
 		destroyPropertyFields();
 
-		if (_widgetType == nullptr)
-		{
-			setVisible(false);
+		mCurrentWidget = _currentWidget;
+		if (mCurrentWidget == nullptr)
 			return;
-		}
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		MyGUI::LanguageManager::getInstance().addUserTag("widget_type", _widgetType->name);
 
-		mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags("#{Widget_type_propertes}"));
+		mPanelCell->setCaption(replaceTags("Widget_type_propertes"));
 
-		AddParametrs(_widgetType, widgetContainer, _currentWidget);
+		AddParametrs(_widgetType, widgetContainer, mCurrentWidget);
 
 		bool visible = mFields.size() > 0;
 		setVisible(visible);
@@ -102,6 +103,34 @@ namespace tools
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 			delete (*item);
 		mFields.clear();
+	}
+
+	void PanelProperties::notifyAction(const std::string& _type, const std::string& _value)
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+
+		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, _type, _value);
+
+		bool found = false;
+		// если такое св-во было, то заменим (или удалим если стерли) значение
+		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		{
+			if (iterProperty->first == _type)
+			{
+				found = true;
+				if (_value.empty())
+					widgetContainer->mProperty.erase(iterProperty);
+				else
+					iterProperty->second = _value;
+				break;
+			}
+		}
+
+		// если такого свойства не было раньше, то сохраняем
+		if (!_value.empty() && !found)
+			widgetContainer->mProperty.push_back(MyGUI::PairString(_type, _value));
+
+		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 } // namespace tools

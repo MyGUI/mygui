@@ -24,6 +24,8 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
+		void notifyAction(const std::string& _type, const std::string& _value);
+
 		virtual void notifyChangeWidth(int _width);
 
 		void notifyAdd(MyGUI::Widget* _sender = 0);
@@ -53,6 +55,8 @@ namespace tools
 		int mPropertyItemHeight;
 		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
+
+		size_t mIndexSelected;
 	};
 
 } // namespace tools

@@ -11,7 +11,7 @@
 
 namespace tools
 {
-	class PropertyFieldLayer :
+	/*class PropertyFieldLayer :
 		public PropertyFieldComboBox
 	{
 	public:
@@ -20,7 +20,7 @@ namespace tools
 
 	protected:
 		virtual void onAction(const std::string& _value);
-	};
+	};*/
 
 } // namespace tools
 

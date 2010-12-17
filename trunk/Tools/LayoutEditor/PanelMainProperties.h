@@ -24,9 +24,17 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void destroyPropertyFields();
+		void notifyActionSkin(const std::string& _type, const std::string& _value);
+		void notifyActionLayer(const std::string& _type, const std::string& _value);
+		void notifyActionName(const std::string& _type, const std::string& _value);
+		void notifyActionType(const std::string& _type, const std::string& _value);
+		void notifyActionAlign(const std::string& _type, const std::string& _value);
 
+		void destroyPropertyFields();
 		void updateSize();
+
+		bool isSkinExist(const std::string& _skinName);
+		bool checkTemplate(const std::string& _skinName);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;

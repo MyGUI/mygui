@@ -11,16 +11,16 @@
 
 namespace tools
 {
-	class PropertyFieldName :
+	/*class PropertyFieldName :
 		public PropertyFieldEditBox
 	{
 	public:
 		PropertyFieldName(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldName();
 
-	protected:
-		virtual void onAction(const std::string& _value, bool _force);
-	};
+	//protected:
+		//virtual void onAction(const std::string& _value, bool _force);
+	};*/
 
 } // namespace tools
 

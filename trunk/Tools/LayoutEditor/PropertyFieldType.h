@@ -20,7 +20,7 @@ namespace tools
 
 	protected:
 		virtual void onFillValues();
-		virtual void onAction(const std::string& _value);
+		//virtual void onAction(const std::string& _value);
 	};
 
 } // namespace tools

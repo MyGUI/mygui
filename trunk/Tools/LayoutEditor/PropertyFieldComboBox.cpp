@@ -9,7 +9,6 @@
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
-#include "UndoManager.h"
 #include "SettingsManager.h"
 
 namespace tools
@@ -62,30 +61,7 @@ namespace tools
 
 	void PropertyFieldComboBox::onAction(const std::string& _value)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, mName, _value);
-
-		bool found = false;
-		// если такое св-во было, то заменим (или удалим если стерли) значение
-		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-		{
-			if (iterProperty->first == mName)
-			{
-				found = true;
-				if (_value.empty())
-					widgetContainer->mProperty.erase(iterProperty);
-				else
-					iterProperty->second = _value;
-				break;
-			}
-		}
-
-		// если такого свойства не было раньше, то сохраняем
-		if (!_value.empty() && !found)
-			widgetContainer->mProperty.push_back(MyGUI::PairString(mName, _value));
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
+		eventAction(mType, _value);
 	}
 
 	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
