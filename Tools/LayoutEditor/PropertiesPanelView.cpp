@@ -152,11 +152,14 @@ namespace tools
 
 			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
 
-			while (widgetType != nullptr && !widgetType->base.empty())
+			while (widgetType != nullptr)
 			{
 				PanelProperties* panel = getPropertyWindow(widgetType, widgetType->deep);
 				panel->setVisible(true);
 				panel->update(mCurrentWidget, widgetType);
+
+				if (widgetType->name == "Widget")
+					break;
 
 				widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetType->base);
 			}
