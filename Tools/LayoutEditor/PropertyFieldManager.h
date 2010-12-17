@@ -7,7 +7,7 @@
 #define __PROPERTY_FIELD_MANAGER_H__
 
 #include <MyGUI.h>
-#include "PropertyField.h"
+#include "IPropertyField.h"
 
 namespace tools
 {
