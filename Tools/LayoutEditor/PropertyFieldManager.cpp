@@ -5,7 +5,7 @@
 */
 #include "Precompiled.h"
 #include "PropertyFieldManager.h"
-#include "PropertyField.h"
+#include "PropertyFieldComboBox.h"
 #include "PropertyFieldEditBox.h"
 #include "PropertyFieldEditBoxAccept.h"
 

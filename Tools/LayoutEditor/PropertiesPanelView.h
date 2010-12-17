@@ -7,7 +7,6 @@
 #define __PROPERTIES_PANEL_VIEW_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "PropertyField.h"
 #include "PanelView.h"
 #include "PanelMainProperties.h"
 #include "PanelProperties.h"

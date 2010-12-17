@@ -8,7 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
-#include "PropertyField.h"
+#include "IPropertyField.h"
 
 namespace tools
 {

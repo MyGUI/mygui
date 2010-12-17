@@ -10,7 +10,7 @@
 #include "PanelView/BasePanelViewItem.h"
 #include "WidgetTypes.h"
 #include "WidgetContainer.h"
-#include "PropertyField.h"
+#include "IPropertyField.h"
 
 namespace tools
 {
