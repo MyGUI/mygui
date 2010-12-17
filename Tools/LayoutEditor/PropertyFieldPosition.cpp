@@ -10,6 +10,7 @@
 #include "UndoManager.h"
 #include "SettingsManager.h"
 #include "Parse.h"
+#include "CommandManager.h"
 
 namespace tools
 {
@@ -23,19 +24,29 @@ namespace tools
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
+		assignWidget(mButton, "Button");
 
 		mField->eventEditTextChange += newDelegate (this, &PropertyFieldPosition::notifyTryApplyProperties);
 		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldPosition::notifyForceApplyProperties);
+
+		mButton->eventMouseButtonClick += newDelegate (this, &PropertyFieldPosition::notifyMouseButtonClick);
+
+		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertyFieldPosition::commandToggleRelativeMode));
+		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
 	}
 
 	PropertyFieldPosition::~PropertyFieldPosition()
 	{
+		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
+		CommandManager::getInstance().unregisterCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertyFieldPosition::commandToggleRelativeMode));
 	}
 
 	void PropertyFieldPosition::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
 		mType = _type;
+
+		updateButton();
 	}
 
 	void PropertyFieldPosition::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
@@ -53,7 +64,6 @@ namespace tools
 
 	void PropertyFieldPosition::onAction(const std::string& _value, bool _force)
 	{
-		const std::string DEFAULT_STRING = "[DEFAULT]";
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
 		EditorWidgets* ew = &EditorWidgets::getInstance();
@@ -136,6 +146,50 @@ namespace tools
 	{
 		mName = _value;
 		mText->setCaption(_value);
+	}
+
+	void PropertyFieldPosition::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		notifyToggleRelativeMode();
+	}
+
+	void PropertyFieldPosition::commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result)
+	{
+		notifyToggleRelativeMode();
+
+		_result = true;
+	}
+
+	void PropertyFieldPosition::notifyToggleRelativeMode()
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		widgetContainer->relative_mode = !widgetContainer->relative_mode;
+
+		updateButton();
+		updatePositionCaption();
+	}
+
+	void PropertyFieldPosition::updateButton()
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		if (widgetContainer->relative_mode)
+			mButton->setCaption(replaceTags("to_percents"));
+		else
+			mButton->setCaption(replaceTags("to_pixels"));
+	}
+
+	void PropertyFieldPosition::updatePositionCaption()
+	{
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		setValue(widgetContainer->position());
+	}
+
+	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	{
+		if (_owner == "PropertiesPanelView" || _widget != mCurrentWidget)
+			return;
+
+		updatePositionCaption();
 	}
 
 } // namespace tools

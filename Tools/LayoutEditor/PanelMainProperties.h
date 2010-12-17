@@ -24,22 +24,14 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
-
-		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
-		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
-		void updatePositionCaption();
 		void destroyPropertyFields();
 
 		void updateSize();
 
 	private:
-		MyGUI::Button* mButtonRelativePosition;
-
 		MyGUI::Widget* mCurrentWidget;
 		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
-		IPropertyField* mPositionField;
 	};
 
 } // namespace tools
