@@ -64,12 +64,7 @@ namespace tools
 
 		bool goodData = onCheckValue();
 
-		if (mName == "Name")
-		{
-			widgetContainer->name = _value;
-			ew->invalidateWidgets();
-		}
-		else if (mName == "Position")
+		if (mName == "Position")
 		{
 			if (goodData)
 			{
@@ -166,8 +161,6 @@ namespace tools
 			success = utility::checkParse<float>(mField, 2);
 		else if ("Alpha" == mType)
 			success = utility::checkParseInterval<float>(mField, 1, 0., 1.);
-		else if ("FileName" == mType)
-			success = utility::checkParseFileName(mField);
 		else if ("Position" == mType)
 		{
 			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
