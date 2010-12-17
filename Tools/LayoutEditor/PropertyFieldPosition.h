@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class PropertyFieldPosition :
 		public wraps::BaseLayout,
 		public IPropertyField
@@ -32,6 +33,13 @@ namespace tools
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
 		void notifyForceApplyProperties(MyGUI::EditBox* _widget);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyToggleRelativeMode();
+
+		void commandToggleRelativeMode(const MyGUI::UString& _commandName, bool& _result);
+		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
+		void updatePositionCaption();
+		void updateButton();
 
 	protected:
 		virtual bool onCheckValue();
