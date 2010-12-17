@@ -23,6 +23,11 @@ namespace tools
 		void shutdown();
 
 		IPropertyField* createPropertyField(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget);
+
+	private:
+		typedef MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*> Delegate;
+		typedef std::map<std::string, Delegate> MapFactoryItem;
+		MapFactoryItem mFactories;
 	};
 
 } // namespace tools
