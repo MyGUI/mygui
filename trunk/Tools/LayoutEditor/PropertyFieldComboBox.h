@@ -38,12 +38,8 @@ namespace tools
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
 
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
-		SkinInfo getCellData(size_t _index);
 
-		bool isSkinExist(const std::string& _skinName);
-		bool checkTemplate(const std::string& _skinName);
-
-	private:
+	protected:
 		MyGUI::TextBox* mText;
 		MyGUI::ComboBox* mField;
 		MyGUI::Widget* mCurrentWidget;
