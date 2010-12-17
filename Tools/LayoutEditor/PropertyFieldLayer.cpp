@@ -6,13 +6,11 @@
 
 #include "Precompiled.h"
 #include "PropertyFieldLayer.h"
-#include "EditorWidgets.h"
-#include "UndoManager.h"
 
 namespace tools
 {
 
-	PropertyFieldLayer::PropertyFieldLayer(MyGUI::Widget* _parent) :
+	/*PropertyFieldLayer::PropertyFieldLayer(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
 	}
@@ -23,11 +21,7 @@ namespace tools
 
 	void PropertyFieldLayer::onAction(const std::string& _value)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-		widgetContainer->setLayerName(_value);
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
-	}
+		eventAction(mType, _value);
+	}*/
 
 } // namespace tools

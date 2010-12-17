@@ -44,53 +44,17 @@ namespace tools
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
 			value = "";
 
-		onAction(value, _force);
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
-	}
-
-	void PropertyFieldEditBox::onAction(const std::string& _value, bool _force)
-	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
-		EditorWidgets* ew = &EditorWidgets::getInstance();
-		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-
 		bool goodData = onCheckValue();
 
 		if (goodData || _force)
 		{
-			bool success = ew->tryToApplyProperty(widgetContainer->widget, mName, _value);
-
-			if (success)
-			{
-				// непонятно как сюда попало
-				//EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-
-				bool found = false;
-				// если такое св-во было, то заменим (или удалим если стерли) значение
-				for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-				{
-					if (iterProperty->first == mName)
-					{
-						found = true;
-						if (_value.empty())
-							widgetContainer->mProperty.erase(iterProperty);
-						else
-							iterProperty->second = _value;
-						break;
-					}
-				}
-
-				// если такого свойства не было раньше, то сохраняем
-				if (!_value.empty() && !found)
-					widgetContainer->mProperty.push_back(MyGUI::PairString(mName, _value));
-			}
-			else
-			{
-				mField->setCaption(DEFAULT_VALUE);
-			}
+			onAction(value);
 		}
+	}
+
+	void PropertyFieldEditBox::onAction(const std::string& _value)
+	{
+		eventAction(mType, _value);
 	}
 
 	void PropertyFieldEditBox::notifyTryApplyProperties(MyGUI::EditBox* _sender)

@@ -11,7 +11,7 @@
 
 namespace tools
 {
-	class PropertyFieldController :
+	/*class PropertyFieldController :
 		public PropertyFieldEditBox
 	{
 	public:
@@ -23,7 +23,7 @@ namespace tools
 
 	protected:
 		virtual void onAction(const std::string& _value, bool _force);
-	};
+	};*/
 
 } // namespace tools
 

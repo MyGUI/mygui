@@ -29,6 +29,8 @@ namespace tools
 		size_t getDeep() const;
 
 	private:
+		void notifyAction(const std::string& _type, const std::string& _value);
+
 		void AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
 
@@ -38,6 +40,7 @@ namespace tools
 		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 		size_t mDeep;
+		MyGUI::Widget* mCurrentWidget;
 	};
 
 } // namespace tools

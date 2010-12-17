@@ -20,13 +20,11 @@ namespace tools
 
 	protected:
 		virtual void onFillValues();
-		virtual void onAction(const std::string& _value);
+		//virtual void onAction(const std::string& _value);
 		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
 
 	private:
 		SkinInfo getCellData(size_t _index);
-		bool isSkinExist(const std::string& _skinName);
-		bool checkTemplate(const std::string& _skinName);
 	};
 
 } // namespace tools

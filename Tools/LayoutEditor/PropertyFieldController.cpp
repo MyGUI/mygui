@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	PropertyFieldController::PropertyFieldController(MyGUI::Widget* _parent) :
+	/*PropertyFieldController::PropertyFieldController(MyGUI::Widget* _parent) :
 		PropertyFieldEditBox(_parent)
 	{
 	}
@@ -53,6 +53,6 @@ namespace tools
 			str.erase(0, spaceIdx + 1);
 			return tmp;
 		}
-	}
+	}*/
 
 } // namespace tools

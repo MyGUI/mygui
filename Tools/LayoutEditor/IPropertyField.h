@@ -10,6 +10,8 @@
 
 namespace tools
 {
+	typedef MyGUI::delegates::CDelegate2<const std::string&, const std::string&> PropertyFieldActionDelegate;
+
 	class IPropertyField
 	{
 	public:
@@ -22,6 +24,8 @@ namespace tools
 
 		virtual MyGUI::IntSize getContentSize() = 0;
 		virtual void setCoord(const MyGUI::IntCoord& _coord) = 0;
+
+		PropertyFieldActionDelegate eventAction;
 	};
 	
 } // namespace tools
