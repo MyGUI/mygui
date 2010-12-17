@@ -83,8 +83,8 @@ namespace tools
 				float_coord.width = float_coord.width / 100;
 				float_coord.height = float_coord.height / 100;
 				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
-				mCurrentWidget->setCoord(coord);
 
+				mCurrentWidget->setCoord(coord);
 				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 			}
 			else

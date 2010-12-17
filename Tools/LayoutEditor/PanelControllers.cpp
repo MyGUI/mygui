@@ -23,7 +23,8 @@ namespace tools
 		mButtonLeft(0),
 		mButtonRight(0),
 		mButtonSpace(0),
-		mPropertyItemHeight(0)
+		mPropertyItemHeight(0),
+		mIndexSelected(MyGUI::ITEM_NONE)
 	{
 	}
 
@@ -98,19 +99,19 @@ namespace tools
 
 	void PanelControllers::notifyDelete(MyGUI::Widget* _sender)
 	{
-		size_t item = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item)
+		size_t index = mList->getIndexSelected();
+		if (MyGUI::ITEM_NONE == index)
 			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(item));
+		std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(index));
 		if (iter != widgetContainer->mController.end())
 		{
 			delete *iter;
 			widgetContainer->mController.erase(iter);
 		}
 
-		mList->removeItemAt(item);
+		mList->removeItemAt(index);
 		UndoManager::getInstance().addValue();
 
 		// обновляем текущий индекс
@@ -121,19 +122,16 @@ namespace tools
 	{
 		destroyPropertyFields();
 
-		size_t item = mList->getIndexSelected();
-		if (MyGUI::ITEM_NONE == item)
-		{
+		mIndexSelected = mList->getIndexSelected();
+		if (MyGUI::ITEM_NONE == mIndexSelected)
 			return;
-		}
 
-		std::string key = mList->getItemNameAt(item);
+		std::string key = mList->getItemNameAt(mIndexSelected);
 		mControllerName->setOnlyText(key);
 
-		int y = mButtonDelete->getCoord().bottom();
 		if (mControllersProperties.find(key) != mControllersProperties.end())
 		{
-			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(item);
+			ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(mIndexSelected);
 
 			for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
 			{
@@ -142,8 +140,9 @@ namespace tools
 					value = controllerInfo->mProperty[iter->first];
 
 				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, mCurrentWidget);
-				field->setName(MyGUI::utility::toString("Controller ", item, " ", iter->first));
+				field->setName(iter->first);
 				field->setValue(value);
+				field->eventAction = MyGUI::newDelegate(this, &PanelControllers::notifyAction);
 				mFields.push_back(field);
 			}
 		}
@@ -153,7 +152,7 @@ namespace tools
 
 	void PanelControllers::updateSize()
 	{
-		int height = 0;
+		int height = mButtonDelete->getCoord().bottom() + 3;
 
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 		{
@@ -175,9 +174,7 @@ namespace tools
 			mControllerName->addItem(name);
 			MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
 			while (prop.next("Property"))
-			{
 				controllerProperties[prop->findAttribute("key")] = prop->findAttribute("type");
-			}
 			mControllersProperties[name] = controllerProperties;
 		}
 	}
@@ -187,6 +184,23 @@ namespace tools
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 			delete (*item);
 		mFields.clear();
+	}
+
+	void PanelControllers::notifyAction(const std::string& _type, const std::string& _value)
+	{
+		/*const std::string DEFAULT_STRING = "[DEFAULT]";
+		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
+		EditorWidgets* ew = &EditorWidgets::getInstance();
+		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
+
+		bool goodData = onCheckValue();
+
+		std::string tmp = mName;
+
+		int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
+		std::string key = splitString(tmp, ' ');
+		widgetContainer->mController[n]->mProperty[key] = _value;*/
 	}
 
 } // namespace tools

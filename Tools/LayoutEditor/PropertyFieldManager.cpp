@@ -17,7 +17,7 @@
 #include "PropertyFieldNumeric.h"
 #include "PropertyFieldAlpha.h"
 #include "PropertyFieldPosition.h"
-#include "PropertyFieldController.h"
+//#include "PropertyFieldController.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -45,10 +45,10 @@ namespace tools
 	{
 		IPropertyField* result = nullptr;
 
-		if (MyGUI::utility::startWith(_type, "Controller"))
+		/*if (MyGUI::utility::startWith(_type, "Controller"))
 			result = new PropertyFieldController(_window);
-		else if ("Name" == _type)
-			result = new PropertyFieldName(_window);
+		else */if ("Name" == _type)
+			result = new PropertyFieldEditBox(_window);
 		else if ("Type" == _type)
 			result = new PropertyFieldType(_window);
 		else if ("Skin" == _type)
@@ -58,11 +58,11 @@ namespace tools
 		else if ("Position" == _type)
 			result = new PropertyFieldPosition(_window);
 		else if ("Layer" == _type)
-			result = new PropertyFieldLayer(_window);
+			result = new PropertyFieldComboBox(_window);
 		else if ("String" == _type)
 			result = new PropertyFieldEditBox(_window);
 		else if ("Align" == _type)
-			result = new PropertyFieldAlign(_window);
+			result = new PropertyFieldComboBox(_window);
 		else if ("FileName" == _type)
 			result = new PropertyFieldFileName(_window);
 		else if ("1 int" == _type)

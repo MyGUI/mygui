@@ -6,13 +6,11 @@
 
 #include "Precompiled.h"
 #include "PropertyFieldAlign.h"
-#include "EditorWidgets.h"
-#include "UndoManager.h"
 
 namespace tools
 {
 
-	PropertyFieldAlign::PropertyFieldAlign(MyGUI::Widget* _parent) :
+	/*PropertyFieldAlign::PropertyFieldAlign(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
 	}
@@ -23,12 +21,7 @@ namespace tools
 
 	void PropertyFieldAlign::onAction(const std::string& _value)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-		widgetContainer->align = _value;
-		widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
-	}
+		eventAction(mType, _value);
+	}*/
 
 } // namespace tools
