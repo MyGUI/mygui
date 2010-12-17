@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Georgiy Evmenov
-	@date		09/2008
+	@author		Albert Semenov
+	@date		12/2010
 */
 
 #include "Precompiled.h"
@@ -23,167 +23,94 @@ namespace tools
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 	const int BAR_HEIGHT = 30;
 
-	PropertyField::PropertyField() :
+	PropertyFieldComboBox::PropertyFieldComboBox() :
 		mText(nullptr),
 		mField(nullptr)
 	{
 	}
 
-	PropertyField::~PropertyField()
+	PropertyFieldComboBox::~PropertyFieldComboBox()
 	{
 		destroy();
 	}
 
-	void PropertyField::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldComboBox::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
 		mType = _type;
 
-		MyGUI::TextBox* text = nullptr;
-		MyGUI::Widget* editOrCombo = nullptr;
+		mText = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
+		mText->setTextAlign(MyGUI::Align::Right);
 
-		enum PropertyType
+		mField = _window->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
+		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
+
+		mField->setComboModeDrop(true);
+
+		mField->setNeedToolTip(true);
+		mField->eventToolTip += newDelegate (this, &PropertyFieldComboBox::notifyToolTip);
+
+		std::vector<std::string> values;
+		if (_type == "Skin")
 		{
-			PropertyType_Edit,
-			PropertyType_ComboBox,
-			PropertyType_EditAcceptOnly,
-			PropertyType_Count
-		};
+			values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
-		PropertyType widget_for_type = PropertyType_Count;
+			// добавляем скины и шаблоны
+			MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+			while (resource.next())
+			{
+				MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
+				if (resourceSkin != nullptr)
+				{
+					if (!MyGUI::utility::startWith(resourceSkin->getResourceName(), "LE_"))
+						values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
+				}
 
-		std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
+				MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
+				if (resourceLayout != nullptr)
+				{
+					if (!MyGUI::utility::endWith(resourceLayout->getResourceName(), ".layout"))
+					{
+						if (!MyGUI::utility::startWith(resourceLayout->getResourceName(), "LE_"))
+							values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
+					}
+				}
+			}
+		}
+		else if (_type == "Type")
+		{
+			VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
+			for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
+			{
+				values.push_back((*iter)->name);
+			}
+		}
+		else if (_type == "Font")
+		{
+			values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
+			values.push_back("Default");
 
-		if ("Name" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("Type" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("Skin" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("Position" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("Layer" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("String" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("StringAccept" == _type)
-			widget_for_type = PropertyType_EditAcceptOnly;
-		else if ("Align" == _type)
-			widget_for_type = PropertyType_ComboBox;
-		else if ("FileName" == _type)
-			widget_for_type = PropertyType_Edit;
-		// не совсем правильно FIXME
-		else if ("1 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("2 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("4 int" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("alpha" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("1 float" == _type)
-			widget_for_type = PropertyType_Edit;
-		else if ("2 float" == _type)
-			widget_for_type = PropertyType_Edit;
-		// надо сделать проще FIXME
-		else if ("Colour" == _type)
-			widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
+			MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+			while (resource.next())
+			{
+				MyGUI::IFont* resourceFont = resource.current().second->castType<MyGUI::IFont>(false);
+				if (resourceFont != nullptr)
+					values.push_back(resourceFont->getResourceName());
+			}
+		}
 		else
-			widget_for_type = PropertyType_ComboBox;
-
-		text = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
-		text->setTextAlign(MyGUI::Align::Right);
-
-		if (widget_for_type == PropertyType_Edit)
 		{
-			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &PropertyField::notifyTryApplyProperties);
-			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties);
-		}
-		else if (widget_for_type == PropertyType_ComboBox)
-		{
-			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties2);
-
-			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
-
-			editOrCombo->setNeedToolTip(true);
-			editOrCombo->eventToolTip += newDelegate (this, &PropertyField::notifyToolTip);
-		}
-		else if (widget_for_type == PropertyType_EditAcceptOnly)
-		{
-			editOrCombo = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
-			editOrCombo->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertyField::notifyForceApplyProperties);
+			values = WidgetTypes::getInstance().findPossibleValues(_type);
 		}
 
-		mText = text;
-		mField = editOrCombo;
+		for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
+			mField->addItem(*iter);
+		mField->beginToItemFirst();
 
-		// fill possible values
-		if (widget_for_type == PropertyType_ComboBox)
-		{
-			std::vector<std::string> values;
-			if (_type == "Skin")
-			{
-				values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
-
-				// добавляем скины и шаблоны
-				MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-				while (resource.next())
-				{
-					MyGUI::ResourceSkin* resourceSkin = resource.current().second->castType<MyGUI::ResourceSkin>(false);
-					if (resourceSkin != nullptr)
-					{
-						if (!MyGUI::utility::startWith(resourceSkin->getResourceName(), "LE_"))
-							values.push_back(replaceTags("ColourDefault") + resourceSkin->getResourceName());
-					}
-
-					MyGUI::ResourceLayout* resourceLayout = resource.current().second->castType<MyGUI::ResourceLayout>(false);
-					if (resourceLayout != nullptr)
-					{
-						if (!MyGUI::utility::endWith(resourceLayout->getResourceName(), ".layout"))
-						{
-							if (!MyGUI::utility::startWith(resourceLayout->getResourceName(), "LE_"))
-								values.push_back(replaceTags("ColourDefault") + resourceLayout->getResourceName());
-						}
-					}
-				}
-			}
-			else if (_type == "Type")
-			{
-				VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
-				for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
-				{
-					values.push_back((*iter)->name);
-				}
-			}
-			else if (_type == "Font")
-			{
-				values.push_back(replaceTags("ColourDefault") + DEFAULT_STRING);
-				values.push_back("Default");
-
-				MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
-				while (resource.next())
-				{
-					MyGUI::IFont* resourceFont = resource.current().second->castType<MyGUI::IFont>(false);
-					if (resourceFont != nullptr)
-						values.push_back(resourceFont->getResourceName());
-				}
-			}
-			else
-			{
-				values = WidgetTypes::getInstance().findPossibleValues(_type);
-			}
-
-			for (std::vector<std::string>::iterator iter = values.begin(); iter != values.end(); ++iter)
-				editOrCombo->castType<MyGUI::ComboBox>()->addItem(*iter);
-			editOrCombo->castType<MyGUI::ComboBox>()->beginToItemFirst();
-		}
-
-		editOrCombo->setUserString("type", _type);
+		mField->setUserString("type", _type);
 	}
 
-	void PropertyField::destroy()
+	void PropertyFieldComboBox::destroy()
 	{
 		MyGUI::WidgetManager::getInstance().destroyWidget(mText);
 		mText = nullptr;
@@ -191,7 +118,7 @@ namespace tools
 		mField = nullptr;
 	}
 
-	void PropertyField::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
+	void PropertyFieldComboBox::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -209,13 +136,7 @@ namespace tools
 		if (value == DEFAULT_STRING && senderEdit->getCaption() == DEFAULT_VALUE)
 			value = "";
 
-		if (action == "Name")
-		{
-			widgetContainer->name = value;
-			ew->invalidateWidgets();
-			return;
-		}
-		else if (action == "Type")
+		if (action == "Type")
 		{
 			WidgetSelectorManager::getInstance().saveSelectedWidget();
 
@@ -251,29 +172,6 @@ namespace tools
 			}
 			return;
 		}
-		else if (action == "Position")
-		{
-			if (!goodData) return;
-			if (widgetContainer->relative_mode)
-			{
-				std::istringstream str(value);
-				MyGUI::FloatCoord float_coord;
-				str >> float_coord;
-				float_coord.left = float_coord.left / 100;
-				float_coord.top = float_coord.top / 100;
-				float_coord.width = float_coord.width / 100;
-				float_coord.height = float_coord.height / 100;
-				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
-				mCurrentWidget->setCoord(coord);
-
-				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-				return;
-			}
-			widgetContainer->widget->setProperty("Widget_Coord", value);
-
-			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
-			return;
-		}
 		else if (action == "Align")
 		{
 			widgetContainer->align = value;
@@ -284,17 +182,6 @@ namespace tools
 		{
 			widgetContainer->setLayerName(value);
 			return;
-		}
-		else
-		{
-			std::string tmp = action;
-			if (splitString(tmp, ' ') == "Controller")
-			{
-				int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
-				std::string key = splitString(tmp, ' ');
-				widgetContainer->mController[n]->mProperty[key] = value;
-				return;
-			}
 		}
 
 		bool success = false;
@@ -331,22 +218,12 @@ namespace tools
 			widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
 	}
 
-	void PropertyField::notifyTryApplyProperties(MyGUI::EditBox* _sender)
-	{
-		notifyApplyProperties(_sender, false);
-	}
-
-	void PropertyField::notifyForceApplyProperties(MyGUI::EditBox* _sender)
+	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		notifyApplyProperties(_sender, true);
 	}
 
-	void PropertyField::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
-	{
-		notifyApplyProperties(_sender, true);
-	}
-
-	void PropertyField::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
+	void PropertyFieldComboBox::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
 		if (_sender->getUserString("type") == "Skin")
 		{
@@ -367,7 +244,7 @@ namespace tools
 		}
 	}
 
-	SkinInfo PropertyField::getCellData(MyGUI::Widget* _sender, size_t _index)
+	SkinInfo PropertyFieldComboBox::getCellData(MyGUI::Widget* _sender, size_t _index)
 	{
 		MyGUI::ComboBox* box = _sender->castType<MyGUI::ComboBox>();
 		if (_index != MyGUI::ITEM_NONE)
@@ -382,68 +259,20 @@ namespace tools
 		}
 	}
 
-	bool PropertyField::checkType(MyGUI::EditBox* _edit, const std::string& _type)
+	bool PropertyFieldComboBox::checkType(MyGUI::EditBox* _edit, const std::string& _type)
 	{
 		bool success = true;
-
-		if ("Name" == _type)
-		{
-			// теперь имя может быть не уникальным
-			const MyGUI::UString& text = _edit->getOnlyText();
-			size_t index = _edit->getTextCursor();
-			_edit->setCaption(text);
-			success = true;
-			_edit->setTextCursor(index);
-		}
-		else if ("Position" == _type)
-		{
-			if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
-				success = utility::checkParse<float>(_edit, 4);
-			else
-				success = utility::checkParse<int>(_edit, 4);
-		}
-		else if ("1 int" == _type)
-			success = utility::checkParse<int>(_edit, 1);
-		else if ("2 int" == _type)
-			success = utility::checkParse<int>(_edit, 2);
-		else if ("4 int" == _type)
-			success = utility::checkParse<int>(_edit, 4);
-		else if ("alpha" == _type)
-			success = utility::checkParseInterval<float>(_edit, 1, 0., 1.);
-		else if ("1 float" == _type)
-			success = utility::checkParse<float>(_edit, 1);
-		else if ("2 float" == _type)
-			success = utility::checkParse<float>(_edit, 2);
-		else if ("FileName" == _type)
-			success = utility::checkParseFileName(_edit);
 		return success;
 	}
 
-	bool PropertyField::isSkinExist(const std::string& _skinName)
+	bool PropertyFieldComboBox::isSkinExist(const std::string& _skinName)
 	{
 		return _skinName == "Default" ||
 			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
-	std::string PropertyField::splitString(std::string& str, char separator)
-	{
-		size_t spaceIdx = str.find(separator);
-		if (spaceIdx == std::string::npos)
-		{
-			std::string tmp = str;
-			str.clear();
-			return tmp;
-		}
-		else
-		{
-			std::string tmp = str.substr(0, spaceIdx);
-			str.erase(0, spaceIdx + 1);
-			return tmp;
-		}
-	}
-
-	bool PropertyField::checkTemplate(const std::string& _skinName)
+	bool PropertyFieldComboBox::checkTemplate(const std::string& _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)
@@ -459,12 +288,12 @@ namespace tools
 		return false;
 	}
 
-	MyGUI::IntSize PropertyField::getContentSize()
+	MyGUI::IntSize PropertyFieldComboBox::getContentSize()
 	{
 		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
 	}
 
-	void PropertyField::setCoord(const MyGUI::IntCoord& _coord)
+	void PropertyFieldComboBox::setCoord(const MyGUI::IntCoord& _coord)
 	{
 		int w1 = 120;
 		int x2 = 125;
@@ -473,7 +302,7 @@ namespace tools
 		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));
 	}
 
-	void PropertyField::setValue(const std::string& _value)
+	void PropertyFieldComboBox::setValue(const std::string& _value)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -488,7 +317,7 @@ namespace tools
 		}
 	}
 
-	void PropertyField::setName(const std::string& _value)
+	void PropertyFieldComboBox::setName(const std::string& _value)
 	{
 		mField->setUserString("action", _value);
 		mText->setCaption(_value);
