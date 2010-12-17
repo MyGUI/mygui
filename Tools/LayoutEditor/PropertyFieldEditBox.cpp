@@ -54,7 +54,7 @@ namespace tools
 
 	void PropertyFieldEditBox::onAction(const std::string& _value)
 	{
-		eventAction(mType, _value);
+		eventAction(mName, _value);
 	}
 
 	void PropertyFieldEditBox::notifyTryApplyProperties(MyGUI::EditBox* _sender)

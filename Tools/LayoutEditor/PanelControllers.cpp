@@ -186,21 +186,13 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelControllers::notifyAction(const std::string& _type, const std::string& _value)
+	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value)
 	{
-		/*const std::string DEFAULT_STRING = "[DEFAULT]";
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
-		EditorWidgets* ew = &EditorWidgets::getInstance();
-		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-
-		bool goodData = onCheckValue();
-
-		std::string tmp = mName;
-
-		int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
-		std::string key = splitString(tmp, ' ');
-		widgetContainer->mController[n]->mProperty[key] = _value;*/
+		if (mIndexSelected != MyGUI::ITEM_NONE)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+		}
 	}
 
 } // namespace tools

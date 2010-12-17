@@ -61,7 +61,7 @@ namespace tools
 
 	void PropertyFieldComboBox::onAction(const std::string& _value)
 	{
-		eventAction(mType, _value);
+		eventAction(mName, _value);
 	}
 
 	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
