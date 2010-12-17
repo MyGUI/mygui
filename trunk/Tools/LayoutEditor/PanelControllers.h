@@ -52,7 +52,6 @@ namespace tools
 		typedef std::map<std::string, MyGUI::MapString> MapMapString;
 		MapMapString mControllersProperties;
 
-		int mPropertyItemHeight;
 		typedef std::vector<IPropertyField*> VectorPropertyField;
 		VectorPropertyField mFields;
 

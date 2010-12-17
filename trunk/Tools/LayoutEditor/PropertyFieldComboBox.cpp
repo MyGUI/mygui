@@ -9,7 +9,6 @@
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
-#include "SettingsManager.h"
 
 namespace tools
 {
@@ -80,7 +79,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldComboBox::getContentSize()
 	{
-		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
+		return MyGUI::IntSize(0, mMainWidget->getHeight());
 	}
 
 	void PropertyFieldComboBox::setCoord(const MyGUI::IntCoord& _coord)

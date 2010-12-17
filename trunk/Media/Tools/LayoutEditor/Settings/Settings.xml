@@ -9,7 +9,6 @@
 		<Property key="ShowName" value="1"/>
 		<Property key="ShowType" value="1"/>
 		<Property key="ShowSkin" value="1"/>
-		<Property key="PropertyItemHeight" value="22"/>
 		<Property key="MaxRecentFolders" value="10"/>
 		<Property key="MaxRecentFiles" value="10"/>
 		<Property key="MaxRecentProjects" value="10"/>
