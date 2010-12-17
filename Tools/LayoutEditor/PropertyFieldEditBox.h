@@ -7,18 +7,20 @@
 #define __PROPERTY_FIELD_EDIT_BOX_H__
 
 #include "EditorToolTip.h"
+#include "BaseLayout/BaseLayout.h"
 #include "IPropertyField.h"
 
 namespace tools
 {
 	class PropertyFieldEditBox :
+		public wraps::BaseLayout,
 		public IPropertyField
 	{
 	public:
-		PropertyFieldEditBox();
+		PropertyFieldEditBox(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldEditBox();
 
-		virtual void initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget);
+		virtual void initialise(/*MyGUI::Widget* _window, */const std::string& _type, MyGUI::Widget* _currentWidget);
 
 		virtual void setValue(const std::string& _value);
 		virtual void setName(const std::string& _value);
@@ -27,7 +29,7 @@ namespace tools
 		virtual void setCoord(const MyGUI::IntCoord& _coord);
 
 	private:
-		void destroy();
+		//void destroy();
 
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
@@ -41,6 +43,7 @@ namespace tools
 		MyGUI::EditBox* mField;
 		MyGUI::Widget* mCurrentWidget;
 		std::string mType;
+		std::string mName;
 	};
 
 } // namespace tools

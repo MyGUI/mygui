@@ -32,7 +32,7 @@ namespace tools
 	{
 	}
 
-	void PropertyFieldComboBox::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldComboBox::initialise(/*MyGUI::Widget* _window, */const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
 		mType = _type;

@@ -7,7 +7,6 @@
 #include "PropertyFieldManager.h"
 #include "PropertyFieldComboBox.h"
 #include "PropertyFieldEditBox.h"
-#include "PropertyFieldEditBoxAccept.h"
 #include "PropertyFieldSkin.h"
 #include "PropertyFieldType.h"
 #include "PropertyFieldFont.h"
@@ -41,7 +40,7 @@ namespace tools
 		IPropertyField* result = nullptr;
 
 		if ("Name" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("Type" == _type)
 			result = new PropertyFieldType(_window);
 		else if ("Skin" == _type)
@@ -49,35 +48,33 @@ namespace tools
 		else if ("Font" == _type)
 			result = new PropertyFieldFont(_window);
 		else if ("Position" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("Layer" == _type)
 			result = new PropertyFieldLayer(_window);
 		else if ("String" == _type)
-			result = new PropertyFieldEditBox();
-		else if ("StringAccept" == _type)
-			result = new PropertyFieldEditBoxAccept();
+			result = new PropertyFieldEditBox(_window);
 		else if ("Align" == _type)
 			result = new PropertyFieldAlign(_window);
 		else if ("FileName" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("1 int" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("2 int" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("4 int" == _type)
-			result = new PropertyFieldEditBox();
-		else if ("alpha" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("1 float" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else if ("2 float" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
+		else if ("Alpha" == _type)
+			result = new PropertyFieldEditBox(_window);
 		else if ("Colour" == _type)
-			result = new PropertyFieldEditBox();
+			result = new PropertyFieldEditBox(_window);
 		else
 			result = new PropertyFieldComboBox(_window);
 
-		result->initialise(_window,  _type, _currentWidget);
+		result->initialise(_type, _currentWidget);
 		return result;
 	}
 
