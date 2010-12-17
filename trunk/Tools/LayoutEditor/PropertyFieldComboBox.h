@@ -7,15 +7,17 @@
 #define __PROPERTY_FIELD_COMBO_BOX_H__
 
 #include "EditorToolTip.h"
+#include "BaseLayout/BaseLayout.h"
 #include "IPropertyField.h"
 
 namespace tools
 {
 	class PropertyFieldComboBox :
+		public wraps::BaseLayout,
 		public IPropertyField
 	{
 	public:
-		PropertyFieldComboBox();
+		PropertyFieldComboBox(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldComboBox();
 
 		virtual void initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget);
@@ -32,8 +34,6 @@ namespace tools
 		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
 
 	private:
-		void destroy();
-
 		void notifyApplyProperties(MyGUI::Widget* _sender);
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
 
@@ -44,6 +44,7 @@ namespace tools
 		MyGUI::ComboBox* mField;
 		MyGUI::Widget* mCurrentWidget;
 		std::string mType;
+		std::string mName;
 	};
 
 } // namespace tools

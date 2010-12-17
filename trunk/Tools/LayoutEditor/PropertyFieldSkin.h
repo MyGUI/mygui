@@ -15,7 +15,7 @@ namespace tools
 		public PropertyFieldComboBox
 	{
 	public:
-		PropertyFieldSkin();
+		PropertyFieldSkin(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldSkin();
 
 	protected:

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="30 45 200 26" align="HStretch Top" name="_Main">
+        <Widget type="TextBox" skin="TextBox" position="0 0 122 26" align="Left VStretch" name="Text">
+            <Property key="TextAlign" value="Right VCenter"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="126 0 74 26" align="Stretch" name="Field">
+            <Property key="ModeDrop" value="true"/>
+			<Property key="NeedToolTip" value="true"/>
+		</Widget>
+    </Widget>
+</MyGUI>

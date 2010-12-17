@@ -6,46 +6,36 @@
 
 #include "Precompiled.h"
 #include "PropertyFieldComboBox.h"
-#include "Common.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "Parse.h"
-#include "GroupMessage.h"
-#include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
-	PropertyFieldComboBox::PropertyFieldComboBox() :
+	PropertyFieldComboBox::PropertyFieldComboBox(MyGUI::Widget* _parent) :
+		BaseLayout("PropertyFieldComboBox.layout", _parent),
 		mText(nullptr),
 		mField(nullptr)
 	{
+		assignWidget(mText, "Text");
+		assignWidget(mField, "Field");
+
+		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
+		mField->eventToolTip += newDelegate (this, &PropertyFieldComboBox::notifyToolTip);
 	}
 
 	PropertyFieldComboBox::~PropertyFieldComboBox()
 	{
-		destroy();
 	}
 
 	void PropertyFieldComboBox::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
 		mType = _type;
-
-		mText = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
-		mText->setTextAlign(MyGUI::Align::Right);
-
-		mField = _window->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
-		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
-
-		mField->setComboModeDrop(true);
-
-		mField->setNeedToolTip(true);
-		mField->eventToolTip += newDelegate (this, &PropertyFieldComboBox::notifyToolTip);
 
 		onFillValues();
 	}
@@ -57,14 +47,6 @@ namespace tools
 		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
 		mField->beginToItemFirst();
-	}
-
-	void PropertyFieldComboBox::destroy()
-	{
-		MyGUI::WidgetManager::getInstance().destroyWidget(mText);
-		mText = nullptr;
-		MyGUI::WidgetManager::getInstance().destroyWidget(mField);
-		mField = nullptr;
 	}
 
 	void PropertyFieldComboBox::notifyApplyProperties(MyGUI::Widget* _sender)
@@ -82,15 +64,13 @@ namespace tools
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		std::string action = mField->getUserString("action");
-
-		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, action, _value);
+		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, mName, _value);
 
 		bool found = false;
 		// если такое св-во было, то заменим (или удалим если стерли) значение
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
-			if (iterProperty->first == action)
+			if (iterProperty->first == mName)
 			{
 				found = true;
 				if (_value.empty())
@@ -102,7 +82,7 @@ namespace tools
 
 		// если такого свойства не было раньше, то сохраняем
 		if (!_value.empty() && !found)
-			widgetContainer->mProperty.push_back(MyGUI::PairString(action, _value));
+			widgetContainer->mProperty.push_back(MyGUI::PairString(mName, _value));
 
 		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
@@ -128,11 +108,7 @@ namespace tools
 
 	void PropertyFieldComboBox::setCoord(const MyGUI::IntCoord& _coord)
 	{
-		int w1 = 120;
-		int x2 = 125;
-
-		mText->setCoord(MyGUI::IntCoord(0, _coord.top, w1, _coord.height));
-		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));
+		mMainWidget->setCoord(_coord);
 	}
 
 	void PropertyFieldComboBox::setValue(const std::string& _value)
@@ -151,7 +127,7 @@ namespace tools
 
 	void PropertyFieldComboBox::setName(const std::string& _value)
 	{
-		mField->setUserString("action", _value);
+		mName = _value;
 		mText->setCaption(_value);
 	}
 

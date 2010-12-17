@@ -15,7 +15,7 @@ namespace tools
 		public PropertyFieldComboBox
 	{
 	public:
-		PropertyFieldFont();
+		PropertyFieldFont(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldFont();
 
 	protected:

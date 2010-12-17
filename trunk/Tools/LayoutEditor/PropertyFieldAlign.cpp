@@ -12,7 +12,8 @@
 namespace tools
 {
 
-	PropertyFieldAlign::PropertyFieldAlign()
+	PropertyFieldAlign::PropertyFieldAlign(MyGUI::Widget* _parent) :
+		PropertyFieldComboBox(_parent)
 	{
 	}
 
