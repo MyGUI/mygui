@@ -20,7 +20,7 @@ namespace tools
 		PropertyFieldComboBox(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldComboBox();
 
-		virtual void initialise(/*MyGUI::Widget* _window, */const std::string& _type, MyGUI::Widget* _currentWidget);
+		virtual void initialise(const std::string& _type, MyGUI::Widget* _currentWidget);
 
 		virtual void setValue(const std::string& _value);
 		virtual void setName(const std::string& _value);
