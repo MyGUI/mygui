@@ -8,6 +8,11 @@
 #include "PropertyFieldComboBox.h"
 #include "PropertyFieldEditBox.h"
 #include "PropertyFieldEditBoxAccept.h"
+#include "PropertyFieldSkin.h"
+#include "PropertyFieldType.h"
+#include "PropertyFieldFont.h"
+#include "PropertyFieldAlign.h"
+#include "PropertyFieldLayer.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
@@ -38,19 +43,21 @@ namespace tools
 		if ("Name" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("Type" == _type)
-			result = new PropertyFieldComboBox();
+			result = new PropertyFieldType();
 		else if ("Skin" == _type)
-			result = new PropertyFieldComboBox();
+			result = new PropertyFieldSkin();
+		else if ("Font" == _type)
+			result = new PropertyFieldFont();
 		else if ("Position" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("Layer" == _type)
-			result = new PropertyFieldComboBox();
+			result = new PropertyFieldLayer();
 		else if ("String" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("StringAccept" == _type)
 			result = new PropertyFieldEditBoxAccept();
 		else if ("Align" == _type)
-			result = new PropertyFieldComboBox();
+			result = new PropertyFieldAlign();
 		else if ("FileName" == _type)
 			result = new PropertyFieldEditBox();
 		else if ("1 int" == _type)

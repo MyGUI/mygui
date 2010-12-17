@@ -71,6 +71,11 @@ set (HEADER_FILES
   PropertyFieldComboBox.h
   PropertyFieldEditBox.h
   PropertyFieldEditBoxAccept.h
+  PropertyFieldSkin.h
+  PropertyFieldType.h
+  PropertyFieldFont.h
+  PropertyFieldAlign.h
+  PropertyFieldLayer.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -135,6 +140,11 @@ set (SOURCE_FILES
   PropertyFieldComboBox.cpp
   PropertyFieldEditBox.cpp
   PropertyFieldEditBoxAccept.cpp
+  PropertyFieldSkin.cpp
+  PropertyFieldType.cpp
+  PropertyFieldFont.cpp
+  PropertyFieldAlign.cpp
+  PropertyFieldLayer.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
