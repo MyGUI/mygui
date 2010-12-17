@@ -8,7 +8,6 @@
 #include "PropertyFieldEditBox.h"
 #include "Localise.h"
 #include "UndoManager.h"
-#include "SettingsManager.h"
 
 namespace tools
 {
@@ -75,7 +74,7 @@ namespace tools
 
 	MyGUI::IntSize PropertyFieldEditBox::getContentSize()
 	{
-		return MyGUI::IntSize(0, SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("PropertyItemHeight"));
+		return MyGUI::IntSize(0, mMainWidget->getHeight());
 	}
 
 	void PropertyFieldEditBox::setCoord(const MyGUI::IntCoord& _coord)
