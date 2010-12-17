@@ -70,7 +70,6 @@ set (HEADER_FILES
   IPropertyField.h
   PropertyFieldComboBox.h
   PropertyFieldEditBox.h
-  PropertyFieldEditBoxAccept.h
   PropertyFieldSkin.h
   PropertyFieldType.h
   PropertyFieldFont.h
@@ -139,7 +138,6 @@ set (SOURCE_FILES
   PropertyFieldManager.cpp
   PropertyFieldComboBox.cpp
   PropertyFieldEditBox.cpp
-  PropertyFieldEditBoxAccept.cpp
   PropertyFieldSkin.cpp
   PropertyFieldType.cpp
   PropertyFieldFont.cpp

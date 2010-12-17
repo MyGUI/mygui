@@ -317,7 +317,7 @@
 		<Property key="Child" value="true"/>
 
 		<Parameter key="Visible" value="Bool"/>
-		<Parameter key="Alpha" value="alpha"/>
+		<Parameter key="Alpha" value="Alpha"/>
 		<Parameter key="InheritsAlpha" value="Bool"/>
 		<Parameter key="InheritsPick" value="Bool"/>
 		<Parameter key="MaskPick" value="FileName"/>

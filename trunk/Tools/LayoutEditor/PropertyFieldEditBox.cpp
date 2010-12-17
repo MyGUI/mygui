@@ -21,41 +21,40 @@ namespace tools
 	#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 	const std::string DEFAULT_STRING = "[DEFAULT]";
-	const int BAR_HEIGHT = 30;
 
-	PropertyFieldEditBox::PropertyFieldEditBox() :
+	PropertyFieldEditBox::PropertyFieldEditBox(MyGUI::Widget* _parent) :
+		BaseLayout("PropertyFieldEditBox.layout", _parent),
 		mText(nullptr),
 		mField(nullptr)
 	{
+		assignWidget(mText, "Text");
+		assignWidget(mField, "Field");
+		//mText = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//mText->setTextAlign(MyGUI::Align::Right);
+
+		//mField = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
+		mField->eventEditTextChange += newDelegate (this, &PropertyFieldEditBox::notifyTryApplyProperties);
+		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldEditBox::notifyForceApplyProperties);
 	}
 
 	PropertyFieldEditBox::~PropertyFieldEditBox()
 	{
-		destroy();
+		//destroy();
 	}
 
-	void PropertyFieldEditBox::initialise(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldEditBox::initialise(/*MyGUI::Widget* _window, */const std::string& _type, MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
 		mType = _type;
-
-		mText = _window->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default);
-		mText->setTextAlign(MyGUI::Align::Right);
-
-		mField = _window->createWidget<MyGUI::EditBox>("Edit", MyGUI::IntCoord(), MyGUI::Align::Top | MyGUI::Align::HStretch);
-		mField->castType<MyGUI::EditBox>()->eventEditTextChange += newDelegate (this, &PropertyFieldEditBox::notifyTryApplyProperties);
-		mField->castType<MyGUI::EditBox>()->eventEditSelectAccept += newDelegate (this, &PropertyFieldEditBox::notifyForceApplyProperties);
-
-		mField->setUserString("type", mType);
 	}
 
-	void PropertyFieldEditBox::destroy()
+	/*void PropertyFieldEditBox::destroy()
 	{
 		MyGUI::WidgetManager::getInstance().destroyWidget(mText);
 		mText = nullptr;
 		MyGUI::WidgetManager::getInstance().destroyWidget(mField);
 		mField = nullptr;
-	}
+	}*/
 
 	void PropertyFieldEditBox::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
@@ -63,27 +62,27 @@ namespace tools
 
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-		MyGUI::EditBox* senderEdit = _sender->castType<MyGUI::EditBox>();
-		std::string action = senderEdit->getUserString("action");
-		std::string value = senderEdit->getOnlyText();
-		std::string type = senderEdit->getUserString("type");
+
+		std::string value = mField->getOnlyText();
 
 		ON_EXIT(UndoManager::getInstance().addValue(PR_PROPERTIES););
 
-		bool goodData = checkType(senderEdit, type);
+		bool goodData = checkType(mField, mType);
 
-		if (value == DEFAULT_STRING && senderEdit->getCaption() == DEFAULT_VALUE)
+		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
 			value = "";
 
-		if (action == "Name")
+		if (mName == "Name")
 		{
 			widgetContainer->name = value;
 			ew->invalidateWidgets();
 			return;
 		}
-		else if (action == "Position")
+		else if (mName == "Position")
 		{
-			if (!goodData) return;
+			if (!goodData)
+				return;
+
 			if (widgetContainer->relative_mode)
 			{
 				std::istringstream str(value);
@@ -106,7 +105,7 @@ namespace tools
 		}
 		else
 		{
-			std::string tmp = action;
+			std::string tmp = mName;
 			if (splitString(tmp, ' ') == "Controller")
 			{
 				int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
@@ -118,7 +117,7 @@ namespace tools
 
 		bool success = false;
 		if (goodData || _force)
-			success = ew->tryToApplyProperty(widgetContainer->widget, action, value);
+			success = ew->tryToApplyProperty(widgetContainer->widget, mName, value);
 		else
 			return;
 
@@ -128,14 +127,14 @@ namespace tools
 		}
 		else
 		{
-			senderEdit->setCaption(DEFAULT_VALUE);
+			mField->setCaption(DEFAULT_VALUE);
 			return;
 		}
 
 		// если такое св-во было, то заменим (или удалим если стерли) значение
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 		{
-			if (iterProperty->first == action)
+			if (iterProperty->first == mName)
 			{
 				if (value.empty())
 					widgetContainer->mProperty.erase(iterProperty);
@@ -147,7 +146,7 @@ namespace tools
 
 		// если такого свойства не было раньше, то сохраняем
 		if (!value.empty())
-			widgetContainer->mProperty.push_back(MyGUI::PairString(action, value));
+			widgetContainer->mProperty.push_back(MyGUI::PairString(mName, value));
 	}
 
 	void PropertyFieldEditBox::notifyTryApplyProperties(MyGUI::EditBox* _sender)
@@ -186,7 +185,7 @@ namespace tools
 			success = utility::checkParse<int>(_edit, 2);
 		else if ("4 int" == _type)
 			success = utility::checkParse<int>(_edit, 4);
-		else if ("alpha" == _type)
+		else if ("Alpha" == _type)
 			success = utility::checkParseInterval<float>(_edit, 1, 0., 1.);
 		else if ("1 float" == _type)
 			success = utility::checkParse<float>(_edit, 1);
@@ -221,11 +220,12 @@ namespace tools
 
 	void PropertyFieldEditBox::setCoord(const MyGUI::IntCoord& _coord)
 	{
-		int w1 = 120;
+		mMainWidget->setCoord(_coord);
+		/*int w1 = 120;
 		int x2 = 125;
 
 		mText->setCoord(MyGUI::IntCoord(0, _coord.top, w1, _coord.height));
-		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));
+		mField->setCoord(MyGUI::IntCoord(x2, _coord.top, _coord.width - x2, _coord.height));*/
 	}
 
 	void PropertyFieldEditBox::setValue(const std::string& _value)
@@ -234,18 +234,18 @@ namespace tools
 
 		if (_value.empty())
 		{
-			mField->castType<MyGUI::EditBox>()->setCaption(DEFAULT_VALUE);
+			mField->setCaption(DEFAULT_VALUE);
 		}
 		else
 		{
-			mField->castType<MyGUI::EditBox>()->setOnlyText(_value);
-			checkType(mField->castType<MyGUI::EditBox>(), mType);
+			mField->setOnlyText(_value);
+			checkType(mField, mType);
 		}
 	}
 
 	void PropertyFieldEditBox::setName(const std::string& _value)
 	{
-		mField->setUserString("action", _value);
+		mName = _value;
 		mText->setCaption(_value);
 	}
 
