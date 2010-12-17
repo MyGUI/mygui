@@ -15,7 +15,7 @@ namespace tools
 	public:
 		virtual ~IPropertyField() { }
 
-		virtual void initialise(/*MyGUI::Widget* _parent, */const std::string& _type, MyGUI::Widget* _targetWidget) = 0;
+		virtual void initialise(const std::string& _type, MyGUI::Widget* _targetWidget) = 0;
 
 		virtual void setValue(const std::string& _value) = 0;
 		virtual void setName(const std::string& _value) = 0;
