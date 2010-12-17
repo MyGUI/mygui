@@ -16,7 +16,8 @@
 namespace tools
 {
 
-	PropertyFieldType::PropertyFieldType()
+	PropertyFieldType::PropertyFieldType(MyGUI::Widget* _parent) :
+		PropertyFieldComboBox(_parent)
 	{
 	}
 

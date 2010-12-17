@@ -15,7 +15,8 @@
 
 namespace tools
 {
-	PropertyFieldFont::PropertyFieldFont()
+	PropertyFieldFont::PropertyFieldFont(MyGUI::Widget* _parent) :
+		PropertyFieldComboBox(_parent)
 	{
 	}
 

@@ -15,7 +15,7 @@ namespace tools
 		public PropertyFieldComboBox
 	{
 	public:
-		PropertyFieldAlign();
+		PropertyFieldAlign(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldAlign();
 
 	protected:

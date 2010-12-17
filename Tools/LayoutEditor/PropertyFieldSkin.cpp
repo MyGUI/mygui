@@ -16,7 +16,8 @@
 namespace tools
 {
 
-	PropertyFieldSkin::PropertyFieldSkin()
+	PropertyFieldSkin::PropertyFieldSkin(MyGUI::Widget* _parent) :
+		PropertyFieldComboBox(_parent)
 	{
 	}
 
