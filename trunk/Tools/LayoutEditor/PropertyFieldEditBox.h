@@ -33,8 +33,6 @@ namespace tools
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
 		void notifyForceApplyProperties(MyGUI::EditBox* _widget);
 
-		std::string splitString(std::string& str, char separator);
-
 	protected:
 		virtual bool onCheckValue();
 		virtual void onAction(const std::string& _value, bool _force);

@@ -77,6 +77,10 @@ set (HEADER_FILES
   PropertyFieldLayer.h
   PropertyFieldName.h
   PropertyFieldFileName.h
+  PropertyFieldNumeric.h
+  PropertyFieldAlpha.h
+  PropertyFieldPosition.h
+  PropertyFieldController.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -147,6 +151,10 @@ set (SOURCE_FILES
   PropertyFieldLayer.cpp
   PropertyFieldName.cpp
   PropertyFieldFileName.cpp
+  PropertyFieldNumeric.cpp
+  PropertyFieldAlpha.cpp
+  PropertyFieldPosition.cpp
+  PropertyFieldController.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
