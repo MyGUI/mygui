@@ -107,7 +107,7 @@ for dir_release in directories_release:
 	index = index+1
 	os.system("mkdir " + dir_release)
 	os.chdir(dir_release)
-	os.system("cmake ../ -DMYGUI_RENDERSYSTEM=" + str(index) + " -DMYGUI_BUILD_TESTS=True -DMYGUI_STANDALONE_BUILD=True")
+	os.system("cmake ../ -DMYGUI_RENDERSYSTEM=" + str(index) + " -DMYGUI_BUILD_TESTS=True -DMYGUI_STANDALONE_BUILD=True -DMYGUI_BUILD_DOCS=False")
 	os.chdir("../Scripts")
 	for root, dirs, files in os.walk(dir_release):
 		for name in files:
