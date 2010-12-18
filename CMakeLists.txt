@@ -135,12 +135,16 @@ option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run f
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (should be used only from Scripts/prepareRelease.py)" FALSE)
 MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 
-set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
-"Specify the Input Manager for samples. Possible values:
-  1 - OIS
-  2 - Win32
-  3 - Win32 (Mouse) + OIS (Keyboard)"
-)
+if (WIN32)
+	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
+	"Specify the Input Manager for samples. Possible values:
+	  1 - OIS
+	  2 - Win32
+	  3 - Win32 (Mouse) + OIS (Keyboard)"
+	)
+else()
+	set(MYGUI_SAMPLES_INPUT 1)
+endif()
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
