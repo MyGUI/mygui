@@ -23,7 +23,7 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="230 7 22 177" align="Left VStretch">
+        <Widget type="Widget" skin="PanelSmall" position="230 7 22 177" align="Left VStretch" name="AlphaSliderPlace">
             <Widget type="Widget" skin="BackgroundTile" position="2 2 16 171" align="Stretch">
                 <Widget type="ImageBox" skin="ImageBox" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
                     <Property key="ImageTexture" value="AlphaSlider.png"/>
