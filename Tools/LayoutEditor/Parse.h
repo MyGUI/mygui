@@ -58,7 +58,7 @@ namespace tools
 		bool checkParseFileName(MyGUI::EditBox* _edit);
 
 		void _setSuccessText(MyGUI::EditBox* _edit, const MyGUI::UString& _text, bool _success);
-		bool _checkStreamFail(std::istringstream& str, bool success);
+		bool _checkStreamFail(std::istringstream& str);
 
 	} // namespace utility
 } // namespace tools
