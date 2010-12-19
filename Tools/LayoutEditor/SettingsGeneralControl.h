@@ -32,7 +32,7 @@ namespace tools
 		int mGridStep;
 
 		MyGUI::EditBox* mGridEdit;
-		MyGUI::ComboBox* mLayoutVersion;
+		//MyGUI::ComboBox* mLayoutVersion;
 		MyGUI::Button* mLoadLastProject;
 	};
 

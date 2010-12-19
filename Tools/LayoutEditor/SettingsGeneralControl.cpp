@@ -14,11 +14,11 @@ namespace tools
 		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
 		mGridStep(0),
 		mGridEdit(nullptr),
-		mLayoutVersion(nullptr),
+		//mLayoutVersion(nullptr),
 		mLoadLastProject(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
-		assignWidget(mLayoutVersion, "LayoutVersion");
+		//assignWidget(mLayoutVersion, "LayoutVersion");
 		assignWidget(mLoadLastProject, "LoadLastProject");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
@@ -35,14 +35,14 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		mLayoutVersion->removeAllItems();
+		/*mLayoutVersion->removeAllItems();
 		MyGUI::VectorString versions = BackwardCompatibilityManager::getInstancePtr()->getVersions();
 		for (size_t index = 0; index < versions.size(); ++ index)
 		{
 			mLayoutVersion->addItem(versions[index]);
 			if (BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion() == versions[index])
 				mLayoutVersion->setIndexSelected(index);
-		}
+		}*/
 
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
@@ -51,12 +51,12 @@ namespace tools
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		if (mLayoutVersion->getIndexSelected() != MyGUI::ITEM_NONE)
+		/*if (mLayoutVersion->getIndexSelected() != MyGUI::ITEM_NONE)
 		{
 			std::string versionName = mLayoutVersion->getItemNameAt(mLayoutVersion->getIndexSelected());
 			if (versionName != BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion())
 				BackwardCompatibilityManager::getInstancePtr()->setCurrentVersion(versionName);
-		}
+		}*/
 
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LoadLastProject", mLoadLastProject->getStateSelected());
