@@ -9,6 +9,7 @@
 #include "EditorToolTip.h"
 #include "BaseLayout/BaseLayout.h"
 #include "IPropertyField.h"
+#include "ColourPanel.h"
 
 namespace tools
 {
@@ -32,20 +33,29 @@ namespace tools
 		void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
 		void notifyTryApplyProperties(MyGUI::EditBox* _sender);
 		void notifyForceApplyProperties(MyGUI::EditBox* _widget);
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyPreviewColour(const MyGUI::Colour& _value);
 
 		void updateColourPlace(bool _success);
+		MyGUI::Colour getColour();
+		void setColour(const MyGUI::Colour& _color, bool _final);
+		void showColourDialog();
 
 	protected:
 		virtual bool onCheckValue();
-		virtual void onAction(const std::string& _value);
+		virtual void onAction(const std::string& _value, bool _final);
 
-	protected:
+	private:
 		MyGUI::TextBox* mText;
 		MyGUI::EditBox* mField;
 		MyGUI::Widget* mColourPlace;
 		MyGUI::Widget* mCurrentWidget;
 		std::string mType;
 		std::string mName;
+		ColourPanel* mColourPanel;
+		MyGUI::Colour mPreviewColour;
+		bool mGoodData;
 	};
 
 } // namespace tools

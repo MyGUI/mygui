@@ -76,7 +76,7 @@
         <Widget type="Button" skin="Button" position="395 41 107 26" align="Right Top" name="button_Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="260 89 73 26" align="Right Top">
+        <Widget type="TextBox" skin="TextBox" position="260 89 73 26" align="Right Top" name="TextAlpha">
             <Property key="Caption" value="#{ColourAlpha}"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>

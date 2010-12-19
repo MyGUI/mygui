@@ -30,7 +30,7 @@ namespace tools
 
 	protected:
 		virtual void onFillValues();
-		virtual void onAction(const std::string& _value);
+		virtual void onAction(const std::string& _value, bool _final);
 		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
 
 	private:

@@ -47,13 +47,13 @@ namespace tools
 
 		if (goodData || _force)
 		{
-			onAction(value);
+			onAction(value, true);
 		}
 	}
 
-	void PropertyFieldEditBox::onAction(const std::string& _value)
+	void PropertyFieldEditBox::onAction(const std::string& _value, bool _final)
 	{
-		eventAction(mName, _value);
+		eventAction(mName, _value, _final);
 	}
 
 	void PropertyFieldEditBox::notifyTryApplyProperties(MyGUI::EditBox* _sender)

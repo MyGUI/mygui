@@ -29,7 +29,7 @@ namespace tools
 		size_t getDeep() const;
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value);
+		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
 
 		void AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
