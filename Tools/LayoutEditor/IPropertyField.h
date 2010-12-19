@@ -10,7 +10,7 @@
 
 namespace tools
 {
-	typedef MyGUI::delegates::CDelegate2<const std::string&, const std::string&> PropertyFieldActionDelegate;
+	typedef MyGUI::delegates::CDelegate3<const std::string&, const std::string&, bool> PropertyFieldActionDelegate;
 
 	class IPropertyField
 	{

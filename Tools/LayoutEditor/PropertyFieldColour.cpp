@@ -18,7 +18,9 @@ namespace tools
 		BaseLayout("PropertyFieldColour.layout", _parent),
 		mText(nullptr),
 		mField(nullptr),
-		mColourPlace(nullptr)
+		mColourPlace(nullptr),
+		mColourPanel(nullptr),
+		mGoodData(false)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
@@ -26,10 +28,18 @@ namespace tools
 
 		mField->eventEditTextChange += newDelegate (this, &PropertyFieldColour::notifyTryApplyProperties);
 		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldColour::notifyForceApplyProperties);
+
+		mColourPlace->eventMouseButtonPressed += MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
+
+		mColourPanel = new ColourPanel();
+		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &PropertyFieldColour::notifyEndDialog);
+		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &PropertyFieldColour::notifyPreviewColour);
 	}
 
 	PropertyFieldColour::~PropertyFieldColour()
 	{
+		delete mColourPanel;
+		mColourPanel = nullptr;
 	}
 
 	void PropertyFieldColour::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
@@ -40,23 +50,23 @@ namespace tools
 
 	void PropertyFieldColour::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
-		std::string value = mField->getOnlyText();
-		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
-
 		bool goodData = onCheckValue();
 
 		if (goodData || _force)
 		{
-			onAction(value);
+			std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
+			std::string value = mField->getOnlyText();
+			if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
+				value = "";
+
+			onAction(value, true);
 		}
 	}
 
-	void PropertyFieldColour::onAction(const std::string& _value)
+	void PropertyFieldColour::onAction(const std::string& _value, bool _final)
 	{
-		eventAction(mName, _value);
+		eventAction(mName, _value, _final);
 	}
 
 	void PropertyFieldColour::notifyTryApplyProperties(MyGUI::EditBox* _sender)
@@ -124,6 +134,66 @@ namespace tools
 	{
 		mName = _value;
 		mText->setCaption(_value);
+	}
+
+	void PropertyFieldColour::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		showColourDialog();
+	}
+
+	void PropertyFieldColour::notifyPreviewColour(const MyGUI::Colour& _value)
+	{
+		setColour(_value, false);
+	}
+
+	void PropertyFieldColour::notifyEndDialog(Dialog* _sender, bool _result)
+	{
+		mColourPanel->endModal();
+
+		if (_result)
+		{
+			setColour(mColourPanel->getColour(), true);
+		}
+		else
+		{
+			if (mGoodData)
+			{
+				setColour(mPreviewColour, true);
+			}
+			else
+			{
+				std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+				mField->setCaption(DEFAULT_VALUE);
+				updateColourPlace(false);
+				onAction("", true);
+			}
+		}
+	}
+
+	void PropertyFieldColour::showColourDialog()
+	{
+		mGoodData = onCheckValue();
+		if (mGoodData)
+			mPreviewColour = getColour();
+		else
+			mPreviewColour = MyGUI::Colour::White;
+
+		mColourPanel->setColour(mPreviewColour);
+		mColourPanel->setAlphaSupport(false);
+		mColourPanel->doModal();
+	}
+
+	void PropertyFieldColour::setColour(const MyGUI::Colour& _color, bool _final)
+	{
+		std::string value = MyGUI::utility::toString(_color.red, " ", _color.green, " ", _color.blue);
+		mField->setOnlyText(value);
+		onCheckValue();
+		onAction(value, _final);
+	}
+
+	MyGUI::Colour PropertyFieldColour::getColour()
+	{
+		return MyGUI::Colour::parse(mField->getOnlyText());
 	}
 
 } // namespace tools

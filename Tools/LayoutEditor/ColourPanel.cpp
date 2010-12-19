@@ -9,7 +9,8 @@
 namespace tools
 {
 	ColourPanel::ColourPanel() :
-		Dialog()
+		Dialog(),
+		mAlphaSupport(true)
 	{
 		initialiseByAttributes(this);
 		mTextureName = MyGUI::utility::toString((size_t)this, "_ColourGradient");
@@ -201,7 +202,7 @@ namespace tools
 		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
 		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
 		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
-		mInputAlpha->setCaption(MyGUI::utility::toString(colour.alpha));
+		mInputAlpha->setCaption(MyGUI::utility::toString(mAlphaSupport ? colour.alpha : 1));
 
 		updateFromColour(colour);
 	}
@@ -209,18 +210,20 @@ namespace tools
 	void ColourPanel::updateFromColour(const MyGUI::Colour& _colour)
 	{
 		mCurrentColour = _colour;
+		if (!mAlphaSupport)
+			mCurrentColour.alpha = 1;
 
 		std::vector<float> vec;
-		vec.push_back(_colour.red);
-		vec.push_back(_colour.green);
-		vec.push_back(_colour.blue);
+		vec.push_back(mCurrentColour.red);
+		vec.push_back(mCurrentColour.green);
+		vec.push_back(mCurrentColour.blue);
 		std::sort(vec.begin(), vec.end());
 
 		MyGUI::IntPoint point((int)((1 - vec[0] / vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
-		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;
-		int iMin = (_colour.red == vec[0]) ? 0 : (_colour.green == vec[0]) ? 1 : 2;
+		int iMax = (mCurrentColour.red == vec[2]) ? 0 : (mCurrentColour.green == vec[2]) ? 1 : 2;
+		int iMin = (mCurrentColour.red == vec[0]) ? 0 : (mCurrentColour.green == vec[0]) ? 1 : 2;
 		int iAvg = 3 - iMax - iMin;
 
 		if (iMin == iMax) // if gray colour - set base red
@@ -238,7 +241,6 @@ namespace tools
 			byIndex(mBaseColour, iAvg) = (vec[1] - vec[0]) / (vec[2] - vec[0]);
 			byIndex(mBaseColour, iMax) = 1.;
 		}
-
 
 		int i;
 		for (i = 0; i < 6; ++i)
@@ -381,6 +383,27 @@ namespace tools
 		mColourView->setAlpha(mCurrentColour.alpha);
 
 		eventPreviewColour(mCurrentColour);
+	}
+
+	void ColourPanel::setAlphaSupport(bool _value)
+	{
+		mAlphaSupport = _value;
+		updateAlphaSupport();
+
+		setColour(getColour());
+	}
+
+	bool ColourPanel::getAlphaSupport() const
+	{
+		return mAlphaSupport;
+	}
+
+	void ColourPanel::updateAlphaSupport()
+	{
+		mInputAlpha->setEnabled(mAlphaSupport);
+		mAlphaSliderBack->setEnabled(mAlphaSupport);
+		mAlphaSlider->setEnabled(mAlphaSupport);
+		mTextAlpha->setEnabled(mAlphaSupport);
 	}
 
 } // namespace tools

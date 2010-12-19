@@ -109,29 +109,32 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelMainProperties::notifyActionSkin(const std::string& _type, const std::string& _value)
+	void PanelMainProperties::notifyActionSkin(const std::string& _type, const std::string& _value, bool _final)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-		widgetContainer->skin = _value;
-		if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
+		if (_final)
 		{
-			WidgetSelectorManager::getInstance().saveSelectedWidget();
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-			EditorWidgets::getInstance().clear();
-			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-			delete savedDoc;
+			widgetContainer->skin = _value;
+			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
+			{
+				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-			WidgetSelectorManager::getInstance().restoreSelectedWidget();
+				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+				EditorWidgets::getInstance().clear();
+				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+				delete savedDoc;
+
+				WidgetSelectorManager::getInstance().restoreSelectedWidget();
+			}
+			else
+			{
+				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
+				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
+			}
+
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
-		else
-		{
-			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
-		}
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 	bool PanelMainProperties::isSkinExist(const std::string& _skinName)
@@ -157,53 +160,58 @@ namespace tools
 		return false;
 	}
 
-	void PanelMainProperties::notifyActionLayer(const std::string& _type, const std::string& _value)
+	void PanelMainProperties::notifyActionLayer(const std::string& _type, const std::string& _value, bool _final)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		if (_final)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			widgetContainer->setLayerName(_value);
 
-		widgetContainer->setLayerName(_value);
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
+		}
 	}
 
-	void PanelMainProperties::notifyActionName(const std::string& _type, const std::string& _value)
+	void PanelMainProperties::notifyActionName(const std::string& _type, const std::string& _value, bool _final)
 	{
-		const std::string DEFAULT_STRING = "[DEFAULT]";
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
-		EditorWidgets* ew = &EditorWidgets::getInstance();
-		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
-
-		widgetContainer->name = _value;
-		ew->invalidateWidgets();
+		if (_final)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			widgetContainer->name = _value;
+			EditorWidgets::getInstance().invalidateWidgets();
+		}
 	}
 
-	void PanelMainProperties::notifyActionType(const std::string& _type, const std::string& _value)
+	void PanelMainProperties::notifyActionType(const std::string& _type, const std::string& _value, bool _final)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		if (_final)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			widgetContainer->type = _value;
 
-		widgetContainer->type = _value;
+			WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-		WidgetSelectorManager::getInstance().saveSelectedWidget();
+			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+			EditorWidgets::getInstance().clear();
+			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+			delete savedDoc;
 
-		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-		EditorWidgets::getInstance().clear();
-		EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-		delete savedDoc;
+			WidgetSelectorManager::getInstance().restoreSelectedWidget();
 
-		WidgetSelectorManager::getInstance().restoreSelectedWidget();
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
+		}
 	}
 
-	void PanelMainProperties::notifyActionAlign(const std::string& _type, const std::string& _value)
+	void PanelMainProperties::notifyActionAlign(const std::string& _type, const std::string& _value, bool _final)
 	{
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		if (_final)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		widgetContainer->align = _value;
-		widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
+			widgetContainer->align = _value;
+			widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
 
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
+		}
 	}
 
 } // namespace tools
