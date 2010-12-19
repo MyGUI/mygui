@@ -223,6 +223,8 @@ namespace MyGUI
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 
+		virtual void _resetContainer(bool _update);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -252,9 +254,6 @@ namespace MyGUI
 
 		// метод для запроса номера айтема и контейнера
 		virtual size_t _getItemIndex(Widget* _item);
-
-		// сбрасывает зависимости, при любом колличественном изменении
-		virtual void _resetContainer(bool _update);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

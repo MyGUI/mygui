@@ -177,7 +177,9 @@ namespace tools
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			widgetContainer->name = _value;
-			EditorWidgets::getInstance().invalidateWidgets();
+			//EditorWidgets::getInstance().invalidateWidgets();
+
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
 	}
 
