@@ -45,7 +45,7 @@
 		<Property key="TrackSkin" value="rtt_KeyboardProgressTrack"/>
 		<Property key="TrackWidth" value="17"/>
 		<Property key="TrackFill" value="false"/>
-		<Property key="FlowDirection" value="BottomToUp"/>
+		<Property key="FlowDirection" value="BottomToTop"/>
 
 		<Child type="Widget" skin="Default" offset="0 0 45 17" align="Stretch" name="Client"/>
 
