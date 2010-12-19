@@ -55,12 +55,12 @@ namespace tools
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
 			value = "";
 
-		onAction(value);
+		onAction(value, true);
 	}
 
-	void PropertyFieldComboBox::onAction(const std::string& _value)
+	void PropertyFieldComboBox::onAction(const std::string& _value, bool _final)
 	{
-		eventAction(mName, _value);
+		eventAction(mName, _value, _final);
 	}
 
 	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)

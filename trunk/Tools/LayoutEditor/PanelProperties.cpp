@@ -105,32 +105,35 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelProperties::notifyAction(const std::string& _name, const std::string& _value)
+	void PanelProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
 		bool success = EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, _name, _value);
 
-		bool found = false;
-		// если такое св-во было, то заменим (или удалим если стерли) значение
-		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+		if (_final)
 		{
-			if (iterProperty->first == _name)
+			bool found = false;
+			// если такое св-во было, то заменим (или удалим если стерли) значение
+			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
-				found = true;
-				if (_value.empty())
-					widgetContainer->mProperty.erase(iterProperty);
-				else
-					iterProperty->second = _value;
-				break;
+				if (iterProperty->first == _name)
+				{
+					found = true;
+					if (_value.empty())
+						widgetContainer->mProperty.erase(iterProperty);
+					else
+						iterProperty->second = _value;
+					break;
+				}
 			}
+
+			// если такого свойства не было раньше, то сохраняем
+			if (!_value.empty() && !found)
+				widgetContainer->mProperty.push_back(MyGUI::PairString(_name, _value));
+
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
-
-		// если такого свойства не было раньше, то сохраняем
-		if (!_value.empty() && !found)
-			widgetContainer->mProperty.push_back(MyGUI::PairString(_name, _value));
-
-		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 } // namespace tools

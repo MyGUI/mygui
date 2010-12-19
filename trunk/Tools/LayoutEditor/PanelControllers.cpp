@@ -182,12 +182,15 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value)
+	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value, bool _final)
 	{
-		if (mIndexSelected != MyGUI::ITEM_NONE)
+		if (_final)
 		{
-			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+			if (mIndexSelected != MyGUI::ITEM_NONE)
+			{
+				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+				widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+			}
 		}
 	}
 

@@ -24,11 +24,11 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyActionSkin(const std::string& _type, const std::string& _value);
-		void notifyActionLayer(const std::string& _type, const std::string& _value);
-		void notifyActionName(const std::string& _type, const std::string& _value);
-		void notifyActionType(const std::string& _type, const std::string& _value);
-		void notifyActionAlign(const std::string& _type, const std::string& _value);
+		void notifyActionSkin(const std::string& _type, const std::string& _value, bool _final);
+		void notifyActionLayer(const std::string& _type, const std::string& _value, bool _final);
+		void notifyActionName(const std::string& _type, const std::string& _value, bool _final);
+		void notifyActionType(const std::string& _type, const std::string& _value, bool _final);
+		void notifyActionAlign(const std::string& _type, const std::string& _value, bool _final);
 
 		void destroyPropertyFields();
 		void updateSize();
