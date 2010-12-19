@@ -12,6 +12,10 @@ namespace tools
 {
 	namespace utility
 	{
+
+		void _setSuccessText(MyGUI::EditBox* _edit, const MyGUI::UString& _text, bool _success);
+		bool _checkStreamFail(std::istringstream& str);
+
 		template <typename T>
 		bool checkParseInterval(MyGUI::EditBox* _edit, size_t _count, T _min, T _max)
 		{
@@ -50,15 +54,11 @@ namespace tools
 			}
 			success = _checkStreamFail(str);
 
-
 			_setSuccessText(_edit, text, success);
 			return success;
 		}
 
 		bool checkParseFileName(MyGUI::EditBox* _edit);
-
-		void _setSuccessText(MyGUI::EditBox* _edit, const MyGUI::UString& _text, bool _success);
-		bool _checkStreamFail(std::istringstream& str);
 
 	} // namespace utility
 } // namespace tools

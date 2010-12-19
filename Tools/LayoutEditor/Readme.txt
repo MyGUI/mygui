@@ -3,8 +3,6 @@ LayoutEditor
 Save/Load:
   absolute names (C:/LayoutEditor/Media/my.layout)
   relative names (../Media/my.layout)
-  names from Ogre FileSystem (my.layout)
-  save/load any *.layout file in Ogre FileSystem through drop list in save/load menu.
 
 Controls:
   Keyboard:
@@ -22,25 +20,20 @@ Controls:
     Tab             - change selected sheet (for Tab widget only)
 
   Mouse:
-    click on widget - select widget
-    Ctrl + click    - select through (select several times for selecting parent widgeets)
+    click on widget - select widget (click several times for selecting parent widgets)
     doubleclick on any widget in widget panel - create widget in center or inside selected widget if possible
-    doubleclick on selected Tab - add Sheet
-
-Hidden widgets can be selected only through combo with all widgets.
-You can't move hidden widget.
 
 Ignoreg properties:
-"Message_Modal", "Window_AutoAlpha" and "Window_Snap" ingnored in edit mode (but this properties will be saved and will work fine in test mode and your application).
+Visible, AutoAlpha(Window) MinSize(Window) and MaxSize(Window) properties are ingnored in edit mode (but this properties will be saved and will work fine in test mode and your application).
 
-All possible values can be found in Media/LayoutEditor/widgets.xml
+Editor setting and values can be found in Tools/LayoutEditor/Settings folder
   For example if you want add you own skin in editor add your my_skin.skin file to Media/LayoutEditor/editor.xml
-  and add <Property key="Skin" value="MySkin"/> to appropriate widget.
+  and add <Property key="Skin" value="MySkin"/> to widget's xml node.
 
-Items/Sheelt panel is used to add and edit List or ComboBox items or Tab sheets. Press enter to edit selected item.
+Items panel is used to add and edit List, ComboBox or Tab items. Press enter to edit selected item.
 
-UserData panel is used to add UserData to any widget. UserData is map of key value pairs. It used to store any needed info in widget.
-Here is several examples:
-  1. You can add some info data to all widgets and in runtime you'll get it by std::string info = widget->getUserData(key); and show popup with info about widget.
-  2. You have 10 buttons and want to have one event handler for all. You can add in user data button number and read it in event handler to understand which button was pressed.
-  3. UserData can be used for different localisations. You can write two pairs like (key="Caption_English" value="Start"), (key="Caption_Russian" value="Старт") and use them when you changing languages.
+UserData panel used to add pairs of string (key and value) to any widget. It is used to store any needed info in widget.
+Here are two examples:
+  * you can add some info data to all widgets and in runtime you'll get it by std::string info = widget->getUserString(key); and show popup with info about widget.
+  * you have 10 buttons and want to have one event handler for all. You can add button number into user data and read it in event handler to figure which button was pressed.
+  
