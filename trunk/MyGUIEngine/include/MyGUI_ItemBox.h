@@ -198,6 +198,9 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef
 			eventNotifyItem;
 
+	/*internal:*/
+		virtual void _resetContainer(bool _update);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -255,9 +258,6 @@ namespace MyGUI
 
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point);
-
-		// сбрасывает зависимости, при любом колличественном изменении
-		virtual void _resetContainer(bool _update);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

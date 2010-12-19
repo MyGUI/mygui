@@ -23,6 +23,7 @@
 #include "MyGUI_ToolTipManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -54,6 +55,7 @@ namespace MyGUI
 		mNeedToolTip = false;
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &ToolTipManager::notifyEventFrameStart);
+		WidgetManager::getInstance().registerUnlinker(this);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -64,6 +66,7 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
+		WidgetManager::getInstance().unregisterUnlinker(this);
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &ToolTipManager::notifyEventFrameStart);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");

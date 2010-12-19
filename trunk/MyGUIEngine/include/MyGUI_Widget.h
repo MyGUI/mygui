@@ -288,6 +288,9 @@ namespace MyGUI
 
 		Widget* _createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
 
+		// сброс всех данных контейнера, тултипы и все остальное
+		virtual void _resetContainer(bool _update);
+
 	protected:
 		// все создание только через фабрику
 		virtual ~Widget();
@@ -305,9 +308,6 @@ namespace MyGUI
 
 		// запрашиваем у конейтера айтем по позиции мыши
 		virtual size_t _getContainerIndex(const IntPoint& _point);
-
-		// сброс всех данных контейнера, тултипы и все остальное
-		virtual void _resetContainer(bool _update);
 
 		virtual void baseUpdateEnable();
 
