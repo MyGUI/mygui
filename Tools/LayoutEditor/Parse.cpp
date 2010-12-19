@@ -14,7 +14,6 @@ namespace tools
 		bool checkParseFileName(MyGUI::EditBox* _edit)
 		{
 			const MyGUI::UString& text = _edit->getOnlyText();
-			size_t index = _edit->getTextCursor();
 
 			bool success = false;
 
