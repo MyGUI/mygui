@@ -400,10 +400,9 @@ namespace tools
 
 	void ColourPanel::updateAlphaSupport()
 	{
-		mInputAlpha->setEnabled(mAlphaSupport);
-		mAlphaSliderBack->setEnabled(mAlphaSupport);
-		mAlphaSlider->setEnabled(mAlphaSupport);
-		mTextAlpha->setEnabled(mAlphaSupport);
+		mInputAlpha->setVisible(mAlphaSupport);
+		mTextAlpha->setVisible(mAlphaSupport);
+		mAlphaSliderPlace->setVisible(mAlphaSupport);
 	}
 
 } // namespace tools
