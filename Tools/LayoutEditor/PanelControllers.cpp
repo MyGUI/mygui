@@ -190,6 +190,8 @@ namespace tools
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 				widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+
+				UndoManager::getInstance().addValue(PR_PROPERTIES);
 			}
 		}
 	}

@@ -152,6 +152,8 @@ namespace MyGUI
 
 		if (mModeDrop)
 		{
+			_resetContainer(false);
+
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -160,6 +162,9 @@ namespace MyGUI
 	void ComboBox::notifyListChangePosition(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
+
+		_resetContainer(false);
+
 		eventComboChangePosition(this, _position);
 	}
 
@@ -179,6 +184,8 @@ namespace MyGUI
 		// нажат ввод в окне редиктирования
 		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
 		{
+			_resetContainer(false);
+
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -193,6 +200,8 @@ namespace MyGUI
 
 		if (mModeDrop)
 		{
+			_resetContainer(false);
+
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -218,6 +227,9 @@ namespace MyGUI
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
+
+				_resetContainer(false);
+
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
@@ -232,6 +244,9 @@ namespace MyGUI
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
 				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
+
+				_resetContainer(false);
+
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
@@ -257,6 +272,9 @@ namespace MyGUI
 			mItemIndex = ITEM_NONE;
 			mList->setIndexSelected(mItemIndex);
 			mList->beginToItemFirst();
+
+			_resetContainer(false);
+
 			eventComboChangePosition(this, mItemIndex);
 		}
 	}
@@ -567,6 +585,13 @@ namespace MyGUI
 	const UString& ComboBox::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
+	}
+
+	void ComboBox::_resetContainer(bool _update)
+	{
+		Base::_resetContainer(_update);
+		if (mList != nullptr)
+			mList->_resetContainer(_update);
 	}
 
 } // namespace MyGUI

@@ -172,6 +172,8 @@ namespace MyGUI
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 
+		virtual void _resetContainer(bool _update);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
