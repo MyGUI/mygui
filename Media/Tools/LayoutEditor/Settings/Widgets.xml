@@ -129,11 +129,11 @@
 		<TemplateData key="SubMenuSkin" value="Skin"/>
 	</Widget>
 
-	<Widget name="MenuControl">
+	<Widget name="MenuControl" internal="true">
 		<Property key="Base" value="Widget"/>
 	</Widget>
 
-	<Widget name="MenuItem">
+	<Widget name="MenuItem" internal="true">
 		<Property key="DefaultSkin" value=""/>
 		<Property key="Base" value="Button"/>
 
@@ -154,7 +154,7 @@
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 
-	<Widget name="MultiListItem">
+	<Widget name="MultiListItem" internal="true">
 		<Property key="DefaultSkin" value=""/>
 		<Property key="Base" value="TextBox"/>
 
@@ -292,7 +292,7 @@
 		<TemplateData key="ButtonSkin" value="Skin"/>
 	</Widget>
 
-	<Widget name="TabItem">
+	<Widget name="TabItem" internal="true">
 		<Property key="DefaultSkin" value=""/>
 		<Property key="Base" value="TextBox"/>
 

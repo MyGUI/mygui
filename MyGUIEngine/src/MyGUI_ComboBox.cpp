@@ -46,7 +46,6 @@ namespace MyGUI
 		mModeDrop(false),
 		mDropMouse(false),
 		mShowSmooth(false),
-		mManualList(true),
 		mFlowDirection(FlowDirection::TopToBottom)
 	{
 	}
@@ -63,7 +62,6 @@ namespace MyGUI
 
 		assignWidget(mList, "List");
 
-		mManualList = (mList == nullptr);
 		if (mList == nullptr)
 		{
 			std::string list_skin = getUserString("ListSkin");
@@ -100,12 +98,9 @@ namespace MyGUI
 
 	void ComboBox::shutdownOverride()
 	{
-		if (mManualList)
-		{
-			destroySkinWidget(mList);
-		}
 		mList = nullptr;
 		mButton = nullptr;
+		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}

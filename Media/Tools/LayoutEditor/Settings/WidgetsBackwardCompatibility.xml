@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Widgets">
-	<Widget name="StaticImage" obsolete="true"/>
-	<Widget name="StaticText" obsolete="true"/>
-	<Widget name="Progress" obsolete="true"/>
-	<Widget name="List" obsolete="true"/>
-	<Widget name="Edit" obsolete="true"/>
-	<Widget name="Tab" obsolete="true"/>
-	<Widget name="MultiList" obsolete="true"/>
+	<Widget name="StaticImage" internal="true"/>
+	<Widget name="StaticText" internal="true"/>
+	<Widget name="Progress" internal="true"/>
+	<Widget name="List" internal="true"/>
+	<Widget name="Edit" internal="true"/>
+	<Widget name="Tab" internal="true"/>
+	<Widget name="MultiList" internal="true"/>
 </MyGUI>

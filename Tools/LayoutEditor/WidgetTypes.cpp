@@ -80,7 +80,7 @@ namespace tools
 		{
 			WidgetStyle* widget_type = getWidgetType(widgets->findAttribute("name"));
 
-			widget_type->obsolete = widgets->findAttribute("obsolete") == "true";
+			widget_type->internalType = widgets->findAttribute("internal") == "true";
 
 			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();

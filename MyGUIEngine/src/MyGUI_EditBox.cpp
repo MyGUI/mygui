@@ -1789,7 +1789,7 @@ namespace MyGUI
 	IntSize EditBox::getViewSize()
 	{
 		if (mClientText != nullptr)
-			return mClient->getSize();
+			return mClientText->getSize();
 		return ScrollViewBase::getViewSize();
 	}
 
