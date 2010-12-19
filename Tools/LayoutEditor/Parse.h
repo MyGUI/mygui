@@ -15,9 +15,7 @@ namespace tools
 		template <typename T>
 		bool checkParseInterval(MyGUI::EditBox* _edit, size_t _count, T _min, T _max)
 		{
-			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 			const MyGUI::UString& text = _edit->getOnlyText();
-			size_t index = _edit->getTextCursor();
 			bool success = true;
 
 			T p;
@@ -30,37 +28,17 @@ namespace tools
 			}
 			if (success)
 			{
-				if (str.fail())
-				{
-					success = false;
-				}
-				else
-				{
-					std::string tmp;
-					str >> tmp;
-					if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos)
-					{
-						success = false;
-					}
-					else
-					{
-						success = true;
-					}
-				}
+				success = _checkStreamFail(str);
 			}
 
-			if (success) _edit->setCaption(text);
-			else _edit->setCaption(colour + text);
-			_edit->setTextCursor(index);
+			_setSuccessText(_edit, text, success);
 			return success;
 		}
 
 		template <typename T>
 		bool checkParse(MyGUI::EditBox* _edit, size_t _count)
 		{
-			static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 			const MyGUI::UString& text = _edit->getOnlyText();
-			size_t index = _edit->getTextCursor();
 			bool success = false;
 
 			T p;
@@ -70,30 +48,17 @@ namespace tools
 				str >> p;
 				-- _count;
 			}
-			if (str.fail())
-			{
-				success = false;
-			}
-			else
-			{
-				std::string tmp;
-				str >> tmp;
-				if (!str.fail() || tmp.find_first_not_of(" \t\r") != std::string::npos)
-				{
-					success = false;
-				}
-				else
-				{
-					success = true;
-				}
-			}
-			if (success) _edit->setCaption(text);
-			else _edit->setCaption(colour + text);
-			_edit->setTextCursor(index);
+			success = _checkStreamFail(str);
+
+
+			_setSuccessText(_edit, text, success);
 			return success;
 		}
 
 		bool checkParseFileName(MyGUI::EditBox* _edit);
+
+		void _setSuccessText(MyGUI::EditBox* _edit, const MyGUI::UString& _text, bool _success);
+		bool _checkStreamFail(std::istringstream& str, bool success);
 
 	} // namespace utility
 } // namespace tools
