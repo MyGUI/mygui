@@ -96,6 +96,9 @@ namespace tools
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderBack, "AlphaSliderBack");
 		MyGUI::Widget* mAlphaSliderBack;
 
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderPlace, "AlphaSliderPlace");
+		MyGUI::Widget* mAlphaSliderPlace;
+
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSlider, "AlphaSlider");
 		MyGUI::ScrollBar* mAlphaSlider;
 

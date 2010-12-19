@@ -23,6 +23,7 @@ namespace tools
 		mColour->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyColourControl::notifyMouseButtonClick);
 
 		mColourPanel = new ColourPanel();
+		mColourPanel->setAlphaSupport(false);
 		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &PropertyColourControl::notifyEndDialog);
 		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &PropertyColourControl::notifyPreviewColour);
 	}
@@ -98,8 +99,8 @@ namespace tools
 			return true;
 		if (parseColour2(value, _resultValue))
 			return true;
-		if (parseColour3(value, _resultValue))
-			return true;
+		//if (parseColour3(value, _resultValue))
+		//	return true;
 
 		return false;
 	}
@@ -242,7 +243,7 @@ namespace tools
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)
-			proper->setValue(mCurrentColour.print(), ""); // чтобы мы обновили поле
+			proper->setValue(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), ""); // чтобы мы обновили поле
 	}
 
 } // namespace tools
