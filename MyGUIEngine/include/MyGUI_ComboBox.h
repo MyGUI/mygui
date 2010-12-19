@@ -211,7 +211,6 @@ namespace MyGUI
 		bool mModeDrop;
 		bool mDropMouse;
 		bool mShowSmooth;
-		bool mManualList;
 
 		FlowDirection mFlowDirection;
 	};

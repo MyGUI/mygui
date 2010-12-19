@@ -189,6 +189,14 @@ namespace MyGUI
 	void WidgetManager::_deleteWidget(Widget* _widget)
 	{
 		_widget->_shutdown();
+
+		for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
+		{
+			/*if ((*entry) == _widget)
+				return;*/
+			MYGUI_ASSERT((*entry) != _widget, "double delete widget");
+		}
+
 		mDestroyWidgets.push_back(_widget);
 	}
 

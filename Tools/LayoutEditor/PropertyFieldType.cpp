@@ -28,7 +28,8 @@ namespace tools
 		VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
 		for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
 		{
-			if (!(*iter)->obsolete)
+			bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist((*iter)->name);
+			if (exist && !(*iter)->internalType)
 				values.push_back((*iter)->name);
 		}
 
