@@ -104,9 +104,9 @@ namespace MyGUI
 
 				xml::ElementEnumerator prop = node->getElementEnumerator();
 				while (prop.next("Property"))
-				{
 					controllerInfo.properties[prop->findAttribute("key")] = prop->findAttribute("value");
-				}
+
+				widgetInfo.controllers.push_back(controllerInfo);
 			}
 		}
 
