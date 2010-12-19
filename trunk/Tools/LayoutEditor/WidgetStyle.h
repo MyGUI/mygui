@@ -16,7 +16,8 @@ namespace tools
 			child(true),
 			resizeable(true),
 			many_items(false),
-			deep(0)
+			deep(0),
+			obsolete(false)
 		{
 		}
 
@@ -37,6 +38,7 @@ namespace tools
 		bool many_items;
 		// глубина иерархии
 		size_t deep;
+		bool obsolete;
 	};
 
 } // namespace tools

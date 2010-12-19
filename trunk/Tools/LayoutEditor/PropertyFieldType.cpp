@@ -27,7 +27,10 @@ namespace tools
 
 		VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
 		for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
-			values.push_back((*iter)->name);
+		{
+			if (!(*iter)->obsolete)
+				values.push_back((*iter)->name);
+		}
 
 		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
