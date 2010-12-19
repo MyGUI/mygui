@@ -95,7 +95,8 @@ namespace MyGUI
 		UString getOnlyText();
 
 		/** Get text length excluding tags
-			For example "#00FF00Hello" length is 5
+			For example "Hello" length is 5
+			and "#00FF00Hello!" length is 6
 		*/
 		size_t getTextLength() const;
 
