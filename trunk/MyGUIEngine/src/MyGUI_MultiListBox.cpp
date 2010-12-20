@@ -880,7 +880,7 @@ namespace MyGUI
 		return false;
 	}
 
-	int MultiListBox::getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, int _lastIndexStar, int _starWidth)
+	int MultiListBox::getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth)
 	{
 		ColumnInfo& info = mVectorColumnInfo[_index];
 
@@ -906,7 +906,7 @@ namespace MyGUI
 		return 0;
 	}
 
-	int MultiListBox::updateWidthColumns(size_t& _countStars, int& _lastIndexStar)
+	int MultiListBox::updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar)
 	{
 		_countStars = 0;
 		_lastIndexStar = ITEM_NONE;
@@ -945,7 +945,7 @@ namespace MyGUI
 	void MultiListBox::updateColumns()
 	{
 		size_t countStars = 0;
-		int lastIndexStar = ITEM_NONE;
+		size_t lastIndexStar = ITEM_NONE;
 
 		int allColumnsWidth = updateWidthColumns(countStars, lastIndexStar);
 		int clientWidth = mClient->getWidth();
