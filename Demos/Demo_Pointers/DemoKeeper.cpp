@@ -33,14 +33,14 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Pointers");
 		addResourceLocation(getRootMedia() + "/Common/Scene");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void DemoKeeper::createScene()
 	{
 		createEntities();
 
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("");
 
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>("Resource");
@@ -215,7 +215,7 @@ namespace demo
 
 		gRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 #else
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 #endif
 	}
 

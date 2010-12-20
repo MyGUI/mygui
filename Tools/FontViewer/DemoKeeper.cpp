@@ -19,7 +19,7 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/FontViewer");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 	}
 
@@ -27,8 +27,8 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("MessageBoxResources.xml");
 
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
 
 		mFontPanel = new FontPanel();

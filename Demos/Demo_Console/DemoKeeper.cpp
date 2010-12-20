@@ -20,13 +20,13 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Console");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
 
 		mEdit = MyGUI::Gui::getInstance().createWidget<MyGUI::EditBox>("EditStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");

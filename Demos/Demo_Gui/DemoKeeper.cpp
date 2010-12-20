@@ -34,13 +34,13 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Gui");
 		addResourceLocation(getRootMedia() + "/Common/Scene");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void DemoKeeper::createScene()
 	{
 		createDefaultScene();
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		mMainPanel = new MainPanel();

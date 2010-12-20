@@ -26,13 +26,13 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Picking");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("BackHelp.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
+		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
