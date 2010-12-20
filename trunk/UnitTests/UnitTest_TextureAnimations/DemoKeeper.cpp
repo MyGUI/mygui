@@ -26,14 +26,14 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::ResourceManager::getInstance().load("WindowSkin.xml");
+		//MyGUI::ResourceManager::getInstance().load("WindowSkin.xml");
 
 		MyGUI::FactoryManager::getInstance().registerFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
-		MyGUI::ResourceManager::getInstance().load("test_layer.xml");
+		MyGUI::ResourceManager::getInstance().load("Layers.xml");
 
 		createNewWindow();
 	}
@@ -53,7 +53,7 @@ namespace demo
 			mWidgets.erase(_sender);
 			MyGUI::WidgetManager::getInstance().destroyWidget(_sender);
 		}
-		else if (_name == "check")
+		/*else if (_name == "check")
 		{
 			const MyGUI::IntCoord coord(0, 0, 1024, 768);
 			const MyGUI::IntSize size(300, 300);
@@ -66,7 +66,7 @@ namespace demo
 			{
 				_sender->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
 			}
-		}
+		}*/
 	}
 
 	void DemoKeeper::createNewWindow()
@@ -82,6 +82,23 @@ namespace demo
 		if (_key == MyGUI::KeyCode::W)
 		{
 			createNewWindow();
+		}
+		else if (_key == MyGUI::KeyCode::V)
+		{
+			for (SetWidget::iterator item=mWidgets.begin(); item!=mWidgets.end(); ++item)
+			{
+				const MyGUI::IntCoord coord(0, 0, 1024, 768);
+				const MyGUI::IntSize size(300, 300);
+
+				if ((*item)->getCoord().width != coord.width)
+				{
+					(*item)->setCoord(coord);
+				}
+				else
+				{
+					(*item)->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+				}
+			}
 		}
 		else if (_key == MyGUI::KeyCode::Four)
 		{
