@@ -362,9 +362,9 @@ namespace MyGUI
 		void _unwrapItem(MultiListItem* _item);
 		void _swapColumnsAt(size_t _index1, size_t _index2);
 
-		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, int _lastIndexStar, int _starWidth);
+		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth);
 		bool getUpdateByResize();
-		int updateWidthColumns(size_t& _countStars, int& _lastIndexStar);
+		int updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar);
 
 	private:
 		int mHeightButton;
