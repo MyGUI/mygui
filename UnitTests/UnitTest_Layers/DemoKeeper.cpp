@@ -51,7 +51,7 @@ namespace demo
 
 		setupCamera();
 
-		MyGUI::ResourceManager::getInstance().load("rtt_data.xml");
+		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
 		mCommandManager = new CommandManager();
 		mMonitorPanel = new MonitorPanel();
