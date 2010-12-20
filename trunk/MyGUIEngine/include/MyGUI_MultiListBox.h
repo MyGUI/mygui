@@ -140,8 +140,8 @@ namespace MyGUI
 		//! Get column index
 		size_t getColumnIndex(MultiListItem* _item);
 
-		void setColumnSizeType(MultiListItem* _item, ItemSizeType _value);
-		void setColumnSizeTypeAt(size_t _index, ItemSizeType _value);
+		void setColumnResizingPolicy(MultiListItem* _item, ResizingPolicy _value);
+		void setColumnResizingPolicyAt(size_t _index, ResizingPolicy _value);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -340,7 +340,7 @@ namespace MyGUI
 			int realWidth;
 			UString name;
 			Any data;
-			ItemSizeType sizeType;
+			ResizingPolicy sizeType;
 		};
 
 		typedef std::vector<ColumnInfo> VectorColumnInfo;
