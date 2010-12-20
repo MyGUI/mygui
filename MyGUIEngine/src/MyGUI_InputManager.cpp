@@ -315,8 +315,6 @@ namespace MyGUI
 			if (!mWidgetMouseFocus->getEnabled())
 				return true;
 
-			mWidgetMouseFocus->_riseMouseButtonReleased(_absx, _absy, _id);
-
 			if (_id == MouseButton::Left && mLeftMouseCapture)
 			{
 				// сбрасываем захват
@@ -328,6 +326,8 @@ namespace MyGUI
 				// сбрасываем захват
 				mRightMouseCapture = false;
 			}
+
+			mWidgetMouseFocus->_riseMouseButtonReleased(_absx, _absy, _id);
 
 			// после вызова, виджет может быть сброшен
 			if (nullptr != mWidgetMouseFocus)
@@ -496,19 +496,19 @@ namespace MyGUI
 
 		if (_widget == mWidgetMouseFocus)
 		{
+			mWidgetMouseFocus = nullptr;
+
 			if (mLeftMouseCapture)
 			{
-				mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
 				mLeftMouseCapture = false;
+				mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
 			}
 
 			if (mRightMouseCapture)
 			{
-				mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
 				mRightMouseCapture = false;
+				mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
 			}
-
-			mWidgetMouseFocus = nullptr;
 		}
 		if (_widget == mWidgetKeyFocus)
 		{
