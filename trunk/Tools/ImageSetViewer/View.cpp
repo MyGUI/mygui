@@ -17,21 +17,12 @@ namespace editor
 		assignWidget(mEditResourceName, "edit_ResourceName");
 		assignWidget(mEditFileName, "edit_FileName");
 
-		mMultiList->addColumn("name", mMultiList->getClientCoord().width);
 		mMultiList->eventListChangePosition += MyGUI::newDelegate(this, &View::notifyListChangePosition);
 
 		initialiseImages();
 
 		m_CurrentTime = 0;
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &View::notifyFrameStart);
-
-		updateColumn();
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-		{
-			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &View::notifyWindowChangeCoord);
-		}
 	}
 
 	void View::notifyListChangePosition(MyGUI::MultiListBox* _sender, size_t _index)
@@ -166,16 +157,6 @@ namespace editor
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();
 		_size.height = std::max(text->getBottom(), image->getBottom()) + offset_height;
-	}
-
-	void View::updateColumn()
-	{
-		mMultiList->setColumnWidthAt(0, mMultiList->getClientCoord().width);
-	}
-
-	void View::notifyWindowChangeCoord(MyGUI::Window* _sender)
-	{
-		updateColumn();
 	}
 
 } // namespace editor
