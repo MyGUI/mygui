@@ -19,12 +19,12 @@ namespace editor
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/ImageSetViewer");
-		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void Controller::createScene()
 	{
-		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper0.layout");
+		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView = new View();

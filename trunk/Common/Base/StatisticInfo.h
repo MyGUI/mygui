@@ -22,7 +22,7 @@ namespace diagnostic
 		StatisticInfo() :
 			mInfo(nullptr)
 		{
-			MyGUI::ResourceManager::getInstance().load("MyGUI_StatisticSkin.xml");
+			MyGUI::ResourceManager::getInstance().load("StatisticRectSkin.xml");
 
 			const std::string layer = "Statistic";
 			if ( ! MyGUI::LayerManager::getInstance().isExist(layer))
