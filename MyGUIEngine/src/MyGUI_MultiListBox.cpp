@@ -607,7 +607,7 @@ namespace MyGUI
 	void MultiListBox::_addItem(const MyGUI::UString& _name)
 	{
 		addColumn(_name);
-		setColumnSizeTypeAt(getColumnCount() - 1, ItemSizeType::Auto);
+		setColumnResizingPolicyAt(getColumnCount() - 1, ResizingPolicy::Auto);
 	}
 
 	void MultiListBox::_removeItemAt(size_t _index)
@@ -634,7 +634,7 @@ namespace MyGUI
 		createWidget<MultiListItem>("", IntCoord(), Align::Default);
 
 		mVectorColumnInfo.back().width = _width;
-		mVectorColumnInfo.back().sizeType = ItemSizeType::Fixed;
+		mVectorColumnInfo.back().sizeType = ResizingPolicy::Fixed;
 		mVectorColumnInfo.back().name = _name;
 		mVectorColumnInfo.back().data = _data;
 		mVectorColumnInfo.back().button->setCaption(_name);
@@ -723,7 +723,7 @@ namespace MyGUI
 
 		ColumnInfo column;
 		column.width = 0;
-		column.sizeType = ItemSizeType::Auto; 
+		column.sizeType = ResizingPolicy::Auto; 
 
 		column.item = _item;
 		column.list = _item->createWidget<ListBox>(mSkinList, IntCoord(0, 0, _item->getWidth(), _item->getHeight()), Align::Stretch);
@@ -814,12 +814,12 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void MultiListBox::setColumnSizeType(MultiListItem* _item, ItemSizeType _value)
+	void MultiListBox::setColumnResizingPolicy(MultiListItem* _item, ResizingPolicy _value)
 	{
-		setColumnSizeTypeAt(getColumnIndex(_item), _value);
+		setColumnResizingPolicyAt(getColumnIndex(_item), _value);
 	}
 
-	void MultiListBox::setColumnSizeTypeAt(size_t _index, ItemSizeType _value)
+	void MultiListBox::setColumnResizingPolicyAt(size_t _index, ResizingPolicy _value)
 	{
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::setColumnWidthAt");
 		mVectorColumnInfo[_index].sizeType = _value;
@@ -874,7 +874,7 @@ namespace MyGUI
 
 		for (VectorColumnInfo::iterator item = mVectorColumnInfo.begin(); item != mVectorColumnInfo.end(); ++item)
 		{
-			if ((*item).sizeType == ItemSizeType::Star)
+			if ((*item).sizeType == ResizingPolicy::Fill)
 				return true;
 		}
 		return false;
@@ -884,15 +884,15 @@ namespace MyGUI
 	{
 		ColumnInfo& info = mVectorColumnInfo[_index];
 
-		if (info.sizeType == ItemSizeType::Auto)
+		if (info.sizeType == ResizingPolicy::Auto)
 		{
 			return info.realWidth;
 		}
-		else if (info.sizeType == ItemSizeType::Fixed)
+		else if (info.sizeType == ResizingPolicy::Fixed)
 		{
 			return info.realWidth;
 		}
-		else if (info.sizeType == ItemSizeType::Star)
+		else if (info.sizeType == ResizingPolicy::Fill)
 		{
 			if (_lastIndexStar == _index)
 			{
@@ -917,15 +917,15 @@ namespace MyGUI
 		{
 			ColumnInfo& info = mVectorColumnInfo[index];
 
-			if (info.sizeType == ItemSizeType::Auto)
+			if (info.sizeType == ResizingPolicy::Auto)
 			{
 				info.realWidth = info.button->getWidth() - info.button->getTextRegion().width + info.button->getTextSize().width;
 			}
-			else if (info.sizeType == ItemSizeType::Fixed)
+			else if (info.sizeType == ResizingPolicy::Fixed)
 			{
 				info.realWidth =  info.width < 0 ? 0 : info.width;
 			}
-			else if (info.sizeType == ItemSizeType::Star)
+			else if (info.sizeType == ResizingPolicy::Fill)
 			{
 				info.realWidth = 0;
 				_countStars ++;

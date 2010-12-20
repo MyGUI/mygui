@@ -38,16 +38,19 @@ namespace unittest
 			count_items = 0;
 			count_columns = 0;
 
-			original_list->addColumn("1", 100);
-			mirror_list->addColumn("1", 100);
+			original_list->addColumn("1");
+			original_list->setColumnResizingPolicyAt(0, MyGUI::ResizingPolicy::Fill);
+			mirror_list->addColumn("1");
 			count_columns = 1;
 
-			original_list->addColumn("2", 100);
-			mirror_list->addColumn("2", 100);
+			original_list->addColumn("2");
+			original_list->setColumnResizingPolicyAt(1, MyGUI::ResizingPolicy::Fill);
+			mirror_list->addColumn("2");
 			count_columns = 2;
 
-			original_list->addColumn("3", 100);
-			mirror_list->addColumn("3", 100);
+			original_list->addColumn("3");
+			original_list->setColumnResizingPolicyAt(2, MyGUI::ResizingPolicy::Fill);
+			mirror_list->addColumn("3");
 			count_columns = 3;
 
 			//start();
