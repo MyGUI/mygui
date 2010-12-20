@@ -152,8 +152,7 @@ namespace demo
 			{
 				const MyGUI::IntSize size(50, 50);
 				MyGUI::ImageBox* image = view->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
-				image->setImageInfo("core.png", MyGUI::IntCoord(50, 203, 50, 50), MyGUI::IntSize(50, 50));
-				image->setImageIndex(0);
+				image->setImageTexture("HelpIcon.png");
 			}
 			else if (_index == 5)
 			{
