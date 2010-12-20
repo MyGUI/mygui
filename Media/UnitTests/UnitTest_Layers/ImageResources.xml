@@ -2,7 +2,7 @@
 
 <MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceImageSet" name="pic_Ship">
+	<Resource type="ResourceImageSet" name="ImageShip">
 		<Group name="Ship" texture="Ship.png" size="210 210">
 			<Index name="None">
 				<Frame point="0 210"/>
