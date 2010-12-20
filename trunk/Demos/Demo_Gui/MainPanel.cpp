@@ -12,7 +12,7 @@ namespace demo
 	MainPanel::MainPanel() :
 		BaseLayout("MainPanel.layout")
 	{
-		mMainWidget->setPosition(10, 10);
+		//mMainWidget->setPosition(10, 10);
 
 		assignWidget(mButtonNew, "New");
 		assignWidget(mButtonLoad, "Load");

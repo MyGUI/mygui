@@ -104,7 +104,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>("Resource");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
-		MyGUI::ResourceManager::getInstance().load("ItemBox_skin.xml");
+		//MyGUI::ResourceManager::getInstance().load("ItemBox_skin.xml");
 
 		mToolTip = new ToolTip();
 		mToolTip->hide();
