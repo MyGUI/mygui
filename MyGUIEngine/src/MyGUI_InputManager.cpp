@@ -496,18 +496,19 @@ namespace MyGUI
 
 		if (_widget == mWidgetMouseFocus)
 		{
+			Widget* mouseFocus = mWidgetMouseFocus;
 			mWidgetMouseFocus = nullptr;
 
 			if (mLeftMouseCapture)
 			{
 				mLeftMouseCapture = false;
-				mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
+				mouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
 			}
 
 			if (mRightMouseCapture)
 			{
 				mRightMouseCapture = false;
-				mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
+				mouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
 			}
 		}
 		if (_widget == mWidgetKeyFocus)
