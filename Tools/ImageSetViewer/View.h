@@ -29,11 +29,7 @@ namespace editor
 		void notifyFrameStart(float _time);
 		void notifyListChangePosition(MyGUI::MultiListBox* _sender, size_t _index);
 
-		void updateColumn();
-		void notifyWindowChangeCoord(MyGUI::Window* _sender);
-
 	private:
-
 		MyGUI::MultiListBox* mMultiList;
 		MyGUI::ScrollView* mImageView;
 
