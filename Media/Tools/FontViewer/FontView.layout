@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCS" position="276 6 456 546" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCS" position="310 6 456 546" layer="Overlapped" name="_Main">
         <Property key="MinSize" value="150 150"/>
         <Property key="Caption" value="Font View"/>
         <Widget type="EditBox" skin="WordWrap" position="4 3 441 504" align="Stretch" name="edit_View">
