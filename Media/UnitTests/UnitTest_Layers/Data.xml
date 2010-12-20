@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="List">
-
-	<List file="rtt_skin.xml"/>
-	<List file="rtt_font.xml"/>
-	<List file="rtt_resource.xml"/>
-	<List file="rtt_device_resource.xml"/>
-	<List file="rtt_layers.xml"/>
-
+	<List file="Skins.xml"/>
+	<List file="Fonts.xml"/>
+	<List file="ImageResources.xml"/>
+	<List file="DeviceResources.xml"/>
+	<List file="Layers.xml"/>
 </MyGUI>
