@@ -43,7 +43,7 @@ namespace MyGUI
 		/** Get item caption */
 		virtual const UString& getCaption();
 
-		void setItemSizeType(ItemSizeType _value);
+		void setItemResizingPolicy(ResizingPolicy _value);
 
 		void setItemWidth(int _value);
 

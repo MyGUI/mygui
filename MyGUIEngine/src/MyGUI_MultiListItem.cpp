@@ -58,11 +58,11 @@ namespace MyGUI
 		return Base::getCaption();
 	}
 
-	void MultiListItem::setItemSizeType(ItemSizeType _value)
+	void MultiListItem::setItemResizingPolicy(ResizingPolicy _value)
 	{
 		MultiListBox* owner = getOwner();
 		if (owner != nullptr)
-			owner->setColumnSizeType(this, _value);
+			owner->setColumnResizingPolicy(this, _value);
 	}
 
 	void MultiListItem::setItemWidth(int _value)
@@ -74,8 +74,8 @@ namespace MyGUI
 
 	void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "ItemSizeType")
-			setItemSizeType(ItemSizeType::parse(_value));
+		if (_key == "ItemResizingPolicy")
+			setItemResizingPolicy(ResizingPolicy::parse(_value));
 		else if (_key == "ItemWidth")
 			setItemWidth(utility::parseValue<int>(_value));
 		else

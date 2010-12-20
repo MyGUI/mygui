@@ -9,7 +9,7 @@
         <Widget type="MultiListBox" skin="MultiList" position="5 5 701 195" align="HStretch Top" layer="Back" name="multi_List">
             <Widget type="MultiListItem" skin="" position="0 21 693 166">
                 <Property key="Caption" value="name"/>
-                <Property key="ItemSizeType" value="Star"/>
+                <Property key="ItemResizingPolicy" value="Fill"/>
             </Widget>
         </Widget>
         <Widget type="EditBox" skin="Edit" position="5 204 700 26" align="HStretch Top" layer="Back" name="edit_ResourceName">

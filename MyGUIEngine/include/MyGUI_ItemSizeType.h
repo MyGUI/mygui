@@ -19,32 +19,32 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_ITEM_SIZE_TYPE_H__
-#define __MYGUI_ITEM_SIZE_TYPE_H__
+#ifndef __MYGUI_RESIZING_POLICY_H__
+#define __MYGUI_RESIZING_POLICY_H__
 
 #include "MyGUI_Prerequest.h"
 
 namespace MyGUI
 {
 
-	struct MYGUI_EXPORT ItemSizeType
+	struct MYGUI_EXPORT ResizingPolicy
 	{
 		enum Enum
 		{
 			Auto,
 			Fixed,
-			Star,
+			Fill,
 			MAX
 		};
 
-		ItemSizeType(Enum _value = MAX) :
+		ResizingPolicy(Enum _value = MAX) :
 			value(_value)
 		{
 		}
 
-		static ItemSizeType parse(const std::string& _value)
+		static ResizingPolicy parse(const std::string& _value)
 		{
-			ItemSizeType type;
+			ResizingPolicy type;
 			int value = 0;
 			while (true)
 			{
@@ -53,31 +53,31 @@ namespace MyGUI
 					break;
 				value++;
 			}
-			type.value = ItemSizeType::Enum(value);
+			type.value = ResizingPolicy::Enum(value);
 			return type;
 		}
 
-		friend bool operator == (ItemSizeType const& a, ItemSizeType const& b)
+		friend bool operator == (ResizingPolicy const& a, ResizingPolicy const& b)
 		{
 			return a.value == b.value;
 		}
 
-		friend bool operator != (ItemSizeType const& a, ItemSizeType const& b)
+		friend bool operator != (ResizingPolicy const& a, ResizingPolicy const& b)
 		{
 			return a.value != b.value;
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const ItemSizeType&  _value)
+		friend std::ostream& operator << (std::ostream& _stream, const ResizingPolicy&  _value)
 		{
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> (std::istream& _stream, ItemSizeType&  _value)
+		friend std::istream& operator >> (std::istream& _stream, ResizingPolicy&  _value)
 		{
 			std::string value;
 			_stream >> value;
-			_value = ItemSizeType::parse(value);
+			_value = ResizingPolicy::parse(value);
 			return _stream;
 		}
 
@@ -89,7 +89,7 @@ namespace MyGUI
 	private:
 		const char* getValueName(int _index) const
 		{
-			static const char* values[MAX + 1] = { "Auto", "Fixed", "Star", "" };
+			static const char* values[MAX + 1] = { "Auto", "Fixed", "Fill", "" };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 
@@ -99,4 +99,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ITEM_SIZE_TYPE_H__
+#endif // __MYGUI_RESIZING_POLICY_H__

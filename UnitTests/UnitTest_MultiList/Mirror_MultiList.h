@@ -76,7 +76,7 @@ namespace unittest
 			@param _width Width of new column
 			@param _name Name of new column
 		*/
-		void addColumn(const MyGUI::UString& _name, int _width, MyGUI::Any _data = MyGUI::Any::Null)
+		void addColumn(const MyGUI::UString& _name, int _width = 0, MyGUI::Any _data = MyGUI::Any::Null)
 		{
 			insertColumnAt(MyGUI::ITEM_NONE, _name, _width, _data);
 		}

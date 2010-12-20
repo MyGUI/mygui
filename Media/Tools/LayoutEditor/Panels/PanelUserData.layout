@@ -12,11 +12,11 @@
         <Widget type="MultiListBox" skin="MultiList" position="3 28 250 85" align="HStretch Top" name="multilist">
             <Widget type="MultiListItem" skin="" position="0 21 121 56">
                 <Property key="Caption" value="#{Key}"/>
-                <Property key="ItemSizeType" value="Star"/>
+                <Property key="ItemResizingPolicy" value="Fill"/>
             </Widget>
             <Widget type="MultiListItem" skin="" position="121 21 121 56">
                 <Property key="Caption" value="#{Value}"/>
-                <Property key="ItemSizeType" value="Star"/>
+                <Property key="ItemResizingPolicy" value="Fill"/>
             </Widget>
         </Widget>
     </Widget>
