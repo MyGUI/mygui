@@ -22,6 +22,7 @@ namespace MyGUI
 		mDestroy(false),
 		mIsAnimate(false)
 	{
+		mTimer.reset();
 	}
 
 	RTTLayerNode::~RTTLayerNode()
@@ -46,6 +47,10 @@ namespace MyGUI
 
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
+		unsigned long time = mTimer.getMilliseconds();
+		mTimer.reset();
+
+		float frameTime = (float)((double)(time) / (double)1000);
 		// скорее всего рендер таргет пересоздается,
 		// необходимо пересчитать смещение рендер таргета
 		if (_update)
@@ -130,8 +135,7 @@ namespace MyGUI
 		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
 		while (anim.next())
 		{
-			float time = 0.005;// FIX ME Gui::getInstance().getLastFrameTime();
-			count_quad = anim->animate(_update, count_quad, mData, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
+			count_quad = anim->animate(_update, count_quad, mData, frameTime, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
 		}
 
 		if (mIsAnimate)

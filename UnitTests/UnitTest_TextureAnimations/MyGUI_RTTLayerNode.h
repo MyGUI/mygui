@@ -11,6 +11,7 @@
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_LayerNodeAnimation.h"
+#include <MyGUI_Timer.h>
 
 namespace MyGUI
 {
@@ -79,6 +80,8 @@ namespace MyGUI
 
 		VectorQuadData mData;
 		QuadData mDefaultData;
+
+		MyGUI::Timer mTimer;
 	};
 
 } // namespace MyGUI
