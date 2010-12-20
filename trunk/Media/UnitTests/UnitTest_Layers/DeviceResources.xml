@@ -2,7 +2,7 @@
 
 <MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceDevice" name="dev_None">
+	<Resource type="ResourceDevice" name="DeviceNone">
 		<Name>None</Name>
 		<Description>Select part of ship...</Description>
 		<ValueEnergy>0</ValueEnergy>
@@ -11,7 +11,7 @@
 		<ValueHP>0</ValueHP>
 	</Resource>
 
-	<Resource type="ResourceDevice" name="dev_Engine">
+	<Resource type="ResourceDevice" name="DeviceEngine">
 		<Name>Engine</Name>
 		<Description>This is engine. It is very fast.</Description>
 		<ValueEnergy>10</ValueEnergy>
@@ -20,7 +20,7 @@
 		<ValueHP>8</ValueHP>
 	</Resource>
 
-	<Resource type="ResourceDevice" name="dev_Ammo">
+	<Resource type="ResourceDevice" name="DeviceAmmo">
 		<Name>Ammo</Name>
 		<Description>Ammo for gun.</Description>
 		<ValueEnergy>3</ValueEnergy>
@@ -29,7 +29,7 @@
 		<ValueHP>6</ValueHP>
 	</Resource>
 
-	<Resource type="ResourceDevice" name="dev_Armor">
+	<Resource type="ResourceDevice" name="DeviceArmor">
 		<Name>Armor</Name>
 		<Description>Armor protect ship.</Description>
 		<ValueEnergy>4</ValueEnergy>
@@ -38,7 +38,7 @@
 		<ValueHP>10</ValueHP>
 	</Resource>
 
-	<Resource type="ResourceDevice" name="dev_Gun">
+	<Resource type="ResourceDevice" name="DeviceGun">
 		<Name>Gun</Name>
 		<Description>Gun damages enemies.</Description>
 		<ValueEnergy>5</ValueEnergy>
