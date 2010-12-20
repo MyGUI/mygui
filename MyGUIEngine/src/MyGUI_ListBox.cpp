@@ -904,7 +904,7 @@ namespace MyGUI
 			static_cast<Button*>(mWidgetLines[pos])->getStateSelected() ? count_pressed ++ : 0;
 			static_cast<Button*>(mWidgetLines[pos])->getVisible() ? count_show ++ : 0;
 		}
-		MYGUI_ASSERT(count_pressed < 2, _owner);
+		//MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
