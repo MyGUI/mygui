@@ -4,7 +4,8 @@
         <Property key="Caption" value="drag and drop demo"/>
 		<Property key="MinSize" value="170 100"/>
 		<Widget type="ItemBox" skin="ItemBox" position="0 0 356 220" align="Stretch" name="box_Items">
-            <Property key="NeedToolTip" value="true"/>
+			<Property key="VerticalAlignment" value="true"/>
+			<Property key="NeedToolTip" value="true"/>
         </Widget>
     </Widget>
 </MyGUI>
