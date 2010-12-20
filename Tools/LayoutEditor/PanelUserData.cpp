@@ -46,8 +46,8 @@ namespace tools
 		mEditValue->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
 		mMultilist->eventListChangePosition += MyGUI::newDelegate(this, &PanelUserData::notifySelectUserDataItem);
 
-		mMultilist->addColumn(replaceTags("Key"), 1);
-		mMultilist->addColumn(replaceTags("Value"), 1);
+		//mMultilist->addColumn(replaceTags("Key"), 1);
+		//mMultilist->addColumn(replaceTags("Value"), 1);
 
 		mEditLeft = mEditKey->getLeft();
 		mEditRight = mMainWidget->getWidth() - mEditValue->getRight();
@@ -80,9 +80,9 @@ namespace tools
 
 	void PanelUserData::notifyChangeWidth(int _width)
 	{
-		const MyGUI::IntSize& size = mMultilist->getClientCoord().size();
-		mMultilist->setColumnWidthAt(0, size.width / 2);
-		mMultilist->setColumnWidthAt(1, size.width - (size.width / 2));
+		//const MyGUI::IntSize& size = mMultilist->getClientCoord().size();
+		//mMultilist->setColumnWidthAt(0, size.width / 2);
+		//mMultilist->setColumnWidthAt(1, size.width - (size.width / 2));
 
 		int width = mMainWidget->getClientCoord().width;
 
