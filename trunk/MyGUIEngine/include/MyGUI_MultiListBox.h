@@ -30,7 +30,7 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"
-#include "MyGUI_ItemSizeType.h"
+#include "MyGUI_ResizingPolicy.h"
 
 namespace MyGUI
 {

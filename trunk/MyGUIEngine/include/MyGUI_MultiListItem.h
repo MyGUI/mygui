@@ -25,7 +25,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextBox.h"
 #include "MyGUI_TabControl.h"
-#include "MyGUI_ItemSizeType.h"
+#include "MyGUI_ResizingPolicy.h"
 
 namespace MyGUI
 {

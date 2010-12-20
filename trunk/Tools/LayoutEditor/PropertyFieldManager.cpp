@@ -70,7 +70,7 @@ namespace tools
 		mFactories["FlowDirection"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["CanvasAlign"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["MenuItemType"] = GenericFactory<PropertyFieldComboBox>::getFactory();
-		mFactories["ItemSizeType"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["ItemResizingPolicy"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 	}
 
 	void PropertyFieldManager::shutdown()

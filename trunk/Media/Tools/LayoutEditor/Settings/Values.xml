@@ -101,11 +101,11 @@
 		<Property key="BottomToTop"/>
 	</Value>
 
-	<Value name="ItemSizeType">
+	<Value name="ItemResizingPolicy">
 		<Property key="#{ColourDefault}[DEFAULT]"/>
 		<Property key="Auto"/>
 		<Property key="Fixed"/>
-		<Property key="Star"/>
+		<Property key="Fill"/>
 	</Value>
 
 </MyGUI>

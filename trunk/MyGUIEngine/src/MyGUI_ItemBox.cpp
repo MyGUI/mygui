@@ -197,7 +197,6 @@ namespace MyGUI
 		// еще нет такого виджета, нуно создать
 		if (_index == mVectorItems.size())
 		{
-
 			requestItemSize();
 
 			Widget* item = _getClientWidget()->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
