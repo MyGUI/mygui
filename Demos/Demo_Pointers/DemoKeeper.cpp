@@ -50,9 +50,9 @@ namespace demo
 #ifdef MYGUI_SAMPLES_INPUT_OIS
 		MyGUI::ResourceManager::getInstance().load("Pointers.xml");
 #elif MYGUI_SAMPLES_INPUT_WIN32
-		MyGUI::ResourceManager::getInstance().load("Pointers_W32.xml");
+		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 #elif MYGUI_SAMPLES_INPUT_WIN32_OIS
-		MyGUI::ResourceManager::getInstance().load("Pointers_W32.xml");
+		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 #endif
 
 		mPointerContextManager = new PointerContextManager(this);
