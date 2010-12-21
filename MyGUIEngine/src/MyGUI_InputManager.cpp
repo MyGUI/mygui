@@ -460,8 +460,11 @@ namespace MyGUI
 
 	void InputManager::_resetMouseFocusWidget()
 	{
+		Widget* mouseFocus = mWidgetMouseFocus;
+		mWidgetMouseFocus = nullptr;
+
 		// спускаемся по старому виджету и сбрасываем фокус
-		Widget* root_focus = mWidgetMouseFocus;
+		Widget* root_focus = mouseFocus;
 		while (root_focus != nullptr)
 		{
 			root_focus->_setRootMouseFocus(false);
@@ -471,20 +474,19 @@ namespace MyGUI
 
 		if (mLeftMouseCapture)
 		{
-			mWidgetMouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
 			mLeftMouseCapture = false;
+			mouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
 		}
 
 		if (mRightMouseCapture)
 		{
-			mWidgetMouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
 			mRightMouseCapture = false;
+			mouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
 		}
 
-		if (nullptr != mWidgetMouseFocus)
+		if (nullptr != mouseFocus)
 		{
-			mWidgetMouseFocus->_riseMouseLostFocus(nullptr);
-			mWidgetMouseFocus = nullptr;
+			mouseFocus->_riseMouseLostFocus(nullptr);
 		}
 	}
 
@@ -494,23 +496,9 @@ namespace MyGUI
 		if (nullptr == _widget)
 			return;
 
-		if (_widget == mWidgetMouseFocus)
-		{
-			Widget* mouseFocus = mWidgetMouseFocus;
-			mWidgetMouseFocus = nullptr;
+		if (mWidgetMouseFocus == _widget)
+			_resetMouseFocusWidget();
 
-			if (mLeftMouseCapture)
-			{
-				mLeftMouseCapture = false;
-				mouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
-			}
-
-			if (mRightMouseCapture)
-			{
-				mRightMouseCapture = false;
-				mouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
-			}
-		}
 		if (_widget == mWidgetKeyFocus)
 		{
 			mWidgetKeyFocus = nullptr;
@@ -525,7 +513,6 @@ namespace MyGUI
 				break;
 			}
 		}
-
 	}
 
 	void InputManager::addWidgetModal(Widget* _widget)
