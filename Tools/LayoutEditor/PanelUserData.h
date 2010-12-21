@@ -8,6 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
+#include "EditorWidgets.h"
 
 namespace tools
 {
@@ -29,6 +30,8 @@ namespace tools
 		void notifyDeleteUserData(MyGUI::Widget* _sender);
 		void notifyUpdateUserData(MyGUI::EditBox* _widget);
 		void notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index);
+
+		bool checkUserData(WidgetContainer* _widgetContainer, const std::string& _key);
 
 	private:
 		MyGUI::EditBox* mEditKey;

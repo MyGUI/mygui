@@ -9,6 +9,7 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "PropertyFieldManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -28,7 +29,7 @@ namespace tools
 
 	void PanelControllers::initialise()
 	{
-		mPanelCell->setCaption("Controllers");
+		mPanelCell->setCaption(replaceTags("PanelControllersName"));
 
 		assignWidget(mControllerName, "controllerName");
 		assignWidget(mButtonAdd, "buttonAdd");

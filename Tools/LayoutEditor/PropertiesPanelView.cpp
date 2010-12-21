@@ -20,7 +20,8 @@ namespace tools
 		mPanelItems(nullptr),
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
-		mCurrentWidget(nullptr)
+		mCurrentWidget(nullptr),
+		mPanelTemplateProperties(nullptr)
 	{
 		assignBase(mPanelView, "scroll_View");
 
@@ -33,6 +34,9 @@ namespace tools
 
 		mPanelMainProperties = new PanelMainProperties();
 		mPanelView->addItem(mPanelMainProperties);
+
+		mPanelTemplateProperties = new PanelTemplateProperties();
+		mPanelView->addItem(mPanelTemplateProperties);
 
 		mPanelItems = new PanelItems();
 		mPanelView->addItem(mPanelItems);
@@ -57,6 +61,7 @@ namespace tools
 		delete mPanelItems;
 		delete mPanelUserData;
 		delete mPanelControllers;
+		delete mPanelTemplateProperties;
 
 		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
 			delete (*item).second;
@@ -123,6 +128,9 @@ namespace tools
 
 			mPanelControllers->setVisible(false);
 			mPanelControllers->update(nullptr);
+
+			mPanelTemplateProperties->setVisible(false);
+			mPanelTemplateProperties->update(nullptr, nullptr);
 		}
 		else
 		{
@@ -140,17 +148,22 @@ namespace tools
 
 			std::string widgetTypeName = mCurrentWidget->getTypeName();
 
+			bool templateName = false;
 			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
 			for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
 			{
-				if ((*item).first == "TargetWidgetType")
+				if ((*item).first == "LE_TargetWidgetType")
 				{
 					widgetTypeName = (*item).second;
+					templateName = true;
 					break;
 				}
 			}
 
 			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
+
+			mPanelTemplateProperties->setVisible(true);
+			mPanelTemplateProperties->update(mCurrentWidget, templateName ? widgetType : nullptr);
 
 			while (widgetType != nullptr)
 			{

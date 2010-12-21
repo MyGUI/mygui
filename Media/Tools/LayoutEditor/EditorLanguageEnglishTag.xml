@@ -17,6 +17,9 @@
 	<Tag name="Widget_type_propertes">#{widget_type} properties</Tag>
 	<Tag name="Properties_not_available">#808080#{widget_type} properties</Tag>
 	<Tag name="Items">Items</Tag>
+	<Tag name="PanelTemplatePropertiesName">Template properties</Tag>
+	<Tag name="PanelUserDataName">User data</Tag>
+	<Tag name="PanelControllersName">Controllers</Tag>
 
 	<Tag name="Project">Project</Tag>
 	<Tag name="MenuProjectCreate">Create project ...</Tag>

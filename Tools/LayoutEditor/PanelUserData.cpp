@@ -5,11 +5,12 @@
 */
 
 #include "Precompiled.h"
+#include "PanelUserData.h"
 #include "Common.h"
 #include "Localise.h"
-#include "PanelUserData.h"
-#include "EditorWidgets.h"
 #include "UndoManager.h"
+#include "WidgetStyle.h"
+#include "WidgetTypes.h"
 
 namespace tools
 {
@@ -32,7 +33,7 @@ namespace tools
 
 	void PanelUserData::initialise()
 	{
-		mPanelCell->setCaption("UserData");
+		mPanelCell->setCaption(replaceTags("PanelUserDataName"));
 
 		assignWidget(mEditKey, "editKey");
 		assignWidget(mEditValue, "editValue");
@@ -73,8 +74,11 @@ namespace tools
 		mMultilist->removeAllItems();
 		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
 		{
-			mMultilist->addItem(iterProperty->first);
-			mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, iterProperty->second);
+			if (checkUserData(widgetContainer, (*iterProperty).first))
+			{
+				mMultilist->addItem(iterProperty->first);
+				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, iterProperty->second);
+			}
 		}
 	}
 
@@ -153,6 +157,39 @@ namespace tools
 		std::string value = mMultilist->getSubItemNameAt(1, item);
 		mEditKey->setOnlyText(key);
 		mEditValue->setOnlyText(value);
+	}
+
+	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, const std::string& _key)
+	{
+		if (_key == "LE_TargetWidgetType")
+			return false;
+
+		std::string widgetTypeName = "";
+
+		bool templateName = false;
+		WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
+		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+		{
+			if ((*item).first == "LE_TargetWidgetType")
+			{
+				widgetTypeName = (*item).second;
+				templateName = true;
+				break;
+			}
+		}
+
+		if (templateName)
+		{
+			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
+
+			for (MyGUI::VectorStringPairs::iterator iter = widgetType->templateData.begin(); iter != widgetType->templateData.end(); ++iter)
+			{
+				if ((*iter).first == _key)
+					return false;
+			}
+		}
+
+		return true;
 	}
 
 } // namespace tools

@@ -53,6 +53,24 @@ namespace tools
 			return widget->getCoord().print();
 		}
 
+		void setUserData(const std::string& _key, const std::string& _value)
+		{
+			bool found = false;
+
+			for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+			{
+				if ((*item).first == _key)
+				{
+					found = true;
+					(*item).second = _value;
+					break;
+				}
+			}
+
+			if (!found)
+				mUserString.push_back(MyGUI::PairString(_key, _value));
+		}
+
 		void setLayerName(const std::string& _layerName)
 		{
 			layer = _layerName;

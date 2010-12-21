@@ -14,6 +14,7 @@
 #include "PanelUserData.h"
 #include "PanelControllers.h"
 #include "EditorToolTip.h"
+#include "PanelTemplateProperties.h"
 
 namespace tools
 {
@@ -44,6 +45,7 @@ namespace tools
 		PanelItems* mPanelItems;
 		PanelUserData* mPanelUserData;
 		PanelControllers* mPanelControllers;
+		PanelTemplateProperties* mPanelTemplateProperties;
 
 		MyGUI::Widget* mCurrentWidget;
 	};
