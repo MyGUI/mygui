@@ -9,6 +9,8 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 #include "IPropertyField.h"
+#include "WidgetTypes.h"
+#include "EditorWidgets.h"
 
 namespace tools
 {
@@ -29,12 +31,15 @@ namespace tools
 		void notifyActionName(const std::string& _type, const std::string& _value, bool _final);
 		void notifyActionType(const std::string& _type, const std::string& _value, bool _final);
 		void notifyActionAlign(const std::string& _type, const std::string& _value, bool _final);
+		void notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final);
 
 		void destroyPropertyFields();
 		void updateSize();
 
 		bool isSkinExist(const std::string& _skinName);
 		bool checkTemplate(const std::string& _skinName);
+
+		std::string getTargetTemplate(WidgetContainer* _container);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
