@@ -552,7 +552,7 @@ namespace tools
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
 		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
 		{
-			if ((*item).first == "TargetWidgetType")
+			if ((*item).first == "LE_TargetWidgetType")
 				return true;
 		}
 

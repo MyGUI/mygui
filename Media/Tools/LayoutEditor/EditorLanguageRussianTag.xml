@@ -28,6 +28,9 @@
 	<Tag name="Widget_type_propertes">Свойства #{widget_type}</Tag>
 	<Tag name="Properties_not_available">#808080Свойства #{widget_type}</Tag>
 	<Tag name="Items">Элементы</Tag>
+	<Tag name="PanelTemplatePropertiesName">Свойства шаблона</Tag>
+	<Tag name="PanelUserDataName">Пользовательские данные</Tag>
+	<Tag name="PanelControllersName">Контроллеры</Tag>
 
 	<Tag name="Project">Проект</Tag>
 	<Tag name="MenuProjectCreate">Создать проект ...</Tag>

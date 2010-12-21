@@ -77,7 +77,7 @@ namespace tools
 					skinDefaultSize = container->intCoord.size();
 					templateRootFound = true;
 
-					MyGUI::MapString::const_iterator item = container->userStrings.find("TargetWidgetType");
+					MyGUI::MapString::const_iterator item = container->userStrings.find("LE_TargetWidgetType");
 					if (item != container->userStrings.end())
 						widget = (*item).second;
 

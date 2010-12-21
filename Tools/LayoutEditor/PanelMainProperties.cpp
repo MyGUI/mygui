@@ -7,8 +7,6 @@
 #include "Precompiled.h"
 #include "PanelMainProperties.h"
 #include "Localise.h"
-#include "EditorWidgets.h"
-#include "WidgetTypes.h"
 #include "PropertyFieldManager.h"
 #include "UndoManager.h"
 #include "WidgetSelectorManager.h"
@@ -85,7 +83,26 @@ namespace tools
 		field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionSkin);
 		mFields.push_back(field);
 
+		if (widgetContainer->name == "Root" && widgetContainer->widget->isRootWidget())
+		{
+			field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", _currentWidget);
+			field->setName("Template");
+			field->setValue(getTargetTemplate(widgetContainer));
+			field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionTemplate);
+			mFields.push_back(field);
+		}
+
 		updateSize();
+	}
+
+	std::string PanelMainProperties::getTargetTemplate(WidgetContainer* _container)
+	{
+		for (MyGUI::VectorStringPairs::iterator item = _container->mUserString.begin(); item != _container->mUserString.end(); ++ item)
+		{
+			if ((*item).first == "LE_TargetWidgetType")
+				return (*item).second;
+		}
+		return "";
 	}
 
 	void PanelMainProperties::updateSize()
@@ -176,8 +193,24 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			widgetContainer->name = _value;
-			//EditorWidgets::getInstance().invalidateWidgets();
+
+			if (widgetContainer->widget->isRootWidget() && (widgetContainer->name == "Root" || _value == "Root"))
+			{
+				widgetContainer->name = _value;
+
+				WidgetSelectorManager::getInstance().saveSelectedWidget();
+
+				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+				EditorWidgets::getInstance().clear();
+				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+				delete savedDoc;
+
+				WidgetSelectorManager::getInstance().restoreSelectedWidget();
+			}
+			else
+			{
+				widgetContainer->name = _value;
+			}
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
@@ -211,6 +244,27 @@ namespace tools
 
 			widgetContainer->align = _value;
 			widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
+
+			UndoManager::getInstance().addValue(PR_PROPERTIES);
+		}
+	}
+
+	void PanelMainProperties::notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final)
+	{
+		if (_final)
+		{
+			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+
+			widgetContainer->setUserData("LE_TargetWidgetType", _value);
+
+			WidgetSelectorManager::getInstance().saveSelectedWidget();
+
+			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+			EditorWidgets::getInstance().clear();
+			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+			delete savedDoc;
+
+			WidgetSelectorManager::getInstance().restoreSelectedWidget();
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}

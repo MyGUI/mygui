@@ -4,19 +4,19 @@
         <Widget type="Widget" skin="CheckBoxSkin" position="20 20 23 21" name="Root">
             <Property key="Text_TextAlign" value="Default"/>
             <Property key="Text_FontName" value="Default"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="RadioButtonTemplate">
         <Widget type="Widget" skin="RadioButtonSkin" position="20 20 21 20" name="Root">
             <Property key="Text_TextAlign" value="Default"/>
             <Property key="Text_FontName" value="Default"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ScrollBarHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
-            <UserString key="TargetWidgetType" value="ScrollBar"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -44,7 +44,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollBarVTemplate">
         <Widget type="Widget" skin="ScrollPanelVSkin" position="25 50 15 125" name="Root">
-            <UserString key="TargetWidgetType" value="ScrollBar"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="Left VStretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
@@ -73,7 +73,7 @@
     <Resource type="ResourceLayout" name="SliderHTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="Scroll_MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="ScrollBar"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
                 <Property key="Widget_NeedKey" value="false"/>
                 <Property key="Widget_InheritsPick" value="true"/>
@@ -98,7 +98,7 @@
     <Resource type="ResourceLayout" name="SliderVTemplate">
         <Widget type="Widget" skin="ScrollPanelVSkin" position="20 20 15 125" name="Root">
             <Property key="Scroll_MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="ScrollBar"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
                 <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
@@ -118,14 +118,14 @@
         <Widget type="Button" skin="ButtonSkin" position="20 25 29 26" name="Root">
             <Property key="Text_FontName" value="Default"/>
             <Property key="Text_TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
         <Widget type="Button" skin="ButtonTemplate" position="20 60 29 26"/>
         <Widget type="Button" skin="Button" position="20 95 29 26"/>
     </Resource>
     <Resource type="ResourceLayout" name="EditBoxSimpleTemplate">
         <Widget type="Button" skin="EditBoxSkin" position="65 10 29 26" name="Root">
-            <UserString key="TargetWidgetType" value="EditBox"/>
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClient" position="2 2 23 20" align="Stretch" name="Client">
                 <Property key="Text_TextAlign" value="Left VCenter"/>
             </Widget>
@@ -142,7 +142,7 @@
     <Resource type="ResourceLayout" name="EditBoxTemplate" version="3.2.0">
         <Widget type="Button" skin="EditBoxSkin" position="25 10 55 55" name="Root">
             <Property key="MultiLine" value="true"/>
-            <UserString key="TargetWidgetType" value="EditBox"/>
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClient" position="2 3 33 32" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
             </Widget>
@@ -159,7 +159,7 @@
     <Resource type="ResourceLayout" name="WindowTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionEmptySkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
@@ -178,7 +178,7 @@
     <Resource type="ResourceLayout" name="WindowCTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
@@ -197,7 +197,7 @@
     <Resource type="ResourceLayout" name="WindowCSTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
@@ -222,7 +222,7 @@
     <Resource type="ResourceLayout" name="WindowCXTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
@@ -246,7 +246,7 @@
     <Resource type="ResourceLayout" name="WindowCSXTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 49" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionWithButtonSkin" position="0 0 44 28" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
@@ -276,7 +276,7 @@
     <Resource type="ResourceLayout" name="WindowToolTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="15 10 68 38" name="Root">
             <Property key="Snap" value="true"/>
-            <UserString key="TargetWidgetType" value="Window"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="CaptionEmptySmallSkin" position="0 0 68 18" align="HStretch Top" name="Caption">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="Default"/>
@@ -294,7 +294,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="MenuBarTemplate">
         <Widget type="Widget" skin="MenuBarSkin" position="5 5 29 26" name="Root">
-            <UserString key="TargetWidgetType" value="MenuBar"/>
+            <UserString key="LE_TargetWidgetType" value="MenuBar"/>
             <UserString key="DistanceButton" value="6"/>
             <UserString key="SubMenuLayer" value="Popup"/>
             <UserString key="VerticalAlignment" value="false"/>
@@ -337,7 +337,7 @@
         <Widget type="Widget" skin="MenuItemSkin" position="20 25 25 20" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
         <Widget type="Button" skin="MenuBarButtonTemplate" position="20 60 100 60">
             <Property key="Caption" value="test"/>
@@ -358,7 +358,7 @@
         <Widget type="Widget" skin="PanelSkin" position="5 5 29 26" name="Root">
             <UserString key="SubMenuLayer" value="Popup"/>
             <UserString key="SubMenuSkin" value="PopupMenuTemplate"/>
-            <UserString key="TargetWidgetType" value="PopupMenu"/>
+            <UserString key="LE_TargetWidgetType" value="PopupMenu"/>
             <UserString key="VerticalAlignment" value="true"/>
             <UserString key="SeparatorSkin" value="PopupMenuSeparatorTemplate"/>
             <UserString key="NormalSkin" value="PopupMenuNormalTemplate"/>
@@ -426,7 +426,7 @@
         <Widget type="Widget" skin="MenuItemNormalSkin" position="20 25 43 13" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="MenuItemCheckButtonSkin" position="1 0 15 13" align="Left VCenter" name="Check"/>
         </Widget>
     </Resource>
@@ -434,14 +434,14 @@
         <Widget type="Widget" skin="MenuItemNormalSkin" position="20 25 43 14" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="MenuItemPopupButtonSkin" position="31 1 10 12" align="Right VCenter"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ProgressBarTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="ProgressBar"/>
+            <UserString key="LE_TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackWidth" value="7"/>
             <UserString key="TrackFill" value="false"/>
             <UserString key="TrackSkin" value="SliderTrackHSkin"/>
@@ -466,7 +466,7 @@
     <Resource type="ResourceLayout" name="ProgressBarFillTemplate">
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="MoveToClick" value="true"/>
-            <UserString key="TargetWidgetType" value="ProgressBar"/>
+            <UserString key="LE_TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackFill" value="true"/>
             <UserString key="TrackSkin" value="ProgressBarTrackHSkin"/>
             <UserString key="TrackWidth" value="6"/>
@@ -492,12 +492,12 @@
         <Widget type="Widget" skin="ListBoxItemSkin" position="20 20 43 13" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Left VCenter"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ListBoxTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
-            <UserString key="TargetWidgetType" value="ListBox"/>
+            <UserString key="LE_TargetWidgetType" value="ListBox"/>
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListBoxItemTemplate"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 47" align="Stretch" name="Client"/>
@@ -2208,7 +2208,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ItemBoxTemplate">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
-            <UserString key="TargetWidgetType" value="ItemBox"/>
+            <UserString key="LE_TargetWidgetType" value="ItemBox"/>
             <UserString key="DragLayer" value="DragAndDrop"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
             <Widget type="ScrollBar" skin="ScrollBarVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
@@ -2217,7 +2217,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ScrollViewTemplate">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
-            <UserString key="TargetWidgetType" value="ScrollView"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollView"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
             <Widget type="ScrollBar" skin="ScrollBarVTemplate" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
             <Widget type="ScrollBar" skin="ScrollBarHTemplate" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
@@ -2230,7 +2230,7 @@
         <Widget type="Button" skin="EditBoxSkin" position="65 10 100 26" name="Root">
             <Property key="MaxListLength" value="200"/>
             <Property key="SmoothShow" value="true"/>
-            <UserString key="TargetWidgetType" value="ComboBox"/>
+            <UserString key="LE_TargetWidgetType" value="ComboBox"/>
             <Widget type="TextBox" skin="EditClient" position="2 2 75 20" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="TextColour" value="0 0 0"/>
@@ -2258,12 +2258,12 @@
         <Widget type="Button" skin="TabHeaderButtonSkin" position="20 25 52 23" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="TabControlTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="5 5 89 60" name="Root">
-            <UserString key="TargetWidgetType" value="TabControl"/>
+            <UserString key="LE_TargetWidgetType" value="TabControl"/>
             <UserString key="ButtonSkin" value="TabHeaderButtonTemplate"/>
             <Widget type="Widget" skin="TabPanelSkin" position="0 21 89 39" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="2 3 83 32" align="Stretch" name="TabItem"/>
@@ -2292,7 +2292,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="MultiListBoxTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
-            <UserString key="TargetWidgetType" value="MultiListBox"/>
+            <UserString key="LE_TargetWidgetType" value="MultiListBox"/>
             <UserString key="SkinButton" value="MultiListButtonTemplate"/>
             <UserString key="SkinList" value="MultiSubListBoxTemplate"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 47 26" align="Stretch" name="Client"/>
@@ -2311,7 +2311,7 @@
         <Widget type="Button" skin="MultiListButtonSkin" position="20 25 45 21" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
-            <UserString key="TargetWidgetType" value="Button"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="ImageBox" skin="ImageBox" position="29 4 12 10" align="Right VCenter" name="Image">
                 <Property key="ImageResource" value="MultiListButtonImage"/>
                 <Property key="ImageGroup" value="Icons"/>
@@ -2323,7 +2323,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="MultiSubListBoxTemplate" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="8 8 47 47" name="Root">
-            <UserString key="TargetWidgetType" value="ListBox"/>
+            <UserString key="LE_TargetWidgetType" value="ListBox"/>
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListBoxItemTemplate"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 32 47" align="Stretch" name="Client"/>
