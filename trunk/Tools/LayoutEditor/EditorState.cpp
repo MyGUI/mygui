@@ -121,6 +121,9 @@ namespace tools
 
 	void EditorState::command_Test(const MyGUI::UString& _commandName, bool& _result)
 	{
+		if (!checkCommand())
+			return;
+
 		StateManager::getInstance().stateEvent(this, "Test");
 
 		_result = true;
@@ -128,6 +131,9 @@ namespace tools
 
 	void EditorState::command_Settings(const MyGUI::UString& _commandName, bool& _result)
 	{
+		if (!checkCommand())
+			return;
+
 		mSettingsWindow->doModal();
 
 		_result = true;
@@ -135,6 +141,9 @@ namespace tools
 
 	void EditorState::command_CodeGenerator(const MyGUI::UString& _commandName, bool& _result)
 	{
+		if (!checkCommand())
+			return;
+
 		mCodeGenerator->loadTemplate();
 		mCodeGenerator->doModal();
 
@@ -143,6 +152,9 @@ namespace tools
 
 	void EditorState::command_OpenRecentFile(const MyGUI::UString& _commandName, bool& _result)
 	{
+		if (!checkCommand())
+			return;
+
 		command_FileDrop(_commandName, _result);
 	}
 
