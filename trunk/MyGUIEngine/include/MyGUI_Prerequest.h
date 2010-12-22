@@ -43,7 +43,9 @@
 #ifndef MYGUI_DONT_REPLACE_NULLPTR
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 		#ifndef _MANAGED
-			#define nullptr 0
+			#ifndef _NATIVE_NULLPTR_SUPPORTED
+				#define nullptr 0
+			#endif
 		#endif
 	#else
 		#define nullptr 0
