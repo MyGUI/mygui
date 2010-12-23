@@ -51,6 +51,7 @@ namespace base
 	/*internal:*/
 		void _windowResized();
 		virtual void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename);
+		virtual void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename);
 
 	protected:
 		virtual void createScene() { }
