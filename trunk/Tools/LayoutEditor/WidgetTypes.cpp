@@ -135,6 +135,14 @@ namespace tools
 						continue;
 					widget_type->templateData.push_back(MyGUI::PairString(key, value));
 				}
+				else if (field->getName() == "ParameterData")
+				{
+					if (!field->findAttribute("key", key))
+						continue;
+					if (!field->findAttribute("value", value))
+						continue;
+					widget_type->parameterData.push_back(MyGUI::PairString(key, value));
+				}
 			}
 
 			if (widget_type->base.empty() && widget_type->name != "Widget")
