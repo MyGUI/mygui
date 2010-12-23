@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __PANEL_TEMPLATE_PROPERTIES_H__
-#define __PANEL_TEMPLATE_PROPERTIES_H__
+#ifndef __PANEL_EXTENSION_PROPERTIES_H__
+#define __PANEL_EXTENSION_PROPERTIES_H__
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
@@ -14,16 +14,16 @@
 
 namespace tools
 {
-	class PanelTemplateProperties :
+	class PanelExtensionProperties :
 		public wraps::BasePanelViewItem
 	{
 	public:
-		PanelTemplateProperties();
+		PanelExtensionProperties();
 
 		virtual void initialise();
 		virtual void shutdown();
 
-		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
+		void update(MyGUI::Widget* _currentWidget);
 
 	private:
 		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
@@ -41,4 +41,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __PANEL_TEMPLATE_PROPERTIES_H__
+#endif // __PANEL_EXTENSION_PROPERTIES_H__

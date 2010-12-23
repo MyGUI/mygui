@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "PanelTemplateProperties.h"
+#include "PanelExtensionProperties.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
 #include "PropertyFieldManager.h"
@@ -13,27 +13,27 @@
 
 namespace tools
 {
-	PanelTemplateProperties::PanelTemplateProperties() :
-		BasePanelViewItem("PanelTemplateProperties.layout"),
+	PanelExtensionProperties::PanelExtensionProperties() :
+		BasePanelViewItem("PanelExtensionProperties.layout"),
 		mCurrentWidget(nullptr)
 	{
 	}
 
-	void PanelTemplateProperties::initialise()
+	void PanelExtensionProperties::initialise()
 	{
-		mPanelCell->setCaption(replaceTags("PanelTemplatePropertiesName"));
+		mPanelCell->setCaption(replaceTags("PanelExtensionPropertiesName"));
 	}
 
-	void PanelTemplateProperties::shutdown()
+	void PanelExtensionProperties::shutdown()
 	{
 		destroyPropertyFields();
 	}
 
-	void PanelTemplateProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	void PanelExtensionProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
 	{
 		if (widgetType != nullptr)
 		{
-			for (MyGUI::VectorStringPairs::iterator iter = widgetType->templateData.begin(); iter != widgetType->templateData.end(); ++iter)
+			for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
 			{
 				std::string value = "";
 				for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
@@ -48,13 +48,13 @@ namespace tools
 				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, _currentWidget);
 				field->setName(iter->first);
 				field->setValue(value);
-				field->eventAction = MyGUI::newDelegate(this, &PanelTemplateProperties::notifyAction);
+				field->eventAction = MyGUI::newDelegate(this, &PanelExtensionProperties::notifyAction);
 				mFields.push_back(field);
 			}
 		}
 	}
 
-	void PanelTemplateProperties::update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType)
+	void PanelExtensionProperties::update(MyGUI::Widget* _currentWidget)
 	{
 		destroyPropertyFields();
 
@@ -63,10 +63,9 @@ namespace tools
 			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetContainer->type);
 
-		//mPanelCell->setCaption(replaceTags("PanelTemplatePropertiesName"));
-
-		AddParametrs(_widgetType, widgetContainer, mCurrentWidget);
+		AddParametrs(widgetType, widgetContainer, mCurrentWidget);
 
 		bool visible = mFields.size() > 0;
 		setVisible(visible);
@@ -74,7 +73,7 @@ namespace tools
 		updateSize();
 	}
 
-	void PanelTemplateProperties::updateSize()
+	void PanelExtensionProperties::updateSize()
 	{
 		int height = 0;
 
@@ -88,14 +87,14 @@ namespace tools
 		mPanelCell->setClientHeight(height);
 	}
 
-	void PanelTemplateProperties::destroyPropertyFields()
+	void PanelExtensionProperties::destroyPropertyFields()
 	{
 		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 			delete (*item);
 		mFields.clear();
 	}
 
-	void PanelTemplateProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelExtensionProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
 	{
 		if (_final)
 		{

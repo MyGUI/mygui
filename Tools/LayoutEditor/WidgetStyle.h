@@ -28,6 +28,7 @@ namespace tools
 		std::string default_skin;
 		MyGUI::VectorStringPairs parameter;
 		MyGUI::VectorStringPairs templateData;
+		MyGUI::VectorStringPairs parameterData;
 		// can have child widgets
 		bool parent;
 		// can have farent

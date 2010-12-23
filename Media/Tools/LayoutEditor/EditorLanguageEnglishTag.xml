@@ -20,6 +20,7 @@
 	<Tag name="PanelTemplatePropertiesName">Template properties</Tag>
 	<Tag name="PanelUserDataName">User data</Tag>
 	<Tag name="PanelControllersName">Controllers</Tag>
+	<Tag name="PanelExtensionPropertiesName">Extension properties</Tag>
 
 	<Tag name="Project">Project</Tag>
 	<Tag name="MenuProjectCreate">Create project ...</Tag>
