@@ -31,6 +31,7 @@
 	<Tag name="PanelTemplatePropertiesName">Свойства шаблона</Tag>
 	<Tag name="PanelUserDataName">Пользовательские данные</Tag>
 	<Tag name="PanelControllersName">Контроллеры</Tag>
+	<Tag name="PanelExtensionPropertiesName">Дополнительные свойства</Tag>
 
 	<Tag name="Project">Проект</Tag>
 	<Tag name="MenuProjectCreate">Создать проект ...</Tag>

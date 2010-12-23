@@ -21,7 +21,8 @@ namespace tools
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
 		mCurrentWidget(nullptr),
-		mPanelTemplateProperties(nullptr)
+		mPanelTemplateProperties(nullptr),
+		mPanelExtensionProperties(nullptr)
 	{
 		assignBase(mPanelView, "scroll_View");
 
@@ -37,6 +38,9 @@ namespace tools
 
 		mPanelTemplateProperties = new PanelTemplateProperties();
 		mPanelView->addItem(mPanelTemplateProperties);
+
+		mPanelExtensionProperties = new PanelExtensionProperties();
+		mPanelView->addItem(mPanelExtensionProperties);
 
 		mPanelItems = new PanelItems();
 		mPanelView->addItem(mPanelItems);
@@ -62,6 +66,7 @@ namespace tools
 		delete mPanelUserData;
 		delete mPanelControllers;
 		delete mPanelTemplateProperties;
+		delete mPanelExtensionProperties;
 
 		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
 			delete (*item).second;
@@ -131,6 +136,9 @@ namespace tools
 
 			mPanelTemplateProperties->setVisible(false);
 			mPanelTemplateProperties->update(nullptr, nullptr);
+
+			mPanelExtensionProperties->setVisible(false);
+			mPanelExtensionProperties->update(nullptr);
 		}
 		else
 		{
@@ -145,6 +153,9 @@ namespace tools
 
 			mPanelControllers->setVisible(true);
 			mPanelControllers->update(mCurrentWidget);
+
+			mPanelExtensionProperties->setVisible(true);
+			mPanelExtensionProperties->update(mCurrentWidget);
 
 			std::string widgetTypeName = mCurrentWidget->getTypeName();
 

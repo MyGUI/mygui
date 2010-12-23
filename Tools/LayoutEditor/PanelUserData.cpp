@@ -166,23 +166,28 @@ namespace tools
 
 		std::string widgetTypeName = "";
 
-		bool templateName = false;
-		WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
-		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+		for (MyGUI::VectorStringPairs::iterator item = _widgetContainer->mUserString.begin(); item != _widgetContainer->mUserString.end(); ++item)
 		{
 			if ((*item).first == "LE_TargetWidgetType")
 			{
 				widgetTypeName = (*item).second;
-				templateName = true;
 				break;
 			}
 		}
 
-		if (templateName)
-		{
-			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->type);
 
-			for (MyGUI::VectorStringPairs::iterator iter = widgetType->templateData.begin(); iter != widgetType->templateData.end(); ++iter)
+		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
+		{
+			if ((*iter).first == _key)
+				return false;
+		}
+
+		if (!widgetTypeName.empty())
+		{
+			WidgetStyle* widgetTargetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
+
+			for (MyGUI::VectorStringPairs::iterator iter = widgetTargetType->templateData.begin(); iter != widgetTargetType->templateData.end(); ++iter)
 			{
 				if ((*iter).first == _key)
 					return false;
