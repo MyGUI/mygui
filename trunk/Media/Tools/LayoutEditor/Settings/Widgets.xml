@@ -73,7 +73,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<Parameter key="CursorPosition" value="2 int"/>
+		<Parameter key="CursorPosition" value="1 int"/>
 		<Parameter key="TextSelect" value="2 int"/>
 		<Parameter key="ReadOnly" value="Bool"/>
 		<Parameter key="Password" value="Bool"/>
