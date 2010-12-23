@@ -331,6 +331,12 @@ namespace MyGUI
 
 	void OpenGLTexture::saveToFile(const std::string& _filename)
 	{
+		if (mImageLoader)
+		{
+			void* data = lock(TextureUsage::Read);
+			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
+			unlock();
+		}
 	}
 
 	IRenderTarget* OpenGLTexture::getRenderTarget()
