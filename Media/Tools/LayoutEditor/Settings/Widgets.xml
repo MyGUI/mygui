@@ -33,6 +33,9 @@
 		<Property key="Base" value="Widget"/>
 
 		<Property key="Skin" value="Canvas"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
 	</Widget>
 
 	<Widget name="ComboBox">
