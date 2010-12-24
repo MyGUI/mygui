@@ -310,33 +310,15 @@ namespace MyGUI
 			if (pos == mSortColumnIndex)
 			{
 				if (mSortUp)
-					setButtonImageIndex((*iter).button, SORT_UP);
+					(*iter).button->setImageName("Up");
 				else
-					setButtonImageIndex((*iter).button, SORT_DOWN);
+					(*iter).button->setImageName("Down");
 			}
 			else
-				setButtonImageIndex((*iter).button, SORT_NONE);
+				(*iter).button->setImageName("None");
+
 			(*iter).button->setCaption((*iter).name);
 			pos++;
-		}
-	}
-
-	void MultiListBox::setButtonImageIndex(Button* _button, size_t _index)
-	{
-		ImageBox* image = _button->getImageBox();
-		if (nullptr == image)
-			return;
-		if (image->getItemResource())
-		{
-			static const size_t CountIcons = 3;
-			static const char* IconNames[CountIcons + 1] = { "None", "Up", "Down", "" };
-			if (_index >= CountIcons)
-				_index = CountIcons;
-			image->setItemName(IconNames[_index]);
-		}
-		else
-		{
-			image->setItemSelect(_index);
 		}
 	}
 

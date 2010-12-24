@@ -174,26 +174,6 @@ namespace MyGUI
 		return mItemsInfo[_index].name;
 	}
 
-	void MenuControl::setButtonImageIndex(Button* _button, size_t _index)
-	{
-		ImageBox* image = _button->getImageBox();
-		if (nullptr == image)
-			return;
-
-		if (image->getItemResource())
-		{
-			static const size_t CountIcons = 2;
-			static const char* IconNames[CountIcons + 1] = { "None", "Popup", "" };
-			if (_index >= CountIcons)
-				_index = CountIcons;
-			image->setItemName(IconNames[_index]);
-		}
-		else
-		{
-			image->setItemSelect(_index);
-		}
-	}
-
 	void MenuControl::update()
 	{
 		IntSize size;
@@ -337,7 +317,7 @@ namespace MyGUI
 		info.item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
-		setButtonImageIndex(info.item, getIconIndexByType(_type ));
+		info.item->setImageName(getIconIndexByType(_type ));
 		info.item->setCaption(info.name);
 
 		update();
@@ -527,7 +507,7 @@ namespace MyGUI
 		_item->eventMouseButtonClick += newDelegate(this, &MenuControl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus += newDelegate(this, &MenuControl::notifyMouseSetFocus);
 
-		setButtonImageIndex(_item, getIconIndexByType(_type ));
+		_item->setImageName(getIconIndexByType(_type ));
 
 		MenuControl* submenu = nullptr;
 
@@ -808,9 +788,11 @@ namespace MyGUI
 		return mItemNormalSkin;
 	}
 
-	size_t MenuControl::getIconIndexByType(MenuItemType _type)
+	std::string MenuControl::getIconIndexByType(MenuItemType _type)
 	{
-		return _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone;
+		if (_type == MenuItemType::Popup)
+			return "Popup";
+		return "None";
 	}
 
 	MenuItemType MenuControl::getItemType(bool _submenu, bool _separator)

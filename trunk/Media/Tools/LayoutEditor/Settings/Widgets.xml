@@ -26,6 +26,8 @@
 		<Parameter key="StateSelected" value="Bool"/>
 		<Parameter key="ModeImage" value="Bool"/>
 		<Parameter key="ImageResource" value="String"/>
+		<Parameter key="ImageGroup" value="String"/>
+		<Parameter key="ImageName" value="String"/>
 	</Widget>
 
 	<Widget name="Canvas">

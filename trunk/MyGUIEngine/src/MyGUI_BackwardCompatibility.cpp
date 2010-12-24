@@ -74,7 +74,18 @@ namespace MyGUI
 	}
 	ImageBox* MemberObsolete<Button>::getStaticImage()
 	{
-		return static_cast<Button*>(this)->getImageBox();
+		return static_cast<Button*>(this)->_getImageBox();
+	}
+	void MemberObsolete<Button>::setImageIndex(size_t _index)
+	{
+		if (static_cast<Button*>(this)->_getImageBox())
+			static_cast<Button*>(this)->_getImageBox()->setImageIndex(_index);
+	}
+	size_t MemberObsolete<Button>::getImageIndex()
+	{
+		if (static_cast<Button*>(this)->_getImageBox())
+			return static_cast<Button*>(this)->_getImageBox()->getImageIndex();
+		return ITEM_NONE;
 	}
 
 
