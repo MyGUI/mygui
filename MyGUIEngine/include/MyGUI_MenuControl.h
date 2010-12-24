@@ -49,12 +49,6 @@ namespace MyGUI
 	public:
 		MenuControl();
 
-		enum ItemImage
-		{
-			ItemImageNone,
-			ItemImagePopup
-		};
-
 		struct ItemInfo
 		{
 			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuControl* _submenu, const std::string& _id, Any _data) :
@@ -306,11 +300,9 @@ namespace MyGUI
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
 		const std::string& getSkinByType(MenuItemType _type);
-		size_t getIconIndexByType(MenuItemType _type);
+		std::string getIconIndexByType(MenuItemType _type);
 
 		void update();
-
-		void setButtonImageIndex(Button* _button, size_t _index);
 
 		MenuItemType getItemType(bool _submenu, bool _separator);
 

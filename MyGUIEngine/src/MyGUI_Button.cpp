@@ -87,19 +87,6 @@ namespace MyGUI
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void Button::setImageIndex(size_t _index)
-	{
-		if (mImage)
-			mImage->setImageIndex(_index);
-	}
-
-	size_t Button::getImageIndex()
-	{
-		if (mImage)
-			return mImage->getImageIndex();
-		return ITEM_NONE;
-	}
-
 	void Button::updateButtonState()
 	{
 		if (mStateSelected)
@@ -186,6 +173,20 @@ namespace MyGUI
 		updateButtonState();
 	}
 
+	void Button::setImageGroup(const std::string& _name)
+	{
+		if (mImage)
+			mImage->setItemGroup(_name);
+		updateButtonState();
+	}
+
+	void Button::setImageName(const std::string& _name)
+	{
+		if (mImage)
+			mImage->setItemName(_name);
+		updateButtonState();
+	}
+
 	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{Button, StateSelected, bool} Set state selected.
@@ -195,6 +196,10 @@ namespace MyGUI
 			setModeImage(utility::parseValue<bool>(_value));
 		else if (_key == "ImageResource")
 			setImageResource(_value);
+		else if (_key == "ImageGroup")
+			setImageGroup(_value);
+		else if (_key == "ImageName")
+			setImageName(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -213,7 +218,7 @@ namespace MyGUI
 		return mModeImage;
 	}
 
-	ImageBox* Button::getImageBox()
+	ImageBox* Button::_getImageBox()
 	{
 		return mImage;
 	}
