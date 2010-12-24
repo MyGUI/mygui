@@ -184,7 +184,6 @@ namespace MyGUI
 	{
 		if (mImage)
 			mImage->setItemName(_name);
-		updateButtonState();
 	}
 
 	void Button::setPropertyOverride(const std::string& _key, const std::string& _value)
