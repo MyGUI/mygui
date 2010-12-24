@@ -327,8 +327,6 @@ namespace MyGUI
 
 		Widget* getSeparator(size_t _index);
 
-		void setButtonImageIndex(Button* _button, size_t _index);
-
 		void updateBackSelected(size_t _index);
 
 		struct ColumnInfo
@@ -344,13 +342,6 @@ namespace MyGUI
 		};
 
 		typedef std::vector<ColumnInfo> VectorColumnInfo;
-
-		enum ImageSort
-		{
-			SORT_NONE,
-			SORT_UP,
-			SORT_DOWN
-		};
 
 		void frameEntered(float _frame);
 		void frameAdvise(bool _advise);

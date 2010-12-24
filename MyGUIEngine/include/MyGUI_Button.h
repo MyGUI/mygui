@@ -42,11 +42,6 @@ namespace MyGUI
 		//! Get buton selected
 		bool getStateSelected();
 
-		//! Set image index (image should be defined in skin)
-		void setImageIndex(size_t _value);
-		//! Get image index
-		size_t getImageIndex();
-
 		/** Enable or disable Image mode\n
 			Image mode: when button state changed Image on button also change it's picture.\n
 			Disabled (false) by default.
@@ -55,11 +50,16 @@ namespace MyGUI
 		/** Get Image mode flag */
 		bool getModeImage();
 
-		/** Get pointer to glyph image for this button (if it exist in button skin) */
-		ImageBox* getImageBox();
+		void setImageResource(const std::string& _name);
+
+		void setImageGroup(const std::string& _name);
+
+		void setImageName(const std::string& _name);
 
 	/*internal:*/
 		void _setMouseFocus(bool _focus);
+
+		ImageBox* _getImageBox();
 
 	protected:
 		virtual void initialiseOverride();
@@ -73,7 +73,6 @@ namespace MyGUI
 		virtual void baseUpdateEnable();
 
 		bool _setState(const std::string& _value);
-		void setImageResource(const std::string& _name);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
