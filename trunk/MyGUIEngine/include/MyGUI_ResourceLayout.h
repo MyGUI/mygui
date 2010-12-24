@@ -50,11 +50,11 @@ namespace MyGUI
 		// widget info -> Widget
 		Widget* createWidget(const WidgetInfo& _widgetInfo, const std::string& _prefix = "", Widget* _parent = nullptr, bool _template = false);
 
-	private:
+	protected:
 		// xml -> widget info
 		WidgetInfo parseWidget(xml::ElementEnumerator& _widget);
 
-	private:
+	protected:
 		VectorWidgetInfo mLayoutData;
 	};
 
