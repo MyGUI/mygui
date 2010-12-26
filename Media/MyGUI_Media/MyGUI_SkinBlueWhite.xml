@@ -358,6 +358,18 @@
             <State name="pushed_checked" colour="0 0 0" shift="1"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="ButtonEmptySkin" size="16 16" texture="MyGUI_SkinBlueWhite.png">
+        <BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch">
+            <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
+            <State name="normal" colour="0 0 0" shift="0"/>
+            <State name="highlighted" colour="0 0 0" shift="0"/>
+            <State name="pushed" colour="0 0 0" shift="1"/>
+            <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
+            <State name="normal_checked" colour="0 0 0" shift="0"/>
+            <State name="highlighted_checked" colour="0 0 0" shift="0"/>
+            <State name="pushed_checked" colour="0 0 0" shift="1"/>
+        </BasisSkin>
+    </Resource>
     <Resource type="ResourceSkin" name="EditBoxSkin" size="29 26" texture="MyGUI_SkinBlueWhite.png">
         <BasisSkin type="SubSkin" offset="0 0 9 8" align="Left Top">
             <State name="disabled" offset="169 2 9 8"/>
