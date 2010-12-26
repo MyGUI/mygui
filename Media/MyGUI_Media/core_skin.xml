@@ -1,19 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Resource" version="1.1">
-
+	<Resource type="ResourceSkin" name="ButtonStaticImage" size="16 16">
+		<Property key="NeedMouse" value="false"/>
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonImage" size="16 16">
+		<Property key="ModeImage" value="true"/>
+		<Child type="ImageBox" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonImageText" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Center"/>
+		<Property key="ModeImage" value="true"/>
+		<Child type="ImageBox" skin="ButtonStaticImage" offset="0 0 16 16" align="Stretch" name="Image"/>
+		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch">
+			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+			<State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditClientSimple" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="WordWrapSimple" size="32 32">
+		<Property key="WordWrap" value="true"/>
+		<Child type="TextBox" skin="EditClientSimple" offset="0 0 32 32" align="Stretch" name="Client"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditClient" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<Property key="Pointer" value="beam"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="EditEmpty" size="16 16">
+		<Child type="TextBox" skin="EditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="TextBox" size="16 16">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
+	</Resource>
 	<Resource type="ResourceSkin" name="PolygonalSkin" size="8 10" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="PolygonalSkin" offset="0 0 8 10" align="Stretch">
 			<State name="normal" offset="675 145 8 10"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="RawRect" size="16 16" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="RawRect" offset="0 0 16 16" align="Stretch">
 			<State name="normal" offset="677 68 1 1"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TileClient" size="32 32" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="TileRect" offset="0 0 32 32" align="Stretch">
 			<State name="normal" offset="458 73 32 32">
@@ -23,43 +66,36 @@
 			</State>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="DefaultClient" size="65 57" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="MainSkin" offset="0 0 65 57" align="Stretch">
 			<State name="normal" offset="432 5 65 57"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Separator4" size="2 2" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 2 2" align="Stretch">
 			<State name="normal" offset="304 124 2 2"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Separator3" size="2 2" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 2 2" align="Stretch">
 			<State name="normal" offset="304 128 2 2"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Separator2" size="2 2" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 2 2" align="Stretch">
 			<State name="normal" offset="313 126 2 2"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Separator1" size="2 2" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 2 2" align="Stretch">
 			<State name="normal" offset="317 126 2 2"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MarkerWhite" size="1 1" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="MainSkin" offset="0 0 1 1" align="Stretch">
 			<State name="normal" offset="678 66 1 1"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ItemBox" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="VerticalAlignment" value="true"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
@@ -91,7 +127,6 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="CheckBox" size="100 21" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
@@ -109,7 +144,6 @@
 		<BasisSkin type="SimpleText" offset="24 0 76 21" align="Stretch">
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="RadioBox" size="100 19" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
@@ -127,7 +161,6 @@
 		<BasisSkin type="SimpleText" offset="24 0 76 19" align="Stretch">
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonMinusPlus" size="18 18" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 18 18" align="Stretch">
 			<State name="disabled" offset="49 2 18 18"/>
@@ -140,7 +173,6 @@
 			<State name="pushed_checked" offset="49 149 18 18"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonX" size="18 17" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 18 17" align="Stretch">
 			<State name="disabled" offset="72 2 18 17"/>
@@ -150,7 +182,6 @@
 			<State name="pushed" offset="72 78 18 17"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonV" size="17 15" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 17 15" align="Stretch">
 			<State name="disabled" offset="72 98 17 15"/>
@@ -160,7 +191,6 @@
 			<State name="pushed" offset="72 162 17 15"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonDown" size="14 12" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 14 12" align="Stretch">
 			<State name="disabled" offset="95 2 14 12"/>
@@ -170,7 +200,6 @@
 			<State name="pushed" offset="95 54 14 12"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonUp" size="14 12" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 14 12" align="Stretch">
 			<State name="disabled" offset="95 68 14 12"/>
@@ -180,7 +209,6 @@
 			<State name="pushed" offset="95 124 14 12"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonLeft" size="12 14" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 12 14" align="Stretch">
 			<State name="disabled" offset="112 2 12 14"/>
@@ -190,7 +218,6 @@
 			<State name="pushed" offset="112 66 12 14"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonRight" size="12 14" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 12 14" align="Stretch">
 			<State name="disabled" offset="112 84 12 14"/>
@@ -200,7 +227,6 @@
 			<State name="pushed" offset="112 148 12 14"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ButtonSmall" size="29 21" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="HCenter VCenter"/>
@@ -233,7 +259,6 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift="true"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Button" size="29 26" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="HCenter VCenter"/>
@@ -266,13 +291,11 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift="true"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WordWrap" size="32 32" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="WordWrap" value="true"/>
 		<Child type="TextBox" skin="EditClientSimple" offset="0 0 16 32" align="Stretch" name="Client"/>
 		<Child type="ScrollBar" skin="ScrollBarV" offset="17 0 15 32" align="Right VStretch" name="VScroll"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="EditStretch" size="29 26" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TextAlign" value="Left VCenter"/>
 		<Child type="TextBox" skin="EditClient" offset="2 3 7 3" align="Stretch" name="Client"/>
@@ -342,7 +365,6 @@
 			<State name="pushed" offset="252 126 12 10"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Edit" size="29 26" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TextAlign" value="Left VCenter"/>
 		<Child type="TextBox" skin="EditClient" offset="2 1 23 22" align="Stretch" name="Client"/>
@@ -368,7 +390,6 @@
 			<State name="pushed" offset="252 110 12 26"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ComboBox" size="29 26" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TextAlign" value="Left VCenter"/>
 		<Property key="MaxListLength" value="250"/>
@@ -398,7 +419,6 @@
 			<State name="pushed" offset="252 110 12 26"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCaption" size="68 28" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -417,7 +437,6 @@
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="10 0 46 24" align="Stretch"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCaptionDisable" size="68 28" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -433,7 +452,6 @@
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="5 4 56 24" align="Stretch"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCaptionSmall" size="40 28" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -452,7 +470,6 @@
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="10 0 24 24" align="Stretch"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowResizeRight" size="9 9" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Pointer" value="size_left"/>
 		<BasisSkin type="MainSkin" offset="0 0 9 9" align="Stretch">
@@ -460,7 +477,6 @@
 			<State name="highlighted" offset="369 172 9 9"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowResizeLeft" size="9 9" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Pointer" value="size_right"/>
 		<BasisSkin type="MainSkin" offset="0 0 9 9" align="Stretch">
@@ -468,7 +484,6 @@
 			<State name="highlighted" offset="356 172 9 9"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Window" size="68 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowCaptionDisable" offset="0 0 68 28" align="HStretch Top" name="Caption">
@@ -500,7 +515,6 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowC" size="68 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowCaption" offset="0 0 68 28" align="HStretch Top" name="Caption">
@@ -532,7 +546,6 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCS" size="68 49" texture="#{MyGUI_Theme_Texture}">
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowCaption" offset="0 0 68 28" align="HStretch Top" name="Caption">
@@ -570,7 +583,6 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCSX" size="68 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowCaptionSmall" offset="0 0 40 28" align="HStretch Top" name="Caption">
@@ -614,7 +626,6 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="WindowCX" size="68 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowCaptionSmall" offset="0 0 40 28" align="HStretch Top" name="Caption">
@@ -652,7 +663,6 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="Panel" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
@@ -682,7 +692,6 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="PanelSmall" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 95 3 3"/>
@@ -712,7 +721,6 @@
 			<State name="normal" offset="447 112 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ScrollView" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Child type="ScrollBar" skin="ScrollBarV" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
@@ -746,14 +754,12 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ScrollViewEmpty" size="30 30" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Child type="ScrollBar" skin="ScrollBarV" offset="15 0 15 15" align="Right VStretch" name="VScroll"/>
 		<Child type="ScrollBar" skin="ScrollBarH" offset="0 15 15 15" align="HStretch Bottom" name="HScroll"/>
 		<Child type="Widget" skin="Default" offset="0 0 15 15" align="Stretch" name="Client"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TabButton" size="51 26" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -784,19 +790,16 @@
 			<State name="pushed" shift="true"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TabEmpty" size="2 26" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="MainSkin" offset="0 0 2 26" align="Stretch">
 			<State name="normal" offset="650 2 2 26"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TabPatch" size="17 5" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="MainSkin" offset="0 0 17 5" align="Stretch">
 			<State name="normal" offset="538 64 17 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TabControl" size="43 60" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="OffsetBar" value="17"/>
 		<Property key="ButtonSkin" value="TabButton"/>
@@ -831,7 +834,6 @@
 			<State name="normal" offset="561 98 8 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="PopupMenuLine" size="30 5" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
@@ -850,29 +852,23 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="PopupMenuSeparator" size="4 4" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="SubSkin" offset="2 1 0 2" align="HStretch VCenter">
 			<State name="normal" offset="304 124 2 2"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="PopupMenuLineIcon" size="12 14" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedMouse" value="false"/>
 		<Property key="ImageResource" value="pic_CorePopupMenu"/>
 		<Property key="ImageGroup" value="Icons"/>
 		<BasisSkin type="MainSkin" offset="0 0 12 14" align="Stretch"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="PopupMenu" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
-		<!--Property key="SubmenuImageSize" value="12"/-->
 		<Property key="SubMenuLayer" value="Popup"/>
 		<Property key="SubMenuSkin" value="PopupMenu"/>
 		<Property key="SkinLine" value="PopupMenuLine"/>
 		<Property key="SeparatorSkin" value="PopupMenuSeparator"/>
-		<!--Property key="HeightLine" value="20"/-->
-		<!--Property key="SeparatorHeight" value="10"/-->
 		<Property key="VerticalAlignment" value="true"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 3 3" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
@@ -900,7 +896,6 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MenuBarButton" size="27 22" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -933,14 +928,11 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MenuBar" size="27 26" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="MenuBarButton"/>
-		<!--Property key="DistanceButton" value="6"/-->
 		<Property key="SubMenuSkin" value="PopupMenu"/>
 		<Property key="SubMenuLayer" value="Popup"/>
-		<!--Property key="HeightLine" value="22"/-->
 		<Property key="VerticalAlignment" value="false"/>
 		<Child type="Widget" skin="Default" offset="6 1 15 22" align="Stretch" name="Client"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 26" align="Left VStretch">
@@ -953,7 +945,6 @@
 			<State name="normal" offset="219 29 10 26"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ListLine" size="5 5" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Left VCenter"/>
@@ -972,7 +963,6 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ListBox" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="ListLine"/>
@@ -1004,7 +994,6 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MultiSubList" size="9 9" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="ListLine"/>
@@ -1012,14 +1001,12 @@
 		<Child type="ScrollBar" skin="ScrollBarV" offset="-7 0 16 9" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="Default" offset="0 0 -7 9" align="Stretch" name="Client"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MultiListButtonIcon" size="14 10" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedMouse" value="false"/>
 		<Property key="ImageResource" value="pic_CoreMultiListIcon"/>
 		<Property key="ImageGroup" value="Icons"/>
 		<BasisSkin type="MainSkin" offset="0 0 14 10" align="Stretch"/>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MultiListButton" size="29 21" texture="#{MyGUI_Theme_Texture}">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="HCenter VCenter"/>
@@ -1053,7 +1040,6 @@
 			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift="true"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="MultiList" size="11 11" texture="#{MyGUI_Theme_Texture}">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinButton" value="MultiListButton"/>
@@ -1085,7 +1071,6 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="VScrollTrackSlider" size="14 7" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 14 7" align="Stretch">
 			<State name="disabled" offset="128 2 14 7"/>
@@ -1095,7 +1080,6 @@
 			<State name="pushed" offset="128 34 14 7"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="VScrollTrack" size="14 19" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="SubSkin" offset="0 0 14 7" align="HStretch Top">
 			<State name="disabled" offset="128 45 14 7"/>
@@ -1119,19 +1103,16 @@
 			<State name="pushed" offset="128 135 14 9"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="VScrollTopPart" size="15 6" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="SubSkin" offset="0 0 15 6" align="Stretch">
 			<State name="normal" offset="0 0 0 0"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="VScrollBottomPart" size="15 6" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="SubSkin" offset="0 0 15 6" align="Stretch">
 			<State name="normal" offset="0 0 0 0"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ScrollBarV" size="15 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="14 12"/>
 		<Property key="MinTrackSize" value="19"/>
@@ -1151,7 +1132,6 @@
 			<State name="normal" offset="301 98 15 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="HScrollTrackSlider" size="7 14" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="MainSkin" offset="0 0 7 14" align="Stretch">
 			<State name="disabled" offset="146 2 7 14"/>
@@ -1161,7 +1141,6 @@
 			<State name="pushed" offset="146 62 7 14"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="HScrollTrack" size="19 14" texture="#{MyGUI_Theme_Texture}">
 		<BasisSkin type="SubSkin" offset="0 0 7 14" align="Left VStretch">
 			<State name="disabled" offset="146 80 7 14"/>
@@ -1185,19 +1164,16 @@
 			<State name="pushed" offset="156 140 9 14"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="HScrollLeftPart" size="6 15" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Stretch">
 			<State name="normal" offset="0 0 0 0"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="HScrollRightPart" size="6 15" texture="#{MyGUI_Theme_Texture}" >
 		<BasisSkin type="SubSkin" offset="0 0 6 15" align="Stretch">
 			<State name="normal" offset="0 0 0 0"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ScrollBarH" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="14 13"/>
 		<Property key="MinTrackSize" value="19"/>
@@ -1217,7 +1193,6 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="SliderV" size="15 49" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
@@ -1236,7 +1211,6 @@
 			<State name="normal" offset="301 98 15 6"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="SliderH" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
@@ -1255,7 +1229,6 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ProgressBar" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackSkin" value="HScrollTrackSlider"/>
 		<Property key="TrackWidth" value="7"/>
@@ -1271,7 +1244,6 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="ProgressBarFill" size="49 15" texture="#{MyGUI_Theme_Texture}" >
 		<Property key="TrackSkin" value="HScrollTrack"/>
 		<Property key="TrackMin" value="15"/>
@@ -1287,6 +1259,5 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-
 </MyGUI>
 
