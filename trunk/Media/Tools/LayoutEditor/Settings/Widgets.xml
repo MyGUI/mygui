@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Widgets">
 
 	<Widget name="Button">
@@ -127,7 +126,6 @@
 
 		<TemplateData key="DistanceButton" value="1 int"/>
 		<TemplateData key="SubMenuLayer" value="Layer"/>
-		<TemplateData key="VerticalAlignment" value="Bool"/>
 		<TemplateData key="NormalSkin" value="Skin"/>
 		<TemplateData key="PopupSkin" value="Skin"/>
 		<TemplateData key="SeparatorSkin" value="Skin"/>
@@ -136,6 +134,8 @@
 
 	<Widget name="MenuControl" internal="true">
 		<Property key="Base" value="Widget"/>
+
+		<Parameter key="VerticalAlignment" value="Bool"/>
 	</Widget>
 
 	<Widget name="MenuItem" internal="true">
@@ -181,7 +181,6 @@
 		<Property key="ItemManager" value="true"/>
 
 		<TemplateData key="SubMenuLayer" value="Layer"/>
-		<TemplateData key="VerticalAlignment" value="Bool"/>
 		<TemplateData key="NormalSkin" value="Skin"/>
 		<TemplateData key="PopupSkin" value="Skin"/>
 		<TemplateData key="SeparatorSkin" value="Skin"/>
