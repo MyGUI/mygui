@@ -123,30 +123,36 @@
         <Widget type="Button" skin="ButtonTemplate" position="20 60 29 26"/>
         <Widget type="Button" skin="Button" position="20 95 29 26"/>
     </Resource>
-    <Resource type="ResourceLayout" name="EditBoxSimpleTemplate">
-        <Widget type="Button" skin="EditBoxSkin" position="65 10 29 26" name="Root">
+    <Resource type="ResourceLayout" name="EditBoxSimpleTemplate" version="3.2.0">
+        <Widget type="Widget" skin="EditBoxSkin" position="65 10 29 26" name="Root">
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
-            <Widget type="TextBox" skin="EditClient" position="2 2 23 20" align="Stretch" name="Client">
-                <Property key="Text_TextAlign" value="Left VCenter"/>
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 23 20" align="Stretch" name="Client">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="Default"/>
+                <Property key="TextColour" value="0 0 0"/>
+                <Property key="Pointer" value="beam"/>
             </Widget>
         </Widget>
-        <Widget type="EditBox" skin="EditBoxSimpleTemplate" position="65 40 85 60">
-            <Property key="Widget_Caption" value="test"/>
-            <Property key="Text_TextAlign" value="Default"/>
+        <Widget type="EditBox" skin="EditBoxSimpleTemplate" position="65 40 90 26">
+            <Property key="Caption" value="test"/>
         </Widget>
-        <Widget type="EditBox" skin="EditStretch" position="66 106 84 69">
-            <Property key="Widget_Caption" value="test"/>
-            <Property key="Text_TextAlign" value="Default"/>
+        <Widget type="EditBox" skin="EditStretch" position="65 75 90 26">
+            <Property key="Caption" value="test"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="EditBoxTemplate" version="3.2.0">
-        <Widget type="Button" skin="EditBoxSkin" position="25 10 55 55" name="Root">
+        <Widget type="Widget" skin="EditBoxSkin" position="25 10 55 55" name="Root">
             <Property key="MultiLine" value="true"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
-            <Widget type="TextBox" skin="EditClient" position="2 3 33 32" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClientSkin" position="2 3 33 32" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
+                <Property key="TextColour" value="0 0 0"/>
+                <Property key="FontName" value="Default"/>
+                <Property key="Pointer" value="beam"/>
             </Widget>
-            <Widget type="ScrollBar" skin="ScrollBarHTemplate" position="2 36 34 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarHTemplate" position="2 36 34 15" align="HStretch Bottom" name="HScroll">
+                <Property key="VerticalAlignment" value="false"/>
+            </Widget>
             <Widget type="ScrollBar" skin="ScrollBarVTemplate" position="36 2 15 34" align="Right VStretch" name="VScroll"/>
         </Widget>
         <Widget type="EditBox" skin="EditBoxTemplate" position="20 105 146 146">
@@ -2227,13 +2233,15 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ComboBoxTemplate" version="3.2.0">
-        <Widget type="Button" skin="EditBoxSkin" position="65 10 100 26" name="Root">
+        <Widget type="Widget" skin="EditBoxSkin" position="65 10 100 26" name="Root">
             <Property key="MaxListLength" value="200"/>
             <Property key="SmoothShow" value="true"/>
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
-            <Widget type="TextBox" skin="EditClient" position="2 2 75 20" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 75 20" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="TextColour" value="0 0 0"/>
+                <Property key="FontName" value="Default"/>
+                <Property key="Pointer" value="beam"/>
             </Widget>
             <Widget type="ListBox" skin="ListBoxTemplate" position="65 38 100 200" style="Popup" layer="Popup" name="List">
                 <Property key="Visible" value="false"/>
@@ -4030,6 +4038,64 @@
             <Property key="AddItem" value=""/>
             <Property key="AddItem" value=""/>
             <Property key="AddItem" value=""/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TextBoxTemplate" version="3.2.0">
+        <Widget type="Widget" skin="TextBoxSkin" position="20 20 16 16" name="Root">
+            <Property key="TextAlign" value="Default"/>
+            <Property key="FontName" value="Default"/>
+            <Property key="TextColour" value="0 0 0"/>
+            <UserString key="LE_TargetWidgetType" value="TextBox"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="EditBoxEmptyTemplate" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="65 10 16 16" name="Root">
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
+            <Widget type="TextBox" skin="EditClientSkin" position_real="0 0 1 1" align="Stretch" name="Client">
+                <Property key="TextAlign" value="Default"/>
+                <Property key="FontName" value="Default"/>
+                <Property key="TextColour" value="0 0 0"/>
+                <Property key="Pointer" value="beam"/>
+            </Widget>
+        </Widget>
+        <Widget type="EditBox" skin="EditBoxEmptyTemplate" position="65 40 90 26">
+            <Property key="Caption" value="test"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditStretch" position="65 75 90 26">
+            <Property key="Caption" value="test"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WordWrapEmptyTemplate" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="65 10 16 16" name="Root">
+            <Property key="WordWrap" value="true"/>
+            <Property key="Static" value="true"/>
+            <Property key="MultiLine" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
+            <Widget type="TextBox" skin="EditClientSkin" position_real="0 0 1 1" align="Stretch" name="Client">
+                <Property key="TextAlign" value="Default"/>
+                <Property key="FontName" value="Default"/>
+                <Property key="TextColour" value="0 0 0"/>
+            </Widget>
+        </Widget>
+        <Widget type="EditBox" skin="WordWrapEmptyTemplate" position="65 40 45 50">
+            <Property key="Caption" value="test test test test"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditStretch" position="160 40 90 26">
+            <Property key="Caption" value="test"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonImageTemplate" version="3.2.0">
+        <Widget type="Widget" skin="ButtonEmptySkin" position="20 20 16 16" name="Root">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="ImageBox" skin="ImageBox" position="0 0 16 16" align="Stretch" name="Image">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="ButtonImageTemplate" position="20 55 32 32">
+            <Property key="Caption" value="test"/>
+            <Property key="ImageResource" value="pic_CorePointerArrow"/>
         </Widget>
     </Resource>
 </MyGUI>
