@@ -102,9 +102,9 @@ namespace MyGUI
 		return getSubWidgetText()->getCaption();
 	}
 
-	void TextBox::setCaptionWithNewLine(const std::string& _value)
+	void TextBox::setCaptionWithReplacing(const std::string& _value)
 	{
-		// change '\n' on char 10
+		// replace "\\n" with char '\n'
 		size_t pos = _value.find("\\n");
 		if (pos == std::string::npos)
 		{
@@ -134,7 +134,7 @@ namespace MyGUI
 		else if (_key == "FontHeight")
 			setFontHeight(utility::parseValue<int>(_value));
 		else if (_key == "Caption")
-			setCaptionWithNewLine(_value);
+			setCaptionWithReplacing(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

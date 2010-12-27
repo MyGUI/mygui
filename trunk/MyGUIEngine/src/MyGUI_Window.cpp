@@ -544,7 +544,7 @@ namespace MyGUI
 		}
 	}
 
-	IntCoord Window::getActionScale(Widget* _widget)
+	IntCoord Window::_getActionScale(Widget* _widget)
 	{
 		if (_widget->isUserString("Scale"))
 		{

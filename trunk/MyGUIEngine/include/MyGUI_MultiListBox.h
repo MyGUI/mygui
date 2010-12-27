@@ -140,7 +140,15 @@ namespace MyGUI
 		//! Get column index
 		size_t getColumnIndex(MultiListItem* _item);
 
+		/** Set resizing policy of column. \sa ResizingPolicy
+			@param _item Pointer to column
+			@param _value New resizing policy for column
+		*/
 		void setColumnResizingPolicy(MultiListItem* _item, ResizingPolicy _value);
+		/** Set resizing policy of column. \sa ResizingPolicy
+			@param _index Index of column
+			@param _value New resizing policy for column
+		*/
 		void setColumnResizingPolicyAt(size_t _index, ResizingPolicy _value);
 
 		//------------------------------------------------------------------------------//

@@ -99,9 +99,12 @@ namespace MyGUI
 		/** Get snap to borders mode flag */
 		bool getSnap() const;
 
+		/** Get current action applied to move/resize window. */
 		const IntCoord& getActionScale();
 
+		/** Enable or disable possibility to move window. */
 		void setMovable(bool _value);
+		/** Get possibility to move window. */
 		bool getMovable() const;
 
 	/*events:*/
@@ -145,7 +148,7 @@ namespace MyGUI
 	private:
 		float getAlphaVisible();
 		void getSnappedCoord(IntCoord& _coord);
-		IntCoord getActionScale(Widget* _widget);
+		IntCoord _getActionScale(Widget* _widget);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
