@@ -144,11 +144,14 @@ namespace MyGUI
 		//! Set max list length
 		int getMaxListLength() const;
 
+		// RENAME
+		//! Set direction, where drop down list appears (TopToBottom by default).
 		void setFlowDirection(FlowDirection _value);
+		//! Get direction, where drop down list appears.
 		FlowDirection getFlowDirection() const;
 
 	/*events:*/
-		/** Event : Enter pressed in combo mode or item selected in drop.\n
+		/** Event : Enter pressed in combo mode or item selected in drop down list.\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item

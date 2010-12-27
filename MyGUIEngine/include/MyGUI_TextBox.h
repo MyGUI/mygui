@@ -67,8 +67,12 @@ namespace MyGUI
 		/** Get widget text colour */
 		const Colour& getTextColour();
 
-		// устанавливает строку заменив /n на реальный перенос
-		void setCaptionWithNewLine(const std::string& _value);
+		/** Set TextBox caption and replace special sequences.\n
+			"\\n" will be replaced with new line character;\n
+			"#{Keyword}" replaced with string from LanguageManager or
+			left as it is if kayword wasn't found.
+		*/
+		void setCaptionWithReplacing(const std::string& _value);
 
 	protected:
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);

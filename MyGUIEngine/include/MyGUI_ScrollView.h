@@ -75,9 +75,12 @@ namespace MyGUI
 		/** Get canvas size */
 		IntSize getCanvasSize();
 
+		/** Get view area coordinates. */
 		IntCoord getViewCoord();
 
+		/** Set view area offset. */
 		void setViewOffset(const IntPoint& _value);
+		/** Get view area offset. */
 		IntPoint getViewOffset();
 
 	protected:
