@@ -70,7 +70,7 @@ namespace tools
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", _currentWidget);
+			field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", _currentWidget);
 			field->setName("Layer");
 			field->setValue(widgetContainer->getLayerName());
 			field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionLayer);

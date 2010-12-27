@@ -20,9 +20,9 @@ namespace tools
 		mPanelItems(nullptr),
 		mPanelUserData(nullptr),
 		mPanelControllers(nullptr),
-		mCurrentWidget(nullptr),
 		mPanelTemplateProperties(nullptr),
-		mPanelExtensionProperties(nullptr)
+		mPanelExtensionProperties(nullptr),
+		mCurrentWidget(nullptr)
 	{
 		assignBase(mPanelView, "scroll_View");
 
