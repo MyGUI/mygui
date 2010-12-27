@@ -178,7 +178,7 @@ namespace MyGUI
 		if (MouseButton::Left == _id)
 		{
 			mPreActionCoord = mCoord;
-			mCurrentActionScale = getActionScale(_sender);
+			mCurrentActionScale = _getActionScale(_sender);
 		}
 	}
 
