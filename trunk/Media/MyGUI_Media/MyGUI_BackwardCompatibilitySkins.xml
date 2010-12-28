@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<!--Resource type="ResourceSkin" name="ListCtrl" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<!--Resource type="ResourceSkin" name="ListCtrl" size="11 11" texture="core.png">
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
 		<Child type="ScrollBar" skin="HScroll" offset="3 -9 -12 15" align="HStretch Bottom" name="HScroll"/>
@@ -30,7 +30,7 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource-->
-	<Resource type="ResourceSkin" name="ItemBoxV" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<Resource type="ResourceSkin" name="ItemBoxV" size="11 11" texture="core.png">
 		<Property key="VerticalAlignment" value="true"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
@@ -60,7 +60,7 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ItemBoxH" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<Resource type="ResourceSkin" name="ItemBoxH" size="11 11" texture="core.png">
 		<Property key="VerticalAlignment" value="false"/>
 		<Property key="DragLayer" value="DragAndDrop"/>
 		<Child type="ScrollBar" skin="VScroll" offset="-9 3 15 -12" align="Right VStretch" name="VScroll"/>
@@ -97,10 +97,10 @@
 	<Resource type="ResourceSkin" name="StaticText" size="16 16">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
-		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
+		<Property key="TextColour" value="#000000"/>
 		<BasisSkin type="SimpleText" offset="0 0 16 16"  align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="Progress" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="Progress" size="49 15" texture="core.png" >
 		<Property key="TrackSkin" value="HScrollTrackSlider"/>
 		<Property key="TrackWidth" value="7"/>
 		<Property key="TrackFill" value="false"/>
@@ -115,7 +115,7 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ProgressFill" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="ProgressFill" size="49 15" texture="core.png" >
 		<Property key="TrackSkin" value="HScrollTrack"/>
 		<Property key="TrackMin" value="15"/>
 		<Property key="TrackFill" value="true"/>
@@ -130,7 +130,7 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="List" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<Resource type="ResourceSkin" name="List" size="11 11" texture="core.png">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="ListLine"/>
 		<Property key="HeightLine" value="20"/>
@@ -161,7 +161,7 @@
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="VScroll" size="15 49" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="VScroll" size="15 49" texture="core.png" >
 		<Property key="TrackRangeMargins" value="14 12"/>
 		<Property key="MinTrackSize" value="19"/>
 		<Property key="VerticalAlignment" value="true"/>
@@ -180,7 +180,7 @@
 			<State name="normal" offset="301 98 15 6"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="HScroll" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="HScroll" size="49 15" texture="core.png" >
 		<Property key="TrackRangeMargins" value="14 13"/>
 		<Property key="MinTrackSize" value="19"/>
 		<Property key="VerticalAlignment" value="false"/>
@@ -199,7 +199,7 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="VSlider" size="15 49" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="VSlider" size="15 49" texture="core.png" >
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
 		<Property key="MoveToClick" value="true"/>
@@ -217,7 +217,7 @@
 			<State name="normal" offset="301 98 15 6"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="HSlider" size="49 15" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="HSlider" size="49 15" texture="core.png" >
 		<Property key="TrackRangeMargins" value="2 1"/>
 		<Property key="MinTrackSize" value="7"/>
 		<Property key="MoveToClick" value="true"/>
@@ -235,7 +235,7 @@
 			<State name="normal" offset="344 2 6 15"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="Tab" size="43 60" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="Tab" size="43 60" texture="core.png" >
 		<Property key="OffsetBar" value="17"/>
 		<Property key="ButtonSkin" value="TabButton"/>
 		<Property key="EmptyBarSkin" value="TabEmpty"/>

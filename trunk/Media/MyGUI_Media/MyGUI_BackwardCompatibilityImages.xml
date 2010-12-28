@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceImageSet" name="pic_CoreMultiListIcon">
-		<Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="14 10">
+		<Group name="Icons" texture="core.png" size="14 10">
 			<Index name="None" >
 				<Frame point="504 3"/>
 			</Index>
@@ -14,7 +14,7 @@
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="pic_CorePopupMenu">
-		<Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="12 14">
+		<Group name="Icons" texture="core.png" size="12 14">
 			<Index name="None" >
 				<Frame point="505 60"/>
 			</Index>
