@@ -1014,7 +1014,7 @@
             <State name="highlighted_checked" offset="398 183 11 23"/>
             <State name="pushed_checked" offset="398 183 11 23"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="12 4 25 16" align="Stretch">
+        <BasisSkin type="SimpleText" offset="12 2 25 17" align="Stretch">
             <State name="normal" colour="0 0 0" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="0"/>
