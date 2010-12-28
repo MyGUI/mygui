@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowSmallCX" position="20 50 110 122" name="_Main">
-        <Widget type="ComboBox" skin="ComboBox" position="14 25 83 20" align="HStretch Top" layer="Back" name="ComboStates">
+        <Widget type="ComboBox" skin="ComboBox" position="14 25 83 20" align="HStretch Top" name="ComboStates">
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="ModeDrop" value="true"/>
         </Widget>

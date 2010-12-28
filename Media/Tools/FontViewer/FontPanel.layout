@@ -78,24 +78,24 @@
         <Widget type="Button" skin="Button" position="189 474 49 27" name="button_Save">
             <Property key="Caption" value="Save"/>
         </Widget>
-        <Widget type="EditBox" skin="EditBox" position="93 315 146 26" layer="Back" name="edit_Range1">
+        <Widget type="EditBox" skin="EditBox" position="93 315 146 26" name="edit_Range1">
             <Property key="Caption" value="33 126"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="5 315 80 24" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="5 315 80 24">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Range"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="5 347 80 24" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="5 347 80 24">
             <Property key="Caption" value="Range"/>
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
-        <Widget type="EditBox" skin="EditBox" position="93 347 146 26" layer="Back" name="edit_Range2">
+        <Widget type="EditBox" skin="EditBox" position="93 347 146 26" name="edit_Range2">
             <Property key="Caption" value="1025 1105"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="5 379 80 24" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="5 379 80 24">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Hide"/>
         </Widget>
-        <Widget type="EditBox" skin="EditBox" position="93 379 146 26" layer="Back" name="edit_Hide"/>
+        <Widget type="EditBox" skin="EditBox" position="93 379 146 26" name="edit_Hide"/>
     </Widget>
 </MyGUI>
