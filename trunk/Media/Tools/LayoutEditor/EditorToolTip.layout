@@ -4,7 +4,7 @@
         <Property key="Visible" value="false"/>
         <UserString key="minHeight" value="100"/>
         <UserString key="minWidth" value="200"/>
-        <Widget type="EditBox" skin="WordWrapSimple" position="3 3 192 92" align="Default" name="Text">
+        <Widget type="EditBox" skin="WordWrapEmpty" position="3 3 192 92" align="Default" name="Text">
             <Property key="Caption" value="[Tool Tip Info]"/>
         </Widget>
     </Widget>
