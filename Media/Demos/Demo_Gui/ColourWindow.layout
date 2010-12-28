@@ -7,7 +7,7 @@
         <Widget type="ItemBox" skin="ItemBox" position="3 4 216 132" align="Stretch" name="Box">
             <UserString key="Info" value="A item box"/>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="4 141 214 209" align="HStretch Bottom">
+        <Widget type="Widget" skin="PanelSkin" position="4 141 214 209" align="HStretch Bottom">
             <Widget type="ScrollBar" skin="SliderH" position="6 6 201 15" align="HStretch Top" name="Red">
                 <Property key="Range" value="256"/>
                 <Property key="RangePosition" value="255"/>
@@ -29,7 +29,7 @@
                 <Property key="ViewPage" value="10"/>
                 <UserString key="Info" value="A colour slider"/>
             </Widget>
-            <Widget type="Widget" skin="PanelSmall" position="6 60 202 19" align="HStretch Top">
+            <Widget type="Widget" skin="PanelSkin" position="6 60 202 19" align="HStretch Top">
                 <UserString key="Info" value="The colour that will be used for the selection when added to the list"/>
                 <Widget type="Widget" skin="RawRect" position="3 3 194 11" align="Stretch" layer="Back" name="Colour"/>
             </Widget>

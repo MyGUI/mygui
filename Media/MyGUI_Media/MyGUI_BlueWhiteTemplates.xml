@@ -382,7 +382,7 @@
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="MinSize" value="10 10"/>
-            <Widget type="Widget" skin="SeparatorDownVSkin" position="4 2 2 6" align="HCenter VStretch"/>
+            <Widget type="Widget" skin="SepDownVSkin" position="4 2 2 6" align="HCenter VStretch"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenu" version="3.2.0">
@@ -440,7 +440,7 @@
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="MinSize" value="10 10"/>
-            <Widget type="Widget" skin="SeparatorDownHSkin" position="2 4 6 2" align="HStretch VCenter"/>
+            <Widget type="Widget" skin="SepDownHSkin" position="2 4 6 2" align="HStretch VCenter"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenuNormal" version="3.2.0">

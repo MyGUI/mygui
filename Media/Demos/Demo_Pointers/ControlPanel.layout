@@ -14,7 +14,7 @@
             <Property key="Caption" value="Attack context - F3"/>
             <UserString key="Context" value="ptrx_Attack"/>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="4 105 248 56" layer="Back" name="PanelPointer">
+        <Widget type="Widget" skin="PanelSkin" position="4 105 248 56" layer="Back" name="PanelPointer">
             <Property key="Pointer" value="hand"/>
             <Widget type="TextBox" skin="TextBox" position="0 0 248 56" layer="Back">
                 <Property key="TextAlign" value="Center"/>

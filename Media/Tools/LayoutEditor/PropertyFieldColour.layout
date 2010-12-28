@@ -5,8 +5,8 @@
             <Property key="TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="EditBox" skin="EditBox" position="126 0 48 26" align="Stretch" name="Field"/>
-        <Widget type="Widget" skin="PanelSmall" position="174 0 26 26" align="Right VStretch">
-            <Widget type="Widget" skin="MarkerWhite" position="3 3 18 18" align="Stretch" name="ColourPlace"/>
+        <Widget type="Widget" skin="PanelSkin" position="174 0 26 26" align="Right VStretch">
+            <Widget type="Widget" skin="WhiteSkin" position="3 3 18 18" align="Stretch" name="ColourPlace"/>
         </Widget>
     </Widget>
 </MyGUI>
