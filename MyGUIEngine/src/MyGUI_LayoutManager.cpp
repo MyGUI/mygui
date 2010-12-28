@@ -96,19 +96,20 @@ namespace MyGUI
 
 	ResourceLayout* LayoutManager::getByName(const std::string& _name, bool _throw) const
 	{
-		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		std::string skinName = BackwardCompatibility::getSkinRename(_name);
+		IResource* result = ResourceManager::getInstance().getByName(skinName, false);
 
 		if (result != nullptr)
 		{
 			ResourceLayout* resource = result->castType<ResourceLayout>(false);
 			if (resource == nullptr)
 			{
-				MYGUI_ASSERT(!_throw, "Resource '" << _name << "' is not ResourceLayout type");
+				MYGUI_ASSERT(!_throw, "Resource '" << skinName << "' is not ResourceLayout type");
 			}
 			return resource;
 		}
 
-		MYGUI_ASSERT(!_throw, "ResourceLayout '" << _name << "' not found");
+		MYGUI_ASSERT(!_throw, "ResourceLayout '" << skinName << "' not found");
 		return nullptr;
 	}
 

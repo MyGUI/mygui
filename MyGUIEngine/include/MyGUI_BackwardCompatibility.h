@@ -557,6 +557,7 @@ namespace MyGUI
 		typedef std::set<std::string> SetString;
 		static MapString mPropertyRename;
 		static SetString mPropertyIgnore;
+		static MapString mSkinRename;
 #endif // MYGUI_DONT_USE_OBSOLETE
 	};
 
