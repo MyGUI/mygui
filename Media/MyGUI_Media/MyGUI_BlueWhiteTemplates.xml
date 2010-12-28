@@ -2180,7 +2180,16 @@
             <Widget type="ScrollBar" skin="ScrollBarH" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="ScrollView" version="3.2.0">
+	<Resource type="ResourceLayout" name="ItemBoxEmpty" version="3.2.0">
+		<Widget type="Widget" skin="PanelEmpty" position="7 7 48 48" name="Root">
+			<UserString key="LE_TargetWidgetType" value="ItemBox"/>
+			<UserString key="DragLayer" value="DragAndDrop"/>
+			<Widget type="Widget" skin="PanelEmpty" position="1 1 32 32" align="Stretch" name="Client"/>
+			<Widget type="ScrollBar" skin="ScrollBarV" position="33 1 15 32" align="Right VStretch" name="VScroll"/>
+			<Widget type="ScrollBar" skin="ScrollBarH" position="1 33 32 15" align="HStretch Bottom" name="HScroll"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceLayout" name="ScrollView" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
             <UserString key="LE_TargetWidgetType" value="ScrollView"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>

@@ -61,7 +61,7 @@ namespace tools
 		for (SkinGroups::const_iterator iter = groups.begin(); iter != groups.end(); ++iter)
 		{
 			MyGUI::TabItem* page = mTabSkins->addItem(iter->first);
-			MyGUI::ItemBox* box = page->createWidget<MyGUI::ItemBox>("ItemBoxEmptyV", MyGUI::IntCoord(0, 0, page->getSize().width, page->getSize().height), MyGUI::Align::Stretch);
+			MyGUI::ItemBox* box = page->createWidget<MyGUI::ItemBox>("ItemBoxEmpty", MyGUI::IntCoord(0, 0, page->getSize().width, page->getSize().height), MyGUI::Align::Stretch);
 			mItemBoxs.push_back(box);
 
 			box->requestCreateWidgetItem = MyGUI::newDelegate(this, &WidgetsWindow::requestCreateWidgetItem);
