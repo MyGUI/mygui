@@ -48,7 +48,7 @@ namespace base
 		mExit(false),
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
-		mResourceFileName("core.xml"),
+		mResourceFileName("MyGUI_Core.xml"),
 		mNode(nullptr)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
