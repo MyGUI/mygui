@@ -9,8 +9,8 @@
 	<List file="MyGUI_BackwardCompatibilitySkins.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
+	<List file="EditorSkins.xml"/>
 	<!-- загружается из кода после регистрации лееров -->
 	<!--List file="EditorLayers.xml"/-->
-	<List file="EditorSkins.xml"/>
 	<!--List file="EditorSettings.xml"/-->
 </MyGUI>
