@@ -76,7 +76,7 @@ namespace MyGUI
 		mOriginalPointer = getPointer();
 
 		// FIXME нам нужен фокус клавы
-		//setNeedKeyFocus(true);
+		setNeedKeyFocus(true);
 
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
