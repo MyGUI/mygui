@@ -19,8 +19,8 @@
 		<BasisSkin type="MainSkin" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="#{MyGUI_Theme_Texture}" >
-		<Property key="FontName" value="font_DejaVuSans.14"/>
+	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="core.png" >
+		<Property key="FontName" value="DejaVuSansFont.14"/>
 		<Property key="TextAlign" value="Left VCenter"/>
 
 		<Child type="Button" skin="TreeLineExpandCollapse" offset="2 3 12 12" align="Default" name="ButtonExpandCollapse"/>
@@ -35,15 +35,15 @@
 		<Child type="ImageBox" skin="TreeLineIcon" align="Default" offset="16 1 16 16" name="Image"/>
 
 		<BasisSkin type="EditText" offset="34 3 0 0" align="Stretch">
-			<State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
-			<State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
-			<State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
-			<State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
-			<State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+			<State name="disabled" colour="0 0 0"/>
+			<State name="normal" colour="0 0 0"/>
+			<State name="highlighted" colour="0 0 0"/>
+			<State name="normal_checked" colour="0 0 0"/>
+			<State name="pushed" colour="0 0 0"/>
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="#{MyGUI_Theme_Texture}">
+	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="core.png">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="TreeLine"/>
 		<Property key="HeightLine" value="18"/>
