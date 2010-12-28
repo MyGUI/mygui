@@ -20,27 +20,30 @@ namespace diagnostic
 		typedef std::vector<PairString> VectorPairString;
 
 		StatisticInfo() :
-			mInfo(nullptr)
+			mInfo(nullptr),
+			mInfoShadow(nullptr)
 		{
-			MyGUI::ResourceManager::getInstance().load("StatisticRectSkin.xml");
-
 			const std::string layer = "Statistic";
-			if ( ! MyGUI::LayerManager::getInstance().isExist(layer))
+			if (!MyGUI::LayerManager::getInstance().isExist(layer))
 				return;
 
-			const std::string skin = "StatisticRect";
-			if ( ! MyGUI::SkinManager::getInstance().isExist(skin))
-				return;
-
-			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfoShadow = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfoShadow->setTextColour(MyGUI::Colour::Black);
+			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfo->setTextColour(MyGUI::Colour::White);
 		}
 
 		~StatisticInfo()
 		{
-			if (mInfo)
+			if (mInfo != nullptr)
 			{
 				MyGUI::Gui::getInstance().destroyChildWidget(mInfo);
 				mInfo = nullptr;
+			}
+			if (mInfoShadow != nullptr)
+			{
+				MyGUI::Gui::getInstance().destroyChildWidget(mInfoShadow);
+				mInfoShadow = nullptr;
 			}
 		}
 
@@ -72,7 +75,7 @@ namespace diagnostic
 
 		void update()
 		{
-			if (mInfo)
+			if (mInfo != nullptr)
 			{
 				std::ostringstream stream;
 				for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
@@ -82,13 +85,16 @@ namespace diagnostic
 				}
 
 				mInfo->setCaption(stream.str());
+				mInfoShadow->setCaption(stream.str());
 
 				MyGUI::ISubWidgetText* text = mInfo->getSubWidgetText();
-				if (text)
+				if (text != nullptr)
 				{
 					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
 					const MyGUI::IntSize& size_view = MyGUI::RenderManager::getInstance().getViewSize();
 					mInfo->setCoord(size_view.width - size.width - 20, size_view.height - size.height - 20, size.width, size.height);
+					if (mInfoShadow != nullptr)
+						mInfoShadow->setCoord(size_view.width - size.width - 20 + 1, size_view.height - size.height - 20 + 1, size.width, size.height);
 				}
 			}
 		}
@@ -112,19 +118,22 @@ namespace diagnostic
 
 		void setVisible(bool _value)
 		{
-			if (mInfo)
+			if (mInfo != nullptr)
 				mInfo->setVisible(_value);
+			if (mInfoShadow != nullptr)
+				mInfoShadow->setVisible(_value);
 		}
 
 		bool getVisible()
 		{
-			if (mInfo)
+			if (mInfo != nullptr)
 				return mInfo->getVisible();
 			return false;
 		}
 
 	private:
 		MyGUI::TextBox* mInfo;
+		MyGUI::TextBox* mInfoShadow;
 		VectorPairString mParams;
 	};
 
