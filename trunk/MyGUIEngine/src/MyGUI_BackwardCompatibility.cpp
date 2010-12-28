@@ -1006,6 +1006,9 @@ namespace MyGUI
 		mSkinRename["WordWrapSimple"] = "WordWrapEmpty";
 		mSkinRename["ButtonSmall"] = "Button";
 		mSkinRename["ButtonImageText"] = "ButtonImage";
+
+		// юибилейный комит ура =)
+
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
