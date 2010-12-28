@@ -71,7 +71,7 @@ namespace base
 		hDC(0),
 		hRC(0),
 		mExit(false),
-		mResourceFileName("core.xml")
+		mResourceFileName("MyGUI_Core.xml")
 	{
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);

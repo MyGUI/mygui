@@ -70,7 +70,7 @@ namespace base
 		mD3d(nullptr),
 		mDevice(nullptr),
 		mExit(false),
-		mResourceFileName("core.xml"),
+		mResourceFileName("MyGUI_Core.xml"),
 		mIsDeviceLost(false)
 	{
 	}
