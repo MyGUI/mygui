@@ -211,6 +211,8 @@ namespace base
 				addResourceLocation(node->getContent(), false);
 			}
 		}
+
+		addResourceLocation(getRootMedia() + "/Common/Base");
 	}
 
 	void BaseManager::createGui()
