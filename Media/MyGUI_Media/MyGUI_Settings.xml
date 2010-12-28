@@ -3,7 +3,7 @@
 <MyGUI>
 
 	<MyGUI type="Font">
-		<Property key="Default" value="font_DejaVuSans.17"/>
+		<Property key="Default" value="DejaVuSansFont.17"/>
 	</MyGUI>
 
 	<MyGUI type="Pointer">
