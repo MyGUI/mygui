@@ -6,7 +6,7 @@
             <Property key="ModeDrop" value="true"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 45 109 14" align="HStretch Bottom">
-            <Widget type="Widget" skin="SepUpVSkin" position="14 6 79 2" align="HStretch VCenter"/>
+            <Widget type="Widget" skin="SepDownHSkin" position="14 6 79 2" align="HStretch VCenter"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="1 59 109 14" align="HStretch Bottom">
             <Widget type="Button" skin="ButtonRoundGrey" position="0 0 14 14" align="Left VCenter" name="StartIn">
