@@ -2180,16 +2180,16 @@
             <Widget type="ScrollBar" skin="ScrollBarH" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
         </Widget>
     </Resource>
-	<Resource type="ResourceLayout" name="ItemBoxEmpty" version="3.2.0">
-		<Widget type="Widget" skin="PanelEmpty" position="7 7 48 48" name="Root">
-			<UserString key="LE_TargetWidgetType" value="ItemBox"/>
-			<UserString key="DragLayer" value="DragAndDrop"/>
-			<Widget type="Widget" skin="PanelEmpty" position="1 1 32 32" align="Stretch" name="Client"/>
-			<Widget type="ScrollBar" skin="ScrollBarV" position="33 1 15 32" align="Right VStretch" name="VScroll"/>
-			<Widget type="ScrollBar" skin="ScrollBarH" position="1 33 32 15" align="HStretch Bottom" name="HScroll"/>
-		</Widget>
-	</Resource>
-	<Resource type="ResourceLayout" name="ScrollView" version="3.2.0">
+    <Resource type="ResourceLayout" name="ItemBoxEmpty" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="7 7 48 48" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ItemBox"/>
+            <UserString key="DragLayer" value="DragAndDrop"/>
+            <Widget type="Widget" skin="PanelEmpty" position="1 1 32 32" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV" position="33 1 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH" position="1 33 32 15" align="HStretch Bottom" name="HScroll"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollView" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
             <UserString key="LE_TargetWidgetType" value="ScrollView"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
@@ -2201,13 +2201,13 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ScrollViewEmpty" version="3.2.0">
-        <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
+        <Widget type="Widget" skin="PanelEmpty" position="8 8 47 47" name="Root">
             <UserString key="LE_TargetWidgetType" value="ScrollView"/>
-            <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
-            <Widget type="ScrollBar" skin="ScrollBarV" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
-            <Widget type="ScrollBar" skin="ScrollBarH" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 32 32" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV" position="32 0 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH" position="0 32 32 15" align="HStretch Bottom" name="HScroll"/>
         </Widget>
-        <Widget type="ScrollView" skin="ScrollView" position="5 70 55 55">
+        <Widget type="ScrollView" skin="ScrollViewEmpty" position="5 70 55 55">
             <Property key="CanvasSize" value="100 100"/>
         </Widget>
     </Resource>
