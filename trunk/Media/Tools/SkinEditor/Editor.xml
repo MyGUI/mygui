@@ -8,6 +8,7 @@
 	<List file="MyGUI_CommonSkins.xml"/>
 	<List file="MyGUI_BackwardCompatibilityResources.xml"/>
 	<List file="core_skin.xml"/>
+	<List file="MyGUI_BlueWhiteTheme.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
 	<List file="MyGUI_Layers.xml"/>
 	<List file="MyGUI_Settings.xml"/>

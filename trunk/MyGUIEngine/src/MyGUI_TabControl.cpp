@@ -101,10 +101,13 @@ namespace MyGUI
 		}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		assignWidget(mItemTemplate, "Sheet");
-		if (mItemTemplate != nullptr)
+		if (mItemTemplate == nullptr)
 		{
-			mItemTemplate->setVisible(false);
+			assignWidget(mItemTemplate, "Sheet");
+			if (mItemTemplate != nullptr)
+			{
+				mItemTemplate->setVisible(false);
+			}
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -161,7 +164,7 @@ namespace MyGUI
 		TabItem* child = _widget->castType<TabItem>(false);
 		if (child != nullptr)
 		{
-			child->setCoord(_getWidgetTemplate()->getCoord());
+			child->setCoord(_getWidgetTemplate()->getAbsoluteLeft() - getAbsoluteLeft(), _getWidgetTemplate()->getAbsoluteTop() - getAbsoluteTop(), _getWidgetTemplate()->getWidth(), _getWidgetTemplate()->getHeight());
 			child->setAlign(_getWidgetTemplate()->getAlign());
 
 			_insertItem(ITEM_NONE, "", child, Any::Null);
