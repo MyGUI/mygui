@@ -316,22 +316,6 @@
             <Property key="Caption" value="Text"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="WindowTool" version="3.2.0">
-        <Widget type="Widget" skin="PanelEmpty" position="15 10 68 38" name="Root">
-            <Property key="Snap" value="true"/>
-            <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="Button" skin="CaptionEmptySmallSkin" position="0 0 68 18" align="HStretch Top" name="Caption">
-                <Property key="TextAlign" value="Center"/>
-                <Property key="FontName" value="Default"/>
-            </Widget>
-            <Widget type="Widget" skin="WindowFrameSkin" position="0 18 68 20" align="Stretch">
-                <Widget type="Widget" skin="ClientTileSkin" position="4 2 58 12" align="Stretch" name="Client"/>
-            </Widget>
-        </Widget>
-        <Widget type="Window" skin="WindowTool" position="15 75 68 49">
-            <Property key="Caption" value="Text"/>
-        </Widget>
-    </Resource>
     <Resource type="ResourceLayout" name="MenuBar" version="3.2.0">
         <Widget type="Widget" skin="MenuBarSkin" position="5 5 29 26" name="Root">
             <Property key="VerticalAlignment" value="false"/>
@@ -2251,7 +2235,7 @@
     <Resource type="ResourceLayout" name="MultiSubListBox" version="3.2.0">
         <Widget type="Widget" skin="PanelEmpty" position="8 8 47 47" name="Root">
             <UserString key="LE_TargetWidgetType" value="ListBox"/>
-            <UserString key="HeightLine" value="20"/>
+            <UserString key="HeightLine" value="21"/>
             <UserString key="SkinLine" value="ListBoxItem"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 32 47" align="Stretch" name="Client"/>
             <Widget type="ScrollBar" skin="ScrollBarV" position="32 0 15 47" align="Right VStretch" name="VScroll"/>

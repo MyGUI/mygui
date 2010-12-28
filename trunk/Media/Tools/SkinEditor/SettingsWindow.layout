@@ -6,17 +6,17 @@
         <Property key="Visible" value="false"/>
         <Property key="MinSize" value="448 296"/>
         <Widget type="TabControl" skin="Tab" position="5 6 429 216" align="Stretch">
-            <Widget type="TabItem" skin="" position="4 26 420 184">
+            <Widget type="TabItem" skin="" position="2 24 423 188">
                 <Property key="Caption" value="#{GeneralSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsGeneralControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 423 188" align="Stretch" name="SettingsGeneralControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
+            <Widget type="TabItem" skin="" position="2 24 423 188">
                 <Property key="Caption" value="#{FoldersSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcePathsControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 423 188" align="Stretch" name="SettingsResourcePathsControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 420 184">
+            <Widget type="TabItem" skin="" position="2 24 423 188">
                 <Property key="Caption" value="#{ResourcesSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 420 184" align="Stretch" name="SettingsResourcesControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 423 188" align="Stretch" name="SettingsResourcesControl"/>
             </Widget>
         </Widget>
         <Widget type="Button" skin="Button" position="313 229 120 26" align="Right Bottom" name="Ok">
