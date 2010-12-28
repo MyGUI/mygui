@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
 			<State name="normal" offset="16 0 1 1"/>
 		</BasisSkin>
@@ -29,7 +29,7 @@
 			<State name="normal" offset="31 15 1 1"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="LE_StaticText" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_StaticText" size="16 16" texture="SelectionRects.png">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Default"/>
 		<Property key="Colour" value="1 1 1"/>
@@ -62,7 +62,7 @@
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="LE_StaticImageHelper" size="16 16" texture="EditorSelections.png">
+	<Resource type="ResourceSkin" name="LE_StaticImageHelper" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
 			<State name="normal" offset="0 0 1 1"/>
 		</BasisSkin>
@@ -95,7 +95,7 @@
 		<Child type="Widget" skin="LE_StaticImageHelper" offset="0 0 16 16" align="Stretch"/>
 		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="LE_ItemBoxEmpty" size="16 16" texture="EditorSelections.png" align="Left Top">
+	<Resource type="ResourceSkin" name="LE_ItemBoxEmpty" size="16 16" texture="SelectionRects.png" align="Left Top">
 		<Property key="NeedKey" value="true"/>
 		<Child type="ScrollBar" skin="ScrollBarV" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="0 0 0 16" align="Stretch" name="Client"/>
