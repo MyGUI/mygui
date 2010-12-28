@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceImageSet" name="MultiListButtonImage">
-		<Group name="Icons" texture="MyGUI_SkinBlueWhite.png" size="12 10">
+		<Group name="Icons" texture="MyGUI_BlueWhiteSkins.png" size="12 10">
 			<Index name="None" >
 				<Frame point="74 185"/>
 			</Index>
