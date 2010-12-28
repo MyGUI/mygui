@@ -427,13 +427,13 @@
             <UserString key="SeparatorSkin" value="PopupMenuSeparator"/>
             <UserString key="NormalSkin" value="PopupMenuNormal"/>
             <UserString key="PopupSkin" value="PopupMenuPopup"/>
-            <Widget type="Widget" skin="PanelEmpty" position="3 5 21 14" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 4 21 16" align="Stretch" name="Client"/>
         </Widget>
         <Widget type="MenuBar" skin="MenuBar" position="240 40 210 26">
-            <Widget type="MenuItem" skin="MenuBarButton" position="0 0 45 21">
+            <Widget type="MenuItem" skin="MenuBarButton" position="0 0 55 21">
                 <Property key="Caption" value="test1"/>
                 <Property key="MenuItemType" value="Popup"/>
-                <Widget type="PopupMenu" skin="PopupMenu" position="246 66 74 75" style="Popup">
+                <Widget type="PopupMenu" skin="PopupMenu" position="246 66 74 79" style="Popup">
                     <Widget type="MenuItem" skin="" position="0 0 66 19">
                         <Property key="Caption" value="line1"/>
                     </Widget>
@@ -444,7 +444,7 @@
                     <Widget type="MenuItem" skin="" position="0 29 66 19">
                         <Property key="Caption" value="line2"/>
                         <Property key="MenuItemType" value="Popup"/>
-                        <Widget type="PopupMenu" skin="PopupMenu" position="312 97 74 27" style="Popup">
+                        <Widget type="PopupMenu" skin="PopupMenu" position="312 97 74 31" style="Popup">
                             <Widget type="MenuItem" skin="" position="0 0 66 19">
                                 <Property key="Caption" value="line1"/>
                             </Widget>
@@ -455,15 +455,15 @@
                     </Widget>
                 </Widget>
             </Widget>
-            <Widget type="MenuItem" skin="MenuBarButton" position="51 0 10 21">
+            <Widget type="MenuItem" skin="MenuBarButton" position="61 0 10 21">
                 <Property key="Caption" value="test2"/>
                 <Property key="MenuItemType" value="Separator"/>
             </Widget>
-            <Widget type="MenuItem" skin="" position="67 0 45 21">
+            <Widget type="MenuItem" skin="" position="77 0 55 21">
                 <Property key="Caption" value="test3"/>
                 <Property key="MenuItemType" value="Popup"/>
             </Widget>
-            <Widget type="MenuItem" skin="" position="118 0 45 21">
+            <Widget type="MenuItem" skin="" position="138 0 55 21">
                 <Property key="Caption" value="test4"/>
             </Widget>
         </Widget>
