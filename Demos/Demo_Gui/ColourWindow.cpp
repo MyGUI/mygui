@@ -33,8 +33,6 @@ namespace demo
 		mSliderGreen->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
 		mSliderBlue->eventScrollChangePosition += MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
 
-		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
-
 		mAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourWindow::notifyMouseButtonClick);
 		mLine->eventEditSelectAccept += MyGUI::newDelegate(this, &ColourWindow::notifyEditSelectAccept);
 
@@ -60,7 +58,7 @@ namespace demo
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
 			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
 
-		mRawColourView->setRectColour(colour, colour, colour, colour);
+		mColour->setColour(colour);
 	}
 
 	void ColourWindow::notifyEditSelectAccept(MyGUI::EditBox* _sender)
