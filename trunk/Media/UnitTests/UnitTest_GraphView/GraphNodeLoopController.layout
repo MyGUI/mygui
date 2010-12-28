@@ -9,7 +9,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Right VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Start"/>
             </Widget>
         </Widget>
@@ -21,7 +21,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Right VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Stop"/>
             </Widget>
         </Widget>
@@ -33,7 +33,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Right VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Position"/>
             </Widget>
         </Widget>
@@ -45,7 +45,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Right VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Weight"/>
             </Widget>
         </Widget>
@@ -60,7 +60,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="15 0 94 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Start"/>
             </Widget>
         </Widget>
@@ -72,7 +72,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="15 0 94 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Stop"/>
             </Widget>
         </Widget>
@@ -84,7 +84,7 @@
             </Widget>
             <Widget type="TextBox" skin="TextBox" position="15 0 94 14" align="HStretch VCenter">
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="font_DejaVuSans.14"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
                 <Property key="Caption" value="Weight"/>
             </Widget>
         </Widget>
