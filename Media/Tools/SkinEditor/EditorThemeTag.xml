@@ -4,6 +4,5 @@
 	<Tag name="ColourError">#ffa601</Tag>
 	<Tag name="ColourSuccess">#FFFFFF</Tag>
 	<Tag name="ColourDisabled">#808080</Tag>
-	
-	<Tag name="ColourMenuTest">#ffa601</Tag>
+	<Tag name="ColourMenuTest">#0000FF</Tag>
 </MyGUI>

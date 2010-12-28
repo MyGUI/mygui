@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="List">
-	<List file="core_theme.xml"/>
 	<List file="MyGUI_Fonts.xml"/>
 	<List file="MyGUI_Images.xml"/>
 	<List file="MyGUI_CommonSkins.xml"/>
