@@ -17,33 +17,33 @@
             <UserString key="Type" value="ExtensionOut"/>
             <UserString key="Direction" value="1 0"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="18 141 113 16" align="HStretch Bottom" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 141 113 16" align="HStretch Bottom">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="Вход 2"/>
             <Property key="FontName" value="DejaVuSansFont.14"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="18 123 113 16" align="HStretch Bottom" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 123 113 16" align="HStretch Bottom">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Вход 1"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="18 26 113 16" align="HStretch Top" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 26 113 16" align="HStretch Top">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Выход 1"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="18 44 113 16" align="HStretch Top" layer="Back">
+        <Widget type="TextBox" skin="TextBox" position="18 44 113 16" align="HStretch Top">
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="Выход 2"/>
         </Widget>
-        <Widget type="Widget" skin="SepDownHSkin" position="14 64 117 2" align="HStretch Top" layer="Back"/>
-        <Widget type="Widget" skin="SepDownHSkin" position="14 118 117 2" align="HStretch Bottom" layer="Back"/>
-        <Widget type="EditBox" skin="EditBox" position="13 72 121 20" align="HStretch Top" layer="Back">
+        <Widget type="Widget" skin="SepDownHSkin" position="14 64 117 2" align="HStretch Top"/>
+        <Widget type="Widget" skin="SepDownHSkin" position="14 118 117 2" align="HStretch Bottom"/>
+        <Widget type="EditBox" skin="EditBox" position="13 72 121 20" align="HStretch Top">
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Object"/>
         </Widget>
-        <Widget type="EditBox" skin="EditBox" position="13 94 121 20" align="HStretch Top" layer="Back">
+        <Widget type="EditBox" skin="EditBox" position="13 94 121 20" align="HStretch Top">
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Walk"/>
         </Widget>
