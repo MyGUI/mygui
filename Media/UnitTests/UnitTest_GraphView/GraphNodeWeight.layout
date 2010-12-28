@@ -8,7 +8,7 @@
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="18 26 66 16" align="HStretch Top" layer="Back">
             <Property key="TextAlign" value="Right VCenter"/>
-            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Weight"/>
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
@@ -20,7 +20,7 @@
             <Property key="ViewPage" value="1"/>
         </Widget>
         <Widget type="EditBox" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
-            <Property key="FontName" value="font_DejaVuSans.14"/>
+            <Property key="FontName" value="DejaVuSansFont.14"/>
         </Widget>
     </Widget>
 </MyGUI>

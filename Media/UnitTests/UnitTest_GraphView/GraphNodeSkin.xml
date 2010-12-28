@@ -2,8 +2,8 @@
 
 <MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceSkin" name="WindowSmallCaption" size="68 18" texture="#{MyGUI_Theme_Texture}">
-		<Property key="FontName" value="font_DejaVuSans.14"/>
+	<Resource type="ResourceSkin" name="WindowSmallCaption" size="68 18" texture="core.png">
+		<Property key="FontName" value="DejaVuSansFont.14"/>
 		<Property key="TextAlign" value="Center"/>
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
 		<BasisSkin type="SubSkin" offset="0 0 10 18" align="Left VStretch">
@@ -18,7 +18,7 @@
 		<BasisSkin type="SimpleText" offset="2 4 48 15" align="Stretch"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="ButtonRoundBlue" size="14 14" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="ButtonRoundBlue" size="14 14" texture="core.png" >
 		<BasisSkin type="MainSkin" offset="0 0 14 14" align="Stretch">
 			<State name="normal" offset="314 134 14 14"/>
 			<State name="highlighted" offset="314 148 14 14"/>
@@ -26,7 +26,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="ButtonRoundGrey" size="14 14" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="ButtonRoundGrey" size="14 14" texture="core.png" >
 		<BasisSkin type="MainSkin" offset="0 0 14 14" align="Stretch">
 			<State name="normal" offset="329 134 14 14"/>
 			<State name="highlighted" offset="329 148 14 14"/>
@@ -34,7 +34,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="WindowSmallC" size="75 49" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="WindowSmallC" size="75 49" texture="core.png" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
@@ -68,7 +68,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="WindowSmallCX" size="75 49" texture="#{MyGUI_Theme_Texture}" >
+	<Resource type="ResourceSkin" name="WindowSmallCX" size="75 49" texture="core.png" >
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
