@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceSkin" name="TreeLineExpandCollapse" size="12 12" texture="TreeIcons.png">
 		<BasisSkin type="MainSkin" offset="0 0 12 12" align="Stretch">
@@ -11,29 +10,23 @@
 			<State name="pushed" offset="283 28 12 12"/>
 		</BasisSkin>
 	</Resource>
-
 	<Resource type="ResourceSkin" name="TreeLineIcon" size="16 16">
 		<Property key="ImageResource" value="pic_TreeIcons"/>
 		<Property key="ImageGroup" value="Folder"/>
 		<Property key="ImageName" value="Collapsed"/>
 		<BasisSkin type="MainSkin" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
-
-	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="core.png" >
+	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="core2.png" >
 		<Property key="FontName" value="DejaVuSansFont.14"/>
 		<Property key="TextAlign" value="Left VCenter"/>
-
 		<Child type="Button" skin="TreeLineExpandCollapse" offset="2 3 12 12" align="Default" name="ButtonExpandCollapse"/>
-
 		<BasisSkin type="MainSkin" offset="0 0 5 5">
 			<State name="normal" offset="343 115 1 1"/>
 			<State name="highlighted" offset="306 115 1 1"/>
 			<State name="normal_checked" offset="318 115 1 1"/>
 			<State name="pushed" offset="330 115 1 1"/>
 		</BasisSkin>
-
 		<Child type="ImageBox" skin="TreeLineIcon" align="Default" offset="16 1 16 16" name="Image"/>
-
 		<BasisSkin type="EditText" offset="34 3 0 0" align="Stretch">
 			<State name="disabled" colour="0 0 0"/>
 			<State name="normal" colour="0 0 0"/>
@@ -42,16 +35,13 @@
 			<State name="pushed" colour="0 0 0"/>
 		</BasisSkin>
 	</Resource>
-
-	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="core.png">
+	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="core2.png">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="TreeLine"/>
 		<Property key="HeightLine" value="18"/>
 		<Property key="LevelOffset" value="14"/>
-
 		<Child type="ScrollBar" skin="ScrollBarV" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
 		<Child type="Widget" skin="DefaultClient" offset="3 3 -12 3" align="Stretch" name="Client"/>
-
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
 		</BasisSkin>
@@ -61,14 +51,12 @@
 		<BasisSkin type="SubSkin" offset="6 0 5 3" align="Right Top">
 			<State name="normal" offset="447 70 5 3"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="0 3 3 3" align="Left VStretch">
 			<State name="normal" offset="429 76 3 3"/>
 		</BasisSkin>
 		<BasisSkin type="SubSkin" offset="6 3 5 3" align="Right VStretch">
 			<State name="normal" offset="447 76 5 3"/>
 		</BasisSkin>
-
 		<BasisSkin type="SubSkin" offset="0 6 3 5" align="Left Bottom">
 			<State name="normal" offset="429 87 3 5"/>
 		</BasisSkin>
