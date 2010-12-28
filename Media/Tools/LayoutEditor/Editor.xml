@@ -6,11 +6,11 @@
 	<List file="MyGUI_Fonts.xml"/>
 	<List file="MyGUI_Images.xml"/>
 	<List file="MyGUI_CommonSkins.xml"/>
-	<List file="MyGUI_BackwardCompatibilityResources.xml"/>
-	<List file="core_skin.xml"/>
 	<List file="MyGUI_BlueWhiteTheme.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
 	<List file="EditorSkins.xml"/>
+	<List file="TextureViewerSkins.xml"/>
+	<List file="EditorReplaceSkins.xml"/>
 	<!-- загружается из кода после регистрации лееров -->
 	<!--List file="EditorLayers.xml"/-->
 	<!--List file="EditorSettings.xml"/-->

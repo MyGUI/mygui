@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="BackgroundTile" size="32 32" texture="BackgroundTile.png">
+		<BasisSkin type="TileRect" offset="0 0 32 32" align="Stretch">
+			<State name="normal" offset="0 0 32 32">
+				<Property key="TileSize" value="32 32"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ImageBoxFilterNone" size="16 16">
+		<BasisSkin type="FilterNone" offset="0 0 16 16"/>
+	</Resource>
+</MyGUI>
