@@ -22,7 +22,7 @@ namespace demo
 
 	private:
 		MyGUI::ScrollView* mScrollView;
-		MyGUI::ImageBox* mImageBack;
+		MyGUI::Widget* mImageBack;
 		MyGUI::ImageBox* mImageTexture;
 	};
 
