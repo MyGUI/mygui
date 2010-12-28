@@ -43,7 +43,7 @@
 	</Resource>
 
 	<Resource type="ResourceManualFont" name="font_Micro.11">
-		<Property key="Source" value="core_micro_font.PNG"/>
+		<Property key="Source" value="MyGUI_MicroFont.png"/>
 		<Property key="DefaultHeight" value="11"/>
 		<Codes>
 			<!--cursor-->
