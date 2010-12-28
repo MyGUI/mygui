@@ -96,6 +96,42 @@
             <Property key="RangePosition" value="99"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="SliderHEmpty" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="25 50 125 15" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" name="SecondPart"/>
+            </Widget>
+        </Widget>
+        <Widget type="ScrollBar" skin="SliderHEmpty" position="25 75 125 15">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="0"/>
+            <Property key="Page" value="1"/>
+            <Property key="ViewPage" value="1"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderVEmpty" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 15 125" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
+                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" name="SecondPart"/>
+            </Widget>
+        </Widget>
+        <Widget type="ScrollBar" skin="SliderVEmpty" position="50 20 15 125">
+            <Property key="Range" value="100"/>
+            <Property key="RangePosition" value="99"/>
+        </Widget>
+    </Resource>
     <Resource type="ResourceLayout" name="Button" version="3.2.0">
         <Widget type="Button" skin="ButtonSkin" position="20 25 29 26" name="Root">
             <Property key="FontName" value="Default"/>

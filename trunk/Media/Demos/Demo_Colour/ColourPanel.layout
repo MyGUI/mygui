@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
+<MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
         <Property key="Caption" value="Colour picker"/>
         <Widget type="Widget" skin="PanelSkin" position="7 7 262 262">
@@ -12,12 +12,15 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSkin" position="275 7 22 262">
-            <Widget type="ScrollBar" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
-                <Property key="Range" value="512"/>
-                <Property key="RangePosition" value="0"/>
-                <Property key="Page" value="1"/>
-                <Property key="ViewPage" value="32"/>
+        <Widget type="Widget" skin="PanelSkin" position="275 7 21 262">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 15 256">
+                <Property key="ImageTexture" value="Colours.png"/>
+                <Widget type="ScrollBar" skin="SliderVEmpty" position="0 0 15 256" name="scroll_Range">
+                    <Property key="Range" value="512"/>
+                    <Property key="RangePosition" value="0"/>
+                    <Property key="Page" value="1"/>
+                    <Property key="ViewPage" value="32"/>
+                </Widget>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSkin" position="304 74 107 107">
