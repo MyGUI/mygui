@@ -516,7 +516,7 @@ namespace MyGUI
 		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
 
 		mChangeChildSkin = true;
-		_item->changeWidgetSkin(mItemNormalSkin);
+		_item->changeWidgetSkin(getSkinByType(_type));
 		mChangeChildSkin = false;
 
 		// его сет капшен, обновит размер
