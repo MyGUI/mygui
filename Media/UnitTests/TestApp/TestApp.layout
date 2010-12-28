@@ -3,10 +3,10 @@
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Overlapped" name="_Main">
         <Property key="Window_MinMax" value="500 500 1000 1000"/>
         <Property key="Caption" value="WindowCSX"/>
-        <Widget type="TabControl" skin="Tab" position="16 42 632 510" align="Stretch">
+        <Widget type="TabControl" skin="TabControl" position="16 42 632 510" align="Stretch">
             <Widget type="TabItem" skin="Default" position="4 26 623 478">
                 <Property key="Caption" value="item1"/>
-                <Widget type="EditBox" skin="EditStretch" position="20 14 184 144">
+                <Widget type="EditBox" skin="EditBoxStretch" position="20 14 184 144">
                     <Property key="TextAlign" value="Center"/>
                     <Property key="Caption" value="EditStretch"/>
                     <Property key="MultiLine" value="true"/>
@@ -17,13 +17,13 @@
                 <Widget type="Button" skin="Button" position="21 167 181 26">
                     <Property key="Caption" value="Button"/>
                 </Widget>
-                <Widget type="Button" skin="ButtonSmall" position="214 39 400 21" align="HStretch Top">
+                <Widget type="Button" skin="Button" position="214 39 400 21" align="HStretch Top">
                     <Property key="Caption" value="ButtonSmall"/>
                 </Widget>
                 <Widget type="Button" skin="CheckBox" position="22 203 178 29">
                     <Property key="Caption" value="CheckBox"/>
                 </Widget>
-                <Widget type="Button" skin="RadioBox" position="215 68 176 24">
+                <Widget type="Button" skin="RadioButton" position="215 68 176 24">
                     <Property key="Caption" value="RadioBox"/>
                 </Widget>
                 <Widget type="Button" skin="ButtonMinusPlus" position="215 100 18 18"/>
@@ -42,10 +42,10 @@
                     <Property key="ComboBox_AddItem" value="line8"/>
                     <Property key="ComboBox_AddItem" value="line9"/>
                 </Widget>
-                <Widget type="EditBox" skin="Edit" position="216 167 399 26" align="HStretch Top">
+                <Widget type="EditBox" skin="EditBox" position="216 167 399 26" align="HStretch Top">
                     <Property key="Caption" value="EditBox"/>
                 </Widget>
-                <Widget type="EditBox" skin="EditStretch" position="16 279 264 190" align="Stretch">
+                <Widget type="EditBox" skin="EditBoxStretch" position="16 279 264 190" align="Stretch">
 					<Property key="TextAlign" value="Default"/>
 					<Property key="WordWrap" value="true"/>
 					<Property key="MultiLine" value="true"/>
@@ -59,7 +59,7 @@
                 </Widget>
                 <Widget type="Button" skin="ButtonUp" position="216 207 14 12"/>
                 <Widget type="Button" skin="ButtonDown" position="240 207 14 12"/>
-                <Widget type="ScrollBar" skin="HSlider" position="288 279 328 16" align="Right Top">
+                <Widget type="ScrollBar" skin="SliderH" position="288 279 328 16" align="Right Top">
                     <Property key="Range" value="100"/>
                     <Property key="RangePosition" value="10"/>
                     <Property key="Page" value="1"/>
@@ -80,13 +80,13 @@
             <Widget type="TabItem" skin="Default" position="4 26 623 478">
                 <Property key="Caption" value="item2"/>
                 <Widget type="MenuBar" skin="MenuBar" position="8 7 608 26" align="HStretch Top"/>
-                <Widget type="MultiListBox" skin="MultiList" position="7 270 222 200" align="Left Bottom"/>
+                <Widget type="MultiListBox" skin="MultiListBox" position="7 270 222 200" align="Left Bottom"/>
                 <Widget type="ProgressBar" skin="ProgressBar" position="8 245 604 15" align="HStretch Bottom">
                     <Property key="AutoTrack" value="true"/>
                 </Widget>
                 <Widget type="ScrollView" skin="ScrollView" position="9 39 312 197" align="Stretch">
                     <Property key="ScrollView_CanvasSize" value="400 400"/>
-                    <Widget type="TabControl" skin="Tab" position="29 53 243 195">
+                    <Widget type="TabControl" skin="TabControl" position="29 53 243 195">
                         <Widget type="TabItem" skin="Default" position="4 26 234 163">
                             <Property key="Caption" value="item1"/>
                         </Widget>
@@ -98,7 +98,7 @@
                         </Widget>
                     </Widget>
                 </Widget>
-                <Widget type="TabControl" skin="Tab" position="240 269 375 201" align="HStretch Bottom">
+                <Widget type="TabControl" skin="TabControl" position="240 269 375 201" align="HStretch Bottom">
                     <Widget type="TabItem" skin="Default" position="4 26 366 169">
                         <Property key="Caption" value="item1"/>
                     </Widget>
@@ -127,7 +127,7 @@
                     <Property key="Page" value="1"/>
                     <Property key="ViewPage" value="10"/>
                 </Widget>
-                <Widget type="ScrollBar" skin="VSlider" position="598 41 15 194" align="Right VStretch">
+                <Widget type="ScrollBar" skin="SliderV" position="598 41 15 194" align="Right VStretch">
                     <Property key="Range" value="100"/>
                     <Property key="RangePosition" value="10"/>
                     <Property key="Page" value="1"/>

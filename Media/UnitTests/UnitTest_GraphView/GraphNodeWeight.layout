@@ -12,14 +12,14 @@
             <Property key="Caption" value="Weight"/>
         </Widget>
         <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
-        <Widget type="ScrollBar" skin="HSlider" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
+        <Widget type="ScrollBar" skin="SliderH" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
             <Property key="MoveToClick" value="true"/>
             <Property key="Range" value="1000"/>
             <Property key="RangePosition" value="0"/>
             <Property key="Page" value="1"/>
             <Property key="ViewPage" value="1"/>
         </Widget>
-        <Widget type="EditBox" skin="Edit" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
+        <Widget type="EditBox" skin="EditBox" position="13 55 75 20" align="HStretch Top" layer="Back" name="EditPosition">
             <Property key="FontName" value="DejaVuSansFont.14"/>
         </Widget>
     </Widget>

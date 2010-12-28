@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="42 66 526 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabControl" skin="Tab" position="0 32 526 334" align="Stretch" name="Tab">
+        <Widget type="TabControl" skin="TabControl" position="0 32 526 334" align="Stretch" name="Tab">
             <Widget type="TabItem" skin="" position="2 24 520 306">
                 <Property key="Caption" value="#{TabSkins}"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 520 306" align="Stretch" name="SkinControl"/>
