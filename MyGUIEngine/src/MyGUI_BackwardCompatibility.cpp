@@ -826,6 +826,7 @@ namespace MyGUI
 
 	BackwardCompatibility::MapString BackwardCompatibility::mPropertyRename;
 	BackwardCompatibility::SetString BackwardCompatibility::mPropertyIgnore;
+	BackwardCompatibility::MapString BackwardCompatibility::mSkinRename;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -983,6 +984,28 @@ namespace MyGUI
 		mPropertyIgnore.insert("MinTrackSize");
 		mPropertyIgnore.insert("MainMove");
 		mPropertyIgnore.insert("LevelOffset");
+
+		mSkinRename["StaticImage"] = "ImageBox";
+		mSkinRename["StaticText"] = "TextBox";
+		mSkinRename["HScroll"] = "ScrollBarH";
+		mSkinRename["VScroll"] = "ScrollBarV";
+		mSkinRename["ItemBoxH"] = "ItemBox";
+		mSkinRename["ItemBoxV"] = "ItemBox";
+		mSkinRename["VSlider"] = "SliderV";
+		mSkinRename["HSlider"] = "SliderH";
+		mSkinRename["Progress"] = "ProgressBar";
+		mSkinRename["ProgressFill"] = "ProgressBarFill";
+		mSkinRename["List"] = "ListBox";
+		mSkinRename["MultiList"] = "MultiListBox";
+		mSkinRename["Edit"] = "EditBox";
+		mSkinRename["EditStretch"] = "EditBoxStretch";
+		mSkinRename["EditEmpty"] = "EditBoxEmpty";
+		mSkinRename["RadioBox"] = "RadioButton";
+		mSkinRename["Tab"] = "TabControl";
+		mSkinRename["WordWrap"] = "WordWrapEmpty";
+		mSkinRename["WordWrapSimple"] = "WordWrapEmpty";
+		mSkinRename["ButtonSmall"] = "Button";
+		mSkinRename["ButtonImageText"] = "ButtonImage";
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
@@ -1057,45 +1080,11 @@ namespace MyGUI
 	std::string BackwardCompatibility::getSkinRename(const std::string& _skinName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-		if (_skinName == "StaticImage")
+		MapString::iterator item = mSkinRename.find(_skinName);
+		if (item != mSkinRename.end())
 		{
-			MYGUI_LOG(Warning, "StaticImage skin is deprecated, use ImageBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "StaticText")
-		{
-			MYGUI_LOG(Warning, "StaticText skin is deprecated, use TextBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "ItemBoxH")
-		{
-			MYGUI_LOG(Warning, "ItemBoxH skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "ItemBoxV")
-		{
-			MYGUI_LOG(Warning, "ItemBoxV skin is deprecated, use ItemBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "VScroll")
-		{
-			MYGUI_LOG(Warning, "VScroll skin is deprecated, use ScrollBarV" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "HScroll")
-		{
-			MYGUI_LOG(Warning, "HScroll skin is deprecated, use ScrollBarH" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "VSlider")
-		{
-			MYGUI_LOG(Warning, "VSlider skin is deprecated, use SliderV" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "HSlider")
-		{
-			MYGUI_LOG(Warning, "HSlider skin is deprecated, use SliderH" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "Progress")
-		{
-			MYGUI_LOG(Warning, "Progress skin is deprecated, use ProgressBar" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
-		}
-		else if (_skinName == "List")
-		{
-			MYGUI_LOG(Warning, "List skin is deprecated, use ListBox" << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			MYGUI_LOG(Warning, (*item).first << " skin is deprecated, use " << (*item).second << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+			return (*item).second;
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 		return _skinName;

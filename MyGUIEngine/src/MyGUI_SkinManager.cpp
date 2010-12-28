@@ -82,7 +82,8 @@ namespace MyGUI
 		{
 			std::string name = skin->findAttribute("name");
 			std::string type = skin->findAttribute("type");
-			if (type.empty()) type = "ResourceSkin";
+			if (type.empty())
+				type = "ResourceSkin";
 
 			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
 			if (object != nullptr)
@@ -127,7 +128,8 @@ namespace MyGUI
 
 	bool SkinManager::isExist(const std::string& _name) const
 	{
-		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		std::string skinName = BackwardCompatibility::getSkinRename(_name);
+		IResource* result = ResourceManager::getInstance().getByName(skinName, false);
 		return (result != nullptr) && (result->isType<ResourceSkin>());
 	}
 
