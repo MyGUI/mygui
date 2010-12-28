@@ -6,7 +6,6 @@
 		<Property key="Base" value="TextBox"/>
 
 		<Property key="Skin" value="Button"/>
-		<Property key="Skin" value="ButtonSmall"/>
 		<Property key="Skin" value="CheckBox"/>
 		<Property key="Skin" value="RadioBox"/>
 		<Property key="Skin" value="ButtonMinusPlus" group="Other"/>
@@ -66,13 +65,12 @@
 	</Widget>
 
 	<Widget name="EditBox">
-		<Property key="DefaultSkin" value="Edit"/>
+		<Property key="DefaultSkin" value="EditBox"/>
 		<Property key="Base" value="TextBox"/>
 
-		<Property key="Skin" value="Edit"/>
-		<Property key="Skin" value="EditStretch"/>
-		<Property key="Skin" value="WordWrap"/>
-		<Property key="Skin" value="WordWrapSimple"/>
+		<Property key="Skin" value="EditBox"/>
+		<Property key="Skin" value="EditBoxStretch"/>
+		<Property key="Skin" value="WordWrapEmpty"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
@@ -151,10 +149,10 @@
 	</Widget>
 
 	<Widget name="MultiListBox">
-		<Property key="DefaultSkin" value="MultiList"/>
+		<Property key="DefaultSkin" value="MultiListBox"/>
 		<Property key="Base" value="Widget"/>
 
-		<Property key="Skin" value="MultiList"/>
+		<Property key="Skin" value="MultiListBox"/>
 
 		<Property key="ItemManager" value="true"/>
 	</Widget>
@@ -282,10 +280,10 @@
 	</Widget>
 
 	<Widget name="TabControl">
-		<Property key="DefaultSkin" value="Tab"/>
+		<Property key="DefaultSkin" value="TabControl"/>
 		<Property key="Base" value="Widget"/>
 
-		<Property key="Skin" value="Tab"/>
+		<Property key="Skin" value="TabControl"/>
 
 		<Property key="ItemManager" value="true"/>
 
@@ -340,6 +338,7 @@
 
 		<Property key="Skin" value="Window"/>
 		<Property key="Skin" value="WindowC"/>
+		<Property key="Skin" value="WindowCX"/>
 		<Property key="Skin" value="WindowCS"/>
 		<Property key="Skin" value="WindowCSX"/>
 
