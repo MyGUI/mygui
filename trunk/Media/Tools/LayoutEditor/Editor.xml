@@ -8,7 +8,7 @@
 	<List file="MyGUI_CommonSkins.xml"/>
 	<List file="MyGUI_BlueWhiteTheme.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
-	<List file="EditorSkins.xml"/>
+	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
 	<List file="EditorReplaceSkins.xml"/>
 	<!-- загружается из кода после регистрации лееров -->

@@ -10,6 +10,6 @@
 	<List file="MyGUI_Pointers.xml"/>
 	<List file="MyGUI_Layers.xml"/>
 	<List file="MyGUI_Settings.xml"/>
-	<List file="EditorSkins.xml"/>
+	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
 </MyGUI>
