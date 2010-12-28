@@ -53,7 +53,7 @@
 		</Widget>
 
 		<Widget type="Widget" skin="PanelEmpty" position="1 83 109 14" align="HStretch Top">
-            <Widget type="Widget" skin="SepUpVSkin" position="14 6 79 2" align="HStretch VCenter"/>
+            <Widget type="Widget" skin="SepDownHSkin" position="14 6 79 2" align="HStretch VCenter"/>
         </Widget>
 		
         <Widget type="Widget" skin="PanelEmpty" position="1 97 109 14" align="HStretch Bottom">

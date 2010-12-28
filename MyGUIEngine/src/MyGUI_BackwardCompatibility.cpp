@@ -1011,10 +1011,10 @@ namespace MyGUI
 		mSkinRename["DefaultClient"] = "ClientDefaultSkin";
 		mSkinRename["Panel"] = "PanelSkin";
 		mSkinRename["PanelSmall"] = "PanelSkin";
-		mSkinRename["Separator1"] = "SepDownHSkin";
-		mSkinRename["Separator2"] = "SepUpHSkin";
-		mSkinRename["Separator3"] = "SepDownVSkin";
-		mSkinRename["Separator4"] = "SepUpVSkin";
+		mSkinRename["Separator1"] = "SepUpVSkin";
+		mSkinRename["Separator2"] = "SepDownVSkin";
+		mSkinRename["Separator3"] = "SepUpHSkin";
+		mSkinRename["Separator4"] = "SepDownHSkin";
 		mSkinRename["MarkerWhite"] = "WhiteSkin";
 		mSkinRename["ButtonLeft"] = "ButtonLeftSkin";
 		mSkinRename["ButtonRight"] = "ButtonRightSkin";
