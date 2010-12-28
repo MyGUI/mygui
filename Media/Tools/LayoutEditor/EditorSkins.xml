@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="VSliderEmpty" size="15 55" texture="core2.png" >
+	<!--Resource type="ResourceSkin" name="VSliderEmpty" size="15 55" texture="core2.png" >
 		<Property key="TrackRangeMargins" value="1 -1" />
 		<Property key="MinTrackSize" value="7" />
 		<Property key="MoveToClick" value="true" />
 		<Child type="Button" skin="Default" offset="0 1 15 1" align="Stretch" name="FirstPart"/>
 		<Child type="Button" skin="Default" offset="0 49 15 6" align="HStretch Bottom" name="SecondPart"/>
 		<Child type="Button" skin="VScrollTrackSlider" offset="1 18 15 7" align="HStretch Top" name="Track"/>
-	</Resource>
+	</Resource-->
 	<Resource type="ResourceSkin" name="ItemBoxEmptyV" size="18 3" texture="core2.png">
 		<Property key="VerticalAlignment" value="true" />
 		<Property key="DragLayer" value="DragAndDrop" />
