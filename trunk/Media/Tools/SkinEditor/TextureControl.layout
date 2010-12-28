@@ -6,7 +6,7 @@
             <Property key="CanvasAlign" value="Center"/>
             <Property key="CanvasSize" value="256 256"/>
             <Widget type="Widget" skin="BackgroundTile" position="0 0 256 256" align="Stretch">
-                <Widget type="Widget" skin="MarkerWhite" position="0 0 256 256" align="Stretch" name="Background">
+                <Widget type="Widget" skin="WhiteSkin" position="0 0 256 256" align="Stretch" name="Background">
                     <Property key="Alpha" value="0.5"/>
                     <Widget type="ImageBox" skin="StaticImageFilterNone" position="0 0 256 256" align="Stretch" name="Texture">
                         <Property key="InheritsAlpha" value="false"/>

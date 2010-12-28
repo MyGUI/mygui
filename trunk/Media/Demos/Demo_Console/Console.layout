@@ -8,7 +8,7 @@
         <UserString key="Success" value="#00FF00success parse : #000000"/>
         <UserString key="Unknown" value="#FF0000unknown command : #000000"/>
         <UserString key="Format" value="#00FFFFformat : #000000"/>
-        <Widget type="Widget" skin="PanelSmall" position="4 4 401 245" align="Stretch">
+        <Widget type="Widget" skin="PanelSkin" position="4 4 401 245" align="Stretch">
             <Widget type="EditBox" skin="WordWrapEmpty" position="4 3 392 237" align="Stretch" name="list_History">
                 <Property key="ReadOnly" value="true"/>
             </Widget>
