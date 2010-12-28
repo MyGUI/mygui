@@ -31,7 +31,7 @@
             </Widget>
             <Widget type="Widget" skin="PanelSkin" position="6 60 202 19" align="HStretch Top">
                 <UserString key="Info" value="The colour that will be used for the selection when added to the list"/>
-                <Widget type="Widget" skin="RawRect" position="3 3 194 11" align="Stretch" layer="Back" name="Colour"/>
+                <Widget type="Widget" skin="WhiteSkin" position="3 3 194 11" align="Stretch" layer="Back" name="Colour"/>
             </Widget>
             <Widget type="EditBox" skin="EditBox" position="7 83 151 26" align="HStretch Top" name="Line">
                 <UserString key="Info" value="An edit box: this text will be added to the list"/>

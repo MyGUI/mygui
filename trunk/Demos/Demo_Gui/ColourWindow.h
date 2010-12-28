@@ -32,7 +32,6 @@ namespace demo
 		MyGUI::ScrollBar* mSliderBlue;
 
 		MyGUI::Widget* mColour;
-		MyGUI::RawRect* mRawColourView;
 		MyGUI::Button* mAdd;
 		MyGUI::EditBox* mLine;
 

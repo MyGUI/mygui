@@ -24,7 +24,6 @@ namespace demo
 	private:
 		MyGUI::TextBox* mText;
 		MyGUI::Widget* mColour;
-		MyGUI::RawRect* mRawColourView;
 	};
 
 } // namespace demo

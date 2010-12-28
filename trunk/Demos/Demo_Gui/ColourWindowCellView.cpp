@@ -22,8 +22,6 @@ namespace demo
 
 		assignWidget(mText, "Text");
 		assignWidget(mColour, "Colour");
-
-		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 	}
 
 	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo& _info, ColourWindowCellData* _data)
@@ -31,7 +29,7 @@ namespace demo
 		if (_info.update)
 		{
 			mText->setCaption(_data->getName());
-			mRawColourView->setRectColour(_data->getColour(), _data->getColour(), _data->getColour(), _data->getColour());
+			mColour->setColour(_data->getColour());
 		}
 
 		if (_info.active)

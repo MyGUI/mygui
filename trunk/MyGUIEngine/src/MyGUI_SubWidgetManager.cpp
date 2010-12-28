@@ -30,7 +30,6 @@
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_EditText.h"
-#include "MyGUI_RawRect.h"
 #include "MyGUI_TileRect.h"
 
 namespace MyGUI
@@ -55,7 +54,6 @@ namespace MyGUI
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "PolygonalSkin");
 		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
-		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
 		factory.registerFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
 		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
 		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
@@ -64,7 +62,6 @@ namespace MyGUI
 		factory.registerFactory<MainSkin>("BasisSkin");
 		factory.registerFactory<PolygonalSkin>("BasisSkin");
 		factory.registerFactory<RotatingSkin>("BasisSkin");
-		factory.registerFactory<RawRect>("BasisSkin");
 		factory.registerFactory<TileRect>("BasisSkin");
 		factory.registerFactory<EditText>("BasisSkin");
 		factory.registerFactory<SimpleText>("BasisSkin");
@@ -84,7 +81,6 @@ namespace MyGUI
 		factory.unregisterFactory("BasisSkin/State", "MainSkin");
 		factory.unregisterFactory("BasisSkin/State", "PolygonalSkin");
 		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
-		factory.unregisterFactory("BasisSkin/State", "RawRect");
 		factory.unregisterFactory("BasisSkin/State", "TileRect");
 		factory.unregisterFactory("BasisSkin/State", "EditText");
 		factory.unregisterFactory("BasisSkin/State", "SimpleText");
@@ -93,7 +89,6 @@ namespace MyGUI
 		factory.unregisterFactory<MainSkin>("BasisSkin");
 		factory.unregisterFactory<PolygonalSkin>("BasisSkin");
 		factory.unregisterFactory<RotatingSkin>("BasisSkin");
-		factory.unregisterFactory<RawRect>("BasisSkin");
 		factory.unregisterFactory<TileRect>("BasisSkin");
 		factory.unregisterFactory<EditText>("BasisSkin");
 		factory.unregisterFactory<SimpleText>("BasisSkin");
