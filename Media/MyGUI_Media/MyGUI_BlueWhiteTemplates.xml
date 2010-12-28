@@ -529,7 +529,7 @@
     <Resource type="ResourceLayout" name="ListBox" version="3.2.0">
         <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
             <UserString key="LE_TargetWidgetType" value="ListBox"/>
-            <UserString key="HeightLine" value="20"/>
+            <UserString key="HeightLine" value="21"/>
             <UserString key="SkinLine" value="ListBoxItem"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 3 32 47" align="Stretch" name="Client"/>
             <Widget type="ScrollBar" skin="ScrollBarV" position="35 3 15 47" align="Right VStretch" name="VScroll"/>
@@ -2171,18 +2171,18 @@
             <Property key="CanvasSize" value="100 100"/>
         </Widget>
     </Resource>
-	<Resource type="ResourceLayout" name="ScrollViewEmpty" version="3.2.0">
-		<Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
-			<UserString key="LE_TargetWidgetType" value="ScrollView"/>
-			<Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
-			<Widget type="ScrollBar" skin="ScrollBarV" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
-			<Widget type="ScrollBar" skin="ScrollBarH" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
-		</Widget>
-		<Widget type="ScrollView" skin="ScrollView" position="5 70 55 55">
-			<Property key="CanvasSize" value="100 100"/>
-		</Widget>
-	</Resource>
-	<Resource type="ResourceLayout" name="TabHeaderButton" version="3.2.0">
+    <Resource type="ResourceLayout" name="ScrollViewEmpty" version="3.2.0">
+        <Widget type="Widget" skin="PanelSkin" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ScrollView"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 32 32" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV" position="35 3 15 32" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH" position="3 35 32 15" align="HStretch Bottom" name="HScroll"/>
+        </Widget>
+        <Widget type="ScrollView" skin="ScrollView" position="5 70 55 55">
+            <Property key="CanvasSize" value="100 100"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabHeaderButton" version="3.2.0">
         <Widget type="Button" skin="TabHeaderButtonSkin" position="20 25 52 23" name="Root">
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Center"/>
