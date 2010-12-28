@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
         <Property key="Caption" value="Colour picker"/>
-        <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
+        <Widget type="Widget" skin="PanelSkin" position="7 7 262 262">
             <Widget type="ImageBox" skin="ImageBox" position="2 2 256 256" name="widget_ColourRect">
                 <Widget type="ImageBox" skin="ImageBox" position="0 0 16 16" name="image_Picker">
                     <Property key="ImageTexture" value="Pick.png"/>
@@ -12,7 +12,7 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="275 7 22 262">
+        <Widget type="Widget" skin="PanelSkin" position="275 7 22 262">
             <Widget type="ScrollBar" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
                 <Property key="Range" value="512"/>
                 <Property key="RangePosition" value="0"/>
@@ -20,8 +20,8 @@
                 <Property key="ViewPage" value="32"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelSmall" position="304 74 107 107">
-            <Widget type="Widget" skin="MarkerWhite" position="2 2 101 101" name="widget_ColourView"/>
+        <Widget type="Widget" skin="PanelSkin" position="304 74 107 107">
+            <Widget type="Widget" skin="WhiteSkin" position="2 2 101 101" name="widget_ColourView"/>
         </Widget>
         <Widget type="EditBox" skin="EditBox" position="356 242 56 26" name="edit_Blue">
             <Property key="CursorPosition" value="0"/>

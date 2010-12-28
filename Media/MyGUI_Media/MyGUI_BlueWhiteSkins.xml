@@ -11,7 +11,7 @@
             <State name="highlighted_checked" offset="2 134 21 21"/>
             <State name="pushed_checked" offset="2 156 21 21"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="22 0 1 21" align="Stretch">
+        <BasisSkin type="SimpleText" offset="22 2 1 19" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="0 0 0" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
@@ -44,7 +44,7 @@
             <State name="pushed_checked" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="ButtonPlusMinusSkin" size="18 18" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="ButtonExpandSkin" size="18 18" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
             <State name="disabled" offset="49 2 18 18"/>
             <State name="normal" offset="49 23 18 18"/>
@@ -735,7 +735,7 @@
             <State name="pushed_checked" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="SeparatorDownHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="SepDownHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="8 0 2 2" align="Right VStretch">
             <State name="normal" offset="212 235 2 2"/>
         </BasisSkin>
@@ -746,7 +746,7 @@
             <State name="normal" offset="206 235 6 2"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="SeparatorUpHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="SepUpHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="8 0 2 2" align="Right VStretch">
             <State name="normal" offset="212 239 2 2"/>
         </BasisSkin>
@@ -757,7 +757,7 @@
             <State name="normal" offset="206 239 6 2"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="SeparatorDownVSkin" size="2 6" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="SepDownVSkin" size="2 6" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="HStretch Top">
             <State name="normal" offset="220 235 2 2"/>
         </BasisSkin>
@@ -768,7 +768,7 @@
             <State name="normal" offset="220 237 2 2"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="SeparatorUpVSkin" size="2 6" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="SepUpVSkin" size="2 6" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="HStretch Top">
             <State name="normal" offset="216 235 2 2"/>
         </BasisSkin>
@@ -822,36 +822,7 @@
             <State name="normal" offset="345 6 13 12"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="PanelSmallSkin" size="23 22" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
-            <State name="normal" offset="341 27 4 4"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="4 0 13 4" align="HStretch Top">
-            <State name="normal" offset="345 27 13 4"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="17 0 6 4" align="Right Top">
-            <State name="normal" offset="358 27 6 4"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="17 4 6 12" align="Right VStretch">
-            <State name="normal" offset="358 31 6 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="17 16 6 6" align="Right Bottom">
-            <State name="normal" offset="358 43 6 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="4 16 13 6" align="HStretch Bottom">
-            <State name="normal" offset="345 43 13 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 16 4 6" align="Left Bottom">
-            <State name="normal" offset="341 43 4 6"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 4 4 12" align="Left VStretch">
-            <State name="normal" offset="341 31 4 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="4 4 13 12" align="Stretch">
-            <State name="normal" offset="345 31 13 12"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="MarkerWhiteSkin" size="2 2" texture="MyGUI_BlueWhiteSkins.png">
+    <Resource type="ResourceSkin" name="WhiteSkin" size="2 2" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="Stretch">
             <State name="normal" offset="454 6 2 2"/>
         </BasisSkin>

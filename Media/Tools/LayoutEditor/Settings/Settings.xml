@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Settings">
     <WidgetsWindow>
-        <Property key="widgetsButtonWidth" value="130"/>
+        <Property key="widgetsButtonWidth" value="142"/>
         <Property key="widgetsButtonHeight" value="24"/>
     </WidgetsWindow>
 	<Settings>

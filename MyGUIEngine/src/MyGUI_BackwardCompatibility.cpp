@@ -1007,8 +1007,22 @@ namespace MyGUI
 		mSkinRename["ButtonSmall"] = "Button";
 		mSkinRename["ButtonImageText"] = "ButtonImage";
 
-		// юибилейный комит ура =)
-
+		mSkinRename["TileClient"] = "ClientTileSkin";
+		mSkinRename["DefaultClient"] = "ClientDefaultSkin";
+		mSkinRename["Panel"] = "PanelSkin";
+		mSkinRename["PanelSmall"] = "PanelSkin";
+		mSkinRename["Separator1"] = "SepDownHSkin";
+		mSkinRename["Separator2"] = "SepUpHSkin";
+		mSkinRename["Separator3"] = "SepDownVSkin";
+		mSkinRename["Separator4"] = "SepUpVSkin";
+		mSkinRename["MarkerWhite"] = "WhiteSkin";
+		mSkinRename["ButtonLeft"] = "ButtonLeftSkin";
+		mSkinRename["ButtonRight"] = "ButtonRightSkin";
+		mSkinRename["ButtonUp"] = "ButtonUpSkin";
+		mSkinRename["ButtonDown"] = "ButtonDownSkin";
+		mSkinRename["ButtonV"] = "ButtonAcceptSkin";
+		mSkinRename["ButtonX"] = "ButtonCloseSkin";
+		mSkinRename["ButtonMinusPlus"] = "ButtonExpandSkin";
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

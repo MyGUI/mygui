@@ -11,7 +11,7 @@
             <Property key="FontName" value="DejaVuSansFont.14"/>
             <Property key="Caption" value="Position"/>
         </Widget>
-        <Widget type="Widget" skin="Separator4" position="14 48 70 2" align="HStretch Top" layer="Back"/>
+        <Widget type="Widget" skin="SepUpVSkin" position="14 48 70 2" align="HStretch Top" layer="Back"/>
         <Widget type="ScrollBar" skin="SliderH" position="13 78 73 15" align="HStretch Top" layer="Back" name="ScrollPosition">
             <Property key="MoveToClick" value="true"/>
             <Property key="Range" value="1000"/>

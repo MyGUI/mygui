@@ -7,16 +7,15 @@
 
 		<Property key="Skin" value="Button"/>
 		<Property key="Skin" value="CheckBox"/>
-		<Property key="Skin" value="RadioBox"/>
-		<Property key="Skin" value="ButtonMinusPlus" group="Other"/>
-		<Property key="Skin" value="ButtonX" group="Other"/>
-		<Property key="Skin" value="ButtonV" group="Other"/>
-		<Property key="Skin" value="ButtonDown" group="Other"/>
-		<Property key="Skin" value="ButtonUp" group="Other"/>
-		<Property key="Skin" value="ButtonLeft" group="Other"/>
-		<Property key="Skin" value="ButtonRight" group="Other"/>
-		<Property key="Skin" value="ButtonImage" group="Other"/>
-		<Property key="Skin" value="ButtonImageText" group="Other"/>
+		<Property key="Skin" value="RadioButton"/>
+		<Property key="Skin" value="ButtonImage"/>
+		<Property key="Skin" value="ButtonExpandSkin" group="Other"/>
+		<Property key="Skin" value="ButtonCloseSkin" group="Other"/>
+		<Property key="Skin" value="ButtonAcceptSkin" group="Other"/>
+		<Property key="Skin" value="ButtonDownSkin" group="Other"/>
+		<Property key="Skin" value="ButtonUpSkin" group="Other"/>
+		<Property key="Skin" value="ButtonLeftSkin" group="Other"/>
+		<Property key="Skin" value="ButtonRightSkin" group="Other"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
@@ -53,10 +52,8 @@
 	</Widget>
 
 	<Widget name="DDContainer">
-		<Property key="DefaultSkin" value="DDContainer"/>
+		<Property key="DefaultSkin" value=""/>
 		<Property key="Base" value="Widget"/>
-
-		<Property key="Skin" value="DDContainer"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
@@ -305,15 +302,15 @@
 	<Widget name="Widget">
 		<Property key="DefaultSkin" value=""/>
 
-		<Property key="Skin" value="Panel" group="Other"/>
-		<Property key="Skin" value="PanelSmall" group="Other"/>
-		<Property key="Skin" value="PanelEmpty" group="Other"/>
-		<Property key="Skin" value="TileClient" group="Other"/>
-		<Property key="Skin" value="DefaultClient" group="Other"/>
-		<Property key="Skin" value="Separator1" group="Other"/>
-		<Property key="Skin" value="Separator2" group="Other"/>
-		<Property key="Skin" value="Separator3" group="Other"/>
-		<Property key="Skin" value="Separator4" group="Other"/>
+		<Property key="Skin" value="PanelEmpty"/>
+		<Property key="Skin" value="PanelSkin" group="Other"/>
+		<Property key="Skin" value="ClientTileSkin" group="Other"/>
+		<Property key="Skin" value="ClientDefaultSkin" group="Other"/>
+		<Property key="Skin" value="SepDownHSkin" group="Other"/>
+		<Property key="Skin" value="SepUpHSkin" group="Other"/>
+		<Property key="Skin" value="SepDownVSkin" group="Other"/>
+		<Property key="Skin" value="SepUpVSkin" group="Other"/>
+		<Property key="Skin" value="WhiteSkin" group="Other"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
