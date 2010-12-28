@@ -6,7 +6,7 @@
 	<List file="MyGUI_Fonts.xml"/>
 	<List file="MyGUI_Images.xml"/>
 	<List file="MyGUI_CommonSkins.xml"/>
-	<List file="MyGUI_BackwardCompatibilitySkins.xml"/>
+	<List file="MyGUI_BackwardCompatibilityResources.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
 	<List file="EditorSkins.xml"/>
