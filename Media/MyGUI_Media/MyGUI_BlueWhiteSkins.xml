@@ -564,7 +564,7 @@
             <State name="highlighted_checked" offset="209 108 13 8"/>
             <State name="pushed_checked" offset="209 108 13 8"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="4 2 17 16" align="Stretch">
+        <BasisSkin type="SimpleText" offset="9 2 7 16" align="Stretch">
             <State name="disabled" colour="0 0 0 1" shift="0"/>
             <State name="normal" colour="0 0 0 1" shift="0"/>
             <State name="highlighted" colour="0 0 0 1" shift="0"/>
@@ -867,20 +867,6 @@
             <State name="normal" offset="271 2 60 28"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="3 3 60 23" align="Stretch">
-            <State name="normal" colour="0 0 0" shift="0"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="CaptionEmptySmallSkin" size="68 18" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="63 0 5 18" align="Right VStretch">
-            <State name="normal" offset="331 172 5 18"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 0 3 18" align="Left VStretch">
-            <State name="normal" offset="268 172 3 18"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="3 0 60 18" align="Stretch">
-            <State name="normal" offset="271 172 60 18"/>
-        </BasisSkin>
-        <BasisSkin type="SimpleText" offset="3 3 60 13" align="Stretch">
             <State name="normal" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>

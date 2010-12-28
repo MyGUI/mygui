@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
+<MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowCSX" position="88 78 392 322" align="Left Bottom" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{Widgets}"/>
         <Property key="Snap" value="true"/>
         <Property key="Visible" value="false"/>
-        <Property key="MinSize" value="392 266"/>
+        <Property key="MinSize" value="392 322"/>
         <Widget type="TextBox" skin="TextBox" position="8 8 368 24" align="HStretch Top">
             <Property key="Caption" value="#{CG_PanelName}"/>
             <Property key="TextAlign" value="Left VCenter"/>

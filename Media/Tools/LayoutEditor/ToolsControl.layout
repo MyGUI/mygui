@@ -3,17 +3,17 @@
     <Widget type="Widget" skin="PanelEmpty" position="25 25 600 315" align="Stretch" layer="Back" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="TabControl" skin="Tab" position="0 0 600 315" align="Stretch">
-            <Widget type="TabItem" skin="" position="4 26 591 283">
+            <Widget type="TabItem" skin="" position="2 24 594 287">
                 <Property key="Caption" value="#{Properties}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 591 283" align="Stretch" name="PropertiesControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 594 287" align="Stretch" name="PropertiesControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 591 283">
+            <Widget type="TabItem" skin="" position="2 24 594 287">
                 <Property key="Caption" value="#{Widgets}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 591 283" align="Stretch" name="WidgetsControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 594 287" align="Stretch" name="WidgetsControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 26 591 283">
+            <Widget type="TabItem" skin="" position="2 24 594 287">
                 <Property key="Caption" value="#{Project}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 591 283" align="Stretch" name="ProjectControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 594 287" align="Stretch" name="ProjectControl"/>
             </Widget>
         </Widget>
     </Widget>
