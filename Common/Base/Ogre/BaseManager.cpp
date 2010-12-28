@@ -270,6 +270,8 @@ namespace base
 				addResourceLocation(node->getContent());
 			}
 		}
+
+		addResourceLocation(getRootMedia() + "/Common/Base");
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
