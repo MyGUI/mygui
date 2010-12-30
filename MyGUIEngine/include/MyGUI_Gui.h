@@ -51,7 +51,12 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(const std::string& _core = "MyGUI_Core.xml", const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "MyGUI_Core.xml");
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		MYGUI_OBSOLETE(" is deprecated, use : void Gui::initialise(const std::string& _core) and set log filename in Platform")
+		void initialise(const std::string& _core, const std::string& _logFileName);
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
