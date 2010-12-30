@@ -103,7 +103,7 @@ namespace base
 		// регистрируем класс окна
 		WNDCLASS wc =
 		{
-			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, IDI_APPLICATION),
+			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, MAKEINTRESOURCE(1001)),
 			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
 		};
 		RegisterClass(&wc);
@@ -116,6 +116,21 @@ namespace base
 			//OutException("fatal error!", "failed create window");
 			return false;
 		}
+
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		// берем имя нашего экзешника
+		char buf[MAX_PATH];
+		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
+		// берем инстанс нашего модуля
+		HINSTANCE instance = ::GetModuleHandleA(buf);
+		// побыстрому грузим иконку
+		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
+		if (hIcon)
+		{
+			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
+			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
+		}
+	#endif
 
 		hInstance = wc.hInstance;
 
