@@ -69,7 +69,7 @@ namespace MyGUI
 	{
 	}
 
-	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
+	void Gui::initialise(const std::string& _core)
 	{
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
@@ -136,6 +136,13 @@ namespace MyGUI
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
+	{
+		initialise(_core);
+	}
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	void Gui::shutdown()
 	{
