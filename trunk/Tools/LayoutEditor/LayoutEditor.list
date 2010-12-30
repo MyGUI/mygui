@@ -15,6 +15,7 @@ set (HEADER_FILES
   EditorWidgets.h
   HotKeyCommand.h
   HotKeyManager.h
+  IPropertyField.h
   Localise.h
   MainMenuControl.h
   MainPaneControl.h
@@ -23,9 +24,23 @@ set (HEADER_FILES
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
   MyGUI_RTTLayer.h
+  ../../Common/Tools/OpenSaveFileDialog.h
+  PanelExtensionProperties.h
+  PanelTemplateProperties.h
   PositionSelectorControl.h
   PossibleValue.h
   ProjectControl.h
+  PropertyFieldAlpha.h
+  PropertyFieldColour.h
+  PropertyFieldComboBox.h
+  PropertyFieldEditBox.h
+  PropertyFieldFileName.h
+  PropertyFieldFont.h
+  PropertyFieldManager.h
+  PropertyFieldNumeric.h
+  PropertyFieldPosition.h
+  PropertyFieldSkin.h
+  PropertyFieldType.h
   RecentFilesManager.h
   resource.h
   SelectorControl.h
@@ -62,24 +77,9 @@ set (HEADER_FILES
   PropertiesPanelView.h
   SettingsWindow.h
   WidgetsWindow.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   Parse.h
   GroupMessage.h
   CodeGenerator.h
-  PropertyFieldManager.h
-  IPropertyField.h
-  PropertyFieldComboBox.h
-  PropertyFieldEditBox.h
-  PropertyFieldSkin.h
-  PropertyFieldType.h
-  PropertyFieldFont.h
-  PropertyFieldFileName.h
-  PropertyFieldNumeric.h
-  PropertyFieldAlpha.h
-  PropertyFieldPosition.h
-  PropertyFieldColour.h
-  PanelTemplateProperties.h
-  PanelExtensionProperties.h
 )
 set (SOURCE_FILES
   Application.cpp
@@ -102,8 +102,22 @@ set (SOURCE_FILES
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  PanelExtensionProperties.cpp
+  PanelTemplateProperties.cpp
   PositionSelectorControl.cpp
   ProjectControl.cpp
+  PropertyFieldAlpha.cpp
+  PropertyFieldColour.cpp
+  PropertyFieldComboBox.cpp
+  PropertyFieldEditBox.cpp
+  PropertyFieldFileName.cpp
+  PropertyFieldFont.cpp
+  PropertyFieldManager.cpp
+  PropertyFieldNumeric.cpp
+  PropertyFieldPosition.cpp
+  PropertyFieldSkin.cpp
+  PropertyFieldType.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
   SeparatorPartControl.cpp
@@ -125,7 +139,6 @@ set (SOURCE_FILES
   WidgetSelectorManager.cpp
   WidgetTypes.cpp
   WorkspaceControl.cpp
-  editor.ico
   LayoutEditor.rc
   ../../Common/Precompiled.cpp
   PanelControllers.cpp
@@ -136,23 +149,9 @@ set (SOURCE_FILES
   PropertiesPanelView.cpp
   SettingsWindow.cpp
   WidgetsWindow.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
   Parse.cpp
   GroupMessage.cpp
   CodeGenerator.cpp
-  PropertyFieldManager.cpp
-  PropertyFieldComboBox.cpp
-  PropertyFieldEditBox.cpp
-  PropertyFieldSkin.cpp
-  PropertyFieldType.cpp
-  PropertyFieldFont.cpp
-  PropertyFieldFileName.cpp
-  PropertyFieldNumeric.cpp
-  PropertyFieldAlpha.cpp
-  PropertyFieldPosition.cpp
-  PropertyFieldColour.cpp
-  PanelTemplateProperties.cpp
-  PanelExtensionProperties.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
@@ -162,6 +161,8 @@ SOURCE_GROUP("Source Files" FILES
   ColourManager.cpp
   ColourPanel.cpp
   CommandManager.cpp
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
@@ -173,8 +174,22 @@ SOURCE_GROUP("Source Files" FILES
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  PanelExtensionProperties.cpp
+  PanelTemplateProperties.cpp
   PositionSelectorControl.cpp
   ProjectControl.cpp
+  PropertyFieldAlpha.cpp
+  PropertyFieldColour.cpp
+  PropertyFieldComboBox.cpp
+  PropertyFieldEditBox.cpp
+  PropertyFieldFileName.cpp
+  PropertyFieldFont.cpp
+  PropertyFieldManager.cpp
+  PropertyFieldNumeric.cpp
+  PropertyFieldPosition.cpp
+  PropertyFieldSkin.cpp
+  PropertyFieldType.cpp
   RecentFilesManager.cpp
   SelectorControl.cpp
   SeparatorPartControl.cpp
@@ -207,11 +222,14 @@ SOURCE_GROUP("Header Files" FILES
   CommandManager.h
   Common.h
   CyclicBuffer.h
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   HotKeyCommand.h
   HotKeyManager.h
+  IPropertyField.h
   Localise.h
   MainMenuControl.h
   MainPaneControl.h
@@ -220,9 +238,23 @@ SOURCE_GROUP("Header Files" FILES
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
   MyGUI_RTTLayer.h
+  ../../Common/Tools/OpenSaveFileDialog.h
+  PanelExtensionProperties.h
+  PanelTemplateProperties.h
   PositionSelectorControl.h
   PossibleValue.h
   ProjectControl.h
+  PropertyFieldAlpha.h
+  PropertyFieldColour.h
+  PropertyFieldComboBox.h
+  PropertyFieldEditBox.h
+  PropertyFieldFileName.h
+  PropertyFieldFont.h
+  PropertyFieldManager.h
+  PropertyFieldNumeric.h
+  PropertyFieldPosition.h
+  PropertyFieldSkin.h
+  PropertyFieldType.h
   RecentFilesManager.h
   resource.h
   SelectorControl.h
@@ -251,7 +283,6 @@ SOURCE_GROUP("Header Files" FILES
   WorkspaceControl.h
 )
 SOURCE_GROUP("Resources" FILES
-  editor.ico
   LayoutEditor.rc
   ../../Common/Precompiled.cpp
   CMakeLists.txt
