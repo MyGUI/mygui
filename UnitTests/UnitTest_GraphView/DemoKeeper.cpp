@@ -70,10 +70,12 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
+		addResourceLocation(getRootMedia() + "/Common/Tools");
 	}
 
 	void DemoKeeper::createScene()
 	{
+		//MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
 
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
