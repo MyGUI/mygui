@@ -44,32 +44,12 @@
             <State name="pushed_checked" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="ButtonExpandSkin" size="18 18" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
-            <State name="disabled" offset="49 2 18 18"/>
-            <State name="normal" offset="49 23 18 18"/>
-            <State name="highlighted" offset="49 44 18 18"/>
-            <State name="pushed" offset="49 65 18 18"/>
-            <State name="disabled_checked" offset="49 86 18 18"/>
-            <State name="normal_checked" offset="49 107 18 18"/>
-            <State name="highlighted_checked" offset="49 128 18 18"/>
-            <State name="pushed_checked" offset="49 149 18 18"/>
-        </BasisSkin>
-    </Resource>
     <Resource type="ResourceSkin" name="ButtonCloseSkin" size="18 17" texture="MyGUI_BlueWhiteSkins.png">
         <BasisSkin type="SubSkin" offset="0 0 18 17" align="Stretch">
             <State name="disabled" offset="72 1 18 17"/>
             <State name="normal" offset="72 21 18 17"/>
             <State name="highlighted" offset="72 40 18 17"/>
             <State name="pushed" offset="72 59 18 17"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="ButtonAcceptSkin" size="17 15" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="0 0 17 15" align="Stretch">
-            <State name="disabled" offset="72 82 17 15"/>
-            <State name="normal" offset="72 98 17 15"/>
-            <State name="highlighted" offset="72 114 17 15"/>
-            <State name="pushed" offset="72 130 17 15"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ButtonDownSkin" size="14 11" texture="MyGUI_BlueWhiteSkins.png">
@@ -735,26 +715,26 @@
             <State name="pushed_checked" colour="0 0 0" shift="0"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="SepDownHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="8 0 2 2" align="Right VStretch">
-            <State name="normal" offset="212 235 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left VStretch">
-            <State name="normal" offset="204 235 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 6 2" align="Stretch">
-            <State name="normal" offset="206 235 6 2"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="SepUpHSkin" size="10 2" texture="MyGUI_BlueWhiteSkins.png">
-        <BasisSkin type="SubSkin" offset="8 0 2 2" align="Right VStretch">
+    <Resource type="ResourceSkin" name="SepDownHSkin" size="6 2" texture="MyGUI_BlueWhiteSkins.png">
+        <BasisSkin type="SubSkin" offset="4 0 2 2" align="Right VStretch">
             <State name="normal" offset="212 239 2 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left VStretch">
-            <State name="normal" offset="204 239 2 2"/>
+            <State name="normal" offset="208 239 2 2"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 6 2" align="Stretch">
-            <State name="normal" offset="206 239 6 2"/>
+        <BasisSkin type="SubSkin" offset="2 0 2 2" align="Stretch">
+            <State name="normal" offset="210 239 2 2"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="SepUpHSkin" size="6 2" texture="MyGUI_BlueWhiteSkins.png">
+        <BasisSkin type="SubSkin" offset="4 0 2 2" align="Right VStretch">
+            <State name="normal" offset="212 235 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left VStretch">
+            <State name="normal" offset="208 235 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 0 2 2" align="Stretch">
+            <State name="normal" offset="210 235 2 2"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="SepDownVSkin" size="2 6" texture="MyGUI_BlueWhiteSkins.png">
