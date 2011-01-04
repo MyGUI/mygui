@@ -210,6 +210,7 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_TreeControl");
+		addResourceLocation(getRootMedia() + "/Common/Tools");
 		gMediaBase = getRootMedia();
 	}
 
@@ -219,6 +220,8 @@ namespace demo
 		factory.registerFactory<MyGUI::TreeControl>("Widget");
 		factory.registerFactory<MyGUI::TreeControlItem>("Widget");
 
+		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("TreeControlSkin.xml");
 
 		mSampleLayout = new SampleLayout();

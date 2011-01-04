@@ -23,6 +23,7 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_PanelView");
 		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() + "/Common/Tools");
 	}
 
 	void DemoKeeper::createScene()
@@ -30,6 +31,8 @@ namespace demo
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Panel View control implementation.");
+
+		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 
 		mView = new PanelViewWindow();
 		mPanelDirector = new PanelDirector();

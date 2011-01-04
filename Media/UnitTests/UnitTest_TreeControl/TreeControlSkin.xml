@@ -16,7 +16,7 @@
 		<Property key="ImageName" value="Collapsed"/>
 		<BasisSkin type="MainSkin" offset="0 0 16 16" align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="core2.png" >
+	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="FrameworkSkin.png" >
 		<Property key="FontName" value="DejaVuSansFont.14"/>
 		<Property key="TextAlign" value="Left VCenter"/>
 		<Child type="Button" skin="TreeLineExpandCollapse" offset="2 3 12 12" align="Default" name="ButtonExpandCollapse"/>
@@ -35,7 +35,7 @@
 			<State name="pushed" colour="0 0 0"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="core2.png">
+	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="FrameworkSkin.png">
 		<Property key="NeedKey" value="true"/>
 		<Property key="SkinLine" value="TreeLine"/>
 		<Property key="HeightLine" value="18"/>
