@@ -11,7 +11,7 @@
 namespace common
 {
 
-	OpenSaveFileDialog::OpenSaveFileDialog() : BaseLayout("OpenSaveFileDialog.layout")
+	OpenSaveFileDialog::OpenSaveFileDialog() : BaseLayout("OpenSaveFileDialog2.layout")
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
