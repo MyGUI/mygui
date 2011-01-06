@@ -158,7 +158,7 @@
         <Widget type="Widget" skin="TextBoxSkin" position="20 20 16 16" name="Root">
             <Property key="TextAlign" value="Default"/>
             <Property key="FontName" value="Default"/>
-            <Property key="TextColour" value="0 0 0"/>
+            <Property key="TextColour" value="1 1 1"/>
             <UserString key="LE_TargetWidgetType" value="TextBox"/>
         </Widget>
     </Resource>
@@ -168,7 +168,7 @@
             <Widget type="TextBox" skin="EditClientSkin" position="2 2 23 20" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="FontName" value="Default"/>
-                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextColour" value="1 1 1"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
         </Widget>
@@ -182,7 +182,7 @@
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClientSkin" position="2 3 33 32" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
-                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextColour" value="1 1 1"/>
                 <Property key="FontName" value="Default"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -199,7 +199,7 @@
             <Widget type="TextBox" skin="EditClientSkin" position="0 0 16 16" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
                 <Property key="FontName" value="Default"/>
-                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextColour" value="1 1 1"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
         </Widget>
@@ -216,7 +216,7 @@
             <Widget type="TextBox" skin="EditClientSkin" position="0 0 16 16" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Default"/>
                 <Property key="FontName" value="Default"/>
-                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextColour" value="1 1 1"/>
             </Widget>
         </Widget>
         <Widget type="EditBox" skin="WordWrapEmpty" position="65 40 45 50">
@@ -230,7 +230,7 @@
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
             <Widget type="TextBox" skin="EditClientSkin" position="2 2 75 20" align="Stretch" name="Client">
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextColour" value="1 1 1"/>
                 <Property key="FontName" value="Default"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -272,7 +272,7 @@
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Widget" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top">
                 <Widget type="TextBox" skin="TextBox" position="7 1 52 22" align="HStretch Top" name="Caption">
-                    <Property key="TextColour" value="0 0 0"/>
+                    <Property key="TextColour" value="1 1 1"/>
                     <Property key="TextAlign" value="Center"/>
                     <Property key="FontName" value="Default"/>
                 </Widget>
@@ -291,7 +291,7 @@
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Widget" skin="CaptionSkin" position="0 0 68 28" align="HStretch Top">
                 <Widget type="TextBox" skin="TextBox" position="7 1 52 22" align="HStretch Top" name="Caption">
-                    <Property key="TextColour" value="0 0 0"/>
+                    <Property key="TextColour" value="1 1 1"/>
                     <Property key="TextAlign" value="Center"/>
                     <Property key="FontName" value="Default"/>
                 </Widget>
@@ -322,7 +322,7 @@
                     <UserString key="Event" value="close"/>
                 </Widget>
                 <Widget type="TextBox" skin="TextBox" position="7 1 29 22" align="HStretch Top" name="Caption">
-                    <Property key="TextColour" value="0 0 0"/>
+                    <Property key="TextColour" value="1 1 1"/>
                     <Property key="TextAlign" value="Center"/>
                     <Property key="FontName" value="Default"/>
                 </Widget>
@@ -350,7 +350,7 @@
                     <UserString key="Event" value="close"/>
                 </Widget>
                 <Widget type="TextBox" skin="TextBox" position="7 1 29 22" align="HStretch Top" name="Caption">
-                    <Property key="TextColour" value="0 0 0"/>
+                    <Property key="TextColour" value="1 1 1"/>
                     <Property key="TextAlign" value="Center"/>
                     <Property key="FontName" value="Default"/>
                 </Widget>
@@ -373,40 +373,41 @@
             <Widget type="Widget" skin="PanelEmpty" position="2 2 25 20" align="Stretch" name="Client"/>
         </Widget>
         <Widget type="MenuBar" skin="MenuBar" position="240 40 210 26">
-            <Widget type="MenuItem" skin="MenuBarButton" position="0 0 49 21">
+            <Widget type="MenuItem" skin="MenuBarButton" position="0 0 55 21">
                 <Property key="Caption" value="test1"/>
                 <Property key="MenuItemType" value="Popup"/>
-                <Widget type="PopupMenu" skin="PopupMenu" position="246 66 66 81" style="Popup">
-                    <Widget type="MenuItem" skin="" position="0 0 58 21">
+                <Widget type="PopupMenu" skin="PopupMenu" position="242 66 74 77" style="Popup">
+                    <Widget type="MenuItem" skin="" position="0 0 66 19">
                         <Property key="Caption" value="line1"/>
+                        <Property key="MenuItemChecked" value="true"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="" position="0 21 58 10">
+                    <Widget type="MenuItem" skin="" position="0 19 66 10">
                         <Property key="Caption" value="separator"/>
                         <Property key="MenuItemType" value="Separator"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="" position="0 31 58 21">
+                    <Widget type="MenuItem" skin="" position="0 29 66 19">
                         <Property key="Caption" value="line2"/>
                         <Property key="MenuItemType" value="Popup"/>
-                        <Widget type="PopupMenu" skin="PopupMenu" position="312 97 66 29" style="Popup">
-                            <Widget type="MenuItem" skin="" position="0 0 58 21">
+                        <Widget type="PopupMenu" skin="PopupMenu" position="316 95 74 29" style="Popup">
+                            <Widget type="MenuItem" skin="" position="0 0 66 19">
                                 <Property key="Caption" value="line1"/>
                             </Widget>
                         </Widget>
                     </Widget>
-                    <Widget type="MenuItem" skin="" position="0 52 58 21">
+                    <Widget type="MenuItem" skin="" position="0 48 66 19">
                         <Property key="Caption" value="line3"/>
                     </Widget>
                 </Widget>
             </Widget>
-            <Widget type="MenuItem" skin="MenuBarButton" position="49 0 10 21">
+            <Widget type="MenuItem" skin="MenuBarButton" position="61 0 10 21">
                 <Property key="Caption" value="test2"/>
                 <Property key="MenuItemType" value="Separator"/>
             </Widget>
-            <Widget type="MenuItem" skin="" position="59 0 49 21">
+            <Widget type="MenuItem" skin="" position="77 0 55 21">
                 <Property key="Caption" value="test3"/>
                 <Property key="MenuItemType" value="Popup"/>
             </Widget>
-            <Widget type="MenuItem" skin="" position="108 0 49 21">
+            <Widget type="MenuItem" skin="" position="138 0 55 21">
                 <Property key="Caption" value="test4"/>
             </Widget>
         </Widget>
@@ -444,9 +445,10 @@
             <Widget type="MenuItem" skin="MenuBarButton" position="0 0 55 21">
                 <Property key="Caption" value="test1"/>
                 <Property key="MenuItemType" value="Popup"/>
-                <Widget type="PopupMenu" skin="PopupMenu" position="246 66 74 79" style="Popup">
+                <Widget type="PopupMenu" skin="PopupMenu" position="242 66 74 77" style="Popup">
                     <Widget type="MenuItem" skin="" position="0 0 66 19">
                         <Property key="Caption" value="line1"/>
+                        <Property key="MenuItemChecked" value="true"/>
                     </Widget>
                     <Widget type="MenuItem" skin="" position="0 19 66 10">
                         <Property key="Caption" value="separator"/>
@@ -455,7 +457,7 @@
                     <Widget type="MenuItem" skin="" position="0 29 66 19">
                         <Property key="Caption" value="line2"/>
                         <Property key="MenuItemType" value="Popup"/>
-                        <Widget type="PopupMenu" skin="PopupMenu" position="312 97 74 31" style="Popup">
+                        <Widget type="PopupMenu" skin="PopupMenu" position="316 95 74 29" style="Popup">
                             <Widget type="MenuItem" skin="" position="0 0 66 19">
                                 <Property key="Caption" value="line1"/>
                             </Widget>
