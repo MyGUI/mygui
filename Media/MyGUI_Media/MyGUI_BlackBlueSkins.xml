@@ -14,12 +14,12 @@
         <BasisSkin type="SimpleText" offset="22 2 1 19" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed" colour="0.1 0.46 0.66" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
-            <State name="highlighted_checked" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed_checked" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted_checked" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed_checked" colour="0.1 0.46 0.66" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="RadioButtonSkin" size="21 20" texture="MyGUI_BlackBlueSkins.png">
@@ -36,12 +36,12 @@
         <BasisSkin type="SimpleText" offset="20 0 1 20" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed" colour="0.1 0.46 0.66" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
-            <State name="highlighted_checked" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed_checked" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted_checked" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed_checked" colour="0.1 0.46 0.66" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ButtonCloseSkin" size="18 17" texture="MyGUI_BlackBlueSkins.png">
@@ -330,24 +330,24 @@
         <BasisSkin type="SimpleText" offset="2 1 23 22" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="1"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="0 0 0" shift="0"/>
             <State name="highlighted_checked" colour="0 0 0" shift="0"/>
-            <State name="pushed_checked" colour="0.66 0.46 0.1" shift="1"/>
+            <State name="pushed_checked" colour="0.1 0.46 0.66" shift="1"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ButtonEmptySkin" size="16 16" texture="MyGUI_BlackBlueSkins.png">
         <BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed" colour="0.1 0.46 0.66" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
-            <State name="highlighted_checked" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed_checked" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted_checked" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed_checked" colour="0.1 0.46 0.66" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="EditBoxSkin" size="29 26" texture="MyGUI_BlackBlueSkins.png">
@@ -547,7 +547,7 @@
         <BasisSkin type="SimpleText" offset="8 1 7 16" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="0 0 0" shift="0"/>
@@ -707,7 +707,7 @@
         <BasisSkin type="SimpleText" offset="2 2 39 6" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="0 0 0" shift="0"/>
@@ -909,11 +909,11 @@
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="12 2 25 17" align="Stretch">
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed" colour="0.1 0.46 0.66" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
-            <State name="highlighted_checked" colour="1 0.66 0.15" shift="0"/>
-            <State name="pushed_checked" colour="0.66 0.46 0.1" shift="0"/>
+            <State name="highlighted_checked" colour="0.15 0.66 1" shift="0"/>
+            <State name="pushed_checked" colour="0.1 0.46 0.66" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="TabHeaderEmptySkin" size="5 23" texture="MyGUI_BlackBlueSkins.png">
@@ -1050,7 +1050,7 @@
         <BasisSkin type="SimpleText" offset="18 1 7 8" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="0"/>
             <State name="disabled_checked" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal_checked" colour="0 0 0" shift="0"/>
@@ -1146,7 +1146,7 @@
         <BasisSkin type="SimpleText" offset="15 1 0 17" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="1 0.66 0.15" shift="0"/>
+            <State name="highlighted" colour="0.15 0.66 1" shift="0"/>
             <State name="pushed" colour="0 0 0" shift="1"/>
         </BasisSkin>
     </Resource>
