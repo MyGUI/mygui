@@ -75,7 +75,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		//MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
+		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
 
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
