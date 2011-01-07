@@ -17,11 +17,8 @@ namespace demo
 	public:
 		virtual void createScene();
 
-		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
 	private:
 		virtual void setupResources();
-
-		virtual void injectMouseMove(int _absx, int _absy, int _absz);
 	};
 
 } // namespace demo
