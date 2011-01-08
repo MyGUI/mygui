@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Widget button = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(760, 420, 100, 100), Align.Default, "Main");
+            Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(760, 420, 100, 100), Align.Default, "Main");
             button.Caption = "Gui";
 
             bool focus = InputManager.Instance.KeyFocus;

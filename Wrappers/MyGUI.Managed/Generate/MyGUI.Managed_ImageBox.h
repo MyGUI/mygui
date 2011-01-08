@@ -39,51 +39,16 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
-		void SetItemResourceInfo(
-			Convert<MyGUI::ResourceImageSet *>::Type _resource ,
-			Convert<const std::string &>::Type _group ,
-			Convert<const std::string &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemResourceInfo(
-				Convert<MyGUI::ResourceImageSet *>::From(_resource) ,
-				Convert<const std::string &>::From(_group) ,
-				Convert<const std::string &>::From(_name) );
-		}
+   
 
 
-
-   	public:
-		Convert<MyGUI::ResourceImageSet *>::Type GetItemResource( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::ResourceImageSet *>::To(
-				static_cast<ThisType*>(mNative)->getItemResource( ) );
-		}
+   
 
 
-
-   	public:
-		void SetItemResourceInfo(
-			Convert<const MyGUI::ImageIndexInfo &>::Type _info )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemResourceInfo(
-				Convert<const MyGUI::ImageIndexInfo &>::From(_info) );
-		}
+   
 
 
-
-   	public:
-		void SetItemResourcePtr(
-			Convert<MyGUI::ResourceImageSet *>::Type _resource )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemResourcePtr(
-				Convert<MyGUI::ResourceImageSet *>::From(_resource) );
-		}
-
+   
 
 
    	public:

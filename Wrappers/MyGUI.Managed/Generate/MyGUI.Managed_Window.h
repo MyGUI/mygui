@@ -39,7 +39,86 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleWindowChangeCoord(
+			Convert<MyGUI::Window *>::Type _sender );
+		event HandleWindowChangeCoord^ EventWindowChangeCoord
+		{
+			void add(HandleWindowChangeCoord^ _value)
+			{
+				bool empty = mDelegateWindowChangeCoord == nullptr;
 
+				mDelegateWindowChangeCoord += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventWindowChangeCoord +=
+						static_cast< MyGUI::delegates::IDelegate1<
+							MyGUI::Window * > *>(
+								new Delegate1< HandleWindowChangeCoord^ ,
+								MyGUI::Window * >(mDelegateWindowChangeCoord) );
+			}
+			void remove(HandleWindowChangeCoord^ _value)
+			{
+				mDelegateWindowChangeCoord -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateWindowChangeCoord == nullptr;
+				
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventWindowChangeCoord -=
+						static_cast< MyGUI::delegates::IDelegate1<
+							MyGUI::Window * > *>(
+								new Delegate1< HandleWindowChangeCoord^ ,
+									MyGUI::Window * >(mDelegateWindowChangeCoord) );
+			}
+		}
+	private:
+		HandleWindowChangeCoord^ mDelegateWindowChangeCoord;
+
+
+
+   	public:
+		delegate void HandleWindowButtonPressed(
+			Convert<MyGUI::Window *>::Type _sender ,
+			Convert<const std::string &>::Type _name );
+		event HandleWindowButtonPressed^ EventWindowButtonPressed
+		{
+			void add(HandleWindowButtonPressed^ _value)
+			{
+				bool empty = mDelegateWindowButtonPressed == nullptr;
+
+				mDelegateWindowButtonPressed += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventWindowButtonPressed +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::Window * ,
+							const std::string & > *>(
+								new Delegate2< HandleWindowButtonPressed^ ,
+								MyGUI::Window * ,
+								const std::string & >(mDelegateWindowButtonPressed) );
+			}
+			void remove(HandleWindowButtonPressed^ _value)
+			{
+				mDelegateWindowButtonPressed -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateWindowButtonPressed == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventWindowButtonPressed -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::Window * ,
+							const std::string & > *>(
+								new Delegate2< HandleWindowButtonPressed^ ,
+									MyGUI::Window * ,
+									const std::string & >(mDelegateWindowButtonPressed) );
+			}
+		}
+	private:
+		HandleWindowButtonPressed^ mDelegateWindowButtonPressed;
 
 
 
@@ -87,80 +166,22 @@ namespace MyGUI
 	
 
 
-   	public:
-		void SetCoord(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) ,
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) );
-		}
+   
 
 
-
-   	public:
-		void SetCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
-		}
-
+   
 
 
    	public:
@@ -267,13 +288,7 @@ namespace MyGUI
 	
 
 
-   	public:
-		void DestroySmooth( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->destroySmooth( );
-		}
-
+   
 
 
    	public:
@@ -287,15 +302,7 @@ namespace MyGUI
 
 
 
-   	public:
-		void SetVisible(
-			Convert<bool>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setVisible(
-				Convert<bool>::From(_value) );
-		}
-
+   
 
 
    

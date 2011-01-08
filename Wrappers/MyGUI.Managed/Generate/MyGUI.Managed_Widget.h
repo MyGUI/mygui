@@ -39,6 +39,53 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleChangeProperty(
+			Convert<MyGUI::Widget *>::Type _sender ,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value );
+		event HandleChangeProperty^ EventChangeProperty
+		{
+			void add(HandleChangeProperty^ _value)
+			{
+				bool empty = mDelegateChangeProperty == nullptr;
+
+				mDelegateChangeProperty += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventChangeProperty +=
+						static_cast< MyGUI::delegates::IDelegate3<
+							MyGUI::Widget * ,
+							const std::string & ,
+							const std::string & > *>(
+								new Delegate3< HandleChangeProperty^ ,
+								MyGUI::Widget * ,
+								const std::string & ,
+								const std::string & >(mDelegateChangeProperty) );
+			}
+			void remove(HandleChangeProperty^ _value)
+			{
+				mDelegateChangeProperty -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateChangeProperty == nullptr;
+				
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventChangeProperty -=
+						static_cast< MyGUI::delegates::IDelegate3<
+							MyGUI::Widget * ,
+							const std::string & ,
+							const std::string & > *>(
+								new Delegate3< HandleChangeProperty^ ,
+									MyGUI::Widget * ,
+									const std::string & ,
+									const std::string & >(mDelegateChangeProperty) );
+			}
+		}
+	private:
+		HandleChangeProperty^ mDelegateChangeProperty;
+
 
 
    	public:
@@ -54,27 +101,10 @@ namespace MyGUI
 
 
 
-   	public:
-		Convert<MyGUI::WidgetStyle>::Type GetWidgetStyle( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::WidgetStyle>::To(
-				static_cast<ThisType*>(mNative)->getWidgetStyle( ) );
-		}
+   
 
 
-
-   	public:
-		void SetWidgetStyle(
-			Convert<MyGUI::WidgetStyle>::Type _style ,
-			Convert<const std::string &>::Type _layer )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setWidgetStyle(
-				Convert<MyGUI::WidgetStyle>::From(_style) ,
-				Convert<const std::string &>::From(_layer) );
-		}
-
+   
 
 
    	public:
@@ -88,30 +118,10 @@ namespace MyGUI
 
 
 
-   	public:
-		void AttachToWidget(
-			Convert<MyGUI::Widget *>::Type _parent ,
-			Convert<MyGUI::WidgetStyle>::Type _style ,
-			Convert<const std::string &>::Type _layer )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->attachToWidget(
-				Convert<MyGUI::Widget *>::From(_parent) ,
-				Convert<MyGUI::WidgetStyle>::From(_style) ,
-				Convert<const std::string &>::From(_layer) );
-		}
+   
 
 
-
-   	public:
-		void DetachFromWidget(
-			Convert<const std::string &>::Type _layer )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->detachFromWidget(
-				Convert<const std::string &>::From(_layer) );
-		}
-
+   
 
 
    	public:

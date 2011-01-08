@@ -39,11 +39,179 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleNotifyItem(
+			Convert<MyGUI::ItemBox *>::Type _sender ,
+			Convert<const MyGUI::IBNotifyItemData &>::Type _info );
+		event HandleNotifyItem^ EventNotifyItem
+		{
+			void add(HandleNotifyItem^ _value)
+			{
+				bool empty = mDelegateNotifyItem == nullptr;
+
+				mDelegateNotifyItem += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventNotifyItem +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							const MyGUI::IBNotifyItemData & > *>(
+								new Delegate2< HandleNotifyItem^ ,
+								MyGUI::ItemBox * ,
+								const MyGUI::IBNotifyItemData & >(mDelegateNotifyItem) );
+			}
+			void remove(HandleNotifyItem^ _value)
+			{
+				mDelegateNotifyItem -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateNotifyItem == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventNotifyItem -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							const MyGUI::IBNotifyItemData & > *>(
+								new Delegate2< HandleNotifyItem^ ,
+									MyGUI::ItemBox * ,
+									const MyGUI::IBNotifyItemData & >(mDelegateNotifyItem) );
+			}
+		}
+	private:
+		HandleNotifyItem^ mDelegateNotifyItem;
 
 
 
+   	public:
+		delegate void HandleMouseItemActivate(
+			Convert<MyGUI::ItemBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleMouseItemActivate^ EventMouseItemActivate
+		{
+			void add(HandleMouseItemActivate^ _value)
+			{
+				bool empty = mDelegateMouseItemActivate == nullptr;
+
+				mDelegateMouseItemActivate += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMouseItemActivate +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleMouseItemActivate^ ,
+								MyGUI::ItemBox * ,
+								size_t >(mDelegateMouseItemActivate) );
+			}
+			void remove(HandleMouseItemActivate^ _value)
+			{
+				mDelegateMouseItemActivate -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateMouseItemActivate == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMouseItemActivate -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleMouseItemActivate^ ,
+									MyGUI::ItemBox * ,
+									size_t >(mDelegateMouseItemActivate) );
+			}
+		}
+	private:
+		HandleMouseItemActivate^ mDelegateMouseItemActivate;
 
 
+
+   	public:
+		delegate void HandleChangeItemPosition(
+			Convert<MyGUI::ItemBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleChangeItemPosition^ EventChangeItemPosition
+		{
+			void add(HandleChangeItemPosition^ _value)
+			{
+				bool empty = mDelegateChangeItemPosition == nullptr;
+
+				mDelegateChangeItemPosition += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventChangeItemPosition +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleChangeItemPosition^ ,
+								MyGUI::ItemBox * ,
+								size_t >(mDelegateChangeItemPosition) );
+			}
+			void remove(HandleChangeItemPosition^ _value)
+			{
+				mDelegateChangeItemPosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateChangeItemPosition == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventChangeItemPosition -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleChangeItemPosition^ ,
+									MyGUI::ItemBox * ,
+									size_t >(mDelegateChangeItemPosition) );
+			}
+		}
+	private:
+		HandleChangeItemPosition^ mDelegateChangeItemPosition;
+
+
+
+   	public:
+		delegate void HandleSelectItemAccept(
+			Convert<MyGUI::ItemBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleSelectItemAccept^ EventSelectItemAccept
+		{
+			void add(HandleSelectItemAccept^ _value)
+			{
+				bool empty = mDelegateSelectItemAccept == nullptr;
+
+				mDelegateSelectItemAccept += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventSelectItemAccept +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleSelectItemAccept^ ,
+								MyGUI::ItemBox * ,
+								size_t >(mDelegateSelectItemAccept) );
+			}
+			void remove(HandleSelectItemAccept^ _value)
+			{
+				mDelegateSelectItemAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateSelectItemAccept == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventSelectItemAccept -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ItemBox * ,
+							size_t > *>(
+								new Delegate2< HandleSelectItemAccept^ ,
+									MyGUI::ItemBox * ,
+									size_t >(mDelegateSelectItemAccept) );
+			}
+		}
+	private:
+		HandleSelectItemAccept^ mDelegateSelectItemAccept;
 
 
 
@@ -174,80 +342,22 @@ namespace MyGUI
 
 
 
-   	public:
-		void SetCoord(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) ,
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) );
-		}
+   
 
 
-
-   	public:
-		void SetCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
-		}
-
+   
 
 
    	public:
@@ -421,6 +531,12 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void AddItem( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem( );
+		}
+
 
 
    	public:
@@ -434,16 +550,26 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void InsertItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) );
+		}
+
 
 
    	public:
-		Convert<size_t>::Type GetItemCount( )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
-
+	
 
 
    

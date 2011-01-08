@@ -39,82 +39,66 @@ namespace MyGUI
 
 			//InsertPoint
 
-
-
    	public:
-		void SetCoord(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
+		delegate void HandleScrollChangePosition(
+			Convert<MyGUI::ScrollBar *>::Type _sender ,
+			Convert<size_t>::Type _position );
+		event HandleScrollChangePosition^ EventScrollChangePosition
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) ,
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
+			void add(HandleScrollChangePosition^ _value)
+			{
+				bool empty = mDelegateScrollChangePosition == nullptr;
+
+				mDelegateScrollChangePosition += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventScrollChangePosition +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ScrollBar * ,
+							size_t > *>(
+								new Delegate2< HandleScrollChangePosition^ ,
+								MyGUI::ScrollBar * ,
+								size_t >(mDelegateScrollChangePosition) );
+			}
+			void remove(HandleScrollChangePosition^ _value)
+			{
+				mDelegateScrollChangePosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateScrollChangePosition == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventScrollChangePosition -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ScrollBar * ,
+							size_t > *>(
+								new Delegate2< HandleScrollChangePosition^ ,
+									MyGUI::ScrollBar * ,
+									size_t >(mDelegateScrollChangePosition) );
+			}
 		}
+	private:
+		HandleScrollChangePosition^ mDelegateScrollChangePosition;
 
 
 
-   	public:
-		void SetSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) );
-		}
+   
 
 
-
-   	public:
-		void SetCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-		}
+   
 
 
+   
 
-   	public:
-		void SetPosition(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
-		}
 
+   
 
 
    	public:

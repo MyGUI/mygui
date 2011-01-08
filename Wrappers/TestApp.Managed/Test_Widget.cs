@@ -11,7 +11,7 @@ namespace TestApp.Sharp
             Widget widget = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(20, 220, 100, 100), Align.Default, "Main");
             Widget child = widget.CreateWidget<Widget>("Button", new IntCoord(10, 10, 26, 26), Align.Default, "name1");
 
-            widget.EventActionInfo += new Widget.HandleActionInfo(widget_EventActionInfo);
+            //widget.EventActionInfo += new Widget.HandleActionInfo(widget_EventActionInfo);
             widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);
             widget.EventRootKeyChangeFocus += new Widget.HandleRootKeyChangeFocus(widget_EventRootKeyChangeFocus);
             widget.EventRootMouseChangeFocus += new Widget.HandleRootMouseChangeFocus(widget_EventRootMouseChangeFocus);
@@ -52,7 +52,7 @@ namespace TestApp.Sharp
             Align align = widget.Align;
             widget.Align = Align.Center;
 
-            widget.EnableToolTip = !widget.EnableToolTip;
+            //widget.EnableToolTip = !widget.EnableToolTip;
             widget.NeedToolTip = !widget.NeedToolTip;
 
             Widget client = widget.GetClientWidget();
@@ -65,7 +65,7 @@ namespace TestApp.Sharp
             widget.Enabled = !widget.Enabled;
             widget.Enabled = !widget.Enabled;
 
-            widget.SetMaskPick("");
+            //widget.SetMaskPick("");
             widget.InheritsPick = !widget.InheritsPick;
 
             widget.NeedMouseFocus = !widget.NeedMouseFocus;
@@ -88,7 +88,7 @@ namespace TestApp.Sharp
             childat.InheritsAlpha = !childat.InheritsAlpha;
             widget.Alpha = 0.5f;
 
-            widget.Caption = "Widget";
+            //widget.Caption = "Widget";
 
             widget.Visible = !widget.Visible;
             widget.Visible = !widget.Visible;
@@ -118,9 +118,9 @@ namespace TestApp.Sharp
             Export.DebugOut("EventMouseSetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
         }
 
-        static void widget_EventMouseDrag(Widget _sender, int _left, int _top)
+        static void widget_EventMouseDrag(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString());
+            Export.DebugOut("EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseMove(Widget _sender, int _left, int _top)
@@ -188,9 +188,9 @@ namespace TestApp.Sharp
             Export.DebugOut("EventToolTip  _info=" + _info.ToString());
         }
 
-        static void widget_EventActionInfo(Widget _sender, string _key, string _value)
+        /*static void widget_EventActionInfo(Widget _sender, string _key, string _value)
         {
             Export.DebugOut("EventActionInfo  _key=" + _key + "  _value=" + _value);
-        }
+        }*/
     }
 }

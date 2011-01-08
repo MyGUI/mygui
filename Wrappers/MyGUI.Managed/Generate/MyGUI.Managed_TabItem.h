@@ -50,21 +50,7 @@ namespace MyGUI
 
 
 
-   	public:
-		property Convert<const MyGUI::UString &>::Type Caption
-		{
-			Convert<const MyGUI::UString &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
-			}
-			void set(Convert<const MyGUI::UString &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
-			}
-		}
-	
+   
 
 
    
