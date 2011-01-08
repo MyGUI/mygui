@@ -12,9 +12,11 @@ namespace demo
 
 	std::vector<MyGUI::FloatPoint> linePoints;
 	MyGUI::PolygonalSkin* polygonalSkin;
+	MyGUI::StaticText* qualityText;
 	// changing this also require changes in makeBezier, that always use 4 points
 	const int PointsCount = 4;
-	MyGUI::Window* point[PointsCount];
+	int bezierQuality = 16;
+	MyGUI::Widget* point[PointsCount];
 
 	void makeBezier(const std::vector<MyGUI::FloatPoint>& _points, size_t _pointsNumber)
 	{
@@ -28,15 +30,28 @@ namespace demo
 		}
 	}
 
-	void notifyPointMove(MyGUI::Window* _sender)
+	void updateSpline()
 	{
 		std::vector<MyGUI::FloatPoint> points;
 		for (int i = 0; i < PointsCount; ++i)
 		{
 			points.push_back(MyGUI::FloatPoint(point[i]->getLeft() + 8.0f, point[i]->getTop() + 8.0f));
 		}
-		makeBezier(points, 16);
+		makeBezier(points, bezierQuality);
 		polygonalSkin->setPoints(linePoints);
+	}
+
+	void notifyPointMove(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		_sender->setPosition(MyGUI::IntPoint(_left, _top) - _sender->getCroppedParent()->getAbsolutePosition());
+		updateSpline();
+	}
+
+	void notifyChangeQuality(MyGUI::ScrollBar* _sender, size_t _position)
+	{
+		bezierQuality = _position + 2;
+		qualityText->setCaption(MyGUI::utility::toString("Quality: ", bezierQuality));
+		updateSpline();
 	}
 
 	void DemoKeeper::setupResources()
@@ -54,11 +69,18 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("PolygonalSkin usage. Drag white rectangles to move points for bezier curve.");
 
-		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
+		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 		window->setCaption("Bezier curve");
+		window->setMinSize(200, 200);
+
+		qualityText = window->createWidget<MyGUI::StaticText>("StaticText", 0, 346, 84, 22, MyGUI::Align::Bottom | MyGUI::Align::Left);
+		MyGUI::ScrollBar* qualityScroll = window->createWidget<MyGUI::ScrollBar>("ScrollBarH", 84, 348, 300, 15, MyGUI::Align::Bottom | MyGUI::Align::HStretch);
+		qualityScroll->setScrollRange(254);
+		qualityScroll->setScrollPosition(14);
+		qualityScroll->eventScrollChangePosition += MyGUI::newDelegate(notifyChangeQuality);
 
 		// create widget with skin that contain specific sub skin - PolygonalSkin
-		MyGUI::Widget* widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 400), MyGUI::Align::Default);
+		MyGUI::Widget* widget = window->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 346), MyGUI::Align::Stretch);
 		widget->setColour(MyGUI::Colour::Red);
 		// get main subskin
 		MyGUI::ISubWidget* main = widget->getSubWidgetMain();
@@ -71,12 +93,12 @@ namespace demo
 
 		for (int i = 0; i < PointsCount; ++i)
 		{
-			point[i] = window->createWidget<MyGUI::Window>("PositionBorderWhite", MyGUI::IntCoord(10 + (i + i % 2 * 3) * 40, 10 + (i + i / 2 * 3) * 40, 16, 16), MyGUI::Align::Default);
-			point[i]->eventWindowChangeCoord += newDelegate(notifyPointMove);
-			point[i]->setColour(MyGUI::Colour::Green);
+			point[i] = window->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10 + (i + i % 2 * 3) * 40, 10 + (i + i / 2 * 3) * 40, 16, 16), MyGUI::Align::Default);
+			point[i]->eventMouseDrag += newDelegate(notifyPointMove);
 		}
 
-		notifyPointMove(point[0]);
+		notifyChangeQuality(qualityScroll, 14);
+		updateSpline();
 	}
 
 } // namespace demo
