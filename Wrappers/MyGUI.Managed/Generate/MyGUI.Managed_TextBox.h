@@ -13,18 +13,18 @@ namespace MyGUI
 	namespace Managed
 	{
 
-		public ref class StaticText : public Widget
+		public ref class TextBox : public Widget
 		{
 
 		private:
-			typedef MyGUI::StaticText ThisType;
+			typedef MyGUI::TextBox ThisType;
 
 		public:
-			StaticText() : Widget() { }
+			TextBox() : Widget() { }
 
 		internal:
-			StaticText( MyGUI::StaticText* _native ) : Widget(_native) { }
-			StaticText( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
+			TextBox( MyGUI::TextBox* _native ) : Widget(_native) { }
+			TextBox( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
@@ -33,20 +33,18 @@ namespace MyGUI
 
 			static BaseWidget^ WidgetCreator(BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 			{
-				return gcnew StaticText(_parent, _style, _skin, _coord, _align, _layer, _name);
+				return gcnew TextBox(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
 
 
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
+		void SetCaptionWithReplacing(
 			Convert<const std::string &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
+			static_cast<ThisType*>(mNative)->setCaptionWithReplacing(
 				Convert<const std::string &>::From(_value) );
 		}
 
@@ -115,6 +113,23 @@ namespace MyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setFontName( Convert<const std::string &>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<const MyGUI::UString &>::Type Caption
+		{
+			Convert<const MyGUI::UString &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+			}
+			void set(Convert<const MyGUI::UString &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
 			}
 		}
 	

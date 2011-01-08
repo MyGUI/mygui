@@ -13,18 +13,18 @@ namespace MyGUI
 	namespace Managed
 	{
 
-		public ref class StaticImage : public Widget
+		public ref class ImageBox : public Widget
 		{
 
 		private:
-			typedef MyGUI::StaticImage ThisType;
+			typedef MyGUI::ImageBox ThisType;
 
 		public:
-			StaticImage() : Widget() { }
+			ImageBox() : Widget() { }
 
 		internal:
-			StaticImage( MyGUI::StaticImage* _native ) : Widget(_native) { }
-			StaticImage( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
+			ImageBox( MyGUI::ImageBox* _native ) : Widget(_native) { }
+			ImageBox( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
@@ -33,35 +33,57 @@ namespace MyGUI
 
 			static BaseWidget^ WidgetCreator(BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 			{
-				return gcnew StaticImage(_parent, _style, _skin, _coord, _align, _layer, _name);
+				return gcnew ImageBox(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
 
 
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		void SetItemResourceInfo(
+			Convert<MyGUI::ResourceImageSet *>::Type _resource ,
+			Convert<const std::string &>::Type _group ,
+			Convert<const std::string &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			static_cast<ThisType*>(mNative)->setItemResourceInfo(
+				Convert<MyGUI::ResourceImageSet *>::From(_resource) ,
+				Convert<const std::string &>::From(_group) ,
+				Convert<const std::string &>::From(_name) );
 		}
 
 
 
-   
+   	public:
+		Convert<MyGUI::ResourceImageSet *>::Type GetItemResource( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::ResourceImageSet *>::To(
+				static_cast<ThisType*>(mNative)->getItemResource( ) );
+		}
 
 
-   
+
+   	public:
+		void SetItemResourceInfo(
+			Convert<const MyGUI::ImageIndexInfo &>::Type _info )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemResourceInfo(
+				Convert<const MyGUI::ImageIndexInfo &>::From(_info) );
+		}
 
 
-   
 
+   	public:
+		void SetItemResourcePtr(
+			Convert<MyGUI::ResourceImageSet *>::Type _resource )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemResourcePtr(
+				Convert<MyGUI::ResourceImageSet *>::From(_resource) );
+		}
 
-   
 
 
    	public:
@@ -94,18 +116,6 @@ namespace MyGUI
 			return Convert<bool>::To(
 				static_cast<ThisType*>(mNative)->setItemResource(
 					Convert<const std::string &>::From(_name) ) );
-		}
-
-
-
-   	public:
-		Convert<bool>::Type SetItemResource(
-			Convert<const MyGUI::Guid &>::Type _id )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To(
-				static_cast<ThisType*>(mNative)->setItemResource(
-					Convert<const MyGUI::Guid &>::From(_id) ) );
 		}
 
 

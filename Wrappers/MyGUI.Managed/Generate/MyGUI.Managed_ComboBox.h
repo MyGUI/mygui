@@ -39,109 +39,39 @@ namespace MyGUI
 
 			//InsertPoint
 
+
+
+
+
    	public:
-		delegate void HandleComboChangePosition(
-			Convert<MyGUI::ComboBox *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleComboChangePosition^ EventComboChangePosition
+		property Convert<MyGUI::FlowDirection>::Type FlowDirection
 		{
-			void add(HandleComboChangePosition^ _value)
+			Convert<MyGUI::FlowDirection>::Type get( )
 			{
-				mDelegateComboChangePosition += _value;
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventComboChangePosition =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::ComboBox * ,
-						size_t > *>(
-							new Delegate2< HandleComboChangePosition^ ,
-							MyGUI::ComboBox * ,
-							size_t >(mDelegateComboChangePosition) );
+				return Convert<MyGUI::FlowDirection>::To( static_cast<ThisType*>(mNative)->getFlowDirection() );
 			}
-			void remove(HandleComboChangePosition^ _value)
+			void set(Convert<MyGUI::FlowDirection>::Type _value)
 			{
-				mDelegateComboChangePosition -= _value;
 				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateComboChangePosition == nullptr)
-					static_cast<ThisType*>(mNative)->eventComboChangePosition = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventComboChangePosition =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::ComboBox * ,
-							size_t > *>(
-								new Delegate2< HandleComboChangePosition^ ,
-									MyGUI::ComboBox * ,
-									size_t >(mDelegateComboChangePosition) );
+				static_cast<ThisType*>(mNative)->setFlowDirection( Convert<MyGUI::FlowDirection>::From(_value) );
 			}
 		}
-	private:
-		HandleComboChangePosition^ mDelegateComboChangePosition;
-
-
-
-   	public:
-		delegate void HandleComboAccept(
-			Convert<MyGUI::ComboBox *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleComboAccept^ EventComboAccept
-		{
-			void add(HandleComboAccept^ _value)
-			{
-				mDelegateComboAccept += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventComboAccept =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::ComboBox * ,
-						size_t > *>(
-							new Delegate2< HandleComboAccept^ ,
-							MyGUI::ComboBox * ,
-							size_t >(mDelegateComboAccept) );
-			}
-			void remove(HandleComboAccept^ _value)
-			{
-				mDelegateComboAccept -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateComboAccept == nullptr)
-					static_cast<ThisType*>(mNative)->eventComboAccept = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventComboAccept =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::ComboBox * ,
-							size_t > *>(
-								new Delegate2< HandleComboAccept^ ,
-									MyGUI::ComboBox * ,
-									size_t >(mDelegateComboAccept) );
-			}
-		}
-	private:
-		HandleComboAccept^ mDelegateComboAccept;
-
+	
 
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		property Convert<int>::Type MaxListHeight
+		property Convert<int>::Type MaxListLength
 		{
 			Convert<int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getMaxListHeight() );
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getMaxListLength() );
 			}
 			void set(Convert<int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxListHeight( Convert<int>::From(_value) );
+				static_cast<ThisType*>(mNative)->setMaxListLength( Convert<int>::From(_value) );
 			}
 		}
 	
@@ -349,14 +279,6 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
-		void AddItem(
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem(
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
 
 
    	public:
@@ -372,28 +294,16 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
-		void InsertItemAt(
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt(
-				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
 
 
    	public:
-		property Convert<size_t>::Type ItemCount
+		Convert<size_t>::Type GetItemCount( )
 		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->getItemCount( ) );
 		}
-	
+
 
 
    

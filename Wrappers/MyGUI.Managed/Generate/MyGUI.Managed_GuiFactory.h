@@ -41,6 +41,10 @@ namespace MyGUI
 
 				//InsertPoint
 
+   				mCreators->Add(gcnew System::String("MultiListItem"), gcnew HandleCreator(MultiListItem::WidgetCreator));
+
+
+
    				mCreators->Add(gcnew System::String("TabItem"), gcnew HandleCreator(TabItem::WidgetCreator));
 
 
@@ -57,19 +61,19 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("VScroll"), gcnew HandleCreator(VScrollBar::WidgetCreator));
+   				mCreators->Add(gcnew System::String("ScrollBar"), gcnew HandleCreator(ScrollBar::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("Tab"), gcnew HandleCreator(TabBar::WidgetCreator));
+   				mCreators->Add(gcnew System::String("TabControl"), gcnew HandleCreator(TabControl::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("StaticText"), gcnew HandleCreator(StaticText::WidgetCreator));
+   				mCreators->Add(gcnew System::String("TextBox"), gcnew HandleCreator(TextBox::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("StaticImage"), gcnew HandleCreator(StaticImage::WidgetCreator));
+   				mCreators->Add(gcnew System::String("ImageBox"), gcnew HandleCreator(ImageBox::WidgetCreator));
 
 
 
@@ -77,7 +81,7 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("Progress"), gcnew HandleCreator(ProgressBar::WidgetCreator));
+   				mCreators->Add(gcnew System::String("ProgressBar"), gcnew HandleCreator(ProgressBar::WidgetCreator));
 
 
 
@@ -85,15 +89,11 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("MultiList"), gcnew HandleCreator(MultiListBox::WidgetCreator));
+   				mCreators->Add(gcnew System::String("MultiListBox"), gcnew HandleCreator(MultiListBox::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("Message"), gcnew HandleCreator(MessageBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("MenuCtrl"), gcnew HandleCreator(MenuCtrl::WidgetCreator));
+   				mCreators->Add(gcnew System::String("MenuControl"), gcnew HandleCreator(MenuControl::WidgetCreator));
 
 
 
@@ -101,7 +101,7 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("List"), gcnew HandleCreator(ListBox::WidgetCreator));
+   				mCreators->Add(gcnew System::String("ListBox"), gcnew HandleCreator(ListBox::WidgetCreator));
 
 
 
@@ -109,11 +109,7 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("HScroll"), gcnew HandleCreator(HScrollBar::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("Edit"), gcnew HandleCreator(EditBox::WidgetCreator));
+   				mCreators->Add(gcnew System::String("EditBox"), gcnew HandleCreator(EditBox::WidgetCreator));
 
 
 

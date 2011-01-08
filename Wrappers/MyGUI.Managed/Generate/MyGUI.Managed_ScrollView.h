@@ -40,19 +40,30 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		property Convert<MyGUI::types::TPoint< int >>::Type ViewOffset
+		{
+			Convert<MyGUI::types::TPoint< int >>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::types::TPoint< int >>::To( static_cast<ThisType*>(mNative)->getViewOffset() );
+			}
+			void set(Convert<const MyGUI::types::TPoint< int > &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setViewOffset( Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		Convert<MyGUI::types::TCoord< int >>::Type GetViewCoord( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			return Convert<MyGUI::types::TCoord< int >>::To(
+				static_cast<ThisType*>(mNative)->getViewCoord( ) );
 		}
 
-
-
-   
 
 
    	public:
@@ -136,22 +147,80 @@ namespace MyGUI
 	
 
 
-   
+   	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
 
 
-   
+
+   	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+		}
+
 
 
    
