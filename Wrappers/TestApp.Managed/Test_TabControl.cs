@@ -8,8 +8,8 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            TabBar tab = Gui.Instance.CreateWidget<TabBar>("Tab", new IntCoord(120, 420, 200, 100), Align.Default, "Main");
-            tab.EventTabChangeSelect += new TabBar.HandleTabChangeSelect(tab_EventTabChangeSelect);
+            TabControl tab = Gui.Instance.CreateWidget<TabControl>("Tab", new IntCoord(120, 420, 200, 100), Align.Default, "Main");
+            tab.EventTabChangeSelect += new TabControl.HandleTabChangeSelect(tab_EventTabChangeSelect);
 
             TabItem item = tab.AddItem("sheet1");
             tab.AddItem("sheet2", "2");
@@ -79,7 +79,7 @@ namespace TestApp.Sharp
             uint count = tab.ItemCount;
         }
 
-        static void tab_EventTabChangeSelect(TabBar _sender, uint _index)
+        static void tab_EventTabChangeSelect(TabControl _sender, uint _index)
         {
             Export.DebugOut("EventTabChangeSelect  index=" + _index.ToString());
         }
