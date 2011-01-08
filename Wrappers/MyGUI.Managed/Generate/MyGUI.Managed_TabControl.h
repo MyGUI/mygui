@@ -39,6 +39,48 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleTabChangeSelect(
+			Convert<MyGUI::TabControl *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleTabChangeSelect^ EventTabChangeSelect
+		{
+			void add(HandleTabChangeSelect^ _value)
+			{
+				bool empty = mDelegateTabChangeSelect == nullptr;
+
+				mDelegateTabChangeSelect += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventTabChangeSelect +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::TabControl * ,
+							size_t > *>(
+								new Delegate2< HandleTabChangeSelect^ ,
+								MyGUI::TabControl * ,
+								size_t >(mDelegateTabChangeSelect) );
+			}
+			void remove(HandleTabChangeSelect^ _value)
+			{
+				mDelegateTabChangeSelect -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateTabChangeSelect == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventTabChangeSelect -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::TabControl * ,
+							size_t > *>(
+								new Delegate2< HandleTabChangeSelect^ ,
+									MyGUI::TabControl * ,
+									size_t >(mDelegateTabChangeSelect) );
+			}
+		}
+	private:
+		HandleTabChangeSelect^ mDelegateTabChangeSelect;
+
 
 
    	public:
@@ -463,6 +505,15 @@ namespace MyGUI
 					Convert<MyGUI::Any>::From(_data) ) );
 		}
 
+		Convert<MyGUI::TabItem *>::Type AddItem(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::TabItem *>::To(
+				static_cast<ThisType*>(mNative)->addItem(
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+
 
 
    	public:
@@ -495,92 +546,47 @@ namespace MyGUI
 					Convert<MyGUI::Any>::From(_data) ) );
 		}
 
-
-
-   	public:
-		Convert<size_t>::Type GetItemCount( )
+		Convert<MyGUI::TabItem *>::Type InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			return Convert<MyGUI::TabItem *>::To(
+				static_cast<ThisType*>(mNative)->insertItemAt(
+					Convert<size_t>::From(_index) ,
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
 
    	public:
-		void SetCoord(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) ,
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
+	
 
 
-
-   	public:
-		void SetSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
+   
 
 
-
-   	public:
-		void SetPosition(
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<int>::From(_left) ,
-				Convert<int>::From(_top) );
-		}
+   
 
 
-
-   	public:
-		void SetCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
-		}
+   
 
 
-
-   	public:
-		void SetSize(
-			Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-		}
+   
 
 
+   
 
-   	public:
-		void SetPosition(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
-		}
 
+   
 
 
    

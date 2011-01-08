@@ -4,13 +4,13 @@ using MyGUI.Managed.Demo;
 
 namespace TestApp.Sharp
 {
-    public class Test_MenuCtrl
+    public class Test_MenuControl
     {
         public static void Test()
         {
-            MenuCtrl menu = Gui.Instance.CreateWidget<MenuCtrl>("PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main");
-            menu.EventMenuCtrlClose += new MenuCtrl.HandleMenuCtrlClose(menu_EventMenuCtrlClose);
-            menu.EventMenuCtrlAccept += new MenuCtrl.HandleMenuCtrlAccept(menu_EventMenuCtrlAccept);
+            MenuControl menu = Gui.Instance.CreateWidget<MenuControl>("PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main");
+            menu.EventMenuCtrlClose += new MenuControl.HandleMenuCtrlClose(menu_EventMenuControlClose);
+            menu.EventMenuCtrlAccept += new MenuControl.HandleMenuCtrlAccept(menu_EventMenuControlAccept);
 
             menu.AddItem("line0", MenuItemType.Normal, "id1", "0");
             menu.InsertItemAt(0, "insert line0", MenuItemType.Normal, "id2", "0");
@@ -21,7 +21,7 @@ namespace TestApp.Sharp
             menu.SetItemTypeAt(0, MenuItemType.Popup);
             MenuItemType type = menu.GetItemTypeAt(0);
 
-            MenuCtrl child = menu.CreateItemChildAt(0);
+            MenuControl child = menu.CreateItemChildAt(0);
             child = menu.GetItemChildAt(0);
             menu.SetItemChildVisibleAt(0, true);
 
@@ -39,7 +39,7 @@ namespace TestApp.Sharp
 
             //MenuItem test start
             child = item.GetItemChild();
-            MenuCtrl parent2 = item.GetMenuCtrlParent();
+            MenuControl parent2 = item.GetMenuCtrlParent();
             item.SetItemChildVisible(true);
             type =  item.ItemType;
             item.ItemType = type;
@@ -63,14 +63,14 @@ namespace TestApp.Sharp
             menu.SetVisibleSmooth(true);
         }
 
-        static void menu_EventMenuCtrlAccept(MenuControl _sender, MenuItem _item)
+        static void menu_EventMenuControlAccept(MenuControl _sender, MenuItem _item)
         {
-            Export.DebugOut("EventMenuCtrlAccept  item=" + _item.ToString());
+            Export.DebugOut("EventMenuControlAccept  item=" + _item.ToString());
         }
 
-        static void menu_EventMenuCtrlClose(MenuControl _sender)
+        static void menu_EventMenuControlClose(MenuControl _sender)
         {
-            Export.DebugOut("EventMenuCtrlClose");
+            Export.DebugOut("EventMenuControlClose");
         }
     }
 }

@@ -41,7 +41,91 @@ namespace MyGUI
 
 
 
+   	public:
+		delegate void HandleListChangePosition(
+			Convert<MyGUI::MultiListBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleListChangePosition^ EventListChangePosition
+		{
+			void add(HandleListChangePosition^ _value)
+			{
+				bool empty = mDelegateListChangePosition == nullptr;
 
+				mDelegateListChangePosition += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventListChangePosition +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MultiListBox * ,
+							size_t > *>(
+								new Delegate2< HandleListChangePosition^ ,
+								MyGUI::MultiListBox * ,
+								size_t >(mDelegateListChangePosition) );
+			}
+			void remove(HandleListChangePosition^ _value)
+			{
+				mDelegateListChangePosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateListChangePosition == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventListChangePosition -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MultiListBox * ,
+							size_t > *>(
+								new Delegate2< HandleListChangePosition^ ,
+									MyGUI::MultiListBox * ,
+									size_t >(mDelegateListChangePosition) );
+			}
+		}
+	private:
+		HandleListChangePosition^ mDelegateListChangePosition;
+
+
+
+   	public:
+		delegate void HandleListSelectAccept(
+			Convert<MyGUI::MultiListBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleListSelectAccept^ EventListSelectAccept
+		{
+			void add(HandleListSelectAccept^ _value)
+			{
+				bool empty = mDelegateListSelectAccept == nullptr;
+
+				mDelegateListSelectAccept += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventListSelectAccept +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MultiListBox * ,
+							size_t > *>(
+								new Delegate2< HandleListSelectAccept^ ,
+								MyGUI::MultiListBox * ,
+								size_t >(mDelegateListSelectAccept) );
+			}
+			void remove(HandleListSelectAccept^ _value)
+			{
+				mDelegateListSelectAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateListSelectAccept == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventListSelectAccept -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MultiListBox * ,
+							size_t > *>(
+								new Delegate2< HandleListSelectAccept^ ,
+									MyGUI::MultiListBox * ,
+									size_t >(mDelegateListSelectAccept) );
+			}
+		}
+	private:
+		HandleListSelectAccept^ mDelegateListSelectAccept;
 
 
 
@@ -261,6 +345,14 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void AddItem(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem(
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
 
 
    	public:
@@ -276,16 +368,28 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
 
 
    	public:
-		Convert<size_t>::Type GetItemCount( )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
-
+	
 
 
    	public:
@@ -509,6 +613,16 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void AddColumn(
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<int>::Type _width )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addColumn(
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<int>::From(_width) );
+		}
+
 
 
    	public:
@@ -526,16 +640,30 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void InsertColumnAt(
+			Convert<size_t>::Type _column ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<int>::Type _width )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertColumnAt(
+				Convert<size_t>::From(_column) ,
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<int>::From(_width) );
+		}
+
 
 
    	public:
-		Convert<size_t>::Type GetColumnCount( )
+		property Convert<size_t>::Type ColumnCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getColumnCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getColumnCount() );
+			}
 		}
-
+	
 
 
    	public:

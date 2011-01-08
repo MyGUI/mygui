@@ -191,15 +191,7 @@ namespace MyGUI
 	
 
 
-   	public:
-		void SetCaption(
-			Convert<const MyGUI::UString &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCaption(
-				Convert<const MyGUI::UString &>::From(_value) );
-		}
-
+   
 
 
    

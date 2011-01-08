@@ -7,30 +7,30 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Button button = Gui.Instance.CreateWidget<Button>("MultiListButton", new IntCoord(10, 10, 100, 100), Align.Default, "Main");
+            Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(10, 10, 100, 100), Align.Default, "Main");
 
-            uint index = uint.MaxValue;
+            /*uint index = uint.MaxValue;
             index = button.ImageIndex;
             button.ImageIndex = uint.MaxValue;
             index = button.ImageIndex;
             button.ImageIndex = 0;
-            index = button.ImageIndex;
+            index = button.ImageIndex;*/
 
             bool value = false;
-            value = button.StateCheck;
-            button.StateCheck = false;
-            value = button.StateCheck;
-            button.StateCheck = true;
-            value = button.StateCheck;
+            value = button.StateSelected;
+            button.StateSelected = false;
+            value = button.StateSelected;
+            button.StateSelected = true;
+            value = button.StateSelected;
 
-            value = false;
+            /*value = false;
             value = button.ButtonPressed;
             button.ButtonPressed = false;
             value = button.ButtonPressed;
             button.ButtonPressed = true;
-            value = button.ButtonPressed;
+            value = button.ButtonPressed;*/
 
-            StaticImage image = button.GetStaticImage();
+            //StaticImage image = button.GetStaticImage();
         }
     }
 }

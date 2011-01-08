@@ -39,7 +39,86 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleMenuCtrlClose(
+			Convert<MyGUI::MenuControl *>::Type _sender );
+		event HandleMenuCtrlClose^ EventMenuCtrlClose
+		{
+			void add(HandleMenuCtrlClose^ _value)
+			{
+				bool empty = mDelegateMenuCtrlClose == nullptr;
 
+				mDelegateMenuCtrlClose += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMenuCtrlClose +=
+						static_cast< MyGUI::delegates::IDelegate1<
+							MyGUI::MenuControl * > *>(
+								new Delegate1< HandleMenuCtrlClose^ ,
+								MyGUI::MenuControl * >(mDelegateMenuCtrlClose) );
+			}
+			void remove(HandleMenuCtrlClose^ _value)
+			{
+				mDelegateMenuCtrlClose -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateMenuCtrlClose == nullptr;
+				
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMenuCtrlClose -=
+						static_cast< MyGUI::delegates::IDelegate1<
+							MyGUI::MenuControl * > *>(
+								new Delegate1< HandleMenuCtrlClose^ ,
+									MyGUI::MenuControl * >(mDelegateMenuCtrlClose) );
+			}
+		}
+	private:
+		HandleMenuCtrlClose^ mDelegateMenuCtrlClose;
+
+
+
+   	public:
+		delegate void HandleMenuCtrlAccept(
+			Convert<MyGUI::MenuControl *>::Type _sender ,
+			Convert<MyGUI::MenuItem *>::Type _item );
+		event HandleMenuCtrlAccept^ EventMenuCtrlAccept
+		{
+			void add(HandleMenuCtrlAccept^ _value)
+			{
+				bool empty = mDelegateMenuCtrlAccept == nullptr;
+
+				mDelegateMenuCtrlAccept += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMenuCtrlAccept +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MenuControl * ,
+							MyGUI::MenuItem * > *>(
+								new Delegate2< HandleMenuCtrlAccept^ ,
+								MyGUI::MenuControl * ,
+								MyGUI::MenuItem * >(mDelegateMenuCtrlAccept) );
+			}
+			void remove(HandleMenuCtrlAccept^ _value)
+			{
+				mDelegateMenuCtrlAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateMenuCtrlAccept == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventMenuCtrlAccept -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::MenuControl * ,
+							MyGUI::MenuItem * > *>(
+								new Delegate2< HandleMenuCtrlAccept^ ,
+									MyGUI::MenuControl * ,
+									MyGUI::MenuItem * >(mDelegateMenuCtrlAccept) );
+			}
+		}
+	private:
+		HandleMenuCtrlAccept^ mDelegateMenuCtrlAccept;
 
 
 
@@ -556,6 +635,39 @@ namespace MyGUI
 					Convert<MyGUI::Any>::From(_data) ) );
 		}
 
+		Convert<MyGUI::MenuItem *>::Type AddItem(
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::MenuItemType>::Type _type ,
+			Convert<const std::string &>::Type _id )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->addItem(
+					Convert<const MyGUI::UString &>::From(_name) ,
+					Convert<MyGUI::MenuItemType>::From(_type) ,
+					Convert<const std::string &>::From(_id) ) );
+		}
+
+		Convert<MyGUI::MenuItem *>::Type AddItem(
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::MenuItemType>::Type _type )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->addItem(
+					Convert<const MyGUI::UString &>::From(_name) ,
+					Convert<MyGUI::MenuItemType>::From(_type) ) );
+		}
+
+		Convert<MyGUI::MenuItem *>::Type AddItem(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->addItem(
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+
 
 
    	public:
@@ -596,16 +708,57 @@ namespace MyGUI
 					Convert<MyGUI::Any>::From(_data) ) );
 		}
 
+		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::MenuItemType>::Type _type ,
+			Convert<const std::string &>::Type _id )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->insertItemAt(
+					Convert<size_t>::From(_index) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
+					Convert<MyGUI::MenuItemType>::From(_type) ,
+					Convert<const std::string &>::From(_id) ) );
+		}
+
+		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::MenuItemType>::Type _type )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->insertItemAt(
+					Convert<size_t>::From(_index) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
+					Convert<MyGUI::MenuItemType>::From(_type) ) );
+		}
+
+		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::MenuItem *>::To(
+				static_cast<ThisType*>(mNative)->insertItemAt(
+					Convert<size_t>::From(_index) ,
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+
 
 
    	public:
-		Convert<size_t>::Type GetItemCount( )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
-
+	
 
 
    	public:
@@ -619,15 +772,7 @@ namespace MyGUI
 
 
 
-   	public:
-		void SetVisible(
-			Convert<bool>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setVisible(
-				Convert<bool>::From(_value) );
-		}
-
+   
 
 
    
