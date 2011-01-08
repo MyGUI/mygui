@@ -39,7 +39,91 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleComboChangePosition(
+			Convert<MyGUI::ComboBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleComboChangePosition^ EventComboChangePosition
+		{
+			void add(HandleComboChangePosition^ _value)
+			{
+				bool empty = mDelegateComboChangePosition == nullptr;
 
+				mDelegateComboChangePosition += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventComboChangePosition +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ComboBox * ,
+							size_t > *>(
+								new Delegate2< HandleComboChangePosition^ ,
+								MyGUI::ComboBox * ,
+								size_t >(mDelegateComboChangePosition) );
+			}
+			void remove(HandleComboChangePosition^ _value)
+			{
+				mDelegateComboChangePosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateComboChangePosition == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventComboChangePosition -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ComboBox * ,
+							size_t > *>(
+								new Delegate2< HandleComboChangePosition^ ,
+									MyGUI::ComboBox * ,
+									size_t >(mDelegateComboChangePosition) );
+			}
+		}
+	private:
+		HandleComboChangePosition^ mDelegateComboChangePosition;
+
+
+
+   	public:
+		delegate void HandleComboAccept(
+			Convert<MyGUI::ComboBox *>::Type _sender ,
+			Convert<size_t>::Type _index );
+		event HandleComboAccept^ EventComboAccept
+		{
+			void add(HandleComboAccept^ _value)
+			{
+				bool empty = mDelegateComboAccept == nullptr;
+
+				mDelegateComboAccept += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventComboAccept +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ComboBox * ,
+							size_t > *>(
+								new Delegate2< HandleComboAccept^ ,
+								MyGUI::ComboBox * ,
+								size_t >(mDelegateComboAccept) );
+			}
+			void remove(HandleComboAccept^ _value)
+			{
+				mDelegateComboAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateComboAccept == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventComboAccept -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							MyGUI::ComboBox * ,
+							size_t > *>(
+								new Delegate2< HandleComboAccept^ ,
+									MyGUI::ComboBox * ,
+									size_t >(mDelegateComboAccept) );
+			}
+		}
+	private:
+		HandleComboAccept^ mDelegateComboAccept;
 
 
 
@@ -279,6 +363,14 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void AddItem(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem(
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
 
 
    	public:
@@ -294,16 +386,28 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+
 
 
    	public:
-		Convert<size_t>::Type GetItemCount( )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
-
+	
 
 
    

@@ -95,11 +95,11 @@ namespace MyGUI
 				_widget = nullptr;
 			}
 
-		/*public:
+		public:
 			void LoadResource(System::String ^ _source)
 			{
-				mGui->load( Convert< const std::string& >::From(_source) );
-			}*/
+				MyGUI::ResourceManager::getInstance().load( Convert< const std::string& >::From(_source) );
+			}
 
 		public:
 			void SetProperty(Widget ^ _widget, System::String ^ _key, System::String ^ _value)

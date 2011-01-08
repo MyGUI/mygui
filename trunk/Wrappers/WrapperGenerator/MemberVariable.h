@@ -161,10 +161,20 @@ namespace wrapper
 				return;
 			}
 
-			const std::string prefix = "MyGUI::delegates::CDelegate";
-			if (type.size() < prefix.size() + 1 || type.substr(0, prefix.size() + 1) != utility::toString(prefix, params.size()))
+			bool multiDelegate = false;
+
+			const std::string prefixName = "MyGUI::delegates::CDelegate";
+			const std::string prefixName2 = "MyGUI::delegates::CMultiDelegate";
+			if (type.size() < prefixName.size() + 1 || type.substr(0, prefixName.size() + 1) != utility::toString(prefixName, params.size()))
 			{
-				return;
+				if (type.size() < prefixName2.size() + 1 || type.substr(0, prefixName2.size() + 1) != utility::toString(prefixName2, params.size()))
+				{
+					return;
+				}
+				else
+				{
+					multiDelegate = true;
+				}
 			}
 
 			bool prefix_event = true;
@@ -191,7 +201,13 @@ namespace wrapper
 
 
 			std::string templ = _holder->getMemberData(mName);
-			if (templ.empty()) templ = utility::toString("Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
+			if (templ.empty())
+			{
+				if (multiDelegate)
+					templ = utility::toString("MultiDelegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
+				else
+					templ = utility::toString("Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
+			}
 
 			std::string template_name = utility::toString("Data/", _type, "/", templ);
 

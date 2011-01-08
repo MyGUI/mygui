@@ -4,12 +4,12 @@ using MyGUI.Managed.Demo;
 
 namespace TestApp.Sharp
 {
-    public class Test_VScrollBar
+    public class Test_ScrollBar
     {
         public static void Test()
         {
-            VScrollBar scroll = Gui.Instance.CreateWidget<VScrollBar>("VScroll", new IntCoord(580, 120, 16, 100), Align.Default, "Main");
-            scroll.EventScrollChangePosition += new VScrollBar.HandleScrollChangePosition(scroll_EventScrollChangePosition);
+            ScrollBar scroll = Gui.Instance.CreateWidget<ScrollBar>("ScrollBarV", new IntCoord(580, 120, 16, 100), Align.Default, "Main");
+            scroll.EventScrollChangePosition += new ScrollBar.HandleScrollChangePosition(scroll_EventScrollChangePosition);
 
             scroll.MinTrackSize = scroll.MinTrackSize + 1;
             scroll.TrackSize = scroll.TrackSize + 1;
