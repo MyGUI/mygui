@@ -63,12 +63,12 @@ namespace TestApp.Sharp
             menu.SetVisibleSmooth(true);
         }
 
-        static void menu_EventMenuCtrlAccept(MenuCtrl _sender, MenuItem _item)
+        static void menu_EventMenuCtrlAccept(MenuControl _sender, MenuItem _item)
         {
             Export.DebugOut("EventMenuCtrlAccept  item=" + _item.ToString());
         }
 
-        static void menu_EventMenuCtrlClose(MenuCtrl _sender)
+        static void menu_EventMenuCtrlClose(MenuControl _sender)
         {
             Export.DebugOut("EventMenuCtrlClose");
         }
