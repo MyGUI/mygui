@@ -17,6 +17,23 @@ namespace MyGUI
 
 		//InsertPoint
 
+		MultiListItem^ Convert<MyGUI::MultiListItem*>::To(MyGUI::MultiListItem* _value)
+		{
+			if (_value == nullptr) return nullptr;
+			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+			if (obj) return (MultiListItem^)obj->toObject();
+			return gcnew MultiListItem(_value);
+		}
+		MyGUI::MultiListItem* Convert<MyGUI::MultiListItem*>::From(MultiListItem^ _value)
+		{
+			if (_value == nullptr) return nullptr;
+			MyGUI::Widget* widget = _value->GetNativePtr();
+			if (widget == nullptr) return nullptr;
+			return widget->castType<MyGUI::MultiListItem>(false);
+		}
+
+
+
 		TabItem^ Convert<MyGUI::TabItem*>::To(MyGUI::TabItem* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -85,70 +102,70 @@ namespace MyGUI
 
 
 
-		VScrollBar^ Convert<MyGUI::VScroll*>::To(MyGUI::VScroll* _value)
+		ScrollBar^ Convert<MyGUI::ScrollBar*>::To(MyGUI::ScrollBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (VScrollBar^)obj->toObject();
-			return gcnew VScrollBar(_value);
+			if (obj) return (ScrollBar^)obj->toObject();
+			return gcnew ScrollBar(_value);
 		}
-		MyGUI::VScroll* Convert<MyGUI::VScroll*>::From(VScrollBar^ _value)
+		MyGUI::ScrollBar* Convert<MyGUI::ScrollBar*>::From(ScrollBar^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::VScroll>(false);
+			return widget->castType<MyGUI::ScrollBar>(false);
 		}
 
 
 
-		TabBar^ Convert<MyGUI::Tab*>::To(MyGUI::Tab* _value)
+		TabControl^ Convert<MyGUI::TabControl*>::To(MyGUI::TabControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (TabBar^)obj->toObject();
-			return gcnew TabBar(_value);
+			if (obj) return (TabControl^)obj->toObject();
+			return gcnew TabControl(_value);
 		}
-		MyGUI::Tab* Convert<MyGUI::Tab*>::From(TabBar^ _value)
+		MyGUI::TabControl* Convert<MyGUI::TabControl*>::From(TabControl^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Tab>(false);
+			return widget->castType<MyGUI::TabControl>(false);
 		}
 
 
 
-		StaticText^ Convert<MyGUI::StaticText*>::To(MyGUI::StaticText* _value)
+		TextBox^ Convert<MyGUI::TextBox*>::To(MyGUI::TextBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (StaticText^)obj->toObject();
-			return gcnew StaticText(_value);
+			if (obj) return (TextBox^)obj->toObject();
+			return gcnew TextBox(_value);
 		}
-		MyGUI::StaticText* Convert<MyGUI::StaticText*>::From(StaticText^ _value)
+		MyGUI::TextBox* Convert<MyGUI::TextBox*>::From(TextBox^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::StaticText>(false);
+			return widget->castType<MyGUI::TextBox>(false);
 		}
 
 
 
-		StaticImage^ Convert<MyGUI::StaticImage*>::To(MyGUI::StaticImage* _value)
+		ImageBox^ Convert<MyGUI::ImageBox*>::To(MyGUI::ImageBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (StaticImage^)obj->toObject();
-			return gcnew StaticImage(_value);
+			if (obj) return (ImageBox^)obj->toObject();
+			return gcnew ImageBox(_value);
 		}
-		MyGUI::StaticImage* Convert<MyGUI::StaticImage*>::From(StaticImage^ _value)
+		MyGUI::ImageBox* Convert<MyGUI::ImageBox*>::From(ImageBox^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::StaticImage>(false);
+			return widget->castType<MyGUI::ImageBox>(false);
 		}
 
 
@@ -170,19 +187,19 @@ namespace MyGUI
 
 
 
-		ProgressBar^ Convert<MyGUI::Progress*>::To(MyGUI::Progress* _value)
+		ProgressBar^ Convert<MyGUI::ProgressBar*>::To(MyGUI::ProgressBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			if (obj) return (ProgressBar^)obj->toObject();
 			return gcnew ProgressBar(_value);
 		}
-		MyGUI::Progress* Convert<MyGUI::Progress*>::From(ProgressBar^ _value)
+		MyGUI::ProgressBar* Convert<MyGUI::ProgressBar*>::From(ProgressBar^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Progress>(false);
+			return widget->castType<MyGUI::ProgressBar>(false);
 		}
 
 
@@ -204,53 +221,36 @@ namespace MyGUI
 
 
 
-		MultiListBox^ Convert<MyGUI::MultiList*>::To(MyGUI::MultiList* _value)
+		MultiListBox^ Convert<MyGUI::MultiListBox*>::To(MyGUI::MultiListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			if (obj) return (MultiListBox^)obj->toObject();
 			return gcnew MultiListBox(_value);
 		}
-		MyGUI::MultiList* Convert<MyGUI::MultiList*>::From(MultiListBox^ _value)
+		MyGUI::MultiListBox* Convert<MyGUI::MultiListBox*>::From(MultiListBox^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::MultiList>(false);
+			return widget->castType<MyGUI::MultiListBox>(false);
 		}
 
 
 
-		MessageBox^ Convert<MyGUI::Message*>::To(MyGUI::Message* _value)
+		MenuControl^ Convert<MyGUI::MenuControl*>::To(MyGUI::MenuControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (MessageBox^)obj->toObject();
-			return gcnew MessageBox(_value);
+			if (obj) return (MenuControl^)obj->toObject();
+			return gcnew MenuControl(_value);
 		}
-		MyGUI::Message* Convert<MyGUI::Message*>::From(MessageBox^ _value)
+		MyGUI::MenuControl* Convert<MyGUI::MenuControl*>::From(MenuControl^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Message>(false);
-		}
-
-
-
-		MenuCtrl^ Convert<MyGUI::MenuCtrl*>::To(MyGUI::MenuCtrl* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (MenuCtrl^)obj->toObject();
-			return gcnew MenuCtrl(_value);
-		}
-		MyGUI::MenuCtrl* Convert<MyGUI::MenuCtrl*>::From(MenuCtrl^ _value)
-		{
-			if (_value == nullptr) return nullptr;
-			MyGUI::Widget* widget = _value->GetNativePtr();
-			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::MenuCtrl>(false);
+			return widget->castType<MyGUI::MenuControl>(false);
 		}
 
 
@@ -272,19 +272,19 @@ namespace MyGUI
 
 
 
-		ListBox^ Convert<MyGUI::List*>::To(MyGUI::List* _value)
+		ListBox^ Convert<MyGUI::ListBox*>::To(MyGUI::ListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			if (obj) return (ListBox^)obj->toObject();
 			return gcnew ListBox(_value);
 		}
-		MyGUI::List* Convert<MyGUI::List*>::From(ListBox^ _value)
+		MyGUI::ListBox* Convert<MyGUI::ListBox*>::From(ListBox^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::List>(false);
+			return widget->castType<MyGUI::ListBox>(false);
 		}
 
 
@@ -306,36 +306,19 @@ namespace MyGUI
 
 
 
-		HScrollBar^ Convert<MyGUI::HScroll*>::To(MyGUI::HScroll* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (HScrollBar^)obj->toObject();
-			return gcnew HScrollBar(_value);
-		}
-		MyGUI::HScroll* Convert<MyGUI::HScroll*>::From(HScrollBar^ _value)
-		{
-			if (_value == nullptr) return nullptr;
-			MyGUI::Widget* widget = _value->GetNativePtr();
-			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::HScroll>(false);
-		}
-
-
-
-		EditBox^ Convert<MyGUI::Edit*>::To(MyGUI::Edit* _value)
+		EditBox^ Convert<MyGUI::EditBox*>::To(MyGUI::EditBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			if (obj) return (EditBox^)obj->toObject();
 			return gcnew EditBox(_value);
 		}
-		MyGUI::Edit* Convert<MyGUI::Edit*>::From(EditBox^ _value)
+		MyGUI::EditBox* Convert<MyGUI::EditBox*>::From(EditBox^ _value)
 		{
 			if (_value == nullptr) return nullptr;
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Edit>(false);
+			return widget->castType<MyGUI::EditBox>(false);
 		}
 
 

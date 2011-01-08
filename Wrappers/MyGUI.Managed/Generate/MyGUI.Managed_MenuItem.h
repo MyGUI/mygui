@@ -40,33 +40,37 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		property Convert<bool>::Type ItemChecked
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getItemChecked() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setItemChecked( Convert<bool>::From(_value) );
+			}
 		}
-
+	
 
 
    	public:
-		Convert<MyGUI::MenuCtrl *>::Type GetItemChild( )
+		Convert<MyGUI::MenuControl *>::Type GetItemChild( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::MenuCtrl *>::To(
+			return Convert<MyGUI::MenuControl *>::To(
 				static_cast<ThisType*>(mNative)->getItemChild( ) );
 		}
 
 
 
    	public:
-		Convert<MyGUI::MenuCtrl *>::Type GetMenuCtrlParent( )
+		Convert<MyGUI::MenuControl *>::Type GetMenuCtrlParent( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::MenuCtrl *>::To(
+			return Convert<MyGUI::MenuControl *>::To(
 				static_cast<ThisType*>(mNative)->getMenuCtrlParent( ) );
 		}
 
@@ -104,10 +108,10 @@ namespace MyGUI
 
 
    	public:
-		Convert<MyGUI::MenuCtrl *>::Type CreateItemChild( )
+		Convert<MyGUI::MenuControl *>::Type CreateItemChild( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::MenuCtrl *>::To(
+			return Convert<MyGUI::MenuControl *>::To(
 				static_cast<ThisType*>(mNative)->createItemChild( ) );
 		}
 
@@ -187,7 +191,15 @@ namespace MyGUI
 	
 
 
-   
+   	public:
+		void SetCaption(
+			Convert<const MyGUI::UString &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCaption(
+				Convert<const MyGUI::UString &>::From(_value) );
+		}
+
 
 
    

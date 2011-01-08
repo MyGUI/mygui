@@ -6,24 +6,24 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_WidgetEvent.h"
+#include "MyGUI.Managed_WidgetInput.h"
 
 namespace MyGUI
 {
 	namespace Managed
 	{
 
-		public ref class Widget : public WidgetEvent
+		public ref class Widget : public WidgetInput
 		{
 
 		private:
 			typedef MyGUI::Widget ThisType;
 
 		public:
-			Widget() : WidgetEvent() { }
+			Widget() : WidgetInput() { }
 
 		internal:
-			Widget( MyGUI::Widget* _native ) : WidgetEvent(_native) { }
+			Widget( MyGUI::Widget* _native ) : WidgetInput(_native) { }
 			Widget( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
@@ -38,15 +38,6 @@ namespace MyGUI
 
 
 			//InsertPoint
-
-   	public:
-		void SetCaptionWithNewLine(
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCaptionWithNewLine(
-				Convert<const std::string &>::From(_value) );
-		}
 
 
 
@@ -63,67 +54,64 @@ namespace MyGUI
 
 
 
-   
+   	public:
+		Convert<MyGUI::WidgetStyle>::Type GetWidgetStyle( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::WidgetStyle>::To(
+				static_cast<ThisType*>(mNative)->getWidgetStyle( ) );
+		}
 
 
-   
+
+   	public:
+		void SetWidgetStyle(
+			Convert<MyGUI::WidgetStyle>::Type _style ,
+			Convert<const std::string &>::Type _layer )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setWidgetStyle(
+				Convert<MyGUI::WidgetStyle>::From(_style) ,
+				Convert<const std::string &>::From(_layer) );
+		}
+
 
 
    	public:
 		void ChangeWidgetSkin(
-			Convert<const std::string &>::Type _skinname )
+			Convert<const std::string &>::Type _skinName )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->changeWidgetSkin(
-				Convert<const std::string &>::From(_skinname) );
+				Convert<const std::string &>::From(_skinName) );
 		}
 
-
-
-   
-
-
-   
 
 
    	public:
-		property Convert<bool>::Type EnableToolTip
+		void AttachToWidget(
+			Convert<MyGUI::Widget *>::Type _parent ,
+			Convert<MyGUI::WidgetStyle>::Type _style ,
+			Convert<const std::string &>::Type _layer )
 		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEnableToolTip() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEnableToolTip( Convert<bool>::From(_value) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->attachToWidget(
+				Convert<MyGUI::Widget *>::From(_parent) ,
+				Convert<MyGUI::WidgetStyle>::From(_style) ,
+				Convert<const std::string &>::From(_layer) );
 		}
-	
+
 
 
    	public:
-		property Convert<bool>::Type NeedToolTip
+		void DetachFromWidget(
+			Convert<const std::string &>::Type _layer )
 		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getNeedToolTip() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setNeedToolTip( Convert<bool>::From(_value) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->detachFromWidget(
+				Convert<const std::string &>::From(_layer) );
 		}
-	
 
-
-   
-
-
-   
 
 
    	public:
@@ -146,24 +134,14 @@ namespace MyGUI
 
 
 
-   
-
-
    	public:
-		property Convert<const std::string &>::Type Pointer
+		Convert<bool>::Type GetInheritedEnabled( )
 		{
-			Convert<const std::string &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getPointer() );
-			}
-			void set(Convert<const std::string &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setPointer( Convert<const std::string &>::From(_value) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->getInheritedEnabled( ) );
 		}
-	
+
 
 
    	public:
@@ -183,7 +161,7 @@ namespace MyGUI
 			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isEnabled() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEnabled() );
 			}
 			void set(Convert<bool>::Type _value)
 			{
@@ -195,65 +173,16 @@ namespace MyGUI
 
 
    	public:
-		void SetMaskPick(
-			Convert<const std::string &>::Type _filename )
+		void FindWidgets(
+			Convert<const std::string &>::Type _name ,
+			Convert<std::vector<  MyGUI::Widget * > &>::Type _result )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMaskPick(
-				Convert<const std::string &>::From(_filename) );
+			static_cast<ThisType*>(mNative)->findWidgets(
+				Convert<const std::string &>::From(_name) ,
+				Convert<std::vector<  MyGUI::Widget * > &>::From(_result) );
 		}
 
-
-
-   	public:
-		property Convert<bool>::Type InheritsPick
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isInheritsPick() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setInheritsPick( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<bool>::Type NeedMouseFocus
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isNeedMouseFocus() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setNeedMouseFocus( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<bool>::Type NeedKeyFocus
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isNeedKeyFocus() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setNeedKeyFocus( Convert<bool>::From(_value) );
-			}
-		}
-	
 
 
    	public:
@@ -290,7 +219,24 @@ namespace MyGUI
 
 
 
-   
+   	public:
+		Convert<MyGUI::Enumerator<  std::vector<  MyGUI::Widget * >  >>::Type GetEnumerator( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::Enumerator<  std::vector<  MyGUI::Widget * >  >>::To(
+				static_cast<ThisType*>(mNative)->getEnumerator( ) );
+		}
+
+
+
+   	public:
+		Convert<MyGUI::types::TSize< int >>::Type GetParentSize( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::types::TSize< int >>::To(
+				static_cast<ThisType*>(mNative)->getParentSize( ) );
+		}
+
 
 
    	public:
@@ -342,7 +288,7 @@ namespace MyGUI
 			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isInheritsAlpha() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getInheritsAlpha() );
 			}
 			void set(Convert<bool>::Type _value)
 			{
@@ -371,34 +317,57 @@ namespace MyGUI
 
 
    	public:
-		property Convert<const MyGUI::UString &>::Type Caption
+		property Convert<MyGUI::Align>::Type Align
 		{
-			Convert<const MyGUI::UString &>::Type get( )
+			Convert<MyGUI::Align>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+				return Convert<MyGUI::Align>::To( static_cast<ThisType*>(mNative)->getAlign() );
 			}
-			void set(Convert<const MyGUI::UString &>::Type _value)
+			void set(Convert<MyGUI::Align>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setAlign( Convert<MyGUI::Align>::From(_value) );
 			}
 		}
 	
 
 
    	public:
-		void SetAlign(
-			Convert<MyGUI::Align>::Type _value )
+		Convert<bool>::Type GetInheritedVisible( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setAlign(
-				Convert<MyGUI::Align>::From(_value) );
+			return Convert<bool>::To(
+				static_cast<ThisType*>(mNative)->getInheritedVisible( ) );
 		}
 
 
 
-   
+   	public:
+		property Convert<bool>::Type Visible
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getVisible() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setVisible( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		Convert<const std::string &>::Type GetName( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const std::string &>::To(
+				static_cast<ThisType*>(mNative)->getName( ) );
+		}
+
 
 
    	public:
@@ -551,22 +520,6 @@ namespace MyGUI
 				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
 		}
 
-
-
-   	public:
-		Convert<const std::string &>::Type GetName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To(
-				static_cast<ThisType*>(mNative)->getName( ) );
-		}
-
-
-
-   
-
-
-   
 
 
    

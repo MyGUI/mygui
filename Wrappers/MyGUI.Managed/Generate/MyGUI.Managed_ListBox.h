@@ -17,13 +17,13 @@ namespace MyGUI
 		{
 
 		private:
-			typedef MyGUI::List ThisType;
+			typedef MyGUI::ListBox ThisType;
 
 		public:
 			ListBox() : Widget() { }
 
 		internal:
-			ListBox( MyGUI::List* _native ) : Widget(_native) { }
+			ListBox( MyGUI::ListBox* _native ) : Widget(_native) { }
 			ListBox( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
@@ -39,211 +39,13 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
-		delegate void HandleListChangeScroll(
-			Convert<MyGUI::List *>::Type _sender ,
-			Convert<size_t>::Type _position );
-		event HandleListChangeScroll^ EventListChangeScroll
-		{
-			void add(HandleListChangeScroll^ _value)
-			{
-				mDelegateListChangeScroll += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventListChangeScroll =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::List * ,
-						size_t > *>(
-							new Delegate2< HandleListChangeScroll^ ,
-							MyGUI::List * ,
-							size_t >(mDelegateListChangeScroll) );
-			}
-			void remove(HandleListChangeScroll^ _value)
-			{
-				mDelegateListChangeScroll -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateListChangeScroll == nullptr)
-					static_cast<ThisType*>(mNative)->eventListChangeScroll = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventListChangeScroll =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::List * ,
-							size_t > *>(
-								new Delegate2< HandleListChangeScroll^ ,
-									MyGUI::List * ,
-									size_t >(mDelegateListChangeScroll) );
-			}
-		}
-	private:
-		HandleListChangeScroll^ mDelegateListChangeScroll;
 
 
 
-   	public:
-		delegate void HandleListMouseItemFocus(
-			Convert<MyGUI::List *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleListMouseItemFocus^ EventListMouseItemFocus
-		{
-			void add(HandleListMouseItemFocus^ _value)
-			{
-				mDelegateListMouseItemFocus += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventListMouseItemFocus =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::List * ,
-						size_t > *>(
-							new Delegate2< HandleListMouseItemFocus^ ,
-							MyGUI::List * ,
-							size_t >(mDelegateListMouseItemFocus) );
-			}
-			void remove(HandleListMouseItemFocus^ _value)
-			{
-				mDelegateListMouseItemFocus -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateListMouseItemFocus == nullptr)
-					static_cast<ThisType*>(mNative)->eventListMouseItemFocus = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventListMouseItemFocus =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::List * ,
-							size_t > *>(
-								new Delegate2< HandleListMouseItemFocus^ ,
-									MyGUI::List * ,
-									size_t >(mDelegateListMouseItemFocus) );
-			}
-		}
-	private:
-		HandleListMouseItemFocus^ mDelegateListMouseItemFocus;
 
 
 
-   	public:
-		delegate void HandleListMouseItemActivate(
-			Convert<MyGUI::List *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleListMouseItemActivate^ EventListMouseItemActivate
-		{
-			void add(HandleListMouseItemActivate^ _value)
-			{
-				mDelegateListMouseItemActivate += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventListMouseItemActivate =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::List * ,
-						size_t > *>(
-							new Delegate2< HandleListMouseItemActivate^ ,
-							MyGUI::List * ,
-							size_t >(mDelegateListMouseItemActivate) );
-			}
-			void remove(HandleListMouseItemActivate^ _value)
-			{
-				mDelegateListMouseItemActivate -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateListMouseItemActivate == nullptr)
-					static_cast<ThisType*>(mNative)->eventListMouseItemActivate = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventListMouseItemActivate =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::List * ,
-							size_t > *>(
-								new Delegate2< HandleListMouseItemActivate^ ,
-									MyGUI::List * ,
-									size_t >(mDelegateListMouseItemActivate) );
-			}
-		}
-	private:
-		HandleListMouseItemActivate^ mDelegateListMouseItemActivate;
 
-
-
-   	public:
-		delegate void HandleListChangePosition(
-			Convert<MyGUI::List *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleListChangePosition^ EventListChangePosition
-		{
-			void add(HandleListChangePosition^ _value)
-			{
-				mDelegateListChangePosition += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventListChangePosition =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::List * ,
-						size_t > *>(
-							new Delegate2< HandleListChangePosition^ ,
-							MyGUI::List * ,
-							size_t >(mDelegateListChangePosition) );
-			}
-			void remove(HandleListChangePosition^ _value)
-			{
-				mDelegateListChangePosition -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateListChangePosition == nullptr)
-					static_cast<ThisType*>(mNative)->eventListChangePosition = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventListChangePosition =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::List * ,
-							size_t > *>(
-								new Delegate2< HandleListChangePosition^ ,
-									MyGUI::List * ,
-									size_t >(mDelegateListChangePosition) );
-			}
-		}
-	private:
-		HandleListChangePosition^ mDelegateListChangePosition;
-
-
-
-   	public:
-		delegate void HandleListSelectAccept(
-			Convert<MyGUI::List *>::Type _sender ,
-			Convert<size_t>::Type _index );
-		event HandleListSelectAccept^ EventListSelectAccept
-		{
-			void add(HandleListSelectAccept^ _value)
-			{
-				mDelegateListSelectAccept += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventListSelectAccept =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::List * ,
-						size_t > *>(
-							new Delegate2< HandleListSelectAccept^ ,
-							MyGUI::List * ,
-							size_t >(mDelegateListSelectAccept) );
-			}
-			void remove(HandleListSelectAccept^ _value)
-			{
-				mDelegateListSelectAccept -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateListSelectAccept == nullptr)
-					static_cast<ThisType*>(mNative)->eventListSelectAccept = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventListSelectAccept =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::List * ,
-							size_t > *>(
-								new Delegate2< HandleListSelectAccept^ ,
-									MyGUI::List * ,
-									size_t >(mDelegateListSelectAccept) );
-			}
-		}
-	private:
-		HandleListSelectAccept^ mDelegateListSelectAccept;
-
-
-
-   	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
-		}
 
 
 
@@ -257,25 +59,91 @@ namespace MyGUI
 
 
 
-   
+   	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
 
 
-   
+
+   	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetScrollPosition(
+			Convert<size_t>::Type _position )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setScrollPosition(
+				Convert<size_t>::From(_position) );
+		}
+
 
 
    	public:
@@ -496,14 +364,6 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
-		void AddItem(
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem(
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
 
 
    	public:
@@ -519,28 +379,16 @@ namespace MyGUI
 				Convert<MyGUI::Any>::From(_data) );
 		}
 
-		void InsertItemAt(
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt(
-				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
 
 
    	public:
-		property Convert<size_t>::Type ItemCount
+		Convert<size_t>::Type GetItemCount( )
 		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->getItemCount( ) );
 		}
-	
+
 
 
    

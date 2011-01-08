@@ -44,11 +44,11 @@ namespace MyGUI
 				}
 			}
 
-		public:
+		/*public:
 			void DebugOut(System::String ^ _line)
 			{
 				MYGUI_OUT( Convert<const std::string&>::From(_line) );
-			}
+			}*/
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
@@ -95,11 +95,11 @@ namespace MyGUI
 				_widget = nullptr;
 			}
 
-		public:
+		/*public:
 			void LoadResource(System::String ^ _source)
 			{
 				mGui->load( Convert< const std::string& >::From(_source) );
-			}
+			}*/
 
 		public:
 			void SetProperty(Widget ^ _widget, System::String ^ _key, System::String ^ _value)
@@ -267,7 +267,7 @@ namespace MyGUI
 				else if (_widget->findAttribute("position_real", tmp))
 				{
 					if (_parent == nullptr || style == MyGUI::WidgetStyle::Popup)
-						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), mGui->getViewSize());
+						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), MyGUI::RenderManager::getInstance().getViewSize());
 					else
 						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), _parent->GetNativePtr()->getSize());
 				}

@@ -22,7 +22,8 @@
 #include "MouseButton.h"
 #include "WidgetStyle.h"
 #include "MenuItemType.h"
-#include "MessageStyle.h"
+#include "ResizingPolicy.h"
+#include "FlowDirection.h"
 
 #include "DropItemState.h"
 #include "DropWidgetState.h"

@@ -13,18 +13,18 @@ namespace MyGUI
 	namespace Managed
 	{
 
-		public ref class VScrollBar : public Widget
+		public ref class ScrollBar : public Widget
 		{
 
 		private:
-			typedef MyGUI::VScroll ThisType;
+			typedef MyGUI::ScrollBar ThisType;
 
 		public:
-			VScrollBar() : Widget() { }
+			ScrollBar() : Widget() { }
 
 		internal:
-			VScrollBar( MyGUI::VScroll* _native ) : Widget(_native) { }
-			VScrollBar( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
+			ScrollBar( MyGUI::ScrollBar* _native ) : Widget(_native) { }
+			ScrollBar( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
@@ -33,80 +33,88 @@ namespace MyGUI
 
 			static BaseWidget^ WidgetCreator(BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 			{
-				return gcnew VScrollBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+				return gcnew ScrollBar(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
 
 
 			//InsertPoint
 
-   	public:
-		delegate void HandleScrollChangePosition(
-			Convert<MyGUI::VScroll *>::Type _sender ,
-			Convert<size_t>::Type _position );
-		event HandleScrollChangePosition^ EventScrollChangePosition
-		{
-			void add(HandleScrollChangePosition^ _value)
-			{
-				mDelegateScrollChangePosition += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventScrollChangePosition =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::VScroll * ,
-						size_t > *>(
-							new Delegate2< HandleScrollChangePosition^ ,
-							MyGUI::VScroll * ,
-							size_t >(mDelegateScrollChangePosition) );
-			}
-			void remove(HandleScrollChangePosition^ _value)
-			{
-				mDelegateScrollChangePosition -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateScrollChangePosition == nullptr)
-					static_cast<ThisType*>(mNative)->eventScrollChangePosition = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventScrollChangePosition =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::VScroll * ,
-							size_t > *>(
-								new Delegate2< HandleScrollChangePosition^ ,
-									MyGUI::VScroll * ,
-									size_t >(mDelegateScrollChangePosition) );
-			}
-		}
-	private:
-		HandleScrollChangePosition^ mDelegateScrollChangePosition;
-
 
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
 		}
 
 
 
-   
+   	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
 
 
-   
+
+   	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
 
 
-   
 
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+		}
 
-   
 
 
    	public:
@@ -233,6 +241,23 @@ namespace MyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setScrollRange( Convert<size_t>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
+		property Convert<bool>::Type VerticalAlignment
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getVerticalAlignment() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setVerticalAlignment( Convert<bool>::From(_value) );
 			}
 		}
 	

@@ -6,24 +6,24 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_MenuCtrl.h"
+#include "MyGUI.Managed_MenuControl.h"
 
 namespace MyGUI
 {
 	namespace Managed
 	{
 
-		public ref class MenuBar : public MenuCtrl
+		public ref class MenuBar : public MenuControl
 		{
 
 		private:
 			typedef MyGUI::MenuBar ThisType;
 
 		public:
-			MenuBar() : MenuCtrl() { }
+			MenuBar() : MenuControl() { }
 
 		internal:
-			MenuBar( MyGUI::MenuBar* _native ) : MenuCtrl(_native) { }
+			MenuBar( MyGUI::MenuBar* _native ) : MenuControl(_native) { }
 			MenuBar( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);

@@ -17,13 +17,13 @@ namespace MyGUI
 		{
 
 		private:
-			typedef MyGUI::Progress ThisType;
+			typedef MyGUI::ProgressBar ThisType;
 
 		public:
 			ProgressBar() : Widget() { }
 
 		internal:
-			ProgressBar( MyGUI::Progress* _native ) : Widget(_native) { }
+			ProgressBar( MyGUI::ProgressBar* _native ) : Widget(_native) { }
 			ProgressBar( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
@@ -40,48 +40,93 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
 		}
 
 
 
-   
+   	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
 
 
    	public:
-		property Convert<MyGUI::Align>::Type ProgressStartPoint
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
 		{
-			Convert<MyGUI::Align>::Type get( )
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
+
+
+
+   	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetSize(
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+		}
+
+
+
+   	public:
+		property Convert<MyGUI::FlowDirection>::Type FlowDirection
+		{
+			Convert<MyGUI::FlowDirection>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::Align>::To( static_cast<ThisType*>(mNative)->getProgressStartPoint() );
+				return Convert<MyGUI::FlowDirection>::To( static_cast<ThisType*>(mNative)->getFlowDirection() );
 			}
-			void set(Convert<MyGUI::Align>::Type _value)
+			void set(Convert<MyGUI::FlowDirection>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setProgressStartPoint( Convert<MyGUI::Align>::From(_value) );
+				static_cast<ThisType*>(mNative)->setFlowDirection( Convert<MyGUI::FlowDirection>::From(_value) );
 			}
 		}
 	
