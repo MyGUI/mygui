@@ -44,20 +44,18 @@
     <Compile Include="Test_DDContainer.cs" />
     <Compile Include="Test_EditBox.cs" />
     <Compile Include="Test_Gui.cs" />
-    <Compile Include="Test_HScrollBox.cs" />
+    <Compile Include="Test_ImageBox.cs" />
     <Compile Include="Test_ItemBox.cs" />
     <Compile Include="Test_ListBox.cs" />
     <Compile Include="Test_MenuBar.cs" />
-    <Compile Include="Test_MenuCtrl.cs" />
-    <Compile Include="Test_MessageBox.cs" />
+    <Compile Include="Test_MenuControl.cs" />
     <Compile Include="Test_MultilistBox.cs" />
     <Compile Include="Test_PopupMenu.cs" />
     <Compile Include="Test_ProgressBar.cs" />
+    <Compile Include="Test_ScrollBar.cs" />
     <Compile Include="Test_ScrollView.cs" />
-    <Compile Include="Test_StaticImage.cs" />
-    <Compile Include="Test_StaticText.cs" />
-    <Compile Include="Test_TabBar.cs" />
-    <Compile Include="Test_VScrollBar.cs" />
+    <Compile Include="Test_TabControl.cs" />
+    <Compile Include="Test_TextBox.cs" />
     <Compile Include="Test_Widget.cs" />
     <Compile Include="Test_Window.cs" />
   </ItemGroup>

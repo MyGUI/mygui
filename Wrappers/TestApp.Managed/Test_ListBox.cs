@@ -9,7 +9,7 @@ namespace TestApp.Sharp
         public static void Test()
         {
             ListBox box = Gui.Instance.CreateWidget<ListBox>("List", new IntCoord(20, 420, 100, 100), Align.Default, "Main");
-            box.EventListChangeScroll += new ListBox.HandleListChangeScroll(box_EventListChangeScroll);
+            //box.EventListChangeScroll += new ListBox.HandleListChangeScroll(box_EventListChangeScroll);
             box.EventListMouseItemFocus += new ListBox.HandleListMouseItemFocus(box_EventListMouseItemFocus);
             box.EventListMouseItemActivate += new ListBox.HandleListMouseItemActivate(box_EventListMouseItemActivate);
             box.EventListChangePosition += new ListBox.HandleListChangePosition(box_EventListChangePosition);
@@ -67,9 +67,9 @@ namespace TestApp.Sharp
             Export.DebugOut("EventListMouseItemFocus  index=" + _index.ToString());
         }
 
-        static void box_EventListChangeScroll(ListBox _sender, uint _position)
+        /*static void box_EventListChangeScroll(ListBox _sender, uint _position)
         {
             Export.DebugOut("EventListChangeScroll  index=" + _position.ToString());
-        }
+        }*/
     }
 }

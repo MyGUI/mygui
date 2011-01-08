@@ -21,7 +21,7 @@ namespace TestApp.Sharp
             scroll.ScrollPosition = scroll.ScrollPosition + 1;
         }
 
-        static void scroll_EventScrollChangePosition(VScrollBar _sender, uint _position)
+        static void scroll_EventScrollChangePosition(ScrollBar _sender, uint _position)
         {
             Export.DebugOut("EventScrollChangePosition  position=" + _position.ToString());
         }
