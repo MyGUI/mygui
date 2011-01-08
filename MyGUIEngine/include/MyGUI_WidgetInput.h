@@ -139,7 +139,7 @@ namespace MyGUI
 			eventMouseSetFocus;
 
 		/** Event : Widget mouse move with captured widget.\n
-			signature : void method(MyGUI::Widget* _sender, int _left, int _top)\n
+			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
 			@param _sender widget that called this event
 			@param _left - pointer position
 			@param _top - pointer position
