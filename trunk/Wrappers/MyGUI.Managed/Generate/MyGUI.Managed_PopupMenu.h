@@ -6,24 +6,24 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_MenuCtrl.h"
+#include "MyGUI.Managed_MenuControl.h"
 
 namespace MyGUI
 {
 	namespace Managed
 	{
 
-		public ref class PopupMenu : public MenuCtrl
+		public ref class PopupMenu : public MenuControl
 		{
 
 		private:
 			typedef MyGUI::PopupMenu ThisType;
 
 		public:
-			PopupMenu() : MenuCtrl() { }
+			PopupMenu() : MenuControl() { }
 
 		internal:
-			PopupMenu( MyGUI::PopupMenu* _native ) : MenuCtrl(_native) { }
+			PopupMenu( MyGUI::PopupMenu* _native ) : MenuControl(_native) { }
 			PopupMenu( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);

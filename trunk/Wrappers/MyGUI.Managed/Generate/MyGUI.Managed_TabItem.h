@@ -40,92 +40,31 @@ namespace MyGUI
 			//InsertPoint
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
+		void SetButtonWidth(
+			Convert<int>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
-				Convert<const std::string &>::From(_value) );
+			static_cast<ThisType*>(mNative)->setButtonWidth(
+				Convert<int>::From(_value) );
 		}
 
 
 
    	public:
-		void RemoveItem( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItem( );
-		}
-
-
-
-   	public:
-		void SetItemSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemSelected( );
-		}
-
-
-
-   	public:
-		property Convert<MyGUI::Any>::Type ItemData
-		{
-			Convert<MyGUI::Any>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemData< ObjectHolder >(false);
-				return data ? data->toObject() : nullptr;
-			}
-			void set(Convert<MyGUI::Any>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemData( Convert<MyGUI::Any>::From(_value) );
-			}
-		}
-	
-
-
-   
-
-
-   	public:
-		property Convert<const MyGUI::UString &>::Type ItemName
+		property Convert<const MyGUI::UString &>::Type Caption
 		{
 			Convert<const MyGUI::UString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getItemName() );
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
 			}
 			void set(Convert<const MyGUI::UString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemName( Convert<const MyGUI::UString &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
 			}
 		}
 	
-
-
-   	public:
-		property Convert<int>::Type ButtonWidth
-		{
-			Convert<int>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getButtonWidth() );
-			}
-			void set(Convert<int>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setButtonWidth( Convert<int>::From(_value) );
-			}
-		}
-	
-
-
-   
 
 
    

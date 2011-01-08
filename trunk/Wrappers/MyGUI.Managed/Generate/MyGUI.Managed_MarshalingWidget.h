@@ -15,6 +15,22 @@ namespace MyGUI
 
 		//InsertPoint
 
+		ref class MultiListItem;
+		template <> struct Convert<MyGUI::MultiListItem*>
+		{
+			typedef MultiListItem^ Type;
+			static MultiListItem^ To(MyGUI::MultiListItem* _value);
+			static MyGUI::MultiListItem* From(MultiListItem^ _value);
+		};
+		template <> struct Convert<MyGUI::MultiListItem*&>
+		{
+			typedef MultiListItem^% Type;
+			static MultiListItem^% To(MyGUI::MultiListItem*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::MultiListItem*& From(MultiListItem^% _value) { throw gcnew System::Exception(); }
+		};
+
+
+
 		ref class TabItem;
 		template <> struct Convert<MyGUI::TabItem*>
 		{
@@ -79,66 +95,66 @@ namespace MyGUI
 
 
 
-		ref class VScrollBar;
-		template <> struct Convert<MyGUI::VScroll*>
+		ref class ScrollBar;
+		template <> struct Convert<MyGUI::ScrollBar*>
 		{
-			typedef VScrollBar^ Type;
-			static VScrollBar^ To(MyGUI::VScroll* _value);
-			static MyGUI::VScroll* From(VScrollBar^ _value);
+			typedef ScrollBar^ Type;
+			static ScrollBar^ To(MyGUI::ScrollBar* _value);
+			static MyGUI::ScrollBar* From(ScrollBar^ _value);
 		};
-		template <> struct Convert<MyGUI::VScroll*&>
+		template <> struct Convert<MyGUI::ScrollBar*&>
 		{
-			typedef VScrollBar^% Type;
-			static VScrollBar^% To(MyGUI::VScroll*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::VScroll*& From(VScrollBar^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
-		ref class TabBar;
-		template <> struct Convert<MyGUI::Tab*>
-		{
-			typedef TabBar^ Type;
-			static TabBar^ To(MyGUI::Tab* _value);
-			static MyGUI::Tab* From(TabBar^ _value);
-		};
-		template <> struct Convert<MyGUI::Tab*&>
-		{
-			typedef TabBar^% Type;
-			static TabBar^% To(MyGUI::Tab*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Tab*& From(TabBar^% _value) { throw gcnew System::Exception(); }
+			typedef ScrollBar^% Type;
+			static ScrollBar^% To(MyGUI::ScrollBar*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::ScrollBar*& From(ScrollBar^% _value) { throw gcnew System::Exception(); }
 		};
 
 
 
-		ref class StaticText;
-		template <> struct Convert<MyGUI::StaticText*>
+		ref class TabControl;
+		template <> struct Convert<MyGUI::TabControl*>
 		{
-			typedef StaticText^ Type;
-			static StaticText^ To(MyGUI::StaticText* _value);
-			static MyGUI::StaticText* From(StaticText^ _value);
+			typedef TabControl^ Type;
+			static TabControl^ To(MyGUI::TabControl* _value);
+			static MyGUI::TabControl* From(TabControl^ _value);
 		};
-		template <> struct Convert<MyGUI::StaticText*&>
+		template <> struct Convert<MyGUI::TabControl*&>
 		{
-			typedef StaticText^% Type;
-			static StaticText^% To(MyGUI::StaticText*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::StaticText*& From(StaticText^% _value) { throw gcnew System::Exception(); }
+			typedef TabControl^% Type;
+			static TabControl^% To(MyGUI::TabControl*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::TabControl*& From(TabControl^% _value) { throw gcnew System::Exception(); }
 		};
 
 
 
-		ref class StaticImage;
-		template <> struct Convert<MyGUI::StaticImage*>
+		ref class TextBox;
+		template <> struct Convert<MyGUI::TextBox*>
 		{
-			typedef StaticImage^ Type;
-			static StaticImage^ To(MyGUI::StaticImage* _value);
-			static MyGUI::StaticImage* From(StaticImage^ _value);
+			typedef TextBox^ Type;
+			static TextBox^ To(MyGUI::TextBox* _value);
+			static MyGUI::TextBox* From(TextBox^ _value);
 		};
-		template <> struct Convert<MyGUI::StaticImage*&>
+		template <> struct Convert<MyGUI::TextBox*&>
 		{
-			typedef StaticImage^% Type;
-			static StaticImage^% To(MyGUI::StaticImage*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::StaticImage*& From(StaticImage^% _value) { throw gcnew System::Exception(); }
+			typedef TextBox^% Type;
+			static TextBox^% To(MyGUI::TextBox*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::TextBox*& From(TextBox^% _value) { throw gcnew System::Exception(); }
+		};
+
+
+
+		ref class ImageBox;
+		template <> struct Convert<MyGUI::ImageBox*>
+		{
+			typedef ImageBox^ Type;
+			static ImageBox^ To(MyGUI::ImageBox* _value);
+			static MyGUI::ImageBox* From(ImageBox^ _value);
+		};
+		template <> struct Convert<MyGUI::ImageBox*&>
+		{
+			typedef ImageBox^% Type;
+			static ImageBox^% To(MyGUI::ImageBox*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::ImageBox*& From(ImageBox^% _value) { throw gcnew System::Exception(); }
 		};
 
 
@@ -160,17 +176,17 @@ namespace MyGUI
 
 
 		ref class ProgressBar;
-		template <> struct Convert<MyGUI::Progress*>
+		template <> struct Convert<MyGUI::ProgressBar*>
 		{
 			typedef ProgressBar^ Type;
-			static ProgressBar^ To(MyGUI::Progress* _value);
-			static MyGUI::Progress* From(ProgressBar^ _value);
+			static ProgressBar^ To(MyGUI::ProgressBar* _value);
+			static MyGUI::ProgressBar* From(ProgressBar^ _value);
 		};
-		template <> struct Convert<MyGUI::Progress*&>
+		template <> struct Convert<MyGUI::ProgressBar*&>
 		{
 			typedef ProgressBar^% Type;
-			static ProgressBar^% To(MyGUI::Progress*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Progress*& From(ProgressBar^% _value) { throw gcnew System::Exception(); }
+			static ProgressBar^% To(MyGUI::ProgressBar*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::ProgressBar*& From(ProgressBar^% _value) { throw gcnew System::Exception(); }
 		};
 
 
@@ -192,49 +208,33 @@ namespace MyGUI
 
 
 		ref class MultiListBox;
-		template <> struct Convert<MyGUI::MultiList*>
+		template <> struct Convert<MyGUI::MultiListBox*>
 		{
 			typedef MultiListBox^ Type;
-			static MultiListBox^ To(MyGUI::MultiList* _value);
-			static MyGUI::MultiList* From(MultiListBox^ _value);
+			static MultiListBox^ To(MyGUI::MultiListBox* _value);
+			static MyGUI::MultiListBox* From(MultiListBox^ _value);
 		};
-		template <> struct Convert<MyGUI::MultiList*&>
+		template <> struct Convert<MyGUI::MultiListBox*&>
 		{
 			typedef MultiListBox^% Type;
-			static MultiListBox^% To(MyGUI::MultiList*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::MultiList*& From(MultiListBox^% _value) { throw gcnew System::Exception(); }
+			static MultiListBox^% To(MyGUI::MultiListBox*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::MultiListBox*& From(MultiListBox^% _value) { throw gcnew System::Exception(); }
 		};
 
 
 
-		ref class MessageBox;
-		template <> struct Convert<MyGUI::Message*>
+		ref class MenuControl;
+		template <> struct Convert<MyGUI::MenuControl*>
 		{
-			typedef MessageBox^ Type;
-			static MessageBox^ To(MyGUI::Message* _value);
-			static MyGUI::Message* From(MessageBox^ _value);
+			typedef MenuControl^ Type;
+			static MenuControl^ To(MyGUI::MenuControl* _value);
+			static MyGUI::MenuControl* From(MenuControl^ _value);
 		};
-		template <> struct Convert<MyGUI::Message*&>
+		template <> struct Convert<MyGUI::MenuControl*&>
 		{
-			typedef MessageBox^% Type;
-			static MessageBox^% To(MyGUI::Message*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Message*& From(MessageBox^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
-		ref class MenuCtrl;
-		template <> struct Convert<MyGUI::MenuCtrl*>
-		{
-			typedef MenuCtrl^ Type;
-			static MenuCtrl^ To(MyGUI::MenuCtrl* _value);
-			static MyGUI::MenuCtrl* From(MenuCtrl^ _value);
-		};
-		template <> struct Convert<MyGUI::MenuCtrl*&>
-		{
-			typedef MenuCtrl^% Type;
-			static MenuCtrl^% To(MyGUI::MenuCtrl*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::MenuCtrl*& From(MenuCtrl^% _value) { throw gcnew System::Exception(); }
+			typedef MenuControl^% Type;
+			static MenuControl^% To(MyGUI::MenuControl*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::MenuControl*& From(MenuControl^% _value) { throw gcnew System::Exception(); }
 		};
 
 
@@ -256,17 +256,17 @@ namespace MyGUI
 
 
 		ref class ListBox;
-		template <> struct Convert<MyGUI::List*>
+		template <> struct Convert<MyGUI::ListBox*>
 		{
 			typedef ListBox^ Type;
-			static ListBox^ To(MyGUI::List* _value);
-			static MyGUI::List* From(ListBox^ _value);
+			static ListBox^ To(MyGUI::ListBox* _value);
+			static MyGUI::ListBox* From(ListBox^ _value);
 		};
-		template <> struct Convert<MyGUI::List*&>
+		template <> struct Convert<MyGUI::ListBox*&>
 		{
 			typedef ListBox^% Type;
-			static ListBox^% To(MyGUI::List*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::List*& From(ListBox^% _value) { throw gcnew System::Exception(); }
+			static ListBox^% To(MyGUI::ListBox*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::ListBox*& From(ListBox^% _value) { throw gcnew System::Exception(); }
 		};
 
 
@@ -287,34 +287,18 @@ namespace MyGUI
 
 
 
-		ref class HScrollBar;
-		template <> struct Convert<MyGUI::HScroll*>
-		{
-			typedef HScrollBar^ Type;
-			static HScrollBar^ To(MyGUI::HScroll* _value);
-			static MyGUI::HScroll* From(HScrollBar^ _value);
-		};
-		template <> struct Convert<MyGUI::HScroll*&>
-		{
-			typedef HScrollBar^% Type;
-			static HScrollBar^% To(MyGUI::HScroll*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::HScroll*& From(HScrollBar^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
 		ref class EditBox;
-		template <> struct Convert<MyGUI::Edit*>
+		template <> struct Convert<MyGUI::EditBox*>
 		{
 			typedef EditBox^ Type;
-			static EditBox^ To(MyGUI::Edit* _value);
-			static MyGUI::Edit* From(EditBox^ _value);
+			static EditBox^ To(MyGUI::EditBox* _value);
+			static MyGUI::EditBox* From(EditBox^ _value);
 		};
-		template <> struct Convert<MyGUI::Edit*&>
+		template <> struct Convert<MyGUI::EditBox*&>
 		{
 			typedef EditBox^% Type;
-			static EditBox^% To(MyGUI::Edit*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Edit*& From(EditBox^% _value) { throw gcnew System::Exception(); }
+			static EditBox^% To(MyGUI::EditBox*& _value) { throw gcnew System::Exception(); }
+			static MyGUI::EditBox*& From(EditBox^% _value) { throw gcnew System::Exception(); }
 		};
 
 

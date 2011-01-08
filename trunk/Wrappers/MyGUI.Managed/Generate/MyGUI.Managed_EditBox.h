@@ -6,24 +6,24 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_StaticText.h"
+#include "MyGUI.Managed_TextBox.h"
 
 namespace MyGUI
 {
 	namespace Managed
 	{
 
-		public ref class EditBox : public StaticText
+		public ref class EditBox : public TextBox
 		{
 
 		private:
-			typedef MyGUI::Edit ThisType;
+			typedef MyGUI::EditBox ThisType;
 
 		public:
-			EditBox() : StaticText() { }
+			EditBox() : TextBox() { }
 
 		internal:
-			EditBox( MyGUI::Edit* _native ) : StaticText(_native) { }
+			EditBox( MyGUI::EditBox* _native ) : TextBox(_native) { }
 			EditBox( BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name )
 			{
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
@@ -39,97 +39,72 @@ namespace MyGUI
 
 			//InsertPoint
 
+
+
+
+
    	public:
-		delegate void HandleEditTextChange(
-			Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditTextChange^ EventEditTextChange
+		Convert<MyGUI::types::TSize< int >>::Type GetTextSize( )
 		{
-			void add(HandleEditTextChange^ _value)
-			{
-				mDelegateEditTextChange += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventEditTextChange =
-					static_cast< MyGUI::delegates::IDelegate1<
-						MyGUI::Edit * > *>(
-							new Delegate1< HandleEditTextChange^ ,
-							MyGUI::Edit * >(mDelegateEditTextChange) );
-			}
-			void remove(HandleEditTextChange^ _value)
-			{
-				mDelegateEditTextChange -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateEditTextChange == nullptr)
-					static_cast<ThisType*>(mNative)->eventEditTextChange = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventEditTextChange =
-						static_cast< MyGUI::delegates::IDelegate1<
-							MyGUI::Edit * > *>(
-								new Delegate1< HandleEditTextChange^ ,
-									MyGUI::Edit * >(mDelegateEditTextChange) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::types::TSize< int >>::To(
+				static_cast<ThisType*>(mNative)->getTextSize( ) );
 		}
-	private:
-		HandleEditTextChange^ mDelegateEditTextChange;
 
 
 
    	public:
-		delegate void HandleEditSelectAccept(
-			Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditSelectAccept^ EventEditSelectAccept
+		Convert<MyGUI::types::TCoord< int >>::Type GetTextRegion( )
 		{
-			void add(HandleEditSelectAccept^ _value)
-			{
-				mDelegateEditSelectAccept += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventEditSelectAccept =
-					static_cast< MyGUI::delegates::IDelegate1<
-						MyGUI::Edit * > *>(
-							new Delegate1< HandleEditSelectAccept^ ,
-							MyGUI::Edit * >(mDelegateEditSelectAccept) );
-			}
-			void remove(HandleEditSelectAccept^ _value)
-			{
-				mDelegateEditSelectAccept -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateEditSelectAccept == nullptr)
-					static_cast<ThisType*>(mNative)->eventEditSelectAccept = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventEditSelectAccept =
-						static_cast< MyGUI::delegates::IDelegate1<
-							MyGUI::Edit * > *>(
-								new Delegate1< HandleEditSelectAccept^ ,
-									MyGUI::Edit * >(mDelegateEditSelectAccept) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::types::TCoord< int >>::To(
+				static_cast<ThisType*>(mNative)->getTextRegion( ) );
 		}
-	private:
-		HandleEditSelectAccept^ mDelegateEditSelectAccept;
 
-
-
-   
 
 
    	public:
-		void SetProperty(
-			Convert<const std::string &>::Type _key ,
+		void SetTextColour(
+			Convert<const MyGUI::Colour &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextColour(
+				Convert<const MyGUI::Colour &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetTextAlign(
+			Convert<MyGUI::Align>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextAlign(
+				Convert<MyGUI::Align>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetFontHeight(
+			Convert<int>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setFontHeight(
+				Convert<int>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetFontName(
 			Convert<const std::string &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setProperty(
-				Convert<const std::string &>::From(_key) ,
+			static_cast<ThisType*>(mNative)->setFontName(
 				Convert<const std::string &>::From(_value) );
 		}
 
-
-
-   
-
-
-   
-
-
-   
 
 
    	public:
@@ -220,22 +195,80 @@ namespace MyGUI
 	
 
 
-   
+   	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
 
 
-   
+
+   	public:
+		void SetCoord(
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetSize(
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+		}
 
 
-   
+
+   	public:
+		void SetPosition(
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
+		}
+
 
 
    	public:
@@ -457,15 +490,13 @@ namespace MyGUI
 
 
    	public:
-		property Convert<size_t>::Type TextLength
+		Convert<size_t>::Type GetTextLength( )
 		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextLength() );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->getTextLength( ) );
 		}
-	
+
 
 
    	public:
@@ -485,7 +516,21 @@ namespace MyGUI
 	
 
 
-   
+   	public:
+		property Convert<const MyGUI::UString &>::Type Caption
+		{
+			Convert<const MyGUI::UString &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+			}
+			void set(Convert<const MyGUI::UString &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
+			}
+		}
+	
 
 
    	public:

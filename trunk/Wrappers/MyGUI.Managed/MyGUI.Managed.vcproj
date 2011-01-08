@@ -6,7 +6,6 @@
 	ProjectGUID="{9EBA1113-C11A-41B4-9674-3D83E6067B2E}"
 	RootNamespace="MyGUI.Managed"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -69,8 +68,6 @@
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -90,6 +87,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -146,8 +146,6 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -167,6 +165,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -225,8 +226,6 @@
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -246,6 +245,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -302,8 +304,6 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -323,6 +323,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -598,7 +601,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_HScrollBar.h"
+						RelativePath=".\Generate\MyGUI.Managed_ImageBox.h"
 						>
 					</File>
 					<File
@@ -622,7 +625,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_MenuCtrl.h"
+						RelativePath=".\Generate\MyGUI.Managed_MenuControl.h"
 						>
 					</File>
 					<File
@@ -630,11 +633,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_MessageBox.h"
+						RelativePath=".\Generate\MyGUI.Managed_MultiListBox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_MultiListBox.h"
+						RelativePath=".\Generate\MyGUI.Managed_MultiListItem.h"
 						>
 					</File>
 					<File
@@ -646,7 +649,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_RenderBox.h"
+						RelativePath=".\Generate\MyGUI.Managed_ScrollBar.h"
 						>
 					</File>
 					<File
@@ -654,15 +657,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_StaticImage.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Managed_StaticText.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Managed_TabBar.h"
+						RelativePath=".\Generate\MyGUI.Managed_TabControl.h"
 						>
 					</File>
 					<File
@@ -670,7 +665,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_VScrollBar.h"
+						RelativePath=".\Generate\MyGUI.Managed_TextBox.h"
 						>
 					</File>
 					<File
@@ -678,15 +673,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_WidgetCropped.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Managed_WidgetEvent.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Managed_WidgetUserData.h"
+						RelativePath=".\Generate\MyGUI.Managed_WidgetInput.h"
 						>
 					</File>
 					<File
