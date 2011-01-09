@@ -67,6 +67,8 @@ namespace demo
 
 		typedef std::vector<BaseAnimationNode*> VectorBaseAnimationNode;
 		VectorBaseAnimationNode mNodes;
+
+		MyGUI::IntPoint mClickPosition;
 	};
 
 } // namespace demo

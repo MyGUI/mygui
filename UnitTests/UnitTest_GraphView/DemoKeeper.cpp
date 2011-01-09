@@ -167,8 +167,7 @@ namespace demo
 		mNodes.push_back(node);
 
 		mGraphView->addItem(node);
-		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-		node->setAbsolutePosition(point);
+		node->setAbsolutePosition(mClickPosition);
 
 		animation::IAnimationNode* anim_node = mNodeFactory.createNode(_type, _name, mGraph);
 		mGraph->addNode(anim_node);
@@ -254,6 +253,8 @@ namespace demo
 	{
 		if (_id == MyGUI::MouseButton::Right)
 		{
+			mClickPosition.left = _left;
+			mClickPosition.top = _top;
 			mContextMenu->setVisible(true);
 		}
 	}

@@ -6,7 +6,7 @@
 	<List file="MyGUI_Fonts.xml"/>
 	<List file="MyGUI_Images.xml"/>
 	<List file="MyGUI_CommonSkins.xml"/>
-	<List file="MyGUI_BlueWhiteTheme.xml"/>
+	<List file="MyGUI_BlackOrangeTheme.xml"/>
 	<List file="MyGUI_Pointers.xml"/>
 	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
