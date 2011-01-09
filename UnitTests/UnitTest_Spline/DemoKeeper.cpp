@@ -44,7 +44,7 @@ namespace demo
 		mClient = widgets.at(0)->findWidget("SplineClient");
 
 		// create widget with skin that contain specific sub skin - PolygonalSkin
-		MyGUI::Widget* widget = mClient->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(0, 0, 400, 346), MyGUI::Align::Stretch);
+		MyGUI::Widget* widget = mClient->createWidget<MyGUI::Widget>("PolygonalSkin", MyGUI::IntCoord(MyGUI::IntPoint(), mClient->getSize()), MyGUI::Align::Stretch);
 		widget->setColour(MyGUI::Colour::Red);
 		// get main subskin
 		MyGUI::ISubWidget* main = widget->getSubWidgetMain();
@@ -52,7 +52,6 @@ namespace demo
 
 		// set PolygonalSkin properties and points
 		mPolygonalSkin->setWidth(8.0f);
-		mPolygonalSkin->setPoints(mLinePoints);
 
 		for (int i = 0; i < PointsCount; ++i)
 		{
@@ -61,7 +60,7 @@ namespace demo
 			point[i]->eventMouseButtonPressed += newDelegate(this, &DemoKeeper::notifyPointPressed);
 		}
 
-		notifyChangeQuality(qualityScroll, 14);
+		notifyChangeQuality(qualityScroll, 12);
 		updateSpline();
 	}
 
