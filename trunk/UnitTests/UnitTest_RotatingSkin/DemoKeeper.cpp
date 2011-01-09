@@ -44,7 +44,7 @@ namespace demo
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		rotato->setAngle(atan2((float)_absx - rotato->getCenter(false).left, -(float)_absy + rotato->getCenter(false).top));
+		rotato->setAngle(atan2(-(float)_absx + rotato->getCenter(false).left, (float)_absy - rotato->getCenter(false).top));
 
 		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
