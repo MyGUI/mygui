@@ -67,6 +67,7 @@
 
 		<Property key="Skin" value="EditBox"/>
 		<Property key="Skin" value="EditBoxStretch"/>
+		<Property key="Skin" value="EditBoxEmpty"/>
 		<Property key="Skin" value="WordWrapEmpty"/>
 
 		<Property key="Parent" value="true"/>

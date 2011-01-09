@@ -15,10 +15,26 @@ namespace demo
 		public base::BaseManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 
 	private:
 		virtual void setupResources();
+
+		void makeBezier(const std::vector<MyGUI::FloatPoint>& _points, size_t _pointsNumber);
+		void updateSpline();
+
+		void notifyPointMove(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyPointPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyChangeQuality(MyGUI::ScrollBar* _sender, size_t _position);
+
+	private:
+		MyGUI::Widget* mClient;
+		std::vector<MyGUI::FloatPoint> mLinePoints;
+		MyGUI::PolygonalSkin* mPolygonalSkin;
+		MyGUI::StaticText* mQualityText;
+		MyGUI::IntPoint mOffset;
 	};
 
 } // namespace demo
