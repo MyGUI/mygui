@@ -19,19 +19,52 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeWidgetMethod_SetCaptionWithNewLine
+   	namespace ScopeWidgetEvent_ChangeProperty
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaptionWithNewLine_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _value )
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::Widget *>::Type ,
+			Convert<const std::string &>::Type ,
+			Convert<const std::string &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::Widget * _sender ,
+			const std::string & _key ,
+			const std::string & _value )
 		{
-			static_cast< MyGUI::Widget * >(_native)->setCaptionWithNewLine(
-				Convert<const std::string &>::From( _value ) );
+			mExportHandle(
+				Convert<MyGUI::Widget *>::To( _sender ) ,
+				Convert<const std::string &>::To( _key ) ,
+				Convert<const std::string &>::To( _value ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseChangeProperty( MyGUI::Widget* _widget, bool _advise )
+		{
+			if (_advise)
+				static_cast< MyGUI::Widget* >(_widget)->eventChangeProperty += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::Widget* >(_widget)->eventChangeProperty -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
 
 
-   
+   	namespace ScopeWidgetMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
 
 
    	namespace ScopeWidgetMethod_GetWidgetStyle
@@ -60,11 +93,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_ChangeWidgetSkin
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_ChangeWidgetSkin_skinname( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _skinname )
+		MYGUIEXPORT void MYGUICALL ExportWidget_ChangeWidgetSkin_skinName( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _skinName )
 		{
 			static_cast< MyGUI::Widget * >(_native)->changeWidgetSkin(
-				Convert<const std::string &>::From( _skinname ) );
+				Convert<const std::string &>::From( _skinName ) );
 		}
 	}
 
@@ -98,40 +131,6 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetProperty_EnableToolTip
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetEnableToolTip( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getEnableToolTip( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetEnableToolTip( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setEnableToolTip( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_NeedToolTip
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedToolTip( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getNeedToolTip( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedToolTip( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedToolTip( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   
-
-
-   
-
-
    	namespace ScopeWidgetMethod_GetClientWidget
 	{
 		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWidget_GetClientWidget( MyGUI::Widget* _native )
@@ -152,25 +151,11 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetMethod_GetLayerName
+   	namespace ScopeWidgetMethod_GetInheritedEnabled
 	{
-		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetLayerName( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritedEnabled( MyGUI::Widget* _native )
 		{
-			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getLayerName( ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_Pointer
-	{
-		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetPointer( MyGUI::Widget* _native )
-		{
-			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getPointer( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetPointer( MyGUI::Widget* _native , Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setPointer( Convert<const std::string &>::From( _value ) );
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getInheritedEnabled( ) );
 		}
 	}
 
@@ -190,70 +175,19 @@ namespace Export
 
    	namespace ScopeWidgetProperty_Enabled
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsEnabled( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetEnabled( MyGUI::Widget* _native )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isEnabled( ) );
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getEnabled( ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetEnabled( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setEnabled( Convert<bool>::From( _value ) );
 		}
 	}
-	
-
-
-   	namespace ScopeWidgetMethod_SetMaskPick
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetMaskPick_filename( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _filename )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setMaskPick(
-				Convert<const std::string &>::From( _filename ) );
-		}
-	}
 
 
 
-   	namespace ScopeWidgetProperty_InheritsPick
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsInheritsPick( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isInheritsPick( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetInheritsPick( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setInheritsPick( Convert<bool>::From( _value ) );
-		}
-	}
-	
-
-
-   	namespace ScopeWidgetProperty_NeedMouseFocus
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsNeedMouseFocus( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isNeedMouseFocus( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedMouseFocus( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedMouseFocus( Convert<bool>::From( _value ) );
-		}
-	}
-	
-
-
-   	namespace ScopeWidgetProperty_NeedKeyFocus
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsNeedKeyFocus( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isNeedKeyFocus( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedKeyFocus( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedKeyFocus( Convert<bool>::From( _value ) );
-		}
-	}
-	
+   
 
 
    	namespace ScopeWidgetMethod_FindWidget
@@ -291,6 +225,16 @@ namespace Export
 
 
    
+
+
+   	namespace ScopeWidgetMethod_GetParentSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWidget_GetParentSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Widget * >(_native)->getParentSize( ) );
+		}
+	}
+
 
 
    	namespace ScopeWidgetMethod_GetParent
@@ -339,16 +283,16 @@ namespace Export
 
    	namespace ScopeWidgetProperty_InheritsAlpha
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsInheritsAlpha( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritsAlpha( MyGUI::Widget* _native )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isInheritsAlpha( ) );
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getInheritsAlpha( ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetInheritsAlpha( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setInheritsAlpha( Convert<bool>::From( _value ) );
 		}
 	}
-	
+
 
 
    	namespace ScopeWidgetProperty_Alpha
@@ -365,39 +309,49 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetProperty_Caption
+   	namespace ScopeWidgetProperty_Align
 	{
-		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportWidget_GetCaption( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::Align>::Type MYGUICALL ExportWidget_GetAlign( MyGUI::Widget* _native )
 		{
-			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::Widget * >(_native)->getCaption( ) );
+			return Convert<MyGUI::Align>::To( static_cast< MyGUI::Widget * >(_native)->getAlign( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaption( MyGUI::Widget* _native , Convert<const MyGUI::UString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetAlign( MyGUI::Widget* _native , Convert<MyGUI::Align>::Type _value )
 		{
-			static_cast< MyGUI::Widget * >(_native)->setCaption( Convert<const MyGUI::UString &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_SetAlign
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetAlign_value( MyGUI::Widget* _native,
-			Convert<MyGUI::Align>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setAlign(
-				Convert<MyGUI::Align>::From( _value ) );
+			static_cast< MyGUI::Widget * >(_native)->setAlign( Convert<MyGUI::Align>::From( _value ) );
 		}
 	}
 
 
 
-   	namespace ScopeWidgetMethod_SetVisible
+   	namespace ScopeWidgetMethod_GetInheritedVisible
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetVisible_value( MyGUI::Widget* _native,
-			Convert<bool>::Type _value )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritedVisible( MyGUI::Widget* _native )
 		{
-			static_cast< MyGUI::Widget * >(_native)->setVisible(
-				Convert<bool>::From( _value ) );
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getInheritedVisible( ) );
+		}
+	}
+
+
+
+   	namespace ScopeWidgetProperty_Visible
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetVisible( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getVisible( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetVisible( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setVisible( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWidgetMethod_GetName
+	{
+		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetName( MyGUI::Widget* _native )
+		{
+			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getName( ) );
 		}
 	}
 
@@ -565,22 +519,6 @@ namespace Export
 		}
 	}
 
-
-
-   	namespace ScopeWidgetMethod_GetName
-	{
-		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetName( MyGUI::Widget* _native )
-		{
-			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getName( ) );
-		}
-	}
-
-
-
-   
-
-
-   
 
 
    

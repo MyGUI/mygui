@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class Button : StaticText
+    public  class Button : TextBox
     {
 
         #region Button
@@ -37,18 +37,51 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
-
-
-   		#region Method GetStaticImage
+   		#region Method SetImageName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern StaticImage ExportButton_GetStaticImage( IntPtr _native );
+		private static extern void ExportButton_SetImageName_name( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
-		public StaticImage GetStaticImage( )
+		public void SetImageName(
+			string _name )
 		{
-			return  ExportButton_GetStaticImage( mNative )  ;
+			ExportButton_SetImageName_name( mNative , 
+				 _name );
+		}
+
+		#endregion
+
+
+
+   		#region Method SetImageGroup
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportButton_SetImageGroup_name( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _name );
+
+		public void SetImageGroup(
+			string _name )
+		{
+			ExportButton_SetImageGroup_name( mNative , 
+				 _name );
+		}
+
+		#endregion
+
+
+
+   		#region Method SetImageResource
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportButton_SetImageResource_name( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _name );
+
+		public void SetImageResource(
+			string _name )
+		{
+			ExportButton_SetImageResource_name( mNative , 
+				 _name );
 		}
 
 		#endregion
@@ -73,54 +106,18 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property ImageIndex
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern uint ExportButton_GetImageIndex( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportButton_SetImageIndex( IntPtr _widget,   uint _value );
-
-		public uint ImageIndex
-		{
-			get { return  ExportButton_GetImageIndex( mNative )  ; }
-			set { ExportButton_SetImageIndex( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Property StateCheck
+   		#region Property StateSelected
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportButton_GetStateCheck( IntPtr _widget );
+		private static extern bool ExportButton_GetStateSelected( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportButton_SetStateCheck( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+		private static extern void ExportButton_SetStateSelected( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
-		public bool StateCheck
+		public bool StateSelected
 		{
-			get { return  ExportButton_GetStateCheck( mNative )  ; }
-			set { ExportButton_SetStateCheck( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Property ButtonPressed
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportButton_GetButtonPressed( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportButton_SetButtonPressed( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
-
-		public bool ButtonPressed
-		{
-			get { return  ExportButton_GetButtonPressed( mNative )  ; }
-			set { ExportButton_SetButtonPressed( mNative,  value ); }
+			get { return  ExportButton_GetStateSelected( mNative )  ; }
+			set { ExportButton_SetStateSelected( mNative,  value ); }
 		}
 
 		#endregion

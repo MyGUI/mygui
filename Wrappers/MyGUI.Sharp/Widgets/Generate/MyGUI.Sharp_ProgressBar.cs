@@ -16,7 +16,7 @@ namespace MyGUI.Sharp
 
         #region ProgressBar
 
-        protected override string GetWidgetType() { return "Progress"; }
+        protected override string GetWidgetType() { return "ProgressBar"; }
 
         internal static BaseWidget RequestWrapProgressBar(BaseWidget _parent, IntPtr _widget)
         {
@@ -55,21 +55,18 @@ namespace MyGUI.Sharp
    
 
 
-   
-
-
-   		#region Property ProgressStartPoint
+   		#region Property FlowDirection
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
-		private static extern Align ExportProgressBar_GetProgressStartPoint( IntPtr _widget );
+		private static extern FlowDirection ExportProgressBar_GetFlowDirection( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetProgressStartPoint( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
+		private static extern void ExportProgressBar_SetFlowDirection( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  FlowDirection _value );
 
-		public Align ProgressStartPoint
+		public FlowDirection FlowDirection
 		{
-			get { return  ExportProgressBar_GetProgressStartPoint( mNative )  ; }
-			set { ExportProgressBar_SetProgressStartPoint( mNative,  value ); }
+			get { return  ExportProgressBar_GetFlowDirection( mNative )  ; }
+			set { ExportProgressBar_SetFlowDirection( mNative,  value ); }
 		}
 
 		#endregion

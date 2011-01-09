@@ -37,88 +37,17 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
-
-
-   		#region Method RemoveItem
+   		#region Method SetButtonWidth
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_RemoveItem( IntPtr _native );
+		private static extern void ExportTabItem_SetButtonWidth_value( IntPtr _native ,
+			  int _value );
 
-		public void RemoveItem( )
+		public void SetButtonWidth(
+			int _value )
 		{
-			ExportTabItem_RemoveItem(  mNative );
-		}
-
-		#endregion
-
-
-
-   		#region Method SetItemSelected
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_SetItemSelected( IntPtr _native );
-
-		public void SetItemSelected( )
-		{
-			ExportTabItem_SetItemSelected(  mNative );
-		}
-
-		#endregion
-
-
-
-   		#region Property ItemData
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportTabItem_GetItemData( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_SetItemData( IntPtr _widget, [MarshalAs(UnmanagedType.IUnknown)] object _value );
-
-		public object ItemData
-		{
-			get { return ExportTabItem_GetItemData( mNative ); }
-			set { ExportTabItem_SetItemData( mNative, value ); }
-		}
-
-		#endregion
-
-
-
-   
-
-
-   		#region Property ItemName
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern IntPtr ExportTabItem_GetItemName( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_SetItemName( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
-
-		public string ItemName
-		{
-			get { return  Marshal.PtrToStringUni(  ExportTabItem_GetItemName( mNative )  )  ; }
-			set { ExportTabItem_SetItemName( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Property ButtonWidth
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern int ExportTabItem_GetButtonWidth( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_SetButtonWidth( IntPtr _widget,   int _value );
-
-		public int ButtonWidth
-		{
-			get { return  ExportTabItem_GetButtonWidth( mNative )  ; }
-			set { ExportTabItem_SetButtonWidth( mNative,  value ); }
+			ExportTabItem_SetButtonWidth_value( mNative , 
+				 _value );
 		}
 
 		#endregion

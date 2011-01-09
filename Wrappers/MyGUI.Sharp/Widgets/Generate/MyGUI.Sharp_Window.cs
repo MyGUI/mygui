@@ -147,7 +147,37 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Property Movable
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportWindow_GetMovable( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_SetMovable( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public bool Movable
+		{
+			get { return  ExportWindow_GetMovable( mNative )  ; }
+			set { ExportWindow_SetMovable( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetActionScale
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportWindow_GetActionScale( IntPtr _native );
+
+		public IntCoord GetActionScale( )
+		{
+			return  (IntCoord)Marshal.PtrToStructure(  ExportWindow_GetActionScale( mNative )  , typeof(IntCoord) )  ;
+		}
+
+		#endregion
+
 
 
    		#region Property Snap
@@ -266,9 +296,9 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern Widget ExportWindow_GetCaptionWidget( IntPtr _native );
+		private static extern TextBox ExportWindow_GetCaptionWidget( IntPtr _native );
 
-		public Widget GetCaptionWidget( )
+		public TextBox GetCaptionWidget( )
 		{
 			return  ExportWindow_GetCaptionWidget( mNative )  ;
 		}
@@ -298,18 +328,7 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Method DestroySmooth
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWindow_DestroySmooth( IntPtr _native );
-
-		public void DestroySmooth( )
-		{
-			ExportWindow_DestroySmooth(  mNative );
-		}
-
-		#endregion
-
+   
 
 
    		#region Method SetVisibleSmooth

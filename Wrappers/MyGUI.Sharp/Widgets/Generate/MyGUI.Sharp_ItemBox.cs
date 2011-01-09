@@ -527,18 +527,18 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property ItemBoxAlignVert
+   		#region Property VerticalAlignment
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportItemBox_GetItemBoxAlignVert( IntPtr _widget );
+		private static extern bool ExportItemBox_GetVerticalAlignment( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetItemBoxAlignVert( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+		private static extern void ExportItemBox_SetVerticalAlignment( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
-		public bool ItemBoxAlignVert
+		public bool VerticalAlignment
 		{
-			get { return  ExportItemBox_GetItemBoxAlignVert( mNative )  ; }
-			set { ExportItemBox_SetItemBoxAlignVert( mNative,  value ); }
+			get { return  ExportItemBox_GetVerticalAlignment( mNative )  ; }
+			set { ExportItemBox_SetVerticalAlignment( mNative,  value ); }
 		}
 
 		#endregion

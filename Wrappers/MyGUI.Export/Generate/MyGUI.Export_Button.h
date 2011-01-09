@@ -19,14 +19,37 @@ namespace Export
 
 	//InsertPoint
 
-   
-
-
-   	namespace ScopeButtonMethod_GetStaticImage
+   	namespace ScopeButtonMethod_SetImageName
 	{
-		MYGUIEXPORT Convert<MyGUI::StaticImage *>::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportButton_SetImageName_name( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _name )
 		{
-			return Convert<MyGUI::StaticImage *>::To( static_cast< MyGUI::Button * >(_native)->getStaticImage( ) );
+			static_cast< MyGUI::Button * >(_native)->setImageName(
+				Convert<const std::string &>::From( _name ) );
+		}
+	}
+
+
+
+   	namespace ScopeButtonMethod_SetImageGroup
+	{
+		MYGUIEXPORT void MYGUICALL ExportButton_SetImageGroup_name( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _name )
+		{
+			static_cast< MyGUI::Button * >(_native)->setImageGroup(
+				Convert<const std::string &>::From( _name ) );
+		}
+	}
+
+
+
+   	namespace ScopeButtonMethod_SetImageResource
+	{
+		MYGUIEXPORT void MYGUICALL ExportButton_SetImageResource_name( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _name )
+		{
+			static_cast< MyGUI::Button * >(_native)->setImageResource(
+				Convert<const std::string &>::From( _name ) );
 		}
 	}
 
@@ -46,43 +69,15 @@ namespace Export
 
 
 
-   	namespace ScopeButtonProperty_ImageIndex
+   	namespace ScopeButtonProperty_StateSelected
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportButton_GetImageIndex( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetStateSelected( MyGUI::Widget* _native )
 		{
-			return Convert<size_t>::To( static_cast< MyGUI::Button * >(_native)->getImageIndex( ) );
+			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->getStateSelected( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportButton_SetImageIndex( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportButton_SetStateSelected( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
-			static_cast< MyGUI::Button * >(_native)->setImageIndex( Convert<size_t>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeButtonProperty_StateCheck
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetStateCheck( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->getStateCheck( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportButton_SetStateCheck( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Button * >(_native)->setStateCheck( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeButtonProperty_ButtonPressed
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetButtonPressed( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->getButtonPressed( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportButton_SetButtonPressed( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Button * >(_native)->setButtonPressed( Convert<bool>::From( _value ) );
+			static_cast< MyGUI::Button * >(_native)->setStateSelected( Convert<bool>::From( _value ) );
 		}
 	}
 

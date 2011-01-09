@@ -11,6 +11,11 @@
 //InsertPoint
 
    
+#include "MyGUI.Export_MultiListItem.h"
+
+
+
+   
 #include "MyGUI.Export_TabItem.h"
 
 
@@ -26,22 +31,22 @@
 
 
    
-#include "MyGUI.Export_VScrollBar.h"
+#include "MyGUI.Export_ScrollBar.h"
 
 
 
    
-#include "MyGUI.Export_TabBar.h"
+#include "MyGUI.Export_TabControl.h"
 
 
 
    
-#include "MyGUI.Export_StaticText.h"
+#include "MyGUI.Export_TextBox.h"
 
 
 
    
-#include "MyGUI.Export_StaticImage.h"
+#include "MyGUI.Export_ImageBox.h"
 
 
 
@@ -66,12 +71,7 @@
 
 
    
-#include "MyGUI.Export_MessageBox.h"
-
-
-
-   
-#include "MyGUI.Export_MenuCtrl.h"
+#include "MyGUI.Export_MenuControl.h"
 
 
 
@@ -87,11 +87,6 @@
 
    
 #include "MyGUI.Export_ItemBox.h"
-
-
-
-   
-#include "MyGUI.Export_HScrollBar.h"
 
 
 

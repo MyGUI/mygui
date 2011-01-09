@@ -19,10 +19,28 @@ namespace Export
 
 	//InsertPoint
 
-   
+   	namespace ScopeScrollViewProperty_ViewOffset
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TPoint< int >>::Type MYGUICALL ExportScrollView_GetViewOffset( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TPoint< int >>::To( static_cast< MyGUI::ScrollView * >(_native)->getViewOffset( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportScrollView_SetViewOffset( MyGUI::Widget* _native , Convert<const MyGUI::types::TPoint< int > &>::Type _value )
+		{
+			static_cast< MyGUI::ScrollView * >(_native)->setViewOffset( Convert<const MyGUI::types::TPoint< int > &>::From( _value ) );
+		}
+	}
 
 
-   
+
+   	namespace ScopeScrollViewMethod_GetViewCoord
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TCoord< int >>::Type MYGUICALL ExportScrollView_GetViewCoord( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TCoord< int >>::To( static_cast< MyGUI::ScrollView * >(_native)->getViewCoord( ) );
+		}
+	}
+
 
 
    	namespace ScopeScrollViewMethod_SetCanvasSize

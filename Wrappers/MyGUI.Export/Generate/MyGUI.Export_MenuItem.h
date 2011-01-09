@@ -19,14 +19,25 @@ namespace Export
 
 	//InsertPoint
 
-   
+   	namespace ScopeMenuItemProperty_ItemChecked
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuItem_GetItemChecked( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::MenuItem * >(_native)->getItemChecked( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemChecked( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::MenuItem * >(_native)->setItemChecked( Convert<bool>::From( _value ) );
+		}
+	}
+
 
 
    	namespace ScopeMenuItemMethod_GetItemChild
 	{
-		MYGUIEXPORT Convert<MyGUI::MenuCtrl *>::Type MYGUICALL ExportMenuItem_GetItemChild( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuItem_GetItemChild( MyGUI::Widget* _native )
 		{
-			return Convert<MyGUI::MenuCtrl *>::To( static_cast< MyGUI::MenuItem * >(_native)->getItemChild( ) );
+			return Convert<MyGUI::MenuControl *>::To( static_cast< MyGUI::MenuItem * >(_native)->getItemChild( ) );
 		}
 	}
 
@@ -34,9 +45,9 @@ namespace Export
 
    	namespace ScopeMenuItemMethod_GetMenuCtrlParent
 	{
-		MYGUIEXPORT Convert<MyGUI::MenuCtrl *>::Type MYGUICALL ExportMenuItem_GetMenuCtrlParent( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuItem_GetMenuCtrlParent( MyGUI::Widget* _native )
 		{
-			return Convert<MyGUI::MenuCtrl *>::To( static_cast< MyGUI::MenuItem * >(_native)->getMenuCtrlParent( ) );
+			return Convert<MyGUI::MenuControl *>::To( static_cast< MyGUI::MenuItem * >(_native)->getMenuCtrlParent( ) );
 		}
 	}
 
@@ -73,9 +84,9 @@ namespace Export
 
    	namespace ScopeMenuItemMethod_CreateItemChild
 	{
-		MYGUIEXPORT Convert<MyGUI::MenuCtrl *>::Type MYGUICALL ExportMenuItem_CreateItemChild( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuItem_CreateItemChild( MyGUI::Widget* _native )
 		{
-			return Convert<MyGUI::MenuCtrl *>::To( static_cast< MyGUI::MenuItem * >(_native)->createItemChild( ) );
+			return Convert<MyGUI::MenuControl *>::To( static_cast< MyGUI::MenuItem * >(_native)->createItemChild( ) );
 		}
 	}
 

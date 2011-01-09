@@ -46,7 +46,7 @@ namespace MyGUI
    	public:
 		delegate void HandleDragWidgetInfo(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
-			Convert<MyGUI::Widget*&>::Type _item ,
+			Convert<MyGUI::Widget * &>::Type _item ,
 			Convert<MyGUI::types::TCoord< int > &>::Type _dimension );
 		event HandleDragWidgetInfo^ RequestDragWidgetInfo
 		{
@@ -57,11 +57,11 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->requestDragWidgetInfo =
 					static_cast< MyGUI::delegates::IDelegate3<
 						MyGUI::DDContainer * ,
-						MyGUI::Widget*& ,
+						MyGUI::Widget * & ,
 						MyGUI::types::TCoord< int > & > *>(
 							new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 							MyGUI::DDContainer * ,
-							MyGUI::Widget*& ,
+							MyGUI::Widget * & ,
 							MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
 			}
 			void remove(HandleDragWidgetInfo^ _value)
@@ -74,11 +74,11 @@ namespace MyGUI
 					static_cast<ThisType*>(mNative)->requestDragWidgetInfo =
 						static_cast< MyGUI::delegates::IDelegate3<
 							MyGUI::DDContainer * ,
-							MyGUI::Widget*& ,
+							MyGUI::Widget * & ,
 							MyGUI::types::TCoord< int > & > *>(
 								new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 									MyGUI::DDContainer * ,
-									MyGUI::Widget*& ,
+									MyGUI::Widget * & ,
 									MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
 			}
 		}
