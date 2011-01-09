@@ -41,7 +41,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_AdviseComboChangePosition( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ComboBox* >(_widget)->eventComboChangePosition = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ComboBox* >(_widget)->eventComboChangePosition += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ComboBox* >(_widget)->eventComboChangePosition -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -69,24 +72,38 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_AdviseComboAccept( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ComboBox* >(_widget)->eventComboAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ComboBox* >(_widget)->eventComboAccept += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ComboBox* >(_widget)->eventComboAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
 
 
-   
-
-
-   	namespace ScopeComboBoxProperty_MaxListHeight
+   	namespace ScopeComboBoxProperty_FlowDirection
 	{
-		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportComboBox_GetMaxListHeight( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::FlowDirection>::Type MYGUICALL ExportComboBox_GetFlowDirection( MyGUI::Widget* _native )
 		{
-			return Convert<int>::To( static_cast< MyGUI::ComboBox * >(_native)->getMaxListHeight( ) );
+			return Convert<MyGUI::FlowDirection>::To( static_cast< MyGUI::ComboBox * >(_native)->getFlowDirection( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportComboBox_SetMaxListHeight( MyGUI::Widget* _native , Convert<int>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportComboBox_SetFlowDirection( MyGUI::Widget* _native , Convert<MyGUI::FlowDirection>::Type _value )
 		{
-			static_cast< MyGUI::ComboBox * >(_native)->setMaxListHeight( Convert<int>::From( _value ) );
+			static_cast< MyGUI::ComboBox * >(_native)->setFlowDirection( Convert<MyGUI::FlowDirection>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeComboBoxProperty_MaxListLength
+	{
+		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportComboBox_GetMaxListLength( MyGUI::Widget* _native )
+		{
+			return Convert<int>::To( static_cast< MyGUI::ComboBox * >(_native)->getMaxListLength( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportComboBox_SetMaxListLength( MyGUI::Widget* _native , Convert<int>::Type _value )
+		{
+			static_cast< MyGUI::ComboBox * >(_native)->setMaxListLength( Convert<int>::From( _value ) );
 		}
 	}
 

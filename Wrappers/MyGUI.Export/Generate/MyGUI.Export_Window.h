@@ -38,7 +38,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowChangeCoord( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -66,13 +69,37 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowButtonPressed( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
 
 
-   
+   	namespace ScopeWindowProperty_Movable
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetMovable( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->getMovable( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMovable( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMovable( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWindowMethod_GetActionScale
+	{
+		MYGUIEXPORT Convert<const MyGUI::types::TCoord< int > &>::Type MYGUICALL ExportWindow_GetActionScale( MyGUI::Widget* _native )
+		{
+			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast< MyGUI::Window * >(_native)->getActionScale( ) );
+		}
+	}
+
 
 
    	namespace ScopeWindowProperty_Snap
@@ -165,9 +192,9 @@ namespace Export
 
    	namespace ScopeWindowMethod_GetCaptionWidget
 	{
-		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWindow_GetCaptionWidget( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::TextBox *>::Type MYGUICALL ExportWindow_GetCaptionWidget( MyGUI::Widget* _native )
 		{
-			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::Window * >(_native)->getCaptionWidget( ) );
+			return Convert<MyGUI::TextBox *>::To( static_cast< MyGUI::Window * >(_native)->getCaptionWidget( ) );
 		}
 	}
 
@@ -190,14 +217,7 @@ namespace Export
 
 
 
-   	namespace ScopeWindowMethod_DestroySmooth
-	{
-		MYGUIEXPORT void MYGUICALL ExportWindow_DestroySmooth( MyGUI::Widget* _native )
-		{
-			static_cast< MyGUI::Window * >(_native)->destroySmooth( );
-		}
-	}
-
+   
 
 
    	namespace ScopeWindowMethod_SetVisibleSmooth

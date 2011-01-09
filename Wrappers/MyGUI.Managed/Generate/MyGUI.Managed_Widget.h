@@ -182,17 +182,7 @@ namespace MyGUI
 	
 
 
-   	public:
-		void FindWidgets(
-			Convert<const std::string &>::Type _name ,
-			Convert<std::vector<  MyGUI::Widget * > &>::Type _result )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->findWidgets(
-				Convert<const std::string &>::From(_name) ,
-				Convert<std::vector<  MyGUI::Widget * > &>::From(_result) );
-		}
-
+   
 
 
    	public:
@@ -229,14 +219,7 @@ namespace MyGUI
 
 
 
-   	public:
-		Convert<MyGUI::Enumerator<  std::vector<  MyGUI::Widget * >  >>::Type GetEnumerator( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::Enumerator<  std::vector<  MyGUI::Widget * >  >>::To(
-				static_cast<ThisType*>(mNative)->getEnumerator( ) );
-		}
-
+   
 
 
    	public:

@@ -16,7 +16,7 @@ namespace MyGUI.Sharp
 
         #region MultiListBox
 
-        protected override string GetWidgetType() { return "MultiList"; }
+        protected override string GetWidgetType() { return "MultiListBox"; }
 
         internal static BaseWidget RequestWrapMultiListBox(BaseWidget _parent, IntPtr _widget)
         {
@@ -596,6 +596,64 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetColumnResizingPolicyAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMultiListBox_SetColumnResizingPolicyAt_index_value( IntPtr _native ,
+			  uint _index ,
+			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
+
+		public void SetColumnResizingPolicyAt(
+			uint _index ,
+			ResizingPolicy _value )
+		{
+			ExportMultiListBox_SetColumnResizingPolicyAt_index_value( mNative , 
+				 _index ,
+				 _value );
+		}
+
+		#endregion
+
+
+
+   		#region Method SetColumnResizingPolicy
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMultiListBox_SetColumnResizingPolicy_item_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
+
+		public void SetColumnResizingPolicy(
+			MultiListItem _item ,
+			ResizingPolicy _value )
+		{
+			ExportMultiListBox_SetColumnResizingPolicy_item_value( mNative , 
+				 _item ,
+				 _value );
+		}
+
+		#endregion
+
+
+
+   		#region Method GetColumnIndex
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportMultiListBox_GetColumnIndex_item( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+
+		public uint GetColumnIndex(
+			MultiListItem _item )
+		{
+			return  ExportMultiListBox_GetColumnIndex_item( mNative , 
+				 _item )  ;
+		}
+
+		#endregion
+
+
+
    		#region Method SortByColumn
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -634,6 +692,24 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method GetColumnName
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportMultiListBox_GetColumnName_item( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+
+		public string GetColumnName(
+			MultiListItem _item )
+		{
+			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetColumnName_item( mNative , 
+				 _item )  )  ;
+		}
+
+		#endregion
+
+
+
    		#region Method GetColumnNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -646,6 +722,26 @@ namespace MyGUI.Sharp
 		{
 			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetColumnNameAt_column( mNative , 
 				 _column )  )  ;
+		}
+
+		#endregion
+
+
+
+   		#region Method SetColumnWidth
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMultiListBox_SetColumnWidth_item_width( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			  int _width );
+
+		public void SetColumnWidth(
+			MultiListItem _item ,
+			int _width )
+		{
+			ExportMultiListBox_SetColumnWidth_item_width( mNative , 
+				 _item ,
+				 _width );
 		}
 
 		#endregion
@@ -672,6 +768,26 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetColumnName
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMultiListBox_SetColumnName_item_name( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+
+		public void SetColumnName(
+			MultiListItem _item ,
+			string _name )
+		{
+			ExportMultiListBox_SetColumnName_item_name( mNative , 
+				 _item ,
+				 _name );
+		}
+
+		#endregion
+
+
+
    		#region Method SetColumnNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -686,6 +802,26 @@ namespace MyGUI.Sharp
 			ExportMultiListBox_SetColumnNameAt_column_name( mNative , 
 				 _column ,
 				 _name );
+		}
+
+		#endregion
+
+
+
+   		#region Method SwapColumnsAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMultiListBox_SwapColumnsAt_index1_index2( IntPtr _native ,
+			  uint _index1 ,
+			  uint _index2 );
+
+		public void SwapColumnsAt(
+			uint _index1 ,
+			uint _index2 )
+		{
+			ExportMultiListBox_SwapColumnsAt_index1_index2( mNative , 
+				 _index1 ,
+				 _index2 );
 		}
 
 		#endregion
@@ -816,6 +952,24 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    

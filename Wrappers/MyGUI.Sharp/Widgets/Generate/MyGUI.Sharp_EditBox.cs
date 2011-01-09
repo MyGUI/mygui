@@ -11,12 +11,12 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class EditBox : StaticText
+    public  class EditBox : TextBox
     {
 
         #region EditBox
 
-        protected override string GetWidgetType() { return "Edit"; }
+        protected override string GetWidgetType() { return "EditBox"; }
 
         internal static BaseWidget RequestWrapEditBox(BaseWidget _parent, IntPtr _widget)
         {
@@ -141,6 +141,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

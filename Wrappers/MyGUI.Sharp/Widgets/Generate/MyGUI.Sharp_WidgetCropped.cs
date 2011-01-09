@@ -106,24 +106,6 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property Align
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I4)]
-		private static extern Align ExportWidget_GetAlign( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
-
-		public Align Align
-		{
-			get { return  ExportWidget_GetAlign( mNative )  ; }
-			set { ExportWidget_SetAlign( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
    		#region Method GetAbsoluteTop
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -199,18 +181,18 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property Visible
+   		#region Property Coord
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportWidget_IsVisible( IntPtr _widget );
+        
+		private static extern IntPtr ExportWidget_GetCoord( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetVisible( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+		private static extern void ExportWidget_SetCoord( IntPtr _widget, [In] ref IntCoord _value );
 
-		public bool Visible
+		public IntCoord Coord
 		{
-			get { return  ExportWidget_IsVisible( mNative )  ; }
-			set { ExportWidget_SetVisible( mNative,  value ); }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetCoord( mNative )  , typeof(IntCoord) )  ; }
+			set { ExportWidget_SetCoord( mNative, ref value ); }
 		}
 
 		#endregion
@@ -247,24 +229,6 @@ namespace MyGUI.Sharp
 		{
 			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetPosition( mNative )  , typeof(IntPoint) )  ; }
 			set { ExportWidget_SetPosition( mNative, ref value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Property Coord
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern IntPtr ExportWidget_GetCoord( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetCoord( IntPtr _widget, [In] ref IntCoord _value );
-
-		public IntCoord Coord
-		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetCoord( mNative )  , typeof(IntCoord) )  ; }
-			set { ExportWidget_SetCoord( mNative, ref value ); }
 		}
 
 		#endregion

@@ -151,21 +151,36 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Property FlowDirection
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I4)]
+		private static extern FlowDirection ExportComboBox_GetFlowDirection( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportComboBox_SetFlowDirection( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  FlowDirection _value );
+
+		public FlowDirection FlowDirection
+		{
+			get { return  ExportComboBox_GetFlowDirection( mNative )  ; }
+			set { ExportComboBox_SetFlowDirection( mNative,  value ); }
+		}
+
+		#endregion
 
 
-   		#region Property MaxListHeight
+
+   		#region Property MaxListLength
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportComboBox_GetMaxListHeight( IntPtr _widget );
+		private static extern int ExportComboBox_GetMaxListLength( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportComboBox_SetMaxListHeight( IntPtr _widget,   int _value );
+		private static extern void ExportComboBox_SetMaxListLength( IntPtr _widget,   int _value );
 
-		public int MaxListHeight
+		public int MaxListLength
 		{
-			get { return  ExportComboBox_GetMaxListHeight( mNative )  ; }
-			set { ExportComboBox_SetMaxListHeight( mNative,  value ); }
+			get { return  ExportComboBox_GetMaxListLength( mNative )  ; }
+			set { ExportComboBox_SetMaxListLength( mNative,  value ); }
 		}
 
 		#endregion

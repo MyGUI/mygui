@@ -37,16 +37,31 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
+   		#region Property ItemChecked
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportMenuItem_GetItemChecked( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMenuItem_SetItemChecked( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public bool ItemChecked
+		{
+			get { return  ExportMenuItem_GetItemChecked( mNative )  ; }
+			set { ExportMenuItem_SetItemChecked( mNative,  value ); }
+		}
+
+		#endregion
+
 
 
    		#region Method GetItemChild
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern MenuCtrl ExportMenuItem_GetItemChild( IntPtr _native );
+		private static extern MenuControl ExportMenuItem_GetItemChild( IntPtr _native );
 
-		public MenuCtrl GetItemChild( )
+		public MenuControl GetItemChild( )
 		{
 			return  ExportMenuItem_GetItemChild( mNative )  ;
 		}
@@ -59,9 +74,9 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern MenuCtrl ExportMenuItem_GetMenuCtrlParent( IntPtr _native );
+		private static extern MenuControl ExportMenuItem_GetMenuCtrlParent( IntPtr _native );
 
-		public MenuCtrl GetMenuCtrlParent( )
+		public MenuControl GetMenuCtrlParent( )
 		{
 			return  ExportMenuItem_GetMenuCtrlParent( mNative )  ;
 		}
@@ -112,9 +127,9 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern MenuCtrl ExportMenuItem_CreateItemChild( IntPtr _native );
+		private static extern MenuControl ExportMenuItem_CreateItemChild( IntPtr _native );
 
-		public MenuCtrl CreateItemChild( )
+		public MenuControl CreateItemChild( )
 		{
 			return  ExportMenuItem_CreateItemChild( mNative )  ;
 		}

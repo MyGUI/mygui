@@ -76,7 +76,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_AdviseChangeDDState( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::DDContainer* >(_widget)->eventChangeDDState = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::DDContainer* >(_widget)->eventChangeDDState += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::DDContainer* >(_widget)->eventChangeDDState -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -107,7 +110,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_AdviseDropResult( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::DDContainer* >(_widget)->eventDropResult = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::DDContainer* >(_widget)->eventDropResult += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::DDContainer* >(_widget)->eventDropResult -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -138,7 +144,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_AdviseRequestDrop( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::DDContainer* >(_widget)->eventRequestDrop = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::DDContainer* >(_widget)->eventRequestDrop += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::DDContainer* >(_widget)->eventRequestDrop -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -169,13 +178,13 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_AdviseStartDrag( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::DDContainer* >(_widget)->eventStartDrag = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::DDContainer* >(_widget)->eventStartDrag += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::DDContainer* >(_widget)->eventStartDrag -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
-
-
-   
 
 
    	namespace ScopeDDContainerProperty_NeedDragDrop

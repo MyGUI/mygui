@@ -346,9 +346,6 @@ namespace MyGUI.Sharp
 
 
 
-   
-
-
    		#region Property NeedDragDrop
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]

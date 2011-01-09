@@ -37,10 +37,37 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
+   		#region Property ViewOffset
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportScrollView_GetViewOffset( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportScrollView_SetViewOffset( IntPtr _widget, [In] ref IntPoint _value );
+
+		public IntPoint ViewOffset
+		{
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportScrollView_GetViewOffset( mNative )  , typeof(IntPoint) )  ; }
+			set { ExportScrollView_SetViewOffset( mNative, ref value ); }
+		}
+
+		#endregion
 
 
-   
+
+   		#region Method GetViewCoord
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportScrollView_GetViewCoord( IntPtr _native );
+
+		public IntCoord GetViewCoord( )
+		{
+			return  (IntCoord)Marshal.PtrToStructure(  ExportScrollView_GetViewCoord( mNative )  , typeof(IntCoord) )  ;
+		}
+
+		#endregion
+
 
 
    		#region Method SetCanvasSize

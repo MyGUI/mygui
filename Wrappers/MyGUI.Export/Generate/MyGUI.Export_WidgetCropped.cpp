@@ -76,20 +76,6 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetProperty_Align
-	{
-		MYGUIEXPORT Convert<MyGUI::Align>::Type MYGUICALL ExportWidget_GetAlign( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::Align>::To( static_cast< MyGUI::Widget * >(_native)->getAlign( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetAlign( MyGUI::Widget* _native , Convert<MyGUI::Align>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setAlign( Convert<MyGUI::Align>::From( _value ) );
-		}
-	}
-
-
-
    	namespace ScopeWidgetMethod_GetAbsoluteTop
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportWidget_GetAbsoluteTop( MyGUI::Widget* _native )
@@ -140,18 +126,18 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetProperty_Visible
+   	namespace ScopeWidgetProperty_Coord
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsVisible( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const MyGUI::types::TCoord< int > &>::Type MYGUICALL ExportWidget_GetCoord( MyGUI::Widget* _native )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isVisible( ) );
+			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getCoord( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetVisible( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetCoord( MyGUI::Widget* _native , Convert<const MyGUI::types::TCoord< int > &>::Type _value )
 		{
-			static_cast< MyGUI::Widget * >(_native)->setVisible( Convert<bool>::From( _value ) );
+			static_cast< MyGUI::Widget * >(_native)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From( _value ) );
 		}
 	}
-	
+
 
 
    	namespace ScopeWidgetProperty_Size
@@ -177,20 +163,6 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetPosition( MyGUI::Widget* _native , Convert<const MyGUI::types::TPoint< int > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetProperty_Coord
-	{
-		MYGUIEXPORT Convert<const MyGUI::types::TCoord< int > &>::Type MYGUICALL ExportWidget_GetCoord( MyGUI::Widget* _native )
-		{
-			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast< MyGUI::Widget * >(_native)->getCoord( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetCoord( MyGUI::Widget* _native , Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From( _value ) );
 		}
 	}
 
