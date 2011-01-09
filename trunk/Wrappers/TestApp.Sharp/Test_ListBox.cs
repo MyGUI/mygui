@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ListBox box = Gui.Instance.CreateWidget<ListBox>("List", new IntCoord(20, 420, 100, 100), Align.Default, "Main");
+            ListBox box = Gui.Instance.CreateWidget<ListBox>("ListBox", new IntCoord(20, 420, 100, 100), Align.Default, "Main");
             box.EventListChangeScroll += new ListBox.HandleListChangeScroll(box_EventListChangeScroll);
             box.EventListMouseItemFocus += new ListBox.HandleListMouseItemFocus(box_EventListMouseItemFocus);
             box.EventListMouseItemActivate += new ListBox.HandleListMouseItemActivate(box_EventListMouseItemActivate);

@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            MultiListBox box = Gui.Instance.CreateWidget<MultiListBox>("MultiList", new IntCoord(220, 520, 200, 200), Align.Default, "Main");
+            MultiListBox box = Gui.Instance.CreateWidget<MultiListBox>("MultiListBox", new IntCoord(220, 520, 200, 200), Align.Default, "Main");
             box.EventListChangePosition += new MultiListBox.HandleListChangePosition(box_EventListChangePosition);
             box.EventListSelectAccept += new MultiListBox.HandleListSelectAccept(box_EventListSelectAccept);
 
