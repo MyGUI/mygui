@@ -24,7 +24,7 @@ namespace TestApp.Sharp
             box.InsertItemAt(6, "insert item6", "6");
             box.InsertItemAt(7, "insert item7");
 
-            box.MaxListHeight = box.MaxListHeight + 10;
+            box.MaxListLength = box.MaxListLength + 10;
             box.SmoothShow = !box.SmoothShow;
             box.ComboModeDrop = !box.ComboModeDrop;
             box.ComboModeDrop = !box.ComboModeDrop;

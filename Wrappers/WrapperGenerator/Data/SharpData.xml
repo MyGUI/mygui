@@ -1004,7 +1004,7 @@
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Window.h"/>
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Window.cs"/>
-		<Tag key="BaseName" value="Widget"/>
+		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="Window"/>
 		<Tag key="ThisType" value="Window"/>
 		<Member name="isType" template="Empty.txt"/>
