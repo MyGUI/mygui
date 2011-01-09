@@ -121,13 +121,13 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/Common/Demos");
+		//addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
+		//const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
+		//root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
 		init();
 	}

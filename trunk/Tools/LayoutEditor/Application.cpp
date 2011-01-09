@@ -50,6 +50,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Demos");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
+		addResourceLocation(getRootMedia() + "/Common/Themes");
 		setResourceFilename("Editor.xml");
 	}
 
