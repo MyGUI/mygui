@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class Window : Widget
+    public  class Window : TextBox
     {
 
         #region Window

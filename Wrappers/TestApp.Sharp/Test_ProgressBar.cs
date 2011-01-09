@@ -7,10 +7,10 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ProgressBar progress = Gui.Instance.CreateWidget<ProgressBar>("Progress", new IntCoord(620, 220, 200, 16), Align.Default, "Main");
+            ProgressBar progress = Gui.Instance.CreateWidget<ProgressBar>("ProgressBar", new IntCoord(620, 220, 200, 16), Align.Default, "Main");
 
-            Align align = progress.ProgressStartPoint;
-            progress.ProgressStartPoint = Align.Right;
+            FlowDirection direction = progress.FlowDirection;
+            progress.FlowDirection = FlowDirection.RightToLeft;
 
             progress.ProgressRange = 100;
             progress.ProgressRange = progress.ProgressRange + 100;
