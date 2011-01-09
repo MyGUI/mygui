@@ -8,8 +8,8 @@
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="6 382 84 20" align="Left Bottom" name="SplineText"/>
         <Widget type="ScrollBar" skin="SliderH" position="98 385 600 15" align="HStretch Bottom" name="SplineQuality">
-            <Property key="Range" value="80"/>
-            <Property key="RangePosition" value="14"/>
+            <Property key="Range" value="124"/>
+            <Property key="RangePosition" value="12"/>
         </Widget>
     </Widget>
 </MyGUI>
