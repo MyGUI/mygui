@@ -22,24 +22,21 @@ namespace demo
 
 		if (_index == 0)
 		{
-			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_tag.xml");
-			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("MyGUI_BlueWhiteTheme.xml");
 		}
 		else if (_index == 1)
 		{
-			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_blue_tag.xml");
-			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("MyGUI_BlackBlueTheme.xml");
 		}
 		else if (_index == 2)
 		{
-			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
-			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
+			MyGUI::ResourceManager::getInstance().load("MyGUI_BlackOrangeTheme.xml");
 		}
-		else if (_index == 3)
+		/*else if (_index == 3)
 		{
 			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_grayscale_tag.xml");
 			MyGUI::ResourceManager::getInstance().load("core_skin.xml");
-		}
+		}*/
 
 		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().loadLayout("Themes.layout");
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
@@ -51,7 +48,7 @@ namespace demo
 
 		mComboSkins = MyGUI::Gui::getInstance().findWidget<MyGUI::ComboBox>("Combo");
 		mComboSkins->setComboModeDrop(true);
-		mComboSkins->addItem("core");
+		mComboSkins->addItem("blue & white");
 		mComboSkins->addItem("black & blue");
 		mComboSkins->addItem("black & orange");
 		//mComboSkins->addItem("gray");
@@ -94,6 +91,7 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Themes");
 		addResourceLocation(getRootMedia() + "/Common/Demos");
+		addResourceLocation(getRootMedia() + "/Common/Themes");
 	}
 
 	void DemoKeeper::createScene()

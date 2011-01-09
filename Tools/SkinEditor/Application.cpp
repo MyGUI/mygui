@@ -42,6 +42,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
+		addResourceLocation(getRootMedia() + "/Common/Themes");
 		setResourceFilename("Editor.xml");
 	}
 
