@@ -117,24 +117,10 @@ namespace MyGUI
 
 
 
-   	public:
-		Convert<MyGUI::types::TSize< int >>::Type GetTextSize( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TSize< int >>::To(
-				static_cast<ThisType*>(mNative)->getTextSize( ) );
-		}
+   
 
 
-
-   	public:
-		Convert<MyGUI::types::TCoord< int >>::Type GetTextRegion( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TCoord< int >>::To(
-				static_cast<ThisType*>(mNative)->getTextRegion( ) );
-		}
-
+   
 
 
    

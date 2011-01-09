@@ -15,6 +15,27 @@ namespace Export
 
 	//InsertPoint
 
+   	template <> struct Convert< MyGUI::MultiListItem* >
+	{
+		typedef Interface Type;
+		inline static Interface To(MyGUI::MultiListItem* _value)
+		{
+			if (_value == nullptr) return nullptr;
+			Interface* wrapper = _value->getUserData<Interface>(false);
+			if (wrapper == nullptr)
+			{
+				return CreateWrapper(_value);
+			}
+			return *wrapper;
+		}
+		inline static MyGUI::MultiListItem* From(Interface _value)
+		{
+			return static_cast<MyGUI::MultiListItem*>( GetNativeByWrapper(_value) );
+		}
+	};
+
+
+
    	template <> struct Convert< MyGUI::TabItem* >
 	{
 		typedef Interface Type;
@@ -78,10 +99,10 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::VScroll* >
+   	template <> struct Convert< MyGUI::ScrollBar* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::VScroll* _value)
+		inline static Interface To(MyGUI::ScrollBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -91,18 +112,18 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::VScroll* From(Interface _value)
+		inline static MyGUI::ScrollBar* From(Interface _value)
 		{
-			return static_cast<MyGUI::VScroll*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::ScrollBar*>( GetNativeByWrapper(_value) );
 		}
 	};
 
 
 
-   	template <> struct Convert< MyGUI::Tab* >
+   	template <> struct Convert< MyGUI::TabControl* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::Tab* _value)
+		inline static Interface To(MyGUI::TabControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -112,18 +133,18 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::Tab* From(Interface _value)
+		inline static MyGUI::TabControl* From(Interface _value)
 		{
-			return static_cast<MyGUI::Tab*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::TabControl*>( GetNativeByWrapper(_value) );
 		}
 	};
 
 
 
-   	template <> struct Convert< MyGUI::StaticText* >
+   	template <> struct Convert< MyGUI::TextBox* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::StaticText* _value)
+		inline static Interface To(MyGUI::TextBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -133,18 +154,18 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::StaticText* From(Interface _value)
+		inline static MyGUI::TextBox* From(Interface _value)
 		{
-			return static_cast<MyGUI::StaticText*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::TextBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 
 
 
-   	template <> struct Convert< MyGUI::StaticImage* >
+   	template <> struct Convert< MyGUI::ImageBox* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::StaticImage* _value)
+		inline static Interface To(MyGUI::ImageBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -154,9 +175,9 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::StaticImage* From(Interface _value)
+		inline static MyGUI::ImageBox* From(Interface _value)
 		{
-			return static_cast<MyGUI::StaticImage*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::ImageBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 
@@ -183,10 +204,10 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::Progress* >
+   	template <> struct Convert< MyGUI::ProgressBar* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::Progress* _value)
+		inline static Interface To(MyGUI::ProgressBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -196,9 +217,9 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::Progress* From(Interface _value)
+		inline static MyGUI::ProgressBar* From(Interface _value)
 		{
-			return static_cast<MyGUI::Progress*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::ProgressBar*>( GetNativeByWrapper(_value) );
 		}
 	};
 
@@ -225,10 +246,10 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::MultiList* >
+   	template <> struct Convert< MyGUI::MultiListBox* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::MultiList* _value)
+		inline static Interface To(MyGUI::MultiListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -238,18 +259,18 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::MultiList* From(Interface _value)
+		inline static MyGUI::MultiListBox* From(Interface _value)
 		{
-			return static_cast<MyGUI::MultiList*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::MultiListBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 
 
 
-   	template <> struct Convert< MyGUI::Message* >
+   	template <> struct Convert< MyGUI::MenuControl* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::Message* _value)
+		inline static Interface To(MyGUI::MenuControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -259,30 +280,9 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::Message* From(Interface _value)
+		inline static MyGUI::MenuControl* From(Interface _value)
 		{
-			return static_cast<MyGUI::Message*>( GetNativeByWrapper(_value) );
-		}
-	};
-
-
-
-   	template <> struct Convert< MyGUI::MenuCtrl* >
-	{
-		typedef Interface Type;
-		inline static Interface To(MyGUI::MenuCtrl* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			Interface* wrapper = _value->getUserData<Interface>(false);
-			if (wrapper == nullptr)
-			{
-				return CreateWrapper(_value);
-			}
-			return *wrapper;
-		}
-		inline static MyGUI::MenuCtrl* From(Interface _value)
-		{
-			return static_cast<MyGUI::MenuCtrl*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::MenuControl*>( GetNativeByWrapper(_value) );
 		}
 	};
 
@@ -309,10 +309,10 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::List* >
+   	template <> struct Convert< MyGUI::ListBox* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::List* _value)
+		inline static Interface To(MyGUI::ListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -322,9 +322,9 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::List* From(Interface _value)
+		inline static MyGUI::ListBox* From(Interface _value)
 		{
-			return static_cast<MyGUI::List*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::ListBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 
@@ -351,10 +351,10 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::HScroll* >
+   	template <> struct Convert< MyGUI::EditBox* >
 	{
 		typedef Interface Type;
-		inline static Interface To(MyGUI::HScroll* _value)
+		inline static Interface To(MyGUI::EditBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
 			Interface* wrapper = _value->getUserData<Interface>(false);
@@ -364,30 +364,9 @@ namespace Export
 			}
 			return *wrapper;
 		}
-		inline static MyGUI::HScroll* From(Interface _value)
+		inline static MyGUI::EditBox* From(Interface _value)
 		{
-			return static_cast<MyGUI::HScroll*>( GetNativeByWrapper(_value) );
-		}
-	};
-
-
-
-   	template <> struct Convert< MyGUI::Edit* >
-	{
-		typedef Interface Type;
-		inline static Interface To(MyGUI::Edit* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			Interface* wrapper = _value->getUserData<Interface>(false);
-			if (wrapper == nullptr)
-			{
-				return CreateWrapper(_value);
-			}
-			return *wrapper;
-		}
-		inline static MyGUI::Edit* From(Interface _value)
-		{
-			return static_cast<MyGUI::Edit*>( GetNativeByWrapper(_value) );
+			return static_cast<MyGUI::EditBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 

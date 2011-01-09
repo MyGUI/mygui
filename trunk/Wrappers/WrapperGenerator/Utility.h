@@ -69,36 +69,47 @@ namespace wrapper
 	public:
 		TypeInfo(const std::string& _type)
 		{
-			std::vector<std::string> tokens = utility::split(_type);
-			if (tokens.empty()) return;
+			token_type = _type;
 
-			if (tokens.front() == "const")
+			std::string::size_type pos = token_type.find("const");
+			if (pos == 0)
 			{
-				token_const = tokens.front();
-				tokens.erase(tokens.begin());
+				token_const = "const";
+				token_type.erase(pos, token_const.size());
 			}
-			if (tokens.empty()) return;
 
-			if (tokens.back() == "&")
+			pos = token_type.find("*");
+			if (pos != std::string::npos)
 			{
-				token_amp = tokens.back();
-				tokens.erase(tokens.begin() + tokens.size() - 1);
+				token_star = "*";
+				token_type.erase(pos, token_star.size());
 			}
-			if (tokens.empty()) return;
 
-			if (tokens.back() == "*")
+			pos = token_type.find("&");
+			if (pos != std::string::npos)
 			{
-				token_amp = tokens.back();
-				tokens.erase(tokens.begin() + tokens.size() - 1);
+				token_amp = "&";
+				token_type.erase(pos, token_amp.size());
 			}
-			if (tokens.empty()) return;
 
-			token_type = tokens.front();
+			utility::trim(token_type);
 		}
 
 		std::string toString()
 		{
-			return token_const + " " + token_type + " " + token_amp;
+			std::string result;
+			if (!token_const.empty())
+				result = token_const + " ";
+
+			result += token_type;
+
+			if (!token_star.empty())
+				result += " " + token_star;
+
+			if (!token_amp.empty())
+				result += " " + token_amp;
+
+			return result;
 		}
 		const std::string& getType() const
 		{
@@ -113,6 +124,7 @@ namespace wrapper
 		std::string token_const;
 		std::string token_type;
 		std::string token_amp;
+		std::string token_star;
 	};
 
 } // namespace wrapper

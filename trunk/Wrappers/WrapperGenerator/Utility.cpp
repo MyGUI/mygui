@@ -207,8 +207,8 @@ namespace wrapper
 
 				return type.toString();
 			}
-
 		}
+
 		return _type;
 	}
 
@@ -277,11 +277,6 @@ namespace wrapper
 
 			}
 		}
-
-		/*if (type == "Message::ViewInfo")
-		{
-			int test = 0;
-		}*/
 
 		return type;
 	}

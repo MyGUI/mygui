@@ -41,7 +41,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportItemBoxEvent_AdviseNotifyItem( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ItemBox* >(_widget)->eventNotifyItem = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ItemBox* >(_widget)->eventNotifyItem += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ItemBox* >(_widget)->eventNotifyItem -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -69,7 +72,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportItemBoxEvent_AdviseMouseItemActivate( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ItemBox* >(_widget)->eventMouseItemActivate = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ItemBox* >(_widget)->eventMouseItemActivate += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ItemBox* >(_widget)->eventMouseItemActivate -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -97,7 +103,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportItemBoxEvent_AdviseChangeItemPosition( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ItemBox* >(_widget)->eventChangeItemPosition = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ItemBox* >(_widget)->eventChangeItemPosition += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ItemBox* >(_widget)->eventChangeItemPosition -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -125,7 +134,10 @@ namespace Export
 		}
 		MYGUIEXPORT void MYGUICALL ExportItemBoxEvent_AdviseSelectItemAccept( MyGUI::Widget* _widget, bool _advise )
 		{
-			static_cast< MyGUI::ItemBox* >(_widget)->eventSelectItemAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+			if (_advise)
+				static_cast< MyGUI::ItemBox* >(_widget)->eventSelectItemAccept += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ItemBox* >(_widget)->eventSelectItemAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 
@@ -283,15 +295,15 @@ namespace Export
 
 
 
-   	namespace ScopeItemBoxProperty_ItemBoxAlignVert
+   	namespace ScopeItemBoxProperty_VerticalAlignment
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_GetItemBoxAlignVert( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_GetVerticalAlignment( MyGUI::Widget* _native )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->getItemBoxAlignVert( ) );
+			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->getVerticalAlignment( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetItemBoxAlignVert( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetVerticalAlignment( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
-			static_cast< MyGUI::ItemBox * >(_native)->setItemBoxAlignVert( Convert<bool>::From( _value ) );
+			static_cast< MyGUI::ItemBox * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
 		}
 	}
 

@@ -272,16 +272,29 @@ namespace Export
 		}
 	};
 
-	template <> struct Convert< MyGUI::MessageBoxStyle >
+	template <> struct Convert< MyGUI::FlowDirection >
 	{
 		typedef int Type;
-		inline static int To(MyGUI::MessageBoxStyle _value)
+		inline static int To(MyGUI::FlowDirection _value)
 		{
 			return *((int*)(&_value));
 		}
-		inline static MyGUI::MessageBoxStyle From(int _value)
+		inline static MyGUI::FlowDirection From(int _value)
 		{
-			return MyGUI::MessageBoxStyle::Enum(_value);
+			return MyGUI::FlowDirection::Enum(_value);
+		}
+	};
+
+	template <> struct Convert< MyGUI::ResizingPolicy >
+	{
+		typedef int Type;
+		inline static int To(MyGUI::ResizingPolicy _value)
+		{
+			return *((int*)(&_value));
+		}
+		inline static MyGUI::ResizingPolicy From(int _value)
+		{
+			return MyGUI::ResizingPolicy::Enum(_value);
 		}
 	};
 

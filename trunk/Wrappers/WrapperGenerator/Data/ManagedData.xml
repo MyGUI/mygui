@@ -73,6 +73,8 @@
 		<Member name="setTextColour" template="Empty.txt"/>
 		<!--Member name="getTextSelect" template="Empty.txt"/-->
 		<Member name="getTextLength" template="PropertyGet.txt"/>
+		<Member name="getTextRegion" template="Empty.txt"/>
+		<Member name="getTextSize" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
@@ -175,6 +177,9 @@
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
@@ -313,8 +318,8 @@
 		<Member name="getTypeName" template="Empty.txt"/>
 		<!--Member name="getSubWidgetMain" template="Empty.txt"/>
 		<Member name="getSubWidgetText" template="Empty.txt"/>
-		<Member name="getLayerName" template="Empty.txt"/>
-		<Member name="getEnumerator" template="Empty.txt"/-->
+		<Member name="getLayerName" template="Empty.txt"/-->
+		<Member name="getEnumerator" template="Empty.txt"/>
 		<Member name="getWidgetStyle" template="Empty.txt"/>
 		<Member name="setWidgetStyle" template="Empty.txt"/>
 		<Member name="attachToWidget" template="Empty.txt"/>
@@ -328,6 +333,7 @@
 		<_Member name="setSize" template="Empty.txt"/>
 		<Member name="setVisible" template="Empty.txt"/>
 		<Member name="isVisible" template="Empty.txt"/-->
+		<Member name="findWidgets" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Window" namespace="MyGUI">
@@ -342,7 +348,7 @@
 		<Tag key="ThisType" value="Window"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<-Member name="setCaption" template="Empty.txt"/>
+		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="getCaption" template="Empty.txt"/>
 		<Member name="setTextColour" template="Empty.txt"/>
 		<Member name="getTextColour" template="Empty.txt"/>

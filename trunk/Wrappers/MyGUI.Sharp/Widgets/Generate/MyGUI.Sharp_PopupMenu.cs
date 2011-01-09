@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class PopupMenu : MenuCtrl
+    public  class PopupMenu : MenuControl
     {
 
         #region PopupMenu

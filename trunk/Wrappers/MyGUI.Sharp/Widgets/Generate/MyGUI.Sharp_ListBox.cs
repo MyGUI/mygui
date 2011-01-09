@@ -16,7 +16,7 @@ namespace MyGUI.Sharp
 
         #region ListBox
 
-        protected override string GetWidgetType() { return "List"; }
+        protected override string GetWidgetType() { return "ListBox"; }
 
         internal static BaseWidget RequestWrapListBox(BaseWidget _parent, IntPtr _widget)
         {
@@ -322,9 +322,6 @@ namespace MyGUI.Sharp
 
 
 
-   
-
-
    		#region Method GetOptimalHeight
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -358,7 +355,21 @@ namespace MyGUI.Sharp
    
 
 
-   
+   		#region Method SetScrollPosition
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportListBox_SetScrollPosition_position( IntPtr _native ,
+			  uint _position );
+
+		public void SetScrollPosition(
+			uint _position )
+		{
+			ExportListBox_SetScrollPosition_position( mNative , 
+				 _position );
+		}
+
+		#endregion
+
 
 
    		#region Method SetScrollVisible

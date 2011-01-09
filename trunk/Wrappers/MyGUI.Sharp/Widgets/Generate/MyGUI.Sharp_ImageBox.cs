@@ -11,23 +11,23 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class StaticImage : Widget
+    public  class ImageBox : Widget
     {
 
-        #region StaticImage
+        #region ImageBox
 
-        protected override string GetWidgetType() { return "StaticImage"; }
+        protected override string GetWidgetType() { return "ImageBox"; }
 
-        internal static BaseWidget RequestWrapStaticImage(BaseWidget _parent, IntPtr _widget)
+        internal static BaseWidget RequestWrapImageBox(BaseWidget _parent, IntPtr _widget)
         {
-			StaticImage widget = new StaticImage();
+			ImageBox widget = new ImageBox();
 			widget.WrapWidget(_parent, _widget);
             return widget;
         }
 
-        internal static BaseWidget RequestCreateStaticImage(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateImageBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-			StaticImage widget = new StaticImage();
+			ImageBox widget = new ImageBox();
 			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
             return widget;
         }
@@ -49,19 +49,16 @@ namespace MyGUI.Sharp
    
 
 
-   
-
-
    		#region Method SetItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemName_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetItemName_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetItemName(
 			string _value )
 		{
-			ExportStaticImage_SetItemName_value( mNative , 
+			ExportImageBox_SetItemName_value( mNative , 
 				 _value );
 		}
 
@@ -72,13 +69,13 @@ namespace MyGUI.Sharp
    		#region Method SetItemGroup
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemGroup_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetItemGroup_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetItemGroup(
 			string _value )
 		{
-			ExportStaticImage_SetItemGroup_value( mNative , 
+			ExportImageBox_SetItemGroup_value( mNative , 
 				 _value );
 		}
 
@@ -90,32 +87,14 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportStaticImage_SetItemResource_name( IntPtr _native ,
+		private static extern bool ExportImageBox_SetItemResource_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
 		public bool SetItemResource(
 			string _name )
 		{
-			return  ExportStaticImage_SetItemResource_name( mNative , 
+			return  ExportImageBox_SetItemResource_name( mNative , 
 				 _name )  ;
-		}
-
-		#endregion
-
-
-
-   		#region Method SetItemResource
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportStaticImage_SetItemResource_id( IntPtr _native ,
-			[In] ref Guid _id );
-
-		public bool SetItemResource(
-			Guid _id )
-		{
-			return  ExportStaticImage_SetItemResource_id( mNative , 
-				ref _id )  ;
 		}
 
 		#endregion
@@ -126,13 +105,13 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern float ExportStaticImage_GetItemFrameRate_index( IntPtr _native ,
+		private static extern float ExportImageBox_GetItemFrameRate_index( IntPtr _native ,
 			  uint _index );
 
 		public float GetItemFrameRate(
 			uint _index )
 		{
-			return  ExportStaticImage_GetItemFrameRate_index( mNative , 
+			return  ExportImageBox_GetItemFrameRate_index( mNative , 
 				 _index )  ;
 		}
 
@@ -143,7 +122,7 @@ namespace MyGUI.Sharp
    		#region Method SetItemFrameRate
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemFrameRate_index_rate( IntPtr _native ,
+		private static extern void ExportImageBox_SetItemFrameRate_index_rate( IntPtr _native ,
 			  uint _index ,
 			  float _rate );
 
@@ -151,7 +130,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			float _rate )
 		{
-			ExportStaticImage_SetItemFrameRate_index_rate( mNative , 
+			ExportImageBox_SetItemFrameRate_index_rate( mNative , 
 				 _index ,
 				 _rate );
 		}
@@ -163,13 +142,13 @@ namespace MyGUI.Sharp
    		#region Method DeleteAllItemFrames
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_DeleteAllItemFrames_index( IntPtr _native ,
+		private static extern void ExportImageBox_DeleteAllItemFrames_index( IntPtr _native ,
 			  uint _index );
 
 		public void DeleteAllItemFrames(
 			uint _index )
 		{
-			ExportStaticImage_DeleteAllItemFrames_index( mNative , 
+			ExportImageBox_DeleteAllItemFrames_index( mNative , 
 				 _index );
 		}
 
@@ -180,7 +159,7 @@ namespace MyGUI.Sharp
    		#region Method DeleteItemFrame
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_DeleteItemFrame_index_indexFrame( IntPtr _native ,
+		private static extern void ExportImageBox_DeleteItemFrame_index_indexFrame( IntPtr _native ,
 			  uint _index ,
 			  uint _indexFrame );
 
@@ -188,7 +167,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			uint _indexFrame )
 		{
-			ExportStaticImage_DeleteItemFrame_index_indexFrame( mNative , 
+			ExportImageBox_DeleteItemFrame_index_indexFrame( mNative , 
 				 _index ,
 				 _indexFrame );
 		}
@@ -200,7 +179,7 @@ namespace MyGUI.Sharp
    		#region Method SetItemFrame
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemFrame_index_indexFrame_item( IntPtr _native ,
+		private static extern void ExportImageBox_SetItemFrame_index_indexFrame_item( IntPtr _native ,
 			  uint _index ,
 			  uint _indexFrame ,
 			[In] ref IntCoord _item );
@@ -210,7 +189,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			IntCoord _item )
 		{
-			ExportStaticImage_SetItemFrame_index_indexFrame_item( mNative , 
+			ExportImageBox_SetItemFrame_index_indexFrame_item( mNative , 
 				 _index ,
 				 _indexFrame ,
 				ref _item );
@@ -223,7 +202,7 @@ namespace MyGUI.Sharp
    		#region Method InsertItemFrameDublicate
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( IntPtr _native ,
+		private static extern void ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( IntPtr _native ,
 			  uint _index ,
 			  uint _indexFrame ,
 			  uint _indexSourceFrame );
@@ -233,7 +212,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			uint _indexSourceFrame )
 		{
-			ExportStaticImage_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( mNative , 
+			ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( mNative , 
 				 _index ,
 				 _indexFrame ,
 				 _indexSourceFrame );
@@ -246,7 +225,7 @@ namespace MyGUI.Sharp
    		#region Method AddItemFrameDublicate
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_AddItemFrameDublicate_index_indexSourceFrame( IntPtr _native ,
+		private static extern void ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( IntPtr _native ,
 			  uint _index ,
 			  uint _indexSourceFrame );
 
@@ -254,7 +233,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			uint _indexSourceFrame )
 		{
-			ExportStaticImage_AddItemFrameDublicate_index_indexSourceFrame( mNative , 
+			ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( mNative , 
 				 _index ,
 				 _indexSourceFrame );
 		}
@@ -266,7 +245,7 @@ namespace MyGUI.Sharp
    		#region Method InsertItemFrame
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_InsertItemFrame_index_indexFrame_item( IntPtr _native ,
+		private static extern void ExportImageBox_InsertItemFrame_index_indexFrame_item( IntPtr _native ,
 			  uint _index ,
 			  uint _indexFrame ,
 			[In] ref IntCoord _item );
@@ -276,7 +255,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			IntCoord _item )
 		{
-			ExportStaticImage_InsertItemFrame_index_indexFrame_item( mNative , 
+			ExportImageBox_InsertItemFrame_index_indexFrame_item( mNative , 
 				 _index ,
 				 _indexFrame ,
 				ref _item );
@@ -289,7 +268,7 @@ namespace MyGUI.Sharp
    		#region Method AddItemFrame
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_AddItemFrame_index_item( IntPtr _native ,
+		private static extern void ExportImageBox_AddItemFrame_index_item( IntPtr _native ,
 			  uint _index ,
 			[In] ref IntCoord _item );
 
@@ -297,7 +276,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportStaticImage_AddItemFrame_index_item( mNative , 
+			ExportImageBox_AddItemFrame_index_item( mNative , 
 				 _index ,
 				ref _item );
 		}
@@ -309,11 +288,11 @@ namespace MyGUI.Sharp
    		#region Method DeleteAllItems
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_DeleteAllItems( IntPtr _native );
+		private static extern void ExportImageBox_DeleteAllItems( IntPtr _native );
 
 		public void DeleteAllItems( )
 		{
-			ExportStaticImage_DeleteAllItems(  mNative );
+			ExportImageBox_DeleteAllItems(  mNative );
 		}
 
 		#endregion
@@ -323,13 +302,13 @@ namespace MyGUI.Sharp
    		#region Method DeleteItem
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_DeleteItem_index( IntPtr _native ,
+		private static extern void ExportImageBox_DeleteItem_index( IntPtr _native ,
 			  uint _index );
 
 		public void DeleteItem(
 			uint _index )
 		{
-			ExportStaticImage_DeleteItem_index( mNative , 
+			ExportImageBox_DeleteItem_index( mNative , 
 				 _index );
 		}
 
@@ -340,7 +319,7 @@ namespace MyGUI.Sharp
    		#region Method SetItem
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItem_index_item( IntPtr _native ,
+		private static extern void ExportImageBox_SetItem_index_item( IntPtr _native ,
 			  uint _index ,
 			[In] ref IntCoord _item );
 
@@ -348,7 +327,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportStaticImage_SetItem_index_item( mNative , 
+			ExportImageBox_SetItem_index_item( mNative , 
 				 _index ,
 				ref _item );
 		}
@@ -360,13 +339,13 @@ namespace MyGUI.Sharp
    		#region Method AddItem
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_AddItem_item( IntPtr _native ,
+		private static extern void ExportImageBox_AddItem_item( IntPtr _native ,
 			[In] ref IntCoord _item );
 
 		public void AddItem(
 			IntCoord _item )
 		{
-			ExportStaticImage_AddItem_item( mNative , 
+			ExportImageBox_AddItem_item( mNative , 
 				ref _item );
 		}
 
@@ -377,7 +356,7 @@ namespace MyGUI.Sharp
    		#region Method InsertItem
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_InsertItem_index_item( IntPtr _native ,
+		private static extern void ExportImageBox_InsertItem_index_item( IntPtr _native ,
 			  uint _index ,
 			[In] ref IntCoord _item );
 
@@ -385,7 +364,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportStaticImage_InsertItem_index_item( mNative , 
+			ExportImageBox_InsertItem_index_item( mNative , 
 				 _index ,
 				ref _item );
 		}
@@ -397,11 +376,11 @@ namespace MyGUI.Sharp
    		#region Method ResetItemSelect
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_ResetItemSelect( IntPtr _native );
+		private static extern void ExportImageBox_ResetItemSelect( IntPtr _native );
 
 		public void ResetItemSelect( )
 		{
-			ExportStaticImage_ResetItemSelect(  mNative );
+			ExportImageBox_ResetItemSelect(  mNative );
 		}
 
 		#endregion
@@ -412,14 +391,14 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportStaticImage_GetItemSelect( IntPtr _widget );
+		private static extern uint ExportImageBox_GetItemSelect( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemSelect( IntPtr _widget,   uint _value );
+		private static extern void ExportImageBox_SetItemSelect( IntPtr _widget,   uint _value );
 
 		public uint ItemSelect
 		{
-			get { return  ExportStaticImage_GetItemSelect( mNative )  ; }
-			set { ExportStaticImage_SetItemSelect( mNative,  value ); }
+			get { return  ExportImageBox_GetItemSelect( mNative )  ; }
+			set { ExportImageBox_SetItemSelect( mNative,  value ); }
 		}
 
 		#endregion
@@ -430,11 +409,11 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportStaticImage_GetItemCount( IntPtr _native );
+		private static extern uint ExportImageBox_GetItemCount( IntPtr _native );
 
 		public uint GetItemCount( )
 		{
-			return  ExportStaticImage_GetItemCount( mNative )  ;
+			return  ExportImageBox_GetItemCount( mNative )  ;
 		}
 
 		#endregion
@@ -445,14 +424,14 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportStaticImage_GetImageIndex( IntPtr _widget );
+		private static extern uint ExportImageBox_GetImageIndex( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageIndex( IntPtr _widget,   uint _value );
+		private static extern void ExportImageBox_SetImageIndex( IntPtr _widget,   uint _value );
 
 		public uint ImageIndex
 		{
-			get { return  ExportStaticImage_GetImageIndex( mNative )  ; }
-			set { ExportStaticImage_SetImageIndex( mNative,  value ); }
+			get { return  ExportImageBox_GetImageIndex( mNative )  ; }
+			set { ExportImageBox_SetImageIndex( mNative,  value ); }
 		}
 
 		#endregion
@@ -462,13 +441,13 @@ namespace MyGUI.Sharp
    		#region Method SetImageTile
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageTile_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetImageTile_value( IntPtr _native ,
 			 ref IntSize _value );
 
 		public void SetImageTile(
 			IntSize _value )
 		{
-			ExportStaticImage_SetImageTile_value( mNative , 
+			ExportImageBox_SetImageTile_value( mNative , 
 				ref _value );
 		}
 
@@ -479,13 +458,13 @@ namespace MyGUI.Sharp
    		#region Method SetImageCoord
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageCoord_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetImageCoord_value( IntPtr _native ,
 			[In] ref IntCoord _value );
 
 		public void SetImageCoord(
 			IntCoord _value )
 		{
-			ExportStaticImage_SetImageCoord_value( mNative , 
+			ExportImageBox_SetImageCoord_value( mNative , 
 				ref _value );
 		}
 
@@ -496,13 +475,13 @@ namespace MyGUI.Sharp
    		#region Method SetImageRect
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageRect_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetImageRect_value( IntPtr _native ,
 			[In] ref IntRect _value );
 
 		public void SetImageRect(
 			IntRect _value )
 		{
-			ExportStaticImage_SetImageRect_value( mNative , 
+			ExportImageBox_SetImageRect_value( mNative , 
 				ref _value );
 		}
 
@@ -513,13 +492,13 @@ namespace MyGUI.Sharp
    		#region Method SetImageTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageTexture_value( IntPtr _native ,
+		private static extern void ExportImageBox_SetImageTexture_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetImageTexture(
 			string _value )
 		{
-			ExportStaticImage_SetImageTexture_value( mNative , 
+			ExportImageBox_SetImageTexture_value( mNative , 
 				 _value );
 		}
 
@@ -530,7 +509,7 @@ namespace MyGUI.Sharp
    		#region Method SetImageInfo
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageInfo_texture_coord_tile( IntPtr _native ,
+		private static extern void ExportImageBox_SetImageInfo_texture_coord_tile( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _texture ,
 			[In] ref IntCoord _coord ,
 			 ref IntSize _tile );
@@ -540,7 +519,7 @@ namespace MyGUI.Sharp
 			IntCoord _coord ,
 			IntSize _tile )
 		{
-			ExportStaticImage_SetImageInfo_texture_coord_tile( mNative , 
+			ExportImageBox_SetImageInfo_texture_coord_tile( mNative , 
 				 _texture ,
 				ref _coord ,
 				ref _tile );

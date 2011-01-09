@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <Root>
 
 	<TypeHolder>
@@ -312,10 +311,18 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::MessageBoxStyle">
-			<TypeName>MessageBoxStyle</TypeName>
-			<MarshalTypeName>MessageBoxStyle</MarshalTypeName>
-			<MarshalTypeNameReturn>MessageBoxStyle</MarshalTypeNameReturn>
+		<TypeInfo name="MyGUI::FlowDirection">
+			<TypeName>FlowDirection</TypeName>
+			<MarshalTypeName>FlowDirection</MarshalTypeName>
+			<MarshalTypeNameReturn>FlowDirection</MarshalTypeNameReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+		</TypeInfo>
+
+		<TypeInfo name="MyGUI::ResizingPolicy">
+			<TypeName>ResizingPolicy</TypeName>
+			<MarshalTypeName>ResizingPolicy</MarshalTypeName>
+			<MarshalTypeNameReturn>ResizingPolicy</MarshalTypeNameReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
@@ -350,16 +357,6 @@
 			<MarshalTypeNameReturn>MenuItemType</MarshalTypeNameReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
-		</TypeInfo>
-
-		<TypeInfo name="const MyGUI::Guid &amp;">
-			<TypeName>Guid</TypeName>
-			<MarshalTypeName>Guid</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (Guid)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(Guid) ) </MarshalConvertPost>
 		</TypeInfo>
 
 		<TypeInfo name="const MyGUI::DDWidgetState &amp;">
@@ -466,18 +463,10 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::Edit *">
+		<TypeInfo name="MyGUI::EditBox *">
 			<TypeName>EditBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>EditBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
-		</TypeInfo>
-
-		<TypeInfo name="MyGUI::HScroll *">
-			<TypeName>HScrollBar</TypeName>
-			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>HScrollBar</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
@@ -490,7 +479,7 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::List *">
+		<TypeInfo name="MyGUI::ListBox *">
 			<TypeName>ListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ListBox</MarshalTypeNameReturn>
@@ -506,23 +495,15 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::MenuCtrl *">
-			<TypeName>MenuCtrl</TypeName>
+		<TypeInfo name="MyGUI::MenuControl *">
+			<TypeName>MenuControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>MenuCtrl</MarshalTypeNameReturn>
+			<MarshalTypeNameReturn>MenuControl</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::Message *">
-			<TypeName>MessageBox</TypeName>
-			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>MessageBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
-		</TypeInfo>
-
-		<TypeInfo name="MyGUI::MultiList *">
+		<TypeInfo name="MyGUI::MultiListBox *">
 			<TypeName>MultiListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MultiListBox</MarshalTypeNameReturn>
@@ -538,7 +519,7 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::Progress *">
+		<TypeInfo name="MyGUI::ProgressBar *">
 			<TypeName>ProgressBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ProgressBar</MarshalTypeNameReturn>
@@ -554,34 +535,34 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::StaticImage *">
-			<TypeName>StaticImage</TypeName>
+		<TypeInfo name="MyGUI::ImageBox *">
+			<TypeName>ImageBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>StaticImage</MarshalTypeNameReturn>
+			<MarshalTypeNameReturn>ImageBox</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::StaticText *">
-			<TypeName>StaticText</TypeName>
+		<TypeInfo name="MyGUI::TextBox *">
+			<TypeName>TextBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>StaticText</MarshalTypeNameReturn>
+			<MarshalTypeNameReturn>TextBox</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::Tab *">
-			<TypeName>TabBar</TypeName>
+		<TypeInfo name="MyGUI::TabControl *">
+			<TypeName>TabControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>TabBar</MarshalTypeNameReturn>
+			<MarshalTypeNameReturn>TabControl</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::VScroll *">
-			<TypeName>VScrollBar</TypeName>
+		<TypeInfo name="MyGUI::ScrollBar *">
+			<TypeName>ScrollBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>VScrollBar</MarshalTypeNameReturn>
+			<MarshalTypeNameReturn>ScrollBar</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
@@ -625,13 +606,22 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
+		<TypeInfo name="MyGUI::MultiListItem *">
+			<TypeName>MultiListItem</TypeName>
+			<MarshalTypeName>BaseWidget</MarshalTypeName>
+			<MarshalTypeNameReturn>MultiListItem</MarshalTypeNameReturn>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+		</TypeInfo>
+
 	</TypeHolder>
 
-	<Item type="MyGUI::WidgetEvent" namespace="MyGUI">
-		<Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_WidgetEvent.cpp"/>
-		<Template type="Sharp.Templates" name="Part.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_WidgetEvent.cs"/>
+	<Item type="MyGUI::WidgetInput" namespace="MyGUI">
+		<Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_WidgetInput.cpp"/>
+		<Template type="Sharp.Templates" name="Part.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_WidgetInput.cs"/>
 		<Tag key="ThisName" value="Widget"/>
 		<Tag key="ThisType" value="Widget"/>
+		<Member name="setMaskPick" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::UserData" namespace="MyGUI">
@@ -664,14 +654,15 @@
 		<Member name="createWidgetT" template="Empty.txt"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="getSubWidgetMain" template="Empty.txt"/>
-		<Member name="getSubWidgetText" template="Empty.txt"/>
+		<!--Member name="getSubWidgetMain" template="Empty.txt"/>
+		<Member name="getSubWidgetText" template="Empty.txt"/-->
 		<Member name="getEnumerator" template="Empty.txt"/>
 		<Member name="createWidgetRealT" template="Empty.txt"/>
 		<Member name="createWidgetReal" template="Empty.txt"/>
 		<Member name="createWidget" template="Empty.txt"/>
-		<Member name="castType" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="castType" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/-->
+		<Member name="findWidgets" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Button" namespace="MyGUI">
@@ -680,13 +671,13 @@
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Button.h"/>
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Button.cs"/>
-		<Tag key="BaseName" value="StaticText"/>
+		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="Button"/>
 		<Tag key="ThisType" value="Button"/>
 		<Member name="isType" template="Empty.txt"/>
-		<Member name="setEnabled" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
+		<!--Member name="setEnabled" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
@@ -704,7 +695,7 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
@@ -720,18 +711,18 @@
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
 		<Member name="getItemCount" template="PropertyGet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::Edit" namespace="MyGUI">
+	<Item type="MyGUI::EditBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_EditBox.h"/>
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_EditBox.cs"/>
-		<Tag key="BaseName" value="StaticText"/>
+		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="EditBox"/>
-		<Tag key="ThisType" value="Edit"/>
+		<Tag key="ThisType" value="EditBox"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setCaption" template="Empty.txt"/>
@@ -743,12 +734,14 @@
 		<Member name="setFontName" template="Empty.txt"/>
 		<Member name="setTextAlign" template="Empty.txt"/>
 		<Member name="setTextColour" template="Empty.txt"/>
-		<Member name="getTextSelect" template="Empty.txt"/>
+		<!--Member name="getTextSelect" template="Empty.txt"/-->
 		<Member name="getTextLength" template="PropertyGet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
+		<Member name="getTextRegion" template="Empty.txt"/>
+		<Member name="getTextSize" template="Empty.txt"/>
 	</Item>
 
-	<Item type="MyGUI::HScroll" namespace="MyGUI">
+	<!--Item type="MyGUI::HScroll" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
@@ -763,7 +756,7 @@
 		<Member name="getTrackSize" template="Empty.txt"/>
 		<Member name="getLineSize" template="Empty.txt"/>
 		<Member name="setProperty" template="Empty.txt"/>
-	</Item>
+	</Item-->
 
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
@@ -775,18 +768,18 @@
 		<Tag key="ThisName" value="ItemBox"/>
 		<Tag key="ThisType" value="ItemBox"/>
 		<Member name="isType" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method1_0.txt"/>
 		<Member name="insertItemAt" template="Method2_1.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::List" namespace="MyGUI">
+	<Item type="MyGUI::ListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
@@ -794,18 +787,18 @@
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ListBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ListBox"/>
-		<Tag key="ThisType" value="List"/>
+		<Tag key="ThisType" value="ListBox"/>
 		<Member name="isType" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setScrollPosition" template="Empty.txt"/>
+		<!--Member name="setScrollPosition" template="Empty.txt"/-->
 		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
@@ -814,23 +807,23 @@
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuBar.h"/>
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuBar.cs"/>
-		<Tag key="BaseName" value="MenuCtrl"/>
+		<Tag key="BaseName" value="MenuControl"/>
 		<Tag key="ThisName" value="MenuBar"/>
 		<Tag key="ThisType" value="MenuBar"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::MenuCtrl" namespace="MyGUI">
+	<Item type="MyGUI::MenuControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuCtrl.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuControl.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuControl.cs"/>
 		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="MenuCtrl"/>
-		<Tag key="ThisType" value="MenuCtrl"/>
+		<Tag key="ThisName" value="MenuControl"/>
+		<Tag key="ThisType" value="MenuControl"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setVisible" template="Empty.txt"/>
@@ -841,10 +834,10 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::Message" namespace="MyGUI">
+	<!--Item type="MyGUI::Message" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
@@ -856,9 +849,9 @@
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setProperty" template="Empty.txt"/>
-	</Item>
+	</Item-->
 
-	<Item type="MyGUI::MultiList" namespace="MyGUI">
+	<Item type="MyGUI::MultiListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
@@ -866,7 +859,7 @@
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MultiListBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MultiListBox"/>
-		<Tag key="ThisType" value="MultiList"/>
+		<Tag key="ThisType" value="MultiListBox"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="getItemCount" template="PropertyGet.txt"/>
@@ -878,7 +871,10 @@
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
@@ -887,15 +883,15 @@
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_PopupMenu.h"/>
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_PopupMenu.cs"/>
-		<Tag key="BaseName" value="MenuCtrl"/>
+		<Tag key="BaseName" value="MenuControl"/>
 		<Tag key="ThisName" value="PopupMenu"/>
 		<Tag key="ThisType" value="PopupMenu"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::Progress" namespace="MyGUI">
+	<Item type="MyGUI::ProgressBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
@@ -903,13 +899,13 @@
 		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ProgressBar.cs"/>
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ProgressBar"/>
-		<Tag key="ThisType" value="Progress"/>
+		<Tag key="ThisType" value="ProgressBar"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
@@ -928,50 +924,50 @@
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setTextAlign" template="Empty.txt"/>
 		<Member name="getClientCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::StaticImage" namespace="MyGUI">
+	<Item type="MyGUI::ImageBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticImage.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_StaticImage.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ImageBox.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ImageBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="StaticImage"/>
-		<Tag key="ThisType" value="StaticImage"/>
+		<Tag key="ThisName" value="ImageBox"/>
+		<Tag key="ThisType" value="ImageBox"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setItemResourcePtr" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 		<Member name="getItemResource" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::StaticText" namespace="MyGUI">
+	<Item type="MyGUI::TextBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticText.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_StaticText.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TextBox.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TextBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="StaticText"/>
-		<Tag key="ThisType" value="StaticText"/>
+		<Tag key="ThisName" value="TextBox"/>
+		<Tag key="ThisType" value="TextBox"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::Tab" namespace="MyGUI">
+	<Item type="MyGUI::TabControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabBar.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabBar.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabControl.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabControl.cs"/>
 		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="TabBar"/>
-		<Tag key="ThisType" value="Tab"/>
+		<Tag key="ThisName" value="TabControl"/>
+		<Tag key="ThisType" value="TabControl"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
@@ -982,24 +978,24 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
-	<Item type="MyGUI::VScroll" namespace="MyGUI">
+	<Item type="MyGUI::ScrollBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
 		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_VScrollBar.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_VScrollBar.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ScrollBar.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ScrollBar.cs"/>
 		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="VScrollBar"/>
-		<Tag key="ThisType" value="VScroll"/>
+		<Tag key="ThisName" value="ScrollBar"/>
+		<Tag key="ThisType" value="ScrollBar"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::Window" namespace="MyGUI">
@@ -1027,7 +1023,8 @@
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setVisible" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<Member name="destroySmooth" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
@@ -1045,7 +1042,7 @@
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
@@ -1062,7 +1059,22 @@
 		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
+	</Item>
+
+	<Item type="MyGUI::MultiListItem" namespace="MyGUI">
+		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
+		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
+		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MultiListItem.h"/>
+		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MultiListItem.cs"/>
+		<Tag key="BaseName" value="Widget"/>
+		<Tag key="ThisName" value="MultiListItem"/>
+		<Tag key="ThisType" value="MultiListItem"/>
+		<Member name="isType" template="Empty.txt"/>
+		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setCaption" template="Empty.txt"/>
+		<!--Member name="setProperty" template="Empty.txt"/-->
 	</Item>
 
 </Root>
