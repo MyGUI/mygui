@@ -2603,14 +2603,14 @@
             <StateItem name="Pressed">
                 <PropertySet>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
-                    <Property name="Position" type="IntPoint" read_only="False">169 56</Property>
+                    <Property name="Position" type="IntPoint" read_only="False">169 164</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
                 </PropertySet>
             </StateItem>
             <StateItem name="Selected Disabled">
                 <PropertySet>
-                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
                     <Property name="Position" type="IntPoint" read_only="False">169 2</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
@@ -2626,7 +2626,7 @@
             </StateItem>
             <StateItem name="Selected Over">
                 <PropertySet>
-                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
                     <Property name="Position" type="IntPoint" read_only="False">169 164</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
@@ -2634,7 +2634,7 @@
             </StateItem>
             <StateItem name="Selected Pressed">
                 <PropertySet>
-                    <Property name="Visible" type="Bool" read_only="False">True</Property>
+                    <Property name="Visible" type="Bool" read_only="False">False</Property>
                     <Property name="Position" type="IntPoint" read_only="False">169 164</Property>
                     <Property name="TextColour" type="Colour" read_only="False">0 0 0</Property>
                     <Property name="TextShift" type="Int" read_only="False">0</Property>
