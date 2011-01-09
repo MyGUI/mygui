@@ -17,4 +17,16 @@
 			<State name="pushed_checked" offset="49 149 18 18"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="ButtonExpand2Skin" size="18 18" texture="FrameworkSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
+			<State name="disabled" offset="96 2 18 18"/>
+			<State name="normal" offset="96 23 18 18"/>
+			<State name="highlighted" offset="96 44 18 18"/>
+			<State name="pushed" offset="96 65 18 18"/>
+			<State name="disabled_checked" offset="96 86 18 18"/>
+			<State name="normal_checked" offset="96 107 18 18"/>
+			<State name="highlighted_checked" offset="96 128 18 18"/>
+			<State name="pushed_checked" offset="96 149 18 18"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
