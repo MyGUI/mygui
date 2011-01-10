@@ -119,16 +119,15 @@ namespace MyGUI
 
 	void LanguageManager::setCurrentLanguage(const std::string& _name)
 	{
-		mMapLanguage.clear();
-
-		mCurrentLanguageName = _name;
-
 		MapListString::iterator item = mMapFile.find(_name);
 		if (item == mMapFile.end())
 		{
 			MYGUI_LOG(Error, "Language '" << _name << "' is not found");
 			return;
 		}
+
+		mMapLanguage.clear();
+		mCurrentLanguageName = _name;
 
 		for (VectorString::const_iterator iter = item->second.begin(); iter != item->second.end(); ++iter)
 		{
