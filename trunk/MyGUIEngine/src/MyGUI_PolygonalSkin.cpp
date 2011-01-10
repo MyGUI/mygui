@@ -439,7 +439,6 @@ namespace MyGUI
 
 #ifndef MYGUI_NO_POLYGONAL_SKIN_CROPPING
 		// crop triangles
-		ICroppedRectangle* parent = mCroppedParent->getCroppedParent();
 		IntCoord cropRectangle(
 			mCurrentCoord.left,
 			mCurrentCoord.top,
