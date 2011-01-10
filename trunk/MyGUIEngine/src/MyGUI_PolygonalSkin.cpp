@@ -188,9 +188,39 @@ namespace MyGUI
 
 	void PolygonalSkin::_updateView()
 	{
+		bool margin = _checkMargin();
+
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
 		mGeometryOutdated = true;
+
+		mCurrentCoord.left = mCoord.left + mMargin.left;
+		mCurrentCoord.top = mCoord.top + mMargin.top;
+
+		// вьюпорт стал битым
+		if (margin)
+		{
+			// проверка на полный выход за границу
+			if (_checkOutside())
+			{
+				// запоминаем текущее состояние
+				mIsMargin = margin;
+
+				// обновить перед выходом
+				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+				return;
+			}
+		}
+
+		// мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin))
+		{
+			mCurrentCoord.width = _getViewWidth();
+			mCurrentCoord.height = _getViewHeight();
+		}
+
+		// запоминаем текущее состояние
+		mIsMargin = margin;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -411,10 +441,10 @@ namespace MyGUI
 		// crop triangles
 		ICroppedRectangle* parent = mCroppedParent->getCroppedParent();
 		IntCoord cropRectangle(
-			parent->_getMarginLeft() - mCroppedParent->getLeft(),
-			parent->_getMarginTop() - mCroppedParent->getTop(),
-			parent->_getViewWidth(),
-			parent->_getViewHeight()
+			mCurrentCoord.left,
+			mCurrentCoord.top,
+			mCurrentCoord.width,
+			mCurrentCoord.height
 			);
 
 		VectorFloatPoint newResultVerticiesPos;
