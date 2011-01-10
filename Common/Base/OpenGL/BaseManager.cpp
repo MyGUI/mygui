@@ -608,7 +608,7 @@ namespace base
 			bpp = 3;
 			format = PixelFormat24bppRGB;
 		}
-		else if (_format == MyGUI::PixelFormat::L8A8) 
+		else if (_format == MyGUI::PixelFormat::L8A8)
 		{
 			bpp = 2;
 			format = PixelFormat16bppGrayScale;
@@ -634,7 +634,7 @@ namespace base
 			{
 				pngClsid = &imageCodecInfo[j].Clsid;
 				break;
-			}    
+			}
 		}
 
 		if (pngClsid == NULL)

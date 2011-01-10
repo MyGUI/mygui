@@ -705,7 +705,7 @@ namespace MyGUI
 
 		ColumnInfo column;
 		column.width = 0;
-		column.sizeType = ResizingPolicy::Auto; 
+		column.sizeType = ResizingPolicy::Auto;
 
 		column.item = _item;
 		column.list = _item->createWidget<ListBox>(mSkinList, IntCoord(0, 0, _item->getWidth(), _item->getHeight()), Align::Stretch);
