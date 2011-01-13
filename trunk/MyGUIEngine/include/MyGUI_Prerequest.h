@@ -33,7 +33,6 @@
 #	endif
 #	ifdef MYGUI_CHECK_MEMORY_LEAKS
 #		define _CRTDBG_MAP_ALLOC
-#		include <stdlib.h>
 #		include <crtdbg.h>
 #	endif
 #endif
