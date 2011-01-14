@@ -22,7 +22,7 @@ namespace MyGUI
 	{
 	public:
 		OgreDataStream(Ogre::DataStreamPtr _stream);
-		~OgreDataStream();
+		virtual ~OgreDataStream();
 
 		virtual bool eof();
 		virtual size_t size();
