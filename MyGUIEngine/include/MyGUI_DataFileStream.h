@@ -34,7 +34,7 @@ namespace MyGUI
 	public:
 		DataFileStream();
 		DataFileStream(std::ifstream* _stream);
-		~DataFileStream();
+		virtual ~DataFileStream();
 
 	private:
 		std::ifstream* mFileStream;

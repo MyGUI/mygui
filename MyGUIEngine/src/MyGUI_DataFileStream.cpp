@@ -42,6 +42,7 @@ namespace MyGUI
 		if (mFileStream != nullptr)
 		{
 			mFileStream->close();
+			delete mFileStream;
 			mFileStream = nullptr;
 		}
 	}
