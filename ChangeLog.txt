@@ -1,4 +1,85 @@
 ----------------------------------------------------------------
+------------------------- Version 3.2.0 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- Skin properties were simplified for more convenient creation in the editor.
+- All widgets events is now multidelegates.
+- Support of right mouse button drag.
+- If MyGUI is built from svn revision log file also contain svn revision (in addition to version).
+- Fixed bug with texture creation for fonts.
+- Other minor additions and bug-fixes.
+
+-- Managers --
+- LanguageManager now replace tags recursively.
+- Fixed bug in LanguageManager when missing language was selected.
+
+-- Resources --
+- Add Layout resource, layouts loaded and parsed only once at first use.
+- All resource files now have "MyGUI_" prefix to avoid naming conflicts.
+
+-- Widgets --
+- VScroll and HScroll replaced with single ScrollBar class.
+- Edit renamed into EditBox.
+- List renamed into ListBox.
+- MenuCtrl renamed into MenuControl.
+- MultiList renamed into MultiListBox.
+- Progress renamed into ProgressBar.
+- StaticImage renamed into ImageBox.
+- StaticText renamed into TextBox.
+- Tab renamed into TabControl.
+- New Window property Moveable.
+- Message moved from Core to Common.
+- MultiListBox now support different modes of columns resizing.
+- Button properties StateCheck and ButtonPressed replaced with single property StateSelected.
+- ListBox and ComboBox now support ToolTip.
+- Menu items can be checked now, tick icon appears.
+- Property AlignVert renamed into VerticalAlignment.
+- Hidden widget lose input and focus.
+- Active elements visualisation in list now properly respond to changes in the list.
+- All text related properties was moved from Widget to TextBox.
+
+--SubWidgets--
+- All widgets now have Colour property that colours whole widget.
+- RawRect subwidget was removed.
+- Добавлен сабвиджет FilterNoneSkin который не сглаживает текстуру при растягивании (Ogre).
+- Implemented PolygonalSkin sub widget for lines and splines drawing.
+
+-- Tools --
+- SkinEditor added.
+- All skins created in SkinEditor.
+- LayoutEditor now support projects creation.
+- Possibility to create MultiListBox columns in LayoutEditor.
+- Possibility to create PopupMenu\MenuBar in LayoutEditor.
+- Colour selection window added in LayoutEditor.
+- Show skin preview in LayoutEditor.
+- Scaling support in LayoutEditor.
+- Possibility to change widget's type in LayoutEditor.
+- Possibility to add custom properties in LayoutEditor.
+- Removed check for unique name in LayoutEditor (not required any more).
+- FontViewer now same generated font in two formats: as ttf + xml that use freetype in runtime for texture generation and as manual font (texture and glyphs description)
+
+-- Renders --
+- BasisManager for OpenGL and DirectX now properly display Win32 window content without bugs with offset.
+- Fixed memory leak in OpenGL's and DirectX's DataManager.
+- Possibility to save texture in OpenGL.
+- Fix typo in names vertext -> vertex.
+
+-- Plugins --
+- Awesomium plugin removed (not LGPL anymore).
+
+-- UnitTests --
+- New UnitTest for PolygonalSkin.
+- New UnitTest for RotatingSkin.
+
+-- CMake --
+- New MYGUI_CHECK_MEMORY_LEAKS option for memory leaks detection in debug mode (MSVC only).
+- New MYGUI_USE_PROJECT_FOLDERS option for project folders inside generated solution (MSVC only).
+- UnitTest and Demos options were renames.
+- Win32 input used by default in demos/tools under windows instead of OIS (OIS input still used in other platforms).
+
+
+----------------------------------------------------------------
 ------------------------- Version 3.0.1 ------------------------
 ----------------------------------------------------------------
 -- License --
