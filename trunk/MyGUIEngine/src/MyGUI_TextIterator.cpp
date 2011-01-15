@@ -75,7 +75,7 @@ namespace MyGUI
 
 					// следующий символ
 					mPosition ++;
-					iter++;
+					++iter;
 					if (iter == mEnd)
 					{
 						mCurrent = mEnd;
@@ -105,7 +105,7 @@ namespace MyGUI
 
 				// обыкновенный символ
 				mPosition ++;
-				iter++;
+				++iter;
 				if (iter == mEnd)
 				{
 					mCurrent = mEnd;
