@@ -78,7 +78,8 @@ namespace MyGUI
 	class MYGUI_EXPORT Any
 	{
 	public:
-		static struct AnyEmpty { } Null;
+		struct AnyEmpty { };
+		static AnyEmpty Null;
 
 		Any();
 		Any(const Any::AnyEmpty& value);
