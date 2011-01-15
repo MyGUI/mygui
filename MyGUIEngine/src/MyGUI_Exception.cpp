@@ -38,7 +38,8 @@ namespace MyGUI
 		mDescription(_rhs.mDescription),
 		mSource(_rhs.mSource),
 		mFile(_rhs.mFile),
-		mLine(_rhs.mLine)
+		mLine(_rhs.mLine),
+		mFullDesc(_rhs.mFullDesc)
 	{
 	}
 

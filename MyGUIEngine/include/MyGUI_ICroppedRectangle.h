@@ -247,7 +247,7 @@ namespace MyGUI
 			return margin;
 		}
 
-		bool _checkOutside() // проверка на полный выход за границу
+		bool _checkOutside() const // проверка на полный выход за границу
 		{
 			return ( (getRight() < mCroppedParent->mMargin.left ) || // совсем уехали налево
 					(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо

@@ -237,14 +237,14 @@ namespace MyGUI
 		{
 			if (((*iterBack) < 265) && (ispunct(*iterBack) || isspace(*iterBack)))
 				break;
-			iterBack++;
+			++iterBack;
 			mStartSelect--;
 		}
 		while (iterForw != text.end())
 		{
 			if (((*iterForw) < 265) && (ispunct(*iterForw) || isspace(*iterForw)))
 				break;
-			iterForw++;
+			++iterForw;
 			mEndSelect++;
 		}
 
@@ -895,7 +895,7 @@ namespace MyGUI
 		UString text = getRealString();
 
 		// восстанавливаем последовательность
-		for (VectorChangeInfo::reverse_iterator iter = info.rbegin(); iter != info.rend(); iter++)
+		for (VectorChangeInfo::reverse_iterator iter = info.rbegin(); iter != info.rend(); ++iter)
 		{
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT)
 				text.erase((*iter).start, (*iter).text.size());
