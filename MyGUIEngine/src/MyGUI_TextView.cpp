@@ -137,7 +137,7 @@ namespace MyGUI
 				if (character == FontCodeType::CR)
 				{
 					UString::const_iterator peeki = index;
-					peeki ++;
+					++peeki;
 					if ((peeki != end) && (*peeki == FontCodeType::LF))
 						index = peeki; // skip both as one newline
 				}
