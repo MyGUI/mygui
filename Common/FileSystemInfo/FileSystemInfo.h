@@ -107,6 +107,8 @@ namespace common
 			if (!isReservedDir (MyGUI::UString(dp->d_name).asWStr_c_str()))
 				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (dp->d_type == DT_DIR)));
 		}
+
+		closedir(dir);
 #endif
 	}
 

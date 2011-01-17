@@ -22,7 +22,7 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		bool getChanges();
+		bool getChanges() const;
 		void setChanges(bool _value);
 
 		Event_Changes eventChanges;

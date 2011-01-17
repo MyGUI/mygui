@@ -35,9 +35,9 @@ namespace tools
 		void setPopupMode(bool _value);
 		bool getPopupMode() const;
 
-		bool getCreateMode();
-		const std::string& getWidgetType();
-		const std::string& getWidgetSkin();
+		bool getCreateMode() const;
+		const std::string& getWidgetType() const;
+		const std::string& getWidgetSkin() const;
 
 		Event_ChangeCreatorMode eventChangeCreatorMode;
 		Event_ChangeSelector eventChangeSelector;
@@ -47,7 +47,7 @@ namespace tools
 
 		void resetWidget();
 
-		int toGrid(int _value);
+		int toGrid(int _value) const;
 		MyGUI::IntCoord getCoordNewWidget(const MyGUI::IntPoint& _point);
 		void resetAllCreatorInfo();
 

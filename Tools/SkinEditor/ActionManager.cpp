@@ -29,7 +29,7 @@ namespace tools
 	{
 	}
 
-	bool ActionManager::getChanges()
+	bool ActionManager::getChanges() const
 	{
 		return mChanges;
 	}

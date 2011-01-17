@@ -175,7 +175,7 @@ namespace tools
 		nodeProp->addAttribute("value", _property.second);
 	}
 
-	const MyGUI::VectorString& BackwardCompatibilityManager::getVersions()
+	const MyGUI::VectorString& BackwardCompatibilityManager::getVersions() const
 	{
 		return mVersions;
 	}
@@ -189,12 +189,12 @@ namespace tools
 		}
 	}
 
-	const std::string& BackwardCompatibilityManager::getDefaultVersion()
+	const std::string& BackwardCompatibilityManager::getDefaultVersion() const
 	{
 		return mVersions.front();
 	}
 
-	const std::string& BackwardCompatibilityManager::getCurrentVersion()
+	const std::string& BackwardCompatibilityManager::getCurrentVersion() const
 	{
 		return mCurrentVersion;
 	}

@@ -49,7 +49,7 @@ namespace MyGUI
 
 			return data;
 		}
-		catch (Ogre::FileNotFoundException _e)
+		catch (const Ogre::FileNotFoundException& _e)
 		{
 			MYGUI_LOG(Warning, _e.getDescription());
 		}

@@ -67,11 +67,11 @@ namespace demo
 		*/
 		CommandDelegate eventConsoleUnknowCommand;
 
-		const MyGUI::UString& getConsoleStringCurrent();
-		const MyGUI::UString& getConsoleStringError();
-		const MyGUI::UString& getConsoleStringSuccess();
-		const MyGUI::UString& getConsoleStringUnknow();
-		const MyGUI::UString& getConsoleStringFormat();
+		const MyGUI::UString& getConsoleStringCurrent() const;
+		const MyGUI::UString& getConsoleStringError() const;
+		const MyGUI::UString& getConsoleStringSuccess() const;
+		const MyGUI::UString& getConsoleStringUnknow() const;
+		const MyGUI::UString& getConsoleStringFormat() const;
 
 		bool getVisible();
 		void setVisible(bool _visible);

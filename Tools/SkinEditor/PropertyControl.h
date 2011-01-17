@@ -21,7 +21,7 @@ namespace tools
 		void setProperty(Property* _value);
 		Property* getProperty();
 
-		const MyGUI::UString& getTypeName();
+		const MyGUI::UString& getTypeName() const;
 
 	protected:
 		virtual void updateProperty();
