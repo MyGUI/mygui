@@ -28,7 +28,7 @@ namespace tools
 		bool executeCommand(const MyGUI::UString& _command);
 
 		void setCommandData(const MyGUI::UString& _data);
-		const MyGUI::UString& getCommandData();
+		const MyGUI::UString& getCommandData() const;
 
 	private:
 		typedef std::map<MyGUI::UString, CommandDelegate> MapDelegate;

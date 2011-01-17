@@ -78,7 +78,7 @@ namespace tools
 		mData = _data;
 	}
 
-	const MyGUI::UString& CommandManager::getCommandData()
+	const MyGUI::UString& CommandManager::getCommandData() const
 	{
 		return mData;
 	}

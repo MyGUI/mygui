@@ -55,13 +55,12 @@ namespace tools
 
 	void RegionListControl::updateList()
 	{
-		size_t index = 0;
-
 		if (getCurrentSkin() != nullptr)
 		{
 			RegionItem* selectedItem = getCurrentSkin()->getRegions().getItemSelected();
 			size_t selectedIndex = MyGUI::ITEM_NONE;
 
+			size_t index = 0;
 			ItemHolder<RegionItem>::EnumeratorItem regions = getCurrentSkin()->getRegions().getChildsEnumerator();
 			while (regions.next())
 			{

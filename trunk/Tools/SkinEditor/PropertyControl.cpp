@@ -60,7 +60,7 @@ namespace tools
 			updateProperty();
 	}
 
-	const MyGUI::UString& PropertyControl::getTypeName()
+	const MyGUI::UString& PropertyControl::getTypeName() const
 	{
 		return mTypeName;
 	}

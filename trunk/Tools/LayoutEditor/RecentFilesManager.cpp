@@ -62,12 +62,12 @@ namespace tools
 		checkArray(mRecentFolders, mMaxRecentFolders);
 	}
 
-	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFolders()
+	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFolders() const
 	{
 		return mRecentFolders;
 	}
 
-	const MyGUI::UString& RecentFilesManager::getRecentFolder()
+	const MyGUI::UString& RecentFilesManager::getRecentFolder() const
 	{
 		return mRecentFolder;
 	}
@@ -95,7 +95,7 @@ namespace tools
 		checkArray(mRecentFiles, mMaxRecentFiles);
 	}
 
-	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFiles()
+	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFiles() const
 	{
 		return mRecentFiles;
 	}
@@ -107,7 +107,7 @@ namespace tools
 		checkArray(mRecentProjects, mMaxRecentProjects);
 	}
 
-	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentProjects()
+	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentProjects() const
 	{
 		return mRecentProjects;
 	}

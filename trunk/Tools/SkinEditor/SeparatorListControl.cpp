@@ -80,13 +80,12 @@ namespace tools
 
 	void SeparatorListControl::updateList()
 	{
-		size_t index = 0;
-
 		if (getCurrentSkin() != nullptr)
 		{
 			SeparatorItem* selectedItem = getCurrentSkin()->getSeparators().getItemSelected();
 			size_t selectedIndex = MyGUI::ITEM_NONE;
 
+			size_t index = 0;
 			ItemHolder<SeparatorItem>::EnumeratorItem separators = getCurrentSkin()->getSeparators().getChildsEnumerator();
 			while (separators.next())
 			{

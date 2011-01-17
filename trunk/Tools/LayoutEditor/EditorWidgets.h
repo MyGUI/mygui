@@ -46,8 +46,8 @@ namespace tools
 
 		std::string getSkinReplace(const std::string& _skinName);
 
-		const MyGUI::UString& getCurrentFileName();
-		const MyGUI::UString& getCurrentItemName();
+		const MyGUI::UString& getCurrentFileName() const;
+		const MyGUI::UString& getCurrentItemName() const;
 
 		Event_ChangeWidgets eventChangeWidgets;
 		Event_ChangeWidgetCoord eventChangeWidgetCoord;

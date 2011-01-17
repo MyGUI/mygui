@@ -315,7 +315,7 @@ namespace tools
 		}
 	}
 
-	MyGUI::UString ExportManager::convertStateName(const MyGUI::UString& _value)
+	MyGUI::UString ExportManager::convertStateName(const MyGUI::UString& _value) const
 	{
 		if (_value == "Disabled")
 			return "disabled";

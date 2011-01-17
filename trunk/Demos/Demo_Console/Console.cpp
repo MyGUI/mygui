@@ -175,27 +175,27 @@ namespace demo
 		addToConsole(MyGUI::utility::toString(_reason, "'", _key, " ", _value, "'"));
 	}
 
-	const MyGUI::UString& Console::getConsoleStringCurrent()
+	const MyGUI::UString& Console::getConsoleStringCurrent() const
 	{
 		return mStringCurrent;
 	}
 
-	const MyGUI::UString& Console::getConsoleStringError()
+	const MyGUI::UString& Console::getConsoleStringError() const
 	{
 		return mStringError;
 	}
 
-	const MyGUI::UString& Console::getConsoleStringSuccess()
+	const MyGUI::UString& Console::getConsoleStringSuccess() const
 	{
 		return mStringSuccess;
 	}
 
-	const MyGUI::UString& Console::getConsoleStringUnknow()
+	const MyGUI::UString& Console::getConsoleStringUnknow() const
 	{
 		return mStringUnknow;
 	}
 
-	const MyGUI::UString& Console::getConsoleStringFormat()
+	const MyGUI::UString& Console::getConsoleStringFormat() const
 	{
 		return mStringFormat;
 	}

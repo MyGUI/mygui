@@ -737,12 +737,12 @@ namespace tools
 		return false;
 	}
 
-	const MyGUI::UString& EditorWidgets::getCurrentFileName()
+	const MyGUI::UString& EditorWidgets::getCurrentFileName() const
 	{
 		return mCurrentFileName;
 	}
 
-	const MyGUI::UString& EditorWidgets::getCurrentItemName()
+	const MyGUI::UString& EditorWidgets::getCurrentItemName() const
 	{
 		return mCurrentItemName;
 	}
