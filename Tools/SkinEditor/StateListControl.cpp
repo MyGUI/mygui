@@ -88,13 +88,12 @@ namespace tools
 
 	void StatesListControl::updateList()
 	{
-		size_t index = 0;
-
 		if (getCurrentSkin() != nullptr)
 		{
 			StateItem* selectedItem = getCurrentSkin()->getStates().getItemSelected();
 			size_t selectedIndex = MyGUI::ITEM_NONE;
 
+			size_t index = 0;
 			ItemHolder<StateItem>::EnumeratorItem states = getCurrentSkin()->getStates().getChildsEnumerator();
 			while (states.next())
 			{

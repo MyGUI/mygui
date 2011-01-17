@@ -31,7 +31,7 @@ namespace MyGUI
 			return static_cast<OgreDataManager*>(DataManager::getInstancePtr());
 		}
 
-		const std::string& getGroup()
+		const std::string& getGroup() const
 		{
 			return mGroup;
 		}

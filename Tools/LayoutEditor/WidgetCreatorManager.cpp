@@ -71,17 +71,17 @@ namespace tools
 		eventChangeCreatorMode(mCreateMode);
 	}
 
-	bool WidgetCreatorManager::getCreateMode()
+	bool WidgetCreatorManager::getCreateMode() const
 	{
 		return mCreateMode;
 	}
 
-	const std::string& WidgetCreatorManager::getWidgetType()
+	const std::string& WidgetCreatorManager::getWidgetType() const
 	{
 		return mWidgetType;
 	}
 
-	const std::string& WidgetCreatorManager::getWidgetSkin()
+	const std::string& WidgetCreatorManager::getWidgetSkin() const
 	{
 		return mWidgetSkin;
 	}
@@ -210,7 +210,7 @@ namespace tools
 		}
 	}
 
-	int WidgetCreatorManager::toGrid(int _value)
+	int WidgetCreatorManager::toGrid(int _value) const
 	{
 		if (mGridStep < 1)
 			return _value;

@@ -20,10 +20,10 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		const MyGUI::VectorString& getVersions();
-		const std::string& getDefaultVersion();
+		const MyGUI::VectorString& getVersions() const;
+		const std::string& getDefaultVersion() const;
 
-		const std::string& getCurrentVersion();
+		const std::string& getCurrentVersion() const;
 		void setCurrentVersion(const std::string& _value);
 
 		void serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility);

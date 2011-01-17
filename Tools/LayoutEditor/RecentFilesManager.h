@@ -23,16 +23,16 @@ namespace tools
 		void shutdown();
 
 		void addRecentFolder(const MyGUI::UString& _folder);
-		const VectorUString& getRecentFolders();
+		const VectorUString& getRecentFolders() const;
 
-		const MyGUI::UString& getRecentFolder();
 		void setRecentFolder(const MyGUI::UString& _value);
+		const MyGUI::UString& getRecentFolder() const;
 
 		void addRecentFile(const MyGUI::UString& _fileName);
-		const VectorUString& getRecentFiles();
+		const VectorUString& getRecentFiles() const;
 
 		void addRecentProject(const MyGUI::UString& _fileName);
-		const VectorUString& getRecentProjects();
+		const VectorUString& getRecentProjects() const;
 
 	private:
 		void checkArray(VectorUString& _array, size_t _maxElements);
