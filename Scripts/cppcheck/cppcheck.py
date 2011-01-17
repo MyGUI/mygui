@@ -1,8 +1,17 @@
 # run from root sources directory: python Scripts/cppcheck/cppcheck.py
 import os
 
-ignoredEndings = ["is never used", "It is safe to deallocate a NULL pointer", "Throwing exception in destructor"]
-ignoredContent = ["MyGUI_UString", ") Include file: "]
+ignoredEndings = [
+	"is never used",
+	"It is safe to deallocate a NULL pointer",
+	"Throwing exception in destructor",
+	"::initialise' can be const.",
+	"::shutdown' can be const."
+]
+ignoredContent = [
+	"MyGUI_UString", #ignore warnings from MyGUI_UString, because it wasn't written by MyGUI authors
+	") Include file: " # ignore "(debug) Include file: "name" can not be found."
+]
 
 def isIgnoredWarning(warning):
 	for ignore in ignoredEndings:
@@ -25,7 +34,7 @@ def parseOutput():
 	file.close ()
 
 def checkFolderSources(folder, flags) :
-	os.system("cppcheck --enable=all -I Scripts/cppcheck -I MyGUIEngine/include " + flags + " " + folder + " 2>temp.cppcheck")
+	os.system("cppcheck --enable=all -I Scripts/cppcheck -I MyGUIEngine/include -D MYGUI_COMPILER=2 " + flags + " " + folder + " 2>temp.cppcheck")
 	parseOutput()
 
 
