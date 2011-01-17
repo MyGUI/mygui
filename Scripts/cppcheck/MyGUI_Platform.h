@@ -1,19 +1,18 @@
 // this replaces MyGUI_Platform.h, because cppcheck can't parse defines there.
 // to use it add this file to cppcheck include directories before(!) other
-// include directorieswhile checking something like:
-// # cppckeck trunk/MyGUIEngine/src -I trunk/Scripts/cppcheck -I trunk/MyGUIEngine/include --enable=all 2> err.txt
+// include directories while checking something like:
+// # cppcheck trunk/MyGUIEngine/src -I trunk/Scripts/cppcheck -I trunk/MyGUIEngine/include --enable=all
 
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
-// I have no idea where it comes from, but cppcheck check all code with and without this define
-#define __STDC_ISO_10646__ 1
+#define namespace //
 
 #define MYGUI_EXPORT
 #define MYGUI_PLATFORM 1
-#define MYGUI_COMPILER 1
+#define MYGUI_COMPILER 2
 #define MYGUI_EXPORT_DLL
-#define MYGUI_DEBUG_MODE 0
+#define MYGUI_DEBUG_MODE 1
 
 #define min min
 #define max max
