@@ -51,7 +51,7 @@ def replaceAbsolutePaths(fileName):
 			rpos2 = findChar(line,"<", pos)
 			rpos3 = findChar(line,";", pos)
 			rpos = min(rpos1, min(rpos2, rpos3))
-			path = line[pos : rpos].replace('\\','/')
+			path = line[pos : rpos] #.replace('\\','/')
 			relpath = os.path.relpath(path, currentFolder).replace('\\','/')
 			#print path + " | " + relpath
 			
@@ -107,7 +107,7 @@ for dir_release in directories_release:
 	index = index+1
 	os.system("mkdir " + dir_release)
 	os.chdir(dir_release)
-	os.system("cmake ../ -DMYGUI_RENDERSYSTEM=" + str(index) + " -DMYGUI_BUILD_TESTS=True -DMYGUI_STANDALONE_BUILD=True -DMYGUI_BUILD_DOCS=False")
+	os.system("cmake ../ -DMYGUI_RENDERSYSTEM=" + str(index) + " -DMYGUI_BUILD_UNITTESTS=True -DMYGUI_BUILD_WRAPPER=True -DMYGUI_STANDALONE_BUILD=True -DMYGUI_BUILD_DOCS=True")
 	os.chdir("../Scripts")
 	for root, dirs, files in os.walk(dir_release):
 		for name in files:
