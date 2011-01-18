@@ -30,7 +30,7 @@ namespace MyGUI
 		void destroy();
 		void create();
 
-		unsigned int getBufferID()
+		unsigned int getBufferID() const
 		{
 			return mBufferID;
 		}
