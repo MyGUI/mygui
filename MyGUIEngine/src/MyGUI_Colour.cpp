@@ -108,11 +108,12 @@ namespace MyGUI
 			}
 			else
 			{
-				float red, green, blue, alpha = 1;
+				float red, green, blue;
 				std::istringstream stream(_value);
 				stream >> red >> green >> blue;
 				if (!stream.fail())
 				{
+					float alpha = ALPHA_MAX;
 					if (!stream.eof())
 						stream >> alpha;
 					return Colour(red, green, blue, alpha);
