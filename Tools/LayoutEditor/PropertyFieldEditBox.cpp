@@ -16,7 +16,8 @@ namespace tools
 	PropertyFieldEditBox::PropertyFieldEditBox(MyGUI::Widget* _parent) :
 		BaseLayout("PropertyFieldEditBox.layout", _parent),
 		mText(nullptr),
-		mField(nullptr)
+		mField(nullptr),
+		mCurrentWidget(nullptr)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
