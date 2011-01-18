@@ -19,7 +19,8 @@ namespace tools
 		BaseLayout("PropertyFieldPosition.layout", _parent),
 		mText(nullptr),
 		mField(nullptr),
-		mButton(nullptr)
+		mButton(nullptr),
+		mCurrentWidget(nullptr)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

@@ -17,7 +17,8 @@ namespace tools
 	PropertyFieldComboBox::PropertyFieldComboBox(MyGUI::Widget* _parent) :
 		BaseLayout("PropertyFieldComboBox.layout", _parent),
 		mText(nullptr),
-		mField(nullptr)
+		mField(nullptr),
+		mCurrentWidget(nullptr)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
