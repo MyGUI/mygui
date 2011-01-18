@@ -29,15 +29,17 @@ def replaceAbsolutePaths(fileName):
 	#print "Relative path: " + relpath
 	#print "dir_sources: " + dir_sources
 	#print os.path.join(currentFolder, relpath)
+	
+	# trackPrint used for debug only
+	trackPrint = False
+	if (trackPrint):
+		trackPrint = True
+		trackFile = open("trackedLine.txt","w")
+		trackFile.write("original :" + line)
+
 	line = file.readline()
 	while (line) != "":
 		backSlash = False
-		# trackPrint used for debug only
-		trackPrint = False
-		if (trackPrint):	#if (line.find("\\Demo_Colour\\..\\..") != -1):
-			trackPrint = True
-			trackFile = open("trackedLine.txt","w")
-			trackFile.write("original :" + line)
 		
 		if (line.find(dir_sources.replace('/','\\')) != -1):
 			backSlash = True
@@ -70,15 +72,25 @@ def replaceAbsolutePaths(fileName):
 			
 			pos = line.find(dir_sources)
 		
-		if trackPrint:
-			trackFile.close()
-		
 		line = line.replace("C:/MYGUIHACK ", "$(")
 		line = line.replace("C:\\MYGUIHACK ", "$(")
 		line = line.replace(" MYGUIBRACKETHACK", ")")
 		
+		if (line.find("cmake.exe") != -1 and line.find("CommandLine") != -1):
+			lpos = line.find("\"", 0)
+			rpos = line.find("\"", lpos + 1)
+			if (trackPrint):
+				trackFile.write("Remove cmake.exe: " + line)
+				trackFile.write("           lines: " + str(lpos) + " " + str(rpos) + "\n")
+				trackFile.write("        replaced: " + line.replace(line[lpos + 1 : rpos], ""))
+			line = line.replace(line[lpos + 1 : rpos], "")
+			stopParse = True
+		
 		alllines.append( line )
 		line = file.readline()
+
+	if trackPrint:
+		trackFile.close()
 
 	file = open(fileName,"w")
 	#file = open(fileName + ".txt","w")
