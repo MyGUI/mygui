@@ -40,7 +40,8 @@ if (NOT OGRE_FOUND)
 		endif ()
 
 		if (EXISTS ${OGRE_SOURCE}/CMake)
-			MESSAGE(STATUS "Original FingOGRE.cmake found, trying to use it")
+			MESSAGE(STATUS "Original FindOGRE.cmake found, trying to use it")
+			set (OGRE_HOME ${OGRE_SOURCE})
 			FIND_PACKAGE(OGRE)
 		endif()
 
