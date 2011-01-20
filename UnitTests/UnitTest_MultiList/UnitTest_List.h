@@ -32,7 +32,7 @@ namespace unittest
 			delete mirror_list;
 		}
 
-		void check()
+		void checkList()
 		{
 			assert(count_items == original_list->getItemCount());
 			assert(original_list->getItemCount() == mirror_list->getItemCount());
@@ -53,7 +53,7 @@ namespace unittest
 			size_t index = ((size_t)rand() % count);
 			original_list->beginToItemAt(index);
 
-			check();
+			checkList();
 		}
 
 		void Begin(size_t _count)
@@ -72,7 +72,7 @@ namespace unittest
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items ++;
 
-			check();
+			checkList();
 		}
 
 		void AddItem(size_t _count)
@@ -94,7 +94,7 @@ namespace unittest
 
 			count_items ++;
 
-			check();
+			checkList();
 		}
 
 		void InsertItem(size_t _count)
@@ -117,7 +117,7 @@ namespace unittest
 
 			count_items --;
 
-			check();
+			checkList();
 		}
 
 		void RemoveItem(size_t _count)
@@ -135,7 +135,7 @@ namespace unittest
 			original_list->removeAllItems();
 
 			count_items = 0;
-			check();
+			checkList();
 		}
 
 		void nextFrame()
