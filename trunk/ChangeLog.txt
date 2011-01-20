@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
-------------------------- Version 3.2.0 ------------------------
+------------------------- Version 3.2.0 RC1 --------------------
 ----------------------------------------------------------------
 
 -- Core --
@@ -42,7 +42,6 @@
 --SubWidgets--
 - All widgets now have Colour property that colours whole widget.
 - RawRect subwidget was removed.
-- Добавлен сабвиджет FilterNoneSkin который не сглаживает текстуру при растягивании (Ogre).
 - Implemented PolygonalSkin sub widget for lines and splines drawing.
 
 -- Tools --
