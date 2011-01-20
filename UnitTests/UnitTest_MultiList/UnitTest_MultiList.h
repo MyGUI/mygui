@@ -64,7 +64,7 @@ namespace unittest
 			delete mirror_list;
 		}
 
-		void check()
+		void checkMultiList()
 		{
 			Assert(count_items == original_list->getItemCount());
 			Assert(count_columns == original_list->getColumnCount());
@@ -103,7 +103,7 @@ namespace unittest
 			size_t index = (size_t)rand() % count;
 			original_list->setIndexSelected(index);
 
-			check();
+			checkMultiList();
 		}
 
 		void Begin(size_t _count)
@@ -124,7 +124,7 @@ namespace unittest
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items ++;
 
-			check();
+			checkMultiList();
 		}
 
 		void AddItem(size_t _count)
@@ -148,7 +148,7 @@ namespace unittest
 
 			count_items ++;
 
-			check();
+			checkMultiList();
 		}
 
 		void InsertItem(size_t _count)
@@ -172,7 +172,7 @@ namespace unittest
 
 			count_items --;
 
-			check();
+			checkMultiList();
 		}
 
 		void RemoveItem(size_t _count)
@@ -195,7 +195,7 @@ namespace unittest
 			mirror_list->swapItemsAt(index1, index2);
 			original_list->swapItemsAt(index1, index2);
 
-			check();
+			checkMultiList();
 		}
 
 		void SwapItems(size_t _count)
@@ -218,7 +218,7 @@ namespace unittest
 			//mirror_list->swapItemsAt(index1, index2);
 			//original_list->swapSortItemsAt(index1, index2);
 
-			check();
+			checkMultiList();
 		}
 
 		void SortItems(size_t _count)
@@ -244,7 +244,7 @@ namespace unittest
 			original_list->setSubItemNameAt(column, index, MyGUI::utility::toString(item));
 			original_list->setSubItemDataAt(column, index, item);
 
-			check();
+			checkMultiList();
 		}
 
 		void ChangeItems(size_t _count)
@@ -264,7 +264,7 @@ namespace unittest
 			original_list->removeAllItems();
 
 			count_items = 0;
-			check();
+			checkMultiList();
 		}
 
 		/*void start()
