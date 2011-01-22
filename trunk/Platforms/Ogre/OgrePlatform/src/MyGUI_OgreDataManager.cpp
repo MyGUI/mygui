@@ -16,7 +16,8 @@ namespace MyGUI
 {
 
 	OgreDataManager::OgreDataManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mAllGroups(false)
 	{
 	}
 
@@ -26,6 +27,10 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mGroup = _group;
+		if (mGroup == Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME)
+			mAllGroups = true;
+		else
+			mAllGroups = false;
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -73,32 +78,57 @@ namespace MyGUI
 		static VectorString result;
 		result.clear();
 
-		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(mGroup, _pattern);
-
-		result.reserve(pFileInfo->size());
-
-		for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi )
+		VectorString search;
+		if (mAllGroups)
 		{
-			if (fi->path.empty())
-			{
-				bool found = false;
-				for (VectorString::iterator iter = result.begin(); iter != result.end(); ++iter)
-				{
-					if (*iter == fi->filename)
-					{
-						found = true;
-						break;
-					}
-				}
-				if (!found)
-				{
-					result.push_back(_fullpath ? fi->archive->getName() + "/" + fi->filename : fi->filename);
-				}
+			Ogre::StringVector sp = Ogre::ResourceGroupManager::getSingleton().getResourceGroups();
+			search.reserve(sp.size());
+			for (size_t i = 0; i < sp.size(); i++)
+				search.push_back(sp[i]);
+		}
+		else
+			search.push_back(mGroup);
 
-			}
+		std::vector<Ogre::FileInfoListPtr> pFileInfos;
+
+		int resultSize = 0;
+		for (size_t i = 0; i < search.size(); i++)
+		{
+			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(search[i], _pattern);
+			resultSize += pFileInfo->size();
+			if (!pFileInfo->empty())
+				pFileInfos.push_back(pFileInfo);
+			else
+				pFileInfo.setNull();
 		}
 
-		pFileInfo.setNull();
+		result.reserve(resultSize);
+
+		for (size_t i = 0; i < pFileInfos.size(); i++)
+		{
+			Ogre::FileInfoListPtr pFileInfo = pFileInfos[i];
+			for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi )
+			{
+				if (fi->path.empty())
+				{
+					bool found = false;
+					for (VectorString::iterator iter = result.begin(); iter != result.end(); ++iter)
+					{
+						if (*iter == fi->filename)
+						{
+							found = true;
+							break;
+						}
+					}
+					if (!found)
+					{
+						result.push_back(_fullpath ? fi->archive->getName() + "/" + fi->filename : fi->filename);
+					}
+				}
+			}
+
+			pFileInfo.setNull();
+		}
 
 		return result;
 	}
