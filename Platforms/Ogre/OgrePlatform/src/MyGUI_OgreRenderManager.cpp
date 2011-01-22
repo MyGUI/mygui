@@ -274,7 +274,7 @@ namespace MyGUI
 			if (!texture_ptr.isNull())
 			{
 				mRenderSystem->_setTexture(0, true, texture_ptr);
-				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
+				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 			}
 		}
 
