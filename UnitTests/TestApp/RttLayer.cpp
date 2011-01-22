@@ -13,7 +13,7 @@ namespace demo
 
 		mTexture = Ogre::TextureManager::getSingleton().createManual(
 			textureName,
-			"General",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			Ogre::TEX_TYPE_2D,
 			256,
 			256,

@@ -30,7 +30,7 @@ namespace demo
 		mTextureName = _value;
 
 		if (!Ogre::TextureManager::getSingletonPtr()->resourceExists(mTextureName))
-			Ogre::TextureManager::getSingletonPtr()->load(mTextureName, "General", Ogre::TEX_TYPE_2D, 0);
+			Ogre::TextureManager::getSingletonPtr()->load(mTextureName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::TEX_TYPE_2D, 0);
 	}
 
 	Ogre::RenderOperation& VertexBuffer::getRenderOperation()

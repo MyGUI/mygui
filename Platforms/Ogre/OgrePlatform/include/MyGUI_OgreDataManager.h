@@ -55,6 +55,7 @@ namespace MyGUI
 
 	private:
 		std::string mGroup;
+		bool mAllGroups;
 
 		bool mIsInitialise;
 	};
