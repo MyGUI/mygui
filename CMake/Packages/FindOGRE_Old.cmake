@@ -48,6 +48,7 @@ if (NOT OGRE_FOUND)
 		if (OGRE_FOUND)
 			MESSAGE(STATUS "Ogre was found with it's own CMake script")
 			
+			set(BOOST_ROOT ${BOOST_ROOT} CACHE PATH "Path to Boost (required if Ogre was built with boost)")
 			FIND_PACKAGE(Boost)
 			
 			#message("Threads!" ${OGRE_CONFIG_THREADS})
