@@ -139,7 +139,7 @@ namespace demo
 
 			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
 			_renderManager->getRenderSystem()->_setPolygonMode(Ogre::PM_WIREFRAME);
-			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
+			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 
 			_renderManager->getRenderSystem()->_render(getRenderOperation());
 		}
@@ -152,7 +152,7 @@ namespace demo
 			}
 
 			_renderManager->getRenderSystem()->_setTexture(0, true, getTextureName());
-			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_POINT);
+			_renderManager->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 
 			_renderManager->getRenderSystem()->_render(getRenderOperation());
 		}
