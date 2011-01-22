@@ -16,8 +16,8 @@ namespace MyGUI
 {
 
 	OgreDataManager::OgreDataManager() :
-		mIsInitialise(false),
-		mAllGroups(false)
+		mAllGroups(false),
+		mIsInitialise(false)
 	{
 	}
 
