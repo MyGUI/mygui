@@ -5,6 +5,7 @@
 #include "GroupMessage.h"
 #include "BackwardCompatibilityManager.h"
 #include "WidgetSelectorManager.h"
+#include "SettingsManager.h"
 
 template <> tools::EditorWidgets* MyGUI::Singleton<tools::EditorWidgets>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName("EditorWidgets");
@@ -431,8 +432,9 @@ namespace tools
 		if (_widget->findAttribute("position_real", position))
 		{
 			container->relative_mode = true;
-			//FIXME парент может быть и не кроппед
-			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? MyGUI::RenderManager::getInstance().getViewSize() : _parent->getClientCoord().size());
+			SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
+			MyGUI::IntSize size = _testMode ? MyGUI::RenderManager::getInstance().getViewSize() : sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
+			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
 		// проверяем скин на присутствие
