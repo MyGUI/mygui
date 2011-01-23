@@ -36,6 +36,11 @@
 #include <string>
 #include <stdexcept>
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+#	pragma warning (disable : 4275)
+#endif
+
 // Workaround for VC7:
 //      when build with /MD or /MDd, VC7 have both std::basic_string<unsigned short> and
 // basic_string<__wchar_t> instantiated in msvcprt[d].lib/MSVCP71[D].dll, but the header
@@ -1092,5 +1097,9 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	pragma warning (default : 4275)
+#endif
 
 #endif  // __MYGUI_U_STRING_H__
