@@ -24,7 +24,6 @@ namespace tools
 		assignWidget(mField, "Field");
 
 		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
-		mField->eventToolTip += newDelegate (this, &PropertyFieldComboBox::notifyToolTip);
 	}
 
 	PropertyFieldComboBox::~PropertyFieldComboBox()
@@ -67,15 +66,6 @@ namespace tools
 	void PropertyFieldComboBox::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		notifyApplyProperties(_sender);
-	}
-
-	void PropertyFieldComboBox::onToolTip(const MyGUI::ToolTipInfo& _info)
-	{
-	}
-
-	void PropertyFieldComboBox::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
-	{
-		onToolTip(_info);
 	}
 
 	MyGUI::IntSize PropertyFieldComboBox::getContentSize()

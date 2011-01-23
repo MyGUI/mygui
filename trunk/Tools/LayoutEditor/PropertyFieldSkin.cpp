@@ -16,6 +16,7 @@ namespace tools
 	PropertyFieldSkin::PropertyFieldSkin(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
+		mField->eventToolTip += newDelegate (this, &PropertyFieldSkin::notifyToolTip);
 	}
 
 	PropertyFieldSkin::~PropertyFieldSkin()
@@ -53,7 +54,7 @@ namespace tools
 		mField->beginToItemFirst();
 	}
 
-	void PropertyFieldSkin::onToolTip(const MyGUI::ToolTipInfo& _info)
+	void PropertyFieldSkin::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show)
 		{

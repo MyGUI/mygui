@@ -31,13 +31,10 @@ namespace tools
 	protected:
 		virtual void onFillValues();
 		virtual void onAction(const std::string& _value, bool _final);
-		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
 
 	private:
 		void notifyApplyProperties(MyGUI::Widget* _sender);
 		void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index);
-
-		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
 
 	protected:
 		MyGUI::TextBox* mText;
