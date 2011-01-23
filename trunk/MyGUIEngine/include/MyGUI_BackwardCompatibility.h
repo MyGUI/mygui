@@ -40,7 +40,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 	template <>
-	class MemberObsolete<Button>
+	class MYGUI_EXPORT MemberObsolete<Button>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void Button::setStateSelected(bool _value)")
@@ -60,7 +60,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ComboBox>
+	class MYGUI_EXPORT MemberObsolete<ComboBox>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ComboBox::getIndexSelected()")
@@ -94,7 +94,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<EditBox>
+	class MYGUI_EXPORT MemberObsolete<EditBox>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void EditBox::setVisibleVScroll(bool _visible)")
@@ -125,7 +125,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ItemBox>
+	class MYGUI_EXPORT MemberObsolete<ItemBox>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ItemBox::getItemIndexSelected()")
@@ -162,7 +162,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ListBox>
+	class MYGUI_EXPORT MemberObsolete<ListBox>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ListBox::getIndexSelected()")
@@ -205,7 +205,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<MenuControl>
+	class MYGUI_EXPORT MemberObsolete<MenuControl>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setVisible(bool _value)")
@@ -231,7 +231,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<MenuItem>
+	class MYGUI_EXPORT MemberObsolete<MenuItem>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void setItemChildVisible(bool _visible)")
@@ -241,7 +241,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<MultiListBox>
+	class MYGUI_EXPORT MemberObsolete<MultiListBox>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t MultiListBox::getIndexSelected()")
@@ -292,7 +292,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ProgressBar>
+	class MYGUI_EXPORT MemberObsolete<ProgressBar>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void ProgressBar::setFlowDirection(FlowDirection _value)")
@@ -302,7 +302,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ScrollView>
+	class MYGUI_EXPORT MemberObsolete<ScrollView>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void ScrollView::setVisibleVScroll(bool _visible)")
@@ -316,7 +316,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<TabControl>
+	class MYGUI_EXPORT MemberObsolete<TabControl>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : int TabControl::getButtonWidthAt(size_t _index)")
@@ -365,7 +365,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Widget>
+	class MYGUI_EXPORT MemberObsolete<Widget>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool Widget::getEnabled() const")
@@ -383,7 +383,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Window>
+	class MYGUI_EXPORT MemberObsolete<Window>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setCoord(const IntCoord& _coord)")
@@ -404,7 +404,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<FontManager>
+	class MYGUI_EXPORT MemberObsolete<FontManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
@@ -412,7 +412,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<Gui>
+	class MYGUI_EXPORT MemberObsolete<Gui>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
@@ -456,7 +456,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<LanguageManager>
+	class MYGUI_EXPORT MemberObsolete<LanguageManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
@@ -464,7 +464,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<LayerManager>
+	class MYGUI_EXPORT MemberObsolete<LayerManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
@@ -472,7 +472,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<LayoutManager>
+	class MYGUI_EXPORT MemberObsolete<LayoutManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
@@ -480,7 +480,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<PluginManager>
+	class MYGUI_EXPORT MemberObsolete<PluginManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
@@ -488,7 +488,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<PointerManager>
+	class MYGUI_EXPORT MemberObsolete<PointerManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setDefaultPointer(const std::string& _value)")
@@ -504,7 +504,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<ResourceManager>
+	class MYGUI_EXPORT MemberObsolete<ResourceManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ResourceManager::getCount()")
@@ -514,7 +514,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<SkinManager>
+	class MYGUI_EXPORT MemberObsolete<SkinManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
@@ -524,7 +524,7 @@ namespace MyGUI
 	};
 
 	template <>
-	class MemberObsolete<WidgetManager>
+	class MYGUI_EXPORT MemberObsolete<WidgetManager>
 	{
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
@@ -539,26 +539,17 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	class BackwardCompatibility
+	class MYGUI_EXPORT BackwardCompatibility
 	{
 	public:
 		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
 		static void initialise();
 		static void shutdown();
 		static bool isIgnoreProperty(const std::string& _key);
-		static std::string MYGUI_EXPORT getPropertyRename(const std::string& _propertyName);
-		static std::string MYGUI_EXPORT getFactoryRename(const std::string& _categoryName, const std::string& _factoryName);
-		static std::string MYGUI_EXPORT getSkinRename(const std::string& _skinName);
+		static std::string getPropertyRename(const std::string& _propertyName);
+		static std::string getFactoryRename(const std::string& _categoryName, const std::string& _factoryName);
+		static std::string getSkinRename(const std::string& _skinName);
 		static void registerWidgetTypes();
-
-	private:
-#ifndef MYGUI_DONT_USE_OBSOLETE
-		typedef std::map<std::string, std::string> MapString;
-		typedef std::set<std::string> SetString;
-		static MapString mPropertyRename;
-		static SetString mPropertyIgnore;
-		static MapString mSkinRename;
-#endif // MYGUI_DONT_USE_OBSOLETE
 	};
 
 } // namespace MyGUI

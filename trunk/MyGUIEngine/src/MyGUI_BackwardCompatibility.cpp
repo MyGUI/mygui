@@ -824,9 +824,11 @@ namespace MyGUI
 		return coord.print();
 	}
 
-	BackwardCompatibility::MapString BackwardCompatibility::mPropertyRename;
-	BackwardCompatibility::SetString BackwardCompatibility::mPropertyIgnore;
-	BackwardCompatibility::MapString BackwardCompatibility::mSkinRename;
+	typedef std::map<std::string, std::string> MapString;
+	typedef std::set<std::string> SetString;
+	static MapString mPropertyRename;
+	static SetString mPropertyIgnore;
+	static MapString mSkinRename;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
