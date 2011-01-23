@@ -20,9 +20,10 @@ namespace tools
 
 	protected:
 		virtual void onFillValues();
-		virtual void onToolTip(const MyGUI::ToolTipInfo& _info);
 
 	private:
+		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);
+
 		SkinInfo getCellData(size_t _index);
 	};
 
