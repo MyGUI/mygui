@@ -29,6 +29,8 @@ namespace MyGUI
 		void setTextureSize(const IntSize& _size);
 		void setTextureName(const std::string& _name);
 
+		virtual const IntSize& getSize() const;
+
 	private:
 		MyGUI::ITexture* mTexture;
 		IntSize mTextureSize;
