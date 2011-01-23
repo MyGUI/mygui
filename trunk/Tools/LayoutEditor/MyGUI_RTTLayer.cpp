@@ -102,4 +102,9 @@ namespace MyGUI
 		mOutOfDate = true;
 	}
 
+	const IntSize& RTTLayer::getSize() const
+	{
+		return mTextureSize;
+	}
+
 } // namespace MyGUI
