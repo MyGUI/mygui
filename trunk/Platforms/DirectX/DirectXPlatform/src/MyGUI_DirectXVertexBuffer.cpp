@@ -4,10 +4,9 @@
 	@date		06/2009
 */
 
+#include <d3dx9.h>
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_VertexData.h"
-
-#include <d3d9.h>
 
 namespace MyGUI
 {

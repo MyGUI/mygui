@@ -4,6 +4,8 @@
 	@date		05/2009
 */
 
+#include <d3dx9.h>
+
 #include "Precompiled.h"
 #include "BaseManager.h"
 #include <MyGUI_DirectXPlatform.h>
@@ -60,6 +62,8 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 namespace base
 {
+	
+	D3DPRESENT_PARAMETERS mD3dpp;
 
 	BaseManager::BaseManager() :
 		mGUI(nullptr),

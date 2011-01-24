@@ -4,14 +4,13 @@
 	@date		06/2009
 */
 
+#include <d3dx9.h>
 #include "MyGUI_DirectXRenderManager.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_DirectXDiagnostic.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
-
-#include <d3dx9.h>
 
 namespace MyGUI
 {
