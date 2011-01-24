@@ -193,11 +193,17 @@ endif ()
 
 if (MSVC)
 	add_definitions(/fp:fast)
+	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
 	
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
 		SET(WARNING_LEVEL "/W4")
+		# disable: warning C4100: '***' : unreferenced formal parameter
+		add_definitions(/wd4100)
+		# disable: warning C4127: conditional expression is constant
 		add_definitions(/wd4127)
+		# disable: warning C4512: '***' : assignment operator could not be generated
+		add_definitions(/wd4512)
 	else ()
 		SET(WARNING_LEVEL "/W3")
 	endif ()
