@@ -47,7 +47,7 @@ namespace MyGUI
 		if (mSize == (size_t) - 1)
 		{
 			mStream->seekg (0, std::ios::end);
-			mSize = mStream->tellg();
+			mSize = (size_t)mStream->tellg();
 			mStream->seekg (0, std::ios::beg);
 		}
 		return mSize;
