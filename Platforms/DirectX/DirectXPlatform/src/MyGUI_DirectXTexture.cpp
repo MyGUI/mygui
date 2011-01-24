@@ -4,11 +4,10 @@
 	@date		06/2009
 */
 
+#include <d3dx9.h>
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
-
-//#include <d3dx9.h>
 
 namespace MyGUI
 {

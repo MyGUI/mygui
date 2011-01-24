@@ -11,8 +11,6 @@
 #include "Base/StatisticInfo.h"
 #include "Base/InputFocusInfo.h"
 
-#include <d3dx9.h>
-
 #include "InputManager.h"
 #include "PointerManager.h"
 
@@ -20,6 +18,9 @@ namespace MyGUI
 {
 	class DirectXPlatform;
 }
+
+struct IDirect3D9;
+struct IDirect3DDevice9;
 
 namespace base
 {
@@ -84,7 +85,6 @@ namespace base
 		HWND hWnd;
 		IDirect3D9* mD3d;
 		IDirect3DDevice9* mDevice;
-		D3DPRESENT_PARAMETERS mD3dpp;
 		HINSTANCE hInstance;
 
 		bool mExit;

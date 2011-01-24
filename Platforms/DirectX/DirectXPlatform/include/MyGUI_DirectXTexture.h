@@ -12,7 +12,7 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
 
-#include <d3dx9.h>
+struct IDirect3DTexture9;
 
 namespace MyGUI
 {
