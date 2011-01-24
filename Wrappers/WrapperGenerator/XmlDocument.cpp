@@ -343,9 +343,9 @@ namespace xml
 		}
 
 		// заголовок utf8
-		_stream << (char)0xEF;
-		_stream << (char)0xBB;
-		_stream << (char)0xBF;
+		_stream << (char)0xEFu;
+		_stream << (char)0xBBu;
+		_stream << (char)0xBFu;
 
 		mDeclaration->save(_stream, 0);
 		if (mRoot) mRoot->save(_stream, 0);

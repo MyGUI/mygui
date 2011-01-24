@@ -28,9 +28,6 @@
 #include "MyGUI_Platform.h"
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	ifndef _CRT_SECURE_NO_WARNINGS
-#		define _CRT_SECURE_NO_WARNINGS
-#	endif
 #	ifdef MYGUI_CHECK_MEMORY_LEAKS
 #		define _CRTDBG_MAP_ALLOC
 #		include <crtdbg.h>
@@ -107,23 +104,11 @@ namespace MyGUI
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
-// disable: warning C4512: '***' : assignment operator could not be generated
-#	pragma warning (disable : 4512)
-
-// disable: warning C4127: conditional expression is constant
-#	pragma warning (disable : 4127)
-
-// disable: warning C4100: '***' : unreferenced formal parameter
-#	pragma warning (disable : 4100)
-
 // disable: "<type> needs to have dll-interface to be used by clients'
 // Happens on STL member variables which are not public therefore is ok
 #	pragma warning (disable : 4251)
 
-// disable: "no suitable definition provided for explicit template
-// instantiation request" Occurs for no justifiable reason on all
-// #includes of Singleton
-#	pragma warning( disable: 4661)
+// also some warnings are disabled in CMake
 
 #endif
 
