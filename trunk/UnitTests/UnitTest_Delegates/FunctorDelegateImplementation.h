@@ -15,15 +15,15 @@ namespace delegates
 	#define MYGUI_FUNCTOR_DELEGATE					MYGUI_COMBINE(FunctorDelegate, MYGUI_SUFFIX)
 
 	// Functor delegate.
-	template MYGUI_T_TEMPLATE_PARAMS
+	MYGUI_TEMPLATE MYGUI_TEMPLATE_PARAMS
 	class MYGUI_FUNCTOR_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
-		MYGUI_FUNCTOR_DELEGATE(const T &_functor) : mFunctor(_functor) { }
+		MYGUI_FUNCTOR_DELEGATE(const boost::function <void (MYGUI_PARAMS)> &_functor) : mFunctor(_functor) { }
 
 		virtual bool isType( const std::type_info& _type)
 		{
-			return typeid( MYGUI_FUNCTOR_DELEGATE MYGUI_T_TEMPLATE_ARGS ) == _type;
+			return typeid( MYGUI_FUNCTOR_DELEGATE MYGUI_TEMPLATE_ARGS ) == _type;
 		}
 
 		virtual void invoke( MYGUI_PARAMS )
@@ -42,29 +42,16 @@ namespace delegates
 		}
 
 	private:
-		T mFunctor;
+		boost::function <void (MYGUI_PARAMS)> mFunctor;
 	};
 
 
 } // namespace delegates
 
-/*MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
-inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* newDelegate( void (*_func)( MYGUI_PARAMS ) )
+MYGUI_TEMPLATE MYGUI_TEMPLATE_PARAMS
+inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* newDelegate(const boost::function <void (MYGUI_PARAMS)> & _functor)
 {
-	return new delegates::MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
-}
-
-template MYGUI_T_TEMPLATE_PARAMS
-inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* newDelegate( T* _object, void (T::*_method)( MYGUI_PARAMS ) )
-{
-	return new delegates::MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (delegates::GetDelegateUnlink(_object), _object, _method);
-}*/
-
-// Create new functor delegate.
-template MYGUI_T_TEMPLATE_PARAMS
-inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* newFunctorDelegate(const T &_functor)
-{
-	return new delegates::MYGUI_FUNCTOR_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (_functor);
+	return new delegates::MYGUI_FUNCTOR_DELEGATE MYGUI_TEMPLATE_ARGS  (_functor);
 }
 
 #undef MYGUI_COMBINE
