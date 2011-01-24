@@ -7,21 +7,21 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
-#include "FunctorDelegate.h"
-
 #define BOOST
 
 #ifdef BOOST
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/bind.hpp>
+
+#include "FunctorDelegate.h"
 #endif
 
 namespace demo
 {
 
 #ifdef BOOST
-	typedef boost::function<void (MyGUI::WidgetPtr _sender)> Delegate_W_Type;
+	typedef boost::function<void (MyGUI::Widget* _sender)> Delegate_W_Type;
 
 	class SomeClass
 	{
@@ -38,7 +38,7 @@ namespace demo
 
 	typedef boost::shared_ptr<SomeClass> SomeClassPtr;
 
-	static void Delegate_W(SomeClassPtr _foo, MyGUI::WidgetPtr _sender)
+	static void Delegate_W(SomeClassPtr _foo, MyGUI::Widget* _sender)
 	{
 		_sender->castType<MyGUI::Button>()->setCaption("Functor call. " + MyGUI::utility::toString(_foo->getValue()));
 	}
@@ -69,10 +69,12 @@ namespace demo
 #ifdef BOOST
 		MyGUI::Button* button4 = gui->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 130, 200, 30), MyGUI::Align::Default, "Main");
 		button4->setCaption("Boost functor");
-		button4->eventMouseButtonClick += MyGUI::newDelegate(handleClick_StaticMemberFunction);
+
 		SomeClassPtr classInstance(new SomeClass(4));
 		Delegate_W_Type f = boost::bind(Delegate_W, classInstance, _1);
-		button4->eventMouseButtonClick += MyGUI::newFunctorDelegate<Delegate_W_Type, MyGUI::WidgetPtr>(f);
+		button4->eventMouseButtonClick += MyGUI::newDelegate(f);
+
+		//button4->eventMouseButtonClick += MyGUI::newDelegate2(boost::bind(Delegate_W, classInstance, _1));
 #endif
 	}
 
