@@ -7,7 +7,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
-#define BOOST
+//#define BOOST
 
 #ifdef BOOST
 #include <boost/function.hpp>
