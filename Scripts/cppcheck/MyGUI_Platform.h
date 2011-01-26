@@ -6,7 +6,9 @@
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
-#define namespace //
+#ifdef DISABLE_NAMESPACES
+	#define namespace //
+#endif
 
 #define MYGUI_EXPORT
 #define MYGUI_PLATFORM 1

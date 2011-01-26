@@ -38,7 +38,7 @@ def checkFolderSources(folder, flags) :
 	parseOutput()
 
 
-checkFolderSources('MyGUIEngine', '')
+checkFolderSources('MyGUIEngine', '-D DISABLE_NAMESPACES')
 
 checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
