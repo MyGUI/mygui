@@ -143,7 +143,7 @@ namespace tools
 
 	void WidgetsWindow::requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::Button* button = _item->createWidget<MyGUI::Button>("ButtonSmall", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
+		MyGUI::Button* button = _item->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 
 		button->setTextAlign(MyGUI::Align::Center);
 		button->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
