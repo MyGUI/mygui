@@ -3,10 +3,10 @@
 	<Resource type="ResourceSkin" name="PositionBorderWhite" size="50 50" texture="FrameworkSkin.png">
 		<Property key="Snap" value="false"/>
 		<Property key="MainMove" value="true"/>
-		<Child type="Widget" skin="MarkerWhite" offset="0 0 50 1" align="HStretch Top"/>
-		<Child type="Widget" skin="MarkerWhite" offset="0 49 50 1" align="HStretch Bottom"/>
-		<Child type="Widget" skin="MarkerWhite" offset="0 1 1 48" align="Left VStretch"/>
-		<Child type="Widget" skin="MarkerWhite" offset="49 1 1 48" align="Right VStretch"/>
+		<Child type="Widget" skin="WhiteSkin" offset="0 0 50 1" align="HStretch Top"/>
+		<Child type="Widget" skin="WhiteSkin" offset="0 49 50 1" align="HStretch Bottom"/>
+		<Child type="Widget" skin="WhiteSkin" offset="0 1 1 48" align="Left VStretch"/>
+		<Child type="Widget" skin="WhiteSkin" offset="49 1 1 48" align="Right VStretch"/>
 	</Resource>
 	<Resource type="ResourceSkin" name="VerticalBorderWhite" size="9 50" texture="FrameworkSkin.png">
 		<Property key="Pointer" value="size_horz"/>
