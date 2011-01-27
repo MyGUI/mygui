@@ -30,11 +30,14 @@ namespace tools
 	{
 	}
 
-	void PropertyFieldComboBox::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldComboBox::initialise(const std::string& _type)
+	{
+		mType = _type;
+	}
+
+	void PropertyFieldComboBox::setTarget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
-		mType = _type;
-
 		onFillValues();
 	}
 
@@ -96,6 +99,16 @@ namespace tools
 	{
 		mName = _value;
 		mText->setCaption(_value);
+	}
+
+	void PropertyFieldComboBox::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
+	}
+
+	bool PropertyFieldComboBox::getVisible()
+	{
+		return mMainWidget->getVisible();
 	}
 
 } // namespace tools

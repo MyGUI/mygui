@@ -136,7 +136,8 @@ namespace tools
 				if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
 					value = controllerInfo->mProperty[iter->first];
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, mCurrentWidget);
+				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				field->setTarget(mCurrentWidget);
 				field->setName(iter->first);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelControllers::notifyAction);

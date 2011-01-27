@@ -26,6 +26,7 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
+		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
 		void notifyActionSkin(const std::string& _type, const std::string& _value, bool _final);
 		void notifyActionLayer(const std::string& _type, const std::string& _value, bool _final);
 		void notifyActionName(const std::string& _type, const std::string& _value, bool _final);
@@ -34,6 +35,7 @@ namespace tools
 		void notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final);
 
 		void destroyPropertyFields();
+		void hidePropertyFields();
 		void updateSize();
 
 		bool isSkinExist(const std::string& _skinName);
@@ -41,10 +43,12 @@ namespace tools
 
 		std::string getTargetTemplate(WidgetContainer* _container);
 
+		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
+
 	private:
 		MyGUI::Widget* mCurrentWidget;
-		typedef std::vector<IPropertyField*> VectorPropertyField;
-		VectorPropertyField mFields;
+		typedef std::map<std::string, IPropertyField*> MapPropertyField;
+		MapPropertyField mFields;
 	};
 
 } // namespace tools
