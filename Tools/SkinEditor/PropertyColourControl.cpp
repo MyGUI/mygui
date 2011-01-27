@@ -159,7 +159,7 @@ namespace tools
 	{
 		if (!_value.empty())
 		{
-			float red, green, blue, alpha = 1;
+			float red, green, blue;
 			std::istringstream stream(_value);
 			stream >> red >> green >> blue;
 			if (!stream.fail())
@@ -172,7 +172,7 @@ namespace tools
 					item = stream.get();
 				}
 
-				_resultValue = MyGUI::Colour(red, green, blue, alpha);
+				_resultValue = MyGUI::Colour(red, green, blue);
 				return true;
 			}
 		}
