@@ -36,11 +36,20 @@ function(mygui_create_vcproj_userfile TARGETNAME)
 			set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
 		endif()
 		
-		configure_file(
-			${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
-			${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
-			@ONLY
-		)
+		if (${CMAKE_GENERATOR} STREQUAL "Visual Studio 10" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 10 Win64")
+			configure_file(
+				${MYGUI_TEMPLATES_DIR}/VisualStudio2010UserFile.vcxproj.user.in
+				${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcxproj.user
+				@ONLY
+			)
+		else ()
+			configure_file(
+				${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
+				${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
+				@ONLY
+			)
+		endif ()
+		
 	endif ()
 endfunction(mygui_create_vcproj_userfile)
 
