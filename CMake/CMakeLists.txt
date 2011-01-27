@@ -19,6 +19,7 @@ set(INST_FILES
   Utils/MyGUIGetVersion.cmake
   Utils/MyGUIFindFrameworks.cmake
   Templates/VisualStudioUserFile.vcproj.user.in
+  Templates/VisualStudio2010UserFile.vcxproj.user.in
 ) 
 set(STATIC_INST_FILES
   Packages/FindDirectX.cmake
