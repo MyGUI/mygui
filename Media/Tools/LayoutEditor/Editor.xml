@@ -12,7 +12,8 @@
 	<List file="TextureViewerSkins.xml"/>
 	<List file="EditorReplaceSkins.xml"/>
 	<List file="FrameworkSkin.xml"/>
+	<List file="MyGUI_Layers.xml"/>
+	<List file="EditorSettings.xml"/>
 	<!-- загружается из кода после регистрации лееров -->
 	<!--List file="EditorLayers.xml"/-->
-	<!--List file="EditorSettings.xml"/-->
 </MyGUI>

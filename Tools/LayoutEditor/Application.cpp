@@ -60,7 +60,7 @@ namespace tools
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		MyGUI::ResourceManager::getInstance().load("EditorLayers.xml");
-		MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
+		//MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
 
 		getStatisticInfo()->setVisible(false);
 
