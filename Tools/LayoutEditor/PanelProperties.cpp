@@ -5,8 +5,8 @@
 */
 
 #include "Precompiled.h"
-#include "Localise.h"
 #include "PanelProperties.h"
+#include "Localise.h"
 #include "EditorWidgets.h"
 #include "PropertyFieldManager.h"
 #include "UndoManager.h"
@@ -40,8 +40,10 @@ namespace tools
 		return mDeep;
 	}
 
-	void PanelProperties::AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
+	size_t PanelProperties::addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
 	{
+		size_t result = 0;
+
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
 			std::string value = "";
@@ -54,17 +56,19 @@ namespace tools
 				}
 			}
 
-			IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, _currentWidget);
-			field->setName(iter->first);
+			IPropertyField* field = getPropertyField(mWidgetClient, iter->first, iter->second);
+			field->setTarget(_currentWidget);
 			field->setValue(value);
-			field->eventAction = MyGUI::newDelegate(this, &PanelProperties::notifyAction);
-			mFields.push_back(field);
+
+			result ++;
 		}
+
+		return result;
 	}
 
 	void PanelProperties::update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType)
 	{
-		destroyPropertyFields();
+		hidePropertyFields();
 
 		mCurrentWidget = _currentWidget;
 		if (mCurrentWidget == nullptr)
@@ -76,10 +80,9 @@ namespace tools
 
 		mPanelCell->setCaption(replaceTags("Widget_type_propertes"));
 
-		AddParametrs(_widgetType, widgetContainer, mCurrentWidget);
+		size_t count = addParametrs(_widgetType, widgetContainer, mCurrentWidget);
 
-		bool visible = mFields.size() > 0;
-		setVisible(visible);
+		setVisible(count > 0);
 
 		updateSize();
 	}
@@ -88,11 +91,14 @@ namespace tools
 	{
 		int height = 0;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
-			height += size.height;
+			if ((*item).second->getVisible())
+			{
+				MyGUI::IntSize size = (*item).second->getContentSize();
+				(*item).second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+				height += size.height;
+			}
 		}
 
 		mPanelCell->setClientHeight(height);
@@ -100,8 +106,8 @@ namespace tools
 
 	void PanelProperties::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			delete (*item).second;
 		mFields.clear();
 	}
 
@@ -134,6 +140,30 @@ namespace tools
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
+	}
+
+	void PanelProperties::hidePropertyFields()
+	{
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			(*item).second->setVisible(false);
+	}
+
+	IPropertyField* PanelProperties::getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type)
+	{
+		MapPropertyField::iterator item = mFields.find(_name);
+		if (item != mFields.end())
+		{
+			(*item).second->setVisible(true);
+			return (*item).second;
+		}
+
+		IPropertyField* result = PropertyFieldManager::getInstance().createPropertyField(_client, _type);
+		result->setName(_name);
+		result->eventAction = MyGUI::newDelegate(this, &PanelProperties::notifyAction);
+
+		mFields[_name] = result;
+
+		return result;
 	}
 
 } // namespace tools

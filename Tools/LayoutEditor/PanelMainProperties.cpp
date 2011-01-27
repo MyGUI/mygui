@@ -33,7 +33,7 @@ namespace tools
 
 	void PanelMainProperties::update(MyGUI::Widget* _currentWidget)
 	{
-		destroyPropertyFields();
+		hidePropertyFields();
 
 		mCurrentWidget = _currentWidget;
 		if (mCurrentWidget == nullptr)
@@ -42,54 +42,41 @@ namespace tools
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Name", _currentWidget);
-		field->setName("Name");
+		IPropertyField* field = getPropertyField(mWidgetClient, "Name", "Name");
+		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->name);
-		field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionName);
-		mFields.push_back(field);
 
 		if (widgetType->resizeable)
 		{
-			field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Position", _currentWidget);
-			field->setName("Position");
+			field = getPropertyField(mWidgetClient, "Position", "Position");
+			field->setTarget(_currentWidget);
 			field->setValue(widgetContainer->position());
-			mFields.push_back(field);
 		}
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", _currentWidget);
-		field->setName("Type");
+		field = getPropertyField(mWidgetClient, "Type", "Type");
+		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->type);
-		field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionType);
-		mFields.push_back(field);
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Align", _currentWidget);
-		field->setName("Align");
+		field = getPropertyField(mWidgetClient, "Align", "Align");
+		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->align);
-		field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionAlign);
-		mFields.push_back(field);
 
 		if (mCurrentWidget->isRootWidget())
 		{
-			field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Layer", _currentWidget);
-			field->setName("Layer");
+			field = getPropertyField(mWidgetClient, "Layer", "Layer");
+			field->setTarget(_currentWidget);
 			field->setValue(widgetContainer->getLayerName());
-			field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionLayer);
-			mFields.push_back(field);
 		}
 
-		field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Skin", _currentWidget);
-		field->setName("Skin");
+		field = getPropertyField(mWidgetClient, "Skin", "Skin");
+		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->skin);
-		field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionSkin);
-		mFields.push_back(field);
 
 		if (widgetContainer->name == "Root" && widgetContainer->widget->isRootWidget())
 		{
-			field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, "Type", _currentWidget);
-			field->setName("Template");
+			field = getPropertyField(mWidgetClient, "Template", "Type");
+			field->setTarget(_currentWidget);
 			field->setValue(getTargetTemplate(widgetContainer));
-			field->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyActionTemplate);
-			mFields.push_back(field);
 		}
 
 		updateSize();
@@ -109,11 +96,14 @@ namespace tools
 	{
 		int height = 0;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
-			height += size.height;
+			if ((*item).second->getVisible())
+			{
+				MyGUI::IntSize size = (*item).second->getContentSize();
+				(*item).second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+				height += size.height;
+			}
 		}
 
 		mPanelCell->setClientHeight(height);
@@ -121,8 +111,8 @@ namespace tools
 
 	void PanelMainProperties::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			delete (*item).second;
 		mFields.clear();
 	}
 
@@ -268,6 +258,46 @@ namespace tools
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
+	}
+
+	IPropertyField* PanelMainProperties::getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type)
+	{
+		MapPropertyField::iterator item = mFields.find(_name);
+		if (item != mFields.end())
+		{
+			(*item).second->setVisible(true);
+			return (*item).second;
+		}
+
+		IPropertyField* result = PropertyFieldManager::getInstance().createPropertyField(_client, _type);
+		result->setName(_name);
+		result->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyAction);
+
+		mFields[_name] = result;
+
+		return result;
+	}
+
+	void PanelMainProperties::hidePropertyFields()
+	{
+		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+			(*item).second->setVisible(false);
+	}
+
+	void PanelMainProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	{
+		if (_name == "Skin")
+			notifyActionSkin(_name, _value, _final);
+		else if (_name == "Layer")
+			notifyActionLayer(_name, _value, _final);
+		else if (_name == "Name")
+			notifyActionName(_name, _value, _final);
+		else if (_name == "Type")
+			notifyActionType(_name, _value, _final);
+		else if (_name == "Align")
+			notifyActionAlign(_name, _value, _final);
+		else if (_name == "Template")
+			notifyActionTemplate(_name, _value, _final);
 	}
 
 } // namespace tools

@@ -31,14 +31,17 @@ namespace tools
 	private:
 		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
 
-		void AddParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
+		size_t addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget);
 		void destroyPropertyFields();
+		void hidePropertyFields();
 
 		void updateSize();
 
+		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
+
 	private:
-		typedef std::vector<IPropertyField*> VectorPropertyField;
-		VectorPropertyField mFields;
+		typedef std::map<std::string, IPropertyField*> MapPropertyField;
+		MapPropertyField mFields;
 		size_t mDeep;
 		MyGUI::Widget* mCurrentWidget;
 	};

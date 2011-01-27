@@ -20,10 +20,14 @@ namespace tools
 		PropertyFieldEditBox(MyGUI::Widget* _parent);
 		virtual ~PropertyFieldEditBox();
 
-		virtual void initialise(const std::string& _type, MyGUI::Widget* _currentWidget);
+		virtual void initialise(const std::string& _type);
 
+		virtual void setTarget(MyGUI::Widget* _currentWidget);
 		virtual void setValue(const std::string& _value);
 		virtual void setName(const std::string& _value);
+
+		virtual void setVisible(bool _value);
+		virtual bool getVisible();
 
 		virtual MyGUI::IntSize getContentSize();
 		virtual void setCoord(const MyGUI::IntCoord& _coord);
