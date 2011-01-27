@@ -45,6 +45,7 @@ namespace tools
 	{
 		WidgetStyle::VectorString values = WidgetTypes::getInstance().findPossibleValues(mType);
 
+		mField->removeAllItems();
 		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
 		mField->beginToItemFirst();

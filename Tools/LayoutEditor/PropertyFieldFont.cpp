@@ -40,6 +40,7 @@ namespace tools
 				values.push_back(resourceFont->getResourceName());
 		}
 
+		mField->removeAllItems();
 		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
 			mField->addItem(*iter);
 		mField->beginToItemFirst();
