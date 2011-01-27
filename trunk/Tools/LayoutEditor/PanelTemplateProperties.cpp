@@ -45,7 +45,8 @@ namespace tools
 					}
 				}
 
-				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second, _currentWidget);
+				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
+				field->setTarget(_currentWidget);
 				field->setName(iter->first);
 				field->setValue(value);
 				field->eventAction = MyGUI::newDelegate(this, &PanelTemplateProperties::notifyAction);

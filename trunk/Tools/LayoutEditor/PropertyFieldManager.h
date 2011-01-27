@@ -22,7 +22,7 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		IPropertyField* createPropertyField(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget);
+		IPropertyField* createPropertyField(MyGUI::Widget* _window, const std::string& _type);
 
 	private:
 		typedef MyGUI::delegates::CDelegate2<IPropertyField*&, MyGUI::Widget*> Delegate;

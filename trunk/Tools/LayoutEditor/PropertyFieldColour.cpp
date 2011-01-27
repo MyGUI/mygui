@@ -20,7 +20,8 @@ namespace tools
 		mField(nullptr),
 		mColourPlace(nullptr),
 		mColourPanel(nullptr),
-		mGoodData(false)
+		mGoodData(false),
+		mCurrentWidget(nullptr)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");
@@ -42,10 +43,14 @@ namespace tools
 		mColourPanel = nullptr;
 	}
 
-	void PropertyFieldColour::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldColour::initialise(const std::string& _type)
+	{
+		mType = _type;
+	}
+
+	void PropertyFieldColour::setTarget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
-		mType = _type;
 	}
 
 	void PropertyFieldColour::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
@@ -194,6 +199,16 @@ namespace tools
 	MyGUI::Colour PropertyFieldColour::getColour()
 	{
 		return MyGUI::Colour::parse(mField->getOnlyText());
+	}
+
+	void PropertyFieldColour::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
+	}
+
+	bool PropertyFieldColour::getVisible()
+	{
+		return mMainWidget->getVisible();
 	}
 
 } // namespace tools

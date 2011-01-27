@@ -77,7 +77,7 @@ namespace tools
 	{
 	}
 
-	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type, MyGUI::Widget* _currentWidget)
+	IPropertyField* PropertyFieldManager::createPropertyField(MyGUI::Widget* _window, const std::string& _type)
 	{
 		IPropertyField* result = nullptr;
 
@@ -85,7 +85,8 @@ namespace tools
 		MYGUI_ASSERT(item != mFactories.end(), "Factory PropertyField '" << _type << "' not found.");
 
 		(*item).second(result, _window);
-		result->initialise(_type, _currentWidget);
+		result->initialise(_type);
+
 		return result;
 	}
 

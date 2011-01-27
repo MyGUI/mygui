@@ -41,10 +41,14 @@ namespace tools
 		CommandManager::getInstance().unregisterCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertyFieldPosition::commandToggleRelativeMode));
 	}
 
-	void PropertyFieldPosition::initialise(const std::string& _type, MyGUI::Widget* _currentWidget)
+	void PropertyFieldPosition::initialise(const std::string& _type)
+	{
+		mType = _type;
+	}
+
+	void PropertyFieldPosition::setTarget(MyGUI::Widget* _currentWidget)
 	{
 		mCurrentWidget = _currentWidget;
-		mType = _type;
 
 		updateButton();
 	}
@@ -190,6 +194,16 @@ namespace tools
 			return;
 
 		updatePositionCaption();
+	}
+
+	void PropertyFieldPosition::setVisible(bool _value)
+	{
+		mMainWidget->setVisible(_value);
+	}
+
+	bool PropertyFieldPosition::getVisible()
+	{
+		return mMainWidget->getVisible();
 	}
 
 } // namespace tools
