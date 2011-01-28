@@ -262,9 +262,6 @@ namespace MyGUI
 		// для непонятно какого размера одного символа UTF8
 		UString line(_line);
 
-		if (mMapLanguage.empty() && mUserMapLanguage.empty())
-			return _line;
-
 		UString::iterator end = line.end();
 		for (UString::iterator iter = line.begin(); iter != end; )
 		{
