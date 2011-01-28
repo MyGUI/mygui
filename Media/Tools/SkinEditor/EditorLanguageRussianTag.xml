@@ -51,6 +51,7 @@
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 	<Tag name="ButtonOpenFolder">Выбрать</Tag>
+	<Tag name="ButtonUp">Вверх</Tag>
 
 	<Tag name="PropertyRegionCoords">Координаты</Tag>
 	<Tag name="PropertyRegionVisible">Видимость</Tag>
