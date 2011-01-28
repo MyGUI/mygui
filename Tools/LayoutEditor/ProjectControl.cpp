@@ -37,7 +37,7 @@ namespace tools
 		mOpenSaveFileDialog->setFileMask("*.xml");
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
+		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyTextFieldEndDialog);
@@ -117,7 +117,7 @@ namespace tools
 			return;
 
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
+		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionCreateFile"), replaceTags("ButtonCreateFile"));
 		mOpenSaveFileDialog->setMode("Create");
 		mOpenSaveFileDialog->doModal();
@@ -131,7 +131,7 @@ namespace tools
 			return;
 
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFilders(RecentFilesManager::getInstance().getRecentFolders());
+		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFile"), replaceTags("ButtonOpenFile"));
 		mOpenSaveFileDialog->setMode("Load");
 		mOpenSaveFileDialog->doModal();

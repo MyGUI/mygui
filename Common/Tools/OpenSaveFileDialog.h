@@ -29,7 +29,7 @@ namespace tools
 		void setMode(const MyGUI::UString& _value);
 
 		typedef std::vector<MyGUI::UString> VectorUString;
-		void setRecentFilders(const VectorUString& _listFolders);
+		void setRecentFolders(const VectorUString& _listFolders);
 
 		void setFileMask(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileMask() const;
@@ -46,14 +46,18 @@ namespace tools
 		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyUpButtonClick(MyGUI::Widget* _sender);
 
 		void update();
 		void accept();
+
+		void upFolder();
 
 	private:
 		MyGUI::Window* mWindow;
 		MyGUI::ListBox* mListFiles;
 		MyGUI::EditBox* mEditFileName;
+		MyGUI::Button* mButtonUp;
 		MyGUI::ComboBox* mCurrentFolderField;
 		MyGUI::Button* mButtonOpenSave;
 
