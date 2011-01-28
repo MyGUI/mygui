@@ -15,6 +15,7 @@ namespace tools
 		mWindow(nullptr),
 		mListFiles(nullptr),
 		mEditFileName(nullptr),
+		mButtonUp(nullptr),
 		mCurrentFolderField(nullptr),
 		mButtonOpenSave(nullptr),
 		mFileMask("*.*"),
@@ -22,12 +23,14 @@ namespace tools
 	{
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
+		assignWidget(mButtonUp, "ButtonUp");
 		assignWidget(mCurrentFolderField, "CurrentFolder");
 		assignWidget(mButtonOpenSave, "ButtonOpenSave");
 
 		mListFiles->eventListChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
 		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
 		mEditFileName->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
+		mButtonUp->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyUpButtonClick);
 		mCurrentFolderField->eventComboAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
 		mCurrentFolderField->eventComboChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
 		mButtonOpenSave->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
@@ -56,6 +59,11 @@ namespace tools
 	void OpenSaveFileDialog::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		accept();
+	}
+
+	void OpenSaveFileDialog::notifyUpButtonClick(MyGUI::Widget* _sender)
+	{
+		upFolder();
 	}
 
 	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode)
@@ -89,18 +97,13 @@ namespace tools
 		{
 			if (info.name == L"..")
 			{
-				size_t index = mCurrentFolder.find_last_of(L"\\/");
-				if (index != std::string::npos)
-				{
-					mCurrentFolder = mCurrentFolder.substr(0, index);
-				}
+				upFolder();
 			}
 			else
 			{
 				mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+				update();
 			}
-
-			update();
 		}
 		else
 		{
@@ -120,6 +123,16 @@ namespace tools
 		{
 			eventEndDialog(this, true);
 		}
+	}
+
+	void OpenSaveFileDialog::upFolder()
+	{
+		size_t index = mCurrentFolder.find_last_of(L"\\/");
+		if (index != std::string::npos)
+		{
+			mCurrentFolder = mCurrentFolder.substr(0, index);
+		}
+		update();
 	}
 
 	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
@@ -217,7 +230,7 @@ namespace tools
 		mMode = _value;
 	}
 
-	void OpenSaveFileDialog::setRecentFilders(const VectorUString& _listFolders)
+	void OpenSaveFileDialog::setRecentFolders(const VectorUString& _listFolders)
 	{
 		mCurrentFolderField->removeAllItems();
 
