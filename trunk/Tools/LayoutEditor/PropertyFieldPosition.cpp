@@ -171,6 +171,8 @@ namespace tools
 
 		updateButton();
 		updatePositionCaption();
+
+		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
 	void PropertyFieldPosition::updateButton()
