@@ -9,7 +9,7 @@ include(${PROJECTNAME}.list)
 include_directories(include)
 if (MYGUI_USE_FREETYPE)
 	include_directories(
-		${FREETYPE_INCLUDE_DIRS}
+		${FREETYPE_INCLUDE_DIRS} ${FREETYPE_FT2BUILD_INCLUDE_DIR}
 	)
 	add_definitions(-DMYGUI_USE_FREETYPE)
 endif ()
