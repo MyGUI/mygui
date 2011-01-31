@@ -36,37 +36,37 @@ namespace input
 				{
 					std::string value = info->getContent();
 					if (value == "IDC_ARROW")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_ARROW);
 					else if (value == "IDC_IBEAM")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_IBEAM);
 					else if (value == "IDC_WAIT")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_WAIT));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_WAIT);
 					else if (value == "IDC_CROSS")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_CROSS));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_CROSS);
 					else if (value == "IDC_UPARROW")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_UPARROW));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_UPARROW);
 					else if (value == "IDC_SIZE")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZE));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZE);
 					else if (value == "IDC_ICON")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ICON));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_ICON);
 					else if (value == "IDC_SIZENWSE")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZENWSE);
 					else if (value == "IDC_SIZENESW")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZENESW);
 					else if (value == "IDC_SIZEWE")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZEWE);
 					else if (value == "IDC_SIZENS")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZENS);
 					else if (value == "IDC_SIZEALL")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_SIZEALL);
 					else if (value == "IDC_NO")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_NO));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_NO);
 					else if (value == "IDC_HAND")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_HAND);
 					else if (value == "IDC_APPSTARTING")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_APPSTARTING));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_APPSTARTING);
 					else if (value == "IDC_HELP")
-						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HELP));
+						mHandle = (size_t)::LoadCursor(NULL, IDC_HELP);
 				}
 			}
 		}
