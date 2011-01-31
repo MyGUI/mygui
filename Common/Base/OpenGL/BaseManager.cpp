@@ -566,6 +566,9 @@ namespace base
 			_height = image->GetHeight();
 			Gdiplus::PixelFormat format = image->GetPixelFormat();
 
+			// using for MinGW
+			using namespace Gdiplus;
+
 			if (format == PixelFormat24bppRGB)
 				_format = MyGUI::PixelFormat::R8G8B8;
 			else if (format == PixelFormat32bppARGB)
@@ -624,7 +627,7 @@ namespace base
 		UINT num, size;
 		Gdiplus::GetImageEncodersSize(&num, &size);
 
-		Gdiplus::ImageCodecInfo* imageCodecInfo = (Gdiplus::ImageCodecInfo*)alloca(size);
+		Gdiplus::ImageCodecInfo* imageCodecInfo = (Gdiplus::ImageCodecInfo*)malloc(size);
 		GetImageEncoders(num, size, imageCodecInfo);
 
 		CLSID* pngClsid = NULL;
