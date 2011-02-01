@@ -250,7 +250,7 @@ namespace MyGUI
 
 		// bind the texture
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
-		if(!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
+		if (!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
 			//Fallback if PBO's are not supported
 			mBuffer = new unsigned char[mDataSize];
@@ -297,8 +297,8 @@ namespace MyGUI
 		}
 
 		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
-				
-		if(!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
+
+		if (!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
 			//Fallback if PBO's are not supported
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
@@ -360,7 +360,7 @@ namespace MyGUI
 		return mRenderTarget;
 	}
 
-	unsigned int OpenGLTexture::getTextureID()
+	unsigned int OpenGLTexture::getTextureID() const
 	{
 		return mTextureID;
 	}
