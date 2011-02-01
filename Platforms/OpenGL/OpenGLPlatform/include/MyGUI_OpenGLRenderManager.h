@@ -67,6 +67,7 @@ namespace MyGUI
 	/*internal:*/
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
+		bool isPixelBufferObjectSupported();
 
 	private:
 		void destroyAllResources();
@@ -80,6 +81,7 @@ namespace MyGUI
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
 		OpenGLImageLoader* mImageLoader;
+		bool mPboIsSupported;
 
 		bool mIsInitialise;
 	};
