@@ -12,7 +12,16 @@
 
 //for image loader
 #include <gdiplus.h>
-#pragma comment(lib, "gdiplus.lib")
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#	ifndef __MINGW32__
+#		pragma comment(lib, "gdiplus.lib")
+#	else
+#		pragma comment(lib, "libgdiplus.a")
+#		include <malloc.h>
+using namespace Gdiplus;
+#	endif
+#endif
 
 // имя класса окна
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
@@ -565,9 +574,6 @@ namespace base
 			_width = image->GetWidth();
 			_height = image->GetHeight();
 			Gdiplus::PixelFormat format = image->GetPixelFormat();
-
-			// using for MinGW
-			using namespace Gdiplus;
 
 			if (format == PixelFormat24bppRGB)
 				_format = MyGUI::PixelFormat::R8G8B8;
