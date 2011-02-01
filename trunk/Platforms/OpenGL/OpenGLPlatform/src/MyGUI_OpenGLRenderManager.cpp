@@ -12,17 +12,16 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
 
-#define GLEW_STATIC
-#define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
 namespace MyGUI
 {
 
 	OpenGLRenderManager::OpenGLRenderManager() :
-		mIsInitialise(false),
 		mUpdate(false),
-		mImageLoader(nullptr)
+		mImageLoader(nullptr),
+		mPboIsSupported(false),
+		mIsInitialise(false)
 	{
 	}
 
@@ -37,6 +36,8 @@ namespace MyGUI
 		mImageLoader = _loader;
 
 		glewInit();
+
+		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -209,6 +210,11 @@ namespace MyGUI
 			gui->_resizeWindow(mViewSize);
 			mUpdate = true;
 		}
+	}
+
+	bool OpenGLRenderManager::isPixelBufferObjectSupported()
+	{
+		return mPboIsSupported;
 	}
 
 	ITexture* OpenGLRenderManager::createTexture(const std::string& _name)
