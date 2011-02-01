@@ -63,7 +63,7 @@ namespace MyGUI
 		virtual IRenderTarget* getRenderTarget();
 
 	/*internal:*/
-		unsigned int getTextureID();// { return mTextureID; }
+		unsigned int getTextureID() const;
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
