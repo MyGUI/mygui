@@ -8,8 +8,6 @@
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
-#define GLEW_STATIC
-#define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
 namespace MyGUI

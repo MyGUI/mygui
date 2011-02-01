@@ -5,13 +5,11 @@
 */
 
 #include "MyGUI_OpenGLTexture.h"
-#include "MyGUI_DataManager.h"
+#include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_OpenGLPlatform.h"
 #include "MyGUI_OpenGLRTTexture.h"
 
-#define GLEW_STATIC
-#define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
 namespace MyGUI
@@ -191,7 +189,7 @@ namespace MyGUI
 		// Restore old unpack alignment
 		glPixelStorei( GL_UNPACK_ALIGNMENT, alignment );
 
-		if (!_data)
+		if (!_data && OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
 			//создаем текстурнный буфер
 			glGenBuffersARB(1, &mPboID);
@@ -250,28 +248,35 @@ namespace MyGUI
 			return mBuffer;
 		}
 
-		// bind the texture and PBO
+		// bind the texture
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
-		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
-
-		// Note that glMapBufferARB() causes sync issue.
-		// If GPU is working with this buffer, glMapBufferARB() will wait(stall)
-		// until GPU to finish its job. To avoid waiting (idle), you can call
-		// first glBufferDataARB() with NULL pointer before glMapBufferARB().
-		// If you do that, the previous data in PBO will be discarded and
-		// glMapBufferARB() returns a new allocated pointer immediately
-		// even if GPU is still working with the previous data.
-		glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
-
-		// map the buffer object into client's memory
-		mBuffer = (GLubyte*)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
-
-		if (!mBuffer)
+		if(!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
-			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-			glBindTexture(GL_TEXTURE_2D, 0);
+			//Fallback if PBO's are not supported
+			mBuffer = new unsigned char[mDataSize];
+		}
+		else
+		{
+			// bind the PBO
+			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
+			
+			// Note that glMapBufferARB() causes sync issue.
+			// If GPU is working with this buffer, glMapBufferARB() will wait(stall)
+			// until GPU to finish its job. To avoid waiting (idle), you can call
+			// first glBufferDataARB() with NULL pointer before glMapBufferARB().
+			// If you do that, the previous data in PBO will be discarded and
+			// glMapBufferARB() returns a new allocated pointer immediately
+			// even if GPU is still working with the previous data.
+			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
 
-			MYGUI_PLATFORM_EXCEPT("Error texture lock");
+			// map the buffer object into client's memory
+			mBuffer = (GLubyte*)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
+			if (!mBuffer)
+			{
+				glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				MYGUI_PLATFORM_EXCEPT("Error texture lock");
+			}
 		}
 
 		mLock = true;
@@ -292,20 +297,28 @@ namespace MyGUI
 		}
 
 		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
+				
+		if(!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
+		{
+			//Fallback if PBO's are not supported
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
+			delete mBuffer;
+		}
+		else
+		{
+			// release the mapped buffer
+			glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB);
 
-		// release the mapped buffer
-		glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB);
+			// copy pixels from PBO to texture object
+			// Use offset instead of ponter.
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, 0);
 
-		// copy pixels from PBO to texture object
-		// Use offset instead of ponter.
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, 0);
-
-		// it is good idea to release PBOs with ID 0 after use.
-		// Once bound with 0, all pixel operations are back to normal ways.
-		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-
+			// it is good idea to release PBOs with ID 0 after use.
+			// Once bound with 0, all pixel operations are back to normal ways.
+			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+		}
+		
 		glBindTexture(GL_TEXTURE_2D, 0);
-
 		mBuffer = 0;
 		mLock = false;
 	}

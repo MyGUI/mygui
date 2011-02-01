@@ -8,7 +8,6 @@
 #include "MyGUI_VertexData.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
-#define GLEW_STATIC
 #include "GL/glew.h"
 
 namespace MyGUI
@@ -95,7 +94,7 @@ namespace MyGUI
 		// check data size in VBO is same as input array, if not return 0 and delete VBO
 		int bufferSize = 0;
 		glGetBufferParameterivARB(GL_ARRAY_BUFFER_ARB, GL_BUFFER_SIZE_ARB, &bufferSize);
-		if (mSizeInBytes != bufferSize)
+		if (mSizeInBytes != (size_t)bufferSize)
 		{
 			destroy();
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");
