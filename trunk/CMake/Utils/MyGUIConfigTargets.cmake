@@ -185,6 +185,8 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		
+		target_link_libraries(${PROJECTNAME} gdiplus)
 	endif()
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
