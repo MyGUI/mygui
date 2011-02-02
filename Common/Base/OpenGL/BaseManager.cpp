@@ -12,15 +12,10 @@
 
 //for image loader
 #include <gdiplus.h>
+#include <malloc.h>
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	ifndef __MINGW32__
-#		pragma comment(lib, "gdiplus.lib")
-#	else
-#		pragma comment(lib, "libgdiplus.a")
-#		include <malloc.h>
+#ifdef __MINGW32__
 using namespace Gdiplus;
-#	endif
 #endif
 
 // имя класса окна
