@@ -7,6 +7,7 @@
 #include "../../Common/Input/InputConverter.h"
 #include <berkelium/Berkelium.hpp>
 #include <berkelium/Context.hpp>
+#include <berkelium/Cursor.hpp>
 
 namespace MyGUI
 {
@@ -141,7 +142,28 @@ namespace MyGUI
 										const Berkelium::Rect &scrollRect) {}
 	void BerkeliumWidget::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
 	{
-		int a = 0;
+#if defined(_WIN32)
+		static HCURSOR arrow_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+		static HCURSOR beam_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
+		static HCURSOR link_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+
+		std::string cursor = "arrow";
+		if (newCursor.GetCursor() == beam_cursor)
+		{
+			cursor = "beam";
+		}
+		else if (newCursor.GetCursor() == link_cursor)
+		{
+			cursor = "link";
+		}
+		else
+		{
+			cursor = "arrow";
+		}
+		setPointer(cursor);
+		MyGUI::PointerManager::getInstance().setPointer(cursor);
+		MyGUI::PointerManager::getInstance().eventChangeMousePointer(cursor);
+#endif
 	}
 	void BerkeliumWidget::onShowContextMenu(Berkelium::Window *win,
 											const Berkelium::ContextMenuEventArgs& args) {}
@@ -179,7 +201,7 @@ namespace MyGUI
 	void BerkeliumWidget::loadURL(const std::string& _url)
 	{
 		if (mWindow != nullptr)
-			mWindow->navigateTo(_url.data(), _url.length());
+			mWindow->navigateTo(_url.c_str(), _url.length());
 	}
 
 	void BerkeliumWidget::notifyFrameStart(float _time)
@@ -307,5 +329,4 @@ namespace MyGUI
 		}
 		eventChangeProperty(this, _key, _value);
 	}
-
 }
