@@ -11,7 +11,7 @@
 			<Property key="Parent" value="true"/>
 			<Property key="Child" value="true"/>
 
-			<Parameter key="Berkelium_SourceURL" value="StringAccept"/>
+			<Parameter key="SourceURL" value="String"/>
 		</Widget>
 	</MyGUI>
 
