@@ -348,7 +348,7 @@ namespace MyGUI
 	private:
 		void notifyUpdateCanvas(Canvas* _canvas, Canvas::Event _event);
 		void notifyFrameStart(float _time);
-		void update(bool _invalidate);
+		void update();
 		void updateSize();
 
 	private:
