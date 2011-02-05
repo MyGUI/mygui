@@ -127,12 +127,15 @@ namespace tools
 		{
 			widgetsUpdate();
 		}
-		else if (_sectionName == "Main")
+		else if (_sectionName == "Files")
 		{
 			if (_propertyName == "RecentFiles")
 			{
-				// если удалить изменить меню когда оно активно то оно не открывается
-				//updateRecentFilesMenu();
+				updateRecentFilesMenu();
+			}
+			else if (_propertyName == "RecentProjects")
+			{
+				updateRecentProjectsMenu();
 			}
 		}
 	}
