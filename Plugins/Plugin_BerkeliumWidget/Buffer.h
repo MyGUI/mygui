@@ -239,19 +239,20 @@ namespace helpers
 			}
 		}
 
-		void update(void* _data, int _left, int _top, int _width, int _height)
+		void update(void* _data, int _left, int _top, int _width, int _height, int sourceLeft, int sourceTop, int sourceWidth)
 		{
 			mDirty = true;
 
 			byte* original_data = mBuffer;
 			byte* data = original_data + (((_top * mWidthVisible) + _left) * BIT_IN_COLOUR);
-			byte* source = (byte*)_data;
+			 byte* source = (byte*)_data + (((sourceTop * sourceWidth) + sourceLeft) * BIT_IN_COLOUR);;
 			int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
-			int width_bytes_dest = _width * BIT_IN_COLOUR;
+			int width_bytes_dest = sourceWidth * BIT_IN_COLOUR;
+			int width_bytes_copy = _width * BIT_IN_COLOUR;
 
 			for (int y = 0; y < _height; ++y)
 			{
-				memcpy(data, source, width_bytes_dest);
+				memcpy(data, source, width_bytes_copy);
 				data += width_bytes_visible;
 				source += width_bytes_dest;
 			}

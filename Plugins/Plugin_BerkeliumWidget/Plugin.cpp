@@ -37,7 +37,7 @@ namespace plugin
 	{
 		MYGUI_LOGGING(LogSection, Info, "initialize");
 
-		Berkelium::init();
+		Berkelium::init(Berkelium::FileString::empty());
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::BerkeliumWidget>("Widget");
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Plugin::update);
