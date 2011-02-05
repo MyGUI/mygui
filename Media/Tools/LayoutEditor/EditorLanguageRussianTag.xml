@@ -60,6 +60,7 @@
 	<Tag name="SettingsLoadLastProject">Загружать последний проект</Tag>
 	<Tag name="SettingsTabUpdateResources">Обновление</Tag>
 	<Tag name="SettingsTextUpdateResources">Ресурсы для обновления</Tag>
+	<Tag name="SettingsWorkspaceSize">Размер рабочей области</Tag>
 
 	<Tag name="Key">Ключ</Tag>
 	<Tag name="Value">Значение</Tag>
