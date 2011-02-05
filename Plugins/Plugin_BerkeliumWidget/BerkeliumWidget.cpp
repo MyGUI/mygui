@@ -163,16 +163,16 @@ namespace MyGUI
 				mBuffer.resize(mOldWidth, mOldHeight);
 				mWindow->resize(mOldWidth, mOldHeight);
 
-				update(true);
+				update();
 			}
 			else if (_event.requested || _event.textureChanged)
 			{
-				update(true);
+				update();
 			}
 		}
 		else if (_event.requested || _event.textureChanged)
 		{
-			update(true);
+			update();
 		}
 	}
 
@@ -187,14 +187,12 @@ namespace MyGUI
 		if (mWindow == nullptr)
 			return;
 
-		update(false);
+		if (mBuffer.isDirty())
+			updateTexture();
 	}
 
-	void BerkeliumWidget::update(bool _invalidate)
+	void BerkeliumWidget::update()
 	{
-		if (!mBuffer.isDirty() && !_invalidate)
-			return;
-
 		void* data = lock();
 
 		mBuffer.draw(data, getTextureRealWidth());
