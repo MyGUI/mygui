@@ -73,6 +73,9 @@ namespace tools
 		EventSettingsChanged eventSettingsChanged;
 
 	private:
+		void setPropertyValueImpl(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue);
+
+	private:
 		MyGUI::UString mName;
 		typedef std::map<MyGUI::UString, MyGUI::UString> MapUString;
 		MapUString mProperties;
