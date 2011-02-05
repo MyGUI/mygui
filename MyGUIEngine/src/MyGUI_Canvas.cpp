@@ -158,6 +158,16 @@ namespace MyGUI
 		_destroyTexture( true );
 	}
 
+	void Canvas::shutdownOverride()
+	{
+		_destroyTexture(false);
+		frameAdvise(false);
+	}
+
+	void Canvas::initialiseOverride()
+	{
+	}
+
 	void Canvas::_destroyTexture( bool _sendEvent )
 	{
 		if ( mTexture != nullptr )

@@ -175,6 +175,9 @@ namespace MyGUI
 		EventHandle_CanvasPtrEvent requestUpdateCanvas;
 
 	protected:
+		virtual void shutdownOverride();
+		virtual void initialiseOverride();
+
 		/// Destroys texture
 		void _destroyTexture(bool _sendEvent);
 
