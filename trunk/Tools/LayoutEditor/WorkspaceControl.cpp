@@ -3,10 +3,10 @@
 #include "SettingsManager.h"
 #include "WidgetSelectorManager.h"
 #include "WidgetCreatorManager.h"
-//#include "PropertiesPanelView.h"
 #include "CommandManager.h"
 #include "UndoManager.h"
 #include "Localise.h"
+#include "MyGUI_RTTLayer.h"
 
 namespace tools
 {
@@ -22,6 +22,9 @@ namespace tools
 	{
 		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
+
+		setRttLayerSize(size);
+
 		setTextureName(sector->getPropertyValue("TextureName"));
 		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height));
 
@@ -664,6 +667,16 @@ namespace tools
 		else
 		{
 			_widget->setCoord(_coord);
+		}
+	}
+
+	void WorkspaceControl::setRttLayerSize(const MyGUI::IntSize& _size)
+	{
+		MyGUI::ILayer* layer = MyGUI::LayerManager::getInstance().getByName("LayoutEditor_Widgets", false);
+		if (layer != nullptr)
+		{
+			MyGUI::RTTLayer* rttLayer = layer->castType<MyGUI::RTTLayer>();
+			rttLayer->setTextureSize(_size);
 		}
 	}
 
