@@ -74,13 +74,18 @@ namespace tools
 
 	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
 	{
+		setPropertyValueImpl(_propertyName, _propertyValue);
+
+		eventSettingsChanged(this, _propertyName);
+	}
+
+	void SettingsSector::setPropertyValueImpl(const MyGUI::UString& _propertyName, const MyGUI::UString& _propertyValue)
+	{
 		MapUString::iterator item = mProperties.find(_propertyName);
 		if (item != mProperties.end())
 			(*item).second = _propertyValue;
 		else
 			mProperties.insert(std::make_pair(_propertyName, _propertyValue));
-
-		eventSettingsChanged(this, _propertyName);
 	}
 
 	void SettingsSector::setPropertyValue(const MyGUI::UString& _propertyName, const std::string& _propertyValue)
@@ -92,7 +97,9 @@ namespace tools
 	{
 		clearProperty(_propertyName);
 		for (size_t index = 0; index < _propertyValues.size(); ++ index)
-			setPropertyValue(MyGUI::utility::toString(_propertyName, '.', index), _propertyValues[index]);
+			setPropertyValueImpl(MyGUI::utility::toString(_propertyName, '.', index), _propertyValues[index]);
+
+		eventSettingsChanged(this, _propertyName);
 	}
 
 	void SettingsSector::setPropertyValueList(const MyGUI::UString& _propertyName, const VectorString& _propertyValues)

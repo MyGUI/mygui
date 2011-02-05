@@ -93,6 +93,8 @@ namespace tools
 		mRecentFiles.insert(mRecentFiles.begin(), _fileName);
 
 		checkArray(mRecentFiles, mMaxRecentFiles);
+
+		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFiles", mRecentFiles);
 	}
 
 	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentFiles() const
@@ -105,6 +107,8 @@ namespace tools
 		mRecentProjects.insert(mRecentProjects.begin(), _fileName);
 
 		checkArray(mRecentProjects, mMaxRecentProjects);
+
+		SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentProjects", mRecentProjects);
 	}
 
 	const RecentFilesManager::VectorUString& RecentFilesManager::getRecentProjects() const
