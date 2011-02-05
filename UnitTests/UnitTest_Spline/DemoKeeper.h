@@ -33,7 +33,7 @@ namespace demo
 		MyGUI::Widget* mClient;
 		std::vector<MyGUI::FloatPoint> mLinePoints;
 		MyGUI::PolygonalSkin* mPolygonalSkin;
-		MyGUI::StaticText* mQualityText;
+		MyGUI::TextBox* mQualityText;
 		MyGUI::IntPoint mOffset;
 	};
 
