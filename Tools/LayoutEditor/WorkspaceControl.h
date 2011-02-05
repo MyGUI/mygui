@@ -68,6 +68,8 @@ namespace tools
 
 		void setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord);
 
+		void setRttLayerSize(const MyGUI::IntSize& _size);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;

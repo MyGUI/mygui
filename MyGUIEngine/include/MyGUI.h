@@ -84,5 +84,6 @@
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_TextureUtility.h"
 #include "MyGUI_Constants.h"
+#include "MyGUI_Bitwise.h"
 
 #endif // __MYGUI_H__

@@ -34,6 +34,7 @@ namespace tools
 		MyGUI::EditBox* mGridEdit;
 		//MyGUI::ComboBox* mLayoutVersion;
 		MyGUI::Button* mLoadLastProject;
+		MyGUI::EditBox* mWorkspaceSize;
 	};
 
 } // namespace tools

@@ -15,11 +15,13 @@ namespace tools
 		mGridStep(0),
 		mGridEdit(nullptr),
 		//mLayoutVersion(nullptr),
-		mLoadLastProject(nullptr)
+		mLoadLastProject(nullptr),
+		mWorkspaceSize(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
 		//assignWidget(mLayoutVersion, "LayoutVersion");
 		assignWidget(mLoadLastProject, "LoadLastProject");
+		assignWidget(mWorkspaceSize, "WorkspaceSize");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
@@ -47,6 +49,7 @@ namespace tools
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"));
+		mWorkspaceSize->setCaption(SettingsManager::getInstance().getSector("Workspace")->getPropertyValue("TextureSize"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
@@ -60,6 +63,11 @@ namespace tools
 
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LoadLastProject", mLoadLastProject->getStateSelected());
+
+		MyGUI::IntSize workspaceSize = MyGUI::utility::parseValue<MyGUI::IntSize>(mWorkspaceSize->getCaption());
+		//workspaceSize.set(MyGUI::Bitwise::firstPO2From(workspaceSize.width), MyGUI::Bitwise::firstPO2From(workspaceSize.height));
+		workspaceSize.set(std::max(64, workspaceSize.width), std::max(64, workspaceSize.height));
+		SettingsManager::getInstance().getSector("Workspace")->setPropertyValue("TextureSize", workspaceSize.print());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
