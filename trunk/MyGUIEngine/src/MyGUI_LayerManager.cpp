@@ -114,7 +114,7 @@ namespace MyGUI
 			}
 
 			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
-			MYGUI_ASSERT(object != nullptr, "factory is '" << type << "' not found");
+			MYGUI_ASSERT(object != nullptr, "factory '" << type << "' is not found");
 
 			ILayer* item = object->castType<ILayer>();
 			item->deserialization(layer.current(), _version);
