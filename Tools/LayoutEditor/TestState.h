@@ -26,6 +26,10 @@ namespace tools
 	private:
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
 		bool checkCommand();
+		void deleteTestLayout();
+
+	private:
+		MyGUI::xml::Document* mTestLayout;
 	};
 
 } // namespace tools
