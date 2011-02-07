@@ -44,7 +44,6 @@ checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -
 checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('UnitTests/UnitTest_*', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Common', '-I Common')
-# include temporary disabled due to cppcheck bug
 checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/OpenGLPlatform/include')
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include')

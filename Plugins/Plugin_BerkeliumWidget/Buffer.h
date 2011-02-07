@@ -245,7 +245,7 @@ namespace helpers
 
 			byte* original_data = mBuffer;
 			byte* data = original_data + (((_top * mWidthVisible) + _left) * BIT_IN_COLOUR);
-			 byte* source = (byte*)_data + (((sourceTop * sourceWidth) + sourceLeft) * BIT_IN_COLOUR);;
+			byte* source = (byte*)_data + (((sourceTop * sourceWidth) + sourceLeft) * BIT_IN_COLOUR);
 			int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
 			int width_bytes_dest = sourceWidth * BIT_IN_COLOUR;
 			int width_bytes_copy = _width * BIT_IN_COLOUR;
