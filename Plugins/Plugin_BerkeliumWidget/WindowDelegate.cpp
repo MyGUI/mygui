@@ -46,7 +46,7 @@ namespace MyGUI
 
 			mBuffer->update((void*)sourceBuffer, updateRect.left(), updateRect.top(), updateRect.width(), updateRect.height(),
 				updateRect.left() - sourceBufferRect.left(), updateRect.top() - sourceBufferRect.top(), sourceBufferRect.width());
-		}	
+		}
 	}
 
 	void WindowDelegate::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
