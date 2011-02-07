@@ -4,6 +4,8 @@
 	@date		05/2009
 */
 
+#include <windows.h>
+#include <gdiplus.h>
 #include "Precompiled.h"
 #include "BaseManager.h"
 
@@ -11,7 +13,6 @@
 #include <GL/glu.h>
 
 //for image loader
-#include <gdiplus.h>
 #include <malloc.h>
 
 #ifdef __MINGW32__
@@ -418,7 +419,7 @@ namespace base
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		int bits = 16;
+		BYTE bits = 16;
 
 		static PIXELFORMATDESCRIPTOR pfd =
 		{
@@ -444,12 +445,14 @@ namespace base
 
 		GLuint pixel_format;
 
-		if (!(hDC = GetDC(hWnd)))
+		hDC = GetDC(hWnd);
+		if (!hDC)
 		{
 			return false;
 		}
 
-		if (!(pixel_format = ChoosePixelFormat(hDC, &pfd)))
+		pixel_format = ChoosePixelFormat(hDC, &pfd);
+		if (!pixel_format)
 		{
 			return false;
 		}
@@ -459,7 +462,8 @@ namespace base
 			return false;
 		}
 
-		if (!(hRC = wglCreateContext(hDC)))
+		hRC = wglCreateContext(hDC);
+		if (!hRC)
 		{
 			return false;
 		}
