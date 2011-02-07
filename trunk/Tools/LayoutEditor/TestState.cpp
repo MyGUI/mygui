@@ -15,13 +15,15 @@
 namespace tools
 {
 
-	TestState::TestState()
+	TestState::TestState() :
+		mTestLayout(nullptr)
 	{
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &TestState::commandQuit));
 	}
 
 	TestState::~TestState()
 	{
+		deleteTestLayout();
 	}
 
 	void TestState::initState()
@@ -29,22 +31,17 @@ namespace tools
 		WidgetSelectorManager::getInstance().saveSelectedWidget();
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
-		MyGUI::xml::Document* mTestLayout = EditorWidgets::getInstance().savexmlDocument();
+		mTestLayout = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, true);
-
-		delete mTestLayout;
-		mTestLayout = nullptr;
 	}
 
 	void TestState::cleanupState()
 	{
-		MyGUI::xml::Document* mTestLayout = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();
 		EditorWidgets::getInstance().loadxmlDocument(mTestLayout, false);
 
-		delete mTestLayout;
-		mTestLayout = nullptr;
+		deleteTestLayout();
 
 		WidgetSelectorManager::getInstance().restoreSelectedWidget();
 	}
@@ -79,6 +76,15 @@ namespace tools
 			return false;
 
 		return true;
+	}
+
+	void TestState::deleteTestLayout()
+	{
+		if (mTestLayout != nullptr)
+		{
+			delete mTestLayout;
+			mTestLayout = nullptr;
+		}
 	}
 
 } // namespace tools
