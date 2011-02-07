@@ -31,9 +31,9 @@ def checkDir(folder):
 os.chdir("Scripts/vera++")
 checkDir("*/*/*.h")
 checkDir("*/*/*.cpp")
-checkDir("Common/*/*/*.h")
-checkDir("Common/*/*/*.cpp")
-checkDir("Platforms/*/*/*/*.h")
-checkDir("Platforms/*/*/*/*.cpp")
+checkDir("*/*/*/*.h")
+checkDir("*/*/*/*.cpp")
+checkDir("*/*/*/*/*.h")
+checkDir("*/*/*/*/*.cpp")
 os.chdir("../..")
 
