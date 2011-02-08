@@ -19,9 +19,9 @@ namespace tools
 		mText(nullptr),
 		mField(nullptr),
 		mColourPlace(nullptr),
+		mCurrentWidget(nullptr),
 		mColourPanel(nullptr),
-		mGoodData(false),
-		mCurrentWidget(nullptr)
+		mGoodData(false)
 	{
 		assignWidget(mText, "Text");
 		assignWidget(mField, "Field");

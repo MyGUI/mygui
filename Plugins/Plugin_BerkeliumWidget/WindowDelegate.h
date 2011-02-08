@@ -20,6 +20,7 @@ namespace MyGUI
 		public Berkelium::WindowDelegate
 	{
 	public:
+		WindowDelegate();
 		virtual ~WindowDelegate() { }
 
 		void setWindow(Berkelium::Window* _window);
