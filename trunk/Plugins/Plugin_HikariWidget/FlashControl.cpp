@@ -256,7 +256,7 @@ void FlashControl::unbind(const MyGUI::UString& funcName)
 FlashValue FlashControl::callFunction(MyGUI::UString funcName, const Arguments& args)
 {
 	BSTR returnVal = 0;
-	HRESULT result = flashInterface->raw_CallFunction(_bstr_t(serializeInvocation(funcName, args).c_str()), &returnVal);
+	flashInterface->raw_CallFunction(_bstr_t(serializeInvocation(funcName, args).c_str()), &returnVal);
 
 	return deserializeValue((wchar_t*)returnVal);
 }

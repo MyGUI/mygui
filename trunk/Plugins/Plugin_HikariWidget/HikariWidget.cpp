@@ -76,93 +76,109 @@ namespace Hikari
 
 	void HikariWidget::load(const std::string& movieFilename)
 	{
-		mControl->load(movieFilename);
+		if (mControl)
+			mControl->load(movieFilename);
 	}
 
 	void HikariWidget::play()
 	{
-		mControl->getFlashInterface()->Play();
+		if (mControl)
+			mControl->getFlashInterface()->Play();
 	}
 
 	void HikariWidget::stop()
 	{
-		mControl->getFlashInterface()->Stop();
+		if (mControl)
+			mControl->getFlashInterface()->Stop();
 	}
 
 	void HikariWidget::rewind()
 	{
-		mControl->getFlashInterface()->Rewind();
+		if (mControl)
+			mControl->getFlashInterface()->Rewind();
 	}
 
 	void HikariWidget::gotoFrame(long frameNum)
 	{
-		mControl->getFlashInterface()->raw_GotoFrame(frameNum);
+		if (mControl)
+			mControl->getFlashInterface()->raw_GotoFrame(frameNum);
 	}
 
 	void HikariWidget::setLoop(bool shouldLoop)
 	{
-		mControl->getFlashInterface()->PutLoop(shouldLoop);
+		if (mControl)
+			mControl->getFlashInterface()->PutLoop(shouldLoop);
 	}
 
 	void HikariWidget::setTransparent(bool isTransparent)
 	{
-		mControl->setTransparent(isTransparent);
+		if (mControl)
+			mControl->setTransparent(isTransparent);
 	}
 
 	void HikariWidget::setQuality(short renderQuality)
 	{
-		mControl->setQuality(renderQuality);
+		if (mControl)
+			mControl->setQuality(renderQuality);
 	}
 
 	void HikariWidget::setScaleMode(short scaleMode)
 	{
-		mControl->setScaleMode(scaleMode);
+		if (mControl)
+			mControl->setScaleMode(scaleMode);
 	}
 
 	void HikariWidget::bind(const MyGUI::UString& funcName, FlashDelegate::IDelegate* callback)
 	{
-		mControl->bind(funcName, callback);
+		if (mControl)
+			mControl->bind(funcName, callback);
 	}
 
 	void HikariWidget::unbind(const MyGUI::UString& funcName)
 	{
-		mControl->unbind(funcName);
+		if (mControl)
+			mControl->unbind(funcName);
 	}
 
 	FlashValue HikariWidget::callFunction(MyGUI::UString funcName, const Arguments& args)
 	{
-		return mControl->callFunction(funcName, args);
+		if (mControl)
+			return mControl->callFunction(funcName, args);
+		return FlashValue();
 	}
 
 	void HikariWidget::onMouseDrag(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
+		if (mControl)
+			mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 		Base::onMouseDrag(_left, _top, _id);
 	}
 
 	void HikariWidget::onMouseMove(int _left, int _top)
 	{
-		mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
+		if (mControl)
+			mControl->injectMouseMove(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 		Base::onMouseMove(_left, _top);
 	}
 
 	void HikariWidget::onMouseWheel(int _rel)
 	{
 		const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getMousePosition();
-		mControl->injectMouseWheel(_rel, point.left - getAbsoluteLeft(), point.top - getAbsoluteTop());
+		if (mControl)
+			mControl->injectMouseWheel(_rel, point.left - getAbsoluteLeft(), point.top - getAbsoluteTop());
 		Base::onMouseWheel(_rel);
 	}
 
 	void HikariWidget::onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left)
+		if (_id == MyGUI::MouseButton::Left && mControl)
 			mControl->injectMouseDown(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void HikariWidget::onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left)
+		if (_id == MyGUI::MouseButton::Left && mControl)
 			mControl->injectMouseUp(_left - getAbsoluteLeft(), _top - getAbsoluteTop());
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
