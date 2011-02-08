@@ -11,6 +11,13 @@
 namespace MyGUI
 {
 
+	WindowDelegate::WindowDelegate() :
+		mWindow(nullptr),
+		mBuffer(nullptr),
+		mWidget(nullptr)
+	{
+	}
+
 	void WindowDelegate::setWindow(Berkelium::Window* _window)
 	{
 		mWindow = _window;
@@ -35,11 +42,12 @@ namespace MyGUI
 		int dx, int dy,
 		const Berkelium::Rect &scrollRect)
 	{
-		if (mWindow == nullptr)	return;
+		if (mWindow == nullptr || mBuffer == nullptr)
+			return;
 
 		mBuffer->scroll(dx, dy, scrollRect.left(), scrollRect.top(), scrollRect.width(), scrollRect.height());
 
-		for(size_t i = 0; i < numCopyRects; i++)
+		for (size_t i = 0; i < numCopyRects; i++)
 		{
 
 			const Berkelium::Rect &updateRect = copyRects[i];
@@ -51,6 +59,9 @@ namespace MyGUI
 
 	void WindowDelegate::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
 	{
+		if (mWidget == nullptr)
+			return;
+
 		std::string cursor = "arrow";
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		static HCURSOR beam_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
