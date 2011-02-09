@@ -2,7 +2,6 @@
 import os
 
 ignoredEndings = [
-	"is never used",
 	"It is safe to deallocate a NULL pointer",
 	"Throwing exception in destructor",
 	"::initialise' can be const.",

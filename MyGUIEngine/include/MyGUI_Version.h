@@ -93,7 +93,7 @@ namespace MyGUI
 		{
 			std::string value;
 			_stream >> value;
-			_value = Version::parse(value);
+			_value = parse(value);
 			return _stream;
 		}
 
