@@ -39,7 +39,7 @@ namespace MyGUI
 		public: \
 			static const std::string& getClassTypeName() { TypeNameHolder type; return type.getClassTypeName(); } \
 			/** Get type name as string */ \
-			virtual const std::string& getTypeName() const { return Type::getClassTypeName(); }
+			virtual const std::string& getTypeName() const { return getClassTypeName(); }
 	#else
 		#define MYGUI_DECLARE_TYPE_NAME( Type ) \
 		public: \
