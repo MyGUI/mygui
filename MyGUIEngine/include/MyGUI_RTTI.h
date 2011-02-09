@@ -45,7 +45,7 @@ namespace MyGUI
 		public: \
 			static const std::string& getClassTypeName() { static std::string type = #Type; return type; } \
 			/** Get type name as string */ \
-			virtual const std::string& getTypeName() const { return Type::getClassTypeName(); }
+			virtual const std::string& getTypeName() const { return getClassTypeName(); }
 	#endif
 
 	#define MYGUI_RTTI_BASE( BaseType ) \
