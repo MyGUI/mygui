@@ -2,6 +2,7 @@
 #define _BERKELIUM_BROWSER_H_
 
 #include "BaseLayout/BaseLayout.h"
+#include "BerkeliumWidget.h"
 
 namespace demo
 {

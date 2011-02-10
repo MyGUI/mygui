@@ -11,6 +11,8 @@
 namespace demo
 {
 
+	class BerkeliumBrowser;
+
 	class DemoKeeper :
 		public base::BaseManager
 	{
@@ -23,7 +25,7 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		MyGUI::TextBox* m_button;
+		BerkeliumBrowser* mBerkeliumBrowser;
 	};
 
 } // namespace demo
