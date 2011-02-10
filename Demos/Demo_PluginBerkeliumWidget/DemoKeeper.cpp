@@ -4,6 +4,7 @@
 	@date		02/2011
 */
 #include "Precompiled.h"
+#include "BerkeliumBrowser.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
@@ -11,7 +12,7 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		m_button(nullptr)
+		mBerkeliumBrowser(nullptr)
 	{
 	}
 
@@ -28,22 +29,24 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Example of using berkelium plugin with basic browser implementation and usage of common functions.");
 
-		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
-		const MyGUI::IntSize size(300, 26);
-
-	/*#ifdef _DEBUG
-		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton_d.dll");
+	#ifdef _DEBUG
+		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_BerkeliumWidget_d.dll");
 	#else
-		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
-	#endif*/
+		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_BerkeliumWidget.dll");
+	#endif
+
+		mBerkeliumBrowser = new BerkeliumBrowser();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		delete mBerkeliumBrowser;
+		mBerkeliumBrowser = nullptr;
+
 	#ifdef _DEBUG
-		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_StrangeButton_d.dll");
+		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_BerkeliumWidget_d.dll");
 	#else
-		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_StrangeButton.dll");
+		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_BerkeliumWidget.dll");
 	#endif
 	}
 
