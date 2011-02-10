@@ -94,7 +94,7 @@ namespace MyGUI
 		{
 			std::string value;
 			_stream >> value;
-			_value = MessageBoxStyle::parse(value);
+			_value = parse(value);
 			return _stream;
 		}
 

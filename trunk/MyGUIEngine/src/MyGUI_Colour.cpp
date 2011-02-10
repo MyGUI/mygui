@@ -141,7 +141,7 @@ namespace MyGUI
 
 		if (value[0] == '#')
 		{
-			_value = Colour::parse(value);
+			_value = parse(value);
 		}
 		else
 		{
