@@ -12,7 +12,7 @@
 namespace plugin
 {
 
-	class StrangeButton :
+	class MYGUI_EXPORT_DLL StrangeButton :
 		public MyGUI::Button
 	{
 		MYGUI_RTTI_DERIVED( StrangeButton )

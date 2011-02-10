@@ -13,7 +13,7 @@
 namespace Hikari
 {
 
-	class HikariWidget :
+	class MYGUI_EXPORT_DLL HikariWidget :
 		public MyGUI::Canvas
 	{
 		MYGUI_RTTI_DERIVED( HikariWidget );

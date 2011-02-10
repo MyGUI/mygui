@@ -16,7 +16,7 @@ namespace MyGUI
 
 	class BerkeliumWidget;
 
-	class BerkeliumDelegate :
+	class MYGUI_EXPORT_DLL BerkeliumDelegate :
 		public Berkelium::WindowDelegate
 	{
 	public:
