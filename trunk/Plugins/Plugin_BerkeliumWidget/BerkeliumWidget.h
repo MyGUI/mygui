@@ -20,7 +20,7 @@ namespace MyGUI
 
 	class BerkeliumDelegate;
 
-	class BerkeliumWidget :
+	class MYGUI_EXPORT_DLL BerkeliumWidget :
 		public Canvas
 	{
 		// для вызова закрытого конструктора
