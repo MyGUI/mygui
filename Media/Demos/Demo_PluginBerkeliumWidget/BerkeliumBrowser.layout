@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCS" position="4 4 540 420" name="_Main">
+        <Property key="MinSize" value="160 160"/>
+        <Widget type="BerkeliumWidget" skin="Canvas" position="0 28 530 355" align="Stretch" name="WebPage"/>
+        <Widget type="EditBox" skin="EditBoxStretch" position="72 0 460 28" align="HStretch Top" name="Url">
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="0 0 36 28" name="Back">
+            <Property key="Caption" value="&lt;="/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="36 0 36 28" name="Forward">
+            <Property key="Caption" value="=&gt;"/>
+        </Widget>
+    </Widget>
+    <CodeGenaratorSettings>
+        <Property key="IncludeDirectory" value="F:\my-gui\Demos\Demo_PluginBerkeliumWidget"/>
+        <Property key="PanelName" value="BerkeliumBrowser"/>
+        <Property key="PanelNamespace" value="demo"/>
+        <Property key="SourceDirectory" value="F:\my-gui\Demos\Demo_PluginBerkeliumWidget"/>
+    </CodeGenaratorSettings>
+</MyGUI>

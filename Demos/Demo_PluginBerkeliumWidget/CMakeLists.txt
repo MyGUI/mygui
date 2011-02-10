@@ -1,0 +1,2 @@
+mygui_demo(Demo_PluginBerkeliumWidget)
+add_dependencies(Demo_PluginBerkeliumWidget Plugin_BerkeliumWidget)
