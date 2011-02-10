@@ -4,7 +4,7 @@
 	@date		02/2010
 */
 #include "BerkeliumWidget.h"
-#include "WindowDelegate.h"
+#include "BerkeliumDelegate.h"
 #include "../../Common/Input/InputConverter.h"
 #include <berkelium/Window.hpp>
 #include <berkelium/Context.hpp>
@@ -39,7 +39,7 @@ namespace MyGUI
 
 		mBuffer.resize(mOldWidth, mOldHeight);
 		mWindow->resize(mOldWidth, mOldHeight);
-		mWindowDelegate = new WindowDelegate();
+		mWindowDelegate = new BerkeliumDelegate();
 		setWindowDelegate(mWindowDelegate);
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BerkeliumWidget::notifyFrameStart);
@@ -111,7 +111,7 @@ namespace MyGUI
 		return mWindow;
 	}
 
-	void BerkeliumWidget::setWindowDelegate(WindowDelegate* _windowDelegate)
+	void BerkeliumWidget::setWindowDelegate(BerkeliumDelegate* _windowDelegate)
 	{
 		_windowDelegate->setBuffer(&mBuffer);
 		_windowDelegate->setWidget(this);
