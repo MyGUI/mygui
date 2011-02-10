@@ -3,7 +3,7 @@
 	@author		George Evmenov
 	@date		02/2011
 */
-#include "WindowDelegate.h"
+#include "BerkeliumDelegate.h"
 #include "BerkeliumWidget.h"
 #include "MyGUI_PointerManager.h"
 #include <berkelium/Cursor.hpp>
@@ -11,29 +11,29 @@
 namespace MyGUI
 {
 
-	WindowDelegate::WindowDelegate() :
+	BerkeliumDelegate::BerkeliumDelegate() :
 		mWindow(nullptr),
 		mBuffer(nullptr),
 		mWidget(nullptr)
 	{
 	}
 
-	void WindowDelegate::setWindow(Berkelium::Window* _window)
+	void BerkeliumDelegate::setWindow(Berkelium::Window* _window)
 	{
 		mWindow = _window;
 	}
 
-	void WindowDelegate::setBuffer(helpers::Buffer* _buffer)
+	void BerkeliumDelegate::setBuffer(helpers::Buffer* _buffer)
 	{
 		mBuffer = _buffer;
 	}
 
-	void WindowDelegate::setWidget(MyGUI::BerkeliumWidget* _widget)
+	void BerkeliumDelegate::setWidget(MyGUI::BerkeliumWidget* _widget)
 	{
 		mWidget = _widget;
 	}
 
-	void WindowDelegate::onPaint(
+	void BerkeliumDelegate::onPaint(
 		Berkelium::Window *win,
 		const unsigned char *sourceBuffer,
 		const Berkelium::Rect &sourceBufferRect,
@@ -57,7 +57,7 @@ namespace MyGUI
 		}
 	}
 
-	void WindowDelegate::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
+	void BerkeliumDelegate::onCursorUpdated(Berkelium::Window *win, const Berkelium::Cursor& newCursor)
 	{
 		if (mWidget == nullptr)
 			return;

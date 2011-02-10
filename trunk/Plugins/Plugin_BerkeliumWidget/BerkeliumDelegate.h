@@ -9,19 +9,19 @@
 #include "MyGUI_Prerequest.h"
 #include <string>
 #include "Buffer.h"
-#include <berkelium/WindowDelegate.hpp>
+#include <berkelium/BerkeliumDelegate.hpp>
 
 namespace MyGUI
 {
 
 	class BerkeliumWidget;
 
-	class WindowDelegate :
-		public Berkelium::WindowDelegate
+	class BerkeliumDelegate :
+		public Berkelium::BerkeliumDelegate
 	{
 	public:
-		WindowDelegate();
-		virtual ~WindowDelegate() { }
+		BerkeliumDelegate();
+		virtual ~BerkeliumDelegate() { }
 
 		void setWindow(Berkelium::Window* _window);
 		void setBuffer(helpers::Buffer* _buffer);
