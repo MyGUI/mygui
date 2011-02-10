@@ -5,9 +5,13 @@
         <UserString key="SnapTo" value="Center"/>
         <Widget type="BerkeliumWidget" skin="Canvas" position="0 28 790 535" align="Stretch" name="WebPage">
             <Property key="SourceURL" value="http://mygui.info"/>
+            <Widget type="ProgressBar" skin="ProgressBar" position="0 519 790 16" align="HStretch Bottom" name="Loading">
+                <Property key="AutoTrack" value="true"/>
+            </Widget>
         </Widget>
         <Widget type="EditBox" skin="EditBoxStretch" position="72 0 720 28" align="HStretch Top" name="Url">
             <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="MultiLine" value="false"/>
         </Widget>
         <Widget type="Button" skin="Button" position="0 0 36 28" name="Back">
             <Property key="Caption" value="&lt;="/>
