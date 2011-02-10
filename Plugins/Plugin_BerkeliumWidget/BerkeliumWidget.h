@@ -18,7 +18,7 @@ namespace Berkelium
 namespace MyGUI
 {
 
-	class WindowDelegate;
+	class BerkeliumDelegate;
 
 	class BerkeliumWidget :
 		public Canvas
@@ -34,7 +34,7 @@ namespace MyGUI
 		void loadURL(const std::string& _url);
 		Berkelium::Window* getBerkeliumWindow();
 
-		void setWindowDelegate(WindowDelegate* _windowDelegate);
+		void setWindowDelegate(BerkeliumDelegate* _windowDelegate);
 
 	protected:
 		virtual void initialiseOverride();
@@ -64,7 +64,7 @@ namespace MyGUI
 		int mOldHeight;
 		helpers::Buffer mBuffer;
 
-		WindowDelegate* mWindowDelegate;
+		BerkeliumDelegate* mWindowDelegate;
 	};
 
 } // namespace MyGUI
