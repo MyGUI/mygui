@@ -53,7 +53,7 @@ namespace MyGUI
 					break;
 				value++;
 			}
-			type.value = MenuItemType::Enum(value);
+			type.value = Enum(value);
 			return type;
 		}
 
@@ -77,7 +77,7 @@ namespace MyGUI
 		{
 			std::string value;
 			_stream >> value;
-			_value = MenuItemType::parse(value);
+			_value = parse(value);
 			return _stream;
 		}
 
