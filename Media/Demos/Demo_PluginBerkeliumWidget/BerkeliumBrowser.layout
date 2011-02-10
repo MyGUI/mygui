@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCS" position="4 4 540 420" name="_Main">
+    <Widget type="Window" skin="WindowCS" position="0 0 800 600" layer="Overlapped" name="_Main">
         <Property key="MinSize" value="160 160"/>
-        <Widget type="BerkeliumWidget" skin="Canvas" position="0 28 530 355" align="Stretch" name="WebPage"/>
-        <Widget type="EditBox" skin="EditBoxStretch" position="72 0 460 28" align="HStretch Top" name="Url">
+        <UserString key="SnapTo" value="Center"/>
+        <Widget type="BerkeliumWidget" skin="Canvas" position="0 28 790 535" align="Stretch" name="WebPage">
+            <Property key="SourceURL" value="http://mygui.info"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBoxStretch" position="72 0 720 28" align="HStretch Top" name="Url">
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
         <Widget type="Button" skin="Button" position="0 0 36 28" name="Back">

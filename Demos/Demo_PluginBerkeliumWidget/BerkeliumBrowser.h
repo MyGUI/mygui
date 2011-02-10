@@ -1,3 +1,8 @@
+/*!
+	@file
+	@author		George Evmenov
+	@date		02/2011
+*/
 #ifndef _BERKELIUM_BROWSER_H_
 #define _BERKELIUM_BROWSER_H_
 
