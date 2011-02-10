@@ -9,7 +9,7 @@
 #include "MyGUI_Prerequest.h"
 #include <string>
 #include "Buffer.h"
-#include <berkelium/BerkeliumDelegate.hpp>
+#include <berkelium/WindowDelegate.hpp>
 
 namespace MyGUI
 {
@@ -17,7 +17,7 @@ namespace MyGUI
 	class BerkeliumWidget;
 
 	class BerkeliumDelegate :
-		public Berkelium::BerkeliumDelegate
+		public Berkelium::WindowDelegate
 	{
 	public:
 		BerkeliumDelegate();
