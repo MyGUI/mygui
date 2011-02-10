@@ -90,25 +90,16 @@ namespace tools
 		if (nullptr != mCurrentWidget)
 		{
 			MyGUI::LayerManager::getInstance().upLayerItem(mCurrentWidget);
-			MyGUI::IntCoord coord = mCurrentWidget->getCoord();
-			MyGUI::Widget* parent = mCurrentWidget->getParent();
+			MyGUI::Widget* parent = mCurrentWidget;
+
+			// if we select TabItem, it's chuld or subchild then show TabItem
+			while (nullptr != parent && !parent->isType<MyGUI::TabItem>())
+				parent = parent->getParent();
 			if (nullptr != parent)
 			{
-				// если выбрали виджет на табе, то поднять лист таба
-				if (parent->isType<MyGUI::TabItem>())
-				{
-					MyGUI::TabControl* tab = parent->getParent()->castType<MyGUI::TabControl>();
-					MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
-					tab->setItemSelected(sheet);
-				}
-				// если выбрали лист таба, то поднять лист таба
-				if (mCurrentWidget->isType<MyGUI::TabItem>())
-				{
-					MyGUI::TabControl* tab = parent->castType<MyGUI::TabControl>();
-					MyGUI::TabItem* sheet = mCurrentWidget->castType<MyGUI::TabItem>();
-					tab->setItemSelected(sheet);
-				}
-				coord = mCurrentWidget->getAbsoluteCoord();
+				MyGUI::TabControl* tab = parent->getParent()->castType<MyGUI::TabControl>();
+				MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
+				tab->setItemSelected(sheet);
 			}
 
 			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
