@@ -97,7 +97,7 @@ except:
 else:
   for root, dirs, files in os.walk(dir_solution):
     for name in files:
-      if name.endswith('.vcproj') and not isIgnoredProject(name):
+      if (name.endswith('.vcproj') or name.endswith('.vcxproj')) and not isIgnoredProject(name):
           f_src = os.path.join(root, name)
           f_src = f_src.replace('\\','/')
           currentFolder = f_src #os.path.realpath(f_src)
