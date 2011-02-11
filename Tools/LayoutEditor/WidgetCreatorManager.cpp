@@ -140,7 +140,12 @@ namespace tools
 
 			// переводим старт поинт в координаты отца
 			if (parent != nullptr && !mNewWidget->isRootWidget())
-				mStartPoint -= parent->getAbsolutePosition();
+			{
+				if (parent->getClientWidget())
+					mStartPoint -= parent->getClientWidget()->getAbsolutePosition();
+				else
+					mStartPoint -= parent->getAbsolutePosition();
+			}
 
 			if (!MyGUI::InputManager::getInstance().isShiftPressed())
 			{
