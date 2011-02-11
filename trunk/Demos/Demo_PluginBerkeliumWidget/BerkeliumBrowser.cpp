@@ -13,7 +13,8 @@ namespace demo
 		mWebPageBerkeliumWidget(nullptr),
 		mUrlEditBox(nullptr),
 		mBackButton(nullptr),
-		mForwardButton(nullptr)
+		mForwardButton(nullptr),
+		mLoadingProgressBar(nullptr)
 	{
 		initialiseByAttributes(this, _parent);
 

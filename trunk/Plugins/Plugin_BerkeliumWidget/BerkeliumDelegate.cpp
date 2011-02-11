@@ -49,7 +49,6 @@ namespace MyGUI
 
 		for (size_t i = 0; i < numCopyRects; i++)
 		{
-
 			const Berkelium::Rect &updateRect = copyRects[i];
 
 			mBuffer->update((void*)sourceBuffer, updateRect.left(), updateRect.top(), updateRect.width(), updateRect.height(),

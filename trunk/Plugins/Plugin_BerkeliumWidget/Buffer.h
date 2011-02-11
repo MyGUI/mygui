@@ -256,14 +256,6 @@ namespace helpers
 				data += width_bytes_visible;
 				source += width_bytes_dest;
 			}
-
-			int count = mWidthVisible * mHeightVisible;
-			data = original_data + 3;
-			for (int index = 0; index < count; ++index)
-			{
-				*data = 0xFF;
-				data += BIT_IN_COLOUR;
-			}
 		}
 
 		bool isDirty() const
