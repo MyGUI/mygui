@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2011
 */
-#ifndef __WORD_WRAP_PANEL_H__
-#define __WORD_WRAP_PANEL_H__
+#ifndef __STACK_PANEL_H__
+#define __STACK_PANEL_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -12,13 +12,13 @@
 namespace MyGUI
 {
 
-	class WordWrapPanel :
+	class StackPanel :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( WordWrapPanel )
+		MYGUI_RTTI_DERIVED( StackPanel )
 
 	public:
-		WordWrapPanel();
+		StackPanel();
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -41,14 +41,8 @@ namespace MyGUI
 	private:
 		void onSizeChanged(const IntSize& _size);
 		void updateContent();
-
-		void alignChildLine(size_t _startIndex, size_t _stopIndex, int _top, int _height);
-		IntSize getWidgetSize(Widget* _widget);
-
-	private:
-		int mOldWidth;
 	};
 
 } // namespace MyGUI
 
-#endif // __WORD_WRAP_PANEL_H__
+#endif // __STACK_PANEL_H__
