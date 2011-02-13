@@ -2,6 +2,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "WordWrapPanel.h"
+#include "StackPanel.h"
 
 namespace demo
 {
@@ -20,28 +21,30 @@ namespace demo
 	{
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WordWrapPanel>("Widget");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
 		MyGUI::IntCoord coord = window->getClientCoord();
-		MyGUI::WordWrapPanel* panel = window->createWidget<MyGUI::WordWrapPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
-
-		panel->setFreezeContent(true);
+		//MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 
 		srand(GetTickCount());
 
-		for (size_t index = 0; index < 60; ++ index)
+		//for (size_t indexLine = 0; indexLine < 2; ++indexLine)
 		{
-			if (rand() % 2)
-				addText(panel);
-			else
-				addImage(panel);
+			MyGUI::WordWrapPanel* panel = window->createWidget<MyGUI::WordWrapPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
+			for (size_t index = 0; index < 20; ++ index)
+			{
+				if (rand() % 2)
+					addText(panel);
+				else
+					addImage(panel);
+			}
 		}
-
-		panel->setFreezeContent(false);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WordWrapPanel>("Widget");
 	}
 
