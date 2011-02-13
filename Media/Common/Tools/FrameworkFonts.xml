@@ -20,7 +20,7 @@
 		</Codes>
 	</Resource>
 	<Resource type="ResourceManualFont" name="MicroFont.11">
-		<Property key="Source" value="MyGUI_MicroFont.png"/>
+		<Property key="Source" value="MicroFont.png"/>
 		<Property key="DefaultHeight" value="11"/>
 		<Codes>
 			<!--cursor-->
