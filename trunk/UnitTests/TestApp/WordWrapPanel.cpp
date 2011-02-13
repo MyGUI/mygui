@@ -11,9 +11,7 @@ namespace MyGUI
 {
 
 	WordWrapPanel::WordWrapPanel() :
-		mOldWidth(0),
-		mFreezeContent(false),
-		mContentChanged(false)
+		mOldWidth(0)
 	{
 	}
 
@@ -47,12 +45,6 @@ namespace MyGUI
 
 	void WordWrapPanel::updateContent()
 	{
-		if (mFreezeContent)
-		{
-			mContentChanged = true;
-			return;
-		}
-
 		int currentWidth = 0;
 		int currentHeight = 0;
 		int maxWidth = getWidth();
@@ -95,29 +87,6 @@ namespace MyGUI
 		Base::onWidgetCreated(_widget);
 
 		updateContent();
-	}
-
-	bool WordWrapPanel::getFreezeContent()
-	{
-		return mFreezeContent;
-	}
-
-	void WordWrapPanel::setFreezeContent(bool _value)
-	{
-		if (mFreezeContent != _value)
-		{
-			mFreezeContent = _value;
-
-			if (mFreezeContent)
-			{
-				mContentChanged = false;
-			}
-			else
-			{
-				if (mContentChanged)
-					updateContent();
-			}
-		}
 	}
 
 	void WordWrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, int _top, int _height)
