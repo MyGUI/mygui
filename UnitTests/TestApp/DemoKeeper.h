@@ -2,7 +2,6 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
-#include "RenderManager.h"
 
 namespace demo
 {
@@ -17,8 +16,6 @@ namespace demo
 	private:
 		virtual void setupResources();
 
-	private:
-		RenderManager* mRenderManager;
 	};
 
 } // namespace demo
