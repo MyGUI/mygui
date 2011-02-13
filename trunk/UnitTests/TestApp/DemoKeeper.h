@@ -16,6 +16,9 @@ namespace demo
 	private:
 		virtual void setupResources();
 
+		void addText(MyGUI::Widget* _parent);
+		void addImage(MyGUI::Widget* _parent);
+
 	};
 
 } // namespace demo
