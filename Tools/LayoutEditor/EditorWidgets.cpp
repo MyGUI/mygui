@@ -573,8 +573,6 @@ namespace tools
 			{
 				_widget->setProperty(_key, _value);
 			}
-			//FIXME вроде уже не нужно, без этой строки все работает намного быстрее из-за корректных ленивых вычислеиний
-			//Ogre::Root::getSingleton().renderOneFrame();
 		}
 		catch (...)
 		{

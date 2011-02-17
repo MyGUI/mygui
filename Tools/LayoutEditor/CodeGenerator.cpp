@@ -12,7 +12,7 @@
 
 namespace tools
 {
-	// FIXME
+	// FIXME hardcoded template
 	const std::string TemplateName = "BaseLayoutCPP.xml";
 
 	CodeGenerator::CodeGenerator() :

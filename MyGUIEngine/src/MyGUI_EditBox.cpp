@@ -1755,20 +1755,21 @@ namespace MyGUI
 			// вертикальное смещение
 			if (textSize.height > view.height())
 			{
+				int delta = 0;
 				if (cursor.height() > view.height())
 				{
 					// if text is bigger than edit height then place it in center
-					// + 1 added, because negative and positive values have different rounding
-					offset.top = point.top + ((cursor.bottom - view.bottom) - (view.top - cursor.top) + 1) / 2;
+					delta = ((cursor.bottom - view.bottom) - (view.top - cursor.top)) / 2;
 				}
 				else if (cursor.top < view.top)
 				{
-					offset.top = point.top - (view.top - cursor.top);
+					delta = - (view.top - cursor.top);
 				}
 				else if (cursor.bottom > view.bottom)
 				{
-					offset.top = point.top + (cursor.bottom - view.bottom);
+					delta = (cursor.bottom - view.bottom);
 				}
+				offset.top = point.top + delta;
 			}
 
 		}
