@@ -1734,8 +1734,7 @@ namespace MyGUI
 		if (!view.inside(cursor))
 		{
 			// горизонтальное смещение
-			// FIXME проверить, помоему просто >
-			if (textSize.width >= view.width())
+			if (textSize.width > view.width())
 			{
 				if (cursor.left < view.left)
 				{
@@ -1754,10 +1753,15 @@ namespace MyGUI
 			}
 
 			// вертикальное смещение
-			// FIXME проверить, помоему просто >
-			if (textSize.height >= view.height())
+			if (textSize.height > view.height())
 			{
-				if (cursor.top < view.top)
+				if (cursor.height() > view.height())
+				{
+					// if text is bigger than edit height then place it in center
+					// + 1 added, because negative and positive values have different rounding
+					offset.top = point.top + ((cursor.bottom - view.bottom) - (view.top - cursor.top) + 1) / 2;
+				}
+				else if (cursor.top < view.top)
 				{
 					offset.top = point.top - (view.top - cursor.top);
 				}
