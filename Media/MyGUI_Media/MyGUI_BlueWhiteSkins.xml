@@ -1143,7 +1143,7 @@
             <State name="highlighted" offset="244 50 10 21"/>
             <State name="pushed" offset="244 74 10 21"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="15 1 0 17" align="Stretch">
+        <BasisSkin type="SimpleText" offset="1 1 28 17" align="Stretch">
             <State name="disabled" colour="0.5 0.5 0.5" shift="0"/>
             <State name="normal" colour="0 0 0" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>

@@ -151,7 +151,8 @@ namespace MyGUI
 		FlowDirection getFlowDirection() const;
 
 	/*events:*/
-		/** Event : Enter pressed in combo mode or item selected in drop down list.\n
+		/** Event : Enter pressed in combo mode or item selected in drop down list
+			and combo mode drop enabled (see void ComboBox::setComboModeDrop(bool _value)).\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item
