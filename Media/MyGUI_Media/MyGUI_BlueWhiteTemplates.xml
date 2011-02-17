@@ -503,7 +503,9 @@
             <Property key="FontName" value="Default"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
-            <Widget type="Widget" skin="MenuItemPopupButtonSkin" position="31 1 10 12" align="Right VCenter"/>
+            <Widget type="Widget" skin="MenuItemPopupButtonSkin" position="31 1 10 12" align="Right VCenter">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
         </Widget>
         <Widget type="Button" skin="PopupMenuPopup" position="20 45 75 14">
             <Property key="Caption" value="test"/>
@@ -668,6 +670,7 @@
                 <Property key="ImageResource" value="MultiListButtonImage"/>
                 <Property key="ImageGroup" value="Icons"/>
                 <Property key="ImageName" value="Down"/>
+                <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
         <Widget type="Button" skin="MultiListButton" position="20 60 65 21">
