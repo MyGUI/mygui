@@ -367,11 +367,12 @@ namespace MyGUI
 
 				MenuControl* menu = mItemsInfo[_index].submenu;
 
+				// TODO: duplicate code
 				if (mVerticalAlignment)
 				{
-					if (point.left + menu->getWidth() > menu->getParentSize().width)
+					if (point.left + menu->getWidth() > menu->getParentSize().width && point.left - menu->getWidth() - getWidth() > 0)
 						point.left -= menu->getWidth() + getWidth();
-					if (point.top + menu->getHeight() > menu->getParentSize().height)
+					if (point.top + menu->getHeight() > menu->getParentSize().height && point.top - menu->getHeight() - getHeight() > 0)
 						point.top -= menu->getHeight() + getHeight();
 				}
 				else
@@ -864,11 +865,12 @@ namespace MyGUI
 
 				MenuControl* menu = mItemsInfo[index].submenu;
 
+				// TODO: duplicate code
 				if (mVerticalAlignment)
 				{
-					if (point.left + menu->getWidth() > menu->getParentSize().width)
+					if (point.left + menu->getWidth() > menu->getParentSize().width && point.left - menu->getWidth() - getWidth() > 0)
 						point.left -= menu->getWidth() + getWidth();
-					if (point.top + menu->getHeight() > menu->getParentSize().height)
+					if (point.top + menu->getHeight() > menu->getParentSize().height && point.top - menu->getHeight() - getHeight() > 0)
 						point.top -= menu->getHeight() + getHeight();
 				}
 				else
