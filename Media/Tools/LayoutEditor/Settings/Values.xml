@@ -23,6 +23,7 @@
 		<Property key="HStretch VStretch"/>
 		<Property key="HStretch VCenter"/>
 
+		<Property key="HCenter Top"/>
 		<Property key="HCenter Bottom"/>
 		<Property key="HCenter VStretch"/>
 		<Property key="HCenter VCenter"/>
