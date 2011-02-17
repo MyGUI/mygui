@@ -370,10 +370,26 @@ namespace MyGUI
 				// TODO: duplicate code
 				if (mVerticalAlignment)
 				{
-					if (point.left + menu->getWidth() > menu->getParentSize().width && point.left - menu->getWidth() - getWidth() > 0)
-						point.left -= menu->getWidth() + getWidth();
-					if (point.top + menu->getHeight() > menu->getParentSize().height && point.top - menu->getHeight() - getHeight() > 0)
-						point.top -= menu->getHeight() + getHeight();
+					// too wide
+					if (point.left + menu->getWidth() > menu->getParentSize().width)
+					{
+						// move to the left side if possible
+						if (point.left - menu->getWidth() - getWidth() > 0)
+							point.left -= menu->getWidth() + getWidth();
+						// or put near right parent border (window) if too wide for left side too
+						else
+							point.left = menu->getParentSize().width - menu->getWidth();
+					}
+					// too high (same logic as for too wide)
+					if (point.top + menu->getHeight() > menu->getParentSize().height)
+					{
+						// move to the top side if possible
+						if (point.top - menu->getHeight() - getHeight() > 0)
+							point.top -= menu->getHeight() + getHeight();
+						// or put near bottom parent border (window) if too high for top side too
+						else
+							point.top = menu->getParentSize().height - menu->getHeight();
+					}
 				}
 				else
 				{
@@ -856,31 +872,7 @@ namespace MyGUI
 			item->setStateSelected(true);
 			size_t index = getItemIndex(item);
 
-			if (mItemsInfo[index].submenu)
-			{
-				int offset = mItemsInfo[0].item->getAbsoluteTop() - getAbsoluteTop();
-
-				const IntCoord& coord = mItemsInfo[index].item->getAbsoluteCoord();
-				IntPoint point(getAbsoluteRect().right, coord.top - offset);
-
-				MenuControl* menu = mItemsInfo[index].submenu;
-
-				// TODO: duplicate code
-				if (mVerticalAlignment)
-				{
-					if (point.left + menu->getWidth() > menu->getParentSize().width && point.left - menu->getWidth() - getWidth() > 0)
-						point.left -= menu->getWidth() + getWidth();
-					if (point.top + menu->getHeight() > menu->getParentSize().height && point.top - menu->getHeight() - getHeight() > 0)
-						point.top -= menu->getHeight() + getHeight();
-				}
-				else
-				{
-					point.set(coord.left, getAbsoluteRect().bottom);
-				}
-
-				menu->setPosition(point);
-				menu->setVisible(true);
-			}
+			_setItemChildVisibleAt(index, true, false);
 
 			_updateItems(index);
 		}
