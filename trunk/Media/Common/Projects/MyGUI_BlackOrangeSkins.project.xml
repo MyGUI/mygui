@@ -8106,7 +8106,7 @@
             </RegionItem>
             <RegionItem name="Text">
                 <PropertySet>
-                    <Property name="Position" type="IntCoord" read_only="False">15 1 0 17</Property>
+                    <Property name="Position" type="IntCoord" read_only="False">1 1 28 17</Property>
                     <Property name="Visible" type="Bool" read_only="False">True</Property>
                     <Property name="Enabled" type="Bool" read_only="True">True</Property>
                     <Property name="Align" type="Align" read_only="False">Stretch</Property>
