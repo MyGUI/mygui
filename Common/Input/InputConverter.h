@@ -993,7 +993,7 @@ namespace input
 			#undef ADD_MAP2
 		}
 
-		int VirtualKeyToScanCode(int _virtualKey) const
+		int VirtualKeyToScanCode(WPARAM _virtualKey) const
 		{
 			if (_virtualKey < VLK_MAX)
 				return (int)mVirtualKeyToScanCode[_virtualKey];
@@ -1008,7 +1008,7 @@ namespace input
 		}
 
 #ifdef INPUT_KEY_NAME
-		const std::string VirtualKeyToName(int _virtualKey) const
+		const std::string VirtualKeyToName(WPARAM _virtualKey) const
 		{
 			if (_virtualKey < VLK_MAX)
 				return mVirtualKeyToName[_virtualKey];
@@ -1040,7 +1040,7 @@ namespace input
 		return table;
 	}
 
-	int VirtualKeyToScanCode(int _virtualKey)
+	int VirtualKeyToScanCode(WPARAM _virtualKey)
 	{
 		const Table& table = getTable();
 		return table.VirtualKeyToScanCode(_virtualKey);
@@ -1054,7 +1054,7 @@ namespace input
 
 #ifdef INPUT_KEY_NAME
 
-	std::string VirtualKeyToName(int _virtualKey)
+	std::string VirtualKeyToName(WPARAM _virtualKey)
 	{
 		const Table& table = getTable();
 		return table.VirtualKeyToName(_virtualKey);
@@ -1070,7 +1070,7 @@ namespace input
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 
-	int VirtualKeyToText(int _virtualKey)
+	int VirtualKeyToText(WPARAM _virtualKey)
 	{
 		static WCHAR deadKey = 0;
 
@@ -1080,7 +1080,7 @@ namespace input
 			return 0;
 
 		WCHAR buff[3] = { 0, 0, 0 };
-		int ascii = ToUnicodeEx(_virtualKey, 0, keyState, buff, 3, 0, layout);
+		int ascii = ToUnicodeEx((UINT)_virtualKey, 0, keyState, buff, 3, 0, layout);
 		if (ascii == 1 && deadKey != '\0' )
 		{
 			// A dead key is stored and we have just converted a character key

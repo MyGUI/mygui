@@ -37,7 +37,7 @@ namespace MyGUI
 	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x60;
 	const unsigned char FONT_MASK_SPACE = 0x00;
 	const unsigned char FONT_MASK_CHAR = 0xFF;
-	const size_t MIN_FONT_TEXTURE_WIDTH = 256;
+	const int MIN_FONT_TEXTURE_WIDTH = 256;
 
 	ResourceTrueTypeFont::ResourceTrueTypeFont() :
 		mTtfSize(0),
@@ -144,7 +144,7 @@ namespace MyGUI
 		int len = mDistance + spec_len;
 		int height = 0; // здесь используется как колличество строк
 
-		size_t finalWidth = MIN_FONT_TEXTURE_WIDTH;
+		int finalWidth = MIN_FONT_TEXTURE_WIDTH;
 		// trying to guess necessary width for texture
 		while (mTtfSize * mTtfResolution > finalWidth * 6) finalWidth *= 2;
 
@@ -167,7 +167,7 @@ namespace MyGUI
 					max_bear = face->glyph->metrics.horiBearingY;
 
 				len += (advance + mDistance);
-				if ( int(finalWidth - 1) < (len + advance + mDistance) )
+				if ( finalWidth - 1 < (len + advance + mDistance) )
 				{
 					height ++;
 					len = mDistance;
@@ -179,7 +179,7 @@ namespace MyGUI
 		max_height >>= 6;
 		max_bear >>= 6;
 
-		size_t finalHeight = (height + 1) * (max_height + mDistance) + mDistance;
+		int finalHeight = (height + 1) * (max_height + mDistance) + mDistance;
 
 		//make it more squared
 		while (finalHeight > finalWidth)
@@ -189,7 +189,7 @@ namespace MyGUI
 		}
 
 		// вычисляем ближайшую кратную 2
-		size_t needHeight = 1;
+		int needHeight = 1;
 		while (needHeight < finalHeight) needHeight <<= 1;
 		finalHeight = needHeight;
 
@@ -227,7 +227,7 @@ namespace MyGUI
 		advance = mSpaceWidth;
 
 		// перевод на новую строку
-		if ( int(finalWidth - 1) < (len + advance + mDistance) )
+		if ( finalWidth - 1 < (len + advance + mDistance) )
 		{
 			height += max_height + mDistance;
 			len = mDistance;
@@ -252,7 +252,7 @@ namespace MyGUI
 		advance = mTabWidth;
 
 		// перевод на новую строку
-		if ( int(finalWidth - 1) < (len + advance + mDistance) )
+		if ( finalWidth - 1 < (len + advance + mDistance) )
 		{
 			height += max_height + mDistance;
 			len = mDistance;
@@ -286,7 +286,7 @@ namespace MyGUI
 		}
 
 		// перевод на новую строку
-		if ( int(finalWidth - 1) < (len + advance + mDistance) )
+		if ( finalWidth - 1 < (len + advance + mDistance) )
 		{
 			height += max_height + mDistance;
 			len = mDistance;
@@ -301,7 +301,7 @@ namespace MyGUI
 		advance = mSelectionWidth;
 
 		// перевод на новую строку
-		if ( int(finalWidth - 1) < (len + advance + mDistance) )
+		if ( finalWidth - 1 < (len + advance + mDistance) )
 		{
 			height += max_height + mDistance;
 			len = mDistance;
@@ -326,7 +326,7 @@ namespace MyGUI
 		advance = mCursorWidth;
 
 		// перевод на новую строку
-		if ( int(finalWidth - 1) < (len + advance + mDistance) )
+		if ( finalWidth - 1 < (len + advance + mDistance) )
 		{
 			height += max_height + mDistance;
 			len = mDistance;
@@ -380,7 +380,7 @@ namespace MyGUI
 				int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
 				// перевод на новую строку
-				if ( int(finalWidth - 1) < (len + face->glyph->bitmap.width + mDistance) )
+				if ( finalWidth - 1 < (len + face->glyph->bitmap.width + mDistance) )
 				{
 					height += max_height + mDistance;
 					len = mDistance;
