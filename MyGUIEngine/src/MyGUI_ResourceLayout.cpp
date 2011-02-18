@@ -135,6 +135,10 @@ namespace MyGUI
 		if (!widgetName.empty()) widgetName = _prefix + widgetName;
 
 		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer.clear();
+		if (_parent == nullptr && widgetLayer.empty())
+		{
+			MYGUI_LOG(Warning, "Root widget's layer not specified. Specify layer or parent or attach it to another widget after load." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
+		}
 
 		IntCoord coord;
 		if (_widgetInfo.positionType == WidgetInfo::Pixels) coord = _widgetInfo.intCoord;
