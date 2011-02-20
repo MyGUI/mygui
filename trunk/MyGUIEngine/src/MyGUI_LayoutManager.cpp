@@ -80,9 +80,11 @@ namespace MyGUI
 			resource = getByName(_file, false);
 		}
 
-		MYGUI_ASSERT(resource != nullptr, "Layout '" << _file << "' couldn't be loaded");
-
-		VectorWidgetPtr result = resource->createLayout(_prefix, _parent);
+		VectorWidgetPtr result;
+		if (resource)
+			result = resource->createLayout(_prefix, _parent);
+		else
+			MYGUI_LOG(Warning, "Layout '" << _file << "' couldn't be loaded");
 
 		mCurrentLayoutName = "";
 
