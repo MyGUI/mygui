@@ -27,7 +27,7 @@ namespace wraps
 		}
 
 		template <typename T>
-		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true)
+		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
@@ -40,21 +40,26 @@ namespace wraps
 					{
 						_widget = cast;
 					}
-					else if (_throw)
+					else
 					{
-						MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
-							<< "' source name = '" << find->getName()
-							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
+						MYGUI_LOG(Warning, "Widget with name '" << _name << "' have wrong type ('" <<
+							find->getTypeName() << "instead of '" << T::getClassTypeName() << "'). [" << mLayoutName << "]");
+						MYGUI_ASSERT( ! _throw, "Can't assign widget with name '" << _name << "'. [" << mLayoutName << "]");
+						if (_createFakeWidgets)
+							_widget = _createFakeWidget<T>(mMainWidget);
 					}
-					return;
 
+					return;
 				}
 			}
-			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+			MYGUI_LOG(Warning, "Widget with name '" << _name << "' not found. [" << mLayoutName << "]");
+			MYGUI_ASSERT( ! _throw, "Can't assign widget with name '" << _name << "'. [" << mLayoutName << "]");
+			if (_createFakeWidgets)
+				_widget = _createFakeWidget<T>(mMainWidget);
 		}
 
 		template <typename T>
-		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
+		void assignBase(T * & _widget, const std::string& _name, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
@@ -67,10 +72,17 @@ namespace wraps
 					return;
 				}
 			}
-			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+
+			MYGUI_LOG(Warning, "Widget with name '" << _name << "' not found. [" << mLayoutName << "]");
+			MYGUI_ASSERT( ! _throw, "Can't assign base widget with name '" << _name << "'. [" << mLayoutName << "]");
+			if (_createFakeWidgets)
+			{
+				_widget = new T(_createFakeWidget<MyGUI::Widget>(mMainWidget));
+				mListBase.push_back(_widget);
+			}
 		}
 
-		void initialise(const std::string& _layout, MyGUI::Widget* _parent = nullptr)
+		void initialise(const std::string& _layout, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			const std::string MAIN_WINDOW1 = "_Main";
 			const std::string MAIN_WINDOW2 = "Root";
@@ -100,7 +112,14 @@ namespace wraps
 						break;
 					}
 				}
-				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW1 << "' or '" << MAIN_WINDOW2 << "' in layout '" << mLayoutName << "' not found.");
+
+				if (mMainWidget == nullptr)
+				{
+					MYGUI_LOG(Warning, "Root widget with name '" << MAIN_WINDOW1 << "' or '" << MAIN_WINDOW2 << "'  not found. [" << mLayoutName << "]");
+					MYGUI_ASSERT(_throw, "No root widget. ['" << mLayoutName << "]");
+					if (_createFakeWidgets)
+						mMainWidget = _createFakeWidget<MyGUI::Widget>(_parent);
+				}
 			}
 		}
 
@@ -117,15 +136,15 @@ namespace wraps
 		}
 
 		template <typename Type>
-		void initialiseByAttributes(Type* _owner, MyGUI::Widget* _parent = nullptr)
+		void initialiseByAttributes(Type* _owner, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
 		{
-			initialise(attribute::AttributeLayout<Type>::getData(), _parent);
+			initialise(attribute::AttributeLayout<Type>::getData(), _parent, _throw, _createFakeWidgets);
 
 			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
 			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item = data.begin(); item != data.end(); ++item)
 			{
 				MyGUI::Widget* value = 0;
-				assignWidget(value, item->second, false);
+				assignWidget(value, item->second, _throw, _createFakeWidgets);
 
 				item->first->set(_owner, value);
 			}
@@ -178,6 +197,15 @@ namespace wraps
 
 				_child->setCoord(coord);
 			}
+		}
+
+		template <typename T>
+		T* _createFakeWidget(MyGUI::Widget* _parent)
+		{
+			if (_parent)
+				return _parent->createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
+
+			return MyGUI::Gui::getInstance().createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
 		}
 
 	public:
