@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 		IntSize result;
 		mMaxItemSize.clear();
-		IntSize size_place(_sizeAvailable.width - getPadding().width(), _sizeAvailable.height - getPadding().height());
+		IntSize size_place(_sizeAvailable.width - getPadding(this).width(), _sizeAvailable.height - getPadding(this).height());
 
 		if (mFlowDirection.isHorizontal())
 			size_place.width = (std::numeric_limits<int>::max)();
@@ -97,7 +97,7 @@ namespace MyGUI
 			return;
 		}*/
 
-		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPadding().width(), mCoord.height - getPadding().height());
+		IntCoord coord_place(getPadding(this).left, getPadding(this).top, mCoord.width - getPadding(this).width(), mCoord.height - getPadding(this).height());
 		int offset = 0;
 
 		if (mFlowDirection == FlowDirection::LeftToRight)
