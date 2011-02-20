@@ -293,4 +293,9 @@ namespace MyGUI
 	{
 	}
 
+	void DDContainer::resetDrag()
+	{
+		_resetContainer(false);
+	}
+
 } // namespace MyGUI
