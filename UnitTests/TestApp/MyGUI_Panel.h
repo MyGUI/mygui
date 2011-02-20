@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Panel :
+	class /*MYGUI_EXPORT */Panel :
 		public Widget
 	{
 		MYGUI_RTTI_DERIVED( Panel )
@@ -36,10 +36,24 @@ namespace MyGUI
 	public:
 		Panel();
 
+		// внутренние отступы
+		void setPadding(const IntRect& _value);
+		const IntRect& getPadding();
+
+		IntSize getDesiredSize(Widget* _widget);
+		void setDesiredSize(Widget* _widget, const IntSize& _value);
+
+		void updateMeasure(Widget* _widget, const IntSize& _sizeAvailable);
+		void updateArrange(Widget* _widget, const IntCoord& _coordPlace, const IntSize& _oldsize);
+
 	protected:
 		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
+		void invalidateMeasure();
+
+	private:
+		IntRect mPadding;
 	};
 
 } // namespace MyGUI
