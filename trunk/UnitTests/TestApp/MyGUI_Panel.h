@@ -37,11 +37,11 @@ namespace MyGUI
 		Panel();
 
 		// внутренние отступы
-		void setPadding(const IntRect& _value);
-		const IntRect& getPadding();
+		void setPadding(Widget* _widget, const IntRect& _value);
+		IntRect getPadding(Widget* _widget);
 
-		IntSize getDesiredSize(Widget* _widget);
 		void setDesiredSize(Widget* _widget, const IntSize& _value);
+		IntSize getDesiredSize(Widget* _widget);
 
 		void updateMeasure(Widget* _widget, const IntSize& _sizeAvailable);
 		void updateArrange(Widget* _widget, const IntCoord& _coordPlace, const IntSize& _oldsize);
@@ -51,9 +51,6 @@ namespace MyGUI
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 		void invalidateMeasure();
-
-	private:
-		IntRect mPadding;
 	};
 
 } // namespace MyGUI

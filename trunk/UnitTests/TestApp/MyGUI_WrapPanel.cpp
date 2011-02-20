@@ -39,7 +39,7 @@ namespace MyGUI
 	{
 		IntSize result;
 		IntSize size_max;
-		IntSize size_place(_sizeAvailable.width - getPadding().width(), _sizeAvailable.height - getPadding().height());
+		IntSize size_place(_sizeAvailable.width - getPadding(this).width(), _sizeAvailable.height - getPadding(this).height());
 		if (mFlowDirection.isHorizontal())
 			size_place.height = (std::numeric_limits<int>::max)();
 		else
@@ -55,9 +55,9 @@ namespace MyGUI
 				continue;
 
 			if (mItemWidth != 0)
-				size_place.width = std::min(size_place.width, mItemWidth - getPadding().width());
+				size_place.width = std::min(size_place.width, mItemWidth - getPadding(this).width());
 			if (mItemHeight != 0)
-				size_place.height = std::min(size_place.height, mItemHeight - getPadding().height());
+				size_place.height = std::min(size_place.height, mItemHeight - getPadding(this).height());
 
 			updateMeasure(child.current(), size_place);
 			IntSize child_size = getDesiredSize(child.current());
@@ -161,7 +161,7 @@ namespace MyGUI
 			return;
 		}*/
 
-		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPadding().width(), mCoord.height - getPadding().height());
+		IntCoord coord_place(getPadding(this).left, getPadding(this).top, mCoord.width - getPadding(this).width(), mCoord.height - getPadding(this).height());
 		int current_width = 0;
 		int current_height = 0;
 
