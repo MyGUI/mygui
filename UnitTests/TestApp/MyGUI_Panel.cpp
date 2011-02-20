@@ -30,6 +30,34 @@ namespace MyGUI
 	{
 	}
 
+	IntRect Panel::getPadding(Widget* _widget)
+	{
+		if (_widget->getClientWidget() != nullptr)
+			return getPadding(_widget->getClientWidget());
+
+		return IntRect::parse(_widget->getUserString("Padding"));
+	}
+
+	void Panel::setPadding(Widget* _widget, const IntRect& _value)
+	{
+		if (_widget->getClientWidget() != nullptr)
+			return setPadding(_widget->getClientWidget(), _value);
+
+		_widget->setUserString("Padding", _value.print());
+
+		invalidateMeasure();
+	}
+
+	IntSize Panel::getDesiredSize(Widget* _widget)
+	{
+		return IntSize::parse(_widget->getUserString("DesiredSize"));
+	}
+
+	void Panel::setDesiredSize(Widget* _widget, const IntSize& _value)
+	{
+		return _widget->setUserString("DesiredSize", _value.print());
+	}
+
 	IntSize Panel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		return IntSize();//Base::overrideMeasure(_sizeAvailable);
@@ -38,23 +66,6 @@ namespace MyGUI
 	void Panel::overrideArrange(const IntSize& _sizeOld)
 	{
 		//Base::overrideArrange(_sizeOld);
-	}
-
-	const IntRect& Panel::getPadding()
-	{
-		/*if (mWidgetClient != nullptr)
-			return mWidgetClient->getPadding();*/
-
-		return mPadding;
-	}
-
-	void Panel::setPadding(const IntRect& _value)
-	{
-		/*if (mWidgetClient != nullptr)
-			mWidgetClient->setPadding(_value);*/
-
-		mPadding = _value;
-		invalidateMeasure();
 	}
 
 	void Panel::invalidateMeasure()
@@ -67,16 +78,6 @@ namespace MyGUI
 
 	void Panel::updateArrange(Widget* _widget, const IntCoord& _coordPlace, const IntSize& _oldsize)
 	{
-	}
-
-	IntSize Panel::getDesiredSize(Widget* _widget)
-	{
-		return IntSize::parse(_widget->getUserString("DesiredSize"));
-	}
-
-	void Panel::setDesiredSize(Widget* _widget, const IntSize& _value)
-	{
-		return _widget->setUserString("DesiredSize", _value.print());
 	}
 
 } // namespace MyGUI
