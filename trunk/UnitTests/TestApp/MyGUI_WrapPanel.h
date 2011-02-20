@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT WrapPanel :
+	class /*MYGUI_EXPORT */WrapPanel :
 		public Panel
 	{
 		MYGUI_RTTI_DERIVED( WrapPanel )
