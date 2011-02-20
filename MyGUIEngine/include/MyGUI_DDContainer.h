@@ -51,6 +51,8 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() const;
 
+		void resetDrag();
+
 	/*events:*/
 		/** Event : Request for start drag.\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
