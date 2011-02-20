@@ -2,7 +2,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "WordWrapPanel.h"
-#include "StackPanel.h"
+#include "MyGUI_StackPanel.h"
 
 namespace demo
 {

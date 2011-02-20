@@ -39,11 +39,11 @@ namespace MyGUI
 	{
 		IntSize result;
 		IntSize size_max;
-		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
+		IntSize size_place(_sizeAvailable.width - getPadding().width(), _sizeAvailable.height - getPadding().height());
 		if (mFlowDirection.isHorizontal())
-			size_place.height = MAX_COORD;
+			size_place.height = (std::numeric_limits<int>::max)();
 		else
-			size_place.width = MAX_COORD;
+			size_place.width = (std::numeric_limits<int>::max)();
 
 		int current_width = 0;
 		int current_height = 0;
@@ -51,16 +51,16 @@ namespace MyGUI
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
-			if (!child->isVisible())
+			if (!child->getVisible())
 				continue;
 
 			if (mItemWidth != 0)
-				size_place.width = std::min(size_place.width, mItemWidth - getPaddingWidth());
+				size_place.width = std::min(size_place.width, mItemWidth - getPadding().width());
 			if (mItemHeight != 0)
-				size_place.height = std::min(size_place.height, mItemHeight - getPaddingHeight());
+				size_place.height = std::min(size_place.height, mItemHeight - getPadding().height());
 
-			child->updateMeasure(size_place);
-			IntSize child_size = child->getDesiredSize();
+			updateMeasure(child.current(), size_place);
+			IntSize child_size = getDesiredSize(child.current());
 
 			if (mItemWidth != 0)
 				child_size.width = mItemWidth;
@@ -119,10 +119,10 @@ namespace MyGUI
 
 		while (_child.next())
 		{
-			if (!_child->isVisible())
+			if (!_child->getVisible())
 				continue;
 
-			IntSize child_size = _child->getDesiredSize();
+			IntSize child_size = getDesiredSize(_child.current());
 
 			if (mItemWidth != 0)
 				child_size.width = mItemWidth;
@@ -155,13 +155,13 @@ namespace MyGUI
 	void WrapPanel::overrideArrange(const IntSize& _sizeOld)
 	{
 		// иначе детей не будет видно при мануал
-		if (getSizePolicy() == SizePolicy::Manual)
+		/*if (getSizePolicy() == SizePolicy::Manual)
 		{
 			Base::overrideArrange(_sizeOld);
 			return;
-		}
+		}*/
 
-		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPadding().width(), mCoord.height - getPadding().height());
 		int current_width = 0;
 		int current_height = 0;
 
@@ -171,10 +171,10 @@ namespace MyGUI
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
-			if (!child->isVisible())
+			if (!child->getVisible())
 				continue;
 
-			IntSize child_size = child->getDesiredSize();
+			IntSize child_size = getDesiredSize(child.current());
 
 			if (mItemWidth != 0)
 				child_size.width = mItemWidth;
@@ -216,7 +216,7 @@ namespace MyGUI
 				current_height += child_size.height + mVerticalSpacer;
 			}
 
-			child->updateArrange(coord, coord.size());
+			updateArrange(child.current(), coord, coord.size());
 			child_save = child;
 		}
 	}

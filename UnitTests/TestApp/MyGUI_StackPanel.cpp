@@ -37,12 +37,12 @@ namespace MyGUI
 	{
 		IntSize result;
 		mMaxItemSize.clear();
-		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
+		IntSize size_place(_sizeAvailable.width - getPadding().width(), _sizeAvailable.height - getPadding().height());
 
 		if (mFlowDirection.isHorizontal())
-			size_place.width = MAX_COORD;
+			size_place.width = (std::numeric_limits<int>::max)();
 		else
-			size_place.height = MAX_COORD;
+			size_place.height = (std::numeric_limits<int>::max)();
 
 		int current_width = 0;
 		int current_height = 0;
@@ -51,11 +51,11 @@ namespace MyGUI
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
-			if (!child->isVisible())
+			if (!child->getVisible())
 				continue;
 
-			child->updateMeasure(size_place);
-			const IntSize& child_size = child->getDesiredSize();
+			updateMeasure(child.current(), size_place);
+			const IntSize& child_size = getDesiredSize(child.current());
 
 			current_width += child_size.width;
 			current_height += child_size.height;
@@ -91,13 +91,13 @@ namespace MyGUI
 	void StackPanel::overrideArrange(const IntSize& _sizeOld)
 	{
 		// иначе детей не будет видно при мануал
-		if (getSizePolicy() == SizePolicy::Manual)
+		/*if (getSizePolicy() == SizePolicy::Manual)
 		{
 			Base::overrideArrange(_sizeOld);
 			return;
-		}
+		}*/
 
-		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPadding().width(), mCoord.height - getPadding().height());
 		int offset = 0;
 
 		if (mFlowDirection == FlowDirection::LeftToRight)
@@ -112,10 +112,10 @@ namespace MyGUI
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
-			if (!child->isVisible())
+			if (!child->getVisible())
 				continue;
 
-			const IntSize& child_size = child->getDesiredSize();
+			const IntSize& child_size = getDesiredSize(child.current());
 			IntCoord coord;
 
 			if (mFlowDirection == FlowDirection::LeftToRight)
@@ -147,7 +147,7 @@ namespace MyGUI
 				offset -= mSpacer;
 			}
 
-			child->updateArrange(coord, coord.size());
+			updateArrange(child.current(), coord, coord.size());
 		}
 
 	}

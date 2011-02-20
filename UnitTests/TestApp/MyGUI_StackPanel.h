@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT StackPanel :
+	class /*MYGUI_EXPORT */StackPanel :
 		public Panel
 	{
 		MYGUI_RTTI_DERIVED( StackPanel )
