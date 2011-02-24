@@ -175,13 +175,13 @@ namespace base
 				break;
 			else if (msg.message == WM_QUIT)
 				break;
+			
+			captureInput();
+			updateFPS();
+			drawOneFrame();
 
-			if (GetActiveWindow() == hWnd)
-			{
-				captureInput();
-				updateFPS();
-				drawOneFrame();
-			}
+			if (GetActiveWindow() != hWnd)
+				::Sleep(50);
 		}
 	}
 
