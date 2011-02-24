@@ -157,7 +157,12 @@ namespace base
 			Ogre::WindowEventUtilities::messagePump();
 
 			if (mWindow->isActive() == false)
+			{
 				mWindow->setActive(true);
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+				::Sleep(50);
+#endif
+			}
 			if (!mRoot->renderOneFrame())
 				break;
 
