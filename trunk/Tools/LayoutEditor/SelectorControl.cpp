@@ -15,7 +15,7 @@ namespace tools
 		mScaleValue(1.0),
 		mPositionChanged(false)
 	{
-		assignWidget(mProjection, "Projection", false);
+		assignWidget(mProjection, "Projection", false, false);
 
 		if (mProjection != nullptr)
 		{
