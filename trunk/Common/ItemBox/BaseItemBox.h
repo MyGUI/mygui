@@ -69,7 +69,7 @@ namespace wraps
 
 		void removeItem(size_t _index)
 		{
-			mBoxItems->deleteItem(_index);
+			mBoxItems->removeItemAt(_index);
 		}
 
 		void removeAllItems()
