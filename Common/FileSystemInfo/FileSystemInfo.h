@@ -120,8 +120,7 @@ namespace common
 		return buff;
 #else
 		char buff[PATH_MAX+1];
-		getcwd(buff, PATH_MAX);
-		return MyGUI::UString(buff).asWStr();
+		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr() : std::wstring();
 #endif
 	}
 
