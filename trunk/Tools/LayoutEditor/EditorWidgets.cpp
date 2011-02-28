@@ -459,14 +459,16 @@ namespace tools
 			skin = getSkinReplace(skin);
 
 		std::string layer = _testMode ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
+		std::string widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->type) ?
+			container->type : MyGUI::Widget::getClassTypeName();
 
 		if (nullptr == _parent)
 		{
-			container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, layer);
+			container->widget = MyGUI::Gui::getInstance().createWidgetT(widgetType, skin, coord, align, layer);
 		}
 		else
 		{
-			container->widget = _parent->createWidgetT(widgetStyle, container->type, skin, coord, align, layer);
+			container->widget = _parent->createWidgetT(widgetStyle, widgetType, skin, coord, align, layer);
 		}
 
 		add(container);
