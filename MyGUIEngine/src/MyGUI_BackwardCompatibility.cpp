@@ -723,6 +723,16 @@ namespace MyGUI
 		return PointerManager::getInstance().isVisible();
 	}
 
+	void MemberObsolete<Gui>::_injectFrameEntered(float _time)
+	{
+		Gui::getInstance().frameEvent(_time);
+	}
+
+	void MemberObsolete<Gui>::_resizeWindow(const IntSize& _size)
+	{
+		LayerManager::getInstance().resizeView(_size);
+	}
+
 	bool MemberObsolete<LanguageManager>::load(const std::string& _file)
 	{
 		return ResourceManager::getInstance().load(_file);

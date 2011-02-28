@@ -21,6 +21,8 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -39,5 +41,26 @@ namespace MyGUI
 		return true;
 	}
 #endif
+
+	void RenderManager::onResizeView(const IntSize& _viewSize)
+	{
+		LayerManager* layers = LayerManager::getInstancePtr();
+		if (layers != nullptr)
+			layers->resizeView(_viewSize);
+	}
+
+	void RenderManager::onRenderToTarget(IRenderTarget* _target, bool _update)
+	{
+		LayerManager* layers = LayerManager::getInstancePtr();
+		if (layers != nullptr)
+			layers->renderToTarget(_target, _update);
+	}
+
+	void RenderManager::onFrameEvent(float _time)
+	{
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+			gui->frameEvent(_time);
+	}
 
 } // namespace MyGUI

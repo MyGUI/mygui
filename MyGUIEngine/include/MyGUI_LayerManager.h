@@ -78,6 +78,8 @@ namespace MyGUI
 		/** Render all layers to specified target */
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
+		void resizeView(const IntSize& _viewSize);
+
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _unlinkWidget(Widget* _widget);
@@ -88,6 +90,8 @@ namespace MyGUI
 		void destroy(ILayer* _layer);
 
 	private:
+		IntSize mViewSize;
+
 		VectorLayer mLayerNodes;
 
 		bool mIsInitialise;
