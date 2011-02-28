@@ -9,10 +9,9 @@
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreVertexBuffer.h"
 #include "MyGUI_LogManager.h"
-#include "MyGUI_Gui.h"
 #include "MyGUI_OgreDiagnostic.h"
-#include "MyGUI_LayerManager.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -24,7 +23,6 @@ namespace MyGUI
 		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
-		//mTexture(nullptr),
 		mManualRender(false)
 	{
 	}
@@ -180,13 +178,13 @@ namespace MyGUI
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		gui->_injectFrameEntered((float)((double)(time) / (double)1000));
+		onFrameEvent((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 
 		//begin();
 		setManualRender(true);
-		LayerManager::getInstance().renderToTarget(this, mUpdate);
+		onRenderToTarget(this, mUpdate);
 		//end();
 
 		// סבנאסûגאול פכאד
@@ -240,9 +238,7 @@ namespace MyGUI
 
 			updateRenderInfo();
 
-			Gui* gui = Gui::getInstancePtr();
-			if (gui != nullptr)
-				gui->_resizeWindow(mViewSize);
+			onResizeView(mViewSize);
 		}
 	}
 

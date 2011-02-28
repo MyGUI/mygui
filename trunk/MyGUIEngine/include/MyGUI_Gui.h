@@ -152,6 +152,11 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() const;
 
+		/** Inject frame entered event (called be renderer, do not call it manually).
+			This function is called every frame by renderer.
+		*/
+		void frameEvent(float _time);
+
 	/*events:*/
 		/** Event : Multidelegate. GUI per frame call.\n
 			signature : void method(float _time)\n
@@ -161,16 +166,8 @@ namespace MyGUI
 			eventFrameStart;
 
 	/*internal:*/
-		/** Inject frame entered event (called be renderer, do not call it manually).
-			This function is called every frame by renderer.
-		*/
-		void _injectFrameEntered(float _time);
-
 		void _linkChildWidget(Widget* _widget);
 		void _unlinkChildWidget(Widget* _widget);
-
-		/** Resize GUI area (called by renderer, do not call it manually). */
-		void _resizeWindow(const IntSize& _size);
 
 	private:
 		// создает виджет
@@ -187,9 +184,6 @@ namespace MyGUI
 	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
-
-		// размеры экрана
-		IntSize mViewSize;
 
 		// синглтоны гуя
 		InputManager* mInputManager;
