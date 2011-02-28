@@ -162,7 +162,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
 
-		<Parameter key="ItemSizeType" value="ItemSizeType"/>
+		<Parameter key="ItemResizingPolicy" value="ItemResizingPolicy"/>
 		<Parameter key="ItemWidth" value="1 int"/>
 	</Widget>
 
