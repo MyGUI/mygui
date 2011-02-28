@@ -71,6 +71,7 @@ namespace tools
 		mFactories["CanvasAlign"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["MenuItemType"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 		mFactories["ItemResizingPolicy"] = GenericFactory<PropertyFieldComboBox>::getFactory();
+		mFactories["Function"] = GenericFactory<PropertyFieldComboBox>::getFactory();
 	}
 
 	void PropertyFieldManager::shutdown()
