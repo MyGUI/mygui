@@ -125,11 +125,8 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() == false )
+		if (!_core.empty())
 			mResourceManager->load(_core);
-
-		mViewSize = RenderManager::getInstance().getViewSize();
-		_resizeWindow(mViewSize);
 
 		BackwardCompatibility::initialise();
 
@@ -285,11 +282,6 @@ namespace MyGUI
 		destroyWidgets(widgets);
 	}
 
-	void Gui::_injectFrameEntered(float _time)
-	{
-		eventFrameStart(_time);
-	}
-
 	void Gui::_unlinkWidget(Widget* _widget)
 	{
 		eventFrameStart.clear(_widget);
@@ -309,16 +301,6 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	void Gui::_resizeWindow(const IntSize& _size)
-	{
-		IntSize oldViewSize = mViewSize;
-		mViewSize = _size;
-
-		// выравниваем рутовые окна
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-			(*iter)->_setAlign(oldViewSize);
-	}
-
 	Widget* Gui::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
@@ -331,12 +313,14 @@ namespace MyGUI
 	/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
 	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * mViewSize.width), (int)(_coord.top * mViewSize.height), (int)(_coord.width * mViewSize.width), (int)(_coord.height * mViewSize.height)), _align, _layer, _name);
+		IntSize size = RenderManager::getInstance().getViewSize();
+		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * size.width), (int)(_coord.top * size.height), (int)(_coord.width * size.width), (int)(_coord.height * size.height)), _align, _layer, _name);
 	}
 	/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
 	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		return createWidgetT(_type, _skin, IntCoord((int)(_left * mViewSize.width), (int)(_top * mViewSize.height), (int)(_width * mViewSize.width), (int)(_height * mViewSize.height)), _align, _layer, _name);
+		IntSize size = RenderManager::getInstance().getViewSize();
+		return createWidgetT(_type, _skin, IntCoord((int)(_left * size.width), (int)(_top * size.height), (int)(_width * size.width), (int)(_height * size.height)), _align, _layer, _name);
 	}
 
 	Widget* Gui::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
@@ -357,6 +341,11 @@ namespace MyGUI
 	EnumeratorWidgetPtr Gui::getEnumerator() const
 	{
 		return EnumeratorWidgetPtr(mWidgetChild);
+	}
+
+	void Gui::frameEvent(float _time)
+	{
+		eventFrameStart(_time);
 	}
 
 } // namespace MyGUI

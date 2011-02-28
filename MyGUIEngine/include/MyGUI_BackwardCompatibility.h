@@ -453,6 +453,11 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE(" is deprecated, use : const IntSize& RenderManager::getViewSize() const")
 		const IntSize& getViewSize();
+
+		MYGUI_OBSOLETE(" is deprecated, use : RenderManager::onFrameEvent(float _time)")
+		void _injectFrameEntered(float _time);
+		MYGUI_OBSOLETE(" is deprecated, use : RenderManager::onResizeView(const IntSize& _size)")
+		void _resizeWindow(const IntSize& _size);
 	};
 
 	template <>

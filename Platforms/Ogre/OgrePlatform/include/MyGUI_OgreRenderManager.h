@@ -154,7 +154,6 @@ namespace MyGUI
 		MapTexture mTextures;
 
 		bool mIsInitialise;
-		//ITexture* mTexture;
 		bool mManualRender;
 	};
 
