@@ -206,9 +206,15 @@ namespace MyGUI
 		/** Get child by index (index from 0 to child_count - 1) */
 		Widget* getChildAt(size_t _index);
 
-		/** Find widget by name (search recursively through all childs starting from this widget) */
+		/** Find widget by name.
+			Search recursively through all childs starting from this widget.
+			@return Return first found widget with given name
+		*/
 		Widget* findWidget(const std::string& _name);
 
+		/** Find all widgets with given name and add them into _result.
+			Search recursively through all childs starting from this widget.
+		*/
 		void findWidgets(const std::string& _name, VectorWidgetPtr& _result);
 
 		/** Enable or disable widget */
@@ -218,13 +224,13 @@ namespace MyGUI
 		/** Is widget enabled */
 		bool getEnabled() const;
 
-		/** Is widget enabled and it's and parents enabled. */
+		/** Is widget enabled and all it's parents in hierarchy is enabled. */
 		bool getInheritedEnabled() const;
 
-		/** Get rect where child widgets placed */
+		/** Get rectangle where child widgets placed */
 		IntCoord getClientCoord();
 
-		/** Get clien area widget or nullptr if widget don't have client */
+		/** Get client area widget or nullptr if widget don't have client */
 		Widget* getClientWidget();
 
 		/** Detach widget from widgets hierarchy
