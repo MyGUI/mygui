@@ -107,4 +107,9 @@ namespace MyGUI
 		return mTextureSize;
 	}
 
+	void RTTLayer::resizeView(const IntSize& _viewSize)
+	{
+		Base::resizeView(mTextureSize);
+	}
+
 } // namespace MyGUI

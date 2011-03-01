@@ -29,7 +29,6 @@
 
 #include "MyGUI_SharedLayer.h"
 #include "MyGUI_OverlappedLayer.h"
-#include "MyGUI_Gui.h" // FIXME
 
 namespace MyGUI
 {
@@ -54,9 +53,6 @@ namespace MyGUI
 
 		FactoryManager::getInstance().registerFactory<SharedLayer>(XML_TYPE);
 		FactoryManager::getInstance().registerFactory<OverlappedLayer>(XML_TYPE);
-
-		mViewSize = RenderManager::getInstance().getViewSize();
-		resizeView(mViewSize);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -249,12 +245,8 @@ namespace MyGUI
 
 	void LayerManager::resizeView(const IntSize& _viewSize)
 	{
-		IntSize oldViewSize = mViewSize;
-		mViewSize = _viewSize;
-
-		EnumeratorWidgetPtr child = Gui::getInstance().getEnumerator();
-		while (child.next())
-			child.current()->_setAlign(oldViewSize);
+		for (VectorLayer::const_iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
+			(*iter)->resizeView(_viewSize);
 	}
 
 } // namespace MyGUI
