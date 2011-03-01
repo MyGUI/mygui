@@ -34,6 +34,7 @@ namespace MyGUI
 		mChildItem(nullptr),
 		mOutOfDate(false)
 	{
+		mViewSize = RenderManager::getInstance().getViewSize();
 	}
 
 	SharedLayer::~SharedLayer()
@@ -129,6 +130,14 @@ namespace MyGUI
 		mOutOfDate = false;
 	}
 
+	void SharedLayer::resizeView(const IntSize& _viewSize)
+	{
+		if (mChildItem != nullptr)
+			mChildItem->resizeView(_viewSize);
+
+		mViewSize = _viewSize;
+	}
+
 	EnumeratorILayerNode SharedLayer::getEnumerator() const
 	{
 		static VectorILayerNode nodes;
@@ -149,7 +158,7 @@ namespace MyGUI
 
 	const IntSize& SharedLayer::getSize() const
 	{
-		return RenderManager::getInstance().getViewSize();
+		return mViewSize;
 	}
 
 	bool SharedLayer::isOutOfDate() const

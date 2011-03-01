@@ -572,9 +572,9 @@ namespace MyGUI
 		setCoord(CoordConverter::convertFromRelative(_coord, mCroppedParent == nullptr ? RenderManager::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
-	void Widget::_setAlign(const IntSize& _oldsize)
+	void Widget::_setAlign(const IntSize& _oldsize, const IntSize& _newSize)
 	{
-		const IntSize& size = getParentSize();
+		const IntSize& size = _newSize;//getParentSize();
 
 		bool need_move = false;
 		bool need_size = false;
@@ -676,9 +676,9 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old);
+			(*widget)->_setAlign(old, getSize());
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old);
+			(*widget)->_setAlign(old, getSize());
 
 		_setSkinItemAlign(old);
 
@@ -719,9 +719,9 @@ namespace MyGUI
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old.size());
+			(*widget)->_setAlign(old.size(), getSize());
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old.size());
+			(*widget)->_setAlign(old.size(), getSize());
 
 		_setSkinItemAlign(old.size());
 
@@ -1305,6 +1305,11 @@ namespace MyGUI
 	bool Widget::getInheritedVisible() const
 	{
 		return mInheritsVisible;
+	}
+
+	void Widget::resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView)
+	{
+		_setAlign(_oldView, _newView);
 	}
 
 } // namespace MyGUI

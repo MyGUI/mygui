@@ -33,6 +33,7 @@ namespace MyGUI
 		mIsPick(false),
 		mOutOfDate(false)
 	{
+		mViewSize = RenderManager::getInstance().getViewSize();
 	}
 
 	OverlappedLayer::~OverlappedLayer()
@@ -162,6 +163,14 @@ namespace MyGUI
 		mOutOfDate = false;
 	}
 
+	void OverlappedLayer::resizeView(const IntSize& _viewSize)
+	{
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+			(*iter)->resizeView(_viewSize);
+
+		mViewSize = _viewSize;
+	}
+
 	EnumeratorILayerNode OverlappedLayer::getEnumerator() const
 	{
 		return EnumeratorILayerNode(mChildItems);
@@ -169,7 +178,7 @@ namespace MyGUI
 
 	const IntSize& OverlappedLayer::getSize() const
 	{
-		return RenderManager::getInstance().getViewSize();
+		return mViewSize;
 	}
 
 	bool OverlappedLayer::isOutOfDate() const

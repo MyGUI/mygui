@@ -289,7 +289,7 @@ namespace MyGUI
 		void _setContainer(Widget* _value);
 		Widget* _getContainer();
 
-		void _setAlign(const IntSize& _oldsize);
+		void _setAlign(const IntSize& _oldsize, const IntSize& _newSize);
 		bool _checkPoint(int _left, int _top) const;
 
 		Widget* _createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
@@ -373,6 +373,8 @@ namespace MyGUI
 		void _unlinkChildWidget(Widget* _widget);
 
 		void setSkinProperty(ResourceSkin* _info);
+
+		virtual void resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView);
 
 	private:
 		// клиентская зона окна

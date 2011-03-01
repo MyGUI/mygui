@@ -71,6 +71,8 @@ namespace MyGUI
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
+		virtual void resizeView(const IntSize& _viewSize) = 0;
+
 	protected:
 		std::string mName;
 	};

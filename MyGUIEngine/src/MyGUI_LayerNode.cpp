@@ -126,6 +126,14 @@ namespace MyGUI
 		mOutOfDate = false;
 	}
 
+	void LayerNode::resizeView(const IntSize& _viewSize)
+	{
+		IntSize oldSize = mLayer->getSize();
+
+		for (VectorLayerItem::const_iterator iter = mLayerItems.begin(); iter != mLayerItems.end(); ++iter)
+			(*iter)->resizeLayerItemView(oldSize, _viewSize);
+	}
+
 	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top) const
 	{
 		// сначала пикаем детей
