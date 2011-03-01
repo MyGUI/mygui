@@ -25,6 +25,7 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		virtual void resizeView(const IntSize& _viewSize);
 
 		void setTextureSize(const IntSize& _size);
 		void setTextureName(const std::string& _name);

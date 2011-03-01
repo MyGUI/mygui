@@ -90,8 +90,6 @@ namespace MyGUI
 		void destroy(ILayer* _layer);
 
 	private:
-		IntSize mViewSize;
-
 		VectorLayer mLayerNodes;
 
 		bool mIsInitialise;
