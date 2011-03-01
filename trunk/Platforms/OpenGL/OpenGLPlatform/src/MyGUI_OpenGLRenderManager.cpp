@@ -177,12 +177,12 @@ namespace MyGUI
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		gui->_injectFrameEntered((float)((double)(time) / (double)1000));
+		onFrameEvent((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 
 		begin();
-		LayerManager::getInstance().renderToTarget(this, mUpdate);
+		onRenderToTarget(this, mUpdate);
 		end();
 
 		mUpdate = false;
@@ -204,12 +204,8 @@ namespace MyGUI
 		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
 		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
 
-		Gui* gui = Gui::getInstancePtr();
-		if (gui != nullptr)
-		{
-			gui->_resizeWindow(mViewSize);
-			mUpdate = true;
-		}
+		onResizeView(mViewSize);
+		mUpdate = true;
 	}
 
 	bool OpenGLRenderManager::isPixelBufferObjectSupported()
@@ -229,7 +225,8 @@ namespace MyGUI
 
 	void OpenGLRenderManager::destroyTexture(ITexture* _texture)
 	{
-		if (_texture == nullptr) return;
+		if (_texture == nullptr)
+			return;
 
 		MapTexture::iterator item = mTextures.find(_texture->getName());
 		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
@@ -241,7 +238,8 @@ namespace MyGUI
 	ITexture* OpenGLRenderManager::getTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
-		if (item == mTextures.end()) return nullptr;
+		if (item == mTextures.end())
+			return nullptr;
 		return item->second;
 	}
 
