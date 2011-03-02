@@ -111,6 +111,13 @@ namespace MyGUI
 
 #else // MYGUI_USE_FREETYPE
 
+		IDataStream* datastream = DataManager::getInstance().getData(mSource);
+		if (!datastream)
+		{
+			MYGUI_LOG(Error, "Could not open font face!");
+			return;
+		}
+
 		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
 		// ManualResourceLoader implementation - load the texture
@@ -120,10 +127,6 @@ namespace MyGUI
 
 		// Load font
 		FT_Face face;
-
-		//FIXME научить работать без шрифтов
-		IDataStream* datastream = DataManager::getInstance().getData(mSource);
-		MYGUI_ASSERT(datastream, "Could not open font face!");
 
 		size_t datasize = datastream->size();
 		uint8* data = new uint8[datasize];
