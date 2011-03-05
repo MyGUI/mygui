@@ -383,7 +383,7 @@ namespace MyGUI
 		_updateSkinItemView();
 	}
 
-	bool Widget::setState(const std::string& _state)
+	bool Widget::_setWidgetState(const std::string& _state)
 	{
 		return _setSkinItemState(_state);
 	}
@@ -955,9 +955,9 @@ namespace MyGUI
 	void Widget::baseUpdateEnable()
 	{
 		if (mEnabled)
-			setState("normal");
+			_setWidgetState("normal");
 		else
-			setState("disabled");
+			_setWidgetState("disabled");
 	}
 
 	void Widget::setVisible(bool _value)
@@ -1161,8 +1161,6 @@ namespace MyGUI
 			setInheritsPick(utility::parseValue<bool>(_value));
 		else if (_key == "MaskPick")
 			setMaskPick(_value);
-		else if (_key == "State")
-			setState(_value);
 		else if (_key == "NeedKey")
 			setNeedKeyFocus(utility::parseValue<bool>(_value));
 		else if (_key == "NeedMouse")
