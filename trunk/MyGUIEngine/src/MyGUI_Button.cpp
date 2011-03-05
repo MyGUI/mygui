@@ -159,11 +159,11 @@ namespace MyGUI
 			if (mImage)
 				mImage->setItemName(_value);
 
-			setState(_value);
+			_setWidgetState(_value);
 			return true;
 		}
 
-		return setState(_value);
+		return _setWidgetState(_value);
 	}
 
 	void Button::setImageResource(const std::string& _name)

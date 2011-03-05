@@ -1479,18 +1479,18 @@ namespace MyGUI
 	void EditBox::updateEditState()
 	{
 		if (!getEnabled())
-			setState("disabled");
+			_setWidgetState("disabled");
 		else if (mIsPressed)
 		{
 			if (mIsFocus)
-				setState("pushed");
+				_setWidgetState("pushed");
 			else
-				setState("normal_checked");
+				_setWidgetState("normal_checked");
 		}
 		else if (mIsFocus)
-			setState("highlighted");
+			_setWidgetState("highlighted");
 		else
-			setState("normal");
+			_setWidgetState("normal");
 	}
 
 	void EditBox::setPosition(const IntPoint& _point)
