@@ -18,17 +18,17 @@
         <Widget type="Widget" skin="ScrollPanelHSkin" position="25 50 125 15" name="Root">
             <Property key="VerticalAlignment" value="false"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
-            <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="HStretch Top" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="14 0 98 15" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
-                <Widget type="Button" skin="ScrollTrackHSkin" position="35 1 19 14" align="Left Top" name="Track">
+                <Widget type="Button" skin="ScrollTrackHSkin" position="35 1 19 14" align="Left VStretch" name="Track">
                     <UserString key="MinTrackSize" value="10"/>
                 </Widget>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="54 0 44 15" name="SecondPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="54 0 44 15" align="Left VStretch" name="SecondPart"/>
             </Widget>
-            <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left Top" name="Start"/>
-            <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right Top" name="End"/>
+            <Widget type="Button" skin="ButtonLeftSkin" position="2 1 12 14" align="Left VCenter" name="Start"/>
+            <Widget type="Button" skin="ButtonRightSkin" position="112 1 12 14" align="Right VCenter" name="End"/>
         </Widget>
         <Widget type="ScrollBar" skin="ScrollBarH" position="25 75 125 15">
             <Property key="Range" value="100"/>
@@ -41,17 +41,17 @@
         <Widget type="Widget" skin="ScrollPanelVSkin" position="25 50 15 125" name="Root">
             <Property key="VerticalAlignment" value="true"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
-            <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="Left VStretch" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="0 14 15 99" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
-                <Widget type="Button" skin="ScrollTrackVSkin" position="1 25 14 19" align="Left Top" name="Track">
+                <Widget type="Button" skin="ScrollTrackVSkin" position="1 25 14 19" align="HStretch Top" name="Track">
                     <UserString key="MinTrackSize" value="10"/>
                 </Widget>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 44 15 55" name="SecondPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 44 15 55" align="HStretch Top" name="SecondPart"/>
             </Widget>
-            <Widget type="Button" skin="ButtonUpSkin" position="1 2 14 11" align="Left Top" name="Start"/>
-            <Widget type="Button" skin="ButtonDownSkin" position="1 113 14 11" align="Left Bottom" name="End"/>
+            <Widget type="Button" skin="ButtonUpSkin" position="1 2 14 11" align="HCenter Top" name="Start"/>
+            <Widget type="Button" skin="ButtonDownSkin" position="1 113 14 11" align="HCenter Bottom" name="End"/>
         </Widget>
         <Widget type="ScrollBar" skin="ScrollBarV" position="50 50 15 125">
             <Property key="Range" value="100"/>
@@ -65,12 +65,12 @@
             <Property key="MoveToClick" value="true"/>
             <Property key="VerticalAlignment" value="false"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
-                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left Top" name="Track"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" name="SecondPart"/>
+                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left VStretch" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" align="Left VStretch" name="SecondPart"/>
             </Widget>
         </Widget>
         <Widget type="ScrollBar" skin="SliderH" position="25 75 125 15">
@@ -86,9 +86,9 @@
             <Property key="VerticalAlignment" value="true"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
-                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" name="SecondPart"/>
+                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" align="HStretch Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" align="HStretch Top" name="SecondPart"/>
             </Widget>
         </Widget>
         <Widget type="ScrollBar" skin="SliderV" position="50 20 15 125">
@@ -101,12 +101,12 @@
             <Property key="MoveToClick" value="true"/>
             <Property key="VerticalAlignment" value="false"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="HStretch Top" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="2 0 122 15" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
-                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left Top" name="Track"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" name="SecondPart"/>
+                <Widget type="Button" skin="SliderTrackHSkin" position="35 1 7 14" align="Left VStretch" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 35 15" align="Left VStretch" name="FirstPart"/>
+				<Widget type="Widget" skin="PanelEmpty" position="42 0 80 15" align="Left VStretch" name="SecondPart"/>
             </Widget>
         </Widget>
         <Widget type="ScrollBar" skin="SliderHEmpty" position="25 75 125 15">
@@ -122,9 +122,9 @@
             <Property key="VerticalAlignment" value="true"/>
             <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 2 15 122" align="Stretch">
-                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" name="Track"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" name="FirstPart"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" name="SecondPart"/>
+                <Widget type="Button" skin="SliderTrackVSkin" position="1 25 14 7" align="HStretch Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 15 25" align="HStretch Top" name="FirstPart"/>
+				<Widget type="Widget" skin="PanelEmpty" position="0 32 15 90" align="HStretch Top" name="SecondPart"/>
             </Widget>
         </Widget>
         <Widget type="ScrollBar" skin="SliderVEmpty" position="50 20 15 125">
@@ -520,7 +520,7 @@
             <UserString key="TrackWidth" value="7"/>
             <UserString key="TrackFill" value="false"/>
             <UserString key="TrackSkin" value="SliderTrackHSkin"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="HStretch Top" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
             </Widget>
@@ -539,7 +539,7 @@
             <UserString key="TrackFill" value="true"/>
             <UserString key="TrackSkin" value="ProgressBarTrackHSkin"/>
             <UserString key="TrackWidth" value="6"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="HStretch Top" name="TrackPlace">
+            <Widget type="Widget" skin="PanelEmpty" position="2 1 122 14" align="Stretch" name="TrackPlace">
                 <Property key="NeedKey" value="false"/>
                 <Property key="InheritsPick" value="true"/>
             </Widget>
