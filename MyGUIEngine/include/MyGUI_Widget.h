@@ -183,9 +183,6 @@ namespace MyGUI
 		/** Get inherits alpha mode flag */
 		bool getInheritsAlpha() const;
 
-		/** Set widget's state */
-		bool setState(const std::string& _value);
-
 		void setColour(const Colour& _value);
 
 		// являемся ли мы рутовым виджетом
@@ -296,6 +293,8 @@ namespace MyGUI
 
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
+
+		bool _setWidgetState(const std::string& _value);
 
 	protected:
 		// все создание только через фабрику

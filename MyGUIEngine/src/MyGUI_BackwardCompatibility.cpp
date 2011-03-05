@@ -996,6 +996,7 @@ namespace MyGUI
 		mPropertyIgnore.insert("MinTrackSize");
 		mPropertyIgnore.insert("MainMove");
 		mPropertyIgnore.insert("LevelOffset");
+		mPropertyIgnore.insert("State");
 
 		mSkinRename["StaticImage"] = "ImageBox";
 		mSkinRename["StaticText"] = "TextBox";
