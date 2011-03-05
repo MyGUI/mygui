@@ -8,13 +8,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="MonitorProgress" size="28 59" texture="Source.png">
-		<Property key="TrackSkin" value="MonitorProgressTrack"/>
-		<Property key="TrackWidth" value="28"/>
-		<Property key="TrackFill" value="false"/>
-
-		<Child type="Widget" skin="Default" offset="0 0 28 59" align="Stretch" name="Client"/>
-
+	<Resource type="ResourceSkin" name="MonitorProgressBack" size="28 59" texture="Source.png">
 		<BasisSkin type="TileRect" offset="0 0 28 59" align="Stretch">
 			<State name="normal" offset="4 90 28 59">
 				<Property key="TileSize" value="28 59"/>
@@ -24,6 +18,18 @@
 		</BasisSkin>
 	</Resource>
 
+	<Resource type="ResourceLayout" name="MonitorProgress" version="3.2.0">
+		<Widget type="Widget" skin="MonitorProgressBack" position="0 0 28 59" name="Root">
+			<UserString key="TrackSkin" value="MonitorProgressTrack"/>
+			<UserString key="TrackWidth" value="28"/>
+			<UserString key="TrackFill" value="false"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 28 59" align="Stretch" name="TrackPlace">
+				<Property key="NeedKey" value="false"/>
+				<Property key="InheritsPick" value="true"/>
+			</Widget>
+		</Widget>
+	</Resource>
+	
 	<Resource type="ResourceSkin" name="KeyboardLamp" size="38 39" texture="Source.png">
 		<BasisSkin type="MainSkin" offset="0 0 38 39" align="Default">
 			<State name="disabled" offset="18 216 38 39"/>
@@ -41,14 +47,7 @@
 		</BasisSkin>
 	</Resource>
 
-	<Resource type="ResourceSkin" name="KeyboardProgress" size="45 17" texture="Source.png">
-		<Property key="TrackSkin" value="KeyboardProgressTrack"/>
-		<Property key="TrackWidth" value="17"/>
-		<Property key="TrackFill" value="false"/>
-		<Property key="FlowDirection" value="BottomToTop"/>
-
-		<Child type="Widget" skin="Default" offset="0 0 45 17" align="Stretch" name="Client"/>
-
+	<Resource type="ResourceSkin" name="KeyboardProgressBack" size="45 17" texture="Source.png">
 		<BasisSkin type="TileRect" offset="0 0 45 17" align="Stretch">
 			<State name="normal" offset="131 20 45 17">
 				<Property key="TileSize" value="45 17"/>
@@ -56,6 +55,19 @@
 				<Property key="TileV" value="true"/>
 			</State>
 		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceLayout" name="KeyboardProgress" version="3.2.0">
+		<Widget type="Widget" skin="KeyboardProgressBack" position="0 0 45 17" name="Root">
+			<UserString key="TrackSkin" value="KeyboardProgressTrack"/>
+			<UserString key="TrackWidth" value="17"/>
+			<UserString key="TrackFill" value="false"/>
+			<Property key="FlowDirection" value="BottomToTop"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 45 17" align="Stretch" name="TrackPlace">
+				<Property key="NeedKey" value="false"/>
+				<Property key="InheritsPick" value="true"/>
+			</Widget>
+		</Widget>
 	</Resource>
 
 	<Resource type="ResourceSkin" name="KeyboardButton" size="145 57" texture="Source.png">
