@@ -17,7 +17,8 @@ namespace tools
 
 	PanelMainProperties::PanelMainProperties() :
 		BasePanelViewItem("PanelMainProperties.layout"),
-		mCurrentWidget(nullptr)
+		mCurrentWidget(nullptr),
+		mUserDataTargetType("LE_TargetWidgetType")
 	{
 	}
 
@@ -41,7 +42,7 @@ namespace tools
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		std::string targetType = getTargetTemplate(widgetContainer);
+		bool existTargetType = widgetContainer->existUserData(mUserDataTargetType);
 
 		IPropertyField* field = getPropertyField(mWidgetClient, "Name", "Name");
 		field->setTarget(_currentWidget);
@@ -56,10 +57,15 @@ namespace tools
 
 		field = getPropertyField(mWidgetClient, "Type", "Type");
 		field->setTarget(_currentWidget);
-		if (targetType.empty())
-			field->setValue(widgetContainer->type);
-		else
+		if (existTargetType)
+		{
+			std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
 			field->setValue(targetType);
+		}
+		else
+		{
+			field->setValue(widgetContainer->type);
+		}
 
 		field = getPropertyField(mWidgetClient, "Align", "Align");
 		field->setTarget(_currentWidget);
@@ -73,7 +79,7 @@ namespace tools
 
 			field = getPropertyField(mWidgetClient, "Template", "Bool");
 			field->setTarget(_currentWidget);
-			field->setValue((getTargetTemplate(widgetContainer) != "") ? "true" : "");
+			field->setValue(existTargetType ? "true" : "false");
 		}
 
 		field = getPropertyField(mWidgetClient, "Skin", "Skin");
@@ -81,16 +87,6 @@ namespace tools
 		field->setValue(widgetContainer->skin);
 
 		updateSize();
-	}
-
-	std::string PanelMainProperties::getTargetTemplate(WidgetContainer* _container)
-	{
-		for (MyGUI::VectorStringPairs::iterator item = _container->mUserString.begin(); item != _container->mUserString.end(); ++ item)
-		{
-			if ((*item).first == "LE_TargetWidgetType")
-				return (*item).second;
-		}
-		return "";
 	}
 
 	void PanelMainProperties::updateSize()
@@ -195,8 +191,7 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			std::string targetType = getTargetTemplate(widgetContainer);
-			if (targetType.empty())
+			if (!widgetContainer->existUserData(mUserDataTargetType))
 			{
 				widgetContainer->type = _value;
 
@@ -213,7 +208,7 @@ namespace tools
 			}
 			else
 			{
-				widgetContainer->setUserData("LE_TargetWidgetType", _value);
+				widgetContainer->setUserData(mUserDataTargetType, _value);
 
 				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
@@ -249,10 +244,9 @@ namespace tools
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			if (_value == "true")
 			{
-				std::string targetType = getTargetTemplate(widgetContainer);
-				if (targetType.empty())
+				if (!widgetContainer->existUserData(mUserDataTargetType))
 				{
-					widgetContainer->setUserData("LE_TargetWidgetType", widgetContainer->type);
+					widgetContainer->setUserData(mUserDataTargetType, widgetContainer->type);
 					widgetContainer->type = MyGUI::Widget::getClassTypeName();
 
 					WidgetSelectorManager::getInstance().saveSelectedWidget();
@@ -269,10 +263,10 @@ namespace tools
 			}
 			else
 			{
-				std::string targetType = getTargetTemplate(widgetContainer);
-				if (!targetType.empty())
+				if (widgetContainer->existUserData(mUserDataTargetType))
 				{
-					widgetContainer->clearUserData("LE_TargetWidgetType");
+					std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
+					widgetContainer->clearUserData(mUserDataTargetType);
 					widgetContainer->type = targetType;
 
 					WidgetSelectorManager::getInstance().saveSelectedWidget();

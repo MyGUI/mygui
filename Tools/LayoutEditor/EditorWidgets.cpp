@@ -511,7 +511,7 @@ namespace tools
 				if (!widget->findAttribute("value", value))
 					continue;
 				//container->mUserString.insert(MyGUI::PairString(key, value));
-				container->mUserString.push_back(MyGUI::PairString(key, value));
+				container->setUserData(key, value);
 			}
 			else if (widget->getName() == "Controller")
 			{
@@ -554,11 +554,8 @@ namespace tools
 	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode)
 	{
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
-		for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
-		{
-			if ((*item).first == "LE_TargetWidgetType")
-				return true;
-		}
+		if (container->existUserData("LE_TargetWidgetType"))
+			return true;
 
 		try
 		{

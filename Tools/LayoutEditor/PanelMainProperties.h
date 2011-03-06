@@ -41,14 +41,13 @@ namespace tools
 		bool isSkinExist(const std::string& _skinName);
 		bool checkTemplate(const std::string& _skinName);
 
-		std::string getTargetTemplate(WidgetContainer* _container);
-
 		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
 		typedef std::map<std::string, IPropertyField*> MapPropertyField;
 		MapPropertyField mFields;
+		std::string mUserDataTargetType;
 	};
 
 } // namespace tools
