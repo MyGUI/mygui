@@ -258,7 +258,7 @@ namespace tools
 
 	void EditorWidgets::add(WidgetContainer* _container)
 	{
-		if (nullptr == _container->widget->getParent())
+		if (nullptr == _container->getWidget()->getParent())
 		{
 			//if ("" == _container->getLayerName())
 				//_container->layer = DEFAULT_LAYER;
@@ -266,7 +266,7 @@ namespace tools
 		}
 		else
 		{
-			MyGUI::Widget* parent = _container->widget->getParent();
+			MyGUI::Widget* parent = _container->getWidget()->getParent();
 			WidgetContainer* containerParent = find(parent);
 			while (nullptr == containerParent)
 			{
@@ -297,13 +297,13 @@ namespace tools
 
 		if (nullptr != _container)
 		{
-			if (nullptr == _container->widget->getParent())
+			if (nullptr == _container->getWidget()->getParent())
 			{
 				mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
 			}
 			else
 			{
-				MyGUI::Widget* parent = _container->widget->getParent();
+				MyGUI::Widget* parent = _container->getWidget()->getParent();
 				WidgetContainer* containerParent = find(parent);
 				while (nullptr == containerParent)
 				{
@@ -320,7 +320,7 @@ namespace tools
 				containerParent->childContainers.erase(std::find(containerParent->childContainers.begin(), containerParent->childContainers.end(), _container));
 			}
 
-			MyGUI::Gui::getInstance().destroyWidget(_container->widget);
+			MyGUI::Gui::getInstance().destroyWidget(_container->getWidget());
 
 			delete _container;
 		}
@@ -341,13 +341,13 @@ namespace tools
 
 		if (nullptr != _container)
 		{
-			if (nullptr == _container->widget->getParent())
+			if (nullptr == _container->getWidget()->getParent())
 			{
 				mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
 			}
 			else
 			{
-				MyGUI::Widget* parent = _container->widget->getParent();
+				MyGUI::Widget* parent = _container->getWidget()->getParent();
 				WidgetContainer* containerParent = find(parent);
 				while (nullptr == containerParent)
 				{
@@ -399,7 +399,7 @@ namespace tools
 	{
 		for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 		{
-			if (((*iter)->widget == _widget) || ((_name.empty() == false) && ((*iter)->name == _name)))
+			if (((*iter)->getWidget() == _widget) || ((_name.empty() == false) && ((*iter)->getName() == _name)))
 			{
 				return *iter;
 			}
@@ -419,30 +419,37 @@ namespace tools
 		MyGUI::WidgetStyle widgetStyle = MyGUI::WidgetStyle::Child;
 		std::string position;
 
-		_widget->findAttribute("name", container->name);
-		_widget->findAttribute("type", container->type);
-		_widget->findAttribute("skin", container->skin);
+		container->setName(_widget->findAttribute("name"));
+		container->setType(_widget->findAttribute("type"));
+		container->setSkin(_widget->findAttribute("skin"));
 		container->setLayerName(_widget->findAttribute("layer"));
-		if (_widget->findAttribute("style", container->style))
-			widgetStyle = MyGUI::WidgetStyle::parse(container->style);
-		if (_widget->findAttribute("align", container->align))
-			align = MyGUI::Align::parse(container->align);
+		std::string tmp;
+		if (_widget->findAttribute("style", tmp))
+		{
+			container->setStyle(tmp);
+			widgetStyle = MyGUI::WidgetStyle::parse(tmp);
+		}
+		if (_widget->findAttribute("align", tmp))
+		{
+			container->setAlign(tmp);
+			align = MyGUI::Align::parse(tmp);
+		}
 		if (_widget->findAttribute("position", position))
 			coord = MyGUI::IntCoord::parse(position);
 		if (_widget->findAttribute("position_real", position))
 		{
-			container->relative_mode = true;
+			container->setRelativeMode(true);
 			SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
 			MyGUI::IntSize size = _testMode ? MyGUI::RenderManager::getInstance().getViewSize() : sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
 			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
 		// проверяем скин на присутствие
-		std::string skin = container->skin;
-		bool exist = isSkinExist(container->skin);
-		if (!exist && !container->skin.empty())
+		std::string skin = container->getSkin();
+		bool exist = isSkinExist(container->getSkin());
+		if (!exist && !container->getSkin().empty())
 		{
-			skin = WidgetTypes::getInstance().findWidgetStyle(container->type)->default_skin;
+			skin = WidgetTypes::getInstance().findWidgetStyle(container->getType())->default_skin;
 
 			std::string tmp;
 			if (skin.empty())
@@ -451,7 +458,7 @@ namespace tools
 				tmp = "'" + skin + "'";
 
 			// FIXME : not translated string
-			std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", tmp);
+			std::string mess = MyGUI::utility::toString("'", container->getSkin(), "' skin not found , temporary changed to ", tmp);
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 
@@ -459,16 +466,16 @@ namespace tools
 			skin = getSkinReplace(skin);
 
 		std::string layer = _testMode ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
-		std::string widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->type) ?
-			container->type : MyGUI::Widget::getClassTypeName();
+		std::string widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
+			container->getType() : MyGUI::Widget::getClassTypeName();
 
 		if (nullptr == _parent)
 		{
-			container->widget = MyGUI::Gui::getInstance().createWidgetT(widgetType, skin, coord, align, layer);
+			container->setWidget(MyGUI::Gui::getInstance().createWidgetT(widgetType, skin, coord, align, layer));
 		}
 		else
 		{
-			container->widget = _parent->createWidgetT(widgetStyle, widgetType, skin, coord, align, layer);
+			container->setWidget(_parent->createWidgetT(widgetStyle, widgetType, skin, coord, align, layer));
 		}
 
 		add(container);
@@ -481,7 +488,7 @@ namespace tools
 
 			if (widget->getName() == "Widget")
 			{
-				parseWidget(widget, container->widget, _testMode);
+				parseWidget(widget, container->getWidget(), _testMode);
 			}
 			else if (widget->getName() == "Property")
 			{
@@ -498,7 +505,7 @@ namespace tools
 					key = key.substr(indexSeparator + 1);
 
 				// и пытаемся парсить свойство
-				if (tryToApplyProperty(container->widget, key, value, _testMode) == false)
+				if (tryToApplyProperty(container->getWidget(), key, value, _testMode) == false)
 					continue;
 
 				container->mProperty.push_back(MyGUI::PairString(key, value));
@@ -543,7 +550,7 @@ namespace tools
 				}
 				if (item)
 				{
-					MyGUI::ControllerManager::getInstance().addItem(container->widget, item);
+					MyGUI::ControllerManager::getInstance().addItem(container->getWidget(), item);
 				}
 
 				container->mController.push_back(controllerInfo);
@@ -585,34 +592,35 @@ namespace tools
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Widget");
 
-		node->addAttribute("type", _container->type);
-		node->addAttribute("skin", _container->skin);
+		node->addAttribute("type", _container->getType());
+		node->addAttribute("skin", _container->getSkin());
 
-		if (!_container->relative_mode)
+		if (!_container->getRelativeMode())
 			node->addAttribute("position", _container->position());
 		else
 			node->addAttribute("position_real", _container->position(false));
 
-		if ("" != _container->align)
-			node->addAttribute("align", _container->align);
+		if (!_container->getAlign().empty())
+			node->addAttribute("align", _container->getAlign());
 
-		if ("" != _container->style)
-			node->addAttribute("style", _container->style);
+		if (!_container->getStyle().empty())
+			node->addAttribute("style", _container->getStyle());
 
 		if ("" != _container->getLayerName())
 			node->addAttribute("layer", _container->getLayerName());
 
-		if ("" != _container->name)
-			node->addAttribute("name", _container->name);
+		if (!_container->getName().empty())
+			node->addAttribute("name", _container->getName());
 
 		for (MyGUI::VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
-			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->type, *iter, _compatibility);
+			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->getType(), *iter, _compatibility);
 
-		for (MyGUI::VectorStringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
+		WidgetContainer::UserDataEnumerator userData = _container->getUserDataEnumerator();
+		while (userData.next())
 		{
 			MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
-			nodeProp->addAttribute("key", iter->first);
-			nodeProp->addAttribute("value", iter->second);
+			nodeProp->addAttribute("key", userData.current().first);
+			nodeProp->addAttribute("value", userData.current().second);
 		}
 
 		for (std::vector<ControllerInfo*>::iterator iter = _container->mController.begin(); iter != _container->mController.end(); ++iter)
@@ -779,7 +787,7 @@ namespace tools
 		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 		{
 			// в корень только сирот
-			if (nullptr == (*iter)->widget->getParent())
+			if (nullptr == (*iter)->getWidget()->getParent())
 				serialiseWidget(*iter, _root, _compatibility);
 		}
 

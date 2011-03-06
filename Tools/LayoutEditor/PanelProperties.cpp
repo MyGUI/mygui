@@ -115,7 +115,7 @@ namespace tools
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-		EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->widget, _name, _value);
+		EditorWidgets::getInstance().tryToApplyProperty(widgetContainer->getWidget(), _name, _value);
 
 		if (_final)
 		{

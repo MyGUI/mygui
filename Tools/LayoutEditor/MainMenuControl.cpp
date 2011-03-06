@@ -79,8 +79,8 @@ namespace tools
 	{
 		bool submenu = !_container->childContainers.empty();
 
-		_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
-		_parentPopup->setItemDataAt(_parentPopup->getItemCount() - 1, _container->widget);
+		_parentPopup->addItem(getDescriptionString(_container->getWidget(), _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
+		_parentPopup->setItemDataAt(_parentPopup->getItemCount() - 1, _container->getWidget());
 
 		if (submenu)
 		{
@@ -105,11 +105,11 @@ namespace tools
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
-		addUserTag("WidgetName", _print_name ? widgetContainer->name : "");
+		addUserTag("WidgetName", _print_name ? widgetContainer->getName() : "");
 		addUserTag("WidgetType", _print_type ? _widget->getTypeName() : "");
-		addUserTag("WidgetSkin", _print_skin ? widgetContainer->skin : "");
+		addUserTag("WidgetSkin", _print_skin ? widgetContainer->getSkin() : "");
 
-		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->name.empty()) ? "#{PatternWidgetName}" : "");
+		addUserTag("FormatWidgetName", (_print_name && !widgetContainer->getName().empty()) ? "#{PatternWidgetName}" : "");
 		addUserTag("FormatWidgetType", _print_type ? "#{PatternWidgetType}" : "");
 		addUserTag("FormatWidgetSkin", _print_skin ? "#{PatternWidgetSkin}" : "");
 

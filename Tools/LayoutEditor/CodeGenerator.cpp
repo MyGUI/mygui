@@ -92,11 +92,11 @@ namespace tools
 
 	void CodeGenerator::printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream)
 	{
-		if (!_container->name.empty() && _container->name != "_Main")
+		if (!_container->getName().empty() && _container->getName() != "_Main")
 		{
 			MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
-			lm.addUserTag("Widget_Name", _container->name);
-			lm.addUserTag("Widget_Type", _container->type);
+			lm.addUserTag("Widget_Name", _container->getName());
+			lm.addUserTag("Widget_Type", _container->getType());
 			for (MyGUI::MapString::iterator iterS = mTemplateStrings.begin(); iterS != mTemplateStrings.end(); ++iterS)
 			{
 				lm.addUserTag(iterS->first, lm.replaceTags(iterS->second));

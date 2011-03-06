@@ -69,15 +69,16 @@ namespace tools
 		if (mCurrentWidget == nullptr)
 			return;
 
-		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
-
 		mMultilist->removeAllItems();
-		for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
+
+		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
+		WidgetContainer::UserDataEnumerator userData = widgetContainer->getUserDataEnumerator();
+		while (userData.next())
 		{
-			if (checkUserData(widgetContainer, (*iterProperty).first))
+			if (checkUserData(widgetContainer, userData.current().first))
 			{
-				mMultilist->addItem(iterProperty->first);
-				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, iterProperty->second);
+				mMultilist->addItem(userData.current().first);
+				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, userData.current().second);
 			}
 		}
 	}
@@ -104,12 +105,12 @@ namespace tools
 		std::string key = mEditKey->getOnlyText();
 		std::string value = mEditValue->getOnlyText();
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		if (utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
+		if (!widgetContainer->existUserData(key))
 		{
 			mMultilist->addItem(key);
 		}
 		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
-		utility::mapSet(widgetContainer->mUserString, key, value);
+		widgetContainer->setUserData(key, value);
 		UndoManager::getInstance().addValue();
 	}
 
@@ -119,7 +120,7 @@ namespace tools
 		if (MyGUI::ITEM_NONE == item) return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		utility::mapErase(widgetContainer->mUserString, mMultilist->getItemNameAt(item));
+		widgetContainer->clearUserData(mMultilist->getItemNameAt(item));
 		mMultilist->removeItemAt(item);
 		UndoManager::getInstance().addValue();
 	}
@@ -138,14 +139,14 @@ namespace tools
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
-		utility::mapErase(widgetContainer->mUserString, lastkey);
-		if (utility::mapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
+		widgetContainer->clearUserData(lastkey);
+		if (!widgetContainer->existUserData(key))
 		{
 			mMultilist->addItem(key);
 		}
 		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
 		mMultilist->setIndexSelected(mMultilist->findSubItemWith(0, key));
-		utility::mapSet(widgetContainer->mUserString, key, value);
+		widgetContainer->setUserData(key, value);
 		UndoManager::getInstance().addValue();
 	}
 
@@ -164,18 +165,9 @@ namespace tools
 		if (_key == "LE_TargetWidgetType")
 			return false;
 
-		std::string widgetTypeName = "";
+		std::string widgetTypeName = _widgetContainer->getUserData("LE_TargetWidgetType");
 
-		for (MyGUI::VectorStringPairs::iterator item = _widgetContainer->mUserString.begin(); item != _widgetContainer->mUserString.end(); ++item)
-		{
-			if ((*item).first == "LE_TargetWidgetType")
-			{
-				widgetTypeName = (*item).second;
-				break;
-			}
-		}
-
-		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->type);
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->getType());
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
 		{

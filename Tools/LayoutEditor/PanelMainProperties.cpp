@@ -46,7 +46,7 @@ namespace tools
 
 		IPropertyField* field = getPropertyField(mWidgetClient, "Name", "Name");
 		field->setTarget(_currentWidget);
-		field->setValue(widgetContainer->name);
+		field->setValue(widgetContainer->getName());
 
 		if (widgetType->resizeable)
 		{
@@ -64,12 +64,12 @@ namespace tools
 		}
 		else
 		{
-			field->setValue(widgetContainer->type);
+			field->setValue(widgetContainer->getType());
 		}
 
 		field = getPropertyField(mWidgetClient, "Align", "Align");
 		field->setTarget(_currentWidget);
-		field->setValue(widgetContainer->align);
+		field->setValue(widgetContainer->getAlign());
 
 		if (mCurrentWidget->isRootWidget())
 		{
@@ -84,7 +84,7 @@ namespace tools
 
 		field = getPropertyField(mWidgetClient, "Skin", "Skin");
 		field->setTarget(_currentWidget);
-		field->setValue(widgetContainer->skin);
+		field->setValue(widgetContainer->getSkin());
 
 		updateSize();
 	}
@@ -119,8 +119,8 @@ namespace tools
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-			widgetContainer->skin = _value;
-			if (isSkinExist(widgetContainer->skin) || widgetContainer->skin.empty())
+			widgetContainer->setSkin(_value);
+			if (isSkinExist(widgetContainer->getSkin()) || widgetContainer->getSkin().empty())
 			{
 				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
@@ -133,7 +133,7 @@ namespace tools
 			}
 			else
 			{
-				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
+				std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->getSkin(), "' not found. This value will be saved.");
 				GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 			}
 
@@ -180,7 +180,7 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			widgetContainer->name = _value;
+			widgetContainer->setName(_value);
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
@@ -193,7 +193,7 @@ namespace tools
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 			if (!widgetContainer->existUserData(mUserDataTargetType))
 			{
-				widgetContainer->type = _value;
+				widgetContainer->setType(_value);
 
 				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
@@ -230,8 +230,8 @@ namespace tools
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 
-			widgetContainer->align = _value;
-			widgetContainer->widget->setAlign(MyGUI::Align::parse(_value));
+			widgetContainer->setAlign(_value);
+			widgetContainer->getWidget()->setAlign(MyGUI::Align::parse(_value));
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
@@ -246,8 +246,8 @@ namespace tools
 			{
 				if (!widgetContainer->existUserData(mUserDataTargetType))
 				{
-					widgetContainer->setUserData(mUserDataTargetType, widgetContainer->type);
-					widgetContainer->type = MyGUI::Widget::getClassTypeName();
+					widgetContainer->setUserData(mUserDataTargetType, widgetContainer->getType());
+					widgetContainer->setType(MyGUI::Widget::getClassTypeName());
 
 					WidgetSelectorManager::getInstance().saveSelectedWidget();
 
@@ -267,7 +267,7 @@ namespace tools
 				{
 					std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
 					widgetContainer->clearUserData(mUserDataTargetType);
-					widgetContainer->type = targetType;
+					widgetContainer->setType(targetType);
 
 					WidgetSelectorManager::getInstance().saveSelectedWidget();
 

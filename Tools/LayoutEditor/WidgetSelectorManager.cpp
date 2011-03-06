@@ -112,17 +112,17 @@ namespace tools
 
 	void WidgetSelectorManager::checkContainer(WidgetContainer* _container, MyGUI::Widget*& _result, const MyGUI::IntPoint& _point)
 	{
-		if (!_container->widget->getVisible())
+		if (!_container->getWidget()->getVisible())
 			return;
 
-		if (_container->widget->getAbsoluteCoord().inside(_point))
-			_result = _container->widget;
+		if (_container->getWidget()->getAbsoluteCoord().inside(_point))
+			_result = _container->getWidget();
 
 		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
 		{
-			if (_container->widget->isType<MyGUI::TabControl>() && (*item)->widget->isType<MyGUI::TabItem>())
+			if (_container->getWidget()->isType<MyGUI::TabControl>() && (*item)->getWidget()->isType<MyGUI::TabItem>())
 			{
-				if (_container->widget->castType<MyGUI::TabControl>()->getItemSelected() != (*item)->widget->castType<MyGUI::TabItem>())
+				if (_container->getWidget()->castType<MyGUI::TabControl>()->getItemSelected() != (*item)->getWidget()->castType<MyGUI::TabItem>())
 					continue;
 			}
 
@@ -173,7 +173,7 @@ namespace tools
 		bool existStoreTag = _container->existUserData(mStoreWidgetTag);
 		if (existStoreTag)
 		{
-			result = _container->widget;
+			result = _container->getWidget();
 			_container->clearUserData(mStoreWidgetTag);
 		}
 
