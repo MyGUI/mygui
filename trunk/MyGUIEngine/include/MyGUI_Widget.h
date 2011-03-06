@@ -275,7 +275,7 @@ namespace MyGUI
 		virtual size_t _getItemIndex(Widget* _item);
 
 		// дает приоритет виджету при пиккинге
-		void _forcePeek(Widget* _widget);
+		void _forcePick(Widget* _widget);
 
 		void _initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name);
 		void _shutdown();
