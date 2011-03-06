@@ -121,32 +121,9 @@ namespace tools
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
 		if (_value.empty())
-		{
-			for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++ item)
-			{
-				if ((*item).first == _key)
-				{
-					widgetContainer->mProperty.erase(item);
-					break;
-				}
-			}
-		}
+			widgetContainer->clearProperty(_key);
 		else
-		{
-			bool found = false;
-			for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++ item)
-			{
-				if ((*item).first == _key)
-				{
-					(*item).second = _value;
-					found = true;
-					break;
-				}
-			}
-
-			if (!found)
-				widgetContainer->mProperty.push_back(MyGUI::PairString(_key, _value));
-		}
+			widgetContainer->setProperty(_key, _value);
 	}
 
 	void PanelItems::addItem(const std::string& _value)
@@ -258,43 +235,19 @@ namespace tools
 	void PanelItems::setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
-
-		for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++item)
-		{
-			if ((*item).first == _propertyName)
-			{
-				if (_index == 0)
-				{
-					(*item).second = _propertyValue;
-					break;
-				}
-				-- _index;
-			}
-		}
+		widgetContainer->setPropertyByIndex(_index, _propertyName, _propertyValue);
 	}
 
 	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
-
-		for (MyGUI::VectorStringPairs::iterator item = widgetContainer->mProperty.begin(); item != widgetContainer->mProperty.end(); ++item)
-		{
-			if ((*item).first == _propertyName)
-			{
-				if (_index == 0)
-				{
-					widgetContainer->mProperty.erase(item);
-					break;
-				}
-				-- _index;
-			}
-		}
+		widgetContainer->clearPropertyByIndex(_index, _propertyName);
 	}
 
 	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
-		widgetContainer->mProperty.push_back(MyGUI::PairString(_propertyName, _propertyValue));
+		widgetContainer->setProperty(_propertyName, _propertyValue);
 	}
 
 } // namespace tools
