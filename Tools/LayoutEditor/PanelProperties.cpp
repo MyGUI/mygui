@@ -46,15 +46,7 @@ namespace tools
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
-			std::string value = "";
-			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			{
-				if (iterProperty->first == iter->first)
-				{
-					value = iterProperty->second;
-					break;
-				}
-			}
+			std::string value = widgetContainer->getProperty(iter->first);
 
 			IPropertyField* field = getPropertyField(mWidgetClient, iter->first, iter->second);
 			field->setTarget(_currentWidget);
@@ -119,24 +111,10 @@ namespace tools
 
 		if (_final)
 		{
-			bool found = false;
-			// если такое св-во было, то заменим (или удалим если стерли) значение
-			for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			{
-				if (iterProperty->first == _name)
-				{
-					found = true;
-					if (_value.empty())
-						widgetContainer->mProperty.erase(iterProperty);
-					else
-						iterProperty->second = _value;
-					break;
-				}
-			}
-
-			// если такого свойства не было раньше, то сохраняем
-			if (!_value.empty() && !found)
-				widgetContainer->mProperty.push_back(MyGUI::PairString(_name, _value));
+			if (_value.empty())
+				widgetContainer->clearProperty(_name);
+			else
+				widgetContainer->setProperty(_name, _value);
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
