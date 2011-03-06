@@ -35,15 +35,7 @@ namespace tools
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
 			{
-				std::string value = "";
-				for (MyGUI::VectorStringPairs::iterator iterProperty = widgetContainer->mUserString.begin(); iterProperty != widgetContainer->mUserString.end(); ++iterProperty)
-				{
-					if (iterProperty->first == iter->first)
-					{
-						value = iterProperty->second;
-						break;
-					}
-				}
+				std::string value = widgetContainer->getUserData(iter->first);
 
 				IPropertyField* field = PropertyFieldManager::getInstance().createPropertyField(mWidgetClient, iter->second);
 				field->setTarget(_currentWidget);

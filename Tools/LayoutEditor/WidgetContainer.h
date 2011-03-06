@@ -16,88 +16,27 @@ namespace tools
 
 	struct WidgetContainer
 	{
-		WidgetContainer() :
-			widget(nullptr),
-			relative_mode(false)
-		{ }
-		WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = ""):
-			widget(_widget),
-			type(_type),
-			skin(_skin),
-			name(_name),
-			relative_mode(false)
-		{ }
+		WidgetContainer();
+		WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = "");
 
-		~WidgetContainer()
-		{
-			for (std::vector<WidgetContainer*>::iterator iter = childContainers.begin(); iter != childContainers.end(); ++iter)
-				delete *iter;
-			childContainers.clear();
-
-			for (std::vector<ControllerInfo*>::iterator iter = mController.begin(); iter != mController.end(); ++iter)
-				delete *iter;
-			mController.clear();
-		}
+		~WidgetContainer();
 
 		// not for saving
-		std::string position(bool _percent = true)
-		{
-			if (relative_mode)
-			{
-				MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(widget->getCoord(), widget->getParentSize());
-				std::ostringstream stream;
-				if (_percent) stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " " << coord.height * 100;
-				else stream << coord.left << " " << coord.top << " " << coord.width << " " << coord.height;
-				return stream.str();
-			}
-			return widget->getCoord().print();
-		}
+		std::string position(bool _percent = true);
 
-		void setUserData(const std::string& _key, const std::string& _value)
-		{
-			bool found = false;
+		void setUserData(const std::string& _key, const std::string& _value);
+		std::string getUserData(const std::string& _key);
+		void clearUserData(const std::string& _key);
+		bool existUserData(const std::string& _key) const;
 
-			for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
-			{
-				if ((*item).first == _key)
-				{
-					found = true;
-					(*item).second = _value;
-					break;
-				}
-			}
+		void setLayerName(const std::string& _layerName);
 
-			if (!found)
-				mUserString.push_back(MyGUI::PairString(_key, _value));
-		}
-
-		void clearUserData(const std::string& _key)
-		{
-			for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
-			{
-				if ((*item).first == _key)
-				{
-					mUserString.erase(item);
-					break;
-				}
-			}
-		}
-
-		void setLayerName(const std::string& _layerName)
-		{
-			layer = _layerName;
-		}
-
-		const std::string& getLayerName() const
-		{
-			return layer;
-		}
+		const std::string& getLayerName() const;
 
 	public:
 		MyGUI::Widget* widget;
 		std::vector<WidgetContainer*> childContainers;
 		MyGUI::VectorStringPairs mProperty;
-		MyGUI::VectorStringPairs mUserString;
 		std::vector<ControllerInfo*> mController;
 		std::string type;
 		std::string skin;
@@ -105,6 +44,7 @@ namespace tools
 		std::string name;
 		std::string style;
 		bool relative_mode;
+		MyGUI::VectorStringPairs mUserString;
 
 	private:
 		std::string layer;

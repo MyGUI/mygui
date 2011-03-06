@@ -135,6 +135,7 @@ set (SOURCE_FILES
   TextureToolControl.cpp
   ToolsControl.cpp
   UndoManager.cpp
+  WidgetContainer.cpp
   WidgetCreatorManager.cpp
   WidgetSelectorManager.cpp
   WidgetTypes.cpp
