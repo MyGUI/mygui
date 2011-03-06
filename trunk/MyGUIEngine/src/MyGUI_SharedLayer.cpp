@@ -56,9 +56,13 @@ namespace MyGUI
 					mIsPick = utility::parseValue<bool>(value);
 			}
 		}
+		else if (_version >= Version(1, 0))
+		{
+			mIsPick = utility::parseBool(_node->findAttribute("pick"));
+		}
 		else
 		{
-			mIsPick = utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"));
+			mIsPick = utility::parseBool(_node->findAttribute("peek"));
 		}
 	}
 
