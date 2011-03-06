@@ -508,7 +508,7 @@ namespace tools
 				if (tryToApplyProperty(container->getWidget(), key, value, _testMode) == false)
 					continue;
 
-				container->mProperty.push_back(MyGUI::PairString(key, value));
+				container->setProperty(key, value);
 			}
 			else if (widget->getName() == "UserString")
 			{
@@ -612,8 +612,11 @@ namespace tools
 		if (!_container->getName().empty())
 			node->addAttribute("name", _container->getName());
 
-		for (MyGUI::VectorStringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
-			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->getType(), *iter, _compatibility);
+		WidgetContainer::PropertyEnumerator propertyItem = _container->getPropertyEnumerator();
+		while (propertyItem.next())
+		{
+			BackwardCompatibilityManager::getInstance().serialiseProperty(node, _container->getType(), propertyItem.current(), _compatibility);
+		}
 
 		WidgetContainer::UserDataEnumerator userData = _container->getUserDataEnumerator();
 		while (userData.next())
