@@ -28,26 +28,48 @@ namespace tools
 		std::string getUserData(const std::string& _key);
 		void clearUserData(const std::string& _key);
 		bool existUserData(const std::string& _key) const;
+		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> UserDataEnumerator;
+		UserDataEnumerator getUserDataEnumerator();
 
-		void setLayerName(const std::string& _layerName);
-
+		void setLayerName(const std::string& _value);
 		const std::string& getLayerName() const;
 
+		MyGUI::Widget* getWidget();
+		void setWidget(MyGUI::Widget* _value);
+
+		const std::string& getName() const;
+		void setName(const std::string& _value);
+
+		const std::string& getSkin() const;
+		void setSkin(const std::string& _value);
+
+		const std::string& getType() const;
+		void setType(const std::string& _value);
+
+		const std::string& getAlign() const;
+		void setAlign(const std::string& _value);
+
+		const std::string& getStyle() const;
+		void setStyle(const std::string& _value);
+
+		bool getRelativeMode() const;
+		void setRelativeMode(bool _value);
+
 	public:
-		MyGUI::Widget* widget;
 		std::vector<WidgetContainer*> childContainers;
-		MyGUI::VectorStringPairs mProperty;
 		std::vector<ControllerInfo*> mController;
-		std::string type;
-		std::string skin;
-		std::string align;
-		std::string name;
-		std::string style;
-		bool relative_mode;
-		MyGUI::VectorStringPairs mUserString;
+		MyGUI::VectorStringPairs mProperty;
 
 	private:
+		MyGUI::VectorStringPairs mUserString;
+		bool relative_mode;
+		std::string style;
+		std::string align;
+		std::string type;
+		std::string skin;
+		std::string name;
 		std::string layer;
+		MyGUI::Widget* widget;
 	};
 
 } // namespace tools

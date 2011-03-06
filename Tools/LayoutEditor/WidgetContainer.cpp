@@ -100,13 +100,89 @@ namespace tools
 		return false;
 	}
 
-	void WidgetContainer::setLayerName(const std::string& _layerName)
+	void WidgetContainer::setLayerName(const std::string& _value)
 	{
-		layer = _layerName;
+		layer = _value;
 	}
 
 	const std::string& WidgetContainer::getLayerName() const
 	{
 		return layer;
 	}
+
+	MyGUI::Widget* WidgetContainer::getWidget()
+	{
+		return widget;
+	}
+
+	void WidgetContainer::setWidget(MyGUI::Widget* _value)
+	{
+		widget = _value;
+	}
+
+	const std::string& WidgetContainer::getName() const
+	{
+		return name;
+	}
+
+	void WidgetContainer::setName(const std::string& _value)
+	{
+		name = _value;
+	}
+
+	const std::string& WidgetContainer::getSkin() const
+	{
+		return skin;
+	}
+
+	void WidgetContainer::setSkin(const std::string& _value)
+	{
+		skin = _value;
+	}
+
+	const std::string& WidgetContainer::getType() const
+	{
+		return type;
+	}
+
+	void WidgetContainer::setType(const std::string& _value)
+	{
+		type = _value;
+	}
+
+	const std::string& WidgetContainer::getAlign() const
+	{
+		return align;
+	}
+
+	void WidgetContainer::setAlign(const std::string& _value)
+	{
+		align = _value;
+	}
+
+	const std::string& WidgetContainer::getStyle() const
+	{
+		return style;
+	}
+
+	void WidgetContainer::setStyle(const std::string& _value)
+	{
+		style = _value;
+	}
+
+	bool WidgetContainer::getRelativeMode() const
+	{
+		return relative_mode;
+	}
+
+	void WidgetContainer::setRelativeMode(bool _value)
+	{
+		relative_mode = _value;
+	}
+
+	WidgetContainer::UserDataEnumerator WidgetContainer::getUserDataEnumerator()
+	{
+		return UserDataEnumerator(mUserString);
+	}
+
 }

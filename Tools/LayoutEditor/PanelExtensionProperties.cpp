@@ -56,7 +56,7 @@ namespace tools
 			return;
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
-		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetContainer->type);
+		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetContainer->getType());
 
 		AddParametrs(widgetType, widgetContainer, mCurrentWidget);
 
