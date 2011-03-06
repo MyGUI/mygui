@@ -32,24 +32,11 @@ namespace MyGUI
 	class MYGUI_EXPORT Version
 	{
 	public:
-		Version() :
-			mMajor(0),
-			mMinor(0),
-			mPatch(0)
-		{
-		}
 
-		Version(unsigned int _major, unsigned int _minor, unsigned int _patch) :
+		Version(unsigned int _major = 0, unsigned int _minor = 0, unsigned int _patch = 0) :
 			mMajor(_major),
 			mMinor(_minor),
 			mPatch(_patch)
-		{
-		}
-
-		Version(unsigned int _major, unsigned int _minor) :
-			mMajor(_major),
-			mMinor(_minor),
-			mPatch(0)
 		{
 		}
 
