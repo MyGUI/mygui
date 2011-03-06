@@ -141,7 +141,7 @@ namespace tools
 		{
 			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
 			if (container != nullptr)
-				container->mUserString.push_back(MyGUI::PairString(mStoreWidgetTag, mStoreWidgetTag));
+				container->setUserData(mStoreWidgetTag, mStoreWidgetTag);
 		}
 	}
 
@@ -170,14 +170,11 @@ namespace tools
 	MyGUI::Widget* WidgetSelectorManager::findWidgetSelected(WidgetContainer* _container)
 	{
 		MyGUI::Widget* result = nullptr;
-		for (MyGUI::VectorStringPairs::iterator item = _container->mUserString.begin(); item != _container->mUserString.end(); ++ item)
+		bool existStoreTag = _container->existUserData(mStoreWidgetTag);
+		if (existStoreTag)
 		{
-			if ((*item).first == mStoreWidgetTag)
-			{
-				result = _container->widget;
-				_container->mUserString.erase(item);
-				break;
-			}
+			result = _container->widget;
+			_container->clearUserData(mStoreWidgetTag);
 		}
 
 		if (result == nullptr)

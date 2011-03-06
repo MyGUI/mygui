@@ -152,14 +152,10 @@ namespace tools
 
 			bool templateName = false;
 			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);
-			for (MyGUI::VectorStringPairs::iterator item = container->mUserString.begin(); item != container->mUserString.end(); ++item)
+			if (container->existUserData("LE_TargetWidgetType"))
 			{
-				if ((*item).first == "LE_TargetWidgetType")
-				{
-					widgetTypeName = (*item).second;
-					templateName = true;
-					break;
-				}
+				widgetTypeName = container->getUserData("LE_TargetWidgetType");
+				templateName = true;
 			}
 
 			WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
