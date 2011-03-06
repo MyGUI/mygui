@@ -70,15 +70,15 @@ namespace tools
 			field = getPropertyField(mWidgetClient, "Layer", "Layer");
 			field->setTarget(_currentWidget);
 			field->setValue(widgetContainer->getLayerName());
+
+			field = getPropertyField(mWidgetClient, "Template", "Bool");
+			field->setTarget(_currentWidget);
+			field->setValue((getTargetTemplate(widgetContainer) != "") ? "true" : "");
 		}
 
 		field = getPropertyField(mWidgetClient, "Skin", "Skin");
 		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->skin);
-
-		field = getPropertyField(mWidgetClient, "Template", "Bool");
-		field->setTarget(_currentWidget);
-		field->setValue((getTargetTemplate(widgetContainer) != "") ? "true" : "");
 
 		updateSize();
 	}
