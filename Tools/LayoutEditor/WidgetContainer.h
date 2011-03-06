@@ -71,6 +71,18 @@ namespace tools
 				mUserString.push_back(MyGUI::PairString(_key, _value));
 		}
 
+		void clearUserData(const std::string& _key)
+		{
+			for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+			{
+				if ((*item).first == _key)
+				{
+					mUserString.erase(item);
+					break;
+				}
+			}
+		}
+
 		void setLayerName(const std::string& _layerName)
 		{
 			layer = _layerName;

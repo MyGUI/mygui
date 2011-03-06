@@ -41,6 +41,7 @@ namespace tools
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName());
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+		std::string targetType = getTargetTemplate(widgetContainer);
 
 		IPropertyField* field = getPropertyField(mWidgetClient, "Name", "Name");
 		field->setTarget(_currentWidget);
@@ -55,7 +56,10 @@ namespace tools
 
 		field = getPropertyField(mWidgetClient, "Type", "Type");
 		field->setTarget(_currentWidget);
-		field->setValue(widgetContainer->type);
+		if (targetType.empty())
+			field->setValue(widgetContainer->type);
+		else
+			field->setValue(targetType);
 
 		field = getPropertyField(mWidgetClient, "Align", "Align");
 		field->setTarget(_currentWidget);
@@ -72,12 +76,9 @@ namespace tools
 		field->setTarget(_currentWidget);
 		field->setValue(widgetContainer->skin);
 
-		if (widgetContainer->name == "Root" && widgetContainer->widget->isRootWidget())
-		{
-			field = getPropertyField(mWidgetClient, "Template", "Type");
-			field->setTarget(_currentWidget);
-			field->setValue(getTargetTemplate(widgetContainer));
-		}
+		field = getPropertyField(mWidgetClient, "Template", "Bool");
+		field->setTarget(_currentWidget);
+		field->setValue((getTargetTemplate(widgetContainer) != "") ? "true" : "");
 
 		updateSize();
 	}
@@ -183,24 +184,7 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-
-			if (widgetContainer->widget->isRootWidget() && (widgetContainer->name == "Root" || _value == "Root"))
-			{
-				widgetContainer->name = _value;
-
-				WidgetSelectorManager::getInstance().saveSelectedWidget();
-
-				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-				EditorWidgets::getInstance().clear();
-				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-				delete savedDoc;
-
-				WidgetSelectorManager::getInstance().restoreSelectedWidget();
-			}
-			else
-			{
-				widgetContainer->name = _value;
-			}
+			widgetContainer->name = _value;
 
 			UndoManager::getInstance().addValue(PR_PROPERTIES);
 		}
@@ -211,18 +195,37 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-			widgetContainer->type = _value;
+			std::string targetType = getTargetTemplate(widgetContainer);
+			if (targetType.empty())
+			{
+				widgetContainer->type = _value;
 
-			WidgetSelectorManager::getInstance().saveSelectedWidget();
+				WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-			EditorWidgets::getInstance().clear();
-			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-			delete savedDoc;
+				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+				EditorWidgets::getInstance().clear();
+				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+				delete savedDoc;
 
-			WidgetSelectorManager::getInstance().restoreSelectedWidget();
+				WidgetSelectorManager::getInstance().restoreSelectedWidget();
 
-			UndoManager::getInstance().addValue(PR_PROPERTIES);
+				UndoManager::getInstance().addValue(PR_PROPERTIES);
+			}
+			else
+			{
+				widgetContainer->setUserData("LE_TargetWidgetType", _value);
+
+				WidgetSelectorManager::getInstance().saveSelectedWidget();
+
+				MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+				EditorWidgets::getInstance().clear();
+				EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+				delete savedDoc;
+
+				WidgetSelectorManager::getInstance().restoreSelectedWidget();
+
+				UndoManager::getInstance().addValue(PR_PROPERTIES);
+			}
 		}
 	}
 
@@ -244,19 +247,46 @@ namespace tools
 		if (_final)
 		{
 			WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
+			if (_value == "true")
+			{
+				std::string targetType = getTargetTemplate(widgetContainer);
+				if (targetType.empty())
+				{
+					widgetContainer->setUserData("LE_TargetWidgetType", widgetContainer->type);
+					widgetContainer->type = MyGUI::Widget::getClassTypeName();
 
-			widgetContainer->setUserData("LE_TargetWidgetType", _value);
+					WidgetSelectorManager::getInstance().saveSelectedWidget();
 
-			WidgetSelectorManager::getInstance().saveSelectedWidget();
+					MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+					EditorWidgets::getInstance().clear();
+					EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+					delete savedDoc;
 
-			MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
-			EditorWidgets::getInstance().clear();
-			EditorWidgets::getInstance().loadxmlDocument(savedDoc);
-			delete savedDoc;
+					WidgetSelectorManager::getInstance().restoreSelectedWidget();
 
-			WidgetSelectorManager::getInstance().restoreSelectedWidget();
+					UndoManager::getInstance().addValue(PR_PROPERTIES);
+				}
+			}
+			else
+			{
+				std::string targetType = getTargetTemplate(widgetContainer);
+				if (!targetType.empty())
+				{
+					widgetContainer->clearUserData("LE_TargetWidgetType");
+					widgetContainer->type = targetType;
 
-			UndoManager::getInstance().addValue(PR_PROPERTIES);
+					WidgetSelectorManager::getInstance().saveSelectedWidget();
+
+					MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
+					EditorWidgets::getInstance().clear();
+					EditorWidgets::getInstance().loadxmlDocument(savedDoc);
+					delete savedDoc;
+
+					WidgetSelectorManager::getInstance().restoreSelectedWidget();
+
+					UndoManager::getInstance().addValue(PR_PROPERTIES);
+				}
+			}
 		}
 	}
 
