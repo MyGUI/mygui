@@ -77,7 +77,7 @@ namespace tools
 
 		if (goodData)
 		{
-			if (widgetContainer->relative_mode)
+			if (widgetContainer->getRelativeMode())
 			{
 				std::istringstream str(_value);
 				MyGUI::FloatCoord float_coord;
@@ -93,7 +93,7 @@ namespace tools
 			}
 			else
 			{
-				widgetContainer->widget->setProperty("Coord", _value);
+				widgetContainer->getWidget()->setProperty("Coord", _value);
 				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 			}
 		}
@@ -113,7 +113,7 @@ namespace tools
 	{
 		bool success = true;
 
-		if (EditorWidgets::getInstance().find(mCurrentWidget)->relative_mode)
+		if (EditorWidgets::getInstance().find(mCurrentWidget)->getRelativeMode())
 			success = utility::checkParse<float>(mField, 4);
 		else
 			success = utility::checkParse<int>(mField, 4);
@@ -171,7 +171,7 @@ namespace tools
 		if (widgetContainer == nullptr)
 			return;
 
-		widgetContainer->relative_mode = !widgetContainer->relative_mode;
+		widgetContainer->setRelativeMode(!widgetContainer->getRelativeMode());
 
 		updateButton();
 		updatePositionCaption();
@@ -182,7 +182,7 @@ namespace tools
 	void PropertyFieldPosition::updateButton()
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		if (widgetContainer->relative_mode)
+		if (widgetContainer->getRelativeMode())
 			mButton->setCaption(replaceTags("to_percents"));
 		else
 			mButton->setCaption(replaceTags("to_pixels"));

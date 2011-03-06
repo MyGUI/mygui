@@ -173,7 +173,7 @@ namespace tools
 				// создали виджет, все счастливы
 				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
 				if (mPopupMode)
-					widgetContainer->style = mNewWidget->getWidgetStyle().print();
+					widgetContainer->setStyle(mNewWidget->getWidgetStyle().print());
 				mNewWidget = nullptr;
 
 				EditorWidgets::getInstance().add(widgetContainer);
@@ -182,7 +182,7 @@ namespace tools
 				// чтобы выделился созданый виджет
 				resetAllCreatorInfo();
 
-				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->widget);
+				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->getWidget());
 			}
 			else
 			{
