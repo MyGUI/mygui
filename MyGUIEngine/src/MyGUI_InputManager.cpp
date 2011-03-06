@@ -292,7 +292,7 @@ namespace MyGUI
 					// если оверлаппед, то поднимаем пикинг
 					if (pick->getWidgetStyle() == WidgetStyle::Overlapped)
 					{
-						if (pick->getParent()) pick->getParent()->_forcePeek(pick);
+						if (pick->getParent()) pick->getParent()->_forcePick(pick);
 					}
 
 					pick = pick->getParent();

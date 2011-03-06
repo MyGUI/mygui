@@ -526,11 +526,11 @@ namespace MyGUI
 		_correctSkinItemView();
 	}
 
-	void Widget::_forcePeek(Widget* _widget)
+	void Widget::_forcePick(Widget* _widget)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
-			mWidgetClient->_forcePeek(_widget);
+			mWidgetClient->_forcePick(_widget);
 
 		VectorWidgetPtr::iterator item = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (item != mWidgetChild.end())

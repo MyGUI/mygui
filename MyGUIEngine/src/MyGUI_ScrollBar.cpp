@@ -126,7 +126,7 @@ namespace MyGUI
 		if (mWidgetTrack == nullptr)
 			return;
 
-		_forcePeek(mWidgetTrack);
+		_forcePick(mWidgetTrack);
 		// размер диапазана в пикселях
 		int pos = getLineSize();
 
