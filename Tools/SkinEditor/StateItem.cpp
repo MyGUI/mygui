@@ -47,7 +47,7 @@ namespace tools
 		mPropertySet->serialization(node, _version);
 	}
 
-	void StateItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void StateItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		mName = _node->findAttribute("name");
 
@@ -61,6 +61,6 @@ namespace tools
 				mPropertySet->deserialization(node, _version);
 			}
 		}
-	}
+	}*/
 
 } // namespace tools

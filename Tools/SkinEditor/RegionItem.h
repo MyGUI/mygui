@@ -28,7 +28,7 @@ namespace tools
 		void setSeparator(MyGUI::Align _value);
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
-		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		//virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		MyGUI::UString mName;
