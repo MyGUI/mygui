@@ -30,6 +30,8 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
 
+#include <ctype.h>
+
 namespace MyGUI
 {
 
