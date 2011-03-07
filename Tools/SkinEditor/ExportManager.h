@@ -29,6 +29,7 @@ namespace tools
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void showExportWindow();
 		void commandExport(const MyGUI::UString& _commandName, bool& _result);
+		void commandImport(const MyGUI::UString& _commandName, bool& _result);
 		MyGUI::UString convertStateName(const MyGUI::UString& _value) const;
 
 	private:
