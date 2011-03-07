@@ -29,6 +29,7 @@ namespace tools
 	void ExportManager::initialise()
 	{
 		CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &ExportManager::commandExport));
+		CommandManager::getInstance().registerCommand("Command_FileImport", MyGUI::newDelegate(this, &ExportManager::commandImport));
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ExportManager::notifyEndDialog);
@@ -335,6 +336,24 @@ namespace tools
 		if (_value == "Selected Pressed")
 			return "pushed_checked";
 		return _value;
+	}
+
+	void ExportManager::commandImport(const MyGUI::UString& _commandName, bool& _result)
+	{
+		SkinManager::getInstance().clear();
+
+		std::string fileName = "D:\\MyGUI\\MyGUI_Trunk\\Media\\Common\\Themes\\MyGUI_BlackBlueSkins.xml";
+
+		MyGUI::xml::Document doc;
+		if (doc.open(fileName))
+		{
+			bool result = false;
+			MyGUI::xml::Element* root = doc.getRoot();
+			if (root->getName() == "MyGUI")
+			{
+				SkinManager::getInstance().deserialization2(root, MyGUI::Version());
+			}
+		}
 	}
 
 } // namespace tools

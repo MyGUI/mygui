@@ -61,4 +61,24 @@ namespace tools
 		eventChangeList();
 	}
 
+	void SkinManager::deserialization2(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		if (getItemSelected() != nullptr)
+			setItemSelected(nullptr);
+
+		destroyAllChilds(false);
+
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next("Resource"))
+		{
+			if (node->findAttribute("type") == "ResourceSkin")
+			{
+				SkinItem* item = createChild(false);
+				item->deserialization2(node.current(), _version);
+			}
+		}
+
+		eventChangeList();
+	}
+
 } // namespace tools

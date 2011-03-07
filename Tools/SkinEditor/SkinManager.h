@@ -28,6 +28,8 @@ namespace tools
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+
+		void deserialization2(MyGUI::xml::Element* _node, MyGUI::Version _version);
 	};
 
 } // namespace tools
