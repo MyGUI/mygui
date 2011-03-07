@@ -5,11 +5,11 @@
 */
 #include "Precompiled.h"
 #include "ExportManager.h"
-#include "CommandManager.h"
-#include "SkinManager.h"
-#include "FileSystemInfo/FileSystemInfo.h"
-#include "Localise.h"
-#include "RecentFilesManager.h"
+//#include "CommandManager.h"
+//#include "SkinManager.h"
+//#include "FileSystemInfo/FileSystemInfo.h"
+//#include "Localise.h"
+//#include "RecentFilesManager.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
@@ -17,8 +17,8 @@ template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("
 namespace tools
 {
 
-	ExportManager::ExportManager() :
-		mOpenSaveFileDialog(nullptr)
+	ExportManager::ExportManager()// :
+		//mOpenSaveFileDialog(nullptr)
 	{
 	}
 
@@ -28,40 +28,40 @@ namespace tools
 
 	void ExportManager::initialise()
 	{
-		CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &ExportManager::commandExport));
-		CommandManager::getInstance().registerCommand("Command_FileImport", MyGUI::newDelegate(this, &ExportManager::commandImport));
+		//CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &ExportManager::commandExport));
+		//CommandManager::getInstance().registerCommand("Command_FileImport", MyGUI::newDelegate(this, &ExportManager::commandImport));
 
-		mOpenSaveFileDialog = new OpenSaveFileDialog();
+		/*mOpenSaveFileDialog = new OpenSaveFileDialog();
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ExportManager::notifyEndDialog);
 		mOpenSaveFileDialog->setFileMask("*.xml");
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
+		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());*/
 	}
 
 	void ExportManager::shutdown()
 	{
-		mOpenSaveFileDialog->eventEndDialog = nullptr;
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
+		//mOpenSaveFileDialog->eventEndDialog = nullptr;
+		//delete mOpenSaveFileDialog;
+		//mOpenSaveFileDialog = nullptr;
 	}
 
-	void ExportManager::commandExport(const MyGUI::UString& _commandName, bool& _result)
+	/*void ExportManager::commandExport(const MyGUI::UString& _commandName, bool& _result)
 	{
 		showExportWindow();
 
 		_result = true;
-	}
+	}*/
 
-	void ExportManager::showExportWindow()
+	/*void ExportManager::showExportWindow()
 	{
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionExportFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("Export");
 		mOpenSaveFileDialog->doModal();
-	}
+	}*/
 
-	void ExportManager::notifyEndDialog(Dialog* _sender, bool _result)
+	/*void ExportManager::notifyEndDialog(Dialog* _sender, bool _result)
 	{
 		if (_result)
 		{
@@ -75,27 +75,20 @@ namespace tools
 		}
 
 		mOpenSaveFileDialog->endModal();
-	}
+	}*/
 
-	void ExportManager::exportSkin(const MyGUI::UString& _fileName)
+	/*void ExportManager::exportSkin(const MyGUI::UString& _fileName)
 	{
 		MyGUI::xml::Document doc;
-		MyGUI::xml::Element* root = doc.createRoot("Root");
+		doc.createDeclaration();
+		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
+		root->addAttribute("type", "Resource");
+		root->addAttribute("version", "1.1");
 
-		SkinManager::getInstance().serialization(root, MyGUI::Version());
+		SkinManager::getInstance().serialization2(root, MyGUI::Version());
 
-		MyGUI::xml::Document docOut;
-		docOut.createDeclaration();
-		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
-		rootOut->addAttribute("type", "Resource");
-		rootOut->addAttribute("version", "1.1");
-
-		MyGUI::xml::ElementEnumerator skins = root->getElementEnumerator();
-		while (skins.next())
-			convertSkin(skins.current(), rootOut->createChild("Resource"));
-
-		docOut.save(_fileName);
-	}
+		doc.save(_fileName);
+	}*/
 
 	void ExportManager::convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to)
 	{
@@ -338,7 +331,7 @@ namespace tools
 		return _value;
 	}
 
-	void ExportManager::commandImport(const MyGUI::UString& _commandName, bool& _result)
+	/*void ExportManager::commandImport(const MyGUI::UString& _commandName, bool& _result)
 	{
 		SkinManager::getInstance().clear();
 
@@ -354,6 +347,6 @@ namespace tools
 				SkinManager::getInstance().deserialization2(root, MyGUI::Version());
 			}
 		}
-	}
+	}*/
 
 } // namespace tools

@@ -65,12 +65,12 @@ namespace tools
 		_node->setContent(mValue);
 	}
 
-	void Property::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void Property::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		mName = _node->findAttribute("name");
 		mType = _node->findAttribute("type");
 		mReadOnly = _node->findAttribute("read_only") == "True";
 		mValue = _node->getContent();
-	}
+	}*/
 
 } // namespace tools

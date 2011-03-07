@@ -132,7 +132,7 @@ namespace tools
 		}
 	}
 
-	void PropertySet::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void PropertySet::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator nodes = _node->getElementEnumerator();
 		while (nodes.next())
@@ -146,6 +146,6 @@ namespace tools
 					proper->deserialization(node, _version);
 			}
 		}
-	}
+	}*/
 
 } // namespace tools

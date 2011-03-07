@@ -397,19 +397,13 @@ namespace tools
 		{
 			bool result = false;
 			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "Root")
+			if (root->getName() == "MyGUI")
 			{
-				MyGUI::xml::ElementEnumerator nodes = root->getElementEnumerator();
-				while (nodes.next("SkinManager"))
-				{
-					SkinManager::getInstance().deserialization(nodes.current(), MyGUI::Version());
-					result = true;
+				SkinManager::getInstance().deserialization(root, MyGUI::Version());
+				result = true;
 
-					if (mFileName != mDefaultFileName)
-						RecentFilesManager::getInstance().addRecentFile(mFileName);
-
-					break;
-				}
+				if (mFileName != mDefaultFileName)
+					RecentFilesManager::getInstance().addRecentFile(mFileName);
 			}
 
 			if (!result)
@@ -442,10 +436,11 @@ namespace tools
 	{
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Root");
-		MyGUI::xml::Element* skins = root->createChild("SkinManager");
+		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
+		root->addAttribute("type", "Resource");
+		root->addAttribute("version", "1.1");
 
-		SkinManager::getInstance().serialization(skins, MyGUI::Version());
+		SkinManager::getInstance().serialization(root, MyGUI::Version());
 
 		doc.save(mFileName);
 

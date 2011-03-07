@@ -43,7 +43,7 @@ namespace tools
 		bool getPropertyReadOnly(const MyGUI::UString& _propertyName) const;
 
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
-		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		//virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
 		void advise(Property* _item);
