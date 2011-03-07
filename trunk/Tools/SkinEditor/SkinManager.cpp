@@ -5,6 +5,7 @@
 */
 #include "Precompiled.h"
 #include "SkinManager.h"
+#include "ExportManager.h"
 
 template <> tools::SkinManager* MyGUI::Singleton<tools::SkinManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::SkinManager>::mClassTypeName("SkinManager");
@@ -34,7 +35,7 @@ namespace tools
 		destroyAllChilds();
 	}
 
-	void SkinManager::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	void SkinManager::_serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		ItemHolder<SkinItem>::EnumeratorItem items = getChildsEnumerator();
 		while (items.next())
@@ -44,7 +45,7 @@ namespace tools
 		}
 	}
 
-	void SkinManager::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void SkinManager::_deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		if (getItemSelected() != nullptr)
 			setItemSelected(nullptr);
@@ -59,9 +60,9 @@ namespace tools
 		}
 
 		eventChangeList();
-	}
+	}*/
 
-	void SkinManager::deserialization2(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	void SkinManager::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		if (getItemSelected() != nullptr)
 			setItemSelected(nullptr);
@@ -79,6 +80,18 @@ namespace tools
 		}
 
 		eventChangeList();
+	}
+
+	void SkinManager::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
+		MyGUI::xml::Document doc;
+		MyGUI::xml::Element* root = doc.createRoot("Root");
+
+		_serialization(root, MyGUI::Version());
+
+		MyGUI::xml::ElementEnumerator skins = root->getElementEnumerator();
+		while (skins.next())
+			ExportManager::getInstancePtr()->convertSkin(skins.current(), _node->createChild("Resource"));
 	}
 
 } // namespace tools

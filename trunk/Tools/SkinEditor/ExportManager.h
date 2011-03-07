@@ -7,7 +7,7 @@
 #define __EXPORT_MANAGER_H__
 
 #include <MyGUI.h>
-#include "Tools/OpenSaveFileDialog.h"
+//#include "Tools/OpenSaveFileDialog.h"
 
 namespace tools
 {
@@ -25,15 +25,15 @@ namespace tools
 		void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
 
 	private:
-		void exportSkin(const MyGUI::UString& _fileName);
-		void notifyEndDialog(Dialog* _sender, bool _result);
-		void showExportWindow();
-		void commandExport(const MyGUI::UString& _commandName, bool& _result);
-		void commandImport(const MyGUI::UString& _commandName, bool& _result);
+		//void exportSkin(const MyGUI::UString& _fileName);
+		//void notifyEndDialog(Dialog* _sender, bool _result);
+		//void showExportWindow();
+		//void commandExport(const MyGUI::UString& _commandName, bool& _result);
+		//void commandImport(const MyGUI::UString& _commandName, bool& _result);
 		MyGUI::UString convertStateName(const MyGUI::UString& _value) const;
 
-	private:
-		OpenSaveFileDialog* mOpenSaveFileDialog;
+	//private:
+		//OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
 } // namespace tools

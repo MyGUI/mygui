@@ -28,10 +28,6 @@
 						<Property key="MenuItemType" value="Separator"/>
 					</Widget>
 					<Widget type="MenuItem" skin="PopupMenuNormal">
-						<Property key="Caption" value="#{Export}"/>
-						<Property key="MenuItemId" value="Command_FileExport"/>
-					</Widget>
-					<Widget type="MenuItem" skin="PopupMenuNormal">
 						<Property key="Caption" value="#{Settings}"/>
 						<Property key="MenuItemId" value="Command_Settings"/>
 					</Widget>

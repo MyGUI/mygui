@@ -219,7 +219,7 @@ namespace tools
 		mPropertySet->serialization(node, _version);
 	}
 
-	void SkinItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void SkinItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
 		mName = _node->findAttribute("name");
 
@@ -252,7 +252,7 @@ namespace tools
 				item->deserialization(node, _version);
 			}
 		}
-	}
+	}*/
 
 	void SkinItem::parseProperty(MyGUI::xml::Element* _node)
 	{
@@ -589,7 +589,8 @@ namespace tools
 				std::string name = nodeState->findAttribute("name");
 				std::string position = (MyGUI::IntCoord::parse(nodeState->findAttribute("offset")).point() - skinOffset).print();
 				std::string shift = MyGUI::utility::toString(MyGUI::utility::parseValue<int>(nodeState->findAttribute("shift")));
-				std::string colour = MyGUI::Colour::parse(nodeState->findAttribute("colour")).print();
+				MyGUI::Colour colourValue = MyGUI::Colour::parse(nodeState->findAttribute("colour"));
+				std::string colour = MyGUI::utility::toString(colourValue.red, " ", colourValue.green, " ", colourValue.blue);
 
 				if (type == "SubSkin" || type == "TileRect")
 				{
@@ -613,22 +614,22 @@ namespace tools
 						statePressed->getPropertySet()->setPropertyValue("Visible", "True", "");
 						statePressed->getPropertySet()->setPropertyValue("Position", position, "");
 					}
-					else if (name == "disabled_disabled")
+					else if (name == "disabled_checked")
 					{
 						stateSelectedDisabled->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedDisabled->getPropertySet()->setPropertyValue("Position", position, "");
 					}
-					else if (name == "disabled_normal")
+					else if (name == "normal_checked")
 					{
 						stateSelectedNormal->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedNormal->getPropertySet()->setPropertyValue("Position", position, "");
 					}
-					else if (name == "disabled_highlighted")
+					else if (name == "highlighted_checked")
 					{
 						stateSelectedOver->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedOver->getPropertySet()->setPropertyValue("Position", position, "");
 					}
-					else if (name == "disabled_pushed")
+					else if (name == "pushed_checked")
 					{
 						stateSelectedPressed->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedPressed->getPropertySet()->setPropertyValue("Position", position, "");
@@ -660,25 +661,25 @@ namespace tools
 						statePressed->getPropertySet()->setPropertyValue("TextColour", colour, "");
 						statePressed->getPropertySet()->setPropertyValue("TextShift", shift, "");
 					}
-					else if (name == "disabled_disabled")
+					else if (name == "disabled_checked")
 					{
 						stateSelectedDisabled->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedDisabled->getPropertySet()->setPropertyValue("TextColour", colour, "");
 						stateSelectedDisabled->getPropertySet()->setPropertyValue("TextShift", shift, "");
 					}
-					else if (name == "disabled_normal")
+					else if (name == "normal_checked")
 					{
 						stateSelectedNormal->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedNormal->getPropertySet()->setPropertyValue("TextColour", colour, "");
 						stateSelectedNormal->getPropertySet()->setPropertyValue("TextShift", shift, "");
 					}
-					else if (name == "disabled_highlighted")
+					else if (name == "highlighted_checked")
 					{
 						stateSelectedOver->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedOver->getPropertySet()->setPropertyValue("TextColour", colour, "");
 						stateSelectedOver->getPropertySet()->setPropertyValue("TextShift", shift, "");
 					}
-					else if (name == "disabled_pushed")
+					else if (name == "pushed_checked")
 					{
 						stateSelectedPressed->getPropertySet()->setPropertyValue("Visible", "True", "");
 						stateSelectedPressed->getPropertySet()->setPropertyValue("TextColour", colour, "");
