@@ -262,7 +262,7 @@ namespace tools
 
 		proper = mPropertySet->getChild("Coord");
 		if (proper != nullptr)
-			proper->setValue("0 0 " + _node->findAttribute("size"), "");
+			proper->setValue(getNormalStateOffset(_node).print() + " " + _node->findAttribute("size"), "");
 	}
 
 	void SkinItem::parseRegions(MyGUI::xml::Element* _node)
@@ -365,8 +365,37 @@ namespace tools
 			std::string type = node->findAttribute("type");
 			std::string offset = node->findAttribute("offset");
 
-			if (type == "SubSkin")
+			if (type == "SubSkin" || type == "TileRect")
 			{
+				if (type == "TileRect")
+				{
+					MyGUI::xml::ElementEnumerator nodeState = node->getElementEnumerator();
+					while (nodeState.next("State"))
+					{
+						if (nodeState->findAttribute("name") == "normal")
+						{
+							bool tileH = false;
+							bool tileV = false;
+
+							MyGUI::xml::ElementEnumerator nodeProperty = nodeState->getElementEnumerator();
+							while (nodeProperty.next("Property"))
+							{
+								if (nodeProperty->findAttribute("key") == "TileH")
+									tileH = nodeProperty->findAttribute("value") == "true";
+								else if (nodeProperty->findAttribute("key") == "TileV")
+									tileV = nodeProperty->findAttribute("value") == "true";
+							}
+
+							if (tileV && !tileH)
+								type = "TileRect Ver";
+							else if (!tileV && tileH)
+								type = "TileRect Hor";
+
+							break;
+						}
+					}
+				}
+
 				if (align == "Left Top" || align == "Default")
 				{
 					regionLeftTop->getPropertySet()->setPropertyValue("Visible", "True", "");
@@ -422,7 +451,7 @@ namespace tools
 					regionCenter->getPropertySet()->setPropertyValue("Position", offset, "");
 				}
 			}
-			else if (type == "SimpleText")
+			else if (type == "SimpleText" || type == "EditText")
 			{
 				regionText->getPropertySet()->setPropertyValue("Visible", "True", "");
 				regionText->getPropertySet()->setPropertyValue("RegionType", type, "");
@@ -562,7 +591,7 @@ namespace tools
 				std::string shift = MyGUI::utility::toString(MyGUI::utility::parseValue<int>(nodeState->findAttribute("shift")));
 				std::string colour = MyGUI::Colour::parse(nodeState->findAttribute("colour")).print();
 
-				if (type == "SubSkin")
+				if (type == "SubSkin" || type == "TileRect")
 				{
 					if (name == "disabled")
 					{
@@ -605,7 +634,7 @@ namespace tools
 						stateSelectedPressed->getPropertySet()->setPropertyValue("Position", position, "");
 					}
 				}
-				else if (type == "SimpleText")
+				else if (type == "SimpleText" || type == "EditText")
 				{
 					if (name == "disabled")
 					{
@@ -668,6 +697,44 @@ namespace tools
 		parseRegions(_node);
 		parseSeparators(_node);
 		parseStates(_node);
+	}
+
+	MyGUI::IntPoint SkinItem::getNormalStateOffset(MyGUI::xml::Element* _node)
+	{
+		MyGUI::IntPoint result;
+		bool found = false;
+
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next("BasisSkin"))
+		{
+			MyGUI::xml::ElementEnumerator nodeState = node->getElementEnumerator();
+			while (nodeState.next("State"))
+			{
+				if (nodeState->findAttribute("name") == "normal")
+				{
+					std::string offset = nodeState->findAttribute("offset");
+					if (!offset.empty())
+					{
+						MyGUI::IntPoint position = MyGUI::IntCoord::parse(offset).point();
+						if (found)
+						{
+							result.set(std::min(result.left, position.left), std::min(result.top, position.top));
+						}
+						else
+						{
+							result = position;
+							found = true;
+						}
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	void SkinItem::serialization2(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	{
 	}
 
 } // namespace tools

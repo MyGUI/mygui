@@ -35,6 +35,7 @@ namespace tools
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
+		void serialization2(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		void deserialization2(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 	private:
@@ -42,6 +43,8 @@ namespace tools
 		void parseRegions(MyGUI::xml::Element* _node);
 		void parseSeparators(MyGUI::xml::Element* _node);
 		void parseStates(MyGUI::xml::Element* _node);
+
+		MyGUI::IntPoint getNormalStateOffset(MyGUI::xml::Element* _node);
 
 	private:
 		MyGUI::UString mName;
