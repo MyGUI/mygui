@@ -260,8 +260,6 @@ namespace tools
 	{
 		if (nullptr == _container->getWidget()->getParent())
 		{
-			//if ("" == _container->getLayerName())
-				//_container->layer = DEFAULT_LAYER;
 			mWidgets.push_back(_container);
 		}
 		else
@@ -465,7 +463,15 @@ namespace tools
 		if (!_testMode)
 			skin = getSkinReplace(skin);
 
-		std::string layer = _testMode ? DEFAULT_LAYER : DEFAULT_EDITOR_LAYER;
+		std::string layer = DEFAULT_EDITOR_LAYER;
+		if (_testMode)
+		{
+			// use widget's layer if possible
+			if (MyGUI::LayerManager::getInstance().isExist(container->getLayerName()))
+				layer = container->getLayerName();
+			else
+				layer = DEFAULT_TEST_MODE_LAYER;
+		}
 		std::string widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
 			container->getType() : MyGUI::Widget::getClassTypeName();
 
