@@ -24,8 +24,8 @@ namespace MyGUI
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9* _device)
 	{
-		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mpD3DDevice = _device;
 
@@ -41,19 +41,19 @@ namespace MyGUI
 
 		mUpdate = false;
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void DirectXRenderManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 		mpD3DDevice = nullptr;
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
