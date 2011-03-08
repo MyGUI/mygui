@@ -23,8 +23,8 @@ namespace MyGUI
 
 	void OgreDataManager::initialise(const std::string& _group)
 	{
-		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mGroup = _group;
 		if (mGroup == Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME)
@@ -32,16 +32,16 @@ namespace MyGUI
 		else
 			mAllGroups = false;
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OgreDataManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -56,7 +56,7 @@ namespace MyGUI
 		}
 		catch (const Ogre::FileNotFoundException& _e)
 		{
-			MYGUI_LOG(Warning, _e.getDescription());
+			MYGUI_PLATFORM_LOG(Warning, _e.getDescription());
 		}
 
 		return nullptr;

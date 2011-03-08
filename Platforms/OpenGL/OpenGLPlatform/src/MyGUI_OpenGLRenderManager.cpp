@@ -27,8 +27,8 @@ namespace MyGUI
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
-		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mVertexFormat = VertexColourType::ColourABGR;
 
@@ -39,18 +39,18 @@ namespace MyGUI
 
 		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OpenGLRenderManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
