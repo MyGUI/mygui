@@ -25,13 +25,13 @@ namespace demo
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
 		MyGUI::IntCoord coord = window->getClientCoord();
-		MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
+		//MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 
 		srand(GetTickCount());
 
-		for (size_t indexLine = 0; indexLine < 2; ++indexLine)
+		//for (size_t indexLine = 0; indexLine < 2; ++indexLine)
 		{
-			MyGUI::WordWrapPanel* panel = stackPanel->createWidget<MyGUI::WordWrapPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, 32, 32), MyGUI::Align::Default);
+			MyGUI::WordWrapPanel* panel = window->createWidget<MyGUI::WordWrapPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, 32, 32), MyGUI::Align::Default);
 			for (size_t index = 0; index < 20; ++ index)
 			{
 				if (rand() % 2)
