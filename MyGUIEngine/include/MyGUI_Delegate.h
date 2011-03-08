@@ -23,8 +23,11 @@
 #define __MYGUI_DELEGATE_H__
 
 #include "MyGUI_Diagnostic.h"
-#include <typeinfo>
 #include <list>
+
+#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#include <typeinfo>
+#endif
 
 // source
 // http://rsdn.ru/article/cpp/delegates.xml
