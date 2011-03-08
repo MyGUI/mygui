@@ -127,7 +127,7 @@ namespace MyGUI
 		{
 			Any::Holder<ValueType>* data = dynamic_cast<Any::Holder<ValueType> *>(this->mContent);
 			if (data != nullptr)
-				return data->held;
+				return &data->held;
 			MYGUI_ASSERT(!_throw, "Bad cast any");
 			return nullptr;
 		}
