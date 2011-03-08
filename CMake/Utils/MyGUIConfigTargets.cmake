@@ -150,14 +150,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		include_directories(${OIS_INCLUDE_DIRS})
 	endif()
 	
-	if (MYGUI_DONT_USE_OBSOLETE)
-		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
-	endif ()
-	
-	if (MYGUI_RTTI_DISABLE_TYPE_INFO)
-		add_definitions(-DMYGUI_RTTI_DISABLE_TYPE_INFO)
-	endif ()
-	
 	# setup demo target
 	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})

@@ -161,9 +161,19 @@ if (MYGUI_USE_PROJECT_FOLDERS)
 	SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 endif ()
 
+# Global defines
 if (MYGUI_CHECK_MEMORY_LEAKS)
 	add_definitions(-DMYGUI_CHECK_MEMORY_LEAKS)
 endif ()
+
+if (MYGUI_DONT_USE_OBSOLETE)
+	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
+endif ()
+
+if (MYGUI_RTTI_DISABLE_TYPE_INFO)
+	add_definitions(-DMYGUI_RTTI_DISABLE_TYPE_INFO)
+endif ()
+# End of Global defines
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
