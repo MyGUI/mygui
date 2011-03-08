@@ -2,11 +2,13 @@ set (HEADER_FILES
   DemoKeeper.h
   WordWrapPanel.h
   StackPanel.h
+  Panel.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
   WordWrapPanel.cpp
   StackPanel.cpp
+  Panel.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES

@@ -7,13 +7,13 @@
 #define __STACK_PANEL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "Panel.h"
 
 namespace MyGUI
 {
 
 	class StackPanel :
-		public Widget
+		public Panel
 	{
 		MYGUI_RTTI_DERIVED( StackPanel )
 

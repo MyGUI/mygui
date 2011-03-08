@@ -5,6 +5,7 @@
 */
 
 #include "StackPanel.h"
+#include "WordWrapPanel.h"
 
 namespace MyGUI
 {
@@ -39,11 +40,17 @@ namespace MyGUI
 
 	void StackPanel::updateContent()
 	{
+		int currentHeight = 0;
 		size_t count = getChildCount();
 		for (size_t index = 0; index < count; ++ index)
 		{
 			Widget* child = getChildAt(index);
-			//IntSize size = getWidgetSize(child);
+			WordWrapPanel* panel = child->castType<WordWrapPanel>(false);
+			if (panel != nullptr)
+			{
+				int height = panel->getHeightByWidth(getWidth());
+				currentHeight += height;
+			}
 		}
 	}
 
