@@ -8,6 +8,11 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
+#ifdef MYGUI_STATIC
+#include "Plugin.h"
+plugin::Plugin* plugin_item = 0;
+#endif
+
 namespace demo
 {
 
@@ -29,11 +34,16 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Example of using berkelium plugin with basic browser implementation and usage of common functions.");
 
-	#ifdef _DEBUG
+#ifdef MYGUI_STATIC
+		plugin_item = new plugin::Plugin();
+		MyGUI::PluginManager::getInstance().installPlugin(plugin_item);
+#else
+#	ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_BerkeliumWidget_d.dll");
-	#else
+#	else
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_BerkeliumWidget.dll");
-	#endif
+#	endif
+#endif
 
 		mBerkeliumBrowser = new BerkeliumBrowser();
 	}
@@ -43,11 +53,17 @@ namespace demo
 		delete mBerkeliumBrowser;
 		mBerkeliumBrowser = nullptr;
 
-	#ifdef _DEBUG
+#ifdef MYGUI_STATIC
+		MyGUI::PluginManager::getInstance().uninstallPlugin(plugin_item);
+		delete plugin_item;
+		plugin_item = 0;
+#else
+#	ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_BerkeliumWidget_d.dll");
-	#else
+#	else
 		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_BerkeliumWidget.dll");
-	#endif
+#	endif
+#endif
 	}
 
 } // namespace demo

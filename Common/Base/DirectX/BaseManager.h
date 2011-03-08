@@ -21,6 +21,10 @@ namespace MyGUI
 
 struct IDirect3D9;
 struct IDirect3DDevice9;
+struct HWND__;
+typedef HWND__* HWND;
+struct HINSTANCE__;
+typedef HINSTANCE__* HINSTANCE;
 
 namespace base
 {
