@@ -11,7 +11,8 @@ namespace MyGUI
 {
 
 	WordWrapPanel::WordWrapPanel() :
-		mOldWidth(0)
+		mOldWidth(0),
+		mCalcHeght(0)
 	{
 	}
 
@@ -32,6 +33,21 @@ namespace MyGUI
 		Base::setCoord(_value);
 
 		onSizeChanged(_value.size());
+	}
+
+	void WordWrapPanel::setPosition(int _left, int _top)
+	{
+		setPosition(IntPoint(_left, _top));
+	}
+
+	void WordWrapPanel::setSize(int _width, int _height)
+	{
+		setSize(IntSize(_width, _height));
+	}
+
+	void WordWrapPanel::setCoord(int _left, int _top, int _width, int _height)
+	{
+		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
 	void WordWrapPanel::onSizeChanged(const IntSize& _size)
@@ -80,6 +96,8 @@ namespace MyGUI
 
 		if (hasWidget)
 			alignChildLine(startLineIndex, count, currentHeight, maxLineHeight);
+
+		mCalcHeght = currentHeight + maxLineHeight;
 	}
 
 	void WordWrapPanel::onWidgetCreated(Widget* _widget)
@@ -109,6 +127,13 @@ namespace MyGUI
 			return text->getSize() - text->getTextRegion().size() + text->getTextSize();
 
 		return _widget->getSize();
+	}
+
+	int WordWrapPanel::getHeightByWidth(int _width)
+	{
+		setSize(_width, 0);
+		setSize(_width, mCalcHeght);
+		return getHeight();
 	}
 
 } // namespace MyGUI

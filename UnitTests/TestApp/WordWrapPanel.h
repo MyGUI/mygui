@@ -7,13 +7,13 @@
 #define __WORD_WRAP_PANEL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "Panel.h"
 
 namespace MyGUI
 {
 
 	class WordWrapPanel :
-		public Widget
+		public Panel
 	{
 		MYGUI_RTTI_DERIVED( WordWrapPanel )
 
@@ -34,6 +34,8 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
+		int getHeightByWidth(int _width);
+
 	protected:
 		// еще нужен метод удаления
 		virtual void onWidgetCreated(Widget* _widget);
@@ -47,6 +49,7 @@ namespace MyGUI
 
 	private:
 		int mOldWidth;
+		int mCalcHeght;
 	};
 
 } // namespace MyGUI
