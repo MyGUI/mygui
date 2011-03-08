@@ -25,7 +25,7 @@
 #include "MyGUI_Diagnostic.h"
 #include <list>
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 #include <typeinfo>
 #endif
 
