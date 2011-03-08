@@ -72,10 +72,12 @@ namespace MyGUI
 		return !mContent;
 	}
 
+#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
 	const std::type_info& Any::getType() const
 	{
 		return mContent ? mContent->getType() : typeid(void);
 	}
+#endif
 
 	void* Any::castUnsafe() const
 	{

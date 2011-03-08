@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-#include "WordWrapPanel.h"
+#include "WrapPanel.h"
 #include "StackPanel.h"
 
 namespace demo
@@ -20,18 +20,18 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WordWrapPanel>("Widget");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WrapPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 100, 100), MyGUI::Align::Default, "Main");
 		MyGUI::IntCoord coord = window->getClientCoord();
-		//MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
+		MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 
 		srand(GetTickCount());
 
-		//for (size_t indexLine = 0; indexLine < 2; ++indexLine)
+		for (size_t indexLine = 0; indexLine < 2; ++indexLine)
 		{
-			MyGUI::WordWrapPanel* panel = window->createWidget<MyGUI::WordWrapPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, 32, 32), MyGUI::Align::Default);
+			MyGUI::WrapPanel* panel = stackPanel->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
 			for (size_t index = 0; index < 20; ++ index)
 			{
 				if (rand() % 2)
@@ -39,17 +39,21 @@ namespace demo
 				else
 					addImage(panel);
 			}
-
-			MyGUI::Panel::updateMeasure(panel, coord.size());
-			MyGUI::IntSize size = MyGUI::Panel::getDesiredSize(panel);
-			int test = 0;
 		}
+
+		bool panel = stackPanel->isType<MyGUI::Panel>();
+		bool list = stackPanel->isType<MyGUI::ListBox>();
+
+		//MyGUI::Panel::updateMeasure(stackPanel, coord.size());
+		//MyGUI::IntSize size = MyGUI::Panel::getDesiredSize(stackPanel);
+		//MyGUI::Panel::updateArrange(stackPanel, MyGUI::IntCoord(0, 0, coord.width, coord.height));
+		int test = 0;
 	}
 
 	void DemoKeeper::destroyScene()
 	{
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WordWrapPanel>("Widget");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");
 	}
 
 	void DemoKeeper::addText(MyGUI::Widget* _parent)
