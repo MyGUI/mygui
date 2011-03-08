@@ -29,8 +29,8 @@ namespace MyGUI
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
-		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
-		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
 		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
@@ -58,14 +58,14 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OgreRenderManager::shutdown()
 	{
-		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
-		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
+		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 
@@ -73,7 +73,7 @@ namespace MyGUI
 		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
 
-		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
