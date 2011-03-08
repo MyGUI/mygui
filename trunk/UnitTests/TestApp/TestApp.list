@@ -1,12 +1,12 @@
 set (HEADER_FILES
   DemoKeeper.h
-  WordWrapPanel.h
+  WrapPanel.h
   StackPanel.h
   Panel.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
-  WordWrapPanel.cpp
+  WrapPanel.cpp
   StackPanel.cpp
   Panel.cpp
   ../../Common/Base/BaseResource.rc
