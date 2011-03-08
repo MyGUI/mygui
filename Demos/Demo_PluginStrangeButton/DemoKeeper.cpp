@@ -7,6 +7,11 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
+#ifdef MYGUI_STATIC
+#include "Plugin.h"
+plugin::Plugin* plugin_item = 0;
+#endif
+
 namespace demo
 {
 
@@ -30,11 +35,16 @@ namespace demo
 		const MyGUI::IntSize& view = MyGUI::RenderManager::getInstance().getViewSize();
 		const MyGUI::IntSize size(300, 26);
 
-	#ifdef _DEBUG
+#ifdef MYGUI_STATIC
+		plugin_item = new plugin::Plugin();
+		MyGUI::PluginManager::getInstance().installPlugin(plugin_item);
+#else
+#	ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton_d.dll");
-	#else
+#	else
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
-	#endif
+#	endif
+#endif
 
 		MyGUI::Widget* widget = MyGUI::Gui::getInstance().createWidgetT("StrangeButton", "Button", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		m_button = widget->castType<MyGUI::TextBox>();
@@ -45,11 +55,17 @@ namespace demo
 	{
 		MyGUI::Gui::getInstance().destroyChildWidget(m_button);
 
-	#ifdef _DEBUG
+#ifdef MYGUI_STATIC
+		MyGUI::PluginManager::getInstance().uninstallPlugin(plugin_item);
+		delete plugin_item;
+		plugin_item = 0;
+#else
+#	ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_StrangeButton_d.dll");
-	#else
+#	else
 		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_StrangeButton.dll");
-	#endif
+#	endif
+#endif
 	}
 
 } // namespace demo
