@@ -27,13 +27,13 @@
 #include "MyGUI_Diagnostic.h"
 #include <string>
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 #include <typeinfo>
 #endif
 
 namespace MyGUI
 {
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 	#define MYGUI_RTTI_TYPE const std::type_info&
 	#define MYGUI_RTTI_GET_TYPE(type) typeid(type)
 #else

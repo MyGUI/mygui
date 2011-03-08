@@ -34,7 +34,7 @@
 #include "MyGUI_Diagnostic.h"
 #include <algorithm>
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 #include <typeinfo>
 #endif
 
@@ -110,7 +110,7 @@ namespace MyGUI
 
 		bool empty() const;
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 		const std::type_info& getType() const;
 
 		template<typename ValueType>
@@ -142,7 +142,7 @@ namespace MyGUI
 			virtual ~Placeholder() { }
 
 		public:
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 			virtual const std::type_info& getType() const = 0;
 #endif
 			virtual Placeholder* clone() const = 0;
@@ -159,7 +159,7 @@ namespace MyGUI
 			}
 
 		public:
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 			virtual const std::type_info& getType() const
 			{
 				return typeid(ValueType);

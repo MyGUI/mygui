@@ -41,7 +41,7 @@ namespace delegates
 	{
 	public:
 		virtual ~MYGUI_I_DELEGATE() { }
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 		virtual bool isType( const std::type_info& _type) = 0;
 #endif
 		virtual void invoke( MYGUI_PARAMS ) = 0;
@@ -62,7 +62,7 @@ namespace delegates
 
 		MYGUI_C_STATIC_DELEGATE (Func _func) : mFunc(_func) { }
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 		virtual bool isType( const std::type_info& _type)
 		{
 			return typeid( MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS ) == _type;
@@ -76,7 +76,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const
 		{
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS* cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS*>(_delegate);
 #else
@@ -104,7 +104,7 @@ namespace delegates
 
 		MYGUI_C_METHOD_DELEGATE(IDelegateUnlink* _unlink, T* _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
 
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 		virtual bool isType( const std::type_info& _type)
 		{
 			return typeid( MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS ) == _type;
@@ -118,7 +118,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const
 		{
-#ifndef MYGUI_RTTI_DONT_USE_TYPE_INFO
+#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS* cast = static_cast<  MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS* >(_delegate);
 #else
