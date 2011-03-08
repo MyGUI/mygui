@@ -26,6 +26,10 @@ if (MYGUI_DONT_USE_OBSOLETE)
 	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
 endif ()
 
+if (MYGUI_RTTI_DISABLE_TYPE_INFO)
+	add_definitions(-DMYGUI_RTTI_DISABLE_TYPE_INFO)
+endif ()
+
 add_definitions(-DMYGUI_BUILD)
 
 if (MSVC)
