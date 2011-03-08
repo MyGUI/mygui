@@ -5,7 +5,7 @@
 */
 
 #include "StackPanel.h"
-#include "WordWrapPanel.h"
+#include "WrapPanel.h"
 
 namespace MyGUI
 {
@@ -14,51 +14,40 @@ namespace MyGUI
 	{
 	}
 
-	void StackPanel::setPosition(const IntPoint& _value)
+	IntSize StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		Base::setPosition(_value);
-	}
+		IntSize result;
 
-	void StackPanel::setSize(const IntSize& _value)
-	{
-		Base::setSize(_value);
-
-		onSizeChanged(_value);
-	}
-
-	void StackPanel::setCoord(const IntCoord& _value)
-	{
-		Base::setCoord(_value);
-
-		onSizeChanged(_value.size());
-	}
-
-	void StackPanel::onSizeChanged(const IntSize& _size)
-	{
-		updateContent();
-	}
-
-	void StackPanel::updateContent()
-	{
-		int currentHeight = 0;
 		size_t count = getChildCount();
 		for (size_t index = 0; index < count; ++ index)
 		{
 			Widget* child = getChildAt(index);
-			WordWrapPanel* panel = child->castType<WordWrapPanel>(false);
-			if (panel != nullptr)
-			{
-				int height = 0;//panel->getHeightByWidth(getWidth());
-				currentHeight += height;
-			}
+			Panel::updateMeasure(child, _sizeAvailable);
+			IntSize size = Panel::getDesiredSize(child);
+
+			result.width = std::max(result.width, size.width);
+			result.height += size.height;
 		}
+
+		return result;
 	}
 
-	void StackPanel::onWidgetCreated(Widget* _widget)
+	void StackPanel::overrideArrange()
 	{
-		Base::onWidgetCreated(_widget);
+		int offset = 0;
 
-		updateContent();
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			const IntSize& childSize = Panel::getDesiredSize(child.current());
+			IntCoord coord;
+
+			int height = childSize.height;
+			coord.set(getLeft(), offset, getWidth(), height);
+			offset += height;
+
+			Panel::updateArrange(child.current(), coord);
+		}
 	}
 
 } // namespace MyGUI

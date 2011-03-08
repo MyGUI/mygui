@@ -20,6 +20,13 @@ namespace MyGUI
 	public:
 		Panel();
 
+		/** Set widget position (position of left top corner) */
+		virtual void setPosition(const IntPoint& _value);
+		/** Set widget size */
+		virtual void setSize(const IntSize& _value);
+		/** Set widget position and size */
+		virtual void setCoord(const IntCoord& _value);
+
 		/*
 		Обновление размеров содержимого.
 		Метод updateMeasure вызывается для обновления mDesiredSize по нашему содержимому.
@@ -37,7 +44,7 @@ namespace MyGUI
 		в эти координаты не входит внутрение отступы отца Padding, так как они принадлежат отцу
 		эти отступы отец уже учел
 		*/
-		void updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize);
+		static void updateArrange(Widget* _widget, const IntCoord& _coordPlace);
 
 		static IntSize getDesiredSize(Widget* _widget);
 
@@ -56,7 +63,7 @@ namespace MyGUI
 		Метод overrideArrange для раставления дочерних виджетов.
 		Можно использовать размер mDesiredSize дочерних виджетов.
 		*/
-		virtual void overrideArrange(const IntSize& _sizeOld);
+		virtual void overrideArrange();
 
 	private:
 		IntSize mDesiredSize;
