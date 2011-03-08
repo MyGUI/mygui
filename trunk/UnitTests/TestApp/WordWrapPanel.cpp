@@ -10,56 +10,52 @@
 namespace MyGUI
 {
 
-	WordWrapPanel::WordWrapPanel() :
-		mOldWidth(0),
-		mCalcHeght(0)
+	WordWrapPanel::WordWrapPanel()
 	{
 	}
 
-	void WordWrapPanel::setPosition(const IntPoint& _value)
+	IntSize WordWrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		Base::setPosition(_value);
-	}
+		IntSize result;
 
-	void WordWrapPanel::setSize(const IntSize& _value)
-	{
-		Base::setSize(_value);
+		//int currentWidth = 0;
+		//int currentHeight = 0;
+		int maxWidth = _sizeAvailable.width;//getWidth();
+		int maxLineHeight = 0;
+		bool hasWidget = false;
+		//size_t startLineIndex = 0;
 
-		onSizeChanged(_value);
-	}
-
-	void WordWrapPanel::setCoord(const IntCoord& _value)
-	{
-		Base::setCoord(_value);
-
-		onSizeChanged(_value.size());
-	}
-
-	void WordWrapPanel::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void WordWrapPanel::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void WordWrapPanel::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
-	void WordWrapPanel::onSizeChanged(const IntSize& _size)
-	{
-		if (mOldWidth != _size.width)
+		size_t count = getChildCount();
+		for (size_t index = 0; index < count; ++ index)
 		{
-			mOldWidth = _size.width;
-			updateContent();
+			Widget* child = getChildAt(index);
+			Panel::updateMeasure(child, _sizeAvailable);
+			IntSize size = Panel::getDesiredSize(child);
+
+			if (((result.width + size.width) > maxWidth) && hasWidget)
+			{
+				//alignChildLine(startLineIndex, index, currentHeight, maxLineHeight);
+
+				result.height += maxLineHeight;
+				result.width = size.width;
+				maxLineHeight = size.height;
+
+				//startLineIndex = index;
+			}
+			else
+			{
+				result.width += size.width;
+				if (size.height > maxLineHeight)
+					maxLineHeight = size.height;
+			}
+
+			hasWidget = true;
 		}
+
+		return result;
 	}
 
-	void WordWrapPanel::updateContent()
+	/*void WordWrapPanel::updateContent()
 	{
 		int currentWidth = 0;
 		int currentHeight = 0;
@@ -100,13 +96,6 @@ namespace MyGUI
 		mCalcHeght = currentHeight + maxLineHeight;
 	}
 
-	void WordWrapPanel::onWidgetCreated(Widget* _widget)
-	{
-		Base::onWidgetCreated(_widget);
-
-		updateContent();
-	}
-
 	void WordWrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, int _top, int _height)
 	{
 		int currentWidth = 0;
@@ -127,13 +116,6 @@ namespace MyGUI
 			return text->getSize() - text->getTextRegion().size() + text->getTextSize();
 
 		return _widget->getSize();
-	}
-
-	int WordWrapPanel::getHeightByWidth(int _width)
-	{
-		setSize(_width, 0);
-		setSize(_width, mCalcHeght);
-		return getHeight();
-	}
+	}*/
 
 } // namespace MyGUI

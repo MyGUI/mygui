@@ -39,6 +39,10 @@ namespace demo
 				else
 					addImage(panel);
 			}
+
+			MyGUI::Panel::updateMeasure(panel, coord.size());
+			MyGUI::IntSize size = MyGUI::Panel::getDesiredSize(panel);
+			int test = 0;
 		}
 	}
 

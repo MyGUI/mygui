@@ -48,7 +48,7 @@ namespace MyGUI
 			WordWrapPanel* panel = child->castType<WordWrapPanel>(false);
 			if (panel != nullptr)
 			{
-				int height = panel->getHeightByWidth(getWidth());
+				int height = 0;//panel->getHeightByWidth(getWidth());
 				currentHeight += height;
 			}
 		}
