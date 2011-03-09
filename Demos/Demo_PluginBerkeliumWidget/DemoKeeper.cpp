@@ -10,7 +10,7 @@
 
 #ifdef MYGUI_STATIC
 #include "Plugin.h"
-plugin::Plugin* plugin_item = nullprt;
+plugin::Plugin* plugin_item = nullptr;
 #endif
 
 namespace demo
@@ -56,7 +56,7 @@ namespace demo
 #ifdef MYGUI_STATIC
 		MyGUI::PluginManager::getInstance().uninstallPlugin(plugin_item);
 		delete plugin_item;
-		plugin_item = nullprt;
+		plugin_item = nullptr;
 #else
 #	ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().unloadPlugin("Plugin_BerkeliumWidget_d.dll");
