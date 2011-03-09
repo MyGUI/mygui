@@ -66,7 +66,7 @@ namespace plugin
 
 } // namespace plugin
 
-plugin::Plugin* plugin_item = nullprt;
+plugin::Plugin* plugin_item = nullptr;
 
 extern "C" MYGUI_EXPORT_DLL void dllStartPlugin(void)
 {
@@ -78,5 +78,5 @@ extern "C" MYGUI_EXPORT_DLL void dllStopPlugin(void)
 {
 	MyGUI::PluginManager::getInstance().uninstallPlugin(plugin_item);
 	delete plugin_item;
-	plugin_item = nullprt;
+	plugin_item = nullptr;
 }
