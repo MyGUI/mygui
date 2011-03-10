@@ -45,49 +45,10 @@ namespace MyGUI
 			hasWidget = true;
 		}
 
+		result.height += maxLineHeight;
+
 		return result;
 	}
-
-	/*void WordWrapPanel::updateContent()
-	{
-		int currentWidth = 0;
-		int currentHeight = 0;
-		int maxWidth = getWidth();
-		int maxLineHeight = 0;
-		bool hasWidget = false;
-		size_t startLineIndex = 0;
-
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
-		{
-			Widget* child = getChildAt(index);
-			IntSize size = getWidgetSize(child);
-
-			if (((currentWidth + size.width) > maxWidth) && hasWidget)
-			{
-				alignChildLine(startLineIndex, index, currentHeight, maxLineHeight);
-
-				currentHeight += maxLineHeight;
-				currentWidth = size.width;
-				maxLineHeight = size.height;
-
-				startLineIndex = index;
-			}
-			else
-			{
-				currentWidth += size.width;
-				if (size.height > maxLineHeight)
-					maxLineHeight = size.height;
-			}
-
-			hasWidget = true;
-		}
-
-		if (hasWidget)
-			alignChildLine(startLineIndex, count, currentHeight, maxLineHeight);
-
-		mCalcHeght = currentHeight + maxLineHeight;
-	}*/
 
 	void WrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, int _top, int _height)
 	{
@@ -101,15 +62,6 @@ namespace MyGUI
 			currentWidth += size.width;
 		}
 	}
-
-	/*IntSize WordWrapPanel::getWidgetSize(Widget* _widget)
-	{
-		TextBox* text = _widget->castType<TextBox>(false);
-		if (text != nullptr)
-			return text->getSize() - text->getTextRegion().size() + text->getTextSize();
-
-		return _widget->getSize();
-	}*/
 
 	void WrapPanel::overrideArrange()
 	{
@@ -149,26 +101,5 @@ namespace MyGUI
 		if (hasWidget)
 			alignChildLine(startLineIndex, count, currentHeight, maxLineHeight);
 	}
-
-	/*IntSize WrapPanel::getMaxDistance(EnumeratorWidgetPtr _child, const IntSize& _max)
-	{
-		IntSize result;
-		int current_width = 0;
-		int current_height = 0;
-
-		while (_child.next())
-		{
-			IntSize child_size = Panel::getDesiredSize(_child.current());
-
-			if ((current_width + child_size.width) > _max.width && current_width != 0)
-			{
-				break;
-			}
-			result.height = std::max(result.height, child_size.height);
-			current_width += child_size.width;
-		}
-
-		return result;
-	}*/
 
 } // namespace MyGUI
