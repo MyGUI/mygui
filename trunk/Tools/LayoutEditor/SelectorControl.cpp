@@ -12,8 +12,7 @@ namespace tools
 
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
-		mScaleValue(1.0),
-		mPositionChanged(false)
+		mScaleValue(1.0)
 	{
 		assignWidget(mProjection, "Projection", false, false);
 
@@ -32,12 +31,10 @@ namespace tools
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
-		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 	}
 
 	SelectorControl::~SelectorControl()
 	{
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &SelectorControl::notifyFrameStart);
 		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
@@ -86,8 +83,6 @@ namespace tools
 
 	void SelectorControl::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
-		mPositionChanged = true;
-
 		MyGUI::IntCoord coord = _sender->getCoord() - mProjectionDiff;
 		const MyGUI::IntCoord& actionScale = _sender->getActionScale();
 
@@ -116,6 +111,7 @@ namespace tools
 		}
 
 		updateCoord();
+		eventChangePosition();
 	}
 
 	MyGUI::IntPoint SelectorControl::getPosition()
@@ -136,15 +132,6 @@ namespace tools
 	void SelectorControl::setEnabled(bool _value)
 	{
 		mMainWidget->setNeedMouseFocus(_value);
-	}
-
-	void SelectorControl::notifyFrameStart(float _time)
-	{
-		if (mPositionChanged)
-		{
-			eventChangePosition();
-			mPositionChanged = false;
-		}
 	}
 
 	bool SelectorControl::getCapture()

@@ -18,8 +18,6 @@ namespace tools
 		void notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 
-		void notifyFrameStart(float _time);
-
 	private:
 		MyGUI::Widget* mLeftPanel;
 		MyGUI::Widget* mRightPanel;
@@ -33,7 +31,6 @@ namespace tools
 		MyGUI::IntCoord mStartSeparatorH;
 
 		MyGUI::IntPoint mStartMousePosition;
-		bool mChange;
 	};
 
 } // namespace tools

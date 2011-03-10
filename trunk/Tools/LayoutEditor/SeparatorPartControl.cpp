@@ -10,8 +10,7 @@ namespace tools
 		mRightPanel(nullptr),
 		mSeparatorH(nullptr),
 		mMinSizeLeft(0),
-		mMinSizeRight(0),
-		mChange(false)
+		mMinSizeRight(0)
 	{
 		assignWidget(mLeftPanel, "Left");
 		assignWidget(mRightPanel, "Right");
@@ -23,14 +22,10 @@ namespace tools
 		mSeparatorH->eventMouseButtonPressed += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
 		mSeparatorH->eventMouseButtonReleased += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonReleased);
 		mSeparatorH->eventMouseDrag += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
-
-		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &SeparatorPartControl::notifyFrameStart);
 	}
 
 	SeparatorPartControl::~SeparatorPartControl()
 	{
-		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyFrameStart);
-
 		mSeparatorH->eventMouseButtonPressed -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
 		mSeparatorH->eventMouseButtonReleased -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonReleased);
 		mSeparatorH->eventMouseDrag -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
@@ -58,16 +53,6 @@ namespace tools
 	{
 		if (_id == MyGUI::MouseButton::Left)
 		{
-			mChange = true;
-		}
-	}
-
-	void SeparatorPartControl::notifyFrameStart(float _time)
-	{
-		if (mChange)
-		{
-			mChange = false;
-
 			MyGUI::IntPoint mousePosition = MyGUI::InputManager::getInstance().getMousePosition();
 			int delta = mousePosition.left - mStartMousePosition.left;
 
