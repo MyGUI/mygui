@@ -51,7 +51,7 @@ namespace MyGUI
 				size = _widget->getSize();
 			}
 
-			_widget->setUserString("mDesiredSize", size.print());
+			_widget->_setInternalData(size);
 		}
 	}
 
@@ -76,7 +76,10 @@ namespace MyGUI
 		if (panel != nullptr)
 			return panel->mDesiredSize;
 
-		return IntSize::parse(_widget->getUserString("mDesiredSize"));
+		IntSize* sizePtr = _widget->_getInternalData<IntSize>();
+		if (sizePtr != nullptr)
+			return *sizePtr;
+		return IntSize();
 	}
 
 } // namespace MyGUI
