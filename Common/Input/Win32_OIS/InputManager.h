@@ -45,6 +45,13 @@ namespace input
 		virtual bool keyPressed(const OIS::KeyEvent& _arg);
 		virtual bool keyReleased(const OIS::KeyEvent& _arg);
 
+		void frameEvent(float _time);
+		void computeMouseMove();
+
+		void mouseMove(int _absx, int _absy, int _absz);
+		void mousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		void mouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+
 	private:
 		static InputManager* msInputManager;
 		HWND mHwnd;
@@ -52,6 +59,10 @@ namespace input
 		int mWidth;
 		int mHeight;
 		static bool msSkipMove;
+		int mMouseX;
+		int mMouseY;
+		int mMouseZ;
+		bool mMouseMove;
 
 		OIS::InputManager* mInputManager;
 		OIS::Keyboard* mKeyboard;

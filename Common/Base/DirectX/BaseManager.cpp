@@ -142,10 +142,11 @@ namespace base
 
 		createRender(width, height, windowed);
 
-		createInput((size_t)hWnd);
 		_windowResized();
 
 		createGui();
+
+		createInput((size_t)hWnd);
 
 		createPointerManager((size_t)hWnd);
 
