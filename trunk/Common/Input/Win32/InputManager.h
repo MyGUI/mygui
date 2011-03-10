@@ -39,6 +39,13 @@ namespace input
 	private:
 		static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+		void frameEvent(float _time);
+		void computeMouseMove();
+
+		void mouseMove(int _absx, int _absy, int _absz);
+		void mousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		void mouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+
 	private:
 		static InputManager* msInputManager;
 		HWND mHwnd;
@@ -46,6 +53,10 @@ namespace input
 		int mWidth;
 		int mHeight;
 		static bool msSkipMove;
+		int mMouseX;
+		int mMouseY;
+		int mMouseZ;
+		bool mMouseMove;
 	};
 
 } // namespace input

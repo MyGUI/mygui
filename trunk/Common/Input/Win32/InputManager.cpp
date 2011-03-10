@@ -86,50 +86,50 @@ namespace input
 				if (msSkipMove)
 					msSkipMove = false;
 				else
-					msInputManager->injectMouseMove(old_x, old_y, old_z);
+					msInputManager->mouseMove(old_x, old_y, old_z);
 			}
 
 			break;
 
 			case WM_MOUSEWHEEL:
 				old_z += GET_HIWORD(wParam);
-				msInputManager->injectMouseMove(old_x, old_y, old_z);
+				msInputManager->mouseMove(old_x, old_y, old_z);
 				break;
 
 			case WM_LBUTTONDOWN:
 				left_button = true;
 				if (!right_button)
 					::SetCapture(hWnd);
-				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
+				msInputManager->mousePress(old_x, old_y, MyGUI::MouseButton::Left);
 				break;
 
 			case WM_LBUTTONDBLCLK:
 				left_button = true;
 				if (!right_button)
 					::SetCapture(hWnd);
-				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
+				msInputManager->mousePress(old_x, old_y, MyGUI::MouseButton::Left);
 				break;
 
 			case WM_RBUTTONDOWN:
 				right_button = true;
 				if (!left_button)
 					::SetCapture(hWnd);
-				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
+				msInputManager->mousePress(old_x, old_y, MyGUI::MouseButton::Right);
 				break;
 
 			case WM_RBUTTONDBLCLK:
 				right_button = true;
 				if (!left_button)
 					::SetCapture(hWnd);
-				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
+				msInputManager->mousePress(old_x, old_y, MyGUI::MouseButton::Right);
 				break;
 
 			case WM_MBUTTONDOWN:
-				msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Middle);
+				msInputManager->mousePress(old_x, old_y, MyGUI::MouseButton::Middle);
 				break;
 
 			case WM_LBUTTONUP:
-				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Left);
+				msInputManager->mouseRelease(old_x, old_y, MyGUI::MouseButton::Left);
 				left_button = false;
 				if (!right_button)
 					::SetCapture(0);
@@ -138,10 +138,10 @@ namespace input
 				right_button = false;
 				if (!left_button)
 					::SetCapture(0);
-				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Right);
+				msInputManager->mouseRelease(old_x, old_y, MyGUI::MouseButton::Right);
 				break;
 			case WM_MBUTTONUP:
-				msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Middle);
+				msInputManager->mouseRelease(old_x, old_y, MyGUI::MouseButton::Middle);
 				break;
 			}
 		}
@@ -172,7 +172,11 @@ namespace input
 	InputManager::InputManager() :
 		mHwnd(0),
 		mWidth(0),
-		mHeight(0)
+		mHeight(0),
+		mMouseX(0),
+		mMouseY(0),
+		mMouseZ(0),
+		mMouseMove(false)
 	{
 		assert(!msInputManager);
 		msInputManager = this;
@@ -198,10 +202,14 @@ namespace input
 		// устанавливаем поддержку дропа файлов
 		LONG_PTR style = GetWindowLongPtr(mHwnd, GWL_EXSTYLE);
 		SetWindowLongPtr(mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
+
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InputManager::frameEvent);
 	}
 
 	void InputManager::destroyInput()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InputManager::frameEvent);
+
 		// если мы подменили процедуру, то вернем на место
 		if (msOldWindowProc)
 		{
@@ -231,6 +239,40 @@ namespace input
 
 	void InputManager::updateCursorPosition()
 	{
+	}
+
+	void InputManager::frameEvent(float _time)
+	{
+		computeMouseMove();
+	}
+
+	void InputManager::computeMouseMove()
+	{
+		if (mMouseMove)
+		{
+			injectMouseMove(mMouseX, mMouseY, mMouseZ);
+			mMouseMove = false;
+		}
+	}
+
+	void InputManager::mouseMove(int _absx, int _absy, int _absz)
+	{
+		mMouseX = _absx;
+		mMouseY = _absy;
+		mMouseZ = _absz;
+		mMouseMove = true;
+	}
+
+	void InputManager::mousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		computeMouseMove();
+		injectMousePress(_absx, _absy, _id);
+	}
+
+	void InputManager::mouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		computeMouseMove();
+		injectMouseRelease(_absx, _absy, _id);
 	}
 
 } // namespace input
