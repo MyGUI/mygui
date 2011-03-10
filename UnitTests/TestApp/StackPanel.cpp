@@ -6,6 +6,7 @@
 
 #include "StackPanel.h"
 #include "WrapPanel.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {

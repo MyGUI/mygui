@@ -40,14 +40,6 @@ namespace demo
 					addImage(panel);
 			}
 		}
-
-		bool panel = stackPanel->isType<MyGUI::Panel>();
-		bool list = stackPanel->isType<MyGUI::ListBox>();
-
-		//MyGUI::Panel::updateMeasure(stackPanel, coord.size());
-		//MyGUI::IntSize size = MyGUI::Panel::getDesiredSize(stackPanel);
-		//MyGUI::Panel::updateArrange(stackPanel, MyGUI::IntCoord(0, 0, coord.width, coord.height));
-		int test = 0;
 	}
 
 	void DemoKeeper::destroyScene()
