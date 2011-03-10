@@ -149,10 +149,11 @@ namespace base
 			return false;
 		}
 
-		createInput((size_t)hWnd);
+		_windowResized();
+
 		createGui();
 
-		_windowResized();
+		createInput((size_t)hWnd);
 
 		createPointerManager((size_t)hWnd);
 
