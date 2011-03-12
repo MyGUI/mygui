@@ -5,7 +5,6 @@
 */
 
 #include "WrapPanel.h"
-#include "MyGUI_TextBox.h"
 
 namespace MyGUI
 {

@@ -4,16 +4,33 @@
 	@date		02/2011
 */
 
-#include "StackPanel.h"
+#include "ScrollViewPanel.h"
+#include <MyGUI_ScrollView.h>
 
 namespace MyGUI
 {
 
-	StackPanel::StackPanel()
+	ScrollViewPanel::ScrollViewPanel() :
+		mScrollView(nullptr)
 	{
 	}
 
-	IntSize StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
+	void ScrollViewPanel::initialiseOverride()
+	{
+		Base::initialiseOverride();
+
+		mScrollView = createWidget<ScrollView>("ScrollView", IntCoord(0, 0, getWidth(), getHeight()), Align::Stretch);
+	}
+
+	void ScrollViewPanel::shutdownOverride()
+	{
+		_destroyChildWidget(mScrollView);
+		mScrollView = nullptr;
+
+		Base::shutdownOverride();
+	}
+
+	IntSize ScrollViewPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		IntSize result;
 
@@ -31,7 +48,7 @@ namespace MyGUI
 		return result;
 	}
 
-	void StackPanel::overrideArrange()
+	void ScrollViewPanel::overrideArrange()
 	{
 		int offset = 0;
 
@@ -43,17 +60,9 @@ namespace MyGUI
 
 			int height = childSize.height;
 			coord.set(0, offset, getWidth(), height);
-
-			if (offset < getHeight())
-			{
-				Panel::updateArrange(child.current(), coord);
-			}
-			else if (child.current()->getTop() < getHeight())
-			{
-				child.current()->setPosition(0, getHeight() + 2000);
-			}
-
 			offset += height;
+
+			Panel::updateArrange(child.current(), coord);
 		}
 	}
 
