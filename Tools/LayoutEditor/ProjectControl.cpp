@@ -545,7 +545,7 @@ namespace tools
 		common::VectorFileInfo fileInfo;
 		common::getSystemFileList(fileInfo, _filePath, _fileName);
 
-		return fileInfo.size() != 0;
+		return !fileInfo.empty();
 	}
 
 	void ProjectControl::createProject(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)

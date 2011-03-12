@@ -73,6 +73,7 @@ namespace base
 		hWnd(0),
 		mD3d(nullptr),
 		mDevice(nullptr),
+		hInstance(nullptr),
 		mExit(false),
 		mResourceFileName("MyGUI_Core.xml"),
 		mIsDeviceLost(false)

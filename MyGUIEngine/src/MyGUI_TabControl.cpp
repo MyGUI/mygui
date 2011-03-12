@@ -473,7 +473,7 @@ namespace MyGUI
 		mWidthBar -= mItemsInfo[index].width;
 		mItemsInfo.erase(mItemsInfo.begin() + index);
 
-		if (0 == mItemsInfo.size())
+		if (mItemsInfo.empty())
 			mIndexSelect = ITEM_NONE;
 		else
 		{
@@ -547,7 +547,7 @@ namespace MyGUI
 
 	void TabControl::removeAllItems()
 	{
-		while (mItemsInfo.size() > 0)
+		while (!mItemsInfo.empty())
 		{
 			_destroyChildWidget(mItemsInfo.back().item);
 		}

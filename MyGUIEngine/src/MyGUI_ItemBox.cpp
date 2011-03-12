@@ -402,7 +402,8 @@ namespace MyGUI
 
 	void ItemBox::removeAllItems()
 	{
-		if (0 == mItemsInfo.size()) return;
+		if (mItemsInfo.empty())
+			return;
 		_resetContainer(false);
 
 		mItemsInfo.clear();

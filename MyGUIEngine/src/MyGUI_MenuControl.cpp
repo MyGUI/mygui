@@ -157,7 +157,7 @@ namespace MyGUI
 
 	void MenuControl::removeAllItems()
 	{
-		while (mItemsInfo.size() > 0)
+		while (!mItemsInfo.empty())
 		{
 			if (mItemsInfo.back().submenu)
 			{
@@ -886,7 +886,7 @@ namespace MyGUI
 
 	void MenuControl::_updateSizeForEmpty()
 	{
-		if (mItemsInfo.size() == 0)
+		if (mItemsInfo.empty())
 			setSize(100, 100);
 	}
 

@@ -93,7 +93,8 @@ namespace MyGUI
 	void ControllerManager::addItem(Widget* _widget, ControllerItem* _item)
 	{
 		// если виджет первый, то подписываемся на кадры
-		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
+		if (mListItem.empty())
+			Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
 		// подготавливаем
 		_item->prepareItem(_widget);
@@ -152,7 +153,8 @@ namespace MyGUI
 			(*iter).first = nullptr;
 		}
 
-		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart -= newDelegate(this, &ControllerManager::frameEntered);
+		if (mListItem.empty())
+			Gui::getInstance().eventFrameStart -= newDelegate(this, &ControllerManager::frameEntered);
 	}
 
 } // namespace MyGUI
