@@ -1,11 +1,13 @@
 set (HEADER_FILES
   DemoKeeper.h
+  ScrollViewPanel.h
   WrapPanel.h
   StackPanel.h
   Panel.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
+  ScrollViewPanel.cpp
   WrapPanel.cpp
   StackPanel.cpp
   Panel.cpp
