@@ -32,7 +32,7 @@ namespace unittest
 	public:
 		UnitTest_MultiList()
 		{
-			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>("MultiList", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
+			original_list = MyGUI::Gui::getInstance().createWidget<MyGUI::MultiListBox>("MultiListBox", MyGUI::IntCoord(300, 100, 400, 400), MyGUI::Align::Default, "Main");
 			//original_list = new unittest::BiIndexData();
 			mirror_list = new unittest::Mirror_MultiList();
 			count_items = 0;

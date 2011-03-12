@@ -93,7 +93,8 @@ namespace demo
 
 	void init()
 	{
-		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		box1->setVerticalAlignment(true);
 		box1->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box1->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box1->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
@@ -105,7 +106,8 @@ namespace demo
 		box1->addItem((int)43);
 		box1->addItem((int)54);
 
-		MyGUI::ItemBox* box2 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box2 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		box2->setVerticalAlignment(true);
 		box2->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box2->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box2->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
