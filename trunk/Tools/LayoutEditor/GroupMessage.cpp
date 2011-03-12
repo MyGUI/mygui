@@ -50,7 +50,7 @@ namespace tools
 
 	void GroupMessage::showMessages()
 	{
-		if (mWarningMessages.size())
+		if (!mWarningMessages.empty())
 		{
 			MyGUI::UString warningMess;
 			for (VectorUString::const_iterator iter = mWarningMessages.begin(); iter != mWarningMessages.end(); ++iter)
@@ -71,7 +71,7 @@ namespace tools
 			mWarningMessages.clear();
 		}
 
-		if (mErrorMessages.size())
+		if (!mErrorMessages.empty())
 		{
 			MyGUI::UString errorMessages;
 			for (VectorUString::const_iterator iter = mErrorMessages.begin(); iter != mErrorMessages.end(); ++iter)
