@@ -16,6 +16,15 @@
 namespace MyGUI
 {
 
+	OgreRenderManager& OgreRenderManager::getInstance()
+	{
+		return *getInstancePtr();
+	}
+	OgreRenderManager* OgreRenderManager::getInstancePtr()
+	{
+		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr());
+	}
+
 	OgreRenderManager::OgreRenderManager() :
 		mUpdate(false),
 		mSceneManager(nullptr),
@@ -23,7 +32,8 @@ namespace MyGUI
 		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
-		mManualRender(false)
+		mManualRender(false),
+		mCountBatch(0)
 	{
 	}
 
@@ -32,15 +42,15 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
-		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
-		mColorBlendMode.source2		= Ogre::LBS_DIFFUSE;
-		mColorBlendMode.operation	= Ogre::LBX_MODULATE;
+		mColorBlendMode.blendType = Ogre::LBT_COLOUR;
+		mColorBlendMode.source1 = Ogre::LBS_TEXTURE;
+		mColorBlendMode.source2 = Ogre::LBS_DIFFUSE;
+		mColorBlendMode.operation = Ogre::LBX_MODULATE;
 
-		mAlphaBlendMode.blendType	= Ogre::LBT_ALPHA;
-		mAlphaBlendMode.source1		= Ogre::LBS_TEXTURE;
-		mAlphaBlendMode.source2		= Ogre::LBS_DIFFUSE;
-		mAlphaBlendMode.operation	= Ogre::LBX_MODULATE;
+		mAlphaBlendMode.blendType = Ogre::LBT_ALPHA;
+		mAlphaBlendMode.source1 = Ogre::LBS_TEXTURE;
+		mAlphaBlendMode.source2 = Ogre::LBS_DIFFUSE;
+		mAlphaBlendMode.operation = Ogre::LBX_MODULATE;
 
 		mTextureAddressMode.u = Ogre::TextureUnitState::TAM_CLAMP;
 		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
@@ -95,8 +105,10 @@ namespace MyGUI
 
 			// формат цвета в вершинах
 			Ogre::VertexElementType vertex_type = mRenderSystem->getColourVertexElementType();
-			if (vertex_type == Ogre::VET_COLOUR_ARGB) mVertexFormat = VertexColourType::ColourARGB;
-			else if (vertex_type == Ogre::VET_COLOUR_ABGR) mVertexFormat = VertexColourType::ColourABGR;
+			if (vertex_type == Ogre::VET_COLOUR_ARGB)
+				mVertexFormat = VertexColourType::ColourARGB;
+			else if (vertex_type == Ogre::VET_COLOUR_ABGR)
+				mVertexFormat = VertexColourType::ColourABGR;
 
 			updateRenderInfo();
 		}
@@ -172,6 +184,8 @@ namespace MyGUI
 		if (mWindow->getNumViewports() <= mActiveViewport
 			|| viewport != mWindow->getViewport(mActiveViewport))
 			return;
+
+		mCountBatch = 0;
 
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
@@ -279,6 +293,8 @@ namespace MyGUI
 		operation->vertexData->vertexCount = _count;
 
 		mRenderSystem->_render(*operation);
+
+		++ mCountBatch;
 	}
 
 	void OgreRenderManager::begin()
@@ -394,5 +410,45 @@ namespace MyGUI
 		return false;
 	}
 #endif
+
+	const IntSize& OgreRenderManager::getViewSize() const
+	{
+		return mViewSize;
+	}
+
+	VertexColourType OgreRenderManager::getVertexFormat()
+	{
+		return mVertexFormat;
+	}
+
+	const RenderTargetInfo& OgreRenderManager::getInfo()
+	{
+		return mInfo;
+	}
+
+	size_t OgreRenderManager::getActiveViewport()
+	{
+		return mActiveViewport;
+	}
+
+	Ogre::RenderWindow* OgreRenderManager::getRenderWindow()
+	{
+		return mWindow;
+	}
+
+	bool OgreRenderManager::getManualRender()
+	{
+		return mManualRender;
+	}
+
+	void OgreRenderManager::setManualRender(bool _value)
+	{
+		mManualRender = _value;
+	}
+
+	size_t OgreRenderManager::getBatchCount() const
+	{
+		return mCountBatch;
+	}
 
 } // namespace MyGUI
