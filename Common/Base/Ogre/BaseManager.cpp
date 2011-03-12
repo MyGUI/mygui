@@ -302,7 +302,7 @@ namespace base
 					mInfo->change("FPS", (int)stats.lastFPS);
 					mInfo->change("triangle", stats.triangleCount);
 					mInfo->change("batch", stats.batchCount);
-					//mInfo->change("batch gui", MyGUI::RenderManager::getInstance().getBatch());
+					mInfo->change("batch gui", MyGUI::OgreRenderManager::getInstance().getBatchCount());
 					mInfo->update();
 				}
 				catch (...)
