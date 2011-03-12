@@ -342,7 +342,7 @@ namespace MyGUI
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
-		if ((int)mItemsInfo.size())
+		if (!mItemsInfo.empty())
 			mWidgetScroll->setTrackSize(mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size());
 	}
 
@@ -552,7 +552,7 @@ namespace MyGUI
 			if (mWidgetScroll != nullptr)
 			{
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-				if ((int)mItemsInfo.size())
+				if (!mItemsInfo.empty())
 					mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			}
@@ -570,7 +570,7 @@ namespace MyGUI
 				if (mWidgetScroll != nullptr)
 				{
 					mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() + mHeightLine);
-					if ((int)mItemsInfo.size())
+					if (!mItemsInfo.empty())
 						mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				}
@@ -624,7 +624,7 @@ namespace MyGUI
 			if (mWidgetScroll != nullptr)
 			{
 				mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-				if ((int)mItemsInfo.size())
+				if (!mItemsInfo.empty())
 					mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 				mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 			}
@@ -642,7 +642,7 @@ namespace MyGUI
 				if (mWidgetScroll != nullptr)
 				{
 					mWidgetScroll->setScrollRange(mWidgetScroll->getScrollRange() - mHeightLine);
-					if ((int)mItemsInfo.size())
+					if (!mItemsInfo.empty())
 						mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size() );
 					mWidgetScroll->setScrollPosition(mTopIndex * mHeightLine + mOffsetTop);
 				}

@@ -60,7 +60,7 @@ namespace tools
 
 		AddParametrs(widgetType, widgetContainer, mCurrentWidget);
 
-		bool visible = mFields.size() > 0;
+		bool visible = !mFields.empty();
 		setVisible(visible);
 
 		updateSize();
