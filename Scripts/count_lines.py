@@ -36,7 +36,7 @@ i += CountLinesInFolder('../Platforms/OpenGL')
 i += CountLinesInFolder('../Platforms/OGRE')
 i += CountLinesInFolder('../Platforms/DirectX')
 i += CountLinesInFolder('../Plugins')
-i += CountLinesInFolder('../Wrapper')
+i += CountLinesInFolder('../Wrappers')
 print "Total: "+ str(i)
 
 raw_input("Press enter to continue.")
