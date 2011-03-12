@@ -5,7 +5,8 @@ ignoredEndings = [
 	"It is safe to deallocate a NULL pointer",
 	"Throwing exception in destructor",
 	"::initialise' can be const.",
-	"::shutdown' can be const."
+	"::shutdown' can be const.",
+	"Technically the member function 'input::" #useless, because with other input system this function could be non-const
 ]
 ignoredContent = [
 	"MyGUI_UString", #ignore warnings from MyGUI_UString, because it wasn't written by MyGUI authors
