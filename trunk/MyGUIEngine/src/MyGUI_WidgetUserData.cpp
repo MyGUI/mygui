@@ -48,6 +48,11 @@ namespace MyGUI
 		return Constants::getEmptyString();
 	}
 
+	const MapString& UserData::getUserStrings() const
+	{
+		return mMapUserString;
+	}
+
 	bool UserData::clearUserString(const std::string& _key)
 	{
 		MapString::iterator iter = mMapUserString.find(_key);
