@@ -9,7 +9,7 @@ ignoredEndings = [
 ]
 ignoredContent = [
 	"MyGUI_UString", #ignore warnings from MyGUI_UString, because it wasn't written by MyGUI authors
-	") Include file:, " # ignore "(debug) Include file: "name" can not be found."
+	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 	"Technically the member function 'input::" #useless, because with other input system this function could be non-const
 ]
 
