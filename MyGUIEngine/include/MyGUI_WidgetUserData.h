@@ -41,6 +41,9 @@ namespace MyGUI
 		/** Get user string or "" if not found */
 		const std::string& getUserString(const std::string& _key) const;
 
+		/** Get map of all user strings */
+		const MapString& getUserStrings() const;
+
 		/** Delete user string */
 		bool clearUserString(const std::string& _key);
 
