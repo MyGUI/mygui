@@ -76,10 +76,43 @@ namespace MyGUI
 		if (panel != nullptr)
 			return panel->mDesiredSize;
 
-		IntSize* sizePtr = _widget->_getInternalData<IntSize>();
+		IntSize* sizePtr = _widget->_getInternalData<IntSize>(false);
 		if (sizePtr != nullptr)
 			return *sizePtr;
+
 		return IntSize();
+	}
+
+	void Panel::invalidateMeasure(Widget* _widget)
+	{
+		if (_widget->getParent() != nullptr)
+		{
+			invalidateMeasure(_widget->getParent());
+			Panel* panel = _widget->castType<Panel>(false);
+			if (panel != nullptr)
+				panel->overrideArrange();
+		}
+		else
+		{
+			const IntSize& size = _widget->getParentSize();
+			Panel* panel = _widget->castType<Panel>(false);
+			if (panel != nullptr)
+				Panel::updateArrange(panel, IntCoord(0, 0, size.width, size.height));
+		}
+	}
+
+	void Panel::onWidgetCreated(Widget* _widget)
+	{
+		Base::onWidgetCreated(_widget);
+
+		invalidateMeasure(this);
+	}
+
+	void Panel::onWidgetDestroy(Widget* _widget)
+	{
+		invalidateMeasure(this);
+
+		Base::onWidgetDestroy(_widget);
 	}
 
 } // namespace MyGUI
