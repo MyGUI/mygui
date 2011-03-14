@@ -29,6 +29,7 @@ namespace attribute
 	struct Field
 	{
 		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
+		virtual const std::string& getFieldTypeName() = 0;
 	};
 
 	// шаблон для обертки поля
@@ -41,7 +42,10 @@ namespace attribute
 		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value)
 		{
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
-			//                  _target->*m_offset = (_value == 0 ? 0 : _value->castType<int>::template(false));//SetterType::convert<FieldType>(_value);
+		}
+		virtual const std::string& getFieldTypeName()
+		{
+			return FieldType::getClassTypeName();
 		}
 	};
 

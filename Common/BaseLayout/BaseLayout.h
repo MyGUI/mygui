@@ -143,8 +143,11 @@ namespace wraps
 			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
 			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item = data.begin(); item != data.end(); ++item)
 			{
-				MyGUI::Widget* value = 0;
-				assignWidget(value, item->second, _throw, _createFakeWidgets);
+				MyGUI::Widget* value = nullptr;
+				assignWidget(value, item->second, _throw, false);
+
+				if (value == nullptr && _createFakeWidgets)
+					value = _createFakeWidgetT(item->first->getFieldTypeName(), mMainWidget);
 
 				item->first->set(_owner, value);
 			}
@@ -206,6 +209,14 @@ namespace wraps
 				return _parent->createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
 
 			return MyGUI::Gui::getInstance().createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+		}
+
+		MyGUI::Widget* _createFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
+		{
+			if (_parent)
+				return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
+
+			return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
 		}
 
 	public:
