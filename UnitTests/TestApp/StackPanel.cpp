@@ -44,14 +44,7 @@ namespace MyGUI
 			int height = childSize.height;
 			coord.set(0, offset, getWidth(), height);
 
-			if (offset < getHeight())
-			{
-				Panel::updateArrange(child.current(), coord);
-			}
-			else if (child.current()->getTop() < getHeight())
-			{
-				child.current()->setPosition(0, getHeight() + 2000);
-			}
+			Panel::updateArrange(child.current(), coord);
 
 			offset += height;
 		}
