@@ -205,10 +205,7 @@ namespace wraps
 		template <typename T>
 		T* _createFakeWidget(MyGUI::Widget* _parent)
 		{
-			if (_parent)
-				return _parent->createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
-
-			return MyGUI::Gui::getInstance().createWidget<T>(MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+			return static_cast<T*>_createFakeWidgetT(T::getClassTypeName(), _parent)
 		}
 
 		MyGUI::Widget* _createFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
