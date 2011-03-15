@@ -225,10 +225,13 @@ namespace MyGUI
 		//SAVE
 		const IntSize& _size = mCoord.size();
 
-		//FIXME - явный вызов
-		Widget::setSize(_skinInfo->getSize());
+		if (_skinInfo != nullptr)
+		{
+			//FIXME - явный вызов
+			Widget::setSize(_skinInfo->getSize());
 
-		_createSkinItem(_skinInfo);
+			_createSkinItem(_skinInfo);
+		}
 
 		// выставляем альфу, корректировка по отцу автоматически
 		_updateAlpha();
