@@ -332,6 +332,9 @@ namespace MyGUI
 			// если нуно то удаляем выделенный текст
 			if (!mModeReadOnly)
 			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				if (!deleteTextSelect(true))
 				{
 					// прыгаем на одну назад и удаляем
@@ -349,9 +352,17 @@ namespace MyGUI
 		else if (_key == KeyCode::Delete)
 		{
 			if (input.isShiftPressed())
+			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				commandCut();
+			}
 			else if (!mModeReadOnly)
 			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				// если нуно то удаляем выделенный текст
 				if (!deleteTextSelect(true))
 				{
@@ -368,9 +379,16 @@ namespace MyGUI
 		else if (_key == KeyCode::Insert)
 		{
 			if (input.isShiftPressed())
+			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				commandPast();
+			}
 			else if (input.isControlPressed())
+			{
 				commandCopy();
+			}
 
 		}
 		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
@@ -380,13 +398,17 @@ namespace MyGUI
 			{
 				if ((mModeMultiline) && (!input.isControlPressed()))
 				{
+					// сбрасываем повтор
+					commandResetRedo();
+
 					// попытка объединения двух комманд
 					size_t size = mVectorUndoChangeInfo.size();
 					// непосредственно операции
 					deleteTextSelect(true);
 					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
 					// проверяем на возможность объединения
-					if ((size + 2) == mVectorUndoChangeInfo.size()) commandMerge();
+					if ((size + 2) == mVectorUndoChangeInfo.size())
+						commandMerge();
 					// отсылаем событие о изменении
 					eventEditTextChange(this);
 				}
@@ -627,6 +649,9 @@ namespace MyGUI
 			{
 				if (!mModeReadOnly)
 				{
+					// сбрасываем повтор
+					commandResetRedo();
+
 					// таб только если нужно
 					if (_char != '\t' || mTabPrinting)
 					{
@@ -650,11 +675,17 @@ namespace MyGUI
 			}
 			else if (_key == KeyCode::X)
 			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				commandCut();
 
 			}
 			else if (_key == KeyCode::V)
 			{
+				// сбрасываем повтор
+				commandResetRedo();
+
 				commandPast();
 
 			}
@@ -1042,9 +1073,6 @@ namespace MyGUI
 	// выделяет цветом диапазон
 	void EditBox::_setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
 	{
-		// при изменениях сразу сбрасываем повтор
-		commandResetRedo();
-
 		// история изменений
 		VectorChangeInfo* history = nullptr;
 		if (_history)
