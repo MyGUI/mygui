@@ -8,6 +8,7 @@
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_DataFileStream.h"
 #include "FileSystemInfo/FileSystemInfo.h"
+#include <fstream>
 
 namespace MyGUI
 {
@@ -37,10 +38,12 @@ namespace MyGUI
 
 	IDataStream* OpenGLDataManager::getData(const std::string& _name)
 	{
-		std::string file = getDataPath(_name);
+		std::string filepath = getDataPath(_name);
+		if (filepath.empty())
+			return nullptr;
 
 		std::ifstream* stream = new std::ifstream();
-		stream->open(file.c_str(), std::ios_base::binary);
+		stream->open(filepath.c_str(), std::ios_base::binary);
 
 		if (!stream->is_open())
 		{
@@ -62,14 +65,12 @@ namespace MyGUI
 	const VectorString& OpenGLDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
-		result.clear();
-
 		common::VectorWString wresult;
-		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
+		result.clear();
 
 		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, false);
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_pattern).asWStr(), false);
 		}
 
 		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
@@ -80,17 +81,15 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& OpenGLDataManager::getDataPath(const std::string& _pattern)
+	const std::string& OpenGLDataManager::getDataPath(const std::string& _name)
 	{
 		static std::string path;
 		VectorString result;
-
 		common::VectorWString wresult;
-		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
 
 		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, true);
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_name).asWStr(), true);
 		}
 
 		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)

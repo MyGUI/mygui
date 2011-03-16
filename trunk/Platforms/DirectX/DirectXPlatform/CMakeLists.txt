@@ -2,11 +2,11 @@ include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${DirectX_INCLUDE_DIR}
+ ${MYGUI_SOURCE_DIR}/Common
 )
 
 include(MyGUI.DirectXPlatform.list)
 
-# setup MyGUIEngine target
 add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.DirectXPlatform MyGUIEngine)

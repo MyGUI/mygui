@@ -67,13 +67,10 @@ namespace common
 		struct _wfinddata_t tagData;
 
 		// pattern can contain a directory name, separate it from mask
-		size_t pos1 = _mask.rfind ('/');
-		size_t pos2 = _mask.rfind ('\\');
-		if (pos1 == _mask.npos || ((pos2 != _mask.npos) && (pos1 < pos2)))
-			pos1 = pos2;
+		size_t pos = _mask.find_last_of(L"/\\");
 		std::wstring directory;
-		if (pos1 != _mask.npos)
-			directory = _mask.substr (0, pos1 + 1);
+		if (pos != _mask.npos)
+			directory = _mask.substr (0, pos);
 
 		std::wstring full_mask = concatenatePath(_folder, _mask);
 
@@ -84,7 +81,7 @@ namespace common
 			if (( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
 				(!isReservedDir (tagData.name)))
 			{
-				_result.push_back(FileInfo(directory + tagData.name, (tagData.attrib & _A_SUBDIR) != 0));
+				_result.push_back(FileInfo(concatenatePath(directory, tagData.name), (tagData.attrib & _A_SUBDIR) != 0));
 			}
 			res = _wfindnext( lHandle, &tagData );
 		}

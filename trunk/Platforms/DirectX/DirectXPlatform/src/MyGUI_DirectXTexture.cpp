@@ -129,7 +129,7 @@ namespace MyGUI
 		if (FAILED(D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture)))
 		{
 			char buf[1024];
-			sprintf(buf, "texture = %s\nloaded failed!", _filename.c_str());
+			sprintf(buf, "Failed to load texture '%s'!", _filename.c_str());
 			MessageBox(0, buf, 0, MB_ICONERROR);
 		}
 	}
