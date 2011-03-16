@@ -4,61 +4,14 @@
 	@date		06/2009
 */
 
-#include "MyGUI_DataFileStream.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXDiagnostic.h"
+#include "MyGUI_DataFileStream.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 #include <fstream>
-
-#include <windows.h>
 
 namespace MyGUI
 {
-
-	void scanFolder(VectorString& _result, const std::string& _folder, bool _recursive, const std::string& _mask, bool _fullpath)
-	{
-		std::string folder = _folder;
-		if (!folder.empty()) folder += "\\";
-		std::vector<std::string> dir;
-
-		WIN32_FIND_DATA FindData;
-		HANDLE file = FindFirstFile((folder + _mask).c_str(), &FindData);
-		if (file != INVALID_HANDLE_VALUE)
-		{
-			do
-			{
-				std::string name = FindData.cFileName;
-				if ((name == ".") || (name == "..")) continue;
-
-				// если скрытый то игнорируем
-				if (FindData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) continue;
-
-				// если это дирректория, то запускаем в ней поиск
-				if (FindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-				{
-					dir.push_back(folder + name);
-				}
-				else
-				{
-					if (_fullpath)
-						_result.push_back(folder + name);
-					else
-						_result.push_back(name);
-				}
-
-			}
-			while (FindNextFile(file, &FindData));
-		}
-		FindClose(file);
-
-		if (_recursive)
-		{
-			// теперь проходим подкаталоги
-			for (std::vector<std::string>::iterator iter = dir.begin(); iter != dir.end(); ++iter)
-			{
-				scanFolder(_result, *iter, _recursive, _mask, _fullpath);
-			}
-		}
-	}
 
 	DirectXDataManager::DirectXDataManager() :
 		mIsInitialise(false)
@@ -106,17 +59,23 @@ namespace MyGUI
 	bool DirectXDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);
-		return (files.size() == 1);
+		return files.size() == 1;
 	}
 
 	const VectorString& DirectXDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
+		common::VectorWString wresult;
 		result.clear();
 
-		for (VectorArhivInfo::iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
-			scanFolder(result, (*item).name, (*item).recursive, _pattern, false);
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_pattern).asWStr(), false);
+		}
+
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
 		return result;
@@ -126,10 +85,16 @@ namespace MyGUI
 	{
 		static std::string path;
 		VectorString result;
+		common::VectorWString wresult;
 
-		for (VectorArhivInfo::iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
-			scanFolder(result, (*item).name, (*item).recursive, _name, true);
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_name).asWStr(), true);
+		}
+
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
 		path = result.size() == 1 ? result[0] : "";
@@ -139,7 +104,7 @@ namespace MyGUI
 	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		ArhivInfo info;
-		info.name = _name;
+		info.name = MyGUI::UString(_name).asWStr();
 		info.recursive = _recursive;
 		mPaths.push_back(info);
 	}

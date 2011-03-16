@@ -49,7 +49,7 @@ namespace MyGUI
 	private:
 		struct ArhivInfo
 		{
-			std::string name;
+			std::wstring name;
 			bool recursive;
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
