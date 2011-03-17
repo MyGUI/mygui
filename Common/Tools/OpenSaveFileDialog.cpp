@@ -83,8 +83,17 @@ namespace tools
 		else
 		{
 			common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
-			if (!info.folder)
-				mEditFileName->setCaption(info.name);
+			if (!mFolderMode)
+			{
+				if (!info.folder)
+					mEditFileName->setCaption(info.name);
+			}
+			else 
+			{
+				if (!common::isParentDir(info.name.c_str()))
+					mCurrentFolderField->setCaption(info.name);
+			}
+
 		}
 	}
 
