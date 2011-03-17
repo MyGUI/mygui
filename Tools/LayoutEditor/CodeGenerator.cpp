@@ -191,7 +191,7 @@ namespace tools
 
 	void CodeGenerator::loadTemplate()
 	{
-		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
+		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGeneratorSettings");
 
 		mPanelNameEdit->setCaption(sector->getPropertyValue("PanelName"));
 		mPanelNamespaceEdit->setCaption(sector->getPropertyValue("PanelNamespace"));
@@ -201,7 +201,7 @@ namespace tools
 
 	void CodeGenerator::saveTemplate()
 	{
-		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGenaratorSettings");
+		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGeneratorSettings");
 
 		sector->setPropertyValue("PanelName", mPanelNameEdit->getOnlyText());
 		sector->setPropertyValue("PanelNamespace", mPanelNamespaceEdit->getOnlyText());
