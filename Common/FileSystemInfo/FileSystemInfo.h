@@ -53,8 +53,14 @@ namespace common
 
 	inline bool isReservedDir (const wchar_t* _fn)
 	{
-		// if "." /*or ".."*/
-		return (_fn [0] == '.' && (_fn [1] == 0 /*|| (_fn [1] == '.' && _fn [2] == 0)*/));
+		// if "."
+		return (_fn [0] == '.' && _fn [1] == 0);
+	}
+
+	inline bool isParentDir (const wchar_t* _fn)
+	{
+		// if ".."
+		return (_fn [0] == '.' && _fn [1] == '.' && _fn [2] == 0);
 	}
 
 	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
