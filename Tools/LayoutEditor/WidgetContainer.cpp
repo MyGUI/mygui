@@ -10,17 +10,17 @@
 namespace tools
 {
 	WidgetContainer::WidgetContainer() :
-		mWidget(nullptr),
-		mRelativeMode(false)
+		mRelativeMode(false),
+		mWidget(nullptr)
 	{
 	}
 
 	WidgetContainer::WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name):
-		mWidget(_widget),
+		mRelativeMode(false),
 		mType(_type),
 		mSkin(_skin),
 		mName(_name),
-		mRelativeMode(false)
+		mWidget(_widget)
 	{
 	}
 
