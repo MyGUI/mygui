@@ -88,7 +88,7 @@ namespace tools
 				if (!info.folder)
 					mEditFileName->setCaption(info.name);
 			}
-			else 
+			else
 			{
 				if (!common::isParentDir(info.name.c_str()))
 					mCurrentFolderField->setCaption(info.name);
