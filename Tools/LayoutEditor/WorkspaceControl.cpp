@@ -118,8 +118,8 @@ namespace tools
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
 				int right = coord.right();
-				coord.width = toGrid(coord.width + (mGridStep / 2));
-				coord.left = right - coord.width;
+				coord.left = toGrid(coord.left + (mGridStep / 2));
+				coord.width = right - coord.left;
 			}
 			else if (actionScale.width != 0)
 			{
@@ -134,8 +134,8 @@ namespace tools
 			if (actionScale.top != 0 && actionScale.height != 0)
 			{
 				int bottom = coord.bottom();
-				coord.height = toGrid(coord.height + (mGridStep / 2));
-				coord.top = bottom - coord.height;
+				coord.top = toGrid(coord.top + (mGridStep / 2));
+				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.height != 0)
 			{
