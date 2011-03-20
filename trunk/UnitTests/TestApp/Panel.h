@@ -27,7 +27,8 @@ namespace MyGUI
 		/** Set widget position and size */
 		virtual void setCoord(const IntCoord& _value);
 
-		static void invalidateMeasure(Widget* _widget);
+		//static void invalidateMeasure(Widget* _widget);
+		void invalidateMeasure();
 		/*
 		Обновление размеров содержимого.
 		Метод updateMeasure вызывается для обновления mDesiredSize по нашему содержимому.

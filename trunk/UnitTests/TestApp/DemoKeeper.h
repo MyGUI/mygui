@@ -19,6 +19,7 @@ namespace demo
 		void addText(MyGUI::Widget* _parent);
 		void addImage(MyGUI::Widget* _parent);
 
+		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 	};
 
 } // namespace demo
