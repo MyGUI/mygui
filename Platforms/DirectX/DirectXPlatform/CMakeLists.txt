@@ -1,3 +1,5 @@
+set (PROJECTNAME MyGUI.DirectXPlatform)
+
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
@@ -5,11 +7,11 @@ include_directories(
  ${MYGUI_SOURCE_DIR}/Common
 )
 
-include(MyGUI.DirectXPlatform.list)
+include(${PROJECTNAME}.list)
 
-add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUI.DirectXPlatform MyGUIEngine)
+add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(MyGUI.DirectXPlatform ${DirectX_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${DirectX_LIBRARIES})
 link_directories(${DirectX_LIBRARY_DIRS})
