@@ -1,3 +1,5 @@
+set (PROJECTNAME MyGUI.OpenGLPlatform)
+
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
@@ -5,14 +7,14 @@ include_directories(
  ${MYGUI_SOURCE_DIR}/Common
 )
 
-include(MyGUI.OpenGLPlatform.list)
+include(${PROJECTNAME}.list)
 
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DGL_GLEXT_PROTOTYPES)
 
-add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUI.OpenGLPlatform MyGUIEngine)
+add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(MyGUI.OpenGLPlatform ${OPENGL_LIBRARIES} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${OPENGL_LIBRARIES} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
 link_directories(${OPENGL_LIB_DIR} ${PNG_LIBRARY})
