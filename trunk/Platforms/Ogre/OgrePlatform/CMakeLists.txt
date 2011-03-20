@@ -1,22 +1,24 @@
+set (PROJECTNAME MyGUI.OgrePlatform)
+
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${OGRE_INCLUDE_DIR}
 )
 
-include(MyGUI.OgrePlatform.list)
+include(${PROJECTNAME}.list)
 
-add_library(MyGUI.OgrePlatform ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUI.OgrePlatform MyGUIEngine)
+add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(MyGUI.OgrePlatform ${OGRE_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES})
 link_directories(${OGRE_LIB_DIR})
 
 install(FILES ${HEADER_FILES}
 	DESTINATION include/MYGUI
 )
-mygui_install_target(MyGUI.OgrePlatform "")
+mygui_install_target(${PROJECTNAME} "")
 
 # platform specific dependencies
 if (APPLE)
@@ -28,4 +30,4 @@ endif ()
 install(FILES ${HEADER_FILES}
 	DESTINATION include/MYGUI
 )
-mygui_install_target(MyGUI.OgrePlatform "")
+mygui_install_target(${PROJECTNAME} "")
