@@ -46,7 +46,6 @@ namespace tools
 		void updateRegionSize();
 		void updateRegionPosition();
 		void updateTextureVisible();
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		void updatePosition();
 		void updateVisible();
@@ -56,8 +55,6 @@ namespace tools
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 		void updateFromCoordValue();
-
-		int toGrid(int _value);
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
@@ -90,7 +87,6 @@ namespace tools
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 		MyGUI::IntCoord mCoordValue;
-		int mGridStep;
 	};
 
 } // namespace tools

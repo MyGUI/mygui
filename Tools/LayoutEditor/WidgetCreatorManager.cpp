@@ -9,7 +9,7 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "SettingsManager.h"
+#include "Grid.h"
 
 template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName("WidgetCreatorManager");
@@ -21,7 +21,6 @@ namespace tools
 		mCreateMode(false),
 		mStartNewWidget(false),
 		mNewWidget(nullptr),
-		mGridStep(0),
 		mPopupMode(false)
 	{
 	}
@@ -32,14 +31,10 @@ namespace tools
 
 	void WidgetCreatorManager::initialise()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &WidgetCreatorManager::notifySettingsChanged);
 	}
 
 	void WidgetCreatorManager::shutdown()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &WidgetCreatorManager::notifySettingsChanged);
-
 		resetWidget();
 	}
 
@@ -90,11 +85,6 @@ namespace tools
 	{
 		mStartNewWidget = true;
 		mStartPoint = _point;
-		if (!MyGUI::InputManager::getInstance().isShiftPressed())
-		{
-			mStartPoint.left += mGridStep / 2;
-			mStartPoint.top += mGridStep / 2;
-		}
 
 		resetWidget();
 
@@ -149,8 +139,8 @@ namespace tools
 
 			if (!MyGUI::InputManager::getInstance().isShiftPressed())
 			{
-				mStartPoint.left = toGrid(mStartPoint.left);
-				mStartPoint.top = toGrid(mStartPoint.top);
+				mStartPoint.left = Grid::getInstance().toGrid(mStartPoint.left);
+				mStartPoint.top = Grid::getInstance().toGrid(mStartPoint.top);
 			}
 		}
 
@@ -206,30 +196,9 @@ namespace tools
 		}
 	}
 
-	void WidgetCreatorManager::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
-	}
-
-	int WidgetCreatorManager::toGrid(int _value) const
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
-	}
-
 	MyGUI::IntCoord WidgetCreatorManager::getCoordNewWidget(const MyGUI::IntPoint& _point)
 	{
 		MyGUI::IntPoint point = _point;
-		if (!MyGUI::InputManager::getInstance().isShiftPressed())
-		{
-			point.left += mGridStep / 2;
-			point.top += mGridStep / 2;
-		}
 
 		MyGUI::Widget* parent = mNewWidget->getParent();
 		if (parent != nullptr && !mNewWidget->isRootWidget())
@@ -237,8 +206,8 @@ namespace tools
 
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
-			point.left = toGrid(point.left);
-			point.top = toGrid(point.top);
+			point.left = Grid::getInstance().toGrid(point.left);
+			point.top = Grid::getInstance().toGrid(point.top);
 		}
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord(

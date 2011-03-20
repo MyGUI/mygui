@@ -31,7 +31,6 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateSkinProperties();
@@ -42,8 +41,6 @@ namespace tools
 		void updateCoord();
 
 		void updateFromCoordValue();
-
-		int toGrid(int _value);
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
@@ -70,7 +67,6 @@ namespace tools
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
-		int mGridStep;
 	};
 
 } // namespace tools

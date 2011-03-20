@@ -32,7 +32,6 @@ namespace tools
 	private:
 		void notifyChangePosition();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 
 		virtual void updateSkinProperties();
 		virtual void updateStateProperties();
@@ -53,7 +52,6 @@ namespace tools
 		void drawUnselectedStates(std::vector<MyGUI::IntCoord>& _coords);
 
 		void updateFromPointValue();
-		int toGrid(int _value);
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void CommandMoveRight(const MyGUI::UString& _commandName, bool& _result);
@@ -73,7 +71,6 @@ namespace tools
 		MyGUI::IntSize mSizeValue;
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
-		int mGridStep;
 		MyGUI::IntPoint mPointValue;
 	};
 

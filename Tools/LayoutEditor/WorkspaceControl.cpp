@@ -7,6 +7,7 @@
 #include "UndoManager.h"
 #include "Localise.h"
 #include "MyGUI_RTTLayer.h"
+#include "Grid.h"
 
 namespace tools
 {
@@ -14,7 +15,6 @@ namespace tools
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
-		mGridStep(0),
 		mCurrentWidget(nullptr),
 		mMoveableWidget(false),
 		mPositionSelectorCreatorControl(nullptr),
@@ -34,9 +34,6 @@ namespace tools
 		addSelectorControl(mPositionSelectorCreatorControl);
 		mPositionSelectorCreatorControl->setEnabled(false);
 		mPositionSelectorCreatorControl->setVisible(false);
-
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &WorkspaceControl::notifySettingsChanged);
 
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
 		notifyChangeSelectedWidget(nullptr);
@@ -82,16 +79,8 @@ namespace tools
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 		WidgetSelectorManager::getInstance().eventChangeSelectedWidget -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectedWidget);
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &WorkspaceControl::notifySettingsChanged);
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &WorkspaceControl::notifyChangePosition);
-	}
-
-	int WorkspaceControl::toGrid(int _value)
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
 	}
 
 	void WorkspaceControl::notifyChangePosition()
@@ -118,33 +107,33 @@ namespace tools
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
 				int right = coord.right();
-				coord.left = toGrid(coord.left + (mGridStep / 2));
+				coord.left = Grid::getInstance().toGrid(coord.left);
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.width != 0)
 			{
-				int right = toGrid(coord.right() + (mGridStep / 2));
+				int right = Grid::getInstance().toGrid(coord.right());
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.left != 0)
 			{
-				coord.left = toGrid(coord.left + (mGridStep / 2));
+				coord.left = Grid::getInstance().toGrid(coord.left);
 			}
 
 			if (actionScale.top != 0 && actionScale.height != 0)
 			{
 				int bottom = coord.bottom();
-				coord.top = toGrid(coord.top + (mGridStep / 2));
+				coord.top = Grid::getInstance().toGrid(coord.top);
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.height != 0)
 			{
-				int bottom = toGrid(coord.bottom() + (mGridStep / 2));
+				int bottom = Grid::getInstance().toGrid(coord.bottom());
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.top != 0)
 			{
-				coord.top = toGrid(coord.top + (mGridStep / 2));
+				coord.top = Grid::getInstance().toGrid(coord.top);
 			}
 
 			if (coord != mCoordValue)
@@ -158,15 +147,6 @@ namespace tools
 			setWidgetCoord(mCurrentWidget, mCoordValue);
 
 		UndoManager::getInstance().addValue(PR_POSITION);
-	}
-
-	void WorkspaceControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
 	}
 
 	void WorkspaceControl::notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget)
@@ -283,7 +263,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left = toGrid(--mCoordValue.left);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Previous);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -299,7 +279,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Next);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -315,7 +295,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top = toGrid(--mCoordValue.top);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Previous);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -331,7 +311,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Next);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -347,7 +327,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -363,7 +343,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -379,7 +359,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -395,7 +375,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
