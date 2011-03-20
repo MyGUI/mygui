@@ -5,9 +5,9 @@
 */
 #include "Precompiled.h"
 #include "SeparatorTextureControl.h"
-#include "SettingsManager.h"
 #include "CommandManager.h"
 #include "Localise.h"
+#include "Grid.h"
 
 namespace tools
 {
@@ -16,7 +16,6 @@ namespace tools
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
 		mVerticalSelectorControl(nullptr),
-		mGridStep(0),
 		mValue(0)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
@@ -41,9 +40,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveTop));
 		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &SeparatorTextureControl::CommandGridMoveBottom));
 
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SeparatorTextureControl::notifySettingsChanged);
-
 		initialiseAdvisor();
 
 		updateCaption();
@@ -52,8 +48,6 @@ namespace tools
 	SeparatorTextureControl::~SeparatorTextureControl()
 	{
 		shutdownAdvisor();
-
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifySettingsChanged);
 
 		mHorizontalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
 		mVerticalSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SeparatorTextureControl::notifyChangePosition);
@@ -228,12 +222,12 @@ namespace tools
 
 			if (actionScaleV.left != 0)
 			{
-				point.left = toGrid(point.left + (mGridStep / 2));
+				point.left = Grid::getInstance().toGrid(point.left);
 			}
 
 			if (actionScaleH.top != 0)
 			{
-				point.top = toGrid(point.top + (mGridStep / 2));
+				point.top = Grid::getInstance().toGrid(point.top);
 			}
 
 			if (point != pointValue)
@@ -381,22 +375,6 @@ namespace tools
 		}
 	}
 
-	int SeparatorTextureControl::toGrid(int _value)
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
-	}
-
-	void SeparatorTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
-	}
-
 	void SeparatorTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
@@ -468,11 +446,11 @@ namespace tools
 
 		MyGUI::Align corner = getCorner();
 		if (corner.isLeft())
-			mValue = toGrid(--mValue);
+			mValue = Grid::getInstance().toGrid(mValue, Grid::Previous);
 		else if (corner.isRight())
 		{
 			int value = mTextureRegion.width - mValue;
-			value = toGrid(--value);
+			value = Grid::getInstance().toGrid(value, Grid::Previous);
 			mValue = mTextureRegion.width - value;
 		}
 
@@ -488,11 +466,11 @@ namespace tools
 
 		MyGUI::Align corner = getCorner();
 		if (corner.isLeft())
-			mValue = toGrid(mValue + mGridStep);
+			mValue = Grid::getInstance().toGrid(mValue, Grid::Next);
 		else if (corner.isRight())
 		{
 			int value = mTextureRegion.width - mValue;
-			value = toGrid(value + mGridStep);
+			value = Grid::getInstance().toGrid(value, Grid::Next);
 			mValue = mTextureRegion.width - value;
 		}
 
@@ -508,11 +486,11 @@ namespace tools
 
 		MyGUI::Align corner = getCorner();
 		if (corner.isTop())
-			mValue = toGrid(--mValue);
+			mValue = Grid::getInstance().toGrid(mValue, Grid::Previous);
 		else if (corner.isBottom())
 		{
 			int value = mTextureRegion.height - mValue;
-			value = toGrid(--value);
+			value = Grid::getInstance().toGrid(value, Grid::Previous);
 			mValue = mTextureRegion.height - value;
 		}
 
@@ -528,11 +506,11 @@ namespace tools
 
 		MyGUI::Align corner = getCorner();
 		if (corner.isTop())
-			mValue = toGrid(mValue + mGridStep);
+			mValue = Grid::getInstance().toGrid(mValue, Grid::Next);
 		else if (corner.isBottom())
 		{
 			int value = mTextureRegion.height - mValue;
-			value = toGrid(value + mGridStep);
+			value = Grid::getInstance().toGrid(value, Grid::Next);
 			mValue = mTextureRegion.height - value;
 		}
 

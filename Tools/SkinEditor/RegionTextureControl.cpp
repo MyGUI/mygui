@@ -6,8 +6,8 @@
 #include "Precompiled.h"
 #include "RegionTextureControl.h"
 #include "CommandManager.h"
-#include "SettingsManager.h"
 #include "Localise.h"
+#include "Grid.h"
 
 namespace tools
 {
@@ -15,8 +15,7 @@ namespace tools
 		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mAreaSelectorControl(nullptr),
-		mPositionSelectorControl(nullptr),
-		mGridStep(0)
+		mPositionSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
@@ -48,9 +47,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeTop));
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &RegionTextureControl::CommandGridSizeBottom));
 
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &RegionTextureControl::notifySettingsChanged);
-
 		initialiseAdvisor();
 
 		updateCaption();
@@ -58,8 +54,6 @@ namespace tools
 
 	RegionTextureControl::~RegionTextureControl()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &RegionTextureControl::notifySettingsChanged);
-
 		shutdownAdvisor();
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &RegionTextureControl::notifyChangePosition);
@@ -227,33 +221,33 @@ namespace tools
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
 				int right = coord.right();
-				coord.width = toGrid(coord.width + (mGridStep / 2));
-				coord.left = right - coord.width;
+				coord.left = Grid::getInstance().toGrid(coord.left);
+				coord.width = right - coord.left;
 			}
 			else if (actionScale.width != 0)
 			{
-				int right = toGrid(coord.right() + (mGridStep / 2));
+				int right = Grid::getInstance().toGrid(coord.right());
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.left != 0)
 			{
-				coord.left = toGrid(coord.left + (mGridStep / 2));
+				coord.left = Grid::getInstance().toGrid(coord.left);
 			}
 
 			if (actionScale.top != 0 && actionScale.height != 0)
 			{
 				int bottom = coord.bottom();
-				coord.height = toGrid(coord.height + (mGridStep / 2));
-				coord.top = bottom - coord.height;
+				coord.top = Grid::getInstance().toGrid(coord.top);
+				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.height != 0)
 			{
-				int bottom = toGrid(coord.bottom() + (mGridStep / 2));
+				int bottom = Grid::getInstance().toGrid(coord.bottom());
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.top != 0)
 			{
-				coord.top = toGrid(coord.top + (mGridStep / 2));
+				coord.top = Grid::getInstance().toGrid(coord.top);
 			}
 
 			if (coord != mCoordValue)
@@ -368,13 +362,6 @@ namespace tools
 		}
 	}
 
-	int RegionTextureControl::toGrid(int _value)
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
-	}
-
 	void RegionTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
@@ -424,7 +411,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left = toGrid(--mCoordValue.left);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Previous);
 		updateFromCoordValue();
 
 		_result = true;
@@ -435,7 +422,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Next);
 		updateFromCoordValue();
 
 		_result = true;
@@ -446,7 +433,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top = toGrid(--mCoordValue.top);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Previous);
 		updateFromCoordValue();
 
 		_result = true;
@@ -457,7 +444,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Next);
 		updateFromCoordValue();
 
 		_result = true;
@@ -468,7 +455,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -479,7 +466,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -490,7 +477,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -501,7 +488,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -549,15 +536,6 @@ namespace tools
 		updateFromCoordValue();
 
 		_result = true;
-	}
-
-	void RegionTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
 	}
 
 	void RegionTextureControl::onChangeScale()

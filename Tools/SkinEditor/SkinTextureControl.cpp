@@ -7,15 +7,14 @@
 #include "SkinTextureControl.h"
 #include "SkinManager.h"
 #include "CommandManager.h"
-#include "SettingsManager.h"
 #include "Localise.h"
+#include "Grid.h"
 
 namespace tools
 {
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr),
-		mGridStep(0)
+		mAreaSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
@@ -40,9 +39,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeTop));
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
-
 		initialiseAdvisor();
 
 		updateCaption();
@@ -50,8 +46,6 @@ namespace tools
 
 	SkinTextureControl::~SkinTextureControl()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SkinTextureControl::notifySettingsChanged);
-
 		shutdownAdvisor();
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &SkinTextureControl::notifyChangePosition);
@@ -121,13 +115,6 @@ namespace tools
 			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
 	}
 
-	int SkinTextureControl::toGrid(int _value)
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
-	}
-
 	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
@@ -177,7 +164,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left = toGrid(--mCoordValue.left);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Previous);
 		updateFromCoordValue();
 
 		_result = true;
@@ -188,7 +175,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.left = toGrid(mCoordValue.left + mGridStep);
+		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Next);
 		updateFromCoordValue();
 
 		_result = true;
@@ -199,7 +186,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top = toGrid(--mCoordValue.top);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Previous);
 		updateFromCoordValue();
 
 		_result = true;
@@ -210,7 +197,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.top = toGrid(mCoordValue.top + mGridStep);
+		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Next);
 		updateFromCoordValue();
 
 		_result = true;
@@ -221,7 +208,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() - 1) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -232,7 +219,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.width = toGrid(mCoordValue.right() + mGridStep) - mCoordValue.left;
+		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		_result = true;
@@ -243,7 +230,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() - 1) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -254,7 +241,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mCoordValue.height = toGrid(mCoordValue.bottom() + mGridStep) - mCoordValue.top;
+		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		_result = true;
@@ -317,33 +304,33 @@ namespace tools
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
 				int right = coord.right();
-				coord.width = toGrid(coord.width + (mGridStep / 2));
+				coord.width = Grid::getInstance().toGrid(coord.width);
 				coord.left = right - coord.width;
 			}
 			else if (actionScale.width != 0)
 			{
-				int right = toGrid(coord.right() + (mGridStep / 2));
+				int right = Grid::getInstance().toGrid(coord.right());
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.left != 0)
 			{
-				coord.left = toGrid(coord.left + (mGridStep / 2));
+				coord.left = Grid::getInstance().toGrid(coord.left);
 			}
 
 			if (actionScale.top != 0 && actionScale.height != 0)
 			{
 				int bottom = coord.bottom();
-				coord.height = toGrid(coord.height + (mGridStep / 2));
+				coord.height = Grid::getInstance().toGrid(coord.height);
 				coord.top = bottom - coord.height;
 			}
 			else if (actionScale.height != 0)
 			{
-				int bottom = toGrid(coord.bottom() + (mGridStep / 2));
+				int bottom = Grid::getInstance().toGrid(coord.bottom());
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.top != 0)
 			{
-				coord.top = toGrid(coord.top + (mGridStep / 2));
+				coord.top = Grid::getInstance().toGrid(coord.top);
 			}
 
 			if (coord != mCoordValue)
@@ -355,15 +342,6 @@ namespace tools
 
 		if (getCurrentSkin() != nullptr)
 			getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
-	}
-
-	void SkinTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
 	}
 
 	void SkinTextureControl::onChangeScale()

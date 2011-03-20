@@ -6,16 +6,15 @@
 #include "Precompiled.h"
 #include "StateTextureControl.h"
 #include "SkinManager.h"
-#include "SettingsManager.h"
 #include "CommandManager.h"
 #include "Localise.h"
+#include "Grid.h"
 
 namespace tools
 {
 	StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr),
-		mGridStep(0)
+		mAreaSelectorControl(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
@@ -36,9 +35,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveTop));
 		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &StateTextureControl::CommandGridMoveBottom));
 
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &StateTextureControl::notifySettingsChanged);
-
 		initialiseAdvisor();
 
 		updateCaption();
@@ -47,8 +43,6 @@ namespace tools
 	StateTextureControl::~StateTextureControl()
 	{
 		shutdownAdvisor();
-
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &StateTextureControl::notifySettingsChanged);
 
 		mAreaSelectorControl->eventChangePosition -= MyGUI::newDelegate(this, &StateTextureControl::notifyChangePosition);
 	}
@@ -125,12 +119,12 @@ namespace tools
 
 			if (actionScale.left != 0)
 			{
-				point.left = toGrid(point.left + (mGridStep / 2));
+				point.left = Grid::getInstance().toGrid(point.left);
 			}
 
 			if (actionScale.top != 0)
 			{
-				point.top = toGrid(point.top + (mGridStep / 2));
+				point.top = Grid::getInstance().toGrid(point.top);
 			}
 
 			if (point != mPointValue)
@@ -313,7 +307,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mPointValue.left = toGrid(--mPointValue.left);
+		mPointValue.left = Grid::getInstance().toGrid(mPointValue.left, Grid::Previous);
 		updateFromPointValue();
 
 		_result = true;
@@ -324,7 +318,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mPointValue.left = toGrid(mPointValue.left + mGridStep);
+		mPointValue.left = Grid::getInstance().toGrid(mPointValue.left, Grid::Next);
 		updateFromPointValue();
 
 		_result = true;
@@ -335,7 +329,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mPointValue.top = toGrid(--mPointValue.top);
+		mPointValue.top = Grid::getInstance().toGrid(mPointValue.top, Grid::Previous);
 		updateFromPointValue();
 
 		_result = true;
@@ -346,26 +340,10 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		mPointValue.top = toGrid(mPointValue.top + mGridStep);
+		mPointValue.top = Grid::getInstance().toGrid(mPointValue.top, Grid::Next);
 		updateFromPointValue();
 
 		_result = true;
-	}
-
-	int StateTextureControl::toGrid(int _value)
-	{
-		if (mGridStep < 1)
-			return _value;
-		return _value / mGridStep * mGridStep;
-	}
-
-	void StateTextureControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
-	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
 	}
 
 	void StateTextureControl::onChangeScale()
