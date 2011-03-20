@@ -133,8 +133,6 @@ namespace base
 		size_t handle = 0;
 		mWindow->getCustomAttribute("WINDOW", &handle);
 
-		windowResized(mWindow);
-
 		createGui();
 
 		createInput(handle);
@@ -142,6 +140,8 @@ namespace base
 		createPointerManager(handle);
 
 		createScene();
+
+		windowResized(mWindow);
 
 		return true;
 	}

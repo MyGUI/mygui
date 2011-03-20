@@ -149,8 +149,6 @@ namespace base
 			return false;
 		}
 
-		_windowResized();
-
 		createGui();
 
 		createInput((size_t)hWnd);
@@ -158,6 +156,8 @@ namespace base
 		createPointerManager((size_t)hWnd);
 
 		createScene();
+
+		_windowResized();
 
 		return true;
 	}
