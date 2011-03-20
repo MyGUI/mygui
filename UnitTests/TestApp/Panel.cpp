@@ -83,7 +83,7 @@ namespace MyGUI
 		return IntSize();
 	}
 
-	void Panel::invalidateMeasure(Widget* _widget)
+	/*void Panel::invalidateMeasure(Widget* _widget)
 	{
 		if (_widget->getParent() != nullptr)
 		{
@@ -99,20 +99,24 @@ namespace MyGUI
 			if (panel != nullptr)
 				Panel::updateArrange(panel, IntCoord(0, 0, size.width, size.height));
 		}
-	}
+	}*/
 
 	void Panel::onWidgetCreated(Widget* _widget)
 	{
 		Base::onWidgetCreated(_widget);
 
-		invalidateMeasure(this);
+		//invalidateMeasure(this);
 	}
 
 	void Panel::onWidgetDestroy(Widget* _widget)
 	{
-		invalidateMeasure(this);
+		//invalidateMeasure(this);
 
 		Base::onWidgetDestroy(_widget);
+	}
+
+	void Panel::invalidateMeasure()
+	{
 	}
 
 } // namespace MyGUI

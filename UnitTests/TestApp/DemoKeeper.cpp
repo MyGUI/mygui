@@ -28,6 +28,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>("Widget");
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::Align::Default, "Main");
+		window->eventWindowChangeCoord += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 		MyGUI::IntCoord coord = window->getClientCoord();
 		//MyGUI::ScrollViewPanel* scrollViewPanel = window->createWidget<MyGUI::ScrollViewPanel>("ScrollView", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 		MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
@@ -35,15 +36,15 @@ namespace demo
 		MyGUI::TextBox* text = stackPanel->createWidget<MyGUI::TextBox>("Button", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
 		//const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
 		//const char* fonts[3] = { "DejaVuSansFont.17", "DejaVuSansFont.14", "MicroFont.11" };
-		text->setCaption("test");
-		text->setTextAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
+		//text->setCaption("test");
+		//text->setTextAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
 		//text->setFontHeight(rand() % 50 + 10);
-		text->setFontName("MicroFont.11");
-		MyGUI::Panel::invalidateMeasure(text);
+		//text->setFontName("MicroFont.11");
+		//MyGUI::Panel::invalidateMeasure(text);
 
 		//addText(stackPanel);
 
-		/*for (size_t indexLine = 0; indexLine < 20; ++ indexLine)
+		for (size_t indexLine = 0; indexLine < 20; ++ indexLine)
 		{
 			MyGUI::WrapPanel* panel = stackPanel->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
 			for (size_t index = 0; index < 20; ++ index)
@@ -53,9 +54,10 @@ namespace demo
 				else
 					addImage(panel);
 			}
-		}*/
+		}
 
 		//MyGUI::Panel::invalidateMeasure(scrollViewPanel);
+		notifyWindowChangeCoord(window);
 	}
 
 	void DemoKeeper::destroyScene()
@@ -75,7 +77,7 @@ namespace demo
 		text->setFontHeight(rand() % 50 + 10);
 		text->setFontName(fonts[rand() %3 ]);
 
-		MyGUI::Panel::invalidateMeasure(text);
+		//MyGUI::Panel::invalidateMeasure(text);
 	}
 
 	void DemoKeeper::addImage(MyGUI::Widget* _parent)
@@ -84,6 +86,17 @@ namespace demo
 		MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, sizeImage, sizeImage), MyGUI::Align::Default);
 		const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
 		image->setItemResource(names[rand() % 8]);
+	}
+
+	void DemoKeeper::notifyWindowChangeCoord(MyGUI::Window* _sender)
+	{
+		/*MyGUI::EnumeratorWidgetPtr child = _sender->getEnumerator();
+		while (child.next())
+		{
+			MyGUI::Panel* panel = child->castType<MyGUI::Panel>(false);
+			if (panel != nullptr)
+				panel->invalidateMeasure();
+		}*/
 	}
 
 } // namespace demo
