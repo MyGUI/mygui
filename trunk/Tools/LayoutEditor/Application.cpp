@@ -23,6 +23,7 @@
 #include "ColourManager.h"
 #include "EditorToolTip.h"
 #include "PropertyFieldManager.h"
+#include "Grid.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -122,6 +123,9 @@ namespace tools
 		new PropertyFieldManager();
 		PropertyFieldManager::getInstance().initialise();
 
+		new Grid();
+		Grid::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -162,6 +166,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+		
+		Grid::getInstance().shutdown();
+		delete Grid::getInstancePtr();
 
 		PropertyFieldManager::getInstance().shutdown();
 		delete PropertyFieldManager::getInstancePtr();

@@ -27,7 +27,6 @@ namespace tools
 		virtual void onChangeScale();
 
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
 		void notifyChangePosition();
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
@@ -38,7 +37,6 @@ namespace tools
 		void updateFromCoordValue();
 		void updateSelectionFromValue();
 
-		int toGrid(int _value);
 		void updateSelectorEnabled();
 
 		void updateCaption();
@@ -73,7 +71,6 @@ namespace tools
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
-		int mGridStep;
 		MyGUI::Widget* mCurrentWidget;
 		bool mMoveableWidget;
 		PositionSelectorControl* mPositionSelectorCreatorControl;

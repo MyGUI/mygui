@@ -43,11 +43,8 @@ namespace tools
 		Event_ChangeSelector eventChangeSelector;
 
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
-
 		void resetWidget();
 
-		int toGrid(int _value) const;
 		MyGUI::IntCoord getCoordNewWidget(const MyGUI::IntPoint& _point);
 		void resetAllCreatorInfo();
 
@@ -58,7 +55,6 @@ namespace tools
 		bool mStartNewWidget;
 		MyGUI::IntPoint mStartPoint;
 		MyGUI::Widget* mNewWidget;
-		int mGridStep;
 		bool mPopupMode;
 	};
 

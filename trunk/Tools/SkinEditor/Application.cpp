@@ -19,6 +19,7 @@
 #include "SettingsManager.h"
 #include "ColourManager.h"
 #include "Localise.h"
+#include "Grid.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -88,6 +89,9 @@ namespace tools
 		new ColourManager();
 		ColourManager::getInstance().initialise();
 
+		new Grid();
+		Grid::getInstance().initialise();
+
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
@@ -128,6 +132,9 @@ namespace tools
 
 		delete mTestState;
 		mTestState = nullptr;
+
+		Grid::getInstance().shutdown();
+		delete Grid::getInstancePtr();
 
 		ColourManager::getInstance().shutdown();
 		delete ColourManager::getInstancePtr();
