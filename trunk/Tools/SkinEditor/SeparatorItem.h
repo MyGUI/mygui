@@ -19,7 +19,7 @@ namespace tools
 		SeparatorItem();
 		~SeparatorItem();
 
-		const MyGUI::UString& getName();
+		const MyGUI::UString& getName() const;
 		void setName(const MyGUI::UString& _value);
 
 		MyGUI::Align getCorner();

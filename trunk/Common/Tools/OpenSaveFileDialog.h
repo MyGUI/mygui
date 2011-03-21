@@ -20,12 +20,12 @@ namespace tools
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
 		void setCurrentFolder(const MyGUI::UString& _value);
-		const MyGUI::UString& getCurrentFolder();
+		const MyGUI::UString& getCurrentFolder() const;
 
 		void setFileName(const MyGUI::UString& _value);
 		const MyGUI::UString& getFileName() const;
 
-		const MyGUI::UString& getMode();
+		const MyGUI::UString& getMode() const;
 		void setMode(const MyGUI::UString& _value);
 
 		typedef std::vector<MyGUI::UString> VectorUString;

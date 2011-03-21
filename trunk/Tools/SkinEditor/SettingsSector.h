@@ -25,7 +25,7 @@ namespace tools
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
-		const MyGUI::UString& getName();
+		const MyGUI::UString& getName() const;
 		void setName(const MyGUI::UString& _value);
 
 		bool getExistProperty(const MyGUI::UString& _propertyName);

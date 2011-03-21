@@ -35,7 +35,7 @@ namespace demo
 		void notifyChangeMousePointer(const std::string& _name);
 		void updateCursor();
 
-		bool isHighLevelContext();
+		bool isHighLevelContext() const;
 		void _setPointer(const std::string& _name);
 
 	private:

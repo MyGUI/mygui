@@ -219,7 +219,7 @@ namespace tools
 		setCurrentFolder(_sender->getOnlyText());
 	}
 
-	const MyGUI::UString& OpenSaveFileDialog::getCurrentFolder()
+	const MyGUI::UString& OpenSaveFileDialog::getCurrentFolder() const
 	{
 		return mCurrentFolder;
 	}
@@ -229,7 +229,7 @@ namespace tools
 		return mFileName;
 	}
 
-	const MyGUI::UString& OpenSaveFileDialog::getMode()
+	const MyGUI::UString& OpenSaveFileDialog::getMode() const
 	{
 		return mMode;
 	}

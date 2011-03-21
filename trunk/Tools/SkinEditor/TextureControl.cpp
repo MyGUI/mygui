@@ -60,7 +60,7 @@ namespace tools
 		updateScale();
 	}
 
-	const MyGUI::IntSize& TextureControl::getTextureSize()
+	const MyGUI::IntSize& TextureControl::getTextureSize() const
 	{
 		return mTextureSize;
 	}
@@ -75,7 +75,7 @@ namespace tools
 		updateScale();
 	}
 
-	const MyGUI::IntCoord& TextureControl::getTextureRegion()
+	const MyGUI::IntCoord& TextureControl::getTextureRegion() const
 	{
 		return mTextureRegion;
 	}
@@ -92,7 +92,7 @@ namespace tools
 		updateColours();
 	}
 
-	MyGUI::Colour TextureControl::getColour()
+	MyGUI::Colour TextureControl::getColour() const
 	{
 		return mCurrentColour;
 	}
@@ -267,7 +267,7 @@ namespace tools
 	{
 	}
 
-	double TextureControl::getScale()
+	double TextureControl::getScale() const
 	{
 		return mScaleValue;
 	}

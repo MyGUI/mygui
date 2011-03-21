@@ -47,7 +47,7 @@ namespace tools
 		}
 	}
 
-	const MyGUI::UString& SettingsSector::getName()
+	const MyGUI::UString& SettingsSector::getName() const
 	{
 		return mName;
 	}
@@ -59,12 +59,14 @@ namespace tools
 
 	bool SettingsSector::getExistProperty(const MyGUI::UString& _propertyName)
 	{
+		// TODO CPPCHECK
 		MapUString::const_iterator item = mProperties.find(_propertyName);
 		return item != mProperties.end();
 	}
 
 	const MyGUI::UString& SettingsSector::getPropertyValue(const MyGUI::UString& _propertyName)
 	{
+		// TODO CPPCHECK
 		MapUString::const_iterator item = mProperties.find(_propertyName);
 		if (item != mProperties.end())
 			return (*item).second;
