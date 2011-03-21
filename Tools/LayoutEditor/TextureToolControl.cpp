@@ -150,7 +150,7 @@ namespace tools
 		onChangeActivate();
 	}
 
-	bool TextureToolControl::getActivate()
+	bool TextureToolControl::getActivate() const
 	{
 		return mActivate;
 	}

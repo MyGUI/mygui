@@ -19,7 +19,7 @@ namespace tools
 		virtual ~TextureToolControl();
 
 		void setActivate(bool _value);
-		bool getActivate();
+		bool getActivate() const;
 
 	protected:
 		virtual void onMouseWheel(int _rel);

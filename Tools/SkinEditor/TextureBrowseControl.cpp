@@ -62,7 +62,7 @@ namespace tools
 		eventEndDialog(this, false);
 	}
 
-	const std::string& TextureBrowseControl::getTextureName()
+	const std::string& TextureBrowseControl::getTextureName() const
 	{
 		return mCurrentTextureName;
 	}

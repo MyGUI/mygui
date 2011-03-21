@@ -208,7 +208,7 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	bool OpenGLRenderManager::isPixelBufferObjectSupported()
+	bool OpenGLRenderManager::isPixelBufferObjectSupported() const
 	{
 		return mPboIsSupported;
 	}

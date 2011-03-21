@@ -22,10 +22,10 @@ namespace tools
 
 	protected:
 		void setTextureName(const MyGUI::UString& _value);
-		const MyGUI::IntSize& getTextureSize();
+		const MyGUI::IntSize& getTextureSize() const;
 
 		void setTextureRegion(const MyGUI::IntCoord& _value);
-		const MyGUI::IntCoord& getTextureRegion();
+		const MyGUI::IntCoord& getTextureRegion() const;
 
 		template<typename T>
 		void addSelectorControl(T * & _control)
@@ -35,10 +35,10 @@ namespace tools
 		}
 
 		void setColour(MyGUI::Colour _value);
-		MyGUI::Colour getColour();
+		MyGUI::Colour getColour() const;
 
 		void setScale(double _value);
-		double getScale();
+		double getScale() const;
 
 		virtual void onChangeScale();
 

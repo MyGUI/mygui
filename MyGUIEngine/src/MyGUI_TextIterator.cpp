@@ -142,7 +142,7 @@ namespace MyGUI
 	}
 
 	// возвращает цвет
-	bool TextIterator::getTagColour(UString& _colour)
+	bool TextIterator::getTagColour(UString& _colour) const
 	{
 		if (mCurrent == mEnd) return false;
 
@@ -279,7 +279,7 @@ namespace MyGUI
 	}
 
 	// возвращает цвет
-	bool TextIterator::getTagColour(UString& _colour, UString::iterator& _iter)
+	bool TextIterator::getTagColour(UString& _colour, UString::iterator& _iter) const
 	{
 		if ( (_iter == mEnd) || ((*_iter) != L'#') ) return false;
 
