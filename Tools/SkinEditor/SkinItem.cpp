@@ -162,7 +162,7 @@ namespace tools
 		delete mPropertySet;
 	}
 
-	const MyGUI::UString& SkinItem::getName()
+	const MyGUI::UString& SkinItem::getName() const
 	{
 		return mName;
 	}

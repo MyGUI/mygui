@@ -47,7 +47,7 @@ namespace tools
 		}
 	}
 
-	const MyGUI::UString& SettingsSector::getName()
+	const MyGUI::UString& SettingsSector::getName() const
 	{
 		return mName;
 	}

@@ -21,7 +21,7 @@ namespace tools
 		TextureBrowseControl();
 		virtual ~TextureBrowseControl();
 
-		const std::string& getTextureName();
+		const std::string& getTextureName() const;
 		void setTextureName(const std::string& _value);
 
 		void setTextures(const MyGUI::VectorString& _textures);

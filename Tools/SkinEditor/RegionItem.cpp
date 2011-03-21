@@ -26,7 +26,7 @@ namespace tools
 		delete mPropertySet;
 	}
 
-	const MyGUI::UString& RegionItem::getName()
+	const MyGUI::UString& RegionItem::getName() const
 	{
 		return mName;
 	}

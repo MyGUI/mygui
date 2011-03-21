@@ -44,7 +44,7 @@ namespace MyGUI
 		UString getTagColour(bool _clear = false);
 
 		// возвращает цвет
-		bool getTagColour(UString& _colour);
+		bool getTagColour(UString& _colour) const;
 
 		// удаляет цвет
 		void clearTagColour();
@@ -97,7 +97,7 @@ namespace MyGUI
 
 	private:
 		// возвращает цвет
-		bool getTagColour(UString& _colour, UString::iterator& _iter);
+		bool getTagColour(UString& _colour, UString::iterator& _iter) const;
 
 		void insert(UString::iterator& _start, UString& _insert);
 

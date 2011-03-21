@@ -24,7 +24,7 @@ namespace tools
 		delete mPropertySet;
 	}
 
-	const MyGUI::UString& StateItem::getName()
+	const MyGUI::UString& StateItem::getName() const
 	{
 		return mName;
 	}

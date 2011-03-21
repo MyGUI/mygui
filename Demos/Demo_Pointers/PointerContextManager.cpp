@@ -22,7 +22,7 @@ namespace demo
 		updateCursor();
 	}
 
-	bool PointerContextManager::isHighLevelContext()
+	bool PointerContextManager::isHighLevelContext() const
 	{
 		if (!mContexts.empty())
 			return mContexts.back()->isHighLevel();

@@ -23,7 +23,7 @@ namespace tools
 		delete mPropertySet;
 	}
 
-	const MyGUI::UString& SeparatorItem::getName()
+	const MyGUI::UString& SeparatorItem::getName() const
 	{
 		return mName;
 	}

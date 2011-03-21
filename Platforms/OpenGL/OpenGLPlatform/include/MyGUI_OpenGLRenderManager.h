@@ -67,7 +67,7 @@ namespace MyGUI
 	/*internal:*/
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
-		bool isPixelBufferObjectSupported();
+		bool isPixelBufferObjectSupported() const;
 
 	private:
 		void destroyAllResources();

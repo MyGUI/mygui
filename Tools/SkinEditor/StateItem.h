@@ -19,7 +19,7 @@ namespace tools
 		StateItem();
 		~StateItem();
 
-		const MyGUI::UString& getName();
+		const MyGUI::UString& getName() const;
 		void setName(const MyGUI::UString& _value);
 
 		PropertySet* getPropertySet();
