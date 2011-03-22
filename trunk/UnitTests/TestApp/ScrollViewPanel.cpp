@@ -353,8 +353,7 @@ namespace MyGUI
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
-			// FIXME
-			Panel::updateMeasure(child.current(), IntSize(50000, 50000));
+			Panel::updateMeasure(child.current(), IntSize((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)()));
 			result = Panel::getDesiredSize(child.current());
 
 			break;

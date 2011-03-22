@@ -27,8 +27,8 @@ namespace MyGUI
 		/** Set widget position and size */
 		virtual void setCoord(const IntCoord& _value);
 
-		//static void invalidateMeasure(Widget* _widget);
-		void invalidateMeasure();
+		static void invalidateMeasure(Widget* _widget);
+		//void invalidateMeasure();
 		/*
 		Обновление размеров содержимого.
 		Метод updateMeasure вызывается для обновления mDesiredSize по нашему содержимому.
@@ -59,13 +59,13 @@ namespace MyGUI
 		В этом методе виджет должен сам учесть свои внутренние отступы Padding, размеры свой рамки и размер содержимого.
 		Если размер mDesiredSize будет больше _sizeAvailable то он усечется.
 		*/
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
+		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable) = 0;
 
 		/*
 		Метод overrideArrange для раставления дочерних виджетов.
 		Можно использовать размер mDesiredSize дочерних виджетов.
 		*/
-		virtual void overrideArrange();
+		virtual void overrideArrange() = 0;
 
 		virtual void onWidgetCreated(Widget* _widget);
 		virtual void onWidgetDestroy(Widget* _widget);
