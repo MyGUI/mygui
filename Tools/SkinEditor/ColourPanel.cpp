@@ -130,7 +130,7 @@ namespace tools
 
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint& _point)
 	{
-		// вычисляем цвет по положению курсора Altren 09.2008
+		// get colour by cursor position Altren 09.2008
 		float x = 1.0f * _point.left / mColourRect->getWidth();
 		float y = 1.0f * _point.top / mColourRect->getHeight();
 		if (x > 1) x = 1;
@@ -157,10 +157,10 @@ namespace tools
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		float sector_current = (float)_position / sector_size;
 
-		// текущий сектор
+		// current sector
 		size_t current = (size_t)sector_current;
 		assert(current < 6);
-		// смещение до следующего сектора от 0 до 1
+		// offset to the next sector from 0 to 1
 		float offfset = (sector_current - (float)current);
 
 		const MyGUI::Colour& from = mColourRange[current];
@@ -262,7 +262,7 @@ namespace tools
 
 		mScrollRange->setScrollPosition(pos);
 
-		// бонус для обрезки цвета под шкалу
+		// bonus for colour's cutoff under scale
 		mBaseColour.red = mColourRange[i].red + offset * (mColourRange[i+1].red - mColourRange[i].red);
 		mBaseColour.green = mColourRange[i].green + offset * (mColourRange[i+1].green - mColourRange[i].green);
 		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i+1].blue - mColourRange[i].blue);
