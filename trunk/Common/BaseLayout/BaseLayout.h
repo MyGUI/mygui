@@ -116,7 +116,7 @@ namespace wraps
 				if (mMainWidget == nullptr)
 				{
 					MYGUI_LOG(Warning, "Root widget with name '" << MAIN_WINDOW1 << "' or '" << MAIN_WINDOW2 << "'  not found. [" << mLayoutName << "]");
-					MYGUI_ASSERT(_throw, "No root widget. ['" << mLayoutName << "]");
+					MYGUI_ASSERT(!_throw, "No root widget. ['" << mLayoutName << "]");
 					if (_createFakeWidgets)
 						mMainWidget = _createFakeWidget<MyGUI::Widget>(_parent);
 				}
