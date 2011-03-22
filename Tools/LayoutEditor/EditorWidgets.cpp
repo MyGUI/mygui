@@ -449,14 +449,14 @@ namespace tools
 		{
 			skin = WidgetTypes::getInstance().findWidgetStyle(container->getType())->default_skin;
 
-			std::string tmp;
+			std::string skin_string;
 			if (skin.empty())
-				tmp = "empty skin";
+				skin_string = "empty skin";
 			else
-				tmp = "'" + skin + "'";
+				skin_string = "'" + skin + "'";
 
 			// FIXME : not translated string
-			std::string mess = MyGUI::utility::toString("'", container->getSkin(), "' skin not found , temporary changed to ", tmp);
+			std::string mess = MyGUI::utility::toString("'", container->getSkin(), "' skin not found , temporary changed to ", skin_string);
 			GroupMessage::getInstance().addMessage(mess, MyGUI::LogLevel::Error);
 		}
 

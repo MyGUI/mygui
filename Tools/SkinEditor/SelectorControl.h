@@ -32,7 +32,7 @@ namespace tools
 
 		MyGUI::IntPoint getPosition();
 		MyGUI::IntSize getSize();
-		const MyGUI::IntCoord& getCoord();
+		const MyGUI::IntCoord& getCoord() const;
 
 		bool getCapture();
 		MyGUI::IntCoord getActionScale();
