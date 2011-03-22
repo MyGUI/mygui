@@ -124,7 +124,7 @@ namespace tools
 		return mCoordValue.size();
 	}
 
-	const MyGUI::IntCoord& SelectorControl::getCoord()
+	const MyGUI::IntCoord& SelectorControl::getCoord() const
 	{
 		return mCoordValue;
 	}
