@@ -18,7 +18,7 @@ namespace tools
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
-		// сразу рисуем рамки для стейтов
+		//immediately draw a frames for states
 		std::vector<MyGUI::IntCoord> coords(8);
 		drawUnselectedStates(coords);
 

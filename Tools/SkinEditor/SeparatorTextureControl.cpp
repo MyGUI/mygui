@@ -20,7 +20,7 @@ namespace tools
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
-		// сразу рисуем рамки для стейтов
+		//immediately draw a frames for states
 		std::vector<int> coordsHor(2);
 		std::vector<int> coordsVert(2);
 		drawUnselectedStates(coordsHor, coordsVert);
