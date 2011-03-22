@@ -47,7 +47,7 @@ namespace demo
 		return "";
 	}
 
-	bool ResourcePointerContext::isHighLevel()
+	bool ResourcePointerContext::isHighLevel() const
 	{
 		return mHighLevel;
 	}
