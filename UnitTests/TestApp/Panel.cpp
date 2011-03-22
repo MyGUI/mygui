@@ -40,6 +40,12 @@ namespace MyGUI
 		}
 		else
 		{
+			// FIXME
+			// тут косяк, спрашиваем размеры, а это рут окно,
+			// и оно не спрашивает размер детей и останавливается обнволение
+			// вниз по иерархии
+			// т.е. это не полноценная замена вирт метода overrideMeasure
+
 			IntSize size;
 			TextBox* text = _widget->castType<TextBox>(false);
 			if (text != nullptr)
@@ -58,17 +64,18 @@ namespace MyGUI
 	void Panel::updateArrange(Widget* _widget, const IntCoord& _coordPlace)
 	{
 		updateMeasure(_widget, _coordPlace.size());
-		_widget->setCoord(_coordPlace);
+		//const IntSize& size_content = getDesiredSize(_widget);
+		_widget->setCoord(_coordPlace);//IntCoord(_coordPlace.left, _coordPlace.top, size_content.width, size_content.height));
 	}
 
-	IntSize Panel::overrideMeasure(const IntSize& _sizeAvailable)
+	/*IntSize Panel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		return IntSize();
-	}
+	}*/
 
-	void Panel::overrideArrange()
+	/*void Panel::overrideArrange()
 	{
-	}
+	}*/
 
 	IntSize Panel::getDesiredSize(Widget* _widget)
 	{
@@ -83,7 +90,7 @@ namespace MyGUI
 		return IntSize();
 	}
 
-	/*void Panel::invalidateMeasure(Widget* _widget)
+	void Panel::invalidateMeasure(Widget* _widget)
 	{
 		if (_widget->getParent() != nullptr)
 		{
@@ -99,7 +106,7 @@ namespace MyGUI
 			if (panel != nullptr)
 				Panel::updateArrange(panel, IntCoord(0, 0, size.width, size.height));
 		}
-	}*/
+	}
 
 	void Panel::onWidgetCreated(Widget* _widget)
 	{
@@ -115,8 +122,8 @@ namespace MyGUI
 		Base::onWidgetDestroy(_widget);
 	}
 
-	void Panel::invalidateMeasure()
+	/*void Panel::invalidateMeasure()
 	{
-	}
+	}*/
 
 } // namespace MyGUI
