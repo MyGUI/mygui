@@ -24,7 +24,7 @@ namespace demo
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
-		bool isHighLevel();
+		bool isHighLevel() const;
 		std::string getPointer(const std::string& _type);
 
 	private:
