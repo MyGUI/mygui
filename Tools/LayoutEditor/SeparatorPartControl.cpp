@@ -20,14 +20,12 @@ namespace tools
 		mMinSizeRight = MyGUI::utility::parseValue<int>(mRightPanel->getUserString("MinSize"));
 
 		mSeparatorH->eventMouseButtonPressed += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
-		mSeparatorH->eventMouseButtonReleased += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonReleased);
 		mSeparatorH->eventMouseDrag += MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
 	}
 
 	SeparatorPartControl::~SeparatorPartControl()
 	{
 		mSeparatorH->eventMouseButtonPressed -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonPressed);
-		mSeparatorH->eventMouseButtonReleased -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseButtonReleased);
 		mSeparatorH->eventMouseDrag -= MyGUI::newDelegate(this, &SeparatorPartControl::notifyMouseDrag);
 	}
 
@@ -39,13 +37,6 @@ namespace tools
 			mStartRightPanel = mRightPanel->getCoord();
 			mStartSeparatorH = mSeparatorH->getCoord();
 			mStartMousePosition = MyGUI::InputManager::getInstance().getMousePosition();
-		}
-	}
-
-	void SeparatorPartControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
-	{
-		if (_id == MyGUI::MouseButton::Left)
-		{
 		}
 	}
 

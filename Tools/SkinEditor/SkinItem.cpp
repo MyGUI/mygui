@@ -734,8 +734,8 @@ namespace tools
 		return result;
 	}
 
-	void SkinItem::serialization2(MyGUI::xml::Element* _node, MyGUI::Version _version)
+	/*void SkinItem::serialization2(MyGUI::xml::Element* _node, MyGUI::Version _version)
 	{
-	}
+	}*/
 
 } // namespace tools
