@@ -122,26 +122,6 @@ namespace MyGUI
 	}
 
 	// возвращает цвет
-	UString TextIterator::getTagColour(bool _clear)
-	{
-		if (mCurrent == mEnd) return L"";
-
-		UString::iterator iter = mCurrent;
-		UString colour;
-		// нам нужен последний цвет
-		while (getTagColour(colour, iter))
-		{
-			if (_clear)
-			{
-				// обязательно обновляем итераторы
-				iter = mCurrent = erase(mCurrent, iter);
-				mEnd = mText.end();
-			}
-		}
-		return colour;
-	}
-
-	// возвращает цвет
 	bool TextIterator::getTagColour(UString& _colour) const
 	{
 		if (mCurrent == mEnd) return false;
@@ -150,9 +130,8 @@ namespace MyGUI
 
 		// нам нужен последний цвет
 		bool ret = false;
-		while (true)
+		while (getTagColour(_colour, iter))
 		{
-			if (!getTagColour(_colour, iter)) break;
 			ret = true;
 		}
 
@@ -552,7 +531,17 @@ namespace MyGUI
 
 	void TextIterator::clearTagColour()
 	{
-		getTagColour(true);
+		if (mCurrent == mEnd) return;
+
+		UString::iterator iter = mCurrent;
+		UString colour;
+		// нам нужен последний цвет
+		while (getTagColour(colour, iter))
+		{
+			// обязательно обновляем итераторы
+			iter = mCurrent = erase(mCurrent, iter);
+			mEnd = mText.end();
+		}
 	}
 
 	size_t TextIterator::getPosition() const
