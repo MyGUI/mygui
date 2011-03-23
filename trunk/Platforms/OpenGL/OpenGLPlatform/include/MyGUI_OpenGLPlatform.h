@@ -23,7 +23,7 @@ namespace MyGUI
 		OpenGLPlatform();
 		~OpenGLPlatform();
 
-		void initialise(OpenGLImageLoader* _loader = 0, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
+		void initialise(OpenGLImageLoader* _loader, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
 		void shutdown();
 
 		OpenGLRenderManager* getRenderManagerPtr();
