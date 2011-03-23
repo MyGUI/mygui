@@ -41,9 +41,6 @@ namespace MyGUI
 		bool moveNext();
 
 		// возвращает цвет
-		UString getTagColour(bool _clear = false);
-
-		// возвращает цвет
 		bool getTagColour(UString& _colour) const;
 
 		// удаляет цвет
