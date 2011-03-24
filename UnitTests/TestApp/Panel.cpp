@@ -40,24 +40,24 @@ namespace MyGUI
 		}
 		else
 		{
-			// FIXME
-			// тут косяк, спрашиваем размеры, а это рут окно,
-			// и оно не спрашивает размер детей и останавливается обнволение
-			// вниз по иерархии
-			// т.е. это не полноценная замена вирт метода overrideMeasure
-
-			IntSize size;
 			TextBox* text = _widget->castType<TextBox>(false);
 			if (text != nullptr)
 			{
-				size = text->getSize() - text->getTextRegion().size() + text->getTextSize();
+				IntSize size = text->getSize() - text->getTextRegion().size() + text->getTextSize();
+				_widget->_setInternalData(size);
 			}
 			else
 			{
-				size = _widget->getSize();
-			}
+				IntSize size = _widget->getSize();
+				_widget->_setInternalData(size);
 
-			_widget->_setInternalData(size);
+				// виджет оказался обычным, но у виджета нет overrideMeasure и нуна ручками спускаться вниз для обновления
+				if (_widget->getChildCount() != 0)
+				{
+					IntCoord coord = _widget->getClientCoord();
+					updateMeasure(_widget->getChildAt(0), coord.size());
+				}
+			}
 		}
 	}
 
