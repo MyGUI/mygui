@@ -83,17 +83,8 @@ namespace tools
 		else
 		{
 			common::FileInfo info = *_sender->getItemDataAt<common::FileInfo>(_index);
-			if (!mFolderMode)
-			{
-				if (!info.folder)
-					mEditFileName->setCaption(info.name);
-			}
-			else
-			{
-				if (!common::isParentDir(info.name.c_str()))
-					mCurrentFolderField->setCaption(info.name);
-			}
-
+			if (!info.folder)
+				mEditFileName->setCaption(info.name);
 		}
 	}
 
@@ -130,6 +121,12 @@ namespace tools
 		}
 		else
 		{
+			if (mListFiles->getIndexSelected() != MyGUI::ITEM_NONE)
+			{
+				common::FileInfo info = *mListFiles->getItemDataAt<common::FileInfo>(mListFiles->getIndexSelected());
+				if (!common::isParentDir(info.name.c_str()))
+					mCurrentFolder = common::concatenatePath (mCurrentFolder.asWStr(), info.name);
+			}
 			eventEndDialog(this, true);
 		}
 	}
