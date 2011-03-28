@@ -41,6 +41,13 @@ namespace MyGUI
 
 		mUpdate = false;
 
+		D3DCAPS9 caps;
+		mpD3DDevice->GetDeviceCaps(&caps);
+		if(caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Non-squared textures not supported.");
+		}
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -171,6 +178,48 @@ namespace MyGUI
 		if (item == mTextures.end())
 			return nullptr;
 		return item->second;
+	}
+
+	bool DirectXRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
+	{
+		D3DFORMAT internalFormat = D3DFMT_UNKNOWN;
+		unsigned long internalUsage = 0;
+		D3DPOOL internalPool = D3DPOOL_MANAGED;
+
+		if (_usage == TextureUsage::RenderTarget)
+		{
+			internalUsage |= D3DUSAGE_RENDERTARGET;
+			internalPool = D3DPOOL_MANAGED;
+		}
+		else if (_usage == TextureUsage::Dynamic)
+			internalUsage |= D3DUSAGE_DYNAMIC;
+		else if (_usage == TextureUsage::Stream)
+			internalUsage |= D3DUSAGE_DYNAMIC;
+
+		if (_format == PixelFormat::R8G8B8A8)
+		{
+			internalFormat = D3DFMT_A8R8G8B8;
+		}
+		else if (_format == PixelFormat::R8G8B8)
+		{
+			internalFormat = D3DFMT_R8G8B8;
+		}
+		else if (_format == PixelFormat::L8A8)
+		{
+			internalFormat = D3DFMT_A8L8;
+		}
+		else if (_format == PixelFormat::L8)
+		{
+			internalFormat = D3DFMT_L8;
+		}
+
+		D3DFORMAT requestedlFormat = internalFormat;
+		D3DXCheckTextureRequirements(mpD3DDevice, NULL, NULL, NULL, internalUsage, &internalFormat, internalPool);
+
+		bool result = requestedlFormat == internalFormat;
+		if (!result)
+			MYGUI_PLATFORM_LOG(Warning, "Texture format '" << requestedlFormat << "'is not supported.");
+		return result;
 	}
 
 	void DirectXRenderManager::destroyAllResources()
