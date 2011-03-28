@@ -288,7 +288,7 @@ namespace delegates
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
-					MYGUI_ASSERT(false, "dublicate delegate");
+					MYGUI_EXCEPT("Trying to add same delegate twice.");
 				}
 			}
 			mListDelegates.push_back(_delegate);
