@@ -8,6 +8,7 @@
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
+#include "MyGUI_DirectXDiagnostic.h"
 
 namespace MyGUI
 {
@@ -79,12 +80,16 @@ namespace MyGUI
 		}
 		else
 		{
-			//exception
+			MYGUI_PLATFORM_EXCEPT("Creating texture with unknown pixel formal.");
 		}
 
-		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, NULL)))
+		HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, NULL);
+		if (FAILED(result))
 		{
-			//exception
+			MYGUI_PLATFORM_EXCEPT("Failed to create texture (error code " << result <<"): size '" << mSize <<
+				"' internal usage '" << mInternalUsage <<
+				"' internal format '" << mInternalFormat << "'."
+				);
 		}
 
 	}
@@ -94,6 +99,7 @@ namespace MyGUI
 		destroy();
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::R8G8B8A8;
+		mNumElemBytes = 4;
 
 		std::string fullname = DirectXDataManager::getInstance().getDataPath(_filename);
 
@@ -120,17 +126,16 @@ namespace MyGUI
 			mPixelFormat = PixelFormat::L8;
 			mNumElemBytes = 1;
 		}
-		else
-		{
-			//exception
-		}
 
 		mSize.set(info.Width, info.Height);
-		if (FAILED(D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture)))
+		HRESULT result = D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture);
+		if (FAILED(result))
 		{
-			char buf[1024];
-			sprintf(buf, "Failed to load texture '%s'!", _filename.c_str());
-			MessageBox(0, buf, 0, MB_ICONERROR);
+			MYGUI_PLATFORM_EXCEPT("Failed to load texture '" << _filename <<
+				"' (error code " << result <<
+				"): size '" << mSize <<
+				"' format '" << info.Format << "'."
+				);
 		}
 	}
 
@@ -148,10 +153,9 @@ namespace MyGUI
 
 			if (nNewRefCount > 0)
 			{
-				static char strError[255];
-				sprintf( strError, "The texture object failed to cleanup properly.\n"
-					"Release() returned a reference count of %d", nNewRefCount );
-				MessageBox( NULL, strError, "ERROR", MB_OK | MB_ICONEXCLAMATION );
+				MYGUI_PLATFORM_EXCEPT("The texture object failed to cleanup properly.\n"
+					"Release() returned a reference count of '" << nNewRefCount << "'."
+					);
 			}
 
 			mpTexture = nullptr;
@@ -171,44 +175,27 @@ namespace MyGUI
 	void* DirectXTexture::lock(TextureUsage _access)
 	{
 		D3DLOCKED_RECT d3dlr;
-		if (_access == TextureUsage::Write)
+		int lockFlag = (_access == TextureUsage::Write) ? D3DLOCK_DISCARD : D3DLOCK_READONLY;
+
+		HRESULT result = mpTexture->LockRect(0, &d3dlr, NULL, lockFlag);
+		if (FAILED(result))
 		{
-			if (SUCCEEDED(mpTexture->LockRect(0, &d3dlr, NULL, D3DLOCK_DISCARD)))
-			{
-				mLock = true;
-			}
-			else
-			{
-				//exception
-				return nullptr;
-			}
-		}
-		else
-		{
-			if (SUCCEEDED(mpTexture->LockRect(0, &d3dlr, NULL, D3DLOCK_READONLY)))
-			{
-				mLock = true;
-			}
-			else
-			{
-				//exception
-				return nullptr;
-			}
+			MYGUI_PLATFORM_EXCEPT("Failed to lock texture (error code " << result << ").");
 		}
 
+		mLock = true;
 		return d3dlr.pBits;
 	}
 
 	void DirectXTexture::unlock()
 	{
-		if (SUCCEEDED(mpTexture->UnlockRect(0)))
+		HRESULT result = mpTexture->UnlockRect(0);
+		if (FAILED(result))
 		{
-			mLock = false;
+			MYGUI_PLATFORM_EXCEPT("Failed to unlock texture (error code " << result << ").");
 		}
-		else
-		{
-			//exception
-		}
+
+		mLock = false;
 	}
 
 	bool DirectXTexture::isLocked()
@@ -254,10 +241,10 @@ namespace MyGUI
 	{
 		if (mInternalPool == D3DPOOL_DEFAULT)
 		{
-			if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, NULL)))
+			HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, NULL);
+			if (FAILED(result))
 			{
-				MessageBox( NULL, "Error recreate texture", "ERROR", MB_OK | MB_ICONEXCLAMATION );
-				//exception
+				MYGUI_PLATFORM_EXCEPT("Failed to recreate texture on device restore (error code " << result << ").");
 			}
 		}
 	}

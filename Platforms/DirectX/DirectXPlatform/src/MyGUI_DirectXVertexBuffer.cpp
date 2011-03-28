@@ -7,6 +7,7 @@
 #include <d3dx9.h>
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_VertexData.h"
+#include "MyGUI_DirectXDiagnostic.h"
 
 namespace MyGUI
 {
@@ -44,27 +45,26 @@ namespace MyGUI
 
 	Vertex* DirectXVertexBuffer::lock()
 	{
-		//assert(!mpBuffer && __FUNCTION__);
 		void* lockPtr = nullptr;
-		if (SUCCEEDED(mpBuffer->Lock(0, 0, (void**)&lockPtr, 0)))
+		HRESULT result = mpBuffer->Lock(0, 0, (void**)&lockPtr, 0);
+		if (FAILED(result))
 		{
-			return (Vertex*)lockPtr;
+			MYGUI_PLATFORM_EXCEPT("Failed to lock vertex buffer (error code " << result << ").");
 		}
-		return nullptr;
+		return (Vertex*)lockPtr;
 	}
 
 	void DirectXVertexBuffer::unlock()
 	{
-		//assert(!mpBuffer && __FUNCTION__);
-		if (FAILED(mpBuffer->Unlock()))
+		HRESULT result = mpBuffer->Unlock();
+		if (FAILED(result))
 		{
-			//exception
+			MYGUI_PLATFORM_EXCEPT("Failed to unlock vertex buffer (error code " << result << ").");
 		}
 	}
 
 	bool DirectXVertexBuffer::setToStream(size_t stream)
 	{
-		//assert(!mpBuffer && __FUNCTION__);
 		if (SUCCEEDED(mpD3DDevice->SetStreamSource(stream, mpBuffer, 0, sizeof(MyGUI::Vertex))))
 			return true;
 		return false;

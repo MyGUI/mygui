@@ -60,6 +60,9 @@ namespace MyGUI
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
+		/** @see RenderManager::isFormatSupported */
+		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
+
 		/** @see IRenderTarget::begin */
 		virtual void begin();
 		/** @see IRenderTarget::end */
