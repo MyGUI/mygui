@@ -327,7 +327,7 @@ namespace MyGUI
 			delete this;
 		}
 
-		UString getButtonName(MessageBoxStyle _style)
+		UString getButtonName(MessageBoxStyle _style) const
 		{
 			size_t index = _style.getButtonIndex();
 			const char* tag = getButtonTag(index);
@@ -337,7 +337,7 @@ namespace MyGUI
 			return result;
 		}
 
-		const char* getIconName(size_t _index)
+		const char* getIconName(size_t _index) const
 		{
 			static const size_t CountIcons = 4;
 			static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
@@ -346,7 +346,7 @@ namespace MyGUI
 			return IconNames[_index];
 		}
 
-		const char* getButtonName(size_t _index)
+		const char* getButtonName(size_t _index) const
 		{
 			static const size_t Count = 9;
 			static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
@@ -355,7 +355,7 @@ namespace MyGUI
 			return Names[_index];
 		}
 
-		const char* getButtonTag(size_t _index)
+		const char* getButtonTag(size_t _index) const
 		{
 			static const size_t Count = 9;
 			static const char* Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", "" };
