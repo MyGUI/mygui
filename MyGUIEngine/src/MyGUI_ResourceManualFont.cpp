@@ -64,7 +64,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManualFont::addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	void ResourceManualFont::addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight) const
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1

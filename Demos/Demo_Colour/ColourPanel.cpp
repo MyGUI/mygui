@@ -261,7 +261,7 @@ namespace demo
 		mColourView->setColour(mCurrentColour);
 	}
 
-	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)
+	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour) const
 	{
 		MyGUI::Colour colour = _colour;
 		if (colour.red < 0)

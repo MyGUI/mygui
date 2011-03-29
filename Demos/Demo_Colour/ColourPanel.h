@@ -41,7 +41,7 @@ namespace demo
 		void updateFromPoint(const MyGUI::IntPoint& _point);
 		void updateFromColour(const MyGUI::Colour& _colour);
 
-		MyGUI::Colour getSaturate(const MyGUI::Colour& _colour);
+		MyGUI::Colour getSaturate(const MyGUI::Colour& _colour) const;
 
 		float& byIndex(MyGUI::Colour& _colour, size_t _index);
 
