@@ -69,7 +69,7 @@ namespace MyGUI
 		size_t getScrollViewPage() const;
 
 		/** Get size in pixels of area where scroll moves */
-		int getLineSize();
+		int getLineSize() const;
 
 		/** Set size of track in pixels
 			@param _value in pixels, if less than MinTrackSize, MinTrackSize used
