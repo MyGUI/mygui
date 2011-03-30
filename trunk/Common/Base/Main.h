@@ -47,7 +47,7 @@ int startApp()
 #else
 		std::cerr << "An exception has occured" << " : " << _e.getFullDescription().c_str();
 #endif
-		return 1;
+		throw;
 	}
 	return 0;
 }
