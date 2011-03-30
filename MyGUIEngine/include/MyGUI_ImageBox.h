@@ -77,7 +77,7 @@ namespace MyGUI
 		*/
 		void setImageIndex(size_t _index);
 		/** Get current tile index */
-		size_t getImageIndex();
+		size_t getImageIndex() const;
 
 		//------------------------------------------------------------------------------//
 		// The expanded interface
@@ -184,7 +184,7 @@ namespace MyGUI
 		void setItemResourceInfo(const ImageIndexInfo& _info);
 
 		/** Get current items resource used in ImageBox */
-		ResourceImageSetPtr getItemResource();
+		ResourceImageSetPtr getItemResource() const;
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 

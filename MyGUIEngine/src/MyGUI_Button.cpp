@@ -207,18 +207,19 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	bool Button::getStateSelected()
+	bool Button::getStateSelected() const
 	{
 		return mStateSelected;
 	}
 
-	bool Button::getModeImage()
+	bool Button::getModeImage() const
 	{
 		return mModeImage;
 	}
 
 	ImageBox* Button::_getImageBox()
 	{
+		//TODO: cppcheck
 		return mImage;
 	}
 

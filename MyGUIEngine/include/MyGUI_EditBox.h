@@ -48,13 +48,13 @@ namespace MyGUI
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour);
 
 		/** Get index of first selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionStart();
+		size_t getTextSelectionStart() const;
 
 		/** Get index of last selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionEnd();
+		size_t getTextSelectionEnd() const;
 
 		/** Get length of selected text */
-		size_t getTextSelectionLength();
+		size_t getTextSelectionLength() const;
 
 		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
@@ -73,7 +73,7 @@ namespace MyGUI
 		UString getTextSelection();
 
 		/** Is any text selected */
-		bool isTextSelection();
+		bool isTextSelection() const;
 
 		/** Colour selected text */
 		void setTextSelectionColour(const Colour& _value);
@@ -206,7 +206,7 @@ namespace MyGUI
 			30 pixels height each (i.e. 600 pixels total), then return
 			value is 400 ( = 600 - 200 ).
 		*/
-		size_t getVScrollRange();
+		size_t getVScrollRange() const;
 		/** Get current position of vertical scroll (or 0 if no scroll) */
 		size_t getVScrollPosition();
 		/** Set current position of vertical scroll */
@@ -221,7 +221,7 @@ namespace MyGUI
 			For example if EditBox is 200 pixels width and the longest line
 			is 600 pixels width, then return value is 400 ( = 600 - 200 ).
 		*/
-		size_t getHScrollRange();
+		size_t getHScrollRange() const;
 		/** Get current position of horizontal scroll (or 0 if no scroll) */
 		size_t getHScrollPosition();
 		/** Set current position of horizontal scroll */

@@ -76,7 +76,7 @@ namespace MyGUI
 		*/
 		void setTrackSize(int _value);
 		/** Get size of track in pixels */
-		int getTrackSize();
+		int getTrackSize() const;
 
 		/** Set minimal track size (used for setTrackSize)*/
 		void setMinTrackSize(int _value);
@@ -130,7 +130,7 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
-		int getTrackPlaceLength();
+		int getTrackPlaceLength() const;
 
 	protected:
 		// наши кнопки

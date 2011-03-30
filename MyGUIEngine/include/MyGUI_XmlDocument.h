@@ -266,7 +266,7 @@ namespace MyGUI
 			}
 
 			MYGUI_OBSOLETE("use : const std::string& Element::getContent()")
-			const std::string& getBody()
+			const std::string& getBody() const
 			{
 				return getContent();
 			}

@@ -187,7 +187,7 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget();
+		bool isRootWidget() const;
 
 		/** Get parent widget or nullptr if no parent */
 		Widget* getParent() const;
@@ -252,7 +252,7 @@ namespace MyGUI
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 		/** Get widget style */
-		WidgetStyle getWidgetStyle();
+		WidgetStyle getWidgetStyle() const;
 
 		/** Set any widget property
 			@param _key Property name (for example Alpha or Enabled)
@@ -360,7 +360,7 @@ namespace MyGUI
 
 		void _updateEnabled();
 
-		float _getRealAlpha();
+		float _getRealAlpha() const;
 
 		void _createChildSkinWidget(ResourceSkin* _info);
 		void _destroyChildSkinWidget();

@@ -478,7 +478,7 @@ namespace MyGUI
 		return insertItemAt(ITEM_NONE, _name, _data);
 	}
 
-	size_t ComboBox::getIndexSelected()
+	size_t ComboBox::getIndexSelected() const
 	{
 		return mItemIndex;
 	}

@@ -878,7 +878,7 @@ namespace MyGUI
 		insertItemAt(ITEM_NONE, _data);
 	}
 
-	size_t ItemBox::getIndexSelected()
+	size_t ItemBox::getIndexSelected() const
 	{
 		return mIndexSelect;
 	}
