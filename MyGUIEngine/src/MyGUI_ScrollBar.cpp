@@ -436,7 +436,7 @@ namespace MyGUI
 		return 1;
 	}
 
-	int ScrollBar::getLineSize()
+	int ScrollBar::getLineSize() const
 	{
 		return getTrackPlaceLength() - (int)(mSkinRangeStart + mSkinRangeEnd);
 	}
