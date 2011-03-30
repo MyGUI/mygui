@@ -57,7 +57,15 @@ namespace wrapper
 		typedef std::vector<Template> VectorTemplate;
 
 	public:
-		ClassAttribute(xml::ElementPtr _element)
+		ClassAttribute() :
+			mCommonTypeHolder(nullptr),
+			mRoot(nullptr)
+		{
+		}
+
+		ClassAttribute(xml::ElementPtr _element) :
+			mCommonTypeHolder(nullptr),
+			mRoot(nullptr)
 		{
 			mType = _element->findAttribute("type");
 			mNamespace = _element->findAttribute("namespace");
