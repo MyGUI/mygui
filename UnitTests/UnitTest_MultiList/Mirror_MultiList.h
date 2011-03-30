@@ -159,8 +159,7 @@ namespace unittest
 		/** Insert new item before _index line */
 		void insertItemAt(size_t _index, const MyGUI::UString& _name, MyGUI::Any _data = MyGUI::Any::Null)
 		{
-			// FIXME: weird assert, why not check mVectorColumnInfo.empty() ?
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::insertItemAt");
+			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::insertItemAt");
 			MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiListBox::insertItemAt");
 			if (MyGUI::ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
@@ -181,8 +180,7 @@ namespace unittest
 
 		void removeItemAt(size_t _index)
 		{
-			// FIXME: weird assert, why not check mVectorColumnInfo.empty() ?
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::removeItemAt");
+			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::removeItemAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::removeItemAt");
 
 			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
@@ -199,8 +197,7 @@ namespace unittest
 
 		void swapItemsAt(size_t _index1, size_t _index2)
 		{
-			// FIXME: weird assert, why not check mVectorColumnInfo.empty() ?
-			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiListBox::swapItemsAt");
+			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::swapItemsAt");
 			MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 			MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 
