@@ -330,7 +330,7 @@ namespace MyGUI
 		mRealClient->setPosition(value);
 	}
 
-	IntPoint ScrollView::getViewOffset()
+	IntPoint ScrollView::getViewOffset() const
 	{
 		return mRealClient->getPosition();
 	}

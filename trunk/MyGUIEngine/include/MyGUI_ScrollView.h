@@ -81,7 +81,7 @@ namespace MyGUI
 		/** Set view area offset. */
 		void setViewOffset(const IntPoint& _value);
 		/** Get view area offset. */
-		IntPoint getViewOffset();
+		IntPoint getViewOffset() const;
 
 	protected:
 		virtual void initialiseOverride();
