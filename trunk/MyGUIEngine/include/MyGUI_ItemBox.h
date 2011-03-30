@@ -77,7 +77,7 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getIndexSelected();
+		size_t getIndexSelected() const;
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);

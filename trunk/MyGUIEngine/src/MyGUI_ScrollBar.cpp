@@ -424,7 +424,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	int ScrollBar::getTrackSize()
+	int ScrollBar::getTrackSize() const
 	{
 		if (mWidgetTrack != nullptr)
 		{
@@ -560,7 +560,7 @@ namespace MyGUI
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
-	int ScrollBar::getTrackPlaceLength()
+	int ScrollBar::getTrackPlaceLength() const
 	{
 		if (mWidgetTrack != nullptr)
 		{

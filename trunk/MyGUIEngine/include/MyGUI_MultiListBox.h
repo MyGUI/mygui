@@ -355,13 +355,13 @@ namespace MyGUI
 		void frameAdvise(bool _advise);
 
 		ListBox* getSubItemAt(size_t _column);
-		int getButtonHeight();
+		int getButtonHeight() const;
 
 		void _wrapItem(MultiListItem* _item);
 		void _unwrapItem(MultiListItem* _item);
 		void _swapColumnsAt(size_t _index1, size_t _index2);
 
-		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth);
+		int getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth) const;
 		bool getUpdateByResize();
 		int updateWidthColumns(size_t& _countStars, size_t& _lastIndexStar);
 

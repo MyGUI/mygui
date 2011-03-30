@@ -228,7 +228,7 @@ namespace MyGUI
 		return BiIndexBase::convertToFace(index);
 	}
 
-	int MultiListBox::getButtonHeight()
+	int MultiListBox::getButtonHeight() const
 	{
 		if (mHeaderPlace != nullptr)
 			return mHeaderPlace->getHeight();
@@ -577,6 +577,7 @@ namespace MyGUI
 
 	ListBox* MultiListBox::getSubItemAt(size_t _column)
 	{
+		//TODO: cppcheck
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemAt");
 		return mVectorColumnInfo[_column].list;
 	}
@@ -862,9 +863,9 @@ namespace MyGUI
 		return false;
 	}
 
-	int MultiListBox::getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth)
+	int MultiListBox::getColumnWidth(size_t _index, int _freeSpace, size_t _countStars, size_t _lastIndexStar, int _starWidth) const
 	{
-		ColumnInfo& info = mVectorColumnInfo[_index];
+		const ColumnInfo& info = mVectorColumnInfo[_index];
 
 		if (info.sizeType == ResizingPolicy::Auto)
 		{

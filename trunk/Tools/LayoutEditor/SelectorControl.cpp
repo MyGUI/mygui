@@ -142,7 +142,7 @@ namespace tools
 		return false;
 	}
 
-	MyGUI::IntCoord SelectorControl::getActionScale()
+	MyGUI::IntCoord SelectorControl::getActionScale() const
 	{
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)

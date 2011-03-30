@@ -298,6 +298,7 @@ namespace MyGUI
 
 	MenuItemType MenuControl::getItemTypeAt(size_t _index)
 	{
+		//TODO: cppcheck
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemTypeAt");
 		return mItemsInfo[_index].type;
 	}
@@ -796,7 +797,7 @@ namespace MyGUI
 		return mOwner;
 	}
 
-	const std::string& MenuControl::getSkinByType(MenuItemType _type)
+	const std::string& MenuControl::getSkinByType(MenuItemType _type) const
 	{
 		if (_type == MenuItemType::Popup)
 			return mItemPopupSkin;
@@ -805,14 +806,14 @@ namespace MyGUI
 		return mItemNormalSkin;
 	}
 
-	std::string MenuControl::getIconIndexByType(MenuItemType _type)
+	std::string MenuControl::getIconIndexByType(MenuItemType _type) const
 	{
 		if (_type == MenuItemType::Popup)
 			return "Popup";
 		return "None";
 	}
 
-	MenuItemType MenuControl::getItemType(bool _submenu, bool _separator)
+	MenuItemType MenuControl::getItemType(bool _submenu, bool _separator) const
 	{
 		if (_submenu)
 			return MenuItemType::Popup;

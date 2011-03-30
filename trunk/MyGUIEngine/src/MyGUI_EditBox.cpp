@@ -1020,6 +1020,7 @@ namespace MyGUI
 	// возвращает текст
 	UString EditBox::getTextInterval(size_t _start, size_t _count)
 	{
+		//TODO: cppcheck
 		// подстраховка
 		if (_start > mTextLength) _start = mTextLength;
 		// конец диапазона
@@ -1868,17 +1869,17 @@ namespace MyGUI
 		_setTextColour(_start, _count, _colour, false);
 	}
 
-	size_t EditBox::getTextSelectionStart()
+	size_t EditBox::getTextSelectionStart() const
 	{
 		return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect);
 	}
 
-	size_t EditBox::getTextSelectionEnd()
+	size_t EditBox::getTextSelectionEnd() const
 	{
 		return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect);
 	}
 
-	bool EditBox::isTextSelection()
+	bool EditBox::isTextSelection() const
 	{
 		return (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect);
 	}
@@ -1893,7 +1894,7 @@ namespace MyGUI
 		setTextSelectColour(_colour, false);
 	}
 
-	size_t EditBox::getTextSelectionLength()
+	size_t EditBox::getTextSelectionLength() const
 	{
 		return mEndSelect - mStartSelect;
 	}
@@ -1979,13 +1980,14 @@ namespace MyGUI
 		updateView();
 	}
 
-	size_t EditBox::getVScrollRange()
+	size_t EditBox::getVScrollRange() const
 	{
 		return mVRange + 1;
 	}
 
 	size_t EditBox::getVScrollPosition()
 	{
+		//TODO: cppcheck
 		return mClientText == nullptr ? 0 : mClientText->getViewOffset().top;
 	}
 
@@ -2006,7 +2008,7 @@ namespace MyGUI
 			mVScroll->setScrollPosition(point.top);
 	}
 
-	size_t EditBox::getHScrollRange()
+	size_t EditBox::getHScrollRange() const
 	{
 		return mHRange + 1;
 	}

@@ -1238,7 +1238,7 @@ namespace MyGUI
 		return mInheritsAlpha;
 	}
 
-	bool Widget::isRootWidget()
+	bool Widget::isRootWidget() const
 	{
 		return nullptr == mCroppedParent;
 	}
@@ -1263,7 +1263,7 @@ namespace MyGUI
 		return mWidgetClient;
 	}
 
-	WidgetStyle Widget::getWidgetStyle()
+	WidgetStyle Widget::getWidgetStyle() const
 	{
 		return mWidgetStyle;
 	}
@@ -1293,7 +1293,7 @@ namespace MyGUI
 		return mCoord;
 	}
 
-	float Widget::_getRealAlpha()
+	float Widget::_getRealAlpha() const
 	{
 		return mRealAlpha;
 	}

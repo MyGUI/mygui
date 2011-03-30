@@ -35,7 +35,7 @@ namespace tools
 		const MyGUI::IntCoord& getCoord() const;
 
 		bool getCapture();
-		MyGUI::IntCoord getActionScale();
+		MyGUI::IntCoord getActionScale() const;
 
 		EventHandle_ChangePosition eventChangePosition;
 
