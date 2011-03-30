@@ -100,7 +100,7 @@ namespace MyGUI
 		bool getSnap() const;
 
 		/** Get current action applied to move/resize window. */
-		const IntCoord& getActionScale();
+		const IntCoord& getActionScale() const;
 
 		/** Enable or disable possibility to move window. */
 		void setMovable(bool _value);
@@ -146,7 +146,7 @@ namespace MyGUI
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 	private:
-		float getAlphaVisible();
+		float getAlphaVisible() const;
 		void getSnappedCoord(IntCoord& _coord);
 		IntCoord _getActionScale(Widget* _widget);
 

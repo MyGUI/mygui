@@ -467,7 +467,7 @@ namespace MyGUI
 		setItemSelect(_index);
 	}
 
-	size_t ImageBox::getImageIndex()
+	size_t ImageBox::getImageIndex() const
 	{
 		return getItemSelect();
 	}
@@ -527,7 +527,7 @@ namespace MyGUI
 		insertItem(ITEM_NONE, _item);
 	}
 
-	ResourceImageSetPtr ImageBox::getItemResource()
+	ResourceImageSetPtr ImageBox::getItemResource() const
 	{
 		return mResource;
 	}

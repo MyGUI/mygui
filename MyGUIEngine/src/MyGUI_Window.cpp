@@ -388,7 +388,7 @@ namespace MyGUI
 		Base::setVisible(_visible);
 	}
 
-	float Window::getAlphaVisible()
+	float Window::getAlphaVisible() const
 	{
 		return (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : ALPHA_MAX;
 	}
@@ -486,7 +486,7 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	const IntCoord& Window::getActionScale()
+	const IntCoord& Window::getActionScale() const
 	{
 		return mCurrentActionScale;
 	}
@@ -546,6 +546,7 @@ namespace MyGUI
 
 	IntCoord Window::_getActionScale(Widget* _widget)
 	{
+		//TODO: cppcheck
 		if (_widget->isUserString("Scale"))
 		{
 			IntCoord result = IntCoord::parse(_widget->getUserString("Scale"));

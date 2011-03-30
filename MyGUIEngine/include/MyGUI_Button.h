@@ -40,7 +40,7 @@ namespace MyGUI
 		//! Set button selected state
 		void setStateSelected(bool _value);
 		//! Get buton selected
-		bool getStateSelected();
+		bool getStateSelected() const;
 
 		/** Enable or disable Image mode\n
 			Image mode: when button state changed Image on button also change it's picture.\n
@@ -48,7 +48,7 @@ namespace MyGUI
 		*/
 		void setModeImage(bool _value);
 		/** Get Image mode flag */
-		bool getModeImage();
+		bool getModeImage() const;
 
 		void setImageResource(const std::string& _name);
 

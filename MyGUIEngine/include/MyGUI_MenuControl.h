@@ -299,12 +299,12 @@ namespace MyGUI
 		void notifyMouseButtonClick(Widget* _sender);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
-		const std::string& getSkinByType(MenuItemType _type);
-		std::string getIconIndexByType(MenuItemType _type);
+		const std::string& getSkinByType(MenuItemType _type) const;
+		std::string getIconIndexByType(MenuItemType _type) const;
 
 		void update();
 
-		MenuItemType getItemType(bool _submenu, bool _separator);
+		MenuItemType getItemType(bool _submenu, bool _separator) const;
 
 		void notifyMenuCtrlAccept(MenuItem* _item);
 
