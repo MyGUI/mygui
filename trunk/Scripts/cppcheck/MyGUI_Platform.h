@@ -6,18 +6,11 @@
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
-#ifdef DISABLE_NAMESPACES
-	#define namespace //
-#endif
-
-#define MYGUI_EXPORT
 #define MYGUI_PLATFORM 1
 #define MYGUI_COMPILER 2
+#define MYGUI_FORCEINLINE
+#define MYGUI_EXPORT
 #define MYGUI_EXPORT_DLL
 #define MYGUI_DEBUG_MODE 1
-
-#define min min
-#define max max
-#define MYGUI_DONT_USE_OBSOLETE
 
 #endif // __MYGUI_PLATFORM_H__

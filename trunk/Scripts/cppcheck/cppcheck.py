@@ -38,7 +38,7 @@ def checkFolderSources(folder, flags) :
 	parseOutput()
 
 
-checkFolderSources('MyGUIEngine', '-D DISABLE_NAMESPACES')
+checkFolderSources('MyGUIEngine', '')
 
 checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
@@ -48,5 +48,5 @@ checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/O
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include')
 checkFolderSources('Plugins', '')
-checkFolderSources('Wrapper', '')
+checkFolderSources('Wrappers', '')
 
