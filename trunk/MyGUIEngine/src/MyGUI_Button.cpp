@@ -219,7 +219,6 @@ namespace MyGUI
 
 	ImageBox* Button::_getImageBox()
 	{
-		//TODO: cppcheck
 		return mImage;
 	}
 

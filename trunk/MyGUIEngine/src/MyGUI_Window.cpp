@@ -546,7 +546,6 @@ namespace MyGUI
 
 	IntCoord Window::_getActionScale(Widget* _widget)
 	{
-		//TODO: cppcheck
 		if (_widget->isUserString("Scale"))
 		{
 			IntCoord result = IntCoord::parse(_widget->getUserString("Scale"));
