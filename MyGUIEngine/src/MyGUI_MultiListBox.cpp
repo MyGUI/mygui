@@ -577,7 +577,6 @@ namespace MyGUI
 
 	ListBox* MultiListBox::getSubItemAt(size_t _column)
 	{
-		//TODO: cppcheck
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemAt");
 		return mVectorColumnInfo[_column].list;
 	}

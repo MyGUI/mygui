@@ -298,7 +298,6 @@ namespace MyGUI
 
 	MenuItemType MenuControl::getItemTypeAt(size_t _index)
 	{
-		//TODO: cppcheck
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemTypeAt");
 		return mItemsInfo[_index].type;
 	}
