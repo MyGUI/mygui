@@ -1987,7 +1987,6 @@ namespace MyGUI
 
 	size_t EditBox::getVScrollPosition()
 	{
-		//TODO: cppcheck
 		return mClientText == nullptr ? 0 : mClientText->getViewOffset().top;
 	}
 
