@@ -245,7 +245,7 @@ namespace wrapper
 			mNeedPrint = _value;
 		}
 
-		bool isNeedInsert()
+		bool isNeedInsert() const
 		{
 			if (
 				!mNeedPrint ||

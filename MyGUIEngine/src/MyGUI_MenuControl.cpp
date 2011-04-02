@@ -367,7 +367,6 @@ namespace MyGUI
 
 				MenuControl* menu = mItemsInfo[_index].submenu;
 
-				// TODO: duplicate code
 				if (mVerticalAlignment)
 				{
 					// too wide

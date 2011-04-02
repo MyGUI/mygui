@@ -1020,7 +1020,6 @@ namespace MyGUI
 	// возвращает текст
 	UString EditBox::getTextInterval(size_t _start, size_t _count)
 	{
-		//TODO: cppcheck
 		// подстраховка
 		if (_start > mTextLength) _start = mTextLength;
 		// конец диапазона

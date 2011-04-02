@@ -48,5 +48,5 @@ checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/O
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include')
 checkFolderSources('Plugins', '')
-checkFolderSources('Wrappers', '')
+checkFolderSources('Wrappers/WrapperGenerator', '')
 
