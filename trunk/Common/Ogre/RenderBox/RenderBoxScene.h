@@ -203,13 +203,13 @@ namespace wraps
 			{
 				if (_id == MyGUI::MouseButton::Left)
 				{
-					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastLeftPressed();
+					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
 					mLastPointerX = point.left;
 					mMousePressed = true;
 				}
 				if (_id == MyGUI::MouseButton::Right)
 				{
-					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastRightPressed();
+					const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Right);
 					mLastPointerX = point.left;
 					mMousePressed = true;
 				}

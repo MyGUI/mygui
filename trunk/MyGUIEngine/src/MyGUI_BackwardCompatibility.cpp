@@ -733,6 +733,16 @@ namespace MyGUI
 		LayerManager::getInstance().resizeView(_size);
 	}
 
+	const IntPoint& MemberObsolete<InputManager>::getLastLeftPressed() const
+	{
+		return InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
+	}
+
+	const IntPoint& MemberObsolete<InputManager>::getLastRightPressed() const
+	{
+		return InputManager::getInstance().getLastPressedPosition(MouseButton::Right);
+	}
+
 	bool MemberObsolete<LanguageManager>::load(const std::string& _file)
 	{
 		return ResourceManager::getInstance().load(_file);

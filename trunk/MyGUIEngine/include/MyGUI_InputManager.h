@@ -34,13 +34,15 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_ILayer.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT InputManager :
 		public Singleton<InputManager>,
-		public IUnlinkWidget
+		public IUnlinkWidget,
+		public MemberObsolete<InputManager>
 	{
 	public:
 		InputManager();
@@ -88,14 +90,12 @@ namespace MyGUI
 		Widget* getMouseFocusWidget() const;
 		/** Get key focused widget */
 		Widget* getKeyFocusWidget() const;
-		/** Get position of last left mouse button press.
+
+		/** Get position of last mouse button press.
 			Position calculated on specific layer where mouse was pressed.
 		*/
-		const IntPoint& getLastLeftPressed() const;
-		/** Get position of last right mouse button press.
-			Position calculated on specific layer where mouse was pressed.
-		*/
-		const IntPoint& getLastRightPressed() const;
+		const IntPoint& getLastPressedPosition(MouseButton _id) const;
+
 		/** Get current mouse position on screen */
 		const IntPoint& getMousePosition() const;
 
@@ -174,13 +174,11 @@ namespace MyGUI
 
 		IntPoint mMousePosition;
 
-		// там где была последний раз нажата кнопка
-		IntPoint mLastLeftPressed;
-		IntPoint mLastRightPressed;
+		// last mouse press position
+		IntPoint mLastPressed[MouseButton::MAX];
 
-		// захватил ли мышь активный виджет
-		bool mLeftMouseCapture;
-		bool mRightMouseCapture;
+		// is mouse button captured by active widget
+		bool mMouseCapture[MouseButton::MAX];
 
 		// клавиша для повтора
 		KeyCode mHoldKey;

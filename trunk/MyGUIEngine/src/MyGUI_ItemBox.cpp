@@ -630,7 +630,7 @@ namespace MyGUI
 			}
 
 			// смещение внутри виджета, куда кликнули мышкой
-			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
+			mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - _sender->getAbsolutePosition();
 
 			// отсылаем событие
 			eventMouseItemActivate(this, mIndexSelect);

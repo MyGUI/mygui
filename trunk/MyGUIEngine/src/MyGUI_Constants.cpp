@@ -28,5 +28,6 @@ namespace MyGUI
 	UString Constants::mUString;
 	std::string Constants::mString;
 	IntSize Constants::mIntSize;
+	IntPoint Constants::mIntPoint;
 
 } // namespace MyGUI
