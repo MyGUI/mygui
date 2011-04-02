@@ -223,7 +223,7 @@ namespace tools
 
 	void TextureControl::notifyMouseMove(MyGUI::Widget* _sender, int _left, int _top)
 	{
-		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastLeftPressed();
+		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
 		if (point.left != _left && point.top != _top)
 			onMouseMove();
 	}

@@ -25,6 +25,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -41,8 +42,6 @@ namespace MyGUI
 		mLayerMouseFocus(nullptr),
 		mIsShiftPressed(false),
 		mIsControlPressed(false),
-		mLeftMouseCapture(false),
-		mRightMouseCapture(false),
 		mHoldKey(KeyCode::None),
 		mHoldChar(0),
 		mFirstPressKey(false),
@@ -50,6 +49,7 @@ namespace MyGUI
 		mOldAbsZ(0),
 		mIsInitialise(false)
 	{
+		resetMouseCaptureWidget();
 	}
 
 	void InputManager::initialise()
@@ -60,8 +60,10 @@ namespace MyGUI
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
 		mLayerMouseFocus = 0;
-		mLeftMouseCapture = false;
-		mRightMouseCapture = false;
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+		{
+			mMouseCapture[i] = false;
+		}
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
 		mHoldKey = KeyCode::None;
@@ -102,28 +104,28 @@ namespace MyGUI
 		if (relz != 0)
 		{
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != nullptr)
+			if (isFocusMouse())
 				mWidgetMouseFocus->_riseMouseWheel(relz);
 			return isFocus;
 		}
 
-		if (mLeftMouseCapture || mRightMouseCapture)
+		if (isCaptureMouse())
 		{
-			if (mWidgetMouseFocus != nullptr)
+			if (isFocusMouse())
 			{
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-					if (mLeftMouseCapture)
-						mWidgetMouseFocus->_riseMouseDrag(point.left, point.top, MouseButton::Left);
-					if (mRightMouseCapture)
-						mWidgetMouseFocus->_riseMouseDrag(point.left, point.top, MouseButton::Right);
+					for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+					{
+						if (mMouseCapture[i])
+							mWidgetMouseFocus->_riseMouseDrag(point.left, point.top, MouseButton::Enum(i));
+					}
 				}
 			}
 			else
 			{
-				mLeftMouseCapture = false;
-				mRightMouseCapture = false;
+				resetMouseCaptureWidget();
 			}
 
 			return true;
@@ -138,7 +140,7 @@ namespace MyGUI
 		if (mWidgetMouseFocus == item)
 		{
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != nullptr)
+			if (isFocusMouse())
 			{
 				if (mLayerMouseFocus != nullptr)
 				{
@@ -203,7 +205,7 @@ namespace MyGUI
 		//-------------------------------------------------------------------------------------//
 
 		// смена фокуса, проверяем на доступность виджета
-		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->getEnabled()))
+		if (isFocusMouse() && mWidgetMouseFocus->getEnabled())
 		{
 			mWidgetMouseFocus->_riseMouseLostFocus(item);
 		}
@@ -243,27 +245,15 @@ namespace MyGUI
 		if (!mWidgetMouseFocus->getEnabled())
 			return true;
 
-		if (MouseButton::Left == _id)
+		if (MouseButton::None != _id && MouseButton::MAX != _id)
 		{
-			// захват окна
-			mLeftMouseCapture = true;
-			// запоминаем место нажатия
+			// start capture
+			mMouseCapture[_id.toValue()] = true;
+			// remember last pressed position
 			if (mLayerMouseFocus != nullptr)
 			{
 				IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-				mLastLeftPressed = point;
-			}
-		}
-
-		if (MouseButton::Right == _id)
-		{
-			// захват окна
-			mRightMouseCapture = true;
-			// запоминаем место нажатия
-			if (mLayerMouseFocus != nullptr)
-			{
-				IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-				mLastRightPressed = point;
+				mLastPressed[_id.toValue()] = point;
 			}
 		}
 
@@ -275,7 +265,7 @@ namespace MyGUI
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(item);
 
-		if (mWidgetMouseFocus != nullptr)
+		if (isFocusMouse())
 		{
 			mWidgetMouseFocus->_riseMouseButtonPressed(_absx, _absy, _id);
 
@@ -315,16 +305,13 @@ namespace MyGUI
 			if (!mWidgetMouseFocus->getEnabled())
 				return true;
 
-			if (_id == MouseButton::Left && mLeftMouseCapture)
+			if (_id != MouseButton::None && _id != MouseButton::MAX)
 			{
-				// сбрасываем захват
-				mLeftMouseCapture = false;
-			}
-
-			if (_id == MouseButton::Right && mRightMouseCapture)
-			{
-				// сбрасываем захват
-				mRightMouseCapture = false;
+				if (mMouseCapture[_id.toValue()])
+				{
+					// drop capture
+					mMouseCapture[_id.toValue()] = false;
+				}
 			}
 
 			mWidgetMouseFocus->_riseMouseButtonReleased(_absx, _absy, _id);
@@ -472,16 +459,13 @@ namespace MyGUI
 			root_focus = root_focus->getParent();
 		}
 
-		if (mLeftMouseCapture)
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
 		{
-			mLeftMouseCapture = false;
-			mouseFocus->_riseMouseButtonReleased(mLastLeftPressed.left, mLastLeftPressed.top, MouseButton::Left);
-		}
-
-		if (mRightMouseCapture)
-		{
-			mRightMouseCapture = false;
-			mouseFocus->_riseMouseButtonReleased(mLastRightPressed.left, mLastRightPressed.top, MouseButton::Right);
+			if (mMouseCapture[i])
+			{
+				mMouseCapture[i] = false;
+				mouseFocus->_riseMouseButtonReleased(mLastPressed[i].left, mLastPressed[i].top, MouseButton::Enum(i));
+			}
 		}
 
 		if (nullptr != mouseFocus)
@@ -635,7 +619,12 @@ namespace MyGUI
 
 	bool InputManager::isCaptureMouse() const
 	{
-		return mLeftMouseCapture || mRightMouseCapture;
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+		{
+			if (mMouseCapture[i])
+				return true;
+		}
+		return false;
 	}
 
 	void InputManager::resetKeyFocusWidget()
@@ -653,14 +642,13 @@ namespace MyGUI
 		return mWidgetKeyFocus;
 	}
 
-	const IntPoint& InputManager::getLastLeftPressed() const
+	const IntPoint& InputManager::getLastPressedPosition(MouseButton _id) const
 	{
-		return mLastLeftPressed;
-	}
-
-	const IntPoint& InputManager::getLastRightPressed() const
-	{
-		return mLastRightPressed;
+		if (_id != MouseButton::None && _id != MouseButton::MAX)
+		{
+			return mLastPressed[_id.toValue()];
+		}
+		return Constants::getZeroIntPoint();
 	}
 
 	const IntPoint& InputManager::getMousePosition() const
@@ -685,8 +673,10 @@ namespace MyGUI
 
 	void InputManager::resetMouseCaptureWidget()
 	{
-		mLeftMouseCapture = false;
-		mRightMouseCapture = false;
+		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
+		{
+			mMouseCapture[i] = false;
+		}
 	}
 
 	void InputManager::unlinkWidget(Widget* _widget)

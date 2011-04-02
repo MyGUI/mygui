@@ -159,7 +159,7 @@ namespace MyGUI
 		if (mModeStatic)
 			return;
 
-		IntPoint point = InputManager::getInstance().getLastLeftPressed();
+		IntPoint point = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
 		mCursorPosition = mClientText->getCursorPosition(point);
 		mClientText->setCursorPosition(mCursorPosition);
 		mClientText->setVisibleCursor(true);
@@ -225,7 +225,7 @@ namespace MyGUI
 		if (mModeStatic)
 			return;
 
-		const IntPoint& lastPressed = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint& lastPressed = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
 
 		size_t cursorPosition = mClientText->getCursorPosition(lastPressed);
 		mStartSelect = cursorPosition;

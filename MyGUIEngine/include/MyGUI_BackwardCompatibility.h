@@ -461,6 +461,16 @@ namespace MyGUI
 	};
 
 	template <>
+	class MYGUI_EXPORT MemberObsolete<InputManager>
+	{
+	public:
+		MYGUI_OBSOLETE(" is deprecated, use : const IntPoint& getLastPressedPosition(MouseButton _id) with _id MouseButton::Left")
+		const IntPoint& getLastLeftPressed() const;
+		MYGUI_OBSOLETE(" is deprecated, use : const IntPoint& getLastPressedPosition(MouseButton _id) with _id MouseButton::Right")
+		const IntPoint& getLastRightPressed() const;
+	};
+
+	template <>
 	class MYGUI_EXPORT MemberObsolete<LanguageManager>
 	{
 	public:

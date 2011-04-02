@@ -43,7 +43,7 @@ namespace MyGUI
 	void DDContainer::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		// смещение внутри виджета, куда кликнули мышкой
-		mClickInWidget = InputManager::getInstance().getLastLeftPressed() - getAbsolutePosition();
+		mClickInWidget = InputManager::getInstance().getLastPressedPosition(MouseButton::Left) - getAbsolutePosition();
 
 		mouseButtonPressed(_id);
 
