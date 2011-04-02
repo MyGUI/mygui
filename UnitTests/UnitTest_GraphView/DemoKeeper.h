@@ -12,7 +12,7 @@
 #include "AnimationGraphFactory.h"
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
-#include "OpenSaveFileDialog.h"
+#include "Tools/OpenSaveFileDialog.h"
 #include "ContextMenu.h"
 
 namespace demo
@@ -42,7 +42,7 @@ namespace demo
 		void LoadGraph();
 		void ClearGraph();
 
-		void notifyEndDialog(common::OpenSaveFileDialog* _sender, bool _result);
+		void notifyEndDialog(tools::Dialog* _dialog, bool _result);
 		void saveToFile(const std::string& _filename);
 		void loadFromFile(const std::string& _filename);
 
@@ -61,7 +61,7 @@ namespace demo
 
 		GraphNodeFactory mGraphNodeFactory;
 
-		common::OpenSaveFileDialog* mFileDialog;
+		tools::OpenSaveFileDialog* mFileDialog;
 		bool mFileDialogSave;
 		wraps::ContextMenu* mContextMenu;
 

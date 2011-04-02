@@ -31,7 +31,9 @@ set (HEADER_FILES
   GraphNodePositionController.h
   GraphNodeSkeletonState.h
   GraphNodeWeightController.h
-  OpenSaveFileDialog.h
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/OpenSaveFileDialog.h
 )
 set (SOURCE_FILES
   AnimationGraphFactory.cpp
@@ -39,7 +41,9 @@ set (SOURCE_FILES
   DemoKeeper.cpp
   GraphNodeFactory.cpp
   ../../Common/Base/BaseResource.rc
-  OpenSaveFileDialog.cpp
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
@@ -100,8 +104,12 @@ SOURCE_GROUP("Demo\\Resource" FILES
 SOURCE_GROUP("Demo" FILES
 )
 SOURCE_GROUP("OpenSaveFileDialog" FILES
-  OpenSaveFileDialog.h
-  OpenSaveFileDialog.cpp
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.h
+  ../../Common/Tools/OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("" FILES
 )
