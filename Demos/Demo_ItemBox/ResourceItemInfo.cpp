@@ -38,7 +38,6 @@ namespace demo
 
 	const std::string& ResourceItemInfo::getItemResourceImage()
 	{
-		//TODO: cppcheck
 		return mItemResourceImage;
 	}
 

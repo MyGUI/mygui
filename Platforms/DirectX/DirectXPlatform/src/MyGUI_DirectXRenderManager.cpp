@@ -43,7 +43,7 @@ namespace MyGUI
 
 		D3DCAPS9 caps;
 		mpD3DDevice->GetDeviceCaps(&caps);
-		if(caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
+		if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
 		{
 			MYGUI_PLATFORM_LOG(Warning, "Non-squared textures not supported.");
 		}

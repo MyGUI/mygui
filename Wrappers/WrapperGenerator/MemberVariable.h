@@ -108,7 +108,7 @@ namespace wrapper
 
 	private:
 
-		bool isNeedInsert()
+		bool isNeedInsert() const
 		{
 			return ! mProtection;
 		}
