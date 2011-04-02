@@ -31,6 +31,8 @@ namespace MyGUI
 	{
 		enum Enum
 		{
+			None = -1,
+
 			Left = 0,
 			Right,
 			Middle,
@@ -43,8 +45,7 @@ namespace MyGUI
 			Button5,
 			Button6,
 			Button7,
-
-			None = -1
+			MAX
 		};
 
 		MouseButton(Enum _value = None) :

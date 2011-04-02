@@ -35,11 +35,13 @@ namespace MyGUI
 		static const UString& getEmptyUString() { return mUString; }
 		static const std::string& getEmptyString() { return mString; }
 		static const IntSize& getZeroIntSize() { return mIntSize; }
+		static const IntPoint& getZeroIntPoint() { return mIntPoint; }
 
 	private:
 		static UString mUString;
 		static std::string mString;
 		static IntSize mIntSize;
+		static IntPoint mIntPoint;
 	};
 
 } // namespace MyGUI
