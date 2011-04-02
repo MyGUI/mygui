@@ -14,6 +14,7 @@
 #include "GraphNodeFadeController.h"
 #include "GraphNodeGroup2Controller.h"
 #include "GraphNodeSkeletonState.h"
+#include "Tools/DialogManager.h"
 
 namespace demo
 {
@@ -78,15 +79,15 @@ namespace demo
 		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
 
+		new tools::DialogManager();
+		tools::DialogManager::getInstance().initialise();
+
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
 		getCamera()->setPosition(400, 400, 400);
 
-		mFileDialog = new common::OpenSaveFileDialog();
-		mFileDialog->setModalMode(true);
-		mFileDialog->setVisible(false);
-		mFileDialog->setFileMask("*.xml");
+		mFileDialog = new tools::OpenSaveFileDialog();
 		mFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
 
 		mGraph = new animation::AnimationGraph();
@@ -123,6 +124,9 @@ namespace demo
 
 		delete mContextMenu;
 		mContextMenu = nullptr;
+
+		tools::DialogManager::getInstance().shutdown();
+		delete tools::DialogManager::getInstancePtr();
 	}
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
@@ -182,14 +186,14 @@ namespace demo
 	{
 		mFileDialogSave = true;
 		mFileDialog->setDialogInfo("Save as ...", "Save");
-		mFileDialog->setVisible(true);
+		mFileDialog->doModal();
 	}
 
 	void DemoKeeper::LoadGraph()
 	{
 		mFileDialogSave = false;
 		mFileDialog->setDialogInfo("Load", "Load");
-		mFileDialog->setVisible(true);
+		mFileDialog->doModal();
 	}
 
 	void DemoKeeper::notifyInvalidateNode(BaseAnimationNode* _sender)
@@ -264,9 +268,8 @@ namespace demo
 		mGraph->addTime(_time);
 	}
 
-	void DemoKeeper::notifyEndDialog(common::OpenSaveFileDialog* _sender, bool _result)
+	void DemoKeeper::notifyEndDialog(tools::Dialog* _dialog, bool _result)
 	{
-		mFileDialog->setVisible(false);
 		if (!_result) return;
 
 		if (mFileDialogSave)
