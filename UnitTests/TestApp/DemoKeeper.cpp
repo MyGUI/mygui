@@ -49,6 +49,8 @@ namespace demo
 		for (size_t indexLine = 0; indexLine < 3; ++ indexLine)
 		{
 			MyGUI::WrapPanel* panel = stackPanel->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
+			panel->setContentAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
+
 			for (size_t index = 0; index < 20; ++ index)
 			{
 				if (rand() % 2)
