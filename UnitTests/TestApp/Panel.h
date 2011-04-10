@@ -28,7 +28,6 @@ namespace MyGUI
 		virtual void setCoord(const IntCoord& _value);
 
 		static void invalidateMeasure(Widget* _widget);
-		//void invalidateMeasure();
 		/*
 		Обновление размеров содержимого.
 		Метод updateMeasure вызывается для обновления mDesiredSize по нашему содержимому.
