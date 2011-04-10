@@ -24,6 +24,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
+#include "Panel.h"
 
 namespace MyGUI
 {
@@ -92,7 +93,8 @@ namespace MyGUI
 		Base::setSize(_size);
 
 		updateView();
-		//overrideArrange();
+
+		updateContent();
 	}
 
 	void ScrollViewPanel::setCoord(const IntCoord& _coord)
@@ -100,7 +102,8 @@ namespace MyGUI
 		Base::setCoord(_coord);
 
 		updateView();
-		//overrideArrange();
+
+		updateContent();
 	}
 
 	void ScrollViewPanel::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
@@ -346,32 +349,38 @@ namespace MyGUI
 		return mClient == nullptr ? IntCoord() : mClient->getCoord();
 	}
 
-	IntSize ScrollViewPanel::overrideMeasure(const IntSize& _sizeAvailable)
+	void ScrollViewPanel::updateContent()
 	{
-		IntSize result;
+		// размер клиента с полосами
+		IntSize viewSize = mClient->getSize();
+		if (!mVScroll->getVisible())
+			viewSize.width -= mVScroll->getWidth();
 
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
+		size_t childCount = getChildCount();
+		if (childCount == 0)
+			return;
+
+		Panel::updateMeasure(getChildAt(0), IntSize(viewSize.width, (std::numeric_limits<int>::max)()));
+		IntSize resultSize = Panel::getDesiredSize(getChildAt(0));
+
+		// содержимое влазиет по высоте, вертикального скрола не будет
+		if (viewSize.height >= resultSize.height)
 		{
-			Panel::updateMeasure(child.current(), IntSize((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)()));
-			result = Panel::getDesiredSize(child.current());
+			viewSize = mClient->getSize();
+			if (mVScroll->getVisible())
+				viewSize.width += mVScroll->getWidth();
 
-			break;
+			Panel::updateMeasure(getChildAt(0), IntSize(viewSize.width, (std::numeric_limits<int>::max)()));
+			IntSize resultSize = Panel::getDesiredSize(getChildAt(0));
+
+			Panel::updateArrange(getChildAt(0), IntCoord(0, 0, viewSize.width, resultSize.height));
+			setCanvasSize(IntSize(viewSize.width, resultSize.height));
 		}
-
-		return result;
-	}
-
-	void ScrollViewPanel::overrideArrange()
-	{
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
+		// содержимое больше, будет виден вертикальный скрол
+		else
 		{
-			const IntSize& childSize = Panel::getDesiredSize(child.current());
-			setCanvasSize(childSize);
-			Panel::updateArrange(child.current(), IntCoord(0, 0, childSize.width, childSize.height));
-
-			break;
+			Panel::updateArrange(getChildAt(0), IntCoord(0, 0, viewSize.width, resultSize.height));
+			setCanvasSize(IntSize(viewSize.width, resultSize.height));
 		}
 	}
 

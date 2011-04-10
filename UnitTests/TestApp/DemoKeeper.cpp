@@ -30,8 +30,10 @@ namespace demo
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::Align::Default, "Main");
 		//window->eventWindowChangeCoord += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 		MyGUI::IntCoord coord = window->getClientCoord();
+
 		MyGUI::ScrollViewPanel* scrollViewPanel = window->createWidget<MyGUI::ScrollViewPanel>("ScrollView", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 		MyGUI::StackPanel* stackPanel = scrollViewPanel->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 
 		//MyGUI::TextBox* text = stackPanel->createWidget<MyGUI::TextBox>("Button", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
 		//const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
@@ -44,7 +46,7 @@ namespace demo
 
 		//addText(stackPanel);
 
-		for (size_t indexLine = 0; indexLine < 20; ++ indexLine)
+		for (size_t indexLine = 0; indexLine < 3; ++ indexLine)
 		{
 			MyGUI::WrapPanel* panel = stackPanel->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
 			for (size_t index = 0; index < 20; ++ index)
@@ -56,10 +58,14 @@ namespace demo
 			}
 		}
 
+		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
+		scrollViewPanel->setVisibleHScroll(false);
+		scrollViewPanel->updateContent();
 		//notifyWindowChangeCoord(window);
 
 		// времено, так как не правильно обновляется иерархия
-		MyGUI::Panel::updateArrange(scrollViewPanel, scrollViewPanel->getCoord());
+		//MyGUI::Panel::updateArrange(scrollViewPanel, scrollViewPanel->getCoord());
+
 		//MyGUI::Panel::updateMeasure(scrollViewPanel, MyGUI::IntSize(0, 0));
 		//MyGUI::Panel::invalidateMeasure(scrollViewPanel);
 	}
