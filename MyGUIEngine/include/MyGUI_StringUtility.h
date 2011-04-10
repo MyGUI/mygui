@@ -284,8 +284,8 @@ namespace MyGUI
 
 		namespace templates
 		{
-			template<typename T>
-			inline void split(std::vector<std::string>& _ret, const std::string& _source, const std::string& _delims)
+			template<typename Type>
+			inline void split(std::vector<Type>& _ret, const Type& _source, const Type& _delims)
 			{
 				size_t start = _source.find_first_not_of(_delims);
 				while (start != _source.npos)
@@ -306,7 +306,7 @@ namespace MyGUI
 		inline std::vector<std::string> split(const std::string& _source, const std::string& _delims = "\t\n ")
 		{
 			std::vector<std::string> result;
-			templates::split<void>(result, _source, _delims);
+			templates::split<std::string>(result, _source, _delims);
 			return result;
 		}
 
