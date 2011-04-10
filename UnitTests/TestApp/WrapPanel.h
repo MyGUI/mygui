@@ -23,6 +23,9 @@ namespace MyGUI
 		Align getContentAlign() const;
 		void setContentAlign(Align _value);
 
+		const IntSize& getSpacer() const;
+		void setSpacer(const IntSize& _value);
+
 	protected:
 		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange();
@@ -32,6 +35,7 @@ namespace MyGUI
 
 	private:
 		Align mContentAlign;
+		IntSize mSpacer;
 	};
 
 } // namespace MyGUI

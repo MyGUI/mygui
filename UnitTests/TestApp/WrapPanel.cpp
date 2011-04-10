@@ -20,6 +20,7 @@ namespace MyGUI
 		int maxWidth = _sizeAvailable.width;
 		int maxLineHeight = 0;
 		bool hasWidget = false;
+		size_t countLine = 0;
 
 		size_t count = getChildCount();
 		for (size_t index = 0; index < count; ++ index)
@@ -33,10 +34,11 @@ namespace MyGUI
 				result.height += maxLineHeight;
 				result.width = size.width;
 				maxLineHeight = size.height;
+				countLine ++;
 			}
 			else
 			{
-				result.width += size.width;
+				result.width += size.width + mSpacer.width;
 				if (size.height > maxLineHeight)
 					maxLineHeight = size.height;
 			}
@@ -45,6 +47,12 @@ namespace MyGUI
 		}
 
 		result.height += maxLineHeight;
+
+		if (hasWidget)
+			countLine ++;
+
+		if (countLine > 0)
+			result.height += (countLine - 1) * mSpacer.height;
 
 		return result;
 	}
@@ -66,9 +74,9 @@ namespace MyGUI
 
 			if (((currentWidth + size.width) > maxWidth) && hasWidget)
 			{
-				alignChildLine(startLineIndex, index, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth);
+				alignChildLine(startLineIndex, index, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth - mSpacer.width);
 
-				currentHeight += maxLineHeight;
+				currentHeight += maxLineHeight + mSpacer.height;
 				currentWidth = size.width;
 				maxLineHeight = size.height;
 
@@ -76,7 +84,7 @@ namespace MyGUI
 			}
 			else
 			{
-				currentWidth += size.width;
+				currentWidth += size.width + mSpacer.width;
 				if (size.height > maxLineHeight)
 					maxLineHeight = size.height;
 			}
@@ -85,7 +93,7 @@ namespace MyGUI
 		}
 
 		if (hasWidget)
-			alignChildLine(startLineIndex, count, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth);
+			alignChildLine(startLineIndex, count, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth - mSpacer.width);
 	}
 
 	void WrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, const IntCoord& _coordAvailable, int _lineWidth)
@@ -108,7 +116,7 @@ namespace MyGUI
 				top = _coordAvailable.top + (_coordAvailable.height - size.height);
 
 			Panel::updateArrange(child, IntCoord(left, top, size.width, size.height));
-			left += size.width;
+			left += size.width + mSpacer.width;
 		}
 	}
 
@@ -120,6 +128,16 @@ namespace MyGUI
 	void WrapPanel::setContentAlign(Align _value)
 	{
 		mContentAlign = _value;
+	}
+
+	const IntSize& WrapPanel::getSpacer() const
+	{
+		return mSpacer;
+	}
+
+	void WrapPanel::setSpacer(const IntSize& _value)
+	{
+		mSpacer = _value;
 	}
 
 } // namespace MyGUI
