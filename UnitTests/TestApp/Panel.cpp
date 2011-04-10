@@ -22,13 +22,13 @@ namespace MyGUI
 	void Panel::setSize(const IntSize& _value)
 	{
 		Base::setSize(_value);
-		overrideArrange();
+		//overrideArrange();
 	}
 
 	void Panel::setCoord(const IntCoord& _value)
 	{
 		Base::setCoord(_value);
-		overrideArrange();
+		//overrideArrange();
 	}
 
 	void Panel::updateMeasure(Widget* _widget, const IntSize& _sizeAvailable)
@@ -65,7 +65,12 @@ namespace MyGUI
 	void Panel::updateArrange(Widget* _widget, const IntCoord& _coordPlace)
 	{
 		updateMeasure(_widget, _coordPlace.size());
+
 		_widget->setCoord(_coordPlace);
+
+		Panel* panel = _widget->castType<Panel>(false);
+		if (panel != nullptr)
+			panel->overrideArrange();
 	}
 
 	IntSize Panel::getDesiredSize(Widget* _widget)
