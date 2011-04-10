@@ -51,12 +51,13 @@ namespace MyGUI
 				IntSize size = _widget->getSize();
 				_widget->_setInternalData(size);
 
-				// виджет оказалс€ обычным, но у виджета нет overrideMeasure и нуна ручками спускатьс€ вниз дл€ обновлени€
-				if (_widget->getChildCount() != 0)
+				// виджет оказалс€ обычным, но у виджета нет overrideMeasure
+				// и нуна ручками спускатьс€ вниз дл€ обновлени€
+				/*if (_widget->getChildCount() != 0)
 				{
 					IntCoord coord = _widget->getClientCoord();
 					updateMeasure(_widget->getChildAt(0), coord.size());
-				}
+				}*/
 			}
 		}
 	}
@@ -64,18 +65,8 @@ namespace MyGUI
 	void Panel::updateArrange(Widget* _widget, const IntCoord& _coordPlace)
 	{
 		updateMeasure(_widget, _coordPlace.size());
-		//const IntSize& size_content = getDesiredSize(_widget);
-		_widget->setCoord(_coordPlace);//IntCoord(_coordPlace.left, _coordPlace.top, size_content.width, size_content.height));
+		_widget->setCoord(_coordPlace);
 	}
-
-	/*IntSize Panel::overrideMeasure(const IntSize& _sizeAvailable)
-	{
-		return IntSize();
-	}*/
-
-	/*void Panel::overrideArrange()
-	{
-	}*/
 
 	IntSize Panel::getDesiredSize(Widget* _widget)
 	{
@@ -101,10 +92,18 @@ namespace MyGUI
 		}
 		else
 		{
-			const IntSize& size = _widget->getParentSize();
 			Panel* panel = _widget->castType<Panel>(false);
 			if (panel != nullptr)
-				Panel::updateArrange(panel, IntCoord(0, 0, size.width, size.height));
+			{
+				const IntSize& size = _widget->getParentSize();
+				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
+			}
+			/*else
+			{
+				// тут походу второй кос€к
+				const IntSize& size = _widget->getSize();
+				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
+			}*/
 		}
 	}
 
@@ -121,9 +120,5 @@ namespace MyGUI
 
 		Base::onWidgetDestroy(_widget);
 	}
-
-	/*void Panel::invalidateMeasure()
-	{
-	}*/
 
 } // namespace MyGUI

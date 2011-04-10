@@ -23,14 +23,14 @@
 #define __MYGUI_SCROLL_VIEW_PANEL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "Panel.h"
+#include "MyGUI_Widget.h"
 #include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
 
 	class ScrollViewPanel :
-		public Panel,
+		public Widget,
 		protected ScrollViewBase
 	{
 		MYGUI_RTTI_DERIVED( ScrollViewPanel )
@@ -82,6 +82,8 @@ namespace MyGUI
 		/** Get view area offset. */
 		IntPoint getViewOffset();
 
+		void updateContent();
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -95,9 +97,6 @@ namespace MyGUI
 		void updateView();
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
-
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
-		virtual void overrideArrange();
 
 	private:
 		// размер данных
