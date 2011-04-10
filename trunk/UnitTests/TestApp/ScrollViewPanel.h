@@ -84,9 +84,30 @@ namespace MyGUI
 
 		void updateContent();
 
+		//! Get number of items
+		size_t getItemCount() const;
+
+		//! Insert an item into a array at a specified position
+		//void insertItemAt(size_t _index, const UString& _item);
+
+		//! Add an item to the end of a array
+		void addItem(const UString& _item);
+
+		//! Remove item at a specified position
+		void removeItemAt(size_t _index);
+
+		//! Remove all items
+		void removeAllItems();
+
+		//! Swap items at a specified positions
+		//void swapItemsAt(size_t _index1, size_t _index2);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
+
+		//virtual void onWidgetCreated(Widget* _widget);
+		//virtual void onWidgetDestroy(Widget* _widget);
 
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -112,9 +133,16 @@ namespace MyGUI
 
 		virtual Align getContentAlign();
 
+		/*void parseHyperText(const UString& _value, Widget* _parent);
+		void parseTag(const UString& _value, Widget* _parent);
+		void parseText(const UString& _value, Widget* _parent);*/
+
 	protected:
 		Align mContentAlign;
 		Widget* mRealClient;
+
+	/*private:
+		Widget* mStackPanel;*/
 	};
 
 } // namespace MyGUI
