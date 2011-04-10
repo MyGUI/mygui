@@ -67,11 +67,13 @@ namespace demo
 					addImage(panel);
 			}
 		}*/
-		addLine(stackPanel, "<h1>Caption</h1>");
+		addLine(stackPanel, "<p align='center'>Caption</p>");
 		addLine(stackPanel, "<p><s>This is strike.</s></p>");
 		addLine(stackPanel, "<p><u>This is under.</u></p>");
 		addLine(stackPanel, "<p>This <b>is</b> text.</p>");
 		addLine(stackPanel, "<p>This is image.<img width='32' height='32' src='HandPointerImage'/></p>");
+		//addLine(stackPanel, "<p>This is image.<img width='32' height='32'>HandPointerImage</img></p>");
+		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
 
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
 		scrollViewPanel->setVisibleHScroll(false);
@@ -191,6 +193,8 @@ namespace demo
 	{
 		const std::string imageStartTagName = "<img ";
 		const std::string imageEndTagName = "/>";
+		const std::string paragraphStartTagName = "<p ";
+		const std::string paragraphEndTagName = ">";
 
 		if (_value == "<b>")
 		{
@@ -200,14 +204,14 @@ namespace demo
 		{
 			mBold = false;
 		}
-		else if (_value == "<h1>")
+		/*else if (_value == "<h1>")
 		{
 			mCaption = true;
 		}
 		else if (_value == "</h1>")
 		{
 			mCaption = false;
-		}
+		}*/
 		else if (_value == "<s>")
 		{
 			mStrike = true;
@@ -223,6 +227,14 @@ namespace demo
 		else if (_value == "</u>")
 		{
 			mUnder = false;
+		}
+		else if (MyGUI::utility::startWith(_value, paragraphStartTagName))
+		{
+			mCaption = true;
+		}
+		else if (_value == "</p>")
+		{
+			mCaption = false;
 		}
 		else if (MyGUI::utility::startWith(_value, imageStartTagName) && MyGUI::utility::endWith(_value, imageEndTagName))
 		{
