@@ -25,6 +25,8 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
 #include "Panel.h"
+#include "WrapPanel.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -34,7 +36,8 @@ namespace MyGUI
 
 	ScrollViewPanel::ScrollViewPanel() :
 		mContentAlign(Align::Center),
-		mRealClient(nullptr)
+		mRealClient(nullptr)//,
+		//mStackPanel(nullptr)
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
@@ -383,5 +386,98 @@ namespace MyGUI
 			setCanvasSize(IntSize(viewSize.width, resultSize.height));
 		}
 	}
+
+	/*void ScrollViewPanel::setCaption(const UString& _value)
+	{
+		parseHyperText(_value);
+	}*/
+
+	/*void ScrollViewPanel::parseHyperText(const UString& _value)
+	{
+		UString::const_iterator textItem = _value.end();
+		for (UString::const_iterator item = _value.begin(); item != _value.end(); ++ item)
+		{
+			if ((*item) == '<')
+			{
+				// отрезаем текст
+				if (textItem < item)
+					parseText(_value.substr(textItem - _value.begin(), item - textItem));
+
+				// ищем конец тега
+				for (UString::const_iterator tagItem = item; tagItem != _value.end(); ++ tagItem)
+				{
+					if ((*tagItem) == '>')
+					{
+						parseTag(_value.substr(item - _value.begin(), tagItem - item + 1));
+						item = tagItem;
+						textItem = tagItem + 1;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	void ScrollViewPanel::parseTag(const UString& _value)
+	{
+		int test = 0;
+	}
+
+	void ScrollViewPanel::parseText(const UString& _value)
+	{
+		int test = 0;
+	}
+
+	size_t ScrollViewPanel::getItemCount() const
+	{
+		if (mStackPanel != nullptr)
+			return mStackPanel->getChildCount();
+
+		return 0;
+	}*/
+
+	/*void ScrollViewPanel::insertItemAt(size_t _index, const UString& _item)
+	{
+		MYGUI_ASSERT_RANGE_INSERT(_index, getItemCount(), "ScrollViewPanel::insertItemAt");
+		if (_index == ITEM_NONE)
+			_index = getItemCount();
+
+	}*/
+
+	/*void ScrollViewPanel::addItem(const UString& _item)
+	{
+		//insertItemAt(ITEM_NONE, _item);
+		if (mStackPanel != nullptr)
+		{
+			WrapPanel* panel = mStackPanel->createWidget<WrapPanel>("Button", IntCoord(), Align::Default);
+			panel->setContentAlign(Align::Left | Align::Bottom);
+		}
+	}
+
+	void ScrollViewPanel::removeItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, getItemCount(), "ScrollViewPanel::removeItemAt");
+
+		if (mStackPanel != nullptr)
+			WidgetManager::getInstance().destroyWidget(mStackPanel->getChildAt(0));
+	}
+
+	void ScrollViewPanel::removeAllItems()
+	{
+		while (getItemCount() != 0)
+			removeItemAt(0);
+	}
+
+	void ScrollViewPanel::onWidgetCreated(Widget* _widget)
+	{
+		Base::onWidgetCreated(_widget);
+
+		mStackPanel = _widget;
+	}
+
+	void ScrollViewPanel::onWidgetDestroy(Widget* _widget)
+	{
+		Base::onWidgetDestroy(_widget);
+	}*/
 
 } // namespace MyGUI

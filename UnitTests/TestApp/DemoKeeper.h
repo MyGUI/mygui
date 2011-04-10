@@ -16,10 +16,19 @@ namespace demo
 	private:
 		virtual void setupResources();
 
-		void addText(MyGUI::Widget* _parent);
-		void addImage(MyGUI::Widget* _parent);
+		//void addText(MyGUI::Widget* _parent);
+		//void addImage(MyGUI::Widget* _parent);
 
 		//void notifyWindowChangeCoord(MyGUI::Window* _sender);
+		void addLine(MyGUI::Widget* _parent, const std::string& _value);
+		void parseText(MyGUI::Widget* _parent, const std::string& _value);
+		void parseTag(MyGUI::Widget* _parent, const std::string& _value);
+
+	private:
+		bool mBold;
+		bool mCaption;
+		bool mStrike;
+		bool mUnder;
 	};
 
 } // namespace demo

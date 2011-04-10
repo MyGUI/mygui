@@ -86,7 +86,7 @@ namespace MyGUI
 		return IntSize();
 	}
 
-	void Panel::invalidateMeasure(Widget* _widget)
+	/*void Panel::invalidateMeasure(Widget* _widget)
 	{
 		if (_widget->getParent() != nullptr)
 		{
@@ -103,14 +103,14 @@ namespace MyGUI
 				const IntSize& size = _widget->getParentSize();
 				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
 			}
-			/*else
+			else
 			{
 				// тут походу второй косяк
 				const IntSize& size = _widget->getSize();
 				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
-			}*/
+			}
 		}
-	}
+	}*/
 
 	void Panel::onWidgetCreated(Widget* _widget)
 	{
