@@ -20,9 +20,15 @@ namespace MyGUI
 	public:
 		StackPanel();
 
+		const IntSize& getSpacer() const;
+		void setSpacer(const IntSize& _value);
+
 	protected:
 		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange();
+
+	private:
+		IntSize mSpacer;
 	};
 
 } // namespace MyGUI
