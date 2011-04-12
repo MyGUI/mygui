@@ -264,7 +264,7 @@ namespace demo
 
 				if (mUnder)
 				{
-					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
+					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize - 1, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
 					line->setColour(MyGUI::Colour::Black);
 					line->setNeedMouseFocus(false);
 					if (mColour)
