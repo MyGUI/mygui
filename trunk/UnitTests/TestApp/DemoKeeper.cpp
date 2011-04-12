@@ -15,7 +15,9 @@ namespace demo
 		mImage(false),
 		mHeader1(false),
 		mHeader2(false),
-		mHeader3(false)
+		mHeader3(false),
+		mColour(false),
+		mUrl(false)
 	{
 		mSpacer.set(3, 3);
 		mDefaultTextSkin = "TextBox";
@@ -82,7 +84,10 @@ namespace demo
 		addLine(stackPanel, "<p align='center'><h2>Caption2 center</h2></p>");
 		addLine(stackPanel, "<p align='right'><h3>Caption3 right</h3></p>");
 		addLine(stackPanel, "<p><s>This is strike.</s></p>");
+		addLine(stackPanel, "<p><s><color value='#FF00FF'>This is strike and colour.</color></s></p>");
 		addLine(stackPanel, "<p><u>This is under.</u></p>");
+		addLine(stackPanel, "<p><color value='#FFFFFF'>This is color.</color></p>");
+		addLine(stackPanel, "<p><url value='http://www.google.com'>http://www.google.com</url></p>");
 		addLine(stackPanel, "<p>This is image.<img>HandPointerImage</img></p>");
 		//addLine(stackPanel, "<p>This is image.<img width='32' height='32'>HandPointerImage</img></p>");
 		addLine(stackPanel, "<p><b>This is bold text.</b></p>");
@@ -196,6 +201,22 @@ namespace demo
 			MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, mImageSize.width, mImageSize.height), MyGUI::Align::Default);
 			image->setItemResource(_value);
 		}
+		else if (mUrl)
+		{
+			MyGUI::TextBox* text = _parent->createWidget<MyGUI::TextBox>(mDefaultTextSkin, MyGUI::IntCoord(0, 0, defaultSize, defaultSize), MyGUI::Align::Default);
+			text->setCaption(_value);
+			text->setPointer("link");
+
+			MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize - 1, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
+			line->setColour(MyGUI::Colour::Black);
+			line->setVisible(false);
+			line->setNeedMouseFocus(false);
+
+			text->eventMouseLostFocus += MyGUI::newDelegate(this, &DemoKeeper::OnTextLostFocus);
+			text->eventMouseSetFocus += MyGUI::newDelegate(this, &DemoKeeper::OnTextSetFocus);
+			text->eventMouseButtonClick += MyGUI::newDelegate(this, &DemoKeeper::OnTextClick);
+			text->setUserString("Url", mUrlValue);
+		}
 		else
 		{
 			MyGUI::VectorString result = MyGUI::utility::split(_value);
@@ -227,16 +248,27 @@ namespace demo
 					text->setFontName("DejaVuSansFont.20");
 				}
 
+				if (mColour)
+				{
+					text->setTextColour(mColourValue);
+				}
+
 				if (mStrike)
 				{
 					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, 0, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::VCenter);
 					line->setColour(MyGUI::Colour::Black);
+					line->setNeedMouseFocus(false);
+					if (mColour)
+						line->setColour(mColourValue);
 				}
 
 				if (mUnder)
 				{
-					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize - 5, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
+					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
 					line->setColour(MyGUI::Colour::Black);
+					line->setNeedMouseFocus(false);
+					if (mColour)
+						line->setColour(mColourValue);
 				}
 			}
 		}
@@ -247,8 +279,14 @@ namespace demo
 		const std::string imageStartTagName = "<img";
 		const std::string imageEndTagName = ">";
 
-		const std::string paragraphStartTagName = "<p ";
+		const std::string paragraphStartTagName = "<p";
 		const std::string paragraphEndTagName = ">";
+
+		const std::string colourStartTagName = "<color";
+		const std::string colourEndTagName = ">";
+
+		const std::string urlStartTagName = "<url";
+		const std::string urlEndTagName = ">";
 
 		if (_value == "<h1>")
 		{
@@ -306,6 +344,55 @@ namespace demo
 		{
 			mUnder = false;
 		}
+		else if (MyGUI::utility::startWith(_value, colourStartTagName))
+		{
+			mColour = true;
+			mColourValue = MyGUI::Colour::Black;
+
+			const std::string colourTagName = "value=";
+
+			std::string valueColour = _value.substr(colourStartTagName.size(), _value.size() - (colourStartTagName.size() + colourEndTagName.size()));
+			MyGUI::VectorString result = MyGUI::utility::split(valueColour);
+			for (MyGUI::VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			{
+				if (MyGUI::utility::startWith(*item, colourTagName))
+				{
+					if ((colourTagName.size() + 2) < ((*item).size()))
+					{
+						std::string value = (*item).substr(colourTagName.size() + 1, (*item).size() - (colourTagName.size() + 2));
+						mColourValue = MyGUI::Colour::parse(value);
+					}
+				}
+			}
+		}
+		else if (_value == "</color>")
+		{
+			mColour = false;
+		}
+		else if (MyGUI::utility::startWith(_value, urlStartTagName))
+		{
+			mUrl = true;
+			mUrlValue.clear();
+
+			const std::string urlTagName = "value=";
+
+			std::string valueUrl = _value.substr(urlStartTagName.size(), _value.size() - (urlStartTagName.size() + urlEndTagName.size()));
+			MyGUI::VectorString result = MyGUI::utility::split(valueUrl);
+			for (MyGUI::VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+			{
+				if (MyGUI::utility::startWith(*item, urlTagName))
+				{
+					if ((urlTagName.size() + 2) < ((*item).size()))
+					{
+						mUrlValue = (*item).substr(urlTagName.size() + 1, (*item).size() - (urlTagName.size() + 2));
+					}
+				}
+			}
+		}
+		else if (_value == "</url>")
+		{
+			mUrl = false;
+		}
 		else if (MyGUI::utility::startWith(_value, paragraphStartTagName))
 		{
 			MyGUI::Align align = MyGUI::Align::Default;
@@ -338,23 +425,17 @@ namespace demo
 			{
 				panel->setContentAlign(align);
 			}
-			//mCaption = true;
 		}
 		else if (_value == "</p>")
 		{
-			//mCaption = false;
 		}
-		else if (MyGUI::utility::startWith(_value, imageStartTagName))// && MyGUI::utility::endWith(_value, imageEndTagName))
+		else if (MyGUI::utility::startWith(_value, imageStartTagName))
 		{
-			//MyGUI::IntSize size;
-			//std::string source;
-
 			mImageSize.clear();
 			mImage = true;
 
 			const std::string widthTagName = "width=";
 			const std::string heightTagName = "height=";
-			//const std::string srcTagName = "src=";
 
 			std::string valueImage = _value.substr(imageStartTagName.size(), _value.size() - (imageStartTagName.size() + imageEndTagName.size()));
 			MyGUI::VectorString result = MyGUI::utility::split(valueImage);
@@ -376,26 +457,32 @@ namespace demo
 						mImageSize.height = MyGUI::utility::parseValue<int>(value);
 					}
 				}
-				/*else if (MyGUI::utility::startWith(*item, srcTagName))
-				{
-					if ((srcTagName.size() + 2) < ((*item).size()))
-					{
-						std::string value = (*item).substr(srcTagName.size() + 1, (*item).size() - (srcTagName.size() + 2));
-						source = value;
-					}
-				}*/
 			}
-
-			/*if (!source.empty() && size.width != 0 && size.height != 0)
-			{
-				MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Default);
-				image->setItemResource(source);
-			}*/
 		}
 		else if (_value == "</img>")
 		{
 			mImage = false;
 		}
+	}
+
+	void DemoKeeper::OnTextLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new)
+	{
+		size_t count = _sender->getChildCount();
+		if (count > 0)
+			_sender->getChildAt(0)->setVisible(false);
+	}
+
+	void DemoKeeper::OnTextSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
+	{
+		size_t count = _sender->getChildCount();
+		if (count > 0)
+			_sender->getChildAt(0)->setVisible(true);
+	}
+
+	void DemoKeeper::OnTextClick(MyGUI::Widget* _sender)
+	{
+		std::string url = _sender->getUserString("Url");
+		int test = 0;
 	}
 
 } // namespace demo
