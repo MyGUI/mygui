@@ -30,7 +30,9 @@ namespace demo
 		bool mStrike;
 		bool mUnder;
 		bool mImage;
-		bool mHeader;
+		bool mHeader1;
+		bool mHeader2;
+		bool mHeader3;
 		MyGUI::IntSize mImageSize;
 		MyGUI::IntSize mSpacer;
 		std::string mDefaultTextSkin;
