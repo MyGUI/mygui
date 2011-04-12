@@ -28,6 +28,9 @@ namespace MyGUI
 			result.height += size.height;
 		}
 
+		if (count > 0)
+			result.height += (count - 1) * mSpacer.height;
+
 		return result;
 	}
 
@@ -46,8 +49,18 @@ namespace MyGUI
 
 			Panel::updateArrange(child.current(), coord);
 
-			offset += height;
+			offset += height + mSpacer.height;
 		}
+	}
+
+	const IntSize& StackPanel::getSpacer() const
+	{
+		return mSpacer;
+	}
+
+	void StackPanel::setSpacer(const IntSize& _value)
+	{
+		mSpacer = _value;
 	}
 
 } // namespace MyGUI

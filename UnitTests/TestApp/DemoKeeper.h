@@ -26,9 +26,15 @@ namespace demo
 
 	private:
 		bool mBold;
-		bool mCaption;
+		bool mItalic;
 		bool mStrike;
 		bool mUnder;
+		bool mImage;
+		bool mHeader;
+		MyGUI::IntSize mImageSize;
+		MyGUI::IntSize mSpacer;
+		std::string mDefaultTextSkin;
+		std::string mDefaultParagraphSkin;
 	};
 
 } // namespace demo

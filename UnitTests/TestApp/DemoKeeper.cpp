@@ -9,10 +9,17 @@ namespace demo
 {
 	DemoKeeper::DemoKeeper() :
 		mBold(false),
-		mCaption(false),
+		mItalic(false),
 		mStrike(false),
-		mUnder(false)
+		mUnder(false),
+		mImage(false),
+		mHeader(false)
 	{
+		mSpacer.set(3, 3);
+		mDefaultTextSkin = "TextBox";
+		mDefaultParagraphSkin = "Default";
+		//mDefaultTextSkin = "Button";
+		//mDefaultParagraphSkin = "Button";
 	}
 
 	void DemoKeeper::setupResources()
@@ -27,6 +34,8 @@ namespace demo
 		srand(GetTickCount());
 
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
+
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WrapPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>("Widget");
@@ -67,14 +76,16 @@ namespace demo
 					addImage(panel);
 			}
 		}*/
-		addLine(stackPanel, "<p align='center'>Caption</p>");
+		addLine(stackPanel, "<p align='center'><h1>Caption</h1></p>");
 		addLine(stackPanel, "<p><s>This is strike.</s></p>");
 		addLine(stackPanel, "<p><u>This is under.</u></p>");
-		addLine(stackPanel, "<p>This <b>is</b> text.</p>");
-		addLine(stackPanel, "<p>This is image.<img width='32' height='32' src='HandPointerImage'/></p>");
-		//addLine(stackPanel, "<p>This is image.<img width='32' height='32'>HandPointerImage</img></p>");
+		//addLine(stackPanel, "<p>This is image.<img width='32' height='32' src='HandPointerImage'/></p>");
+		addLine(stackPanel, "<p>This is image.<img width='32' height='32'>HandPointerImage</img></p>");
+		addLine(stackPanel, "<p><b>This is bold text.</b></p>");
+		addLine(stackPanel, "<p><i>This is italic text.</i></p>");
 		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
 
+		stackPanel->setSpacer(MyGUI::IntSize(0, mSpacer.height));
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
 		scrollViewPanel->setVisibleHScroll(false);
 		scrollViewPanel->updateContent();
@@ -128,9 +139,9 @@ namespace demo
 
 	void DemoKeeper::addLine(MyGUI::Widget* _parent, const std::string& _value)
 	{
-		MyGUI::WrapPanel* panel = _parent->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WrapPanel* panel = _parent->createWidget<MyGUI::WrapPanel>(mDefaultParagraphSkin, MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setContentAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
-		panel->setSpacer(MyGUI::IntSize(10, 0));
+		panel->setSpacer(MyGUI::IntSize(mSpacer.width, 0));
 
 		std::string::const_iterator textItem = _value.end();
 		for (std::string::const_iterator item = _value.begin(); item != _value.end(); ++ item)
@@ -160,31 +171,48 @@ namespace demo
 	{
 		const int defaultSize = 16;
 
-		MyGUI::VectorString result = MyGUI::utility::split(_value);
-		for (MyGUI::VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
+		if (mImage)
 		{
-			MyGUI::TextBox* text = _parent->createWidget<MyGUI::TextBox>("Button", MyGUI::IntCoord(0, 0, defaultSize, defaultSize), MyGUI::Align::Default);
-			text->setCaption(*item);
-			if (mBold)
+			MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, mImageSize.width, mImageSize.height), MyGUI::Align::Default);
+			image->setItemResource(_value);
+			//mImage = false;
+		}
+		else
+		{
+			MyGUI::VectorString result = MyGUI::utility::split(_value);
+			for (MyGUI::VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
 			{
-				text->setFontHeight(30);
-			}
-			else if (mStrike)
-			{
-				MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, 0, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::VCenter);
-				line->setColour(MyGUI::Colour::Black);
-			}
-			else if (mUnder)
-			{
-				MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize - 5, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
-				line->setColour(MyGUI::Colour::Black);
-			}
-			else if (mCaption)
-			{
-				// достаточно один раз сделать
-				MyGUI::WrapPanel* panel = _parent->castType<MyGUI::WrapPanel>(false);
-				if (panel != nullptr)
-					panel->setContentAlign(MyGUI::Align::Center);
+				MyGUI::TextBox* text = _parent->createWidget<MyGUI::TextBox>(mDefaultTextSkin, MyGUI::IntCoord(0, 0, defaultSize, defaultSize), MyGUI::Align::Default);
+				text->setCaption(*item);
+				if (mBold)
+				{
+					text->setFontName("DejaVuSansBoldFont.17");
+				}
+				else if (mItalic)
+				{
+					text->setFontName("DejaVuSansItalicFont.17");
+				}
+				else if (mHeader)
+				{
+					text->setFontName("DejaVuSansFont.20");
+				}
+				else if (mStrike)
+				{
+					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, 0, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::VCenter);
+					line->setColour(MyGUI::Colour::Black);
+				}
+				else if (mUnder)
+				{
+					MyGUI::Widget* line = text->createWidget<MyGUI::Widget>("WhiteSkin", MyGUI::IntCoord(0, defaultSize - 5, defaultSize, 1), MyGUI::Align::HStretch | MyGUI::Align::Bottom);
+					line->setColour(MyGUI::Colour::Black);
+				}
+				/*else if (mCaption)
+				{
+					// достаточно один раз сделать
+					MyGUI::WrapPanel* panel = _parent->castType<MyGUI::WrapPanel>(false);
+					if (panel != nullptr)
+						panel->setContentAlign(MyGUI::Align::Center);
+				}*/
 			}
 		}
 	}
@@ -192,11 +220,20 @@ namespace demo
 	void DemoKeeper::parseTag(MyGUI::Widget* _parent, const std::string& _value)
 	{
 		const std::string imageStartTagName = "<img ";
-		const std::string imageEndTagName = "/>";
+		const std::string imageEndTagName = ">";
+
 		const std::string paragraphStartTagName = "<p ";
 		const std::string paragraphEndTagName = ">";
 
-		if (_value == "<b>")
+		if (_value == "<h1>")
+		{
+			mHeader = true;
+		}
+		else if (_value == "</h1>")
+		{
+			mHeader = false;
+		}
+		else if (_value == "<b>")
 		{
 			mBold = true;
 		}
@@ -204,14 +241,14 @@ namespace demo
 		{
 			mBold = false;
 		}
-		/*else if (_value == "<h1>")
+		else if (_value == "<i>")
 		{
-			mCaption = true;
+			mItalic = true;
 		}
-		else if (_value == "</h1>")
+		else if (_value == "</i>")
 		{
-			mCaption = false;
-		}*/
+			mItalic = false;
+		}
 		else if (_value == "<s>")
 		{
 			mStrike = true;
@@ -230,20 +267,28 @@ namespace demo
 		}
 		else if (MyGUI::utility::startWith(_value, paragraphStartTagName))
 		{
-			mCaption = true;
+			MyGUI::WrapPanel* panel = _parent->castType<MyGUI::WrapPanel>(false);
+			if (panel != nullptr)
+			{
+				panel->setContentAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
+			}
+			//mCaption = true;
 		}
 		else if (_value == "</p>")
 		{
-			mCaption = false;
+			//mCaption = false;
 		}
-		else if (MyGUI::utility::startWith(_value, imageStartTagName) && MyGUI::utility::endWith(_value, imageEndTagName))
+		else if (MyGUI::utility::startWith(_value, imageStartTagName))// && MyGUI::utility::endWith(_value, imageEndTagName))
 		{
-			MyGUI::IntSize size;
-			std::string source;
+			//MyGUI::IntSize size;
+			//std::string source;
+
+			mImageSize.clear();
+			mImage = true;
 
 			const std::string widthTagName = "width=";
 			const std::string heightTagName = "height=";
-			const std::string srcTagName = "src=";
+			//const std::string srcTagName = "src=";
 
 			std::string valueImage = _value.substr(imageStartTagName.size(), _value.size() - (imageStartTagName.size() + imageEndTagName.size()));
 			MyGUI::VectorString result = MyGUI::utility::split(valueImage);
@@ -254,7 +299,7 @@ namespace demo
 					if ((widthTagName.size() + 2) < ((*item).size()))
 					{
 						std::string value = (*item).substr(widthTagName.size() + 1, (*item).size() - (widthTagName.size() + 2));
-						size.width = MyGUI::utility::parseValue<int>(value);
+						mImageSize.width = MyGUI::utility::parseValue<int>(value);
 					}
 				}
 				else if (MyGUI::utility::startWith(*item, heightTagName))
@@ -262,24 +307,28 @@ namespace demo
 					if ((heightTagName.size() + 2) < ((*item).size()))
 					{
 						std::string value = (*item).substr(heightTagName.size() + 1, (*item).size() - (heightTagName.size() + 2));
-						size.height = MyGUI::utility::parseValue<int>(value);
+						mImageSize.height = MyGUI::utility::parseValue<int>(value);
 					}
 				}
-				else if (MyGUI::utility::startWith(*item, srcTagName))
+				/*else if (MyGUI::utility::startWith(*item, srcTagName))
 				{
 					if ((srcTagName.size() + 2) < ((*item).size()))
 					{
 						std::string value = (*item).substr(srcTagName.size() + 1, (*item).size() - (srcTagName.size() + 2));
 						source = value;
 					}
-				}
+				}*/
 			}
 
-			if (!source.empty() && size.width != 0 && size.height != 0)
+			/*if (!source.empty() && size.width != 0 && size.height != 0)
 			{
 				MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Default);
 				image->setItemResource(source);
-			}
+			}*/
+		}
+		else if (_value == "</img>")
+		{
+			mImage = false;
 		}
 	}
 
