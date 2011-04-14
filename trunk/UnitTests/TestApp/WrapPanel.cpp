@@ -17,7 +17,6 @@ namespace MyGUI
 	{
 		IntSize result;
 
-		int maxWidth = _sizeAvailable.width;
 		int maxLineHeight = 0;
 		bool hasWidget = false;
 		size_t countLine = 0;
@@ -29,7 +28,7 @@ namespace MyGUI
 			Panel::updateMeasure(child, _sizeAvailable);
 			IntSize size = Panel::getDesiredSize(child);
 
-			if (((result.width + size.width) > maxWidth) && hasWidget)
+			if (((result.width + size.width) > _sizeAvailable.width) && hasWidget)
 			{
 				result.height += maxLineHeight;
 				result.width = size.width;
@@ -138,6 +137,26 @@ namespace MyGUI
 	void WrapPanel::setSpacer(const IntSize& _value)
 	{
 		mSpacer = _value;
+	}
+
+	bool WrapPanel::getContentFloat() const
+	{
+		return mContentFloat;
+	}
+
+	void WrapPanel::setContentFloat(bool _value)
+	{
+		mContentFloat = _value;
+	}
+
+	Align WrapPanel::getSnapFloat() const
+	{
+		return mSnapFloat;
+	}
+
+	void WrapPanel::setSnapFloat(Align _value)
+	{
+		mSnapFloat = _value;
 	}
 
 } // namespace MyGUI
