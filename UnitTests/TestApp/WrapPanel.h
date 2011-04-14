@@ -26,6 +26,12 @@ namespace MyGUI
 		const IntSize& getSpacer() const;
 		void setSpacer(const IntSize& _value);
 
+		bool getContentFloat() const;
+		void setContentFloat(bool _value);
+
+		Align getSnapFloat() const;
+		void setSnapFloat(Align _value);
+
 	protected:
 		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange();
@@ -35,6 +41,8 @@ namespace MyGUI
 
 	private:
 		Align mContentAlign;
+		Align mSnapFloat;
+		bool mContentFloat;
 		IntSize mSpacer;
 	};
 

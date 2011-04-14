@@ -4,9 +4,35 @@
 #include "WrapPanel.h"
 #include "StackPanel.h"
 #include "ScrollViewPanel.h"
+#include "sigslot.h"
 
 namespace demo
 {
+	class A :
+		public sigslot::has_slots
+	{
+	public:
+		void foo1(float _value)
+		{
+			delete this;
+			int test = 0;
+		}
+		void foo0()
+		{
+			int test = 0;
+		}
+		static void foo()
+		{
+		}
+	};
+
+	class B
+	{
+	public:
+		sigslot::signal1<float> signal1;
+		sigslot::signal0 signal0;
+	};
+
 	DemoKeeper::DemoKeeper() :
 		mBold(false),
 		mItalic(false),
@@ -19,6 +45,21 @@ namespace demo
 		mColour(false),
 		mUrl(false)
 	{
+		A* a1 = new A();
+		A* a2 = new A();
+		B b;
+
+		b.signal1.connect(a1, &A::foo1);
+		b.signal1.connect(a2, &A::foo1);
+
+		b.signal0.connect(a1, &A::foo0);
+		b.signal0.connect(a2, &A::foo0);
+
+		b.signal1.emit(2);
+		//delete a1;
+
+		//b.signal.emit(3);
+
 		mSpacer.set(3, 3);
 		mDefaultTextSkin = "TextBox";
 		mDefaultParagraphSkin = "Default";
@@ -44,7 +85,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>("Widget");
 
-		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 300, 300), MyGUI::Align::Default, "Main");
+		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
 		//window->eventWindowChangeCoord += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 		MyGUI::IntCoord coord = window->getClientCoord();
 
@@ -80,21 +121,22 @@ namespace demo
 					addImage(panel);
 			}
 		}*/
-		addLine(stackPanel, "<p align='left'><h1>Caption1 left</h1></p>");
-		addLine(stackPanel, "<p align='center'><h2>Caption2 center</h2></p>");
-		addLine(stackPanel, "<p align='right'><h3>Caption3 right</h3></p>");
-		addLine(stackPanel, "<p><s>This is strike.</s></p>");
-		addLine(stackPanel, "<p><s><color value='#FF00FF'>This is strike and colour.</color></s></p>");
-		addLine(stackPanel, "<p><u>This is under.</u></p>");
-		addLine(stackPanel, "<p><color value='#FFFFFF'>This is color.</color></p>");
-		addLine(stackPanel, "<p><url value='http://www.google.com'>http://www.google.com</url></p>");
-		addLine(stackPanel, "<p>This is image.<img>HandPointerImage</img></p>");
-		//addLine(stackPanel, "<p>This is image.<img width='32' height='32'>HandPointerImage</img></p>");
-		addLine(stackPanel, "<p><b>This is bold text.</b></p>");
-		addLine(stackPanel, "<p><i>This is italic text.</i></p>");
-		addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
-		addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
+
+		//addLine(stackPanel, "<p align='left'><h1>Caption1 left</h1></p>");
+		//addLine(stackPanel, "<p align='center'><h2>Caption2 center</h2></p>");
+		//addLine(stackPanel, "<p align='right'><h3>Caption3 right</h3></p>");
+		//addLine(stackPanel, "<p><s>This is strike.</s></p>");
+		//addLine(stackPanel, "<p><s><color value='#FF00FF'>This is strike and colour.</color></s></p>");
+		//addLine(stackPanel, "<p><u>This is under.</u></p>");
+		//addLine(stackPanel, "<p><color value='#FFFFFF'>This is color.</color></p>");
+		//addLine(stackPanel, "<p><url value='http://www.google.com'>http://www.google.com</url></p>");
+		//addLine(stackPanel, "<p>This is image.<img>HandPointerImage</img></p>");
+		//addLine(stackPanel, "<p><b>This is bold text.</b></p>");
+		//addLine(stackPanel, "<p><i>This is italic text.</i></p>");
+		//addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
+		//addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
 		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
+		addLine(stackPanel, "<p float='left'><img width='64' height='64'>HandPointerImage</img>text texttext text text texttext texttext text texttext text texttext text texttext text texttext text</p>");
 
 		stackPanel->setSpacer(MyGUI::IntSize(0, mSpacer.height));
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
@@ -395,27 +437,46 @@ namespace demo
 		}
 		else if (MyGUI::utility::startWith(_value, paragraphStartTagName))
 		{
-			MyGUI::Align align = MyGUI::Align::Default;
+			MyGUI::Align alignResult = MyGUI::Align::Default;
+			bool needAlign = false;
+
+			MyGUI::Align floatResult = MyGUI::Align::Default;
+			bool needFloat = false;
 
 			const std::string alightTagName = "align=";
+			const std::string floatTagName = "float=";
 
-			std::string valueAlign = _value.substr(paragraphStartTagName.size(), _value.size() - (paragraphStartTagName.size() + paragraphEndTagName.size()));
-			MyGUI::VectorString result = MyGUI::utility::split(valueAlign);
+			std::string valueParagraph = _value.substr(paragraphStartTagName.size(), _value.size() - (paragraphStartTagName.size() + paragraphEndTagName.size()));
+			MyGUI::VectorString result = MyGUI::utility::split(valueParagraph);
 			for (MyGUI::VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
 			{
 				if (MyGUI::utility::startWith(*item, alightTagName))
 				{
 					if ((alightTagName.size() + 2) < ((*item).size()))
 					{
+						needAlign = true;
 						std::string value = (*item).substr(alightTagName.size() + 1, (*item).size() - (alightTagName.size() + 2));
 						if (value == "left")
-							align = MyGUI::Align::Default;
+							alignResult = MyGUI::Align::Default;
 						else if (value == "center")
-							align = MyGUI::Align::HCenter | MyGUI::Align::Top;
+							alignResult = MyGUI::Align::HCenter | MyGUI::Align::Top;
 						else if (value == "right")
-							align = MyGUI::Align::Right | MyGUI::Align::Top;
+							alignResult = MyGUI::Align::Right | MyGUI::Align::Top;
 						else
-							align = MyGUI::Align::Default;
+							alignResult = MyGUI::Align::Default;
+					}
+					else if ((floatTagName.size() + 2) < ((*item).size()))
+					{
+						needFloat = true;
+						std::string value = (*item).substr(floatTagName.size() + 1, (*item).size() - (floatTagName.size() + 2));
+						if (value == "left")
+							floatResult = MyGUI::Align::Default;
+						else if (value == "center")
+							floatResult = MyGUI::Align::HCenter | MyGUI::Align::Top;
+						else if (value == "right")
+							floatResult = MyGUI::Align::Right | MyGUI::Align::Top;
+						else
+							floatResult = MyGUI::Align::Default;
 					}
 				}
 			}
@@ -423,7 +484,15 @@ namespace demo
 			MyGUI::WrapPanel* panel = _parent->castType<MyGUI::WrapPanel>(false);
 			if (panel != nullptr)
 			{
-				panel->setContentAlign(align);
+				if (needAlign)
+				{
+					panel->setContentAlign(alignResult);
+				}
+				if (needFloat)
+				{
+					panel->setContentFloat(true);
+					panel->setSnapFloat(floatResult);
+				}
 			}
 		}
 		else if (_value == "</p>")
