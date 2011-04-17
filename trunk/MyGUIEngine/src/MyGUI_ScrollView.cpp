@@ -1,4 +1,4 @@
-/*!
+~/*!
 	@file
 	@author		Albert Semenov
 	@date		08/2008
@@ -338,6 +338,11 @@ namespace MyGUI
 	IntCoord ScrollView::getViewCoord()
 	{
 		return mClient == nullptr ? IntCoord() : mClient->getCoord();
+	}
+
+	ScrollBar* ScrollView::getVScroll()
+	{
+		return mVScroll;
 	}
 
 } // namespace MyGUI
