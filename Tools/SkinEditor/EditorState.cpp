@@ -432,7 +432,7 @@ namespace tools
 		ActionManager::getInstance().setChanges(false);
 	}
 
-	void EditorState::save()
+	bool EditorState::save()
 	{
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
@@ -442,12 +442,24 @@ namespace tools
 
 		SkinManager::getInstance().serialization(root, MyGUI::Version());
 
-		doc.save(mFileName);
+		bool result = doc.save(mFileName);
 
-		if (mFileName != mDefaultFileName)
-			RecentFilesManager::getInstance().addRecentFile(mFileName);
+		if (result)
+		{
+			if (mFileName != mDefaultFileName)
+				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-		ActionManager::getInstance().setChanges(false);
+			ActionManager::getInstance().setChanges(false);
+			return true;
+		}
+
+		/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
+			replaceTags("Error"),
+			doc.getLastError(),
+			MyGUI::MessageBoxStyle::IconError
+				| MyGUI::MessageBoxStyle::Yes);
+
+		return false;
 	}
 
 	void EditorState::commandRecentFiles(const MyGUI::UString& _commandName, bool& _result)
