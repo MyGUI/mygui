@@ -35,13 +35,7 @@
 			<State name="pushed" colour="0 0 0"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="Tree" size="11 11" texture="FrameworkSkin.png">
-		<Property key="NeedKey" value="true"/>
-		<Property key="SkinLine" value="TreeLine"/>
-		<Property key="HeightLine" value="18"/>
-		<Property key="LevelOffset" value="14"/>
-		<Child type="ScrollBar" skin="ScrollBarV" offset="-9 3 15 3" align="Right VStretch" name="VScroll"/>
-		<Child type="Widget" skin="ClientDefaultSkin" offset="3 3 -12 3" align="Stretch" name="Client"/>
+	<Resource type="ResourceSkin" name="TreeSkin" size="11 11" texture="FrameworkSkin.png">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="429 70 3 3"/>
 		</BasisSkin>
@@ -66,5 +60,15 @@
 		<BasisSkin type="SubSkin" offset="6 6 5 5" align="Right Bottom">
 			<State name="normal" offset="447 87 5 5"/>
 		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceLayout" name="Tree" version="3.2.0">
+		<Widget type="Widget" skin="TreeSkin" position="0 0 11 11" name="Root">
+			<UserString key="NeedKey" value="true"/>
+			<UserString key="SkinLine" value="TreeLine"/>
+			<UserString key="HeightLine" value="18"/>
+			<UserString key="LevelOffset" value="14"/>
+			<Widget type="ScrollBar" skin="ScrollBarV" position="-9 3 15 3" align="Right VStretch" name="VScroll"/>
+			<Widget type="Widget" skin="ClientDefaultSkin" position="3 3 -12 3" align="Stretch" name="Client"/>
+		</Widget>
 	</Resource>
 </MyGUI>
