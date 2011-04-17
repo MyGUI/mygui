@@ -247,7 +247,7 @@ namespace tools
 	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
-		widgetContainer->setProperty(_propertyName, _propertyValue);
+		widgetContainer->setProperty(_propertyName, _propertyValue, false);
 	}
 
 } // namespace tools
