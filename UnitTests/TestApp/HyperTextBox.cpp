@@ -26,14 +26,20 @@ namespace MyGUI
 		mColour(false),
 		mUrl(false),
 		mStackPanel(nullptr),
-		mScrollViewPanel(nullptr)
+		mScrollViewPanel(nullptr),
+		mTextSkin("TextBox"),
+		mImageSkin("ImageBox"),
+		mParagraphSkin("Default"),
+		mLineSkin("WhiteSkin"),
+		mLinkPoiner("link"),
+		mHeader1Font("Default"),
+		mHeader2Font("Default"),
+		mHeader3Font("Default"),
+		mDefaultFont("Default"),
+		mBoldFont("Default"),
+		mItalicFont("Default"),
+		mBoldItalicFont("Default")
 	{
-		mSpacer.set(3, 3);
-		mDefaultTextSkin = "TextBox";
-		mDefaultParagraphSkin = "Default";
-		//mSpacer.set(10, 10);
-		//mDefaultTextSkin = "Button";
-		//mDefaultParagraphSkin = "Button";
 	}
 
 	void HyperTextBox::initialiseOverride()
@@ -43,12 +49,16 @@ namespace MyGUI
 		assignWidget(mScrollViewPanel, "ScrollViewPanel");
 		assignWidget(mStackPanel, "StackPanel");
 
-		//mScrollViewPanel = createWidget<ScrollViewPanel>("ScrollView", IntCoord(0, 0, getWidth(), getHeight()), Align::Stretch);
-		//mStackPanel = mScrollViewPanel->createWidget<StackPanel>("PanelEmpty", IntCoord(), Align::Default);
-
-		mStackPanel->setSpacer(IntSize(0, mSpacer.height));
-		mScrollViewPanel->setCanvasAlign(Align::Default);
-		mScrollViewPanel->setVisibleHScroll(false);
+		if (isUserString("TextSkin"))
+			mTextSkin = getUserString("TextSkin");
+		if (isUserString("ImageSkin"))
+			mImageSkin = getUserString("ImageSkin");
+		if (isUserString("ParagraphSkin"))
+			mParagraphSkin = getUserString("ParagraphSkin");
+		if (isUserString("LineSkin"))
+			mLineSkin = getUserString("LineSkin");
+		if (isUserString("LinkPointer"))
+			mLinkPoiner = getUserString("LinkPointer");
 	}
 
 	void HyperTextBox::shutdownOverride()
@@ -58,14 +68,14 @@ namespace MyGUI
 
 	void HyperTextBox::addItem(const std::string& _value)
 	{
-		addLine(mStackPanel, _value);
+		parseParagraph(mStackPanel, _value);
 	}
 
-	void HyperTextBox::addLine(Widget* _parent, const std::string& _value)
+	void HyperTextBox::parseParagraph(Widget* _parent, const std::string& _value)
 	{
-		WrapPanel* panel = _parent->createWidget<WrapPanel>(mDefaultParagraphSkin, IntCoord(), Align::Default);
+		WrapPanel* panel = _parent->createWidget<WrapPanel>(mParagraphSkin, IntCoord(), Align::Default);
 		panel->setContentAlign(Align::Left | Align::Bottom);
-		panel->setSpacer(IntSize(mSpacer.width, mSpacer.height));
+		panel->setSpacer(mSpacer);
 
 		std::string::const_iterator textItem = _value.end();
 		for (std::string::const_iterator item = _value.begin(); item != _value.end(); ++ item)
@@ -111,16 +121,16 @@ namespace MyGUI
 				}
 			}
 
-			ImageBox* image = _parent->createWidget<ImageBox>("ImageBox", IntCoord(0, 0, mImageSize.width, mImageSize.height), Align::Default);
+			ImageBox* image = _parent->createWidget<ImageBox>(mImageSkin, IntCoord(0, 0, mImageSize.width, mImageSize.height), Align::Default);
 			image->setItemResource(_value);
 		}
 		else if (mUrl)
 		{
-			TextBox* text = _parent->createWidget<TextBox>(mDefaultTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
+			TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
 			text->setCaption(_value);
-			text->setPointer("link");
+			text->setPointer(mLinkPoiner);
 
-			Widget* line = text->createWidget<Widget>("WhiteSkin", IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
+			Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
 			line->setColour(Colour::Black);
 			line->setVisible(false);
 			line->setNeedMouseFocus(false);
@@ -128,37 +138,37 @@ namespace MyGUI
 			text->eventMouseLostFocus += newDelegate(this, &HyperTextBox::OnTextLostFocus);
 			text->eventMouseSetFocus += newDelegate(this, &HyperTextBox::OnTextSetFocus);
 			text->eventMouseButtonClick += newDelegate(this, &HyperTextBox::OnTextClick);
-			text->setUserString("Url", mUrlValue);
+			text->setUserString("URL", mUrlValue);
 		}
 		else
 		{
 			VectorString result = utility::split(_value);
 			for (VectorString::const_iterator item = result.begin(); item != result.end(); ++ item)
 			{
-				TextBox* text = _parent->createWidget<TextBox>(mDefaultTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
+				TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
 				text->setCaption(*item);
 				if (mBold)
 				{
 					if (mItalic)
-						text->setFontName("DejaVuSansBoldItalicFont.17");
+						text->setFontName(mBoldItalicFont);
 					else
-						text->setFontName("DejaVuSansBoldFont.17");
+						text->setFontName(mBoldFont);
 				}
 				else if (mItalic)
 				{
-					text->setFontName("DejaVuSansItalicFont.17");
+					text->setFontName(mItalicFont);
 				}
 				else if (mHeader1)
 				{
-					text->setFontName("DejaVuSansFont.26");
+					text->setFontName(mHeader1Font);
 				}
 				else if (mHeader2)
 				{
-					text->setFontName("DejaVuSansFont.25");
+					text->setFontName(mHeader2Font);
 				}
 				else if (mHeader3)
 				{
-					text->setFontName("DejaVuSansFont.20");
+					text->setFontName(mHeader3Font);
 				}
 
 				if (mColour)
@@ -168,7 +178,7 @@ namespace MyGUI
 
 				if (mStrike)
 				{
-					Widget* line = text->createWidget<Widget>("WhiteSkin", IntCoord(0, 0, defaultSize, 1), Align::HStretch | Align::VCenter);
+					Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, 0, defaultSize, 1), Align::HStretch | Align::VCenter);
 					line->setColour(Colour::Black);
 					line->setNeedMouseFocus(false);
 					if (mColour)
@@ -177,7 +187,7 @@ namespace MyGUI
 
 				if (mUnder)
 				{
-					Widget* line = text->createWidget<Widget>("WhiteSkin", IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
+					Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
 					line->setColour(Colour::Black);
 					line->setNeedMouseFocus(false);
 					if (mColour)
@@ -424,13 +434,120 @@ namespace MyGUI
 
 	void HyperTextBox::OnTextClick(Widget* _sender)
 	{
-		std::string url = _sender->getUserString("Url");
-		int test = 0;
+		std::string url = _sender->getUserString("URL");
+		eventUrlClick(this, url);
 	}
 
 	void HyperTextBox::updateContent()
 	{
+		mStackPanel->setSpacer(IntSize(0, mSpacer.height));
 		mScrollViewPanel->updateContent();
+	}
+
+	const IntSize& HyperTextBox::getSpacer() const
+	{
+		return mSpacer;
+	}
+
+	void HyperTextBox::setSpacer(const IntSize& _value)
+	{
+		mSpacer = _value;
+	}
+
+	const std::string& HyperTextBox::getHeader1Font() const
+	{
+		return mHeader1Font;
+	}
+
+	void HyperTextBox::setHeader1Font(const std::string& _value)
+	{
+		mHeader1Font = _value;
+	}
+
+	const std::string& HyperTextBox::getHeader2Font() const
+	{
+		return mHeader2Font;
+	}
+
+	void HyperTextBox::setHeader2Font(const std::string& _value)
+	{
+		mHeader2Font = _value;
+	}
+
+	const std::string& HyperTextBox::getHeader3Font() const
+	{
+		return mHeader3Font;
+	}
+
+	void HyperTextBox::setHeader3Font(const std::string& _value)
+	{
+		mHeader3Font = _value;
+	}
+
+	const std::string& HyperTextBox::getDefaultFont() const
+	{
+		return mDefaultFont;
+	}
+
+	void HyperTextBox::setDefaultFont(const std::string& _value)
+	{
+		mDefaultFont = _value;
+	}
+
+	const std::string& HyperTextBox::getBoldFont() const
+	{
+		return mBoldFont;
+	}
+
+	void HyperTextBox::setBoldFont(const std::string& _value)
+	{
+		mBoldFont = _value;
+	}
+
+	const std::string& HyperTextBox::getItalicFont() const
+	{
+		return mItalicFont;
+	}
+
+	void HyperTextBox::setItalicFont(const std::string& _value)
+	{
+		mItalicFont = _value;
+	}
+
+	const std::string& HyperTextBox::getBoldItalicFont() const
+	{
+		return mBoldItalicFont;
+	}
+
+	void HyperTextBox::setBoldItalicFont(const std::string& _value)
+	{
+		mBoldItalicFont =_value;
+	}
+		
+	void HyperTextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Spacer")
+			setSpacer(utility::parseValue<IntSize>(_value));
+		else if (_key == "DefaultFont")
+			setDefaultFont(_value);
+		else if (_key == "BoldFont")
+			setBoldFont(_value);
+		else if (_key == "ItalicFont")
+			setItalicFont(_value);
+		else if (_key == "BoldItalicFont")
+			setBoldItalicFont(_value);
+		else if (_key == "Header1Font")
+			setHeader1Font(_value);
+		else if (_key == "Header2Font")
+			setHeader2Font(_value);
+		else if (_key == "Header3Font")
+			setHeader3Font(_value);
+		else
+		{
+			Base::setPropertyOverride(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
