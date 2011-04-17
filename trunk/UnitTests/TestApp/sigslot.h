@@ -11,23 +11,15 @@ namespace sigslot
 
 	namespace impl
 	{
-		class connection_base0
-		{
-		public:
-			virtual has_slots* getdest() const = 0;
-			virtual void emit() = 0;
-			virtual connection_base0* clone() = 0;
-			virtual connection_base0* duplicate(has_slots* pnewdest) = 0;
-		};
-
 		template<class arg1_type>
 		class connection_base1
 		{
 		public:
+			typedef connection_base1<arg1_type> connection_base_type;
 			virtual has_slots* getdest() const = 0;
 			virtual void emit(arg1_type) = 0;
-			virtual connection_base1<arg1_type>* clone() = 0;
-			virtual connection_base1<arg1_type>* duplicate(has_slots* pnewdest) = 0;
+			virtual connection_base_type* clone() = 0;
+			virtual connection_base_type* duplicate(has_slots* pnewdest) = 0;
 		};
 
 		class signal_base
@@ -97,120 +89,19 @@ namespace sigslot
 
 	namespace impl
 	{
-		class signal_base0 :
-			public signal_base
-		{
-		public:
-			typedef std::list<connection_base0 *>  connections_list;
-
-			signal_base0()
-			{
-			}
-
-			signal_base0(const signal_base0& s) :
-				signal_base(s)
-			{
-				connections_list::const_iterator it = s.m_connected_slots.begin();
-				connections_list::const_iterator itEnd = s.m_connected_slots.end();
-
-				while (it != itEnd)
-				{
-					(*it)->getdest()->signal_connect(this);
-					m_connected_slots.push_back((*it)->clone());
-					++it;
-				}
-			}
-
-			~signal_base0()
-			{
-				disconnect_all();
-			}
-
-			void disconnect_all()
-			{
-				connections_list::const_iterator it = m_connected_slots.begin();
-				connections_list::const_iterator itEnd = m_connected_slots.end();
-
-				while (it != itEnd)
-				{
-					(*it)->getdest()->signal_disconnect(this);
-					delete *it;
-					++it;
-				}
-
-				m_connected_slots.erase(m_connected_slots.begin(), m_connected_slots.end());
-			}
-
-			void disconnect(has_slots* pclass)
-			{
-				connections_list::iterator it = m_connected_slots.begin();
-				connections_list::iterator itEnd = m_connected_slots.end();
-
-				while (it != itEnd)
-				{
-					if ((*it)->getdest() == pclass)
-					{
-						delete *it;
-						m_connected_slots.erase(it);
-						pclass->signal_disconnect(this);
-						return;
-					}
-
-					++it;
-				}
-			}
-
-			void slot_disconnect(has_slots* pslot)
-			{
-				connections_list::iterator it = m_connected_slots.begin();
-				connections_list::iterator itEnd = m_connected_slots.end();
-
-				while (it != itEnd)
-				{
-					connections_list::iterator itNext = it;
-					++itNext;
-
-					if ((*it)->getdest() == pslot)
-					{
-						m_connected_slots.erase(it);
-					}
-
-					it = itNext;
-				}
-			}
-
-			void slot_duplicate(const has_slots* oldtarget, has_slots* newtarget)
-			{
-				connections_list::iterator it = m_connected_slots.begin();
-				connections_list::iterator itEnd = m_connected_slots.end();
-
-				while (it != itEnd)
-				{
-					if ((*it)->getdest() == oldtarget)
-					{
-						m_connected_slots.push_back((*it)->duplicate(newtarget));
-					}
-
-					++it;
-				}
-			}
-
-		protected:
-			connections_list m_connected_slots;   
-		};
-
 		template<class arg1_type>
 		class signal_base1 :
 			public signal_base
 		{
 		public:
 			typedef std::list<connection_base1<arg1_type> *>  connections_list;
+			typedef signal_base1<arg1_type> signal_base_type;
 
 			signal_base1()
 			{
 			}
 
-			signal_base1(const signal_base1<arg1_type>& s) :
+			signal_base1(const signal_base_type& s) :
 				signal_base(s)
 			{
 				connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -304,48 +195,6 @@ namespace sigslot
 			connections_list m_connected_slots;   
 		};
 
-		template<class dest_type>
-		class connection0 :
-			public connection_base0
-		{
-		public:
-			connection0()
-			{
-				pobject = 0;
-				pmemfun = 0;
-			}
-
-			connection0(dest_type* pobject, void (dest_type::*pmemfun)())
-			{
-				m_pobject = pobject;
-				m_pmemfun = pmemfun;
-			}
-
-			virtual connection_base0* clone()
-			{
-				return new connection0<dest_type>(*this);
-			}
-
-			virtual connection_base0* duplicate(has_slots* pnewdest)
-			{
-				return new connection0<dest_type>((dest_type *)pnewdest, m_pmemfun);
-			}
-
-			virtual void emit()
-			{
-				(m_pobject->*m_pmemfun)();
-			}
-
-			virtual has_slots* getdest() const
-			{
-				return m_pobject;
-			}
-
-		private:
-			dest_type* m_pobject;
-			void (dest_type::* m_pmemfun)();
-		};
-
 		template<class dest_type, class arg1_type>
 		class connection1 :
 			public connection_base1<arg1_type>
@@ -363,12 +212,12 @@ namespace sigslot
 				m_pmemfun = pmemfun;
 			}
 
-			virtual connection_base1<arg1_type>* clone()
+			virtual connection_base_type* clone()
 			{
 				return new connection1<dest_type, arg1_type>(*this);
 			}
 
-			virtual connection_base1<arg1_type>* duplicate(has_slots* pnewdest)
+			virtual connection_base_type* duplicate(has_slots* pnewdest)
 			{
 				return new connection1<dest_type, arg1_type>((dest_type *)pnewdest, m_pmemfun);
 			}
@@ -390,60 +239,6 @@ namespace sigslot
 
 	}
 
-	class signal0 :
-		public impl::signal_base0
-	{
-	public:
-		signal0()
-		{
-		}
-
-		signal0(const signal0& s) :
-			impl::signal_base0(s)
-		{
-		}
-
-		template<class desttype>
-		void connect(desttype* pclass, void (desttype::*pmemfun)())
-		{
-			impl::connection0<desttype>* conn = new impl::connection0<desttype>(pclass, pmemfun);
-			m_connected_slots.push_back(conn);
-			pclass->signal_connect(this);
-		}
-
-		void emit()
-		{
-			connections_list::const_iterator itNext, it = m_connected_slots.begin();
-			connections_list::const_iterator itEnd = m_connected_slots.end();
-
-			while (it != itEnd)
-			{
-				itNext = it;
-				++itNext;
-
-				(*it)->emit();
-
-				it = itNext;
-			}
-		}
-
-		void operator()()
-		{
-			connections_list::const_iterator itNext, it = m_connected_slots.begin();
-			connections_list::const_iterator itEnd = m_connected_slots.end();
-
-			while (it != itEnd)
-			{
-				itNext = it;
-				++itNext;
-
-				(*it)->emit();
-
-				it = itNext;
-			}
-		}
-	};
-
 	template<class arg1_type>
 	class signal1 :
 		public impl::signal_base1<arg1_type>
@@ -454,7 +249,7 @@ namespace sigslot
 		}
 
 		signal1(const signal1<arg1_type>& s) :
-			impl::signal_base1<arg1_type>(s)
+			signal_base_type(s)
 		{
 		}
 
@@ -484,18 +279,7 @@ namespace sigslot
 
 		void operator()(arg1_type a1)
 		{
-			connections_list::const_iterator itNext, it = m_connected_slots.begin();
-			connections_list::const_iterator itEnd = m_connected_slots.end();
-
-			while (it != itEnd)
-			{
-				itNext = it;
-				++itNext;
-
-				(*it)->emit(a1);
-
-				it = itNext;
-			}
+			emit(a1);
 		}
 	};
 

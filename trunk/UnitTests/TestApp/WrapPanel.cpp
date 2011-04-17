@@ -15,84 +15,17 @@ namespace MyGUI
 
 	IntSize WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		IntSize result;
-
-		int maxLineHeight = 0;
-		bool hasWidget = false;
-		size_t countLine = 0;
-
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
-		{
-			Widget* child = getChildAt(index);
-			Panel::updateMeasure(child, _sizeAvailable);
-			IntSize size = Panel::getDesiredSize(child);
-
-			if (((result.width + size.width) > _sizeAvailable.width) && hasWidget)
-			{
-				result.height += maxLineHeight;
-				result.width = size.width;
-				maxLineHeight = size.height;
-				countLine ++;
-			}
-			else
-			{
-				result.width += size.width + mSpacer.width;
-				if (size.height > maxLineHeight)
-					maxLineHeight = size.height;
-			}
-
-			hasWidget = true;
-		}
-
-		result.height += maxLineHeight;
-
-		if (hasWidget)
-			countLine ++;
-
-		if (countLine > 0)
-			result.height += (countLine - 1) * mSpacer.height;
-
-		return result;
+		//if (mContentFloat)
+			return floatMeasure(_sizeAvailable);
+		//return simpleMeasure(_sizeAvailable);
 	}
 
 	void WrapPanel::overrideArrange()
 	{
-		int currentWidth = 0;
-		int currentHeight = 0;
-		int maxWidth = getWidth();
-		int maxLineHeight = 0;
-		bool hasWidget = false;
-		size_t startLineIndex = 0;
-
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
-		{
-			Widget* child = getChildAt(index);
-			IntSize size = Panel::getDesiredSize(child);
-
-			if (((currentWidth + size.width) > maxWidth) && hasWidget)
-			{
-				alignChildLine(startLineIndex, index, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth - mSpacer.width);
-
-				currentHeight += maxLineHeight + mSpacer.height;
-				currentWidth = size.width;
-				maxLineHeight = size.height;
-
-				startLineIndex = index;
-			}
-			else
-			{
-				currentWidth += size.width + mSpacer.width;
-				if (size.height > maxLineHeight)
-					maxLineHeight = size.height;
-			}
-
-			hasWidget = true;
-		}
-
-		if (hasWidget)
-			alignChildLine(startLineIndex, count, IntCoord(0, currentHeight, maxWidth, maxLineHeight), currentWidth - mSpacer.width);
+		//if (mContentFloat)
+			floatArrange();
+		/*else
+			simpleArrange();*/
 	}
 
 	void WrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, const IntCoord& _coordAvailable, int _lineWidth)
@@ -157,6 +90,166 @@ namespace MyGUI
 	void WrapPanel::setSnapFloat(Align _value)
 	{
 		mSnapFloat = _value;
+	}
+
+	/*IntSize WrapPanel::simpleMeasure(const IntSize& _sizeAvailable)
+	{
+		IntSize result;
+
+		IntCoord coordAvailable = IntCoord(0, 0, _sizeAvailable.width, _sizeAvailable.height);
+		IntPoint currentPosition = coordAvailable.point();
+
+		int maxLineHeight = 0;
+		bool hasAnyWidget = false;
+
+		size_t count = getChildCount();
+		for (size_t index = 0; index < count; ++ index)
+		{
+			Widget* child = getChildAt(index);
+			Panel::updateMeasure(child, _sizeAvailable);
+			IntSize size = Panel::getDesiredSize(child);
+
+			if (((currentPosition.left + size.width) > coordAvailable.width))
+			{
+				if (hasAnyWidget)
+				{
+					result.width = (std::max)(result.width, currentPosition.left - mSpacer.width);
+
+					currentPosition.left = coordAvailable.left;
+					currentPosition.top += maxLineHeight + mSpacer.height;
+					maxLineHeight = 0;
+				}
+			}
+
+			currentPosition.left += size.width + mSpacer.width;
+			maxLineHeight = (std::max)(maxLineHeight, size.height);
+
+			hasAnyWidget = true;
+		}
+
+		result.height = currentPosition.top + maxLineHeight;
+		result.width = (std::max)(result.width, currentPosition.left);
+
+		return result;
+	}
+
+	void WrapPanel::simpleArrange()
+	{
+		IntCoord coordAvailable(0, 0, getWidth(), getHeight());
+		IntPoint currentPosition = coordAvailable.point();
+
+		int maxLineHeight = 0;
+		bool hasAnyWidget = false;
+		size_t startLineIndex = 0;
+
+		size_t count = getChildCount();
+		for (size_t index = 0; index < count; ++ index)
+		{
+			Widget* child = getChildAt(index);
+			IntSize size = Panel::getDesiredSize(child);
+
+			if (((currentPosition.left + size.width) > coordAvailable.width))
+			{
+				if (hasAnyWidget)
+				{
+					alignChildLine(startLineIndex, index, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
+
+					currentPosition.left = coordAvailable.left;
+					currentPosition.top += maxLineHeight + mSpacer.height;
+					maxLineHeight = 0;
+
+					startLineIndex = index;
+				}
+			}
+
+			currentPosition.left += size.width + mSpacer.width;
+			maxLineHeight = (std::max)(size.height, maxLineHeight);
+
+			hasAnyWidget = true;
+		}
+
+		if (startLineIndex < count)
+			alignChildLine(startLineIndex, count, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
+	}*/
+
+	IntSize WrapPanel::floatMeasure(const IntSize& _sizeAvailable)
+	{
+		IntSize result;
+
+		IntCoord coordAvailable = IntCoord(0, 0, _sizeAvailable.width, _sizeAvailable.height);
+		IntPoint currentPosition = coordAvailable.point();
+
+		int maxLineHeight = 0;
+		bool hasAnyWidget = false;
+
+		size_t count = getChildCount();
+		for (size_t index = 0; index < count; ++ index)
+		{
+			Widget* child = getChildAt(index);
+			Panel::updateMeasure(child, _sizeAvailable);
+			IntSize size = Panel::getDesiredSize(child);
+
+			if (((currentPosition.left + size.width) > coordAvailable.width))
+			{
+				if (hasAnyWidget)
+				{
+					result.width = (std::max)(result.width, currentPosition.left - mSpacer.width);
+
+					currentPosition.left = coordAvailable.left;
+					currentPosition.top += maxLineHeight + mSpacer.height;
+					maxLineHeight = 0;
+				}
+			}
+
+			currentPosition.left += size.width + mSpacer.width;
+			maxLineHeight = (std::max)(maxLineHeight, size.height);
+
+			hasAnyWidget = true;
+		}
+
+		result.height = currentPosition.top + maxLineHeight;
+		result.width = (std::max)(result.width, currentPosition.left);
+
+		return result;
+	}
+
+	void WrapPanel::floatArrange()
+	{
+		IntCoord coordAvailable(0, 0, getWidth(), getHeight());
+		IntPoint currentPosition = coordAvailable.point();
+
+		int maxLineHeight = 0;
+		bool hasAnyWidget = false;
+		size_t startLineIndex = 0;
+
+		size_t count = getChildCount();
+		for (size_t index = 0; index < count; ++ index)
+		{
+			Widget* child = getChildAt(index);
+			IntSize size = Panel::getDesiredSize(child);
+
+			if (((currentPosition.left + size.width) > coordAvailable.width))
+			{
+				if (hasAnyWidget)
+				{
+					alignChildLine(startLineIndex, index, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
+
+					currentPosition.left = coordAvailable.left;
+					currentPosition.top += maxLineHeight + mSpacer.height;
+					maxLineHeight = 0;
+
+					startLineIndex = index;
+				}
+			}
+
+			currentPosition.left += size.width + mSpacer.width;
+			maxLineHeight = (std::max)(size.height, maxLineHeight);
+
+			hasAnyWidget = true;
+		}
+
+		if (startLineIndex < count)
+			alignChildLine(startLineIndex, count, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
 	}
 
 } // namespace MyGUI
