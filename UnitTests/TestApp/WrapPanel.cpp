@@ -106,7 +106,7 @@ namespace MyGUI
 		for (size_t index = 0; index < count; ++ index)
 		{
 			Widget* child = getChildAt(index);
-			Panel::updateMeasure(child, _sizeAvailable);
+			Panel::updateMeasure(child, coordAvailable.size());
 			IntSize size = Panel::getDesiredSize(child);
 
 			if (((currentPosition.left + size.width) > coordAvailable.width))
@@ -115,7 +115,7 @@ namespace MyGUI
 				{
 					result.width = (std::max)(result.width, currentPosition.left - mSpacer.width);
 
-					currentPosition.left = coordAvailable.left;
+					currentPosition.left = 0;
 					currentPosition.top += maxLineHeight + mSpacer.height;
 					maxLineHeight = 0;
 				}
@@ -154,7 +154,7 @@ namespace MyGUI
 				{
 					alignChildLine(startLineIndex, index, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
 
-					currentPosition.left = coordAvailable.left;
+					currentPosition.left = 0;
 					currentPosition.top += maxLineHeight + mSpacer.height;
 					maxLineHeight = 0;
 
@@ -175,18 +175,34 @@ namespace MyGUI
 	IntSize WrapPanel::floatMeasure(const IntSize& _sizeAvailable)
 	{
 		IntSize result;
+		size_t count = getChildCount();
+
+		if (count == 0)
+			return result;
+
+		Widget* child = getChildAt(0);
+		Panel::updateMeasure(child, _sizeAvailable);
+		IntSize firstSize = Panel::getDesiredSize(child);
+
+		if (count == 1)
+			return firstSize;
 
 		IntCoord coordAvailable = IntCoord(0, 0, _sizeAvailable.width, _sizeAvailable.height);
-		IntPoint currentPosition = coordAvailable.point();
+		IntPoint currentPosition;
 
 		int maxLineHeight = 0;
 		bool hasAnyWidget = false;
 
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 1; index < count; ++ index)
 		{
+			coordAvailable.width = _sizeAvailable.width;
+			if ((firstSize.height + mSpacer.height) > currentPosition.top)
+			{
+				coordAvailable.width -= firstSize.width + mSpacer.width;
+			}
+
 			Widget* child = getChildAt(index);
-			Panel::updateMeasure(child, _sizeAvailable);
+			Panel::updateMeasure(child, coordAvailable.size());
 			IntSize size = Panel::getDesiredSize(child);
 
 			if (((currentPosition.left + size.width) > coordAvailable.width))
@@ -195,7 +211,7 @@ namespace MyGUI
 				{
 					result.width = (std::max)(result.width, currentPosition.left - mSpacer.width);
 
-					currentPosition.left = coordAvailable.left;
+					currentPosition.left = 0;
 					currentPosition.top += maxLineHeight + mSpacer.height;
 					maxLineHeight = 0;
 				}
@@ -207,7 +223,7 @@ namespace MyGUI
 			hasAnyWidget = true;
 		}
 
-		result.height = currentPosition.top + maxLineHeight;
+		result.height = (std::max)(firstSize.height, currentPosition.top + maxLineHeight);
 		result.width = (std::max)(result.width, currentPosition.left);
 
 		return result;
@@ -215,16 +231,35 @@ namespace MyGUI
 
 	void WrapPanel::floatArrange()
 	{
+		size_t count = getChildCount();
+
+		if (count == 0)
+			return;
+
+		Widget* child = getChildAt(0);
+		IntSize firstSize = Panel::getDesiredSize(child);
+		Panel::updateArrange(child, IntCoord(0, 0, firstSize.width, firstSize.height));
+
+		if (count == 1)
+			return;
+
 		IntCoord coordAvailable(0, 0, getWidth(), getHeight());
-		IntPoint currentPosition = coordAvailable.point();
+		IntPoint currentPosition;
 
 		int maxLineHeight = 0;
 		bool hasAnyWidget = false;
-		size_t startLineIndex = 0;
+		size_t startLineIndex = 1;
 
-		size_t count = getChildCount();
-		for (size_t index = 0; index < count; ++ index)
+		for (size_t index = 1; index < count; ++ index)
 		{
+			coordAvailable.left = 0;
+			coordAvailable.width = getWidth();
+			if ((firstSize.height + mSpacer.height) > currentPosition.top)
+			{
+				coordAvailable.left += firstSize.width + mSpacer.width;
+				coordAvailable.width -= firstSize.width + mSpacer.width;
+			}
+
 			Widget* child = getChildAt(index);
 			IntSize size = Panel::getDesiredSize(child);
 
@@ -234,7 +269,7 @@ namespace MyGUI
 				{
 					alignChildLine(startLineIndex, index, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
 
-					currentPosition.left = coordAvailable.left;
+					currentPosition.left = 0;
 					currentPosition.top += maxLineHeight + mSpacer.height;
 					maxLineHeight = 0;
 

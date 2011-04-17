@@ -127,8 +127,8 @@ namespace demo
 		//addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
 		//addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
 		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
-		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text texttext text text texttext texttexttexttext text text texttext text texttext text</p>");
-		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text texttext text text texttext texttexttexttext text text texttext text texttext text</p>");
+		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
+		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
 
 		stackPanel->setSpacer(MyGUI::IntSize(0, mSpacer.height));
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
