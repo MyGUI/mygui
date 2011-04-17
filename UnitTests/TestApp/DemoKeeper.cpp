@@ -35,6 +35,7 @@ namespace demo
 		MyGUI::IntCoord coord = window->getClientCoord();
 
 		MyGUI::HyperTextBox* hyperText = window->createWidget<MyGUI::HyperTextBox>("HyperTextBox", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
+		hyperText->eventUrlClick += MyGUI::newDelegate(this, &DemoKeeper::OnClickUrl);
 
 		hyperText->addItem("<p align='left'><h1>Caption1 left</h1></p>");
 		hyperText->addItem("<p align='center'><h2>Caption2 center</h2></p>");
@@ -62,6 +63,11 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");
+	}
+
+	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)
+	{
+		int test = 0;
 	}
 
 } // namespace demo
