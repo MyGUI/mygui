@@ -39,8 +39,8 @@ namespace MyGUI
 	private:
 		void alignChildLine(size_t _startIndex, size_t _stopIndex, const IntCoord& _coordAvailable, int _lineWidth);
 
-		//IntSize simpleMeasure(const IntSize& _sizeAvailable);
-		//void simpleArrange();
+		IntSize simpleMeasure(const IntSize& _sizeAvailable);
+		void simpleArrange();
 
 		IntSize floatMeasure(const IntSize& _sizeAvailable);
 		void floatArrange();

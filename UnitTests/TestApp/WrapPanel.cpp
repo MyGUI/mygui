@@ -9,23 +9,24 @@
 namespace MyGUI
 {
 
-	WrapPanel::WrapPanel()
+	WrapPanel::WrapPanel() :
+		mContentFloat(false)
 	{
 	}
 
 	IntSize WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		//if (mContentFloat)
+		if (mContentFloat)
 			return floatMeasure(_sizeAvailable);
-		//return simpleMeasure(_sizeAvailable);
+		return simpleMeasure(_sizeAvailable);
 	}
 
 	void WrapPanel::overrideArrange()
 	{
-		//if (mContentFloat)
+		if (mContentFloat)
 			floatArrange();
-		/*else
-			simpleArrange();*/
+		else
+			simpleArrange();
 	}
 
 	void WrapPanel::alignChildLine(size_t _startIndex, size_t _stopIndex, const IntCoord& _coordAvailable, int _lineWidth)
@@ -92,12 +93,12 @@ namespace MyGUI
 		mSnapFloat = _value;
 	}
 
-	/*IntSize WrapPanel::simpleMeasure(const IntSize& _sizeAvailable)
+	IntSize WrapPanel::simpleMeasure(const IntSize& _sizeAvailable)
 	{
 		IntSize result;
 
-		IntCoord coordAvailable = IntCoord(0, 0, _sizeAvailable.width, _sizeAvailable.height);
-		IntPoint currentPosition = coordAvailable.point();
+		IntSize sizeAvailable = _sizeAvailable;
+		IntPoint currentPosition;
 
 		int maxLineHeight = 0;
 		bool hasAnyWidget = false;
@@ -106,10 +107,10 @@ namespace MyGUI
 		for (size_t index = 0; index < count; ++ index)
 		{
 			Widget* child = getChildAt(index);
-			Panel::updateMeasure(child, coordAvailable.size());
+			Panel::updateMeasure(child, sizeAvailable);
 			IntSize size = Panel::getDesiredSize(child);
 
-			if (((currentPosition.left + size.width) > coordAvailable.width))
+			if (((currentPosition.left + size.width) > sizeAvailable.width))
 			{
 				if (hasAnyWidget)
 				{
@@ -170,7 +171,7 @@ namespace MyGUI
 
 		if (startLineIndex < count)
 			alignChildLine(startLineIndex, count, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
-	}*/
+	}
 
 	IntSize WrapPanel::floatMeasure(const IntSize& _sizeAvailable)
 	{
@@ -187,7 +188,7 @@ namespace MyGUI
 		if (count == 1)
 			return firstSize;
 
-		IntCoord coordAvailable = IntCoord(0, 0, _sizeAvailable.width, _sizeAvailable.height);
+		IntSize sizeAvailable = _sizeAvailable;
 		IntPoint currentPosition;
 
 		int maxLineHeight = 0;
@@ -195,25 +196,39 @@ namespace MyGUI
 
 		for (size_t index = 1; index < count; ++ index)
 		{
-			coordAvailable.width = _sizeAvailable.width;
-			if ((firstSize.height + mSpacer.height) > currentPosition.top)
+			bool floatBehaivoir = ((firstSize.height + mSpacer.height) > currentPosition.top);
+
+			if (floatBehaivoir)
 			{
-				coordAvailable.width -= firstSize.width + mSpacer.width;
+				sizeAvailable.width = _sizeAvailable.width - (firstSize.width + mSpacer.width);
+			}
+			else
+			{
+				sizeAvailable.width = _sizeAvailable.width;
 			}
 
 			Widget* child = getChildAt(index);
-			Panel::updateMeasure(child, coordAvailable.size());
+			Panel::updateMeasure(child, sizeAvailable);
 			IntSize size = Panel::getDesiredSize(child);
 
-			if (((currentPosition.left + size.width) > coordAvailable.width))
+			if ((currentPosition.left + size.width) > sizeAvailable.width)
 			{
-				if (hasAnyWidget)
+				if (hasAnyWidget || floatBehaivoir)
 				{
 					result.width = (std::max)(result.width, currentPosition.left - mSpacer.width);
 
 					currentPosition.left = 0;
 					currentPosition.top += maxLineHeight + mSpacer.height;
 					maxLineHeight = 0;
+				}
+			}
+
+			if (floatBehaivoir)
+			{
+				if (((currentPosition.left + size.width) > sizeAvailable.width))
+				{
+					-- index;
+					continue;
 				}
 			}
 
@@ -238,7 +253,10 @@ namespace MyGUI
 
 		Widget* child = getChildAt(0);
 		IntSize firstSize = Panel::getDesiredSize(child);
-		Panel::updateArrange(child, IntCoord(0, 0, firstSize.width, firstSize.height));
+		if (mSnapFloat.isRight())
+			Panel::updateArrange(child, IntCoord(getWidth() - firstSize.width, 0, firstSize.width, firstSize.height));
+		else
+			Panel::updateArrange(child, IntCoord(0, 0, firstSize.width, firstSize.height));
 
 		if (count == 1)
 			return;
@@ -252,20 +270,28 @@ namespace MyGUI
 
 		for (size_t index = 1; index < count; ++ index)
 		{
-			coordAvailable.left = 0;
-			coordAvailable.width = getWidth();
-			if ((firstSize.height + mSpacer.height) > currentPosition.top)
+			bool floatBehaivoir = ((firstSize.height + mSpacer.height) > currentPosition.top);
+
+			if (floatBehaivoir)
 			{
-				coordAvailable.left += firstSize.width + mSpacer.width;
-				coordAvailable.width -= firstSize.width + mSpacer.width;
+				if (mSnapFloat.isRight())
+					coordAvailable.left = 0;
+				else
+					coordAvailable.left = firstSize.width + mSpacer.width;
+				coordAvailable.width = getWidth() - (firstSize.width + mSpacer.width);
+			}
+			else
+			{
+				coordAvailable.left = 0;
+				coordAvailable.width = getWidth();
 			}
 
 			Widget* child = getChildAt(index);
 			IntSize size = Panel::getDesiredSize(child);
 
-			if (((currentPosition.left + size.width) > coordAvailable.width))
+			if ((currentPosition.left + size.width) > coordAvailable.width)
 			{
-				if (hasAnyWidget)
+				if (hasAnyWidget || floatBehaivoir)
 				{
 					alignChildLine(startLineIndex, index, IntCoord(coordAvailable.left, currentPosition.top, coordAvailable.width, maxLineHeight), currentPosition.left - mSpacer.width);
 
@@ -274,6 +300,15 @@ namespace MyGUI
 					maxLineHeight = 0;
 
 					startLineIndex = index;
+				}
+			}
+
+			if (floatBehaivoir)
+			{
+				if (((currentPosition.left + size.width) > coordAvailable.width))
+				{
+					-- index;
+					continue;
 				}
 			}
 
