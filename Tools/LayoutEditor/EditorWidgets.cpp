@@ -514,7 +514,7 @@ namespace tools
 				if (tryToApplyProperty(container->getWidget(), key, value, _testMode) == false)
 					continue;
 
-				container->setProperty(key, value);
+				container->setProperty(key, value, false);
 			}
 			else if (widget->getName() == "UserString")
 			{
