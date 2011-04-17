@@ -612,9 +612,6 @@ namespace tools
 
 	void WorkspaceControl::setWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coord)
 	{
-		EditorWidgets::getInstance().onSetWidgetCoord(_widget, _coord, "WorkspaceControl");
-		//PropertiesPanelView::getInstance().setCoord(_coord);
-
 		if (mFreeChildMode)
 		{
 			typedef std::pair<MyGUI::Widget*, MyGUI::IntCoord> PairWidgetCoord;
@@ -648,6 +645,8 @@ namespace tools
 		{
 			_widget->setCoord(_coord);
 		}
+
+		EditorWidgets::getInstance().onSetWidgetCoord(_widget, _coord, "WorkspaceControl");
 	}
 
 	void WorkspaceControl::setRttLayerSize(const MyGUI::IntSize& _size)
