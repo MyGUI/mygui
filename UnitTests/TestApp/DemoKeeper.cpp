@@ -8,26 +8,6 @@
 
 namespace demo
 {
-	/*class A :
-		public sigslot::has_slots
-	{
-	public:
-		void foo0(float _value)
-		{
-			delete this;
-			int test = 0;
-		}
-		static void foo()
-		{
-		}
-	};
-
-	class B
-	{
-	public:
-		sigslot::signal1<float> signal0;
-	};*/
-
 	DemoKeeper::DemoKeeper() :
 		mBold(false),
 		mItalic(false),
@@ -40,22 +20,12 @@ namespace demo
 		mColour(false),
 		mUrl(false)
 	{
-		/*A* a1 = new A();
-		A* a2 = new A();
-		B b;
-
-		b.signal0.connect(a1, &A::foo0);
-		b.signal0.connect(a2, &A::foo0);
-
-		b.signal0(1);*/
-
-		//sigslot::
-
-		mSpacer.set(10, 10);
-		//mDefaultTextSkin = "TextBox";
-		//mDefaultParagraphSkin = "Default";
-		mDefaultTextSkin = "Button";
-		mDefaultParagraphSkin = "Button";
+		mSpacer.set(3, 3);
+		mDefaultTextSkin = "TextBox";
+		mDefaultParagraphSkin = "Default";
+		//mSpacer.set(10, 10);
+		//mDefaultTextSkin = "Button";
+		//mDefaultParagraphSkin = "Button";
 	}
 
 	void DemoKeeper::setupResources()
@@ -76,56 +46,25 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>("Widget");
 
-		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(100, 100, 400, 400), MyGUI::Align::Default, "Main");
-		//window->eventWindowChangeCoord += MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
+		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
 		MyGUI::IntCoord coord = window->getClientCoord();
 
 		MyGUI::ScrollViewPanel* scrollViewPanel = window->createWidget<MyGUI::ScrollViewPanel>("ScrollView", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 		MyGUI::StackPanel* stackPanel = scrollViewPanel->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(), MyGUI::Align::Default);
-		//MyGUI::StackPanel* stackPanel = window->createWidget<MyGUI::StackPanel>("PanelEmpty", MyGUI::IntCoord(0, 0, coord.width, coord.height), MyGUI::Align::Stretch);
 
-		//MyGUI::TextBox* text = stackPanel->createWidget<MyGUI::TextBox>("Button", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
-		//const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
-		//const char* fonts[3] = { "DejaVuSansFont.17", "DejaVuSansFont.14", "MicroFont.11" };
-		//text->setCaption("test");
-		//text->setTextAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
-		//text->setFontHeight(rand() % 50 + 10);
-		//text->setFontName("MicroFont.11");
-		//MyGUI::Panel::invalidateMeasure(text);
-
-		//std::string text = "<h1>Header</h1>This is <b>text</b></body>";
-		//scrollViewPanel->addItem("Header");
-
-		//addText(stackPanel);
-
-		/*for (size_t indexLine = 0; indexLine < 3; ++ indexLine)
-		{
-			MyGUI::WrapPanel* panel = stackPanel->createWidget<MyGUI::WrapPanel>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
-			panel->setContentAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
-			panel->setSpacer(MyGUI::IntSize(10, 0));
-
-			for (size_t index = 0; index < 20; ++ index)
-			{
-				if (rand() % 2)
-					addText(panel);
-				else
-					addImage(panel);
-			}
-		}*/
-
-		//addLine(stackPanel, "<p align='left'><h1>Caption1 left</h1></p>");
-		//addLine(stackPanel, "<p align='center'><h2>Caption2 center</h2></p>");
-		//addLine(stackPanel, "<p align='right'><h3>Caption3 right</h3></p>");
-		//addLine(stackPanel, "<p><s>This is strike.</s></p>");
-		//addLine(stackPanel, "<p><s><color value='#FF00FF'>This is strike and colour.</color></s></p>");
-		//addLine(stackPanel, "<p><u>This is under.</u></p>");
-		//addLine(stackPanel, "<p><color value='#FFFFFF'>This is color.</color></p>");
-		//addLine(stackPanel, "<p><url value='http://www.google.com'>http://www.google.com</url></p>");
-		//addLine(stackPanel, "<p>This is image.<img>HandPointerImage</img></p>");
-		//addLine(stackPanel, "<p><b>This is bold text.</b></p>");
-		//addLine(stackPanel, "<p><i>This is italic text.</i></p>");
-		//addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
-		//addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
+		addLine(stackPanel, "<p align='left'><h1>Caption1 left</h1></p>");
+		addLine(stackPanel, "<p align='center'><h2>Caption2 center</h2></p>");
+		addLine(stackPanel, "<p align='right'><h3>Caption3 right</h3></p>");
+		addLine(stackPanel, "<p><s>This is strike.</s></p>");
+		addLine(stackPanel, "<p><s><color value='#FF00FF'>This is strike and colour.</color></s></p>");
+		addLine(stackPanel, "<p><u>This is under.</u></p>");
+		addLine(stackPanel, "<p><color value='#FFFFFF'>This is color.</color></p>");
+		addLine(stackPanel, "<p><url value='http://www.google.com'>http://www.google.com</url></p>");
+		addLine(stackPanel, "<p>This is image.<img>HandPointerImage</img></p>");
+		addLine(stackPanel, "<p><b>This is bold text.</b></p>");
+		addLine(stackPanel, "<p><i>This is italic text.</i></p>");
+		addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
+		addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
 		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
 		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
 		addLine(stackPanel, "<p float='right' align='right'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
@@ -134,13 +73,6 @@ namespace demo
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
 		scrollViewPanel->setVisibleHScroll(false);
 		scrollViewPanel->updateContent();
-		//notifyWindowChangeCoord(window);
-
-		// времено, так как не правильно обновляется иерархия
-		//MyGUI::Panel::updateArrange(scrollViewPanel, scrollViewPanel->getCoord());
-
-		//MyGUI::Panel::updateMeasure(scrollViewPanel, MyGUI::IntSize(0, 0));
-		//MyGUI::Panel::invalidateMeasure(scrollViewPanel);
 	}
 
 	void DemoKeeper::destroyScene()
@@ -149,38 +81,6 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");
 	}
-
-	/*void DemoKeeper::addText(MyGUI::Widget* _parent)
-	{
-		MyGUI::TextBox* text = _parent->createWidget<MyGUI::TextBox>("Button", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default);
-		const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
-		const char* fonts[3] = { "DejaVuSansFont.17", "DejaVuSansFont.14", "MicroFont.11" };
-		text->setCaption(names[rand() % 8]);
-		text->setTextAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
-		text->setFontHeight(rand() % 50 + 10);
-		text->setFontName(fonts[rand() %3 ]);
-
-		//MyGUI::Panel::invalidateMeasure(text);
-	}*/
-
-	/*void DemoKeeper::addImage(MyGUI::Widget* _parent)
-	{
-		int sizeImage = rand() % 32 + 16;
-		MyGUI::ImageBox* image = _parent->createWidget<MyGUI::ImageBox>("ImageBox", MyGUI::IntCoord(0, 0, sizeImage, sizeImage), MyGUI::Align::Default);
-		const char* names[8] = { "ArrowPointerImage", "BeamPointerImage", "SizeLeftPointerImage", "SizeRightPointerImage", "SizeHorzPointerImage", "SizeVertPointerImage", "HandPointerImage", "LinkPointerImage" };
-		image->setItemResource(names[rand() % 8]);
-	}*/
-
-	//void DemoKeeper::notifyWindowChangeCoord(MyGUI::Window* _sender)
-	//{
-		/*MyGUI::EnumeratorWidgetPtr child = _sender->getEnumerator();
-		while (child.next())
-		{
-			MyGUI::Panel* panel = child->castType<MyGUI::Panel>(false);
-			if (panel != nullptr)
-				panel->invalidateMeasure();
-		}*/
-	//}
 
 	void DemoKeeper::addLine(MyGUI::Widget* _parent, const std::string& _value)
 	{
