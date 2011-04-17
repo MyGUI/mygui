@@ -2,6 +2,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "BaseManager.h"
+#include "HyperTextBox.h"
 
 namespace demo
 {
@@ -16,6 +17,8 @@ namespace demo
 
 	private:
 		virtual void setupResources();
+
+		void OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url);
 
 	};
 

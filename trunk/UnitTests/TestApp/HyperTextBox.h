@@ -26,12 +26,46 @@ namespace MyGUI
 		void addItem(const std::string& _value);
 		void updateContent();
 
+		const IntSize& getSpacer() const;
+		void setSpacer(const IntSize& _value);
+
+		const std::string& getHeader1Font() const;
+		void setHeader1Font(const std::string& _value);
+
+		const std::string& getHeader2Font() const;
+		void setHeader2Font(const std::string& _value);
+
+		const std::string& getHeader3Font() const;
+		void setHeader3Font(const std::string& _value);
+
+		const std::string& getDefaultFont() const;
+		void setDefaultFont(const std::string& _value);
+
+		const std::string& getBoldFont() const;
+		void setBoldFont(const std::string& _value);
+
+		const std::string& getItalicFont() const;
+		void setItalicFont(const std::string& _value);
+
+		const std::string& getBoldItalicFont() const;
+		void setBoldItalicFont(const std::string& _value);
+
+	/*events:*/
+		/** Event : Click to Url.\n
+			signature : void method(MyGUI::HyperTextBox* _sender, const std::string& _url)
+			@param _sender widget that called this event
+			@param _url
+		*/
+		delegates::CMultiDelegate2<HyperTextBox*, const std::string&> eventUrlClick;
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
+		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
 	private:
-		void addLine(Widget* _parent, const std::string& _value);
+		void parseParagraph(Widget* _parent, const std::string& _value);
 		void parseText(Widget* _parent, const std::string& _value);
 		void parseTag(Widget* _parent, const std::string& _value);
 
@@ -53,9 +87,20 @@ namespace MyGUI
 		Colour mColourValue;
 		IntSize mImageSize;
 		IntSize mSpacer;
-		std::string mDefaultTextSkin;
-		std::string mDefaultParagraphSkin;
+		std::string mTextSkin;
+		std::string mParagraphSkin;
+		std::string mImageSkin;
+		std::string mLineSkin;
 		std::string mUrlValue;
+		std::string mLinkPoiner;
+
+		std::string mHeader1Font;
+		std::string mHeader2Font;
+		std::string mHeader3Font;
+		std::string mDefaultFont;
+		std::string mBoldFont;
+		std::string mItalicFont;
+		std::string mBoldItalicFont;
 
 		StackPanel* mStackPanel;
 		ScrollViewPanel* mScrollViewPanel;
