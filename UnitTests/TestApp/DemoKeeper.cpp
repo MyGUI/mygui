@@ -8,17 +8,13 @@
 
 namespace demo
 {
-	class A :
+	/*class A :
 		public sigslot::has_slots
 	{
 	public:
-		void foo1(float _value)
+		void foo0(float _value)
 		{
 			delete this;
-			int test = 0;
-		}
-		void foo0()
-		{
 			int test = 0;
 		}
 		static void foo()
@@ -29,9 +25,8 @@ namespace demo
 	class B
 	{
 	public:
-		sigslot::signal1<float> signal1;
-		sigslot::signal0 signal0;
-	};
+		sigslot::signal1<float> signal0;
+	};*/
 
 	DemoKeeper::DemoKeeper() :
 		mBold(false),
@@ -45,26 +40,22 @@ namespace demo
 		mColour(false),
 		mUrl(false)
 	{
-		A* a1 = new A();
+		/*A* a1 = new A();
 		A* a2 = new A();
 		B b;
-
-		b.signal1.connect(a1, &A::foo1);
-		b.signal1.connect(a2, &A::foo1);
 
 		b.signal0.connect(a1, &A::foo0);
 		b.signal0.connect(a2, &A::foo0);
 
-		b.signal1.emit(2);
-		//delete a1;
+		b.signal0(1);*/
 
-		//b.signal.emit(3);
+		//sigslot::
 
-		mSpacer.set(3, 3);
-		mDefaultTextSkin = "TextBox";
-		mDefaultParagraphSkin = "Default";
-		//mDefaultTextSkin = "Button";
-		//mDefaultParagraphSkin = "Button";
+		mSpacer.set(10, 10);
+		//mDefaultTextSkin = "TextBox";
+		//mDefaultParagraphSkin = "Default";
+		mDefaultTextSkin = "Button";
+		mDefaultParagraphSkin = "Button";
 	}
 
 	void DemoKeeper::setupResources()
@@ -136,7 +127,8 @@ namespace demo
 		//addLine(stackPanel, "<p><i><b>This is bold and italic text.</b></i></p>");
 		//addLine(stackPanel, "<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>");
 		//addLine(stackPanel, "<p>This is user tag.<character>user</character></p>");
-		addLine(stackPanel, "<p float='left'><img width='64' height='64'>HandPointerImage</img>text texttext text text texttext texttext text texttext text texttext text texttext text texttext text</p>");
+		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text texttext text text texttext texttexttexttext text text texttext text texttext text</p>");
+		addLine(stackPanel, "<p float='left'><img width='48' height='48'>HandPointerImage</img>text texttext text text texttext texttexttexttext text text texttext text texttext text</p>");
 
 		stackPanel->setSpacer(MyGUI::IntSize(0, mSpacer.height));
 		scrollViewPanel->setCanvasAlign(MyGUI::Align::Default);
@@ -194,7 +186,7 @@ namespace demo
 	{
 		MyGUI::WrapPanel* panel = _parent->createWidget<MyGUI::WrapPanel>(mDefaultParagraphSkin, MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setContentAlign(MyGUI::Align::Left | MyGUI::Align::Bottom);
-		panel->setSpacer(MyGUI::IntSize(mSpacer.width, 0));
+		panel->setSpacer(MyGUI::IntSize(mSpacer.width, mSpacer.height));
 
 		std::string::const_iterator textItem = _value.end();
 		for (std::string::const_iterator item = _value.begin(); item != _value.end(); ++ item)
