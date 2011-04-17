@@ -105,17 +105,20 @@ namespace tools
 		return UserDataEnumerator(mUserString);
 	}
 
-	void WidgetContainer::setProperty(const std::string& _key, const std::string& _value)
+	void WidgetContainer::setProperty(const std::string& _key, const std::string& _value, bool _eraseExist)
 	{
 		bool found = false;
 
-		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		if (_eraseExist)
 		{
-			if ((*item).first == _key)
+			for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
 			{
-				found = true;
-				(*item).second = _value;
-				break;
+				if ((*item).first == _key)
+				{
+					found = true;
+					(*item).second = _value;
+					break;
+				}
 			}
 		}
 

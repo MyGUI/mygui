@@ -31,7 +31,7 @@ namespace tools
 		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> UserDataEnumerator;
 		UserDataEnumerator getUserDataEnumerator();
 
-		void setProperty(const std::string& _key, const std::string& _value);
+		void setProperty(const std::string& _key, const std::string& _value, bool _eraseExist = true);
 		void setPropertyByIndex(size_t _index, const std::string& _key, const std::string& _value);
 		void clearProperty(const std::string& _key);
 		void clearPropertyByIndex(size_t _index, const std::string& _key);
