@@ -97,6 +97,8 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
+		ScrollBar* getVScroll();
+
 	private:
 		// размер данных
 		virtual IntSize getContentSize();
