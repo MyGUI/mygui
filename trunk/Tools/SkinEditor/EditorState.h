@@ -49,7 +49,7 @@ namespace tools
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
 
 		void clear();
-		void save();
+		bool save();
 		void load();
 		void loadDropFile();
 
