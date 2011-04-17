@@ -4,6 +4,7 @@ set (HEADER_FILES
   WrapPanel.h
   StackPanel.h
   Panel.h
+  HyperTextBox.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -11,6 +12,7 @@ set (SOURCE_FILES
   WrapPanel.cpp
   StackPanel.cpp
   Panel.cpp
+  HyperTextBox.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
