@@ -47,15 +47,17 @@ namespace MyGUI
 		setNeedKeyFocus(true);
 
 		assignWidget(mClient, "Client");
+		MyGUI::Widget* realClientOwner = this;
 		if (mClient != nullptr)
 		{
 			mClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-
-			// создаем холcт, реальный владелец детей
-			mRealClient = mClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
-			mRealClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-			setWidgetClient(mRealClient);
+			realClientOwner = mClient;
 		}
+
+		// создаем холcт, реальный владелец детей
+		mRealClient = realClientOwner->createWidget<Widget>("Default", IntCoord(), Align::Default);
+		mRealClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
+		setWidgetClient(mRealClient);
 
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
@@ -185,7 +187,7 @@ namespace MyGUI
 
 	IntSize ScrollView::getViewSize()
 	{
-		return mClient == nullptr ? IntSize() : mClient->getSize();
+		return mClient == nullptr ? getSize() : mClient->getSize();
 	}
 
 	size_t ScrollView::getVScrollPage()
@@ -337,7 +339,7 @@ namespace MyGUI
 
 	IntCoord ScrollView::getViewCoord()
 	{
-		return mClient == nullptr ? IntCoord() : mClient->getCoord();
+		return mClient == nullptr ? getCoord() : mClient->getCoord();
 	}
 
 	ScrollBar* ScrollView::getVScroll()
