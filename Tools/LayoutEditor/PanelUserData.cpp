@@ -47,9 +47,6 @@ namespace tools
 		mEditValue->eventEditSelectAccept += MyGUI::newDelegate(this, &PanelUserData::notifyUpdateUserData);
 		mMultilist->eventListChangePosition += MyGUI::newDelegate(this, &PanelUserData::notifySelectUserDataItem);
 
-		//mMultilist->addColumn(replaceTags("Key"), 1);
-		//mMultilist->addColumn(replaceTags("Value"), 1);
-
 		mEditLeft = mEditKey->getLeft();
 		mEditRight = mMainWidget->getWidth() - mEditValue->getRight();
 		mEditSpace = mEditValue->getLeft() - mEditKey->getRight();
@@ -78,17 +75,13 @@ namespace tools
 			if (checkUserData(widgetContainer, userData.current().first))
 			{
 				mMultilist->addItem(userData.current().first);
-				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, userData.current().second);
+				mMultilist->setSubItemNameAt(1, mMultilist->getItemCount() - 1, MyGUI::TextIterator::toTagsString(userData.current().second));
 			}
 		}
 	}
 
 	void PanelUserData::notifyChangeWidth(int _width)
 	{
-		//const MyGUI::IntSize& size = mMultilist->getClientCoord().size();
-		//mMultilist->setColumnWidthAt(0, size.width / 2);
-		//mMultilist->setColumnWidthAt(1, size.width - (size.width / 2));
-
 		int width = mMainWidget->getClientCoord().width;
 
 		int half_width = (width - (mEditLeft + mEditRight + mEditSpace)) / 2;
@@ -109,7 +102,7 @@ namespace tools
 		{
 			mMultilist->addItem(key);
 		}
-		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
+		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), MyGUI::TextIterator::toTagsString(value));
 		widgetContainer->setUserData(key, value);
 		UndoManager::getInstance().addValue();
 	}
@@ -144,7 +137,7 @@ namespace tools
 		{
 			mMultilist->addItem(key);
 		}
-		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
+		mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), MyGUI::TextIterator::toTagsString(value));
 		mMultilist->setIndexSelected(mMultilist->findSubItemWith(0, key));
 		widgetContainer->setUserData(key, value);
 		UndoManager::getInstance().addValue();
@@ -157,7 +150,7 @@ namespace tools
 		std::string key = mMultilist->getSubItemNameAt(0, item);
 		std::string value = mMultilist->getSubItemNameAt(1, item);
 		mEditKey->setOnlyText(key);
-		mEditValue->setOnlyText(value);
+		mEditValue->setCaption(value);
 	}
 
 	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, const std::string& _key)

@@ -112,7 +112,7 @@ namespace tools
 		{
 			size_t count = itemContainer->_getItemCount();
 			for (size_t index = 0; index < count; ++ index)
-				mList->addItem(itemContainer->_getItemNameAt(index));
+				mList->addItem(MyGUI::TextIterator::toTagsString(itemContainer->_getItemNameAt(index)));
 		}
 	}
 
@@ -171,7 +171,7 @@ namespace tools
 	void PanelItems::notifyAddItem(MyGUI::Widget* _sender)
 	{
 		addItem(mEdit->getOnlyText());
-		mList->addItem(mEdit->getOnlyText());
+		mList->addItem(MyGUI::TextIterator::toTagsString(mEdit->getOnlyText()));
 		UndoManager::getInstance().addValue();
 	}
 
@@ -196,7 +196,7 @@ namespace tools
 		}
 
 		std::string value = mEdit->getOnlyText();
-		mList->setItemNameAt(item, value);
+		mList->setItemNameAt(item, MyGUI::TextIterator::toTagsString(value));
 
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
 
@@ -224,7 +224,7 @@ namespace tools
 			return;
 
 		const MyGUI::UString& value = mList->getItemNameAt(index);
-		mEdit->setOnlyText(value);
+		mEdit->setCaption(value);
 
 		if (mCurrentWidget->isType<MyGUI::TabControl>())
 		{
