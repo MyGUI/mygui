@@ -28,7 +28,7 @@ namespace attribute
 	template <typename OwnerType, typename SetterType>
 	struct Field
 	{
-		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
+		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
 		virtual const std::string& getFieldTypeName() = 0;
 	};
 
@@ -39,9 +39,10 @@ namespace attribute
 		FieldHolder(FieldType* OwnerType::* offset) : m_offset(offset) {  }
 		FieldType* OwnerType::* const m_offset;
 
-		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value)
+		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value)
 		{
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
+			return _target->*m_offset != 0;
 		}
 		virtual const std::string& getFieldTypeName()
 		{

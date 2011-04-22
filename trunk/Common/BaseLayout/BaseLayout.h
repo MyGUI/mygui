@@ -146,10 +146,13 @@ namespace wraps
 				MyGUI::Widget* value = nullptr;
 				assignWidget(value, item->second, _throw, false);
 
-				if (value == nullptr && _createFakeWidgets)
-					value = _createFakeWidgetT(item->first->getFieldTypeName(), mMainWidget);
+				bool result = item->first->set(_owner, value);
 
-				item->first->set(_owner, value);
+				if (!result && _createFakeWidgets)
+				{
+					value = _createFakeWidgetT(item->first->getFieldTypeName(), mMainWidget);
+					item->first->set(_owner, value);
+				}
 			}
 		}
 	private:
