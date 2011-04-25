@@ -46,7 +46,8 @@ namespace demo
 			"<p><u>This is under.</u></p>\n"\
 			"<p><color value='#FFFFFF'>This is color.</color></p>\n"\
 			"<br/>\n"\
-			"<p><url value='url_text'>http://www.google.com</url></p>\n"\
+			"<p><url value='url_text1'>http://www.mygui.info</url></p>\n"\
+			"<p><i><b><url value='url_text2'>http://www.mygui.info</url></b></i></p>\n"\
 			"<p>This is image.<img>HandPointerImage</img></p>\n"\
 			"<p>This is linked image.<url value='url_img'><img>HandPointerImage</img></url></p>\n"\
 			"<p><b>This is bold text.</b></p>\n"\
