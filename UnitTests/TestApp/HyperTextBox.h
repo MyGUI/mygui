@@ -11,6 +11,7 @@
 #include "MyGUI_Widget.h"
 #include "StackPanel.h"
 #include "ScrollViewPanel.h"
+#include "WrapPanel.h"
 
 namespace MyGUI
 {
@@ -23,7 +24,16 @@ namespace MyGUI
 	public:
 		HyperTextBox();
 
+		void setCaption(const UString& _value);
+
 		void addItem(const std::string& _value);
+
+		size_t getItemsCount() const;
+
+		void removeItemAt(size_t _index);
+
+		void removeAllItems();
+
 		void updateContent();
 
 		const IntSize& getSpacer() const;
@@ -67,11 +77,13 @@ namespace MyGUI
 	private:
 		void parseParagraph(Widget* _parent, const std::string& _value);
 		void parseText(Widget* _parent, const std::string& _value);
-		void parseTag(Widget* _parent, const std::string& _value);
+		void parseTag(const std::string& _value);
 
 		void OnTextLostFocus(Widget* _sender, Widget* _new);
 		void OnTextSetFocus(Widget* _sender, Widget* _old);
 		void OnTextClick(Widget* _sender);
+
+		void updateBreakHeight();
 
 	private:
 		bool mBold;
@@ -104,6 +116,9 @@ namespace MyGUI
 
 		StackPanel* mStackPanel;
 		ScrollViewPanel* mScrollViewPanel;
+		WrapPanel* mCurrentWrapPanel;
+
+		int mBreakHeight;
 	};
 
 } // namespace MyGUI

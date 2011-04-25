@@ -8,8 +8,10 @@
 #include <MyGUI_ResourceImageSet.h>
 #include <MyGUI_ImageBox.h>
 #include <MyGUI_TextBox.h>
+#include <MyGUI_WidgetManager.h>
+#include <MyGUI_FontManager.h>
+#include <MyGUI_IFont.h>
 #include "HyperTextBox.h"
-#include "WrapPanel.h"
 
 namespace MyGUI
 {
@@ -38,7 +40,9 @@ namespace MyGUI
 		mDefaultFont("Default"),
 		mBoldFont("Default"),
 		mItalicFont("Default"),
-		mBoldItalicFont("Default")
+		mBoldItalicFont("Default"),
+		mCurrentWrapPanel(nullptr),
+		mBreakHeight(0)
 	{
 	}
 
@@ -59,6 +63,8 @@ namespace MyGUI
 			mLineSkin = getUserString("LineSkin");
 		if (isUserString("LinkPointer"))
 			mLinkPoiner = getUserString("LinkPointer");
+
+		updateBreakHeight();
 	}
 
 	void HyperTextBox::shutdownOverride()
@@ -69,14 +75,11 @@ namespace MyGUI
 	void HyperTextBox::addItem(const std::string& _value)
 	{
 		parseParagraph(mStackPanel, _value);
+		mCurrentWrapPanel = nullptr;
 	}
 
 	void HyperTextBox::parseParagraph(Widget* _parent, const std::string& _value)
 	{
-		WrapPanel* panel = _parent->createWidget<WrapPanel>(mParagraphSkin, IntCoord(), Align::Default);
-		panel->setContentAlign(Align::Left | Align::Bottom);
-		panel->setSpacer(mSpacer);
-
 		std::string::const_iterator textItem = _value.end();
 		for (std::string::const_iterator item = _value.begin(); item != _value.end(); ++ item)
 		{
@@ -84,14 +87,18 @@ namespace MyGUI
 			{
 				// отрезаем текст
 				if (textItem < item)
-					parseText(panel, _value.substr(textItem - _value.begin(), item - textItem));
+				{
+					if (mCurrentWrapPanel != nullptr)
+						parseText(mCurrentWrapPanel,	_value.substr(textItem - _value.begin(), item - textItem));
+				}
 
 				// ищем конец тега
 				for (std::string::const_iterator tagItem = item; tagItem != _value.end(); ++ tagItem)
 				{
 					if ((*tagItem) == '>')
 					{
-						parseTag(panel, _value.substr(item - _value.begin(), tagItem - item + 1));
+						parseTag(_value.substr(item - _value.begin(), tagItem - item + 1));
+
 						item = tagItem;
 						textItem = tagItem + 1;
 						break;
@@ -197,7 +204,7 @@ namespace MyGUI
 		}
 	}
 
-	void HyperTextBox::parseTag(Widget* _parent, const std::string& _value)
+	void HyperTextBox::parseTag(const std::string& _value)
 	{
 		const std::string imageStartTagName = "<img";
 		const std::string imageEndTagName = ">";
@@ -318,6 +325,10 @@ namespace MyGUI
 		}
 		else if (utility::startWith(_value, paragraphStartTagName))
 		{
+			mCurrentWrapPanel = mStackPanel->createWidget<WrapPanel>(mParagraphSkin, IntCoord(), Align::Default);
+			mCurrentWrapPanel->setContentAlign(Align::Left | Align::Bottom);
+			mCurrentWrapPanel->setSpacer(mSpacer);
+
 			Align alignResult = Align::Default;
 			bool needAlign = false;
 
@@ -365,22 +376,19 @@ namespace MyGUI
 				}
 			}
 
-			WrapPanel* panel = _parent->castType<WrapPanel>(false);
-			if (panel != nullptr)
+			if (needAlign)
 			{
-				if (needAlign)
-				{
-					panel->setContentAlign(alignResult);
-				}
-				if (needFloat)
-				{
-					panel->setContentFloat(true);
-					panel->setSnapFloat(floatResult);
-				}
+				mCurrentWrapPanel->setContentAlign(alignResult);
+			}
+			if (needFloat)
+			{
+				mCurrentWrapPanel->setContentFloat(true);
+				mCurrentWrapPanel->setSnapFloat(floatResult);
 			}
 		}
 		else if (_value == "</p>")
 		{
+			mCurrentWrapPanel = nullptr;
 		}
 		else if (utility::startWith(_value, imageStartTagName))
 		{
@@ -415,6 +423,16 @@ namespace MyGUI
 		else if (_value == "</img>")
 		{
 			mImage = false;
+		}
+		else if (_value == "<br/>")
+		{
+			if (mCurrentWrapPanel == nullptr)
+			{
+				WrapPanel* panel = mStackPanel->createWidget<WrapPanel>(mParagraphSkin, IntCoord(), Align::Default);
+				panel->setContentAlign(Align::Left | Align::Bottom);
+				panel->setSpacer(mSpacer);
+				panel->createWidget<Widget>("Default", IntCoord(0, 0, 0, mBreakHeight), Align::Default);
+			}
 		}
 	}
 
@@ -492,6 +510,7 @@ namespace MyGUI
 	void HyperTextBox::setDefaultFont(const std::string& _value)
 	{
 		mDefaultFont = _value;
+		updateBreakHeight();
 	}
 
 	const std::string& HyperTextBox::getBoldFont() const
@@ -548,6 +567,41 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void HyperTextBox::setCaption(const UString& _value)
+	{
+		removeAllItems();
+
+		addItem(_value);
+
+		updateContent();
+	}
+
+	void HyperTextBox::removeAllItems()
+	{
+		while (mStackPanel->getChildCount() != 0)
+			WidgetManager::getInstancePtr()->destroyWidget(mStackPanel->getChildAt(0));
+	}
+
+	size_t HyperTextBox::getItemsCount() const
+	{
+		return mStackPanel->getChildCount();
+	}
+
+	void HyperTextBox::removeItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mStackPanel->getChildCount(), "HyperTextBox::removeItemAt");
+		WidgetManager::getInstancePtr()->destroyWidget(mStackPanel->getChildAt(_index));
+	}
+
+	void HyperTextBox::updateBreakHeight()
+	{
+		mBreakHeight = 0;
+
+		IFont* font = FontManager::getInstancePtr()->getByName(getDefaultFont());
+		if (font != nullptr)
+			mBreakHeight = font->getDefaultHeight();
 	}
 
 } // namespace MyGUI
