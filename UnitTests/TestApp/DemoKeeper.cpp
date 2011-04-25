@@ -51,7 +51,7 @@ namespace demo
 			"<p>This is linked image.<url value='url_img'><img>HandPointerImage</img></url></p>\n"\
 			"<p><b>This is bold text.</b></p>\n"\
 			"<p><i>This is italic text.</i></p>\n"\
-			"<p><i><b>This is bold and italic text.</b></i></p>\n"\
+			"<p><t/><i><b>This is bold and italic text.</b></i></p>\n"\
 			"<p><i><b><s><u>This is bold and italic and under and strike text.</u></s></b></i></p>\n"\
 			"<p float='left'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>\n"\
 			"<p float='right' align='right'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");

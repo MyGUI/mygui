@@ -441,6 +441,14 @@ namespace MyGUI
 				panel->createWidget<Widget>("Default", IntCoord(0, 0, 0, mBreakHeight), Align::Default);
 			}
 		}
+		else if (_value == "<t/>")
+		{
+			if (mCurrentWrapPanel != nullptr)
+			{
+				const int countInTab = 4;
+				mCurrentWrapPanel->createWidget<Widget>("Default", IntCoord(0, 0, countInTab * mSpacer.width, 0), Align::Default);
+			}
+		}
 	}
 
 	void HyperTextBox::OnTextLostFocus(Widget* _sender, Widget* _new)
