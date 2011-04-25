@@ -143,6 +143,17 @@ namespace MyGUI
 			TextBox* text = _parent->createWidget<TextBox>(mTextSkin, IntCoord(0, 0, defaultSize, defaultSize), Align::Default);
 			text->setCaption(_value);
 			text->setPointer(mLinkPoiner);
+			if (mBold)
+			{
+				if (mItalic)
+					text->setFontName(mBoldItalicFont);
+				else
+					text->setFontName(mBoldFont);
+			}
+			else if (mItalic)
+			{
+				text->setFontName(mItalicFont);
+			}
 
 			Widget* line = text->createWidget<Widget>(mLineSkin, IntCoord(0, defaultSize - 1, defaultSize, 1), Align::HStretch | Align::Bottom);
 			line->setColour(Colour::Black);
