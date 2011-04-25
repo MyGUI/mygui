@@ -130,6 +130,13 @@ namespace MyGUI
 
 			ImageBox* image = _parent->createWidget<ImageBox>(mImageSkin, IntCoord(0, 0, mImageSize.width, mImageSize.height), Align::Default);
 			image->setItemResource(_value);
+			// картинка как урл
+			if (mUrl)
+			{
+				image->setPointer(mLinkPoiner);
+				image->eventMouseButtonClick += newDelegate(this, &HyperTextBox::OnTextClick);
+				image->setUserString("URL", mUrlValue);
+			}
 		}
 		else if (mUrl)
 		{
