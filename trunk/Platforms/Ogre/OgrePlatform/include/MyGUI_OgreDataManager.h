@@ -39,8 +39,6 @@ namespace MyGUI
 		/** @see DataManager::getData */
 		virtual IDataStream* getData(const std::string& _name);
 
-		typedef std::vector<std::string> VectorString;
-
 		/** @see DataManager::isDataExist */
 		virtual bool isDataExist(const std::string& _name);
 

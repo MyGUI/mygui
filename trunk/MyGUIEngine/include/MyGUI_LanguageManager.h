@@ -26,6 +26,7 @@
 #include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_BackwardCompatibility.h"
 
 namespace MyGUI
@@ -95,7 +96,6 @@ namespace MyGUI
 
 		std::string mCurrentLanguageName;
 
-		typedef std::vector<std::string> VectorString;
 		typedef std::map<std::string, VectorString> MapListString;
 		MapListString mMapFile;
 
