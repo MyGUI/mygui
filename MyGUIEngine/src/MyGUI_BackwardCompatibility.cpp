@@ -844,7 +844,6 @@ namespace MyGUI
 		return coord.print();
 	}
 
-	typedef std::map<std::string, std::string> MapString;
 	typedef std::set<std::string> SetString;
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
