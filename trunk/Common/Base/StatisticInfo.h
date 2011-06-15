@@ -16,8 +16,6 @@ namespace diagnostic
 	class StatisticInfo
 	{
 	public:
-		typedef std::pair<std::string, std::string> PairString;
-		typedef std::vector<PairString> VectorPairString;
 
 		StatisticInfo() :
 			mInfo(nullptr),
@@ -50,7 +48,7 @@ namespace diagnostic
 		template <typename T>
 		void change(const std::string& _key, const T& _value)
 		{
-			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
+			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{
@@ -63,7 +61,7 @@ namespace diagnostic
 
 		void remove(const std::string& _key)
 		{
-			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
+			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{
@@ -78,7 +76,7 @@ namespace diagnostic
 			if (mInfo != nullptr)
 			{
 				std::ostringstream stream;
-				for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
+				for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 				{
 					if (iter != mParams.begin()) stream << "\n";
 					stream << iter->first << " : " << iter->second;
@@ -106,7 +104,7 @@ namespace diagnostic
 
 		void clear(const std::string& _key)
 		{
-			for (VectorPairString::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
+			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
 			{
 				if (iter->first == _key)
 				{
@@ -134,7 +132,7 @@ namespace diagnostic
 	private:
 		MyGUI::TextBox* mInfo;
 		MyGUI::TextBox* mInfoShadow;
-		VectorPairString mParams;
+		MyGUI::VectorStringPairs mParams;
 	};
 
 } // namespace diagnostic
