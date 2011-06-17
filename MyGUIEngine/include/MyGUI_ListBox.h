@@ -47,6 +47,10 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
+		/** @name Item Methods.
+			Methods used to manipulate items.
+		*/
+		//@{
 		//! Get number of items
 		size_t getItemCount() const;
 
@@ -68,11 +72,15 @@ namespace MyGUI
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString& _name);
-
+		//@}
 
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
 
+		/** @name Item Selection Methods
+			Methods used to manipulate item selection.
+		*/
+		//@{
 		/** Get index of selected item (ITEM_NONE if none selected) */
 		size_t getIndexSelected() const;
 
@@ -81,11 +89,15 @@ namespace MyGUI
 
 		/** Clear item selection */
 		void clearIndexSelected();
-
+		//@}
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
 
+		/** @name Item Data Methods
+			Methods used to manipulate item user data.
+		*/
+		//@{
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 
@@ -99,7 +111,7 @@ namespace MyGUI
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
 			return mItemsInfo[_index].second.castType<ValueType>(_throw);
 		}
-
+		//@}
 
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
@@ -114,6 +126,10 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипуляции выдимостью
 
+		/** @name Item Visibility Methods
+			Methods used to determine and manipulate item visibility.
+		*/
+		//@{
 		//! Move all elements so specified becomes visible
 		void beginToItemAt(size_t _index);
 
@@ -146,9 +162,14 @@ namespace MyGUI
 		void setScrollVisible(bool _visible);
 		//! Set scroll position
 		void setScrollPosition(size_t _position);
+		//@}
 
 		//------------------------------------------------------------------------------------//
 
+		/** @name Widget Methods
+			Methods used to manipulate the widget's settings.
+		*/
+		//@{
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
 		//! @copydoc Widget::setSize(const IntSize& _value)
@@ -162,6 +183,7 @@ namespace MyGUI
 		void setSize(int _width, int _height);
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
+		//@}
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in ListBox
@@ -187,7 +209,7 @@ namespace MyGUI
 		/** Event : Item was selected by mouse.\n
 			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
-			@param _index of selected item
+			@param _index index of selected item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
 			eventListMouseItemActivate;
@@ -209,6 +231,10 @@ namespace MyGUI
 			eventListChangeScroll;
 
 	/*internal:*/
+		/** \internal @name Internal
+			Internal use methods.
+		*/
+		//@{
 		// дебажная проверка на правильность выравнивания списка
 		void _checkAlign();
 
@@ -224,6 +250,7 @@ namespace MyGUI
 		virtual const UString& _getItemNameAt(size_t _index);
 
 		virtual void _resetContainer(bool _update);
+		//@}
 
 	protected:
 		virtual void initialiseOverride();
