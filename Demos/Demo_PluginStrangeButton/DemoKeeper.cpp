@@ -12,6 +12,20 @@
 plugin::Plugin* plugin_item = nullptr;
 #endif
 
+#if MYGUI_DEBUG_MODE
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		#define plugin_name "Plugin_StrangeButton_d.dll"
+	#else
+		#define plugin_name "libPlugin_StrangeButton_d.so"
+	#endif
+#else
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+                #define plugin_name "Plugin_StrangeButton.dll"
+        #else
+                #define plugin_name "libPlugin_StrangeButton.so"
+        #endif
+#endif
+
 namespace demo
 {
 
@@ -39,11 +53,7 @@ namespace demo
 		plugin_item = new plugin::Plugin();
 		MyGUI::PluginManager::getInstance().installPlugin(plugin_item);
 #else
-#	ifdef _DEBUG
-		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton_d.dll");
-#	else
-		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton.dll");
-#	endif
+		MyGUI::PluginManager::getInstance().loadPlugin(plugin_name);
 #endif
 
 		MyGUI::Widget* widget = MyGUI::Gui::getInstance().createWidgetT("StrangeButton", "Button", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
