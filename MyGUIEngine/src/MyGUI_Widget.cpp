@@ -486,7 +486,7 @@ namespace MyGUI
 			|| (!getNeedMouseFocus() && !getInheritsPick())
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord)
+			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord)
 			)
 			return nullptr;
 
