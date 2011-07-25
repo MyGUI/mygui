@@ -55,7 +55,7 @@ namespace MyGUI
 
 	bool WidgetInput::isMaskPickInside(const IntPoint& _point, const IntCoord& _coord) const
 	{
-		return !mOwnMaskPickInfo.empty() && mOwnMaskPickInfo.pick(_point, _coord);
+		return mOwnMaskPickInfo.empty() || mOwnMaskPickInfo.pick(_point, _coord);
 	}
 
 	void WidgetInput::_riseMouseLostFocus(Widget* _new)
