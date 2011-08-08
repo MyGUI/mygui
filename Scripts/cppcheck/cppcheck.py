@@ -5,7 +5,8 @@ ignoredEndings = [
 	"It is safe to deallocate a NULL pointer",
 	"Throwing exception in destructor",
 	"::initialise' can be const.",
-	"::shutdown' can be const."
+	"::shutdown' can be const.",
+	"hides typedef with same name"
 ]
 ignoredContent = [
 	"(style) The function '", # ignore "Function is never used"
