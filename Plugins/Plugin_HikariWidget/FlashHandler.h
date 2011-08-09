@@ -111,7 +111,7 @@ namespace Hikari
 
 		result += L"<invoke name=\"" + funcName + L"\" returntype=\"xml\">";
 
-		if (args.size())
+		if (!args.empty())
 		{
 			result += L"<arguments>";
 			for (Arguments::const_iterator i = args.begin(); i != args.end(); ++i)

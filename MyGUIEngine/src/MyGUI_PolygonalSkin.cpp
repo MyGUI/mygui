@@ -454,7 +454,7 @@ namespace MyGUI
 		{
 			VectorFloatPoint croppedTriangle =
 				geometry_utility::cropPolygon(&mResultVerticiesPos[i], 3, cropRectangle);
-			if (croppedTriangle.size())
+			if (!croppedTriangle.empty())
 			{
 				FloatPoint v0 = mResultVerticiesUV[i + 2] - mResultVerticiesUV[i];
 				FloatPoint v1 = mResultVerticiesUV[i + 1] - mResultVerticiesUV[i];

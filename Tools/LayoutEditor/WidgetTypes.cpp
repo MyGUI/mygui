@@ -197,7 +197,7 @@ namespace tools
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{
-				std::string key, value;
+				std::string key;
 
 				if (field->getName() == "Property")
 				{
