@@ -25,12 +25,12 @@ namespace wraps
 		}
 
 		// энумератор всех точек узла
-		EnumeratorConnection getConnectionEnumerator()
+		EnumeratorConnection getConnectionEnumerator() const
 		{
 			return EnumeratorConnection(mListConnection);
 		}
 
-		bool isAnyConnection()
+		bool isAnyConnection() const
 		{
 			EnumeratorConnection point = getConnectionEnumerator();
 			while (point.next())

@@ -29,7 +29,7 @@ namespace tools
 		void clearUserData(const std::string& _key);
 		bool existUserData(const std::string& _key) const;
 		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> UserDataEnumerator;
-		UserDataEnumerator getUserDataEnumerator();
+		UserDataEnumerator getUserDataEnumerator() const;
 
 		void setProperty(const std::string& _key, const std::string& _value, bool _eraseExist = true);
 		void setPropertyByIndex(size_t _index, const std::string& _key, const std::string& _value);
@@ -38,7 +38,7 @@ namespace tools
 		std::string getProperty(const std::string& _key);
 		bool existProperty(const std::string& _key) const;
 		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> PropertyEnumerator;
-		PropertyEnumerator getPropertyEnumerator();
+		PropertyEnumerator getPropertyEnumerator() const;
 
 		void setLayerName(const std::string& _value);
 		const std::string& getLayerName() const;

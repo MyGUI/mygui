@@ -80,7 +80,7 @@ namespace MyGUI
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(XML_TYPE))
 		{
-			std::string name = skin->findAttribute("name");
+			/*std::string name = */skin->findAttribute("name");
 			std::string type = skin->findAttribute("type");
 			if (type.empty())
 				type = "ResourceSkin";

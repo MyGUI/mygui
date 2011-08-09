@@ -12,7 +12,8 @@ ignoredContent = [
 	"(style) The function '", # ignore "Function is never used"
 	"MyGUI_UString", #ignore warnings from MyGUI_UString, because it wasn't written by MyGUI authors
 	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
-	"Technically the member function 'input::" #useless, because with other input system this function could be non-const
+	"Technically the member function 'input::", #useless, because with other input system this function could be non-const
+	"Cppcheck cannot find all the include files"
 ]
 
 def isIgnoredWarning(warning):

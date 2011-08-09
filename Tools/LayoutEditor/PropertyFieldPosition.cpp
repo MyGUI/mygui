@@ -68,8 +68,6 @@ namespace tools
 
 	void PropertyFieldPosition::onAction(const std::string& _value, bool _force)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
 
