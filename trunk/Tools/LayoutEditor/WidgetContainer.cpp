@@ -100,7 +100,7 @@ namespace tools
 		return false;
 	}
 
-	WidgetContainer::UserDataEnumerator WidgetContainer::getUserDataEnumerator()
+	WidgetContainer::UserDataEnumerator WidgetContainer::getUserDataEnumerator() const
 	{
 		return UserDataEnumerator(mUserString);
 	}
@@ -158,7 +158,7 @@ namespace tools
 		return false;
 	}
 
-	WidgetContainer::PropertyEnumerator WidgetContainer::getPropertyEnumerator()
+	WidgetContainer::PropertyEnumerator WidgetContainer::getPropertyEnumerator() const
 	{
 		return PropertyEnumerator(mProperty);
 	}

@@ -41,11 +41,14 @@ namespace MyGUI
 
 		mUpdate = false;
 
-		D3DCAPS9 caps;
-		mpD3DDevice->GetDeviceCaps(&caps);
-		if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
+		if (mpD3DDevice != nullptr)
 		{
-			MYGUI_PLATFORM_LOG(Warning, "Non-squared textures not supported.");
+			D3DCAPS9 caps;
+			mpD3DDevice->GetDeviceCaps(&caps);
+			if (caps.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY)
+			{
+				MYGUI_PLATFORM_LOG(Warning, "Non-squared textures not supported.");
+			}
 		}
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
