@@ -20,10 +20,10 @@ plugin::Plugin* plugin_item = nullptr;
 	#endif
 #else
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-                #define plugin_name "Plugin_StrangeButton.dll"
-        #else
-                #define plugin_name "libPlugin_StrangeButton.so"
-        #endif
+		#define plugin_name "Plugin_StrangeButton.dll"
+	#else
+		#define plugin_name "libPlugin_StrangeButton.so"
+	#endif
 #endif
 
 namespace demo
