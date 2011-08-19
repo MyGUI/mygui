@@ -18,3 +18,9 @@ add_dependencies(${PROJECTNAME} MyGUIEngine)
 
 target_link_libraries(${PROJECTNAME} ${OPENGL_LIBRARIES} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
 link_directories(${OPENGL_LIB_DIR} ${PNG_LIBRARY})
+
+# installation rules
+install(FILES ${HEADER_FILES}
+        DESTINATION include/MYGUI
+)
+mygui_install_target(${PROJECTNAME} "")
