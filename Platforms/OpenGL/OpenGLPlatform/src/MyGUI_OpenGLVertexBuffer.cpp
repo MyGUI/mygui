@@ -94,7 +94,7 @@ namespace MyGUI
 		glGenBuffersARB(1, &mBufferID);
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, mBufferID);
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, mSizeInBytes, data, GL_STREAM_DRAW_ARB);
-		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+		
 
 		// check data size in VBO is same as input array, if not return 0 and delete VBO
 		int bufferSize = 0;
@@ -105,6 +105,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");
 		}
 
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 	}
 
 } // namespace MyGUI
