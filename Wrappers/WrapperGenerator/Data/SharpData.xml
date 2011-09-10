@@ -631,7 +631,8 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="setUserData" template="Empty.txt"/>
 		<Member name="getUserData" template="Empty.txt"/>
-	</Item>
+    <Member name="getUserStrings" template="Empty.txt"/>
+  </Item>
 
 	<Item type="MyGUI::ICroppedRectangle" namespace="MyGUI">
 		<Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_WidgetCropped.cpp"/>
