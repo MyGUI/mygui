@@ -19,7 +19,7 @@ namespace wrapper
 	public:
 		MemberFunction(xml::ElementPtr _element) :
 			Member(_element),
-			mNeedPrint(false),
+			mNeedPrint(true),
 			mGetProperty(nullptr),
 			mTemplate(false),
 			mDeprecated(false)
