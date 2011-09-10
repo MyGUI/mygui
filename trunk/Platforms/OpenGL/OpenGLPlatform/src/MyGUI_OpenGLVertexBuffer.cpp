@@ -54,9 +54,12 @@ namespace MyGUI
 		// Discard the buffer
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, mSizeInBytes, 0, GL_STREAM_DRAW_ARB);
 
+
 		Vertex* pBuffer = (Vertex*)glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
+
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
 		return pBuffer;
 	}
@@ -67,6 +70,7 @@ namespace MyGUI
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, mBufferID);
 		GLboolean result = glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
@@ -90,6 +94,7 @@ namespace MyGUI
 		glGenBuffersARB(1, &mBufferID);
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, mBufferID);
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, mSizeInBytes, data, GL_STREAM_DRAW_ARB);
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
 		// check data size in VBO is same as input array, if not return 0 and delete VBO
 		int bufferSize = 0;
@@ -99,6 +104,7 @@ namespace MyGUI
 			destroy();
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");
 		}
+
 	}
 
 } // namespace MyGUI
