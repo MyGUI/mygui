@@ -269,18 +269,6 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetMethod_SetState
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_SetState_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _value )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->setState(
-				Convert<const std::string &>::From( _value ) ));
-		}
-	}
-
-
-
    	namespace ScopeWidgetProperty_InheritsAlpha
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritsAlpha( MyGUI::Widget* _native )

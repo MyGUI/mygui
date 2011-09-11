@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetButtonWidth
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabItem_SetButtonWidth_value( IntPtr _native ,
 			  int _value );
 

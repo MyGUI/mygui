@@ -184,6 +184,41 @@ namespace Export
 
 
 
+   	namespace ScopeListBoxMethod_GetItemNameAt
+	{
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportListBox_GetItemNameAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::ListBox * >(_native)->getItemNameAt(
+				Convert<size_t>::From( _index ) ));
+		}
+	}
+
+
+
+   	namespace ScopeListBoxMethod_SetItemNameAt
+	{
+		MYGUIEXPORT void MYGUICALL ExportListBox_SetItemNameAt_index_name( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			static_cast< MyGUI::ListBox * >(_native)->setItemNameAt(
+				Convert<size_t>::From( _index ) ,
+				Convert<const MyGUI::UString &>::From( _name ) );
+		}
+	}
+
+
+
+   
+
+
+   
+
+
+   
+
+
    
 
 
@@ -289,32 +324,6 @@ namespace Export
 		{
 			static_cast< MyGUI::ListBox * >(_native)->beginToItemAt(
 				Convert<size_t>::From( _index ) );
-		}
-	}
-
-
-
-   	namespace ScopeListBoxMethod_GetItemNameAt
-	{
-		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportListBox_GetItemNameAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::ListBox * >(_native)->getItemNameAt(
-				Convert<size_t>::From( _index ) ));
-		}
-	}
-
-
-
-   	namespace ScopeListBoxMethod_SetItemNameAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_SetItemNameAt_index_name( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->setItemNameAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -484,15 +493,6 @@ namespace Export
 		}
 	}
 
-
-
-   
-
-
-   
-
-
-   
 
 
 }

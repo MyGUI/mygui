@@ -18,6 +18,17 @@ namespace MyGUI.Sharp
             get { return mInstance; }
         }
 
+        public Gui()
+        {
+            mDelegateNativeByWrapper = new HandleDelegateNativeByWrapper(OnRequestNativeByWrapper);
+            ExportGui_SetGetNativeByWrapper(mDelegateNativeByWrapper);
+
+            mDelegateWrapperCreator = new HandleDelegateWrapperCreator(OnRequestWrapperCreator);
+            ExportGui_SetCreatorWrapps(mDelegateWrapperCreator);
+
+            InitialiseWidgetCreator();
+        }
+
         #endregion
 
         #region CreateWidget
@@ -57,7 +68,7 @@ namespace MyGUI.Sharp
             return LoadLayout(_file, _parent, "");
         }
 
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ExportGui_GetPath(
             [MarshalAs(UnmanagedType.LPStr)]  string _filename );
 
@@ -188,7 +199,7 @@ namespace MyGUI.Sharp
 
         }
 
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_SetProperty(
             IntPtr _widget,
             [MarshalAs(UnmanagedType.LPStr)]  string _key ,
@@ -203,7 +214,7 @@ namespace MyGUI.Sharp
 
         #region LoadResource
 
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_LoadResource(
             [MarshalAs(UnmanagedType.LPStr)]  string _source
             );
@@ -225,65 +236,53 @@ namespace MyGUI.Sharp
         #region WrapperCreator
 
         delegate BaseWidget HandleWrapWidget(BaseWidget _parent, IntPtr _widget);
-        static Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
+        Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
 
         delegate BaseWidget HandleCreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
-        static Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
+        Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
 
-        class WrapperCreator
+        [return: MarshalAs(UnmanagedType.Interface)]
+        public delegate BaseWidget HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, IntPtr _widget);
+
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportGui_SetCreatorWrapps(HandleDelegateWrapperCreator _delegate);
+
+        HandleDelegateWrapperCreator mDelegateWrapperCreator;
+
+        BaseWidget OnRequestWrapperCreator(string _type, BaseWidget _parent, IntPtr _widget)
         {
-            [return: MarshalAs(UnmanagedType.Interface)]
-            public delegate BaseWidget HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, IntPtr _widget);
-
-            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-            private static extern void ExportGui_SetCreatorWrapps(HandleDelegate _delegate);
-
-            static HandleDelegate mDelegate;
-
-            public WrapperCreator()
-            {
-                mDelegate = new HandleDelegate(OnRequest);
-                ExportGui_SetCreatorWrapps(mDelegate);
-
-                InitialiseWidgetCreator();
-            }
-
-            BaseWidget OnRequest(string _type, BaseWidget _parent, IntPtr _widget)
-            {
-                return mMapWrapper[_type](_parent, _widget);
-            }
+            return mMapWrapper[_type](_parent, _widget);
         }
-
-        static WrapperCreator mWrapperCreator = new WrapperCreator();
 
         #endregion
 
         #region GetNativeByWrapper
 
-        class GetNativeByWrapper
+        public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper);
+
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegateNativeByWrapper _delegate);
+
+        HandleDelegateNativeByWrapper mDelegateNativeByWrapper;
+
+        IntPtr OnRequestNativeByWrapper(BaseWidget _wrapper)
         {
-            public delegate IntPtr HandleDelegate([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper);
-
-            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-            private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegate _delegate);
-
-            static HandleDelegate mDelegate;
-
-            public GetNativeByWrapper()
-            {
-                mDelegate = new HandleDelegate(OnRequest);
-                ExportGui_SetGetNativeByWrapper(mDelegate);
-            }
-
-            IntPtr OnRequest(BaseWidget _wrapper)
-            {
-                return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
-            }
+            return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
         }
-
-        static GetNativeByWrapper mGetNativeByWrapper = new GetNativeByWrapper();
 
         #endregion
 
+        #region Test
+
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportGui_Test(
+            );
+
+        public void Test()
+        {
+            ExportGui_Test();
+        }
+
+        #endregion
     }
 }

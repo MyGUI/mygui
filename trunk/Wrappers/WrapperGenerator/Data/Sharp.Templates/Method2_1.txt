@@ -1,6 +1,6 @@
 ﻿		#region Method #{MethodName}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
 			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
@@ -14,7 +14,7 @@
 				#{TypePrefix2} #{ValueName2} );
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} );
 

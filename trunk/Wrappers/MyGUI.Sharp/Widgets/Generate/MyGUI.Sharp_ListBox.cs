@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Event ListChangeScroll
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBoxEvent_AdviseListChangeScroll( IntPtr _native, bool _advise );
 
 		public delegate void HandleListChangeScroll(
@@ -64,7 +64,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventListChangeScroll
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportListBoxEvent_DelegateListChangeScroll( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ListBox _sender ,
@@ -96,7 +96,7 @@ namespace MyGUI.Sharp
 
    		#region Event ListMouseItemFocus
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBoxEvent_AdviseListMouseItemFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleListMouseItemFocus(
@@ -121,7 +121,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventListMouseItemFocus
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportListBoxEvent_DelegateListMouseItemFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ListBox _sender ,
@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 
    		#region Event ListMouseItemActivate
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBoxEvent_AdviseListMouseItemActivate( IntPtr _native, bool _advise );
 
 		public delegate void HandleListMouseItemActivate(
@@ -178,7 +178,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventListMouseItemActivate
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportListBoxEvent_DelegateListMouseItemActivate( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ListBox _sender ,
@@ -210,7 +210,7 @@ namespace MyGUI.Sharp
 
    		#region Event ListChangePosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBoxEvent_AdviseListChangePosition( IntPtr _native, bool _advise );
 
 		public delegate void HandleListChangePosition(
@@ -235,7 +235,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventListChangePosition
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportListBoxEvent_DelegateListChangePosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ListBox _sender ,
@@ -267,7 +267,7 @@ namespace MyGUI.Sharp
 
    		#region Event ListSelectAccept
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBoxEvent_AdviseListSelectAccept( IntPtr _native, bool _advise );
 
 		public delegate void HandleListSelectAccept(
@@ -292,7 +292,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventListSelectAccept
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportListBoxEvent_DelegateListSelectAccept( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ListBox _sender ,
@@ -324,7 +324,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetOptimalHeight
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportListBox_GetOptimalHeight( IntPtr _native );
 
@@ -335,6 +335,53 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   		#region Method GetItemNameAt
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportListBox_GetItemNameAt_index( IntPtr _native ,
+			  uint _index );
+
+		public string GetItemNameAt(
+			uint _index )
+		{
+			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( mNative , 
+				 _index )  )  ;
+		}
+
+		#endregion
+
+
+
+   		#region Method SetItemNameAt
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportListBox_SetItemNameAt_index_name( IntPtr _native ,
+			  uint _index ,
+			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+
+		public void SetItemNameAt(
+			uint _index ,
+			string _name )
+		{
+			ExportListBox_SetItemNameAt_index_name( mNative , 
+				 _index ,
+				 _name );
+		}
+
+		#endregion
+
+
+
+   
+
+
+   
+
+
+   
 
 
    
@@ -357,7 +404,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetScrollPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_SetScrollPosition_position( IntPtr _native ,
 			  uint _position );
 
@@ -374,7 +421,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetScrollVisible
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_SetScrollVisible_visible( IntPtr _native ,
 			[MarshalAs(UnmanagedType.U1)]  bool _visible );
 
@@ -391,7 +438,7 @@ namespace MyGUI.Sharp
 
    		#region Method IsItemSelectedVisible
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportListBox_IsItemSelectedVisible_fill( IntPtr _native ,
 			[MarshalAs(UnmanagedType.U1)]  bool _fill );
@@ -409,7 +456,7 @@ namespace MyGUI.Sharp
 
    		#region Method IsItemVisibleAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportListBox_IsItemVisibleAt_index_fill( IntPtr _native ,
 			  uint _index ,
@@ -430,7 +477,7 @@ namespace MyGUI.Sharp
 
    		#region Method BeginToItemSelected
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_BeginToItemSelected( IntPtr _native );
 
 		public void BeginToItemSelected( )
@@ -444,7 +491,7 @@ namespace MyGUI.Sharp
 
    		#region Method BeginToItemLast
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_BeginToItemLast( IntPtr _native );
 
 		public void BeginToItemLast( )
@@ -458,7 +505,7 @@ namespace MyGUI.Sharp
 
    		#region Method BeginToItemFirst
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_BeginToItemFirst( IntPtr _native );
 
 		public void BeginToItemFirst( )
@@ -472,7 +519,7 @@ namespace MyGUI.Sharp
 
    		#region Method BeginToItemAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_BeginToItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -487,47 +534,9 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Method GetItemNameAt
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern IntPtr ExportListBox_GetItemNameAt_index( IntPtr _native ,
-			  uint _index );
-
-		public string GetItemNameAt(
-			uint _index )
-		{
-			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( mNative , 
-				 _index )  )  ;
-		}
-
-		#endregion
-
-
-
-   		#region Method SetItemNameAt
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportListBox_SetItemNameAt_index_name( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
-
-		public void SetItemNameAt(
-			uint _index ,
-			string _name )
-		{
-			ExportListBox_SetItemNameAt_index_name( mNative , 
-				 _index ,
-				 _name );
-		}
-
-		#endregion
-
-
-
    		#region Method GetItemDataAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportListBox_GetItemDataAt_index( IntPtr _native ,
 			  uint _index );
@@ -545,7 +554,7 @@ namespace MyGUI.Sharp
 
    		#region Method ClearItemDataAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_ClearItemDataAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -562,7 +571,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetItemDataAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_SetItemDataAt_index_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -582,7 +591,7 @@ namespace MyGUI.Sharp
 
    		#region Method ClearIndexSelected
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_ClearIndexSelected( IntPtr _native );
 
 		public void ClearIndexSelected( )
@@ -596,10 +605,10 @@ namespace MyGUI.Sharp
 
    		#region Property IndexSelected
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportListBox_GetIndexSelected( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_SetIndexSelected( IntPtr _widget,   uint _value );
 
 		public uint IndexSelected
@@ -614,7 +623,7 @@ namespace MyGUI.Sharp
 
    		#region Method FindItemIndexWith
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportListBox_FindItemIndexWith_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -632,7 +641,7 @@ namespace MyGUI.Sharp
 
    		#region Method SwapItemsAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_SwapItemsAt_index1_index2( IntPtr _native ,
 			  uint _index1 ,
 			  uint _index2 );
@@ -652,7 +661,7 @@ namespace MyGUI.Sharp
 
    		#region Method RemoveAllItems
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_RemoveAllItems( IntPtr _native );
 
 		public void RemoveAllItems( )
@@ -666,7 +675,7 @@ namespace MyGUI.Sharp
 
    		#region Method RemoveItemAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_RemoveItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -683,7 +692,7 @@ namespace MyGUI.Sharp
 
    		#region Method AddItem
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_AddItem_name_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -697,7 +706,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
@@ -714,7 +723,7 @@ namespace MyGUI.Sharp
 
    		#region Method InsertItemAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_InsertItemAt_index_name_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -731,7 +740,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -751,7 +760,7 @@ namespace MyGUI.Sharp
 
    		#region Property ItemCount
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportListBox_GetItemCount( IntPtr _native );
 
@@ -762,15 +771,6 @@ namespace MyGUI.Sharp
 
 		#endregion
 
-
-
-   
-
-
-   
-
-
-   
 
 		
     }

@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Event ChangeProperty
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseChangeProperty( IntPtr _native, bool _advise );
 
 		public delegate void HandleChangeProperty(
@@ -65,7 +65,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventChangeProperty
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
@@ -100,7 +100,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetProperty
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetProperty_key_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
@@ -120,7 +120,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetWidgetStyle
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern WidgetStyle ExportWidget_GetWidgetStyle( IntPtr _native );
 
@@ -135,7 +135,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetWidgetStyle
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetWidgetStyle_style_layer( IntPtr _native ,
 			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
@@ -155,7 +155,7 @@ namespace MyGUI.Sharp
 
    		#region Method ChangeWidgetSkin
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_ChangeWidgetSkin_skinName( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _skinName );
 
@@ -172,7 +172,7 @@ namespace MyGUI.Sharp
 
    		#region Method AttachToWidget
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_AttachToWidget_parent_style_layer( IntPtr _native ,
 			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _parent ,
 			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
@@ -195,7 +195,7 @@ namespace MyGUI.Sharp
 
    		#region Method DetachFromWidget
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_DetachFromWidget_layer( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
 
@@ -212,7 +212,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetClientWidget
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern Widget ExportWidget_GetClientWidget( IntPtr _native );
 
@@ -227,7 +227,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetClientCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetClientCoord( IntPtr _native );
 
@@ -242,7 +242,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetInheritedEnabled
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetInheritedEnabled( IntPtr _native );
 
@@ -257,7 +257,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetEnabledSilent
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetEnabledSilent_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
@@ -274,10 +274,10 @@ namespace MyGUI.Sharp
 
    		#region Property Enabled
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetEnabled( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetEnabled( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool Enabled
@@ -295,7 +295,7 @@ namespace MyGUI.Sharp
 
    		#region Method FindWidget
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern Widget ExportWidget_FindWidget_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
@@ -313,7 +313,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetChildAt
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern Widget ExportWidget_GetChildAt_index( IntPtr _native ,
 			  uint _index );
@@ -331,7 +331,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetChildCount
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportWidget_GetChildCount( IntPtr _native );
 
@@ -349,7 +349,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetParentSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetParentSize( IntPtr _native );
 
@@ -364,7 +364,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetParent
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern Widget ExportWidget_GetParent( IntPtr _native );
 
@@ -379,7 +379,7 @@ namespace MyGUI.Sharp
 
    		#region Method IsRootWidget
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_IsRootWidget( IntPtr _native );
 
@@ -394,7 +394,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetColour
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetColour_value( IntPtr _native ,
 			[In] ref Colour _value );
 
@@ -409,30 +409,12 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Method SetState
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportWidget_SetState_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _value );
-
-		public bool SetState(
-			string _value )
-		{
-			return  ExportWidget_SetState_value( mNative , 
-				 _value )  ;
-		}
-
-		#endregion
-
-
-
    		#region Property InheritsAlpha
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetInheritsAlpha( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetInheritsAlpha( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool InheritsAlpha
@@ -447,10 +429,10 @@ namespace MyGUI.Sharp
 
    		#region Property Alpha
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern float ExportWidget_GetAlpha( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetAlpha( IntPtr _widget,   float _value );
 
 		public float Alpha
@@ -465,10 +447,10 @@ namespace MyGUI.Sharp
 
    		#region Property Align
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern Align ExportWidget_GetAlign( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
 		public Align Align
@@ -483,7 +465,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetInheritedVisible
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetInheritedVisible( IntPtr _native );
 
@@ -498,10 +480,10 @@ namespace MyGUI.Sharp
 
    		#region Property Visible
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetVisible( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetVisible( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool Visible
@@ -516,7 +498,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetName
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetName( IntPtr _native );
 
@@ -531,7 +513,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealCoord_left_top_width_height( IntPtr _native ,
 			  float _left ,
 			  float _top ,
@@ -557,7 +539,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealSize_width_height( IntPtr _native ,
 			  float _width ,
 			  float _height );
@@ -577,7 +559,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealPosition_left_top( IntPtr _native ,
 			  float _left ,
 			  float _top );
@@ -597,7 +579,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealCoord_value( IntPtr _native ,
 			[In] ref FloatCoord _value );
 
@@ -614,7 +596,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealSize_value( IntPtr _native ,
 			[In] ref FloatSize _value );
 
@@ -631,7 +613,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetRealPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetRealPosition_value( IntPtr _native ,
 			[In] ref FloatPoint _value );
 
@@ -648,7 +630,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetCoord_left_top_width_height( IntPtr _native ,
 			  int _left ,
 			  int _top ,
@@ -674,7 +656,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -694,7 +676,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetPosition_left_top( IntPtr _native ,
 			  int _left ,
 			  int _top );
@@ -714,7 +696,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetCoord_value( IntPtr _native ,
 			[In] ref IntCoord _value );
 
@@ -731,7 +713,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetSize_value( IntPtr _native ,
 			 ref IntSize _value );
 
@@ -748,7 +730,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetPosition_value( IntPtr _native ,
 			[In] ref IntPoint _value );
 
