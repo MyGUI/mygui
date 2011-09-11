@@ -5,7 +5,7 @@ namespace MyGUI.Sharp
 
     public partial class Gui
     {
-        static void InitialiseWidgetCreator()
+        void InitialiseWidgetCreator()
         {
 			//InsertPoint
 

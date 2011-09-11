@@ -83,7 +83,7 @@ namespace TestApp.Sharp
             flag = widget.IsRootWidget();
             flag = childat.IsRootWidget();
 
-            childat.SetState("disabled");
+            //childat.SetState("disabled");
 
             childat.InheritsAlpha = !childat.InheritsAlpha;
             widget.Alpha = 0.5f;

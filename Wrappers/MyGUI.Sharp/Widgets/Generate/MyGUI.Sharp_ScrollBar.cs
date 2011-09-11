@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Event ScrollChangePosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBarEvent_AdviseScrollChangePosition( IntPtr _native, bool _advise );
 
 		public delegate void HandleScrollChangePosition(
@@ -64,7 +64,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventScrollChangePosition
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportScrollBarEvent_DelegateScrollChangePosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.Interface)]  ScrollBar _sender ,
@@ -114,10 +114,10 @@ namespace MyGUI.Sharp
 
    		#region Property MoveToClick
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollBar_GetMoveToClick( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetMoveToClick( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool MoveToClick
@@ -132,10 +132,10 @@ namespace MyGUI.Sharp
 
    		#region Property MinTrackSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportScrollBar_GetMinTrackSize( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetMinTrackSize( IntPtr _widget,   int _value );
 
 		public int MinTrackSize
@@ -150,10 +150,10 @@ namespace MyGUI.Sharp
 
    		#region Property TrackSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportScrollBar_GetTrackSize( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetTrackSize( IntPtr _widget,   int _value );
 
 		public int TrackSize
@@ -168,7 +168,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetLineSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportScrollBar_GetLineSize( IntPtr _native );
 
@@ -183,10 +183,10 @@ namespace MyGUI.Sharp
 
    		#region Property ScrollViewPage
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportScrollBar_GetScrollViewPage( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetScrollViewPage( IntPtr _widget,   uint _value );
 
 		public uint ScrollViewPage
@@ -201,10 +201,10 @@ namespace MyGUI.Sharp
 
    		#region Property ScrollPage
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportScrollBar_GetScrollPage( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetScrollPage( IntPtr _widget,   uint _value );
 
 		public uint ScrollPage
@@ -219,10 +219,10 @@ namespace MyGUI.Sharp
 
    		#region Property ScrollPosition
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportScrollBar_GetScrollPosition( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetScrollPosition( IntPtr _widget,   uint _value );
 
 		public uint ScrollPosition
@@ -237,10 +237,10 @@ namespace MyGUI.Sharp
 
    		#region Property ScrollRange
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportScrollBar_GetScrollRange( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetScrollRange( IntPtr _widget,   uint _value );
 
 		public uint ScrollRange
@@ -255,10 +255,10 @@ namespace MyGUI.Sharp
 
    		#region Property VerticalAlignment
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollBar_GetVerticalAlignment( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBar_SetVerticalAlignment( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VerticalAlignment

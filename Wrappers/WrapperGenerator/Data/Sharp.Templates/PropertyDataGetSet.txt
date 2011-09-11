@@ -1,9 +1,9 @@
 ﻿		#region Property #{PropertyName}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object Export#{ThisName}_Get#{PropertyName}( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, [MarshalAs(UnmanagedType.IUnknown)] object _value );
 
 		public object #{PropertyName}

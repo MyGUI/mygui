@@ -39,10 +39,10 @@ namespace MyGUI.Sharp
 
    		#region Property ViewOffset
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportScrollView_GetViewOffset( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetViewOffset( IntPtr _widget, [In] ref IntPoint _value );
 
 		public IntPoint ViewOffset
@@ -57,7 +57,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetViewCoord
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportScrollView_GetViewCoord( IntPtr _native );
 
@@ -72,7 +72,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetCanvasSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetCanvasSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -92,10 +92,10 @@ namespace MyGUI.Sharp
 
    		#region Property CanvasSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportScrollView_GetCanvasSize( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetCanvasSize( IntPtr _widget,  ref IntSize _value );
 
 		public IntSize CanvasSize
@@ -110,10 +110,10 @@ namespace MyGUI.Sharp
 
    		#region Property CanvasAlign
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern Align ExportScrollView_GetCanvasAlign( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetCanvasAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
 		public Align CanvasAlign
@@ -128,10 +128,10 @@ namespace MyGUI.Sharp
 
    		#region Property VisibleHScroll
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollView_IsVisibleHScroll( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetVisibleHScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleHScroll
@@ -146,10 +146,10 @@ namespace MyGUI.Sharp
 
    		#region Property VisibleVScroll
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollView_IsVisibleVScroll( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollView_SetVisibleVScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleVScroll
