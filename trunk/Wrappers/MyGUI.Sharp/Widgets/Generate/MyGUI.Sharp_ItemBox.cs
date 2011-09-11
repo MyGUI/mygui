@@ -67,7 +67,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateNotifyItem( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[In] ref IBNotifyItemData _info );
 				
 			private static ExportHandle mDelegate;
@@ -124,7 +124,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateMouseItemActivate( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -181,7 +181,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateChangeItemPosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -238,7 +238,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateSelectItemAccept( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -296,8 +296,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateDrawItem( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _item ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item ,
 				[In] ref IBDrawItemInfo _info );
 				
 			private static ExportHandle mDelegate;
@@ -357,7 +357,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateCoordItem( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[In, Out] ref IntCoord _coord ,
 				[MarshalAs(UnmanagedType.U1)]  bool _drag );
 				
@@ -417,8 +417,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportItemBoxEvent_DelegateCreateWidgetItem( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ItemBox _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _item );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventCreateWidgetItem( ExportHandle _delegate )
@@ -479,7 +479,7 @@ namespace MyGUI.Sharp
    		#region Method GetWidgetByIndex
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportItemBox_GetWidgetByIndex_index( IntPtr _native ,
 			  uint _index );
 
@@ -497,7 +497,7 @@ namespace MyGUI.Sharp
    		#region Method GetWidgetDrag
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportItemBox_GetWidgetDrag( IntPtr _native );
 
 		public Widget GetWidgetDrag( )
@@ -514,7 +514,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportItemBox_GetIndexByWidget_widget( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _widget );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _widget );
 
 		public uint GetIndexByWidget(
 			Widget _widget )

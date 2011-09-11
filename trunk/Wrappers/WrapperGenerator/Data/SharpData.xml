@@ -443,136 +443,136 @@
 			<TypeName>Button</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>Button</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ComboBox *">
 			<TypeName>ComboBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ComboBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::DDContainer *">
 			<TypeName>DDContainer</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>DDContainer</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::EditBox *">
 			<TypeName>EditBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>EditBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ItemBox *">
 			<TypeName>ItemBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ItemBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ListBox *">
 			<TypeName>ListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ListBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::MenuBar *">
 			<TypeName>MenuBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MenuBar</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::MenuControl *">
 			<TypeName>MenuControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MenuControl</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::MultiListBox *">
 			<TypeName>MultiListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MultiListBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::PopupMenu *">
 			<TypeName>PopupMenu</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>PopupMenu</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ProgressBar *">
 			<TypeName>ProgressBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ProgressBar</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ScrollView *">
 			<TypeName>ScrollView</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ScrollView</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ImageBox *">
 			<TypeName>ImageBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ImageBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::TextBox *">
 			<TypeName>TextBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>TextBox</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::TabControl *">
 			<TypeName>TabControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>TabControl</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::ScrollBar *">
 			<TypeName>ScrollBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ScrollBar</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::Widget *">
 			<TypeName>Widget</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>Widget</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::Widget * &amp;">
 			<TypeName>Widget</TypeName>
@@ -586,32 +586,32 @@
 			<TypeName>Window</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>Window</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::MenuItem *">
 			<TypeName>MenuItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MenuItem</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::TabItem *">
 			<TypeName>TabItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>TabItem</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 		<TypeInfo name="MyGUI::MultiListItem *">
 			<TypeName>MultiListItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>MultiListItem</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
+			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
 
 	</TypeHolder>

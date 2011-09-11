@@ -67,7 +67,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportTabControlEvent_DelegateTabChangeSelect( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  TabControl _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  TabControl _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportTabControl_GetButtonWidth_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public int GetButtonWidth(
 			TabItem _item )
@@ -188,7 +188,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_SetButtonWidth_item_width( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			  int _width );
 
 		public void SetButtonWidth(
@@ -270,7 +270,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_BeginToItem_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public void BeginToItem(
 			TabItem _item )
@@ -305,7 +305,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTabControl_GetItemName_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public string GetItemName(
 			TabItem _item )
@@ -340,7 +340,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_SetItemName_item_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
 		public void SetItemName(
@@ -381,7 +381,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportTabControl_GetItemData_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public object GetItemData(
 			TabItem _item )
@@ -416,7 +416,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_ClearItemData_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public void ClearItemData(
 			TabItem _item )
@@ -450,7 +450,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_SetItemData_item_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
 
 		public void SetItemData(
@@ -489,10 +489,10 @@ namespace MyGUI.Sharp
    		#region Property ItemSelected
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_GetItemSelected( IntPtr _widget );
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetItemSelected( IntPtr _widget, [MarshalAs(UnmanagedType.Interface)]  TabItem _value );
+		private static extern void ExportTabControl_SetItemSelected( IntPtr _widget, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  TabItem _value );
 
 		public TabItem ItemSelected
 		{
@@ -545,7 +545,7 @@ namespace MyGUI.Sharp
    		#region Method FindItemWith
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_FindItemWith_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
@@ -583,7 +583,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportTabControl_FindItemIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public uint FindItemIndex(
 			TabItem _item )
@@ -601,7 +601,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportTabControl_GetItemIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public uint GetItemIndex(
 			TabItem _item )
@@ -617,7 +617,7 @@ namespace MyGUI.Sharp
    		#region Method GetItemAt
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_GetItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -650,7 +650,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabControl_RemoveItem_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public void RemoveItem(
 			TabItem _item )
@@ -683,7 +683,7 @@ namespace MyGUI.Sharp
    		#region Method AddItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_AddItem_name_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -698,7 +698,7 @@ namespace MyGUI.Sharp
 		}
 		
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
@@ -716,9 +716,9 @@ namespace MyGUI.Sharp
    		#region Method InsertItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_InsertItem_to_name_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _to ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
 
@@ -740,7 +740,7 @@ namespace MyGUI.Sharp
    		#region Method InsertItemAt
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_InsertItemAt_index_name_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -758,7 +758,7 @@ namespace MyGUI.Sharp
 		}
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TabItem ExportTabControl_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );

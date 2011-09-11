@@ -13,7 +13,7 @@ namespace MyGUI.Sharp
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ExportGui_CreateWidget(
-            [MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper,
             IntPtr _parent,
             WidgetStyle _style,
             [MarshalAs(UnmanagedType.LPStr)]string _type,
@@ -27,7 +27,7 @@ namespace MyGUI.Sharp
         private static extern void ExportGui_DestroyWidget(IntPtr _widget);
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper, IntPtr _widget);
+        private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper, IntPtr _widget);
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_UnwrapWidget(IntPtr _widget);

@@ -66,7 +66,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Window _sender );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Window _sender );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventWindowChangeCoord( ExportHandle _delegate )
@@ -120,7 +120,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWindowEvent_DelegateWindowButtonPressed( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Window _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Window _sender ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _name );
 				
 			private static ExportHandle mDelegate;
@@ -295,7 +295,7 @@ namespace MyGUI.Sharp
    		#region Method GetCaptionWidget
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TextBox ExportWindow_GetCaptionWidget( IntPtr _native );
 
 		public TextBox GetCaptionWidget( )

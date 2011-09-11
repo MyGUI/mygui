@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateToolTip( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[In] ref ToolTipInfo _info );
 				
 			private static ExportHandle mDelegate;
@@ -103,7 +103,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateRootKeyChangeFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.U1)]  bool _focus );
 				
 			private static ExportHandle mDelegate;
@@ -160,7 +160,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateRootMouseChangeFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.U1)]  bool _focus );
 				
 			private static ExportHandle mDelegate;
@@ -217,7 +217,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateKeyButtonReleased( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.I4)]  KeyCode _key );
 				
 			private static ExportHandle mDelegate;
@@ -275,7 +275,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateKeyButtonPressed( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.I4)]  KeyCode _key ,
 				  uint _char );
 				
@@ -335,8 +335,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateKeySetFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _old );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventKeySetFocus( ExportHandle _delegate )
@@ -392,8 +392,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateKeyLostFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _new );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventKeyLostFocus( ExportHandle _delegate )
@@ -448,7 +448,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonDoubleClick( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventMouseButtonDoubleClick( ExportHandle _delegate )
@@ -501,7 +501,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonClick( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventMouseButtonClick( ExportHandle _delegate )
@@ -557,7 +557,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonReleased( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
 				  int _top ,
 				[MarshalAs(UnmanagedType.I4)]  MouseButton _id );
@@ -622,7 +622,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonPressed( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
 				  int _top ,
 				[MarshalAs(UnmanagedType.I4)]  MouseButton _id );
@@ -685,7 +685,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseWheel( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _rel );
 				
 			private static ExportHandle mDelegate;
@@ -743,7 +743,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseMove( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
 				  int _top );
 				
@@ -805,7 +805,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseDrag( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
 				  int _top ,
 				[MarshalAs(UnmanagedType.I4)]  MouseButton _value4 );
@@ -868,8 +868,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseSetFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _old );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventMouseSetFocus( ExportHandle _delegate )
@@ -925,8 +925,8 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateMouseLostFocus( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
-				[MarshalAs(UnmanagedType.Interface)]  Widget _new );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventMouseLostFocus( ExportHandle _delegate )

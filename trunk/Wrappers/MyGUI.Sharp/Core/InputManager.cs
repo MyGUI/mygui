@@ -33,7 +33,7 @@ namespace MyGUI.Sharp
         #region KeyFocusWidget
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
         private static extern Widget ExportInputManager_GetKeyFocusWidget();
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportInputManager_SetKeyFocusWidget(IntPtr _widget);
@@ -62,7 +62,7 @@ namespace MyGUI.Sharp
         #region MouseFocusWidget
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
         private static extern Widget ExportInputManager_GetMouseFocusWidget();
 
         public Widget MouseFocusWidget
