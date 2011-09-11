@@ -91,12 +91,15 @@ namespace MyGUI.Sharp
 
             foreach (XmlNode node in mfDocument)
             {
-                if ("MyGUI" != node.Name) continue;
-                if ("Layout" != node.Attributes["type"].Value) continue;
+                if ("MyGUI" != node.Name)
+                    continue;
+                if ("Layout" != node.Attributes["type"].Value)
+                    continue;
 
                 foreach (XmlNode widget_node in node)
                 {
-                    if ("Widget" != widget_node.Name) continue;
+                    if ("Widget" != widget_node.Name)
+                        continue;
                     ParseWidget(widgets, widget_node, _parent, null, _prefix);
                 }
             }
@@ -121,7 +124,8 @@ namespace MyGUI.Sharp
                     case "position": position = attribute.Value; break;
                 }
 
-                if (type == "Sheet") type = "TabItem";
+                if (type == "Sheet")
+                    type = "TabItem";
             }
 
             if ((0 == type.Length) || (0 == skin.Length))
@@ -129,7 +133,8 @@ namespace MyGUI.Sharp
                 return;
             }
 
-            if ((0 != name.Length) && (0 != _prefix.Length)) name = _prefix + name;
+            if ((0 != name.Length) && (0 != _prefix.Length))
+                name = _prefix + name;
 
             string[] coord = position.Split();
 
@@ -175,10 +180,13 @@ namespace MyGUI.Sharp
                     string key = "", value = "";
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
-                        if ("key" == attribute.Name) key = attribute.Value;
-                        else if ("value" == attribute.Name) value = attribute.Value;
+                        if ("key" == attribute.Name)
+                            key = attribute.Value;
+                        else if ("value" == attribute.Name)
+                            value = attribute.Value;
                     }
-                    if ((0 == key.Length) || (0 == value.Length)) continue;
+                    if ((0 == key.Length) || (0 == value.Length))
+                        continue;
 
                     SetProperty(widget, key, value);
                 }
@@ -187,13 +195,17 @@ namespace MyGUI.Sharp
                     string key = "", value = "";
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
-                        if ("key" == attribute.Name) key = attribute.Value;
-                        else if ("value" == attribute.Name) value = attribute.Value;
+                        if ("key" == attribute.Name)
+                            key = attribute.Value;
+                        else if ("value" == attribute.Name)
+                            value = attribute.Value;
                     }
-                    if ((0 == key.Length) || (0 == value.Length)) continue;
+                    if ((0 == key.Length) || (0 == value.Length))
+                        continue;
                     widget.SetUserString(key, value);
 
-                    if (EventParserUserData != null) EventParserUserData(widget, key, value);
+                    if (EventParserUserData != null)
+                        EventParserUserData(widget, key, value);
                 }
             }
 
@@ -241,8 +253,8 @@ namespace MyGUI.Sharp
         delegate BaseWidget HandleCreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
         Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
 
-        [return: MarshalAs(UnmanagedType.Interface)]
-        public delegate BaseWidget HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, IntPtr _widget);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
+        public delegate BaseWidget HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _parent, IntPtr _widget);
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_SetCreatorWrapps(HandleDelegateWrapperCreator _delegate);
@@ -258,7 +270,7 @@ namespace MyGUI.Sharp
 
         #region GetNativeByWrapper
 
-        public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper);
+        public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper);
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegateNativeByWrapper _delegate);

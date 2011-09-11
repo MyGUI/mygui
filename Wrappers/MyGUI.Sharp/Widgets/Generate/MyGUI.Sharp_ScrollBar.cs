@@ -67,7 +67,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportScrollBarEvent_DelegateScrollChangePosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ScrollBar _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ScrollBar _sender ,
 				  uint _position );
 				
 			private static ExportHandle mDelegate;

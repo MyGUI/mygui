@@ -72,7 +72,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In, Out] ref IntPtr _item ,
 				[In, Out] ref IntCoord _dimension );
 				
@@ -136,7 +136,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDDContainerEvent_DelegateChangeDDState( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[MarshalAs(UnmanagedType.I4)]  DDItemState _state );
 				
 			private static ExportHandle mDelegate;
@@ -194,7 +194,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDDContainerEvent_DelegateDropResult( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)]  bool _result );
 				
@@ -255,7 +255,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDDContainerEvent_DelegateRequestDrop( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				
@@ -316,7 +316,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDDContainerEvent_DelegateStartDrag( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				

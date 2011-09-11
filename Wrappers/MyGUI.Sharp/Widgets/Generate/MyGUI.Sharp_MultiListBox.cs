@@ -69,7 +69,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportMultiListBoxEvent_DelegateListChangePosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  MultiListBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MultiListBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -126,7 +126,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportMultiListBoxEvent_DelegateListSelectAccept( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  MultiListBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MultiListBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -620,7 +620,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnResizingPolicy_item_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
 
 		public void SetColumnResizingPolicy(
@@ -641,7 +641,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportMultiListBox_GetColumnIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public uint GetColumnIndex(
 			MultiListItem _item )
@@ -697,7 +697,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportMultiListBox_GetColumnName_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
 		public string GetColumnName(
 			MultiListItem _item )
@@ -732,7 +732,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnWidth_item_width( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			  int _width );
 
 		public void SetColumnWidth(
@@ -772,7 +772,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnName_item_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
 		public void SetColumnName(

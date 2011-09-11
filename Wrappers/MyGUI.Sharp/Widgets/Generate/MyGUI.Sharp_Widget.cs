@@ -68,7 +68,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _key ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _value );
 				
@@ -174,7 +174,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_AttachToWidget_parent_style_layer( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _parent ,
+			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _parent ,
 			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
 
@@ -213,7 +213,7 @@ namespace MyGUI.Sharp
    		#region Method GetClientWidget
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportWidget_GetClientWidget( IntPtr _native );
 
 		public Widget GetClientWidget( )
@@ -296,7 +296,7 @@ namespace MyGUI.Sharp
    		#region Method FindWidget
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportWidget_FindWidget_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
@@ -314,7 +314,7 @@ namespace MyGUI.Sharp
    		#region Method GetChildAt
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportWidget_GetChildAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -365,7 +365,7 @@ namespace MyGUI.Sharp
    		#region Method GetParent
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportWidget_GetParent( IntPtr _native );
 
 		public Widget GetParent( )
