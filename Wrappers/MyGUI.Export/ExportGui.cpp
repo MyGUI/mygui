@@ -35,6 +35,14 @@ namespace Export
 		return widget;
 	}
 
+	MYGUIEXPORT void MYGUICALL ExportGui_Test()
+	{
+		MyGUI::xml::Document* doc = new MyGUI::xml::Document();
+		doc->createDeclaration();
+		doc->save(MyGUI::UString("test.xml"));
+		delete doc;
+	}
+
 	MYGUIEXPORT void MYGUICALL ExportGui_DestroyWidget( MyGUI::Widget* _widget )
 	{
 		MyGUI::WidgetManager::getInstance().destroyWidget(_widget);

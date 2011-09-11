@@ -187,6 +187,16 @@ namespace Export
 
 
 
+   	namespace ScopeDDContainerMethod_ResetDrag
+	{
+		MYGUIEXPORT void MYGUICALL ExportDDContainer_ResetDrag( MyGUI::Widget* _native )
+		{
+			static_cast< MyGUI::DDContainer * >(_native)->resetDrag( );
+		}
+	}
+
+
+
    	namespace ScopeDDContainerProperty_NeedDragDrop
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportDDContainer_GetNeedDragDrop( MyGUI::Widget* _native )

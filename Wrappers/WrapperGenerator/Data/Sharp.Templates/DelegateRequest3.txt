@@ -1,6 +1,6 @@
 ﻿		#region Request #{DelegateName}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}Event_Advise#{DelegateName}( IntPtr _native, bool _advise );
 
 		public delegate void Handle#{DelegateName}(
@@ -26,7 +26,7 @@
 
 		private struct ExportEvent#{DelegateName}
 		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate );
 			public delegate void ExportHandle(
 				#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,

@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetItemWidth
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListItem_SetItemWidth_value( IntPtr _native ,
 			  int _value );
 
@@ -56,7 +56,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetItemResizingPolicy
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListItem_SetItemResizingPolicy_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
 

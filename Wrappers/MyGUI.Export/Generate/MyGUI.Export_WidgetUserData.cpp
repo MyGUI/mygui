@@ -56,6 +56,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeWidgetMethod_GetUserString
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetUserString_key( MyGUI::Widget* _native,

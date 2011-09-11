@@ -11,6 +11,8 @@ namespace TestApp.Sharp
 
         static void Main(string[] args)
         {
+            Gui.Instance.Test();
+
             Export.Initialise();
 
             Test_Button.Test();

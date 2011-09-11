@@ -39,7 +39,7 @@ namespace MyGUI.Sharp
 
    		#region Method SetCaptionWithReplacing
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetCaptionWithReplacing_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
@@ -56,10 +56,10 @@ namespace MyGUI.Sharp
 
    		#region Property TextColour
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetTextColour( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetTextColour( IntPtr _widget, [In] ref Colour _value );
 
 		public Colour TextColour
@@ -74,10 +74,10 @@ namespace MyGUI.Sharp
 
    		#region Property TextAlign
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern Align ExportTextBox_GetTextAlign( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetTextAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
 		public Align TextAlign
@@ -92,10 +92,10 @@ namespace MyGUI.Sharp
 
    		#region Property FontHeight
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportTextBox_GetFontHeight( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetFontHeight( IntPtr _widget,   int _value );
 
 		public int FontHeight
@@ -110,10 +110,10 @@ namespace MyGUI.Sharp
 
    		#region Property FontName
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetFontName( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetFontName( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string FontName
@@ -128,10 +128,10 @@ namespace MyGUI.Sharp
 
    		#region Property Caption
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetCaption( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetCaption( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string Caption
@@ -146,7 +146,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetTextSize
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetTextSize( IntPtr _native );
 
@@ -161,7 +161,7 @@ namespace MyGUI.Sharp
 
    		#region Method GetTextRegion
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetTextRegion( IntPtr _native );
 

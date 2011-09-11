@@ -1,6 +1,6 @@
 ﻿		#region Method #{MethodName}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
 		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
@@ -24,7 +24,7 @@
 				#{TypePrefix5} #{ValueName5} ) #{MarshalConvertPost} ;
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
 		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
@@ -45,7 +45,7 @@
 				#{TypePrefix4} #{ValueName4} ) #{MarshalConvertPost} ;
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
 		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
@@ -63,7 +63,7 @@
 				#{TypePrefix3} #{ValueName3} ) #{MarshalConvertPost} ;
 		}
 
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
 		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
 			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
