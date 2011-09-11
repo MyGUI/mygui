@@ -3,10 +3,10 @@
 namespace MyGUI.Sharp
 {
 
-    public partial class Gui
-    {
-        void InitialiseWidgetCreator()
-        {
+	public partial class Gui
+	{
+		void InitialiseWidgetCreator()
+		{
 			//InsertPoint
 
    			mMapWrapper.Add("MultiListItem", MultiListItem.RequestWrapMultiListItem);

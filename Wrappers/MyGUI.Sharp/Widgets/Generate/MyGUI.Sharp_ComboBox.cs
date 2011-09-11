@@ -67,7 +67,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportComboBoxEvent_DelegateComboChangePosition( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ComboBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;
@@ -124,7 +124,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportComboBoxEvent_DelegateComboAccept( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  ComboBox _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
 				  uint _index );
 				
 			private static ExportHandle mDelegate;

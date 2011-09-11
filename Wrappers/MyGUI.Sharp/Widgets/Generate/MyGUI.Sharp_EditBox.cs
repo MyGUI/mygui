@@ -66,7 +66,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportEditBoxEvent_DelegateEditTextChange( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  EditBox _sender );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  EditBox _sender );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventEditTextChange( ExportHandle _delegate )
@@ -119,7 +119,7 @@ namespace MyGUI.Sharp
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportEditBoxEvent_DelegateEditSelectAccept( ExportHandle _delegate );
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  EditBox _sender );
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  EditBox _sender );
 				
 			private static ExportHandle mDelegate;
 			public ExportEventEditSelectAccept( ExportHandle _delegate )

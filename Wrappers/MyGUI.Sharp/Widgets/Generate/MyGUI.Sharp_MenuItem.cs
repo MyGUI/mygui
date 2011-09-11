@@ -58,7 +58,7 @@ namespace MyGUI.Sharp
    		#region Method GetItemChild
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuItem_GetItemChild( IntPtr _native );
 
 		public MenuControl GetItemChild( )
@@ -73,7 +73,7 @@ namespace MyGUI.Sharp
    		#region Method GetMenuCtrlParent
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuItem_GetMenuCtrlParent( IntPtr _native );
 
 		public MenuControl GetMenuCtrlParent( )
@@ -126,7 +126,7 @@ namespace MyGUI.Sharp
    		#region Method CreateItemChild
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuItem_CreateItemChild( IntPtr _native );
 
 		public MenuControl CreateItemChild( )

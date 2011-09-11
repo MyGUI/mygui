@@ -41,6 +41,7 @@
     <Compile Include="Core\Generate\MyGUI.GuiPart_WidgetCreator.cs" />
     <Compile Include="Core\Gui.cs" />
     <Compile Include="Core\InputManager.cs" />
+    <Compile Include="Core\InterfaceMarshaler.cs" />
     <Compile Include="Core\LayerManager.cs" />
     <Compile Include="Core\PointerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
