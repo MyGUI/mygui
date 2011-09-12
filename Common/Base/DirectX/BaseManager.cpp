@@ -4,9 +4,9 @@
 	@date		05/2009
 */
 
-#include <d3dx9.h>
 
 #include "Precompiled.h"
+#include <d3dx9.h>
 #include "BaseManager.h"
 #include <MyGUI_DirectXPlatform.h>
 
