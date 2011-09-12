@@ -4,9 +4,10 @@
 	@date		05/2009
 */
 
+
+#include "Precompiled.h"
 #include <windows.h>
 #include <gdiplus.h>
-#include "Precompiled.h"
 #include "BaseManager.h"
 
 #include <GL/gl.h>
