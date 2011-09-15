@@ -54,6 +54,11 @@ namespace MyGUI
 
 	bool ControllerEdgeHide::addTime(Widget* _widget, float _time)
 	{
+		const IntSize& view_size = _widget->getParentSize();
+		// do nothing if we have minimized window
+		if (view_size.width <= 1 && view_size.height <= 1)
+			return true;
+
 		Widget* keyFocus = InputManager::getInstance().getKeyFocusWidget();
 		Widget* mouseFocus = InputManager::getInstance().getMouseFocusWidget();
 
@@ -91,8 +96,6 @@ namespace MyGUI
 			else
 				recalculateTime(_widget);
 		}
-
-		const IntSize& view_size = _widget->getParentSize();
 
 		bool nearBorder = false;
 
