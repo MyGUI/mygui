@@ -116,7 +116,8 @@ set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Direct3D 9
   2 - Ogre
-  3 - OpenGL"
+  3 - OpenGL
+  4 - Direct3D 11"
 )
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)

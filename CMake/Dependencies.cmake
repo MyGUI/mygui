@@ -61,6 +61,12 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	#macro_log_feature(PNG_FOUND "PNG" "Png image codec" "http://www.libpng.org/" TRUE "" "")
 	find_package(OpenGL)
 	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" TRUE "" "")
+elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+	# Find DirectX11
+	if(WIN32)
+		find_package(DirectX11)
+		macro_log_feature(DirectX_FOUND "DirectX11" "Support for the DirectX11 render system" "http://msdn.microsoft.com/en-us/directx/" TRUE "" "")
+	endif()
 endif()
 
 #######################################################################
