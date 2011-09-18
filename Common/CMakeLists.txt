@@ -61,6 +61,14 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		${OPENGL_INCLUDE_DIR}
 	)
 	link_directories(${OPENGL_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+	mygui_add_base_manager_source(DirectX11)
+	add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/DirectX11/DirectX11Platform/include
+		${DirectX_INCLUDE_DIR}
+	)
+	link_directories(${DIRECTX_LIB_DIR})
 endif()
 
 if(MYGUI_SAMPLES_INPUT EQUAL 1)
@@ -84,6 +92,9 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 	target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+	add_dependencies(${PROJECTNAME} MyGUI.DirectX11Platform)
+	target_link_libraries(${PROJECTNAME} MyGUI.DirectX11Platform)
 endif()
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)

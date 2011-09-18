@@ -135,6 +135,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+		include_directories(../../Common/Base/DirectX11)
+		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX11/DirectX11Platform/include
+			${DirectX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
 	endif()
 	
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
