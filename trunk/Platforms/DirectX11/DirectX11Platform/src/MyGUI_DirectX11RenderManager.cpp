@@ -18,7 +18,7 @@ namespace MyGUI
 	static const char vsSource[] = {
 		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0 ) {\n"
 		"	outPosition = float4(inPosition, 1.0f);\n"
-		"	outColor = inColor.bgra;\n"
+		"	outColor = inColor;\n"
 		"}\n"
 	};
 
@@ -31,7 +31,7 @@ namespace MyGUI
 	static const char vsTexturedSource[] = {
 		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, in float2 inTexcoord : TEXCOORD0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0, out float2 outTexcoord : TEXCOORD1 ) {\n"
 		"	outPosition = float4(inPosition, 1.0f);\n"
-		"	outColor = inColor.bgra;\n"
+		"	outColor = inColor;\n"
 		"	outTexcoord = inTexcoord;\n"
 		"}\n"
 	};
