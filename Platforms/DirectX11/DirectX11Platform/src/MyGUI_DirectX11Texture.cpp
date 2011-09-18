@@ -20,7 +20,8 @@ namespace MyGUI
 		mLock(false),
 		mManager(_manager),
 		mTexture(nullptr),
-		mResourceView(nullptr)
+		mResourceView(nullptr),
+		mRenderTarget(nullptr)
 	{
 	}
 
@@ -47,7 +48,10 @@ namespace MyGUI
 		desc.SampleDesc.Quality = 0;
 		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		if( _usage == TextureUsage::RenderTarget ) 
+			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE|D3D11_BIND_RENDER_TARGET;
+		else
+			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		desc.CPUAccessFlags = 0;
 		desc.MiscFlags = 0;
 		HRESULT hr = mManager->mpD3DDevice->CreateTexture2D(&desc, 0, &mTexture);
@@ -174,7 +178,8 @@ namespace MyGUI
 
 	IRenderTarget* DirectX11Texture::getRenderTarget()
 	{
-		return 0;
+		if( mRenderTarget == 0 ) mRenderTarget = new DirectX11RTTexture(this, mManager);
+		return mRenderTarget;
 	}
 
 } // namespace MyGUI

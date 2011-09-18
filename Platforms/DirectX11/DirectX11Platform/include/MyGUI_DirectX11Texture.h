@@ -47,6 +47,7 @@ namespace MyGUI
 		virtual IRenderTarget* getRenderTarget();
 
 	private:
+		friend class DirectX11RTTexture;
 		ID3D11Texture2D*          mTexture;
 		ID3D11Texture2D*          mReadData;
 		void*                     mWriteData;
