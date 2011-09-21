@@ -322,8 +322,8 @@ namespace MyGUI
 			size = resultVerticiesPos.size();
 
 			// calculate texture coordinates
-			FloatPoint v0 = baseVerticiesUV[1] - baseVerticiesUV[0];
-			FloatPoint v1 = baseVerticiesUV[3] - baseVerticiesUV[0];
+			FloatPoint v0 = baseVerticiesUV[3] - baseVerticiesUV[0];
+			FloatPoint v1 = baseVerticiesUV[1] - baseVerticiesUV[0];
 			for (size_t i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
 			{
 				if (i < size)
