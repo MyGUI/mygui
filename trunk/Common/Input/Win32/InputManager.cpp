@@ -15,18 +15,18 @@
 namespace input
 {
 
-	// указатель на менеджер, куда транслируються сообщения
+	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РјРµРЅРµРґР¶РµСЂ, РєСѓРґР° С‚СЂР°РЅСЃР»РёСЂСѓСЋС‚СЊСЃСЏ СЃРѕРѕР±С‰РµРЅРёСЏ
 	InputManager* InputManager::msInputManager = 0;
 
-	// старая процедура, которую мы заменили
+	// СЃС‚Р°СЂР°СЏ РїСЂРѕС†РµРґСѓСЂР°, РєРѕС‚РѕСЂСѓСЋ РјС‹ Р·Р°РјРµРЅРёР»Рё
 	LRESULT InputManager::msOldWindowProc = NULL;
 
 	bool InputManager::msSkipMove = false;
 
-	// наша процедура для фильтрации сообщений
+	// РЅР°С€Р° РїСЂРѕС†РµРґСѓСЂР° РґР»СЏ С„РёР»СЊС‚СЂР°С†РёРё СЃРѕРѕР±С‰РµРЅРёР№
 	LRESULT CALLBACK InputManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		// если колесо не определенно
+		// РµСЃР»Рё РєРѕР»РµСЃРѕ РЅРµ РѕРїСЂРµРґРµР»РµРЅРЅРѕ
 		#ifndef WM_MOUSEWHEEL
 			#define WM_MOUSEWHEEL 0x020A
 			#define __WM_REALMOUSELAST WM_MOUSEWHEEL
@@ -34,7 +34,7 @@ namespace input
 			#define __WM_REALMOUSELAST WM_MOUSELAST
 		#endif // WM_MOUSEWHEEL
 
-		// для взятия знаковых значений
+		// РґР»СЏ РІР·СЏС‚РёСЏ Р·РЅР°РєРѕРІС‹С… Р·РЅР°С‡РµРЅРёР№
 		#define GET_HIWORD(param) ((short)HIWORD(param))
 		#define GET_LOWORD(param) ((short)LOWORD(param))
 
@@ -44,7 +44,7 @@ namespace input
 		static bool left_button = false;
 		static bool right_button = false;
 
-		// на нас кидают файлы
+		// РЅР° РЅР°СЃ РєРёРґР°СЋС‚ С„Р°Р№Р»С‹
 		if (WM_DROPFILES == uMsg)
 		{
 			HDROP hDrop = (HDROP)wParam;
@@ -60,7 +60,7 @@ namespace input
 			DragFinish(hDrop);
 			return 0;
 		}
-		// нас пытаются закрыть
+		// РЅР°СЃ РїС‹С‚Р°СЋС‚СЃСЏ Р·Р°РєСЂС‹С‚СЊ
 		else if (WM_CLOSE == uMsg)
 		{
 			if (!msInputManager->onWinodwClose((size_t)hWnd))
@@ -165,7 +165,7 @@ namespace input
 			msInputManager->injectKeyRelease(MyGUI::KeyCode::Enum(scan_code));
 		}
 
-		// вызываем полюбому
+		// РІС‹Р·С‹РІР°РµРј РїРѕР»СЋР±РѕРјСѓ
 		return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
 	}
 
@@ -192,14 +192,14 @@ namespace input
 	{
 		mHwnd = (HWND)_handle;
 
-		// подсовываем нашу функцию калбеков
+		// РїРѕРґСЃРѕРІС‹РІР°РµРј РЅР°С€Сѓ С„СѓРЅРєС†РёСЋ РєР°Р»Р±РµРєРѕРІ
 		if (!msOldWindowProc)
 		{
 			msOldWindowProc = GetWindowLong(mHwnd, GWL_WNDPROC);
 			SetWindowLong(mHwnd, GWL_WNDPROC, (long)windowProc);
 		}
 
-		// устанавливаем поддержку дропа файлов
+		// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕРґРґРµСЂР¶РєСѓ РґСЂРѕРїР° С„Р°Р№Р»РѕРІ
 		LONG_PTR style = GetWindowLongPtr(mHwnd, GWL_EXSTYLE);
 		SetWindowLongPtr(mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
 
@@ -210,7 +210,7 @@ namespace input
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InputManager::frameEvent);
 
-		// если мы подменили процедуру, то вернем на место
+		// РµСЃР»Рё РјС‹ РїРѕРґРјРµРЅРёР»Рё РїСЂРѕС†РµРґСѓСЂСѓ, С‚Рѕ РІРµСЂРЅРµРј РЅР° РјРµСЃС‚Рѕ
 		if (msOldWindowProc)
 		{
 			SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);

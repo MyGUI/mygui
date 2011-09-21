@@ -34,7 +34,7 @@ namespace plugin
 	{
 		MYGUI_LOGGING(LogSection, Info, "initialize");
 
-		// создаем фабрики
+		// СЃРѕР·РґР°РµРј С„Р°Р±СЂРёРєРё
 		MyGUI::FactoryManager::getInstance().registerFactory<StrangeButton>("Widget");
 	}
 
@@ -42,7 +42,7 @@ namespace plugin
 	{
 		MYGUI_LOGGING(LogSection, Info, "shutdown");
 
-		// удаляем фабрику
+		// СѓРґР°Р»СЏРµРј С„Р°Р±СЂРёРєСѓ
 		MyGUI::FactoryManager::getInstance().unregisterFactory<StrangeButton>("Widget");
 	}
 

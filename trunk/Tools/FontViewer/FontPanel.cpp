@@ -37,7 +37,7 @@ namespace demo
 		mFontName = "GeneratedFontName";
 		mFontHeight = 0;
 
-		// çàãðóæàåì äåìî âüþ
+		// Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÐ¼ Ð´ÐµÐ¼Ð¾ Ð²ÑŒÑŽ
 		mFontView = new FontView();
 		mTextureView = new TextureView();
 
@@ -115,7 +115,7 @@ namespace demo
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
 	{
-		// øðèôòîâ íåòó
+		// ÑˆÑ€Ð¸Ñ„Ñ‚Ð¾Ð² Ð½ÐµÑ‚Ñƒ
 		if (mComboFont->getOnlyText().empty())
 			return;
 		if (mEditSaveFileName->getOnlyText().empty() && _widget == mButtonSave)
@@ -152,7 +152,7 @@ namespace demo
 			MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
 			MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
 
-			// âûâîä ðåàëüíîãî ðàçìåðà øðèôòà
+			// Ð²Ñ‹Ð²Ð¾Ð´ Ñ€ÐµÐ°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° ÑˆÑ€Ð¸Ñ„Ñ‚Ð°
 			mFontHeight = font->getDefaultHeight();
 			mTextPix->setCaption(MyGUI::utility::toString("Height of a font is ", mFontHeight, " pixels"));
 

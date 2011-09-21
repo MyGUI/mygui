@@ -165,7 +165,7 @@ namespace tools
 	void PropertyFieldPosition::notifyToggleRelativeMode()
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-		// если нет контейнера, занчит мы не в режиме редактирования
+		// РµСЃР»Рё РЅРµС‚ РєРѕРЅС‚РµР№РЅРµСЂР°, Р·Р°РЅС‡РёС‚ РјС‹ РЅРµ РІ СЂРµР¶РёРјРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
 		if (widgetContainer == nullptr)
 			return;
 

@@ -213,7 +213,7 @@ namespace tools
 	{
 		MyGUI::IntPoint pointValue(mVerticalSelectorControl->getPosition().left, mHorizontalSelectorControl->getPosition().top);
 
-		// снапим к гриду
+		// СЃРЅР°РїРёРј Рє РіСЂРёРґСѓ
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntPoint point = pointValue;

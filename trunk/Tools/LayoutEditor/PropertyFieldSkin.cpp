@@ -27,7 +27,7 @@ namespace tools
 	{
 		WidgetStyle::VectorString values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;
 
-		// добавляем скины и шаблоны
+		// РґРѕР±Р°РІР»СЏРµРј СЃРєРёРЅС‹ Рё С€Р°Р±Р»РѕРЅС‹
 		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
 		while (resource.next())
 		{

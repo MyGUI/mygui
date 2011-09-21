@@ -31,7 +31,7 @@ namespace wraps
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 
-			// потом перенести в лейаут
+			// РїРѕС‚РѕРј РїРµСЂРµРЅРµСЃС‚Рё РІ Р»РµР№Р°СѓС‚
 			mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
 			mScrollView->setVisibleHScroll(false);
 			mNeedUpdate = false;
@@ -66,11 +66,11 @@ namespace wraps
 				_index = mItems.size();
 			MYGUI_ASSERT(findItem(_item) == MyGUI::ITEM_NONE, "panel allready exist");
 
-			// создаем лейаут базовой ячейки
+			// СЃРѕР·РґР°РµРј Р»РµР№Р°СѓС‚ Р±Р°Р·РѕРІРѕР№ СЏС‡РµР№РєРё
 			BasePanelViewCell* cell = new TypeCell(mScrollView);
 			cell->eventUpdatePanel = MyGUI::newDelegate(this, &BasePanelView::notifyUpdatePanel);
 
-			// теперь основной лейаут ячейки
+			// С‚РµРїРµСЂСЊ РѕСЃРЅРѕРІРЅРѕР№ Р»РµР№Р°СѓС‚ СЏС‡РµР№РєРё
 			_item->_initialise(cell);
 
 			mItems.insert(mItems.begin() + _index, _item);
@@ -138,7 +138,7 @@ namespace wraps
 
 		void updateView()
 		{
-			// вычисляем максимальную высоту всего добра
+			// РІС‹С‡РёСЃР»СЏРµРј РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ РІС‹СЃРѕС‚Сѓ РІСЃРµРіРѕ РґРѕР±СЂР°
 			int height = 0;
 			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
@@ -148,9 +148,9 @@ namespace wraps
 					height += widget->getHeight();
 				}
 			}
-			// ставим высоту холста, и спрашиваем получившуюся ширину клиента
+			// СЃС‚Р°РІРёРј РІС‹СЃРѕС‚Сѓ С…РѕР»СЃС‚Р°, Рё СЃРїСЂР°С€РёРІР°РµРј РїРѕР»СѓС‡РёРІС€СѓСЋСЃСЏ С€РёСЂРёРЅСѓ РєР»РёРµРЅС‚Р°
 			mScrollView->setCanvasSize(0, height);
-			// ширина клиента могла поменятся
+			// С€РёСЂРёРЅР° РєР»РёРµРЅС‚Р° РјРѕРіР»Р° РїРѕРјРµРЅСЏС‚СЃСЏ
 			const MyGUI::IntSize& size = mScrollView->getViewCoord().size();
 			mScrollView->setCanvasSize(size.width, height);
 
@@ -161,7 +161,7 @@ namespace wraps
 				change = true;
 			}
 
-			// выравниваем все панели
+			// РІС‹СЂР°РІРЅРёРІР°РµРј РІСЃРµ РїР°РЅРµР»Рё
 			int pos = 0;
 			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
@@ -171,7 +171,7 @@ namespace wraps
 					height = widget->getHeight();
 					widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));
 
-					// оповещаем, что мы обновили ширину
+					// РѕРїРѕРІРµС‰Р°РµРј, С‡С‚Рѕ РјС‹ РѕР±РЅРѕРІРёР»Рё С€РёСЂРёРЅСѓ
 					if (change)
 						(*iter)->notifyChangeWidth(size.width);
 
@@ -184,8 +184,8 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEntered);
 		}
 
-		// изменились размеры
-		// необходимо обновить все панели
+		// РёР·РјРµРЅРёР»РёСЃСЊ СЂР°Р·РјРµСЂС‹
+		// РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃРµ РїР°РЅРµР»Рё
 		void setNeedUpdate()
 		{
 			if (!mNeedUpdate)

@@ -33,7 +33,7 @@ namespace MyGUI
 
 		const IntSize& getTextureSize(const std::string& _texture, bool _cache)
 		{
-			// предыдущя текстура
+			// РїСЂРµРґС‹РґСѓС‰СЏ С‚РµРєСЃС‚СѓСЂР°
 			static std::string old_texture;
 			static IntSize old_size;
 

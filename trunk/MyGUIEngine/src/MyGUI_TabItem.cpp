@@ -33,7 +33,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME ïðîâåðèòü ñìåíó ñêèíà èáî äîëæíî îäèí ðàç âûçûâàòüñÿ
+		// FIXME Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ ÑÐ¼ÐµÐ½Ñƒ ÑÐºÐ¸Ð½Ð° Ð¸Ð±Ð¾ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð¾Ð´Ð¸Ð½ Ñ€Ð°Ð· Ð²Ñ‹Ð·Ñ‹Ð²Ð°Ñ‚ÑŒÑÑ
 		//mOwner = getParent()->castType<TabControl>();
 	}
 

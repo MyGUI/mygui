@@ -11,7 +11,7 @@
 namespace attribute
 {
 
-	// класс обертка для удаления данных из статического вектора
+	// РєР»Р°СЃСЃ РѕР±РµСЂС‚РєР° РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ РІРµРєС‚РѕСЂР°
 	template <typename Type>
 	struct DataHolder
 	{
@@ -24,7 +24,7 @@ namespace attribute
 		Type data;
 	};
 
-	// интерфейс для обертки поля
+	// РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕР±РµСЂС‚РєРё РїРѕР»СЏ
 	template <typename OwnerType, typename SetterType>
 	struct Field
 	{
@@ -32,7 +32,7 @@ namespace attribute
 		virtual const std::string& getFieldTypeName() = 0;
 	};
 
-	// шаблон для обертки поля
+	// С€Р°Р±Р»РѕРЅ РґР»СЏ РѕР±РµСЂС‚РєРё РїРѕР»СЏ
 	template <typename OwnerType, typename FieldType, typename SetterType>
 	struct FieldHolder : public Field<OwnerType, SetterType>
 	{
@@ -50,7 +50,7 @@ namespace attribute
 		}
 	};
 
-	// шаблон для атрибута поля
+	// С€Р°Р±Р»РѕРЅ РґР»СЏ Р°С‚СЂРёР±СѓС‚Р° РїРѕР»СЏ
 	template <typename OwnerType, typename ValueType, typename SetterType>
 	struct AttributeField
 	{
@@ -69,7 +69,7 @@ namespace attribute
 		}
 	};
 
-	// макрос для инстансирования атрибута поля
+	// РјР°РєСЂРѕСЃ РґР»СЏ РёРЅСЃС‚Р°РЅСЃРёСЂРѕРІР°РЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° РїРѕР»СЏ
 #define DECLARE_ATTRIBUTE_FIELD(_name, _type, _setter) \
 	template <typename OwnerType, typename ValueType = _type, typename SetterType = _setter> \
 	struct _name : public attribute::AttributeField<OwnerType, ValueType, SetterType> \
@@ -79,7 +79,7 @@ namespace attribute
 			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) { } \
 	}
 
-	// макрос для инстансирования экземпляра атрибута
+	// РјР°РєСЂРѕСЃ РґР»СЏ РёРЅСЃС‚Р°РЅСЃРёСЂРѕРІР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° Р°С‚СЂРёР±СѓС‚Р°
 #define ATTRIBUTE_FIELD(_attribute, _class, _field, _value) \
 	struct _attribute##_##_field \
 	{ \
@@ -90,7 +90,7 @@ namespace attribute
 	} _attribute##_##_field
 
 
-	// шаблон для атрибута класса
+	// С€Р°Р±Р»РѕРЅ РґР»СЏ Р°С‚СЂРёР±СѓС‚Р° РєР»Р°СЃСЃР°
 	template <typename Type, typename ValueType>
 	struct ClassAttribute
 	{
@@ -105,7 +105,7 @@ namespace attribute
 		}
 	};
 
-	// макрос для инстансирования атрибута класса
+	// РјР°РєСЂРѕСЃ РґР»СЏ РёРЅСЃС‚Р°РЅСЃРёСЂРѕРІР°РЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° РєР»Р°СЃСЃР°
 #define DECLARE_ATTRIBUTE_CLASS(_name, _type) \
 	template <typename Type, typename ValueType = _type> \
 	struct _name : public attribute::ClassAttribute<_name<Type>, ValueType> \
@@ -114,7 +114,7 @@ namespace attribute
 			ClassAttribute<_name<Type>, ValueType>(_value) { } \
 	}
 
-	// макрос для инстансирования экземпляра класса
+	// РјР°РєСЂРѕСЃ РґР»СЏ РёРЅСЃС‚Р°РЅСЃРёСЂРѕРІР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР°
 #define ATTRIBUTE_CLASS(_attribute, _class, _value) \
 	class _class; \
 	static attribute::_attribute<_class> _attribute##_##_class(_value)

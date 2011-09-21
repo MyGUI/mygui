@@ -244,11 +244,11 @@ namespace tools
 		MyGUI::IntSize canvasSize = mView->getCanvasSize();
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
 
-		// ñìåùåíèå ìûøè îòíîñèòåëüíî âüþ
+		// ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ð¼Ñ‹ÑˆÐ¸ Ð¾Ñ‚Ð½Ð¾ÑÐ¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ Ð²ÑŒÑŽ
 		MyGUI::IntPoint mouseOffset = mousePoint - mView->getAbsolutePosition() - viewCoord.point();
-		// ñìåùåíèå íóæíîé òî÷êè âíóòðè òåêñòóðû â ïèêñåëÿõ
+		// ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ð½ÑƒÐ¶Ð½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹ Ð² Ð¿Ð¸ÐºÑÐµÐ»ÑÑ…
 		MyGUI::IntPoint canvasPointOffset((int)(mMouseRelative.left * (float)canvasSize.width), (int)(mMouseRelative.top * (float)canvasSize.height));
-		// ñìåùåíèå âüþ â ïèêñåëÿõ
+		// ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ð²ÑŒÑŽ Ð² Ð¿Ð¸ÐºÑÐµÐ»ÑÑ…
 		MyGUI::IntPoint canvasOffset = canvasPointOffset - mouseOffset;
 
 		mView->setViewOffset(MyGUI::IntPoint(-canvasOffset.left, -canvasOffset.top));

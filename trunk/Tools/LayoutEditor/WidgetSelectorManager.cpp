@@ -38,7 +38,7 @@ namespace tools
 
 	void WidgetSelectorManager::setSelectedWidget(MyGUI::Widget* _value)
 	{
-		// некоторые обновляют кей фокус
+		// РЅРµРєРѕС‚РѕСЂС‹Рµ РѕР±РЅРѕРІР»СЏСЋС‚ РєРµР№ С„РѕРєСѓСЃ
 		//if (_value != mCurrentWidget)
 		{
 			mCurrentWidget = _value;
@@ -55,7 +55,7 @@ namespace tools
 			mLastClickPoint = _mousePosition;
 		}
 
-		// здесь кликать вглубь
+		// Р·РґРµСЃСЊ РєР»РёРєР°С‚СЊ РІРіР»СѓР±СЊ
 		MyGUI::Widget* item = getTopWidget(_mousePosition);
 		if (nullptr != item)
 		{

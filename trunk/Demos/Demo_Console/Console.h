@@ -122,7 +122,7 @@ namespace demo
 		MyGUI::UString mStringUnknow;
 		MyGUI::UString mStringFormat;
 
-		// если текущий текст автодополнен
+		// РµСЃР»Рё С‚РµРєСѓС‰РёР№ С‚РµРєСЃС‚ Р°РІС‚РѕРґРѕРїРѕР»РЅРµРЅ
 		bool mAutocomleted;
 
 		static Console* m_instance;

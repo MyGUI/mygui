@@ -7,7 +7,7 @@ namespace tools
 {
 	namespace utility
 	{
-		// ıòî ìîæíî â ìåòîäû ãóè çàíåñòè
+		// ÑÑ‚Ğ¾ Ğ¼Ğ¾Ğ¶Ğ½Ğ¾ Ğ² Ğ¼ĞµÑ‚Ğ¾Ğ´Ñ‹ Ğ³ÑƒĞ¸ Ğ·Ğ°Ğ½ĞµÑÑ‚Ğ¸
 		inline MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* _widget)
 		{
 			MyGUI::IntCoord coord = _coord;
@@ -15,7 +15,7 @@ namespace tools
 			while (nullptr != parent)
 			{
 				coord = coord - parent->getPosition();
-				// à ìîæåò ó íàñ è äåäóøêà åñòü? à ìîæåò è ïğàäåä...
+				// Ğ° Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ñƒ Ğ½Ğ°Ñ Ğ¸ Ğ´ĞµĞ´ÑƒÑˆĞºĞ° ĞµÑÑ‚ÑŒ? Ğ° Ğ¼Ğ¾Ğ¶ĞµÑ‚ Ğ¸ Ğ¿Ñ€Ğ°Ğ´ĞµĞ´...
 				parent = parent->getParent();
 			}
 			return coord;

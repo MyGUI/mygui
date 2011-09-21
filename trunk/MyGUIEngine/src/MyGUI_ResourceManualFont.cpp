@@ -46,7 +46,7 @@ namespace MyGUI
 			if (info == nullptr) continue;
 			return info;
 		}
-		// при ошибках возвращаем пробел
+		// РїСЂРё РѕС€РёР±РєР°С… РІРѕР·РІСЂР°С‰Р°РµРј РїСЂРѕР±РµР»
 		return &mSpaceGlyphInfo;
 	}
 
@@ -94,7 +94,7 @@ namespace MyGUI
 
 		for (size_t pos = 1; pos < count; ++pos)
 		{
-			// диапазон оборвался
+			// РґРёР°РїР°Р·РѕРЅ РѕР±РѕСЂРІР°Р»СЃСЏ
 			if (code + 1 != mVectorPairCodeCoord[pos].code)
 			{
 				addRange(mVectorPairCodeCoord, first, pos - 1, size.width, size.height, aspect);
@@ -109,7 +109,7 @@ namespace MyGUI
 
 		addRange(mVectorPairCodeCoord, first, count - 1, size.width, size.height, aspect);
 
-		// уничтожаем буфер
+		// СѓРЅРёС‡С‚РѕР¶Р°РµРј Р±СѓС„РµСЂ
 		VectorPairCodeCoord tmp;
 		std::swap(tmp, mVectorPairCodeCoord);
 
@@ -154,7 +154,7 @@ namespace MyGUI
 				{
 					std::string range_value;
 					std::vector<std::string> parse_range;
-					// описане глифов
+					// РѕРїРёСЃР°РЅРµ РіР»РёС„РѕРІ
 					if (range->findAttribute("index", range_value))
 					{
 						Char id = 0;
@@ -173,7 +173,7 @@ namespace MyGUI
 			}
 		}
 
-		// инициализируем
+		// РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј
 		initialise();
 	}
 

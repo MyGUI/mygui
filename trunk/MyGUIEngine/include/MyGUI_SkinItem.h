@@ -60,13 +60,13 @@ namespace MyGUI
 		void _setSubSkinVisible(bool _visible);
 
 	private:
-		// вектор всех детей сабскинов
+		// РІРµРєС‚РѕСЂ РІСЃРµС… РґРµС‚РµР№ СЃР°Р±СЃРєРёРЅРѕРІ
 		VectorSubWidget mSubSkinChild;
-		// указатель на окно текста
+		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРєРЅРѕ С‚РµРєСЃС‚Р°
 		ISubWidgetText* mText;
-		// указатель на первый не текстовой сабскин
+		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ РЅРµ С‚РµРєСЃС‚РѕРІРѕР№ СЃР°Р±СЃРєРёРЅ
 		ISubWidgetRect* mMainSkin;
-		// список всех стейтов
+		// СЃРїРёСЃРѕРє РІСЃРµС… СЃС‚РµР№С‚РѕРІ
 		MapWidgetStateInfo mStateInfo;
 
 		std::string mTextureName;

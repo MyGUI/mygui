@@ -111,7 +111,7 @@ namespace tools
 	{
 		mPointValue = mAreaSelectorControl->getPosition();
 
-		// снапим к гриду
+		// СЃРЅР°РїРёРј Рє РіСЂРёРґСѓ
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntPoint point = mPointValue;

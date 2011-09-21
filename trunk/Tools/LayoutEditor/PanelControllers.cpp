@@ -111,7 +111,7 @@ namespace tools
 		mList->removeItemAt(index);
 		UndoManager::getInstance().addValue();
 
-		// îáíîâëÿåì òåêóùèé èíäåêñ
+		// Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¹ Ð¸Ð½Ð´ÐµÐºÑ
 		notifySelectItem(mList, mList->getIndexSelected());
 	}
 

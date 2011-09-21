@@ -55,7 +55,7 @@ namespace wraps
 			mWidgetClient = nullptr;
 		}
 
-		// реально изменилась ширина ячейки
+		// СЂРµР°Р»СЊРЅРѕ РёР·РјРµРЅРёР»Р°СЃСЊ С€РёСЂРёРЅР° СЏС‡РµР№РєРё
 		virtual void notifyChangeWidth(int _width)
 		{
 		}

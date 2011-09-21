@@ -115,12 +115,12 @@ namespace tools
 
 	void PropertyTexturesControl::fillTextures()
 	{
-		// FIXME потом вынести в загружаемые настройки
+		// FIXME РїРѕС‚РѕРј РІС‹РЅРµСЃС‚Рё РІ Р·Р°РіСЂСѓР¶Р°РµРјС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
 		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mTextures.push_back(*iter);
 
-		// FIXME потом вынести в загружаемые настройки
+		// FIXME РїРѕС‚РѕРј РІС‹РЅРµСЃС‚Рё РІ Р·Р°РіСЂСѓР¶Р°РµРјС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
 		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mTextures.push_back(*iter);

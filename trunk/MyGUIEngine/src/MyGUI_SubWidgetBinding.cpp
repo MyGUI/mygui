@@ -52,7 +52,7 @@ namespace MyGUI
 
 	void SubWidgetBinding::add(const std::string& _name, IStateInfo* _data, const std::string& _skin)
 	{
-		// ищем такой же ключ
+		// РёС‰РµРј С‚Р°РєРѕР№ Р¶Рµ РєР»СЋС‡
 		MapStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter != mStates.end())
 		{
@@ -60,7 +60,7 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "state with name '" << _name << "' already exist in skin '" << _skin << "'");
 			return;
 		}
-		// добавляем
+		// РґРѕР±Р°РІР»СЏРµРј
 		mStates[_name] = _data;
 	}
 

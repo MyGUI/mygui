@@ -20,7 +20,7 @@
 using namespace Gdiplus;
 #endif
 
-// имя класса окна
+// РёРјСЏ РєР»Р°СЃСЃР° РѕРєРЅР°
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -109,7 +109,7 @@ namespace base
 		const unsigned int height = 768;
 		bool windowed = true;
 
-		// регистрируем класс окна
+		// СЂРµРіРёСЃС‚СЂРёСЂСѓРµРј РєР»Р°СЃСЃ РѕРєРЅР°
 		WNDCLASS wc =
 		{
 			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, MAKEINTRESOURCE(1001)),
@@ -117,7 +117,7 @@ namespace base
 		};
 		RegisterClass(&wc);
 
-		// создаем главное окно
+		// СЃРѕР·РґР°РµРј РіР»Р°РІРЅРѕРµ РѕРєРЅРѕ
 		hWnd = CreateWindow(wc.lpszClassName, TEXT("OpenGL Render Window"), WS_POPUP,
 			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
@@ -127,12 +127,12 @@ namespace base
 		}
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// берем имя нашего экзешника
+		// Р±РµСЂРµРј РёРјСЏ РЅР°С€РµРіРѕ СЌРєР·РµС€РЅРёРєР°
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		// берем инстанс нашего модуля
+		// Р±РµСЂРµРј РёРЅСЃС‚Р°РЅСЃ РЅР°С€РµРіРѕ РјРѕРґСѓР»СЏ
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		// побыстрому грузим иконку
+		// РїРѕР±С‹СЃС‚СЂРѕРјСѓ РіСЂСѓР·РёРј РёРєРѕРЅРєСѓ
 		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon)
 		{
@@ -296,7 +296,7 @@ namespace base
 
 	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
-		// стиль окна
+		// СЃС‚РёР»СЊ РѕРєРЅР°
 		HWND hwndAfter = 0;
 		unsigned long style = 0;
 		unsigned long style_ex = 0;

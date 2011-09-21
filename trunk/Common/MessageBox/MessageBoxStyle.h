@@ -26,15 +26,15 @@ namespace MyGUI
 			Try = MYGUI_FLAG(7),
 			Continue = MYGUI_FLAG(8),
 
-			_IndexUserButton1 = 9, // индекс первой кнопки юзера
+			_IndexUserButton1 = 9, // РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ РєРЅРѕРїРєРё СЋР·РµСЂР°
 
 			Button1 = MYGUI_FLAG(_IndexUserButton1),
 			Button2 = MYGUI_FLAG(_IndexUserButton1 + 1),
 			Button3 = MYGUI_FLAG(_IndexUserButton1 + 2),
 			Button4 = MYGUI_FLAG(_IndexUserButton1 + 3),
 
-			_CountUserButtons = 4, // колличество кнопок юзера
-			_IndexIcon1 = _IndexUserButton1 + _CountUserButtons, // индекс первой иконки
+			_CountUserButtons = 4, // РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РєРЅРѕРїРѕРє СЋР·РµСЂР°
+			_IndexIcon1 = _IndexUserButton1 + _CountUserButtons, // РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ РёРєРѕРЅРєРё
 
 			IconDefault = MYGUI_FLAG(_IndexIcon1),
 
@@ -98,7 +98,7 @@ namespace MyGUI
 			return _stream;
 		}
 
-		// возвращает индекс иконки
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РёРЅРґРµРєСЃ РёРєРѕРЅРєРё
 		size_t getIconIndex()
 		{
 			size_t index = 0;
@@ -116,7 +116,7 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		// возвращает индекс иконки
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РёРЅРґРµРєСЃ РёРєРѕРЅРєРё
 		size_t getButtonIndex()
 		{
 			size_t index = 0;
@@ -134,7 +134,7 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		// возвращает список кнопок
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РєРЅРѕРїРѕРє
 		std::vector<MessageBoxStyle> getButtons()
 		{
 			std::vector<MessageBoxStyle> buttons;

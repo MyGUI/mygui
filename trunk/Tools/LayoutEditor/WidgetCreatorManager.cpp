@@ -95,17 +95,17 @@ namespace tools
 	{
 		if (mNewWidget == nullptr)
 		{
-			// тип виджета может отсутсвовать
+			// С‚РёРї РІРёРґР¶РµС‚Р° РјРѕР¶РµС‚ РѕС‚СЃСѓС‚СЃРІРѕРІР°С‚СЊ
 			if (!MyGUI::WidgetManager::getInstance().isFactoryExist(mWidgetType))
 				return;
 
-			// выделяем верний виджет
+			// РІС‹РґРµР»СЏРµРј РІРµСЂРЅРёР№ РІРёРґР¶РµС‚
 			if (!mPopupMode)
 				WidgetSelectorManager::getInstance().selectWidget(mStartPoint);
 
 			MyGUI::Widget* parent = WidgetSelectorManager::getInstance().getSelectedWidget();
 
-			// пока не найдем ближайшего над нами способного быть родителем
+			// РїРѕРєР° РЅРµ РЅР°Р№РґРµРј Р±Р»РёР¶Р°Р№С€РµРіРѕ РЅР°Рґ РЅР°РјРё СЃРїРѕСЃРѕР±РЅРѕРіРѕ Р±С‹С‚СЊ СЂРѕРґРёС‚РµР»РµРј
 			while (parent != nullptr && !WidgetTypes::getInstance().findWidgetStyle(parent->getTypeName())->parent)
 				parent = parent->getParent();
 
@@ -128,7 +128,7 @@ namespace tools
 					MyGUI::Align::Default,
 					DEFAULT_EDITOR_LAYER);
 
-			// переводим старт поинт в координаты отца
+			// РїРµСЂРµРІРѕРґРёРј СЃС‚Р°СЂС‚ РїРѕРёРЅС‚ РІ РєРѕРѕСЂРґРёРЅР°С‚С‹ РѕС‚С†Р°
 			if (parent != nullptr && !mNewWidget->isRootWidget())
 			{
 				if (parent->getClientWidget())
@@ -160,7 +160,7 @@ namespace tools
 			{
 				mNewWidget->setCoord(coord);
 
-				// создали виджет, все счастливы
+				// СЃРѕР·РґР°Р»Рё РІРёРґР¶РµС‚, РІСЃРµ СЃС‡Р°СЃС‚Р»РёРІС‹
 				WidgetContainer * widgetContainer = new WidgetContainer(mWidgetType, mWidgetSkin, mNewWidget);
 				if (mPopupMode)
 					widgetContainer->setStyle(mNewWidget->getWidgetStyle().print());
@@ -169,14 +169,14 @@ namespace tools
 				EditorWidgets::getInstance().add(widgetContainer);
 				UndoManager::getInstance().addValue();
 
-				// чтобы выделился созданый виджет
+				// С‡С‚РѕР±С‹ РІС‹РґРµР»РёР»СЃСЏ СЃРѕР·РґР°РЅС‹Р№ РІРёРґР¶РµС‚
 				resetAllCreatorInfo();
 
 				WidgetSelectorManager::getInstance().setSelectedWidget(widgetContainer->getWidget());
 			}
 			else
 			{
-				// не удалось создать, т.к. размер нулевой
+				// РЅРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ, С‚.Рє. СЂР°Р·РјРµСЂ РЅСѓР»РµРІРѕР№
 				resetWidget();
 			}
 		}
@@ -188,7 +188,7 @@ namespace tools
 
 	void WidgetCreatorManager::resetWidget()
 	{
-		// подстрахуемся
+		// РїРѕРґСЃС‚СЂР°С…СѓРµРјСЃСЏ
 		if (mNewWidget != nullptr)
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(mNewWidget);

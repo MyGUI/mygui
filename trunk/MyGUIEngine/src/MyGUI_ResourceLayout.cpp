@@ -81,7 +81,7 @@ namespace MyGUI
 			widgetInfo.positionType = WidgetInfo::Relative;
 		}
 
-		// áåðåì äåòåé è êðóòèìñÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 		xml::ElementEnumerator node = _widget->getElementEnumerator();
 		while (node.next())
 		{
