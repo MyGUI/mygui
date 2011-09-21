@@ -29,7 +29,10 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
 
-		mEdit = MyGUI::Gui::getInstance().createWidget<MyGUI::EditBox>("EditBoxStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::Gui::getInstance().createWidget<MyGUI::List>("List", 5, 5, 50, 100, MyGUI::Align::Right | MyGUI::Align::Bottom, "Popup");
+		MyGUI::Gui::getInstance().createWidget<MyGUI::List>("List", 5, 5, 100, 50, MyGUI::Align::Left | MyGUI::Align::Top, "Popup");
+
+		mEdit = MyGUI::Gui::getInstance().createWidget<MyGUI::EditBox>("EditBoxStretch", MyGUI::IntCoord(210, 280, 100, 100), MyGUI::Align::Default, "Overlapped");
 		mEdit->setCaption("some edit");
 		mEdit->setTextAlign(MyGUI::Align::Center);
 		mEdit->setEditMultiLine(true);

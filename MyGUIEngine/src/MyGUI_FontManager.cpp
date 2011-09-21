@@ -206,7 +206,7 @@ namespace MyGUI
 	IFont* FontManager::getByName(const std::string& _name) const
 	{
 		IResource* result = nullptr;
-		//FIXME для совместимости шрифт может иметь имя Default
+		//FIXME РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё С€СЂРёС„С‚ РјРѕР¶РµС‚ РёРјРµС‚СЊ РёРјСЏ Default
 		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
 			result = ResourceManager::getInstance().getByName(_name, false);
 

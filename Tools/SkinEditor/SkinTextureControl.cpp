@@ -295,7 +295,7 @@ namespace tools
 	{
 		mCoordValue = mAreaSelectorControl->getCoord();
 
-		// снапим к гриду
+		// СЃРЅР°РїРёРј Рє РіСЂРёРґСѓ
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntCoord coord = mCoordValue;

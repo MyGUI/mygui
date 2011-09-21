@@ -42,33 +42,33 @@ namespace MyGUI
 		ILayer() { }
 		virtual ~ILayer() { }
 
-		// имя леера
+		// РёРјСЏ Р»РµРµСЂР°
 		const std::string& getName() const
 		{
 			return mName;
 		}
 
-		// создаем дочерний нод
+		// СЃРѕР·РґР°РµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
+		// СѓРґР°Р»СЏРµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// поднимаем дочерний нод
+		// РїРѕРґРЅРёРјР°РµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual void upChildItemNode(ILayerNode* _node) = 0;
 
-		// список детей
+		// СЃРїРёСЃРѕРє РґРµС‚РµР№
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
-		// возвращает виджет по позиции
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚ РїРѕ РїРѕР·РёС†РёРё
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 
-		// возвращает позицию в координатах леера
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕР·РёС†РёСЋ РІ РєРѕРѕСЂРґРёРЅР°С‚Р°С… Р»РµРµСЂР°
 		virtual IntPoint getPosition(int _left, int _top) const = 0;
 
-		// возвращает размер леера
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ Р»РµРµСЂР°
 		virtual const IntSize& getSize() const = 0;
 
-		// рисует леер
+		// СЂРёСЃСѓРµС‚ Р»РµРµСЂ
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;

@@ -40,7 +40,7 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		// áåðåì äåòåé è êðóòèìñÿ, îñíîâíîé öèêë
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ, Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð¸ÐºÐ»
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
 		{

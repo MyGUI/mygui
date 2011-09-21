@@ -45,7 +45,7 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		// парсим атрибуты скина
+		// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹ СЃРєРёРЅР°
 		std::string name, texture, tmp;
 		IntSize size;
 		_node->findAttribute("name", name);
@@ -54,10 +54,10 @@ namespace MyGUI
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
-		// вспомогательный класс для биндинга сабскинов
+		// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р±РёРЅРґРёРЅРіР° СЃР°Р±СЃРєРёРЅРѕРІ
 		SubWidgetBinding bind;
 
-		// поддержка замены тегов в скинах
+		// РїРѕРґРґРµСЂР¶РєР° Р·Р°РјРµРЅС‹ С‚РµРіРѕРІ РІ СЃРєРёРЅР°С…
 		if (_version >= Version(1, 1))
 		{
 			texture = localizator.replaceTags(texture);
@@ -65,28 +65,28 @@ namespace MyGUI
 
 		setInfo(size, texture);
 
-		// проверяем маску
+		// РїСЂРѕРІРµСЂСЏРµРј РјР°СЃРєСѓ
 		if (_node->findAttribute("mask", tmp))
 			addProperty("MaskPick", tmp);
 
-		// берем детей и крутимся, цикл с саб скинами
+		// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, С†РёРєР» СЃ СЃР°Р± СЃРєРёРЅР°РјРё
 		xml::ElementEnumerator basis = _node->getElementEnumerator();
 		while (basis.next())
 		{
 			if (basis->getName() == "Property")
 			{
-				// загружаем свойства
+				// Р·Р°РіСЂСѓР¶Р°РµРј СЃРІРѕР№СЃС‚РІР°
 				std::string key, value;
 				if (!basis->findAttribute("key", key)) continue;
 				if (!basis->findAttribute("value", value)) continue;
 
-				// поддержка замены тегов в скинах
+				// РїРѕРґРґРµСЂР¶РєР° Р·Р°РјРµРЅС‹ С‚РµРіРѕРІ РІ СЃРєРёРЅР°С…
 				if (_version >= Version(1, 1))
 				{
 					value = localizator.replaceTags(value);
 				}
 
-				// добавляем свойство
+				// РґРѕР±Р°РІР»СЏРµРј СЃРІРѕР№СЃС‚РІРѕ
 				addProperty(key, value);
 			}
 			else if (basis->getName() == "Child")
@@ -110,7 +110,7 @@ namespace MyGUI
 			}
 			else if (basis->getName() == "BasisSkin")
 			{
-				// парсим атрибуты
+				// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹
 				std::string basisSkinType, tmp_str;
 				IntCoord offset;
 				Align align = Align::Default;
@@ -120,12 +120,12 @@ namespace MyGUI
 
 				bind.create(offset, align, basisSkinType);
 
-				// берем детей и крутимся, цикл со стейтами
+				// Р±РµСЂРµРј РґРµС‚РµР№ Рё РєСЂСѓС‚РёРјСЃСЏ, С†РёРєР» СЃРѕ СЃС‚РµР№С‚Р°РјРё
 				xml::ElementEnumerator state = basis->getElementEnumerator();
 
-				// проверяем на новый формат стейтов
+				// РїСЂРѕРІРµСЂСЏРµРј РЅР° РЅРѕРІС‹Р№ С„РѕСЂРјР°С‚ СЃС‚РµР№С‚РѕРІ
 				bool new_format = false;
-				// если версия меньше 1.0 то переименовываем стейты
+				// РµСЃР»Рё РІРµСЂСЃРёСЏ РјРµРЅСЊС€Рµ 1.0 С‚Рѕ РїРµСЂРµРёРјРµРЅРѕРІС‹РІР°РµРј СЃС‚РµР№С‚С‹
 				if (_version < Version(1, 0))
 				{
 					while (state.next())
@@ -140,7 +140,7 @@ namespace MyGUI
 							}
 						}
 					}
-					// обновляем
+					// РѕР±РЅРѕРІР»СЏРµРј
 					state = basis->getElementEnumerator();
 				}
 
@@ -148,14 +148,14 @@ namespace MyGUI
 				{
 					if (state->getName() == "State")
 					{
-						// парсим атрибуты стейта
+						// РїР°СЂСЃРёРј Р°С‚СЂРёР±СѓС‚С‹ СЃС‚РµР№С‚Р°
 						std::string basisStateName;
 						state->findAttribute("name", basisStateName);
 
-						// если версия меньше 1.0 то переименовываем стейты
+						// РµСЃР»Рё РІРµСЂСЃРёСЏ РјРµРЅСЊС€Рµ 1.0 С‚Рѕ РїРµСЂРµРёРјРµРЅРѕРІС‹РІР°РµРј СЃС‚РµР№С‚С‹
 						if (_version < Version(1, 0))
 						{
-							// это обсолет новых типов
+							// СЌС‚Рѕ РѕР±СЃРѕР»РµС‚ РЅРѕРІС‹С… С‚РёРїРѕРІ
 							if (basisStateName == "disable_check") basisStateName = "disabled_checked";
 							else if (basisStateName == "normal_check") basisStateName = "normal_checked";
 							else if (basisStateName == "active_check") basisStateName = "highlighted_checked";
@@ -170,7 +170,7 @@ namespace MyGUI
 							}
 						}
 
-						// конвертируем инфу о стейте
+						// РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј РёРЅС„Сѓ Рѕ СЃС‚РµР№С‚Рµ
 						IStateInfo* data = nullptr;
 						IObject* object = FactoryManager::getInstance().createObject("BasisSkin/State", basisSkinType);
 						if (object != nullptr)
@@ -179,12 +179,12 @@ namespace MyGUI
 							data->deserialization(state.current(), _version);
 						}
 
-						// добавляем инфо о стайте
+						// РґРѕР±Р°РІР»СЏРµРј РёРЅС„Рѕ Рѕ СЃС‚Р°Р№С‚Рµ
 						bind.add(basisStateName, data, name);
 					}
 				}
 
-				// теперь всё вместе добавляем в скин
+				// С‚РµРїРµСЂСЊ РІСЃС‘ РІРјРµСЃС‚Рµ РґРѕР±Р°РІР»СЏРµРј РІ СЃРєРёРЅ
 				addInfo(bind);
 			}
 
@@ -236,18 +236,18 @@ namespace MyGUI
 
 	void ResourceSkin::checkState(const std::string& _name)
 	{
-		// ищем такой же ключ
+		// РёС‰РµРј С‚Р°РєРѕР№ Р¶Рµ РєР»СЋС‡
 		MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
 		if (iter == mStates.end())
 		{
-			// добавляем новый стейт
+			// РґРѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Р№ СЃС‚РµР№С‚
 			mStates[_name] = VectorStateInfo();
 		}
 	}
 
 	void ResourceSkin::checkBasis()
 	{
-		// и увеличиваем размер смещений по колличеству сабвиджетов
+		// Рё СѓРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ СЃРјРµС‰РµРЅРёР№ РїРѕ РєРѕР»Р»РёС‡РµСЃС‚РІСѓ СЃР°Р±РІРёРґР¶РµС‚РѕРІ
 		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
 		{
 			iter->second.resize(mBasis.size());

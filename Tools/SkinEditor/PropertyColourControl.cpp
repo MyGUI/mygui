@@ -243,7 +243,7 @@ namespace tools
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)
-			proper->setValue(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), ""); // чтобы мы обновили поле
+			proper->setValue(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), ""); // С‡С‚РѕР±С‹ РјС‹ РѕР±РЅРѕРІРёР»Рё РїРѕР»Рµ
 	}
 
 } // namespace tools

@@ -79,7 +79,7 @@ namespace MyGUI
 		bool mOutOfDate;
 		VectorDrawItem mDrawItems;
 
-		// колличество отрендренных реально вершин
+		// РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РѕС‚СЂРµРЅРґСЂРµРЅРЅС‹С… СЂРµР°Р»СЊРЅРѕ РІРµСЂС€РёРЅ
 		size_t mCountVertex;
 
 		bool mCurrentUpdate;

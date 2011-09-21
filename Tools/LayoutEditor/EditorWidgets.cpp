@@ -112,7 +112,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -192,7 +192,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -308,8 +308,8 @@ namespace tools
 					parent = parent->getParent();
 					if (parent == nullptr)
 					{
-						// òàêîãî íå äîëæíî áûòü, èëè óòå÷êà ïàìÿòè,
-						// òàê êàê óäàëÿòü íåëüçÿ èì ïîëüçóåòñÿ êîä âûçûâàþùèé äàííóþ ôóíêöèþ
+						// Ñ‚Ð°ÐºÐ¾Ð³Ð¾ Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ, Ð¸Ð»Ð¸ ÑƒÑ‚ÐµÑ‡ÐºÐ° Ð¿Ð°Ð¼ÑÑ‚Ð¸,
+						// Ñ‚Ð°Ðº ÐºÐ°Ðº ÑƒÐ´Ð°Ð»ÑÑ‚ÑŒ Ð½ÐµÐ»ÑŒÐ·Ñ Ð¸Ð¼ Ð¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ ÐºÐ¾Ð´ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÑŽÑ‰Ð¸Ð¹ Ð´Ð°Ð½Ð½ÑƒÑŽ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ
 						return;
 					}
 					containerParent = find(parent);
@@ -352,8 +352,8 @@ namespace tools
 					parent = parent->getParent();
 					if (parent == nullptr)
 					{
-						// òàêîãî íå äîëæíî áûòü, èëè óòå÷êà ïàìÿòè,
-						// òàê êàê óäàëÿòü íåëüçÿ èì ïîëüçóåòñÿ êîä âûçûâàþùèé äàííóþ ôóíêöèþ
+						// Ñ‚Ð°ÐºÐ¾Ð³Ð¾ Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ, Ð¸Ð»Ð¸ ÑƒÑ‚ÐµÑ‡ÐºÐ° Ð¿Ð°Ð¼ÑÑ‚Ð¸,
+						// Ñ‚Ð°Ðº ÐºÐ°Ðº ÑƒÐ´Ð°Ð»ÑÑ‚ÑŒ Ð½ÐµÐ»ÑŒÐ·Ñ Ð¸Ð¼ Ð¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ ÐºÐ¾Ð´ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÑŽÑ‰Ð¸Ð¹ Ð´Ð°Ð½Ð½ÑƒÑŽ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ
 						return result;
 					}
 					containerParent = find(parent);
@@ -411,7 +411,7 @@ namespace tools
 	void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode)
 	{
 		WidgetContainer* container = new WidgetContainer();
-		// ïàðñèì àòðèáóòû âèäæåòà
+		// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð°
 		MyGUI::IntCoord coord;
 		MyGUI::Align align = MyGUI::Align::Default;
 		MyGUI::WidgetStyle widgetStyle = MyGUI::WidgetStyle::Child;
@@ -442,7 +442,7 @@ namespace tools
 			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
-		// ïðîâåðÿåì ñêèí íà ïðèñóòñòâèå
+		// Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼ ÑÐºÐ¸Ð½ Ð½Ð° Ð¿Ñ€Ð¸ÑÑƒÑ‚ÑÑ‚Ð²Ð¸Ðµ
 		std::string skin = container->getSkin();
 		bool exist = isSkinExist(container->getSkin());
 		if (!exist && !container->getSkin().empty())
@@ -486,7 +486,7 @@ namespace tools
 
 		add(container);
 
-		// áåðåì äåòåé è êðóòèìñÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 		MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
 		while (widget.next())
 		{
@@ -498,19 +498,19 @@ namespace tools
 			}
 			else if (widget->getName() == "Property")
 			{
-				// ïàðñèì àòðèáóòû
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 				if (!widget->findAttribute("key", key))
 					continue;
 				if (!widget->findAttribute("value", value))
 					continue;
 
-				// êîíâåðòèì ïðîïåðòè â òåêóùèé âàðèàíò âåðñèè
+				// ÐºÐ¾Ð½Ð²ÐµÑ€Ñ‚Ð¸Ð¼ Ð¿Ñ€Ð¾Ð¿ÐµÑ€Ñ‚Ð¸ Ð² Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¹ Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚ Ð²ÐµÑ€ÑÐ¸Ð¸
 				key = MyGUI::BackwardCompatibility::getPropertyRename(key);
 				size_t indexSeparator = key.find('_');
 				if (indexSeparator != std::string::npos)
 					key = key.substr(indexSeparator + 1);
 
-				// è ïûòàåìñÿ ïàðñèòü ñâîéñòâî
+				// Ð¸ Ð¿Ñ‹Ñ‚Ð°ÐµÐ¼ÑÑ Ð¿Ð°Ñ€ÑÐ¸Ñ‚ÑŒ ÑÐ²Ð¾Ð¹ÑÑ‚Ð²Ð¾
 				if (tryToApplyProperty(container->getWidget(), key, value, _testMode) == false)
 					continue;
 
@@ -518,7 +518,7 @@ namespace tools
 			}
 			else if (widget->getName() == "UserString")
 			{
-				// ïàðñèì àòðèáóòû
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 				if (!widget->findAttribute("key", key))
 					continue;
 				if (!widget->findAttribute("value", value))
@@ -528,7 +528,7 @@ namespace tools
 			}
 			else if (widget->getName() == "Controller")
 			{
-				// ïàðñèì àòðèáóòû
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 				if (!widget->findAttribute("type", type))
 					continue;
 				ControllerInfo* controllerInfo = new ControllerInfo();
@@ -778,7 +778,7 @@ namespace tools
 
 	void EditorWidgets::loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode)
 	{
-		// áåðåì äåòåé è êðóòèìñÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 		MyGUI::xml::ElementEnumerator element = _root->getElementEnumerator();
 		while (element.next())
 		{
@@ -795,7 +795,7 @@ namespace tools
 
 		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
 		{
-			// â êîðåíü òîëüêî ñèðîò
+			// Ð² ÐºÐ¾Ñ€ÐµÐ½ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑÐ¸Ñ€Ð¾Ñ‚
 			if (nullptr == (*iter)->getWidget()->getParent())
 				serialiseWidget(*iter, _root, _compatibility);
 		}

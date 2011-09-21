@@ -52,7 +52,7 @@ namespace tools
 
 	WidgetStyle* WidgetTypes::getWidgetType(const std::string& _name)
 	{
-		// èùåì òèï, åñëè íåò, òî ñîçäàåì
+		// Ð¸Ñ‰ÐµÐ¼ Ñ‚Ð¸Ð¿, ÐµÑÐ»Ð¸ Ð½ÐµÑ‚, Ñ‚Ð¾ ÑÐ¾Ð·Ð´Ð°ÐµÐ¼
 		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
 			if ((*iter)->name == _name)
@@ -82,7 +82,7 @@ namespace tools
 
 			widget_type->internalType = widgets->findAttribute("internal") == "true";
 
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{
@@ -181,19 +181,19 @@ namespace tools
 			std::string name = widgets->findAttribute("name");
 			PossibleValue* possible_value = getPossibleValue(name);
 
-			// òèï ìåðäæà ïåðåìåííûõ
+			// Ñ‚Ð¸Ð¿ Ð¼ÐµÑ€Ð´Ð¶Ð° Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ñ…
 			std::string merge = widgets->findAttribute("merge");
-			// äîïîëíÿåì ñâîèìè äàííûìè, ïî äåôîëòó
+			// Ð´Ð¾Ð¿Ð¾Ð»Ð½ÑÐµÐ¼ ÑÐ²Ð¾Ð¸Ð¼Ð¸ Ð´Ð°Ð½Ð½Ñ‹Ð¼Ð¸, Ð¿Ð¾ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ñƒ
 			if (merge == "add")
 			{
 			}
-			// óäàëÿåì è äîáàâëÿåì ñâîè
+			// ÑƒÐ´Ð°Ð»ÑÐµÐ¼ Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ ÑÐ²Ð¾Ð¸
 			else if (merge == "replace")
 			{
 				possible_value->values.clear();
 			}
 
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
 			while (field.next())
 			{

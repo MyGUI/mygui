@@ -98,46 +98,46 @@ namespace MyGUI
 
 	void RotatingSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// íåîáõîäèìî ðàçîáðàòüñÿ
+		// Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ Ñ€Ð°Ð·Ð¾Ð±Ñ€Ð°Ñ‚ÑŒÑÑ
 		bool need_update = true;
 
-		// ïåðâîíà÷àëüíîå âûðàâíèâàíèå
+		// Ð¿ÐµÑ€Ð²Ð¾Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸Ð²Ð°Ð½Ð¸Ðµ
 		if (mAlign.isHStretch())
 		{
-			// ðàñòÿãèâàåì
+			// Ñ€Ð°ÑÑ‚ÑÐ³Ð¸Ð²Ð°ÐµÐ¼
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
-			mIsMargin = true; // ïðè èçìåíåíèè ðàçìåðîâ âñå ïåðåñ÷èòûâàòü
+			mIsMargin = true; // Ð¿Ñ€Ð¸ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¸ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð¾Ð² Ð²ÑÐµ Ð¿ÐµÑ€ÐµÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°Ñ‚ÑŒ
 		}
 		else if (mAlign.isRight())
 		{
-			// äâèãàåì ïî ïðàâîìó êðàþ
+			// Ð´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð¿Ð¾ Ð¿Ñ€Ð°Ð²Ð¾Ð¼Ñƒ ÐºÑ€Ð°ÑŽ
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter())
 		{
-			// âûðàâíèâàíèå ïî ãîðèçîíòàëè áåç ðàñòÿæåíèÿ
+			// Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸Ð²Ð°Ð½Ð¸Ðµ Ð¿Ð¾ Ð³Ð¾Ñ€Ð¸Ð·Ð¾Ð½Ñ‚Ð°Ð»Ð¸ Ð±ÐµÐ· Ñ€Ð°ÑÑ‚ÑÐ¶ÐµÐ½Ð¸Ñ
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// ðàñòÿãèâàåì
+			// Ñ€Ð°ÑÑ‚ÑÐ³Ð¸Ð²Ð°ÐµÐ¼
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
-			mIsMargin = true; // ïðè èçìåíåíèè ðàçìåðîâ âñå ïåðåñ÷èòûâàòü
+			mIsMargin = true; // Ð¿Ñ€Ð¸ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ð¸ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð¾Ð² Ð²ÑÐµ Ð¿ÐµÑ€ÐµÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°Ñ‚ÑŒ
 		}
 		else if (mAlign.isBottom())
 		{
-			// äâèãàåì ïî íèæíåìó êðàþ
+			// Ð´Ð²Ð¸Ð³Ð°ÐµÐ¼ Ð¿Ð¾ Ð½Ð¸Ð¶Ð½ÐµÐ¼Ñƒ ÐºÑ€Ð°ÑŽ
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter())
 		{
-			// âûðàâíèâàíèå ïî âåðòèêàëè áåç ðàñòÿæåíèÿ
+			// Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸Ð²Ð°Ð½Ð¸Ðµ Ð¿Ð¾ Ð²ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»Ð¸ Ð±ÐµÐ· Ñ€Ð°ÑÑ‚ÑÐ¶ÐµÐ½Ð¸Ñ
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}

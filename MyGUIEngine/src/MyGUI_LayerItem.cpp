@@ -59,7 +59,7 @@ namespace MyGUI
 		mLayerNodes.push_back(_item);
 		if (mLayerNode != nullptr)
 		{
-			// создаем оверлаппеду новый айтем
+			// СЃРѕР·РґР°РµРј РѕРІРµСЂР»Р°РїРїРµРґСѓ РЅРѕРІС‹Р№ Р°Р№С‚РµРј
 			ILayerNode* child_node = mLayerNode->createChildItemNode();
 			_item->attachToLayerItemNode(child_node, true);
 		}
@@ -89,7 +89,7 @@ namespace MyGUI
 		if (mLayerNode)
 		{
 			ILayerNode* node = mLayerNode;
-			// позже сделать детач без текста
+			// РїРѕР·Р¶Рµ СЃРґРµР»Р°С‚СЊ РґРµС‚Р°С‡ Р±РµР· С‚РµРєСЃС‚Р°
 			detachFromLayerItemNode(false);
 			attachToLayerItemNode(node, false);
 		}
@@ -119,22 +119,22 @@ namespace MyGUI
 
 	void LayerItem::detachFromLayer()
 	{
-		// мы уже отдетачены в доску
+		// РјС‹ СѓР¶Рµ РѕС‚РґРµС‚Р°С‡РµРЅС‹ РІ РґРѕСЃРєСѓ
 		if (nullptr == mLayer) return;
 
-		// такого быть не должно
+		// С‚Р°РєРѕРіРѕ Р±С‹С‚СЊ РЅРµ РґРѕР»Р¶РЅРѕ
 		MYGUI_ASSERT(mLayerNode, "_item->mLayerNode == nullptr");
 
-		// отписываемся от пиккинга
+		// РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ РѕС‚ РїРёРєРєРёРЅРіР°
 		mLayerNode->detachLayerItem(this);
 
-		// при детаче обнулиться
+		// РїСЂРё РґРµС‚Р°С‡Рµ РѕР±РЅСѓР»РёС‚СЊСЃСЏ
 		ILayerNode* save = mLayerNode;
 
-		// физически отсоединяем
+		// С„РёР·РёС‡РµСЃРєРё РѕС‚СЃРѕРµРґРёРЅСЏРµРј
 		detachFromLayerItemNode(true);
 
-		// отсоединяем леер и обнуляем у рутового виджета
+		// РѕС‚СЃРѕРµРґРёРЅСЏРµРј Р»РµРµСЂ Рё РѕР±РЅСѓР»СЏРµРј Сѓ СЂСѓС‚РѕРІРѕРіРѕ РІРёРґР¶РµС‚Р°
 		mLayer->destroyChildItemNode(save);
 		mLayerNode = nullptr;
 		mLayer = nullptr;
@@ -149,7 +149,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(nullptr != _item, "attached item must be valid");
 
-		// сохраняем, чтобы последующие дети могли приаттачиться
+		// СЃРѕС…СЂР°РЅСЏРµРј, С‡С‚РѕР±С‹ РїРѕСЃР»РµРґСѓСЋС‰РёРµ РґРµС‚Рё РјРѕРіР»Рё РїСЂРёР°С‚С‚Р°С‡РёС‚СЊСЃСЏ
 		mLayerNode = _item;
 
 		for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
@@ -164,7 +164,7 @@ namespace MyGUI
 
 		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
 		{
-			// создаем оверлаппеду новый айтем
+			// СЃРѕР·РґР°РµРј РѕРІРµСЂР»Р°РїРїРµРґСѓ РЅРѕРІС‹Р№ Р°Р№С‚РµРј
 			if (_deep)
 			{
 				ILayerNode* child_node = _item->createChildItemNode();
@@ -193,7 +193,7 @@ namespace MyGUI
 			}
 		}
 
-		// мы уже отаттачены
+		// РјС‹ СѓР¶Рµ РѕС‚Р°С‚С‚Р°С‡РµРЅС‹
 		ILayerNode* node = mLayerNode;
 		if (node)
 		{
@@ -203,12 +203,12 @@ namespace MyGUI
 				(*skin)->destroyDrawItem();
 			}
 
-			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
+			// РїСЂРё РіР»СѓР±РѕРєРѕР№ РѕС‡РёСЃС‚РєРµ, РµСЃР»Рё РјС‹ РѕРІРµСЂР»Р°РїРїРµРґ, С‚Рѕ РґР»СЏ РЅР°СЃ СЃРѕР·РґР°РІР°Р»Рё Р°Р№С‚РµРј
 			/*if (_deep && !this->isRootWidget() && mWidgetStyle == WidgetStyle::Overlapped)
 			{
 				node->destroyItemNode();
 			}*/
-			// очищаем
+			// РѕС‡РёС‰Р°РµРј
 			mLayerNode = nullptr;
 		}
 	}

@@ -91,10 +91,10 @@ namespace MyGUI
 				MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 				return MessageBoxStyle::None;
 			}
-			// бит, номер кнопки + смещение до Button1
+			// Р±РёС‚, РЅРѕРјРµСЂ РєРЅРѕРїРєРё + СЃРјРµС‰РµРЅРёРµ РґРѕ Button1
 			MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_IndexUserButton1)));
 
-			// запоминаем кнопки для отмены и подтверждения
+			// Р·Р°РїРѕРјРёРЅР°РµРј РєРЅРѕРїРєРё РґР»СЏ РѕС‚РјРµРЅС‹ Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ
 			if (mVectorButton.empty())
 				mInfoOk = info;
 			mInfoCancel = info;
@@ -159,19 +159,19 @@ namespace MyGUI
 
 			for (size_t index = 0; index < buttons.size(); ++index)
 			{
-				// корректируем ее номер
+				// РєРѕСЂСЂРµРєС‚РёСЂСѓРµРј РµРµ РЅРѕРјРµСЂ
 				MessageBoxStyle info = buttons[index];
 
-				// если бит есть то ставим кнопку
+				// РµСЃР»Рё Р±РёС‚ РµСЃС‚СЊ С‚Рѕ СЃС‚Р°РІРёРј РєРЅРѕРїРєСѓ
 				addButtonName(getButtonName(info));
 
-				// внутри адд сбрасывается
+				// РІРЅСѓС‚СЂРё Р°РґРґ СЃР±СЂР°СЃС‹РІР°РµС‚СЃСЏ
 				mVectorButton.back()->_setInternalData(info);
 
-				// первая кнопка
+				// РїРµСЂРІР°СЏ РєРЅРѕРїРєР°
 				if (mVectorButton.size() == 1)
 					mInfoOk = info;
-				// последняя кнопка
+				// РїРѕСЃР»РµРґРЅСЏСЏ РєРЅРѕРїРєР°
 				mInfoCancel = info;
 			}
 
@@ -257,7 +257,7 @@ namespace MyGUI
 			if (mWidgetText != nullptr)
 				text = mWidgetText->getSubWidgetText();
 			IntSize size = text == nullptr ? IntSize() : text->getTextSize();
-			// минимум высота иконки
+			// РјРёРЅРёРјСѓРј РІС‹СЃРѕС‚Р° РёРєРѕРЅРєРё
 			if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE))
 			{
 				if (size.height < mIcon->getHeight())

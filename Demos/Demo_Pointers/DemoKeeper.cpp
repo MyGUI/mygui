@@ -97,10 +97,10 @@ namespace demo
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
-		// ïğè çàæàòîé ïğàâîé âğàùàåì ñöåíó
+		// Ğ¿Ñ€Ğ¸ Ğ·Ğ°Ğ¶Ğ°Ñ‚Ğ¾Ğ¹ Ğ¿Ñ€Ğ°Ğ²Ğ¾Ğ¹ Ğ²Ñ€Ğ°Ñ‰Ğ°ĞµĞ¼ ÑÑ†ĞµĞ½Ñƒ
 		if (mRightButtonPressed)
 		{
-			// îòíîñèòåëüíîå ñìåùåíèå
+			// Ğ¾Ñ‚Ğ½Ğ¾ÑĞ¸Ñ‚ĞµĞ»ÑŒĞ½Ğ¾Ğµ ÑĞ¼ĞµÑ‰ĞµĞ½Ğ¸Ğµ
 			int rel_x = _absx - mSaveCursorX;
 			int rel_y = _absy - mSaveCursorY;
 
@@ -109,15 +109,15 @@ namespace demo
 
 			setMousePosition(mSaveCursorX, mSaveCursorY);
 
-			// âğàùàåì ñöåíó
+			// Ğ²Ñ€Ğ°Ñ‰Ğ°ĞµĞ¼ ÑÑ†ĞµĞ½Ñƒ
 			updateCamera(rel_x, rel_y);
 		}
 		else
 		{
-			// ââîä ìûøè íàõîäèòü âíå ãóÿ
+			// Ğ²Ğ²Ğ¾Ğ´ Ğ¼Ñ‹ÑˆĞ¸ Ğ½Ğ°Ñ…Ğ¾Ğ´Ğ¸Ñ‚ÑŒ Ğ²Ğ½Ğµ Ğ³ÑƒÑ
 			if (!MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz))
 			{
-				// ïèêàåì ñöåíó
+				// Ğ¿Ğ¸ĞºĞ°ĞµĞ¼ ÑÑ†ĞµĞ½Ñƒ
 				std::string pointer = getCursorFromScene(_absx, _absy);
 				mPointerContextManager->setPointer(pointer);
 			}
@@ -131,7 +131,7 @@ namespace demo
 
 		if (!MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id))
 		{
-			// âğàùàåì ñöåíó òîëüêî êîãäà íå íàä ãóåì
+			// Ğ²Ñ€Ğ°Ñ‰Ğ°ĞµĞ¼ ÑÑ†ĞµĞ½Ñƒ Ñ‚Ğ¾Ğ»ÑŒĞºĞ¾ ĞºĞ¾Ğ³Ğ´Ğ° Ğ½Ğµ Ğ½Ğ°Ğ´ Ğ³ÑƒĞµĞ¼
 			if (_id == MyGUI::MouseButton::Right)
 			{
 				mRightButtonPressed = true;
@@ -160,7 +160,7 @@ namespace demo
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		// äëÿ ãîğÿ÷èõ êëàâèø
+		// Ğ´Ğ»Ñ Ğ³Ğ¾Ñ€ÑÑ‡Ğ¸Ñ… ĞºĞ»Ğ°Ğ²Ğ¸Ñˆ
 		mControlPanel->injectKeyPress(_key);
 
 		base::BaseManager::injectKeyPress(_key, _text);

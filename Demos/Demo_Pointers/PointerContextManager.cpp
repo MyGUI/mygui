@@ -55,7 +55,7 @@ namespace demo
 					}
 					else
 					{
-						// âñòàâëÿåì ïåðåä ïåðâûì õàåì
+						// Ð²ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ Ð¿ÐµÑ€ÐµÐ´ Ð¿ÐµÑ€Ð²Ñ‹Ð¼ Ñ…Ð°ÐµÐ¼
 						for (VectorContext::iterator item = mContexts.begin(); item != mContexts.end(); ++item)
 						{
 							if ((*item)->isHighLevel())

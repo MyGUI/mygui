@@ -237,7 +237,7 @@ namespace tools
 		delete savedDoc;
 		WidgetSelectorManager::getInstance().setSelectedWidget(nullptr);
 
-		// ïåðåãðóæàåì ñïèñîê
+		// Ð¿ÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶Ð°ÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº
 		load();
 
 		_result = true;
@@ -328,7 +328,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -423,7 +423,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -470,7 +470,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{

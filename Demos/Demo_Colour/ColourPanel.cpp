@@ -151,7 +151,7 @@ namespace demo
 		// current sector
 		size_t current = (size_t)sector_current;
 		assert(current < 6);
-		// смещение до следующего сектора от 0 до 1
+		// СЃРјРµС‰РµРЅРёРµ РґРѕ СЃР»РµРґСѓСЋС‰РµРіРѕ СЃРµРєС‚РѕСЂР° РѕС‚ 0 РґРѕ 1
 		float offfset = (sector_current - (float)current);
 
 		const MyGUI::Colour& from = mColourRange[current];
@@ -251,7 +251,7 @@ namespace demo
 
 		mScrollRange->setScrollPosition(pos);
 
-		// бонус для обрезки цвета под шкалу
+		// Р±РѕРЅСѓСЃ РґР»СЏ РѕР±СЂРµР·РєРё С†РІРµС‚Р° РїРѕРґ С€РєР°Р»Сѓ
 		mBaseColour.red = mColourRange[i].red + offset * (mColourRange[i+1].red - mColourRange[i].red);
 		mBaseColour.green = mColourRange[i].green + offset * (mColourRange[i+1].green - mColourRange[i].green);
 		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i+1].blue - mColourRange[i].blue);

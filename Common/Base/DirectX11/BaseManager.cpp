@@ -14,7 +14,7 @@
 #	include <winuser.h>
 #endif
 
-// èìÿ êëàññà îêíà
+// Ð¸Ð¼Ñ ÐºÐ»Ð°ÑÑÐ° Ð¾ÐºÐ½Ð°
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -104,7 +104,7 @@ namespace base
 		const unsigned int height = 768;
 		bool windowed = true;
 
-		// ðåãèñòðèðóåì êëàññ îêíà
+		// Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€ÑƒÐµÐ¼ ÐºÐ»Ð°ÑÑ Ð¾ÐºÐ½Ð°
 		WNDCLASS wc =
 		{
 			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, MAKEINTRESOURCE(1001)),
@@ -112,7 +112,7 @@ namespace base
 		};
 		RegisterClass(&wc);
 
-		// ñîçäàåì ãëàâíîå îêíî
+		// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ð³Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¾ÐºÐ½Ð¾
 		hWnd = CreateWindow(wc.lpszClassName, TEXT("Direct3D11 Render Window"), WS_POPUP,
 			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
@@ -122,12 +122,12 @@ namespace base
 		}
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// áåðåì èìÿ íàøåãî ýêçåøíèêà
+		// Ð±ÐµÑ€ÐµÐ¼ Ð¸Ð¼Ñ Ð½Ð°ÑˆÐµÐ³Ð¾ ÑÐºÐ·ÐµÑˆÐ½Ð¸ÐºÐ°
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		// áåðåì èíñòàíñ íàøåãî ìîäóëÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð¸Ð½ÑÑ‚Ð°Ð½Ñ Ð½Ð°ÑˆÐµÐ³Ð¾ Ð¼Ð¾Ð´ÑƒÐ»Ñ
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		// ïîáûñòðîìó ãðóçèì èêîíêó
+		// Ð¿Ð¾Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð¼Ñƒ Ð³Ñ€ÑƒÐ·Ð¸Ð¼ Ð¸ÐºÐ¾Ð½ÐºÑƒ
 		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon)
 		{
@@ -288,7 +288,7 @@ namespace base
 
 	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
-		// ñòèëü îêíà
+		// ÑÑ‚Ð¸Ð»ÑŒ Ð¾ÐºÐ½Ð°
 		HWND hwndAfter = 0;
 		unsigned long style = 0;
 		unsigned long style_ex = 0;
@@ -399,10 +399,10 @@ namespace base
 	{
 		if (mDevice != nullptr)
 		{
-			// Ðåñàéçèìñÿ
+			// Ð ÐµÑÐ°Ð¹Ð·Ð¸Ð¼ÑÑ
 			mSwapChain->ResizeBuffers(1, _width, _height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 
-			// Óñòàíàâëèâàåì íîâûé âüþïîðò
+			// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ð¹ Ð²ÑŒÑŽÐ¿Ð¾Ñ€Ñ‚
 			D3D11_VIEWPORT vp;
 			vp.Width = (float)_width;
 			vp.Height = (float)_height;
@@ -412,7 +412,7 @@ namespace base
 			vp.TopLeftY = 0.0f;
 			mDeviceContext->RSSetViewports( 1, &vp );
 
-			// Óñòàíàâëèâàåì íîâûé view size
+			// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ð¹ view size
 			mPlatform->getRenderManagerPtr()->setViewSize(_width, _height);
 		}
 	}
@@ -433,7 +433,7 @@ namespace base
 		D3D_FEATURE_LEVEL selectedFeatureLevel = D3D_FEATURE_LEVEL_11_0;
 
 
-		// Çàïîëíåíèå swap chain desc
+		// Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ swap chain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;
 		ZeroMemory( &swapChainDesc, sizeof(swapChainDesc) );
 		swapChainDesc.BufferCount = 1;
@@ -450,7 +450,7 @@ namespace base
 
 		HRESULT hr = S_OK;
 
-		// Ïûòàåìñÿ ñîçäàòü äåâàéñ
+		// ÐŸÑ‹Ñ‚Ð°ÐµÐ¼ÑÑ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ð´ÐµÐ²Ð°Ð¹Ñ
 		if( FAILED (hr = D3D11CreateDeviceAndSwapChain( NULL, 
 						D3D_DRIVER_TYPE_HARDWARE, 
 						NULL, 
@@ -469,16 +469,16 @@ namespace base
 
 		ID3D11Texture2D* backBuffer;
 
-		// Äîñòà¸ì back buffer èç swap chain
+		// Ð”Ð¾ÑÑ‚Ð°Ñ‘Ð¼ back buffer Ð¸Ð· swap chain
 		hr = mSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&backBuffer );
 
-		// Ñîçäà¸ì render target äëÿ back buffer
+		// Ð¡Ð¾Ð·Ð´Ð°Ñ‘Ð¼ render target Ð´Ð»Ñ back buffer
 		mDevice->CreateRenderTargetView( backBuffer, NULL, &mRenderTarget );
 
-		// Óñòàíàâëèâàåì back buffer rt òåêóùèì
+		// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ back buffer rt Ñ‚ÐµÐºÑƒÑ‰Ð¸Ð¼
 		mDeviceContext->OMSetRenderTargets( 1, &mRenderTarget, NULL );
 
-		// Óñòàíàâëèâàåì âüþïîðò
+		// Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð²ÑŒÑŽÐ¿Ð¾Ñ€Ñ‚
 		D3D11_VIEWPORT vp;
 		vp.Width = (float)_width;
 		vp.Height = (float)_height;
@@ -495,13 +495,13 @@ namespace base
 	{
 		const float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-		// ×èñòèì back buffer
+		// Ð§Ð¸ÑÑ‚Ð¸Ð¼ back buffer
 		mDeviceContext->ClearRenderTargetView(mRenderTarget, clearColor);
 
-		// Ðèñóåì gui
+		// Ð Ð¸ÑÑƒÐµÐ¼ gui
 		mPlatform->getRenderManagerPtr()->drawOneFrame();
 
-		// îòïðàâëÿåì íà ýêðàí
+		// Ð¾Ñ‚Ð¿Ñ€Ð°Ð²Ð»ÑÐµÐ¼ Ð½Ð° ÑÐºÑ€Ð°Ð½
 		mSwapChain->Present(0, 0);
 	}
 

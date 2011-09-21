@@ -52,7 +52,7 @@ namespace MyGUI
 
 		if (_index == mIndexFace.size())
 		{
-			// для вставки айтема
+			// РґР»СЏ РІСЃС‚Р°РІРєРё Р°Р№С‚РµРјР°
 			index = mIndexFace.size();
 
 			mIndexFace.push_back(_index);
@@ -60,7 +60,7 @@ namespace MyGUI
 		}
 		else
 		{
-			// для вставки айтема
+			// РґР»СЏ РІСЃС‚Р°РІРєРё Р°Р№С‚РµРјР°
 			index = mIndexFace[_index];
 
 			size_t count = mIndexFace.size();
@@ -93,7 +93,7 @@ namespace MyGUI
 			checkIndexes();
 		#endif
 
-		// для удаления айтема
+		// РґР»СЏ СѓРґР°Р»РµРЅРёСЏ Р°Р№С‚РµРјР°
 		size_t index = mIndexFace[_index];
 
 		mIndexFace.erase(mIndexFace.begin() + _index);
@@ -120,7 +120,7 @@ namespace MyGUI
 		mIndexBack.clear();
 	}
 
-	// на входе индексы пользователя, на выходе реальные индексы
+	// РЅР° РІС…РѕРґРµ РёРЅРґРµРєСЃС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РЅР° РІС‹С…РѕРґРµ СЂРµР°Р»СЊРЅС‹Рµ РёРЅРґРµРєСЃС‹
 	size_t BiIndexBase::convertToBack(size_t _index) const
 	{
 		#if MYGUI_DEBUG_MODE == 1
@@ -129,7 +129,7 @@ namespace MyGUI
 		return _index == ITEM_NONE ? ITEM_NONE : mIndexFace[_index];
 	}
 
-	// на входе индексы реальные, на выходе, то что видит пользователь
+	// РЅР° РІС…РѕРґРµ РёРЅРґРµРєСЃС‹ СЂРµР°Р»СЊРЅС‹Рµ, РЅР° РІС‹С…РѕРґРµ, С‚Рѕ С‡С‚Рѕ РІРёРґРёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
 	size_t BiIndexBase::convertToFace(size_t _index) const
 	{
 		#if MYGUI_DEBUG_MODE == 1
@@ -138,7 +138,7 @@ namespace MyGUI
 		return _index == ITEM_NONE ? ITEM_NONE : mIndexBack[_index];
 	}
 
-	// меняет местами два индекса, индексы со стороны пользователя
+	// РјРµРЅСЏРµС‚ РјРµСЃС‚Р°РјРё РґРІР° РёРЅРґРµРєСЃР°, РёРЅРґРµРєСЃС‹ СЃРѕ СЃС‚РѕСЂРѕРЅС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	void BiIndexBase::swapItemsFaceAt(size_t _index1, size_t _index2)
 	{
 		#if MYGUI_DEBUG_MODE == 1
@@ -150,7 +150,7 @@ namespace MyGUI
 		std::swap(mIndexBack[mIndexFace[_index1]], mIndexBack[mIndexFace[_index2]]);
 	}
 
-	// меняет местами два индекса, индексы со сторонны данных
+	// РјРµРЅСЏРµС‚ РјРµСЃС‚Р°РјРё РґРІР° РёРЅРґРµРєСЃР°, РёРЅРґРµРєСЃС‹ СЃРѕ СЃС‚РѕСЂРѕРЅРЅС‹ РґР°РЅРЅС‹С…
 	void BiIndexBase::swapItemsBackAt(size_t _index1, size_t _index2)
 	{
 		#if MYGUI_DEBUG_MODE == 1
@@ -168,7 +168,7 @@ namespace MyGUI
 	{
 		assert(mIndexFace.size() == mIndexBack.size());
 
-		// проверяем на уникальность каждого индекса в маппинге
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚СЊ РєР°Р¶РґРѕРіРѕ РёРЅРґРµРєСЃР° РІ РјР°РїРїРёРЅРіРµ
 		std::vector<bool> vec;
 		size_t count = mIndexFace.size();
 
@@ -178,12 +178,12 @@ namespace MyGUI
 
 		for (size_t pos = 0; pos < count; ++pos)
 		{
-			// максимум
+			// РјР°РєСЃРёРјСѓРј
 			size_t index = mIndexBack[pos];
 			if (index >= count)
 				throw new std::exception();
 
-			// максимум
+			// РјР°РєСЃРёРјСѓРј
 			index = mIndexFace[pos];
 			if (index >= count)
 				throw new std::exception();
@@ -199,7 +199,7 @@ namespace MyGUI
 				throw new std::exception();
 		}
 
-		// проверяем на взаимоссылаемость индексов
+		// РїСЂРѕРІРµСЂСЏРµРј РЅР° РІР·Р°РёРјРѕСЃСЃС‹Р»Р°РµРјРѕСЃС‚СЊ РёРЅРґРµРєСЃРѕРІ
 		for (size_t pos = 0; pos < count; ++pos)
 		{
 			size_t index = mIndexFace[pos];

@@ -90,7 +90,7 @@ namespace tools
 
 		mCoordValue = mAreaSelectorControl->getCoord();
 
-		// конвертируем в локальные координаты
+		// РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј РІ Р»РѕРєР°Р»СЊРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
@@ -98,7 +98,7 @@ namespace tools
 				mCoordValue = mCoordValue - parent->getAbsolutePosition();
 		}
 
-		// снапим к гриду
+		// СЃРЅР°РїРёРј Рє РіСЂРёРґСѓ
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntCoord coord = mCoordValue;
@@ -164,7 +164,7 @@ namespace tools
 			updateSelectorEnabled();
 			updateSelectionFromValue();
 
-			// FIXME возвращаем себе кей фокус
+			// FIXME РІРѕР·РІСЂР°С‰Р°РµРј СЃРµР±Рµ РєРµР№ С„РѕРєСѓСЃ
 			if (!mMainWidget->getRootKeyFocus())
 				MyGUI::InputManager::getInstance().setKeyFocusWidget(mMainWidget);
 		}
@@ -179,7 +179,7 @@ namespace tools
 		if (_owner == "WorkspaceControl" || _widget != mCurrentWidget)
 			return;
 
-		// тут приходит в абсолютных, конвертим в локальные
+		// С‚СѓС‚ РїСЂРёС…РѕРґРёС‚ РІ Р°Р±СЃРѕР»СЋС‚РЅС‹С…, РєРѕРЅРІРµСЂС‚РёРј РІ Р»РѕРєР°Р»СЊРЅС‹Рµ
 		mCoordValue = _coordValue;
 		if (mCurrentWidget != nullptr)
 		{
@@ -449,7 +449,7 @@ namespace tools
 
 	void WorkspaceControl::updateFromCoordValue()
 	{
-		// тут работаем с локальными координатами
+		// С‚СѓС‚ СЂР°Р±РѕС‚Р°РµРј СЃ Р»РѕРєР°Р»СЊРЅС‹РјРё РєРѕРѕСЂРґРёРЅР°С‚Р°РјРё
 		if (mCurrentWidget != nullptr)
 			setWidgetCoord(mCurrentWidget, mCoordValue);
 
@@ -458,7 +458,7 @@ namespace tools
 
 	void WorkspaceControl::updateSelectionFromValue()
 	{
-		// саму рамку отображаем в глобальных
+		// СЃР°РјСѓ СЂР°РјРєСѓ РѕС‚РѕР±СЂР°Р¶Р°РµРј РІ РіР»РѕР±Р°Р»СЊРЅС‹С…
 		if (mCurrentWidget != nullptr)
 		{
 			MyGUI::Widget* parent = mCurrentWidget->getParent();
@@ -618,7 +618,7 @@ namespace tools
 			typedef std::vector<PairWidgetCoord> VectorPairWidgetCoord;
 			VectorPairWidgetCoord coords;
 
-			// запоминаем позиции детей
+			// Р·Р°РїРѕРјРёРЅР°РµРј РїРѕР·РёС†РёРё РґРµС‚РµР№
 			for (size_t index = 0; index < _widget->getChildCount(); ++ index)
 			{
 				MyGUI::Widget* child = _widget->getChildAt(index);
@@ -626,11 +626,11 @@ namespace tools
 					coords.push_back(PairWidgetCoord(child, child->getCoord()));
 			}
 
-			// на сколько сдвинут виджет
+			// РЅР° СЃРєРѕР»СЊРєРѕ СЃРґРІРёРЅСѓС‚ РІРёРґР¶РµС‚
 			MyGUI::IntCoord coordDiff = _coord - _widget->getCoord();
 			_widget->setCoord(_coord);
 
-			// восттанавливаем обсолютное положение детей
+			// РІРѕСЃС‚С‚Р°РЅР°РІР»РёРІР°РµРј РѕР±СЃРѕР»СЋС‚РЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ РґРµС‚РµР№
 			for (VectorPairWidgetCoord::iterator item = coords.begin(); item != coords.end(); ++ item)
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find((*item).first);

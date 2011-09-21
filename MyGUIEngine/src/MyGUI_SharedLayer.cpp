@@ -80,7 +80,7 @@ namespace MyGUI
 
 	void SharedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// àéòåì ðóòîâûé, ìû óäàëÿåì
+		// Ð°Ð¹Ñ‚ÐµÐ¼ Ñ€ÑƒÑ‚Ð¾Ð²Ñ‹Ð¹, Ð¼Ñ‹ ÑƒÐ´Ð°Ð»ÑÐµÐ¼
 		if (mChildItem == _item)
 		{
 			mChildItem->removeUsing();
@@ -99,7 +99,7 @@ namespace MyGUI
 
 	void SharedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		// åñëè åñòü îòåö, òî ïóñòü ñàì ðóëèò
+		// ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ Ð¾Ñ‚ÐµÑ†, Ñ‚Ð¾ Ð¿ÑƒÑÑ‚ÑŒ ÑÐ°Ð¼ Ñ€ÑƒÐ»Ð¸Ñ‚
 		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
 			parent->upChildItemNode(_item);

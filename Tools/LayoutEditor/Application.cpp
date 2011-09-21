@@ -240,8 +240,8 @@ namespace tools
 
 	void Application::prepare()
 	{
-		// óñòàíàâëèâàåì ëîêàëü èç ïåðåìåííîé îêðóæåíèÿ
-		// áåç ýòîãî íå áóäóò îòêðûâàòüñÿ íàøè ôàéëû
+		// ÑƒÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð»Ð¾ÐºÐ°Ð»ÑŒ Ð¸Ð· Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ñ
+		// Ð±ÐµÐ· ÑÑ‚Ð¾Ð³Ð¾ Ð½Ðµ Ð±ÑƒÐ´ÑƒÑ‚ Ð¾Ñ‚ÐºÑ€Ñ‹Ð²Ð°Ñ‚ÑŒÑÑ Ð½Ð°ÑˆÐ¸ Ñ„Ð°Ð¹Ð»Ñ‹
 		mLocale = ::setlocale( LC_ALL, "" );
 		// erase everything after '_' to get language name
 		mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
@@ -250,7 +250,7 @@ namespace tools
 
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
-		// ïðè äðîïå ôàéë ìîæåò áûòü çàïóùåí â ëþáîé äèððåêòîðèè
+		// Ð¿Ñ€Ð¸ Ð´Ñ€Ð¾Ð¿Ðµ Ñ„Ð°Ð¹Ð» Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð·Ð°Ð¿ÑƒÑ‰ÐµÐ½ Ð² Ð»ÑŽÐ±Ð¾Ð¹ Ð´Ð¸Ñ€Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸Ð¸
 		wchar_t buff[MAX_PATH];
 		::GetModuleFileNameW(0, buff, MAX_PATH);
 
@@ -258,12 +258,12 @@ namespace tools
 		size_t pos = dir.find_last_of(L"\\/");
 		if (pos != dir.npos)
 		{
-			// óñòàíàâëèâàåì ïðàâèëüíóþ äèððåêòîðèþ
+			// ÑƒÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ð¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½ÑƒÑŽ Ð´Ð¸Ñ€Ñ€ÐµÐºÑ‚Ð¾Ñ€Ð¸ÑŽ
 			::SetCurrentDirectoryW(dir.substr(0, pos + 1).c_str());
 		}
 
-		// èìåíà ìîãóò ñîäåðæàòü ïðîáåëû, íåîáõîäèìî
-		//ñêëåèâàòü è ïðîâåðÿòü ôàéëû íà ñóùåñòâîâàíèå
+		// Ð¸Ð¼ÐµÐ½Ð° Ð¼Ð¾Ð³ÑƒÑ‚ ÑÐ¾Ð´ÐµÑ€Ð¶Ð°Ñ‚ÑŒ Ð¿Ñ€Ð¾Ð±ÐµÐ»Ñ‹, Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾
+		//ÑÐºÐ»ÐµÐ¸Ð²Ð°Ñ‚ÑŒ Ð¸ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÑ‚ÑŒ Ñ„Ð°Ð¹Ð»Ñ‹ Ð½Ð° ÑÑƒÑ‰ÐµÑÑ‚Ð²Ð¾Ð²Ð°Ð½Ð¸Ðµ
 		std::wifstream stream;
 		std::wstring tmp;
 		std::wstring delims = L" ";
@@ -276,7 +276,7 @@ namespace tools
 			{
 				tmp += source.substr(start, end - start);
 
-				// èìåíà ìîãóò áûòü â êîâû÷êàõ
+				// Ð¸Ð¼ÐµÐ½Ð° Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð² ÐºÐ¾Ð²Ñ‹Ñ‡ÐºÐ°Ñ…
 				if (tmp.size() > 2)
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))
@@ -305,7 +305,7 @@ namespace tools
 			{
 				tmp += source.substr(start);
 
-				// èìåíà ìîãóò áûòü â êîâû÷êàõ
+				// Ð¸Ð¼ÐµÐ½Ð° Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð² ÐºÐ¾Ð²Ñ‹Ñ‡ÐºÐ°Ñ…
 				if (tmp.size() > 2)
 				{
 					if ((tmp[0] == L'"') && (tmp[tmp.size()-1] == L'"'))

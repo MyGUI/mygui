@@ -49,7 +49,7 @@ namespace MyGUI
 		{
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 
-			// ïîääåðæêà çàìåíû òåãîâ â ñêèíàõ
+			// Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° Ð·Ð°Ð¼ÐµÐ½Ñ‹ Ñ‚ÐµÐ³Ð¾Ð² Ð² ÑÐºÐ¸Ð½Ð°Ñ…
 			if (_version >= Version(1, 1))
 			{
 				texture = LanguageManager::getInstance().replaceTags(texture);
@@ -103,7 +103,7 @@ namespace MyGUI
 		{
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 
-			// ïîääåðæêà çàìåíû òåãîâ â ñêèíàõ
+			// Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° Ð·Ð°Ð¼ÐµÐ½Ñ‹ Ñ‚ÐµÐ³Ð¾Ð² Ð² ÑÐºÐ¸Ð½Ð°Ñ…
 			if (_version >= Version(1, 1))
 			{
 				texture = LanguageManager::getInstance().replaceTags(texture);

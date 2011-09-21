@@ -34,7 +34,7 @@ namespace demo
 		else
 			mPointerContextManager->addContext(context);
 
-		// ñáðàñûâàåì ðàäèî
+		// ÑÐ±Ñ€Ð°ÑÑ‹Ð²Ð°ÐµÐ¼ Ñ€Ð°Ð´Ð¸Ð¾
 		if (button == mRepair)
 		{
 			if (mAttack->getStateSelected())
