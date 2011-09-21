@@ -6,7 +6,7 @@
 #include "Precompiled.h"
 #include "Console.h"
 
-// внутри неймспейса demo почему то не линкуется, даже если указать абсолютные пути
+// РІРЅСѓС‚СЂРё РЅРµР№РјСЃРїРµР№СЃР° demo РїРѕС‡РµРјСѓ С‚Рѕ РЅРµ Р»РёРЅРєСѓРµС‚СЃСЏ, РґР°Р¶Рµ РµСЃР»Рё СѓРєР°Р·Р°С‚СЊ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ РїСѓС‚Рё
 template <> demo::Console* MyGUI::Singleton<demo::Console>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<demo::Console>::mClassTypeName("Console");
 

@@ -37,7 +37,7 @@ namespace tools
 		bool resizeable;
 		// have many items (such as ListBox, ComboBox, TabControl, MenuBar, etc...)
 		bool many_items;
-		// глубина иерархии
+		// РіР»СѓР±РёРЅР° РёРµСЂР°СЂС…РёРё
 		size_t deep;
 		bool internalType;
 	};

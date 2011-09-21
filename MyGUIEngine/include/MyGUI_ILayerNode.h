@@ -47,37 +47,37 @@ namespace MyGUI
 	public:
 		virtual ~ILayerNode() { }
 
-		// леер, которому мы принадлежим
+		// Р»РµРµСЂ, РєРѕС‚РѕСЂРѕРјСѓ РјС‹ РїСЂРёРЅР°РґР»РµР¶РёРј
 		virtual ILayer* getLayer() const = 0;
 
-		// возвращает отца или nullptr
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РѕС‚С†Р° РёР»Рё nullptr
 		virtual ILayerNode* getParent() const = 0;
 
-		// создаем дочерний нод
+		// СЃРѕР·РґР°РµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
+		// СѓРґР°Р»СЏРµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// поднимаем дочерний нод
+		// РїРѕРґРЅРёРјР°РµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual void upChildItemNode(ILayerNode* _node) = 0;
 
-		// список детей
+		// СЃРїРёСЃРѕРє РґРµС‚РµР№
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
-		// добавляем айтем к ноду
+		// РґРѕР±Р°РІР»СЏРµРј Р°Р№С‚РµРј Рє РЅРѕРґСѓ
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
-		// удаляем айтем из нода
+		// СѓРґР°Р»СЏРµРј Р°Р№С‚РµРј РёР· РЅРѕРґР°
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
-		// добавляет саб айтем и возвращает рендер айтем
+		// РґРѕР±Р°РІР»СЏРµС‚ СЃР°Р± Р°Р№С‚РµРј Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СЂРµРЅРґРµСЂ Р°Р№С‚РµРј
 		virtual RenderItem* addToRenderItem(ITexture* _texture, bool _firstQueue, bool _separate) = 0;
-		// необходимо обновление нода
+		// РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РЅРѕРІР»РµРЅРёРµ РЅРѕРґР°
 		virtual void outOfDate(RenderItem* _item) = 0;
 
-		// возвращает виджет по позиции
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚ РїРѕ РїРѕР·РёС†РёРё
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 
-		// рисует леер
+		// СЂРёСЃСѓРµС‚ Р»РµРµСЂ
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;

@@ -37,17 +37,17 @@ namespace MyGUI
 		void updateScrollSize();
 		void updateScrollPosition();
 
-		// размер данных
+		// СЂР°Р·РјРµСЂ РґР°РЅРЅС‹С…
 		virtual IntSize getContentSize();
 
-		// смещение данных
+		// СЃРјРµС‰РµРЅРёРµ РґР°РЅРЅС‹С…
 		virtual IntPoint getContentPosition();
 		virtual void setContentPosition(const IntPoint& _value);
 
-		// размер окна, через которые видно данные
+		// СЂР°Р·РјРµСЂ РѕРєРЅР°, С‡РµСЂРµР· РєРѕС‚РѕСЂС‹Рµ РІРёРґРЅРѕ РґР°РЅРЅС‹Рµ
 		virtual IntSize getViewSize();
 
-		// размер на который прокручиваются данные при щелчке по скролу
+		// СЂР°Р·РјРµСЂ РЅР° РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРєСЂСѓС‡РёРІР°СЋС‚СЃСЏ РґР°РЅРЅС‹Рµ РїСЂРё С‰РµР»С‡РєРµ РїРѕ СЃРєСЂРѕР»Сѓ
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();
 
@@ -66,7 +66,7 @@ namespace MyGUI
 		size_t mVRange;
 		size_t mHRange;
 
-		// изменяется ли содержимое при ресайзе
+		// РёР·РјРµРЅСЏРµС‚СЃСЏ Р»Рё СЃРѕРґРµСЂР¶РёРјРѕРµ РїСЂРё СЂРµСЃР°Р№Р·Рµ
 		bool mChangeContentByResize;
 	};
 

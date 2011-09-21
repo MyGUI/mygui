@@ -44,7 +44,7 @@ namespace MyGUI
 
 		virtual ITexture* getTextureFont();
 
-		// дефолтная высота, указанная в настройках шрифта
+		// РґРµС„РѕР»С‚РЅР°СЏ РІС‹СЃРѕС‚Р°, СѓРєР°Р·Р°РЅРЅР°СЏ РІ РЅР°СЃС‚СЂРѕР№РєР°С… С€СЂРёС„С‚Р°
 		virtual int getDefaultHeight();
 
 	private:
@@ -62,13 +62,13 @@ namespace MyGUI
 		std::string mSource;
 		int mDefaultHeight;
 
-		// отдельная информация о символах
+		// РѕС‚РґРµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		GlyphInfo mSpaceGlyphInfo;
 
-		// символы созданные руками
+		// СЃРёРјРІРѕР»С‹ СЃРѕР·РґР°РЅРЅС‹Рµ СЂСѓРєР°РјРё
 		VectorPairCodeCoord mVectorPairCodeCoord;
 
-		// вся информация о символах
+		// РІСЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		typedef std::vector<RangeInfo> VectorRangeInfo;
 		VectorRangeInfo mVectorRangeInfo;
 

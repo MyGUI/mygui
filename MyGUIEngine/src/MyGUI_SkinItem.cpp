@@ -96,13 +96,13 @@ namespace MyGUI
 	{
 		mStateInfo = _info->getStateInfo();
 
-		// все что с текстурой можно тоже перенести в скин айтем и setRenderItemTexture
+		// РІСЃРµ С‡С‚Рѕ СЃ С‚РµРєСЃС‚СѓСЂРѕР№ РјРѕР¶РЅРѕ С‚РѕР¶Рµ РїРµСЂРµРЅРµСЃС‚Рё РІ СЃРєРёРЅ Р°Р№С‚РµРј Рё setRenderItemTexture
 		mTextureName = _info->getTextureName();
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);
 
 		setRenderItemTexture(mTexture);
 
-		// загружаем кирпичики виджета
+		// Р·Р°РіСЂСѓР¶Р°РµРј РєРёСЂРїРёС‡РёРєРё РІРёРґР¶РµС‚Р°
 		FactoryManager& factory = FactoryManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter = _info->getBasisInfo().begin(); iter != _info->getBasisInfo().end(); ++iter)
 		{
@@ -118,7 +118,7 @@ namespace MyGUI
 			mSubSkinChild.push_back(sub);
 			addRenderItem(sub);
 
-			// ищем дефолтные сабвиджеты
+			// РёС‰РµРј РґРµС„РѕР»С‚РЅС‹Рµ СЃР°Р±РІРёРґР¶РµС‚С‹
 			if (mMainSkin == nullptr)
 				mMainSkin = sub->castType<ISubWidgetRect>(false);
 			if (mText == nullptr)
@@ -135,7 +135,7 @@ namespace MyGUI
 		mStateInfo.clear();
 
 		removeAllRenderItems();
-		// удаляем все сабскины
+		// СѓРґР°Р»СЏРµРј РІСЃРµ СЃР°Р±СЃРєРёРЅС‹
 		mMainSkin = nullptr;
 		mText = nullptr;
 

@@ -135,46 +135,46 @@ namespace MyGUI
 
 	void PolygonalSkin::_setAlign(const IntSize& _oldsize)
 	{
-		// необходимо разобраться
+		// РЅРµРѕР±С…РѕРґРёРјРѕ СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ
 		bool need_update = true;
 
-		// первоначальное выравнивание
+		// РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 		if (mAlign.isHStretch())
 		{
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isRight())
 		{
-			// двигаем по правому краю
+			// РґРІРёРіР°РµРј РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter())
 		{
-			// выравнивание по горизонтали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
 		if (mAlign.isVStretch())
 		{
-			// растягиваем
+			// СЂР°СЃС‚СЏРіРёРІР°РµРј
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
-			mIsMargin = true; // при изменении размеров все пересчитывать
+			mIsMargin = true; // РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РІСЃРµ РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊ
 		}
 		else if (mAlign.isBottom())
 		{
-			// двигаем по нижнему краю
+			// РґРІРёРіР°РµРј РїРѕ РЅРёР¶РЅРµРјСѓ РєСЂР°СЋ
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter())
 		{
-			// выравнивание по вертикали без растяжения
+			// РІС‹СЂР°РІРЅРёРІР°РЅРёРµ РїРѕ РІРµСЂС‚РёРєР°Р»Рё Р±РµР· СЂР°СЃС‚СЏР¶РµРЅРёСЏ
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
@@ -197,29 +197,29 @@ namespace MyGUI
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
-		// вьюпорт стал битым
+		// РІСЊСЋРїРѕСЂС‚ СЃС‚Р°Р» Р±РёС‚С‹Рј
 		if (margin)
 		{
-			// проверка на полный выход за границу
+			// РїСЂРѕРІРµСЂРєР° РЅР° РїРѕР»РЅС‹Р№ РІС‹С…РѕРґ Р·Р° РіСЂР°РЅРёС†Сѓ
 			if (_checkOutside())
 			{
-				// запоминаем текущее состояние
+				// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 				mIsMargin = margin;
 
-				// обновить перед выходом
+				// РѕР±РЅРѕРІРёС‚СЊ РїРµСЂРµРґ РІС‹С…РѕРґРѕРј
 				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
-		// мы обрезаны или были обрезаны
+		// РјС‹ РѕР±СЂРµР·Р°РЅС‹ РёР»Рё Р±С‹Р»Рё РѕР±СЂРµР·Р°РЅС‹
 		if ((mIsMargin) || (margin))
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 		}
 
-		// запоминаем текущее состояние
+		// Р·Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 		mIsMargin = margin;
 
 		if (nullptr != mNode)

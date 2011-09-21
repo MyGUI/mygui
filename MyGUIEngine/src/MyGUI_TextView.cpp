@@ -97,7 +97,7 @@ namespace MyGUI
 	{
 		mFontHeight = _height;
 
-		// массив для быстрой конвертации цветов
+		// РјР°СЃСЃРёРІ РґР»СЏ Р±С‹СЃС‚СЂРѕР№ РєРѕРЅРІРµСЂС‚Р°С†РёРё С†РІРµС‚РѕРІ
 		static const char convert_colour[64] =
 		{
 			0,  1,  2,  3,  4,  5,  6, 7, 8, 9, 0, 0, 0, 0, 0, 0,
@@ -129,7 +129,7 @@ namespace MyGUI
 		{
 			Char character = *index;
 
-			// новая строка
+			// РЅРѕРІР°СЏ СЃС‚СЂРѕРєР°
 			if (character == FontCodeType::CR
 				|| character == FontCodeType::NEL
 				|| character == FontCodeType::LF)
@@ -155,43 +155,43 @@ namespace MyGUI
 				mLineInfo.push_back(line_info);
 				line_info.clear();
 
-				// отменяем откат
+				// РѕС‚РјРµРЅСЏРµРј РѕС‚РєР°С‚
 				roll_back.clear();
 
 				continue;
 			}
-			// тег
+			// С‚РµРі
 			else if (character == L'#')
 			{
-				// берем следующий символ
+				// Р±РµСЂРµРј СЃР»РµРґСѓСЋС‰РёР№ СЃРёРјРІРѕР»
 				++ index;
 				if (index == end)
 				{
-					--index;    // это защита
+					--index;    // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 					continue;
 				}
 
 				character = *index;
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				// РµСЃР»Рё РґРІР° РїРѕРґСЂСЏРґ, С‚Рѕ СЂРёСЃСѓРµРј РѕРґРёРЅ С€Р°СЂРї, РµСЃР»Рё РЅРµС‚ С‚Рѕ РјРµРЅСЏРµРј С†РІРµС‚
 				if (character != L'#')
 				{
-					// парсим первый символ
+					// РїР°СЂСЃРёРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР»
 					uint32 colour = convert_colour[(character-48) & 0x3F];
 
-					// и еще пять символов после шарпа
+					// Рё РµС‰Рµ РїСЏС‚СЊ СЃРёРјРІРѕР»РѕРІ РїРѕСЃР»Рµ С€Р°СЂРїР°
 					for (char i = 0; i < 5; i++)
 					{
 						++ index;
 						if (index == end)
 						{
-							--index;    // это защита
+							--index;    // СЌС‚Рѕ Р·Р°С‰РёС‚Р°
 							continue;
 						}
 						colour <<= 4;
 						colour += convert_colour[ ((*index) - 48) & 0x3F ];
 					}
 
-					// если нужно, то меняем красный и синий компоненты
+					// РµСЃР»Рё РЅСѓР¶РЅРѕ, С‚Рѕ РјРµРЅСЏРµРј РєСЂР°СЃРЅС‹Р№ Рё СЃРёРЅРёР№ РєРѕРјРїРѕРЅРµРЅС‚С‹
 					texture_utility::convertColour(colour, _format);
 
 					line_info.simbols.push_back( CharInfo(colour) );
@@ -217,18 +217,18 @@ namespace MyGUI
 				if (!char_width) char_width = 1;
 			}
 
-			// перенос слов
+			// РїРµСЂРµРЅРѕСЃ СЃР»РѕРІ
 			if (_maxheight != -1
 				&& (width + char_width) > _maxheight
 				&& !roll_back.empty())
 			{
-				// откатываем до последнего пробела
+				// РѕС‚РєР°С‚С‹РІР°РµРј РґРѕ РїРѕСЃР»РµРґРЅРµРіРѕ РїСЂРѕР±РµР»Р°
 				width = roll_back.getLenght();
 				count = roll_back.getCount();
 				index = roll_back.getTextIter();
 				line_info.simbols.erase(line_info.simbols.begin() + roll_back.getPosition(), line_info.simbols.end());
 
-				// запоминаем место отката, как полную строку
+				// Р·Р°РїРѕРјРёРЅР°РµРј РјРµСЃС‚Рѕ РѕС‚РєР°С‚Р°, РєР°Рє РїРѕР»РЅСѓСЋ СЃС‚СЂРѕРєСѓ
 				line_info.width = width;
 				line_info.count = count;
 				mLength += line_info.count + 1;
@@ -242,7 +242,7 @@ namespace MyGUI
 				mLineInfo.push_back(line_info);
 				line_info.clear();
 
-				// отменяем откат
+				// РѕС‚РјРµРЅСЏРµРј РѕС‚РєР°С‚
 				roll_back.clear();
 
 				continue;
@@ -262,7 +262,7 @@ namespace MyGUI
 		if (result.width < width)
 			result.width = width;
 
-		// теперь выравниванием строки
+		// С‚РµРїРµСЂСЊ РІС‹СЂР°РІРЅРёРІР°РЅРёРµРј СЃС‚СЂРѕРєРё
 		for (VectorLineInfo::iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 		{
 			if (_align.isRight())
@@ -282,17 +282,17 @@ namespace MyGUI
 
 		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 		{
-			// это последняя строка
+			// СЌС‚Рѕ РїРѕСЃР»РµРґРЅСЏСЏ СЃС‚СЂРѕРєР°
 			bool lastline = !(line + 1 != mLineInfo.end());
 
-			// наша строчка
+			// РЅР°С€Р° СЃС‚СЂРѕС‡РєР°
 			if (top + height > _value.top || lastline)
 			{
 				top += height;
 				int left = line->offset;
 				int count = 0;
 
-				// ищем символ
+				// РёС‰РµРј СЃРёРјРІРѕР»
 				for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
 				{
 					if (sim->isColour())

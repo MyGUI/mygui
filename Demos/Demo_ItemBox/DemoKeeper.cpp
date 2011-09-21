@@ -29,14 +29,14 @@ namespace demo
 
 	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result)
 	{
-		// не на айтем кидаем
+		// РЅРµ РЅР° Р°Р№С‚РµРј РєРёРґР°РµРј
 		if (_info.receiver_index == MyGUI::ITEM_NONE)
 		{
 			_result = false;
 			return;
 		}
 
-		// на себя и на тотже айтем
+		// РЅР° СЃРµР±СЏ Рё РЅР° С‚РѕС‚Р¶Рµ Р°Р№С‚РµРј
 		if ((_info.sender == _info.receiver) && (_info.sender_index == _info.receiver_index))
 		{
 			_result = false;
@@ -100,7 +100,7 @@ namespace demo
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 
-		// регестрируем тип нашего ресурса
+		// СЂРµРіРµСЃС‚СЂРёСЂСѓРµРј С‚РёРї РЅР°С€РµРіРѕ СЂРµСЃСѓСЂСЃР°
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>("Resource");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
@@ -150,7 +150,7 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		// тип нашего ресурса
+		// С‚РёРї РЅР°С€РµРіРѕ СЂРµСЃСѓСЂСЃР°
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceItemInfo>("Resource");
 
 		delete mItemBoxH;

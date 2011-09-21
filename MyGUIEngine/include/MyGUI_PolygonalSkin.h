@@ -54,7 +54,7 @@ namespace MyGUI
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node);
 		virtual void destroyDrawItem();
 
-		// метод для отрисовки себя
+		// РјРµС‚РѕРґ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃРµР±СЏ
 		virtual void doRender();
 
 	/*internal:*/

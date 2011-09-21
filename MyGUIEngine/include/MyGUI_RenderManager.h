@@ -52,7 +52,7 @@ namespace MyGUI
 		/** Get texture by name */
 		virtual ITexture* getTexture(const std::string& _name) = 0;
 
-		//FIXME возможно перенести в структуру о рендер таргете
+		//FIXME РІРѕР·РјРѕР¶РЅРѕ РїРµСЂРµРЅРµСЃС‚Рё РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ Рѕ СЂРµРЅРґРµСЂ С‚Р°СЂРіРµС‚Рµ
 		virtual const IntSize& getViewSize() const = 0;
 
 		/** Get current vertex colour type */

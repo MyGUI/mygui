@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME ïðîâåðèòü ñìåíó ñêèíà èáî äîëæíî îäèí ðàç âûçûâàòüñÿ
+		// FIXME Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ ÑÐ¼ÐµÐ½Ñƒ ÑÐºÐ¸Ð½Ð° Ð¸Ð±Ð¾ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð¾Ð´Ð¸Ð½ Ñ€Ð°Ð· Ð²Ñ‹Ð·Ñ‹Ð²Ð°Ñ‚ÑŒÑÑ
 		Widget* parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuControl");
 		if (!parent->isType<MenuControl>())
@@ -55,7 +55,7 @@ namespace MyGUI
 		//if (isUserString("MinSize"))
 			//mMinSize = IntSize::parse(getUserString("MinSize"));
 
-		//FIXME íàì íóæåíôîêóñ êëàâû
+		//FIXME Ð½Ð°Ð¼ Ð½ÑƒÐ¶ÐµÐ½Ñ„Ð¾ÐºÑƒÑ ÐºÐ»Ð°Ð²Ñ‹
 		setNeedKeyFocus(true);
 
 		updateCheck();
@@ -63,7 +63,7 @@ namespace MyGUI
 
 	void MenuItem::shutdownOverride()
 	{
-		// FIXME ïðîâåðèòü ñìåíó ñêèíà èáî äîëæíî îäèí ðàç âûçûâàòüñÿ
+		// FIXME Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ ÑÐ¼ÐµÐ½Ñƒ ÑÐºÐ¸Ð½Ð° Ð¸Ð±Ð¾ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð¾Ð´Ð¸Ð½ Ñ€Ð°Ð· Ð²Ñ‹Ð·Ñ‹Ð²Ð°Ñ‚ÑŒÑÑ
 		mOwner->_notifyDeleteItem(this);
 
 		Base::shutdownOverride();

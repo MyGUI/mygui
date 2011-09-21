@@ -74,7 +74,7 @@ namespace tools
 		{
 			if (type == "Settings")
 			{
-				// áåðåì äåòåé è êðóòèìñÿ
+				// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 				MyGUI::xml::ElementEnumerator field = root->getElementEnumerator();
 				while (field.next())
 					loadSector(field.current());

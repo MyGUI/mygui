@@ -35,7 +35,7 @@ namespace demo
 			mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 		}
 
-		// âû÷èñëÿåì ðàçìåð
+		// Ð²Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÐ¼ Ñ€Ð°Ð·Ð¼ÐµÑ€
 		MyGUI::ISubWidgetText* text = mTextDesc->getSubWidgetText();
 		const MyGUI::IntSize& text_size = text ? text->getTextSize() : MyGUI::IntSize();
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);

@@ -562,7 +562,7 @@ namespace tools
 
 		if (root->findAttribute("type") == "Resource")
 		{
-			// áåðåì äåòåé è êðóòèìñÿ
+			// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
 			while (element.next("Resource"))
 			{
@@ -570,7 +570,7 @@ namespace tools
 				{
 					if (itemIndex == 0)
 					{
-						// ïîìåíÿòü íà òåãè
+						// Ð¿Ð¾Ð¼ÐµÐ½ÑÑ‚ÑŒ Ð½Ð° Ñ‚ÐµÐ³Ð¸
 						return MyGUI::utility::toString(fileName, " [", element->findAttribute("name"), "]");
 					}
 					else

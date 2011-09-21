@@ -128,7 +128,7 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
 
-		//FIXME перенести в метод
+		//FIXME РїРµСЂРµРЅРµСЃС‚Рё РІ РјРµС‚РѕРґ
 		mInternalPixelFormat = 0;
 		mPixelFormat = 0;
 		mNumElemBytes = 0;
@@ -175,7 +175,7 @@ namespace MyGUI
 		glGetIntegerv( GL_UNPACK_ALIGNMENT, &alignment );
 		glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
-		// создаем тукстуру
+		// СЃРѕР·РґР°РµРј С‚СѓРєСЃС‚СѓСЂСѓ
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
 		// Set texture parameters
@@ -191,7 +191,7 @@ namespace MyGUI
 
 		if (!_data && OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
-			//создаем текстурнный буфер
+			//СЃРѕР·РґР°РµРј С‚РµРєСЃС‚СѓСЂРЅРЅС‹Р№ Р±СѓС„РµСЂ
 			glGenBuffersARB(1, &mPboID);
 			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
 			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);

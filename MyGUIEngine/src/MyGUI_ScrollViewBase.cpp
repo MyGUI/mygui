@@ -52,7 +52,7 @@ namespace MyGUI
 		IntSize contentSize = getContentSize();
 		IntSize viewSize = getViewSize();
 
-		// вертикальный контент не помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РєРѕРЅС‚РµРЅС‚ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (contentSize.height > viewSize.height)
 		{
 			if (mVScroll != nullptr)
@@ -62,7 +62,7 @@ namespace MyGUI
 					mVScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -74,15 +74,15 @@ namespace MyGUI
 					{
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((contentSize.width > viewSize.width) && ( ! mHScroll->getVisible()) && (mVisibleHScroll))
 						{
 							mHScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -95,7 +95,7 @@ namespace MyGUI
 				}
 			}
 		}
-		// вертикальный контент помещается
+		// РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РєРѕРЅС‚РµРЅС‚ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else
 		{
 			if (mVScroll != nullptr)
@@ -105,7 +105,7 @@ namespace MyGUI
 					mVScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -117,15 +117,15 @@ namespace MyGUI
 					{
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
-						// пересчитываем горизонтальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((contentSize.width <= viewSize.width) && (mHScroll->getVisible()))
 						{
 							mHScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -140,7 +140,7 @@ namespace MyGUI
 		}
 
 
-		// горизонтальный контент не помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РєРѕРЅС‚РµРЅС‚ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		if (contentSize.width > viewSize.width)
 		{
 			if (mHScroll != nullptr)
@@ -150,7 +150,7 @@ namespace MyGUI
 					mHScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -162,15 +162,15 @@ namespace MyGUI
 					{
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
-						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет показа
+						// РµСЃР»Рё РїРѕРєР°Р·Р°Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРјРµРЅСЊС€РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ РїРѕРєР°Р·Р°
 						if ((contentSize.height > viewSize.height) && ( ! mVScroll->getVisible()) && (mVisibleVScroll))
 						{
 							mVScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -183,7 +183,7 @@ namespace MyGUI
 				}
 			}
 		}
-		// горизонтальный контент помещается
+		// РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РєРѕРЅС‚РµРЅС‚ РїРѕРјРµС‰Р°РµС‚СЃСЏ
 		else
 		{
 			if (mHScroll != nullptr)
@@ -193,7 +193,7 @@ namespace MyGUI
 					mHScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 
-					// размер может измениться
+					// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 					if (mChangeContentByResize)
 					{
 						eraseContent();
@@ -205,15 +205,15 @@ namespace MyGUI
 					{
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
-						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
-						// пересчитываем вертикальный скрол на предмет скрытия
+						// РµСЃР»Рё СЃРєСЂС‹Р»Рё РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» Р±Р°СЂ, СѓРІРµР»РёС‡РёР»РѕСЃСЊ РІСЊСЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё,
+						// РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ СЃРєСЂРѕР» РЅР° РїСЂРµРґРјРµС‚ СЃРєСЂС‹С‚РёСЏ
 						if ((contentSize.height <= viewSize.height) && (mVScroll->getVisible()))
 						{
 							mVScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
-							// размер может измениться
+							// СЂР°Р·РјРµСЂ РјРѕР¶РµС‚ РёР·РјРµРЅРёС‚СЊСЃСЏ
 							if (mChangeContentByResize)
 							{
 								eraseContent();
@@ -249,11 +249,11 @@ namespace MyGUI
 
 	void ScrollViewBase::updateScrollPosition()
 	{
-		// размер контекста
+		// СЂР°Р·РјРµСЂ РєРѕРЅС‚РµРєСЃС‚Р°
 		IntSize contentSize = getContentSize();
-		// текущее смещение контекста
+		// С‚РµРєСѓС‰РµРµ СЃРјРµС‰РµРЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р°
 		IntPoint contentPoint = getContentPosition();
-		// расчетное смещение
+		// СЂР°СЃС‡РµС‚РЅРѕРµ СЃРјРµС‰РµРЅРёРµ
 		IntPoint offset = contentPoint;
 
 		IntSize viewSize = getViewSize();
@@ -262,12 +262,12 @@ namespace MyGUI
 
 		if (contentSize.width > viewSize.width)
 		{
-			// максимальный выход влево
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІР»РµРІРѕ
 			if ((offset.left + viewSize.width) > contentSize.width)
 			{
 				offset.left = contentSize.width - viewSize.width;
 			}
-			// максимальный выход вправо
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРїСЂР°РІРѕ
 			else if (offset.left < 0)
 			{
 				offset.left = 0;
@@ -291,12 +291,12 @@ namespace MyGUI
 
 		if (contentSize.height > viewSize.height)
 		{
-			// максимальный выход вверх
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРІРµСЂС…
 			if ((offset.top + viewSize.height) > contentSize.height)
 			{
 				offset.top = contentSize.height - viewSize.height;
 			}
-			// максимальный выход вниз
+			// РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІС‹С…РѕРґ РІРЅРёР·
 			else if (offset.top < 0)
 			{
 				offset.top = 0;

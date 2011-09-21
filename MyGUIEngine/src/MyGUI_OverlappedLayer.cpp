@@ -67,7 +67,7 @@ namespace MyGUI
 
 	ILayerNode* OverlappedLayer::createChildItemNode()
 	{
-		// ñîçäàåì ðóòîâûé àéòåì
+		// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ñ€ÑƒÑ‚Ð¾Ð²Ñ‹Ð¹ Ð°Ð¹Ñ‚ÐµÐ¼
 		ILayerNode* node = new LayerNode(this);
 		mChildItems.push_back(node);
 
@@ -78,7 +78,7 @@ namespace MyGUI
 
 	void OverlappedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// åñëè åñòü îòåö, òî ðóñòü ñàì è óäàëÿåò
+		// ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ Ð¾Ñ‚ÐµÑ†, Ñ‚Ð¾ Ñ€ÑƒÑÑ‚ÑŒ ÑÐ°Ð¼ Ð¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚
 		ILayerNode* parent = _item->getParent();
 		if (parent)
 		{
@@ -89,7 +89,7 @@ namespace MyGUI
 			return;
 		}
 
-		// àéòåì ðóòîâûé, ìû óäàëÿåì
+		// Ð°Ð¹Ñ‚ÐµÐ¼ Ñ€ÑƒÑ‚Ð¾Ð²Ñ‹Ð¹, Ð¼Ñ‹ ÑƒÐ´Ð°Ð»ÑÐµÐ¼
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
@@ -108,7 +108,7 @@ namespace MyGUI
 
 	void OverlappedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		// åñëè åñòü îòåö, òî ïóñòü ñàì ðóëèò
+		// ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ Ð¾Ñ‚ÐµÑ†, Ñ‚Ð¾ Ð¿ÑƒÑÑ‚ÑŒ ÑÐ°Ð¼ Ñ€ÑƒÐ»Ð¸Ñ‚
 		ILayerNode* parent = _item->getParent();
 		if (parent != nullptr)
 		{

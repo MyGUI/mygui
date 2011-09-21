@@ -40,7 +40,7 @@
 #    include "MyGUI_Allocator.h"
 #endif // MYGUI_CUSTOM_ALLOCATOR
 
-// этот дефайн для того чтобы в самом гуе показывалось имя файла где вызывается new
+// СЌС‚РѕС‚ РґРµС„Р°Р№РЅ РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РІ СЃР°РјРѕРј РіСѓРµ РїРѕРєР°Р·С‹РІР°Р»РѕСЃСЊ РёРјСЏ С„Р°Р№Р»Р° РіРґРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ new
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 #	ifdef MYGUI_CHECK_MEMORY_LEAKS
 #		define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)

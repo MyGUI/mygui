@@ -74,10 +74,10 @@ namespace base
 
 		setupResources();
 
-		// ïîïðîáóåì çàâåñòèñü íà äåôîëòíûõ
+		// Ð¿Ð¾Ð¿Ñ€Ð¾Ð±ÑƒÐµÐ¼ Ð·Ð°Ð²ÐµÑÑ‚Ð¸ÑÑŒ Ð½Ð° Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ñ…
 		if (!mRoot->restoreConfig())
 		{
-			// íè÷åãî íå ïîëó÷èëîñü, ïîêàæåì äèàëîã
+			// Ð½Ð¸Ñ‡ÐµÐ³Ð¾ Ð½Ðµ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð»Ð¾ÑÑŒ, Ð¿Ð¾ÐºÐ°Ð¶ÐµÐ¼ Ð´Ð¸Ð°Ð»Ð¾Ð³
 			if (!mRoot->showConfigDialog()) return false;
 		}
 
@@ -85,15 +85,15 @@ namespace base
 
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// âûòàñêèâàåì äèñêðèïòîð îêíà
+		// Ð²Ñ‹Ñ‚Ð°ÑÐºÐ¸Ð²Ð°ÐµÐ¼ Ð´Ð¸ÑÐºÑ€Ð¸Ð¿Ñ‚Ð¾Ñ€ Ð¾ÐºÐ½Ð°
 		size_t hWnd = 0;
 		mWindow->getCustomAttribute("WINDOW", &hWnd);
-		// áåðåì èìÿ íàøåãî ýêçåøíèêà
+		// Ð±ÐµÑ€ÐµÐ¼ Ð¸Ð¼Ñ Ð½Ð°ÑˆÐµÐ³Ð¾ ÑÐºÐ·ÐµÑˆÐ½Ð¸ÐºÐ°
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		// áåðåì èíñòàíñ íàøåãî ìîäóëÿ
+		// Ð±ÐµÑ€ÐµÐ¼ Ð¸Ð½ÑÑ‚Ð°Ð½Ñ Ð½Ð°ÑˆÐµÐ³Ð¾ Ð¼Ð¾Ð´ÑƒÐ»Ñ
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		// ïîáûñòðîìó ãðóçèì èêîíêó
+		// Ð¿Ð¾Ð±Ñ‹ÑÑ‚Ñ€Ð¾Ð¼Ñƒ Ð³Ñ€ÑƒÐ·Ð¸Ð¼ Ð¸ÐºÐ¾Ð½ÐºÑƒ
 		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon)
 		{
@@ -148,10 +148,10 @@ namespace base
 
 	void BaseManager::run()
 	{
-		// èíèöèàëèçèðóåì âñå ðåíäåð òàðãåòû
+		// Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ Ð²ÑÐµ Ñ€ÐµÐ½Ð´ÐµÑ€ Ñ‚Ð°Ñ€Ð³ÐµÑ‚Ñ‹
 		mRoot->getRenderSystem()->_initRenderTargets();
 
-		// êðóòèìñÿ áåñêîíå÷íî
+		// ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ Ð±ÐµÑÐºÐ¾Ð½ÐµÑ‡Ð½Ð¾
 		while (true)
 		{
 			Ogre::WindowEventUtilities::messagePump();
@@ -166,7 +166,7 @@ namespace base
 			if (!mRoot->renderOneFrame())
 				break;
 
-// âûñòàâëÿåì ñëèï, ÷òîáû äðóãèå ïîòîêè íå ñòîïîðèëèñü
+// Ð²Ñ‹ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ ÑÐ»Ð¸Ð¿, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð´Ñ€ÑƒÐ³Ð¸Ðµ Ð¿Ð¾Ñ‚Ð¾ÐºÐ¸ Ð½Ðµ ÑÑ‚Ð¾Ð¿Ð¾Ñ€Ð¸Ð»Ð¸ÑÑŒ
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			::Sleep(0);
 #endif
@@ -184,7 +184,7 @@ namespace base
 
 		destroyGui();
 
-		// î÷èùàåì ñöåíó
+		// Ð¾Ñ‡Ð¸Ñ‰Ð°ÐµÐ¼ ÑÑ†ÐµÐ½Ñƒ
 		if (mSceneManager)
 		{
 			mSceneManager->clearScene();
@@ -312,7 +312,7 @@ namespace base
 			}
 		}
 
-		// äëÿ äåôîëòíîé ñöåíû
+		// Ð´Ð»Ñ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ð¾Ð¹ ÑÑ†ÐµÐ½Ñ‹
 		if (mNode)
 		{
 			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
@@ -331,7 +331,7 @@ namespace base
 		int width = (int)_rw->getWidth();
 		int height = (int)_rw->getHeight();
 
-		// ïðè óäàëåíèè îêíà ìîæåò âûçûâàòüñÿ ýòîò ìåòîä
+		// Ð¿Ñ€Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ð¸ Ð¾ÐºÐ½Ð° Ð¼Ð¾Ð¶ÐµÑ‚ Ð²Ñ‹Ð·Ñ‹Ð²Ð°Ñ‚ÑŒÑÑ ÑÑ‚Ð¾Ñ‚ Ð¼ÐµÑ‚Ð¾Ð´
 		if (mCamera)
 		{
 			mCamera->setAspectRatio((float)width / (float)height);

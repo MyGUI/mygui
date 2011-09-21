@@ -83,7 +83,7 @@ namespace tools
 			updateList();
 
 			mEdit->setCaption("");
-			//îáíîâëÿåì êíîïêè
+			//Ð¾Ð±Ð½Ð¾Ð²Ð»ÑÐµÐ¼ ÐºÐ½Ð¾Ð¿ÐºÐ¸
 			notifyChangeWidth(0);
 		}
 		else
@@ -163,7 +163,7 @@ namespace tools
 			if (item == nullptr)
 				erasePropertyValue(mCurrentWidget, _index, "AddItem");
 
-			// ïðè óäàëåíèè âèäæåòà îí ñàì óäàëèò êîíòåéíåð
+			// Ð¿Ñ€Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ð¸ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð° Ð¾Ð½ ÑÐ°Ð¼ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€
 			itemContainer->_removeItemAt(_index);
 		}
 	}

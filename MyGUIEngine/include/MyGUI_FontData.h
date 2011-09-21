@@ -63,7 +63,7 @@ namespace MyGUI
 		Enum value;
 	};
 
-	// информация об одном символе
+	// РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± РѕРґРЅРѕРј СЃРёРјРІРѕР»Рµ
 	struct GlyphInfo
 	{
 	public:
@@ -81,7 +81,7 @@ namespace MyGUI
 
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;
 
-	// информация об диапазоне
+	// РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± РґРёР°РїР°Р·РѕРЅРµ
 	//FIXME move to std::pair
 	class PairCodePoint
 	{
@@ -98,7 +98,7 @@ namespace MyGUI
 		{
 		}
 
-		// проверяет входит ли символ в диапазон
+		// РїСЂРѕРІРµСЂСЏРµС‚ РІС…РѕРґРёС‚ Р»Рё СЃРёРјРІРѕР» РІ РґРёР°РїР°Р·РѕРЅ
 		bool isExist(Char _code) const
 		{
 			return _code >= first && _code <= last;
@@ -109,7 +109,7 @@ namespace MyGUI
 		Char last;
 	};
 
-	// инфомация о диапазоне символов
+	// РёРЅС„РѕРјР°С†РёСЏ Рѕ РґРёР°РїР°Р·РѕРЅРµ СЃРёРјРІРѕР»РѕРІ
 	class RangeInfo
 	{
 	public:
@@ -126,13 +126,13 @@ namespace MyGUI
 			range.resize(last - first + 1);
 		}
 
-		// проверяет входит ли символ в диапазон
+		// РїСЂРѕРІРµСЂСЏРµС‚ РІС…РѕРґРёС‚ Р»Рё СЃРёРјРІРѕР» РІ РґРёР°РїР°Р·РѕРЅ
 		bool isExist(Char _code) const
 		{
 			return _code >= first && _code <= last;
 		}
 
-		// возвращает указатель на глиф, или 0, если код не входит в диапазон
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РіР»РёС„, РёР»Рё 0, РµСЃР»Рё РєРѕРґ РЅРµ РІС…РѕРґРёС‚ РІ РґРёР°РїР°Р·РѕРЅ
 		GlyphInfo* getInfo(Char _code)
 		{
 			return isExist(_code) ? &range[_code - first] : nullptr;
