@@ -97,14 +97,14 @@ namespace MyGUI
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
-		// восстанавливаем буферы
+		// РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р±СѓС„РµСЂС‹
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 		void destroyAllResources();
 		void updateRenderInfo();
 
 	private:
-		// флаг для обновления всех и вся
+		// С„Р»Р°Рі РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РІСЃРµС… Рё РІСЃСЏ
 		bool mUpdate;
 
 		IntSize mViewSize;
@@ -113,10 +113,10 @@ namespace MyGUI
 
 		VertexColourType mVertexFormat;
 
-		// окно, на которое мы подписываемся для изменения размеров
+		// РѕРєРЅРѕ, РЅР° РєРѕС‚РѕСЂРѕРµ РјС‹ РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂРѕРІ
 		Ogre::RenderWindow* mWindow;
 
-		// вьюпорт, с которым работает система
+		// РІСЊСЋРїРѕСЂС‚, СЃ РєРѕС‚РѕСЂС‹Рј СЂР°Р±РѕС‚Р°РµС‚ СЃРёСЃС‚РµРјР°
 		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;

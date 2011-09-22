@@ -253,15 +253,15 @@ namespace wraps
 
 		void createScene()
 		{
-			// ñîçäàåì íîâûé ñöåí ìåíåäæåð
+			// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ð¹ ÑÑ†ÐµÐ½ Ð¼ÐµÐ½ÐµÐ´Ð¶ÐµÑ€
 			mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, MyGUI::utility::toString(this, "_SceneManagerRenderBox"));
 
-			// ñîçäàåì íîä ê êîòîðóìó áóäåì âñÿêóþ äðÿíü àòà÷èòü
+			// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ð½Ð¾Ð´ Ðº ÐºÐ¾Ñ‚Ð¾Ñ€ÑƒÐ¼Ñƒ Ð±ÑƒÐ´ÐµÐ¼ Ð²ÑÑÐºÑƒÑŽ Ð´Ñ€ÑÐ½ÑŒ Ð°Ñ‚Ð°Ñ‡Ð¸Ñ‚ÑŒ
 			mNode = mScene->getRootSceneNode()->createChildSceneNode();
 
 			mScene->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 
-			// ãëàâíûé èñòî÷íèê ñâåòà
+			// Ð³Ð»Ð°Ð²Ð½Ñ‹Ð¹ Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº ÑÐ²ÐµÑ‚Ð°
 			Ogre::Vector3 dir(-1, -1, 0.5);
 			dir.normalise();
 			Ogre::Light* light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
@@ -285,16 +285,16 @@ namespace wraps
 
 		void updateViewport()
 		{
-			// ïðè íóëå âûëåòàåò
+			// Ð¿Ñ€Ð¸ Ð½ÑƒÐ»Ðµ Ð²Ñ‹Ð»ÐµÑ‚Ð°ÐµÑ‚
 			if ((mCanvas->getWidth() <= 1) || (mCanvas->getHeight() <= 1))
 				return;
 
 			if ((nullptr != mEntity) && (nullptr != mCamera))
 			{
-				// íå ÿñíî, íóæíî ëè ðàñòÿãèâàòü êàìåðó, óñòàíîâëåííóþ þçåðîì
+				// Ð½Ðµ ÑÑÐ½Ð¾, Ð½ÑƒÐ¶Ð½Ð¾ Ð»Ð¸ Ñ€Ð°ÑÑ‚ÑÐ³Ð¸Ð²Ð°Ñ‚ÑŒ ÐºÐ°Ð¼ÐµÑ€Ñƒ, ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½ÑƒÑŽ ÑŽÐ·ÐµÑ€Ð¾Ð¼
 				mCamera->setAspectRatio((float)mCanvas->getWidth() / (float)mCanvas->getHeight());
 
-				// âû÷èñëÿåì ðàññòîÿíèå, ÷òîáû áûë âèäåí âåñü îáúåêò
+				// Ð²Ñ‹Ñ‡Ð¸ÑÐ»ÑÐµÐ¼ Ñ€Ð°ÑÑÑ‚Ð¾ÑÐ½Ð¸Ðµ, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð±Ñ‹Ð» Ð²Ð¸Ð´ÐµÐ½ Ð²ÐµÑÑŒ Ð¾Ð±ÑŠÐµÐºÑ‚
 				Ogre::AxisAlignedBox box;
 
 				box.merge(mEntity->getBoundingBox().getMinimum() + mEntity->getParentSceneNode()->_getDerivedPosition());
@@ -304,13 +304,13 @@ namespace wraps
 
 				Ogre::Vector3 vec = box.getSize();
 
-				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // ñàìîå äëèííîå - äèàãîíàëü (åñëè êðóòèòü ìîäåëü)
+				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // ÑÐ°Ð¼Ð¾Ðµ Ð´Ð»Ð¸Ð½Ð½Ð¾Ðµ - Ð´Ð¸Ð°Ð³Ð¾Ð½Ð°Ð»ÑŒ (ÐµÑÐ»Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ñ‚ÑŒ Ð¼Ð¾Ð´ÐµÐ»ÑŒ)
 				float len2 = width / mCamera->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// öåíòð îáúåêòà ïî âåðòèêàëè + îòúåõàòü òàê, ÷òîáû âëåçëà áëèæíÿÿ ãðàíü BoundingBox'à + ÷óòü ââåðõ è åùå íàçàä äëÿ êðàñîòû
+				// Ñ†ÐµÐ½Ñ‚Ñ€ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° Ð¿Ð¾ Ð²ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»Ð¸ + Ð¾Ñ‚ÑŠÐµÑ…Ð°Ñ‚ÑŒ Ñ‚Ð°Ðº, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²Ð»ÐµÐ·Ð»Ð° Ð±Ð»Ð¸Ð¶Ð½ÑÑ Ð³Ñ€Ð°Ð½ÑŒ BoundingBox'Ð° + Ñ‡ÑƒÑ‚ÑŒ Ð²Ð²ÐµÑ€Ñ… Ð¸ ÐµÑ‰Ðµ Ð½Ð°Ð·Ð°Ð´ Ð´Ð»Ñ ÐºÑ€Ð°ÑÐ¾Ñ‚Ñ‹
 				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z / 2 + len1) + Ogre::Vector3(0, height * 0.1f, len1 * 0.2f);
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
 
