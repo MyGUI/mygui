@@ -89,7 +89,7 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)
 	{
-		// отписываемся
+		// РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->removeListener(this);
@@ -98,12 +98,12 @@ namespace MyGUI
 
 		mRenderSystem = _render;
 
-		// подписываемся на рендер евент
+		// РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° СЂРµРЅРґРµСЂ РµРІРµРЅС‚
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->addListener(this);
 
-			// формат цвета в вершинах
+			// С„РѕСЂРјР°С‚ С†РІРµС‚Р° РІ РІРµСЂС€РёРЅР°С…
 			Ogre::VertexElementType vertex_type = mRenderSystem->getColourVertexElementType();
 			if (vertex_type == Ogre::VET_COLOUR_ARGB)
 				mVertexFormat = VertexColourType::ColourARGB;
@@ -121,7 +121,7 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
 	{
-		// отписываемся
+		// РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -162,7 +162,7 @@ namespace MyGUI
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-			// рассылка обновлений
+			// СЂР°СЃСЃС‹Р»РєР° РѕР±РЅРѕРІР»РµРЅРёР№
 			windowResized(mWindow);
 		}
 	}
@@ -201,7 +201,7 @@ namespace MyGUI
 		onRenderToTarget(this, mUpdate);
 		//end();
 
-		// сбрасываем флаг
+		// СЃР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі
 		mUpdate = false;
 	}
 
@@ -216,7 +216,7 @@ namespace MyGUI
 		}
 		else if (eventName == "DeviceRestored")
 		{
-			// обновить всех
+			// РѕР±РЅРѕРІРёС‚СЊ РІСЃРµС…
 			mUpdate = true;
 		}
 	}
@@ -231,7 +231,7 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	// для оповещений об изменении окна рендера
+	// РґР»СЏ РѕРїРѕРІРµС‰РµРЅРёР№ РѕР± РёР·РјРµРЅРµРЅРёРё РѕРєРЅР° СЂРµРЅРґРµСЂР°
 	void OgreRenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
 		if (_window->getNumViewports() > mActiveViewport)
@@ -247,7 +247,7 @@ namespace MyGUI
 			mViewSize.set(port->getActualWidth(), port->getActualHeight());
 #endif
 
-			// обновить всех
+			// РѕР±РЅРѕРІРёС‚СЊ РІСЃРµС…
 			mUpdate = true;
 
 			updateRenderInfo();
