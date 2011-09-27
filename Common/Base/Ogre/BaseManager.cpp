@@ -465,6 +465,7 @@ namespace base
 		}
 
 		// change polygon mode
+		// TODO: polygon mode require changes in platform
 		else if (_key == MyGUI::KeyCode::F5)
 		{
 			getCamera()->setPolygonMode(Ogre::PM_SOLID);
