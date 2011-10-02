@@ -159,6 +159,33 @@ namespace input
 #endif
 			}
 		}
+		else if (WM_IME_CHAR == uMsg)
+		{
+			int text = 0;
+#ifdef _UNICODE
+			text = wParam;
+#else
+			char mbstr[3];
+			BYTE hiByte = wParam >> 8;
+			BYTE loByte = wParam & 0x000000FF;
+			if (hiByte == 0)
+			{
+				mbstr[0] = loByte;
+				mbstr[1] = '\0';
+			}
+			else
+			{
+				mbstr[0] = hiByte;
+				mbstr[1] = loByte;
+				mbstr[2] = '\0';
+			}
+
+			wchar_t wstr[2];
+			int num = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, mbstr, -1, wstr, _countof(wstr));
+			text = wstr[0];
+#endif // _UNICODE
+			msInputManager->injectKeyPress(MyGUI::KeyCode::None, (MyGUI::Char)text);
+		}
 		else if (WM_KEYUP == uMsg)
 		{
 			int scan_code = VirtualKeyToScanCode(wParam);
