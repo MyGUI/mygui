@@ -678,7 +678,7 @@ namespace MyGUI
 		return mShadowColour;
 	}
 
-	void EditText::DrawQuad(
+	void EditText::drawQuad(
 		Vertex*& _buff,
 		const FloatRect& _vertexRect,
 		float v_z,
@@ -843,7 +843,7 @@ namespace MyGUI
 				((_info.pixScaleX * (float)(pix_left + result_width) + _info.hOffset) * 2) - 1,
 				- (((_info.pixScaleY * (float)(pix_top + result_height) + _info.vOffset) * 2) - 1));
 
-			DrawQuad(_vertex, vertexRect, _vertex_z, _colour | 0x00FFFFFF, texture_rect, _vertex_count);
+			drawQuad(_vertex, vertexRect, _vertex_z, _colour | 0x00FFFFFF, texture_rect, _vertex_count);
 		}
 	}
 
@@ -958,10 +958,10 @@ namespace MyGUI
 					_back_glyph->uvRect.top,
 					_back_glyph->uvRect.left,
 					_back_glyph->uvRect.top);
-				DrawQuad(_vertex, vertexRect, _vertex_z, _back_colour, background_current, _vertex_count);
+				drawQuad(_vertex, vertexRect, _vertex_z, _back_colour, background_current, _vertex_count);
 			}
 
-			DrawQuad(_vertex, vertexRect, _vertex_z, _colour, texture_rect, _vertex_count);
+			drawQuad(_vertex, vertexRect, _vertex_z, _colour, texture_rect, _vertex_count);
 		}
 	}
 
