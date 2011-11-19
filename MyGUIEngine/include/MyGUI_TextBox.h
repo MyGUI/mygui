@@ -74,6 +74,16 @@ namespace MyGUI
 		*/
 		void setCaptionWithReplacing(const std::string& _value);
 
+		/** Set widget text shadow colour */
+		void setTextShadowColour(const Colour& _value);
+		/** Get widget text shadow colour */
+		const Colour& getTextShadowColour();
+
+		/** Set widget text shadow */
+		void setTextShadow(bool _value);
+		/** Get widget text shadow */
+		bool getTextShadow();
+
 	protected:
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 	};
