@@ -129,7 +129,7 @@ namespace MyGUI
 		void _setTextColour(const Colour& _value);
 		void checkVertexSize();
 
-		void EditText::DrawQuad(
+		void drawQuad(
 			Vertex*& _buff,
 			const FloatRect& _vertexRect,
 			float v_z,
