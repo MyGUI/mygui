@@ -30,6 +30,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_TextView.h"
+#include "MyGUI_VertexData.h"
 
 namespace MyGUI
 {
@@ -106,11 +107,17 @@ namespace MyGUI
 		// возвращает положение курсора в обсолютных координатах
 		virtual IntCoord getCursorCoord(size_t _position);
 
-		void setShiftText(bool _shift);
+		virtual bool getShadow() const;
+		virtual void setShadow(bool _value);
 
-		void setWordWrap(bool _value);
+		virtual void setShiftText(bool _shift);
+
+		virtual void setWordWrap(bool _value);
 
 		virtual void setStateData(IStateInfo* _data);
+
+		virtual void setShadowColour(const Colour& _value);
+		virtual const Colour& getShadowColour() const;
 
 	/*internal:*/
 		virtual void _updateView();
@@ -120,12 +127,41 @@ namespace MyGUI
 
 	private:
 		void _setTextColour(const Colour& _value);
+		void checkVertexSize();
+
+		void EditText::DrawQuad(
+			Vertex*& _buff,
+			const FloatRect& _vertexRect,
+			float v_z,
+			uint32 _colour,
+			const FloatRect& _textureRect,
+			size_t& _count);
+
+		void drawCursor(
+			const RenderTargetInfo& _info,
+			Vertex*& _vertex,
+			float _vertex_z,
+			uint32 _colour,
+			size_t& _vertex_count);
+
+		void drawSimbol(
+			VectorCharInfo::const_iterator _sim,
+			const RenderTargetInfo& _info,
+			GlyphInfo* back_glyph,
+			Vertex*& _vertex,
+			float _vertex_z,
+			const IntPoint& _point,
+			bool _select,
+			uint32 _colour,
+			uint32 _back_colour,
+			size_t& _vertex_count);
 
 	protected:
 		bool mEmptyView;
-		uint32 mCurrentColour;
-		uint32 mInverseColour;
-		uint32 mCurrentAlpha;
+		uint32 mCurrentColourNative;
+		uint32 mInverseColourNative;
+		uint32 mCurrentAlphaNative;
+		uint32 mShadowColourNative;
 		IntCoord mCurrentCoord;
 
 		UString mCaption;
@@ -133,6 +169,7 @@ namespace MyGUI
 		Align mTextAlign;
 
 		Colour mColour;
+		Colour mShadowColour;
 		float mAlpha;
 		VertexColourType mVertexFormat;
 
@@ -146,6 +183,7 @@ namespace MyGUI
 		size_t mCursorPosition;
 		bool mVisibleCursor;
 		bool mInvertSelect;
+		bool mShadow;
 
 		IntPoint mViewOffset; // смещение текста
 

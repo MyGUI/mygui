@@ -41,10 +41,10 @@ namespace MyGUI
 		return (nullptr == getSubWidgetText()) ? IntSize() : getSubWidgetText()->getTextSize();
 	}
 
-	void TextBox::setTextAlign(Align _align)
+	void TextBox::setTextAlign(Align _value)
 	{
 		if (getSubWidgetText() != nullptr)
-			getSubWidgetText()->setTextAlign(_align);
+			getSubWidgetText()->setTextAlign(_value);
 	}
 
 	Align TextBox::getTextAlign()
@@ -54,10 +54,10 @@ namespace MyGUI
 		return Align::Default;
 	}
 
-	void TextBox::setTextColour(const Colour& _colour)
+	void TextBox::setTextColour(const Colour& _value)
 	{
 		if (nullptr != getSubWidgetText())
-			getSubWidgetText()->setTextColour(_colour);
+			getSubWidgetText()->setTextColour(_value);
 	}
 
 	const Colour& TextBox::getTextColour()
@@ -65,10 +65,10 @@ namespace MyGUI
 		return (nullptr == getSubWidgetText()) ? Colour::Zero : getSubWidgetText()->getTextColour();
 	}
 
-	void TextBox::setFontName(const std::string& _font)
+	void TextBox::setFontName(const std::string& _value)
 	{
 		if (nullptr != getSubWidgetText())
-			getSubWidgetText()->setFontName(_font);
+			getSubWidgetText()->setFontName(_value);
 	}
 
 	const std::string& TextBox::getFontName()
@@ -123,6 +123,28 @@ namespace MyGUI
 		}
 	}
 
+	void TextBox::setTextShadowColour(const Colour& _value)
+	{
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setShadowColour(_value);
+	}
+
+	const Colour& TextBox::getTextShadowColour()
+	{
+		return (nullptr == getSubWidgetText()) ? Colour::Black : getSubWidgetText()->getShadowColour();
+	}
+
+	void TextBox::setTextShadow(bool _value)
+	{
+		if (nullptr != getSubWidgetText())
+			getSubWidgetText()->setShadow(_value);
+	}
+
+	bool TextBox::getTextShadow()
+	{
+		return (nullptr == getSubWidgetText()) ? false : getSubWidgetText()->getShadow();
+	}
+
 	void TextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "TextColour")
@@ -135,6 +157,10 @@ namespace MyGUI
 			setFontHeight(utility::parseValue<int>(_value));
 		else if (_key == "Caption")
 			setCaptionWithReplacing(_value);
+		else if (_key == "TextShadowColour")
+			setTextShadowColour(utility::parseValue<Colour>(_value));
+		else if (_key == "TextShadow")
+			setTextShadow(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setPropertyOverride(_key, _value);

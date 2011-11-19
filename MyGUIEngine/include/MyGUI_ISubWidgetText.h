@@ -68,6 +68,14 @@ namespace MyGUI
 
 		virtual void setInvertSelected(bool _value) { }
 
+		// нужно ли показывать тень
+		virtual bool getShadow() const
+		{
+			return false;
+		}
+
+		virtual void setShadow(bool _value) { }
+
 		// управление видимостью курсора
 		virtual bool isVisibleCursor() const
 		{
@@ -159,6 +167,13 @@ namespace MyGUI
 		}
 
 		virtual void setShiftText(bool _value) { }
+
+		virtual void setShadowColour(const Colour& _value) { }
+		virtual const Colour& getShadowColour() const
+		{
+			return Colour::Zero;
+		}
+
 	};
 
 } // namespace MyGUI
