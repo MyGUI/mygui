@@ -25,7 +25,7 @@
 		<Parameter key="ImageResource" value="String"/>
 		<Parameter key="ImageGroup" value="String"/>
 		<Parameter key="ImageName" value="String"/>
-	</Widget>
+  </Widget>
 
 	<Widget name="Canvas">
 		<Property key="DefaultSkin" value="Canvas"/>
@@ -275,7 +275,9 @@
 		<Parameter key="TextAlign" value="TextAlign"/>
 		<Parameter key="FontName" value="Font"/>
 		<Parameter key="FontHeight" value="1 int"/>
-	</Widget>
+    <Parameter key="TextShadow" value="Bool"/>
+    <Parameter key="TextShadowColour" value="Colour"/>
+  </Widget>
 
 	<Widget name="TabControl">
 		<Property key="DefaultSkin" value="TabControl"/>
