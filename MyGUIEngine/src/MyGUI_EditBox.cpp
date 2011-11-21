@@ -2188,4 +2188,20 @@ namespace MyGUI
 		mVectorUndoChangeInfo.clear();
 	}
 
+	void EditBox::setTextShadowColour(const Colour& _value)
+	{
+		Base::setTextShadowColour(_value);
+
+		if (mClientText != nullptr)
+			mClientText->setShadowColour(_value);
+	}
+
+	void EditBox::setTextShadow(bool _value)
+	{
+		Base::setTextShadow(_value);
+
+		if (mClientText != nullptr)
+			mClientText->setShadow(_value);
+	}
+
 } // namespace MyGUI
