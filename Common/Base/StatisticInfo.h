@@ -19,16 +19,15 @@ namespace diagnostic
 
 		StatisticInfo() :
 			mInfo(nullptr),
-			mInfoShadow(nullptr)
+			mOffset(20, 20)
 		{
 			const std::string layer = "Statistic";
 			if (!MyGUI::LayerManager::getInstance().isExist(layer))
 				return;
 
-			mInfoShadow = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
-			mInfoShadow->setTextColour(MyGUI::Colour::Black);
 			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 			mInfo->setTextColour(MyGUI::Colour::White);
+			mInfo->setTextShadow(true);
 		}
 
 		~StatisticInfo()
@@ -37,11 +36,6 @@ namespace diagnostic
 			{
 				MyGUI::Gui::getInstance().destroyChildWidget(mInfo);
 				mInfo = nullptr;
-			}
-			if (mInfoShadow != nullptr)
-			{
-				MyGUI::Gui::getInstance().destroyChildWidget(mInfoShadow);
-				mInfoShadow = nullptr;
 			}
 		}
 
@@ -83,16 +77,13 @@ namespace diagnostic
 				}
 
 				mInfo->setCaption(stream.str());
-				mInfoShadow->setCaption(stream.str());
 
 				MyGUI::ISubWidgetText* text = mInfo->getSubWidgetText();
 				if (text != nullptr)
 				{
 					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
 					const MyGUI::IntSize& size_view = MyGUI::RenderManager::getInstance().getViewSize();
-					mInfo->setCoord(size_view.width - size.width - 20, size_view.height - size.height - 20, size.width, size.height);
-					if (mInfoShadow != nullptr)
-						mInfoShadow->setCoord(size_view.width - size.width - 20 + 1, size_view.height - size.height - 20 + 1, size.width, size.height);
+					mInfo->setCoord(size_view.width - size.width - mOffset.left, size_view.height - size.height - mOffset.top, size.width, size.height);
 				}
 			}
 		}
@@ -118,8 +109,6 @@ namespace diagnostic
 		{
 			if (mInfo != nullptr)
 				mInfo->setVisible(_value);
-			if (mInfoShadow != nullptr)
-				mInfoShadow->setVisible(_value);
 		}
 
 		bool getVisible()
@@ -129,10 +118,15 @@ namespace diagnostic
 			return false;
 		}
 
+		void setOffset(const MyGUI::IntPoint& _value)
+		{
+			mOffset = _value;
+		}
+
 	private:
 		MyGUI::TextBox* mInfo;
-		MyGUI::TextBox* mInfoShadow;
 		MyGUI::VectorStringPairs mParams;
+		MyGUI::IntPoint mOffset;
 	};
 
 } // namespace diagnostic
