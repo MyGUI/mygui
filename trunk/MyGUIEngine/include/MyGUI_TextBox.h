@@ -75,12 +75,12 @@ namespace MyGUI
 		void setCaptionWithReplacing(const std::string& _value);
 
 		/** Set widget text shadow colour */
-		void setTextShadowColour(const Colour& _value);
+		virtual void setTextShadowColour(const Colour& _value);
 		/** Get widget text shadow colour */
 		const Colour& getTextShadowColour();
 
 		/** Set widget text shadow */
-		void setTextShadow(bool _value);
+		virtual void setTextShadow(bool _value);
 		/** Get widget text shadow */
 		bool getTextShadow();
 
