@@ -57,6 +57,7 @@ namespace MyGUI
 		mCursorPosition(0),
 		mVisibleCursor(false),
 		mInvertSelect(true),
+		mShadow(false),
 		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
@@ -64,8 +65,7 @@ namespace MyGUI
 		mShiftText(false),
 		mWordWrap(false),
 		mManualColour(false),
-		mOldWidth(0),
-		mShadow(false)
+		mOldWidth(0)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
@@ -684,7 +684,7 @@ namespace MyGUI
 		float v_z,
 		uint32 _colour,
 		const FloatRect& _textureRect,
-		size_t& _count)
+		size_t& _count) const
 	{
 		_buff[0].x = _vertexRect.left;
 		_buff[0].y = _vertexRect.top;
