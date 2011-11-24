@@ -81,7 +81,7 @@ namespace MyGUI
 
 		EnumeratorPtr getEnumerator() const;
 
-		size_t getCount();
+		size_t getCount() const;
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
