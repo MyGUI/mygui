@@ -283,7 +283,7 @@ namespace MyGUI
 		return EnumeratorPtr(mResources);
 	}
 
-	size_t ResourceManager::getCount()
+	size_t ResourceManager::getCount() const
 	{
 		return mResources.size();
 	}

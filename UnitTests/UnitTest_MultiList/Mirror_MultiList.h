@@ -39,7 +39,7 @@ namespace unittest
 		// манипул€ции айтемами
 
 		//! Get number of columns
-		size_t getColumnCount()
+		size_t getColumnCount() const
 		{
 			return mVectorColumnInfo.size();
 		}

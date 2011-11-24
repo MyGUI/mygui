@@ -127,7 +127,7 @@ namespace wrapper
 		{
 		}
 
-		size_t getParamCount()
+		size_t getParamCount() const
 		{
 			return mParams.size();
 		}

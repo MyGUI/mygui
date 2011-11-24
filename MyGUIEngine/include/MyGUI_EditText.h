@@ -135,7 +135,7 @@ namespace MyGUI
 			float v_z,
 			uint32 _colour,
 			const FloatRect& _textureRect,
-			size_t& _count);
+			size_t& _count) const;
 
 		void drawCursor(
 			const RenderTargetInfo& _info,

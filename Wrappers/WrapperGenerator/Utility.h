@@ -95,7 +95,7 @@ namespace wrapper
 			utility::trim(token_type);
 		}
 
-		std::string toString()
+		std::string toString() const
 		{
 			std::string result;
 			if (!token_const.empty())
