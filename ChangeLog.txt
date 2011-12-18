@@ -1,4 +1,38 @@
 ----------------------------------------------------------------
+------------------------- Version 3.2.0 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- MyGUI can be compiled without std::typeinfo
+- Fixed bug with alignment on non-screen layers (for example in RTT layer)
+
+-- Widgets --
+- Add DDContainer::resetDrag method to stop dragging from code
+- EditBox: fixed wrong text display when text area is lower than font height
+- EditBox: reset Redo changes when text was changed
+- Canvas: fix incorrect destruction
+
+--SubWidgets--
+- RotatingSkin subwidget fixed (incorrect UV)
+
+-- Resources --
+- ResourceTrueTypeFont replace assert with log message when font not found
+
+-- Wraps --
+- BaseLayout work properly without layout and/or widgets
+
+-- Plugins --
+- BerkeliumWidget plugin updated
+
+-- Tools --
+- Various fixes in LayoutEditor
+
+-- Platforms --
+- Keep solid mode when Ogre is in wireframe.
+- Fixed few bugs in OpenGL platform (not cleaned buffers)
+- New DirectX11 platform prototype
+
+----------------------------------------------------------------
 ------------------------- Version 3.2.0 RC1 --------------------
 ----------------------------------------------------------------
 
@@ -58,7 +92,7 @@
 - Removed check for unique name in LayoutEditor (not required any more).
 - FontViewer now same generated font in two formats: as ttf + xml that use freetype in runtime for texture generation and as manual font (texture and glyphs description)
 
--- Renders --
+-- Platforms --
 - BasisManager for OpenGL and DirectX now properly display Win32 window content without bugs with offset.
 - Fixed memory leak in OpenGL's and DirectX's DataManager.
 - Possibility to save texture in OpenGL.
