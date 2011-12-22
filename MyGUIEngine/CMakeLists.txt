@@ -15,11 +15,24 @@ if (MYGUI_USE_FREETYPE)
 endif ()
 
 # Get Svn revision
-set (file_name ${MYGUI_SOURCE_DIR}/.svn/entries)
-if (EXISTS "${file_name}")
-	file(STRINGS ${file_name} variable)
-	LIST(GET variable 3 revision)
-	add_definitions(-DMYGUI_SVN_REVISION=${revision})
+MACRO(Subversion_GET_REVISION variable)
+	FIND_PROGRAM(SVN_EXECUTABLE svn
+		DOC "subversion command line client")
+
+	EXECUTE_PROCESS(WORKING_DIRECTORY ${MYGUI_SOURCE_DIR}
+		COMMAND ${SVN_EXECUTABLE} info
+		OUTPUT_VARIABLE ${variable})
+
+	STRING(REGEX REPLACE "^(.*\n)?Revision: ([^\n]+).*"
+		"\\2" ${variable} "${${variable}}")
+ENDMACRO(Subversion_GET_REVISION)
+
+Subversion_GET_REVISION(ProjectRevision)
+if (NOT "${ProjectRevision}" STREQUAL "")
+	add_definitions(-DMYGUI_SVN_REVISION=${ProjectRevision})
+	MESSAGE(STATUS "Using svn revision ${ProjectRevision}.")
+else ()
+	MESSAGE(STATUS "Unknown svn revision. It won't be included into build.")
 endif ()
 
 add_definitions(-DMYGUI_BUILD)
