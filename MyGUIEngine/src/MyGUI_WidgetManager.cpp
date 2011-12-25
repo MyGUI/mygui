@@ -152,15 +152,9 @@ namespace MyGUI
 
 	void WidgetManager::unregisterUnlinker(IUnlinkWidget* _unlink)
 	{
-		for (size_t pos = 0; pos < mVectorIUnlinkWidget.size(); pos++)
-		{
-			if (mVectorIUnlinkWidget[pos] == _unlink)
-			{
-				mVectorIUnlinkWidget[pos] = mVectorIUnlinkWidget[mVectorIUnlinkWidget.size()-1];
-				mVectorIUnlinkWidget.pop_back();
-				break;
-			}
-		}
+		VectorIUnlinkWidget::iterator iter = std::remove(mVectorIUnlinkWidget.begin(), mVectorIUnlinkWidget.end(), _unlink);
+		if (iter != mVectorIUnlinkWidget.end())
+			mVectorIUnlinkWidget.erase(iter);
 	}
 
 	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)

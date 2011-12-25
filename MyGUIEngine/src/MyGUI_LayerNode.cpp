@@ -266,8 +266,7 @@ namespace MyGUI
 		{
 			if ((*iter) == _item)
 			{
-				(*iter) = mLayerItems.back();
-				mLayerItems.pop_back();
+				mLayerItems.erase(iter);
 
 				mOutOfDate = true;
 
