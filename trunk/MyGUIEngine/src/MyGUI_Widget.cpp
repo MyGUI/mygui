@@ -407,8 +407,7 @@ namespace MyGUI
 			MyGUI::Widget* widget = *iter;
 
 			// удаляем из списка
-			*iter = mWidgetChild.back();
-			mWidgetChild.pop_back();
+			mWidgetChild.erase(iter);
 
 			// отписываем от всех
 			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
