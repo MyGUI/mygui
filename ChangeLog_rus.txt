@@ -13,7 +13,7 @@
 - Canvas исправлено некорректное удаление
 
 --SubWidgets--
-- Исправлен саб виджет RotatingSkin
+- Исправлен саб виджет RotatingSkin (неправильные UV координаты)
 
 -- Resources --
 - ResourceTrueTypeFont не падает теперь при отсутствии шрифта
