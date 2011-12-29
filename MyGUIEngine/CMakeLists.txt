@@ -16,15 +16,12 @@ endif ()
 
 # Get Svn revision
 MACRO(Subversion_GET_REVISION variable)
-	FIND_PROGRAM(SVN_EXECUTABLE svn
+	FIND_PROGRAM(SVN_EXECUTABLE svnversion
 		DOC "subversion command line client")
 
 	EXECUTE_PROCESS(WORKING_DIRECTORY ${MYGUI_SOURCE_DIR}
-		COMMAND ${SVN_EXECUTABLE} info
+		COMMAND ${SVN_EXECUTABLE}
 		OUTPUT_VARIABLE ${variable})
-
-	STRING(REGEX REPLACE "^(.*\n)?Revision: ([^\n]+).*"
-		"\\2" ${variable} "${${variable}}")
 ENDMACRO(Subversion_GET_REVISION)
 
 Subversion_GET_REVISION(ProjectRevision)
