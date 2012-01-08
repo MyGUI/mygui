@@ -19,14 +19,16 @@ MACRO(Subversion_GET_REVISION variable)
 	FIND_PROGRAM(SVN_EXECUTABLE svnversion
 		DOC "subversion command line client")
 
-	EXECUTE_PROCESS(WORKING_DIRECTORY ${MYGUI_SOURCE_DIR}
-		COMMAND ${SVN_EXECUTABLE}
+	EXECUTE_PROCESS(
+		COMMAND ${SVN_EXECUTABLE} ${MYGUI_SOURCE_DIR}
+		OUTPUT_STRIP_TRAILING_WHITESPACE
 		OUTPUT_VARIABLE ${variable})
+	MESSAGE(STATUS  ${MYGUI_SOURCE_DIR} ${variable})
 ENDMACRO(Subversion_GET_REVISION)
 
 Subversion_GET_REVISION(ProjectRevision)
 if (NOT "${ProjectRevision}" STREQUAL "")
-	add_definitions(-DMYGUI_SVN_REVISION=${ProjectRevision})
+	add_definitions(-DMYGUI_SVN_REVISION="${ProjectRevision}")
 	MESSAGE(STATUS "Using svn revision ${ProjectRevision}.")
 else ()
 	MESSAGE(STATUS "Unknown svn revision. It won't be included into build.")
