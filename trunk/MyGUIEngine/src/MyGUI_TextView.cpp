@@ -25,23 +25,42 @@
 namespace MyGUI
 {
 
+	namespace
+	{
+
+		template<typename T>
+		void setMin(T& _var, const T& _newValue)
+		{
+			if (_newValue < _var)
+				_var = _newValue;
+		}
+
+		template<typename T>
+		void setMax(T& _var, const T& _newValue)
+		{
+			if (_var < _newValue)
+				_var = _newValue;
+		}
+
+	}
+
 	class RollBackPoint
 	{
 	public:
 		RollBackPoint() :
 			position(0),
 			count(0),
-			lenght(0),
+			width(0),
 			rollback(false)
 		{
 		}
 
-		void set(size_t _position, UString::const_iterator& _space_point, size_t _count, int _length)
+		void set(size_t _position, UString::const_iterator& _space_point, size_t _count, float _width)
 		{
 			position = _position;
 			space_point = _space_point;
 			count = _count;
-			lenght = _length;
+			width = _width;
 			rollback = true;
 		}
 
@@ -55,10 +74,10 @@ namespace MyGUI
 			return !rollback;
 		}
 
-		int getLenght() const
+		float getWidth() const
 		{
 			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
-			return lenght;
+			return width;
 		}
 
 		size_t getCount() const
@@ -83,7 +102,7 @@ namespace MyGUI
 		size_t position;
 		UString::const_iterator space_point;
 		size_t count;
-		int lenght;
+		float width;
 		bool rollback;
 	};
 
@@ -93,7 +112,7 @@ namespace MyGUI
 	{
 	}
 
-	void TextView::update(const UString& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxheight)
+	void TextView::update(const UString& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
 	{
 		mFontHeight = _height;
 
@@ -110,7 +129,7 @@ namespace MyGUI
 
 		RollBackPoint roll_back;
 		IntSize result;
-		int width = 0;
+		float width = 0.0f;
 		size_t count = 0;
 		mLength = 0;
 		mLineInfo.clear();
@@ -142,13 +161,12 @@ namespace MyGUI
 						index = peeki; // skip both as one newline
 				}
 
-				line_info.width = width;
+				line_info.width = (int)ceil(width);
 				line_info.count = count;
 				mLength += line_info.count + 1;
 
 				result.height += _height;
-				if (result.width < width)
-					result.width = width;
+				setMax(result.width, line_info.width);
 				width = 0;
 				count = 0;
 
@@ -201,6 +219,10 @@ namespace MyGUI
 			}
 
 			GlyphInfo* info = _font->getGlyphInfo(character);
+
+			if (info == nullptr)
+				continue;
+
 			if (FontCodeType::Space == character)
 			{
 				roll_back.set(line_info.simbols.size(), index, count, width);
@@ -210,32 +232,43 @@ namespace MyGUI
 				roll_back.set(line_info.simbols.size(), index, count, width);
 			}
 
-			int char_width = info->width;
-			if (font_height != _height)
+			float char_width = info->width;
+			float char_height = info->height;
+			float char_advance = info->advance;
+			float char_bearingX = info->bearingX;
+			float char_bearingY = info->bearingY;
+
+			if (_height != font_height)
 			{
-				char_width = char_width * _height / font_height;
-				if (!char_width) char_width = 1;
+				float scale = (float)_height / font_height;
+
+				char_width *= scale;
+				char_height *= scale;
+				char_advance *= scale;
+				char_bearingX *= scale;
+				char_bearingY *= scale;
 			}
 
+			float char_fullAdvance = char_bearingX + char_advance;
+
 			// перенос слов
-			if (_maxheight != -1
-				&& (width + char_width) > _maxheight
+			if (_maxWidth != -1
+				&& (width + char_fullAdvance) > _maxWidth
 				&& !roll_back.empty())
 			{
 				// откатываем до последнего пробела
-				width = roll_back.getLenght();
+				width = roll_back.getWidth();
 				count = roll_back.getCount();
 				index = roll_back.getTextIter();
 				line_info.simbols.erase(line_info.simbols.begin() + roll_back.getPosition(), line_info.simbols.end());
 
 				// запоминаем место отката, как полную строку
-				line_info.width = width;
+				line_info.width = (int)ceil(width);
 				line_info.count = count;
 				mLength += line_info.count + 1;
 
 				result.height += _height;
-				if (result.width < width)
-					result.width = width;
+				setMax(result.width, line_info.width);
 				width = 0;
 				count = 0;
 
@@ -248,19 +281,18 @@ namespace MyGUI
 				continue;
 			}
 
-			line_info.simbols.push_back(CharInfo(info->uvRect, char_width));
-			width += char_width;
+			line_info.simbols.push_back(CharInfo(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY));
+			width += char_fullAdvance;
 			count ++;
 		}
 
-		line_info.width = width;
+		line_info.width = (int)ceil(width);
 		line_info.count = count;
 		mLength += line_info.count;
 
 		mLineInfo.push_back(line_info);
 
-		if (result.width < width)
-			result.width = width;
+		setMax(result.width, line_info.width);
 
 		// теперь выравниванием строки
 		for (VectorLineInfo::iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
@@ -289,7 +321,7 @@ namespace MyGUI
 			if (top + height > _value.top || lastline)
 			{
 				top += height;
-				int left = line->offset;
+				float left = (float)line->offset;
 				int count = 0;
 
 				// ищем символ
@@ -298,11 +330,12 @@ namespace MyGUI
 					if (sim->isColour())
 						continue;
 
-					if ((left + (sim->getWidth() / 2)) > _value.left)
+					float fullAdvance = sim->getAdvance() + sim->getBearingX();
+					if (left + fullAdvance / 2.0f > _value.left)
 					{
 						break;
 					}
-					left += sim->getWidth();
+					left += fullAdvance;
 					count ++;
 				}
 
@@ -322,15 +355,14 @@ namespace MyGUI
 
 	IntPoint TextView::getCursorPoint(size_t _position)
 	{
-		if (_position >= mLength + 1)
-			_position = mLength;
+		setMin(_position, mLength);
 
 		size_t position = 0;
 		int top = 0;
-		int left = 0;
+		float left = 0.0f;
 		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 		{
-			left = line->offset;
+			left = (float)line->offset;
 			if (position + line->count >= _position)
 			{
 				for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
@@ -342,7 +374,7 @@ namespace MyGUI
 						break;
 
 					position ++;
-					left += sim->getWidth();
+					left += sim->getBearingX() + sim->getAdvance();
 				}
 				break;
 			}
@@ -350,7 +382,7 @@ namespace MyGUI
 			top += mFontHeight;
 		}
 
-		return IntPoint(left, top);
+		return IntPoint((int)left, top);
 	}
 
 	const IntSize& TextView::getViewSize() const
