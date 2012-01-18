@@ -31,6 +31,7 @@ namespace MyGUI
 	{
 		enum Enum
 		{
+			NotDefined = 0,
 			Selected = 6,
 			SelectedBack = 7,
 			Cursor = 8,
@@ -66,17 +67,29 @@ namespace MyGUI
 	// информация об одном символе
 	struct GlyphInfo
 	{
-	public:
-		GlyphInfo() :
-			codePoint(0),
-			width(0)
+		GlyphInfo(
+			Char _codePoint = 0U,
+			float _width = 0.0f,
+			float _height = 0.0f,
+			float _advance = 0.0f,
+			float _bearingX = 0.0f,
+			float _bearingY = 0.0f) :
+			codePoint(_codePoint),
+			width(_width),
+			height(_height),
+			advance(_advance),
+			bearingX(_bearingX),
+			bearingY(_bearingY)
 		{
 		}
 
-	public:
 		FloatRect uvRect;
 		Char codePoint;
-		int width;
+		float width;
+		float height;
+		float advance;
+		float bearingX;
+		float bearingY;
 	};
 
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;

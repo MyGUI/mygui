@@ -71,7 +71,9 @@ namespace MyGUI
 		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
 		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
 		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
-		_info->width = _right - _left;
+		_info->width = (float)(_right - _left);
+		_info->height = (float)(_bottom - _top);
+		_info->advance = _info->width;
 	}
 
 	void ResourceManualFont::addGlyph(Char _code, const IntCoord& _coord)

@@ -130,31 +130,20 @@ namespace MyGUI
 		void checkVertexSize();
 
 		void drawQuad(
-			Vertex*& _buff,
+			Vertex*& _vertex,
+			size_t& _vertexCount,
 			const FloatRect& _vertexRect,
-			float v_z,
-			uint32 _colour,
+			float _vertexZ,
 			const FloatRect& _textureRect,
-			size_t& _count) const;
+			uint32 _colour) const;
 
-		void drawCursor(
-			const RenderTargetInfo& _info,
+		void drawGlyph(
+			const RenderTargetInfo& renderTargetInfo,
 			Vertex*& _vertex,
-			float _vertex_z,
-			uint32 _colour,
-			size_t& _vertex_count);
-
-		void drawSimbol(
-			VectorCharInfo::const_iterator _sim,
-			const RenderTargetInfo& _info,
-			GlyphInfo* back_glyph,
-			Vertex*& _vertex,
-			float _vertex_z,
-			const IntPoint& _point,
-			bool _select,
-			uint32 _colour,
-			uint32 _back_colour,
-			size_t& _vertex_count);
+			size_t& _vertexCount,
+			FloatRect _vertexRect,
+			FloatRect _textureRect,
+			uint32 _colour) const;
 
 	protected:
 		bool mEmptyView;
