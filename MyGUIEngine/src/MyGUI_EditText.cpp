@@ -436,7 +436,6 @@ namespace MyGUI
 			updateRawData();
 
 		IntSize size = mTextView.getViewSize();
-
 		// плюс размер курсора
 		if (mIsAddCursorWidth)
 			size.width += 2;
@@ -544,89 +543,100 @@ namespace MyGUI
 
 	void EditText::doRender()
 	{
-		if (nullptr == mFont)
-			return;
-		if (!mVisible || mEmptyView)
+		if (nullptr == mFont || !mVisible || mEmptyView)
 			return;
 
-		bool _update = mRenderItem->getCurrentUpdate();
-		if (_update)
-			mTextOutDate = true;
-
-		if (mTextOutDate)
+		if (mRenderItem->getCurrentUpdate() || mTextOutDate)
 			updateRawData();
 
 		Vertex* vertex = mRenderItem->getCurrentVertexBuffer();
 
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		const RenderTargetInfo& renderTargetInfo = mRenderItem->getRenderTarget()->getInfo();
 
 		// колличество отрисованных вершин
-		size_t vertex_count = 0;
+		size_t vertexCount = 0;
 
 		// текущие цвета
-		uint32 colour_current = mCurrentColourNative;
 		uint32 colour = mCurrentColourNative;
-		uint32 colour_inverse = mInverseColourNative;
-		uint32 colour_shadow = mShadowColourNative;
+		uint32 inverseColour = mInverseColourNative;
+		uint32 selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
 
-		GlyphInfo* back_glyph = mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack);
+		const VectorLineInfo& textViewData = mTextView.getData();
 
-		const float vertex_z = info.maximumDepth;
+		float top = (float)(-mViewOffset.top + mCoord.top);
 
-		const VectorLineInfo& data = mTextView.getData();
+		FloatRect vertexRect;
 
-		int left = - mViewOffset.left + mCoord.left;
-		int top = - mViewOffset.top + mCoord.top;
-		const int height = mFontHeight;
+		const FloatRect& selectedUVRect = mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack)->uvRect;
 
 		size_t index = 0;
-		for (VectorLineInfo::const_iterator line = data.begin(); line != data.end(); ++line)
+
+		for (VectorLineInfo::const_iterator line = textViewData.begin(); line != textViewData.end(); ++line)
 		{
-			left = line->offset - mViewOffset.left + mCoord.left;
+			float left = (float)(line->offset - mViewOffset.left + mCoord.left);
+
 			for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
 			{
 				if (sim->isColour())
 				{
 					colour = sim->getColour() | (colour & 0xFF000000);
-					colour_inverse = colour ^ 0x00FFFFFF;
+					inverseColour = colour ^ 0x00FFFFFF;
+					selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
 					continue;
 				}
 
 				// смещение текстуры для фона
-				bool select = !((index >= mEndSelect) || (index < mStartSelect));
+				bool select = index >= mStartSelect && index < mEndSelect;
 
-				uint32 back_colour = 0;
+				float fullAdvance = sim->getBearingX() + sim->getAdvance();
 
-				// выделение символа
-				if (!select || !mInvertSelect)
+				// Render the selection, if any, first.
+				if (select)
 				{
-					colour_current = colour;
-					back_colour = colour | 0x00FFFFFF;
-				}
-				else
-				{
-					colour_current = colour_inverse;
-					back_colour = colour_inverse;
+					vertexRect.set(left, top, left + fullAdvance, top + (float)mFontHeight);
+					
+					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, selectedUVRect, selectedColour);
 				}
 
+				// Render the glyph shadow, if any.
 				if (mShadow)
-					drawSimbol(sim, info, back_glyph, vertex, vertex_z, IntPoint(left + 1, top + 1), false, colour_shadow, 0, vertex_count);
+				{
+					vertexRect.left = left + sim->getBearingX() + 1.0f;
+					vertexRect.top = top + sim->getBearingY() + 1.0f;
+					vertexRect.right = vertexRect.left + sim->getWidth();
+					vertexRect.bottom = vertexRect.top + sim->getHeight();
 
-				drawSimbol(sim, info, back_glyph, vertex, vertex_z, IntPoint(left, top), select, colour_current, back_colour, vertex_count);
+					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), mShadowColourNative);
+				}
 
-				left += sim->getWidth();
-				index++;
+				// Render the glyph itself.
+				vertexRect.left = left + sim->getBearingX();
+				vertexRect.top = top + sim->getBearingY();
+				vertexRect.right = vertexRect.left + sim->getWidth();
+				vertexRect.bottom = vertexRect.top + sim->getHeight();
+
+				drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), (!select || !mInvertSelect) ? colour : inverseColour);
+
+				left += fullAdvance;
+				++index;
 			}
 
-			top += height;
-			index++;
+			top += mFontHeight;
+			++index;
+		}
+		
+		// Render the cursor, if any, last.
+		if (mVisibleCursor)
+		{
+			IntPoint point = mTextView.getCursorPoint(mCursorPosition) - mViewOffset + mCoord.point();
+			GlyphInfo* cursorGlyph = mFont->getGlyphInfo(FontCodeType::Cursor);
+			vertexRect.set((float)point.left, (float)point.top, (float)point.left + cursorGlyph->width, (float)(point.top + mFontHeight));
+
+			drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, cursorGlyph->uvRect, mCurrentColourNative | 0x00FFFFFF);
 		}
 
-		if (mVisibleCursor)
-			drawCursor(info, vertex, vertex_z, colour_current, vertex_count);
-
 		// колличество реально отрисованных вершин
-		mRenderItem->setLastVertexCount(vertex_count);
+		mRenderItem->setLastVertexCount(vertexCount);
 	}
 
 	void EditText::setInvertSelected(bool _value)
@@ -679,290 +689,137 @@ namespace MyGUI
 	}
 
 	void EditText::drawQuad(
-		Vertex*& _buff,
+		Vertex*& _vertex,
+		size_t& _vertexCount,
 		const FloatRect& _vertexRect,
-		float v_z,
-		uint32 _colour,
+		float _vertexZ,
 		const FloatRect& _textureRect,
-		size_t& _count) const
+		uint32 _colour) const
 	{
-		_buff[0].x = _vertexRect.left;
-		_buff[0].y = _vertexRect.top;
-		_buff[0].z = v_z;
-		_buff[0].colour = _colour;
-		_buff[0].u = _textureRect.left;
-		_buff[0].v = _textureRect.top;
+		_vertex[0].x = _vertexRect.left;
+		_vertex[0].y = _vertexRect.top;
+		_vertex[0].z = _vertexZ;
+		_vertex[0].colour = _colour;
+		_vertex[0].u = _textureRect.left;
+		_vertex[0].v = _textureRect.top;
 
-		_buff[1].x = _vertexRect.left;
-		_buff[1].y = _vertexRect.bottom;
-		_buff[1].z = v_z;
-		_buff[1].colour = _colour;
-		_buff[1].u = _textureRect.left;
-		_buff[1].v = _textureRect.bottom;
+		_vertex[1].x = _vertexRect.left;
+		_vertex[1].y = _vertexRect.bottom;
+		_vertex[1].z = _vertexZ;
+		_vertex[1].colour = _colour;
+		_vertex[1].u = _textureRect.left;
+		_vertex[1].v = _textureRect.bottom;
 
-		_buff[2].x = _vertexRect.right;
-		_buff[2].y = _vertexRect.top;
-		_buff[2].z = v_z;
-		_buff[2].colour = _colour;
-		_buff[2].u = _textureRect.right;
-		_buff[2].v = _textureRect.top;
+		_vertex[2].x = _vertexRect.right;
+		_vertex[2].y = _vertexRect.top;
+		_vertex[2].z = _vertexZ;
+		_vertex[2].colour = _colour;
+		_vertex[2].u = _textureRect.right;
+		_vertex[2].v = _textureRect.top;
 
-		_buff[3].x = _vertexRect.right;
-		_buff[3].y = _vertexRect.top;
-		_buff[3].z = v_z;
-		_buff[3].colour = _colour;
-		_buff[3].u = _textureRect.right;
-		_buff[3].v = _textureRect.top;
+		_vertex[3].x = _vertexRect.right;
+		_vertex[3].y = _vertexRect.top;
+		_vertex[3].z = _vertexZ;
+		_vertex[3].colour = _colour;
+		_vertex[3].u = _textureRect.right;
+		_vertex[3].v = _textureRect.top;
 
-		_buff[4].x = _vertexRect.left;
-		_buff[4].y = _vertexRect.bottom;
-		_buff[4].z = v_z;
-		_buff[4].colour = _colour;
-		_buff[4].u = _textureRect.left;
-		_buff[4].v = _textureRect.bottom;
+		_vertex[4].x = _vertexRect.left;
+		_vertex[4].y = _vertexRect.bottom;
+		_vertex[4].z = _vertexZ;
+		_vertex[4].colour = _colour;
+		_vertex[4].u = _textureRect.left;
+		_vertex[4].v = _textureRect.bottom;
 
-		_buff[5].x = _vertexRect.right;
-		_buff[5].y = _vertexRect.bottom;
-		_buff[5].z = v_z;
-		_buff[5].colour = _colour;
-		_buff[5].u = _textureRect.right;
-		_buff[5].v = _textureRect.bottom;
+		_vertex[5].x = _vertexRect.right;
+		_vertex[5].y = _vertexRect.bottom;
+		_vertex[5].z = _vertexZ;
+		_vertex[5].colour = _colour;
+		_vertex[5].u = _textureRect.right;
+		_vertex[5].v = _textureRect.bottom;
 
-		_buff += VERTEX_IN_QUAD;
-		_count += VERTEX_IN_QUAD;
+		_vertex += VERTEX_IN_QUAD;
+		_vertexCount += VERTEX_IN_QUAD;
 	}
 
-	void EditText::drawCursor(
-		const RenderTargetInfo& _info,
+	void EditText::drawGlyph(
+		const RenderTargetInfo& _renderTargetInfo,
 		Vertex*& _vertex,
-		float _vertex_z,
-		uint32 _colour,
-		size_t& _vertex_count)
+		size_t& _vertexCount,
+		FloatRect _vertexRect,
+		FloatRect _textureRect,
+		uint32 _colour) const
 	{
-		IntPoint point = mTextView.getCursorPoint(mCursorPosition);
-		point -= mViewOffset;
-		point += mCoord.point();
-
-		bool draw = true;
-
-		GlyphInfo* cursor_glyph = mFont->getGlyphInfo(FontCodeType::Cursor);
-		FloatRect texture_rect = cursor_glyph->uvRect;
-		int left = point.left;
-		int top = point.top;
-		const int width = 2;//cursor_glyph->width;
-		const int height = mFontHeight;
-
-		// конечные размеры
-		int result_left = left;
-		int result_top = top;
-		int result_width = width;
-		int result_height = height;
-
 		// символ залазиет влево
-		if (left < mCurrentCoord.left)
+		float leftClip = (float)mCurrentCoord.left - _vertexRect.left;
+		if (leftClip > 0.0f)
 		{
-			// символ вообще не виден
-			if (left + width <= mCurrentCoord.left)
+			if ((float)mCurrentCoord.left < _vertexRect.right)
 			{
-				draw = false;
+				_textureRect.left += _textureRect.width() * leftClip / _vertexRect.width();
+				_vertexRect.left += leftClip;
 			}
-			// символ обрезан
 			else
 			{
-				result_left = mCurrentCoord.left;
-				result_width = width - (mCurrentCoord.left - left);
-
-				float texture_width = texture_rect.right - texture_rect.left;
-				texture_rect.left = texture_rect.right - (texture_width * (float)result_width / (float)width);
+				return;
 			}
 		}
 
 		// символ залазиет вправо
-		if (left + width > mCurrentCoord.right())
+		float rightClip = _vertexRect.right - (float)mCurrentCoord.right();
+		if (rightClip > 0.0f)
 		{
-			// символ вообще не виден
-			if (left >= mCurrentCoord.right())
+			if (_vertexRect.left < (float)mCurrentCoord.right())
 			{
-				draw = false;
+				_textureRect.right -= _textureRect.width() * rightClip / _vertexRect.width();
+				_vertexRect.right -= rightClip;
 			}
-			// символ обрезан
 			else
 			{
-				result_width = mCurrentCoord.right() - left;
-
-				float texture_width = texture_rect.right - texture_rect.left;
-				texture_rect.right = texture_rect.left + (texture_width * (float)result_width / (float)width);
+				return;
 			}
 		}
 
 		// символ залазиет вверх
-		if (top < mCurrentCoord.top)
+		float topClip = (float)mCurrentCoord.top - _vertexRect.top;
+		if (topClip > 0.0f)
 		{
-			// символ вообще не виден
-			if (top + height <= mCurrentCoord.top)
+			if ((float)mCurrentCoord.top < _vertexRect.bottom)
 			{
-				draw = false;
+				_textureRect.top += _textureRect.height() * topClip / _vertexRect.height();
+				_vertexRect.top += topClip;
 			}
-			// символ обрезан
 			else
 			{
-				result_top = mCurrentCoord.top;
-				result_height = height - (mCurrentCoord.top - top);
-
-				float texture_height = texture_rect.bottom - texture_rect.top;
-				texture_rect.top = texture_rect.bottom - (texture_height * (float)result_height / (float)height);
+				return;
 			}
 		}
 
 		// символ залазиет вниз
-		if (top + height > mCurrentCoord.bottom())
+		float bottomClip = _vertexRect.bottom - (float)mCurrentCoord.bottom();
+		if (bottomClip > 0.0f)
 		{
-			// символ вообще не виден
-			if (top >= mCurrentCoord.bottom())
+			if (_vertexRect.top < (float)mCurrentCoord.bottom())
 			{
-				draw = false;
+				_textureRect.bottom -= _textureRect.height() * bottomClip / _vertexRect.height();
+				_vertexRect.bottom -= bottomClip;
 			}
-			// символ обрезан
 			else
 			{
-				result_height = mCurrentCoord.bottom() - top;
-
-				float texture_height = texture_rect.bottom - texture_rect.top;
-				texture_rect.bottom = texture_rect.top + (texture_height * (float)result_height / (float)height);
+				return;
 			}
 		}
 
-		if (draw)
-		{
-			int pix_left = mCroppedParent->getAbsoluteLeft() - _info.leftOffset + result_left;
-			int pix_top = mCroppedParent->getAbsoluteTop() - _info.topOffset + (mShiftText ? 1 : 0) + result_top;
+		float pix_left = mCroppedParent->getAbsoluteLeft() - _renderTargetInfo.leftOffset + _vertexRect.left;
+		float pix_top = mCroppedParent->getAbsoluteTop() - _renderTargetInfo.topOffset + (mShiftText ? 1.0f : 0.0f) + _vertexRect.top;
 
-			FloatRect vertexRect = FloatRect(
-				((_info.pixScaleX * (float)(pix_left) + _info.hOffset) * 2) - 1,
-				- (((_info.pixScaleY * (float)(pix_top) + _info.vOffset) * 2) - 1),
-				((_info.pixScaleX * (float)(pix_left + result_width) + _info.hOffset) * 2) - 1,
-				- (((_info.pixScaleY * (float)(pix_top + result_height) + _info.vOffset) * 2) - 1));
+		FloatRect vertexRect(
+			((_renderTargetInfo.pixScaleX * pix_left + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
+			-(((_renderTargetInfo.pixScaleY * pix_top + _renderTargetInfo.vOffset) * 2.0f) - 1.0f),
+			((_renderTargetInfo.pixScaleX * (pix_left + _vertexRect.width()) + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
+			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) - 1.0f));
 
-			drawQuad(_vertex, vertexRect, _vertex_z, _colour | 0x00FFFFFF, texture_rect, _vertex_count);
-		}
-	}
-
-	void EditText::drawSimbol(
-		VectorCharInfo::const_iterator _sim,
-		const RenderTargetInfo& _info,
-		GlyphInfo* _back_glyph,
-		Vertex*& _vertex,
-		float _vertex_z,
-		const IntPoint& _point,
-		bool _select,
-		uint32 _colour,
-		uint32 _back_colour,
-		size_t& _vertex_count)
-	{
-		bool draw = true;
-
-		// текущие размеры
-		FloatRect texture_rect = _sim->getUVRect();
-		const int width = _sim->getWidth();
-		const int height = mFontHeight;
-
-		// конечные размеры
-		int result_left = _point.left;
-		int result_top = _point.top;
-		int result_right = _point.left + width;
-		int result_bottom = _point.top + height;
-
-		float texture_width = texture_rect.right - texture_rect.left;
-		float texture_height = texture_rect.bottom - texture_rect.top;
-
-		// символ залазиет влево
-		if (_point.left < mCurrentCoord.left)
-		{
-			// символ вообще не виден
-			if (_point.left + width <= mCurrentCoord.left)
-			{
-				draw = false;
-			}
-			// символ обрезан
-			else
-			{
-				result_left = mCurrentCoord.left;
-				texture_rect.left += (texture_width * (float)(result_left - _point.left) / (float)width);
-			}
-		}
-
-		// символ залазиет вправо
-		if (_point.left + width > mCurrentCoord.right())
-		{
-			// символ вообще не виден
-			if (_point.left >= mCurrentCoord.right())
-			{
-				draw = false;
-			}
-			// символ обрезан
-			else
-			{
-				result_right = mCurrentCoord.right();
-				texture_rect.right -= (texture_width * (float)((_point.left + width) - result_right) / (float)width);
-			}
-		}
-
-		// символ залазиет вверх
-		if (_point.top < mCurrentCoord.top)
-		{
-			// символ вообще не виден
-			if (_point.top + height <= mCurrentCoord.top)
-			{
-				draw = false;
-			}
-			// символ обрезан
-			else
-			{
-				result_top = mCurrentCoord.top;
-				texture_rect.top += (texture_height * (float)(result_top - _point.top) / (float)height);
-			}
-		}
-
-		// символ залазиет вниз
-		if (_point.top + height > mCurrentCoord.bottom())
-		{
-			// символ вообще не виден
-			if (_point.top >= mCurrentCoord.bottom())
-			{
-				draw = false;
-			}
-			// символ обрезан
-			else
-			{
-				result_bottom = mCurrentCoord.bottom();
-				texture_rect.bottom -= (texture_height * (float)((_point.top + height) - result_bottom) / (float)height);
-			}
-		}
-
-		if (draw)
-		{
-			int pix_left = mCroppedParent->getAbsoluteLeft() - _info.leftOffset + result_left;
-			int pix_top = mCroppedParent->getAbsoluteTop() - _info.topOffset + (mShiftText ? 1 : 0) + result_top;
-
-			FloatRect vertexRect = FloatRect(
-				((_info.pixScaleX * (float)(pix_left) + _info.hOffset) * 2) - 1,
-				- (((_info.pixScaleY * (float)(pix_top) + _info.vOffset) * 2) - 1),
-				((_info.pixScaleX * (float)(pix_left + result_right - result_left) + _info.hOffset) * 2) - 1,
-				- (((_info.pixScaleY * (float)(pix_top + result_bottom - result_top) + _info.vOffset) * 2) - 1));
-
-			// если нужно рисуем выделение
-			if (_select)
-			{
-				FloatRect background_current = FloatRect(
-					_back_glyph->uvRect.left,
-					_back_glyph->uvRect.top,
-					_back_glyph->uvRect.left,
-					_back_glyph->uvRect.top);
-				drawQuad(_vertex, vertexRect, _vertex_z, _back_colour, background_current, _vertex_count);
-			}
-
-			drawQuad(_vertex, vertexRect, _vertex_z, _colour, texture_rect, _vertex_count);
-		}
+		drawQuad(_vertex, _vertexCount, vertexRect, _renderTargetInfo.maximumDepth, _textureRect, _colour);
 	}
 
 } // namespace MyGUI

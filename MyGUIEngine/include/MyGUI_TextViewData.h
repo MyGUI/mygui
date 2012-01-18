@@ -15,45 +15,81 @@ namespace MyGUI
 	{
 	public:
 		CharInfo() :
-			width(0)
-		{
-		}
+			mIsColour(false),
+			mWidth(0.0f),
+			mHeight(0.0f),
+			mAdvance(0.0f),
+			mBearingX(0.0f),
+			mBearingY(0.0f)
+		{ }
 
-		CharInfo(const FloatRect& _rect, int _width) :
-			rect(_rect),
-			width(_width)
-		{
-		}
-
-		CharInfo(uint32 _colour) :
-			rect(-1, 0, 0, 0),
-			width((int)_colour)
-		{
-		}
+		CharInfo(
+			const FloatRect& _rect,
+			float _width,
+			float _height,
+			float _advance,
+			float _bearingX,
+			float _bearingY) :
+			mIsColour(false),
+			mUVRect(_rect),
+			mWidth(_width),
+			mHeight(_height),
+			mAdvance(_advance),
+			mBearingX(_bearingX),
+			mBearingY(_bearingY)
+		{ }
+	
+		CharInfo(uint32 _colour) : mIsColour(true), mColour(_colour) { }
 
 		bool isColour() const
 		{
-			return rect.left == -1;
+			return mIsColour;
 		}
 
-		int getWidth() const
+		float getWidth() const
 		{
-			return width;
+			return mWidth;
+		}
+
+		float getHeight() const
+		{
+			return mHeight;
+		}
+
+		float getAdvance() const
+		{
+			return mAdvance;
+		}
+
+		float getBearingX() const
+		{
+			return mBearingX;
+		}
+
+		float getBearingY() const
+		{
+			return mBearingY;
 		}
 
 		const FloatRect& getUVRect() const
 		{
-			return rect;
+			return mUVRect;
 		}
 
 		uint32 getColour() const
 		{
-			return (uint32)width;
+			return mColour;
 		}
 
 	private:
-		FloatRect rect;
-		int width;
+		bool mIsColour;
+		FloatRect mUVRect;
+		float mWidth;
+		float mHeight;
+		float mAdvance;
+		float mBearingX;
+		float mBearingY;
+		uint32 mColour;
 	};
 
 	typedef std::vector<CharInfo> VectorCharInfo;
