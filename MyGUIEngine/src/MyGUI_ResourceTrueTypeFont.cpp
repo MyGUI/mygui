@@ -279,7 +279,7 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
 	{
-		CharMap::const_iterator positionHint = mCharMap.lower_bound(_first);
+		CharMap::iterator positionHint = mCharMap.lower_bound(_first);
 
 		if (positionHint != mCharMap.begin())
 			--positionHint;
@@ -503,13 +503,13 @@ namespace MyGUI
 				{
 					GlyphInfo& info = *i->second;
 
-					int width = (int)ceil(info.width);
-					int height = (int)ceil(info.height);
+					int glyphWidth = (int)ceil(info.width);
+					int glyphHeight = (int)ceil(info.height);
 
-					autoWrapGlyphPos(width, texWidth, height, texX, texY);
+					autoWrapGlyphPos(glyphWidth, texWidth, glyphHeight, texX, texY);
 
-					if (width > 0)
-						texX += mGlyphSpacing + width;
+					if (glyphWidth > 0)
+						texX += mGlyphSpacing + glyphWidth;
 				}
 			}
 

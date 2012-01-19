@@ -69,9 +69,9 @@ namespace MyGUI
 		float mSize; // Size of the font, in points (there are 72 points per inch).
 		uint mResolution; // Resolution of the font, in pixels per inch.
 		bool mAntialias; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
-		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
 		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.
 		float mTabWidth; // The width of the "Tab" special character, in pixels.
+		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight; // The nominal height of the font in pixels.
