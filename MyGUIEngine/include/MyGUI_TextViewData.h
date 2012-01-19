@@ -20,8 +20,7 @@ namespace MyGUI
 			mHeight(0.0f),
 			mAdvance(0.0f),
 			mBearingX(0.0f),
-			mBearingY(0.0f),
-			mColour(0)
+			mBearingY(0.0f)
 		{ }
 
 		CharInfo(
@@ -37,17 +36,11 @@ namespace MyGUI
 			mHeight(_height),
 			mAdvance(_advance),
 			mBearingX(_bearingX),
-			mBearingY(_bearingY),
-			mColour(0)
+			mBearingY(_bearingY)
 		{ }
 
 		CharInfo(uint32 _colour) :
 			mIsColour(true),
-			mWidth(0.0f),
-			mHeight(0.0f),
-			mAdvance(0.0f),
-			mBearingX(0.0f),
-			mBearingY(0.0f),
 			mColour(_colour)
 		{ }
 
@@ -93,13 +86,21 @@ namespace MyGUI
 
 	private:
 		bool mIsColour;
-		FloatRect mUVRect;
-		float mWidth;
-		float mHeight;
-		float mAdvance;
-		float mBearingX;
-		float mBearingY;
-		uint32 mColour;
+
+		union
+		{
+			struct
+			{
+				FloatRect mUVRect;
+				float mWidth;
+				float mHeight;
+				float mAdvance;
+				float mBearingX;
+				float mBearingY;
+			};
+
+			uint32 mColour;
+		};
 	};
 
 	typedef std::vector<CharInfo> VectorCharInfo;
