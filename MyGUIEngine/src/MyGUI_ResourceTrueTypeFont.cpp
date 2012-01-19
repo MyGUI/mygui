@@ -46,13 +46,13 @@ namespace MyGUI
 
 		std::pair<const Char, const uint8> charMaskData[] =
 		{
-			std::make_pair(FontCodeType::Selected , (const uint8)'\x88'),
+			std::make_pair(FontCodeType::Selected, (const uint8)'\x88'),
 			std::make_pair(FontCodeType::SelectedBack, (const uint8)'\x60'),
-			std::make_pair(FontCodeType::Cursor , (const uint8)'\xFF'),
-			std::make_pair(FontCodeType::Tab , (const uint8)'\x00')
+			std::make_pair(FontCodeType::Cursor, (const uint8)'\xFF'),
+			std::make_pair(FontCodeType::Tab, (const uint8)'\x00')
 		};
 
-		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof* charMaskData);
+		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof *charMaskData);
 
 		const uint8 charMaskBlack = (const uint8)'\x00';
 		const uint8 charMaskWhite = (const uint8)'\xFF';
