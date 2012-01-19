@@ -53,7 +53,7 @@ namespace MyGUI
 
 		void resetDrag();
 
-	/*events:*/
+		/*events:*/
 		/** Event : Request for start drag.\n
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 			@param _sender widget that called this event
@@ -99,7 +99,7 @@ namespace MyGUI
 			requestDragWidgetInfo;
 
 
-	/*internal:*/
+		/*internal:*/
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 

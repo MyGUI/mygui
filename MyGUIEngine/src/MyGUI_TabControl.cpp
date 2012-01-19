@@ -850,7 +850,7 @@ namespace MyGUI
 				width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= _getWidgetBar()->getWidth()))
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex - 1].width) <= _getWidgetBar()->getWidth()))
 			{
 				mStartIndex--;
 				width += mItemsInfo[mStartIndex].width;
@@ -994,7 +994,7 @@ namespace MyGUI
 				width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= (mHeaderPlace->getWidth() - widthControls)))
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex - 1].width) <= (mHeaderPlace->getWidth() - widthControls)))
 			{
 				mStartIndex--;
 				width += mItemsInfo[mStartIndex].width;

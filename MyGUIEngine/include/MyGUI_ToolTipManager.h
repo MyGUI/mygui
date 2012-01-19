@@ -42,7 +42,7 @@ namespace MyGUI
 		void setDelayVisible(float _value);
 		float getDelayVisible() const;
 
-	/*internal:*/
+		/*internal:*/
 		void _unlinkWidget(Widget* _widget);
 
 	private:

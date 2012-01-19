@@ -1298,7 +1298,7 @@ namespace MyGUI
 		size_t old = mTextLength;
 		// новая позиция и положение на конец вставки
 		mTextLength = iterator.getSize();
-			mCursorPosition += mTextLength - old;
+		mCursorPosition += mTextLength - old;
 
 		// сохраняем позицию для восстановления курсора
 		commandPosition(_start, _start + mTextLength - old, old, history);

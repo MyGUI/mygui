@@ -56,7 +56,7 @@ namespace MyGUI
 
 		void setImageName(const std::string& _name);
 
-	/*internal:*/
+		/*internal:*/
 		void _setMouseFocus(bool _focus);
 
 		ImageBox* _getImageBox();

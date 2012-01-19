@@ -137,7 +137,7 @@ namespace MyGUI
 		}
 
 
-	/*internal:*/
+		/*internal:*/
 		/** True if rectangle is cropped by parent rectangle */
 		bool _isMargin() const
 		{

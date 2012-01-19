@@ -249,7 +249,7 @@ namespace MyGUI
 		bool getVerticalAlignment() const;
 
 
-	/*events:*/
+		/*events:*/
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)\n
 			@param _sender widget that called this event
@@ -266,7 +266,7 @@ namespace MyGUI
 			eventMenuCtrlClose;
 
 
-	/*internal:*/
+		/*internal:*/
 		void _notifyDeleteItem(MenuItem* _item);
 		void _notifyDeletePopup(MenuItem* _item);
 		void _notifyUpdateName(MenuItem* _item);

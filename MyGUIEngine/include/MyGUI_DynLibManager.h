@@ -48,7 +48,7 @@ namespace MyGUI
 
 		void unloadAll();
 
-	/*internal:*/
+		/*internal:*/
 		void _unloadDelayDynLibs();
 
 	private:

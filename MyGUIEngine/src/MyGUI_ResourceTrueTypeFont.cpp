@@ -52,7 +52,7 @@ namespace MyGUI
 			std::make_pair(FontCodeType::Tab , (const uint8)'\x00')
 		};
 
-		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof *charMaskData);
+		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof* charMaskData);
 
 		const uint8 charMaskBlack = (const uint8)'\x00';
 		const uint8 charMaskWhite = (const uint8)'\xFF';
@@ -75,9 +75,15 @@ namespace MyGUI
 		template<>
 		struct PixelBase<false>
 		{
-			static size_t getNumBytes() { return 4; }
+			static size_t getNumBytes()
+			{
+				return 4;
+			}
 
-			static PixelFormat::Enum getFormat() { return PixelFormat::R8G8B8A8; }
+			static PixelFormat::Enum getFormat()
+			{
+				return PixelFormat::R8G8B8A8;
+			}
 
 		protected:
 			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha)
@@ -92,9 +98,15 @@ namespace MyGUI
 		template<>
 		struct PixelBase<true>
 		{
-			static size_t getNumBytes() { return 2; }
+			static size_t getNumBytes()
+			{
+				return 2;
+			}
 
-			static PixelFormat::Enum getFormat() { return PixelFormat::L8A8; }
+			static PixelFormat::Enum getFormat()
+			{
+				return PixelFormat::L8A8;
+			}
 
 		protected:
 			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha)
@@ -151,7 +163,7 @@ namespace MyGUI
 	const int ResourceTrueTypeFont::mGlyphSpacing = 1;
 	const float ResourceTrueTypeFont::mSelectedWidth = 1.0f;
 	const float ResourceTrueTypeFont::mCursorWidth = 2.0f;
-	
+
 	ResourceTrueTypeFont::ResourceTrueTypeFont() :
 		mSize(0),
 		mResolution(96),
@@ -316,10 +328,18 @@ namespace MyGUI
 
 		switch (init)
 		{
-		case 0: ResourceTrueTypeFont::initialiseFreeType<false, false>(); break;
-		case 1: ResourceTrueTypeFont::initialiseFreeType<false, true>(); break;
-		case 2: ResourceTrueTypeFont::initialiseFreeType<true, false>(); break;
-		case 3: ResourceTrueTypeFont::initialiseFreeType<true, true>(); break;
+		case 0:
+			ResourceTrueTypeFont::initialiseFreeType<false, false>();
+			break;
+		case 1:
+			ResourceTrueTypeFont::initialiseFreeType<false, true>();
+			break;
+		case 2:
+			ResourceTrueTypeFont::initialiseFreeType<true, false>();
+			break;
+		case 3:
+			ResourceTrueTypeFont::initialiseFreeType<true, true>();
+			break;
 		}
 
 #endif // MYGUI_USE_FREETYPE
@@ -611,23 +631,23 @@ namespace MyGUI
 				{
 				case FontCodeType::Selected:
 				case FontCodeType::SelectedBack:
-					{
-						renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
-						FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
-						uvRect.right = uvRect.left;
-						uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
-						uvRect.bottom = uvRect.top;
-					}
-					break;
+				{
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
+					uvRect.right = uvRect.left;
+					uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
+					uvRect.bottom = uvRect.top;
+				}
+				break;
 
 				case FontCodeType::Cursor:
-					{
-						renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
-						FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
-						uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
-						uvRect.bottom = uvRect.top;
-					}
-					break;
+				{
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
+					uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
+					uvRect.bottom = uvRect.top;
+				}
+				break;
 
 				case FontCodeType::Tab:
 					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
@@ -638,7 +658,7 @@ namespace MyGUI
 					{
 						if (_face->glyph->bitmap.buffer != nullptr)
 						{
-							uint8 *glyphBuffer = nullptr;
+							uint8* glyphBuffer = nullptr;
 
 							switch (_face->glyph->bitmap.pixel_mode)
 							{
@@ -671,7 +691,7 @@ namespace MyGUI
 				}
 			}
 		}
-	
+
 		FT_Bitmap_Done(_ftLibrary, &ftBitmap);
 	}
 
@@ -698,7 +718,7 @@ namespace MyGUI
 			}
 
 			if (i > 0)
- 				Pixel<LAMode, UseBuffer, Antialias>::set(dest, _luminance0, _alpha, _glyphBuffer);
+				Pixel<LAMode, UseBuffer, Antialias>::set(dest, _luminance0, _alpha, _glyphBuffer);
 
 			dest += destNextRow;
 		}

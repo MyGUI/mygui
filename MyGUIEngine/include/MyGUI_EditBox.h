@@ -250,7 +250,7 @@ namespace MyGUI
 		//! @copydoc TextBox::setTextShadow
 		virtual void setTextShadow(bool _value);
 
-	/*events:*/
+		/*events:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::EditBox* _sender)
 			@param _sender widget that called this event

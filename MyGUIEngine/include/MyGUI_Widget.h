@@ -270,7 +270,7 @@ namespace MyGUI
 		EventHandle_WidgetStringString
 			eventChangeProperty;
 
-	/*internal:*/
+		/*internal:*/
 		// метод для запроса номера айтема и контейнера
 		virtual size_t _getItemIndex(Widget* _item);
 

@@ -48,11 +48,11 @@ namespace MyGUI
 		// Log library load
 		MYGUI_LOG(Info, "Loading library " << mName);
 
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			//APPLE SPECIFIC CODE HERE
-		#else
-			mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
-		#endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		//APPLE SPECIFIC CODE HERE
+#else
+		mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
+#endif
 
 		return mInstance != 0;
 	}
@@ -62,24 +62,24 @@ namespace MyGUI
 	{
 		// Log library unload
 		MYGUI_LOG(Info, "Unloading library " << mName);
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			//APPLE SPECIFIC CODE HERE
-		#else
-			if (MYGUI_DYNLIB_UNLOAD(mInstance))
-			{
-				MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
-			}
-		#endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		//APPLE SPECIFIC CODE HERE
+#else
+		if (MYGUI_DYNLIB_UNLOAD(mInstance))
+		{
+			MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
+		}
+#endif
 	}
 
 	void* DynLib::getSymbol( const std::string& strName ) const throw()
 	{
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			//APPLE SPECIFIC CODE HERE
-			return nullptr;
-		#else
-			return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName.c_str());
-		#endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		//APPLE SPECIFIC CODE HERE
+		return nullptr;
+#else
+		return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName.c_str());
+#endif
 	}
 
 	std::string DynLib::dynlibError() const

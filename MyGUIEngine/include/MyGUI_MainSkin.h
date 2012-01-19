@@ -37,7 +37,7 @@ namespace MyGUI
 		MainSkin();
 		virtual ~MainSkin();
 
-	/*internal:*/
+		/*internal:*/
 		virtual void _setAlign(const IntSize& _oldsize);
 	};
 

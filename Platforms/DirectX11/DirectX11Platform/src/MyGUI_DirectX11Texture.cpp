@@ -48,8 +48,8 @@ namespace MyGUI
 		desc.SampleDesc.Quality = 0;
 		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		if( _usage == TextureUsage::RenderTarget ) 
-			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE|D3D11_BIND_RENDER_TARGET;
+		if (_usage == TextureUsage::RenderTarget)
+			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 		else
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		desc.CPUAccessFlags = 0;
@@ -89,11 +89,11 @@ namespace MyGUI
 		loadInfo.BindFlags      = D3D11_BIND_SHADER_RESOURCE;
 		loadInfo.CpuAccessFlags = 0;
 		loadInfo.MiscFlags      = 0;
-		loadInfo.Format         = fileInfo.Format;    
+		loadInfo.Format         = fileInfo.Format;
 		loadInfo.Filter         = D3DX11_FILTER_NONE;
 		loadInfo.MipFilter      = D3DX11_FILTER_NONE;
 		loadInfo.pSrcInfo       = &fileInfo;
-	    
+
 		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, NULL, (ID3D11Resource**)&mTexture, NULL );
 
 		D3D11_TEXTURE2D_DESC desc;
@@ -111,12 +111,14 @@ namespace MyGUI
 
 	void DirectX11Texture::destroy()
 	{
-		if( mTexture ) {
+		if ( mTexture )
+		{
 			mTexture->Release();
 			mTexture = 0;
 		}
 
-		if( mResourceView ) {
+		if ( mResourceView )
+		{
 			mResourceView->Release();
 			mResourceView = 0;
 		}
@@ -134,10 +136,11 @@ namespace MyGUI
 
 	void* DirectX11Texture::lock(TextureUsage _access)
 	{
-		if( mLock ) return 0;
+		if ( mLock ) return 0;
 		mLock = true;
 
-		if( _access == TextureUsage::Write ) {
+		if ( _access == TextureUsage::Write )
+		{
 			mWriteData = malloc(mWidth * mHeight * 4);
 			return mWriteData;
 		}
@@ -146,10 +149,11 @@ namespace MyGUI
 
 	void DirectX11Texture::unlock()
 	{
-		if( !mLock ) return;
+		if ( !mLock ) return;
 		mLock = false;
 
-		if( mWriteData ) {
+		if ( mWriteData )
+		{
 			mManager->mpD3DContext->UpdateSubresource(mTexture, D3D11CalcSubresource(0, 0, 0), 0, mWriteData, mWidth * 4, 0);
 			free(mWriteData);
 			mWriteData = 0;
@@ -178,7 +182,7 @@ namespace MyGUI
 
 	IRenderTarget* DirectX11Texture::getRenderTarget()
 	{
-		if( mRenderTarget == 0 ) mRenderTarget = new DirectX11RTTexture(this, mManager);
+		if ( mRenderTarget == 0 ) mRenderTarget = new DirectX11RTTexture(this, mManager);
 		return mRenderTarget;
 	}
 

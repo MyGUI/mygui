@@ -257,7 +257,7 @@ namespace MyGUI
 		EventHandle_WidgetToolTip
 			eventToolTip;
 
-	/*internal:*/
+		/*internal:*/
 		void _riseMouseLostFocus(Widget* _new);
 		void _riseMouseSetFocus(Widget* _old);
 		void _riseMouseDrag(int _left, int _top, MouseButton _id);

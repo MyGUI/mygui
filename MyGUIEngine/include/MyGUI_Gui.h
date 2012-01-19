@@ -157,7 +157,7 @@ namespace MyGUI
 		*/
 		void frameEvent(float _time);
 
-	/*events:*/
+		/*events:*/
 		/** Event : Multidelegate. GUI per frame call.\n
 			signature : void method(float _time)\n
 			@param _time Time elapsed since last frame
@@ -165,7 +165,7 @@ namespace MyGUI
 		EventHandle_FrameEventDelegate
 			eventFrameStart;
 
-	/*internal:*/
+		/*internal:*/
 		void _linkChildWidget(Widget* _widget);
 		void _unlinkChildWidget(Widget* _widget);
 

@@ -107,7 +107,7 @@ namespace MyGUI
 		/** Get possibility to move window. */
 		bool getMovable() const;
 
-	/*events:*/
+		/*events:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::Window* _sender, const std::string& _name)
 			@param _sender widget that called this event

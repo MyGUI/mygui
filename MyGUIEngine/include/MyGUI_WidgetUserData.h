@@ -63,7 +63,7 @@ namespace MyGUI
 			return mUserData.castType<ValueType>(_throw);
 		}
 
-	/*internal:*/
+		/*internal:*/
 		void _setInternalData(Any _data);
 
 		template <typename ValueType>
