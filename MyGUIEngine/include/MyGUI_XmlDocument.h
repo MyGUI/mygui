@@ -135,7 +135,7 @@ namespace MyGUI
 			ElementPtr operator->() const;
 			ElementPtr current();
 
-		/*obsolete:*/
+			/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 			MYGUI_OBSOLETE("use : bool ElementEnumerator::next()")
@@ -227,7 +227,7 @@ namespace MyGUI
 
 			ElementPtr createCopy();
 
-		/*obsolete:*/
+			/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 			template <typename T>
@@ -330,7 +330,7 @@ namespace MyGUI
 
 			ElementPtr getRoot() const;
 
-		/*obsolete:*/
+			/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)")

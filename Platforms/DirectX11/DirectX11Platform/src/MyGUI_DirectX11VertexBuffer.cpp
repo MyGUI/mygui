@@ -44,7 +44,7 @@ namespace MyGUI
 
 	Vertex* DirectX11VertexBuffer::lock()
 	{
-		if( !mBuffer ) create();
+		if (!mBuffer) create();
 		D3D11_MAPPED_SUBRESOURCE map;
 		memset(&map, 0, sizeof(map));
 		mManager->mpD3DContext->Map(mBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
@@ -53,7 +53,7 @@ namespace MyGUI
 
 	void DirectX11VertexBuffer::unlock()
 	{
-		if( mBuffer ) mManager->mpD3DContext->Unmap(mBuffer, 0);
+		if (mBuffer) mManager->mpD3DContext->Unmap(mBuffer, 0);
 	}
 
 	bool DirectX11VertexBuffer::create()
@@ -72,7 +72,8 @@ namespace MyGUI
 
 	void DirectX11VertexBuffer::destroy()
 	{
-		if( mBuffer ) {
+		if (mBuffer)
+		{
 			mBuffer->Release();
 			mBuffer = 0;
 		}

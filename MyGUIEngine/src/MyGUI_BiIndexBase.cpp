@@ -162,7 +162,7 @@ namespace MyGUI
 		std::swap(mIndexFace[mIndexBack[_index1]], mIndexFace[mIndexBack[_index2]]);
 	}
 
-	#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 
 	void BiIndexBase::checkIndexes()
 	{

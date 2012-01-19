@@ -141,7 +141,7 @@ namespace MyGUI
 		delegates::CMultiDelegate1<Widget*>
 			eventChangeKeyFocus;
 
-	/*internal:*/
+		/*internal:*/
 		void _resetMouseFocusWidget();
 
 	private:

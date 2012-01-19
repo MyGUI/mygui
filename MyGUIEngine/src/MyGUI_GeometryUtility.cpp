@@ -52,7 +52,7 @@ namespace MyGUI
 			for (size_t i = 0; i < _verticies.size(); ++i)
 			{
 				FloatPoint& v0 = _verticies[i];
-				FloatPoint& v1 = _verticies[(i+1)%_verticies.size()];
+				FloatPoint& v1 = _verticies[(i + 1) % _verticies.size()];
 				switch (_side)
 				{
 				case Left:

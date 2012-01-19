@@ -139,7 +139,7 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
-	/*events:*/
+		/*events:*/
 		/** Event : Request for creating new item.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 			@param _sender widget that called this event
@@ -198,7 +198,7 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef
 			eventNotifyItem;
 
-	/*internal:*/
+		/*internal:*/
 		virtual void _resetContainer(bool _update);
 
 	protected:

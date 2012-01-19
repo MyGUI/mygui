@@ -96,7 +96,7 @@ namespace MyGUI
 		bool getItemChecked() const;
 		void setItemChecked(bool _value);
 
-	/*internal:*/
+		/*internal:*/
 		virtual IItemContainer* _getItemContainer();
 		IntSize _getContentSize();
 

@@ -37,7 +37,7 @@ namespace MyGUI
 
 	DirectX11RTTexture::~DirectX11RTTexture()
 	{
-		if( mRenderTarget ) mRenderTarget->Release();
+		if ( mRenderTarget ) mRenderTarget->Release();
 	}
 
 	void DirectX11RTTexture::begin()
@@ -46,8 +46,6 @@ namespace MyGUI
 		mManager->mpD3DContext->RSGetViewports(&numViewports, &oldViewport);
 		mManager->mpD3DContext->OMGetRenderTargets(1, &oldRenderTarget, &oldDepthStencil);
 
-
-		
 		D3D11_VIEWPORT vp;
 		vp.Width = (float)mTexture->getWidth();
 		vp.Height = (float)mTexture->getHeight();

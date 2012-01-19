@@ -150,7 +150,7 @@ namespace MyGUI
 		//! Get direction, where drop down list appears.
 		FlowDirection getFlowDirection() const;
 
-	/*events:*/
+		/*events:*/
 		/** Event : Enter pressed in combo mode or item selected in drop down list
 			and combo mode drop enabled (see void ComboBox::setComboModeDrop(bool _value)).\n
 			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
@@ -168,7 +168,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT>
 			eventComboChangePosition;
 
-	/*internal:*/
+		/*internal:*/
 		// IItemContainer impl
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);

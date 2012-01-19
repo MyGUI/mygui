@@ -38,7 +38,7 @@ namespace MyGUI
 			mBearingX(_bearingX),
 			mBearingY(_bearingY)
 		{ }
-	
+
 		CharInfo(uint32 _colour) : mIsColour(true), mColour(_colour) { }
 
 		bool isColour() const

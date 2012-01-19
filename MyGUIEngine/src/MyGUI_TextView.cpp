@@ -194,7 +194,7 @@ namespace MyGUI
 				if (character != L'#')
 				{
 					// парсим первый символ
-					uint32 colour = convert_colour[(character-48) & 0x3F];
+					uint32 colour = convert_colour[(character - 48) & 0x3F];
 
 					// и еще пять символов после шарпа
 					for (char i = 0; i < 5; i++)

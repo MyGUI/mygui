@@ -57,7 +57,7 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual void doRender();
 
-	/*internal:*/
+		/*internal:*/
 		virtual void _updateView();
 		virtual void _correctView();
 

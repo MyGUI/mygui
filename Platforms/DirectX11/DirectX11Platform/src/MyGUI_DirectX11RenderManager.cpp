@@ -15,20 +15,23 @@
 namespace MyGUI
 {
 
-	static const char vsSource[] = {
+	static const char vsSource[] =
+	{
 		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0 ) {\n"
 		"	outPosition = float4(inPosition, 1.0f);\n"
 		"	outColor = inColor;\n"
 		"}\n"
 	};
 
-	static const char psSource[] = {
+	static const char psSource[] =
+	{
 		"void main(  in float4 inPosition : SV_POSITION, in float4 inColor : TEXCOORD0, out float4 Out : SV_TARGET ) {\n"
 		"	Out = inColor;\n"
 		"}\n"
 	};
 
-	static const char vsTexturedSource[] = {
+	static const char vsTexturedSource[] =
+	{
 		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, in float2 inTexcoord : TEXCOORD0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0, out float2 outTexcoord : TEXCOORD1 ) {\n"
 		"	outPosition = float4(inPosition, 1.0f);\n"
 		"	outColor = inColor;\n"
@@ -36,13 +39,15 @@ namespace MyGUI
 		"}\n"
 	};
 
-	static const char psTexturedSource[] = {
+	static const char psTexturedSource[] =
+	{
 		"void main( uniform Texture2D<float4> sampleTexture : register(t0), uniform SamplerState sampleSampler : register(s0), in float4 inPosition : SV_POSITION, in float4 inColor : TEXCOORD0, in float2 inTexcoord : TEXCOORD1, out float4 Out : SV_TARGET ) {\n"
 		"	Out = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0).rgba * inColor;\n"
 		"}\n"
 	};
 
-	static const D3D11_INPUT_ELEMENT_DESC vertexLayout[] = {
+	static const D3D11_INPUT_ELEMENT_DESC vertexLayout[] =
+	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "COLOR",    0, DXGI_FORMAT_R8G8B8A8_UNORM,  0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -77,29 +82,40 @@ namespace MyGUI
 		mVertexFormat = VertexColourType::ColourABGR;
 
 		std::string vertexProfile, pixelProfile;
-		if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_11_0 ) {
+		if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_11_0 )
+		{
 			vertexProfile = "vs_5_0";
 			pixelProfile = "ps_5_0";
-		} else if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_10_1 ) {
+		}
+		else if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_10_1 )
+		{
 			vertexProfile = "vs_4_1";
 			pixelProfile = "ps_4_1";
-		} else if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_10_0 ) {
+		}
+		else if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_10_0 )
+		{
 			vertexProfile = "vs_4_0";
 			pixelProfile = "ps_4_0";
-		} else if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_3 ) {
+		}
+		else if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_3 )
+		{
 			vertexProfile = "vs_4_0_level_9_3";
 			pixelProfile = "ps_4_0_level_9_3";
-		} else if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_2 ) {
+		}
+		else if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_2 )
+		{
 			vertexProfile = "vs_4_0_level_9_1";
 			pixelProfile = "ps_4_0_level_9_1";
-		} else if( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_1 ) {
+		}
+		else if ( mpD3DDevice->GetFeatureLevel() == D3D_FEATURE_LEVEL_9_1 )
+		{
 			vertexProfile = "vs_4_0_level_9_1";
 			pixelProfile = "ps_4_0_level_9_1";
 		}
 
 		// Get Current viewports
 		memset(&mInfo, 0, sizeof(mInfo));
-		UINT           numViewports = 0;
+		UINT numViewports = 0;
 		D3D11_VIEWPORT viewports[8];
 
 		mpD3DContext->RSGetViewports(&numViewports, viewports);
@@ -108,7 +124,7 @@ namespace MyGUI
 		setViewSize((int)viewports[0].Width, (int)viewports[0].Height);
 
 		HRESULT hr = S_OK;
-		UINT flags = (1 << 11)|(1 << 15);
+		UINT flags = (1 << 11) | (1 << 15);
 
 		// Build Flat Vertex Shader
 		ID3DBlob* bytecode = 0, *errors = 0, *signature0 = 0, *signature1 = 0;
@@ -121,8 +137,8 @@ namespace MyGUI
 		hr = mpD3DDevice->CreateVertexShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mVertexShader0);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
 
-		if( bytecode ) bytecode->Release();
-		if( errors ) errors->Release();
+		if ( bytecode ) bytecode->Release();
+		if ( errors ) errors->Release();
 
 
 		// Build Textured Vertex Shader
@@ -137,8 +153,8 @@ namespace MyGUI
 		hr = mpD3DDevice->CreateVertexShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mVertexShader1);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
 
-		if( bytecode ) bytecode->Release();
-		if( errors ) errors->Release();
+		if ( bytecode ) bytecode->Release();
+		if ( errors ) errors->Release();
 
 		// Build Flat Pixel Shader
 		bytecode = 0;
@@ -149,8 +165,8 @@ namespace MyGUI
 		hr = mpD3DDevice->CreatePixelShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mPixelShader0);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
 
-		if( bytecode ) bytecode->Release();
-		if( errors ) errors->Release();
+		if ( bytecode ) bytecode->Release();
+		if ( errors ) errors->Release();
 
 
 		// Build Textured Pixel Shader
@@ -162,8 +178,8 @@ namespace MyGUI
 		hr = mpD3DDevice->CreatePixelShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mPixelShader1);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
 
-		if( bytecode ) bytecode->Release();
-		if( errors ) errors->Release();
+		if ( bytecode ) bytecode->Release();
+		if ( errors ) errors->Release();
 
 		// Create Sampler State
 		D3D11_SAMPLER_DESC samplerDesc;
@@ -227,7 +243,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Input Layout Create failed!");
 
 		signature0->Release();
-		
+
 		// Create Input Layout
 		hr = mpD3DDevice->CreateInputLayout(vertexLayout, 3, signature1->GetBufferPointer(), signature1->GetBufferSize(), &mInputLayout1);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Input Layout Create failed!");
@@ -247,16 +263,16 @@ namespace MyGUI
 
 		destroyAllResources();
 
-		if( mVertexShader0 ) mVertexShader0->Release();
-		if( mVertexShader1 ) mVertexShader1->Release();
-		if( mPixelShader0 ) mPixelShader0->Release();
-		if( mPixelShader1 ) mPixelShader1->Release();
-		if( mSamplerState ) mSamplerState->Release();
-		if( mBlendState ) mBlendState->Release();
-		if( mDepthStencilState ) mDepthStencilState->Release();
-		if( mRasterizerState ) mRasterizerState->Release();
-		if( mInputLayout0 ) mInputLayout0->Release();
-		if( mInputLayout1 ) mInputLayout1->Release();
+		if ( mVertexShader0 ) mVertexShader0->Release();
+		if ( mVertexShader1 ) mVertexShader1->Release();
+		if ( mPixelShader0 ) mPixelShader0->Release();
+		if ( mPixelShader1 ) mPixelShader1->Release();
+		if ( mSamplerState ) mSamplerState->Release();
+		if ( mBlendState ) mBlendState->Release();
+		if ( mDepthStencilState ) mDepthStencilState->Release();
+		if ( mRasterizerState ) mRasterizerState->Release();
+		if ( mInputLayout0 ) mInputLayout0->Release();
+		if ( mInputLayout1 ) mInputLayout1->Release();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -275,7 +291,8 @@ namespace MyGUI
 	void DirectX11RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		DirectX11Texture* texture = (DirectX11Texture*)_texture;
-		if( texture == 0 || texture->mResourceView == 0 ) {
+		if ( texture == 0 || texture->mResourceView == 0 )
+		{
 			DirectX11VertexBuffer* buffer = (DirectX11VertexBuffer*)_buffer;
 			mpD3DContext->PSSetShader(mPixelShader0, 0, 0);
 			mpD3DContext->VSSetShader(mVertexShader0, 0, 0);
@@ -284,7 +301,9 @@ namespace MyGUI
 			mpD3DContext->IASetVertexBuffers(0, 1, &buffer->mBuffer, &stride, &offset);
 			mpD3DContext->IASetInputLayout(mInputLayout0);
 			mpD3DContext->Draw(_count, 0);
-		} else {
+		}
+		else
+		{
 			DirectX11VertexBuffer* buffer = (DirectX11VertexBuffer*)_buffer;
 			mpD3DContext->PSSetShader(mPixelShader1, 0, 0);
 			mpD3DContext->VSSetShader(mVertexShader1, 0, 0);
@@ -365,7 +384,7 @@ namespace MyGUI
 
 	bool DirectX11RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		if( _format != PixelFormat::R8G8B8A8 ) return false;
+		if ( _format != PixelFormat::R8G8B8A8 ) return false;
 		return true;
 	}
 

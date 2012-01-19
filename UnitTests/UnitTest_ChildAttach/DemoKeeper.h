@@ -30,7 +30,7 @@ namespace demo
 		void createFailedScene();
 
 		MyGUI::TextBox* mTextBoxTest;
-	
+
 	};
 
 } // namespace demo
