@@ -124,24 +124,22 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Plugin")
 			{
-				std::string source, source_debug;
+				std::string source;
 
 				xml::ElementEnumerator source_node = node->getElementEnumerator();
 				while (source_node.next("Source"))
 				{
 					std::string build = source_node->findAttribute("build");
+#if MYGUI_DEBUG_MODE == 1
 					if (build == "Debug")
-						source_debug = source_node->getContent();
-					else
 						source = source_node->getContent();
+#else
+					if (build != "Debug")
+						source = source_node->getContent();
+#endif
 				}
-#if MYGUI_DEBUG_MODE == 0
 				if (!source.empty())
 					loadPlugin(source);
-#else
-				if (!source_debug.empty())
-					loadPlugin(source_debug);
-#endif
 			}
 		}
 	}

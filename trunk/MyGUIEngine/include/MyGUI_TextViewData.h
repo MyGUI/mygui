@@ -20,7 +20,8 @@ namespace MyGUI
 			mHeight(0.0f),
 			mAdvance(0.0f),
 			mBearingX(0.0f),
-			mBearingY(0.0f)
+			mBearingY(0.0f),
+			mColour(0)
 		{ }
 
 		CharInfo(
@@ -36,10 +37,19 @@ namespace MyGUI
 			mHeight(_height),
 			mAdvance(_advance),
 			mBearingX(_bearingX),
-			mBearingY(_bearingY)
+			mBearingY(_bearingY),
+			mColour(0)
 		{ }
 
-		CharInfo(uint32 _colour) : mIsColour(true), mColour(_colour) { }
+		CharInfo(uint32 _colour) :
+			mIsColour(true),
+			mWidth(0.0f),
+			mHeight(0.0f),
+			mAdvance(0.0f),
+			mBearingX(0.0f),
+			mBearingY(0.0f),
+			mColour(_colour)
+		{ }
 
 		bool isColour() const
 		{
