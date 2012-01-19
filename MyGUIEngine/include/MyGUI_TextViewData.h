@@ -15,13 +15,14 @@ namespace MyGUI
 	{
 	public:
 		CharInfo() :
-			mIsColour(false),
-			mWidth(0.0f),
-			mHeight(0.0f),
-			mAdvance(0.0f),
-			mBearingX(0.0f),
-			mBearingY(0.0f)
-		{ }
+			mIsColour(false)
+		{
+			mMetrics.mWidth = 0.0f;
+			mMetrics.mHeight = 0.0f;
+			mMetrics.mAdvance = 0.0f;
+			mMetrics.mBearingX = 0.0f;
+			mMetrics.mBearingY = 0.0f;
+		}
 
 		CharInfo(
 			const FloatRect& _rect,
@@ -31,13 +32,14 @@ namespace MyGUI
 			float _bearingX,
 			float _bearingY) :
 			mIsColour(false),
-			mUVRect(_rect),
-			mWidth(_width),
-			mHeight(_height),
-			mAdvance(_advance),
-			mBearingX(_bearingX),
-			mBearingY(_bearingY)
-		{ }
+			mUVRect(_rect)
+		{
+			mMetrics.mWidth = _width;
+			mMetrics.mHeight = _height;
+			mMetrics.mAdvance = _advance;
+			mMetrics.mBearingX = _bearingX;
+			mMetrics.mBearingY = _bearingY;
+		}
 
 		CharInfo(uint32 _colour) :
 			mIsColour(true),
@@ -51,27 +53,27 @@ namespace MyGUI
 
 		float getWidth() const
 		{
-			return mWidth;
+			return mMetrics.mWidth;
 		}
 
 		float getHeight() const
 		{
-			return mHeight;
+			return mMetrics.mHeight;
 		}
 
 		float getAdvance() const
 		{
-			return mAdvance;
+			return mMetrics.mAdvance;
 		}
 
 		float getBearingX() const
 		{
-			return mBearingX;
+			return mMetrics.mBearingX;
 		}
 
 		float getBearingY() const
 		{
-			return mBearingY;
+			return mMetrics.mBearingY;
 		}
 
 		const FloatRect& getUVRect() const
@@ -85,22 +87,25 @@ namespace MyGUI
 		}
 
 	private:
+
 		bool mIsColour;
+		FloatRect mUVRect;
+
+		struct Metrics
+		{
+			float mWidth;
+			float mHeight;
+			float mAdvance;
+			float mBearingX;
+			float mBearingY;
+		};
 
 		union
 		{
-			struct
-			{
-				FloatRect mUVRect;
-				float mWidth;
-				float mHeight;
-				float mAdvance;
-				float mBearingX;
-				float mBearingY;
-			};
-
+			Metrics mMetrics;
 			uint32 mColour;
 		};
+
 	};
 
 	typedef std::vector<CharInfo> VectorCharInfo;
