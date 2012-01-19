@@ -224,14 +224,18 @@ namespace MyGUI
 	UString LanguageManager::getTag(const UString& _tag)
 	{
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
-		if (iter == mMapLanguage.end())
+		if (iter != mMapLanguage.end())
 		{
-			iter = mUserMapLanguage.find(_tag);
-			if (iter != mUserMapLanguage.end()) return iter->second;
-			return _tag;
+			return iter->second;
 		}
 
-		return iter->second;
+		MapLanguageString::iterator iterUser = mUserMapLanguage.find(_tag);
+		if (iterUser != mUserMapLanguage.end())
+		{
+			return iterUser->second;
+		}
+
+		return _tag;
 	}
 
 	const std::string& LanguageManager::getCurrentLanguage() const

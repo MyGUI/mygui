@@ -10,6 +10,11 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mTextBoxTest(nullptr)
+	{
+	}
+
 	void DemoKeeper::notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
 	{
 		MyGUI::ImageBox* image = _sender->castType<MyGUI::ImageBox>();
