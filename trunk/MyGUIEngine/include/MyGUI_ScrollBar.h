@@ -105,7 +105,7 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
-	/*events:*/
+		/*events:*/
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::ScrollBar* _sender, size_t _position)\n
 			@param _sender widget that called this event

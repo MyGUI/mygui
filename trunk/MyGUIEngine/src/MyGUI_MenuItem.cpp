@@ -53,7 +53,7 @@ namespace MyGUI
 		assignWidget(mCheck, "Check");
 
 		//if (isUserString("MinSize"))
-			//mMinSize = IntSize::parse(getUserString("MinSize"));
+		//	mMinSize = IntSize::parse(getUserString("MinSize"));
 
 		//FIXME нам нуженфокус клавы
 		setNeedKeyFocus(true);

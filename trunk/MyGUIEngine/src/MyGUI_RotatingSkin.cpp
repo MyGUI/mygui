@@ -196,9 +196,9 @@ namespace MyGUI
 
 		for (int i = 1; i < GEOMETRY_VERTICIES_TOTAL_COUNT - 1; ++i)
 		{
-			verticies[3*i - 3].set(mResultVerticiesPos[0].left, mResultVerticiesPos[0].top, vertex_z, mResultVerticiesUV[0].left, mResultVerticiesUV[0].top, mCurrentColour);
-			verticies[3*i - 2].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
-			verticies[3*i - 1].set(mResultVerticiesPos[i+1].left, mResultVerticiesPos[i+1].top, vertex_z, mResultVerticiesUV[i+1].left, mResultVerticiesUV[i+1].top, mCurrentColour);
+			verticies[3 * i - 3].set(mResultVerticiesPos[0].left, mResultVerticiesPos[0].top, vertex_z, mResultVerticiesUV[0].left, mResultVerticiesUV[0].top, mCurrentColour);
+			verticies[3 * i - 2].set(mResultVerticiesPos[i].left, mResultVerticiesPos[i].top, vertex_z, mResultVerticiesUV[i].left, mResultVerticiesUV[i].top, mCurrentColour);
+			verticies[3 * i - 1].set(mResultVerticiesPos[i + 1].left, mResultVerticiesPos[i + 1].top, vertex_z, mResultVerticiesUV[i + 1].left, mResultVerticiesUV[i + 1].top, mCurrentColour);
 		}
 
 		mRenderItem->setLastVertexCount((GEOMETRY_VERTICIES_TOTAL_COUNT - 2) * 3);

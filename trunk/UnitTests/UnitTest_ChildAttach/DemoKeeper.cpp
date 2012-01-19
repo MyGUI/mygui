@@ -56,13 +56,13 @@ namespace demo
 
 		mTextBoxTest = squad_roots.at(0)->findWidget("TextBoxTest")->castType<MyGUI::TextBox>();
 
-		squad_slot_roots.at(0)->attachToWidget(squad_roots.at(0),MyGUI::WidgetStyle::Overlapped);
-		squad_slot_roots.at(1)->attachToWidget(squad_roots.at(0),MyGUI::WidgetStyle::Overlapped);
+		squad_slot_roots.at(0)->attachToWidget(squad_roots.at(0), MyGUI::WidgetStyle::Overlapped);
+		squad_slot_roots.at(1)->attachToWidget(squad_roots.at(0), MyGUI::WidgetStyle::Overlapped);
 
 		MyGUI::ImageBox* image = squad_slot_roots.at(0)->findWidget("SquadSlotPortrait")->castType<MyGUI::ImageBox>();
 
-		image->eventMouseSetFocus += MyGUI::newDelegate(this,&DemoKeeper::notifyMouseSetFocus);
-		image->eventMouseLostFocus += MyGUI::newDelegate(this,&DemoKeeper::notifyMouseLostFocus);
+		image->eventMouseSetFocus += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseSetFocus);
+		image->eventMouseLostFocus += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseLostFocus);
 	}
 
 	void DemoKeeper::createFailedScene()
@@ -78,8 +78,8 @@ namespace demo
 
 		MyGUI::ImageBox* image = squad_slot_roots.at(0)->findWidget("SquadSlotPortrait")->castType<MyGUI::ImageBox>();
 
-		image->eventMouseSetFocus += MyGUI::newDelegate(this,&DemoKeeper::notifyMouseSetFocus);
-		image->eventMouseLostFocus += MyGUI::newDelegate(this,&DemoKeeper::notifyMouseLostFocus);
+		image->eventMouseSetFocus += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseSetFocus);
+		image->eventMouseLostFocus += MyGUI::newDelegate(this, &DemoKeeper::notifyMouseLostFocus);
 	}
 
 

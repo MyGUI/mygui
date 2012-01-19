@@ -36,16 +36,25 @@ namespace MyGUI
 		IItemContainer() { }
 		virtual ~IItemContainer() { }
 
-		virtual size_t _getItemCount() { return 0; }
+		virtual size_t _getItemCount()
+		{
+			return 0;
+		}
 
 		virtual void _addItem(const MyGUI::UString& _name) { }
 
 		virtual void _removeItemAt(size_t _index) { }
 
-		virtual Widget* _getItemAt(size_t _index) { return nullptr; }
+		virtual Widget* _getItemAt(size_t _index)
+		{
+			return nullptr;
+		}
 
 		virtual void _setItemNameAt(size_t _index, const UString& _name) { }
-		virtual const UString& _getItemNameAt(size_t _index) { return Constants::getEmptyUString(); }
+		virtual const UString& _getItemNameAt(size_t _index)
+		{
+			return Constants::getEmptyUString();
+		}
 
 		virtual void _setItemSelected(IItem* _item) { }
 	};

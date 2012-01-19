@@ -525,7 +525,7 @@ namespace MyGUI
 				_stream->readline(read, '\n');
 				if (read.empty())
 					continue;
-				if (read[read.size()-1] == '\r')
+				if (read[read.size() - 1] == '\r')
 					read.erase(read.size() - 1, 1);
 				if (read.empty())
 					continue;
@@ -797,8 +797,8 @@ namespace MyGUI
 			MyGUI::utility::trim(_value);
 			if (_value.size() < 2)
 				return false;
-			if (((_value[0] != '"') || (_value[_value.length()-1] != '"')) &&
-				((_value[0] != '\'') || (_value[_value.length()-1] != '\'')))
+			if (((_value[0] != '"') || (_value[_value.length() - 1] != '"')) &&
+				((_value[0] != '\'') || (_value[_value.length() - 1] != '\'')))
 				return false;
 			bool ok = true;
 			_value = utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);

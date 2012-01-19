@@ -330,29 +330,29 @@ namespace MyGUI
 		float currentLength = 0.0f;
 		for (size_t i = 1; i < mLinePoints.size(); ++i)
 		{
-			currentLength += len(mLinePoints[i-1].left - mLinePoints[i].left,  mLinePoints[i-1].top - mLinePoints[i].top);
+			currentLength += len(mLinePoints[i - 1].left - mLinePoints[i].left,  mLinePoints[i - 1].top - mLinePoints[i].top);
 
 			// getting normal between previous and next point
 			if (i != mLinePoints.size() - 1)
-				normal = _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+				normal = _getMiddleLine(mLinePoints[i - 1], mLinePoints[i + 1], mLinePoints[i]);
 			else
-				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
+				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
 
 			bool edge = false;
 			bool sharp = false;
 			if (normal == FloatPoint() /*|| len(normal.left, normal.top) > mLineWidth * 2*/)
 			{
 				edge = true;
-				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
+				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
 			}
 			else if (len(normal.left, normal.top) > mLineWidth * 1.5)
 			{
 				sharp = true;
-				normal = _getPerpendicular(mLinePoints[i-1], mLinePoints[i]);
+				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
 			}
 
 			// check orientation
-			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i-1];
+			FloatPoint lineDir = mLinePoints[i] - mLinePoints[i - 1];
 			if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
 			{
 				normal.left = -normal.left;
@@ -382,7 +382,7 @@ namespace MyGUI
 
 			if (sharp)
 			{
-				normal =  _getMiddleLine(mLinePoints[i-1], mLinePoints[i+1], mLinePoints[i]);
+				normal =  _getMiddleLine(mLinePoints[i - 1], mLinePoints[i + 1], mLinePoints[i]);
 
 				float sharpness = len(normal.left, normal.top) / mLineWidth;
 
@@ -391,14 +391,14 @@ namespace MyGUI
 				normal.top *= 2 * mLineWidth / length / (sharpness - 0.5f);
 
 				// check orientation
-				lineDir = mLinePoints[i] - mLinePoints[i-1];
+				lineDir = mLinePoints[i] - mLinePoints[i - 1];
 				if (lineDir.left * normal.top - lineDir.top * normal.left < 0)
 				{
 					normal.left = -normal.left;
 					normal.top = -normal.top;
 				}
-				FloatPoint lineDir1 = mLinePoints[i] - mLinePoints[i-1];
-				FloatPoint lineDir2 = mLinePoints[i+1] - mLinePoints[i];
+				FloatPoint lineDir1 = mLinePoints[i] - mLinePoints[i - 1];
+				FloatPoint lineDir2 = mLinePoints[i + 1] - mLinePoints[i];
 				if (lineDir1.left * lineDir2.top - lineDir1.top * lineDir2.left > 0)
 				{
 					normal.left = -normal.left;
@@ -406,8 +406,8 @@ namespace MyGUI
 				}
 
 				// check orientation
-				FloatPoint normal2 = _getPerpendicular(mLinePoints[i], mLinePoints[i+1]);
-				lineDir = mLinePoints[i-1] - mLinePoints[i];
+				FloatPoint normal2 = _getPerpendicular(mLinePoints[i], mLinePoints[i + 1]);
+				lineDir = mLinePoints[i - 1] - mLinePoints[i];
 				if ((lineDir.left * normal2.top - lineDir.top * normal2.left < 0))
 				{
 					normal2.left = -normal2.left;
@@ -463,7 +463,7 @@ namespace MyGUI
 				{
 					newResultVerticiesPos.push_back(croppedTriangle[0]);
 					newResultVerticiesPos.push_back(croppedTriangle[j]);
-					newResultVerticiesPos.push_back(croppedTriangle[j+1]);
+					newResultVerticiesPos.push_back(croppedTriangle[j + 1]);
 
 					// calculate UV
 					FloatPoint point;
@@ -471,7 +471,7 @@ namespace MyGUI
 					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
 					point = geometry_utility::getPositionInsideRect(croppedTriangle[j], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
 					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
-					point = geometry_utility::getPositionInsideRect(croppedTriangle[j+1], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
+					point = geometry_utility::getPositionInsideRect(croppedTriangle[j + 1], mResultVerticiesPos[i], mResultVerticiesPos[i + 1], mResultVerticiesPos[i + 2]);
 					newResultVerticiesUV.push_back(geometry_utility::getUVFromPositionInsideRect(point, v0, v1, mResultVerticiesUV[i]));
 				}
 			}

@@ -61,7 +61,7 @@ namespace MyGUI
 		/** Check if factory with specified widget type exist */
 		bool isFactoryExist(const std::string& _type);
 
-	/*internal:*/
+		/*internal:*/
 		void _deleteWidget(Widget* _widget);
 		void _deleteDelayWidgets();
 

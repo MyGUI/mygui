@@ -55,7 +55,7 @@ namespace MyGUI
 
 		virtual void setStateData(IStateInfo* _data);
 
-	/*internal:*/
+		/*internal:*/
 		virtual void _updateView();
 		virtual void _correctView();
 

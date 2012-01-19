@@ -119,7 +119,7 @@ namespace MyGUI
 		virtual void setShadowColour(const Colour& _value);
 		virtual const Colour& getShadowColour() const;
 
-	/*internal:*/
+		/*internal:*/
 		virtual void _updateView();
 		virtual void _correctView();
 

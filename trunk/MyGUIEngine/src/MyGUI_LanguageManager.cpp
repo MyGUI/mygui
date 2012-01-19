@@ -190,7 +190,7 @@ namespace MyGUI
 				read.erase(0, 3);
 			}
 
-			if (read[read.size()-1] == '\r') read.erase(read.size() - 1, 1);
+			if (read[read.size() - 1] == '\r') read.erase(read.size() - 1, 1);
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");

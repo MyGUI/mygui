@@ -227,7 +227,7 @@ namespace MyGUI
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() const;
 
-	/*events:*/
+		/*events:*/
 		/** Event : Active TabControl sheet changed \n
 			signature : void method(MyGUI::TabControl* _sender, size_t _index)\n
 			@param _sender widget that called this event
@@ -236,7 +236,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT>
 			eventTabChangeSelect;
 
-	/*internal:*/
+		/*internal:*/
 		// IItemContainer impl
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);

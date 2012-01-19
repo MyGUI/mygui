@@ -594,7 +594,7 @@ namespace MyGUI
 				if (select)
 				{
 					vertexRect.set(left, top, left + fullAdvance, top + (float)mFontHeight);
-					
+
 					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, selectedUVRect, selectedColour);
 				}
 
@@ -624,7 +624,7 @@ namespace MyGUI
 			top += mFontHeight;
 			++index;
 		}
-		
+
 		// Render the cursor, if any, last.
 		if (mVisibleCursor)
 		{

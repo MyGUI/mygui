@@ -189,7 +189,7 @@ namespace MyGUI
 		//! Return optimal height to fit all items in ListBox
 		int getOptimalHeight();
 
-	/*events:*/
+		/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
@@ -230,7 +230,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
 			eventListChangeScroll;
 
-	/*internal:*/
+		/*internal:*/
 		/** \internal @name Internal
 			Internal use methods.
 		*/

@@ -274,7 +274,7 @@ namespace MyGUI
 			return getSubItemAt(_column)->getItemDataAt<ValueType>(index, _throw);
 		}
 
-	/*events:*/
+		/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::MultiListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
@@ -302,7 +302,7 @@ namespace MyGUI
 		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef
 			requestOperatorLess;
 
-	/*internal:*/
+		/*internal:*/
 		// IItemContainer impl
 		virtual size_t _getItemCount();
 		virtual void _addItem(const MyGUI::UString& _name);
