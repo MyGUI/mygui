@@ -57,7 +57,7 @@ namespace base
 		diagnostic::StatisticInfo* getStatisticInfo();
 		diagnostic::InputFocusInfo* getFocusInput();
 
-	/*internal:*/
+		/*internal:*/
 		void _windowResized();
 
 	protected:

@@ -568,7 +568,7 @@ namespace MyGUI
 	{
 		mBoldItalicFont =_value;
 	}
-		
+
 	void HyperTextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Spacer")
