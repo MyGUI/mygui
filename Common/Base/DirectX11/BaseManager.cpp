@@ -419,7 +419,8 @@ namespace base
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		D3D_FEATURE_LEVEL featureLevels[] = {
+		D3D_FEATURE_LEVEL featureLevels[] =
+		{
 			D3D_FEATURE_LEVEL_11_0,
 			D3D_FEATURE_LEVEL_10_1,
 			D3D_FEATURE_LEVEL_10_0,
@@ -451,18 +452,18 @@ namespace base
 		HRESULT hr = S_OK;
 
 		// Пытаемся создать девайс
-		if( FAILED (hr = D3D11CreateDeviceAndSwapChain( NULL, 
-						D3D_DRIVER_TYPE_HARDWARE, 
-						NULL, 
-						0,
-						featureLevels, 
-						numFeatureLevels, 
-						D3D11_SDK_VERSION, 
-						&swapChainDesc, 
-						&mSwapChain, 
-						&mDevice, 
-						&selectedFeatureLevel,
-						&mDeviceContext )))
+		if ( FAILED (hr = D3D11CreateDeviceAndSwapChain( NULL,
+			D3D_DRIVER_TYPE_HARDWARE,
+			NULL,
+			0,
+			featureLevels,
+			numFeatureLevels,
+			D3D11_SDK_VERSION,
+			&swapChainDesc,
+			&mSwapChain,
+			&mDevice,
+			&selectedFeatureLevel,
+			&mDeviceContext )))
 		{
 			return false;
 		}
@@ -507,19 +508,23 @@ namespace base
 
 	void BaseManager::destroyRender()
 	{
-		if (mRenderTarget) {
+		if (mRenderTarget)
+		{
 			mRenderTarget->Release();
 			mRenderTarget = nullptr;
 		}
-		if (mSwapChain) {
+		if (mSwapChain)
+		{
 			mSwapChain->Release();
 			mSwapChain = nullptr;
 		}
-		if (mDeviceContext) {
+		if (mDeviceContext)
+		{
 			mDeviceContext->Release();
 			mDeviceContext = nullptr;
 		}
-		if (mDevice) {
+		if (mDevice)
+		{
 			mDevice->Release();
 			mDevice = nullptr;
 		}

@@ -52,7 +52,7 @@ namespace sigslot
 				m_senders.insert(*it);
 				++it;
 			}
-		} 
+		}
 
 		void signal_connect(impl::signal_base* sender)
 		{
@@ -192,7 +192,7 @@ namespace sigslot
 			}
 
 		protected:
-			connections_list m_connected_slots;   
+			connections_list m_connected_slots;
 		};
 
 		template<class dest_type, class arg1_type>
