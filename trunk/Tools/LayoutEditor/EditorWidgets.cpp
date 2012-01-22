@@ -286,15 +286,15 @@ namespace tools
 
 	void EditorWidgets::remove(WidgetContainer* _container)
 	{
-		std::vector<WidgetContainer*>::reverse_iterator iter;
-		while (_container->childContainers.empty() == false)
-		{
-			iter = _container->childContainers.rbegin();
-			remove(*iter);
-		}
-
 		if (nullptr != _container)
 		{
+			std::vector<WidgetContainer*>::reverse_iterator iter;
+			while (_container->childContainers.empty() == false)
+			{
+				iter = _container->childContainers.rbegin();
+				remove(*iter);
+			}
+
 			if (nullptr == _container->getWidget()->getParent())
 			{
 				mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
@@ -322,6 +322,7 @@ namespace tools
 
 			delete _container;
 		}
+
 		mWidgetsChanged = true;
 	}
 
@@ -329,16 +330,16 @@ namespace tools
 	{
 		bool result = false;
 
-		std::vector<WidgetContainer*>::reverse_iterator iter;
-		while (_container->childContainers.empty() == false)
-		{
-			iter = _container->childContainers.rbegin();
-			if (unbind(*iter))
-				result = true;
-		}
-
 		if (nullptr != _container)
 		{
+			std::vector<WidgetContainer*>::reverse_iterator iter;
+			while (_container->childContainers.empty() == false)
+			{
+				iter = _container->childContainers.rbegin();
+				if (unbind(*iter))
+					result = true;
+			}
+
 			if (nullptr == _container->getWidget()->getParent())
 			{
 				mWidgets.erase(std::find(mWidgets.begin(), mWidgets.end(), _container));
