@@ -210,6 +210,11 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
+	void ToolTipManager::setDelayVisible(float _value)
+	{
+		mDelayVisible = _value;
+	}
+
 	float ToolTipManager::getDelayVisible() const
 	{
 		return mDelayVisible;
