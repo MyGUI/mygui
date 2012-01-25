@@ -414,10 +414,6 @@ namespace MyGUI
 		// Create the glyphs and calculate their metrics.
 		//-------------------------------------------------------------------//
 
-		// The maximum glyph height must be at least as much as the default font height, since the special glyphs use the font
-		// height as their glyph height. The maximum glyph height will automatically be increased later if taller glyphs are found.
-		int maxGlyphHeight = mDefaultHeight;
-
 		GlyphHeightMap glyphHeightMap;
 		int texWidth = 0;
 
@@ -439,7 +435,7 @@ namespace MyGUI
 			const Char& codePoint = iter->first;
 			FT_UInt glyphIndex = FT_Get_Char_Index(face, codePoint);
 
-			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, face, glyphHeightMap, maxGlyphHeight);
+			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, face, glyphHeightMap);
 
 			// If the newly created glyph is the "Not Defined" glyph, remove it from the character map. It doesn't need to be
 			// there because getGlyphInfo() already returns the "Not Defined" glyph for any code points that aren't in the map.
@@ -447,6 +443,41 @@ namespace MyGUI
 				++iter;
 			else
 				mCharMap.erase(iter++);
+		}
+
+		// The following is a workaround for a FreeType bug that, when using certain fonts at certain sizes, causes it to start
+		// returning different metrics for some glyphs once all glyphs have been loaded once.
+		for (GlyphMap::iterator iter = mGlyphMap.begin(); iter != mGlyphMap.end(); ++iter)
+		{
+			if (FT_Load_Glyph(face, iter->first, FT_LOAD_DEFAULT) == 0)
+			{
+				GlyphInfo& info = iter->second;
+				GlyphInfo newInfo = createFaceGlyphInfo(0, fontAscent, face->glyph);
+
+				if (info.width != newInfo.width)
+				{
+					texWidth += (int)ceil(newInfo.width) - (int)ceil(info.width);
+					info.width = newInfo.width;
+				}
+
+				if (info.height != newInfo.height)
+				{
+					GlyphHeightMap::mapped_type oldHeightMap = glyphHeightMap[(FT_Pos)info.height];
+					GlyphHeightMap::mapped_type::iterator heightMapItem = oldHeightMap.find(iter->first);
+					glyphHeightMap[(FT_Pos)newInfo.height].insert(*heightMapItem);
+					oldHeightMap.erase(heightMapItem);
+					info.height = newInfo.height;
+				}
+
+				if (info.advance != newInfo.advance)
+					info.advance = newInfo.advance;
+
+				if (info.bearingX != newInfo.bearingX)
+					info.bearingX = newInfo.bearingX;
+
+				if (info.bearingY != newInfo.bearingY)
+					info.bearingY = newInfo.bearingY;
+			}
 		}
 
 		// Do some special handling for the "Space" and "Tab" glyphs.
@@ -474,10 +505,10 @@ namespace MyGUI
 
 		float height = (float)mDefaultHeight;
 
-		texWidth += createGlyph(nextGlyphIndex++, FontCodeType::Selected, mSelectedWidth, height, 0.0f, 0.0f, 0.0f, glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, FontCodeType::SelectedBack, mSelectedWidth, height, 0.0f, 0.0f, 0.0f, glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, FontCodeType::Cursor, mCursorWidth, height, 0.0f, 0.0f, 0.0f, glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, FontCodeType::Tab, 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f, glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Selected, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::SelectedBack, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Cursor, mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Tab, 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
 
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
@@ -519,7 +550,7 @@ namespace MyGUI
 
 			for (GlyphHeightMap::const_iterator j = glyphHeightMap.begin(); j != glyphHeightMap.end(); ++j)
 			{
-				for (std::set<std::pair<FT_UInt, GlyphInfo*> >::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
+				for (GlyphHeightMap::mapped_type::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
 				{
 					GlyphInfo& info = *i->second;
 
@@ -533,7 +564,7 @@ namespace MyGUI
 				}
 			}
 
-			texHeight = Bitwise::firstPO2From(texY + maxGlyphHeight);
+			texHeight = Bitwise::firstPO2From(texY + glyphHeightMap.rbegin()->first);
 		}
 		while (texHeight > texWidth * 2);
 
@@ -578,39 +609,40 @@ namespace MyGUI
 		}
 	}
 
-	int ResourceTrueTypeFont::createGlyph(FT_UInt _glyphIndex, Char _codePoint, float _width, float _height, float _advance, float _bearingX, float _bearingY, GlyphHeightMap& _glyphHeightMap)
+	GlyphInfo ResourceTrueTypeFont::createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph)
 	{
-		mCharMap[_codePoint] = _glyphIndex;
-		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphIndex, GlyphInfo(_codePoint, _width, _height, _advance, _bearingX, _bearingY))).first->second;
-		_glyphHeightMap[(FT_Pos)_height].insert(std::make_pair(_glyphIndex, &info));
+		float bearingX = _glyph->metrics.horiBearingX / 64.0f;
 
-		int width = (int)ceil(_width);
+		// The following calculations aren't currently needed but are kept here for future use.
+		// float ascent = _glyph->metrics.horiBearingY / 64.0f;
+		// float descent = (_glyph->metrics.height / 64.0f) - ascent;
+
+		return GlyphInfo(
+			_codePoint,
+			_glyph->metrics.width / 64.0f,
+			_glyph->metrics.height / 64.0f,
+			(_glyph->advance.x / 64.0f) - bearingX,
+			bearingX,
+			_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight);
+	}
+
+	int ResourceTrueTypeFont::createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
+	{
+		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
+		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphIndex, _glyphInfo)).first->second;
+		_glyphHeightMap[(FT_Pos)_glyphInfo.height].insert(std::make_pair(_glyphIndex, &info));
+
+		int width = (int)ceil(_glyphInfo.width);
 
 		return (width > 0) ? mGlyphSpacing + width : 0;
 	}
 
-	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap, int& _maxGlyphHeight)
+	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap)
 	{
 		if (mGlyphMap.find(_glyphIndex) == mGlyphMap.end() && FT_Load_Glyph(_face, _glyphIndex, FT_LOAD_DEFAULT) == 0)
-		{
-			float width = _face->glyph->metrics.width / 64.0f;
-			float height = _face->glyph->metrics.height / 64.0f;
-
-			float bearingX = _face->glyph->metrics.horiBearingX / 64.0f;
-			float bearingY = _fontAscent - (_face->glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight;
-
-			float advance = (_face->glyph->advance.x / 64.0f) - bearingX;
-
-			// The following calculations aren't currently needed but are kept here for future use.
-			// float ascent = _face->glyph->metrics.horiBearingY / 64.0f;
-			// float descent = height - ascent;
-
-			setMax(_maxGlyphHeight, (int)height);
-
-			return createGlyph(_glyphIndex, _codePoint, width, height, advance, bearingX, bearingY, _glyphHeightMap);
-		}
-
-		return 0;
+			return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _face->glyph), _glyphHeightMap);
+		else
+			return 0;
 	}
 
 	template<bool LAMode, bool Antialias>
@@ -623,7 +655,7 @@ namespace MyGUI
 
 		for (GlyphHeightMap::const_iterator j = _glyphHeightMap.begin(); j != _glyphHeightMap.end(); ++j)
 		{
-			for (std::set<std::pair<FT_UInt, GlyphInfo*> >::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
+			for (GlyphHeightMap::mapped_type::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
 			{
 				GlyphInfo& info = *i->second;
 
