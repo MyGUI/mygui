@@ -92,7 +92,7 @@ namespace MyGUI
 		typedef std::map<FT_UInt, GlyphInfo> GlyphMap;
 
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
-		typedef std::map<FT_Pos, std::set<std::pair<FT_UInt, GlyphInfo*> > > GlyphHeightMap;
+		typedef std::map<FT_Pos, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
 
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();
@@ -101,13 +101,16 @@ namespace MyGUI
 		// doesn't fit at the end of the current line. Automatically takes the glyph spacing into account.
 		void autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY);
 
+		// Creates a GlyphInfo object using the specified information.
+		GlyphInfo createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph);
+
 		// Creates a glyph with the specified glyph index and assigns it to the specified code point.
 		// Automatically updates _glyphHeightMap, mCharMap, and mGlyphMap with data from the new glyph..
-		int createGlyph(FT_UInt _glyphIndex, Char _codePoint, float _width, float _height, float _advance, float _bearingX, float _bearingY, GlyphHeightMap& _glyphHeightMap);
+		int createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
 
 		// Creates a glyph with the specified index from the specified font face and assigns it to the specified code point.
-		// Automatically updates _glyphHeightMap and _maxGlyphHeight with data from the newly created glyph.
-		int createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap, int& _maxGlyphHeight);
+		// Automatically updates _glyphHeightMap with data from the newly created glyph.
+		int createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap);
 
 		// Renders all of the glyphs in _glyphHeightMap into the specified texture buffer using data from the specified font face.
 		template<bool LAMode, bool Antialias>
