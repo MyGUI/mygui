@@ -478,6 +478,10 @@ namespace MyGUI
 				if (info.bearingY != newInfo.bearingY)
 					info.bearingY = newInfo.bearingY;
 			}
+			else
+			{
+				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << iter->first << " for character " << iter->second.codePoint << " in font '" << getResourceName() << "'.");
+			}
 		}
 
 		// Do some special handling for the "Space" and "Tab" glyphs.
@@ -639,10 +643,19 @@ namespace MyGUI
 
 	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap)
 	{
-		if (mGlyphMap.find(_glyphIndex) == mGlyphMap.end() && FT_Load_Glyph(_face, _glyphIndex, FT_LOAD_DEFAULT) == 0)
-			return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _face->glyph), _glyphHeightMap);
+		if (mGlyphMap.find(_glyphIndex) == mGlyphMap.end())
+		{
+			if (FT_Load_Glyph(_face, _glyphIndex, FT_LOAD_DEFAULT) == 0)
+				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _face->glyph), _glyphHeightMap);
+			else
+				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << _glyphIndex << " for character " << _codePoint << " in font '" << getResourceName() << "'.");
+		}
 		else
-			return 0;
+		{
+			mCharMap[_codePoint] = _glyphIndex;
+		}
+
+		return 0;
 	}
 
 	template<bool LAMode, bool Antialias>
@@ -717,7 +730,7 @@ namespace MyGUI
 					}
 					else
 					{
-						MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << i->first << " for character " << info.codePoint << " in font '" << getResourceName() << "'.");
+						MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot render glyph " << i->first << " for character " << info.codePoint << " in font '" << getResourceName() << "'.");
 					}
 					break;
 				}
