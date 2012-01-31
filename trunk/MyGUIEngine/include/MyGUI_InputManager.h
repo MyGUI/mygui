@@ -74,7 +74,7 @@ namespace MyGUI
 
 		/** Is any widget have mouse focus */
 		bool isFocusMouse() const;
-		/** Is any widget have key focus */
+		/** Is any widget have key focus (any widget might have it, not only EditBox or something similar) */
 		bool isFocusKey() const;
 		/** Is any widget captured mouse */
 		bool isCaptureMouse() const;
