@@ -387,23 +387,21 @@ namespace MyGUI
 
 		// The font's overall ascent and descent are defined in three different places in a TrueType font, and with different
 		// values in each place. The most reliable source for these metrics is usually the "usWinAscent" and "usWinDescent" pair of
-		// values in the OS/2 header; however, some fonts contain inaccurate data there. To be safe, we use the highest of the two
-		// sets of values contained in the OS/2 header and the set of values contained in the horizontal-metrics header ("hhea").
-		TT_OS2* os2 = (TT_OS2*)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
-		TT_HoriHeader* hhea = (TT_HoriHeader*)FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
-
-		if (os2 == nullptr || hhea == nullptr)
-			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font metrics for '" << getResourceName() << "'!");
-
+		// values in the OS/2 header; however, some fonts contain inaccurate data there. To be safe, we use the highest of the set
+		// of values contained in the face metrics and the two sets of values contained in the OS/2 header.
 		int fontAscent = face->size->metrics.ascender >> 6;
 		int fontDescent = -face->size->metrics.descender >> 6;
 
-		setMax(fontAscent, (int)((float)os2->usWinAscent * face->size->metrics.y_ppem / face->units_per_EM));
-		setMax(fontDescent, (int)((float)os2->usWinDescent * face->size->metrics.y_ppem / face->units_per_EM));
+		TT_OS2* os2 = (TT_OS2*)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
 
-		setMax(fontAscent, (int)((float)os2->sTypoAscender * face->size->metrics.y_ppem / face->units_per_EM));
-		setMax(fontDescent, (int)((float)(os2->sTypoDescender + os2->sTypoLineGap) * face->size->metrics.y_ppem / face->units_per_EM));
+		if (os2 != nullptr)
+		{
+			setMax(fontAscent, os2->usWinAscent * face->size->metrics.y_ppem / face->units_per_EM);;
+			setMax(fontDescent, os2->usWinDescent * face->size->metrics.y_ppem / face->units_per_EM);
 
+			setMax(fontAscent, os2->sTypoAscender * face->size->metrics.y_ppem / face->units_per_EM);
+			setMax(fontDescent, -os2->sTypoDescender * face->size->metrics.y_ppem / face->units_per_EM);
+		}
 
 		// The nominal font height is calculated as the sum of its ascent and descent as specified by the font designer. Previously
 		// it was defined by MyGUI in terms of the maximum ascent and descent of the glyphs currently in use, but this caused the
