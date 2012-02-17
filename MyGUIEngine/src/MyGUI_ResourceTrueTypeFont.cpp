@@ -404,6 +404,7 @@ namespace MyGUI
 		setMax(fontAscent, (int)((float)os2->sTypoAscender * face->size->metrics.y_ppem / face->units_per_EM));
 		setMax(fontDescent, (int)((float)(os2->sTypoDescender + os2->sTypoLineGap) * face->size->metrics.y_ppem / face->units_per_EM));
 
+
 		// The nominal font height is calculated as the sum of its ascent and descent as specified by the font designer. Previously
 		// it was defined by MyGUI in terms of the maximum ascent and descent of the glyphs currently in use, but this caused the
 		// font's line spacing to change whenever glyphs were added to or removed from the font definition. Doing it this way
@@ -420,7 +421,6 @@ namespace MyGUI
 		// If no code points have been specified, use the Unicode Basic Multilingual Plane by default.
 		if (mCharMap.empty())
 			addCodePointRange(0, 0xFFFF);
-
 		// Before creating the glyphs, add a code point that will cause the all-important "Not Defined" glyph to be created. To
 		// make sure that our code point doesn't collide with any real code point, we use the highest possible value for a Char.
 		addCodePoint(std::numeric_limits<Char>::max());
@@ -678,22 +678,16 @@ namespace MyGUI
 				case FontCodeType::SelectedBack:
 				{
 					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
-					FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
-					uvRect.right = uvRect.left;
-					uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
-					uvRect.bottom = uvRect.top;
+
+					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
+					// rendering multi-character selections.
+					GlyphInfo* glyphInfo = getGlyphInfo(info.codePoint);
+					glyphInfo->width = 0.0f;
+					glyphInfo->uvRect.right = glyphInfo->uvRect.left;
 				}
 				break;
 
 				case FontCodeType::Cursor:
-				{
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
-					FloatRect& uvRect = getGlyphInfo(info.codePoint)->uvRect;
-					uvRect.top += (uvRect.bottom - uvRect.top) / 2.0f;
-					uvRect.bottom = uvRect.top;
-				}
-				break;
-
 				case FontCodeType::Tab:
 					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
 					break;
