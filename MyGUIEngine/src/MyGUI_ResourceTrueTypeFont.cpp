@@ -29,6 +29,7 @@
 	#include FT_GLYPH_H
 	#include FT_TRUETYPE_TABLES_H
 	#include FT_BITMAP_H
+	#include FT_WINFONTS_H
 #endif // MYGUI_USE_FREETYPE
 
 namespace MyGUI
@@ -359,27 +360,15 @@ namespace MyGUI
 		if (FT_Init_FreeType(&ftLibrary) != 0)
 			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not init the FreeType library!");
 
-		IDataStream* datastream = DataManager::getInstance().getData(mSource);
-		if (datastream == nullptr)
+		uint8* fontBuffer = nullptr;
+
+		FT_Face face = loadFace(ftLibrary, fontBuffer);
+
+		if (face == nullptr)
 		{
 			MYGUI_LOG(Error, "ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 			return;
 		}
-
-		size_t fontBufferSize = datastream->size();
-		uint8* fontBuffer = new uint8[fontBufferSize];
-		datastream->read(fontBuffer, fontBufferSize);
-		delete datastream;
-
-		FT_Face face;
-
-		if (FT_New_Memory_Face(ftLibrary, fontBuffer, (FT_Long)fontBufferSize, 0, &face) != 0)
-			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
-
-		// Set the font size by first converting the size to FreeType's 26.6 fixed-point format.
-		FT_F26Dot6 ftSize = (FT_F26Dot6)(mSize * (1 << 6));
-		if (FT_Set_Char_Size(face, ftSize, 0, mResolution, mResolution) != 0)
-			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not set the font size for '" << getResourceName() << "'!");
 
 		//-------------------------------------------------------------------//
 		// Calculate the font metrics.
@@ -416,9 +405,6 @@ namespace MyGUI
 		GlyphHeightMap glyphHeightMap;
 		int texWidth = 0;
 
-		// If no code points have been specified, use the Unicode Basic Multilingual Plane by default.
-		if (mCharMap.empty())
-			addCodePointRange(0, 0xFFFF);
 		// Before creating the glyphs, add a code point that will cause the all-important "Not Defined" glyph to be created. To
 		// make sure that our code point doesn't collide with any real code point, we use the highest possible value for a Char.
 		addCodePoint(std::numeric_limits<Char>::max());
@@ -600,6 +586,114 @@ namespace MyGUI
 
 		FT_Done_Face(face);
 		FT_Done_FreeType(ftLibrary);
+
+		delete[] fontBuffer;
+	}
+
+	FT_Face ResourceTrueTypeFont::loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer)
+	{
+		FT_Face result = nullptr;
+
+		// Load the font file.
+		IDataStream* datastream = DataManager::getInstance().getData(mSource);
+
+		if (datastream == nullptr)
+			return result;
+
+		size_t fontBufferSize = datastream->size();
+		_fontBuffer = new uint8[fontBufferSize];
+		datastream->read(_fontBuffer, fontBufferSize);
+		delete datastream;
+
+		// Determine how many faces the font contains.
+		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, -1, &result) != 0)
+			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
+
+		FT_Long numFaces = result->num_faces;
+		FT_Long faceIndex = 0;
+
+		// Load the first face.
+		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+			MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
+
+		if (result->face_flags & FT_FACE_FLAG_SCALABLE)
+		{
+			// The font is scalable, so set the font size by first converting the requested size to FreeType's 26.6 fixed-point
+			// format.
+			FT_F26Dot6 ftSize = (FT_F26Dot6)(mSize * (1 << 6));
+
+			if (FT_Set_Char_Size(result, ftSize, 0, mResolution, mResolution) != 0)
+				MYGUI_EXCEPT("ResourceTrueTypeFont: Could not set the font size for '" << getResourceName() << "'!");
+
+			// If no code points have been specified, use the Unicode Basic Multilingual Plane by default.
+			if (mCharMap.empty())
+				addCodePointRange(0, 0xFFFF);
+		}
+		else
+		{
+			// The font isn't scalable, so try to load it as a Windows FNT/FON file.
+			FT_WinFNT_HeaderRec fnt;
+
+			// Enumerate all of the faces in the font and select the smallest one that's at least as large as the requested size
+			// (after adjusting for resolution). If none of the faces are large enough, use the largest one.
+			std::map<float, FT_Long> faceSizes;
+
+			do
+			{
+				if (FT_Get_WinFNT_Header(result, &fnt) != 0)
+					MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
+
+				faceSizes.insert(std::make_pair((float)fnt.nominal_point_size * fnt.vertical_resolution / mResolution, faceIndex));
+
+				FT_Done_Face(result);
+
+				if (++faceIndex < numFaces)
+					if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+						MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
+			}
+			while (faceIndex < numFaces);
+
+			std::map<float, FT_Long>::const_iterator iter = faceSizes.lower_bound(mSize);
+
+			faceIndex = (iter != faceSizes.end()) ? iter->second : faceSizes.rbegin()->second;
+
+			if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, faceIndex, &result) != 0)
+				MYGUI_EXCEPT("ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
+
+			// Select the first bitmap strike available in the selected face. This needs to be done explicitly even though Windows
+			// FNT/FON files contain only one bitmap strike per face.
+			if (FT_Select_Size(result, 0) != 0)
+				MYGUI_EXCEPT("ResourceTrueTypeFont: Could not set the font size for '" << getResourceName() << "'!");
+
+			// Windows FNT/FON files do not support Unicode, so restrict the code-point range to either ISO-8859-1 or ASCII,
+			// depending on the font's encoding.
+			if (mCharMap.empty())
+			{
+				// No code points have been specified, so add the printable ASCII range by default.
+				addCodePointRange(0x20, 0x7E);
+
+				// Additionally, if the font's character set is CP-1252, add the range of non-ASCII 8-bit code points that are
+				// common between CP-1252 and ISO-8859-1; i.e., everything but 0x80 through 0x9F.
+				if (fnt.charset == FT_WinFNT_ID_CP1252)
+					addCodePointRange(0xA0, 0xFF);
+			}
+			else
+			{
+				// Some code points have been specified, so remove anything in the non-printable ASCII range as well as anything
+				// over 8 bits.
+				removeCodePointRange(0, 0x1F);
+				removeCodePointRange(0x100, std::numeric_limits<Char>::max());
+
+				// Additionally, remove non-ASCII 8-bit code points (plus ASCII DEL, 0x7F). If the font's character set is CP-1252,
+				// remove only the code points that differ between CP-1252 and ISO-8859-1; otherwise, remove all of them.
+				if (fnt.charset == FT_WinFNT_ID_CP1252)
+					removeCodePointRange(0x7F, 0x9F);
+				else
+					removeCodePointRange(0x7F, 0xFF);
+			}
+		}
+
+		return result;
 	}
 
 	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY)
@@ -761,8 +855,8 @@ namespace MyGUI
 		}
 
 		// Calculate and store the glyph's UV coordinates within the texture.
-		_info.uvRect.left = (float) _texX / _texWidth; // u1
-		_info.uvRect.top = (float) _texY / _texHeight; // v1
+		_info.uvRect.left = (float)_texX / _texWidth; // u1
+		_info.uvRect.top = (float)_texY / _texHeight; // v1
 		_info.uvRect.right = (float)(_texX + _info.width) / _texWidth; // u2
 		_info.uvRect.bottom = (float)(_texY + _info.height) / _texHeight; // v2
 
