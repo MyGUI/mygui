@@ -97,6 +97,13 @@ namespace MyGUI
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();
 
+		// Loads the font face as specified by mSource, mSize, and mResolution. Automatically adjusts code-point ranges according
+		// to the capabilities of the font face.
+		// Returns a handle to the FreeType face object for the face, or nullptr if the face could not be loaded.
+		// Keeps the font file loaded in memory and stores its location in _fontBuffer. The caller is responsible for freeing this
+		// buffer when it is done using the face by calling delete[] on the buffer after calling FT_Done_Face() on the face itself.
+		FT_Face loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer);
+
 		// Wraps the current texture coordinates _texX and _texY to the beginning of the next line if the specified glyph width
 		// doesn't fit at the end of the current line. Automatically takes the glyph spacing into account.
 		void autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY);
