@@ -40,6 +40,8 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
+		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
+		// exist in this font. Returns nullptr if the code point does not exist and there is no substitute glyph available.
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
 		virtual ITexture* getTextureFont();
@@ -48,31 +50,21 @@ namespace MyGUI
 		virtual int getDefaultHeight();
 
 	private:
-		void addGlyph(Char _index, const IntCoord& _coord);
+		// Loads the texture specified by mSource.
+		void loadTexture();
 
-		void initialise();
+		// A map of code points to glyph info objects.
+		typedef std::map<Char, GlyphInfo> CharMap;
 
-		void addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0) const;
+		// The following variables are set directly from values specified by the user.
+		std::string mSource; // Source (filename) of the font.
 
-		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
-		void addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
-		void checkTexture();
+		// The following variables are calculated automatically.
+		int mDefaultHeight; // The nominal height of the font in pixels.
+		GlyphInfo* mSubstituteGlyphInfo; // The glyph info to use as a substitute for code points that don't exist in the font.
+		MyGUI::ITexture* mTexture; // The texture that contains all of the rendered glyphs in the font.
 
-	private:
-		std::string mSource;
-		int mDefaultHeight;
-
-		// отдельная информация о символах
-		GlyphInfo mSpaceGlyphInfo;
-
-		// символы созданные руками
-		VectorPairCodeCoord mVectorPairCodeCoord;
-
-		// вся информация о символах
-		typedef std::vector<RangeInfo> VectorRangeInfo;
-		VectorRangeInfo mVectorRangeInfo;
-
-		MyGUI::ITexture* mTexture;
+		CharMap mCharMap; // A map of code points to glyph info objects.
 	};
 
 } // namespace MyGUI
