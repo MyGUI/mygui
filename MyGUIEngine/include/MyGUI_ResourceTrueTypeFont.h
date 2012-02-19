@@ -45,13 +45,18 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		// Returns the glyph info for the specified code point, or the "Not Defined" glyph if the code point does not exist in this font.
+		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
+		// exist in this font. Returns nullptr if there is a problem with the font.
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
 		virtual ITexture* getTextureFont();
 
 		// получившаяся высота при генерации в пикселях
 		virtual int getDefaultHeight();
+
+		// Returns the code point that is used as a substitute for code points that don't exist in the font. The default substitute
+		// code point is FontCodeType::NotDefined, but it can be customized in the font definition file.
+		Char getSubstituteCodePoint() const;
 
 	private:
 		void addCodePoint(Char _codePoint);
@@ -72,9 +77,11 @@ namespace MyGUI
 		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.
 		float mTabWidth; // The width of the "Tab" special character, in pixels.
 		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
+		Char mSubstituteCodePoint; // The code point to use as a substitute for code points that don't exist in the font.
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight; // The nominal height of the font in pixels.
+		GlyphInfo* mSubstituteGlyphInfo; // The glyph info to use as a substitute for code points that don't exist in the font.
 		MyGUI::ITexture* mTexture; // The texture that contains all of the rendered glyphs in the font.
 
 		// The following constants used to be mutable, but they no longer need to be. Do not modify their values!
