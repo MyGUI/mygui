@@ -31,21 +31,24 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			NotDefined = 0,
-			Selected = 6,
-			SelectedBack = 7,
-			Cursor = 8,
-			Tab = 9,
+			Tab = 0x0009,
 			LF = 0x000A,
 			CR = 0x000D,
 			Space = 0x0020,
 			LatinStart = 0x0021,
 			NEL = 0x0085,
 			LatinEnd = 0x00A6,
-			MAX
+
+			// The following are special code points. These are used represent displayable text elements that do not correspond to
+			// any actual Unicode code point. To prevent collisions, they must be defined with values higher than that of the
+			// highest valid Unicode code point (0x10FFFF as of Unicode 6.1).
+			Selected = 0xFFFFFFFC, // Used for rendering text selections when they have input focus.
+			SelectedBack = 0xFFFFFFFD, // Used for rendering text selections when they don't have input focus.
+			Cursor = 0xFFFFFFFE, // Used for rendering the blinking text cursor.
+			NotDefined = 0xFFFFFFFF // Used to render substitute glyphs for characters that aren't supported by the current font.
 		};
 
-		FontCodeType(Enum _value = MAX) :
+		FontCodeType(Enum _value = NotDefined) :
 			value(_value)
 		{
 		}
