@@ -172,7 +172,9 @@ namespace MyGUI
 		mSpaceWidth(0.0f),
 		mTabWidth(0.0f),
 		mOffsetHeight(0),
+		mSubstituteCodePoint(FontCodeType::NotDefined),
 		mDefaultHeight(0),
+		mSubstituteGlyphInfo(nullptr),
 		mTexture(nullptr)
 	{
 	}
@@ -208,6 +210,7 @@ namespace MyGUI
 				}
 				else if (key == "TabWidth") mTabWidth = utility::parseFloat(value);
 				else if (key == "OffsetHeight") mOffsetHeight = utility::parseInt(value);
+				else if (key == "SubstituteCode") mSubstituteCodePoint = utility::parseInt(value);
 				else if (key == "CursorWidth" || key == "Distance")
 				{
 					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; value ignored.");
@@ -259,16 +262,31 @@ namespace MyGUI
 		initialise();
 	}
 
+#ifdef MYGUI_USE_FREETYPE
+
 	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
-#ifdef MYGUI_USE_FREETYPE
-		CharMap::iterator charIter = mCharMap.find(_id);
-		GlyphMap::iterator glyphIter = mGlyphMap.find((charIter != mCharMap.end()) ? charIter->second : 0);
-		return (glyphIter != mGlyphMap.end()) ? &glyphIter->second : nullptr;
-#else
-		return nullptr;
-#endif // MYGUI_USE_FREETYPE
+		CharMap::const_iterator charIter = mCharMap.find(_id);
+
+		if (charIter != mCharMap.end())
+		{
+			GlyphMap::iterator glyphIter = mGlyphMap.find(charIter->second);
+
+			if (glyphIter != mGlyphMap.end())
+				return &glyphIter->second;
+		}
+
+		return mSubstituteGlyphInfo;
 	}
+
+#else
+
+	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
+	{
+		return nullptr;
+	}
+
+#endif // MYGUI_USE_FREETYPE
 
 	ITexture* ResourceTrueTypeFont::getTextureFont()
 	{
@@ -278,6 +296,11 @@ namespace MyGUI
 	int ResourceTrueTypeFont::getDefaultHeight()
 	{
 		return mDefaultHeight;
+	}
+
+	Char ResourceTrueTypeFont::getSubstituteCodePoint() const
+	{
+		return mSubstituteCodePoint;
 	}
 
 	void ResourceTrueTypeFont::addCodePoint(Char _codePoint)
@@ -405,13 +428,19 @@ namespace MyGUI
 		GlyphHeightMap glyphHeightMap;
 		int texWidth = 0;
 
-		// Before creating the glyphs, add a code point that will cause the all-important "Not Defined" glyph to be created. To
-		// make sure that our code point doesn't collide with any real code point, we use the highest possible value for a Char.
-		addCodePoint(std::numeric_limits<Char>::max());
-
-		// Also add the "Space" code point to force that glyph to be created. For historical reasons, MyGUI users are accustomed to
-		// omitting this code point in their font definitions.
+		// Before creating the glyphs, add the "Space" code point to force that glyph to be created. For historical reasons, MyGUI
+		// users are accustomed to omitting this code point in their font definitions.
 		addCodePoint(FontCodeType::Space);
+
+		// If a substitute code point has been specified, check to make sure that it exists. If it doesn't, revert to the default
+		// "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that is guaranteed to cause
+		// the "Not Defined" special glyph to be created.
+		if (mSubstituteCodePoint != FontCodeType::NotDefined && mSubstituteCodePoint != FontCodeType::Tab && mCharMap.find(mSubstituteCodePoint) == mCharMap.end())
+			mSubstituteCodePoint = FontCodeType::NotDefined;
+
+		// Add the "Not Defined" code point if it's in use as the substitute code point.
+		if (mSubstituteCodePoint == FontCodeType::NotDefined)
+			addCodePoint(FontCodeType::NotDefined);
 
 		// Create the standard glyphs.
 		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end(); )
@@ -421,9 +450,9 @@ namespace MyGUI
 
 			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, face, glyphHeightMap);
 
-			// If the newly created glyph is the "Not Defined" glyph, remove it from the character map. It doesn't need to be
-			// there because getGlyphInfo() already returns the "Not Defined" glyph for any code points that aren't in the map.
-			if (iter->second != FontCodeType::NotDefined)
+			// If the newly created glyph is the "Not Defined" glyph, remove the code point from the character map unless it
+			// actually is the special "Not Defined" code point.
+			if (iter->second != 0 || iter->first == FontCodeType::NotDefined)
 				++iter;
 			else
 				mCharMap.erase(iter++);
@@ -493,10 +522,13 @@ namespace MyGUI
 
 		float height = (float)mDefaultHeight;
 
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Tab, 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
 		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Selected, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
 		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::SelectedBack, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
 		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Cursor, mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Tab, 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
+
+		// Cache a pointer to the substitute glyph info for fast lookup.
+		mSubstituteGlyphInfo = &mGlyphMap.at((mSubstituteCodePoint == FontCodeType::NotDefined) ? 0 : mCharMap.at(mSubstituteCodePoint));
 
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
@@ -587,7 +619,7 @@ namespace MyGUI
 		FT_Done_Face(face);
 		FT_Done_FreeType(ftLibrary);
 
-		delete[] fontBuffer;
+		delete [] fontBuffer;
 	}
 
 	FT_Face ResourceTrueTypeFont::loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer)
