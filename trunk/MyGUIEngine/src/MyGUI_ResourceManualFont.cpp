@@ -30,6 +30,7 @@ namespace MyGUI
 
 	ResourceManualFont::ResourceManualFont() :
 		mDefaultHeight(0),
+		mSubstituteGlyphInfo(nullptr),
 		mTexture(nullptr)
 	{
 	}
@@ -40,17 +41,15 @@ namespace MyGUI
 
 	GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id)
 	{
-		for (VectorRangeInfo::iterator iter = mVectorRangeInfo.begin(); iter != mVectorRangeInfo.end(); ++iter)
-		{
-			GlyphInfo* info = iter->getInfo(_id);
-			if (info == nullptr) continue;
-			return info;
-		}
-		// при ошибках возвращаем пробел
-		return &mSpaceGlyphInfo;
+		CharMap::iterator iter = mCharMap.find(_id);
+
+		if (iter != mCharMap.end())
+			return &iter->second;
+
+		return mSubstituteGlyphInfo;
 	}
 
-	void ResourceManualFont::checkTexture()
+	void ResourceManualFont::loadTexture()
 	{
 		if (mTexture == nullptr)
 		{
@@ -62,77 +61,6 @@ namespace MyGUI
 				mTexture->loadFromFile(mSource);
 			}
 		}
-	}
-
-	void ResourceManualFont::addGlyph(GlyphInfo* _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight) const
-	{
-		_info->codePoint = _index;
-		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
-		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
-		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
-		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
-		_info->width = (float)(_right - _left);
-		_info->height = (float)(_bottom - _top);
-		_info->advance = _info->width;
-	}
-
-	void ResourceManualFont::addGlyph(Char _code, const IntCoord& _coord)
-	{
-		mVectorPairCodeCoord.push_back(PairCodeCoord(_code, _coord));
-	}
-
-	void ResourceManualFont::initialise()
-	{
-		if (mVectorPairCodeCoord.empty()) return;
-
-		std::sort(mVectorPairCodeCoord.begin(), mVectorPairCodeCoord.end());
-
-		const IntSize& size = texture_utility::getTextureSize(mSource);
-		float aspect = (float)size.width / (float)size.height;
-
-		Char code = mVectorPairCodeCoord.front().code;
-		size_t count = mVectorPairCodeCoord.size();
-		size_t first = 0;
-
-		for (size_t pos = 1; pos < count; ++pos)
-		{
-			// диапазон оборвался
-			if (code + 1 != mVectorPairCodeCoord[pos].code)
-			{
-				addRange(mVectorPairCodeCoord, first, pos - 1, size.width, size.height, aspect);
-				code = mVectorPairCodeCoord[pos].code;
-				first = pos;
-			}
-			else
-			{
-				code ++;
-			}
-		}
-
-		addRange(mVectorPairCodeCoord, first, count - 1, size.width, size.height, aspect);
-
-		// уничтожаем буфер
-		VectorPairCodeCoord tmp;
-		std::swap(tmp, mVectorPairCodeCoord);
-
-		checkTexture();
-	}
-
-	void ResourceManualFont::addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
-	{
-		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
-
-		for (size_t pos = _first; pos <= _last; ++pos)
-		{
-			GlyphInfo* info = range.getInfo(_info[pos].code);
-			const IntCoord& coord = _info[pos].coord;
-			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
-
-			if (_info[pos].code == FontCodeType::Space)
-				mSpaceGlyphInfo = *info;
-		}
-
-		mVectorRangeInfo.push_back(range);
 	}
 
 	void ResourceManualFont::deserialization(xml::ElementPtr _node, Version _version)
@@ -149,34 +77,67 @@ namespace MyGUI
 				if (key == "Source") mSource = value;
 				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
 			}
-			else if (node->getName() == "Codes")
-			{
-				xml::ElementEnumerator range = node->getElementEnumerator();
-				while (range.next("Code"))
-				{
-					std::string range_value;
-					std::vector<std::string> parse_range;
-					// описане глифов
-					if (range->findAttribute("index", range_value))
-					{
-						Char id = 0;
-						if (range_value == "cursor")
-							id = FontCodeType::Cursor;
-						else if (range_value == "selected")
-							id = FontCodeType::Selected;
-						else if (range_value == "selected_back")
-							id = FontCodeType::SelectedBack;
-						else
-							id = utility::parseUInt(range_value);
+		}
 
-						addGlyph(id, utility::parseValue<IntCoord>(range->findAttribute("coord")));
+		loadTexture();
+
+		if (mTexture != nullptr)
+		{
+			int textureWidth = mTexture->getWidth();
+			int textureHeight = mTexture->getHeight();
+
+			node = _node->getElementEnumerator();
+			while (node.next())
+			{
+				if (node->getName() == "Codes")
+				{
+					xml::ElementEnumerator element = node->getElementEnumerator();
+					while (element.next("Code"))
+					{
+						std::string value;
+						// описане глифов
+						if (element->findAttribute("index", value))
+						{
+							Char id = 0;
+							if (value == "cursor")
+								id = FontCodeType::Cursor;
+							else if (value == "selected")
+								id = FontCodeType::Selected;
+							else if (value == "selected_back")
+								id = FontCodeType::SelectedBack;
+							else if (value == "substitute")
+								id = FontCodeType::NotDefined;
+							else
+								id = utility::parseUInt(value);
+
+							float advance(utility::parseValue<float>(element->findAttribute("advance")));
+							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
+							FloatCoord coord(utility::parseValue<FloatCoord>(element->findAttribute("coord")));
+
+							if (advance == 0.0f)
+								advance = coord.width;
+
+							GlyphInfo& glyphInfo = mCharMap.insert(CharMap::value_type(id, GlyphInfo(
+								id,
+								coord.width,
+								coord.height,
+								advance,
+								bearing.left,
+								bearing.top,
+								FloatRect(
+									coord.left / textureWidth,
+									coord.top / textureHeight,
+									coord.right() / textureWidth,
+									coord.bottom() / textureHeight)
+							))).first->second;
+
+							if (id == FontCodeType::NotDefined)
+								mSubstituteGlyphInfo = &glyphInfo;
+						}
 					}
 				}
 			}
 		}
-
-		// инициализируем
-		initialise();
 	}
 
 	ITexture* ResourceManualFont::getTextureFont()

@@ -76,23 +76,25 @@ namespace MyGUI
 			float _height = 0.0f,
 			float _advance = 0.0f,
 			float _bearingX = 0.0f,
-			float _bearingY = 0.0f) :
+			float _bearingY = 0.0f,
+			const FloatRect& _uvRect = FloatRect()) :
 			codePoint(_codePoint),
 			width(_width),
 			height(_height),
 			advance(_advance),
 			bearingX(_bearingX),
-			bearingY(_bearingY)
+			bearingY(_bearingY),
+			uvRect(_uvRect)
 		{
 		}
 
-		FloatRect uvRect;
 		Char codePoint;
 		float width;
 		float height;
 		float advance;
 		float bearingX;
 		float bearingY;
+		FloatRect uvRect;
 	};
 
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;
