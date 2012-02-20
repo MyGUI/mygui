@@ -52,16 +52,25 @@ namespace demo
 		assignWidget(mEditSaveFileName, "edit_SaveFileName");
 		assignWidget(mButtonSave, "button_Save");
 
-		mComboAntialias->setIndexSelected(0);
-
+		initializeComboBox(mComboFont);
+		initializeEditBox(mEditSize);
 		initializeComboBox(mComboResolution);
+		initializeComboBox(mComboAntialias);
 		initializeComboBox(mComboSpace);
 		initializeComboBox(mComboTab);
 		initializeComboBox(mComboOffset);
+		initializeEditBox(mEditRange1A);
+		initializeEditBox(mEditRange1B);
+		initializeEditBox(mEditRange2A);
+		initializeEditBox(mEditRange2B);
+		initializeEditBox(mEditHideA);
+		initializeEditBox(mEditHideB);
 		initializeComboBox(mComboSubstituteCode);
 
 		mButtonGenerate->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 		mButtonSave->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
+
+		enableSave(false);
 
 		update();
 	}
@@ -72,14 +81,28 @@ namespace demo
 		delete mTextureView;
 	}
 
-	void FontPanel::initializeComboBox(MyGUI::ComboBox* comboBox)
+	void FontPanel::initializeEditBox(MyGUI::EditBox* _editBox)
 	{
-		if (comboBox != nullptr)
-		{
-			comboBox->setIndexSelected(0);
+		if (_editBox != nullptr)
+			_editBox->eventEditTextChange += MyGUI::newDelegate(this, &FontPanel::notifyTextChange);
+	}
 
-			comboBox->eventKeySetFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeySetFocus);
-			comboBox->eventKeyLostFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeyLostFocus);
+	void FontPanel::initializeComboBox(MyGUI::ComboBox* _comboBox)
+	{
+		if (_comboBox != nullptr)
+		{
+			if (_comboBox->getItemCount() > 0)
+				_comboBox->setIndexSelected(0);
+
+			_comboBox->eventComboChangePosition += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxChangePosition);
+
+			if (!_comboBox->getComboModeDrop())
+			{
+				initializeEditBox(_comboBox);
+
+				_comboBox->eventKeySetFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeySetFocus);
+				_comboBox->eventKeyLostFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeyLostFocus);
+			}
 		}
 	}
 
@@ -102,6 +125,13 @@ namespace demo
 			mComboFont->setIndexSelected(0);
 	}
 
+	void FontPanel::enableSave(bool _enable, const MyGUI::UString& fileName /*= MyGUI::UString()*/)
+	{
+		mEditSaveFileName->setCaption(fileName);
+		mEditSaveFileName->setEnabled(_enable);
+		mButtonSave->setEnabled(_enable);
+	}
+	
 	template<typename Type>
 	void addProperty(MyGUI::xml::ElementPtr _node, const std::string& _name, Type _value)
 	{
@@ -121,11 +151,10 @@ namespace demo
 	{
 		MyGUI::xml::Document document;
 		document.createDeclaration();
-		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-		generateFontTTFXml(root, _fontName);
+		generateFontTTFXml(document.createRoot("MyGUI"), _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "Success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox("Message", "Success", "Saved font definition file: " + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
 			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 	}
@@ -134,13 +163,22 @@ namespace demo
 	{
 		MyGUI::xml::Document document;
 		document.createDeclaration();
-		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-		generateFontManualXml(root, _textureName, _fontName);
+		generateFontManualXml(document.createRoot("MyGUI"), _textureName, _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "Success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox("Message", "Success", "Saved manual font definition file: '" + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
 			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+	}
+
+	void FontPanel::notifyTextChange(MyGUI::EditBox* _sender)
+	{
+		enableSave(false);
+	}
+
+	void FontPanel::notifyComboBoxChangePosition(MyGUI::ComboBox* _sender, size_t _index)
+	{
+		enableSave(false);
 	}
 
 	void FontPanel::notifyComboBoxKeySetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
@@ -172,21 +210,19 @@ namespace demo
 			std::string textureName = mEditSaveFileName->getOnlyText() + ".png";
 			saveTexture(mFontName, textureName);
 
-			std::string fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".ttf.", mFontHeight);
-			std::string fileName = mEditSaveFileName->getOnlyText() + ".ttf.xml";
+			std::string fontName = mEditSaveFileName->getOnlyText();
+			std::string fileName = fontName + ".xml";
 			saveFontTTFXml(fontName, fileName);
+			removeFont(fontName);
 
-			fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".manual.", mFontHeight);
-			fileName = mEditSaveFileName->getOnlyText() + ".manual.xml";
+			fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".manual");
+			fileName = fontName + ".xml";
 			saveFontManualXml(fontName, textureName, fileName);
+			removeFont(fontName);
 		}
 		else if (_widget == mButtonGenerate)
 		{
-			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-			if (manager.isExist(mFontName))
-			{
-				manager.removeByName(mFontName);
-			}
+			removeFont(mFontName);
 
 			MyGUI::xml::Document document;
 			document.createDeclaration();
@@ -197,7 +233,7 @@ namespace demo
 			{
 				MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
 
-				MyGUI::IResource* resource = manager.getByName(mFontName, false);
+				MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().getByName(mFontName, false);
 				MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
 				MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
 
@@ -206,13 +242,24 @@ namespace demo
 
 				mFontView->setFontName(mFontName);
 				mTextureView->setFontName(mFontName);
+
+				MyGUI::UString fileName = mComboFont->getOnlyText();
+
+				MyGUI::UString::size_type dotIndex = fileName.find_last_of(".");
+
+				if (dotIndex != MyGUI::UString::npos)
+					fileName.erase(fileName.begin() + dotIndex, fileName.end());
+
+				enableSave(true, MyGUI::utility::toString(fileName, '.', mFontHeight));
 			}
 			catch (MyGUI::Exception & e)
 			{
 				mFontHeight = 0;
 
 				mFontView->setFontName(MyGUI::FontManager::getInstance().getDefaultFont());
-				mTextureView->setFontName("");
+				mTextureView->setFontName(std::string());
+
+				enableSave(false);
 
 				MyGUI::Message::createMessageBox("Message", "Error", e.getDescription(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 			}
@@ -221,9 +268,6 @@ namespace demo
 
 	void addCodeRange(MyGUI::EditBox* a, MyGUI::EditBox* b, MyGUI::xml::ElementPtr node_codes, const std::string& attribute)
 	{
-		MyGUI::uint32 range1a = MyGUI::utility::parseValue<MyGUI::uint32>(a->getOnlyText());
-		MyGUI::uint32 range1b = MyGUI::utility::parseValue<MyGUI::uint32>(b->getOnlyText());
-
 		if (a->getTextLength() != 0)
 		{
 			std::string range = (b->getTextLength() != 0) ? MyGUI::utility::toString(a->getOnlyText(), " ", b->getOnlyText()) : a->getOnlyText();
@@ -308,6 +352,13 @@ namespace demo
 			// Always add the substitute code point last, even if it isn't the last one in the range.
 			addCode(codes, substituteCodePoint, font, true);
 		}
+	}
+
+	void FontPanel::removeFont(const std::string& _fontName)
+	{
+		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
+			if (manager.isExist(_fontName))
+				manager.removeByName(_fontName);
 	}
 
 	void FontPanel::addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute)
