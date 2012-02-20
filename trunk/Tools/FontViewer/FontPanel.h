@@ -23,10 +23,14 @@ namespace demo
 		virtual ~FontPanel();
 
 	private:
-		void initializeComboBox(MyGUI::ComboBox* comboBox);
+		void initializeEditBox(MyGUI::EditBox* _editBox);
+		void initializeComboBox(MyGUI::ComboBox* _comboBox);
 
 		void update();
+		void enableSave(bool _enable, const MyGUI::UString& fileName = MyGUI::UString());
 
+		void notifyTextChange(MyGUI::EditBox* _sender);
+		void notifyComboBoxChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyComboBoxKeySetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
 		void notifyComboBoxKeyLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
 		void notifyMouseButtonClick(MyGUI::Widget* _widget);
@@ -37,6 +41,8 @@ namespace demo
 		void saveTexture(const std::string& _fontName, const std::string& _fileName);
 		void saveFontTTFXml(const std::string& _fontName, const std::string& _fileName);
 		void saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName);
+
+		void removeFont(const std::string& _fontName);
 
 		void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute);
 
