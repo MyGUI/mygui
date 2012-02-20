@@ -12,6 +12,7 @@ namespace demo
 	FontView::FontView() :
 		wraps::BaseLayout("FontView.layout")
 	{
+		assignWidget(mWindow, "_Main");
 		assignWidget(mEditView, "edit_View");
 	}
 
@@ -24,6 +25,8 @@ namespace demo
 
 		mEditView->setFontName(_value);
 		mEditView->setFontHeight(height);
+
+		mWindow->setCaption(MyGUI::utility::toString("Font View - ", height, " pixels high"));
 	}
 
 } // namespace demo
