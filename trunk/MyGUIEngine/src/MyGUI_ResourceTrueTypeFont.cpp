@@ -319,6 +319,42 @@ namespace MyGUI
 		return mDefaultHeight;
 	}
 
+	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
+	{
+		std::vector<std::pair<Char, Char> > result;
+
+		if (!mCharMap.empty())
+		{
+			CharMap::const_iterator iter = mCharMap.begin(), endIter = mCharMap.end();
+
+			// Start the first range with the first code point in the map.
+			Char rangeBegin = iter->first, rangeEnd = rangeBegin;
+
+			// Loop over the rest of the map and find the contiguous ranges.
+			for (++iter; iter != endIter; ++iter)
+			{
+				if (iter->first == rangeEnd + 1)
+				{
+					// Extend the current range.
+					++rangeEnd;
+				}
+				else
+				{
+					// Found the start of a new range. First, save the current range.
+					result.push_back(std::make_pair(rangeBegin, rangeEnd));
+
+					// Then start the new range.
+					rangeBegin = rangeEnd = iter->first;
+				}
+			}
+
+			// Save the final range.
+			result.push_back(std::make_pair(rangeBegin, rangeEnd));
+		}
+
+		return result;
+	}
+
 	Char ResourceTrueTypeFont::getSubstituteCodePoint() const
 	{
 		return mSubstituteCodePoint;
@@ -429,7 +465,7 @@ namespace MyGUI
 
 		if (os2 != nullptr)
 		{
-			setMax(fontAscent, os2->usWinAscent * face->size->metrics.y_ppem / face->units_per_EM);;
+			setMax(fontAscent, os2->usWinAscent * face->size->metrics.y_ppem / face->units_per_EM);
 			setMax(fontDescent, os2->usWinDescent * face->size->metrics.y_ppem / face->units_per_EM);
 
 			setMax(fontAscent, os2->sTypoAscender * face->size->metrics.y_ppem / face->units_per_EM);

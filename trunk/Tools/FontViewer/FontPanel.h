@@ -7,6 +7,7 @@
 #define __FONT_PANEL_H__
 
 #include <MyGUI.h>
+#include "MyGUI_ResourceTrueTypeFont.h"
 #include "BaseLayout/BaseLayout.h"
 #include "FontView.h"
 #include "TextureView.h"
@@ -22,8 +23,14 @@ namespace demo
 		virtual ~FontPanel();
 
 	private:
+		void initializeComboBox(MyGUI::ComboBox* comboBox);
+
 		void update();
+
+		void notifyComboBoxKeySetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
+		void notifyComboBoxKeyLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old);
 		void notifyMouseButtonClick(MyGUI::Widget* _widget);
+
 		void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName);
 		void generateFontManualXml(MyGUI::xml::ElementPtr _root, const std::string& _textureName, const std::string& _fontName);
 
@@ -31,24 +38,24 @@ namespace demo
 		void saveFontTTFXml(const std::string& _fontName, const std::string& _fileName);
 		void saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName);
 
-		void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::IFont* _font);
-		MyGUI::IntCoord getCoord(const MyGUI::FloatRect& _rect, int _textureWidth, int _textureHeight, int _charWidth, int _fontHeight);
+		void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute);
 
 	private:
 		MyGUI::ComboBox* mComboFont;
 		MyGUI::EditBox* mEditSize;
-		MyGUI::EditBox* mEditResolution;
+		MyGUI::ComboBox* mComboResolution;
 		MyGUI::ComboBox* mComboAntialias;
-		MyGUI::EditBox* mEditSpace;
-		MyGUI::EditBox* mEditTab;
-		MyGUI::EditBox* mEditCursor;
-		MyGUI::EditBox* mEditDistance;
-		MyGUI::EditBox* mEditOffset;
-		MyGUI::EditBox* mEditRange1;
-		MyGUI::EditBox* mEditRange2;
-		MyGUI::EditBox* mEditHide;
+		MyGUI::ComboBox* mComboSpace;
+		MyGUI::ComboBox* mComboTab;
+		MyGUI::ComboBox* mComboOffset;
+		MyGUI::EditBox* mEditRange1A;
+		MyGUI::EditBox* mEditRange1B;
+		MyGUI::EditBox* mEditRange2A;
+		MyGUI::EditBox* mEditRange2B;
+		MyGUI::EditBox* mEditHideA;
+		MyGUI::EditBox* mEditHideB;
+		MyGUI::ComboBox* mComboSubstituteCode;
 		MyGUI::Button* mButtonGenerate;
-		MyGUI::TextBox* mTextPix;
 		MyGUI::EditBox* mEditSaveFileName;
 		MyGUI::Button* mButtonSave;
 
