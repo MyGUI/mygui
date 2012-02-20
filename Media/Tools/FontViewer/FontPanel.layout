@@ -109,11 +109,11 @@
 
     <Widget type="Widget" skin="SepDownHSkin" position="5 345 274 3"/>
 
-    <Widget type="TextBox" skin="TextBox" position="5 355 100 24">
+    <Widget type="TextBox" skin="TextBox" position="5 355 65 24">
       <Property key="TextAlign" value="Right VCenter"/>
       <Property key="Caption" value="File name"/>
     </Widget>
-    <Widget type="EditBox" skin="EditBox" position="110 355 115 25" name="edit_SaveFileName"/>
+    <Widget type="EditBox" skin="EditBox" position="75 355 150 25" name="edit_SaveFileName"/>
 
     <Widget type="Button" skin="Button" position="229 355 50 25" name="button_Save">
       <Property key="Caption" value="Save"/>
