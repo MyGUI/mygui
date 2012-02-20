@@ -10,36 +10,58 @@
 namespace demo
 {
 
+	namespace
+	{
+
+		const char* const fileTypesData[] = { "*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon" };
+
+		const MyGUI::VectorString fileTypes(fileTypesData, fileTypesData + sizeof fileTypesData / sizeof *fileTypesData);
+
+		struct StrCmpI : public std::binary_function<std::string, std::string, bool>
+		{
+			result_type operator()(const first_argument_type& _first, const second_argument_type& _second)
+			{
+				return _strcmpi(_first.c_str(), _second.c_str()) < 0;
+			}
+		};
+
+	}
+
 	FontPanel::FontPanel() :
-		wraps::BaseLayout("FontPanel.layout")
+		wraps::BaseLayout("FontPanel.layout"),
+		mFontName("GeneratedFontName"),
+		mFontHeight(0),
+		mFontView(new FontView),
+		mTextureView(new TextureView)
 	{
 		assignWidget(mComboFont, "combo_Fonts");
 		assignWidget(mEditSize, "edit_Size");
-		assignWidget(mEditResolution, "edit_Resolution");
+		assignWidget(mComboResolution, "combo_Resolution");
 		assignWidget(mComboAntialias, "combo_Antialias");
-		assignWidget(mEditSpace, "edit_Space");
-		assignWidget(mEditTab, "edit_Tab");
-		assignWidget(mEditCursor, "edit_Cursor");
-		assignWidget(mEditDistance, "edit_Distance");
-		assignWidget(mEditOffset, "edit_Offset");
-		assignWidget(mEditRange1, "edit_Range1");
-		assignWidget(mEditRange2, "edit_Range2");
-		assignWidget(mEditHide, "edit_Hide");
+		assignWidget(mComboSpace, "combo_Space");
+		assignWidget(mComboTab, "combo_Tab");
+		assignWidget(mComboOffset, "combo_Offset");
+		assignWidget(mEditRange1A, "edit_Range1A");
+		assignWidget(mEditRange1B, "edit_Range1B");
+		assignWidget(mEditRange2A, "edit_Range2A");
+		assignWidget(mEditRange2B, "edit_Range2B");
+		assignWidget(mEditHideA, "edit_HideA");
+		assignWidget(mEditHideB, "edit_HideB");
+		assignWidget(mComboSubstituteCode, "combo_SubstituteCode");
 		assignWidget(mButtonGenerate, "button_Generate");
-		assignWidget(mTextPix, "text_Pix");
 		assignWidget(mEditSaveFileName, "edit_SaveFileName");
 		assignWidget(mButtonSave, "button_Save");
 
-		mComboAntialias->setIndexSelected(1);
+		mComboAntialias->setIndexSelected(0);
+
+		initializeComboBox(mComboResolution);
+		initializeComboBox(mComboSpace);
+		initializeComboBox(mComboTab);
+		initializeComboBox(mComboOffset);
+		initializeComboBox(mComboSubstituteCode);
+
 		mButtonGenerate->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 		mButtonSave->eventMouseButtonClick += MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
-
-		mFontName = "GeneratedFontName";
-		mFontHeight = 0;
-
-		// загружаем демо вью
-		mFontView = new FontView();
-		mTextureView = new TextureView();
 
 		update();
 	}
@@ -50,23 +72,31 @@ namespace demo
 		delete mTextureView;
 	}
 
+	void FontPanel::initializeComboBox(MyGUI::ComboBox* comboBox)
+	{
+		if (comboBox != nullptr)
+		{
+			comboBox->setIndexSelected(0);
+
+			comboBox->eventKeySetFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeySetFocus);
+			comboBox->eventKeyLostFocus += MyGUI::newDelegate(this, &FontPanel::notifyComboBoxKeyLostFocus);
+		}
+	}
+
 	void FontPanel::update()
 	{
 		mComboFont->removeAllItems();
 
-		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.ttf");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
+		std::set<std::string, StrCmpI> allFilenames;
+
+		for (MyGUI::VectorString::const_iterator fileType = fileTypes.begin(); fileType != fileTypes.end(); ++fileType)
 		{
-			std::string file = *iter;
-			mComboFont->addItem(file);
+			const MyGUI::VectorString& filenames = MyGUI::DataManager::getInstance().getDataListNames(*fileType);
+			allFilenames.insert(filenames.begin(), filenames.end());
 		}
 
-		paths = MyGUI::DataManager::getInstance().getDataListNames("*.pfb");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
-		{
-			std::string file = *iter;
-			mComboFont->addItem(file);
-		}
+		for (std::set<std::string, StrCmpI>::const_iterator iter = allFilenames.begin(); iter != allFilenames.end(); ++iter)
+			mComboFont->addItem(*iter);
 
 		if (mComboFont->getItemCount() > 0)
 			mComboFont->setIndexSelected(0);
@@ -95,9 +125,9 @@ namespace demo
 		generateFontTTFXml(root, _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox("Message", "Success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
-			MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 	}
 
 	void FontPanel::saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName)
@@ -108,9 +138,25 @@ namespace demo
 		generateFontManualXml(root, _textureName, _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox("Message", "Success", _fileName, MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
-			MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+	}
+
+	void FontPanel::notifyComboBoxKeySetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
+	{
+		MyGUI::ComboBox* comboBox = static_cast<MyGUI::ComboBox*>(_sender);
+
+		if (comboBox->getIndexSelected() != MyGUI::ITEM_NONE)
+			comboBox->setCaption(MyGUI::UString());
+	}
+
+	void FontPanel::notifyComboBoxKeyLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
+	{
+		MyGUI::ComboBox* comboBox = static_cast<MyGUI::ComboBox*>(_sender);
+
+		if (comboBox->getCaption().empty())
+			comboBox->setIndexSelected(0);
 	}
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
@@ -147,17 +193,46 @@ namespace demo
 			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
 			generateFontTTFXml(root, mFontName);
 
-			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
-			MyGUI::IResource* resource = manager.getByName(mFontName, false);
-			MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
-			MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
+			try
+			{
+				MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
 
-			// вывод реального размера шрифта
-			mFontHeight = font->getDefaultHeight();
-			mTextPix->setCaption(MyGUI::utility::toString("Height of a font is ", mFontHeight, " pixels"));
+				MyGUI::IResource* resource = manager.getByName(mFontName, false);
+				MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
+				MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
 
-			mFontView->setFontName(mFontName);
-			mTextureView->setFontName(mFontName);
+				// вывод реального размера шрифта
+				mFontHeight = font->getDefaultHeight();
+
+				mFontView->setFontName(mFontName);
+				mTextureView->setFontName(mFontName);
+			}
+			catch (MyGUI::Exception & e)
+			{
+				mFontHeight = 0;
+
+				mFontView->setFontName(MyGUI::FontManager::getInstance().getDefaultFont());
+				mTextureView->setFontName("");
+
+				MyGUI::Message::createMessageBox("Message", "Error", e.getDescription(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			}
+		}
+	}
+
+	void addCodeRange(MyGUI::EditBox* a, MyGUI::EditBox* b, MyGUI::xml::ElementPtr node_codes, const std::string& attribute)
+	{
+		MyGUI::uint32 range1a = MyGUI::utility::parseValue<MyGUI::uint32>(a->getOnlyText());
+		MyGUI::uint32 range1b = MyGUI::utility::parseValue<MyGUI::uint32>(b->getOnlyText());
+
+		if (a->getTextLength() != 0)
+		{
+			std::string range = (b->getTextLength() != 0) ? MyGUI::utility::toString(a->getOnlyText(), " ", b->getOnlyText()) : a->getOnlyText();
+
+			node_codes->createChild("Code")->addAttribute(attribute, range);
+		}
+		else if (b->getTextLength() != 0)
+		{
+			node_codes->createChild("Code")->addAttribute(attribute, b->getOnlyText());
 		}
 	}
 
@@ -171,78 +246,112 @@ namespace demo
 		node->addAttribute("name", _fontName);
 
 		addProperty(node, "Source", mComboFont->getOnlyText());
-		addProperty(node, "Size", MyGUI::utility::parseValue<int>(mEditSize->getOnlyText()));
-		addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mEditResolution->getOnlyText()));
-		addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getOnlyText()));
-		addProperty(node, "SpaceWidth", MyGUI::utility::parseValue<int>(mEditSpace->getOnlyText()));
-		addProperty(node, "TabWidth", MyGUI::utility::parseValue<int>(mEditTab->getOnlyText()));
-		addProperty(node, "CursorWidth", MyGUI::utility::parseValue<int>(mEditCursor->getOnlyText()));
-		addProperty(node, "Distance", MyGUI::utility::parseValue<int>(mEditDistance->getOnlyText()));
-		addProperty(node, "OffsetHeight", MyGUI::utility::parseValue<int>(mEditOffset->getOnlyText()));
+		addProperty(node, "Size", MyGUI::utility::parseValue<float>(mEditSize->getOnlyText()));
+
+		if (mComboResolution->getIndexSelected() != 0)
+			addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mComboResolution->getOnlyText()));
+
+		if (mComboAntialias->getIndexSelected() != 0)
+			addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getOnlyText()));
+
+		if (mComboSpace->getIndexSelected() != 0)
+			addProperty(node, "SpaceWidth", MyGUI::utility::parseValue<int>(mComboSpace->getOnlyText()));
+
+		if (mComboTab->getIndexSelected() != 0)
+			addProperty(node, "TabWidth", MyGUI::utility::parseValue<int>(mComboTab->getOnlyText()));
+
+		if (mComboOffset->getIndexSelected() != 0)
+			addProperty(node, "OffsetHeight", MyGUI::utility::parseValue<int>(mComboOffset->getOnlyText()));
 
 		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
 
-		if (mEditRange1->getOnlyText() != "")
-			node_codes->createChild("Code")->addAttribute("range", mEditRange1->getOnlyText());
-		if (mEditRange2->getOnlyText() != "")
-			node_codes->createChild("Code")->addAttribute("range", mEditRange2->getOnlyText());
-		if (mEditHide->getOnlyText() != "")
-			node_codes->createChild("Code")->addAttribute("hide", mEditHide->getOnlyText());
+		addCodeRange(mEditRange1A, mEditRange1B, node_codes, "range");
+		addCodeRange(mEditRange2A, mEditRange2B, node_codes, "range");
+		addCodeRange(mEditHideA, mEditHideB, node_codes, "hide");
+
+		if (!node_codes->getElementEnumerator().next())
+			node->removeChild(node_codes);
+
+		if (mComboSubstituteCode->getIndexSelected() != 0)
+			addProperty(node, "SubstituteCode", MyGUI::utility::parseValue<int>(mComboSubstituteCode->getOnlyText()));
 	}
 
 	void FontPanel::generateFontManualXml(MyGUI::xml::ElementPtr _root, const std::string& _textureName, const std::string& _fontName)
 	{
-		_root->addAttribute("type", "Resource");
-		_root->addAttribute("version", "1.1");
+		MyGUI::ResourceTrueTypeFont* font = dynamic_cast<MyGUI::ResourceTrueTypeFont*>(MyGUI::FontManager::getInstance().getByName(mFontName));
 
-		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
-		node->addAttribute("type", "ResourceManualFont");
-		node->addAttribute("name", _fontName);
-
-		addProperty(node, "Source", _textureName);
-		addProperty(node, "DefaultHeight", mFontHeight);
-
-		MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
-		MyGUI::xml::Element* codes = node->createChild("Codes");
-
-		addCode(codes, MyGUI::FontCodeType::Cursor, font);
-		addCode(codes, MyGUI::FontCodeType::Selected, font);
-		addCode(codes, MyGUI::FontCodeType::SelectedBack, font);
-
-		addCode(codes, 32, font);
-		addCode(codes, 9, font);
-
-		MyGUI::IntSize range1 = MyGUI::IntSize::parse(mEditRange1->getOnlyText());
-		MyGUI::IntSize range2 = MyGUI::IntSize::parse(mEditRange2->getOnlyText());
-		MyGUI::IntSize hide1 = MyGUI::IntSize::parse(mEditHide->getOnlyText());
-
-		for (int index = range1.width; index <= range1.height; ++ index)
+		if (font != nullptr)
 		{
-			if (index < hide1.width || index > hide1.height)
-				addCode(codes, index, font);
-		}
+			_root->addAttribute("type", "Resource");
+			_root->addAttribute("version", "1.1");
 
-		for (int index = range2.width; index <= range2.height; ++ index)
-		{
-			if (index < hide1.width || index > hide1.height)
-				addCode(codes, index, font);
+			MyGUI::xml::ElementPtr node = _root->createChild("Resource");
+			node->addAttribute("type", "ResourceManualFont");
+			node->addAttribute("name", _fontName);
+
+			addProperty(node, "Source", _textureName);
+			addProperty(node, "DefaultHeight", mFontHeight);
+
+			MyGUI::xml::Element* codes = node->createChild("Codes");
+
+			std::vector<std::pair<MyGUI::Char, MyGUI::Char> > codePointRanges = font->getCodePointRanges();
+			MyGUI::Char substituteCodePoint = font->getSubstituteCodePoint();
+			bool isCustomSubstituteCodePoint = substituteCodePoint != MyGUI::FontCodeType::NotDefined;
+
+			// Add all of the code points. Skip over the substitute code point -- unless it's been customized, in which case it
+			// needs to be added here as a regular code point and then at the end as a substitute code point.
+			for (std::vector<std::pair<MyGUI::Char, MyGUI::Char> >::const_iterator iter = codePointRanges.begin() ; iter != codePointRanges.end(); ++iter)
+				for (MyGUI::Char code = iter->first; code <= iter->second && code >= iter->first; ++code)
+					if (code != substituteCodePoint || isCustomSubstituteCodePoint)
+						addCode(codes, code, font, false);
+
+			// Always add the substitute code point last, even if it isn't the last one in the range.
+			addCode(codes, substituteCodePoint, font, true);
 		}
 	}
 
-	void FontPanel::addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::IFont* _font)
+	void FontPanel::addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute)
 	{
+		MyGUI::xml::Element* codeNode = _node->createChild("Code");
+
+		if (!_isSubstitute)
+		{
+			switch (_code)
+			{
+			case MyGUI::FontCodeType::Selected:
+				codeNode->addAttribute("index", "selected");
+				break;
+
+			case MyGUI::FontCodeType::SelectedBack:
+				codeNode->addAttribute("index", "selected_back");
+				break;
+
+			case MyGUI::FontCodeType::Cursor:
+				codeNode->addAttribute("index", "cursor");
+				break;
+
+			default:
+				codeNode->addAttribute("index", _code);
+				break;
+			}
+		}
+		else
+		{
+			codeNode->addAttribute("index", "substitute");
+		}
+
 		MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
-		MyGUI::xml::Element* node = _node->createChild("Code");
-		node->addAttribute("index", _code);
-		node->addAttribute("coord", getCoord(info->uvRect, _font->getTextureFont()->getWidth(), _font->getTextureFont()->getHeight(), info->width, _font->getDefaultHeight()));
-	}
+		MyGUI::ITexture* texture = _font->getTextureFont();
+		MyGUI::FloatCoord coord(info->uvRect.left * (float)texture->getWidth(), info->uvRect.top * (float)texture->getHeight(), info->width, info->height);
 
-	MyGUI::IntCoord FontPanel::getCoord(const MyGUI::FloatRect& _rect, int _textureWidth, int _textureHeight, int _charWidth, int _fontHeight)
-	{
-		int left = (int)((float)_rect.left * (float)_textureWidth);
-		int top = (int)((float)_rect.top * (float)_textureHeight);
+		if (!coord.empty())
+			codeNode->addAttribute("coord", coord);
 
-		return MyGUI::IntCoord(left, top, _charWidth, _fontHeight);
+		if (info->bearingX != 0.0f || info->bearingY != 0.0f)
+			codeNode->addAttribute("bearing", MyGUI::FloatPoint(info->bearingX, info->bearingY));
+
+		if (info->advance != info->width)
+			codeNode->addAttribute("advance", info->advance);
 	}
 
 } // namespace demo

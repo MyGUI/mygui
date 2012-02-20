@@ -29,7 +29,7 @@ namespace demo
 
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
+		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Font generation utility with the ability to save to a MyGUI font configuration file.");
 
 		mFontPanel = new FontPanel();
 	}

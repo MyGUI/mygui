@@ -21,6 +21,7 @@ namespace demo
 		void setFontName(const std::string& _value);
 
 	private:
+		MyGUI::Window* mWindow;
 		MyGUI::ScrollView* mScrollView;
 		MyGUI::Widget* mImageBack;
 		MyGUI::ImageBox* mImageTexture;
