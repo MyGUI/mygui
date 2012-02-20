@@ -30,7 +30,7 @@ namespace MyGUI
 	namespace FontCodeType
 	{
 
-		enum
+		enum Enum
 		{
 			Tab = 0x0009,
 			LF = 0x000A,
