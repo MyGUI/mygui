@@ -151,16 +151,16 @@ namespace MyGUI
 
 	void ProgressBar::setSize(const IntSize& _size)
 	{
-		updateTrack();
-
 		Base::setSize(_size);
+
+		updateTrack();
 	}
 
 	void ProgressBar::setCoord(const IntCoord& _coord)
 	{
-		updateTrack();
-
 		Base::setCoord(_coord);
+
+		updateTrack();
 	}
 
 	void ProgressBar::updateTrack()
