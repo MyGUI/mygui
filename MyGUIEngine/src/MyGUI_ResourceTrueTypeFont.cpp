@@ -489,16 +489,6 @@ namespace MyGUI
 		// users are accustomed to omitting this code point in their font definitions.
 		addCodePoint(FontCodeType::Space);
 
-		// If a substitute code point has been specified, check to make sure that it exists. If it doesn't, revert to the default
-		// "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that is guaranteed to cause
-		// the "Not Defined" special glyph to be created.
-		if (mSubstituteCodePoint != FontCodeType::NotDefined && mSubstituteCodePoint != FontCodeType::Tab && mCharMap.find(mSubstituteCodePoint) == mCharMap.end())
-			mSubstituteCodePoint = FontCodeType::NotDefined;
-
-		// Add the "Not Defined" code point if it's in use as the substitute code point.
-		if (mSubstituteCodePoint == FontCodeType::NotDefined)
-			addCodePoint(FontCodeType::NotDefined);
-
 		// Create the standard glyphs.
 		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end(); )
 		{
@@ -507,9 +497,9 @@ namespace MyGUI
 
 			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, face, glyphHeightMap);
 
-			// If the newly created glyph is the "Not Defined" glyph, remove the code point from the character map unless it
-			// actually is the special "Not Defined" code point.
-			if (iter->second != 0 || iter->first == FontCodeType::NotDefined)
+			// If the newly created glyph is the "Not Defined" glyph, it means that the code point is not supported by the font.
+			// Remove it from the character map so that we can provide our own substitute instead of letting FreeType do it.
+			if (iter->second != 0)
 				++iter;
 			else
 				mCharMap.erase(iter++);
@@ -557,25 +547,25 @@ namespace MyGUI
 #endif // MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
 
 		// Do some special handling for the "Space" and "Tab" glyphs.
-		GlyphInfo& spaceGlyphInfo = *getGlyphInfo(FontCodeType::Space);
+		GlyphInfo* spaceGlyphInfo = getGlyphInfo(FontCodeType::Space);
 
-		if (spaceGlyphInfo.codePoint == FontCodeType::Space)
+		if (spaceGlyphInfo != nullptr && spaceGlyphInfo->codePoint == FontCodeType::Space)
 		{
 			// Adjust the width of the "Space" glyph if it has been customized.
 			if (mSpaceWidth != 0.0f)
 			{
-				texWidth += (int)ceil(mSpaceWidth) - (int)ceil(spaceGlyphInfo.width);
-				spaceGlyphInfo.width = mSpaceWidth;
-				spaceGlyphInfo.advance = mSpaceWidth;
+				texWidth += (int)ceil(mSpaceWidth) - (int)ceil(spaceGlyphInfo->width);
+				spaceGlyphInfo->width = mSpaceWidth;
+				spaceGlyphInfo->advance = mSpaceWidth;
 			}
 
 			// If the width of the "Tab" glyph hasn't been customized, make it eight spaces wide.
 			if (mTabWidth == 0.0f)
-				mTabWidth = 8.0f * spaceGlyphInfo.advance;
+				mTabWidth = 8.0f * spaceGlyphInfo->advance;
 		}
 
-		// Create the special glyphs. They must be created last so that they always take precedence in case of a conflict.
-		// To make sure that the indices of the special glyphs don't collide with any glyph indices in the TrueType font, we must
+		// Create the special glyphs. They must be created after the standard glyphs so that they take precedence in case of a
+		// collision. To make sure that the indices of the special glyphs don't collide with any glyph indices in the font, we must
 		// use glyph indices higher than the highest glyph index in the font.
 		FT_UInt nextGlyphIndex = (FT_UInt)face->num_glyphs;
 
@@ -586,8 +576,22 @@ namespace MyGUI
 		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::SelectedBack, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
 		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Cursor, mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
 
+		// If a substitute code point has been specified, check to make sure that it exists in the character map. If it doesn't,
+		// revert to the default "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that
+		// is guaranteed to cause the "Not Defined" special glyph to be created.
+		if (mSubstituteCodePoint != FontCodeType::NotDefined && mCharMap.find(mSubstituteCodePoint) == mCharMap.end())
+		{
+			mSubstituteCodePoint = FontCodeType::NotDefined;
+		}
+
+		// Create the "Not Defined" code point (and its corresponding glyph) if it's in use as the substitute code point.
+		if (mSubstituteCodePoint == FontCodeType::NotDefined)
+		{
+			texWidth += createFaceGlyph(0, FontCodeType::NotDefined, fontAscent, face, glyphHeightMap);
+		}
+
 		// Cache a pointer to the substitute glyph info for fast lookup.
-		mSubstituteGlyphInfo = &mGlyphMap.at((mSubstituteCodePoint == FontCodeType::NotDefined) ? 0 : mCharMap.at(mSubstituteCodePoint));
+		mSubstituteGlyphInfo = &mGlyphMap.at(mCharMap.at(mSubstituteCodePoint));
 
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
