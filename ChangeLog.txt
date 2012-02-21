@@ -16,7 +16,21 @@
 - RotatingSkin subwidget fixed (incorrect UV)
 
 -- Resources --
-- ResourceTrueTypeFont replace assert with log message when font not found
+- ResourceTrueTypeFont:
+   * Decreased texture memory usage (typically by 50% or more).
+   * Improved startup and runtime performance.
+   * Added support for Windows FON/FNT bitmap fonts and for embedded SBIT bitmaps in TrueType fonts.
+   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping characters; e.g., "ij".
+   * Implemented the ability to customize the code point used as a substitute for missing code points (defaults to the "Not Defined" glyph).
+   * Implemented subpixel positioning.
+   * Added useful default values for several properties.
+   * Deprecated several properties that are no longer needed.
+   * Fixed problems that made it impossible to use whitespace characters other than "Space" and "Tab".
+   * Fixed several crashes and memory leaks.
+   * Replaced an assertion with a log message when a font cannot be loaded.
+- ResourceManualFont:
+   * Added support for enhanced glyph metrics and overlapping characters; e.g., "ij".
+   * Implemented the ability to customize the code point used as a substitute for missing code points.
 
 -- Wraps --
 - BaseLayout work properly without layout and/or widgets
@@ -26,6 +40,12 @@
 
 -- Tools --
 - Various fixes in LayoutEditor
+- FontViewer
+   * Added support for all of the new features in ResourceTrueTypeFont and ResourceManualFont.
+   * Added support for additional font types: *.ttc, *.otf, *.pfa, *.fon, and *.fnt.
+   * Redesigned the user interface.
+   * Implemented automatic generation of the output filenames when saving.
+   * Fixed several crashes and memory leaks.
 
 -- Platforms --
 - Keep solid mode when Ogre is in wireframe.
