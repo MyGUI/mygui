@@ -4,6 +4,7 @@
 	@date		08/2008
 */
 #include "Precompiled.h"
+#include <cctype>
 #include "FontPanel.h"
 #include "MessageBox/MessageBox.h"
 
@@ -19,9 +20,21 @@ namespace demo
 
 		struct StrCmpI : public std::binary_function<std::string, std::string, bool>
 		{
-			result_type operator()(const first_argument_type& _first, const second_argument_type& _second)
+			result_type operator()(const first_argument_type& _a, const second_argument_type& _b)
 			{
-				return _strcmpi(_first.c_str(), _second.c_str()) < 0;
+				size_t aLength = _a.length(), bLength = _b.length(), length = std::min(aLength, bLength);
+				first_argument_type::const_iterator aIter = _a.begin();
+				second_argument_type::const_iterator bIter = _b.begin();
+
+				while (length-- > 0)
+				{
+					int aUpper = toupper(*aIter++), bUpper = toupper(*bIter++);
+
+					if (aUpper != bUpper)
+						return aUpper < bUpper;
+				}
+
+				return aLength < bLength;
 			}
 		};
 
@@ -270,7 +283,7 @@ namespace demo
 	{
 		if (a->getTextLength() != 0)
 		{
-			std::string range = (b->getTextLength() != 0) ? MyGUI::utility::toString(a->getOnlyText(), " ", b->getOnlyText()) : a->getOnlyText();
+			std::string range = (b->getTextLength() != 0) ? MyGUI::utility::toString(a->getOnlyText(), " ", b->getOnlyText()) : std::string(a->getOnlyText());
 
 			node_codes->createChild("Code")->addAttribute(attribute, range);
 		}
