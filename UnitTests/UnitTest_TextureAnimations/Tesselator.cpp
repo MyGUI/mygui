@@ -52,8 +52,8 @@ namespace demo
 				float fx = mLeft + mWidth * point.left;
 				float fy = mTop + mHeight * point.top;
 
-				float u = point.left * texture_u;
-				float v = point.top * texture_v;
+				float u = texture_u * point.left;
+				float v = texture_v * point.top;
 
 				//if (_info.rttFlipY) v = 1 - v;
 
