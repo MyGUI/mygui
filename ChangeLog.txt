@@ -20,8 +20,8 @@
    * Decreased texture memory usage (typically by 50% or more).
    * Improved startup and runtime performance.
    * Added support for Windows FON/FNT bitmap fonts and for embedded SBIT bitmaps in TrueType fonts.
-   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping characters; e.g., "ij".
-   * Implemented the ability to customize the code point used as a substitute for missing code points (defaults to the "Not Defined" glyph).
+   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping characters; e.g., "fj".
+   * Implemented the ability to customize the code point used as a substitute for missing code points (defaults to the "Not Defined" glyph, previously space was used).
    * Implemented subpixel positioning.
    * Added useful default values for several properties.
    * Deprecated several properties that are no longer needed.
