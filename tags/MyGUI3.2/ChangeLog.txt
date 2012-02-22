@@ -3,44 +3,45 @@
 ----------------------------------------------------------------
 
 -- Core --
-- MyGUI can be compiled without std::typeinfo
-- Fixed bug with alignment on non-screen layers (for example in RTT layer)
+- MyGUI can be compiled without std::typeinfo.
+- Fixed an alignment bug on non-screen layers (for example on the RTT layer).
 
 -- Widgets --
-- Add DDContainer::resetDrag method to stop dragging from code
-- EditBox: fixed wrong text display when text area is lower than font height
-- EditBox: reset Redo changes when text was changed
-- Canvas: fix incorrect destruction
+- DDContainer: Added a resetDrag method that stops a drag operation programmatically.
+- EditBox: Fixed incorrect text display when the text area was lower than the font height.
+- EditBox: Reset Redo changes when text was changed.
+- Canvas: Fixed incorrect destruction.
+- ProgressBar: Fixed a problem that caused the progress value to be displayed incorrectly after the widget was resized.
 
 --SubWidgets--
-- RotatingSkin subwidget fixed (incorrect UV)
+- RotatingSkin: Fixed incorrect display due to swapped UV coordinates.
 
 -- Resources --
 - ResourceTrueTypeFont:
    * Decreased texture memory usage (typically by 50% or more).
    * Improved startup and runtime performance.
    * Added support for Windows FON/FNT bitmap fonts and for embedded SBIT bitmaps in TrueType fonts.
-   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping characters; e.g., "fj".
-   * Implemented the ability to customize the code point used as a substitute for missing code points (defaults to the "Not Defined" glyph, previously space was used).
+   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping glyphs; e.g., "fj".
+   * Implemented the ability to specify the code point used as a substitute for missing code points (now defaults to the "Not Defined" glyph instead of "Space").
    * Implemented subpixel positioning.
    * Added useful default values for several properties.
-   * Deprecated several properties that are no longer needed.
+   * Deprecated several properties that are no longer useful.
    * Fixed problems that made it impossible to use whitespace characters other than "Space" and "Tab".
    * Fixed several crashes and memory leaks.
    * Replaced an assertion with a log message when a font cannot be loaded.
 - ResourceManualFont:
-   * Added support for enhanced glyph metrics and overlapping characters; e.g., "ij".
-   * Implemented the ability to customize the code point used as a substitute for missing code points.
+   * Added support for enhanced glyph metrics and overlapping glyphs; e.g., "fj".
+   * Implemented the ability to specify the code point used as a substitute for missing code points.
 
 -- Wraps --
-- BaseLayout work properly without layout and/or widgets
+- BaseLayout works properly when it's completely empty.
 
 -- Plugins --
-- BerkeliumWidget plugin updated
+- Updated the BerkeliumWidget plugin.
 
 -- Tools --
-- Various fixes in LayoutEditor
-- FontViewer
+- Various fixes in LayoutEditor.
+- FontViewer:
    * Added support for all of the new features in ResourceTrueTypeFont and ResourceManualFont.
    * Added support for additional font types: *.ttc, *.otf, *.pfa, *.fon, and *.fnt.
    * Redesigned the user interface.
@@ -49,8 +50,8 @@
 
 -- Platforms --
 - Keep solid mode when Ogre is in wireframe.
-- Fixed few bugs in OpenGL platform (not cleaned buffers)
-- New DirectX11 platform prototype
+- Fixed a few bugs in the OpenGL platform (buffers not cleaned up).
+- New DirectX11 platform prototype.
 
 ----------------------------------------------------------------
 ------------------------- Version 3.2.0 RC1 --------------------

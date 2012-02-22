@@ -509,7 +509,7 @@ namespace MyGUI
 		}
 
 		// непослушные дети
-		return getInheritsPick() ? nullptr : (ILayerItem*)(this);
+		return getInheritsPick() ? nullptr : const_cast<Widget*>(this);
 	}
 
 	void Widget::_updateAbsolutePoint()
