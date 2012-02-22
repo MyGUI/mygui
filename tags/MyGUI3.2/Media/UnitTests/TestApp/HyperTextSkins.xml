@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name="HyperTextBox">
+		<Widget type="Widget" skin="PanelEmpty" position="0 0 16 16" name="Root">
+			<Property key="Spacer" value="3 3"/>
+			<Property key="DefaultFont" value="Default"/>
+			<Property key="BoldFont" value="DejaVuSansBoldFont.15"/>
+			<Property key="ItalicFont" value="DejaVuSansItalicFont.15"/>
+			<Property key="BoldItalicFont" value="DejaVuSansBoldItalicFont.15"/>
+			<Property key="Header1Font" value="DejaVuSansFont.25"/>
+			<Property key="Header2Font" value="DejaVuSansFont.22"/>
+			<Property key="Header3Font" value="DejaVuSansFont.19"/>
+			<Widget type="ScrollViewPanel" skin="ScrollView" position="0 0 16 16" align="Stretch" name="ScrollViewPanel">
+				<Property key="CanvasAlign" value="Default"/>
+				<Property key="VisibleHScroll" value="false"/>
+				<Widget type="StackPanel" skin="PanelEmpty" position="0 0 16 16" align="Default" name="StackPanel">
+				</Widget>
+			</Widget>
+		</Widget>
+	</Resource>
+</MyGUI>

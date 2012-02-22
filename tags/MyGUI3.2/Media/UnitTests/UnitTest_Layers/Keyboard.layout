@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="ImageBox" skin="ImageBox" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
+        <Property key="ImageTexture" value="KeyboardBack.png"/>
+        <UserString key="Command" value="DeviceNone"/>
+        <Widget type="Button" skin="KeyboardLamp" position="720 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="720 94 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="763 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="806 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="849 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="893 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="936 56 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="763 95 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="806 95 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="849 95 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="893 95 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardLamp" position="936 95 38 39">
+            <Controller type="ControllerRandomSelected"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="KeyboardProgress" position="47 59 45 68">
+            <Property key="Range" value="4"/>
+            <Property key="RangePosition" value="2"/>
+            <Controller type="ControllerRandomProgress"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="KeyboardProgress" position="102 59 45 68">
+            <Property key="Range" value="4"/>
+            <Property key="RangePosition" value="3"/>
+            <Controller type="ControllerRandomProgress"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="KeyboardProgress" position="196 59 45 68">
+            <Property key="Range" value="4"/>
+            <Property key="RangePosition" value="4"/>
+            <Controller type="ControllerRandomProgress"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="KeyboardProgress" position="253 59 45 68">
+            <Property key="Range" value="4"/>
+            <Property key="RangePosition" value="1"/>
+            <Controller type="ControllerRandomProgress"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardButton" position="358 66 145 57" name="ButtonEngine">
+            <Property key="Caption" value="ENGINE"/>
+            <UserString key="Command" value="DeviceEngine"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardButton" position="358 136 145 57" name="ButtonArmor">
+            <Property key="Caption" value="ARMOR"/>
+            <UserString key="Command" value="DeviceArmor"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardButton" position="523 66 145 57" name="ButtonAmmo">
+            <Property key="Caption" value="AMMO"/>
+            <UserString key="Command" value="DeviceAmmo"/>
+        </Widget>
+        <Widget type="Button" skin="KeyboardButton" position="523 136 145 57" name="ButtonGun">
+            <Property key="Caption" value="GUN"/>
+            <UserString key="Command" value="DeviceGun"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- this parameters will be ignored in edit mode-->
+
+<MyGUI type="IgnoreParameters">
+	<Parameter key="Modal"/>
+	<Parameter key="AutoAlpha"/>
+	<Parameter key="Visible"/>
+	<Parameter key="MinSize"/>
+	<Parameter key="MaxSize"/>
+
+	<!-- for compatibility -->
+	<Parameter key="Window_Modal"/>
+	<Parameter key="Window_AutoAlpha"/>
+	<Parameter key="Widget_Visible"/>
+	<Parameter key="Window_MinSize"/>
+	<Parameter key="Window_MaxSize"/>
+</MyGUI>

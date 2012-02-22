@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="File">File</Tag>
+	<Tag name="Load">Load</Tag>
+	<Tag name="Save">Save</Tag>
+	<Tag name="Save_as">Save as</Tag>
+	<Tag name="Clear">Clear</Tag>
+	<Tag name="Settings">Settings</Tag>
+	<Tag name="Test">#{ColourMenuTest}Test</Tag>
+	<Tag name="Export">Export</Tag>
+	<Tag name="RecentFiles">Recent Files </Tag>
+	<Tag name="Quit">Quit</Tag>
+	
+	<Tag name="MenuColours">Colours</Tag>
+	<Tag name="MenuColourBackground">Background colour ...</Tag>
+	<Tag name="MenuColourSelector">Selector colour ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Inactive selector colour ...</Tag>
+
+	<Tag name="MenuScale">Scale</Tag>
+
+	<Tag name="Add">Add</Tag>
+	<Tag name="Create">Create</Tag>
+	<Tag name="Delete">Delete</Tag>
+	<Tag name="Rename">Rename</Tag>
+
+	<Tag name="GeneralSettings">General</Tag>
+	<Tag name="FoldersSettings">Folders</Tag>
+	<Tag name="ResourcesSettings">Resources</Tag>
+	<Tag name="Grid_step">Grid step</Tag>
+	<Tag name="ResourcesPaths">Path to resources (restart required)</Tag>
+	<Tag name="TextAdditionalResources">Additional resources (restart required)</Tag>
+	<Tag name="TextSaveLastTexture">Save last texture</Tag>
+	
+	<Tag name="OK">OK</Tag>
+	<Tag name="Ok">Ok</Tag>
+	<Tag name="Cancel">Cancel</Tag>
+	<Tag name="Warning">Warning</Tag>
+	<Tag name="Error">Error</Tag>
+
+	<Tag name="CaptionMainWindow">Skin editor - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionEnterName">Enter name</Tag>
+	<Tag name="CaptionOpenFile">Open file</Tag>
+	<Tag name="CaptionSaveFile">Save file</Tag>
+	<Tag name="CaptionExportFile">Export file</Tag>
+	<Tag name="CaptionColourPicker">Colour picker</Tag>
+	<Tag name="CaptionTestWindow">Test</Tag>
+	<Tag name="CaptionOpenFolder">Select folder</Tag>
+	<Tag name="CaptionTextureBrowse">Select texture</Tag>
+	<Tag name="CaptionAddResource">Enter file name</Tag>
+
+	<Tag name="ButtonOpenFile">Open</Tag>
+	<Tag name="ButtonSaveFile">Save</Tag>
+	<Tag name="ButtonOpenFolder">Select</Tag>
+	<Tag name="ButtonUp">Up</Tag>
+
+	<Tag name="PropertyRegionCoords">Coords</Tag>
+	<Tag name="PropertyRegionVisible">Visible</Tag>
+	<Tag name="PropertyRegionEnabled">Enabled</Tag>
+	<Tag name="PropertyRegionAlign">Align</Tag>
+	<Tag name="PropertyRegionType">Region type</Tag>
+
+	<Tag name="PropertySeparatorOffset">Offset</Tag>
+	<Tag name="PropertySeparatorVisible">Visible</Tag>
+
+	<Tag name="PropertySkinCoords">Coords</Tag>
+	<Tag name="PropertySkinTexture">Texture</Tag>
+
+	<Tag name="PropertyStatePosition">Position</Tag>
+	<Tag name="PropertyStateVisible">Visible</Tag>
+	<Tag name="PropertyStateTextColour">Text colour</Tag>
+	<Tag name="PropertyStateTextOffset">Text shift</Tag>
+
+	<Tag name="TabSkins">Skins</Tag>
+	<Tag name="TabStates">States</Tag>
+	<Tag name="TabSeparators">Separators</Tag>
+	<Tag name="TabRegions">Regions</Tag>
+
+	<Tag name="ColourZero">Zero</Tag>
+	<Tag name="ColourBlack">Black</Tag>
+	<Tag name="ColourWhite">White</Tag>
+	<Tag name="ColourRed">Red</Tag>
+	<Tag name="ColourGreen">Green</Tag>
+	<Tag name="ColourBlue">Blue</Tag>
+	<Tag name="ColourAlpha">Alpha</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
+
+	<Tag name="PresetRegionOneScale">One scale region</Tag>
+	<Tag name="PresetRegion9Grid">9 regions grid</Tag>
+	<Tag name="PresetRegion3Hor">3 regions horizontal scale</Tag>
+	<Tag name="PresetRegion3Vert">3 regions vertical scale</Tag>
+
+	<Tag name="PresetStateOnlyNormal">Normal only</Tag>
+	<Tag name="PresetStateFirst4">First 4 states</Tag>
+	<Tag name="PresetStateAll">All states</Tag>
+
+	<Tag name="TextScale">Scale</Tag>
+	<Tag name="TextBackgroundColour">Back colour</Tag>
+
+	<Tag name="MessageUnsavedData">You have unsaved changes. Do you want to save it?</Tag>
+	<Tag name="MessageDeleteSkin">Are you sure you want to delete skin?</Tag>
+	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{CurrentFileName}'#{\n}have incorrect format.</Tag>
+
+	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
+
+	<Tag name="SkinNamePattern">Skin name #{SkinNameIndex}</Tag>
+</MyGUI>

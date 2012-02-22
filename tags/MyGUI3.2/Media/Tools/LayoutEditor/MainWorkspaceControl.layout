@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 30 595 500" align="Stretch" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 295 500" align="Stretch" name="Left">
+            <UserString key="MinSize" value="100"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 295 500" align="Stretch" name="WorkspaceControl"/>
+		</Widget>
+		<Widget type="Widget" skin="PanelEmpty" position="295 0 4 500" align="Right VStretch" name="SeparatorH">
+			<Property key="Pointer" value="size_horz"/>
+		</Widget>
+		<Widget type="Widget" skin="PanelEmpty" position="299 0 296 500" align="Right VStretch" name="Right">
+			<UserString key="MinSize" value="100"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 296 500" align="Stretch" name="ToolsControl"/>
+		</Widget>
+	</Widget>
+</MyGUI>

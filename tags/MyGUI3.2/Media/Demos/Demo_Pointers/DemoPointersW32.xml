@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceW32Pointer" name="ptr_Normal">
+		<Property key="SourceFile">Crystal_Clear_action_1leftarrow.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Repair">
+		<Property key="SourceFile">Crystal_Clear_action_configure.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Repair2">
+		<Property key="SourceFile">Crystal_Clear_app_utilities.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Failed">
+		<Property key="SourceFile">Crystal_Clear_action_editdelete.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_FlagGreen">
+		<Property key="SourceFile">Crystal_Clear_action_flag2.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_FlagRed">
+		<Property key="SourceFile">Crystal_Clear_action_flag.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Attack">
+		<Property key="SourceFile">Crystal_Clear_app_quick_restart.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Attack2">
+		<Property key="SourceFile">Crystal_Clear_app_cache.cur</Property>
+	</Resource>
+
+	<Resource type="ResourceW32Pointer" name="ptr_Busy">
+		<Property key="SourceFile">Crystal_Clear_app_xclock.cur</Property>
+	</Resource>
+
+</MyGUI>

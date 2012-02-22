@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Widgets">
+
+	<Widget name="Button">
+		<Property key="DefaultSkin" value="Button"/>
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Skin" value="Button"/>
+		<Property key="Skin" value="CheckBox"/>
+		<Property key="Skin" value="RadioButton"/>
+		<Property key="Skin" value="ButtonImage"/>
+		<Property key="Skin" value="ButtonExpandSkin" group="Other"/>
+		<Property key="Skin" value="ButtonCloseSkin" group="Other"/>
+		<Property key="Skin" value="ButtonAcceptSkin" group="Other"/>
+		<Property key="Skin" value="ButtonDownSkin" group="Other"/>
+		<Property key="Skin" value="ButtonUpSkin" group="Other"/>
+		<Property key="Skin" value="ButtonLeftSkin" group="Other"/>
+		<Property key="Skin" value="ButtonRightSkin" group="Other"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="StateSelected" value="Bool"/>
+		<Parameter key="ModeImage" value="Bool"/>
+		<Parameter key="ImageResource" value="String"/>
+		<Parameter key="ImageGroup" value="String"/>
+		<Parameter key="ImageName" value="String"/>
+  </Widget>
+
+	<Widget name="Canvas">
+		<Property key="DefaultSkin" value="Canvas"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="Canvas"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+	</Widget>
+
+	<Widget name="ComboBox">
+		<Property key="DefaultSkin" value="ComboBox"/>
+		<Property key="Base" value="EditBox"/>
+
+		<Property key="Skin" value="ComboBox"/>
+
+		<Parameter key="ModeDrop" value="Bool"/>
+		<Parameter key="FlowDirection" value="FlowDirection"/>
+		<Parameter key="MaxListLength" value="1 int"/>
+		<Parameter key="SmoothShow" value="Bool"/>
+
+		<Property key="ItemManager" value="true"/>
+	</Widget>
+
+	<Widget name="DDContainer">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="NeedDragDrop" value="Bool"/>
+	</Widget>
+
+	<Widget name="EditBox">
+		<Property key="DefaultSkin" value="EditBox"/>
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Skin" value="EditBox"/>
+		<Property key="Skin" value="EditBoxStretch"/>
+		<Property key="Skin" value="EditBoxEmpty"/>
+		<Property key="Skin" value="WordWrapEmpty"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="CursorPosition" value="1 int"/>
+		<Parameter key="TextSelect" value="2 int"/>
+		<Parameter key="ReadOnly" value="Bool"/>
+		<Parameter key="Password" value="Bool"/>
+		<Parameter key="MultiLine" value="Bool"/>
+		<Parameter key="PasswordChar" value="String"/>
+		<Parameter key="MaxTextLength" value="1 int"/>
+		<Parameter key="OverflowToTheLeft" value="Bool"/>
+		<Parameter key="Static" value="Bool"/>
+		<Parameter key="VisibleVScroll" value="Bool"/>
+		<Parameter key="VisibleHScroll" value="Bool"/>
+		<Parameter key="WordWrap" value="Bool"/>
+		<Parameter key="TabPrinting" value="Bool"/>
+		<Parameter key="InvertSelected" value="Bool"/>
+	</Widget>
+
+	<Widget name="ItemBox">
+		<Property key="DefaultSkin" value="ItemBox"/>
+		<Property key="Base" value="DDContainer"/>
+
+		<Property key="Skin" value="ItemBox"/>
+
+		<Parameter key="VerticalAlignment" value="Bool"/>
+
+		<TemplateData key="DragLayer" value="Layer"/>
+	</Widget>
+
+	<Widget name="ListBox">
+		<Property key="DefaultSkin" value="ListBox"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="ListBox"/>
+
+		<Property key="ItemManager" value="true"/>
+
+		<TemplateData key="HeightLine" value="1 int"/>
+		<TemplateData key="SkinLine" value="Skin"/>
+	</Widget>
+
+	<Widget name="MenuBar">
+		<Property key="DefaultSkin" value="MenuBar"/>
+		<Property key="Base" value="MenuControl"/>
+
+		<Property key="Skin" value="MenuBar"/>
+
+		<Property key="ItemManager" value="true"/>
+
+		<TemplateData key="DistanceButton" value="1 int"/>
+		<TemplateData key="SubMenuLayer" value="Layer"/>
+		<TemplateData key="NormalSkin" value="Skin"/>
+		<TemplateData key="PopupSkin" value="Skin"/>
+		<TemplateData key="SeparatorSkin" value="Skin"/>
+		<TemplateData key="SubMenuSkin" value="Skin"/>
+	</Widget>
+
+	<Widget name="MenuControl" internal="true">
+		<Property key="Base" value="Widget"/>
+
+		<Parameter key="VerticalAlignment" value="Bool"/>
+	</Widget>
+
+	<Widget name="MenuItem" internal="true">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="Button"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="MenuItemId" value="String"/>
+		<Parameter key="MenuItemType" value="MenuItemType"/>
+		<Parameter key="MenuItemChecked" value="Bool"/>
+	</Widget>
+
+	<Widget name="MultiListBox">
+		<Property key="DefaultSkin" value="MultiListBox"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="MultiListBox"/>
+
+		<Property key="ItemManager" value="true"/>
+	</Widget>
+
+	<Widget name="MultiListItem" internal="true">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+
+		<Parameter key="ItemResizingPolicy" value="ItemResizingPolicy"/>
+		<Parameter key="ItemWidth" value="1 int"/>
+	</Widget>
+
+	<Widget name="PopupMenu">
+		<Property key="DefaultSkin" value="PopupMenu"/>
+		<Property key="Base" value="MenuControl"/>
+
+		<Property key="Resizeable" value="false"/>
+
+		<Property key="Skin" value="PopupMenu"/>
+
+		<Property key="ItemManager" value="true"/>
+
+		<TemplateData key="SubMenuLayer" value="Layer"/>
+		<TemplateData key="NormalSkin" value="Skin"/>
+		<TemplateData key="PopupSkin" value="Skin"/>
+		<TemplateData key="SeparatorSkin" value="Skin"/>
+		<TemplateData key="SubMenuSkin" value="Skin"/>
+	</Widget>
+
+	<Widget name="ProgressBar">
+		<Property key="DefaultSkin" value="ProgressBar"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="ProgressBar"/>
+		<Property key="Skin" value="ProgressBarFill"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="AutoTrack" value="Bool"/>
+		<Parameter key="FlowDirection" value="FlowDirection"/>
+
+		<TemplateData key="TrackWidth" value="1 int"/>
+		<TemplateData key="TrackFill" value="Bool"/>
+		<TemplateData key="TrackSkin" value="Skin"/>
+	</Widget>
+
+	<Widget name="ScrollBar">
+		<Property key="DefaultSkin" value="ScrollBarV"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="ScrollBarV"/>
+		<Property key="Skin" value="ScrollBarH"/>
+		<Property key="Skin" value="SliderV"/>
+		<Property key="Skin" value="SliderH"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Range" value="1 int"/>
+		<Parameter key="RangePosition" value="1 int"/>
+		<Parameter key="Page" value="1 int"/>
+		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="MoveToClick" value="Bool"/>
+		<Parameter key="VerticalAlignment" value="Bool"/>
+
+		<TemplateData key="MinTrackSize" value="1 int"/>
+	</Widget>
+
+	<Widget name="ScrollView">
+		<Property key="DefaultSkin" value="ScrollView"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="ScrollView"/>
+		<Property key="Skin" value="ScrollViewEmpty"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="VisibleVScroll" value="Bool"/>
+		<Parameter key="VisibleHScroll" value="Bool"/>
+		<Parameter key="CanvasAlign" value="CanvasAlign"/>
+		<Parameter key="CanvasSize" value="2 int"/>
+	</Widget>
+
+	<Widget name="ImageBox">
+		<Property key="DefaultSkin" value="ImageBox"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="RotatingSkin"/>
+		<Property key="Skin" value="ImageBox"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="ImageTexture" value="FileName"/>
+		<Parameter key="ImageCoord" value="4 int"/>
+		<Parameter key="ImageTile" value="2 int"/>
+		<Parameter key="ImageIndex" value="1 int"/>
+
+		<Parameter key="ImageResource" value="String"/>
+		<Parameter key="ImageGroup" value="String"/>
+		<Parameter key="ImageName" value="String"/>
+	</Widget>
+
+	<Widget name="TextBox">
+		<Property key="DefaultSkin" value="TextBox"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="TextBox"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Caption" value="String"/>
+		<Parameter key="TextColour" value="Colour"/>
+		<Parameter key="TextAlign" value="TextAlign"/>
+		<Parameter key="FontName" value="Font"/>
+		<Parameter key="FontHeight" value="1 int"/>
+    <Parameter key="TextShadow" value="Bool"/>
+    <Parameter key="TextShadowColour" value="Colour"/>
+  </Widget>
+
+	<Widget name="TabControl">
+		<Property key="DefaultSkin" value="TabControl"/>
+		<Property key="Base" value="Widget"/>
+
+		<Property key="Skin" value="TabControl"/>
+
+		<Property key="ItemManager" value="true"/>
+
+		<Parameter key="ButtonWidth" value="1 int"/>
+		<Parameter key="ButtonAutoWidth" value="Bool"/>
+		<Parameter key="SmoothShow" value="Bool"/>
+
+		<TemplateData key="ButtonSkin" value="Skin"/>
+	</Widget>
+
+	<Widget name="TabItem" internal="true">
+		<Property key="DefaultSkin" value=""/>
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Resizeable" value="false"/>
+	</Widget>
+
+	<Widget name="Widget">
+		<Property key="DefaultSkin" value=""/>
+
+		<Property key="Skin" value="PanelEmpty"/>
+		<Property key="Skin" value="PanelSkin" group="Other"/>
+		<Property key="Skin" value="ClientTileSkin" group="Other"/>
+		<Property key="Skin" value="ClientDefaultSkin" group="Other"/>
+		<Property key="Skin" value="SepDownHSkin" group="Other"/>
+		<Property key="Skin" value="SepUpHSkin" group="Other"/>
+		<Property key="Skin" value="SepDownVSkin" group="Other"/>
+		<Property key="Skin" value="SepUpVSkin" group="Other"/>
+		<Property key="Skin" value="WhiteSkin" group="Other"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<Parameter key="Visible" value="Bool"/>
+		<Parameter key="Alpha" value="Alpha"/>
+		<Parameter key="InheritsAlpha" value="Bool"/>
+		<Parameter key="InheritsPick" value="Bool"/>
+		<Parameter key="MaskPick" value="FileName"/>
+		<Parameter key="Colour" value="Colour"/>
+		<Parameter key="NeedKey" value="Bool"/>
+		<Parameter key="NeedMouse" value="Bool"/>
+		<Parameter key="Enabled" value="Bool"/>
+		<Parameter key="NeedToolTip" value="Bool"/>
+		<Parameter key="Pointer" value="String"/>
+	</Widget>
+
+	<Widget name="Window">
+		<Property key="DefaultSkin" value="Window"/>
+		<!-- временно он от статик текста для работы заголовка в редакторе -->
+		<Property key="Base" value="TextBox"/>
+
+		<Property key="Skin" value="Window"/>
+		<Property key="Skin" value="WindowC"/>
+		<Property key="Skin" value="WindowCX"/>
+		<Property key="Skin" value="WindowCS"/>
+		<Property key="Skin" value="WindowCSX"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="false"/>
+
+		<Parameter key="AutoAlpha" value="Bool"/>
+		<Parameter key="Snap" value="Bool"/>
+		<Parameter key="MinSize" value="2 int"/>
+		<Parameter key="MaxSize" value="2 int"/>
+		<Parameter key="Movable" value="Bool"/>
+	</Widget>
+
+</MyGUI>

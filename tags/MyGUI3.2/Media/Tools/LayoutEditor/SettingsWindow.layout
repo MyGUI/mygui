@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCSX" position="32 64 573 296" align="Left Top" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="#{Settings}"/>
+        <Property key="Snap" value="true"/>
+        <Property key="Visible" value="false"/>
+        <Property key="MinSize" value="448 296"/>
+        <Widget type="TabControl" skin="TabControl" position="5 6 554 216" align="Stretch">
+            <Widget type="TabItem" skin="" position="2 24 548 188">
+                <Property key="Caption" value="#{GeneralSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 548 188" align="Stretch" name="SettingsGeneralControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="2 24 548 188">
+                <Property key="Caption" value="#{WidgetsSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 548 188" align="Stretch" name="SettingsWidgetsControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="2 24 548 188">
+                <Property key="Caption" value="#{FoldersSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 548 188" align="Stretch" name="SettingsResourcePathsControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="2 24 548 188">
+                <Property key="Caption" value="#{ResourcesSettings}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 548 188" align="Stretch" name="SettingsResourcesControl"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="2 24 548 188" name="SettingsUpdateResourcesControl">
+                <Property key="Caption" value="#{SettingsTabUpdateResources}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 548 188" align="Stretch"/>
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="Button" position="438 229 120 26" align="Right Bottom" name="Ok">
+            <Property key="Caption" value="#{Ok}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="6 228 120 26" align="Left Bottom" name="Cancel">
+            <Property key="Caption" value="#{Cancel}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

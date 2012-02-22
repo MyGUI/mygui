@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelSkin" position="112 208 187 208" align="Stretch" name="_Main">
+        <Property key="NeedMouse" value="false"/>
+        <Property key="NeedKey" value="false"/>
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="TextColour" value="1 1 1"/>
+        </Widget>
+        <Widget type="Widget" skin="WhiteSkin" position="3 3 179 176" align="Stretch" name="Selector">
+            <Property key="Colour" value="1 0.5 0"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 173 170" align="Stretch" name="ParentBack">
+                <Widget type="Widget" skin="BackgroundTile" position="37 41 99 88" align="Default" name="Back">
+                    <Property key="InheritsAlpha" value="false"/>
+                    <Widget type="ImageBox" skin="ImageBox" position="0 0 99 88" align="Stretch" name="Image"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

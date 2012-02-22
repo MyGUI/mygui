@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="ImageBox" skin="ImageBox" position="408 408 128 128" layer="Back" name="_Main">
+        <Property key="ImageTexture" value="Crystal_Clear_app_web.png"/>
+        <Property key="NeedMouse" value="false"/>
+        <Widget type="TextBox" skin="TextBox" position="0 0 128 128">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="Caption" value="Enemy"/>
+            <Property key="TextColour" value="0 0 0"/>
+        </Widget>
+    </Widget>
+</MyGUI>

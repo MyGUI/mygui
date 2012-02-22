@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="24 48 664 456" align="Stretch" layer="LayoutEditor_MainPane" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 664 26" align="HStretch Top" name="MainMenuControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 26 664 430" align="Stretch" name="MainWorkspaceControl"/>
+    </Widget>
+    <CodeGenaratorSettings>
+        <Property key="IncludeDirectory" value="D:\MyGUI\MyGUI_Trunk\Tools\LayoutEditor"/>
+        <Property key="PanelName" value="MainPaneControl"/>
+        <Property key="SourceDirectory" value="D:\MyGUI\MyGUI_Trunk\Tools\LayoutEditor"/>
+    </CodeGenaratorSettings>
+</MyGUI>

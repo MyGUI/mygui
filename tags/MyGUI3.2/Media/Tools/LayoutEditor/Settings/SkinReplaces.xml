@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- this parameters will be ignored in edit mode-->
+
+<MyGUI type="SkinReplace">
+	<Skin key="PanelEmpty">LE_PanelEmpty</Skin>
+	<Skin key="TextBox">LE_StaticText</Skin>
+	<Skin key="EditClient">LE_StaticText</Skin>
+	<Skin key="ImageBox">LE_StaticImage</Skin>
+	<Skin key="ItemBoxEmpty">LE_ItemBoxEmpty</Skin>
+
+	<Skin key="StaticImage">LE_StaticImage</Skin>
+	<Skin key="StaticText">LE_StaticText</Skin>
+</MyGUI>

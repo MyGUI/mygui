@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="10 10 200 272" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TabControl" skin="TabControl" position="0 0 200 244" align="Stretch" name="tabSkins"/>
+        <Widget type="Button" skin="Button" position="0 246 120 26" align="Left Bottom" name="PopupMode">
+            <Property key="Caption" value="#{ButtonPopupMode}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

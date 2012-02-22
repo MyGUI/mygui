@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Default" position="100 100 100 100" layer="Overlapped" name="_Main">
+        <Property key="NeedMouse" value="false"/>
+        <Widget type="Widget" skin="WhiteSkin" position="0 0 100 100" align="Stretch" name="Colour"/>
+        <Widget type="TextBox" skin="TextBox" position="0 0 100 100" align="Stretch" name="Text">
+            <Property key="Caption" value="#000000Test"/>
+            <Property key="TextAlign" value="Center"/>
+        </Widget>
+    </Widget>
+</MyGUI>

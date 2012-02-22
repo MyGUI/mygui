@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Button" skin="CheckBox" position="5 10 403 24" align="HStretch Top" name="checkShowName">
+            <Property key="Caption" value="#{Show_widget_name}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 41 403 24" align="HStretch Top" name="checkShowType">
+            <Property key="Caption" value="#{Show_widget_type}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 72 403 24" align="HStretch Top" name="checkShowSkin">
+            <Property key="Caption" value="#{Show_widget_skin}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

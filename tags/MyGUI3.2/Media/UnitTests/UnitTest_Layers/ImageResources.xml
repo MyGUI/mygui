@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceImageSet" name="ImageShip">
+		<Group name="Ship" texture="Ship.png" size="210 210">
+			<Index name="None">
+				<Frame point="0 210"/>
+			</Index>
+			<Index name="Gun" rate="0.2">
+				<Frame point="0 210"/>
+				<Frame point="0 0"/>
+			</Index>
+			<Index name="Ammo" rate="0.2">
+				<Frame point="0 210"/>
+				<Frame point="210 0"/>
+			</Index>
+			<Index name="Armor" rate="0.2">
+				<Frame point="0 210"/>
+				<Frame point="420 0"/>
+			</Index>
+			<Index name="Engine" rate="0.2">
+				<Frame point="0 210"/>
+				<Frame point="630 0"/>
+			</Index>
+		</Group>
+	</Resource>
+
+</MyGUI>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceSkin" name="MonitorProgressTrack" size="28 59" texture="Source.png">
+		<BasisSkin type="SubSkin" offset="0 0 28 59" align="Stretch">
+			<State name="normal" offset="4 3 28 59"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="MonitorProgressBack" size="28 59" texture="Source.png">
+		<BasisSkin type="TileRect" offset="0 0 28 59" align="Stretch">
+			<State name="normal" offset="4 90 28 59">
+				<Property key="TileSize" value="28 59"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="false"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceLayout" name="MonitorProgress" version="3.2.0">
+		<Widget type="Widget" skin="MonitorProgressBack" position="0 0 28 59" name="Root">
+			<UserString key="TrackSkin" value="MonitorProgressTrack"/>
+			<UserString key="TrackWidth" value="28"/>
+			<UserString key="TrackFill" value="false"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 28 59" align="Stretch" name="TrackPlace">
+				<Property key="NeedKey" value="false"/>
+				<Property key="InheritsPick" value="true"/>
+			</Widget>
+		</Widget>
+	</Resource>
+	
+	<Resource type="ResourceSkin" name="KeyboardLamp" size="38 39" texture="Source.png">
+		<BasisSkin type="MainSkin" offset="0 0 38 39" align="Default">
+			<State name="disabled" offset="18 216 38 39"/>
+			<State name="normal" offset="18 216 38 39"/>
+			<State name="highlighted" offset="18 216 38 39"/>
+			<State name="normal_checked" offset="18 166 38 39"/>
+			<State name="pushed" offset="18 166 38 39"/>
+		</BasisSkin>
+	</Resource>
+
+
+	<Resource type="ResourceSkin" name="KeyboardProgressTrack" size="45 17" texture="Source.png">
+		<BasisSkin type="SubSkin" offset="0 0 45 17" align="Stretch">
+			<State name="normal" offset="61 20 45 17"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="KeyboardProgressBack" size="45 17" texture="Source.png">
+		<BasisSkin type="TileRect" offset="0 0 45 17" align="Stretch">
+			<State name="normal" offset="131 20 45 17">
+				<Property key="TileSize" value="45 17"/>
+				<Property key="TileH" value="false"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceLayout" name="KeyboardProgress" version="3.2.0">
+		<Widget type="Widget" skin="KeyboardProgressBack" position="0 0 45 17" name="Root">
+			<UserString key="TrackSkin" value="KeyboardProgressTrack"/>
+			<UserString key="TrackWidth" value="17"/>
+			<UserString key="TrackFill" value="false"/>
+			<Property key="FlowDirection" value="BottomToTop"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 45 17" align="Stretch" name="TrackPlace">
+				<Property key="NeedKey" value="false"/>
+				<Property key="InheritsPick" value="true"/>
+			</Widget>
+		</Widget>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="KeyboardButton" size="145 57" texture="Source.png">
+		<Property key="FontName" value="FontKeyboard"/>
+		<Property key="TextAlign" value="HCenter VCenter"/>
+
+		<BasisSkin type="MainSkin" offset="0 0 145 57" align="Default">
+			<State name="disabled" offset="98 192 145 57"/>
+			<State name="normal" offset="98 192 145 57"/>
+			<State name="highlighted" offset="98 123 145 57"/>
+			<State name="normal_checked" offset="98 54 145 57"/>
+			<State name="pushed" offset="98 54 145 57"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="0 0 145 57" align="Stretch">
+			<State name="disabled" colour="#FFFFFF" shift="false"/>
+			<State name="normal" colour="#FFFFFF" shift="false"/>
+			<State name="highlighted" colour="#FFFFFF" shift="false"/>
+			<State name="normal_checked" colour="#808080" shift="false"/>
+			<State name="pushed" colour="#808080" shift="false"/>
+		</BasisSkin>
+	</Resource>
+
+	<Resource type="ResourceSkin" name="MonitorEditClient" size="16 16">
+		<Property key="FontName" value="FontKeyboard"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="TextColour" value="#FFFFFF"/>
+		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	
+	<Resource type="ResourceSkin" name="MonitorEdit" size="16 16" texture="Source.png">
+		<Child type="TextBox" skin="MonitorEditClient" offset="0 0 16 16" align="Stretch" name="Client"/>
+	</Resource>
+	
+</MyGUI>

@@ -1,0 +1,29 @@
+set (HEADER_FILES
+  DemoKeeper.h
+  ScrollViewPanel.h
+  WrapPanel.h
+  StackPanel.h
+  Panel.h
+  HyperTextBox.h
+)
+set (SOURCE_FILES
+  DemoKeeper.cpp
+  ScrollViewPanel.cpp
+  WrapPanel.cpp
+  StackPanel.cpp
+  Panel.cpp
+  HyperTextBox.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  DemoKeeper.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)

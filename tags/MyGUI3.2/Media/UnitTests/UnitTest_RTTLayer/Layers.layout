@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="336 184 266 293" layer="Main">
+        <Property key="Caption" value="Main layer"/>
+        <Widget type="ImageBox" skin="ImageBox" position="0 0 256 256">
+            <Property key="ImageTexture" value="RTTTexture1"/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowC" position="32 32 128 128" layer="RTTLayer1">
+        <Property key="Caption" value="RTT layer"/>
+    </Widget>
+</MyGUI>

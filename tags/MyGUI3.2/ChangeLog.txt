@@ -1,0 +1,296 @@
+----------------------------------------------------------------
+------------------------- Version 3.2.0 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- MyGUI can be compiled without std::typeinfo
+- Fixed bug with alignment on non-screen layers (for example in RTT layer)
+
+-- Widgets --
+- Add DDContainer::resetDrag method to stop dragging from code
+- EditBox: fixed wrong text display when text area is lower than font height
+- EditBox: reset Redo changes when text was changed
+- Canvas: fix incorrect destruction
+
+--SubWidgets--
+- RotatingSkin subwidget fixed (incorrect UV)
+
+-- Resources --
+- ResourceTrueTypeFont:
+   * Decreased texture memory usage (typically by 50% or more).
+   * Improved startup and runtime performance.
+   * Added support for Windows FON/FNT bitmap fonts and for embedded SBIT bitmaps in TrueType fonts.
+   * Added support for enhanced glyph metrics, typographically correct line spacing, and overlapping characters; e.g., "fj".
+   * Implemented the ability to customize the code point used as a substitute for missing code points (defaults to the "Not Defined" glyph, previously space was used).
+   * Implemented subpixel positioning.
+   * Added useful default values for several properties.
+   * Deprecated several properties that are no longer needed.
+   * Fixed problems that made it impossible to use whitespace characters other than "Space" and "Tab".
+   * Fixed several crashes and memory leaks.
+   * Replaced an assertion with a log message when a font cannot be loaded.
+- ResourceManualFont:
+   * Added support for enhanced glyph metrics and overlapping characters; e.g., "ij".
+   * Implemented the ability to customize the code point used as a substitute for missing code points.
+
+-- Wraps --
+- BaseLayout work properly without layout and/or widgets
+
+-- Plugins --
+- BerkeliumWidget plugin updated
+
+-- Tools --
+- Various fixes in LayoutEditor
+- FontViewer
+   * Added support for all of the new features in ResourceTrueTypeFont and ResourceManualFont.
+   * Added support for additional font types: *.ttc, *.otf, *.pfa, *.fon, and *.fnt.
+   * Redesigned the user interface.
+   * Implemented automatic generation of the output filenames when saving.
+   * Fixed several crashes and memory leaks.
+
+-- Platforms --
+- Keep solid mode when Ogre is in wireframe.
+- Fixed few bugs in OpenGL platform (not cleaned buffers)
+- New DirectX11 platform prototype
+
+----------------------------------------------------------------
+------------------------- Version 3.2.0 RC1 --------------------
+----------------------------------------------------------------
+
+-- Core --
+- Skin properties were simplified for more convenient creation in the editor.
+- All widgets events is now multidelegates.
+- Support of right mouse button drag.
+- If MyGUI is built from svn revision log file also contain svn revision (in addition to version).
+- Fixed bug with texture creation for fonts.
+- Other minor additions and bug-fixes.
+
+-- Managers --
+- LanguageManager now replace tags recursively.
+- Fixed bug in LanguageManager when missing language was selected.
+
+-- Resources --
+- Add Layout resource, layouts loaded and parsed only once at first use.
+- All resource files now have "MyGUI_" prefix to avoid naming conflicts.
+
+-- Widgets --
+- VScroll and HScroll replaced with single ScrollBar class.
+- Edit renamed into EditBox.
+- List renamed into ListBox.
+- MenuCtrl renamed into MenuControl.
+- MultiList renamed into MultiListBox.
+- Progress renamed into ProgressBar.
+- StaticImage renamed into ImageBox.
+- StaticText renamed into TextBox.
+- Tab renamed into TabControl.
+- New Window property Moveable.
+- Message moved from Core to Common.
+- MultiListBox now support different modes of columns resizing.
+- Button properties StateCheck and ButtonPressed replaced with single property StateSelected.
+- ListBox and ComboBox now support ToolTip.
+- Menu items can be checked now, tick icon appears.
+- Property AlignVert renamed into VerticalAlignment.
+- Hidden widget lose input and focus.
+- Active elements visualisation in list now properly respond to changes in the list.
+- All text related properties was moved from Widget to TextBox.
+
+--SubWidgets--
+- All widgets now have Colour property that colours whole widget.
+- RawRect subwidget was removed.
+- Implemented PolygonalSkin sub widget for lines and splines drawing.
+
+-- Tools --
+- SkinEditor added.
+- All skins created in SkinEditor.
+- LayoutEditor now support projects creation.
+- Possibility to create MultiListBox columns in LayoutEditor.
+- Possibility to create PopupMenu\MenuBar in LayoutEditor.
+- Colour selection window added in LayoutEditor.
+- Show skin preview in LayoutEditor.
+- Scaling support in LayoutEditor.
+- Possibility to change widget's type in LayoutEditor.
+- Possibility to add custom properties in LayoutEditor.
+- Removed check for unique name in LayoutEditor (not required any more).
+- FontViewer now same generated font in two formats: as ttf + xml that use freetype in runtime for texture generation and as manual font (texture and glyphs description)
+
+-- Platforms --
+- BasisManager for OpenGL and DirectX now properly display Win32 window content without bugs with offset.
+- Fixed memory leak in OpenGL's and DirectX's DataManager.
+- Possibility to save texture in OpenGL.
+- Fix typo in names vertext -> vertex.
+
+-- Plugins --
+- Awesomium plugin removed (not LGPL anymore).
+
+-- UnitTests --
+- New UnitTest for PolygonalSkin.
+- New UnitTest for RotatingSkin.
+
+-- CMake --
+- New MYGUI_CHECK_MEMORY_LEAKS option for memory leaks detection in debug mode (MSVC only).
+- New MYGUI_USE_PROJECT_FOLDERS option for project folders inside generated solution (MSVC only).
+- UnitTest and Demos options were renames.
+- Win32 input used by default in demos/tools under windows instead of OIS (OIS input still used in other platforms).
+
+
+----------------------------------------------------------------
+------------------------- Version 3.0.1 ------------------------
+----------------------------------------------------------------
+-- License --
+- in LGPL added exclusion for static linking for possibility to use MyGUI in apps for iPhone
+- all Media except some files created not by MyGUI dev tean is licensed under MIT now
+
+-- Core --
+- Refactoring to reduce the possbility of bugs (based on info from static analyzers).
+
+-- Renders --
+- Support of textures created inside Ogre (wrapping of existing texture)
+
+-- Widget --
+- added getCaptionWidget to Window: retun pointer to Window caption for text control (fonts and it's size)
+- RenderBoxScene fixed
+- fixed bug with Disabled widgets that was rendered as not disabled
+
+-- Managers --
+- added log message if skin used for widget wasn't found.
+
+-- Utility --
+- fixed loading on non-existing textures for widgets picking
+
+-- Wraps --
+- New option to generate wrappers with CMake
+
+-- Plugins --
+- optional AwesomiumPlugin and HikariPlugin option added to CMake config
+
+-- Resources --
+- fixed bug with incorrect font rendering on some old videocards : TrueType font now rendered into R8G8B8A8 on videocards that doesn't support L8A8 (OgreRender)
+
+----------------------------------------------------------------
+------------------------- Version 3.0.0 ------------------------
+----------------------------------------------------------------
+-- Core --
+- rendering separated from core
+
+-- Widgets --
+- removed widget RenderBox - moved into Common as wrapper
+- new widget ListCtrl - base widget for lists with OwnDraw, horizontal scroll and lines with different height support
+- new widget ListBox - list implementation with horizontal scroll (based on ListCtrl)
+
+-- Managers --
+- new FactoryManager - manager creates instances of objects that implements IObject (resources, widgets, controllers, etc.)
+- new DataManager - possibility to create your own type or data source
+
+-- Controllers --
+- controllers support deserialization, possibility to create through XML
+
+-- Resources --
+- new resource type ImageSetPointer for creating cursors based on ImageSet with animation support
+- new resource type ManualPointer for creating cursors based on texture
+- new resource type TrueTypeFont for creating true type fonts
+- new resource type ManualFont for creating fonts based on texture
+- new resource type Skin for skin description
+
+--SubWidgets--
+- new SubWidget RotateSkin with rotating geometry support
+
+-- Tools --
+- improved LayoutEditor, controllers support
+
+-- Demos --
+- Demo_Pointers - demonstration of cursor contexts and W32 cursors
+- Demo_RenderBox - demonstration of RenderBox usage (camera view inside widget, model view inside widget)
+
+-- Plugins --
+- Plugin_AwesomiumWidget - sample plugin implementation for Awesomium (html inside widget)
+- Plugin_HikariWidget - sample plugin implementation for Hikari (Flash inside widget)
+
+-- UnitTests --
+- UnitTest_Layers - sample of using GUI inside 3D scene
+- UnitTest_RTTLayers - sample of rendering Layer into texture
+- UnitTest_TextureAnimation - sample of RTT node, for caching or for animating whole window
+- UnitTest_TreeControl - sample implementation of tree control (author : Pavel Turin)
+
+----------------------------------------------------------------
+------------------------- Version 2.2.3 ------------------------
+----------------------------------------------------------------
+
+-- SubWidgets -- 
+- subwidget EditText was reimplemented
+   * word wrap support in edit mode
+   * cursor and text selecting with ManualFont
+
+-- Widget --
+- fixed problem with inherited Disabled and Visible conditions
+
+----------------------------------------------------------------
+------------------------- Version 2.2.2 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- widget hierarchy changed - style added:
+   * Child - child widget, cropped by parent widget borders, no overlapping (used by default for child widgets)
+   * Popup - popup widget, have parent widget, but not cropped on its borders
+   * Overlapped - child widget, cropped by parent widget borders, can overlap (used by default for root widgets)
+- support of detaching and attaching of widgets, possibility to change skin or style in runtime
+- added fast RTTI
+
+
+-- Widgets --
+- new widget DDContainer - base class for all widgets that have drag'n'drop
+- new widget MenuCtrl - base class for all menus (such as MenuBar or PopupMenu)
+- new widget MenuBar
+- new widget ScrllView
+- Widgets tool-tip support
+- StaticImage animation support
+
+
+-- Managers --
+- new ResourceManager - allows to load user resources (for example ResourceImageSet)
+- new LanguageManager - allows to replace tags in layouts with strings loaded from language files, manual creating and replacing tags
+- PointerManager - support animated pointers
+- FontManager - support of loading custom fonts from texture
+
+
+-- Controllers --
+- ControllerPosition improved, Jump move mode added
+
+
+-- Resources --
+- new resource type ResourceImageSet - used for group of images, with animation, loads through XML
+
+
+--SubWidgets--
+- new subwidget RawRect for direct access to quad vertices
+- new subwidget TileRect for tiling
+
+
+-- Others --
+- all widgets-containers have Any (like boost::any) for storing user info about item (for example ComboBox items, Menu items)
+- configuration files versions in XML
+- two new themes for skin
+
+
+-- Wrappers --
+- BaseLayout - base class for layout wrapper
+- BaseItemBox - base class for ItemBox wrapper
+- added PanelView - made using wrappers
+
+ 
+-- Tools --
+- LayoutEditor - external resources support, several interface improvements
+- added ImageSetViewer for ResourceImageSet viewing
+
+
+-- Demos --
+- Demo_Colour - colour selection control, RawRect subwidget and colouring in text
+- Demo_Console - simple console implementation for changing some widget properties
+- Demo_Controllers - ControllerFadeAlpha and ControllerPosition examples
+- Demo_Font - true-type font generation with possibility to save into MyGUI font configuration file
+- Demo_Gui - demonstration of using different widgets and styles (something like Ogre Demo_Gui)
+- Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through XML
+- Demo_PanelView - PanelView control implementation
+- Demo_Picking - widget with mouse picking creation
+- Demo_PluginStrangeButton - plugin an user widget
+- Demo_ScrollView - ScrollView examples
+- Demo_Themes - new MyGUI themes for skin
+- Demo_StaticImage - simple ImageSet viewer implementation

@@ -1,0 +1,23 @@
+
+material Ground
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0 0 0 1
+			specular 0.288 0.288 0.288 5 0
+			emissive 0.8 0.8 0.8 1
+
+			texture_unit
+			{
+				texture Ground_blue3.png
+			}
+		}
+
+	}
+
+}
+
+

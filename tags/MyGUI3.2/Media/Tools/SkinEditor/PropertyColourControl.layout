@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 232 26" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="EditBox" skin="EditBox" position="0 0 204 26" align="Stretch" name="Edit"/>
+        <Widget type="Widget" skin="PanelSkin" position="206 0 26 26" align="Right VStretch">
+            <Widget type="Widget" skin="WhiteSkin" position="2 2 20 20" name="Colour"/>
+        </Widget>
+    </Widget>
+</MyGUI>

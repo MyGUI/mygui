@@ -1,0 +1,12 @@
+find_package(Berkelium)
+if (BERKELIUM_FOUND)
+else ()
+	message (FATAL_ERROR "Could not find Berkelium")
+endif ()
+
+include_directories(${MYGUI_SOURCE_DIR}/Plugins/Plugin_BerkeliumWidget ${BERKELIUM_INCLUDE_DIRS})
+mygui_demo(Demo_PluginBerkeliumWidget)
+add_dependencies(Demo_PluginBerkeliumWidget Plugin_BerkeliumWidget)
+target_link_libraries(Demo_PluginBerkeliumWidget ${BERKELIUM_LIBRARIES})
+target_link_libraries(Demo_PluginBerkeliumWidget Plugin_BerkeliumWidget)
+link_directories(${BERKELIUM_LIBRARY_DIRS})

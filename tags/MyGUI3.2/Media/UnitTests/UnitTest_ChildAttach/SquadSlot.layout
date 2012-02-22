@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+
+		<Widget type="Widget" skin="PanelEmpty" position="20 20 128 128" layer="Middle" style="Overlapped" name="SquadSlotLayer">
+			<Widget type="ImageBox" skin="ImageBox" position="0 0 128 128" >
+				<Property key="ImageCoord" value="1 0 58 55"/>
+				<Property key="ImageTexture" value="squad_skin.png"/>
+				<Widget type="ImageBox" skin="ImageBox" position="5 5 118 118" name="SquadSlotPortrait">
+					<Property key="ImageResource" value="SquadSlotPortraitIcons"/>
+					<Property key="ImageGroup" value="Icons"/>
+					<Property key="ImageName" value="LowSignal"/>
+				</Widget>
+			</Widget>
+		</Widget>
+		
+		<Widget type="Widget" skin="PanelEmpty" position="0 0 70 87" layer="Main" style="Overlapped" name="SquadSlotCover">
+			<Widget type="ImageBox" skin="ImageBox" position="47 12 17 22" name="ImageBoxSign">
+				<Property key="ImageResource" value="SquadSlotPortraitIcons"/>
+				<Property key="ImageGroup" value="Signs"/>
+				<Property key="ImageName" value="Leader"/>
+			</Widget>
+		</Widget>
+
+</MyGUI>

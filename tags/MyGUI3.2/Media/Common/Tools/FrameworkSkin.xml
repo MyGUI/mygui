@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="PolygonalSkin" size="8 10" texture="FrameworkSkin.png">
+		<BasisSkin type="PolygonalSkin" offset="0 0 8 10" align="Stretch">
+			<State name="normal" offset="675 145 8 10"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonExpandSkin" size="18 18" texture="FrameworkSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
+			<State name="disabled" offset="49 2 18 18"/>
+			<State name="normal" offset="49 23 18 18"/>
+			<State name="highlighted" offset="49 44 18 18"/>
+			<State name="pushed" offset="49 65 18 18"/>
+			<State name="disabled_checked" offset="49 86 18 18"/>
+			<State name="normal_checked" offset="49 107 18 18"/>
+			<State name="highlighted_checked" offset="49 128 18 18"/>
+			<State name="pushed_checked" offset="49 149 18 18"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ButtonExpand2Skin" size="18 18" texture="FrameworkSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
+			<State name="disabled" offset="96 2 18 18"/>
+			<State name="normal" offset="96 23 18 18"/>
+			<State name="highlighted" offset="96 44 18 18"/>
+			<State name="pushed" offset="96 65 18 18"/>
+			<State name="disabled_checked" offset="96 86 18 18"/>
+			<State name="normal_checked" offset="96 107 18 18"/>
+			<State name="highlighted_checked" offset="96 128 18 18"/>
+			<State name="pushed_checked" offset="96 149 18 18"/>
+		</BasisSkin>
+	</Resource>
+</MyGUI>

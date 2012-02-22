@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="88 184 264 200" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="Control panel"/>
+        <Widget type="Button" skin="CheckBox" position="4 9 244 31" name="Busy">
+            <Property key="Caption" value="Busy context (High level) - F1"/>
+            <UserString key="Context" value="ptrx_Busy"/>
+        </Widget>
+        <Widget type="Button" skin="RadioButton" position="4 41 244 31" name="Repair">
+            <Property key="Caption" value="Repair context - F2"/>
+            <UserString key="Context" value="ptrx_Repair"/>
+        </Widget>
+        <Widget type="Button" skin="RadioButton" position="4 73 244 31" name="Attack">
+            <Property key="Caption" value="Attack context - F3"/>
+            <UserString key="Context" value="ptrx_Attack"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelSkin" position="4 105 248 56" name="PanelPointer">
+            <Property key="Pointer" value="hand"/>
+            <Widget type="TextBox" skin="TextBox" position="0 0 248 56" >
+                <Property key="TextAlign" value="Center"/>
+                <Property key="Caption" value="&apos;hand&apos; pointer"/>
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

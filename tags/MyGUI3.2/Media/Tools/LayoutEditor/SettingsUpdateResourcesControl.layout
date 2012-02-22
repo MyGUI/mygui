@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox" position="3 8 413 24" align="HStretch Top">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{SettingsTextUpdateResources}"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox" position="3 37 415 112" align="Stretch" name="Resources"/>
+        <Widget type="Button" skin="Button" position="298 156 120 26" align="Right Bottom" name="ResourceAdd">
+            <Property key="Caption" value="#{Add}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="4 156 120 24" align="Left Bottom" name="ResourceDelete">
+            <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

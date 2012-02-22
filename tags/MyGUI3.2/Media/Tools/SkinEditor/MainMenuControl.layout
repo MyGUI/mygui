@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+	<Widget type="Widget" skin="PanelEmpty" position="100 100 300 26" align="Stretch" layer="Overlapped" name="_Main">
+		<UserString key="SnapTo" value="Stretch"/>
+		<Widget type="MenuBar" skin="MenuBar" position="0 0 300 26" align="Stretch" name="MainMenu">
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{File}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="File"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Load}"/>
+						<Property key="MenuItemId" value="Command_FileLoad"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Save}"/>
+						<Property key="MenuItemId" value="Command_FileSave"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Save_as}"/>
+						<Property key="MenuItemId" value="Command_FileSaveAs"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Clear}"/>
+						<Property key="MenuItemId" value="Command_ClearAll"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator">
+						<Property key="MenuItemType" value="Separator"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Settings}"/>
+						<Property key="MenuItemId" value="Command_Settings"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Test}"/>
+						<Property key="MenuItemId" value="Command_Test"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator">
+						<Property key="MenuItemType" value="Separator"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{RecentFiles}"/>
+						<Property key="MenuItemType" value="Popup"/>
+						<Property key="MenuItemId" value="RecentFiles"/>
+						<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator">
+						<Property key="MenuItemType" value="Separator"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Quit}"/>
+						<Property key="MenuItemId" value="Command_Quit"/>
+					</Widget>
+				</Widget>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{MenuColours}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Colours"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{MenuColourBackground}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourBackground"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{MenuColourSelector}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourSelector"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{MenuColourSelectorInactive}"/>
+						<Property key="MenuItemId" value="Command_ChangeColourSelectorInactive"/>
+					</Widget>
+				</Widget>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton">
+				<Property key="Caption" value="#{MenuScale}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="Sacle"/>
+				<Widget type="PopupMenu" skin="PopupMenu" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale50}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.50"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale100}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.100"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale200}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.200"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale400}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.400"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale800}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.800"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal">
+						<Property key="Caption" value="#{Scale1600}"/>
+						<Property key="MenuItemId" value="Command_ChangeScale.1600"/>
+					</Widget>
+				</Widget>
+			</Widget>
+		</Widget>
+	</Widget>
+</MyGUI>

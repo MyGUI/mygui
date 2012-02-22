@@ -1,0 +1,23 @@
+set (HEADER_FILES
+  DemoKeeper.h
+  BerkeliumBrowser.h
+)
+set (SOURCE_FILES
+  DemoKeeper.cpp
+  BerkeliumBrowser.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+  DemoKeeper.h
+)
+SOURCE_GROUP("BerkeliumBowser" FILES
+  BerkeliumBrowser.cpp
+  BerkeliumBrowser.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)

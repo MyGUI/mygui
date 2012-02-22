@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="List">
+	<List file="Skins.xml"/>
+	<List file="Fonts.xml"/>
+	<List file="ImageResources.xml"/>
+	<List file="DeviceResources.xml"/>
+	<List file="Layers.xml"/>
+</MyGUI>

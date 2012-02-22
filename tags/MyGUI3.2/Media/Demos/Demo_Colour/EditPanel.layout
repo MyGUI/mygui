@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="30 55 427 311" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="EditBox"/>
+        <Property key="MinSize" value="150 150"/>
+        <Widget type="EditBox" skin="EditBoxStretch" position="3 4 412 268" align="Stretch" name="Edit">
+            <Property key="Caption" value="Select text in this EditBox\nand then select colour to colour it."/>
+			<Property key="TabPrinting" value="true"/>
+		</Widget>
+    </Widget>
+</MyGUI>

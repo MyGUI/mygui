@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+
+	<MyGUI type="Widgets">
+		<Widget name="BerkeliumWidget">
+			<Property key="DefaultSkin" value="Canvas"/>
+
+			<Property key="Skin" value="Canvas" group="Plugin" name="BerkeliumWidget"/>
+
+			<Property key="Parent" value="true"/>
+			<Property key="Child" value="true"/>
+
+			<Parameter key="SourceURL" value="String"/>
+		</Widget>
+	</MyGUI>
+
+	<MyGUI type="Plugin">
+		<Plugin>
+			<Source>Plugin_BerkeliumWidget.dll</Source>
+			<Source build="Debug">Plugin_BerkeliumWidget_d.dll</Source>
+		</Plugin>
+	</MyGUI>
+
+</MyGUI>

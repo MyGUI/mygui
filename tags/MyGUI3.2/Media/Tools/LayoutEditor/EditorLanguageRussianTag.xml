@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="File">Файл</Tag>
+	<Tag name="Widgets">Виджеты</Tag>
+	<Tag name="Load">Открыть ...</Tag>
+	<Tag name="Save">Сохранить</Tag>
+	<Tag name="Save_as">Сохранить как...</Tag>
+	<Tag name="Clear">Очистить</Tag>
+	<Tag name="Settings">Настройки</Tag>
+	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
+	<Tag name="Code_Generator">Генератор кода</Tag>
+	<Tag name="RecentFiles">Предыдущие файлы </Tag>
+	<Tag name="Quit">Выход</Tag>
+
+	<Tag name="MenuColours">Цвета</Tag>
+	<Tag name="MenuColourBackground">Цвет фона ...</Tag>
+	<Tag name="MenuColourSelector">Цвет рамки ...</Tag>
+	<Tag name="MenuColourSelectorInactive">Цвет неактивной рамки ...</Tag>
+
+	<Tag name="MenuScale">Масштаб</Tag>
+
+	<Tag name="MenuEdit">Правка</Tag>
+	<Tag name="MenuUndo">Отменить</Tag>
+	<Tag name="MenuRedo">Повторить</Tag>
+
+	<Tag name="Properties">Свойства</Tag>
+	<Tag name="Main_properties">Основные свойства</Tag>
+	<Tag name="Widget_type_propertes">Свойства #{widget_type}</Tag>
+	<Tag name="Properties_not_available">#808080Свойства #{widget_type}</Tag>
+	<Tag name="Items">Элементы</Tag>
+	<Tag name="PanelTemplatePropertiesName">Свойства шаблона</Tag>
+	<Tag name="PanelUserDataName">Пользовательские данные</Tag>
+	<Tag name="PanelControllersName">Контроллеры</Tag>
+	<Tag name="PanelExtensionPropertiesName">Дополнительные свойства</Tag>
+
+	<Tag name="Project">Проект</Tag>
+	<Tag name="MenuProjectCreate">Создать проект ...</Tag>
+	<Tag name="MenuProjectLoad">Открыть проект ...</Tag>
+	<Tag name="MenuProjectClose">Закрыть проект</Tag>
+	<Tag name="MenuRecentProjects">Предыдущие проекты </Tag>
+	<Tag name="MenuProjectDeleteItem">Удалить выделенный макет из проекта</Tag>
+	<Tag name="MenuProjectRenameItem">Переименовать выделенный макет в проекте ...</Tag>
+	<Tag name="MenuProjectAddItem">Добавить макет в проект</Tag>
+	<Tag name="MenuUpdateResources">Обновить ресурсы</Tag>
+
+	<Tag name="Add">Добавить</Tag>
+	<Tag name="Delete">Удалить</Tag>
+	<Tag name="Select">Выбрать</Tag>
+
+	<Tag name="GeneralSettings">Основные</Tag>
+	<Tag name="WidgetsSettings">Виджеты</Tag>
+	<Tag name="FoldersSettings">Папки</Tag>
+	<Tag name="ResourcesSettings">Ресурсы</Tag>
+	<Tag name="Grid_step">Шаг сетки</Tag>
+	<Tag name="LayoutVersion">Версия макета</Tag>
+	<Tag name="Show_widget_name">Показывать имя виджета</Tag>
+	<Tag name="Show_widget_type">Показывать тип виджета</Tag>
+	<Tag name="Show_widget_skin">Показывать скин виджета</Tag>
+	<Tag name="Autohide_editor_panels">Автоскрытие панелей редактора</Tag>
+	<Tag name="SettingsLoadLastProject">Загружать последний проект</Tag>
+	<Tag name="SettingsTabUpdateResources">Обновление</Tag>
+	<Tag name="SettingsTextUpdateResources">Ресурсы для обновления</Tag>
+	<Tag name="SettingsWorkspaceSize">Размер рабочей области</Tag>
+
+	<Tag name="Key">Ключ</Tag>
+	<Tag name="Value">Значение</Tag>
+
+	<Tag name="Select_file_name">Выберите имя файла</Tag>
+	<Tag name="ResourcesPaths">Пути к ресурсам (требуется перезагрузка)</Tag>
+	<Tag name="TextAdditionalResources">Дополнительные ресурсы (требуется перезагрузка)</Tag>
+
+	<Tag name="OK">Ок</Tag>
+	<Tag name="Ok">Ок</Tag>
+	<Tag name="Cancel">Отмена</Tag>
+	<Tag name="Warning">Внимание</Tag>
+	<Tag name="Error">Ошибка</Tag>
+
+	<Tag name="CaptionMainWindow">Редактор макетов - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionProjectMainWindow">Редактор макетов - '#{CurrentFileName}' [#{CurrentItemFileName}] #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionEnterName">Введите имя</Tag>
+	<Tag name="CaptionOpenFile">Открытие файла</Tag>
+	<Tag name="CaptionCreateFile">Создание файла</Tag>
+	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
+	<Tag name="CaptionExportFile">Экспорт файла</Tag>
+	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
+	<Tag name="CaptionTestWindow">Тестирование</Tag>
+	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
+	<Tag name="CaptionAddResource">Введите имя файла</Tag>
+	<Tag name="CaptionRenameLayout">Введите имя макета</Tag>
+
+	<Tag name="ButtonOpenFile">Открыть</Tag>
+	<Tag name="ButtonCreateFile">Создать</Tag>
+	<Tag name="ButtonSaveFile">Сохранить</Tag>
+	<Tag name="ButtonOpenFolder">Выбрать</Tag>
+	<Tag name="ButtonPopupMode">Popup режим</Tag>
+	<Tag name="ButtonUp">Вверх</Tag>
+
+	<Tag name="MessageUnsavedData">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>
+	<Tag name="MessageFailedLoadFile">Ошибка загрузки файла '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedSaveFile">Ошибка сохранения файла '#{CurrentFileName}'</Tag>
+	<Tag name="MessageFailedLoadProject">Ошибка загрузки проекта '#{CurrentProjectName}'</Tag>
+	<Tag name="MessageDeleteLayout">Вы уверены, что хотите удалить макет?</Tag>
+	<Tag name="MessageFileExist">Файл уже существует.</Tag>
+	<Tag name="MessageProjectItemOpen">Один из макетов проекта открыт в редакторе, закройте его и повторите попытку.</Tag>
+	<Tag name="MessageProjectNotOpen">Не найден проект.</Tag>
+
+	<Tag name="to_percents">%</Tag>
+	<Tag name="to_pixels">пиксели</Tag>
+
+	<Tag name="MenuItemWidgetInfo">#{FormatWidgetName}#{FormatWidgetType}#{FormatWidgetSkin}</Tag>
+	<Tag name="PatternWidgetName">#{ColourMenuName}'#{WidgetName}' </Tag>
+	<Tag name="PatternWidgetType">#{ColourMenuType}[#{WidgetType}] </Tag>
+	<Tag name="PatternWidgetSkin">#{ColourMenuSkin}#{WidgetSkin} </Tag>
+
+	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
+	<Tag name="FormatRecentProject">#{IndexRecentProject}: #{RecentProject}</Tag>
+
+	<Tag name="CG_PanelName">Имя панели</Tag>
+	<Tag name="CG_PanelNamespace">Namespace</Tag>
+	<Tag name="CG_IncludeDirectory">Папка для заголовков</Tag>
+	<Tag name="CG_SourceDirectory">Папка для исходников</Tag>
+	<Tag name="CG_Generate">Сгенерировать</Tag>
+
+	<Tag name="ColourZero">Нет цвета</Tag>
+	<Tag name="ColourBlack">Черный</Tag>
+	<Tag name="ColourWhite">Белый</Tag>
+	<Tag name="ColourRed">Красный</Tag>
+	<Tag name="ColourGreen">Зеленый</Tag>
+	<Tag name="ColourBlue">Синий</Tag>
+	<Tag name="ColourAlpha">Альфа</Tag>
+
+	<Tag name="Scale50">50 %</Tag>
+	<Tag name="Scale100">100 %</Tag>
+	<Tag name="Scale200">200 %</Tag>
+	<Tag name="Scale400">400 %</Tag>
+	<Tag name="Scale800">800 %</Tag>
+	<Tag name="Scale1600">1600 %</Tag>
+	
+</MyGUI>

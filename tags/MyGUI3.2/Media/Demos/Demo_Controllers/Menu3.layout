@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelSkin" position="40 408 360 296" layer="Main" name="_Main">
+        <Widget type="ImageBox" skin="ImageBox" position="11 12 128 128">
+            <Property key="ImageTexture" value="Crystal_Clear_app_kcmpartitions.png"/>
+        </Widget>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 60 200 26" layer="Main" name="Button1">
+        <Property key="Caption" value="ContrllerInertional"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 108 200 26" layer="Main" name="Button2">
+        <Property key="Caption" value="ContrllerAccelerated"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 144 200 26" layer="Main" name="Button3">
+        <Property key="Caption" value="ContrllerSlowed"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 188 200 26" layer="Main" name="Button4">
+        <Property key="Caption" value="ContrllerJump"/>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceImageSet" name="SquadSlotPortraitIcons">
+		<Group name="Icons" texture="squad_skin.png" size="51 52">
+			<Index name="LowSignal">
+				<Frame point="64 1"/>
+			</Index>
+			<Index name="Offline">
+				<Frame point="1 57"/>
+			</Index>
+			<Index name="Dead">
+				<Frame point="54 57"/>
+			</Index>
+		</Group>
+		<Group name="BottomBars" texture="squad_skin.png" size="58 12">
+			<Index name="InComa">
+				<Frame point="0 111"/>
+			</Index>
+			<Index name="Offline">
+				<Frame point="60 112"/>
+			</Index>
+		</Group>
+		<Group name="Signs" texture="squad_skin.png" size="17 22">
+			<Index name="Leader">
+				<Frame point="108 58"/>
+			</Index>
+			<Index name="Uncertain">
+				<Frame point="108 83"/>
+			</Index>
+		</Group>
+	</Resource>
+</MyGUI>

@@ -1,0 +1,12 @@
+prefix=@MYGUI_PREFIX_PATH@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: MyGUI (static lib)
+Description: Fast, flexible and simple GUI
+Version: @MYGUI_VERSION@
+URL: http://mygui.info
+Requires: freetype2
+Libs: -L${libdir} -lMyGUIEngine@MYGUI_LIB_SUFFIX@ @MYGUI_ADDITIONAL_LIBS@
+Cflags: -I${includedir} -I${includedir}/MYGUI @MYGUI_CFLAGS@

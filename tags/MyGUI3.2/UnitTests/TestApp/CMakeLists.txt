@@ -1,0 +1,1 @@
+mygui_unit_test(TestApp)

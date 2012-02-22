@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="List">
+	<List file="Widgets.xml"/>
+	<List file="WidgetsBackwardCompatibility.xml"/>
+	<List file="Values.xml"/>
+	<List file="Ignore.xml"/>
+	<List file="Hotkeys.xml"/>
+	<List file="SkinReplaces.xml"/>
+	<List file="EditorPlugin.xml"/>
+</MyGUI>

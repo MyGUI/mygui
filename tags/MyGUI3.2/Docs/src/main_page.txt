@@ -1,0 +1,66 @@
+/*!
+	\mainpage MyGUI documentation page
+
+	\section section_main_introduction Introduction
+
+	\n This documentation file contains information about MyGUI library.
+	MyGUI is a library for creating Graphical User Interfaces (GUIs) for games and 3D applications.
+	The main goals of MyGUI are: speed, flexibility and ease of use.
+
+	\link Licensing Licensing \endlink
+
+	Here's list of main external classes.
+	\section Widgets
+	\li Base \link MyGUI::Widget Widget \endlink
+	\li \link MyGUI::Button Button \endlink
+	\li	\link MyGUI::Canvas Canvas \endlink
+	\li	\link MyGUI::ComboBox ComboBox \endlink
+	\li	\link MyGUI::DDContainer DDContainer \endlink
+	\li \link MyGUI::EditBox EditBox \endlink
+	\li \link MyGUI::ImageBox ImageBox \endlink
+	\li \link MyGUI::ItemBox ItemBox \endlink
+	\li \link MyGUI::ListBox ListBox \endlink
+	\li \link MyGUI::MenuBar MenuBar \endlink
+	\li \link MyGUI::MenuControl MenuControl \endlink
+	\li \link MyGUI::MultiListBox MultiListBox \endlink
+	\li \link MyGUI::PopupMenu PopupMenu \endlink
+	\li \link MyGUI::ProgressBar ProgressBar \endlink
+	\li \link MyGUI::ScrollBar ScrollBar \endlink
+	\li \link MyGUI::ScrollView ScrollView \endlink
+	\li	\link MyGUI::TabControl TabControl \endlink
+	\li \link MyGUI::TextBox TextBox \endlink
+	\li \link MyGUI::Window Window \endlink
+
+	\section Managers
+	\li Main \link MyGUI::Gui Gui \endlink manager
+	\li \link MyGUI::ClipboardManager ClipboardManager \endlink
+	\li \link MyGUI::ControllerManager ControllerManager \endlink
+	\li \link MyGUI::DataManager DataManager \endlink
+	\li \link MyGUI::DynLibManager DynLibManager \endlink
+	\li \link MyGUI::FactoryManager FactoryManager \endlink
+	\li \link MyGUI::FontManager FontManager \endlink
+	\li \link MyGUI::InputManager InputManager \endlink
+	\li \link MyGUI::LanguageManager LanguageManager \endlink
+	\li \link MyGUI::LayerManager LayerManager \endlink
+	\li \link MyGUI::LayoutManager LayoutManager \endlink
+	\li \link MyGUI::PluginManager PluginManager \endlink
+	\li \link MyGUI::PointerManager PointerManager \endlink
+	\li \link MyGUI::RenderManager RenderManager \endlink
+	\li \link MyGUI::ResourceManager ResourceManager \endlink
+	\li \link MyGUI::SkinManager SkinManager \endlink
+	\li \link MyGUI::ToolTipManager ToolTipManager \endlink
+	\li \link MyGUI::WidgetManager WidgetManager \endlink
+	
+	\section Controllers
+	\li \link MyGUI::ControllerEdgeHide ControllerEdgeHide \endlink
+	\li \link MyGUI::ControllerFadeAlpha ControllerFadeAlpha \endlink
+	\li \link MyGUI::ControllerPosition ControllerPosition \endlink
+	\section Links
+		MyGUI website - http://mygui.info
+	\n	MyGUI wiki - http://www.ogre3d.org/wiki/index.php/MyGUI
+	\n  MyGUI project page at sourceforge - http://sourceforge.net/projects/my-gui/
+	\n 	MyGUI forum - http://www.ogre3d.org/addonforums/viewforum.php?f=17
+	\n 	MyGUI Russian forum - http://www.ogre3d.ru/forum/viewforum.php?f=20
+
+
+*/

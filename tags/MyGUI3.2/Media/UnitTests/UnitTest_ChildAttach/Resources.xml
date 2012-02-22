@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource">
+
+	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Butterfly">
+		<Group name="States" texture="Crystal_Clear_Butterfly.png" size="128 128">
+			<Index name="Normal">
+				<Frame point="0 0"/>
+			</Index>
+			<Index name="Active">
+				<Frame point="0 128"/>
+			</Index>
+		</Group>
+	</Resource>
+
+</MyGUI>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="Window" position="340 5 457 420" align="Stretch" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="Texture View"/>
+        <Widget type="ScrollView" skin="ScrollView" position="2 2 445 381" align="Stretch" name="view_Texture">
+            <Widget type="Widget" skin="WhiteSkin" position="15 15 100 100" name="image_Back">
+                <Property key="Colour" value="0 0 0"/>
+                <Property key="NeedMouse" value="false"/>
+                <Widget type="ImageBox" skin="ImageBox" position="25 25 50 50" name="image_Texture"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

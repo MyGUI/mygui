@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="List">
+	<List file="EditorTheme.xml"/>
+	<List file="EditorLanguage.xml"/>
+	<List file="MessageBoxResources.xml"/>
+	<List file="MyGUI_Fonts.xml"/>
+	<List file="MyGUI_Images.xml"/>
+	<List file="MyGUI_CommonSkins.xml"/>
+	<List file="MyGUI_BlackOrangeTheme.xml"/>
+	<List file="MyGUI_Pointers.xml"/>
+	<List file="SelectionSkins.xml"/>
+	<List file="TextureViewerSkins.xml"/>
+	<List file="EditorReplaceSkins.xml"/>
+	<List file="FrameworkSkin.xml"/>
+	<List file="MyGUI_Layers.xml"/>
+	<List file="EditorSettings.xml"/>
+	<!-- загружается из кода после регистрации лееров -->
+	<!--List file="EditorLayers.xml"/-->
+</MyGUI>

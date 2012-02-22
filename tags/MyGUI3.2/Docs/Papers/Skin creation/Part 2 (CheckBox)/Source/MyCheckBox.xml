@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceSkin" name="MyCheckBox" size="69 25" texture="MyCheckBox.png">
+		<Property key="FontName" value="Default"/>
+		<BasisSkin type="SubSkin" offset="0 0 27 25" align="Left Top">
+			<State name="disabled" offset="7 7 27 25"/>
+			<State name="normal" offset="7 37 27 25"/>
+			<State name="highlighted" offset="7 67 27 25"/>
+			<State name="pushed" offset="7 97 27 25"/>
+			<State name="disabled_checked" offset="7 127 27 25"/>
+			<State name="normal_checked" offset="7 157 27 25"/>
+			<State name="highlighted_checked" offset="7 187 27 25"/>
+			<State name="pushed_checked" offset="7 217 27 25"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="30 0 39 25" align="Stretch">
+			<State name="disabled" colour="#FFFFFF"/>
+			<State name="normal" colour="#FFFFFF"/>
+			<State name="highlighted" colour="#FFFFFF"/>
+			<State name="pushed" colour="#FFFFFF"/>
+			<State name="disabled_checked" colour="#FFFFFF"/>
+			<State name="normal_checked" colour="#FFFFFF"/>
+			<State name="highlighted_checked" colour="#FFFFFF"/>
+			<State name="pushed_checked" colour="#FFFFFF"/>
+		</BasisSkin>
+	</Resource>
+
+</MyGUI>

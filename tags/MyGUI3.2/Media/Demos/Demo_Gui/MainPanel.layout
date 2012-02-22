@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowC" position="20 72 211 309" layer="Overlapped" name="_Main">
+        <Widget type="TabControl" skin="TabControl" position="2 2 197 268">
+            <Widget type="TabItem" skin="Default" position="2 24 191 240">
+                <Property key="Caption" value="File"/>
+                <Widget type="Button" skin="Button" position="14 22 160 26" name="New">
+                    <Property key="Caption" value="New"/>
+                </Widget>
+                <Widget type="Button" skin="Button" position="14 53 160 26" name="Load">
+                    <Property key="Caption" value="Load Test Layout"/>
+                </Widget>
+                <Widget type="Button" skin="Button" position="14 85 160 26" name="Quit">
+                    <Property key="Caption" value="Quit"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="2 24 191 240">
+                <Property key="Caption" value="Objects"/>
+                <Widget type="ComboBox" skin="ComboBox" position="6 21 176 26" name="CreateObject">
+                    <Property key="ModeDrop" value="true"/>
+                    <Property key="Caption" value="Select Type"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

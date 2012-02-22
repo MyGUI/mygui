@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCS" position="448 224 240 273" style="Overlapped" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="Information Window"/>
+        <Property key="MinSize" value="120 216"/>
+        <Widget type="EditBox" skin="EditBoxStretch" position="5 5 221 115" align="HStretch Top">
+            <Property key="Caption" value="The panel below gives some information about the item under the mouse."/>
+            <Property key="WordWrap" value="true"/>
+            <Property key="Static" value="true"/>
+            <Property key="TextAlign" value="Center"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBoxStretch" position="5 125 221 108" align="Stretch" name="Info">
+            <Property key="WordWrap" value="true"/>
+            <Property key="Static" value="true"/>
+            <Property key="TextAlign" value="Center"/>
+        </Widget>
+    </Widget>
+</MyGUI>

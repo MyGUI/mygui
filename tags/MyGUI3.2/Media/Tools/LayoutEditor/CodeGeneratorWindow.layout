@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCSX" position="88 78 392 322" align="Left Bottom" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="#{Widgets}"/>
+        <Property key="Snap" value="true"/>
+        <Property key="Visible" value="false"/>
+        <Property key="MinSize" value="392 322"/>
+        <Widget type="TextBox" skin="TextBox" position="8 8 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_PanelName}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="8 32 368 26" align="HStretch Top" name="PanelName"/>
+        <Widget type="TextBox" skin="TextBox" position="8 64 368 24" align="HStretch Top">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{CG_PanelNamespace}"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="8 88 368 26" align="HStretch Top" name="PanelNamespace">
+            <Property key="Caption" value="wrappers"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="8 120 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_IncludeDirectory}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="8 176 368 24" align="HStretch Top">
+            <Property key="Caption" value="#{CG_SourceDirectory}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="8 200 336 26" align="HStretch Top" name="SourceDirectory"/>
+        <Widget type="EditBox" skin="EditBox" position="8 144 336 26" align="HStretch Top" name="IncludeDirectory"/>
+        <Widget type="Button" skin="Button" position="232 252 144 26" align="Right Bottom" name="Generate">
+            <Property key="Caption" value="#{CG_Generate}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="6 252 146 26" align="Left Bottom" name="Cancel">
+            <Property key="Caption" value="#{Cancel}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="349 144 26 26" align="Right Top" name="BrowseHeader">
+            <Property key="Caption" value="..."/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="349 200 26 26" align="Right Top" name="BrowseSource">
+            <Property key="Caption" value="..."/>
+        </Widget>
+    </Widget>
+</MyGUI>

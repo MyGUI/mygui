@@ -1,0 +1,104 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DCEC480-7E44-4A42-8328-D712DE03007D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyGUI.Sharp</RootNamespace>
+    <AssemblyName>MyGUI.Sharp</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)../bin/$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)../bin/$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_DirectX|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Generate\MyGUI.GuiPart_WidgetCreator.cs" />
+    <Compile Include="Core\Gui.cs" />
+    <Compile Include="Core\InputManager.cs" />
+    <Compile Include="Core\InterfaceMarshaler.cs" />
+    <Compile Include="Core\LayerManager.cs" />
+    <Compile Include="Core\PointerManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\Align.cs" />
+    <Compile Include="Types\Colour.cs" />
+    <Compile Include="Types\DDItemInfo.cs" />
+    <Compile Include="Types\DDItemState.cs" />
+    <Compile Include="Types\DDWidgetState.cs" />
+    <Compile Include="Types\FloatCoord.cs" />
+    <Compile Include="Types\FloatPoint.cs" />
+    <Compile Include="Types\FloatRect.cs" />
+    <Compile Include="Types\FloatSize.cs" />
+    <Compile Include="Types\FlowDirection.cs" />
+    <Compile Include="Types\IBDrawItemInfo.cs" />
+    <Compile Include="Types\IBNotifyItemData.cs" />
+    <Compile Include="Types\IntCoord.cs" />
+    <Compile Include="Types\IntPoint.cs" />
+    <Compile Include="Types\IntRect.cs" />
+    <Compile Include="Types\IntSize.cs" />
+    <Compile Include="Types\KeyCode.cs" />
+    <Compile Include="Types\MenuItemType.cs" />
+    <Compile Include="Types\MouseButton.cs" />
+    <Compile Include="Types\ResizingPolicy.cs" />
+    <Compile Include="Types\ToolTipInfo.cs" />
+    <Compile Include="Types\WidgetStyle.cs" />
+    <Compile Include="Widgets\BaseWidget.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_Button.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ComboBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_DDContainer.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_EditBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ImageBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ItemBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ListBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuControl.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_MultiListBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_MultiListItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_PopupMenu.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ProgressBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ScrollBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_ScrollVew.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_TabControl.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_TabItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_TextBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_Widget.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetCropped.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetInput.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetUserData.cs" />
+    <Compile Include="Widgets\Generate\MyGUI.Sharp_Window.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

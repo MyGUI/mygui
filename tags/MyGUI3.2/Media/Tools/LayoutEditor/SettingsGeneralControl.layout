@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox" position="107 10 300 25" align="HStretch Top">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{Grid_step}"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="5 10 100 24" align="Left Top" name="gridEdit">
+            <Property key="Caption" value="8"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="85 70 325 25" align="HStretch Top" name="LoadLastProject">
+            <Property key="Caption" value="#{SettingsLoadLastProject}"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="107 40 301 25" align="HStretch Top">
+            <Property key="Caption" value="#{SettingsWorkspaceSize}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="5 40 100 24" name="WorkspaceSize">
+            <Property key="Caption" value="128 128"/>
+        </Widget>
+    </Widget>
+</MyGUI>

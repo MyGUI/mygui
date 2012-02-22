@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="440 144 208 136" align="HStretch Top" layer="Overlapped" name="_Main">
+        <Widget type="Button" skin="Button" position="8 8 192 24" align="HStretch Top">
+            <Property key="Caption" value="Button"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="8 40 192 24" align="HStretch Top">
+            <Property key="Caption" value="Check box"/>
+        </Widget>
+        <Widget type="Button" skin="RadioButton" position="8 72 192 24" align="HStretch Top">
+            <Property key="Caption" value="Radio button"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="8 104 192 24" align="HStretch Top">
+            <Property key="Caption" value="EditBox"/>
+        </Widget>
+    </Widget>
+</MyGUI>

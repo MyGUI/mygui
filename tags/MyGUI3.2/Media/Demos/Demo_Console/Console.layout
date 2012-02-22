@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCSX" position="168 72 416 318" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="Console"/>
+        <Property key="MinSize" value="200 100"/>
+        <UserString key="Current" value="#0000FFcurrent : #000000"/>
+        <UserString key="Error" value="#FF0000error parse : #000000"/>
+        <UserString key="Success" value="#00FF00success parse : #000000"/>
+        <UserString key="Unknown" value="#FF0000unknown command : #000000"/>
+        <UserString key="Format" value="#00FFFFformat : #000000"/>
+        <Widget type="Widget" skin="PanelSkin" position="4 4 401 245" align="Stretch">
+            <Widget type="EditBox" skin="WordWrapEmpty" position="4 3 392 237" align="Stretch" name="list_History">
+                <Property key="ReadOnly" value="true"/>
+            </Widget>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="5 254 305 26" align="HStretch Bottom" name="combo_Command"/>
+        <Widget type="Button" skin="Button" position="313 254 91 26" align="Right Bottom" name="button_Submit">
+            <Property key="Caption" value="Submit"/>
+        </Widget>
+    </Widget>
+</MyGUI>

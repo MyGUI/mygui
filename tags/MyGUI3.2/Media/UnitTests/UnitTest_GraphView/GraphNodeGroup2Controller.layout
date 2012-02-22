@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowSmallCX" position="20 50 110 132" name="_Main">
+		
+        <Widget type="Widget" skin="PanelEmpty" position="1 23 109 14" align="HStretch Top">
+            <Widget type="Button" skin="ButtonRoundGrey" position="95 0 14 14" align="Right VCenter" name="Start1Out">
+                <UserString key="Type" value="EventOut"/>
+                <UserString key="Direction" value="1 0"/>
+                <UserString key="Name" value="Start1"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
+                <Property key="Caption" value="Start1"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="1 37 109 14" align="HStretch Top">
+            <Widget type="Button" skin="ButtonRoundGrey" position="95 0 14 14" align="Right VCenter" name="Stop1Out">
+                <UserString key="Type" value="EventOut"/>
+                <UserString key="Direction" value="1 0"/>
+                <UserString key="Name" value="Stop1"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
+                <Property key="TextAlign" value="Right VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
+                <Property key="Caption" value="Stop1"/>
+            </Widget>
+        </Widget>
+
+		<Widget type="Widget" skin="PanelEmpty" position="1 55 109 14" align="HStretch Top">
+			<Widget type="Button" skin="ButtonRoundGrey" position="95 0 14 14" align="Right VCenter" name="Start2Out">
+				<UserString key="Type" value="EventOut"/>
+				<UserString key="Direction" value="1 0"/>
+				<UserString key="Name" value="Start2"/>
+			</Widget>
+			<Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
+				<Property key="TextAlign" value="Right VCenter"/>
+				<Property key="FontName" value="DejaVuSansFont.14"/>
+				<Property key="Caption" value="Start2"/>
+			</Widget>
+		</Widget>
+		<Widget type="Widget" skin="PanelEmpty" position="1 69 109 14" align="HStretch Top">
+			<Widget type="Button" skin="ButtonRoundGrey" position="95 0 14 14" align="Right VCenter" name="Stop2Out">
+				<UserString key="Type" value="EventOut"/>
+				<UserString key="Direction" value="1 0"/>
+				<UserString key="Name" value="Stop2"/>
+			</Widget>
+			<Widget type="TextBox" skin="TextBox" position="0 0 92 14" align="HStretch VCenter">
+				<Property key="TextAlign" value="Right VCenter"/>
+				<Property key="FontName" value="DejaVuSansFont.14"/>
+				<Property key="Caption" value="Stop2"/>
+			</Widget>
+		</Widget>
+
+		<Widget type="Widget" skin="PanelEmpty" position="1 83 109 14" align="HStretch Top">
+            <Widget type="Widget" skin="SepDownHSkin" position="14 6 79 2" align="HStretch VCenter"/>
+        </Widget>
+		
+        <Widget type="Widget" skin="PanelEmpty" position="1 97 109 14" align="HStretch Bottom">
+            <Widget type="Button" skin="ButtonRoundGrey" position="0 0 14 14" align="Left VCenter" name="Start1In">
+                <UserString key="Name" value="Start1"/>
+                <UserString key="Type" value="EventIn"/>
+                <UserString key="Direction" value="-1 0"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox" position="15 0 94 14" align="HStretch VCenter">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
+                <Property key="Caption" value="Start1"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="1 111 109 14" align="HStretch Bottom">
+            <Widget type="Button" skin="ButtonRoundGrey" position="0 0 14 14" align="Left VCenter" name="Start2In">
+                <UserString key="Name" value="Start2"/>
+                <UserString key="Type" value="EventIn"/>
+                <UserString key="Direction" value="-1 0"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox" position="15 0 94 14" align="HStretch VCenter">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.14"/>
+                <Property key="Caption" value="Start2"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

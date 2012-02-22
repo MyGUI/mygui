@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="600 450 365 256" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="drag and drop demo"/>
+        <Property key="MinSize" value="170 100"/>
+        <Widget type="ItemBox" skin="ItemBox" position="0 0 356 220" align="Stretch" name="box_Items">
+			<Property key="VerticalAlignment" value="false"/>
+			<Property key="NeedToolTip" value="true"/>
+        </Widget>
+    </Widget>
+</MyGUI>

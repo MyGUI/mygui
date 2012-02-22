@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelSkin" position="0 32 200 100" layer="ToolTip" name="_Main">
+        <Property key="Visible" value="false"/>
+        <UserString key="minHeight" value="100"/>
+        <UserString key="minWidth" value="200"/>
+        <Widget type="EditBox" skin="WordWrapEmpty" position="3 3 192 92" align="Default" name="Text">
+            <Property key="Caption" value="[Tool Tip Info]"/>
+        </Widget>
+    </Widget>
+</MyGUI>

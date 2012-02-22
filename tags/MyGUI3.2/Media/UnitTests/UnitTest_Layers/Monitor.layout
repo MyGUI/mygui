@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="ImageBox" skin="ImageBox" position="32 64 1024 512" layer="RTT_Monitor" name="_Main">
+        <Property key="ImageTexture" value="MonitorBack.png"/>
+        <Property key="ImageCoord" value="0 0 1024 512"/>
+        <Property key="ImageTile" value="1024 512"/>
+        <Widget type="ProgressBar" skin="MonitorProgress" position="400 152 280 59" name="Energy">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="4"/>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
+        <Widget type="ProgressBar" skin="MonitorProgress" position="400 238 280 59" name="Explosion">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="1"/>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
+        <Widget type="ProgressBar" skin="MonitorProgress" position="400 320 280 59" name="Target">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="3"/>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
+		<Widget type="ProgressBar" skin="MonitorProgress" position="400 400 280 59" name="HP">
+			<Property key="Range" value="10"/>
+			<Property key="RangePosition" value="8"/>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
+        <Widget type="ImageBox" skin="ImageBox" position="49 140 210 210" name="Ship">
+            <Property key="ImageResource" value="ImageShip"/>
+            <Property key="ImageGroup" value="Ship"/>
+            <Property key="ImageName" value="None"/>
+        </Widget>
+        <Widget type="EditBox" skin="MonitorEdit" position="752 136 224 224" name="Description">
+            <Property key="MultiLine" value="true"/>
+            <Property key="Static" value="true"/>
+            <Property key="WordWrap" value="true"/>
+            <Property key="Caption" value="caption caption"/>
+			<Controller type="ControllerSmoothCaption"/>
+		</Widget>
+    </Widget>
+</MyGUI>

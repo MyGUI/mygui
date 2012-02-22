@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="TreeLineExpandCollapse" size="12 12" texture="TreeIcons.png">
+		<BasisSkin type="MainSkin" offset="0 0 12 12" align="Stretch">
+			<State name="normal_checked" offset="270 2 12 12"/>
+			<State name="highlighted_checked" offset="270 15 12 12"/>
+			<State name="pushed_checked" offset="270 28 12 12"/>
+			<State name="normal" offset="283 2 12 12"/>
+			<State name="highlighted" offset="283 15 12 12"/>
+			<State name="pushed" offset="283 28 12 12"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="TreeLineIcon" size="16 16">
+		<Property key="ImageResource" value="pic_TreeIcons"/>
+		<Property key="ImageGroup" value="Folder"/>
+		<Property key="ImageName" value="Collapsed"/>
+		<BasisSkin type="MainSkin" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="FrameworkSkin.png" >
+		<Property key="FontName" value="DejaVuSansFont.13"/>
+		<Property key="TextAlign" value="Left VCenter"/>
+		<Child type="Button" skin="TreeLineExpandCollapse" offset="2 3 12 12" align="Default" name="ButtonExpandCollapse"/>
+		<BasisSkin type="MainSkin" offset="0 0 5 5">
+			<State name="normal" offset="343 115 1 1"/>
+			<State name="highlighted" offset="306 115 1 1"/>
+			<State name="normal_checked" offset="318 115 1 1"/>
+			<State name="pushed" offset="330 115 1 1"/>
+		</BasisSkin>
+		<Child type="ImageBox" skin="TreeLineIcon" align="Default" offset="16 1 16 16" name="Image"/>
+		<BasisSkin type="EditText" offset="34 3 0 0" align="Stretch">
+			<State name="disabled" colour="0 0 0"/>
+			<State name="normal" colour="0 0 0"/>
+			<State name="highlighted" colour="0 0 0"/>
+			<State name="normal_checked" colour="0 0 0"/>
+			<State name="pushed" colour="0 0 0"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="TreeSkin" size="11 11" texture="FrameworkSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
+			<State name="normal" offset="429 70 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="3 0 3 3" align="HStretch Top">
+			<State name="normal" offset="435 70 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 0 5 3" align="Right Top">
+			<State name="normal" offset="447 70 5 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 3 3 3" align="Left VStretch">
+			<State name="normal" offset="429 76 3 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 3 5 3" align="Right VStretch">
+			<State name="normal" offset="447 76 5 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 6 3 5" align="Left Bottom">
+			<State name="normal" offset="429 87 3 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="3 6 3 5" align="HStretch Bottom">
+			<State name="normal" offset="435 87 3 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="6 6 5 5" align="Right Bottom">
+			<State name="normal" offset="447 87 5 5"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceLayout" name="Tree" version="3.2.0">
+		<Widget type="Widget" skin="TreeSkin" position="0 0 11 11" name="Root">
+			<UserString key="NeedKey" value="true"/>
+			<UserString key="SkinLine" value="TreeLine"/>
+			<UserString key="HeightLine" value="18"/>
+			<UserString key="LevelOffset" value="14"/>
+			<Widget type="ScrollBar" skin="ScrollBarV" position="-9 3 15 3" align="Right VStretch" name="VScroll"/>
+			<Widget type="Widget" skin="ClientDefaultSkin" position="3 3 -12 3" align="Stretch" name="Client"/>
+		</Widget>
+	</Resource>
+</MyGUI>

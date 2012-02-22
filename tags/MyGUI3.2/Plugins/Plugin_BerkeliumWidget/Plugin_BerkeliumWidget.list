@@ -1,0 +1,25 @@
+set (HEADER_FILES
+  BerkeliumWidget.h
+  Buffer.h
+  Plugin.h
+  BerkeliumDelegate.h
+)
+set (SOURCE_FILES
+  BerkeliumWidget.cpp
+  Plugin.cpp
+  BerkeliumDelegate.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  BerkeliumWidget.cpp
+  Plugin.cpp
+  BerkeliumDelegate.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  BerkeliumWidget.h
+  Buffer.h
+  Plugin.h
+  BerkeliumDelegate.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

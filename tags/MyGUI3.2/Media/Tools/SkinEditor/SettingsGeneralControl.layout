@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox" position="5 8 107 24">
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="Caption" value="#{Grid_step}"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="120 8 288 24" align="HStretch Top" name="gridEdit">
+            <Property key="Caption" value="8"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 37 402 24" align="HStretch Top" name="SaveLastTexture">
+            <Property key="Caption" value="#{TextSaveLastTexture}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

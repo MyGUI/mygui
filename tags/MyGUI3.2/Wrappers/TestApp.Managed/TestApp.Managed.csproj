@@ -1,0 +1,81 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{70579DF6-9BE2-4623-87B0-C19C05036016}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestApp.Managed</RootNamespace>
+    <AssemblyName>TestApp.Managed</AssemblyName>
+    <ApplicationIcon>mygui.ico</ApplicationIcon>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)../bin/$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)../bin/$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Export.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_Button.cs" />
+    <Compile Include="Test_ComboBox.cs" />
+    <Compile Include="Test_DDContainer.cs" />
+    <Compile Include="Test_EditBox.cs" />
+    <Compile Include="Test_Gui.cs" />
+    <Compile Include="Test_ImageBox.cs" />
+    <Compile Include="Test_ItemBox.cs" />
+    <Compile Include="Test_ListBox.cs" />
+    <Compile Include="Test_MenuBar.cs" />
+    <Compile Include="Test_MenuControl.cs" />
+    <Compile Include="Test_MultilistBox.cs" />
+    <Compile Include="Test_PopupMenu.cs" />
+    <Compile Include="Test_ProgressBar.cs" />
+    <Compile Include="Test_ScrollBar.cs" />
+    <Compile Include="Test_ScrollView.cs" />
+    <Compile Include="Test_TabControl.cs" />
+    <Compile Include="Test_TextBox.cs" />
+    <Compile Include="Test_Widget.cs" />
+    <Compile Include="Test_Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mygui.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyGUI.Managed\MyGUI.Managed.vcproj">
+      <Project>{9EBA1113-C11A-41B4-9674-3D83E6067B2E}</Project>
+      <Name>MyGUI.Managed</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

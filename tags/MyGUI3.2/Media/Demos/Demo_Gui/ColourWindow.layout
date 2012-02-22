@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCS" position="448 96 232 392" style="Overlapped" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="ColourDemo Demo"/>
+        <Property key="MinSize" value="104 300"/>
+        <UserString key="Info" value="A test window"/>
+        <Widget type="ItemBox" skin="ItemBox" position="3 4 216 132" align="Stretch" name="Box">
+            <UserString key="Info" value="A item box"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelSkin" position="4 141 214 209" align="HStretch Bottom">
+            <Widget type="ScrollBar" skin="SliderH" position="6 6 201 15" align="HStretch Top" name="Red">
+                <Property key="Range" value="256"/>
+                <Property key="RangePosition" value="255"/>
+                <Property key="Page" value="1"/>
+                <Property key="ViewPage" value="10"/>
+                <UserString key="Info" value="A colour slider"/>
+            </Widget>
+            <Widget type="ScrollBar" skin="SliderH" position="6 24 201 15" align="HStretch Top" name="Green">
+                <Property key="Range" value="256"/>
+                <Property key="RangePosition" value="255"/>
+                <Property key="Page" value="1"/>
+                <Property key="ViewPage" value="10"/>
+                <UserString key="Info" value="A colour slider"/>
+            </Widget>
+            <Widget type="ScrollBar" skin="SliderH" position="6 42 201 15" align="HStretch Top" name="Blue">
+                <Property key="Range" value="256"/>
+                <Property key="RangePosition" value="255"/>
+                <Property key="Page" value="1"/>
+                <Property key="ViewPage" value="10"/>
+                <UserString key="Info" value="A colour slider"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelSkin" position="6 60 202 19" align="HStretch Top">
+                <UserString key="Info" value="The colour that will be used for the selection when added to the list"/>
+                <Widget type="Widget" skin="WhiteSkin" position="3 3 194 11" align="Stretch" name="Colour"/>
+            </Widget>
+            <Widget type="EditBox" skin="EditBox" position="7 83 151 26" align="HStretch Top" name="Line">
+                <UserString key="Info" value="An edit box: this text will be added to the list"/>
+            </Widget>
+            <Widget type="Button" skin="Button" position="161 83 45 26" align="Right Top" name="Add">
+                <Property key="Caption" value="Add"/>
+                <UserString key="Info" value="Adds the text to the list"/>
+            </Widget>
+            <Widget type="EditBox" skin="EditBoxStretch" position="8 116 198 84" align="HStretch Top">
+                <Property key="WordWrap" value="true"/>
+                <Property key="Static" value="true"/>
+                <Property key="TextAlign" value="Center"/>
+                <Property key="Caption" value="Use this panel to add items. The scrollbars change the selection colour."/>
+                <UserString key="Info" value="Some static text"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

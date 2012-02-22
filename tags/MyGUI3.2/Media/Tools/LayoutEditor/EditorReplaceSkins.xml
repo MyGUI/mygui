@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
+			<State name="normal" offset="16 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 0 14 1" align="HStretch Top">
+			<State name="normal" offset="17 0 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 0 1 1" align="Right Top">
+			<State name="normal" offset="31 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 1 1 14" align="Left VStretch">
+			<State name="normal" offset="16 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 1 14 14" align="Stretch">
+			<State name="normal" offset="19 3 10 10"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 1 1 14" align="Right VStretch">
+			<State name="normal" offset="31 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 15 1 1" align="Left Bottom">
+			<State name="normal" offset="16 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 15 14 1" align="HStretch Bottom">
+			<State name="normal" offset="17 15 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 15 1 1" align="Right Bottom">
+			<State name="normal" offset="31 15 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="LE_StaticText" size="16 16" texture="SelectionRects.png">
+		<Property key="FontName" value="Default"/>
+		<Property key="TextAlign" value="Default"/>
+		<Property key="Colour" value="1 1 1"/>
+		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
+			<State name="normal" offset="48 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 0 14 1" align="HStretch Top">
+			<State name="normal" offset="49 0 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 0 1 1" align="Right Top">
+			<State name="normal" offset="63 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 1 1 14" align="Left VStretch">
+			<State name="normal" offset="48 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 1 14 14" align="Stretch">
+			<State name="normal" offset="50 3 10 10"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 1 1 14" align="Right VStretch">
+			<State name="normal" offset="63 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 15 1 1" align="Left Bottom">
+			<State name="normal" offset="48 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 15 14 1" align="HStretch Bottom">
+			<State name="normal" offset="49 15 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 15 1 1" align="Right Bottom">
+			<State name="normal" offset="63 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="LE_StaticImageHelper" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
+			<State name="normal" offset="0 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 0 14 1" align="HStretch Top">
+			<State name="normal" offset="1 0 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 0 1 1" align="Right Top">
+			<State name="normal" offset="15 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 1 1 14" align="Left VStretch">
+			<State name="normal" offset="0 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 1 14 14" align="Stretch">
+			<State name="normal" offset="3 3 10 10"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 1 1 14" align="Right VStretch">
+			<State name="normal" offset="15 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 15 1 1" align="Left Bottom">
+			<State name="normal" offset="0 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 15 14 1" align="HStretch Bottom">
+			<State name="normal" offset="1 15 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 15 1 1" align="Right Bottom">
+			<State name="normal" offset="15 15 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="LE_StaticImage" size="16 16">
+		<Child type="Widget" skin="LE_StaticImageHelper" offset="0 0 16 16" align="Stretch"/>
+		<BasisSkin type="MainSkin" offset="0 0 16 16"/>
+	</Resource>
+	<Resource type="ResourceSkin" name="LE_ItemBoxEmpty" size="16 16" texture="SelectionRects.png" align="Left Top">
+		<Property key="NeedKey" value="true"/>
+		<Child type="ScrollBar" skin="ScrollBarV" offset="0 0 16 16" align="Right VStretch" name="VScroll"/>
+		<Child type="Widget" skin="DefaultClient" offset="0 0 0 16" align="Stretch" name="Client"/>
+		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
+			<State name="normal" offset="32 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 0 14 1" align="HStretch Top">
+			<State name="normal" offset="33 0 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 0 1 1" align="Right Top">
+			<State name="normal" offset="47 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 1 1 14" align="Left VStretch">
+			<State name="normal" offset="32 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 1 14 14" align="Stretch">
+			<State name="normal" offset="33 3 10 10"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 1 1 14" align="Right VStretch">
+			<State name="normal" offset="47 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 15 1 1" align="Left Bottom">
+			<State name="normal" offset="32 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="1 15 14 1" align="HStretch Bottom">
+			<State name="normal" offset="33 15 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="15 15 1 1" align="Right Bottom">
+			<State name="normal" offset="47 15 1 1"/>
+		</BasisSkin>
+	</Resource>
+</MyGUI>

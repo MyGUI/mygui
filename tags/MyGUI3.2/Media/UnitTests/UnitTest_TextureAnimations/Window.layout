@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="176 120 256 232" layer="RTT_Test" name="_Main">
+        <Property key="Caption" value="Window"/>
+        <Property key="MinSize" value="100 100"/>
+        <Widget type="EditBox" skin="WordWrapEmpty" position="4 4 239 188" align="Stretch">
+            <Property key="Caption" value="Controls:\n    W - Create new window.\n    V - Enlarge window.\nX button on window to close it.\nAlso try to resize window."/>
+        </Widget>
+    </Widget>
+</MyGUI>

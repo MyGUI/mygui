@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceTrueTypeFont" name="FontKeyboard">
+		<Property key="Source" value="DejaVuSans.ttf"/>
+		<Property key="Size" value="23"/>
+		<Property key="OffsetHeight" value="-5"/>
+		<Codes>
+			<Code range="32 126"/>
+		</Codes>
+	</Resource>
+
+</MyGUI>

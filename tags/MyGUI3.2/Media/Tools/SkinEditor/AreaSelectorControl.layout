@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="StretchBorderWhite" position="162 196 136 112" align="Default" layer="Popup" name="_Main">
+        <Widget type="Widget" skin="PanelEmpty" position="6 6 124 100" align="Stretch" name="Projection">
+            <Property key="NeedMouse" value="false"/>
+        </Widget>
+    </Widget>
+</MyGUI>

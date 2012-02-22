@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+	<Widget style="Overlapped" type="Window" skin="WindowCS" position="20 50 200 180" name="_Main" layer="Overlapped">
+		<Widget type="TreeControl" skin="Tree" position="2 2 187 140" align="Stretch" name="ResourcesTree">
+		</Widget>
+	</Widget>
+</MyGUI>

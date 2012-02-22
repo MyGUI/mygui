@@ -1,0 +1,3 @@
+mkdir C:\data\mygui-buildbot-slave-windows-x86\trunk-windows\build\build
+cd C:\data\mygui-buildbot-slave-windows-x86\trunk-windows\build\build\
+"C:\Program Files (x86)\CMake 2.6\bin\cmake.exe" -G "Visual Studio 9 2008" -DOGRE_SOURCE="C:\data\ogre_sdks\1.6.5" -DOGRE_INCLUDE_DIR="C:\data\ogre_sdks\1.6.5\include" -DOGRE_LIBRARIES="debug;OgreMain_d;optimized;OgreMain"  -DOGRE_LIB_DIR="C:\data\ogre_sdks\1.6.5\lib" ..

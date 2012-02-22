@@ -1,0 +1,23 @@
+set (HEADER_FILES
+  Console.h
+  DemoKeeper.h
+)
+set (SOURCE_FILES
+  Console.cpp
+  DemoKeeper.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  Console.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Console.h
+  DemoKeeper.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)

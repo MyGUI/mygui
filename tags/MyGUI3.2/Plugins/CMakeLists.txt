@@ -1,0 +1,21 @@
+option(MYGUI_BUILD_HIKARI_PLUGIN "Build Plugin HikariWidget" FALSE)
+option(MYGUI_BUILD_BERKELIUM_PLUGIN "Build Plugin BerkeliumWidget" FALSE)
+
+add_subdirectory(Plugin_StrangeButton)
+
+if (MYGUI_BUILD_HIKARI_PLUGIN)
+	if (WIN32)
+		add_subdirectory(Plugin_HikariWidget)
+	endif ()
+endif ()
+
+if (MYGUI_BUILD_BERKELIUM_PLUGIN)
+	#if (WIN32 OR APPLE)
+		find_package(Berkelium)
+		if (BERKELIUM_FOUND)
+			add_subdirectory(Plugin_BerkeliumWidget)
+		else ()
+			message (FATAL_ERROR "Could not find Berkelium")
+		endif ()
+	#endif ()
+endif ()

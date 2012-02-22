@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCX" position="24 56 280 112" align="Stretch" layer="Popup" name="_Main">
+        <UserString key="SnapTo" value="Center"/>
+        <Widget type="EditBox" skin="EditBox" position="4 9 264 24" align="HStretch Top" name="Text"/>
+        <Widget type="Button" skin="Button" position="163 41 104 24" align="Right Top" name="Ok">
+            <Property key="Caption" value="#{Ok}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="4 41 104 24" align="Left Top" name="Cancel">
+            <Property key="Caption" value="#{Cancel}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

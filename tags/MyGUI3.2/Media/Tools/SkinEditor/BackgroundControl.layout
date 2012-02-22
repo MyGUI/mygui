@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 384 272" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelSkin" position="0 0 384 272" align="Stretch">
+            <Widget type="Widget" skin="BackgroundTile" position="3 3 376 264" align="Stretch">
+                <Widget type="Widget" skin="WhiteSkin" position="0 0 376 264" align="Stretch" name="Background">
+                    <Widget type="Widget" skin="PanelEmpty" position="64 64 248 136" align="Stretch" name="Canvas">
+                        <Property key="InheritsAlpha" value="false"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

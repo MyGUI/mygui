@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="288 48 256 141" align="HStretch Top" name="_Main">
+        <Widget type="EditBox" skin="EditBox" position="3 3 130 24" align="Left Top" name="editKey"/>
+        <Widget type="EditBox" skin="EditBox" position="134 3 119 24" align="HStretch Top" name="editValue"/>
+        <Widget type="Button" skin="Button" position="3 114 130 24" align="Left Top" name="buttonAdd">
+            <Property key="Caption" value="#{Add}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="134 114 119 24" align="HStretch Top" name="buttonDelete">
+            <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+        <Widget type="MultiListBox" skin="MultiListBox" position="3 28 250 85" align="HStretch Top" name="multilist">
+            <Widget type="MultiListItem" skin="" position="0 21 121 56">
+                <Property key="Caption" value="#{Key}"/>
+                <Property key="ItemResizingPolicy" value="Fill"/>
+            </Widget>
+            <Widget type="MultiListItem" skin="" position="121 21 121 56">
+                <Property key="Caption" value="#{Value}"/>
+                <Property key="ItemResizingPolicy" value="Fill"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

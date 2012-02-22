@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCX" position="22 44 518 226" layer="Overlapped" name="_Main">
+        <Property key="Caption" value="#{CaptionColourPicker}"/>
+        <Widget type="Widget" skin="PanelSkin" position="7 7 177 177" align="Left VStretch">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 171 171" align="Stretch" name="widget_ColourRect">
+                <Widget type="ImageBox" skin="ImageBox" position="0 0 16 16" name="image_Picker">
+                    <Property key="ImageTexture" value="Pick.png"/>
+                    <Property key="ImageCoord" value="0 0 16 16"/>
+                    <Property key="ImageTile" value="16 16"/>
+                    <Property key="ImageIndex" value="0"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSkin" position="195 7 22 177" align="Left VStretch">
+            <Widget type="ImageBox" skin="ImageBox" position="2 2 16 171" align="Stretch">
+                <Property key="ImageTexture" value="ColourSlider.png"/>
+                <Widget type="ScrollBar" skin="SliderVEmpty" position="0 0 16 171" align="Stretch" name="scroll_Range">
+                    <Property key="Range" value="512"/>
+                    <Property key="RangePosition" value="0"/>
+                    <Property key="Page" value="1"/>
+                    <Property key="ViewPage" value="32"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSkin" position="230 7 22 177" align="Left VStretch" name="AlphaSliderPlace">
+            <Widget type="Widget" skin="BackgroundTile" position="2 2 16 171" align="Stretch">
+                <Widget type="ImageBox" skin="ImageBox" position="0 0 16 171" align="Stretch" name="AlphaSliderBack">
+                    <Property key="ImageTexture" value="AlphaSlider.png"/>
+                    <Widget type="ScrollBar" skin="SliderVEmpty" position="0 0 16 171" align="Stretch" name="AlphaSlider">
+                        <Property key="Range" value="512"/>
+                        <Property key="RangePosition" value="0"/>
+                        <Property key="Page" value="1"/>
+                        <Property key="ViewPage" value="32"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSkin" position="395 74 107 107" align="Right Top">
+            <Widget type="Widget" skin="BackgroundTile" position="2 2 101 101" align="Stretch">
+                <Widget type="Widget" skin="WhiteSkin" position="0 0 101 101" name="widget_ColourView">
+                    <Property key="Alpha" value="0.5"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="260 61 73 26" align="Right Top">
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="Caption" value="#{ColourBlue}"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="260 33 73 26" align="Right Top">
+            <Property key="TextAlign" value="Right VCenter"/>
+            <Property key="Caption" value="#{ColourGreen}"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="260 7 73 24" align="Right Top">
+            <Property key="Caption" value="#{ColourRed}"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="338 62 44 26" align="Right Top" name="edit_Blue">
+            <Property key="Caption" value="256"/>
+            <Property key="TextAlign" value="Center"/>
+            <Property key="MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="338 35 44 26" align="Right Top" name="edit_Green">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="Caption" value="256"/>
+            <Property key="MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="338 8 44 26" align="Right Top" name="edit_Red">
+            <Property key="Caption" value="256"/>
+            <Property key="TextAlign" value="Center"/>
+            <Property key="MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="395 7 107 26" align="Right Top" name="button_OK">
+            <Property key="Caption" value="#{Ok}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="395 41 107 26" align="Right Top" name="button_Cancel">
+            <Property key="Caption" value="#{Cancel}"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="260 89 73 26" align="Right Top" name="TextAlpha">
+            <Property key="Caption" value="#{ColourAlpha}"/>
+            <Property key="TextAlign" value="Right VCenter"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox" position="338 89 44 26" align="Right Top" name="InputAlpha">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="Caption" value="0.5"/>
+            <Property key="MaxTextLength" value="4"/>
+        </Widget>
+    </Widget>
+</MyGUI>

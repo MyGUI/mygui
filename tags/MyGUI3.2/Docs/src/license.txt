@@ -1,0 +1,48 @@
+/*!
+\page Licensing
+
+\section Licensing
+
+\n	MyGUI source code (everything in MyGUIEngine folder) licensed under LGPL with some exclusions:
+\n	1. Building against MyGUI headers which have inlined code does not constitute a derived work.
+\n	2. Code which subclasses MyGUI classes outside of the MyGUI libraries does not form a derived work.
+\n	3. Statically linking the MyGUI libraries into a user application does not make the user application a derived work.
+\n
+\n	Plugins that based on some library are licensed under same license that librariy use.
+\n	All media except some Media pointed below licensed under MIT license.
+\n	Everything else (i.e. demos, tools, scripts, configuration files, etc.) is licenses under MIT license.
+\n
+\section section_licensing_dependencies Licensing for 3rd-party libraries used in MyGUI
+\subsection	FreeType
+\li	Original Authors:	David Turner, Robert Wilhelm, and Werner Lemberg
+\li	Website:			http://www.freetype.org
+\li	Licensed Under:		FreeType License
+\n
+\section section_licensing_demo_dependencies Sample Program Dependencies
+\n	These dependencies are optional and used only by our sample programs adn tools, and thus you do not need to use them to use MyGUI, if you don't want to.
+\n
+\subsection	OGRE
+\li	Original Authors:	Steve Streeting and others (see also http://www.ogre3d.org/about/team)
+\li	Website:			http://www.ogre3d.org
+\li	Licensed Under:		LGPL or MIT or other. See http://www.ogre3d.org/licensing for details.
+\n
+\subsection	OIS
+\li	Original Authors:	Phillip Castaneda
+\li	Website:			http://www.wreckedgames.com/
+\li	Licensed Under:		Zlib License
+\n
+\n
+\section Acknowledgements
+\subsection	crystal_clear_items Crystal Clear Items
+\li						Crystal_Clear_Items, Crystal_Clear_Butterfly and Crystal_Clear_View is based on Crystal Clear icon set.
+\li	Website:			http://www.everaldo.com/crystal/
+\li	Licensed Under:		LGPL
+\n
+\subsection	dejavu_fonts DejaVu fonts
+\li						DejaVuSans.ttf and DejaVuSans-ExtraLight.ttf are fonts from DejaVu font family.
+\li	Website:			http://dejavu.sourceforge.net/
+\li	Licensed Under:		read http://dejavu.sourceforge.net/wiki/index.php/License
+\n
+\subsection	models 3D models
+\li						Mikki.mesh, Robot.mesh and related files are used by permission of the creator of those models and can be used in MyGUI demos only.
+*/

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Settings">
+	<Settings>
+		<Property key="Grid" value="1"/>
+		<Property key="MaxRecentFolders" value="10"/>
+		<Property key="MaxRecentFiles" value="10"/>
+		<Property key="ColourBackground" value="0 0 0 0"/>
+		<Property key="ColourSelector" value="0 1 0 1"/>
+		<Property key="ColourSelectorInactive" value="0 0 0 0.5"/>
+		<Property key="SaveLastTexture" value="true"/>
+	</Settings>
+	<TextureScale>
+		<Property key="ScaleValue.0" value="50"/>
+		<Property key="ScaleValue.1" value="100"/>
+		<Property key="ScaleValue.2" value="200"/>
+		<Property key="ScaleValue.3" value="400"/>
+		<Property key="ScaleValue.4" value="800"/>
+		<Property key="ScaleValue.5" value="1600"/>
+	</TextureScale>
+</MyGUI>

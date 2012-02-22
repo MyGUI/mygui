@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="48 64 400 352" layer="Popup" name="_Main">
+        <Property key="MinSize" value="200 200"/>
+        <Widget type="EditBox" skin="EditBox" position="4 284 280 26" align="HStretch Bottom" name="EditFileName"/>
+        <Widget type="ListBox" skin="ListBox" position="4 33 382 245" align="Stretch" name="ListFiles"/>
+        <Widget type="Button" skin="Button" position="289 284 97 26" align="Right Bottom" name="ButtonOpenSave"/>
+        <Widget type="EditBox" skin="EditBox" position="4 4 382 26" align="HStretch Top" name="EditCurrentFolder">
+            <Property key="ReadOnly" value="true"/>
+        </Widget>
+    </Widget>
+</MyGUI>

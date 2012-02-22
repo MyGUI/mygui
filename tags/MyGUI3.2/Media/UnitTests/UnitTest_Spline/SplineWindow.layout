@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCS" position="90 70 715 445" layer="Main">
+        <Property key="Caption" value="Bezier curve"/>
+        <Property key="MinSize" value="200 200"/>
+        <Widget type="Widget" skin="PanelSkin" position="5 6 695 371" align="Stretch">
+            <Widget type="Widget" skin="PanelEmpty" position="4 4 685 361" align="Stretch" name="SplineClient"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="6 382 84 20" align="Left Bottom" name="SplineText"/>
+        <Widget type="ScrollBar" skin="SliderH" position="98 385 600 15" align="HStretch Bottom" name="SplineQuality">
+            <Property key="Range" value="124"/>
+            <Property key="RangePosition" value="12"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Widgets">
+	<Widget name="StaticImage" internal="true"/>
+	<Widget name="StaticText" internal="true"/>
+	<Widget name="Progress" internal="true"/>
+	<Widget name="List" internal="true"/>
+	<Widget name="Edit" internal="true"/>
+	<Widget name="Tab" internal="true"/>
+	<Widget name="MultiList" internal="true"/>
+</MyGUI>

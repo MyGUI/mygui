@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="0 32 267 139" align="HStretch Top" name="_Main">
+        <Widget type="EditBox" skin="EditBox" position="3 4 261 24" align="HStretch Top" name="edit"/>
+        <Widget type="ListBox" skin="ListBox" position="3 28 261 85" align="HStretch Top" name="list"/>
+        <Widget type="Button" skin="Button" position="3 113 129 24" align="Left Top" name="buttonAdd">
+            <Property key="Caption" value="#{Add}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="135 113 129 24" align="HStretch Top" name="buttonDelete">
+            <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

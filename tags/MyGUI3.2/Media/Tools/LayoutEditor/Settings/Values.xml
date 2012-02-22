@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Values">
+
+	<Value name="Align">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Default"/>
+		<Property key="Stretch"/>
+		<Property key="Center"/>
+
+		<Property key="Left Top"/>
+		<Property key="Left Bottom"/>
+		<Property key="Left VStretch"/>
+		<Property key="Left VCenter"/>
+
+		<Property key="Right Top"/>
+		<Property key="Right Bottom"/>
+		<Property key="Right VStretch"/>
+		<Property key="Right VCenter"/>
+
+		<Property key="HStretch Top"/>
+		<Property key="HStretch Bottom"/>
+		<Property key="HStretch VStretch"/>
+		<Property key="HStretch VCenter"/>
+
+		<Property key="HCenter Top"/>
+		<Property key="HCenter Bottom"/>
+		<Property key="HCenter VStretch"/>
+		<Property key="HCenter VCenter"/>
+	</Value>
+
+	<Value name="TextAlign">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Default"/>
+		<Property key="Center"/>
+		<Property key="Left Top"/>
+		<Property key="Left Bottom"/>
+		<Property key="Left VCenter"/>
+		<Property key="Right Top"/>
+		<Property key="Right Bottom"/>
+		<Property key="Right VCenter"/>
+		<Property key="HCenter Top"/>
+		<Property key="HCenter Bottom"/>
+		<Property key="HCenter VCenter"/>
+	</Value>
+
+	<Value name="CanvasAlign">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Default"/>
+		<Property key="Center"/>
+		<Property key="Left Top"/>
+		<Property key="Left Bottom"/>
+		<Property key="Left VCenter"/>
+		<Property key="Right Top"/>
+		<Property key="Right Bottom"/>
+		<Property key="Right VCenter"/>
+		<Property key="HCenter Top"/>
+		<Property key="HCenter Bottom"/>
+		<Property key="HCenter VCenter"/>
+	</Value>
+
+	<Value name="MenuItemType">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Normal"/>
+		<Property key="Popup"/>
+		<Property key="Separator"/>
+	</Value>
+
+	<Value name="Bool">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="true"/>
+		<Property key="false"/>
+	</Value>
+
+	<Value name="Layer">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<!--Property key="Fade"/-->
+		<!--Property key="Pointer"/-->
+		<Property key="ToolTip"/>
+		<Property key="Info"/>
+		<Property key="FadeMiddle"/>
+		<Property key="Popup"/>
+		<Property key="Main"/>
+		<Property key="Modal"/>
+		<Property key="Middle"/>
+		<Property key="Overlapped"/>
+		<Property key="Back"/>
+	</Value>
+
+	<Value name="Function">
+		<Property key="Inertional"/>
+		<Property key="Accelerated"/>
+		<Property key="Slowed"/>
+		<Property key="Jump"/>
+	</Value>
+
+	<Value name="FlowDirection">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="LeftToRight"/>
+		<Property key="RightToLeft"/>
+		<Property key="TopToBottom"/>
+		<Property key="BottomToTop"/>
+	</Value>
+
+	<Value name="ItemResizingPolicy">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Auto"/>
+		<Property key="Fixed"/>
+		<Property key="Fill"/>
+	</Value>
+
+</MyGUI>

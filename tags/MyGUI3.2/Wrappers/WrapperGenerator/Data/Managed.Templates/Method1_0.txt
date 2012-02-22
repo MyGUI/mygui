@@ -1,0 +1,14 @@
+﻿	public:
+		void #{MethodName}(
+			Convert<#{OriginalTypeName1}>::Type #{ValueName1} )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->#{OriginalMethodName}(
+				Convert<#{OriginalTypeName1}>::From(#{ValueName1}) );
+		}
+
+		void #{MethodName}( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->#{OriginalMethodName}( );
+		}

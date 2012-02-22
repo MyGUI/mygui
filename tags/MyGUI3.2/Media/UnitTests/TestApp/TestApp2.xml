@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name = "TestApp2">
+		<Widget type="Button" skin="Button" position="104 128 528 136" layer="Back" name="Root">
+			<Property key="TextAlign" value="Default"/>
+			<Property key="FontName" value="Default"/>
+			<Widget type="Widget" skin="Panel" position="456 72 64 56" align="Right Bottom"/>
+		</Widget>
+	</Resource>
+</MyGUI>

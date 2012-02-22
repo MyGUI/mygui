@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Settings">
+    <WidgetsWindow>
+        <Property key="widgetsButtonWidth" value="141"/>
+        <Property key="widgetsButtonHeight" value="24"/>
+    </WidgetsWindow>
+	<Settings>
+		<Property key="Grid" value="5"/>
+		<Property key="ShowName" value="1"/>
+		<Property key="ShowType" value="1"/>
+		<Property key="ShowSkin" value="1"/>
+		<Property key="MaxRecentFolders" value="10"/>
+		<Property key="MaxRecentFiles" value="10"/>
+		<Property key="MaxRecentProjects" value="10"/>
+		<Property key="ColourBackground" value="0 0 0 0"/>
+		<Property key="ColourSelector" value="0 1 0 1"/>
+		<Property key="ColourSelectorInactive" value="0 0 0 0.5"/>
+		<Property key="LoadLastProject" value="false"/>
+	</Settings>
+	<TextureScale>
+		<Property key="ScaleValue.0" value="50"/>
+		<Property key="ScaleValue.1" value="100"/>
+		<Property key="ScaleValue.2" value="200"/>
+		<Property key="ScaleValue.3" value="400"/>
+		<Property key="ScaleValue.4" value="800"/>
+		<Property key="ScaleValue.5" value="1600"/>
+	</TextureScale>
+	<Workspace>
+		<Property key="TextureName" value="TextureLayer_LayoutEditor_Widgets"/>
+		<Property key="TextureSize" value="1024 1024"/>
+	</Workspace>
+</MyGUI>

@@ -1,0 +1,19 @@
+# Find MYGUI includes and library
+#
+# This module defines
+#  MYGUI_INCLUDE_DIRS
+#  MYGUI_LIBRARIES, the libraries to link against to use MYGUI.
+#  MYGUI_LIBRARY_DIRS, the location of the libraries
+#  MYGUI_FOUND, If false, do not try to use MYGUI
+#
+
+include(FindPackageMessage)
+
+set(MYGUI_PREFIX_DIR "@CMAKE_INSTALL_PREFIX@")
+get_filename_component(MYGUI_LIBRARY_DIRS "${MYGUI_PREFIX_DIR}/lib" ABSOLUTE)
+get_filename_component(MYGUI_INCLUDE_DIRS "${MYGUI_PREFIX_DIR}/include/MYGUI" ABSOLUTE)
+set(MYGUI_LIBRARIES "MyGUIEngine")
+
+message(STATUS "Found MYGUI")
+message(STATUS "  libraries : '${MYGUI_LIBRARIES}' from ${MYGUI_LIBRARY_DIRS}")
+message(STATUS "  includes  : ${MYGUI_INCLUDE_DIRS}")

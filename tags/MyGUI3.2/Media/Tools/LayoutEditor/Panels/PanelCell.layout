@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelSkin" position="0 32 200 168" align="HStretch Top" name="_Main">
+        <Widget type="TextBox" skin="TextBox" position="3 3 192 20" align="HStretch Top" name="text_Caption">
+            <Property key="Caption" value="Caption"/>
+            <Property key="TextAlign" value="Center"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonExpand2Skin" position="175 5 18 18" align="Right Top" name="button_Minimize"/>
+        <Widget type="Widget" skin="Default" position="3 24 192 139" align="Stretch" name="widget_Client"/>
+    </Widget>
+</MyGUI>

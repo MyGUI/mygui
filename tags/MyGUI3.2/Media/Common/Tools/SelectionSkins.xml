@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceLayout" name="PositionBorderWhite" version="3.2.0">
+		<Widget type="Window" skin="" position="0 0 50 50" name="Root">
+			<Property key="Snap" value="false"/>
+			<UserString key="MainMove" value="true"/>
+			<Widget type="Widget" skin="WhiteSkin" position="0 0 50 1" align="HStretch Top"/>
+			<Widget type="Widget" skin="WhiteSkin" position="0 49 50 1" align="HStretch Bottom"/>
+			<Widget type="Widget" skin="WhiteSkin" position="0 1 1 48" align="Left VStretch"/>
+			<Widget type="Widget" skin="WhiteSkin" position="49 1 1 48" align="Right VStretch"/>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceSkin" name="VerticalBorderWhite" size="9 50" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_horz"/>
+		<BasisSkin type="SubSkin" offset="4 0 1 50" align="Stretch">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="HorizintalBorderWhite" size="50 9" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_vert"/>
+		<BasisSkin type="SubSkin" offset="0 4 50 1" align="Stretch">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="LeftTopBorderWhite" size="6 6" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_left"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Top">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="RightTopBorderWhite" size="6 6" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_right"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Right Top">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="LeftBottomBorderWhite" size="6 6" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_right"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Bottom">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="RightBottomBorderWhite" size="6 6" texture="FrameworkSkin.png">
+		<Property key="Pointer" value="size_left"/>
+		<BasisSkin type="SubSkin" offset="0 0 6 6" align="Left Bottom">
+			<State name="normal" offset="678 66 1 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceLayout" name="StretchBorderWhite" version="3.2.0">
+		<Widget type="Window" skin="" position="0 0 62 62" name="Root">
+			<Property key="Snap" value="false"/>
+			<UserString key="MainMove" value="true"/>
+			<Widget type="Button" skin="LeftTopBorderWhite" position="0 0 6 6" align="Left Top" name="Action">
+				<UserString key="Scale" value="1 1 -1 -1"/>
+			</Widget>
+			<Widget type="Button" skin="RightBottomBorderWhite" position="56 56 6 6" align="Right Bottom" name="Action">
+				<UserString key="Scale" value="0 0 1 1"/>
+			</Widget>
+			<Widget type="Button" skin="RightTopBorderWhite" position="56 0 6 6" align="Right Top" name="Action">
+				<UserString key="Scale" value="0 1 1 -1"/>
+			</Widget>
+			<Widget type="Button" skin="LeftBottomBorderWhite" position="0 56 6 6" align="Left Bottom" name="Action">
+				<UserString key="Scale" value="1 0 -1 1"/>
+			</Widget>
+			<Widget type="Button" skin="VerticalBorderWhite" position="2 6 9 50" align="Left VStretch" name="Action">
+				<UserString key="Scale" value="1 0 -1 0"/>
+			</Widget>
+			<Widget type="Button" skin="VerticalBorderWhite" position="51 6 9 50" align="Right VStretch" name="Action">
+				<UserString key="Scale" value="0 0 1 0"/>
+			</Widget>
+			<Widget type="Button" skin="HorizintalBorderWhite" position="6 2 50 9" align="HStretch Top" name="Action">
+				<UserString key="Scale" value="0 1 0 -1"/>
+			</Widget>
+			<Widget type="Button" skin="HorizintalBorderWhite" position="6 51 50 9" align="HStretch Bottom" name="Action">
+				<UserString key="Scale" value="0 0 0 1"/>
+			</Widget>
+		</Widget>
+	</Resource>
+	<Resource type="ResourceSkin" name="HorizontalSeparatorWhite" size="50 9" texture="FrameworkSkin.png">
+		<Property key="Snap" value="false"/>
+		<Child type="Button" skin="HorizintalBorderWhite" offset="0 0 50 9" align="HStretch Top" name="Action">
+			<Property key="Scale" value="0 1 0 0"/>
+		</Child>
+	</Resource>
+	<Resource type="ResourceSkin" name="VerticalSeparatorWhite" size="9 50" texture="FrameworkSkin.png">
+		<Property key="Snap" value="false"/>
+		<Child type="Widget" skin="VerticalBorderWhite" offset="0 0 9 50" align="Left VStretch" name="Action">
+			<Property key="Scale" value="1 0 0 0"/>
+		</Child >
+	</Resource>
+</MyGUI>

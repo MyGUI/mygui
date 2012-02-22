@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+  <Widget type="Window" skin="Window" position="45 5 292 420" layer="Overlapped" name="_Main">
+    <Property key="Caption" value="Font Properties"/>
+
+    <Widget type="TextBox" skin="TextBox" position="5 5 100 24" align="HStretch Top">
+      <Property key="Caption" value="Font"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 5 169 25" align="HStretch Top" name="combo_Fonts">
+      <Property key="ModeDrop" value="true"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 33 100 24">
+      <Property key="Caption" value="Size"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="110 33 169 25" align="HStretch Top" name="edit_Size">
+      <Property key="Caption" value="10"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 61 100 24">
+      <Property key="Caption" value="Resolution"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 61 169 25" align="HStretch Top" name="combo_Resolution">
+      <Property key="AddItem" value="[DEFAULT: 96]"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 89 100 24">
+      <Property key="Caption" value="Antialias colour"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 89 169 25" align="HStretch Top" name="combo_Antialias">
+      <Property key="ModeDrop" value="true"/>
+      <Property key="AddItem" value="[DEFAULT: false]"/>
+      <Property key="AddItem" value="true"/>
+      <Property key="AddItem" value="false"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 117 100 24">
+      <Property key="Caption" value="Space width"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 117 169 25" align="HStretch Top" name="combo_Space">
+      <Property key="AddItem" value="[DEFAULT: automatic]"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 145 100 24">
+      <Property key="Caption" value="Tab width"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 145 169 25" align="HStretch Top" name="combo_Tab">
+      <Property key="AddItem" value="[DEFAULT: automatic]"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 173 100 24">
+      <Property key="TextAlign" value="Right VCenter"/>
+      <Property key="Caption" value="Baseline shift"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 173 169 25" align="HStretch Top" name="combo_Offset">
+      <Property key="AddItem" value="[DEFAULT: 0]"/>
+    </Widget>
+
+    <Widget type="TextBox" skin="TextBox" position="5 201 100 24">
+      <Property key="TextAlign" value="Right VCenter"/>
+      <Property key="Caption" value="Include codes"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="110 201 79 25" name="edit_Range1A"/>
+    <Widget type="TextBox" skin="TextBox" position="189 201 10 24">
+      <Property key="TextAlign" value="Center"/>
+      <Property key="Caption" value="-"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="200 201 79 25" name="edit_Range1B"/>
+
+    <Widget type="TextBox" skin="TextBox" position="5 229 100 24">
+      <Property key="Caption" value="Include codes"/>
+      <Property key="TextAlign" value="Right VCenter"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="110 229 79 25" name="edit_Range2A"/>
+    <Widget type="TextBox" skin="TextBox" position="189 229 10 24">
+      <Property key="TextAlign" value="Center"/>
+      <Property key="Caption" value="-"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="200 229 79 25" name="edit_Range2B"/>
+
+    <Widget type="TextBox" skin="TextBox" position="5 257 100 24">
+      <Property key="TextAlign" value="Right VCenter"/>
+      <Property key="Caption" value="Exclude codes"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="110 257 79 25" name="edit_HideA"/>
+    <Widget type="TextBox" skin="TextBox" position="189 257 10 24">
+      <Property key="TextAlign" value="Center"/>
+      <Property key="Caption" value="-"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="200 257 79 25" name="edit_HideB"/>
+
+    <Widget type="TextBox" skin="TextBox" position="5 285 100 24">
+      <Property key="TextAlign" value="Right VCenter"/>
+      <Property key="Caption" value="Substitute code"/>
+    </Widget>
+    <Widget type="ComboBox" skin="ComboBox" position="110 285 169 24" align="HStretch Top" name="combo_SubstituteCode">
+      <Property key="AddItem" value="[DEFAULT: automatic]"/>
+    </Widget>
+
+    <Widget type="Button" skin="Button" position="5 313 274 25" align="HStretch Top" name="button_Generate">
+      <Property key="Caption" value="Generate"/>
+    </Widget>
+
+    <Widget type="Widget" skin="SepDownHSkin" position="5 345 274 3"/>
+
+    <Widget type="TextBox" skin="TextBox" position="5 355 65 24">
+      <Property key="TextAlign" value="Right VCenter"/>
+      <Property key="Caption" value="File name"/>
+    </Widget>
+    <Widget type="EditBox" skin="EditBox" position="75 355 150 25" name="edit_SaveFileName"/>
+
+    <Widget type="Button" skin="Button" position="229 355 50 25" name="button_Save">
+      <Property key="Caption" value="Save"/>
+    </Widget>
+
+  </Widget>
+
+</MyGUI>

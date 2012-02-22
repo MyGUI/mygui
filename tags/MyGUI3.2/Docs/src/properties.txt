@@ -1,0 +1,14 @@
+// SKIP THIS PAGE
+/*
+	\page "Properties configurable from layout"
+
+	- \subpage widget_property
+	- \subpage button_property
+
+
+*/
+
+/**\page widget_property Widget properties
+*/
+/**\page button_property Button properties
+*/

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelSkin" position="0 0 248 464" align="Stretch">
+            <Widget type="TextBox" skin="TextBox" position="8 8 232 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyStatePosition}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 32 232 26" align="HStretch Top" name="PropertyPosition"/>
+            <Widget type="TextBox" skin="TextBox" position="8 64 232 24" align="HStretch Top">
+                <Property key="TextAlign" value="Left Bottom"/>
+                <Property key="Caption" value="#{PropertyStateVisible}"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="TextBox" skin="TextBox" position="8 120 232 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyStateTextColour}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 144 232 26" align="HStretch Top" name="PropertyTextColour"/>
+            <Widget type="TextBox" skin="TextBox" position="8 176 232 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyStateTextOffset}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 200 232 26" align="HStretch Top" name="PropertyTextOffset"/>
+        </Widget>
+    </Widget>
+</MyGUI>

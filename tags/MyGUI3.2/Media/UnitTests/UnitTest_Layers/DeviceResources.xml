@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceDevice" name="DeviceNone">
+		<Name>None</Name>
+		<Description>Select part of ship...</Description>
+		<ValueEnergy>0</ValueEnergy>
+		<ValueExplosion>0</ValueExplosion>
+		<ValueTarget>0</ValueTarget>
+		<ValueHP>0</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="DeviceEngine">
+		<Name>Engine</Name>
+		<Description>This is engine. It is very fast.</Description>
+		<ValueEnergy>10</ValueEnergy>
+		<ValueExplosion>3</ValueExplosion>
+		<ValueTarget>7</ValueTarget>
+		<ValueHP>8</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="DeviceAmmo">
+		<Name>Ammo</Name>
+		<Description>Ammo for gun.</Description>
+		<ValueEnergy>3</ValueEnergy>
+		<ValueExplosion>10</ValueExplosion>
+		<ValueTarget>8</ValueTarget>
+		<ValueHP>6</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="DeviceArmor">
+		<Name>Armor</Name>
+		<Description>Armor protect ship.</Description>
+		<ValueEnergy>4</ValueEnergy>
+		<ValueExplosion>5</ValueExplosion>
+		<ValueTarget>6</ValueTarget>
+		<ValueHP>10</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="DeviceGun">
+		<Name>Gun</Name>
+		<Description>Gun damages enemies.</Description>
+		<ValueEnergy>5</ValueEnergy>
+		<ValueExplosion>6</ValueExplosion>
+		<ValueTarget>10</ValueTarget>
+		<ValueHP>7</ValueHP>
+	</Resource>
+
+</MyGUI>

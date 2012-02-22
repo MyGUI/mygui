@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 240 464" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelSkin" position="0 0 240 464" align="Stretch">
+            <Widget type="TextBox" skin="TextBox" position="8 8 224 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionCoords}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 32 224 26" align="HStretch Top" name="PropertyPosition"/>
+            <Widget type="TextBox" skin="TextBox" position="8 64 224 24" align="HStretch Top">
+                <Property key="TextAlign" value="Left Bottom"/>
+                <Property key="Caption" value="#{PropertyRegionVisible}"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 88 224 26" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="TextBox" skin="TextBox" position="8 120 224 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionEnabled}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 144 224 26" align="HStretch Top" name="PropertyEnabled"/>
+            <Widget type="TextBox" skin="TextBox" position="8 176 224 24" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionAlign}"/>
+                <Property key="TextAlign" value="Left Bottom"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 200 224 26" align="HStretch Top" name="PropertyAlign"/>
+            <Widget type="TextBox" skin="TextBox" position="8 232 224 24" align="HStretch Top">
+                <Property key="TextAlign" value="Left Bottom"/>
+                <Property key="Caption" value="#{PropertyRegionType}"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 256 224 26" align="HStretch Top" name="PropertyRegionType"/>
+        </Widget>
+    </Widget>
+</MyGUI>
