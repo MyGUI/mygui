@@ -5,6 +5,7 @@
 -- Core --
 - MyGUI can be compiled without std::typeinfo.
 - Fixed an alignment bug on non-screen layers (for example on the RTT layer).
+- Fixed bug with widgets on same layer changing their draw order.
 
 -- Widgets --
 - DDContainer: Added a resetDrag method that stops a drag operation programmatically.
