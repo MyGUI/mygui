@@ -9,6 +9,7 @@
 
 -- Widgets --
 - DDContainer: Added a resetDrag method that stops a drag operation programmatically.
+- TextBox: Added optional text shadow.
 - EditBox: Fixed incorrect text display when the text area was lower than the font height.
 - EditBox: Reset Redo changes when text was changed.
 - Canvas: Fixed incorrect destruction.
