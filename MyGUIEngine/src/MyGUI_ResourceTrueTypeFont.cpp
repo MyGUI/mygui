@@ -591,7 +591,8 @@ namespace MyGUI
 		}
 
 		// Cache a pointer to the substitute glyph info for fast lookup.
-		mSubstituteGlyphInfo = &mGlyphMap.at(mCharMap.at(mSubstituteCodePoint));
+		// FIXME: .at was used here instead of find(...)->second
+		mSubstituteGlyphInfo = &mGlyphMap.find(mCharMap.find(mSubstituteCodePoint)->second)->second;
 
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
@@ -864,7 +865,8 @@ namespace MyGUI
 				case FontCodeType::Selected:
 				case FontCodeType::SelectedBack:
 				{
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					// FIXME: .at was used here instead of find(...)->second
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
@@ -876,7 +878,8 @@ namespace MyGUI
 
 				case FontCodeType::Cursor:
 				case FontCodeType::Tab:
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.at(info.codePoint), j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					// FIXME: .at was used here instead of find(...)->second
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
 					break;
 
 				default:
