@@ -63,7 +63,8 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().load("EditorLayers.xml");
 		//MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
 
-		getStatisticInfo()->setVisible(false);
+		if (getStatisticInfo() != nullptr)
+			getStatisticInfo()->setVisible(false);
 
 		// set locale language if it was taken from OS
 		if (!mLocale.empty())
