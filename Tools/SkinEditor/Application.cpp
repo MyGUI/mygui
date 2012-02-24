@@ -49,7 +49,8 @@ namespace tools
 
 	void Application::createScene()
 	{
-		getStatisticInfo()->setVisible(false);
+		if (getStatisticInfo() != nullptr)
+			getStatisticInfo()->setVisible(false);
 
 		if (!mLocale.empty())
 			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
