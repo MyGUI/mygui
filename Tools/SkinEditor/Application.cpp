@@ -52,13 +52,21 @@ namespace tools
 		if (getStatisticInfo() != nullptr)
 			getStatisticInfo()->setVisible(false);
 
-		if (!mLocale.empty())
-			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
-
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		new SettingsManager();
 		SettingsManager::getInstance().initialise("se_user_settings.xml");
+
+		std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
+		if (language.empty() || language == "Auto")
+		{
+			if (!mLocale.empty())
+				MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+		}
+		else
+		{
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(language);
+		}
 
 		new RecentFilesManager();
 		RecentFilesManager::getInstance().initialise();
