@@ -439,23 +439,7 @@ namespace base
 		}
 		else if (_key == MyGUI::KeyCode::SysRq)
 		{
-			std::ifstream stream;
-			std::string file;
-			do
-			{
-				stream.close();
-				static size_t num = 0;
-				const size_t max_shot = 100;
-				if (num == max_shot)
-				{
-					MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
-					return;
-				}
-				file = MyGUI::utility::toString("screenshot_", ++num, ".png");
-				stream.open(file.c_str());
-			}
-			while (stream.is_open());
-			mWindow->writeContentsToFile(file);
+			makeScreenShot();
 			return;
 		}
 		else if (_key == MyGUI::KeyCode::F12)
@@ -544,6 +528,27 @@ namespace base
 	Ogre::Camera* BaseManager::getCamera()
 	{
 		return mCamera;
+	}
+
+	void BaseManager::makeScreenShot()
+	{
+		std::ifstream stream;
+		std::string file;
+		do
+		{
+			stream.close();
+			static size_t num = 0;
+			const size_t max_shot = 100;
+			if (num == max_shot)
+			{
+				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+				return;
+			}
+			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+			stream.open(file.c_str());
+		}
+		while (stream.is_open());
+		mWindow->writeContentsToFile(file);
 	}
 
 } // namespace base
