@@ -73,10 +73,19 @@ namespace MyGUI
 
 		void initialise();
 
+		enum Hinting
+		{
+			HintingUseNative,
+			HintingForceAuto,
+			HintingDisableAuto,
+			HintingDisableAll
+		};
+
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
 		float mSize; // Size of the font, in points (there are 72 points per inch).
 		uint mResolution; // Resolution of the font, in pixels per inch.
+		Hinting mHinting; // What type of hinting to use when rendering the font.
 		bool mAntialias; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
 		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.
 		float mTabWidth; // The width of the "Tab" special character, in pixels.
@@ -128,11 +137,11 @@ namespace MyGUI
 
 		// Creates a glyph with the specified index from the specified font face and assigns it to the specified code point.
 		// Automatically updates _glyphHeightMap with data from the newly created glyph.
-		int createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap);
+		int createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, GlyphHeightMap& _glyphHeightMap);
 
 		// Renders all of the glyphs in _glyphHeightMap into the specified texture buffer using data from the specified font face.
 		template<bool LAMode, bool Antialias>
-		void renderGlyphs(const GlyphHeightMap& _glyphHeightMap, const FT_Library& _ftLibrary, const FT_Face& _face, uint8* _texBuffer, int _texWidth, int _texHeight);
+		void renderGlyphs(const GlyphHeightMap& _glyphHeightMap, const FT_Library& _ftLibrary, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, uint8* _texBuffer, int _texWidth, int _texHeight);
 
 		// Renders the glyph described by the specified glyph info according to the specified parameters.
 		// Supports two types of rendering, depending on the value of UseBuffer: Texture block transfer and rectangular color fill.

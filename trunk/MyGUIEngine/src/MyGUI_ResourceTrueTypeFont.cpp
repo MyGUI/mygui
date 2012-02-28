@@ -189,6 +189,7 @@ namespace MyGUI
 	ResourceTrueTypeFont::ResourceTrueTypeFont() :
 		mSize(0),
 		mResolution(96),
+		mHinting(HintingUseNative),
 		mAntialias(false),
 		mSpaceWidth(0.0f),
 		mTabWidth(0.0f),
@@ -223,6 +224,17 @@ namespace MyGUI
 				if (key == "Source") mSource = value;
 				else if (key == "Size") mSize = utility::parseFloat(value);
 				else if (key == "Resolution") mResolution = utility::parseUInt(value);
+				else if (key == "Hinting")
+				{
+					if (value == "use_native")
+						mHinting = HintingUseNative;
+					if (value == "force_auto")
+						mHinting = HintingForceAuto;
+					if (value == "disable_auto")
+						mHinting = HintingDisableAuto;
+					if (value == "disable_all")
+						mHinting = HintingDisableAll;
+				}
 				else if (key == "Antialias") mAntialias = utility::parseBool(value);
 				else if (key == "SpaceWidth")
 				{
@@ -442,9 +454,9 @@ namespace MyGUI
 
 		uint8* fontBuffer = nullptr;
 
-		FT_Face face = loadFace(ftLibrary, fontBuffer);
+		FT_Face ftFace = loadFace(ftLibrary, fontBuffer);
 
-		if (face == nullptr)
+		if (ftFace == nullptr)
 		{
 			MYGUI_LOG(Error, "ResourceTrueTypeFont: Could not load the font '" << getResourceName() << "'!");
 			return;
@@ -458,18 +470,18 @@ namespace MyGUI
 		// values in each place. The most reliable source for these metrics is usually the "usWinAscent" and "usWinDescent" pair of
 		// values in the OS/2 header; however, some fonts contain inaccurate data there. To be safe, we use the highest of the set
 		// of values contained in the face metrics and the two sets of values contained in the OS/2 header.
-		int fontAscent = face->size->metrics.ascender >> 6;
-		int fontDescent = -face->size->metrics.descender >> 6;
+		int fontAscent = ftFace->size->metrics.ascender >> 6;
+		int fontDescent = -ftFace->size->metrics.descender >> 6;
 
-		TT_OS2* os2 = (TT_OS2*)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+		TT_OS2* os2 = (TT_OS2*)FT_Get_Sfnt_Table(ftFace, ft_sfnt_os2);
 
 		if (os2 != nullptr)
 		{
-			setMax(fontAscent, os2->usWinAscent * face->size->metrics.y_ppem / face->units_per_EM);
-			setMax(fontDescent, os2->usWinDescent * face->size->metrics.y_ppem / face->units_per_EM);
+			setMax(fontAscent, os2->usWinAscent * ftFace->size->metrics.y_ppem / ftFace->units_per_EM);
+			setMax(fontDescent, os2->usWinDescent * ftFace->size->metrics.y_ppem / ftFace->units_per_EM);
 
-			setMax(fontAscent, os2->sTypoAscender * face->size->metrics.y_ppem / face->units_per_EM);
-			setMax(fontDescent, -os2->sTypoDescender * face->size->metrics.y_ppem / face->units_per_EM);
+			setMax(fontAscent, os2->sTypoAscender * ftFace->size->metrics.y_ppem / ftFace->units_per_EM);
+			setMax(fontDescent, -os2->sTypoDescender * ftFace->size->metrics.y_ppem / ftFace->units_per_EM);
 		}
 
 		// The nominal font height is calculated as the sum of its ascent and descent as specified by the font designer. Previously
@@ -477,6 +489,28 @@ namespace MyGUI
 		// font's line spacing to change whenever glyphs were added to or removed from the font definition. Doing it this way
 		// instead prevents a lot of layout problems, and it is also more typographically correct and more aesthetically pleasing.
 		mDefaultHeight = fontAscent + fontDescent;
+
+		// Set the load flags based on the specified type of hinting.
+		FT_Int32 ftLoadFlags;
+
+		switch (mHinting)
+		{
+		case HintingForceAuto:
+			ftLoadFlags = FT_LOAD_FORCE_AUTOHINT;
+			break;
+		case HintingDisableAuto:
+			ftLoadFlags = FT_LOAD_NO_AUTOHINT;
+			break;
+		case HintingDisableAll:
+			// When hinting is completely disabled, glyphs must always be rendered -- even during layout calculations -- due to
+			// discrepancies between the glyph metrics and the actual rendered bitmap metrics.
+			ftLoadFlags = FT_LOAD_NO_HINTING | FT_LOAD_RENDER;
+			break;
+		case HintingUseNative:
+		default:
+			ftLoadFlags = FT_LOAD_DEFAULT;
+			break;
+		}
 
 		//-------------------------------------------------------------------//
 		// Create the glyphs and calculate their metrics.
@@ -493,9 +527,9 @@ namespace MyGUI
 		for (CharMap::iterator iter = mCharMap.begin(); iter != mCharMap.end(); )
 		{
 			const Char& codePoint = iter->first;
-			FT_UInt glyphIndex = FT_Get_Char_Index(face, codePoint);
+			FT_UInt glyphIndex = FT_Get_Char_Index(ftFace, codePoint);
 
-			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, face, glyphHeightMap);
+			texWidth += createFaceGlyph(glyphIndex, codePoint, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
 
 			// If the newly created glyph is the "Not Defined" glyph, it means that the code point is not supported by the font.
 			// Remove it from the character map so that we can provide our own substitute instead of letting FreeType do it.
@@ -507,40 +541,46 @@ namespace MyGUI
 
 #if MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
 
-		for (GlyphMap::iterator iter = mGlyphMap.begin(); iter != mGlyphMap.end(); ++iter)
+		bool isBytecodeAvailable = (ftFace->face_flags & FT_FACE_FLAG_HINTER) != 0;
+		bool isBytecodeUsedByLoadFlags = (ftLoadFlags & (FT_LOAD_FORCE_AUTOHINT | FT_LOAD_NO_HINTING)) == 0;
+
+		if (isBytecodeAvailable && isBytecodeUsedByLoadFlags)
 		{
-			if (FT_Load_Glyph(face, iter->first, FT_LOAD_DEFAULT) == 0)
+			for (GlyphMap::iterator iter = mGlyphMap.begin(); iter != mGlyphMap.end(); ++iter)
 			{
-				GlyphInfo& info = iter->second;
-				GlyphInfo newInfo = createFaceGlyphInfo(0, fontAscent, face->glyph);
-
-				if (info.width != newInfo.width)
+				if (FT_Load_Glyph(ftFace, iter->first, ftLoadFlags) == 0)
 				{
-					texWidth += (int)ceil(newInfo.width) - (int)ceil(info.width);
-					info.width = newInfo.width;
-				}
+					GlyphInfo& info = iter->second;
+					GlyphInfo newInfo = createFaceGlyphInfo(0, fontAscent, ftFace->glyph);
 
-				if (info.height != newInfo.height)
+					if (info.width != newInfo.width)
+					{
+						texWidth += (int)ceil(newInfo.width) - (int)ceil(info.width);
+						info.width = newInfo.width;
+					}
+
+					if (info.height != newInfo.height)
+					{
+						GlyphHeightMap::mapped_type oldHeightMap = glyphHeightMap[(FT_Pos)info.height];
+						GlyphHeightMap::mapped_type::iterator heightMapItem = oldHeightMap.find(iter->first);
+						glyphHeightMap[(FT_Pos)newInfo.height].insert(*heightMapItem);
+						oldHeightMap.erase(heightMapItem);
+						info.height = newInfo.height;
+					}
+
+					if (info.advance != newInfo.advance)
+						info.advance = newInfo.advance;
+
+					if (info.bearingX != newInfo.bearingX)
+						info.bearingX = newInfo.bearingX;
+
+					if (info.bearingY != newInfo.bearingY)
+						info.bearingY = newInfo.bearingY;
+				}
+				else
 				{
-					GlyphHeightMap::mapped_type oldHeightMap = glyphHeightMap[(FT_Pos)info.height];
-					GlyphHeightMap::mapped_type::iterator heightMapItem = oldHeightMap.find(iter->first);
-					glyphHeightMap[(FT_Pos)newInfo.height].insert(*heightMapItem);
-					oldHeightMap.erase(heightMapItem);
-					info.height = newInfo.height;
+					MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << iter->first << " for character " << iter->second.codePoint << " in font '" << getResourceName() << "'.");
 				}
-
-				if (info.advance != newInfo.advance)
-					info.advance = newInfo.advance;
-
-				if (info.bearingX != newInfo.bearingX)
-					info.bearingX = newInfo.bearingX;
-
-				if (info.bearingY != newInfo.bearingY)
-					info.bearingY = newInfo.bearingY;
-			}
-			else
-			{
-				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << iter->first << " for character " << iter->second.codePoint << " in font '" << getResourceName() << "'.");
 			}
 		}
 
@@ -567,7 +607,7 @@ namespace MyGUI
 		// Create the special glyphs. They must be created after the standard glyphs so that they take precedence in case of a
 		// collision. To make sure that the indices of the special glyphs don't collide with any glyph indices in the font, we must
 		// use glyph indices higher than the highest glyph index in the font.
-		FT_UInt nextGlyphIndex = (FT_UInt)face->num_glyphs;
+		FT_UInt nextGlyphIndex = (FT_UInt)ftFace->num_glyphs;
 
 		float height = (float)mDefaultHeight;
 
@@ -580,15 +620,11 @@ namespace MyGUI
 		// revert to the default "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that
 		// is guaranteed to cause the "Not Defined" special glyph to be created.
 		if (mSubstituteCodePoint != FontCodeType::NotDefined && mCharMap.find(mSubstituteCodePoint) == mCharMap.end())
-		{
 			mSubstituteCodePoint = FontCodeType::NotDefined;
-		}
 
 		// Create the "Not Defined" code point (and its corresponding glyph) if it's in use as the substitute code point.
 		if (mSubstituteCodePoint == FontCodeType::NotDefined)
-		{
-			texWidth += createFaceGlyph(0, FontCodeType::NotDefined, fontAscent, face, glyphHeightMap);
-		}
+			texWidth += createFaceGlyph(0, FontCodeType::NotDefined, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
 
 		// Cache a pointer to the substitute glyph info for fast lookup.
 		mSubstituteGlyphInfo = &mGlyphMap.find(mCharMap.find(mSubstituteCodePoint)->second)->second;
@@ -667,7 +703,7 @@ namespace MyGUI
 			for (uint8* dest = texBuffer, * endDest = dest + texWidth * texHeight * Pixel<LAMode>::getNumBytes(); dest != endDest; )
 				Pixel<LAMode, false, false>::set(dest, charMaskWhite, charMaskBlack);
 
-			renderGlyphs<LAMode, Antialias>(glyphHeightMap, ftLibrary, face, texBuffer, texWidth, texHeight);
+			renderGlyphs<LAMode, Antialias>(glyphHeightMap, ftLibrary, ftFace, ftLoadFlags, texBuffer, texWidth, texHeight);
 
 			mTexture->unlock();
 
@@ -679,7 +715,7 @@ namespace MyGUI
 			MYGUI_LOG(Error, "ResourceTrueTypeFont: Error locking texture; pointer is nullptr.");
 		}
 
-		FT_Done_Face(face);
+		FT_Done_Face(ftFace);
 		FT_Done_FreeType(ftLibrary);
 
 		delete [] fontBuffer;
@@ -810,30 +846,31 @@ namespace MyGUI
 
 		return GlyphInfo(
 			_codePoint,
-			_glyph->metrics.width / 64.0f,
-			_glyph->metrics.height / 64.0f,
+			std::max((float)_glyph->bitmap.width, _glyph->metrics.width / 64.0f),
+			std::max((float)_glyph->bitmap.rows, _glyph->metrics.height / 64.0f),
 			(_glyph->advance.x / 64.0f) - bearingX,
 			bearingX,
-			_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight);
+			floor(_fontAscent - (_glyph->metrics.horiBearingY / 64.0f) - mOffsetHeight));
 	}
 
 	int ResourceTrueTypeFont::createGlyph(FT_UInt _glyphIndex, const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
 	{
+		int width = (int)ceil(_glyphInfo.width);
+		int height = (int)ceil(_glyphInfo.height);
+
 		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
 		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphIndex, _glyphInfo)).first->second;
-		_glyphHeightMap[(FT_Pos)_glyphInfo.height].insert(std::make_pair(_glyphIndex, &info));
-
-		int width = (int)ceil(_glyphInfo.width);
+		_glyphHeightMap[(FT_Pos)height].insert(std::make_pair(_glyphIndex, &info));
 
 		return (width > 0) ? mGlyphSpacing + width : 0;
 	}
 
-	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _face, GlyphHeightMap& _glyphHeightMap)
+	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, GlyphHeightMap& _glyphHeightMap)
 	{
 		if (mGlyphMap.find(_glyphIndex) == mGlyphMap.end())
 		{
-			if (FT_Load_Glyph(_face, _glyphIndex, FT_LOAD_DEFAULT) == 0)
-				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _face->glyph), _glyphHeightMap);
+			if (FT_Load_Glyph(_ftFace, _glyphIndex, _ftLoadFlags) == 0)
+				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _ftFace->glyph), _glyphHeightMap);
 			else
 				MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << _glyphIndex << " for character " << _codePoint << " in font '" << getResourceName() << "'.");
 		}
@@ -846,7 +883,7 @@ namespace MyGUI
 	}
 
 	template<bool LAMode, bool Antialias>
-	void ResourceTrueTypeFont::renderGlyphs(const GlyphHeightMap& _glyphHeightMap, const FT_Library& _ftLibrary, const FT_Face& _face, uint8* _texBuffer, int _texWidth, int _texHeight)
+	void ResourceTrueTypeFont::renderGlyphs(const GlyphHeightMap& _glyphHeightMap, const FT_Library& _ftLibrary, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, uint8* _texBuffer, int _texWidth, int _texHeight)
 	{
 		FT_Bitmap ftBitmap;
 		FT_Bitmap_New(&ftBitmap);
@@ -880,21 +917,21 @@ namespace MyGUI
 					break;
 
 				default:
-					if (FT_Load_Glyph(_face, i->first, FT_LOAD_RENDER) == 0)
+					if (FT_Load_Glyph(_ftFace, i->first, _ftLoadFlags | FT_LOAD_RENDER) == 0)
 					{
-						if (_face->glyph->bitmap.buffer != nullptr)
+						if (_ftFace->glyph->bitmap.buffer != nullptr)
 						{
 							uint8* glyphBuffer = nullptr;
 
-							switch (_face->glyph->bitmap.pixel_mode)
+							switch (_ftFace->glyph->bitmap.pixel_mode)
 							{
 							case FT_PIXEL_MODE_GRAY:
-								glyphBuffer = _face->glyph->bitmap.buffer;
+								glyphBuffer = _ftFace->glyph->bitmap.buffer;
 								break;
 
 							case FT_PIXEL_MODE_MONO:
 								// Convert the monochrome bitmap to 8-bit before rendering it.
-								if (FT_Bitmap_Convert(_ftLibrary, &_face->glyph->bitmap, &ftBitmap, 1) == 0)
+								if (FT_Bitmap_Convert(_ftLibrary, &_ftFace->glyph->bitmap, &ftBitmap, 1) == 0)
 								{
 									// Go through the bitmap and convert all of the nonzero values to 0xFF (white).
 									for (uint8* p = ftBitmap.buffer, * endP = p + ftBitmap.width * ftBitmap.rows; p != endP; ++p)
