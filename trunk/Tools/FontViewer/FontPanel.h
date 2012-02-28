@@ -50,6 +50,7 @@ namespace demo
 		MyGUI::ComboBox* mComboFont;
 		MyGUI::EditBox* mEditSize;
 		MyGUI::ComboBox* mComboResolution;
+		MyGUI::ComboBox* mComboHinting;
 		MyGUI::ComboBox* mComboAntialias;
 		MyGUI::ComboBox* mComboSpace;
 		MyGUI::ComboBox* mComboTab;

@@ -51,6 +51,7 @@ namespace demo
 		assignWidget(mEditSize, "edit_Size");
 		assignWidget(mComboResolution, "combo_Resolution");
 		assignWidget(mComboAntialias, "combo_Antialias");
+		assignWidget(mComboHinting, "combo_Hinting");
 		assignWidget(mComboSpace, "combo_Space");
 		assignWidget(mComboTab, "combo_Tab");
 		assignWidget(mComboOffset, "combo_Offset");
@@ -68,6 +69,7 @@ namespace demo
 		initializeComboBox(mComboFont);
 		initializeEditBox(mEditSize);
 		initializeComboBox(mComboResolution);
+		initializeComboBox(mComboHinting);
 		initializeComboBox(mComboAntialias);
 		initializeComboBox(mComboSpace);
 		initializeComboBox(mComboTab);
@@ -307,6 +309,22 @@ namespace demo
 
 		if (mComboResolution->getIndexSelected() != 0)
 			addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mComboResolution->getOnlyText()));
+
+		switch (mComboHinting->getIndexSelected())
+		{
+		case 1:
+			addProperty(node, "Hinting", "use_native");
+			break;
+		case 2:
+			addProperty(node, "Hinting", "force_auto");
+			break;
+		case 3:
+			addProperty(node, "Hinting", "disable_auto");
+			break;
+		case 4:
+			addProperty(node, "Hinting", "disable_all");
+			break;
+		}
 
 		if (mComboAntialias->getIndexSelected() != 0)
 			addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getOnlyText()));
