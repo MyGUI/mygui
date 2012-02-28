@@ -14,14 +14,14 @@ namespace tools
 		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
 		mGridStep(0),
 		mGridEdit(nullptr),
-		//mLayoutVersion(nullptr),
 		mLoadLastProject(nullptr),
-		mWorkspaceSize(nullptr)
+		mWorkspaceSize(nullptr),
+		mInterfaceLanguage(nullptr)
 	{
 		assignWidget(mGridEdit, "gridEdit");
-		//assignWidget(mLayoutVersion, "LayoutVersion");
 		assignWidget(mLoadLastProject, "LoadLastProject");
 		assignWidget(mWorkspaceSize, "WorkspaceSize");
+		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
@@ -37,35 +37,21 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		/*mLayoutVersion->removeAllItems();
-		MyGUI::VectorString versions = BackwardCompatibilityManager::getInstancePtr()->getVersions();
-		for (size_t index = 0; index < versions.size(); ++ index)
-		{
-			mLayoutVersion->addItem(versions[index]);
-			if (BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion() == versions[index])
-				mLayoutVersion->setIndexSelected(index);
-		}*/
-
 		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"));
+		setLanguageValue(SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage"));
+
 		mWorkspaceSize->setCaption(SettingsManager::getInstance().getSector("Workspace")->getPropertyValue("TextureSize"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		/*if (mLayoutVersion->getIndexSelected() != MyGUI::ITEM_NONE)
-		{
-			std::string versionName = mLayoutVersion->getItemNameAt(mLayoutVersion->getIndexSelected());
-			if (versionName != BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion())
-				BackwardCompatibilityManager::getInstancePtr()->setCurrentVersion(versionName);
-		}*/
-
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LoadLastProject", mLoadLastProject->getStateSelected());
+		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("InterfaceLanguage", getLanguageValue());
 
 		MyGUI::IntSize workspaceSize = MyGUI::utility::parseValue<MyGUI::IntSize>(mWorkspaceSize->getCaption());
-		//workspaceSize.set(MyGUI::Bitwise::firstPO2From(workspaceSize.width), MyGUI::Bitwise::firstPO2From(workspaceSize.height));
 		workspaceSize.set(std::max(64, workspaceSize.width), std::max(64, workspaceSize.height));
 		SettingsManager::getInstance().getSector("Workspace")->setPropertyValue("TextureSize", workspaceSize.print());
 	}
@@ -85,6 +71,33 @@ namespace tools
 	void SettingsGeneralControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		mLoadLastProject->setStateSelected(!mLoadLastProject->getStateSelected());
+	}
+
+	void SettingsGeneralControl::setLanguageValue(const std::string& _value)
+	{
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		{
+			if (mInterfaceLanguage->getItemNameAt(index) == _value)
+			{
+				mInterfaceLanguage->setIndexSelected(index);
+				return;
+			}
+		}
+		for (size_t index = 0; index < mInterfaceLanguage->getItemCount(); index ++)
+		{
+			if (mInterfaceLanguage->getItemNameAt(index) == "Auto")
+			{
+				mInterfaceLanguage->setIndexSelected(index);
+				return;
+			}
+		}
+	}
+
+	std::string SettingsGeneralControl::getLanguageValue()
+	{
+		if (mInterfaceLanguage->getIndexSelected() == MyGUI::ITEM_NONE)
+			return "Auto";
+		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
 } // namespace tools

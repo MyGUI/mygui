@@ -12,5 +12,15 @@
         <Widget type="Button" skin="CheckBox" position="5 37 402 24" align="HStretch Top" name="SaveLastTexture">
             <Property key="Caption" value="#{TextSaveLastTexture}"/>
         </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="5 70 220 24" name="InterfaceLanguage">
+            <Property key="ModeDrop" value="true"/>
+            <Property key="AddItem" value="Auto"/>
+            <Property key="AddItem" value="English"/>
+            <Property key="AddItem" value="Russian"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="230 70 175 25">
+            <Property key="Caption" value="#{TextInterfaceLanguage}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
     </Widget>
 </MyGUI>

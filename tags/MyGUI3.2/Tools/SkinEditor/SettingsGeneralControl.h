@@ -27,12 +27,15 @@ namespace tools
 
 		int getGridStep();
 		void setGridStep();
+		void setLanguageValue(const std::string& _value);
+		std::string getLanguageValue();
 
 	private:
 		int mGridStep;
 
 		MyGUI::EditBox* mGridEdit;
 		MyGUI::Button* mSaveLastTexture;
+		MyGUI::ComboBox* mInterfaceLanguage;
 	};
 
 } // namespace tools

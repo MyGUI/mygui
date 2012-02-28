@@ -42,6 +42,7 @@ namespace base
 
 		void setWindowCaption(const std::wstring& _text);
 		void createDefaultScene();
+		void makeScreenShot();
 
 		const std::string& getRootMedia();
 		void setResourceFilename(const std::string& _flename);

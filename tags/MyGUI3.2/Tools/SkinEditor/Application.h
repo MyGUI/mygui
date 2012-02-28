@@ -40,6 +40,7 @@ namespace tools
 
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
+		void command_ScreenShot(const MyGUI::UString& _commandName, bool& _result);
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 

@@ -57,24 +57,28 @@ namespace tools
 
 	void Application::createScene()
 	{
+		if (getStatisticInfo() != nullptr)
+			getStatisticInfo()->setVisible(false);
+
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		MyGUI::ResourceManager::getInstance().load("EditorLayers.xml");
 		//MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
 
-		if (getStatisticInfo() != nullptr)
-			getStatisticInfo()->setVisible(false);
-
-		// set locale language if it was taken from OS
-		if (!mLocale.empty())
-			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
-		// if you want to test LanguageManager uncomment next line
-		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
-		//MyGUI::LanguageManager::getInstance().setCurrentLanguage("English");
-
 		new SettingsManager();
 		SettingsManager::getInstance().initialise("le_user_settings.xml");
+
+		std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
+		if (language.empty() || language == "Auto")
+		{
+			if (!mLocale.empty())
+				MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+		}
+		else
+		{
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(language);
+		}
 
 		new CommandManager();
 		CommandManager::getInstance().initialise();
@@ -139,6 +143,7 @@ namespace tools
 
 		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::command_StatisticInfo));
 		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::command_FocusVisible));
+		CommandManager::getInstance().registerCommand("Command_ScreenShot", MyGUI::newDelegate(this, &Application::command_ScreenShot));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::command_QuitApp));
 		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &Application::command_UpdateAppCaption));
 
@@ -366,6 +371,13 @@ namespace tools
 	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+
+		_result = true;
+	}
+
+	void Application::command_ScreenShot(const MyGUI::UString& _commandName, bool& _result)
+	{
+		makeScreenShot();
 
 		_result = true;
 	}
