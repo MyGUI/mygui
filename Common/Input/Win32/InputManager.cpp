@@ -189,7 +189,13 @@ namespace input
 		else if (WM_KEYUP == uMsg)
 		{
 			int scan_code = VirtualKeyToScanCode(wParam);
-			msInputManager->injectKeyRelease(MyGUI::KeyCode::Enum(scan_code));
+			MyGUI::KeyCode code = MyGUI::KeyCode::Enum(scan_code);
+
+			// принтскрин приходит только отжатие
+			if (code == MyGUI::KeyCode::SysRq)
+				msInputManager->injectKeyPress(code, (MyGUI::Char)0);
+
+			msInputManager->injectKeyRelease(code);
 		}
 
 		// вызываем полюбому

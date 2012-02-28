@@ -52,13 +52,21 @@ namespace tools
 		if (getStatisticInfo() != nullptr)
 			getStatisticInfo()->setVisible(false);
 
-		if (!mLocale.empty())
-			MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
-
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
 
 		new SettingsManager();
 		SettingsManager::getInstance().initialise("se_user_settings.xml");
+
+		std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
+		if (language.empty() || language == "Auto")
+		{
+			if (!mLocale.empty())
+				MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
+		}
+		else
+		{
+			MyGUI::LanguageManager::getInstance().setCurrentLanguage(language);
+		}
 
 		new RecentFilesManager();
 		RecentFilesManager::getInstance().initialise();
@@ -105,6 +113,7 @@ namespace tools
 
 		CommandManager::getInstance().registerCommand("Command_StatisticInfo", MyGUI::newDelegate(this, &Application::command_StatisticInfo));
 		CommandManager::getInstance().registerCommand("Command_FocusVisible", MyGUI::newDelegate(this, &Application::command_FocusVisible));
+		CommandManager::getInstance().registerCommand("Command_ScreenShot", MyGUI::newDelegate(this, &Application::command_ScreenShot));
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::command_QuitApp));
 		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &Application::command_UpdateAppCaption));
 
@@ -339,6 +348,13 @@ namespace tools
 	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+
+		_result = true;
+	}
+
+	void Application::command_ScreenShot(const MyGUI::UString& _commandName, bool& _result)
+	{
+		makeScreenShot();
 
 		_result = true;
 	}
