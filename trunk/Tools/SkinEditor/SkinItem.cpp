@@ -274,7 +274,7 @@ namespace tools
 		regionLeftTop->setSeparator(MyGUI::Align::Left | MyGUI::Align::Top);
 		regionLeftTop->getPropertySet()->setPropertyValue("Align", "Left Top", "");
 		regionLeftTop->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionLeftTop->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionLeftTop->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionLeftTop->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionLeftTop->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -283,7 +283,7 @@ namespace tools
 		regionTop->setSeparator(MyGUI::Align::Top);
 		regionTop->getPropertySet()->setPropertyValue("Align", "HStretch Top", "");
 		regionTop->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionTop->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionTop->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionTop->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionTop->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -292,7 +292,7 @@ namespace tools
 		regionRightTop->setSeparator(MyGUI::Align::Right | MyGUI::Align::Top);
 		regionRightTop->getPropertySet()->setPropertyValue("Align", "Right Top", "");
 		regionRightTop->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionRightTop->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionRightTop->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionRightTop->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionRightTop->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -301,7 +301,7 @@ namespace tools
 		regionRight->setSeparator(MyGUI::Align::Right);
 		regionRight->getPropertySet()->setPropertyValue("Align", "Right VStretch", "");
 		regionRight->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionRight->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionRight->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionRight->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionRight->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -310,7 +310,7 @@ namespace tools
 		regionRightBottom->setSeparator(MyGUI::Align::Right | MyGUI::Align::Bottom);
 		regionRightBottom->getPropertySet()->setPropertyValue("Align", "Right Bottom", "");
 		regionRightBottom->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionRightBottom->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionRightBottom->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionRightBottom->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionRightBottom->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -319,7 +319,7 @@ namespace tools
 		regionBottom->setSeparator(MyGUI::Align::Bottom);
 		regionBottom->getPropertySet()->setPropertyValue("Align", "HStretch Bottom", "");
 		regionBottom->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionBottom->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionBottom->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionBottom->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionBottom->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -328,7 +328,7 @@ namespace tools
 		regionLeftBottom->setSeparator(MyGUI::Align::Left | MyGUI::Align::Bottom);
 		regionLeftBottom->getPropertySet()->setPropertyValue("Align", "Left Bottom", "");
 		regionLeftBottom->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionLeftBottom->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionLeftBottom->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionLeftBottom->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionLeftBottom->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -337,7 +337,7 @@ namespace tools
 		regionLeft->setSeparator(MyGUI::Align::Left);
 		regionLeft->getPropertySet()->setPropertyValue("Align", "Left VStretch", "");
 		regionLeft->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionLeft->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionLeft->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionLeft->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionLeft->getPropertySet()->setPropertyReadOnly("Align", true);
 
@@ -346,7 +346,7 @@ namespace tools
 		regionCenter->setSeparator(MyGUI::Align::Center);
 		regionCenter->getPropertySet()->setPropertyValue("Align", "Stretch", "");
 		regionCenter->getPropertySet()->setPropertyReadOnly("Enabled", true);
-		regionCenter->getPropertySet()->setPropertyValue("Visible", "False", "");
+		regionCenter->getPropertySet()->setPropertyValue("Visible", "True", "");
 		regionCenter->getPropertySet()->setPropertyReadOnly("Position", true);
 		regionCenter->getPropertySet()->setPropertyReadOnly("Align", true);
 
