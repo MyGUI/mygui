@@ -13,6 +13,13 @@
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
+struct ID3D11VertexShader;
+struct ID3D11PixelShader;
+struct ID3D11SamplerState;
+struct ID3D11BlendState;
+struct ID3D11RasterizerState;
+struct ID3D11DepthStencilState;
+struct ID3D11InputLayout;
 
 namespace MyGUI
 {

@@ -34,6 +34,8 @@
 #include <MyGUI_OpenGlRenderManager.h>
 #elif MYGUI_DIRECTX_PLATFORM
 #include <MyGUI_DirectXRenderManager.h>
+#elif MYGUI_DIRECTX11_PLATFORM
+#include <MyGUI_DirectX11RenderManager.h>
 #endif
 
 namespace MyGUI
@@ -85,6 +87,8 @@ namespace MyGUI
 		OpenGLRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif MYGUI_DIRECTX_PLATFORM
 		DirectXRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+#elif MYGUI_DIRECTX11_PLATFORM
+		DirectX11RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #endif
 	}
 
