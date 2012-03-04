@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="ExampleWindowTemplate" position="25 30 255 180">
+        <Property key="Caption" value="My window template"/>
+    </Widget>
+</MyGUI>
