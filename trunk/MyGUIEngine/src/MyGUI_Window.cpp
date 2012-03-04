@@ -83,6 +83,7 @@ namespace MyGUI
 			setWidgetClient(mClient);
 		}
 
+		///@wskin_child{Window, TextBox, Caption} Caption for window.
 		assignWidget(mWidgetCaption, "Caption");
 		if (mWidgetCaption != nullptr)
 		{
