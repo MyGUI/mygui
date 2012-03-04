@@ -78,6 +78,7 @@ namespace tools
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
 				setFileName(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
 
+				updateProjectSkins();
 				if (!load())
 				{
 					/*Message* message = */MessageBoxManager::getInstance().create(
@@ -668,6 +669,7 @@ namespace tools
 
 		setFileName(projectPath, projectName);
 
+		updateProjectSkins();
 		if (!load())
 		{
 			/*Message* message = MessageBoxManager::getInstance().create(
