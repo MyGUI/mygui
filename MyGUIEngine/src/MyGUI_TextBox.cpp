@@ -147,25 +147,40 @@ namespace MyGUI
 
 	void TextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{TextBox, TextColour, Colour} Цвет текста.
 		if (_key == "TextColour")
 			setTextColour(utility::parseValue<Colour>(_value));
+
+		/// @wproperty{TextBox, TextAlign, Align} Выравнивание текста.
 		else if (_key == "TextAlign")
 			setTextAlign(utility::parseValue<Align>(_value));
+
+		/// @wproperty{TextBox, FontName, string} Имя шрифта.
 		else if (_key == "FontName")
 			setFontName(_value);
+
+		/// @wproperty{TextBox, FontHeight, int} Высота шрифта.
 		else if (_key == "FontHeight")
 			setFontHeight(utility::parseValue<int>(_value));
+
+		/// @wproperty{TextBox, Caption, string} Содержимое поля редактирования.
 		else if (_key == "Caption")
 			setCaptionWithReplacing(_value);
+
+		/// @wproperty{TextBox, TextShadowColour, Colour} Цвет тени текста.
 		else if (_key == "TextShadowColour")
 			setTextShadowColour(utility::parseValue<Colour>(_value));
+
+		/// @wproperty{TextBox, TextShadow, bool} Режим показа тени текста.
 		else if (_key == "TextShadow")
 			setTextShadow(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

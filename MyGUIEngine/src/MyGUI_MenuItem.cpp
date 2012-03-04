@@ -50,12 +50,13 @@ namespace MyGUI
 		}
 		mOwner = parent->castType<MenuControl>();
 
+		///@wskin_child{MenuItem, Widget, Check} Галочка для отмеченного состояния.
 		assignWidget(mCheck, "Check");
 
 		//if (isUserString("MinSize"))
 		//	mMinSize = IntSize::parse(getUserString("MinSize"));
 
-		//FIXME нам нуженфокус клавы
+		//FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
 		updateCheck();
@@ -148,17 +149,24 @@ namespace MyGUI
 
 	void MenuItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{MenuItem, MenuItemId, string} Идентификатор строки меню.
 		if (_key == "MenuItemId")
 			setItemId(_value);
+
+		/// @wproperty{MenuItem, MenuItemType, MenuItemType} Тип строки меню.
 		else if (_key == "MenuItemType")
 			setItemType(utility::parseValue<MenuItemType>(_value));
+
+		/// @wproperty{MenuItem, MenuItemChecked, bool} Отмеченное состояние строки меню.
 		else if (_key == "MenuItemChecked")
 			setItemChecked(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

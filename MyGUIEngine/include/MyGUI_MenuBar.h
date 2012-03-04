@@ -28,6 +28,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{MenuBar}.
+		MenuBar widget description should be here.
+	*/
 	class MYGUI_EXPORT MenuBar :
 		public MenuControl
 	{

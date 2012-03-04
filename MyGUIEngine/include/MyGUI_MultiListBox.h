@@ -41,6 +41,9 @@ namespace MyGUI
 	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
 	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
 
+	/** @wpage{MultiListBox}.
+		MultiListBox widget description should be here.
+	*/
 	class MYGUI_EXPORT MultiListBox :
 		public Widget,
 		public BiIndexBase,

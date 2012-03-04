@@ -30,6 +30,9 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate2<ScrollBar*, size_t> EventHandle_ScrollBarPtrSizeT;
 
+	/** @wpage{ScrollBar}.
+		ScrollBar widget description should be here.
+	*/
 	class MYGUI_EXPORT ScrollBar :
 		public Widget,
 		public MemberObsolete<ScrollBar>

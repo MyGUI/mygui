@@ -74,15 +74,20 @@ namespace MyGUI
 
 	void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{MultiListItem, ItemResizingPolicy, ResizingPolicy} Поведение при изменении размера.
 		if (_key == "ItemResizingPolicy")
 			setItemResizingPolicy(ResizingPolicy::parse(_value));
+
+		/// @wproperty{MultiListItem, ItemWidth, int} Ширина списка.
 		else if (_key == "ItemWidth")
 			setItemWidth(utility::parseValue<int>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

@@ -61,6 +61,7 @@ namespace MyGUI
 		if (mHeightLine < 1)
 			mHeightLine = 1;
 
+		///@wskin_child{ListBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
@@ -68,6 +69,7 @@ namespace MyGUI
 			setWidgetClient(mClient);
 		}
 
+		///@wskin_child{ListBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
 		assignWidget(mWidgetScroll, "VScroll");
 		if (mWidgetScroll != nullptr)
 		{
@@ -1039,13 +1041,16 @@ namespace MyGUI
 
 	void ListBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		// не коментировать
 		if (_key == "AddItem")
 			addItem(_value);
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

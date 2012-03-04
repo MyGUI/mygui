@@ -56,10 +56,13 @@ namespace MyGUI
 
 		if (isUserString("SkinButton"))
 			mSkinButton = getUserString("SkinButton");
+
 		if (isUserString("SkinList"))
 			mSkinList = getUserString("SkinList");
+
 		if (isUserString("SkinSeparator"))
 			mSkinSeparator = getUserString("SkinSeparator");
+
 		if (isUserString("WidthSeparator"))
 			mWidthSeparator = utility::parseValue<int>(getUserString("WidthSeparator"));
 
@@ -69,8 +72,10 @@ namespace MyGUI
 		if (mHeightButton < 0)
 			mHeightButton = 0;
 
+		///@wskin_child{MultiListBox, Widget, HeaderPlace} Место для заголовков колонок.
 		assignWidget(mHeaderPlace, "HeaderPlace");
 
+		///@wskin_child{MultiListBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 			setWidgetClient(mClient);
@@ -78,12 +83,14 @@ namespace MyGUI
 		if (nullptr == mClient)
 			mClient = this;
 
+		///@wskin_child{MultiListBox, Widget, Empty} Виджет для заголовка в месте где нет списков.
 		assignWidget(mWidgetEmpty, "Empty");
 
 		if (mWidgetEmpty == nullptr)
 		{
 			if (isUserString("SkinButtonEmpty"))
 				skinButtonEmpty = getUserString("SkinButtonEmpty");
+
 			if (!skinButtonEmpty.empty())
 				mWidgetEmpty = mClient->createWidget<Widget>(skinButtonEmpty, IntCoord(0, 0, mClient->getWidth(), getButtonHeight()), Align::Default);
 		}

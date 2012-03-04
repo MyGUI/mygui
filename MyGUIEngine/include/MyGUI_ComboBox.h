@@ -37,6 +37,9 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
 
+	/** @wpage{ComboBox}.
+		ComboBox widget description should be here.
+	*/
 	class MYGUI_EXPORT ComboBox :
 		public EditBox,
 		public IItemContainer,

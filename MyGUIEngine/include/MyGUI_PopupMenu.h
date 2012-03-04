@@ -28,6 +28,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{PopupMenu}.
+		PopupMenu widget description should be here.
+	*/
 	class MYGUI_EXPORT PopupMenu :
 		public MenuControl
 	{

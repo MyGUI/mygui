@@ -39,6 +39,9 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<MenuControl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
 	typedef delegates::CMultiDelegate1<MenuControl*> EventHandle_MenuCtrlPtr;
 
+	/** @wpage{MenuControl}.
+		MenuControl widget description should be here.
+	*/
 	class MYGUI_EXPORT MenuControl :
 		public Widget,
 		public IItemContainer,

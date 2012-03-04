@@ -77,6 +77,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
+		///@wskin_child{MenuControl, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
@@ -104,6 +105,7 @@ namespace MyGUI
 
 		if (isUserString("SubMenuSkin"))
 			mSubMenuSkin = getUserString("SubMenuSkin");
+
 		if (isUserString("SubMenuLayer"))
 			mSubMenuLayer = getUserString("SubMenuLayer");
 
@@ -903,13 +905,16 @@ namespace MyGUI
 
 	void MenuControl::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{MenuControl, VerticalAlignment, bool} Вертикальное выравнивание.
 		if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

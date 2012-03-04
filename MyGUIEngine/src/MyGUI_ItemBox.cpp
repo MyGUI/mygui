@@ -60,6 +60,7 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
+		///@wskin_child{ItemBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
@@ -69,12 +70,14 @@ namespace MyGUI
 			setWidgetClient(mClient);
 		}
 
+		///@wskin_child{ItemBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ItemBox::notifyScrollChangePosition);
 		}
 
+		///@wskin_child{ItemBox, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
@@ -920,13 +923,16 @@ namespace MyGUI
 
 	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{ItemBox, VerticalAlignment, bool} Вертикальное выравнивание.
 		if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 
