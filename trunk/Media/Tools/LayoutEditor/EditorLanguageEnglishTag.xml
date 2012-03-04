@@ -80,7 +80,7 @@
 	<Tag name="CaptionProjectMainWindow">Layout editor - '#{CurrentFileName}' [#{CurrentItemFileName}] #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
-	<Tag name="CaptionOpenFile">Create file</Tag>
+	<Tag name="CaptionCreateFile">Create file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
 	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
