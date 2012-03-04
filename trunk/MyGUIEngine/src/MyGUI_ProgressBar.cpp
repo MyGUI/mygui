@@ -51,6 +51,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
+		///@wskin_child{MultiListBox, Widget, TrackPlace} Место для трекера.
 		assignWidget(mClient, "TrackPlace");
 
 		if (nullptr == mClient)
@@ -64,15 +65,20 @@ namespace MyGUI
 
 		if (isUserString("TrackSkin"))
 			mTrackSkin = getUserString("TrackSkin");
+
 		if (isUserString("TrackWidth"))
 			mTrackWidth = utility::parseValue<int>(getUserString("TrackWidth"));
+
 		//OBSOLETE
 		if (isUserString("TrackMin"))
 			mTrackMin = utility::parseValue<int>(getUserString("TrackMin"));
+
 		else
 			mTrackMin = mTrackWidth;
+
 		if (isUserString("TrackStep"))
 			mTrackStep = utility::parseValue<int>(getUserString("TrackStep"));
+
 		if (isUserString("TrackFill"))
 			mFillTrack = utility::parseValue<bool>(getUserString("TrackFill"));
 
@@ -319,19 +325,28 @@ namespace MyGUI
 
 	void ProgressBar::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{ProgressBar, Range, size_t} Диапазон прогресса.
 		if (_key == "Range")
 			setProgressRange(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{ProgressBar, RangePosition, size_t} Позиция в прогрессе.
 		else if (_key == "RangePosition")
 			setProgressPosition(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{ProgressBar, AutoTrack, bool} Режим занятости прогресса, в котором трекер просто ходит по кругу.
 		else if (_key == "AutoTrack")
 			setProgressAutoTrack(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ProgressBar, FlowDirection, FlowDirection} Напревление движения трекера.
 		else if (_key == "FlowDirection")
 			setFlowDirection(utility::parseValue<FlowDirection>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

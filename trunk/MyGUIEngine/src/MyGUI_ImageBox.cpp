@@ -485,25 +485,40 @@ namespace MyGUI
 
 	void ImageBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{ImageBox, ImageTexture, string} Текстура для виджета.
 		if (_key == "ImageTexture")
 			setImageTexture(_value);
+
+		/// @wproperty{ImageBox, ImageCoord, int int int int} Координаты в текстуре.
 		else if (_key == "ImageCoord")
 			setImageCoord(utility::parseValue<IntCoord>(_value));
+
+		/// @wproperty{ImageBox, ImageTile, int int} Размер тайла текстуры.
 		else if (_key == "ImageTile")
 			setImageTile(utility::parseValue<IntSize>(_value));
+
+		/// @wproperty{ImageBox, ImageIndex, size_t} Индекс тайла в текстуре.
 		else if (_key == "ImageIndex")
 			setItemSelect(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{ImageBox, ImageResource, string} Имя ресурса картинки.
 		else if (_key == "ImageResource")
 			setItemResource(_value);
+
+		/// @wproperty{ImageBox, ImageGroup, string} Имя группы картинки в ресурсе.
 		else if (_key == "ImageGroup")
 			setItemGroup(_value);
+
+		/// @wproperty{ImageBox, ImageName, string} Имя картинки в группе ресурса.
 		else if (_key == "ImageName")
 			setItemName(_value);
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

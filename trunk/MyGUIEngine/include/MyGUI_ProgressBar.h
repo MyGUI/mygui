@@ -30,6 +30,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{ProgressBar}.
+		ProgressBar widget description should be here.
+	*/
 	class MYGUI_EXPORT ProgressBar :
 		public Widget,
 		public MemberObsolete<ProgressBar>

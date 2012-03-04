@@ -64,6 +64,7 @@ namespace MyGUI
 		// OBSOLETE
 		if (isUserString("OffsetBar"))
 			mOffsetTab = utility::parseValue<int>(getUserString("OffsetBar"));
+
 		// OBSOLETE
 		if (isUserString("EmptyBarSkin"))
 			mEmptySkinName = getUserString("EmptyBarSkin");
@@ -75,12 +76,14 @@ namespace MyGUI
 			mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 		}
 
+		///@wskin_child{TabControl, Button, Left} Кнопка прокрутки заголовков влево.
 		assignWidget(mButtonLeft, "Left");
 		if (mButtonLeft != nullptr)
 		{
 			mButtonLeft->eventMouseButtonClick += newDelegate(this, &TabControl::notifyPressedButtonEvent);
 		}
 
+		///@wskin_child{TabControl, Button, Right} Кнопка прокрутки заголовков вправо.
 		assignWidget(mButtonRight, "Right");
 		if (mButtonRight != nullptr)
 		{
@@ -94,6 +97,7 @@ namespace MyGUI
 			mButtonDecor->setVisible(false);
 		}
 
+		///@wskin_child{TabControl, Widget, TabItem} Шаблон для страницы, по которому будут создаваться клиентские зоны страниц.
 		assignWidget(mItemTemplate, "TabItem");
 		if (mItemTemplate != nullptr)
 		{
@@ -120,8 +124,13 @@ namespace MyGUI
 			showPatch->setVisible(false);
 		}
 
+		///@wskin_child{TabControl, Widget, HeaderPlace} Место для заголовоков.
 		assignWidget(mHeaderPlace, "HeaderPlace");
+
+		///@wskin_child{TabControl, Widget, Controls} Виджет на котором должны быть расположены кнопки влево и вправо для заголовоков.
 		assignWidget(mControls, "Controls");
+
+		///@wskin_child{TabControl, Widget, Empty} Виджет который будет показываться в месте где нет заголовков (справа от заголовков).
 		assignWidget(mEmpty, "Empty");
 
 		if (mEmpty == nullptr)
@@ -622,19 +631,28 @@ namespace MyGUI
 
 	void TabControl::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{TabControl, ButtonWidth, int} Ширина кнопок в заголовках в пикселях.
 		if (_key == "ButtonWidth")
 			setButtonDefaultWidth(utility::parseValue<int>(_value));
+
+		/// @wproperty{TabControl, ButtonAutoWidth, bool} Режим автоматического вычисления ширины кнопок в заголовках.
 		else if (_key == "ButtonAutoWidth")
 			setButtonAutoWidth(utility::parseValue<bool>(_value));
+
+		/// @wproperty{TabControl, SmoothShow, bool} Плавное переключение между закладками.
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
+
+		// не коментировать
 		else if (_key == "SelectItem")
 			setIndexSelected(utility::parseValue<size_t>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

@@ -29,6 +29,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{TabItem}.
+		TabItem widget description should be here.
+	*/
 	class MYGUI_EXPORT TabItem :
 		public TextBox
 	{

@@ -36,6 +36,9 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
 	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
+	/** @wpage{Window}.
+		Window widget description should be here.
+	*/
 	class MYGUI_EXPORT Window :
 		public TextBox, // FIXME пока для кэпшена вместо виджета текст
 		public MemberObsolete<Window>

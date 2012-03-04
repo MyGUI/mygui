@@ -36,6 +36,9 @@ namespace MyGUI
 	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
 
 
+	/** @wpage{DDContainer}.
+		DDContainer widget description should be here.
+	*/
 	class MYGUI_EXPORT DDContainer :
 		public Widget
 	{

@@ -30,6 +30,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{MenuItem}.
+		MenuItem widget description should be here.
+	*/
 	class MYGUI_EXPORT MenuItem :
 		public Button,
 		public IItem,

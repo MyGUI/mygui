@@ -80,6 +80,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
+		///@wskin_child{EditBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
@@ -93,12 +94,14 @@ namespace MyGUI
 			setWidgetClient(mClient);
 		}
 
+		///@wskin_child{EditBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &EditBox::notifyScrollChangePosition);
 		}
 
+		///@wskin_child{EditBox, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
@@ -2046,39 +2049,68 @@ namespace MyGUI
 
 	void EditBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{EditBox, CursorPosition, size_t} Позиция курсора.
 		if (_key == "CursorPosition")
 			setTextCursor(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{EditBox, TextSelect, size_t size_t} Выделение текста.
 		else if (_key == "TextSelect")
 			setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
+
+		/// @wproperty{EditBox, ReadOnly, bool} Режим только для чтения, в этом режиме нельзя изменять текст но которовать можно.
 		else if (_key == "ReadOnly")
 			setEditReadOnly(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, Password, bool} Режим ввода пароля, все символы заменяются на звездочки или другие указаные символы.
 		else if (_key == "Password")
 			setEditPassword(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, MultiLine, bool} Режим много строчного ввода.
 		else if (_key == "MultiLine")
 			setEditMultiLine(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, PasswordChar, string} Символ для замены в режиме пароля.
 		else if (_key == "PasswordChar")
 			setPasswordChar(_value);
+
+		/// @wproperty{EditBox, MaxTextLength, size_t} Максимальное длина текста.
 		else if (_key == "MaxTextLength")
 			setMaxTextLength(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{EditBox, OverflowToTheLeft, bool} Режим обрезки текста в начале, после того как его колличество достигает максимального значения.
 		else if (_key == "OverflowToTheLeft")
 			setOverflowToTheLeft(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, Static, bool} Статический режим, поле ввода никак не реагирует на пользовательский ввод.
 		else if (_key == "Static")
 			setEditStatic(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, VisibleVScroll, bool} Видимость вертикальной полосы прокрутки.
 		else if (_key == "VisibleVScroll")
 			setVisibleVScroll(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, VisibleHScroll, bool} Видимость горизонтальной полосы прокрутки.
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, WordWrap, bool} Режим переноса по словам.
 		else if (_key == "WordWrap")
 			setEditWordWrap(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, TabPrinting, bool} Воспринимать нажатие на Tab как символ табуляции.
 		else if (_key == "TabPrinting")
 			setTabPrinting(utility::parseValue<bool>(_value));
+
+		/// @wproperty{EditBox, InvertSelected, bool} При выделении цвета инвертируются.
 		else if (_key == "InvertSelected")
 			setInvertSelected(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

@@ -269,13 +269,16 @@ namespace MyGUI
 
 	void DDContainer::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{DDContainer, NeedDragDrop, bool} Поддержка Drag and Drop.
 		if (_key == "NeedDragDrop")
 			setNeedDragDrop(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

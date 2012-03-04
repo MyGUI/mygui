@@ -35,6 +35,9 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate2<TabControl*, size_t> EventHandle_TabPtrSizeT;
 
+	/** @wpage{TabControl}.
+		TabControl widget description should be here.
+	*/
 	class MYGUI_EXPORT TabControl :
 		public Widget,
 		public IItemContainer,

@@ -70,6 +70,7 @@ namespace MyGUI
 			main_move = true;
 		}
 
+		///@wskin_child{Window, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		if (mClient != nullptr)
 		{
@@ -469,21 +470,32 @@ namespace MyGUI
 
 	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{Window, AutoAlpha, bool} Режим регулировки прозрачности опираясь на фокус ввода.
 		if (_key == "AutoAlpha")
 			setAutoAlpha(utility::parseValue<bool>(_value));
+
+		/// @wproperty{Window, Snap, bool} Режим прилипания к краям экрана.
 		else if (_key == "Snap")
 			setSnap(utility::parseValue<bool>(_value));
+
+		/// @wproperty{Window, MinSize, int int} Минимальный размер окна.
 		else if (_key == "MinSize")
 			setMinSize(utility::parseValue<IntSize>(_value));
+
+		/// @wproperty{Window, MaxSize, int int} Максимальный размер окна.
 		else if (_key == "MaxSize")
 			setMaxSize(utility::parseValue<IntSize>(_value));
+
+		/// @wproperty{Window, Movable, bool} Режим движения окна мышью за любой участок.
 		else if (_key == "Movable")
 			setMovable(utility::parseValue<bool>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

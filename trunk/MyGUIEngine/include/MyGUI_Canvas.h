@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	/**
+	/** @wpage{Canvas}.
 		Widget wrapper over Texture - shows the texture.
 		Implemented: resizing of texture (see TextureResizeMode); recovery after loosing device;
 	*/

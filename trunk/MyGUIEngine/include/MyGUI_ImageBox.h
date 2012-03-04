@@ -30,6 +30,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{ImageBox}.
+		ImageBox widget description should be here.
+	*/
 	class MYGUI_EXPORT ImageBox :
 		public Widget
 	{

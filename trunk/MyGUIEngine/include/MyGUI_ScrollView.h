@@ -29,6 +29,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{ScrollView}.
+		ScrollView widget description should be here.
+	*/
 	class MYGUI_EXPORT ScrollView :
 		public Widget,
 		protected ScrollViewBase,

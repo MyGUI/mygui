@@ -46,6 +46,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
+		///@wskin_child{ScrollView, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
 		MyGUI::Widget* realClientOwner = this;
 		if (mClient != nullptr)
@@ -59,12 +60,14 @@ namespace MyGUI
 		mRealClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		setWidgetClient(mRealClient);
 
+		///@wskin_child{ScrollView, ScrollBar, VScroll} Вертикальная полоса прокрутки.
 		assignWidget(mVScroll, "VScroll");
 		if (mVScroll != nullptr)
 		{
 			mVScroll->eventScrollChangePosition += newDelegate(this, &ScrollView::notifyScrollChangePosition);
 		}
 
+		///@wskin_child{ScrollView, ScrollBar, HScroll} Горизонтальная полоса прокрутки.
 		assignWidget(mHScroll, "HScroll");
 		if (mHScroll != nullptr)
 		{
@@ -238,19 +241,28 @@ namespace MyGUI
 
 	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{ScrollView, VisibleVScroll, bool} Видимость вертикальной полосы прокрутки.
 		if (_key == "VisibleVScroll")
 			setVisibleVScroll(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ScrollView, VisibleHScroll, bool} Видимость горизонтальной полосы прокрутки.
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ScrollView, CanvasAlign, Align} Выравнивание содержимого.
 		else if (_key == "CanvasAlign")
 			setCanvasAlign(utility::parseValue<Align>(_value));
+
+		/// @wproperty{ScrollView, CanvasSize, int int} Размер содержимого.
 		else if (_key == "CanvasSize")
 			setCanvasSize(utility::parseValue<IntSize>(_value));
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

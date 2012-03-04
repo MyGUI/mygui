@@ -30,6 +30,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{MultiListItem}.
+		MultiListItem widget description should be here.
+	*/
 	class MYGUI_EXPORT MultiListItem :
 		public TextBox
 	{

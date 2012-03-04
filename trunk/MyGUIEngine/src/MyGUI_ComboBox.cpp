@@ -54,12 +54,14 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
+		///@wskin_child{ComboBox, Button, Button} Кнопка для выпадающего списка.
 		assignWidget(mButton, "Button");
 		if (mButton != nullptr)
 		{
 			mButton->eventMouseButtonPressed += newDelegate(this, &ComboBox::notifyButtonPressed);
 		}
 
+		///@wskin_child{ComboBox, ListBox, List} Выпадающий список.
 		assignWidget(mList, "List");
 
 		if (mList == nullptr)
@@ -450,21 +452,32 @@ namespace MyGUI
 
 	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{ComboBox, ModeDrop, bool} Режим выпадающего списка, в этом режиме значение в поля поменять нельзя.
 		if (_key == "ModeDrop")
 			setComboModeDrop(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ComboBox, FlowDirection, FlowDirection} Направление выпадения списка.
 		else if (_key == "FlowDirection")
 			setFlowDirection(utility::parseValue<FlowDirection>(_value));
+
+		/// @wproperty{ComboBox, MaxListLength, int} Максимальная высота или ширина (зависит от направления) списка в пикселях.
 		else if (_key == "MaxListLength")
 			setMaxListLength(utility::parseValue<int>(_value));
+
+		/// @wproperty{ComboBox, SmoothShow, bool} Плавное раскрытие списка.
 		else if (_key == "SmoothShow")
 			setSmoothShow(utility::parseValue<bool>(_value));
+
+		// не коментировать
 		else if (_key == "AddItem")
 			addItem(_value);
+
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
 			return;
 		}
+
 		eventChangeProperty(this, _key, _value);
 	}
 

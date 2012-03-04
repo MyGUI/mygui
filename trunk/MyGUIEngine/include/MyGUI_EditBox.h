@@ -34,6 +34,9 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<EditBox*> EventHandle_EditPtr;
 
+	/** @wpage{EditBox}.
+		EditBox widget description should be here.
+	*/
 	class MYGUI_EXPORT EditBox :
 		public TextBox,
 		public ScrollViewBase,
