@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource">
+    <Resource type="ResourceLayout" name="ExampleWindowTemplate" version="3.2.0">
+        <Widget type="Widget" skin="ExampleWindowSkin" position="40 40 208 208" name="Root">
+            <Property key="MinSize" value="150 150"/>
+            <Property key="MaxSize" value="400 400"/>
+            <UserString key="LE_TargetWidgetType" value="Window"/>
+            <Widget type="TextBox" skin="TextBox" position="25 20 155 30" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="Default"/>
+                <Property key="TextAlign" value="Center"/>
+                <Property key="TextColour" value="0 0 0"/>
+                <Property key="TextShadow" value="true"/>
+                <Property key="TextShadowColour" value="1 1 1"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="30 63 148 117" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="180 180 20 20" align="Right Bottom" name="ResizeRightBottom">
+                <Property key="Pointer" value="size_left"/>
+            </Widget>
+        </Widget>
+    </Resource>
+</MyGUI>

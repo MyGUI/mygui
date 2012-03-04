@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+    <Resource type="ResourceSkin" name="ExampleWindowSkin" size="208 208" texture="ExampleSkin.png">
+        <BasisSkin type="SubSkin" offset="0 0 40 75" align="Left Top">
+            <State name="normal" offset="7 7 40 75"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="40 0 128 75" align="HStretch Top">
+            <State name="normal" offset="47 7 128 75"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="168 0 40 75" align="Right Top">
+            <State name="normal" offset="175 7 40 75"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="168 75 40 93" align="Right VStretch">
+            <State name="normal" offset="175 82 40 93"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="168 168 40 40" align="Right Bottom">
+            <State name="normal" offset="175 175 40 40"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="40 168 128 40" align="HStretch Bottom">
+            <State name="normal" offset="47 175 128 40"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 168 40 40" align="Left Bottom">
+            <State name="normal" offset="7 175 40 40"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 75 40 93" align="Left VStretch">
+            <State name="normal" offset="7 82 40 93"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="40 75 128 93" align="Stretch">
+            <State name="normal" offset="47 82 128 93"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ExampleWindowButtonSkin" size="26 26" texture="ExampleSkin.png">
+        <BasisSkin type="SubSkin" offset="0 0 26 26" align="Stretch">
+            <State name="normal" offset="224 9 26 26"/>
+            <State name="highlighted" offset="224 39 26 26"/>
+            <State name="pushed" offset="224 68 26 26"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset="5 5 16 16" align="Stretch">
+            <State name="normal" colour="0 0 0" shift="0"/>
+            <State name="highlighted" colour="0 0 0" shift="0"/>
+            <State name="pushed" colour="0 0 0" shift="1"/>
+        </BasisSkin>
+    </Resource>
+</MyGUI>
