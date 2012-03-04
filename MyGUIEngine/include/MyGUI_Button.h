@@ -28,6 +28,9 @@
 namespace MyGUI
 {
 
+	/** @wpage{Button}.
+		Button widget description should be here.
+	*/
 	class MYGUI_EXPORT Button :
 		public TextBox,
 		public MemberObsolete<Button>
