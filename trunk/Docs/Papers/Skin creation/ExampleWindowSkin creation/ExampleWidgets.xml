@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Widgets">
+	<Widget name="Button">
+		<Property key="Skin" value="ExampleWindowButtonTemplate" group="Example"/>
+	</Widget>
+	<Widget name="Window">
+		<Property key="Skin" value="ExampleWindowTemplate" group="Example"/>
+	</Widget>
+</MyGUI>

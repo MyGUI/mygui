@@ -5,7 +5,7 @@
             <Property key="MinSize" value="150 150"/>
             <Property key="MaxSize" value="400 400"/>
             <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="TextBox" skin="TextBox" position="25 20 155 30" align="HStretch Top" name="Caption">
+            <Widget type="TextBox" skin="TextBox" position="25 20 125 30" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
                 <Property key="TextColour" value="0 0 0"/>
@@ -16,6 +16,17 @@
             <Widget type="Widget" skin="PanelEmpty" position="180 180 20 20" align="Right Bottom" name="ResizeRightBottom">
                 <Property key="Pointer" value="size_left"/>
             </Widget>
+            <Widget type="Button" skin="ExampleWindowButtonTemplate" position="157 22 26 26" align="Right Top" name="Button">
+                <UserString key="Event" value="close"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ExampleWindowButtonTemplate" version="3.2.0">
+        <Widget type="Widget" skin="ExampleWindowButtonSkin" position="20 20 26 26" name="Root">
+            <Property key="Caption" value="X"/>
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
 </MyGUI>
