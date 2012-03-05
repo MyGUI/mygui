@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{TextBox}.
+	/** \brief @wpage{TextBox}
 		TextBox widget description should be here.
 	*/
 	class MYGUI_EXPORT TextBox :

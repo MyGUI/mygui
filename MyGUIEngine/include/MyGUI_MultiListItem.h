@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{MultiListItem}.
+	/** \brief @wpage{MultiListItem}
 		MultiListItem widget description should be here.
 	*/
 	class MYGUI_EXPORT MultiListItem :

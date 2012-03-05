@@ -38,7 +38,7 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
 
-	/** @wpage{Widget}.
+	/** \brief @wpage{Widget}
 		Widget widget description should be here.
 	*/
 	class MYGUI_EXPORT Widget :

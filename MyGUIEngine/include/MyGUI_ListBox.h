@@ -34,7 +34,7 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate2<ListBox*, size_t> EventHandle_ListPtrSizeT;
 
-	/** @wpage{ListBox}.
+	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.
 	*/
 	class MYGUI_EXPORT ListBox :

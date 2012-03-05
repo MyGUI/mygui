@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{ProgressBar}.
+	/** \brief @wpage{ProgressBar}
 		ProgressBar widget description should be here.
 	*/
 	class MYGUI_EXPORT ProgressBar :

@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{PopupMenu}.
+	/** \brief @wpage{PopupMenu}
 		PopupMenu widget description should be here.
 	*/
 	class MYGUI_EXPORT PopupMenu :
