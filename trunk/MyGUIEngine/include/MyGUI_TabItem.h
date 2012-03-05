@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{TabItem}.
+	/** \brief @wpage{TabItem}
 		TabItem widget description should be here.
 	*/
 	class MYGUI_EXPORT TabItem :

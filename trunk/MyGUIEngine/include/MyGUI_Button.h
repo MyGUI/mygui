@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{Button}.
+	/** \brief @wpage{Button}
 		Button widget description should be here.
 	*/
 	class MYGUI_EXPORT Button :

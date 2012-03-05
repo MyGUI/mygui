@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{ScrollView}.
+	/** \brief @wpage{ScrollView}
 		ScrollView widget description should be here.
 	*/
 	class MYGUI_EXPORT ScrollView :

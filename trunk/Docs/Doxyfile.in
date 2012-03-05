@@ -35,7 +35,7 @@ INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 4
 ALIASES                = "wproperty{3}=\xrefitem \1_properties \"Properties\" \\"\1 Properties\" \2 is \1 property with type \3.\n" \
-                         "wpage{1}=\xrefitem \1_widget \"skin and template\" \\"\1 skin and template\" \link \1_properties \1 properties.\endlink\n\link \1_skin_childs Skin childs.\endlink" \
+                         "wpage{1}=\link \1_properties \1 properties.\endlink\n\link \1_skin_childs Skin childs.\endlink" \
                          "wskin_child{3}=\xrefitem \1_skin_childs \"skin clilds\" \\"\1 skin clilds\" \3 is child widget with type \2."
 OPTIMIZE_OUTPUT_FOR_C  = YES
 OPTIMIZE_OUTPUT_JAVA   = NO

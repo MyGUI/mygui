@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	/** @wpage{MenuItem}.
+	/** \brief @wpage{MenuItem}
 		MenuItem widget description should be here.
 	*/
 	class MYGUI_EXPORT MenuItem :

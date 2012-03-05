@@ -38,7 +38,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
 	typedef delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData&> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
-	/** @wpage{ItemBox}.
+	/** \brief @wpage{ItemBox}
 		ItemBox widget description should be here.
 	*/
 	class MYGUI_EXPORT ItemBox :
