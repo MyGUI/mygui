@@ -56,6 +56,46 @@
 namespace MyGUI
 {
 
+#ifndef MYGUI_USE_FREETYPE
+	ResourceTrueTypeFont::ResourceTrueTypeFont()
+	{
+	}
+
+	ResourceTrueTypeFont::~ResourceTrueTypeFont()
+	{
+	}
+
+	void ResourceTrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		Base::deserialization(_node, _version);
+		MYGUI_LOG(Error, "ResourceTrueTypeFont: TrueType font '" << getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
+	}
+
+	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
+	{
+		return nullptr;
+	}
+
+	ITexture* ResourceTrueTypeFont::getTextureFont()
+	{
+		return nullptr;
+	}
+
+	int ResourceTrueTypeFont::getDefaultHeight()
+	{
+		return 0;
+	}
+
+	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
+	{
+		return std::vector<std::pair<Char, Char> >();
+	}
+
+	Char ResourceTrueTypeFont::getSubstituteCodePoint() const
+	{
+		return Char();
+	}
+#else // MYGUI_USE_FREETYPE
 	namespace
 	{
 
@@ -295,8 +335,6 @@ namespace MyGUI
 		initialise();
 	}
 
-#ifdef MYGUI_USE_FREETYPE
-
 	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
 		CharMap::const_iterator charIter = mCharMap.find(_id);
@@ -311,15 +349,6 @@ namespace MyGUI
 
 		return mSubstituteGlyphInfo;
 	}
-
-#else
-
-	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
-	{
-		return nullptr;
-	}
-
-#endif // MYGUI_USE_FREETYPE
 
 	ITexture* ResourceTrueTypeFont::getTextureFont()
 	{
@@ -405,12 +434,6 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::initialise()
 	{
-#ifndef MYGUI_USE_FREETYPE
-
-		MYGUI_LOG(Error, "ResourceTrueTypeFont: TrueType font '" << getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
-
-#else // MYGUI_USE_FREETYPE
-
 		// If L8A8 (2 bytes per pixel) is supported, use it; otherwise, use R8G8B8A8 (4 bytes per pixel) as L8L8L8A8.
 		bool laMode = MyGUI::RenderManager::getInstance().isFormatSupported(Pixel<true>::getFormat(), TextureUsage::Static | TextureUsage::Write);
 
@@ -434,11 +457,7 @@ namespace MyGUI
 			ResourceTrueTypeFont::initialiseFreeType<true, true>();
 			break;
 		}
-
-#endif // MYGUI_USE_FREETYPE
 	}
-
-#ifdef MYGUI_USE_FREETYPE
 
 	template<bool LAMode, bool Antialias>
 	void ResourceTrueTypeFont::initialiseFreeType()

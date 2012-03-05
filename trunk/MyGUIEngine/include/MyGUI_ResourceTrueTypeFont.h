@@ -62,6 +62,8 @@ namespace MyGUI
 		// code point is FontCodeType::NotDefined, but it can be customized in the font definition file.
 		Char getSubstituteCodePoint() const;
 
+#ifdef MYGUI_USE_FREETYPE
+
 	private:
 		void addCodePoint(Char _codePoint);
 		void removeCodePoint(Char _codePoint);
@@ -101,8 +103,6 @@ namespace MyGUI
 		static const int mGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.
 		static const float mSelectedWidth; // The width of the "Selected" and "SelectedBack" special characters, in pixels.
 		static const float mCursorWidth; // The width of the "Cursor" special character, in pixels.
-
-#ifdef MYGUI_USE_FREETYPE
 
 	private:
 		// A map of code points to glyph indices.
