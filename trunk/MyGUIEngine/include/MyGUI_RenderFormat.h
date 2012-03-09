@@ -38,22 +38,22 @@ namespace MyGUI
 		};
 
 		VertexColourType(Enum _value = MAX) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator == (VertexColourType const& a, VertexColourType const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (VertexColourType const& a, VertexColourType const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 	struct MYGUI_EXPORT PixelFormat
@@ -68,22 +68,22 @@ namespace MyGUI
 		};
 
 		PixelFormat(Enum _value = Unknow) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator == (PixelFormat const& a, PixelFormat const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (PixelFormat const& a, PixelFormat const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 	struct MYGUI_EXPORT TextureUsage
@@ -100,23 +100,23 @@ namespace MyGUI
 		};
 
 		TextureUsage(Enum _value = Default) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator == (TextureUsage const& a, TextureUsage const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (TextureUsage const& a, TextureUsage const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 		TextureUsage& operator |= (TextureUsage const& _other)
 		{
-			value = Enum(int(value) | int(_other.value));
+			mValue = Enum(int(mValue) | int(_other.mValue));
 			return *this;
 		}
 
@@ -127,16 +127,16 @@ namespace MyGUI
 
 		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b)
 		{
-			return TextureUsage(Enum(int(a.value) | int(b.value)));
+			return TextureUsage(Enum(int(a.mValue) | int(b.mValue)));
 		}
 
 		bool isValue(Enum _value) const
 		{
-			return 0 != (value & _value);
+			return 0 != (mValue & _value);
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI

@@ -40,22 +40,22 @@ namespace MyGUI
 		};
 
 		DDItemState(Enum _value = None) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator == (DDItemState const& a, DDItemState const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (DDItemState const& a, DDItemState const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 	// структура информации об индексах дропа
