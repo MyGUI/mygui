@@ -40,7 +40,7 @@ namespace MyGUI
 		};
 
 		FlowDirection(Enum _value = LeftToRight) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
@@ -54,13 +54,13 @@ namespace MyGUI
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			}
-			type.value = (Enum)value;
+			type.mValue = (Enum)value;
 			return type;
 		}
 
 		bool isHorizontal() const
 		{
-			return value == LeftToRight || value == RightToLeft;
+			return mValue == LeftToRight || mValue == RightToLeft;
 		}
 
 		bool isVertical() const
@@ -70,17 +70,17 @@ namespace MyGUI
 
 		friend bool operator == (FlowDirection const& a, FlowDirection const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (FlowDirection const& a, FlowDirection const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const FlowDirection&  _value )
 		{
-			_stream << _value.getValueName(_value.value);
+			_stream << _value.getValueName(_value.mValue);
 			return _stream;
 		}
 
@@ -94,7 +94,7 @@ namespace MyGUI
 
 		std::string print() const
 		{
-			return getValueName(value);
+			return getValueName(mValue);
 		}
 
 	private:
@@ -105,7 +105,7 @@ namespace MyGUI
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI

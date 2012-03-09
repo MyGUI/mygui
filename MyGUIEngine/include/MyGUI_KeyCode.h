@@ -180,13 +180,13 @@ namespace MyGUI
 		};
 
 		KeyCode(Enum _value = None) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator < (KeyCode const& a, KeyCode const& b)
 		{
-			return (a.value < b.value);
+			return (a.mValue < b.mValue);
 		}
 
 		friend bool operator >= (KeyCode const& a, KeyCode const& b)
@@ -216,11 +216,11 @@ namespace MyGUI
 
 		int toValue() const
 		{
-			return (int)value;
+			return (int)mValue;
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI

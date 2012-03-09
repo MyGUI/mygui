@@ -38,7 +38,7 @@ namespace MyGUI
 		};
 
 		MenuItemType(Enum _value = MAX) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
@@ -53,23 +53,23 @@ namespace MyGUI
 					break;
 				value++;
 			}
-			type.value = Enum(value);
+			type.mValue = Enum(value);
 			return type;
 		}
 
 		friend bool operator == (MenuItemType const& a, MenuItemType const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (MenuItemType const& a, MenuItemType const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 		friend std::ostream& operator << (std::ostream& _stream, const MenuItemType&  _value)
 		{
-			_stream << _value.getValueName(_value.value);
+			_stream << _value.getValueName(_value.mValue);
 			return _stream;
 		}
 
@@ -83,7 +83,7 @@ namespace MyGUI
 
 		std::string print() const
 		{
-			return getValueName(value);
+			return getValueName(mValue);
 		}
 
 	private:
@@ -94,7 +94,7 @@ namespace MyGUI
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI

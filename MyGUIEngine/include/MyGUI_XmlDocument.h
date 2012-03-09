@@ -49,18 +49,18 @@ namespace MyGUI
 				MAX
 			};
 
-			ElementType(Enum _value = MAX) : value(_value) { }
+			ElementType(Enum _value = MAX) : mValue(_value) { }
 			friend bool operator == (ElementType const& a, ElementType const& b)
 			{
-				return a.value == b.value;
+				return a.mValue == b.mValue;
 			}
 			friend bool operator != (ElementType const& a, ElementType const& b)
 			{
-				return a.value != b.value;
+				return a.mValue != b.mValue;
 			}
 
 		private:
-			Enum value;
+			Enum mValue;
 		};
 
 		struct ErrorType
@@ -80,11 +80,11 @@ namespace MyGUI
 				MAX
 			};
 
-			ErrorType(Enum _value = MAX) : value(_value) { }
+			ErrorType(Enum _value = MAX) : mValue(_value) { }
 
 			std::string print() const
 			{
-				return getValueName(value);
+				return getValueName(mValue);
 			}
 
 		private:
@@ -107,7 +107,7 @@ namespace MyGUI
 				return values[(_index < MAX && _index >= 0) ? _index : MAX];
 			}
 		private:
-			Enum value;
+			Enum mValue;
 		};
 
 		class Element;

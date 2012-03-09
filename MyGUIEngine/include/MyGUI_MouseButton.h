@@ -49,27 +49,27 @@ namespace MyGUI
 		};
 
 		MouseButton(Enum _value = None) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		friend bool operator == (MouseButton const& a, MouseButton const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (MouseButton const& a, MouseButton const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
 		int toValue() const
 		{
-			return (int)value;
+			return (int)mValue;
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI
