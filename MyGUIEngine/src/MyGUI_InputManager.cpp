@@ -491,7 +491,7 @@ namespace MyGUI
 		// ручками сбрасываем, чтобы не менять фокусы
 		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
 		{
-			if ((*iter == _widget))
+			if (*iter == _widget)
 			{
 				mVectorModalRootWidget.erase(iter);
 				break;
@@ -520,7 +520,7 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter = mVectorModalRootWidget.begin(); iter != mVectorModalRootWidget.end(); ++iter)
 		{
-			if ((*iter == _widget))
+			if (*iter == _widget)
 			{
 				mVectorModalRootWidget.erase(iter);
 				break;

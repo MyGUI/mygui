@@ -54,13 +54,13 @@ namespace MyGUI
 		};
 
 		MessageBoxStyle(Enum _value = None) :
-			value(_value)
+			mValue(_value)
 		{
 		}
 
 		MessageBoxStyle& operator |= (MessageBoxStyle const& _other)
 		{
-			value = Enum(int(value) | int(_other.value));
+			mValue = Enum(int(mValue) | int(_other.mValue));
 			return *this;
 		}
 
@@ -71,24 +71,24 @@ namespace MyGUI
 
 		MessageBoxStyle operator | (Enum const& a)
 		{
-			return MessageBoxStyle(Enum(int(value) | int(a)));
+			return MessageBoxStyle(Enum(int(mValue) | int(a)));
 		}
 
 		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
-			return a.value == b.value;
+			return a.mValue == b.mValue;
 		}
 
 		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b)
 		{
-			return a.value != b.value;
+			return a.mValue != b.mValue;
 		}
 
-		friend std::ostream& operator << (std::ostream& _stream, const MessageBoxStyle&  _value)
+		/*friend std::ostream& operator << (std::ostream& _stream, const MessageBoxStyle&  _value)
 		{
 			//_stream << _value.print();
 			return _stream;
-		}
+		}*/
 
 		friend std::istream& operator >> (std::istream& _stream, MessageBoxStyle&  _value)
 		{
@@ -102,7 +102,7 @@ namespace MyGUI
 		size_t getIconIndex()
 		{
 			size_t index = 0;
-			int num = value >> _IndexIcon1;
+			int num = mValue >> _IndexIcon1;
 
 			while (num != 0)
 			{
@@ -120,7 +120,7 @@ namespace MyGUI
 		size_t getButtonIndex()
 		{
 			size_t index = 0;
-			int num = value;
+			int num = mValue;
 
 			while (num != 0)
 			{
@@ -140,7 +140,7 @@ namespace MyGUI
 			std::vector<MessageBoxStyle> buttons;
 
 			size_t index = 0;
-			int num = value;
+			int num = mValue;
 			while (index < _IndexIcon1)
 			{
 				if ((num & 1) == 1)
@@ -167,7 +167,7 @@ namespace MyGUI
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
 				if (iter != map_names.end())
 				{
-					result.value = Enum(int(result.value) | int(iter->second));
+					result.mValue = Enum(int(result.mValue) | int(iter->second));
 				}
 				else
 				{
@@ -221,7 +221,7 @@ namespace MyGUI
 		}
 
 	private:
-		Enum value;
+		Enum mValue;
 	};
 
 } // namespace MyGUI

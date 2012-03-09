@@ -28,6 +28,7 @@ namespace attribute
 	template <typename OwnerType, typename SetterType>
 	struct Field
 	{
+		virtual ~Field() { }
 		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
 		virtual const std::string& getFieldTypeName() = 0;
 	};
