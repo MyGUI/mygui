@@ -903,8 +903,10 @@ namespace MyGUI
 		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
-			static_cast<Button*>(mWidgetLines[pos])->getStateSelected() ? count_pressed ++ : 0;
-			static_cast<Button*>(mWidgetLines[pos])->getVisible() ? count_show ++ : 0;
+			if (static_cast<Button*>(mWidgetLines[pos])->getStateSelected())
+				count_pressed ++;
+			if (static_cast<Button*>(mWidgetLines[pos])->getVisible())
+				count_show ++;
 		}
 		//MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
