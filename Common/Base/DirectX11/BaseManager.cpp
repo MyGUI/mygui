@@ -23,7 +23,7 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 	{
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)((LPCREATESTRUCT)lParam)->lpCreateParams);
 		break;
 	}
 
@@ -298,19 +298,19 @@ namespace base
 		if (fullScreen)
 		{
 			style = WS_POPUP | WS_VISIBLE;
-			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
+			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
 			hwndAfter = HWND_TOPMOST;
 		}
 		else
 		{
 			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
+			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
 			hwndAfter = HWND_NOTOPMOST;
 			AdjustWindowRect(&rc, style, false);
 		}
 
-		SetWindowLong(hWnd, GWL_STYLE, style);
-		SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
+		SetWindowLongPtr(hWnd, GWL_STYLE, style);
+		SetWindowLongPtr(hWnd, GWL_EXSTYLE, style_ex);
 
 		int desk_width  = GetSystemMetrics(SM_CXSCREEN);
 		int desk_height = GetSystemMetrics(SM_CYSCREEN);
