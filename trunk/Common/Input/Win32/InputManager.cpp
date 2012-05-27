@@ -181,7 +181,7 @@ namespace input
 			}
 
 			wchar_t wstr[2];
-			/*int num = */MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, mbstr, -1, wstr, _countof(wstr));
+			/*int num = */MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, mbstr, -1, wstr, sizeof(wstr)/sizeof(wstr[0]));
 			text = wstr[0];
 #endif // _UNICODE
 			msInputManager->injectKeyPress(MyGUI::KeyCode::None, (MyGUI::Char)text);
