@@ -178,9 +178,9 @@ endif ()
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-msse)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse")
 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
-		add_definitions(-w)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 	else ()
 		if (MYGUI_RENDERSYSTEM EQUAL 2)
 			# to avoid warnings from OGRE
