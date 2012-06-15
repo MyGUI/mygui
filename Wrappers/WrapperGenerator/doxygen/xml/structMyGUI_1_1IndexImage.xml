@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1IndexImage" kind="struct" prot="public">
     <compoundname>MyGUI::IndexImage</compoundname>
+    <includes local="no">MyGUI_ResourceImageSetData.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1IndexImage_1b28a4d358844b41839882095da399871" prot="public" static="no" mutable="no">
         <type>std::string</type>
@@ -30,7 +31,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1IndexImage_186db74e3a6f3702c67c53d12dfdcac13" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; IntPoint &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &gt;</type>
         <definition>std::vector&lt;IntPoint&gt; MyGUI::IndexImage::frames</definition>
         <argsstring></argsstring>
         <name>frames</name>

@@ -2,12 +2,15 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ResourceSkin" kind="class" prot="public">
     <compoundname>MyGUI::ResourceSkin</compoundname>
+    <basecompoundref refid="classMyGUI_1_1IResource" prot="public" virt="non-virtual">MyGUI::IResource</basecompoundref>
+    <includes local="no">MyGUI_ResourceSkin.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceSkin_1df952f1e228a30d0dd4f6c05d87f31f8" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1ResourceSkin" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::ResourceSkin::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1IResource_1ada23844a4e8e60610df7690c1f5cbb4">Base</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +20,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceSkin_133fad6494cea7e0b23403685c9cf5b72" prot="public" static="no">
-        <type>ResourceSkin</type>
+        <type><ref refid="classMyGUI_1_1ResourceSkin" kindref="compound">ResourceSkin</ref></type>
         <definition>typedef ResourceSkin MyGUI::ResourceSkin::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1IResource_171cd47542ee6b6a12fb7e2a00ba7049c">RTTIBase</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +40,7 @@
         <definition>virtual const std::string&amp; MyGUI::ResourceSkin::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1398b76f149065258902cd44ec368116a">getTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +54,7 @@
         <definition>virtual bool MyGUI::ResourceSkin::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_159505df1ee5ae68b07c93bbd6a780e61">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +79,7 @@
         <definition>bool MyGUI::ResourceSkin::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_16e5d29324eb0e3ef2fce811a282c3b39">isType</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -112,12 +119,13 @@
         <definition>virtual void MyGUI::ResourceSkin::deserialization</definition>
         <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
         <name>deserialization</name>
+        <reimplements refid="classMyGUI_1_1IResource_1dafcd581222d1fc731cc0dd300e437f0">deserialization</reimplements>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -129,7 +137,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="45"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1a57ea1197273802eebc42b5e17790aca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>const IntSize&amp; MyGUI::ResourceSkin::getSize</definition>
         <argsstring>() const </argsstring>
         <name>getSize</name>
@@ -155,7 +163,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="48"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_16f6e84118e1cad832bb47c6284190dc3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const VectorSubWidgetInfo &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_19576404a5ce2d7493e988d191fb335d9" kindref="member">VectorSubWidgetInfo</ref> &amp;</type>
         <definition>const VectorSubWidgetInfo&amp; MyGUI::ResourceSkin::getBasisInfo</definition>
         <argsstring>() const </argsstring>
         <name>getBasisInfo</name>
@@ -168,7 +176,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="49"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_176dff302a1b7781fe5e8f1588993fc23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const MapWidgetStateInfo &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_135df8db919e45ce4660d9401146a63fb" kindref="member">MapWidgetStateInfo</ref> &amp;</type>
         <definition>const MapWidgetStateInfo&amp; MyGUI::ResourceSkin::getStateInfo</definition>
         <argsstring>() const </argsstring>
         <name>getStateInfo</name>
@@ -181,7 +189,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="50"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_135497782252986eb9f5c34d9244d3d82" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const MapString &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref> &amp;</type>
         <definition>const MapString&amp; MyGUI::ResourceSkin::getProperties</definition>
         <argsstring>() const </argsstring>
         <name>getProperties</name>
@@ -194,7 +202,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="51"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1a14102fcbb7bb93d1a4c6092de092b96" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const VectorChildSkinInfo &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_1a205827504ef8dae891b02d93aa8c49c" kindref="member">VectorChildSkinInfo</ref> &amp;</type>
         <definition>const VectorChildSkinInfo&amp; MyGUI::ResourceSkin::getChild</definition>
         <argsstring>() const </argsstring>
         <name>getChild</name>
@@ -226,6 +234,7 @@
         <definition>static const std::string&amp; MyGUI::ResourceSkin::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1c7e2c7031c7e9c854b3d92d8f8a44110">getClassTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -242,7 +251,7 @@
         <argsstring>(const IntSize &amp;_size, const std::string &amp;_texture)</argsstring>
         <name>setInfo</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <param>
@@ -263,7 +272,7 @@
         <argsstring>(const SubWidgetBinding &amp;_bind)</argsstring>
         <name>addInfo</name>
         <param>
-          <type>const SubWidgetBinding &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1SubWidgetBinding" kindref="compound">SubWidgetBinding</ref> &amp;</type>
           <declname>_bind</declname>
         </param>
         <briefdescription>
@@ -301,7 +310,7 @@
         <argsstring>(const ChildSkinInfo &amp;_child)</argsstring>
         <name>addChild</name>
         <param>
-          <type>const ChildSkinInfo &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1ChildSkinInfo" kindref="compound">ChildSkinInfo</ref> &amp;</type>
           <declname>_child</declname>
         </param>
         <briefdescription>
@@ -331,7 +340,7 @@
         <argsstring>(const MapStateInfo &amp;_states)</argsstring>
         <name>checkState</name>
         <param>
-          <type>const MapStateInfo &amp;</type>
+          <type>const <ref refid="namespaceMyGUI_1fc91e37ce88d2aa684b64a4f39c2463e" kindref="member">MapStateInfo</ref> &amp;</type>
           <declname>_states</declname>
         </param>
         <briefdescription>
@@ -378,7 +387,7 @@
         <argsstring>(const MapStateInfo &amp;_states, size_t _index)</argsstring>
         <name>fillState</name>
         <param>
-          <type>const MapStateInfo &amp;</type>
+          <type>const <ref refid="namespaceMyGUI_1fc91e37ce88d2aa684b64a4f39c2463e" kindref="member">MapStateInfo</ref> &amp;</type>
           <declname>_states</declname>
         </param>
         <param>
@@ -396,7 +405,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1f5147a87f54dd2d47ce9e9b27212461f" prot="private" static="no" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::ResourceSkin::mSize</definition>
         <argsstring></argsstring>
         <name>mSize</name>
@@ -422,7 +431,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1f9ce351c15efde310f1f4c633df0db63" prot="private" static="no" mutable="no">
-        <type>VectorSubWidgetInfo</type>
+        <type><ref refid="namespaceMyGUI_19576404a5ce2d7493e988d191fb335d9" kindref="member">VectorSubWidgetInfo</ref></type>
         <definition>VectorSubWidgetInfo MyGUI::ResourceSkin::mBasis</definition>
         <argsstring></argsstring>
         <name>mBasis</name>
@@ -435,7 +444,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_140d25b4591ff41928ca443d58872d5c6" prot="private" static="no" mutable="no">
-        <type>MapWidgetStateInfo</type>
+        <type><ref refid="namespaceMyGUI_135df8db919e45ce4660d9401146a63fb" kindref="member">MapWidgetStateInfo</ref></type>
         <definition>MapWidgetStateInfo MyGUI::ResourceSkin::mStates</definition>
         <argsstring></argsstring>
         <name>mStates</name>
@@ -448,7 +457,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_169dc7aba58e6947a5b9137c6aff721fd" prot="private" static="no" mutable="no">
-        <type>MapString</type>
+        <type><ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref></type>
         <definition>MapString MyGUI::ResourceSkin::mProperties</definition>
         <argsstring></argsstring>
         <name>mProperties</name>
@@ -461,7 +470,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1d11c6904eb49b9876eedad07a344b69b" prot="private" static="no" mutable="no">
-        <type>VectorChildSkinInfo</type>
+        <type><ref refid="namespaceMyGUI_1a205827504ef8dae891b02d93aa8c49c" kindref="member">VectorChildSkinInfo</ref></type>
         <definition>VectorChildSkinInfo MyGUI::ResourceSkin::mChilds</definition>
         <argsstring></argsstring>
         <name>mChilds</name>
@@ -491,12 +500,76 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2253">
+        <label>MyGUI::ResourceSkin</label>
+        <link refid="classMyGUI_1_1ResourceSkin"/>
+        <childnode refid="2254" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2255">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2256" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2254">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2255" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2256">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2262">
+        <label>T</label>
+      </node>
+      <node id="2257">
+        <label>MyGUI::ResourceSkin</label>
+        <link refid="classMyGUI_1_1ResourceSkin"/>
+        <childnode refid="2258" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2261" relation="usage">
+          <edgelabel>mSize</edgelabel>
+        </childnode>
+      </node>
+      <node id="2261">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2262" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="2259">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2260" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2258">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2259" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2260">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="36" bodyend="77"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ResourceSkin_12ae509fb36d9e343eb2eeb62fc526cca" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addChild</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_114cc6826707469158b322a74f8fd45d0" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addInfo</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_180a622f71ab680e103e9474999fb6ab9" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addProperty</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1df952f1e228a30d0dd4f6c05d87f31f8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1de1f7b2927ead2e576a7f651902b751c" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkBasis</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_140a6382aad7f6e3b9a579ddf557f2acc" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkState</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_15896570807a090611f14daadd2fedead" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkState</name></member>
@@ -507,23 +580,32 @@
       <member refid="classMyGUI_1_1ResourceSkin_1a14102fcbb7bb93d1a4c6092de092b96" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getChild</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_177e633696e591327df19ba744071d8e4" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_135497782252986eb9f5c34d9244d3d82" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getProperties</name></member>
+      <member refid="classMyGUI_1_1IResource_145996492b62004e44f42920a833091dd" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getResourceName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1a57ea1197273802eebc42b5e17790aca" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1055d36db48e54dce83efd4f33bc82278" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getSkinName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_176dff302a1b7781fe5e8f1588993fc23" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getStateInfo</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1fcb7e7c17caddc6faa4066f91782ed11" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getTextureName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1c821024ef425aae979b25a481d85acc2" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_143bc5615a14e1b3e5d6d2764f8f22b6d" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_1a3c426dcdcdfc242f226eaabc2fc3500" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>ISerializable</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1c41be393b3db22885197b05deb1412f4" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1537bf459d14f6adf25401414fd51c584" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1f9ce351c15efde310f1f4c633df0db63" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mBasis</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1d11c6904eb49b9876eedad07a344b69b" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mChilds</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_169dc7aba58e6947a5b9137c6aff721fd" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mProperties</name></member>
+      <member refid="classMyGUI_1_1IResource_14f8d4581daedc0acccaccaca7509f57f" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mResourceName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1f5147a87f54dd2d47ce9e9b27212461f" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mSize</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_141bc63f185a98bb2ad63bc27436435cd" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mSkinName</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_140d25b4591ff41928ca443d58872d5c6" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mStates</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1884a44a9c51d86e89a6d4eafb11b8cd4" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mTexture</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_13e74f3f5ff56519249600fa415a97ea7" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>ResourceSkin</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_133fad6494cea7e0b23403685c9cf5b72" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISerializable_188999214d6f7766078861a76976947f0" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>serialization</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_19df57563a2fadca4bc3485bef1134cbb" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>setInfo</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_163ed700bc73e0158e726af4f29aeaedf" prot="protected" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>~IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_176e68dc274e87a9ded1da7e28a379e44" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>~ISerializable</name></member>
       <member refid="classMyGUI_1_1ResourceSkin_1b96cc648a323b91c70cc90b6c48c274b" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>~ResourceSkin</name></member>
     </listofallmembers>
   </compounddef>

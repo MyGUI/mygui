@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; MultiListBox &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1MultiListBox" prot="public" virt="non-virtual">MyGUI::MultiListBox</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -404,6 +406,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1554">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="1553" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1553">
+        <label>MyGUI::MemberObsolete&lt; MultiListBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="245" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="244" bodyend="292"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1f441d1af7c76505595d68d0b468c10f5" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>addColumn</name></member>

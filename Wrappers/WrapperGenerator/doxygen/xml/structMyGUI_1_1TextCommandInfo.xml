@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1TextCommandInfo" kind="struct" prot="public">
     <compoundname>MyGUI::TextCommandInfo</compoundname>
+    <includes local="no">MyGUI_TextChangeHistory.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1TextCommandInfo_137de94130bd76dabf794ea325cc373d5" prot="public" static="no">
         <name>CommandType</name>
@@ -50,7 +51,7 @@
           <declname>_start</declname>
         </param>
         <param>
-          <type>CommandType</type>
+          <type><ref refid="structMyGUI_1_1TextCommandInfo_137de94130bd76dabf794ea325cc373d5" kindref="member">CommandType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
@@ -102,7 +103,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1TextCommandInfo_190d63a0cc5bb41bf1459de0ff84f74d6" prot="public" static="no" mutable="no">
-        <type>CommandType</type>
+        <type><ref refid="structMyGUI_1_1TextCommandInfo_137de94130bd76dabf794ea325cc373d5" kindref="member">CommandType</ref></type>
         <definition>CommandType MyGUI::TextCommandInfo::type</definition>
         <argsstring></argsstring>
         <name>type</name>
@@ -172,13 +173,14 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="660">
+      <node id="2795">
         <label>MyGUI::TextCommandInfo</label>
-        <childnode refid="661" relation="usage">
+        <link refid="structMyGUI_1_1TextCommandInfo"/>
+        <childnode refid="2796" relation="usage">
           <edgelabel>text</edgelabel>
         </childnode>
       </node>
-      <node id="661">
+      <node id="2796">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>

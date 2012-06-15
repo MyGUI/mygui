@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1SubWidgetBinding" kind="class" prot="public">
     <compoundname>MyGUI::SubWidgetBinding</compoundname>
+    <includes local="no">MyGUI_SubWidgetBinding.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1SubWidgetBinding_1506508c451d05e3873ec4db02ae655f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -22,11 +23,11 @@
         <argsstring>(const IntCoord &amp;_coord, Align _aligin, const std::string &amp;_type)</argsstring>
         <name>SubWidgetBinding</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>Align</type>
+          <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
           <declname>_aligin</declname>
         </param>
         <param>
@@ -47,11 +48,11 @@
         <argsstring>(const IntCoord &amp;_coord, Align _aligin, const std::string &amp;_type)</argsstring>
         <name>create</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>Align</type>
+          <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
           <declname>_aligin</declname>
         </param>
         <param>
@@ -89,7 +90,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>IStateInfo *</type>
+          <type><ref refid="classMyGUI_1_1IStateInfo" kindref="compound">IStateInfo</ref> *</type>
           <declname>_data</declname>
         </param>
         <param>
@@ -107,7 +108,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1SubWidgetBinding_117818c1539c8bcc35017764ae73042ec" prot="private" static="no" mutable="no">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>IntCoord MyGUI::SubWidgetBinding::mOffset</definition>
         <argsstring></argsstring>
         <name>mOffset</name>
@@ -120,7 +121,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1SubWidgetBinding_13e80584c72bc2554962e0738456a5f64" prot="private" static="no" mutable="no">
-        <type>Align</type>
+        <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
         <definition>Align MyGUI::SubWidgetBinding::mAlign</definition>
         <argsstring></argsstring>
         <name>mAlign</name>
@@ -146,7 +147,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" line="50" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1SubWidgetBinding_105b459a95f98628e7b98987776010e15" prot="private" static="no" mutable="no">
-        <type>MapStateInfo</type>
+        <type><ref refid="namespaceMyGUI_1fc91e37ce88d2aa684b64a4f39c2463e" kindref="member">MapStateInfo</ref></type>
         <definition>MapStateInfo MyGUI::SubWidgetBinding::mStates</definition>
         <argsstring></argsstring>
         <name>mStates</name>
@@ -178,6 +179,35 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="2594">
+        <label>T</label>
+      </node>
+      <node id="2593">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2594" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2592">
+        <label>MyGUI::SubWidgetBinding</label>
+        <link refid="classMyGUI_1_1SubWidgetBinding"/>
+        <childnode refid="2593" relation="usage">
+          <edgelabel>mOffset</edgelabel>
+        </childnode>
+        <childnode refid="2595" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2595">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetBinding.h" bodystart="32" bodyend="52"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1SubWidgetBinding_1667bc10bd57c72598f50fa6efaa1108d" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetBinding</scope><name>add</name></member>

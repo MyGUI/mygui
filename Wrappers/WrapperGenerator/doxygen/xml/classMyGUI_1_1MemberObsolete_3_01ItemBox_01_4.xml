@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01ItemBox_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; ItemBox &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ItemBox" prot="public" virt="non-virtual">MyGUI::ItemBox</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -58,9 +60,9 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -80,7 +82,7 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -225,6 +227,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1530">
+        <label>MyGUI::MemberObsolete&lt; ItemBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ItemBox_01_4"/>
+      </node>
+      <node id="1531">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="1530" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="129" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="128" bodyend="162"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01ItemBox_01_4_1ac58b207c1033a6de3d22c8439de9070" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ItemBox &gt;</scope><name>clearItemSelected</name></member>

@@ -2,9 +2,12 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ResourceManager" kind="class" prot="public">
     <compoundname>MyGUI::ResourceManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; ResourceManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; ResourceManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_ResourceManager.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceManager_12d370ade39e01ad99109f716a8327ee2" prot="public" static="no">
-        <type>delegates::CDelegate3&lt; xml::ElementPtr, const std::string &amp;, Version &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">delegates::CDelegate3</ref>&lt; <ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref>, const std::string &amp;, <ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref> &gt;</type>
         <definition>typedef delegates::CDelegate3&lt;xml::ElementPtr, const std::string&amp;, Version&gt; MyGUI::ResourceManager::LoadXmlDelegate</definition>
         <argsstring></argsstring>
         <name>LoadXmlDelegate</name>
@@ -17,7 +20,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceManager_14a19954dfa92ff56f375bf498519eb3f" prot="public" static="no">
-        <type>std::map&lt; std::string, IResource * &gt;</type>
+        <type>std::map&lt; std::string, <ref refid="classMyGUI_1_1IResource" kindref="compound">IResource</ref> * &gt;</type>
         <definition>typedef std::map&lt;std::string, IResource*&gt; MyGUI::ResourceManager::MapResource</definition>
         <argsstring></argsstring>
         <name>MapResource</name>
@@ -30,7 +33,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceManager_123bd8d7e4d5334164e52e55ae5bb8fcd" prot="public" static="no">
-        <type>Enumerator&lt; MapResource &gt;</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref>&lt; <ref refid="classMyGUI_1_1ResourceManager_14a19954dfa92ff56f375bf498519eb3f" kindref="member">MapResource</ref> &gt;</type>
         <definition>typedef Enumerator&lt;MapResource&gt; MyGUI::ResourceManager::EnumeratorPtr</definition>
         <argsstring></argsstring>
         <name>EnumeratorPtr</name>
@@ -95,7 +98,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Load additional MyGUI *_resource.xml file </para>        </detaileddescription>
+<para>Load additional <ref refid="namespaceMyGUI" kindref="compound">MyGUI</ref> *_resource.xml file </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="48"/>
@@ -106,7 +109,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>loadFromXmlNode</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -114,7 +117,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -131,7 +134,7 @@
         <argsstring>(IResourcePtr _item)</argsstring>
         <name>addResource</name>
         <param>
-          <type>IResourcePtr</type>
+          <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResourcePtr</ref></type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -148,7 +151,7 @@
         <argsstring>(IResourcePtr _item)</argsstring>
         <name>removeResource</name>
         <param>
-          <type>IResourcePtr</type>
+          <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResourcePtr</ref></type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -160,7 +163,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="56"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceManager_1f02a39deed5d726cd572a6e8b67c0280" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>LoadXmlDelegate &amp;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">LoadXmlDelegate</ref> &amp;</type>
         <definition>LoadXmlDelegate&amp; MyGUI::ResourceManager::registerLoadXmlDelegate</definition>
         <argsstring>(const std::string &amp;_key)</argsstring>
         <name>registerLoadXmlDelegate</name>
@@ -211,7 +214,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="67"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceManager_197c3d926e88ded91139035d95a68a3e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IResource *</type>
+        <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResource</ref> *</type>
         <definition>IResource* MyGUI::ResourceManager::findByName</definition>
         <argsstring>(const std::string &amp;_name) const </argsstring>
         <name>findByName</name>
@@ -228,7 +231,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="70"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceManager_1497bc1aadf9e3ed73aa18d6a4158f40b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IResource *</type>
+        <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResource</ref> *</type>
         <definition>IResource* MyGUI::ResourceManager::getByName</definition>
         <argsstring>(const std::string &amp;_name, bool _throw=true) const </argsstring>
         <name>getByName</name>
@@ -280,7 +283,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="77"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceManager_184dfa61dd9fdb77ba4a4cdf28e5f98a6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>EnumeratorPtr</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorPtr</ref></type>
         <definition>EnumeratorPtr MyGUI::ResourceManager::getEnumerator</definition>
         <argsstring>() const </argsstring>
         <name>getEnumerator</name>
@@ -308,7 +311,7 @@
       </sectiondef>
       <sectiondef kind="private-type">
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceManager_116249548ef593d64c408b24f1c2d29a5" prot="private" static="no">
-        <type>std::map&lt; std::string, LoadXmlDelegate &gt;</type>
+        <type>std::map&lt; std::string, <ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">LoadXmlDelegate</ref> &gt;</type>
         <definition>typedef std::map&lt;std::string, LoadXmlDelegate&gt; MyGUI::ResourceManager::MapLoadXmlDelegate</definition>
         <argsstring></argsstring>
         <name>MapLoadXmlDelegate</name>
@@ -321,7 +324,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceManager_114686516ecd7ea69353f7e1c88102b9d" prot="private" static="no">
-        <type>std::vector&lt; IResource * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1IResource" kindref="compound">IResource</ref> * &gt;</type>
         <definition>typedef std::vector&lt;IResource*&gt; MyGUI::ResourceManager::VectorResource</definition>
         <argsstring></argsstring>
         <name>VectorResource</name>
@@ -341,7 +344,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_loadList</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -349,7 +352,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -405,7 +408,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ResourceManager_19f923ed84881e5a7f788686a62476791" prot="private" static="no" mutable="no">
-        <type>MapResource</type>
+        <type><ref refid="classMyGUI_1_1ResourceManager_14a19954dfa92ff56f375bf498519eb3f" kindref="member">MapResource</ref></type>
         <definition>MapResource MyGUI::ResourceManager::mResources</definition>
         <argsstring></argsstring>
         <name>mResources</name>
@@ -448,17 +451,62 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2220">
+        <label>MyGUI::Singleton&lt; ResourceManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="2221">
+        <label>MyGUI::MemberObsolete&lt; ResourceManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4"/>
+      </node>
+      <node id="2219">
+        <label>MyGUI::ResourceManager</label>
+        <link refid="classMyGUI_1_1ResourceManager"/>
+        <childnode refid="2220" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2221" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2223">
+        <label>MyGUI::Singleton&lt; ResourceManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2222" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="2224">
+        <label>MyGUI::MemberObsolete&lt; ResourceManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4"/>
+      </node>
+      <node id="2222">
+        <label>MyGUI::ResourceManager</label>
+        <link refid="classMyGUI_1_1ResourceManager"/>
+        <childnode refid="2223" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2224" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManager.h" bodystart="36" bodyend="101"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ResourceManager_11d5f859647ed4ea7c0b56841a03f6f92" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>_loadImplement</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1bc7651c93517674da475884031c4e408" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>_loadList</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1fe3e54a9ba4646e1e9e3cbd7c61803b0" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>addResource</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1ResourceManager_176f2e747a608587bfcc7f8a6505a554e" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>clear</name></member>
       <member refid="classMyGUI_1_1ResourceManager_123bd8d7e4d5334164e52e55ae5bb8fcd" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>EnumeratorPtr</name></member>
       <member refid="classMyGUI_1_1ResourceManager_197c3d926e88ded91139035d95a68a3e2" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>findByName</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1497bc1aadf9e3ed73aa18d6a4158f40b" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1f964e7a6dd2753760dcdbee14f7b8164" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getCount</name></member>
       <member refid="classMyGUI_1_1ResourceManager_184dfa61dd9fdb77ba4a4cdf28e5f98a6" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getInstancePtr</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_15fd3fdc4772d9939c30246a62f7dc5c6" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getResource</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_1c88e49359a6a9d9de33b3463524acc37" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>getResourceCount</name></member>
       <member refid="classMyGUI_1_1ResourceManager_11aa5b58120b9ed50b84924055b2d8073" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1273e1d67a78c749755560186a5f16427" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>isExist</name></member>
       <member refid="classMyGUI_1_1ResourceManager_18d1d68d98e6541b175d254dc5363a220" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>load</name></member>
@@ -475,8 +523,10 @@
       <member refid="classMyGUI_1_1ResourceManager_12ecf0ff88928e6f2f2ec9d17b9bc47c8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>removeResource</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1194bc41b0f6969466a0a2913ae13a94a" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>ResourceManager</name></member>
       <member refid="classMyGUI_1_1ResourceManager_1d2f63cf97b0e3198e34c533bc207ebef" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1ResourceManager_18f3f963e9da9b744f5d408c0e286be3c" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>unregisterLoadXmlDelegate</name></member>
       <member refid="classMyGUI_1_1ResourceManager_114686516ecd7ea69353f7e1c88102b9d" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManager</scope><name>VectorResource</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::ResourceManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

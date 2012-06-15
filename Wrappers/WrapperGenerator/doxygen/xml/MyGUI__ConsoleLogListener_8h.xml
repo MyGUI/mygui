@@ -5,42 +5,42 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includes refid="MyGUI__ILogListener_8h" local="yes">MyGUI_ILogListener.h</includes>
     <incdepgraph>
-      <node id="1127">
+      <node id="1153">
         <label>MyGUI_ConsoleLogListener.h</label>
         <link refid="MyGUI_ConsoleLogListener.h"/>
-        <childnode refid="1128" relation="include">
+        <childnode refid="1154" relation="include">
         </childnode>
-        <childnode refid="1131" relation="include">
+        <childnode refid="1157" relation="include">
         </childnode>
       </node>
-      <node id="1129">
+      <node id="1155">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="1132">
+      <node id="1158">
         <label>MyGUI_LogLevel.h</label>
         <link refid="MyGUI__LogLevel_8h"/>
-        <childnode refid="1128" relation="include">
+        <childnode refid="1154" relation="include">
         </childnode>
       </node>
-      <node id="1130">
+      <node id="1156">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="1131">
+      <node id="1157">
         <label>MyGUI_ILogListener.h</label>
         <link refid="MyGUI__ILogListener_8h"/>
-        <childnode refid="1128" relation="include">
+        <childnode refid="1154" relation="include">
         </childnode>
-        <childnode refid="1132" relation="include">
+        <childnode refid="1158" relation="include">
         </childnode>
       </node>
-      <node id="1128">
+      <node id="1154">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="1129" relation="include">
+        <childnode refid="1155" relation="include">
         </childnode>
-        <childnode refid="1130" relation="include">
+        <childnode refid="1156" relation="include">
         </childnode>
       </node>
     </incdepgraph>

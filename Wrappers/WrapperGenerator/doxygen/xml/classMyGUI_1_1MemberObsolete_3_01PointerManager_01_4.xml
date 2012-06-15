@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; PointerManager &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1PointerManager" prot="public" virt="non-virtual">MyGUI::PointerManager</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -83,6 +85,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1560">
+        <label>MyGUI::PointerManager</label>
+        <link refid="classMyGUI_1_1PointerManager"/>
+        <childnode refid="1559" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1559">
+        <label>MyGUI::MemberObsolete&lt; PointerManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="507" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="506" bodyend="519"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1627c27d656d0e26308ed8d6aa3059450" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>hide</name></member>

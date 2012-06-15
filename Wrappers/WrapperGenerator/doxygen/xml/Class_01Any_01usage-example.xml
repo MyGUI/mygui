@@ -16,10 +16,10 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RU:<sp/>создастся<sp/>копия<sp/>класса<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EN:<sp/>copy<sp/>of<sp/>class<sp/>Data<sp/>will<sp/>be<sp/>created</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MyGUI::Any<sp/>any<sp/>=<sp/>data;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classMyGUI_1_1Any" kindref="compound">MyGUI::Any</ref><sp/>any<sp/>=<sp/>data;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RU:<sp/>копия<sp/>класса<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EN:<sp/>copy<sp/>of<sp/>class<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>copy_data<sp/>=<sp/>*any.castType&lt;Data&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>copy_data<sp/>=<sp/>*any.<ref refid="classMyGUI_1_1Any_1f9fa3c6c8655c1d006fe6b59b28a7b00" kindref="member">castType</ref>&lt;Data&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RU:<sp/>теперь<sp/>value<sp/>==<sp/>0xDEAD</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EN:<sp/>now<sp/>value<sp/>==<sp/>0xDEAD</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>copy_data.value;</highlight></codeline>
@@ -30,7 +30,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>any<sp/>=<sp/>&amp;data;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RU:<sp/>копия<sp/>указателя<sp/>на<sp/>класс<sp/>Data<sp/>и<sp/>конкретно<sp/>на<sp/>объект<sp/>data</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EN:<sp/>copy<sp/>of<sp/>pointer<sp/>on<sp/>class<sp/>Data<sp/>and<sp/>on<sp/>object<sp/>data</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data*<sp/>copy_ptr<sp/>=<sp/>*any.castType&lt;Data*&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data*<sp/>copy_ptr<sp/>=<sp/>*any.<ref refid="classMyGUI_1_1Any_1f9fa3c6c8655c1d006fe6b59b28a7b00" kindref="member">castType</ref>&lt;Data*&gt;();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>RU:<sp/>теперь<sp/>data.value<sp/>==<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>EN:<sp/>now<sp/>value<sp/>==<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>copy_ptr-&gt;value<sp/>=<sp/>0;</highlight></codeline>

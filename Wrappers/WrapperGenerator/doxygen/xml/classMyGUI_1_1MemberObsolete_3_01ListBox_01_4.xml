@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01ListBox_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; ListBox &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ListBox" prot="public" virt="non-virtual">MyGUI::ListBox</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -298,6 +300,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1543">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="1542" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>MyGUI::MemberObsolete&lt; ListBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ListBox_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="166" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="165" bodyend="205"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01ListBox_01_4_1dc0806f4c1e237d9b0a2496d8a4d1a2a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ListBox &gt;</scope><name>beginToEnd</name></member>

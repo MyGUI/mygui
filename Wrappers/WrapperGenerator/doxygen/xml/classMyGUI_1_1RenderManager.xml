@@ -2,9 +2,11 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1RenderManager" kind="class" prot="public">
     <compoundname>MyGUI::RenderManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; RenderManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_RenderManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1RenderManager_1f8c21602b058c1706885b70383f61a43" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>IVertexBuffer *</type>
+        <type><ref refid="classMyGUI_1_1IVertexBuffer" kindref="compound">IVertexBuffer</ref> *</type>
         <definition>virtual IVertexBuffer* MyGUI::RenderManager::createVertexBuffer</definition>
         <argsstring>()=0</argsstring>
         <name>createVertexBuffer</name>
@@ -22,7 +24,7 @@
         <argsstring>(IVertexBuffer *_buffer)=0</argsstring>
         <name>destroyVertexBuffer</name>
         <param>
-          <type>IVertexBuffer *</type>
+          <type><ref refid="classMyGUI_1_1IVertexBuffer" kindref="compound">IVertexBuffer</ref> *</type>
           <declname>_buffer</declname>
         </param>
         <briefdescription>
@@ -34,7 +36,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" line="46"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderManager_114988d154c5f8382c0ffd6fcf73d1428" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>virtual ITexture* MyGUI::RenderManager::createTexture</definition>
         <argsstring>(const std::string &amp;_name)=0</argsstring>
         <name>createTexture</name>
@@ -56,7 +58,7 @@
         <argsstring>(ITexture *_texture)=0</argsstring>
         <name>destroyTexture</name>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <briefdescription>
@@ -68,7 +70,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" line="51"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderManager_1aed600a14eb23e6bee26a3808e453302" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>virtual ITexture* MyGUI::RenderManager::getTexture</definition>
         <argsstring>(const std::string &amp;_name)=0</argsstring>
         <name>getTexture</name>
@@ -85,7 +87,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" line="53"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderManager_1780b7c43307ff589c717a001941ea972" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>virtual const IntSize&amp; MyGUI::RenderManager::getViewSize</definition>
         <argsstring>() const =0</argsstring>
         <name>getViewSize</name>
@@ -98,7 +100,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" line="56"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderManager_1e8154746e383c853200738ba3527164e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>VertexColourType</type>
+        <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref></type>
         <definition>virtual VertexColourType MyGUI::RenderManager::getVertexFormat</definition>
         <argsstring>()=0</argsstring>
         <name>getVertexFormat</name>
@@ -116,11 +118,11 @@
         <argsstring>(PixelFormat _format, TextureUsage _usage)</argsstring>
         <name>isFormatSupported</name>
         <param>
-          <type>PixelFormat</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
           <declname>_format</declname>
         </param>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
         </param>
         <briefdescription>
@@ -139,7 +141,7 @@
         <argsstring>(const IntSize &amp;_viewSize)</argsstring>
         <name>onResizeView</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_viewSize</declname>
         </param>
         <briefdescription>
@@ -156,7 +158,7 @@
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>onRenderToTarget</name>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -193,12 +195,43 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2182">
+        <label>MyGUI::Singleton&lt; RenderManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="2181">
+        <label>MyGUI::RenderManager</label>
+        <link refid="classMyGUI_1_1RenderManager"/>
+        <childnode refid="2182" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2184">
+        <label>MyGUI::Singleton&lt; RenderManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2183" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="2183">
+        <label>MyGUI::RenderManager</label>
+        <link refid="classMyGUI_1_1RenderManager"/>
+        <childnode refid="2184" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderManager.h" bodystart="35" bodyend="73"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::RenderManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1RenderManager_114988d154c5f8382c0ffd6fcf73d1428" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>createTexture</name></member>
       <member refid="classMyGUI_1_1RenderManager_1f8c21602b058c1706885b70383f61a43" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>createVertexBuffer</name></member>
       <member refid="classMyGUI_1_1RenderManager_1a7a7360908ba3764140933b92e3d0e53" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>destroyTexture</name></member>
       <member refid="classMyGUI_1_1RenderManager_18f06c2cc2cdb44f535544961029c94be" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>destroyVertexBuffer</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::RenderManager</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::RenderManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::RenderManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1RenderManager_1aed600a14eb23e6bee26a3808e453302" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>getTexture</name></member>
       <member refid="classMyGUI_1_1RenderManager_1e8154746e383c853200738ba3527164e" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>getVertexFormat</name></member>
       <member refid="classMyGUI_1_1RenderManager_1780b7c43307ff589c717a001941ea972" prot="public" virt="pure-virtual"><scope>MyGUI::RenderManager</scope><name>getViewSize</name></member>
@@ -206,6 +239,8 @@
       <member refid="classMyGUI_1_1RenderManager_16e4e9466a2e07c157978c3ca0d39a613" prot="protected" virt="virtual"><scope>MyGUI::RenderManager</scope><name>onFrameEvent</name></member>
       <member refid="classMyGUI_1_1RenderManager_1c214855fd03a42897a365cdb3469f898" prot="protected" virt="virtual"><scope>MyGUI::RenderManager</scope><name>onRenderToTarget</name></member>
       <member refid="classMyGUI_1_1RenderManager_1538ee6d1d5ac68904c821edaf964114e" prot="protected" virt="virtual"><scope>MyGUI::RenderManager</scope><name>onResizeView</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::RenderManager</scope><name>Singleton</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::RenderManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

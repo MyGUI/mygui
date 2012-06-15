@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1Any_1_1AnyEmpty" kind="struct" prot="public">
     <compoundname>MyGUI::Any::AnyEmpty</compoundname>
+    <includes local="no">MyGUI_Any.h</includes>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

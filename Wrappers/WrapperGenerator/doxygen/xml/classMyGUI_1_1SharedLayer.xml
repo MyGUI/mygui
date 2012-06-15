@@ -2,12 +2,15 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1SharedLayer" kind="class" prot="public">
     <compoundname>MyGUI::SharedLayer</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ILayer" prot="public" virt="non-virtual">MyGUI::ILayer</basecompoundref>
+    <includes local="no">MyGUI_SharedLayer.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1SharedLayer_19b2480e754c0b79253d92d6e00e9862c" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1SharedLayer" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::SharedLayer::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1f361b0864c06146753c5b541dc379123">Base</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +20,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1SharedLayer_1fce49cb89d2b99f80edb9da9fea096ca" prot="public" static="no">
-        <type>SharedLayer</type>
+        <type><ref refid="classMyGUI_1_1SharedLayer" kindref="compound">SharedLayer</ref></type>
         <definition>typedef SharedLayer MyGUI::SharedLayer::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ILayer_12fe6e781b2062b36a89ddd99e38f2ece">RTTIBase</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +40,7 @@
         <definition>virtual const std::string&amp; MyGUI::SharedLayer::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1bf7b99ae4153af60bb7b9390abfbdbfc">getTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +54,7 @@
         <definition>virtual bool MyGUI::SharedLayer::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1c5cf48369f44c9aad9f0637ddb7c63b4">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +79,7 @@
         <definition>bool MyGUI::SharedLayer::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayer_171cc1c6380054bded0183db93ea6e4c6">isType</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -112,12 +119,13 @@
         <definition>virtual void MyGUI::SharedLayer::deserialization</definition>
         <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
         <name>deserialization</name>
+        <reimplements refid="classMyGUI_1_1ISerializable_1c77c7add97bcdd9377b2a2924b418c4f">deserialization</reimplements>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -129,10 +137,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="42"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SharedLayer_1a9305f06c19317dfcfd48211d8e1d63c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>virtual ILayerNode* MyGUI::SharedLayer::createChildItemNode</definition>
         <argsstring>()</argsstring>
         <name>createChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_177eaf78e10d24279924becde71796162">createChildItemNode</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -146,8 +155,9 @@
         <definition>virtual void MyGUI::SharedLayer::destroyChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>destroyChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1c4fcabfa993b5a37e2090f73a528244e">destroyChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -163,8 +173,9 @@
         <definition>virtual void MyGUI::SharedLayer::upChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>upChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_14c60cfa525cff44620878134bac93a55">upChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -176,10 +187,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="50"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SharedLayer_1ac294e37fcd8094a1ac65dcd59cd43bc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>EnumeratorILayerNode</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorILayerNode</ref></type>
         <definition>virtual EnumeratorILayerNode MyGUI::SharedLayer::getEnumerator</definition>
         <argsstring>() const </argsstring>
         <name>getEnumerator</name>
+        <reimplements refid="classMyGUI_1_1ILayer_14c23aa71b094a34e6bbbbcb1656a4054">getEnumerator</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -189,10 +201,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="53"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SharedLayer_1f7a26087acebdc100b36bad343e777db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>ILayerItem *</type>
+        <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
         <definition>virtual ILayerItem* MyGUI::SharedLayer::getLayerItemByPoint</definition>
         <argsstring>(int _left, int _top) const </argsstring>
         <name>getLayerItemByPoint</name>
+        <reimplements refid="classMyGUI_1_1ILayer_117ead62c1afe484d5a3707ffe6066f49">getLayerItemByPoint</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -210,10 +223,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="56"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SharedLayer_154920e618ca4fb949d27eb9aa69186f7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>virtual IntPoint MyGUI::SharedLayer::getPosition</definition>
         <argsstring>(int _left, int _top) const </argsstring>
         <name>getPosition</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1025c7c0f65fa8bc441aabb497bf9ffb2">getPosition</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -231,10 +245,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="58"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SharedLayer_14feaae2a41c57a019843d72706a9df81" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>virtual const IntSize&amp; MyGUI::SharedLayer::getSize</definition>
         <argsstring>() const </argsstring>
         <name>getSize</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1af1d39f405588c15eb005eace7933e8a">getSize</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -248,8 +263,9 @@
         <definition>virtual void MyGUI::SharedLayer::renderToTarget</definition>
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>renderToTarget</name>
+        <reimplements refid="classMyGUI_1_1ILayer_10ae2996e150afd75a7af9a3794fd50eb">renderToTarget</reimplements>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -269,8 +285,9 @@
         <definition>virtual void MyGUI::SharedLayer::resizeView</definition>
         <argsstring>(const IntSize &amp;_viewSize)</argsstring>
         <name>resizeView</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1eb4fb679d0e81bdca055221e17744ae6">resizeView</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_viewSize</declname>
         </param>
         <briefdescription>
@@ -301,6 +318,7 @@
         <definition>static const std::string&amp; MyGUI::SharedLayer::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayer_10a8c78c066753b269f3ae2b651a08686">getClassTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -325,7 +343,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1SharedLayer_123d01fc047ac83134b55c30c339f4a22" prot="protected" static="no" mutable="no">
-        <type>SharedLayerNode *</type>
+        <type><ref refid="classMyGUI_1_1SharedLayerNode" kindref="compound">SharedLayerNode</ref> *</type>
         <definition>SharedLayerNode* MyGUI::SharedLayer::mChildItem</definition>
         <argsstring></argsstring>
         <name>mChildItem</name>
@@ -351,7 +369,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1SharedLayer_1193f4eebe329827a08ce1fe3b497424a" prot="protected" static="no" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::SharedLayer::mViewSize</definition>
         <argsstring></argsstring>
         <name>mViewSize</name>
@@ -368,30 +386,130 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2452">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="2453" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2451">
+        <label>MyGUI::SharedLayer</label>
+        <link refid="classMyGUI_1_1SharedLayer"/>
+        <childnode refid="2452" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2453">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2454" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2454">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2463">
+        <label>T</label>
+      </node>
+      <node id="2456">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="2457" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2459">
+        <label>MyGUI::SharedLayerNode</label>
+        <link refid="classMyGUI_1_1SharedLayerNode"/>
+        <childnode refid="2460" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2461">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2458" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2460">
+        <label>MyGUI::LayerNode</label>
+        <link refid="classMyGUI_1_1LayerNode"/>
+        <childnode refid="2461" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2456" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="2461" relation="usage">
+          <edgelabel>mParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2462">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2463" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="2455">
+        <label>MyGUI::SharedLayer</label>
+        <link refid="classMyGUI_1_1SharedLayer"/>
+        <childnode refid="2456" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2459" relation="usage">
+          <edgelabel>mChildItem</edgelabel>
+        </childnode>
+        <childnode refid="2462" relation="usage">
+          <edgelabel>mViewSize</edgelabel>
+        </childnode>
+      </node>
+      <node id="2457">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2458" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2458">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayer.h" bodystart="33" bodyend="74"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1SharedLayer_19b2480e754c0b79253d92d6e00e9862c" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1a9305f06c19317dfcfd48211d8e1d63c" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>createChildItemNode</name></member>
       <member refid="classMyGUI_1_1SharedLayer_17ecac2efab462830da14b267584c320c" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>deserialization</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1f9d5c4b421f734d555f8b4d7fda4da24" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>destroyChildItemNode</name></member>
       <member refid="classMyGUI_1_1SharedLayer_12f3ce6dfe1121d1de2d18ef64f1769d2" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1ac294e37fcd8094a1ac65dcd59cd43bc" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>getEnumerator</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1f7a26087acebdc100b36bad343e777db" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1ILayer_1620bcecba5db2be2e0ff24cca9e44a10" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>getName</name></member>
       <member refid="classMyGUI_1_1SharedLayer_154920e618ca4fb949d27eb9aa69186f7" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>getPosition</name></member>
       <member refid="classMyGUI_1_1SharedLayer_14feaae2a41c57a019843d72706a9df81" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1b8576b9fb89f1d2a307084414d5634dd" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ILayer_13fe91caaafc4b41ee1b9551013744423" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>ILayer</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1ISerializable_1a3c426dcdcdfc242f226eaabc2fc3500" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>ISerializable</name></member>
       <member refid="classMyGUI_1_1SharedLayer_18f51ac3f86e88689882a4aa44870452f" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>isOutOfDate</name></member>
       <member refid="classMyGUI_1_1SharedLayer_15da7b94593f76bfe35efb9d7353f35a2" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1SharedLayer_161d87b334499c345f7b5cf291a2453de" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1SharedLayer_123d01fc047ac83134b55c30c339f4a22" prot="protected" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>mChildItem</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1e3471737148e6ac3756c1ee66f339261" prot="protected" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>mIsPick</name></member>
+      <member refid="classMyGUI_1_1ILayer_1d5091af899cf8812d48a48479a92bd7d" prot="protected" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>mName</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1d10502190ffc7b6f1fc40f584692cdf9" prot="protected" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>mOutOfDate</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1193f4eebe329827a08ce1fe3b497424a" prot="protected" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>mViewSize</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1be472715936e9acbed3c9b593e6cb116" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>renderToTarget</name></member>
       <member refid="classMyGUI_1_1SharedLayer_14654a1873ae9c1929ddce7d08344f233" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>resizeView</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1fce49cb89d2b99f80edb9da9fea096ca" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISerializable_188999214d6f7766078861a76976947f0" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>serialization</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1f9745ac4d45c9aedd38d92b09630f82c" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayer</scope><name>SharedLayer</name></member>
       <member refid="classMyGUI_1_1SharedLayer_148b6e5c19777536553e571ee115c3680" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>upChildItemNode</name></member>
+      <member refid="classMyGUI_1_1ILayer_191f4763570188f46475a99ee94121fec" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>~ILayer</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1ISerializable_176e68dc274e87a9ded1da7e28a379e44" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>~ISerializable</name></member>
       <member refid="classMyGUI_1_1SharedLayer_1c0f82b3820e5248c6e9714f26e1ea212" prot="public" virt="virtual"><scope>MyGUI::SharedLayer</scope><name>~SharedLayer</name></member>
     </listofallmembers>
   </compounddef>

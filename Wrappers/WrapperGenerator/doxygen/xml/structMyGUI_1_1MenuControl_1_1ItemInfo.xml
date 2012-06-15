@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1MenuControl_1_1ItemInfo" kind="struct" prot="public">
     <compoundname>MyGUI::MenuControl::ItemInfo</compoundname>
+    <includes local="no">MyGUI_MenuControl.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1MenuControl_1_1ItemInfo_1f8e25516870de313409a04664bc5a67a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -17,7 +18,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <param>
@@ -29,7 +30,7 @@
           <declname>_id</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -69,7 +70,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1MenuControl_1_1ItemInfo_18f5f30aa74e5949df5f570e78bf35580" prot="public" static="no" mutable="no">
-        <type>MenuItemType</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
         <definition>MenuItemType MyGUI::MenuControl::ItemInfo::type</definition>
         <argsstring></argsstring>
         <name>type</name>
@@ -108,7 +109,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1MenuControl_1_1ItemInfo_1fbb76f60815743a93934cd7f32507914" prot="public" static="no" mutable="no">
-        <type>Any</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
         <definition>Any MyGUI::MenuControl::ItemInfo::data</definition>
         <argsstring></argsstring>
         <name>data</name>
@@ -139,81 +140,410 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="465">
+      <node id="1747">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="1762">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="1736">
+        <label>T</label>
+      </node>
+      <node id="1754">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1755" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1737">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="1736" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1750">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="1751" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1753" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1757" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="1760" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="1728">
         <label>MyGUI::MenuControl::ItemInfo</label>
-        <childnode refid="466" relation="usage">
+        <link refid="structMyGUI_1_1MenuControl_1_1ItemInfo"/>
+        <childnode refid="1729" relation="usage">
           <edgelabel>item</edgelabel>
         </childnode>
-        <childnode refid="472" relation="usage">
+        <childnode refid="1740" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+        <childnode refid="1773" relation="usage">
+          <edgelabel>type</edgelabel>
+        </childnode>
+        <childnode refid="1770" relation="usage">
           <edgelabel>submenu</edgelabel>
         </childnode>
-        <childnode refid="473" relation="usage">
+        <childnode refid="1774" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
       </node>
-      <node id="468">
+      <node id="1752">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="1743">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="1753">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="1744">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="1746">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="1734">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="1735" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="1737" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="1738" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="1734" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="1738">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="1736" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1756">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="1733" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1768">
+        <label>MyGUI::IItem</label>
+        <link refid="classMyGUI_1_1IItem"/>
+      </node>
+      <node id="1731">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="469" relation="public-inheritance">
+        <childnode refid="1732" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="472">
+      <node id="1769">
+        <label>MyGUI::MemberObsolete&lt; MenuItem &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4"/>
+      </node>
+      <node id="1761">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="1770">
         <label>MyGUI::MenuControl</label>
         <link refid="classMyGUI_1_1MenuControl"/>
-        <childnode refid="469" relation="public-inheritance">
+        <childnode refid="1732" relation="public-inheritance">
         </childnode>
-        <childnode refid="466" relation="usage">
+        <childnode refid="1771" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1772" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1729" relation="usage">
           <edgelabel>mOwner</edgelabel>
         </childnode>
-        <childnode refid="469" relation="usage">
+        <childnode refid="1732" relation="usage">
           <edgelabel>mClient</edgelabel>
         </childnode>
+        <childnode refid="1747" relation="usage">
+          <edgelabel>eventMenuCtrlClose</edgelabel>
+        </childnode>
+        <childnode refid="1748" relation="usage">
+          <edgelabel>eventMenuCtrlAccept</edgelabel>
+        </childnode>
       </node>
-      <node id="471">
+      <node id="1772">
+        <label>MyGUI::MemberObsolete&lt; MenuControl &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4"/>
+      </node>
+      <node id="1748">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="1764">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="469" relation="public-inheritance">
+        <childnode refid="1732" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1765" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="1738" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="1766" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="470">
+      <node id="1766">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="1767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1739">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="1740" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="469">
+      <node id="1765">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="1736" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="1760">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="1758" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1732">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="470" relation="public-inheritance">
+        <childnode refid="1733" relation="public-inheritance">
         </childnode>
-        <childnode refid="469" relation="usage">
+        <childnode refid="1734" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1739" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1742" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1749" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1750" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1761" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1743" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="1762" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="1732" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="1759" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="467">
+      <node id="1759">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="1773">
+        <label>MyGUI::MenuItemType</label>
+        <link refid="structMyGUI_1_1MenuItemType"/>
+      </node>
+      <node id="1757">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="1758" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1763">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="1755">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1733" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1758">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="1734" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1733" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1759" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="1749">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="1749" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="1730">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="468" relation="public-inheritance">
+        <childnode refid="1731" relation="public-inheritance">
         </childnode>
-        <childnode refid="471" relation="usage">
+        <childnode refid="1763" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1764" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
       </node>
-      <node id="473">
+      <node id="1745">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="1743" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="1744" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="1774">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="466">
+      <node id="1742">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="1743" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="1744" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="1745" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="1746" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="1747" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="1748" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="1729">
         <label>MyGUI::MenuItem</label>
         <link refid="classMyGUI_1_1MenuItem"/>
-        <childnode refid="467" relation="public-inheritance">
+        <childnode refid="1730" relation="public-inheritance">
         </childnode>
-        <childnode refid="469" relation="usage">
+        <childnode refid="1768" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1769" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1765" relation="usage">
+          <edgelabel>mMinSize</edgelabel>
+        </childnode>
+        <childnode refid="1732" relation="usage">
           <edgelabel>mCheck</edgelabel>
         </childnode>
-        <childnode refid="472" relation="usage">
+        <childnode refid="1770" relation="usage">
           <edgelabel>mOwner</edgelabel>
         </childnode>
+      </node>
+      <node id="1741">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="1751">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="1752" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1753" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1754" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="1756" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="1767">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="1755" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1735">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="1736" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1740">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="1741" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="1771">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+      <node id="1733">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="55" bodyend="82"/>

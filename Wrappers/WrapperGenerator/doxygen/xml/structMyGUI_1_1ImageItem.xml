@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1ImageItem" kind="struct" prot="public">
     <compoundname>MyGUI::ImageItem</compoundname>
+    <includes local="no">MyGUI_ImageInfo.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1ImageItem_14a9242652e0ca117c5b5e22001eb2f2a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -32,7 +33,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1ImageItem_175972e5a0588067fe8e45420905ba4ae" prot="public" static="no" mutable="no">
-        <type>std::vector&lt; FloatRect &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref> &gt;</type>
         <definition>std::vector&lt;FloatRect&gt; MyGUI::ImageItem::images</definition>
         <argsstring></argsstring>
         <name>images</name>

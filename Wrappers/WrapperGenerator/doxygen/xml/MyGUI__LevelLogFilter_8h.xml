@@ -5,42 +5,42 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includes refid="MyGUI__ILogFilter_8h" local="yes">MyGUI_ILogFilter.h</includes>
     <incdepgraph>
-      <node id="5293">
+      <node id="5406">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="5296">
+      <node id="5409">
         <label>MyGUI_LogLevel.h</label>
         <link refid="MyGUI__LogLevel_8h"/>
-        <childnode refid="5292" relation="include">
+        <childnode refid="5405" relation="include">
         </childnode>
       </node>
-      <node id="5294">
+      <node id="5407">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="5291">
+      <node id="5404">
         <label>MyGUI_LevelLogFilter.h</label>
         <link refid="MyGUI_LevelLogFilter.h"/>
-        <childnode refid="5292" relation="include">
+        <childnode refid="5405" relation="include">
         </childnode>
-        <childnode refid="5295" relation="include">
+        <childnode refid="5408" relation="include">
         </childnode>
       </node>
-      <node id="5295">
+      <node id="5408">
         <label>MyGUI_ILogFilter.h</label>
         <link refid="MyGUI__ILogFilter_8h"/>
-        <childnode refid="5292" relation="include">
+        <childnode refid="5405" relation="include">
         </childnode>
-        <childnode refid="5296" relation="include">
+        <childnode refid="5409" relation="include">
         </childnode>
       </node>
-      <node id="5292">
+      <node id="5405">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="5293" relation="include">
+        <childnode refid="5406" relation="include">
         </childnode>
-        <childnode refid="5294" relation="include">
+        <childnode refid="5407" relation="include">
         </childnode>
       </node>
     </incdepgraph>

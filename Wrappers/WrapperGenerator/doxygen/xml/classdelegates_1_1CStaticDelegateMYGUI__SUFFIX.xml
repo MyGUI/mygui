@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classdelegates_1_1CStaticDelegateMYGUI__SUFFIX" kind="class" prot="public">
     <compoundname>delegates::CStaticDelegateMYGUI_SUFFIX</compoundname>
+    <includes local="no">MyGUI_DelegateImplement.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classdelegates_1_1CStaticDelegateMYGUI__SUFFIX_18fa26353e4fe88a46afdae7227d41b9b" prot="public" static="no">
         <type>void(*</type>
@@ -24,7 +25,7 @@
         <argsstring>(Func _func)</argsstring>
         <name>CStaticDelegateMYGUI_SUFFIX</name>
         <param>
-          <type>Func</type>
+          <type><ref refid="classdelegates_1_1CStaticDelegateMYGUI__SUFFIX_18fa26353e4fe88a46afdae7227d41b9b" kindref="member">Func</ref></type>
           <declname>_func</declname>
         </param>
         <briefdescription>
@@ -74,7 +75,7 @@
         <argsstring>(IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *_delegate) const </argsstring>
         <name>compare</name>
         <param>
-          <type>IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *</type>
+          <type><ref refid="classdelegates_1_1IDelegateMYGUI__SUFFIX" kindref="compound">IDelegateMYGUI_SUFFIX</ref> MYGUI_TEMPLATE_ARGS *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>
@@ -105,7 +106,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classdelegates_1_1CStaticDelegateMYGUI__SUFFIX_1b00f358bcc2183b9902c701737021910" prot="private" static="no" mutable="no">
-        <type>Func</type>
+        <type><ref refid="classdelegates_1_1CStaticDelegateMYGUI__SUFFIX_18fa26353e4fe88a46afdae7227d41b9b" kindref="member">Func</ref></type>
         <definition>Func delegates::CStaticDelegateMYGUI_SUFFIX::mFunc</definition>
         <argsstring></argsstring>
         <name>mFunc</name>

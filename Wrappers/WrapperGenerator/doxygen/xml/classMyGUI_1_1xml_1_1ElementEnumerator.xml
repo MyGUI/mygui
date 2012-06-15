@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1xml_1_1ElementEnumerator" kind="class" prot="public">
     <compoundname>MyGUI::xml::ElementEnumerator</compoundname>
+    <includes local="no">MyGUI_XmlDocument.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1271e932aa8d7035128ac06f82777945e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -34,7 +35,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="133"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1cd3c7f00bf6b20142d00610797902ce6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::ElementEnumerator::operator-&gt;</definition>
         <argsstring>() const </argsstring>
         <name>operator-&gt;</name>
@@ -47,7 +48,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="135"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1b5eed696a28683b7653843dae432a645" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::ElementEnumerator::current</definition>
         <argsstring>()</argsstring>
         <name>current</name>
@@ -90,7 +91,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="148" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="147" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_17354c064720e2646790a456d37599a20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::ElementEnumerator::currentNode</definition>
         <argsstring>()</argsstring>
         <name>currentNode</name>

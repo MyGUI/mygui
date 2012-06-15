@@ -5,44 +5,44 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI__InputManager_8h" local="yes">MyGUI_InputManager.h</includedby>
     <incdepgraph>
-      <node id="9999">
+      <node id="10268">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="10000">
+      <node id="10269">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="9997">
+      <node id="10266">
         <label>MyGUI_Timer.h</label>
         <link refid="MyGUI_Timer.h"/>
-        <childnode refid="9998" relation="include">
+        <childnode refid="10267" relation="include">
         </childnode>
       </node>
-      <node id="9998">
+      <node id="10267">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="9999" relation="include">
+        <childnode refid="10268" relation="include">
         </childnode>
-        <childnode refid="10000" relation="include">
+        <childnode refid="10269" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="10002">
+      <node id="10271">
         <label>MyGUI_InputManager.h</label>
         <link refid="MyGUI__InputManager_8h"/>
-        <childnode refid="10003" relation="include">
+        <childnode refid="10272" relation="include">
         </childnode>
       </node>
-      <node id="10003">
+      <node id="10272">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="10001">
+      <node id="10270">
         <label>MyGUI_Timer.h</label>
         <link refid="MyGUI_Timer.h"/>
-        <childnode refid="10002" relation="include">
+        <childnode refid="10271" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

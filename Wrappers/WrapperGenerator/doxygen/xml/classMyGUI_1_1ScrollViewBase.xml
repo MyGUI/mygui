@@ -2,6 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ScrollViewBase" kind="class" prot="public">
     <compoundname>MyGUI::ScrollViewBase</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1EditBox" prot="public" virt="non-virtual">MyGUI::EditBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ItemBox" prot="protected" virt="non-virtual">MyGUI::ItemBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ScrollView" prot="protected" virt="non-virtual">MyGUI::ScrollView</derivedcompoundref>
+    <includes local="no">MyGUI_ScrollViewBase.h</includes>
       <sectiondef kind="protected-func">
       <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1d08d94f3759c40f296a57c16f4c199d8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -56,10 +60,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="38"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1fd5fe302ad76f0210dbf8ae0907e2730" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>virtual IntSize MyGUI::ScrollViewBase::getContentSize</definition>
         <argsstring>()</argsstring>
         <name>getContentSize</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1a8e00b3479f7e064faa8adfa1f9f2875">getContentSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1d8e2bf7c269945fda33de0b8206c8844">getContentSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_163312b668ccdf0f21c04ca8d3669b73e">getContentSize</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -69,10 +76,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="41"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_17d4078b27ac2fab107a66106937cffc3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>virtual IntPoint MyGUI::ScrollViewBase::getContentPosition</definition>
         <argsstring>()</argsstring>
         <name>getContentPosition</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1b4c7b6cd485c4346426599bbc7a0c727">getContentPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_150fc32c1eccc8dc0e033e729ee2d9908">getContentPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_193c529e2e111806dbf6b99c2446d05e1">getContentPosition</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -86,8 +96,11 @@
         <definition>virtual void MyGUI::ScrollViewBase::setContentPosition</definition>
         <argsstring>(const IntPoint &amp;_value)</argsstring>
         <name>setContentPosition</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1e9639125c89f1c3792ba94c0b4918602">setContentPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_16ca6e869e076fa8c6793631271d83200">setContentPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1b5985f9e9f425c805c1aaf384356e386">setContentPosition</reimplementedby>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -99,10 +112,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="45"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1f39b6d3121aef6d5dc73abcf819227fb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>virtual IntSize MyGUI::ScrollViewBase::getViewSize</definition>
         <argsstring>()</argsstring>
         <name>getViewSize</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_179d7547c8054118a47079be14c35a5dd">getViewSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1b70d42c2a4841a637740e8269757b0b8">getViewSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_11498c32fc2967c2a5c5b63650b4f5d2f">getViewSize</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -116,6 +132,9 @@
         <definition>virtual size_t MyGUI::ScrollViewBase::getHScrollPage</definition>
         <argsstring>()</argsstring>
         <name>getHScrollPage</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_151995c1ecfdc8cb2f227362a7227d0f4">getHScrollPage</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1625bbd64dfcd92ff22cd999c573ab40b">getHScrollPage</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1918f8919109b5f10d5df934fb8954bc9">getHScrollPage</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -129,6 +148,9 @@
         <definition>virtual size_t MyGUI::ScrollViewBase::getVScrollPage</definition>
         <argsstring>()</argsstring>
         <name>getVScrollPage</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_15121f03d29cce8c113c2534d11981c17">getVScrollPage</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_13b073a60c2ae40b915cc0bc31eb0c8a9">getVScrollPage</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1b6ec0c641e8f856977959707b62be2e0">getVScrollPage</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -138,10 +160,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="52"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_10b4db88d7076e0940a9a085d9e9a25db" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>Align</type>
+        <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
         <definition>virtual Align MyGUI::ScrollViewBase::getContentAlign</definition>
         <argsstring>()</argsstring>
         <name>getContentAlign</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1a93066fc00f37ff9b5012814b62d387d">getContentAlign</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1b9a498ba9b0776a2ae32b812f50f2392">getContentAlign</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_197684f620a92b88e9e2f936cb59793e8">getContentAlign</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -155,6 +180,7 @@
         <definition>virtual void MyGUI::ScrollViewBase::eraseContent</definition>
         <argsstring>()</argsstring>
         <name>eraseContent</name>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1e6cc5af57d9eeeda524ae79c6e923f5b">eraseContent</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -274,67 +300,395 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2407">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="2406" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2406">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="2405" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2409">
+        <label>MyGUI::ScrollView</label>
+        <link refid="classMyGUI_1_1ScrollView"/>
+        <childnode refid="2405" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="2408">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="2405" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="2405">
+        <label>MyGUI::ScrollViewBase</label>
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+      </node>
+    </inheritancegraph>
     <collaborationgraph>
-      <node id="594">
+      <node id="2427">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="2442">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="2416">
+        <label>T</label>
+      </node>
+      <node id="2434">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="2435" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2443">
+        <label>MyGUI::MemberObsolete&lt; ScrollBar &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete"/>
+      </node>
+      <node id="2417">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2416" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2430">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="2431" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2433" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2437" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="2440" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="2432">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="2423">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="2433">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2424">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="2426">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="2414">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="2415" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="2417" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="2418" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="2414" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2418">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2416" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2436">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2413" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2445">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="591" relation="public-inheritance">
+        <childnode refid="2412" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="595">
+      <node id="2441">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="2428">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="2447">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="591" relation="public-inheritance">
+        <childnode refid="2412" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2448" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="2418" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="2449" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="592">
+      <node id="2449">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="2450" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2419">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="2420" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="591">
+      <node id="2448">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2416" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="2440">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="2438" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2412">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="592" relation="public-inheritance">
+        <childnode refid="2413" relation="public-inheritance">
         </childnode>
-        <childnode refid="591" relation="usage">
+        <childnode refid="2414" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2419" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2422" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2429" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2430" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2441" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2423" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="2442" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="2412" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="2439" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="593">
+      <node id="2439">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="2437">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="2438" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2446">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="2435">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2413" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2438">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2414" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2413" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2439" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2429">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="2429" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="2444">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="594" relation="public-inheritance">
+        <childnode refid="2445" relation="public-inheritance">
         </childnode>
-        <childnode refid="595" relation="usage">
+        <childnode refid="2446" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2447" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
       </node>
-      <node id="590">
+      <node id="2425">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="2423" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="2424" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2422">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="2423" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="2424" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="2425" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="2426" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="2427" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="2428" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="2421">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="2411">
         <label>MyGUI::ScrollBar</label>
         <link refid="classMyGUI_1_1ScrollBar"/>
-        <childnode refid="591" relation="public-inheritance">
+        <childnode refid="2412" relation="public-inheritance">
         </childnode>
-        <childnode refid="591" relation="usage">
+        <childnode refid="2443" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2415" relation="usage">
+          <edgelabel>mPreActionOffset</edgelabel>
+        </childnode>
+        <childnode refid="2412" relation="usage">
           <edgelabel>mWidgetFirstPart
 mWidgetSecondPart</edgelabel>
         </childnode>
-        <childnode refid="593" relation="usage">
+        <childnode refid="2444" relation="usage">
           <edgelabel>mWidgetTrack
 mWidgetStart
 mWidgetEnd</edgelabel>
         </childnode>
+        <childnode refid="2428" relation="usage">
+          <edgelabel>eventScrollChangePosition</edgelabel>
+        </childnode>
       </node>
-      <node id="589">
+      <node id="2431">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="2432" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2433" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2434" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="2436" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="2450">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2435" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2410">
         <label>MyGUI::ScrollViewBase</label>
-        <childnode refid="590" relation="usage">
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+        <childnode refid="2411" relation="usage">
           <edgelabel>mHScroll
 mVScroll</edgelabel>
         </childnode>
-        <childnode refid="591" relation="usage">
+        <childnode refid="2412" relation="usage">
           <edgelabel>mClient</edgelabel>
         </childnode>
+      </node>
+      <node id="2415">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2416" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2420">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="2421" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="2413">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="31" bodyend="71"/>

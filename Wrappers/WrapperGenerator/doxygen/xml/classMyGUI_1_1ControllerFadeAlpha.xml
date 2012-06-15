@@ -316,39 +316,63 @@
     <detaileddescription>
 <para>This controller used for smooth changing alpha of widget in time </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="133">
+      <node id="321">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="322" relation="public-inheritance">
+        </childnode>
       </node>
-      <node id="132">
+      <node id="320">
         <label>MyGUI::ControllerFadeAlpha</label>
         <link refid="classMyGUI_1_1ControllerFadeAlpha"/>
-        <childnode refid="133" relation="public-inheritance">
+        <childnode refid="321" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="322">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="135">
+      <node id="324">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="325" relation="public-inheritance">
+        </childnode>
+        <childnode refid="326" relation="usage">
+          <edgelabel>eventPreAction
+eventUpdateAction
+eventPostAction</edgelabel>
+        </childnode>
       </node>
-      <node id="134">
+      <node id="323">
         <label>MyGUI::ControllerFadeAlpha</label>
         <link refid="classMyGUI_1_1ControllerFadeAlpha"/>
-        <childnode refid="135" relation="public-inheritance">
+        <childnode refid="324" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="325">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="326">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; Widget * &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerFadeAlpha.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerFadeAlpha.h" bodystart="33" bodyend="67"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_1b2976d0a43eefe30e933ea6190c1700c" prot="private" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>addTime</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_1286bdfef04f850b258383eeead7a9169" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_16fdd638da472b80ba44d6b2917430950" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>ControllerFadeAlpha</name></member>
       <member refid="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>eventPostAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>eventPreAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>eventUpdateAction</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_13bc2138ccd9cc89bb8e13b4cd2f0ba2c" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_15214461a9b3f99bd61a25ce44f41771e" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_1de4c0105b14be927260a4576dd8b732f" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_1ad1eae13068d85bb4878c64f172a8ba6" prot="public" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_12910eaadfdca36b5673960765d9e79a7" prot="private" virt="non-virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>mAlpha</name></member>
@@ -362,6 +386,7 @@
       <member refid="classMyGUI_1_1ControllerFadeAlpha_169a9c85e34889ccba3425dfee5c77cbb" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>setProperty</name></member>
       <member refid="classMyGUI_1_1ControllerFadeAlpha_148a4571070421be3f63927a1bcdf7c81" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>~ControllerFadeAlpha</name></member>
       <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>~ControllerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ControllerFadeAlpha</scope><name>~IObject</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

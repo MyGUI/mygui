@@ -5,37 +5,37 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI_8h" local="yes">MyGUI.h</includedby>
     <incdepgraph>
-      <node id="526">
+      <node id="534">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="524">
+      <node id="532">
         <label>MyGUI_Bitwise.h</label>
         <link refid="MyGUI_Bitwise.h"/>
-        <childnode refid="525" relation="include">
+        <childnode refid="533" relation="include">
         </childnode>
       </node>
-      <node id="527">
+      <node id="535">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="525">
+      <node id="533">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="526" relation="include">
+        <childnode refid="534" relation="include">
         </childnode>
-        <childnode refid="527" relation="include">
+        <childnode refid="535" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="528">
+      <node id="536">
         <label>MyGUI_Bitwise.h</label>
         <link refid="MyGUI_Bitwise.h"/>
-        <childnode refid="529" relation="include">
+        <childnode refid="537" relation="include">
         </childnode>
       </node>
-      <node id="529">
+      <node id="537">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>

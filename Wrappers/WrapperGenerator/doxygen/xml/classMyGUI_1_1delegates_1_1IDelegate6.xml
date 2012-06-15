@@ -2,6 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1delegates_1_1IDelegate6" kind="class" prot="public">
     <compoundname>MyGUI::delegates::IDelegate6</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1delegates_1_1CMethodDelegate6" prot="public" virt="non-virtual">MyGUI::delegates::CMethodDelegate6&lt; T, TP1, TP2, TP3, TP4, TP5, TP6 &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1delegates_1_1CStaticDelegate6" prot="public" virt="non-virtual">MyGUI::delegates::CStaticDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;</derivedcompoundref>
+    <includes local="no">MyGUI_Delegate.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -53,6 +56,8 @@
         <definition>virtual bool MyGUI::delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;::isType</definition>
         <argsstring>(const std::type_info &amp;_type)=0</argsstring>
         <name>isType</name>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CMethodDelegate6_114ed279a1b2bd97a0d8aef6f15dfd9c7">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CStaticDelegate6_192de6461f2b6ee5b10a248583bc5ef20">isType</reimplementedby>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -70,6 +75,8 @@
         <definition>virtual void MyGUI::delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;::invoke</definition>
         <argsstring>(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6)=0</argsstring>
         <name>invoke</name>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CMethodDelegate6_1eb5973d0af1b66ae9e22b5f445362a53">invoke</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CStaticDelegate6_1530d3ceb8c6cf1d6cfc2a58330e4796d">invoke</reimplementedby>
         <param>
           <type>TP1</type>
           <declname>p1</declname>
@@ -107,8 +114,10 @@
         <definition>virtual bool MyGUI::delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;::compare</definition>
         <argsstring>(IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *_delegate) const =0</argsstring>
         <name>compare</name>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CMethodDelegate6_106605130d4e6d5f1a79849e797e1b762">compare</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CStaticDelegate6_18e3f984f5923862f22dad6d6d287fc55">compare</reimplementedby>
         <param>
-          <type>IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate6" kindref="compound">IDelegate6</ref>&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>
@@ -124,8 +133,10 @@
         <definition>virtual bool MyGUI::delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;::compare</definition>
         <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
         <name>compare</name>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CMethodDelegate6_141ad443957227df4998844b4322099ec">compare</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1delegates_1_1CStaticDelegate6_155a14ddbe04d841ac546eeeead3d61e7">compare</reimplementedby>
         <param>
-          <type>IDelegateUnlink *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <briefdescription>
@@ -141,6 +152,24 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="875">
+        <label>MyGUI::delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate6"/>
+      </node>
+      <node id="876">
+        <label>MyGUI::delegates::CMethodDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMethodDelegate6"/>
+        <childnode refid="875" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="877">
+        <label>MyGUI::delegates::CStaticDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CStaticDelegate6"/>
+        <childnode refid="875" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2689" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2688" bodyend="2701"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1delegates_1_1IDelegate6_199b68c65e9a63ede6ab58e51c68686f7" prot="public" virt="pure-virtual"><scope>MyGUI::delegates::IDelegate6</scope><name>compare</name></member>

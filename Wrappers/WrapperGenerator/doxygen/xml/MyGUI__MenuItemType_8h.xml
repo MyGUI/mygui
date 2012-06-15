@@ -6,70 +6,70 @@
     <includedby refid="MyGUI__MenuControl_8h" local="yes">MyGUI_MenuControl.h</includedby>
     <includedby refid="MyGUI_8h" local="yes">MyGUI.h</includedby>
     <incdepgraph>
-      <node id="6433">
+      <node id="6570">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="6434">
+      <node id="6571">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="6431">
+      <node id="6568">
         <label>MyGUI_MenuItemType.h</label>
         <link refid="MyGUI_MenuItemType.h"/>
-        <childnode refid="6432" relation="include">
+        <childnode refid="6569" relation="include">
         </childnode>
       </node>
-      <node id="6432">
+      <node id="6569">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="6433" relation="include">
+        <childnode refid="6570" relation="include">
         </childnode>
-        <childnode refid="6434" relation="include">
+        <childnode refid="6571" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6439">
+      <node id="6576">
         <label>MyGUI_PopupMenu.h</label>
         <link refid="MyGUI__PopupMenu_8h"/>
-        <childnode refid="6437" relation="include">
+        <childnode refid="6574" relation="include">
         </childnode>
       </node>
-      <node id="6438">
+      <node id="6575">
         <label>MyGUI_MenuItem.h</label>
         <link refid="MyGUI__MenuItem_8h"/>
-        <childnode refid="6437" relation="include">
+        <childnode refid="6574" relation="include">
         </childnode>
       </node>
-      <node id="6435">
+      <node id="6572">
         <label>MyGUI_MenuItemType.h</label>
         <link refid="MyGUI_MenuItemType.h"/>
-        <childnode refid="6436" relation="include">
+        <childnode refid="6573" relation="include">
         </childnode>
-        <childnode refid="6437" relation="include">
+        <childnode refid="6574" relation="include">
         </childnode>
       </node>
-      <node id="6437">
+      <node id="6574">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="6440">
+      <node id="6577">
         <label>MyGUI_MenuBar.h</label>
         <link refid="MyGUI__MenuBar_8h"/>
-        <childnode refid="6437" relation="include">
+        <childnode refid="6574" relation="include">
         </childnode>
       </node>
-      <node id="6436">
+      <node id="6573">
         <label>MyGUI_MenuControl.h</label>
         <link refid="MyGUI__MenuControl_8h"/>
-        <childnode refid="6437" relation="include">
+        <childnode refid="6574" relation="include">
         </childnode>
-        <childnode refid="6438" relation="include">
+        <childnode refid="6575" relation="include">
         </childnode>
-        <childnode refid="6439" relation="include">
+        <childnode refid="6576" relation="include">
         </childnode>
-        <childnode refid="6440" relation="include">
+        <childnode refid="6577" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

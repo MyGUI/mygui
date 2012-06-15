@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1KeyCode" kind="struct" prot="public">
     <compoundname>MyGUI::KeyCode</compoundname>
+    <includes local="no">MyGUI_KeyCode.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7" prot="public" static="no">
         <name>Enum</name>
@@ -1189,7 +1190,7 @@
         <argsstring>(Enum _value=None)</argsstring>
         <name>KeyCode</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>None</defval>
         </param>
@@ -1217,7 +1218,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1KeyCode_13dd3c2520a663c67ca6225b12a1189cd" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::KeyCode::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -1237,11 +1238,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator&lt;</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -1258,11 +1259,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator&gt;=</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -1279,11 +1280,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator&gt;</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -1300,11 +1301,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator&lt;=</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -1321,11 +1322,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -1342,11 +1343,11 @@
         <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>KeyCode const &amp;</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>

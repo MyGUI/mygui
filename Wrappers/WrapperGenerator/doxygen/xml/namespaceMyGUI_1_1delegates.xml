@@ -40,7 +40,7 @@
     <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate6">MyGUI::delegates::CMultiDelegate6</innerclass>
       <sectiondef kind="func">
       <memberdef kind="function" id="namespaceMyGUI_1_1delegates_12ab50b4d310b6780bca17e9bc093acd6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IDelegateUnlink *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
         <definition>IDelegateUnlink* MyGUI::delegates::GetDelegateUnlink</definition>
         <argsstring>(void *_base)</argsstring>
         <name>GetDelegateUnlink</name>
@@ -57,12 +57,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="60" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="namespaceMyGUI_1_1delegates_1b36dd0b3c71cf43436c6c25190952514" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IDelegateUnlink *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
         <definition>IDelegateUnlink* MyGUI::delegates::GetDelegateUnlink</definition>
         <argsstring>(IDelegateUnlink *_base)</argsstring>
         <name>GetDelegateUnlink</name>
         <param>
-          <type>IDelegateUnlink *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
           <declname>_base</declname>
         </param>
         <briefdescription>

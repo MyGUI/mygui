@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Constants" kind="class" prot="public">
     <compoundname>MyGUI::Constants</compoundname>
+    <includes local="no">MyGUI_Constants.h</includes>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="classMyGUI_1_1Constants_18aaf37901c5c2972c118e51a0c559f17" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
@@ -30,7 +31,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="36" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Constants_12e8caeb1d61ff546bee69f3f1fa51877" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>static const IntSize&amp; MyGUI::Constants::getZeroIntSize</definition>
         <argsstring>()</argsstring>
         <name>getZeroIntSize</name>
@@ -43,7 +44,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="37" bodyend="37"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Constants_1271a7bffebaf227c3be2222c25abb662" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>const IntPoint &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
         <definition>static const IntPoint&amp; MyGUI::Constants::getZeroIntPoint</definition>
         <argsstring>()</argsstring>
         <name>getZeroIntPoint</name>
@@ -84,7 +85,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1Constants_1419419ad7f9e0154cba202afa9337088" prot="private" static="yes" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::Constants::mIntSize</definition>
         <argsstring></argsstring>
         <name>mIntSize</name>
@@ -97,7 +98,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1Constants_13484f17f5d3bf7ab2e27313dec6d2f15" prot="private" static="yes" mutable="no">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::Constants::mIntPoint</definition>
         <argsstring></argsstring>
         <name>mIntPoint</name>
@@ -115,13 +116,39 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="127">
+      <node id="308">
+        <label>T</label>
+      </node>
+      <node id="309">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="308" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="310">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="126">
+      <node id="307">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="308" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="306">
         <label>MyGUI::Constants</label>
-        <childnode refid="127" relation="usage">
+        <link refid="classMyGUI_1_1Constants"/>
+        <childnode refid="307" relation="usage">
+          <edgelabel>mIntPoint</edgelabel>
+        </childnode>
+        <childnode refid="309" relation="usage">
+          <edgelabel>mIntSize</edgelabel>
+        </childnode>
+        <childnode refid="310" relation="usage">
           <edgelabel>mUString</edgelabel>
         </childnode>
       </node>

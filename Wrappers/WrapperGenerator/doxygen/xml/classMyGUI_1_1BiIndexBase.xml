@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1BiIndexBase" kind="class" prot="public">
     <compoundname>MyGUI::BiIndexBase</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1MultiListBox" prot="public" virt="non-virtual">MyGUI::MultiListBox</derivedcompoundref>
+    <includes local="no">MyGUI_BiIndexBase.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1BiIndexBase_130c73c6c934013969c6437835de3d789" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -66,6 +68,7 @@
         <definition>size_t MyGUI::BiIndexBase::removeItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>removeItemAt</name>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1261cfc1532c453a7983ceb763e6c9562">removeItemAt</reimplementedby>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -83,6 +86,7 @@
         <definition>void MyGUI::BiIndexBase::removeAllItems</definition>
         <argsstring>()</argsstring>
         <name>removeAllItems</name>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1088775176a958746d2a7799cb75b0172">removeAllItems</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -215,6 +219,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="22">
+        <label>MyGUI::BiIndexBase</label>
+        <link refid="classMyGUI_1_1BiIndexBase"/>
+      </node>
+      <node id="23">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="22" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BiIndexBase.h" line="31" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BiIndexBase.h" bodystart="30" bodyend="71"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1BiIndexBase_130c73c6c934013969c6437835de3d789" prot="public" virt="non-virtual"><scope>MyGUI::BiIndexBase</scope><name>BiIndexBase</name></member>

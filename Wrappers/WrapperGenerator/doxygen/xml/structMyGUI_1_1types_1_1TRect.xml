@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1types_1_1TRect" kind="struct" prot="public">
     <compoundname>MyGUI::types::TRect</compoundname>
+    <includes local="no">MyGUI_TRect.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -58,7 +59,7 @@
         <argsstring>(TRect const &amp;_obj)</argsstring>
         <name>TRect</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -70,12 +71,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="56" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1cc346efa01da7f2a507e3402d1c74be2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> &amp;</type>
         <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator-=</definition>
         <argsstring>(TRect const &amp;_obj)</argsstring>
         <name>operator-=</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -87,12 +88,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="64" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17fa82248b41fc468c60c9ed94099ece1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> &amp;</type>
         <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator+=</definition>
         <argsstring>(TRect const &amp;_obj)</argsstring>
         <name>operator+=</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -104,12 +105,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="73" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1354d84a5e6f1f530a878772c761df288" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref></type>
         <definition>TRect MyGUI::types::TRect&lt; T &gt;::operator-</definition>
         <argsstring>(TRect const &amp;_obj) const </argsstring>
         <name>operator-</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -121,12 +122,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="82" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_16099f20e8bca014a0218136f904631bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref></type>
         <definition>TRect MyGUI::types::TRect&lt; T &gt;::operator+</definition>
         <argsstring>(TRect const &amp;_obj) const </argsstring>
         <name>operator+</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -138,12 +139,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="87" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17198d090864abc443270867059ece93f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> &amp;</type>
         <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator=</definition>
         <argsstring>(TRect const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -162,12 +163,12 @@
             <defname>U</defname>
           </param>
         </templateparamlist>
-        <type>TRect &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> &amp;</type>
         <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator=</definition>
         <argsstring>(TRect&lt; U &gt; const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TRect&lt; U &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; U &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -184,7 +185,7 @@
         <argsstring>(TRect const &amp;_obj) const </argsstring>
         <name>operator==</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -201,7 +202,7 @@
         <argsstring>(TRect const &amp;_obj) const </argsstring>
         <name>operator!=</name>
         <param>
-          <type>TRect const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -286,7 +287,7 @@
         <argsstring>(TRect &amp;_value)</argsstring>
         <name>swap</name>
         <param>
-          <type>TRect &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -316,7 +317,7 @@
         <argsstring>(const TRect&lt; T &gt; &amp;_value) const </argsstring>
         <name>inside</name>
         <param>
-          <type>const TRect&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -333,7 +334,7 @@
         <argsstring>(const TRect&lt; T &gt; &amp;_value) const </argsstring>
         <name>intersect</name>
         <param>
-          <type>const TRect&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -350,7 +351,7 @@
         <argsstring>(const TPoint&lt; T &gt; &amp;_value) const </argsstring>
         <name>inside</name>
         <param>
-          <type>const TPoint&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -431,7 +432,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1e01891db0353cd5465583ae4e21ee994" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TRect&lt; T &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; T &gt;</type>
         <definition>static TRect&lt;T&gt; MyGUI::types::TRect&lt; T &gt;::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -459,7 +460,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const TRect&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -480,7 +481,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>TRect&lt; T &gt; &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">TRect</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -497,12 +498,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="688">
+      <node id="2890">
         <label>T</label>
       </node>
-      <node id="687">
+      <node id="2889">
         <label>MyGUI::types::TRect&lt; T &gt;</label>
-        <childnode refid="688" relation="usage">
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2890" relation="usage">
           <edgelabel>right
 left
 bottom

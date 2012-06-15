@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1MenuItemType" kind="struct" prot="public">
     <compoundname>MyGUI::MenuItemType</compoundname>
+    <includes local="no">MyGUI_MenuItemType.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1MenuItemType_12cbd9b61492a4f4ab6f064a4b102e73e" prot="public" static="no">
         <name>Enum</name>
@@ -49,7 +50,7 @@
         <argsstring>(Enum _value=MAX)</argsstring>
         <name>MenuItemType</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType_12cbd9b61492a4f4ab6f064a4b102e73e" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>MAX</defval>
         </param>
@@ -77,7 +78,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1MenuItemType_1b9afab455d7b959ef01456897219f09f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>MenuItemType</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
         <definition>static MenuItemType MyGUI::MenuItemType::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -115,7 +116,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1MenuItemType_167f8f54e6bc83230face1677fe2acdc0" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType_12cbd9b61492a4f4ab6f064a4b102e73e" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::MenuItemType::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -135,11 +136,11 @@
         <argsstring>(MenuItemType const &amp;a, MenuItemType const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>MenuItemType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>MenuItemType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -156,11 +157,11 @@
         <argsstring>(MenuItemType const &amp;a, MenuItemType const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>MenuItemType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>MenuItemType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -181,7 +182,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const MenuItemType &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -202,7 +203,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>MenuItemType &amp;</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>

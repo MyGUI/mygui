@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ILayerItem" kind="class" prot="public">
     <compoundname>MyGUI::ILayerItem</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1LayerItem" prot="public" virt="non-virtual">MyGUI::LayerItem</derivedcompoundref>
+    <includes local="no">MyGUI_ILayerItem.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -17,10 +19,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" bodystart="36" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ILayerItem_1894e63498528539df7d47c2872b2a773" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>ILayerItem *</type>
+        <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
         <definition>virtual ILayerItem* MyGUI::ILayerItem::getLayerItemByPoint</definition>
         <argsstring>(int _left, int _top) const =0</argsstring>
         <name>getLayerItemByPoint</name>
+        <reimplementedby refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3">getLayerItemByPoint</reimplementedby>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -38,10 +41,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="38"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ILayerItem_1ce334fc9eb14a442b2cca6d26365ae00" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
-        <type>const IntCoord &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
         <definition>virtual const IntCoord&amp; MyGUI::ILayerItem::getLayerItemCoord</definition>
         <argsstring>() const =0</argsstring>
         <name>getLayerItemCoord</name>
+        <reimplementedby refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d">getLayerItemCoord</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -55,12 +59,13 @@
         <definition>virtual void MyGUI::ILayerItem::resizeLayerItemView</definition>
         <argsstring>(const IntSize &amp;_oldView, const IntSize &amp;_newView)=0</argsstring>
         <name>resizeLayerItemView</name>
+        <reimplementedby refid="classMyGUI_1_1Widget_1b9ed7d4e112251f3c23215302a5c2746">resizeLayerItemView</reimplementedby>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_oldView</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_newView</declname>
         </param>
         <briefdescription>
@@ -76,12 +81,13 @@
         <definition>virtual void MyGUI::ILayerItem::attachItemToNode</definition>
         <argsstring>(ILayer *_layer, ILayerNode *_node)=0</argsstring>
         <name>attachItemToNode</name>
+        <reimplementedby refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc">attachItemToNode</reimplementedby>
         <param>
-          <type>ILayer *</type>
+          <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
           <declname>_layer</declname>
         </param>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -97,6 +103,7 @@
         <definition>virtual void MyGUI::ILayerItem::detachFromLayer</definition>
         <argsstring>()=0</argsstring>
         <name>detachFromLayer</name>
+        <reimplementedby refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716">detachFromLayer</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -110,6 +117,7 @@
         <definition>virtual void MyGUI::ILayerItem::upLayerItem</definition>
         <argsstring>()=0</argsstring>
         <name>upLayerItem</name>
+        <reimplementedby refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4">upLayerItem</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -123,6 +131,168 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="948">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="946" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="960">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="959" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="939">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="938" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="945">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="937">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="959">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="942">
+        <label>MyGUI::DDContainer</label>
+        <link refid="classMyGUI_1_1DDContainer"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="952">
+        <label>MyGUI::VScroll</label>
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="951" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="956">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="946">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="947">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="946" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="944">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="949">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="940">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="939" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="954">
+        <label>MyGUI::ScrollView</label>
+        <link refid="classMyGUI_1_1ScrollView"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="957">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="941">
+        <label>MyGUI::Canvas</label>
+        <link refid="classMyGUI_1_1Canvas"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="955">
+        <label>MyGUI::TabControl</label>
+        <link refid="classMyGUI_1_1TabControl"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="958">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="957" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="951">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="943">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="942" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="963">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="961">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="938">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="937" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="950">
+        <label>MyGUI::ProgressBar</label>
+        <link refid="classMyGUI_1_1ProgressBar"/>
+        <childnode refid="940" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="962">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="956" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="953">
+        <label>MyGUI::HScroll</label>
+        <link refid="classMyGUI_1_1HScroll"/>
+        <childnode refid="952" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" bodystart="33" bodyend="46"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ILayerItem_1029014a52c5947fba8488ea575ab3083" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>attachItemToNode</name></member>

@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ILogFilter" kind="class" prot="public">
     <compoundname>MyGUI::ILogFilter</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1LevelLogFilter" prot="public" virt="non-virtual">MyGUI::LevelLogFilter</derivedcompoundref>
+    <includes local="no">MyGUI_ILogFilter.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1ILogFilter_14105051060001bae270386fed87ea43e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -21,12 +23,13 @@
         <definition>virtual bool MyGUI::ILogFilter::shouldLog</definition>
         <argsstring>(const std::string &amp;_section, LogLevel _level, const struct tm *_time, const std::string &amp;_message, const char *_file, int _line)</argsstring>
         <name>shouldLog</name>
+        <reimplementedby refid="classMyGUI_1_1LevelLogFilter_1e273a6f872599a7b06016ef934d38a00">shouldLog</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>_section</declname>
         </param>
         <param>
-          <type>LogLevel</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
           <declname>_level</declname>
         </param>
         <param>
@@ -59,6 +62,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="972">
+        <label>MyGUI::LevelLogFilter</label>
+        <link refid="classMyGUI_1_1LevelLogFilter"/>
+        <childnode refid="971" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="971">
+        <label>MyGUI::ILogFilter</label>
+        <link refid="classMyGUI_1_1ILogFilter"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" bodystart="31" bodyend="43"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ILogFilter_1797b1281a36e1285224c86f018e17580" prot="public" virt="virtual"><scope>MyGUI::ILogFilter</scope><name>shouldLog</name></member>

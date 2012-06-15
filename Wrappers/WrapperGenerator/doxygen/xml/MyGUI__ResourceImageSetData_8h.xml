@@ -5,64 +5,64 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI__ResourceImageSet_8h" local="yes">MyGUI_ResourceImageSet.h</includedby>
     <incdepgraph>
-      <node id="7791">
+      <node id="7963">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="7792">
+      <node id="7964">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="7789">
+      <node id="7961">
         <label>MyGUI_ResourceImageSetData.h</label>
         <link refid="MyGUI_ResourceImageSetData.h"/>
-        <childnode refid="7790" relation="include">
+        <childnode refid="7962" relation="include">
         </childnode>
       </node>
-      <node id="7790">
+      <node id="7962">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="7791" relation="include">
+        <childnode refid="7963" relation="include">
         </childnode>
-        <childnode refid="7792" relation="include">
+        <childnode refid="7964" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="7794">
+      <node id="7966">
         <label>MyGUI_ResourceImageSet.h</label>
         <link refid="MyGUI__ResourceImageSet_8h"/>
-        <childnode refid="7795" relation="include">
+        <childnode refid="7967" relation="include">
         </childnode>
-        <childnode refid="7798" relation="include">
+        <childnode refid="7970" relation="include">
         </childnode>
       </node>
-      <node id="7797">
+      <node id="7969">
         <label>MyGUI_PointerManager.h</label>
         <link refid="MyGUI__PointerManager_8h"/>
-        <childnode refid="7796" relation="include">
+        <childnode refid="7968" relation="include">
         </childnode>
       </node>
-      <node id="7798">
+      <node id="7970">
         <label>MyGUI_ResourceImageSetPointer.h</label>
         <link refid="MyGUI__ResourceImageSetPointer_8h"/>
       </node>
-      <node id="7796">
+      <node id="7968">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="7795">
+      <node id="7967">
         <label>MyGUI_ImageBox.h</label>
         <link refid="MyGUI__ImageBox_8h"/>
-        <childnode refid="7796" relation="include">
+        <childnode refid="7968" relation="include">
         </childnode>
-        <childnode refid="7797" relation="include">
+        <childnode refid="7969" relation="include">
         </childnode>
       </node>
-      <node id="7793">
+      <node id="7965">
         <label>MyGUI_ResourceImageSetData.h</label>
         <link refid="MyGUI_ResourceImageSetData.h"/>
-        <childnode refid="7794" relation="include">
+        <childnode refid="7966" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

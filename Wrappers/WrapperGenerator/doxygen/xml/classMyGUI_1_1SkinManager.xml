@@ -2,6 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1SkinManager" kind="class" prot="public">
     <compoundname>MyGUI::SkinManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; SkinManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; SkinManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_SkinManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1SkinManager_1fd4a570baf88a1fbaeb9e38b901379e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -43,7 +46,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="44"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1SkinManager_14392c48e3977cd461f1eb1662757f28b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ResourceSkin *</type>
+        <type><ref refid="classMyGUI_1_1ResourceSkin" kindref="compound">ResourceSkin</ref> *</type>
         <definition>ResourceSkin* MyGUI::SkinManager::getByName</definition>
         <argsstring>(const std::string &amp;_name) const </argsstring>
         <name>getByName</name>
@@ -54,7 +57,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get ResourceSkin by name </para>        </detaileddescription>
+<para>Get <ref refid="classMyGUI_1_1ResourceSkin" kindref="compound">ResourceSkin</ref> by name </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="47"/>
@@ -131,7 +134,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_load</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -139,7 +142,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -183,19 +186,66 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2553">
+        <label>MyGUI::Singleton&lt; SkinManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="2552">
+        <label>MyGUI::SkinManager</label>
+        <link refid="classMyGUI_1_1SkinManager"/>
+        <childnode refid="2553" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2554" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2554">
+        <label>MyGUI::MemberObsolete&lt; SkinManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2556">
+        <label>MyGUI::Singleton&lt; SkinManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2555" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="2555">
+        <label>MyGUI::SkinManager</label>
+        <link refid="classMyGUI_1_1SkinManager"/>
+        <childnode refid="2556" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2557" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2557">
+        <label>MyGUI::MemberObsolete&lt; SkinManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" bodystart="36" bodyend="69"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1SkinManager_13ad803447f486d624adb910446e6a92e" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1SkinManager_14f1e4535f095854a1081b56858e3d29f" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>createDefault</name></member>
       <member refid="classMyGUI_1_1SkinManager_14392c48e3977cd461f1eb1662757f28b" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1SkinManager_18faf388254a0b62b664d6e1eca2a0d91" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getDefaultSkin</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getInstancePtr</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_10e00891dc14ee40b820df9007f640869" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getSkin</name></member>
       <member refid="classMyGUI_1_1SkinManager_1c2eabbf92d3e52d655ebcdbd4feba9d7" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1SkinManager_1b68e03a10a8076ca44c27a8c0d78a6d4" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>isExist</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_19cb25c095f2630265750ebc777ed2393" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>load</name></member>
       <member refid="classMyGUI_1_1SkinManager_184c62fb4939ec963faab6dd035a97e43" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>mDefaultName</name></member>
       <member refid="classMyGUI_1_1SkinManager_17d20d4d4a397490709d19adf73a55976" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1SkinManager_163e12fb1eab6cb4bc7a7ee8dd80f9c55" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>setDefaultSkin</name></member>
       <member refid="classMyGUI_1_1SkinManager_12abecba4105b4941338557866f3c6867" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1SkinManager_1fd4a570baf88a1fbaeb9e38b901379e0" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>SkinManager</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::SkinManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

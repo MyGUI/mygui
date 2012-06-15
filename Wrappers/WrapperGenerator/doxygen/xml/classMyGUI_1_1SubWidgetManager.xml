@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1SubWidgetManager" kind="class" prot="public">
     <compoundname>MyGUI::SubWidgetManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; SubWidgetManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_SubWidgetManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1SubWidgetManager_11f2d04e02a9c285cf54579054045288d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -62,12 +64,45 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2601">
+        <label>MyGUI::SubWidgetManager</label>
+        <link refid="classMyGUI_1_1SubWidgetManager"/>
+        <childnode refid="2602" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2602">
+        <label>MyGUI::Singleton&lt; SubWidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2603">
+        <label>MyGUI::SubWidgetManager</label>
+        <link refid="classMyGUI_1_1SubWidgetManager"/>
+        <childnode refid="2604" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2604">
+        <label>MyGUI::Singleton&lt; SubWidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2603" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" bodystart="31" bodyend="42"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1SubWidgetManager_1208b9b600fbfee093d27ce0b4b546228" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1SubWidgetManager_1630995942c2cdfcab363a20a51768417" prot="private" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1SubWidgetManager_1a46b3fc1e3fa38ed8b7596138e5a7d42" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1SubWidgetManager_11f2d04e02a9c285cf54579054045288d" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>SubWidgetManager</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::SubWidgetManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

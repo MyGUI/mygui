@@ -44,12 +44,12 @@
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="namespaceMyGUI_1_1geometry__utility_1a57731cdbb0d1cc61a2dd71bfa1e153d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>VectorFloatPoint</type>
+        <type><ref refid="namespaceMyGUI_160a1273b6fdef7b0c8cecd4cc90b7e5b" kindref="member">VectorFloatPoint</ref></type>
         <definition>VectorFloatPoint MyGUI::geometry_utility::cropPolygon</definition>
         <argsstring>(FloatPoint *_baseVerticiesPos, size_t _size, const IntCoord &amp;_cropRectangle)</argsstring>
         <name>cropPolygon</name>
         <param>
-          <type>FloatPoint *</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> *</type>
           <declname>_baseVerticiesPos</declname>
         </param>
         <param>
@@ -57,7 +57,7 @@
           <declname>_size</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_cropRectangle</declname>
         </param>
         <briefdescription>
@@ -74,7 +74,7 @@
         <argsstring>(VectorFloatPoint &amp;_verticies, int _sideCoord, Side _side)</argsstring>
         <name>cropPolygonSide</name>
         <param>
-          <type>VectorFloatPoint &amp;</type>
+          <type><ref refid="namespaceMyGUI_160a1273b6fdef7b0c8cecd4cc90b7e5b" kindref="member">VectorFloatPoint</ref> &amp;</type>
           <declname>_verticies</declname>
         </param>
         <param>
@@ -82,7 +82,7 @@
           <declname>_sideCoord</declname>
         </param>
         <param>
-          <type>Side</type>
+          <type><ref refid="namespaceMyGUI_1_1geometry__utility_182f38475cb3c667aad5931ad2431b9dc" kindref="member">Side</ref></type>
           <declname>_side</declname>
         </param>
         <briefdescription>
@@ -94,24 +94,24 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GeometryUtility.h" line="37"/>
       </memberdef>
       <memberdef kind="function" id="namespaceMyGUI_1_1geometry__utility_15b4962ede2d90dbda03a51b1f9a3047f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>FloatPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref></type>
         <definition>FloatPoint MyGUI::geometry_utility::getPositionInsideRect</definition>
         <argsstring>(const FloatPoint &amp;_point, const FloatPoint &amp;_corner0, const FloatPoint &amp;_corner1, const FloatPoint &amp;_corner2)</argsstring>
         <name>getPositionInsideRect</name>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_corner0</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_corner1</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_corner2</declname>
         </param>
         <briefdescription>
@@ -123,24 +123,24 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GeometryUtility.h" line="40"/>
       </memberdef>
       <memberdef kind="function" id="namespaceMyGUI_1_1geometry__utility_11e5d96fabfb69c45538d994d8a5140fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>FloatPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref></type>
         <definition>FloatPoint MyGUI::geometry_utility::getUVFromPositionInsideRect</definition>
         <argsstring>(const FloatPoint &amp;_point, const FloatPoint &amp;_v0, const FloatPoint &amp;_v1, const FloatPoint &amp;_baseUV)</argsstring>
         <name>getUVFromPositionInsideRect</name>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_v0</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_v1</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_baseUV</declname>
         </param>
         <briefdescription>

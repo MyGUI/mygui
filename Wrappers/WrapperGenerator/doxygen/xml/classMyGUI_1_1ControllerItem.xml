@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ControllerItem" kind="class" prot="public">
     <compoundname>MyGUI::ControllerItem</compoundname>
+    <basecompoundref refid="classMyGUI_1_1IObject" prot="public" virt="non-virtual">MyGUI::IObject</basecompoundref>
     <derivedcompoundref refid="classMyGUI_1_1ControllerEdgeHide" prot="public" virt="non-virtual">MyGUI::ControllerEdgeHide</derivedcompoundref>
     <derivedcompoundref refid="classMyGUI_1_1ControllerFadeAlpha" prot="public" virt="non-virtual">MyGUI::ControllerFadeAlpha</derivedcompoundref>
     <derivedcompoundref refid="classMyGUI_1_1ControllerPosition" prot="public" virt="non-virtual">MyGUI::ControllerPosition</derivedcompoundref>
@@ -28,6 +29,7 @@
         <definition>typedef ControllerItem MyGUI::ControllerItem::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1IObject_17b2a5090bf8f5b8c5c487b76a4899b3d">RTTIBase</reimplements>
         <reimplementedby refid="classMyGUI_1_1ControllerPosition_168820c34e92e9caf90e9390ca0830716">RTTIBase</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerFadeAlpha_173968f84c40a607a16a01f1e6bbe4381">RTTIBase</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerEdgeHide_1bf71618e637aa7b29283aba906d844d2">RTTIBase</reimplementedby>
@@ -46,6 +48,7 @@
         <definition>virtual const std::string&amp; MyGUI::ControllerItem::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1IObject_1ac70cf707b25698037189933db8249a8">getTypeName</reimplements>
         <reimplementedby refid="classMyGUI_1_1ControllerPosition_1c2fa62652df83c4bbc94f41e59c31031">getTypeName</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerFadeAlpha_15214461a9b3f99bd61a25ce44f41771e">getTypeName</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerEdgeHide_15c057c23cf3b8fbb858810bd28d1461f">getTypeName</reimplementedby>
@@ -62,6 +65,7 @@
         <definition>virtual bool MyGUI::ControllerItem::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IObject_1e8ba7a759dde3e86e720d46ae7553bd5">isType</reimplements>
         <reimplementedby refid="classMyGUI_1_1ControllerPosition_1689a250959e00fd0fb4d051457ad3a03">isType</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerFadeAlpha_1de4c0105b14be927260a4576dd8b732f">isType</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerEdgeHide_113ca64c4556fd2281695044f7e88526b">isType</reimplementedby>
@@ -89,6 +93,7 @@
         <definition>bool MyGUI::ControllerItem::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IObject_1d16562b01fb3c137198e391941058b2b">isType</reimplements>
         <reimplementedby refid="classMyGUI_1_1ControllerPosition_1a945fd1bd74e5cd3b491d1c592d9ef06">isType</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerFadeAlpha_1ad1eae13068d85bb4878c64f172a8ba6">isType</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerEdgeHide_1f2dd4634eb0da57ba29125908ca26c39">isType</reimplementedby>
@@ -184,7 +189,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::ControllerItem::eventPreAction</definition>
         <argsstring></argsstring>
         <name>eventPreAction</name>
@@ -207,7 +212,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" line="52" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::ControllerItem::eventUpdateAction</definition>
         <argsstring></argsstring>
         <name>eventUpdateAction</name>
@@ -230,7 +235,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::ControllerItem::eventPostAction</definition>
         <argsstring></argsstring>
         <name>eventPostAction</name>
@@ -260,6 +265,7 @@
         <definition>static const std::string&amp; MyGUI::ControllerItem::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1IObject_1356fb2225a69926e892f9a4855dc6218">getClassTypeName</reimplements>
         <reimplementedby refid="classMyGUI_1_1ControllerPosition_1e264e3a3e8603920922033f59731162e">getClassTypeName</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerFadeAlpha_13bc2138ccd9cc89bb8e13b4cd2f0ba2c">getClassTypeName</reimplementedby>
         <reimplementedby refid="classMyGUI_1_1ControllerEdgeHide_1701b54771348eb2e5dc5709808191723">getClassTypeName</reimplementedby>
@@ -277,44 +283,75 @@
     <detaileddescription>
 <para>Base interface for controllers </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="141">
+      <node id="333">
         <label>MyGUI::ControllerPosition</label>
         <link refid="classMyGUI_1_1ControllerPosition"/>
-        <childnode refid="138" relation="public-inheritance">
+        <childnode refid="329" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="138">
+      <node id="329">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="330" relation="public-inheritance">
+        </childnode>
       </node>
-      <node id="139">
+      <node id="331">
         <label>MyGUI::ControllerEdgeHide</label>
         <link refid="classMyGUI_1_1ControllerEdgeHide"/>
-        <childnode refid="138" relation="public-inheritance">
+        <childnode refid="329" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="140">
+      <node id="332">
         <label>MyGUI::ControllerFadeAlpha</label>
         <link refid="classMyGUI_1_1ControllerFadeAlpha"/>
-        <childnode refid="138" relation="public-inheritance">
+        <childnode refid="329" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="330">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
     </inheritancegraph>
+    <collaborationgraph>
+      <node id="334">
+        <label>MyGUI::ControllerItem</label>
+        <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="335" relation="public-inheritance">
+        </childnode>
+        <childnode refid="336" relation="usage">
+          <edgelabel>eventPreAction
+eventUpdateAction
+eventPostAction</edgelabel>
+        </childnode>
+      </node>
+      <node id="335">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="336">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; Widget * &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerItem.h" bodystart="34" bodyend="68"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ControllerItem_13733e172299c32d8825edd01ab685586" prot="public" virt="pure-virtual"><scope>MyGUI::ControllerItem</scope><name>addTime</name></member>
       <member refid="classMyGUI_1_1ControllerItem_12e81a87faa5fd347c0e39360f80f1652" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>eventPostAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>eventPreAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>eventUpdateAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_16f5a2e023fce8670c108dbc21dc37131" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ControllerItem_10554365db85d0281ece0ceab87af9279" prot="public" virt="virtual"><scope>MyGUI::ControllerItem</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1b1efb9129e71a654dde9fba6f01e010d" prot="public" virt="virtual"><scope>MyGUI::ControllerItem</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerItem_110391ef58c887658e622f807a05310a8" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1ae73eddd7dd28470eb7d3d85e34662d1" prot="public" virt="pure-virtual"><scope>MyGUI::ControllerItem</scope><name>prepareItem</name></member>
       <member refid="classMyGUI_1_1ControllerItem_128edfd0691182c0925bb54233532e733" prot="public" virt="non-virtual"><scope>MyGUI::ControllerItem</scope><name>RTTIBase</name></member>
       <member refid="classMyGUI_1_1ControllerItem_140f75a1bfbf8abe53eeeba0ccd518251" prot="public" virt="virtual"><scope>MyGUI::ControllerItem</scope><name>setProperty</name></member>
       <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerItem</scope><name>~ControllerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ControllerItem</scope><name>~IObject</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

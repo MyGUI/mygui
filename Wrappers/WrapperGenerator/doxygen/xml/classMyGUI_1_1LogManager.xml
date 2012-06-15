@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LogManager" kind="class" prot="public">
     <compoundname>MyGUI::LogManager</compoundname>
+    <includes local="no">MyGUI_LogManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1LogManager_16feb16839210d5ae71f6aa3417781fb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -37,7 +38,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call LogSource::flush() for all log sources. </para>        </detaileddescription>
+<para>Call <ref refid="classMyGUI_1_1LogSource_13b56b153cdbf00eab81e4feb1d781aaa" kindref="member">LogSource::flush()</ref> for all log sources. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="51"/>
@@ -52,7 +53,7 @@
           <declname>_section</declname>
         </param>
         <param>
-          <type>LogLevel</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
           <declname>_level</declname>
         </param>
         <param>
@@ -70,7 +71,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call LogSource::log for all log sources. </para>        </detaileddescription>
+<para>Call <ref refid="classMyGUI_1_1LogSource_1be3f6653bffe5e3a059fa621ee6faa74" kindref="member">LogSource::log</ref> for all log sources. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="53"/>
@@ -87,7 +88,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Create default LevelLogFilter, FileLogListener and ConsoleLogListener. </para>        </detaileddescription>
+<para>Create default <ref refid="classMyGUI_1_1LevelLogFilter" kindref="compound">LevelLogFilter</ref>, <ref refid="classMyGUI_1_1FileLogListener" kindref="compound">FileLogListener</ref> and <ref refid="classMyGUI_1_1ConsoleLogListener" kindref="compound">ConsoleLogListener</ref>. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="56"/>
@@ -104,7 +105,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Enable or disable default ConsoleLogListener that writes log into std::cout.<linebreak/>
+<para>Enable or disable default <ref refid="classMyGUI_1_1ConsoleLogListener" kindref="compound">ConsoleLogListener</ref> that writes log into std::cout.<linebreak/>
  Enabled (true) by default. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -118,7 +119,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Is disable ConsoleLogListener enabled. </para>        </detaileddescription>
+<para>Is disable <ref refid="classMyGUI_1_1ConsoleLogListener" kindref="compound">ConsoleLogListener</ref> enabled. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="63"/>
@@ -129,26 +130,26 @@
         <argsstring>(LogLevel _value)</argsstring>
         <name>setLoggingLevel</name>
         <param>
-          <type>LogLevel</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Set default LevelLogFilter level. </para>        </detaileddescription>
+<para>Set default <ref refid="classMyGUI_1_1LevelLogFilter" kindref="compound">LevelLogFilter</ref> level. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="66"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LogManager_1274d76a9b7da90b51cf6f8fdde4dde41" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>LogLevel</type>
+        <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
         <definition>LogLevel MyGUI::LogManager::getLoggingLevel</definition>
         <argsstring>() const </argsstring>
         <name>getLoggingLevel</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get default LevelLogFilter level. </para>        </detaileddescription>
+<para>Get default <ref refid="classMyGUI_1_1LevelLogFilter" kindref="compound">LevelLogFilter</ref> level. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="68"/>
@@ -159,7 +160,7 @@
         <argsstring>(LogSource *_source)</argsstring>
         <name>addLogSource</name>
         <param>
-          <type>LogSource *</type>
+          <type><ref refid="classMyGUI_1_1LogSource" kindref="compound">LogSource</ref> *</type>
           <declname>_source</declname>
         </param>
         <briefdescription>
@@ -173,7 +174,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="classMyGUI_1_1LogManager_12642ac164a2b2c9b54c7414d630d28aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>LogManager &amp;</type>
+        <type><ref refid="classMyGUI_1_1LogManager" kindref="compound">LogManager</ref> &amp;</type>
         <definition>static LogManager&amp; MyGUI::LogManager::getInstance</definition>
         <argsstring>()</argsstring>
         <name>getInstance</name>
@@ -186,7 +187,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="47"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LogManager_1fb121d6213fcebfe635633da178c28db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>LogManager *</type>
+        <type><ref refid="classMyGUI_1_1LogManager" kindref="compound">LogManager</ref> *</type>
         <definition>static LogManager* MyGUI::LogManager::getInstancePtr</definition>
         <argsstring>()</argsstring>
         <name>getInstancePtr</name>
@@ -201,7 +202,7 @@
       </sectiondef>
       <sectiondef kind="private-type">
       <memberdef kind="typedef" id="classMyGUI_1_1LogManager_165b021fd7f2b1cffbb43c52d08a757d9" prot="private" static="no">
-        <type>std::vector&lt; LogSource * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1LogSource" kindref="compound">LogSource</ref> * &gt;</type>
         <definition>typedef std::vector&lt;LogSource*&gt; MyGUI::LogManager::VectorLogSource</definition>
         <argsstring></argsstring>
         <name>VectorLogSource</name>
@@ -244,7 +245,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_1691be87d0b6b38edaf8313a95f594914" prot="private" static="no" mutable="no">
-        <type>ConsoleLogListener *</type>
+        <type><ref refid="classMyGUI_1_1ConsoleLogListener" kindref="compound">ConsoleLogListener</ref> *</type>
         <definition>ConsoleLogListener* MyGUI::LogManager::mConsole</definition>
         <argsstring></argsstring>
         <name>mConsole</name>
@@ -257,7 +258,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_1e965e9f7b30b5b8e0f4ef60dea04e9ce" prot="private" static="no" mutable="no">
-        <type>FileLogListener *</type>
+        <type><ref refid="classMyGUI_1_1FileLogListener" kindref="compound">FileLogListener</ref> *</type>
         <definition>FileLogListener* MyGUI::LogManager::mFile</definition>
         <argsstring></argsstring>
         <name>mFile</name>
@@ -270,7 +271,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_175bd6209358e91320862dbf4d5724da4" prot="private" static="no" mutable="no">
-        <type>LevelLogFilter *</type>
+        <type><ref refid="classMyGUI_1_1LevelLogFilter" kindref="compound">LevelLogFilter</ref> *</type>
         <definition>LevelLogFilter* MyGUI::LogManager::mFilter</definition>
         <argsstring></argsstring>
         <name>mFilter</name>
@@ -283,7 +284,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="84" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_15e362888489a79eeef9bb06b305b8608" prot="private" static="no" mutable="no">
-        <type>LogSource *</type>
+        <type><ref refid="classMyGUI_1_1LogSource" kindref="compound">LogSource</ref> *</type>
         <definition>LogSource* MyGUI::LogManager::mDefaultSource</definition>
         <argsstring></argsstring>
         <name>mDefaultSource</name>
@@ -296,7 +297,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_13cff6c8e4bf2bdc29b2da5a907273ed6" prot="private" static="no" mutable="no">
-        <type>LogLevel</type>
+        <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
         <definition>LogLevel MyGUI::LogManager::mLevel</definition>
         <argsstring></argsstring>
         <name>mLevel</name>
@@ -324,7 +325,7 @@
       </sectiondef>
       <sectiondef kind="private-static-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1LogManager_1c88160bc03f0b9494f29fc8a6270e8aa" prot="private" static="yes" mutable="no">
-        <type>LogManager *</type>
+        <type><ref refid="classMyGUI_1_1LogManager" kindref="compound">LogManager</ref> *</type>
         <definition>LogManager* MyGUI::LogManager::msInstance</definition>
         <argsstring></argsstring>
         <name>msInstance</name>
@@ -341,6 +342,70 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="1469">
+        <label>MyGUI::FileLogListener</label>
+        <link refid="classMyGUI_1_1FileLogListener"/>
+        <childnode refid="1470" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1467">
+        <label>MyGUI::LogManager</label>
+        <link refid="classMyGUI_1_1LogManager"/>
+        <childnode refid="1468" relation="usage">
+          <edgelabel>mLevel</edgelabel>
+        </childnode>
+        <childnode refid="1469" relation="usage">
+          <edgelabel>mFile</edgelabel>
+        </childnode>
+        <childnode refid="1471" relation="usage">
+          <edgelabel>mDefaultSource</edgelabel>
+        </childnode>
+        <childnode refid="1473" relation="usage">
+          <edgelabel>mConsole</edgelabel>
+        </childnode>
+        <childnode refid="1474" relation="usage">
+          <edgelabel>mFilter</edgelabel>
+        </childnode>
+        <childnode refid="1467" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="1470">
+        <label>MyGUI::ILogListener</label>
+        <link refid="classMyGUI_1_1ILogListener"/>
+      </node>
+      <node id="1468">
+        <label>MyGUI::LogLevel</label>
+        <link refid="structMyGUI_1_1LogLevel"/>
+      </node>
+      <node id="1471">
+        <label>MyGUI::LogSource</label>
+        <link refid="classMyGUI_1_1LogSource"/>
+        <childnode refid="1472" relation="usage">
+          <edgelabel>mFilter</edgelabel>
+        </childnode>
+      </node>
+      <node id="1474">
+        <label>MyGUI::LevelLogFilter</label>
+        <link refid="classMyGUI_1_1LevelLogFilter"/>
+        <childnode refid="1472" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1468" relation="usage">
+          <edgelabel>mLevel</edgelabel>
+        </childnode>
+      </node>
+      <node id="1473">
+        <label>MyGUI::ConsoleLogListener</label>
+        <link refid="classMyGUI_1_1ConsoleLogListener"/>
+        <childnode refid="1470" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1472">
+        <label>MyGUI::ILogFilter</label>
+        <link refid="classMyGUI_1_1ILogFilter"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="41" bodyend="89"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1LogManager_14c365f78c2ae466202dd5e6184274574" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>addLogSource</name></member>

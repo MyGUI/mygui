@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Any" kind="class" prot="public">
     <compoundname>MyGUI::Any</compoundname>
+    <includes local="no">MyGUI_Any.h</includes>
     <innerclass refid="structMyGUI_1_1Any_1_1AnyEmpty">MyGUI::Any::AnyEmpty</innerclass>
     <innerclass refid="classMyGUI_1_1Any_1_1Holder">MyGUI::Any::Holder</innerclass>
     <innerclass refid="classMyGUI_1_1Any_1_1Placeholder">MyGUI::Any::Placeholder</innerclass>
@@ -25,7 +26,7 @@
         <argsstring>(const Any::AnyEmpty &amp;value)</argsstring>
         <name>Any</name>
         <param>
-          <type>const Any::AnyEmpty &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Any_1_1AnyEmpty" kindref="compound">Any::AnyEmpty</ref> &amp;</type>
           <declname>value</declname>
         </param>
         <briefdescription>
@@ -42,7 +43,7 @@
         <argsstring>(const Any &amp;other)</argsstring>
         <name>Any</name>
         <param>
-          <type>const Any &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
           <declname>other</declname>
         </param>
         <briefdescription>
@@ -91,12 +92,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="97"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Any_18057b71b6d61bfd18d7507c2e8c867ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Any &amp;</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
         <definition>Any&amp; MyGUI::Any::swap</definition>
         <argsstring>(Any &amp;rhs)</argsstring>
         <name>swap</name>
         <param>
-          <type>Any &amp;</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
           <declname>rhs</declname>
         </param>
         <briefdescription>
@@ -115,7 +116,7 @@
             <defname>ValueType</defname>
           </param>
         </templateparamlist>
-        <type>Any &amp;</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
         <definition>Any&amp; MyGUI::Any::operator=</definition>
         <argsstring>(const ValueType &amp;rhs)</argsstring>
         <name>operator=</name>
@@ -132,12 +133,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="102" bodyend="106"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Any_159768e32018b921e13a259facce67a23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Any &amp;</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
         <definition>Any&amp; MyGUI::Any::operator=</definition>
         <argsstring>(const Any::AnyEmpty &amp;rhs)</argsstring>
         <name>operator=</name>
         <param>
-          <type>const Any::AnyEmpty &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Any_1_1AnyEmpty" kindref="compound">Any::AnyEmpty</ref> &amp;</type>
           <declname>rhs</declname>
         </param>
         <briefdescription>
@@ -149,12 +150,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="108"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Any_145bc96f5e960ecb32c7a554006a9d801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Any &amp;</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
         <definition>Any&amp; MyGUI::Any::operator=</definition>
         <argsstring>(const Any &amp;rhs)</argsstring>
         <name>operator=</name>
         <param>
-          <type>const Any &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> &amp;</type>
           <declname>rhs</declname>
         </param>
         <briefdescription>
@@ -232,7 +233,7 @@
       </sectiondef>
       <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" prot="public" static="yes" mutable="no">
-        <type>AnyEmpty</type>
+        <type><ref refid="structMyGUI_1_1Any_1_1AnyEmpty" kindref="compound">AnyEmpty</ref></type>
         <definition>AnyEmpty MyGUI::Any::Null</definition>
         <argsstring></argsstring>
         <name>Null</name>
@@ -264,6 +265,19 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="12">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="11">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="81" bodyend="183"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1Any_1c671b52de3800513dcd41df174e55b73" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Any</name></member>

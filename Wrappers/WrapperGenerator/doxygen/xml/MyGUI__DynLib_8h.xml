@@ -7,57 +7,57 @@
     <includedby refid="MyGUI__PluginManager_8h" local="yes">MyGUI_PluginManager.h</includedby>
     <includedby refid="MyGUI__DynLibManager_8h" local="yes">MyGUI_DynLibManager.h</includedby>
     <incdepgraph>
-      <node id="2195">
+      <node id="2233">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="2197">
+      <node id="2235">
         <label>string</label>
       </node>
-      <node id="2196">
+      <node id="2234">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="2193">
+      <node id="2231">
         <label>MyGUI_DynLib.h</label>
         <link refid="MyGUI_DynLib.h"/>
-        <childnode refid="2194" relation="include">
+        <childnode refid="2232" relation="include">
         </childnode>
-        <childnode refid="2197" relation="include">
+        <childnode refid="2235" relation="include">
         </childnode>
       </node>
-      <node id="2194">
+      <node id="2232">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="2195" relation="include">
+        <childnode refid="2233" relation="include">
         </childnode>
-        <childnode refid="2196" relation="include">
+        <childnode refid="2234" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2199">
+      <node id="2237">
         <label>MyGUI_PluginManager.h</label>
         <link refid="MyGUI__PluginManager_8h"/>
-        <childnode refid="2200" relation="include">
+        <childnode refid="2238" relation="include">
         </childnode>
       </node>
-      <node id="2200">
+      <node id="2238">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="2198">
+      <node id="2236">
         <label>MyGUI_DynLib.h</label>
         <link refid="MyGUI_DynLib.h"/>
-        <childnode refid="2199" relation="include">
+        <childnode refid="2237" relation="include">
         </childnode>
-        <childnode refid="2201" relation="include">
+        <childnode refid="2239" relation="include">
         </childnode>
       </node>
-      <node id="2201">
+      <node id="2239">
         <label>MyGUI_DynLibManager.h</label>
         <link refid="MyGUI__DynLibManager_8h"/>
-        <childnode refid="2200" relation="include">
+        <childnode refid="2238" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

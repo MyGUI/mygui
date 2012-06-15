@@ -2,12 +2,19 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1IFont" kind="class" prot="public">
     <compoundname>MyGUI::IFont</compoundname>
+    <basecompoundref refid="classMyGUI_1_1IResource" prot="public" virt="non-virtual">MyGUI::IResource</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ResourceManualFont" prot="public" virt="non-virtual">MyGUI::ResourceManualFont</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ResourceTrueTypeFont" prot="public" virt="non-virtual">MyGUI::ResourceTrueTypeFont</derivedcompoundref>
+    <includes local="no">MyGUI_IFont.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1IFont_17d11cceba32d64e888ae2cb28a19dffd" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1IFont" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::IFont::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1IResource_1ada23844a4e8e60610df7690c1f5cbb4">Base</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_11ef78972203e0ffe571be923059a4394">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1e5611a5520bfb4958d1ea85c627bcd14">Base</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +24,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1IFont_12e880021c6cda0511dce0213e4d1c765" prot="public" static="no">
-        <type>IFont</type>
+        <type><ref refid="classMyGUI_1_1IFont" kindref="compound">IFont</ref></type>
         <definition>typedef IFont MyGUI::IFont::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1IResource_171cd47542ee6b6a12fb7e2a00ba7049c">RTTIBase</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_1c06eb21cdf52c96ecb66f28d7757118f">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_15e26b22874c3d86efd7283daa1e9e171">RTTIBase</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +46,9 @@
         <definition>virtual const std::string&amp; MyGUI::IFont::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1398b76f149065258902cd44ec368116a">getTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_17746f409fa560c130b34f938e127f833">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_191b1c2785a6dade0fe5636aded32236d">getTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +62,9 @@
         <definition>virtual bool MyGUI::IFont::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_159505df1ee5ae68b07c93bbd6a780e61">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_180d3a9ad5ea71587bf6b14d66e9b7a9c">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1b20c6f0d2a7e559839c66a949444f0bb">isType</reimplementedby>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +89,9 @@
         <definition>bool MyGUI::IFont::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_16e5d29324eb0e3ef2fce811a282c3b39">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_1514aefb41bae7c2de5bfd04559916e04">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1070888513bc9375d566fe1edea5a70dd">isType</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -108,12 +127,14 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="42" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1IFont_1ba19e8323943ee3386936b0735e0c258" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>GlyphInfo *</type>
+        <type><ref refid="structMyGUI_1_1GlyphInfo" kindref="compound">GlyphInfo</ref> *</type>
         <definition>virtual GlyphInfo* MyGUI::IFont::getGlyphInfo</definition>
         <argsstring>(Char _id)=0</argsstring>
         <name>getGlyphInfo</name>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_19906f8fc3d2e5bd90a2309cf3e95fad3">getGlyphInfo</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1cf456c60b03c0f52ef4d995aa6cfff87">getGlyphInfo</reimplementedby>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -125,10 +146,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="44"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1IFont_12dbff756db4e3d8969c82dc66e762c94" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>virtual ITexture* MyGUI::IFont::getTextureFont</definition>
         <argsstring>()=0</argsstring>
         <name>getTextureFont</name>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_1599ed4a6f807e280e279b68ff1200729">getTextureFont</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1eb59488775905c6e33dc24308137b05d">getTextureFont</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -142,6 +165,8 @@
         <definition>virtual int MyGUI::IFont::getDefaultHeight</definition>
         <argsstring>()=0</argsstring>
         <name>getDefaultHeight</name>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_1ad8a4e435a0cf1c013ca34f3bd55262d">getDefaultHeight</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1ec625ec1c9d5a88e6b8b5ebdfd9f6494">getDefaultHeight</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -157,6 +182,9 @@
         <definition>static const std::string&amp; MyGUI::IFont::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1c7e2c7031c7e9c854b3d92d8f8a44110">getClassTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1ResourceTrueTypeFont_1c036d6bb4a6c2c7895cc0baeb9a8f482">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ResourceManualFont_1c0968ee0fa063f882d90df3d95c406e2">getClassTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -170,19 +198,91 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="907">
+        <label>MyGUI::IFont</label>
+        <link refid="classMyGUI_1_1IFont"/>
+        <childnode refid="908" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="912">
+        <label>MyGUI::ResourceTrueTypeFont</label>
+        <link refid="classMyGUI_1_1ResourceTrueTypeFont"/>
+        <childnode refid="907" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="909">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="910" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="911">
+        <label>MyGUI::ResourceManualFont</label>
+        <link refid="classMyGUI_1_1ResourceManualFont"/>
+        <childnode refid="907" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="908">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="909" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="910">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="913">
+        <label>MyGUI::IFont</label>
+        <link refid="classMyGUI_1_1IFont"/>
+        <childnode refid="914" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="915">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="916" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="914">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="915" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="916">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="35" bodyend="49"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1IFont_17d11cceba32d64e888ae2cb28a19dffd" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IResource_1dafcd581222d1fc731cc0dd300e437f0" prot="protected" virt="virtual"><scope>MyGUI::IFont</scope><name>deserialization</name></member>
       <member refid="classMyGUI_1_1IFont_13fa4c652f896bd9eb9e027d7f9b752fc" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1IFont_18292ead24d60576f828c79db2057973f" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getDefaultHeight</name></member>
       <member refid="classMyGUI_1_1IFont_1ba19e8323943ee3386936b0735e0c258" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getGlyphInfo</name></member>
+      <member refid="classMyGUI_1_1IResource_145996492b62004e44f42920a833091dd" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>getResourceName</name></member>
       <member refid="classMyGUI_1_1IFont_12dbff756db4e3d8969c82dc66e762c94" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getTextureFont</name></member>
       <member refid="classMyGUI_1_1IFont_1b9a0b76aebbbaf3345e29409202f7eec" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1IFont_13b8eaa5bca298d2fdb2403770b9bee3a" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>IFont</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_143bc5615a14e1b3e5d6d2764f8f22b6d" prot="protected" virt="non-virtual"><scope>MyGUI::IFont</scope><name>IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_1a3c426dcdcdfc242f226eaabc2fc3500" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>ISerializable</name></member>
       <member refid="classMyGUI_1_1IFont_10240d8f47daffb7d0582621e32899751" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1IFont_10e13e913853e35a096c0baf04e84d7be" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1IResource_14f8d4581daedc0acccaccaca7509f57f" prot="protected" virt="non-virtual"><scope>MyGUI::IFont</scope><name>mResourceName</name></member>
       <member refid="classMyGUI_1_1IFont_12e880021c6cda0511dce0213e4d1c765" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISerializable_188999214d6f7766078861a76976947f0" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>serialization</name></member>
       <member refid="classMyGUI_1_1IFont_188db7b6481049f977110477c66b7fdbb" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>~IFont</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_163ed700bc73e0158e726af4f29aeaedf" prot="protected" virt="virtual"><scope>MyGUI::IFont</scope><name>~IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_176e68dc274e87a9ded1da7e28a379e44" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>~ISerializable</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -2,6 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1FontManager" kind="class" prot="public">
     <compoundname>MyGUI::FontManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; FontManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01FontManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; FontManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_FontManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1FontManager_11ed5367ab75517985079bd939c357980" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -73,7 +76,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="53"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1FontManager_1635770803e97dc4d8933acf979f0348e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IFont *</type>
+        <type><ref refid="classMyGUI_1_1IFont" kindref="compound">IFont</ref> *</type>
         <definition>IFont* MyGUI::FontManager::getByName</definition>
         <argsstring>(const std::string &amp;_name) const </argsstring>
         <name>getByName</name>
@@ -97,7 +100,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_load</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -105,7 +108,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -149,17 +152,63 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="637">
+        <label>MyGUI::Singleton&lt; FontManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="636">
+        <label>MyGUI::FontManager</label>
+        <link refid="classMyGUI_1_1FontManager"/>
+        <childnode refid="637" relation="public-inheritance">
+        </childnode>
+        <childnode refid="638" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="638">
+        <label>MyGUI::MemberObsolete&lt; FontManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01FontManager_01_4"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="640">
+        <label>MyGUI::Singleton&lt; FontManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="639" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="639">
+        <label>MyGUI::FontManager</label>
+        <link refid="classMyGUI_1_1FontManager"/>
+        <childnode refid="640" relation="public-inheritance">
+        </childnode>
+        <childnode refid="641" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="641">
+        <label>MyGUI::MemberObsolete&lt; FontManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01FontManager_01_4"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" bodystart="36" bodyend="65"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1FontManager_121cfba5b79372e2d8047804dccce3b2d" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1FontManager_11ed5367ab75517985079bd939c357980" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>FontManager</name></member>
       <member refid="classMyGUI_1_1FontManager_1635770803e97dc4d8933acf979f0348e" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1FontManager_18aaa97062ecd82ec6231149af2600fff" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getDefaultFont</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1FontManager_1c0a5b57caf5e9172810660a0da2146bb" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01FontManager_01_4_170d38a6e7a3964fb2ed5a6ffc4ce09bd" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>load</name></member>
       <member refid="classMyGUI_1_1FontManager_1cc1571b7ef4290135a8a7585d9091535" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>mDefaultName</name></member>
       <member refid="classMyGUI_1_1FontManager_141a49704c5e039237a66a8df5e770443" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1FontManager_1763de6a35cb1ee42dca44a907b4a4611" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>setDefaultFont</name></member>
       <member refid="classMyGUI_1_1FontManager_1d0fa9e625b42f2c84d56106e8c511478" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>Singleton</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::FontManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

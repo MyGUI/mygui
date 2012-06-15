@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; ResourceManager &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ResourceManager" prot="public" virt="non-virtual">MyGUI::ResourceManager</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -19,7 +21,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="526"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_15fd3fdc4772d9939c30246a62f7dc5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IResourcePtr</type>
+        <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResourcePtr</ref></type>
         <definition>IResourcePtr MyGUI::MemberObsolete&lt; ResourceManager &gt;::getResource</definition>
         <argsstring>(const std::string &amp;_name, bool _throw=true)</argsstring>
         <name>getResource</name>
@@ -45,6 +47,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1565">
+        <label>MyGUI::MemberObsolete&lt; ResourceManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4"/>
+      </node>
+      <node id="1566">
+        <label>MyGUI::ResourceManager</label>
+        <link refid="classMyGUI_1_1ResourceManager"/>
+        <childnode refid="1565" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="523" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="522" bodyend="529"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_15fd3fdc4772d9939c30246a62f7dc5c6" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ResourceManager &gt;</scope><name>getResource</name></member>

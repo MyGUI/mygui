@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01Window_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; Window &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Window" prot="public" virt="non-virtual">MyGUI::Window</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -11,7 +13,7 @@
         <argsstring>(const IntCoord &amp;_coord)</argsstring>
         <name>setPosition</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <briefdescription>
@@ -88,7 +90,7 @@
         <argsstring>(const IntRect &amp;_minmax)</argsstring>
         <name>setMinMax</name>
         <param>
-          <type>const IntRect &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">IntRect</ref> &amp;</type>
           <declname>_minmax</declname>
         </param>
         <briefdescription>
@@ -129,7 +131,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="401"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_11e9d641b77393dd3cda4b954735754df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IntRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">IntRect</ref></type>
         <definition>IntRect MyGUI::MemberObsolete&lt; Window &gt;::getMinMax</definition>
         <argsstring>()</argsstring>
         <name>getMinMax</name>
@@ -146,6 +148,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1606">
+        <label>MyGUI::MemberObsolete&lt; Window &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4"/>
+      </node>
+      <node id="1607">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="1606" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="387" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="386" bodyend="404"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_11e9d641b77393dd3cda4b954735754df" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>getMinMax</name></member>

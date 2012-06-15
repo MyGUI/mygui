@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1types_1_1TCoord" kind="struct" prot="public">
     <compoundname>MyGUI::types::TCoord</compoundname>
+    <includes local="no">MyGUI_TCoord.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -58,7 +59,7 @@
         <argsstring>(TCoord const &amp;_obj)</argsstring>
         <name>TCoord</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -75,11 +76,11 @@
         <argsstring>(TPoint&lt; T &gt; const &amp;_point, TSize&lt; T &gt; const &amp;_size)</argsstring>
         <name>TCoord</name>
         <param>
-          <type>TPoint&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; const &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>TSize&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">TSize</ref>&lt; T &gt; const &amp;</type>
           <declname>_size</declname>
         </param>
         <briefdescription>
@@ -91,12 +92,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="66" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1e64ed60c8b440d6722cf653dff40cc2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator-=</definition>
         <argsstring>(TCoord const &amp;_obj)</argsstring>
         <name>operator-=</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -108,12 +109,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="74" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_133380809cf66bd987e0855629d35174b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator+=</definition>
         <argsstring>(TCoord const &amp;_obj)</argsstring>
         <name>operator+=</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -125,12 +126,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="84" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="83" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_133c6fc3007537369a62af65430accc8f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
         <argsstring>(TCoord const &amp;_obj) const </argsstring>
         <name>operator-</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -142,12 +143,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="92" bodyend="95"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_161db1b3aae4043e3050dbf4cc840a251" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
         <argsstring>(TPoint&lt; T &gt; const &amp;_obj) const </argsstring>
         <name>operator-</name>
         <param>
-          <type>TPoint&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -159,12 +160,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="98" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="97" bodyend="100"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_162e2f6d15202dff6ed8ec6444fa2a5dc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
         <argsstring>(TSize&lt; T &gt; const &amp;_obj) const </argsstring>
         <name>operator-</name>
         <param>
-          <type>TSize&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">TSize</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -176,12 +177,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="102" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_19e04891ce863a53a559f741696efd0a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
         <argsstring>(TCoord const &amp;_obj) const </argsstring>
         <name>operator+</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -193,12 +194,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="108" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="107" bodyend="110"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1c6a306bf4fe576649e13d789787c3492" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
         <argsstring>(TPoint&lt; T &gt; const &amp;_obj) const </argsstring>
         <name>operator+</name>
         <param>
-          <type>TPoint&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -210,12 +211,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="113" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="112" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1bd34f4d264a3290ec965b23002da7efb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref></type>
         <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
         <argsstring>(TSize&lt; T &gt; const &amp;_obj) const </argsstring>
         <name>operator+</name>
         <param>
-          <type>TSize&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">TSize</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -227,12 +228,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="118" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="117" bodyend="120"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1da74f48abe64604c7ec66f9605159f7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
         <argsstring>(TCoord const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -251,12 +252,12 @@
             <defname>U</defname>
           </param>
         </templateparamlist>
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
         <argsstring>(TCoord&lt; U &gt; const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TCoord&lt; U &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref>&lt; U &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -268,12 +269,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="133" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="132" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_15bff022bb12d4b39076f780992832b5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
         <argsstring>(TPoint&lt; T &gt; const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TPoint&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -285,12 +286,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="142" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="141" bodyend="146"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_10c4547c4f294354bc5d7cade4a4c4ace" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
         <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
         <argsstring>(TSize&lt; T &gt; const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TSize&lt; T &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">TSize</ref>&lt; T &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -307,7 +308,7 @@
         <argsstring>(TCoord const &amp;_obj) const </argsstring>
         <name>operator==</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -324,7 +325,7 @@
         <argsstring>(TCoord const &amp;_obj) const </argsstring>
         <name>operator!=</name>
         <param>
-          <type>TCoord const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -409,7 +410,7 @@
         <argsstring>(TCoord &amp;_value)</argsstring>
         <name>swap</name>
         <param>
-          <type>TCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -434,7 +435,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="196" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="195" bodyend="198"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1b0b42dce4e2e1f963fc4bc9043a29698" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint&lt; T &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt;</type>
         <definition>TPoint&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::point</definition>
         <argsstring>() const </argsstring>
         <name>point</name>
@@ -447,7 +448,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="201" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="200" bodyend="203"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1e03f29b4d7ec641d897d5eb6ad75562b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TSize&lt; T &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">TSize</ref>&lt; T &gt;</type>
         <definition>TSize&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::size</definition>
         <argsstring>() const </argsstring>
         <name>size</name>
@@ -465,7 +466,7 @@
         <argsstring>(const TPoint&lt; T &gt; &amp;_value) const </argsstring>
         <name>inside</name>
         <param>
-          <type>const TPoint&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -546,7 +547,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1be4d07ae364152368f4df0fee546206e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TCoord&lt; T &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref>&lt; T &gt;</type>
         <definition>static TCoord&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -574,7 +575,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const TCoord&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -595,7 +596,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>TCoord&lt; T &gt; &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">TCoord</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -612,12 +613,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="645">
+      <node id="2743">
         <label>T</label>
       </node>
-      <node id="644">
+      <node id="2742">
         <label>MyGUI::types::TCoord&lt; T &gt;</label>
-        <childnode refid="645" relation="usage">
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2743" relation="usage">
           <edgelabel>width
 height
 left

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1types_1_1TPoint" kind="struct" prot="public">
     <compoundname>MyGUI::types::TPoint</compoundname>
+    <includes local="no">MyGUI_TPoint.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -50,7 +51,7 @@
         <argsstring>(TPoint const &amp;_obj)</argsstring>
         <name>TPoint</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -62,12 +63,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="50" bodyend="54"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_13442c3d62fb37c1af9f2b30e3a1f356e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> &amp;</type>
         <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator-=</definition>
         <argsstring>(TPoint const &amp;_obj)</argsstring>
         <name>operator-=</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -79,12 +80,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="56" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_13acd135e676f37dbde66eb2cb59d9c6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> &amp;</type>
         <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator+=</definition>
         <argsstring>(TPoint const &amp;_obj)</argsstring>
         <name>operator+=</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -96,12 +97,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="63" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1612ddbed548cc4ccd994955db177f310" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref></type>
         <definition>TPoint MyGUI::types::TPoint&lt; T &gt;::operator-</definition>
         <argsstring>(TPoint const &amp;_obj) const </argsstring>
         <name>operator-</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -113,12 +114,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="70" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1f14149a5b711e3cac18058d74b8a1942" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref></type>
         <definition>TPoint MyGUI::types::TPoint&lt; T &gt;::operator+</definition>
         <argsstring>(TPoint const &amp;_obj) const </argsstring>
         <name>operator+</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -130,12 +131,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="75" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_160eac0fe624304a9aca5565ffa2dce23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> &amp;</type>
         <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator=</definition>
         <argsstring>(TPoint const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -154,12 +155,12 @@
             <defname>U</defname>
           </param>
         </templateparamlist>
-        <type>TPoint &amp;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> &amp;</type>
         <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator=</definition>
         <argsstring>(TPoint&lt; U &gt; const &amp;_obj)</argsstring>
         <name>operator=</name>
         <param>
-          <type>TPoint&lt; U &gt; const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; U &gt; const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -176,7 +177,7 @@
         <argsstring>(TPoint const &amp;_obj) const </argsstring>
         <name>operator==</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -193,7 +194,7 @@
         <argsstring>(TPoint const &amp;_obj) const </argsstring>
         <name>operator!=</name>
         <param>
-          <type>TPoint const &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> const &amp;</type>
           <declname>_obj</declname>
         </param>
         <briefdescription>
@@ -244,7 +245,7 @@
         <argsstring>(TPoint &amp;_value)</argsstring>
         <name>swap</name>
         <param>
-          <type>TPoint &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -312,7 +313,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_151ed8e5800d3bfc7abca335eaaf6145b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TPoint&lt; T &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt;</type>
         <definition>static TPoint&lt;T&gt; MyGUI::types::TPoint&lt; T &gt;::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -340,7 +341,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const TPoint&lt; T &gt; &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -361,7 +362,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>TPoint&lt; T &gt; &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">TPoint</ref>&lt; T &gt; &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -378,12 +379,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="685">
+      <node id="2887">
         <label>T</label>
       </node>
-      <node id="684">
+      <node id="2886">
         <label>MyGUI::types::TPoint&lt; T &gt;</label>
-        <childnode refid="685" relation="usage">
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2887" relation="usage">
           <edgelabel>left
 top</edgelabel>
         </childnode>

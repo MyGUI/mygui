@@ -289,7 +289,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_146bc2cf56f87f716c62b2cf48597b348" prot="private" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::ControllerEdgeHide::eventPostAction</definition>
         <argsstring></argsstring>
         <name>eventPostAction</name>
@@ -355,7 +355,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_1af48301ed92d91c65a111032cf444340" prot="private" static="no" mutable="no">
-        <type>MyGUI::IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">MyGUI::IntCoord</ref></type>
         <definition>MyGUI::IntCoord MyGUI::ControllerEdgeHide::mLastCoord</definition>
         <argsstring></argsstring>
         <name>mLastCoord</name>
@@ -373,39 +373,82 @@
     <detaileddescription>
 <para>This controller used for hiding widgets near screen edges. <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> will start hiding(move out of screen) if it&apos;s near border and it and it&apos;s childrens don&apos;t have any focus. Hiding till only small part of widget be visible. <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> will move inside screen if it have any focus. </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="129">
+      <node id="312">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="313" relation="public-inheritance">
+        </childnode>
       </node>
-      <node id="128">
+      <node id="311">
         <label>MyGUI::ControllerEdgeHide</label>
         <link refid="classMyGUI_1_1ControllerEdgeHide"/>
-        <childnode refid="129" relation="public-inheritance">
+        <childnode refid="312" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="313">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="131">
+      <node id="319">
+        <label>T</label>
+      </node>
+      <node id="318">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="319" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="315">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="316" relation="public-inheritance">
+        </childnode>
+        <childnode refid="317" relation="usage">
+          <edgelabel>eventPreAction
+eventUpdateAction
+eventPostAction</edgelabel>
+        </childnode>
       </node>
-      <node id="130">
+      <node id="314">
         <label>MyGUI::ControllerEdgeHide</label>
         <link refid="classMyGUI_1_1ControllerEdgeHide"/>
-        <childnode refid="131" relation="public-inheritance">
+        <childnode refid="315" relation="public-inheritance">
         </childnode>
+        <childnode refid="318" relation="usage">
+          <edgelabel>mLastCoord</edgelabel>
+        </childnode>
+        <childnode refid="317" relation="usage">
+          <edgelabel>eventPostAction</edgelabel>
+        </childnode>
+      </node>
+      <node id="316">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="317">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; Widget * &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="39" bodyend="79"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ControllerEdgeHide_17502f190ce3fd8f8a00a7e131b094896" prot="private" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>addTime</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_1e83c047e13638a28cdc583c23ae8c73f" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_1f713f26ff4bf11ccfb9bed37f5f4aea7" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>ControllerEdgeHide</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_146bc2cf56f87f716c62b2cf48597b348" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventPostAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventPreAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventUpdateAction</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_1701b54771348eb2e5dc5709808191723" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_15c057c23cf3b8fbb858810bd28d1461f" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_113ca64c4556fd2281695044f7e88526b" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_1f2dd4634eb0da57ba29125908ca26c39" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_10185b66e2e14ab61c9606299217756cf" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mElapsedTime</name></member>
@@ -422,6 +465,7 @@
       <member refid="classMyGUI_1_1ControllerEdgeHide_1ad571ff6026344cf83734ff20053f507" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>setTime</name></member>
       <member refid="classMyGUI_1_1ControllerEdgeHide_19bc51b8e620d0847b716f87081956c39" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>~ControllerEdgeHide</name></member>
       <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>~ControllerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>~IObject</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

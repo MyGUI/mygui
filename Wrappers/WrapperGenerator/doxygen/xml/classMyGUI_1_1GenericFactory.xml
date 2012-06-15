@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1GenericFactory" kind="class" prot="public">
     <compoundname>MyGUI::GenericFactory</compoundname>
+    <includes local="no">MyGUI_GenericFactory.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -11,7 +12,7 @@
     </templateparamlist>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1GenericFactory_12e86e510a47215e44e7170dc28c79d42" prot="public" static="no">
-        <type>delegates::CDelegate1&lt; IObject *&amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate1" kindref="compound">delegates::CDelegate1</ref>&lt; <ref refid="classMyGUI_1_1IObject" kindref="compound">IObject</ref> *&amp; &gt;</type>
         <definition>typedef delegates::CDelegate1&lt;IObject*&amp;&gt; MyGUI::GenericFactory&lt; Type &gt;::Delegate</definition>
         <argsstring></argsstring>
         <name>Delegate</name>
@@ -26,7 +27,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="classMyGUI_1_1GenericFactory_1da48ef933a4e2d2db978646664d5916a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>Delegate::IDelegate *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate1_19ca7f941e68b823639783e9e015ee7c8" kindref="member">Delegate::IDelegate</ref> *</type>
         <definition>static Delegate::IDelegate* MyGUI::GenericFactory&lt; Type &gt;::getFactory</definition>
         <argsstring>()</argsstring>
         <name>getFactory</name>
@@ -46,7 +47,7 @@
         <argsstring>(IObject *&amp;_instance)</argsstring>
         <name>createFromFactory</name>
         <param>
-          <type>IObject *&amp;</type>
+          <type><ref refid="classMyGUI_1_1IObject" kindref="compound">IObject</ref> *&amp;</type>
           <declname>_instance</declname>
         </param>
         <briefdescription>

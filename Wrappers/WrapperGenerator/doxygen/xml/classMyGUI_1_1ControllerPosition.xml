@@ -34,7 +34,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1ControllerPosition_1d568c874c908043555405a6d8431eab6" prot="public" static="no">
-        <type>delegates::CDelegate4&lt; const IntCoord &amp;, const IntCoord &amp;, IntCoord &amp;, float &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate4" kindref="compound">delegates::CDelegate4</ref>&lt; const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;, const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;, <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;, float &gt;</type>
         <definition>typedef delegates::CDelegate4&lt;const IntCoord&amp;, const IntCoord&amp;, IntCoord&amp;, float&gt; MyGUI::ControllerPosition::FrameAction</definition>
         <argsstring></argsstring>
         <name>FrameAction</name>
@@ -133,7 +133,7 @@
         <argsstring>(const IntCoord &amp;_value)</argsstring>
         <name>setCoord</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -150,7 +150,7 @@
         <argsstring>(const IntSize &amp;_value)</argsstring>
         <name>setSize</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -167,7 +167,7 @@
         <argsstring>(const IntPoint &amp;_value)</argsstring>
         <name>setPosition</name>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -226,7 +226,7 @@
         <argsstring>(FrameAction::IDelegate *_value)</argsstring>
         <name>setAction</name>
         <param>
-          <type>FrameAction::IDelegate *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate4_19164533d1ec28522f90e6221a2c1430b" kindref="member">FrameAction::IDelegate</ref> *</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -328,7 +328,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_184a0527889bed8f3c31946a088384e34" prot="private" static="no" mutable="no">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>IntCoord MyGUI::ControllerPosition::mStartCoord</definition>
         <argsstring></argsstring>
         <name>mStartCoord</name>
@@ -341,7 +341,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_1c16cfbbf49016f1afe6dbed04c47afe2" prot="private" static="no" mutable="no">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>IntCoord MyGUI::ControllerPosition::mDestCoord</definition>
         <argsstring></argsstring>
         <name>mDestCoord</name>
@@ -406,7 +406,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_164d1cbcb938c24d1830eb4799381b54b" prot="private" static="no" mutable="no">
-        <type>FrameAction</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate4" kindref="compound">FrameAction</ref></type>
         <definition>FrameAction MyGUI::ControllerPosition::eventFrameAction</definition>
         <argsstring></argsstring>
         <name>eventFrameAction</name>
@@ -455,33 +455,87 @@
     <detaileddescription>
 <para>This controller used for smooth changing position of widget in time </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="145">
+      <node id="343">
         <label>MyGUI::ControllerPosition</label>
         <link refid="classMyGUI_1_1ControllerPosition"/>
-        <childnode refid="146" relation="public-inheritance">
+        <childnode refid="344" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="146">
+      <node id="344">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="345" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="345">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="147">
+      <node id="351">
+        <label>T</label>
+      </node>
+      <node id="346">
         <label>MyGUI::ControllerPosition</label>
         <link refid="classMyGUI_1_1ControllerPosition"/>
-        <childnode refid="148" relation="public-inheritance">
+        <childnode refid="347" relation="public-inheritance">
+        </childnode>
+        <childnode refid="350" relation="usage">
+          <edgelabel>mStartCoord
+mDestCoord</edgelabel>
+        </childnode>
+        <childnode refid="352" relation="usage">
+          <edgelabel>eventFrameAction</edgelabel>
         </childnode>
       </node>
-      <node id="148">
+      <node id="350">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="351" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="347">
         <label>MyGUI::ControllerItem</label>
         <link refid="classMyGUI_1_1ControllerItem"/>
+        <childnode refid="348" relation="public-inheritance">
+        </childnode>
+        <childnode refid="349" relation="usage">
+          <edgelabel>eventPreAction
+eventUpdateAction
+eventPostAction</edgelabel>
+        </childnode>
+      </node>
+      <node id="353">
+        <label>MyGUI::delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate4"/>
+      </node>
+      <node id="352">
+        <label>MyGUI::delegates::CDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CDelegate4"/>
+        <childnode refid="353" relation="usage">
+          <edgelabel>mDelegate</edgelabel>
+        </childnode>
+      </node>
+      <node id="348">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="349">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; Widget * &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="35" bodyend="88"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ControllerPosition_13454d85a20a43c04d7d1f7b31abeb316" prot="private" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>addTime</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_10d2944c9d64a26e5955e167d121d727f" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_111d2dfbcf99539884d0e91b68ea70a9d" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>ControllerPosition</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_164d1cbcb938c24d1830eb4799381b54b" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventFrameAction</name></member>
       <member refid="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventPostAction</name></member>
@@ -490,6 +544,7 @@
       <member refid="classMyGUI_1_1ControllerPosition_1d568c874c908043555405a6d8431eab6" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>FrameAction</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_1e264e3a3e8603920922033f59731162e" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_1c2fa62652df83c4bbc94f41e59c31031" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_1689a250959e00fd0fb4d051457ad3a03" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_1a945fd1bd74e5cd3b491d1c592d9ef06" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_161ef6036f0463172f14bf1e72e24994b" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mCalcPosition</name></member>
@@ -509,6 +564,7 @@
       <member refid="classMyGUI_1_1ControllerPosition_12ecdf2019263c0b500aa8e3f81b976dd" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setTime</name></member>
       <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>~ControllerItem</name></member>
       <member refid="classMyGUI_1_1ControllerPosition_1d79bd2a16ce07137719e405bd3fa8ffb" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>~ControllerPosition</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>~IObject</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1delegates_1_1CMethodDelegate4" kind="class" prot="public">
     <compoundname>MyGUI::delegates::CMethodDelegate4</compoundname>
+    <basecompoundref refid="classMyGUI_1_1delegates_1_1IDelegate4" prot="public" virt="non-virtual">MyGUI::delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</basecompoundref>
+    <includes local="no">MyGUI_Delegate.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -51,7 +53,7 @@
         <argsstring>(IDelegateUnlink *_unlink, T *_object, Method _method)</argsstring>
         <name>CMethodDelegate4</name>
         <param>
-          <type>IDelegateUnlink *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <param>
@@ -59,7 +61,7 @@
           <declname>_object</declname>
         </param>
         <param>
-          <type>Method</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1CMethodDelegate4_178c7e44f306158a064634e1702de01ef" kindref="member">Method</ref></type>
           <declname>_method</declname>
         </param>
         <briefdescription>
@@ -75,6 +77,7 @@
         <definition>virtual bool MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::isType</definition>
         <argsstring>(const std::type_info &amp;_type)</argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate4_1776a6df5dcdc27604f9d8b5e0e395dbe">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -92,6 +95,7 @@
         <definition>virtual void MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::invoke</definition>
         <argsstring>(TP1 p1, TP2 p2, TP3 p3, TP4 p4)</argsstring>
         <name>invoke</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate4_18fc8cef5f9c1617c87e4740102a2edba">invoke</reimplements>
         <param>
           <type>TP1</type>
           <declname>p1</declname>
@@ -121,8 +125,9 @@
         <definition>virtual bool MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::compare</definition>
         <argsstring>(IDelegate4&lt; TP1, TP2, TP3, TP4 &gt; *_delegate) const </argsstring>
         <name>compare</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate4_161747b8ee66a9e07e498879de1dd1cef">compare</reimplements>
         <param>
-          <type>IDelegate4&lt; TP1, TP2, TP3, TP4 &gt; *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate4" kindref="compound">IDelegate4</ref>&lt; TP1, TP2, TP3, TP4 &gt; *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>
@@ -138,8 +143,9 @@
         <definition>virtual bool MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::compare</definition>
         <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
         <name>compare</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate4_15880dd96b240daf454b45ac6c0e13e73">compare</reimplements>
         <param>
-          <type>IDelegateUnlink *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <briefdescription>
@@ -153,7 +159,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMethodDelegate4_18e9e38b09e0db1a1ffc1461a065c899a" prot="private" static="no" mutable="no">
-        <type>IDelegateUnlink *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
         <definition>IDelegateUnlink* MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::mUnlink</definition>
         <argsstring></argsstring>
         <name>mUnlink</name>
@@ -179,7 +185,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="1930" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="1930" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMethodDelegate4_1176b6d5171b16ab06c38088c25a834c1" prot="private" static="no" mutable="no">
-        <type>Method</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMethodDelegate4_178c7e44f306158a064634e1702de01ef" kindref="member">Method</ref></type>
         <definition>Method MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;::mMethod</definition>
         <argsstring></argsstring>
         <name>mMethod</name>
@@ -196,14 +202,43 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="193">
+        <label>MyGUI::delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate4"/>
+      </node>
+      <node id="192">
+        <label>MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMethodDelegate4"/>
+        <childnode refid="193" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <collaborationgraph>
-      <node id="81">
+      <node id="197">
         <label>T</label>
       </node>
-      <node id="80">
+      <node id="195">
+        <label>MyGUI::delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate4"/>
+      </node>
+      <node id="194">
         <label>MyGUI::delegates::CMethodDelegate4&lt; T, TP1, TP2, TP3, TP4 &gt;</label>
-        <childnode refid="81" relation="usage">
+        <link refid="classMyGUI_1_1delegates_1_1CMethodDelegate4"/>
+        <childnode refid="195" relation="public-inheritance">
+        </childnode>
+        <childnode refid="196" relation="usage">
+          <edgelabel>mUnlink</edgelabel>
+        </childnode>
+        <childnode refid="197" relation="usage">
           <edgelabel>mObject</edgelabel>
+        </childnode>
+      </node>
+      <node id="196">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="196" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
@@ -218,6 +253,7 @@
       <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate4_1176b6d5171b16ab06c38088c25a834c1" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate4</scope><name>mMethod</name></member>
       <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate4_10cc64cffafa8fbae21a4f9078029713f" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate4</scope><name>mObject</name></member>
       <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate4_18e9e38b09e0db1a1ffc1461a065c899a" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate4</scope><name>mUnlink</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate4_1af1b69ac57ecad353b2a386dcbc38018" prot="public" virt="virtual"><scope>MyGUI::delegates::CMethodDelegate4</scope><name>~IDelegate4</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

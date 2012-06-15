@@ -2,9 +2,13 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LayerManager" kind="class" prot="public">
     <compoundname>MyGUI::LayerManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; LayerManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1IUnlinkWidget" prot="public" virt="non-virtual">MyGUI::IUnlinkWidget</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01LayerManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; LayerManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_LayerManager.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" prot="public" static="no">
-        <type>std::vector&lt; ILayer * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> * &gt;</type>
         <definition>typedef std::vector&lt;ILayer*&gt; MyGUI::LayerManager::VectorLayer</definition>
         <argsstring></argsstring>
         <name>VectorLayer</name>
@@ -17,7 +21,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1LayerManager_19bb1a53e4ac04306ef7ded69a0bdcb00" prot="public" static="no">
-        <type>Enumerator&lt; VectorLayer &gt;</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref>&lt; <ref refid="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" kindref="member">VectorLayer</ref> &gt;</type>
         <definition>typedef Enumerator&lt;VectorLayer&gt; MyGUI::LayerManager::EnumeratorLayer</definition>
         <argsstring></argsstring>
         <name>EnumeratorLayer</name>
@@ -174,20 +178,20 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="68"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerManager_118a65232edb70fe73601bf665512ca39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>EnumeratorLayer</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorLayer</ref></type>
         <definition>EnumeratorLayer MyGUI::LayerManager::getEnumerator</definition>
         <argsstring>() const </argsstring>
         <name>getEnumerator</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get layer nodes Enumerator </para>        </detaileddescription>
+<para>Get layer nodes <ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="70"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerManager_15c9ee589a1216f908c0138a406e3cf1e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ILayer *</type>
+        <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
         <definition>ILayer* MyGUI::LayerManager::getByName</definition>
         <argsstring>(const std::string &amp;_name, bool _throw=true) const </argsstring>
         <name>getByName</name>
@@ -235,7 +239,7 @@
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>renderToTarget</name>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -256,7 +260,7 @@
         <argsstring>(const IntSize &amp;_viewSize)</argsstring>
         <name>resizeView</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_viewSize</declname>
         </param>
         <briefdescription>
@@ -275,7 +279,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_load</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -283,7 +287,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -294,11 +298,12 @@
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="84"/>
       </memberdef>
-      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void MyGUI::LayerManager::_unlinkWidget</definition>
         <argsstring>(Widget *_widget)</argsstring>
         <name>_unlinkWidget</name>
+        <reimplements refid="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5">_unlinkWidget</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_widget</declname>
@@ -330,7 +335,7 @@
         <argsstring>(VectorLayer &amp;_layers)</argsstring>
         <name>merge</name>
         <param>
-          <type>VectorLayer &amp;</type>
+          <type><ref refid="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" kindref="member">VectorLayer</ref> &amp;</type>
           <declname>_layers</declname>
         </param>
         <briefdescription>
@@ -347,7 +352,7 @@
         <argsstring>(ILayer *_layer)</argsstring>
         <name>destroy</name>
         <param>
-          <type>ILayer *</type>
+          <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
           <declname>_layer</declname>
         </param>
         <briefdescription>
@@ -361,7 +366,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1LayerManager_1b5e8546dff6f2c3e7c3379709aa6db1f" prot="private" static="no" mutable="no">
-        <type>VectorLayer</type>
+        <type><ref refid="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" kindref="member">VectorLayer</ref></type>
         <definition>VectorLayer MyGUI::LayerManager::mLayerNodes</definition>
         <argsstring></argsstring>
         <name>mLayerNodes</name>
@@ -391,29 +396,88 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1378">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="1379">
+        <label>MyGUI::MemberObsolete&lt; LayerManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01LayerManager_01_4"/>
+      </node>
+      <node id="1377">
+        <label>MyGUI::Singleton&lt; LayerManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="1376">
+        <label>MyGUI::LayerManager</label>
+        <link refid="classMyGUI_1_1LayerManager"/>
+        <childnode refid="1377" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1378" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1379" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1382">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="1383">
+        <label>MyGUI::MemberObsolete&lt; LayerManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01LayerManager_01_4"/>
+      </node>
+      <node id="1381">
+        <label>MyGUI::Singleton&lt; LayerManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="1380" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="1380">
+        <label>MyGUI::LayerManager</label>
+        <link refid="classMyGUI_1_1LayerManager"/>
+        <childnode refid="1381" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1382" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1383" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="37" bodyend="96"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1LayerManager_1cbd75c1bfa583ea0582485ba59c8feaa" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>_load</name></member>
-      <member refid="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" virt="virtual"><scope>MyGUI::LayerManager</scope><name>_unlinkWidget</name></member>
       <member refid="classMyGUI_1_1LayerManager_1f0ca0a039bbae8ffc9f9ce72666a070a" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>attachToLayerNode</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1LayerManager_1e0cef8c8eb798ed15d533ada0908053f" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>clear</name></member>
       <member refid="classMyGUI_1_1LayerManager_128e9251c7c2fd0fd5f5812f30e28979a" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>destroy</name></member>
       <member refid="classMyGUI_1_1LayerManager_10d5c52fdd484f1bfe245a671b4ee7edd" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>detachFromLayer</name></member>
       <member refid="classMyGUI_1_1LayerManager_19bb1a53e4ac04306ef7ded69a0bdcb00" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>EnumeratorLayer</name></member>
       <member refid="classMyGUI_1_1LayerManager_15c9ee589a1216f908c0138a406e3cf1e" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1LayerManager_118a65232edb70fe73601bf665512ca39" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1LayerManager_1bc51c04fc43c86d7dc7027849940211c" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getWidgetFromPoint</name></member>
       <member refid="classMyGUI_1_1LayerManager_1ecbabe57fa946ad980676e9c6209e345" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1LayerManager_15287f58545af79b564f23e8f011e034f" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>isExist</name></member>
       <member refid="classMyGUI_1_1LayerManager_10833d19e859419e6e6a9f899a8d28e71" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>LayerManager</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01LayerManager_01_4_188434b41789850298d36536399d12f28" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>load</name></member>
       <member refid="classMyGUI_1_1LayerManager_1f53d7e5187cb7c2534553814631a8f0a" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>merge</name></member>
       <member refid="classMyGUI_1_1LayerManager_161d222e9321ffd8dac55ec4501911f3e" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1LayerManager_1b5e8546dff6f2c3e7c3379709aa6db1f" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>mLayerNodes</name></member>
       <member refid="classMyGUI_1_1LayerManager_17439f5604afca57ed5e9eead3e98b886" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>renderToTarget</name></member>
       <member refid="classMyGUI_1_1LayerManager_1c89a12ba47507628cbd21b0631f3ec67" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>resizeView</name></member>
       <member refid="classMyGUI_1_1LayerManager_18a5640878007adf1cadfd06f9e2a692e" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1LayerManager_111f7e6bc3862566d4712cdbce735647d" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>VectorLayer</name></member>
+      <member refid="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" virt="virtual"><scope>MyGUI::LayerManager</scope><name>~IUnlinkWidget</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::LayerManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

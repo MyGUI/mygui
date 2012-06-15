@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01Button_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; Button &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Button" prot="public" virt="non-virtual">MyGUI::Button</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -113,6 +115,24 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1510">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="1511">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="1510" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1512">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="1511" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="43" bodyend="60"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_156038b98f94f68d4671339d1ea4d26b7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>getButtonPressed</name></member>

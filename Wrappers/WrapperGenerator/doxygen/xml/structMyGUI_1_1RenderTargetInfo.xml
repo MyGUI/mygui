@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1RenderTargetInfo" kind="struct" prot="public">
     <compoundname>MyGUI::RenderTargetInfo</compoundname>
+    <includes local="no">MyGUI_RenderTargetInfo.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1RenderTargetInfo_186f61c33db9d47d7ca1f3f2ef972fcb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>

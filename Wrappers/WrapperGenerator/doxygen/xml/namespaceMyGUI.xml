@@ -198,7 +198,7 @@
     <innernamespace refid="namespaceMyGUI_1_1xml">MyGUI::xml</innernamespace>
       <sectiondef kind="typedef">
       <memberdef kind="typedef" id="namespaceMyGUI_1a205827504ef8dae891b02d93aa8c49c" prot="public" static="no">
-        <type>std::vector&lt; ChildSkinInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1ChildSkinInfo" kindref="compound">ChildSkinInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;ChildSkinInfo&gt; MyGUI::VectorChildSkinInfo</definition>
         <argsstring></argsstring>
         <name>VectorChildSkinInfo</name>
@@ -211,7 +211,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ChildSkinInfo.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ChildSkinInfo.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1bcd4450b7ec3ff2f556439e5e7a9388f" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1ComboBox" kindref="compound">ComboBox</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ComboBox" kindref="compound">ComboBox</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;ComboBox*, size_t&gt; MyGUI::EventHandle_ComboBoxPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_ComboBoxPtrSizeT</name>
@@ -224,7 +224,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1c9d20a9a618510b2f76b42d94d2886a8" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, const <ref refid="structMyGUI_1_1DDItemInfo" kindref="compound">DDItemInfo</ref> &amp;, bool &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, const <ref refid="structMyGUI_1_1DDItemInfo" kindref="compound">DDItemInfo</ref> &amp;, bool &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;DDContainer*, const DDItemInfo&amp;, bool&amp;&gt; MyGUI::EventHandle_DDContainerPtrCDDItemInfoRefBoolRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_DDContainerPtrCDDItemInfoRefBoolRef</name>
@@ -237,7 +237,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1585388ed2492a426449ed9828ee9786f" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, const <ref refid="structMyGUI_1_1DDItemInfo" kindref="compound">DDItemInfo</ref> &amp;, bool &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, const <ref refid="structMyGUI_1_1DDItemInfo" kindref="compound">DDItemInfo</ref> &amp;, bool &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;DDContainer*, const DDItemInfo&amp;, bool&gt; MyGUI::EventHandle_DDContainerPtrCDDItemInfoRefBool</definition>
         <argsstring></argsstring>
         <name>EventHandle_DDContainerPtrCDDItemInfoRefBool</name>
@@ -250,7 +250,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_12464b36ff2d2d8dfafdb50de6c5b0b8d" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, DDItemState &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, <ref refid="structMyGUI_1_1DDItemState" kindref="compound">DDItemState</ref> &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;DDContainer*, DDItemState&gt; MyGUI::EventHandle_EventHandle_DDContainerPtrDDItemState</definition>
         <argsstring></argsstring>
         <name>EventHandle_EventHandle_DDContainerPtrDDItemState</name>
@@ -263,7 +263,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDContainer.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1f982c01618ada783e716ed2f8a581d7d" prot="public" static="no">
-        <type>delegates::CDelegate3&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *&amp;, IntCoord &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">delegates::CDelegate3</ref>&lt; <ref refid="classMyGUI_1_1DDContainer" kindref="compound">DDContainer</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *&amp;, <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp; &gt;</type>
         <definition>typedef delegates::CDelegate3&lt;DDContainer*, Widget*&amp;, IntCoord&amp;&gt; MyGUI::EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef</name>
@@ -432,7 +432,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_151e7e4c1fb06fa24c9d5f49e4d397180" prot="public" static="no">
-        <type>HScroll *</type>
+        <type><ref refid="classMyGUI_1_1HScroll" kindref="compound">HScroll</ref> *</type>
         <definition>typedef HScroll* MyGUI::HScrollPtr</definition>
         <argsstring></argsstring>
         <name>HScrollPtr</name>
@@ -445,7 +445,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1d9ca04742d69da71be8b944e7497256a" prot="public" static="no">
-        <type>VScroll *</type>
+        <type><ref refid="classMyGUI_1_1VScroll" kindref="compound">VScroll</ref> *</type>
         <definition>typedef VScroll* MyGUI::VScrollPtr</definition>
         <argsstring></argsstring>
         <name>VScrollPtr</name>
@@ -718,7 +718,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1136afcbcbbab33328ac01a04fad34a43" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; VScroll *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1VScroll" kindref="compound">VScroll</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;VScroll*, size_t&gt; MyGUI::EventHandle_VScrollPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_VScrollPtrSizeT</name>
@@ -731,7 +731,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_11387e1e1365aae2b6cc54b4b0afb8eba" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;EditBox*&gt; MyGUI::EventHandle_EditPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_EditPtr</name>
@@ -744,7 +744,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1e1f73b917121df76574e1f9ce824001a" prot="public" static="no">
-        <type>std::vector&lt; GlyphInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1GlyphInfo" kindref="compound">GlyphInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;GlyphInfo&gt; MyGUI::VectorGlyphInfo</definition>
         <argsstring></argsstring>
         <name>VectorGlyphInfo</name>
@@ -757,7 +757,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_160a1273b6fdef7b0c8cecd4cc90b7e5b" prot="public" static="no">
-        <type>std::vector&lt; FloatPoint &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &gt;</type>
         <definition>typedef std::vector&lt;FloatPoint&gt; MyGUI::VectorFloatPoint</definition>
         <argsstring></argsstring>
         <name>VectorFloatPoint</name>
@@ -770,7 +770,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GeometryUtility.h" line="30" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GeometryUtility.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1c19dfd560c1a16218a20b54d538e65d7" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; float &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; float &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;float&gt; MyGUI::EventHandle_FrameEventDelegate</definition>
         <argsstring></argsstring>
         <name>EventHandle_FrameEventDelegate</name>
@@ -783,7 +783,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Gui.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Gui.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_15ccae6dcad7d6063f9ceb21aebb96e78" prot="public" static="no">
-        <type>std::vector&lt; ILayerNode * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> * &gt;</type>
         <definition>typedef std::vector&lt;ILayerNode*&gt; MyGUI::VectorILayerNode</definition>
         <argsstring></argsstring>
         <name>VectorILayerNode</name>
@@ -796,7 +796,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_18e6b2fa2f0e566f673e746b550fcd5e3" prot="public" static="no">
-        <type>Enumerator&lt; VectorILayerNode &gt;</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref>&lt; <ref refid="namespaceMyGUI_15ccae6dcad7d6063f9ceb21aebb96e78" kindref="member">VectorILayerNode</ref> &gt;</type>
         <definition>typedef Enumerator&lt;VectorILayerNode&gt; MyGUI::EnumeratorILayerNode</definition>
         <argsstring></argsstring>
         <name>EnumeratorILayerNode</name>
@@ -809,7 +809,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1aa1d058d2aa56f8bb61cfc91d07709a4" prot="public" static="no">
-        <type>std::vector&lt; ImageItem &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1ImageItem" kindref="compound">ImageItem</ref> &gt;</type>
         <definition>typedef std::vector&lt;ImageItem&gt; MyGUI::VectorImages</definition>
         <argsstring></argsstring>
         <name>VectorImages</name>
@@ -822,7 +822,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1f4e9d247a40e70f867585c8678fc6cd0" prot="public" static="no">
-        <type>IResource *</type>
+        <type><ref refid="classMyGUI_1_1IResource" kindref="compound">IResource</ref> *</type>
         <definition>typedef IResource* MyGUI::IResourcePtr</definition>
         <argsstring></argsstring>
         <name>IResourcePtr</name>
@@ -835,7 +835,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IResource.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IResource.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_19a0d519bddebb44034b6de83ac6d3346" prot="public" static="no">
-        <type>std::vector&lt; IStateInfo * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1IStateInfo" kindref="compound">IStateInfo</ref> * &gt;</type>
         <definition>typedef std::vector&lt;IStateInfo*&gt; MyGUI::VectorStateInfo</definition>
         <argsstring></argsstring>
         <name>VectorStateInfo</name>
@@ -848,7 +848,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1fc91e37ce88d2aa684b64a4f39c2463e" prot="public" static="no">
-        <type>std::map&lt; std::string, IStateInfo * &gt;</type>
+        <type>std::map&lt; std::string, <ref refid="classMyGUI_1_1IStateInfo" kindref="compound">IStateInfo</ref> * &gt;</type>
         <definition>typedef std::map&lt;std::string, IStateInfo*&gt; MyGUI::MapStateInfo</definition>
         <argsstring></argsstring>
         <name>MapStateInfo</name>
@@ -861,7 +861,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_135df8db919e45ce4660d9401146a63fb" prot="public" static="no">
-        <type>std::map&lt; std::string, VectorStateInfo &gt;</type>
+        <type>std::map&lt; std::string, <ref refid="namespaceMyGUI_19a0d519bddebb44034b6de83ac6d3346" kindref="member">VectorStateInfo</ref> &gt;</type>
         <definition>typedef std::map&lt;std::string, VectorStateInfo&gt; MyGUI::MapWidgetStateInfo</definition>
         <argsstring></argsstring>
         <name>MapWidgetStateInfo</name>
@@ -874,7 +874,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IStateInfo.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_14dde375e9c4c1819d72e2a3c2d632312" prot="public" static="no">
-        <type>std::vector&lt; ISubWidget * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1ISubWidget" kindref="compound">ISubWidget</ref> * &gt;</type>
         <definition>typedef std::vector&lt;ISubWidget*&gt; MyGUI::VectorSubWidget</definition>
         <argsstring></argsstring>
         <name>VectorSubWidget</name>
@@ -887,7 +887,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidget.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidget.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1a89ab286243b47d879efa57ae6e033d4" prot="public" static="no">
-        <type>delegates::CDelegate2&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate2" kindref="compound">delegates::CDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>typedef delegates::CDelegate2&lt;ItemBox*, Widget*&gt; MyGUI::EventHandle_ItemBoxPtrWidgetPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_ItemBoxPtrWidgetPtr</name>
@@ -900,7 +900,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_12579d95af35a53cbbb27862a0a04e15b" prot="public" static="no">
-        <type>delegates::CDelegate3&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, IntCoord &amp;, bool &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">delegates::CDelegate3</ref>&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;, bool &gt;</type>
         <definition>typedef delegates::CDelegate3&lt;ItemBox*, IntCoord&amp;, bool&gt; MyGUI::EventHandle_ItemBoxPtrIntCoordRefBool</definition>
         <argsstring></argsstring>
         <name>EventHandle_ItemBoxPtrIntCoordRefBool</name>
@@ -913,7 +913,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b6c117cdbd2b993d3a80964acbfec5ff" prot="public" static="no">
-        <type>delegates::CDelegate3&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const <ref refid="structMyGUI_1_1IBDrawItemInfo" kindref="compound">IBDrawItemInfo</ref> &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">delegates::CDelegate3</ref>&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const <ref refid="structMyGUI_1_1IBDrawItemInfo" kindref="compound">IBDrawItemInfo</ref> &amp; &gt;</type>
         <definition>typedef delegates::CDelegate3&lt;ItemBox*, Widget*, const IBDrawItemInfo&amp;&gt; MyGUI::EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef</name>
@@ -926,7 +926,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_12738f51fad855c680f05af73d1210f9c" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;ItemBox*, size_t&gt; MyGUI::EventHandle_ItemBoxPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_ItemBoxPtrSizeT</name>
@@ -939,7 +939,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b9bd2a9abd7ca2aaa230db54e9212635" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, const IBNotifyItemData &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> *, const <ref refid="structMyGUI_1_1IBNotifyItemData" kindref="compound">IBNotifyItemData</ref> &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;ItemBox*, const IBNotifyItemData&amp;&gt; MyGUI::EventHandle_ItemBoxPtrCIBNotifyCellDataRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_ItemBoxPtrCIBNotifyCellDataRef</name>
@@ -952,7 +952,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1fc7f6f1d932044ec9026f78fbf10ac1a" prot="public" static="no">
-        <type>std::vector&lt; IUnlinkWidget * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1IUnlinkWidget" kindref="compound">IUnlinkWidget</ref> * &gt;</type>
         <definition>typedef std::vector&lt;IUnlinkWidget*&gt; MyGUI::VectorIUnlinkWidget</definition>
         <argsstring></argsstring>
         <name>VectorIUnlinkWidget</name>
@@ -965,7 +965,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_145dd179f952354283d9708568b9c5a01" prot="public" static="no">
-        <type>std::vector&lt; RenderItem * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1RenderItem" kindref="compound">RenderItem</ref> * &gt;</type>
         <definition>typedef std::vector&lt;RenderItem*&gt; MyGUI::VectorRenderItem</definition>
         <argsstring></argsstring>
         <name>VectorRenderItem</name>
@@ -978,7 +978,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1c15d9023e749aacb2b9696843454a8f2" prot="public" static="no">
-        <type>std::vector&lt; ILayerItem * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> * &gt;</type>
         <definition>typedef std::vector&lt;ILayerItem*&gt; MyGUI::VectorLayerItem</definition>
         <argsstring></argsstring>
         <name>VectorLayerItem</name>
@@ -991,7 +991,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_178d9693b2b2b925aa63ae321339b5458" prot="public" static="no">
-        <type>std::vector&lt; WidgetInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1WidgetInfo" kindref="compound">WidgetInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;WidgetInfo&gt; MyGUI::VectorWidgetInfo</definition>
         <argsstring></argsstring>
         <name>VectorWidgetInfo</name>
@@ -1004,7 +1004,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1688ada9730bea95a64edb587cae00ce5" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp;, const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp;, const std::string &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;Widget*, const std::string&amp;, const std::string&amp;&gt; MyGUI::EventHandle_AddUserStringDelegate</definition>
         <argsstring></argsstring>
         <name>EventHandle_AddUserStringDelegate</name>
@@ -1017,7 +1017,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutManager.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutManager.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_10232767a9a81736e725786b417fa1f77" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;ListBox*, size_t&gt; MyGUI::EventHandle_ListPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_ListPtrSizeT</name>
@@ -1030,7 +1030,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_199bb6f34191013f371213376595526d4" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1MenuControl" kindref="compound">MenuControl</ref> *, <ref refid="classMyGUI_1_1MenuItem" kindref="compound">MenuItem</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1MenuControl" kindref="compound">MenuControl</ref> *, <ref refid="classMyGUI_1_1MenuItem" kindref="compound">MenuItem</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;MenuControl*, MenuItem*&gt; MyGUI::EventHandle_MenuCtrlPtrMenuItemPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_MenuCtrlPtrMenuItemPtr</name>
@@ -1043,7 +1043,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1bcf993a14bd47ae1447bb7f84de131a1" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1MenuControl" kindref="compound">MenuControl</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1MenuControl" kindref="compound">MenuControl</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;MenuControl*&gt; MyGUI::EventHandle_MenuCtrlPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_MenuCtrlPtr</name>
@@ -1056,7 +1056,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_102ff8df7fbd754b2a1886fc87ed1ab80" prot="public" static="no">
-        <type>delegates::CMultiDelegate5&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, size_t, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, bool &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate5" kindref="compound">delegates::CMultiDelegate5</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, size_t, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, bool &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate5&lt;Widget*, size_t, const UString&amp;, const UString&amp;, bool&amp;&gt; MyGUI::EventHandle_WidgetIntUTFStringUTFStringBool</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetIntUTFStringUTFStringBool</name>
@@ -1069,7 +1069,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_134301d45c8a25a8bdc24402ab20f462f" prot="public" static="no">
-        <type>delegates::CDelegate5&lt; <ref refid="classMyGUI_1_1MultiListBox" kindref="compound">MultiListBox</ref> *, size_t, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, bool &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate5" kindref="compound">delegates::CDelegate5</ref>&lt; <ref refid="classMyGUI_1_1MultiListBox" kindref="compound">MultiListBox</ref> *, size_t, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, bool &amp; &gt;</type>
         <definition>typedef delegates::CDelegate5&lt;MultiListBox*, size_t, const UString&amp;, const UString&amp;, bool&amp;&gt; MyGUI::EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef</name>
@@ -1082,7 +1082,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1835c97a83e63ed9c737337747281f549" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1MultiListBox" kindref="compound">MultiListBox</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1MultiListBox" kindref="compound">MultiListBox</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;MultiListBox*, size_t&gt; MyGUI::EventHandle_MultiListPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_MultiListPtrSizeT</name>
@@ -1095,7 +1095,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_17581da91d347f4fad4feac4f0023c1b7" prot="public" static="no">
-        <type>std::pair&lt; ISubWidget *, size_t &gt;</type>
+        <type>std::pair&lt; <ref refid="classMyGUI_1_1ISubWidget" kindref="compound">ISubWidget</ref> *, size_t &gt;</type>
         <definition>typedef std::pair&lt;ISubWidget*, size_t&gt; MyGUI::DrawItemInfo</definition>
         <argsstring></argsstring>
         <name>DrawItemInfo</name>
@@ -1108,7 +1108,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1319764b5a4405f2aa7e940c7ff20fb52" prot="public" static="no">
-        <type>std::vector&lt; DrawItemInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="namespaceMyGUI_17581da91d347f4fad4feac4f0023c1b7" kindref="member">DrawItemInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;DrawItemInfo&gt; MyGUI::VectorDrawItem</definition>
         <argsstring></argsstring>
         <name>VectorDrawItem</name>
@@ -1121,7 +1121,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b22b7b0ee6e94dbf1c11244363707260" prot="public" static="no">
-        <type>ResourceImageSet *</type>
+        <type><ref refid="classMyGUI_1_1ResourceImageSet" kindref="compound">ResourceImageSet</ref> *</type>
         <definition>typedef ResourceImageSet* MyGUI::ResourceImageSetPtr</definition>
         <argsstring></argsstring>
         <name>ResourceImageSetPtr</name>
@@ -1134,7 +1134,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSet.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSet.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_10c0de64a1e4acea52bcbb36318a931a1" prot="public" static="no">
-        <type>std::vector&lt; IndexImage &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1IndexImage" kindref="compound">IndexImage</ref> &gt;</type>
         <definition>typedef std::vector&lt;IndexImage&gt; MyGUI::VectorIndexImage</definition>
         <argsstring></argsstring>
         <name>VectorIndexImage</name>
@@ -1147,7 +1147,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1f1a00ce5d3dc801b2744e35f97ad74b2" prot="public" static="no">
-        <type>std::vector&lt; GroupImage &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1GroupImage" kindref="compound">GroupImage</ref> &gt;</type>
         <definition>typedef std::vector&lt;GroupImage&gt; MyGUI::VectorGroupImage</definition>
         <argsstring></argsstring>
         <name>VectorGroupImage</name>
@@ -1160,7 +1160,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_13cdb8df5dbec208904f4fdec317cf40b" prot="public" static="no">
-        <type>Enumerator&lt; VectorGroupImage &gt;</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref>&lt; <ref refid="namespaceMyGUI_1f1a00ce5d3dc801b2744e35f97ad74b2" kindref="member">VectorGroupImage</ref> &gt;</type>
         <definition>typedef Enumerator&lt;VectorGroupImage&gt; MyGUI::EnumeratorGroupImage</definition>
         <argsstring></argsstring>
         <name>EnumeratorGroupImage</name>
@@ -1173,7 +1173,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_157f184365cd422ebe50bb666bdc2dd58" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;ScrollBar*, size_t&gt; MyGUI::EventHandle_ScrollBarPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_ScrollBarPtrSizeT</name>
@@ -1186,7 +1186,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="31" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_19576404a5ce2d7493e988d191fb335d9" prot="public" static="no">
-        <type>std::vector&lt; SubWidgetInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1SubWidgetInfo" kindref="compound">SubWidgetInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;SubWidgetInfo&gt; MyGUI::VectorSubWidgetInfo</definition>
         <argsstring></argsstring>
         <name>VectorSubWidgetInfo</name>
@@ -1199,7 +1199,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_16afc0c3b5a460e0544e0c38b3076666f" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1TabControl" kindref="compound">TabControl</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1TabControl" kindref="compound">TabControl</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;TabControl*, size_t&gt; MyGUI::EventHandle_TabPtrSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_TabPtrSizeT</name>
@@ -1212,7 +1212,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" prot="public" static="no">
-        <type>std::vector&lt; TextCommandInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1TextCommandInfo" kindref="compound">TextCommandInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;TextCommandInfo&gt; MyGUI::VectorChangeInfo</definition>
         <argsstring></argsstring>
         <name>VectorChangeInfo</name>
@@ -1225,7 +1225,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_182e5b0a8292e5d3612ef585357676203" prot="public" static="no">
-        <type>std::deque&lt; VectorChangeInfo &gt;</type>
+        <type>std::deque&lt; <ref refid="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" kindref="member">VectorChangeInfo</ref> &gt;</type>
         <definition>typedef std::deque&lt;VectorChangeInfo&gt; MyGUI::DequeUndoRedoInfo</definition>
         <argsstring></argsstring>
         <name>DequeUndoRedoInfo</name>
@@ -1238,7 +1238,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_17af3969ab8f787f40f648aa41a3217f8" prot="public" static="no">
-        <type>std::vector&lt; CharInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1CharInfo" kindref="compound">CharInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;CharInfo&gt; MyGUI::VectorCharInfo</definition>
         <argsstring></argsstring>
         <name>VectorCharInfo</name>
@@ -1251,7 +1251,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="111" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="111" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b1cca8100839a1e7b2deb5888469f759" prot="public" static="no">
-        <type>std::vector&lt; LineInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1LineInfo" kindref="compound">LineInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;LineInfo&gt; MyGUI::VectorLineInfo</definition>
         <argsstring></argsstring>
         <name>VectorLineInfo</name>
@@ -1264,7 +1264,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="136" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1f84521af8b9258c1616b505fa15cf1e9" prot="public" static="no">
-        <type>types::TPoint&lt; int &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">types::TPoint</ref>&lt; int &gt;</type>
         <definition>typedef types::TPoint&lt;int&gt; MyGUI::IntPoint</definition>
         <argsstring></argsstring>
         <name>IntPoint</name>
@@ -1277,7 +1277,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_136ccc28061ff6221ebab1aaa160cbb60" prot="public" static="no">
-        <type>types::TPoint&lt; float &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">types::TPoint</ref>&lt; float &gt;</type>
         <definition>typedef types::TPoint&lt;float&gt; MyGUI::FloatPoint</definition>
         <argsstring></argsstring>
         <name>FloatPoint</name>
@@ -1290,7 +1290,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1e1abc1092a7b4bf887ce9b5c6a5c6ad0" prot="public" static="no">
-        <type>types::TSize&lt; int &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">types::TSize</ref>&lt; int &gt;</type>
         <definition>typedef types::TSize&lt;int&gt; MyGUI::IntSize</definition>
         <argsstring></argsstring>
         <name>IntSize</name>
@@ -1303,7 +1303,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_187ccb3faf94d4ab86680c506b28a737f" prot="public" static="no">
-        <type>types::TSize&lt; float &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">types::TSize</ref>&lt; float &gt;</type>
         <definition>typedef types::TSize&lt;float&gt; MyGUI::FloatSize</definition>
         <argsstring></argsstring>
         <name>FloatSize</name>
@@ -1316,7 +1316,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_10be87d7effb77bd9b7a72b24792c6579" prot="public" static="no">
-        <type>types::TRect&lt; int &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">types::TRect</ref>&lt; int &gt;</type>
         <definition>typedef types::TRect&lt;int&gt; MyGUI::IntRect</definition>
         <argsstring></argsstring>
         <name>IntRect</name>
@@ -1329,7 +1329,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_167ab2787d40dfefac941a176b4ded8e0" prot="public" static="no">
-        <type>types::TRect&lt; float &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">types::TRect</ref>&lt; float &gt;</type>
         <definition>typedef types::TRect&lt;float&gt; MyGUI::FloatRect</definition>
         <argsstring></argsstring>
         <name>FloatRect</name>
@@ -1342,7 +1342,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_18829e581cd6b2afc454844e4dd26cfef" prot="public" static="no">
-        <type>types::TCoord&lt; int &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">types::TCoord</ref>&lt; int &gt;</type>
         <definition>typedef types::TCoord&lt;int&gt; MyGUI::IntCoord</definition>
         <argsstring></argsstring>
         <name>IntCoord</name>
@@ -1355,7 +1355,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="50" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b00dda0f6bc014d726cb0d5773f0738b" prot="public" static="no">
-        <type>types::TCoord&lt; float &gt;</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">types::TCoord</ref>&lt; float &gt;</type>
         <definition>typedef types::TCoord&lt;float&gt; MyGUI::FloatCoord</definition>
         <argsstring></argsstring>
         <name>FloatCoord</name>
@@ -1407,7 +1407,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_124eaa92e96343fd4c38f725b133e2f97" prot="public" static="no">
-        <type>std::vector&lt; PairString &gt;</type>
+        <type>std::vector&lt; <ref refid="namespaceMyGUI_16fb5450bc3b61102aafdcaa759e306a9" kindref="member">PairString</ref> &gt;</type>
         <definition>typedef std::vector&lt;PairString&gt; MyGUI::VectorStringPairs</definition>
         <argsstring></argsstring>
         <name>VectorStringPairs</name>
@@ -1524,7 +1524,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Types.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_15a0c6d50b9eb1c5e6d9d68990f829888" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp;, const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp;, const std::string &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;Widget*, const std::string&amp;, const std::string&amp;&gt; MyGUI::EventHandle_WidgetStringString</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetStringString</name>
@@ -1563,7 +1563,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetDefines.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetDefines.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_16348546183898b54fe8fe68514b657d0" prot="public" static="no">
-        <type>Enumerator&lt; VectorWidgetPtr &gt;</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref>&lt; <ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref> &gt;</type>
         <definition>typedef Enumerator&lt;VectorWidgetPtr&gt; MyGUI::EnumeratorWidgetPtr</definition>
         <argsstring></argsstring>
         <name>EnumeratorWidgetPtr</name>
@@ -1576,7 +1576,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetDefines.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetDefines.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_16a08789ccd7e68d8422ef5426f436b10" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::EventHandle_WidgetVoid</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetVoid</name>
@@ -1589,7 +1589,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1a1c5e5a2ff07af058531c46833fce2d7" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, Widget*&gt; MyGUI::EventHandle_WidgetWidget</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetWidget</name>
@@ -1602,7 +1602,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_12379fd3303c4b02ade1a61c3c7fd91d7" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, bool &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, bool &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, bool&gt; MyGUI::EventHandle_WidgetBool</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetBool</name>
@@ -1615,7 +1615,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1c87db68870f6f49f85916c2c39cb0a6f" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, int&gt; MyGUI::EventHandle_WidgetInt</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetInt</name>
@@ -1628,7 +1628,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_10193dd5cf93d5f051f1a722b2e68b1f7" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, size_t &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, size_t &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, size_t&gt; MyGUI::EventHandle_WidgetSizeT</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetSizeT</name>
@@ -1641,7 +1641,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1b6fcb800b6efaf47adae54a071d1f039" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int, int &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int, int &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;Widget*, int, int&gt; MyGUI::EventHandle_WidgetIntInt</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetIntInt</name>
@@ -1654,7 +1654,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1aea4bc23ea188575036196ccb576e81a" prot="public" static="no">
-        <type>delegates::CMultiDelegate4&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int, int, MouseButton &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate4" kindref="compound">delegates::CMultiDelegate4</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, int, int, <ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref> &gt;</type>
         <definition>typedef delegates::CMultiDelegate4&lt;Widget*, int, int, MouseButton&gt; MyGUI::EventHandle_WidgetIntIntButton</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetIntIntButton</name>
@@ -1667,7 +1667,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_173356418bb7e2a1163f301d7f160bd76" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, KeyCode &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, <ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref> &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, KeyCode&gt; MyGUI::EventHandle_WidgetKeyCode</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetKeyCode</name>
@@ -1680,7 +1680,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_177ae55024d7c5440345f2a052c28d7af" prot="public" static="no">
-        <type>delegates::CMultiDelegate3&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, KeyCode, Char &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">delegates::CMultiDelegate3</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, <ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref>, <ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref> &gt;</type>
         <definition>typedef delegates::CMultiDelegate3&lt;Widget*, KeyCode, Char&gt; MyGUI::EventHandle_WidgetKeyCodeChar</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetKeyCodeChar</name>
@@ -1693,7 +1693,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1cd7ca3676bc7b2c0c8ec3642fb4c27e1" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const <ref refid="structMyGUI_1_1ToolTipInfo" kindref="compound">ToolTipInfo</ref> &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const <ref refid="structMyGUI_1_1ToolTipInfo" kindref="compound">ToolTipInfo</ref> &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, const ToolTipInfo&amp; &gt; MyGUI::EventHandle_WidgetToolTip</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetToolTip</name>
@@ -1706,7 +1706,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1cd7060d4ebbcb086ab2226f0b7a1363c" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *, const std::string &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Widget*, const std::string&amp;&gt; MyGUI::EventHandle_WidgetString</definition>
         <argsstring></argsstring>
         <name>EventHandle_WidgetString</name>
@@ -1719,7 +1719,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_1d245bce61a9725037938a8d05cbd180a" prot="public" static="no">
-        <type>delegates::CMultiDelegate2&lt; <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> *, const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">delegates::CMultiDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> *, const std::string &amp; &gt;</type>
         <definition>typedef delegates::CMultiDelegate2&lt;Window*, const std::string&amp;&gt; MyGUI::EventHandle_WindowPtrCStringRef</definition>
         <argsstring></argsstring>
         <name>EventHandle_WindowPtrCStringRef</name>
@@ -1732,7 +1732,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="namespaceMyGUI_19e8cd6b9c1689b0665f3d427fd4b6cfe" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;Window*&gt; MyGUI::EventHandle_WindowPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_WindowPtr</name>
@@ -1747,7 +1747,7 @@
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="namespaceMyGUI_143e44ecb96ef6871cb2054b6c34d7885" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>delegates::IDelegate0 *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate0" kindref="compound">delegates::IDelegate0</ref> *</type>
         <definition>delegates:: IDelegate0* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)())</argsstring>
         <name>newDelegate</name>
@@ -1771,7 +1771,7 @@
             <defname>T</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate0 *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate0" kindref="compound">delegates::IDelegate0</ref> *</type>
         <definition>delegates:: IDelegate0* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)())</argsstring>
         <name>newDelegate</name>
@@ -1799,7 +1799,7 @@
             <defname>TP1</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate1&lt; TP1 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate1" kindref="compound">delegates::IDelegate1</ref>&lt; TP1 &gt; *</type>
         <definition>delegates:: IDelegate1&lt;TP1&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1))</argsstring>
         <name>newDelegate</name>
@@ -1828,7 +1828,7 @@
             <defname>TP1</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate1&lt; TP1 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate1" kindref="compound">delegates::IDelegate1</ref>&lt; TP1 &gt; *</type>
         <definition>delegates:: IDelegate1&lt;TP1&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1))</argsstring>
         <name>newDelegate</name>
@@ -1861,7 +1861,7 @@
             <defname>TP2</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate2&lt; TP1, TP2 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate2" kindref="compound">delegates::IDelegate2</ref>&lt; TP1, TP2 &gt; *</type>
         <definition>delegates:: IDelegate2&lt;TP1, TP2&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1, TP2 p2))</argsstring>
         <name>newDelegate</name>
@@ -1895,7 +1895,7 @@
             <defname>TP2</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate2&lt; TP1, TP2 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate2" kindref="compound">delegates::IDelegate2</ref>&lt; TP1, TP2 &gt; *</type>
         <definition>delegates:: IDelegate2&lt;TP1, TP2&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1, TP2 p2))</argsstring>
         <name>newDelegate</name>
@@ -1933,7 +1933,7 @@
             <defname>TP3</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate3&lt; TP1, TP2, TP3 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">delegates::IDelegate3</ref>&lt; TP1, TP2, TP3 &gt; *</type>
         <definition>delegates:: IDelegate3&lt;TP1, TP2, TP3&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1, TP2 p2, TP3 p3))</argsstring>
         <name>newDelegate</name>
@@ -1972,7 +1972,7 @@
             <defname>TP3</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate3&lt; TP1, TP2, TP3 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">delegates::IDelegate3</ref>&lt; TP1, TP2, TP3 &gt; *</type>
         <definition>delegates:: IDelegate3&lt;TP1, TP2, TP3&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1, TP2 p2, TP3 p3))</argsstring>
         <name>newDelegate</name>
@@ -2015,7 +2015,7 @@
             <defname>TP4</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate4" kindref="compound">delegates::IDelegate4</ref>&lt; TP1, TP2, TP3, TP4 &gt; *</type>
         <definition>delegates:: IDelegate4&lt;TP1, TP2, TP3, TP4&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1, TP2 p2, TP3 p3, TP4 p4))</argsstring>
         <name>newDelegate</name>
@@ -2059,7 +2059,7 @@
             <defname>TP4</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate4&lt; TP1, TP2, TP3, TP4 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate4" kindref="compound">delegates::IDelegate4</ref>&lt; TP1, TP2, TP3, TP4 &gt; *</type>
         <definition>delegates:: IDelegate4&lt;TP1, TP2, TP3, TP4&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1, TP2 p2, TP3 p3, TP4 p4))</argsstring>
         <name>newDelegate</name>
@@ -2107,7 +2107,7 @@
             <defname>TP5</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate5&lt; TP1, TP2, TP3, TP4, TP5 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate5" kindref="compound">delegates::IDelegate5</ref>&lt; TP1, TP2, TP3, TP4, TP5 &gt; *</type>
         <definition>delegates:: IDelegate5&lt;TP1, TP2, TP3, TP4, TP5&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5))</argsstring>
         <name>newDelegate</name>
@@ -2156,7 +2156,7 @@
             <defname>TP5</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate5&lt; TP1, TP2, TP3, TP4, TP5 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate5" kindref="compound">delegates::IDelegate5</ref>&lt; TP1, TP2, TP3, TP4, TP5 &gt; *</type>
         <definition>delegates:: IDelegate5&lt;TP1, TP2, TP3, TP4, TP5&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5))</argsstring>
         <name>newDelegate</name>
@@ -2209,7 +2209,7 @@
             <defname>TP6</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate6" kindref="compound">delegates::IDelegate6</ref>&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
         <definition>delegates:: IDelegate6&lt;TP1, TP2, TP3, TP4, TP5, TP6&gt;* MyGUI::newDelegate</definition>
         <argsstring>(void(*_func)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6))</argsstring>
         <name>newDelegate</name>
@@ -2263,7 +2263,7 @@
             <defname>TP6</defname>
           </param>
         </templateparamlist>
-        <type>delegates::IDelegate6&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate6" kindref="compound">delegates::IDelegate6</ref>&lt; TP1, TP2, TP3, TP4, TP5, TP6 &gt; *</type>
         <definition>delegates:: IDelegate6&lt;TP1, TP2, TP3, TP4, TP5, TP6&gt;* MyGUI::newDelegate</definition>
         <argsstring>(T *_object, void(T::*_method)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6))</argsstring>
         <name>newDelegate</name>
@@ -2733,7 +2733,7 @@
         <argsstring>(IntCoord &amp;_coord, bool _vert)</argsstring>
         <name>convertWidgetCoord</name>
         <param>
-          <type>IntCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>

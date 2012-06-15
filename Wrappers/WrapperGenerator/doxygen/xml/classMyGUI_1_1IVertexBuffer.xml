@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1IVertexBuffer" kind="class" prot="public">
     <compoundname>MyGUI::IVertexBuffer</compoundname>
+    <includes local="no">MyGUI_IVertexBuffer.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1IVertexBuffer_101ab3da8fcb7231c077b401b09e95e69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -47,7 +48,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IVertexBuffer.h" line="37"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1IVertexBuffer_15e93f0b2064c4b43c78b3124d8fa66c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>Vertex *</type>
+        <type><ref refid="structMyGUI_1_1Vertex" kindref="compound">Vertex</ref> *</type>
         <definition>virtual Vertex* MyGUI::IVertexBuffer::lock</definition>
         <argsstring>()=0</argsstring>
         <name>lock</name>

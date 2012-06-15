@@ -60,15 +60,15 @@
         <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _k)</argsstring>
         <name>linearMoveFunction</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_startRect</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_destRect</declname>
         </param>
         <param>
-          <type>IntCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_result</declname>
         </param>
         <param>
@@ -96,15 +96,15 @@
         <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
         <name>acceleratedMoveFunction</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_startRect</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_destRect</declname>
         </param>
         <param>
-          <type>IntCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_result</declname>
         </param>
         <param>
@@ -132,15 +132,15 @@
         <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
         <name>jumpMoveFunction</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_startRect</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_destRect</declname>
         </param>
         <param>
-          <type>IntCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_result</declname>
         </param>
         <param>
@@ -161,15 +161,15 @@
         <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
         <name>inertionalMoveFunction</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_startRect</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_destRect</declname>
         </param>
         <param>
-          <type>IntCoord &amp;</type>
+          <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_result</declname>
         </param>
         <param>

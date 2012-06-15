@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1Colour" kind="struct" prot="public">
     <compoundname>MyGUI::Colour</compoundname>
+    <includes local="no">MyGUI_Colour.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1Colour_11afe8d5c3c2ff9296d62199df4eb7d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -64,12 +65,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="36"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1Colour_1975509e456c129035e315a5ae2bf998f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Colour &amp;</type>
+        <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
         <definition>Colour&amp; MyGUI::Colour::operator=</definition>
         <argsstring>(Colour const &amp;_value)</argsstring>
         <name>operator=</name>
         <param>
-          <type>Colour const &amp;</type>
+          <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> const &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -86,7 +87,7 @@
         <argsstring>(Colour const &amp;_value) const </argsstring>
         <name>operator==</name>
         <param>
-          <type>Colour const &amp;</type>
+          <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> const &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -103,7 +104,7 @@
         <argsstring>(Colour const &amp;_value) const </argsstring>
         <name>operator!=</name>
         <param>
-          <type>Colour const &amp;</type>
+          <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> const &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -227,7 +228,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1Colour_14c220905a5e53ecc5f899dc7f704af99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Colour</type>
+        <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>static Colour MyGUI::Colour::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -253,7 +254,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -274,7 +275,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>Colour &amp;</type>
+          <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -288,7 +289,7 @@
       </sectiondef>
       <sectiondef kind="public-static-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1Colour_1766480b3ac5b260d1bf67f9dc09a2e4e" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::Zero</definition>
         <argsstring></argsstring>
         <name>Zero</name>
@@ -301,7 +302,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Colour_1fcf010c86de5993db31d9aab9cfed8c5" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::Black</definition>
         <argsstring></argsstring>
         <name>Black</name>
@@ -314,7 +315,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Colour_1b337499d2315486fbff9016f2f3bc108" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::White</definition>
         <argsstring></argsstring>
         <name>White</name>
@@ -327,7 +328,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Colour_19c3dbaff902650a141be983b9e399eca" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::Red</definition>
         <argsstring></argsstring>
         <name>Red</name>
@@ -340,7 +341,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Colour_16b48e73305901dd8adf66a7d265d2d27" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::Green</definition>
         <argsstring></argsstring>
         <name>Green</name>
@@ -353,7 +354,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Colour_1a91f518c90c7312e46a5b18765aa4e8b" prot="public" static="yes" mutable="no">
-        <type>const Colour</type>
+        <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref></type>
         <definition>const Colour MyGUI::Colour::Blue</definition>
         <argsstring></argsstring>
         <name>Blue</name>
@@ -377,7 +378,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -398,7 +399,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>Colour &amp;</type>
+          <type><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -414,6 +415,20 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="229">
+        <label>MyGUI::Colour</label>
+        <link refid="structMyGUI_1_1Colour"/>
+        <childnode refid="229" relation="usage">
+          <edgelabel>White
+Zero
+Blue
+Black
+Red
+Green</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Colour.h" bodystart="31" bodyend="75"/>
     <listofallmembers>
       <member refid="structMyGUI_1_1Colour_19cd16d2f6bd779a12108f6e72c95d4d5" prot="public" virt="non-virtual"><scope>MyGUI::Colour</scope><name>alpha</name></member>

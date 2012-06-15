@@ -70,7 +70,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" line="42"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const MapString &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref> &amp;</type>
         <definition>const MapString&amp; MyGUI::UserData::getUserStrings</definition>
         <argsstring>() const </argsstring>
         <name>getUserStrings</name>
@@ -135,7 +135,7 @@
         <argsstring>(Any _data)</argsstring>
         <name>setUserData</name>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -177,7 +177,7 @@
         <argsstring>(Any _data)</argsstring>
         <name>_setInternalData</name>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -216,7 +216,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1UserData_1c61c7e38b3b662b9262f67438bbe4278" prot="private" static="no" mutable="no">
-        <type>MapString</type>
+        <type><ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref></type>
         <definition>MapString MyGUI::UserData::mMapUserString</definition>
         <argsstring></argsstring>
         <name>mMapUserString</name>
@@ -229,7 +229,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1UserData_11f066dc819b1a68e7b979e5bf238e113" prot="private" static="no" mutable="no">
-        <type>Any</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
         <definition>Any MyGUI::UserData::mUserData</definition>
         <argsstring></argsstring>
         <name>mUserData</name>
@@ -242,7 +242,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1UserData_1f827700919eef8942a48007d96b5a201" prot="private" static="no" mutable="no">
-        <type>Any</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
         <definition>Any MyGUI::UserData::mInternalData</definition>
         <argsstring></argsstring>
         <name>mInternalData</name>
@@ -260,148 +260,176 @@
     <detaileddescription>
 <para><ref refid="classMyGUI_1_1UserData" kindref="compound">UserData</ref> is parent of <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> class. Used to store any user data and strings inside widget </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="701">
+      <node id="2903">
         <label>MyGUI::PopupMenu</label>
         <link refid="classMyGUI_1_1PopupMenu"/>
-        <childnode refid="699" relation="public-inheritance">
+        <childnode refid="2901" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="712">
+      <node id="2915">
         <label>MyGUI::ComboBox</label>
         <link refid="classMyGUI_1_1ComboBox"/>
-        <childnode refid="711" relation="public-inheritance">
+        <childnode refid="2914" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="698">
+      <node id="2900">
         <label>MyGUI::ListBox</label>
         <link refid="classMyGUI_1_1ListBox"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="711">
+      <node id="2914">
         <label>MyGUI::EditBox</label>
         <link refid="classMyGUI_1_1EditBox"/>
-        <childnode refid="708" relation="public-inheritance">
+        <childnode refid="2911" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="695">
+      <node id="2897">
         <label>MyGUI::DDContainer</label>
         <link refid="classMyGUI_1_1DDContainer"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="705">
+      <node id="2907">
         <label>MyGUI::VScroll</label>
-        <childnode refid="704" relation="public-inheritance">
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="2906" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="708">
+      <node id="2911">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="699">
+      <node id="2901">
         <label>MyGUI::MenuControl</label>
         <link refid="classMyGUI_1_1MenuControl"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="700">
+      <node id="2902">
         <label>MyGUI::MenuBar</label>
         <link refid="classMyGUI_1_1MenuBar"/>
-        <childnode refid="699" relation="public-inheritance">
+        <childnode refid="2901" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="697">
+      <node id="2899">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="702">
+      <node id="2904">
         <label>MyGUI::MultiListBox</label>
         <link refid="classMyGUI_1_1MultiListBox"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="692">
+      <node id="2894">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="693">
+      <node id="2895">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="692" relation="public-inheritance">
+        <childnode refid="2894" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="706">
+      <node id="2909">
         <label>MyGUI::ScrollView</label>
         <link refid="classMyGUI_1_1ScrollView"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="709">
+      <node id="2912">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="708" relation="public-inheritance">
+        <childnode refid="2911" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="694">
+      <node id="2896">
         <label>MyGUI::Canvas</label>
         <link refid="classMyGUI_1_1Canvas"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="707">
+      <node id="2910">
         <label>MyGUI::TabControl</label>
         <link refid="classMyGUI_1_1TabControl"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="710">
+      <node id="2913">
         <label>MyGUI::MenuItem</label>
         <link refid="classMyGUI_1_1MenuItem"/>
-        <childnode refid="709" relation="public-inheritance">
+        <childnode refid="2912" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="704">
+      <node id="2906">
         <label>MyGUI::ScrollBar</label>
         <link refid="classMyGUI_1_1ScrollBar"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="696">
+      <node id="2898">
         <label>MyGUI::ItemBox</label>
         <link refid="classMyGUI_1_1ItemBox"/>
-        <childnode refid="695" relation="public-inheritance">
+        <childnode refid="2897" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="715">
+      <node id="2918">
         <label>MyGUI::Window</label>
         <link refid="classMyGUI_1_1Window"/>
-        <childnode refid="708" relation="public-inheritance">
+        <childnode refid="2911" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="713">
+      <node id="2916">
         <label>MyGUI::MultiListItem</label>
         <link refid="classMyGUI_1_1MultiListItem"/>
-        <childnode refid="708" relation="public-inheritance">
+        <childnode refid="2911" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="703">
+      <node id="2905">
         <label>MyGUI::ProgressBar</label>
         <link refid="classMyGUI_1_1ProgressBar"/>
-        <childnode refid="693" relation="public-inheritance">
+        <childnode refid="2895" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="714">
+      <node id="2917">
         <label>MyGUI::TabItem</label>
         <link refid="classMyGUI_1_1TabItem"/>
-        <childnode refid="708" relation="public-inheritance">
+        <childnode refid="2911" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2908">
+        <label>MyGUI::HScroll</label>
+        <link refid="classMyGUI_1_1HScroll"/>
+        <childnode refid="2907" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
+    <collaborationgraph>
+      <node id="2919">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="2920" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
+      </node>
+      <node id="2921">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="2920">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="2921" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetUserData.h" bodystart="32" bodyend="82"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::UserData</scope><name>_getInternalData</name></member>

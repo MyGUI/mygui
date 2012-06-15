@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1DDWidgetState" kind="struct" prot="public">
     <compoundname>MyGUI::DDWidgetState</compoundname>
+    <includes local="no">MyGUI_DDItemInfo.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1DDWidgetState_14f072eacf4fa6f5d2c5010c94199de93" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>

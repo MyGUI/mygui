@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1MouseButton" kind="struct" prot="public">
     <compoundname>MyGUI::MouseButton</compoundname>
+    <includes local="no">MyGUI_MouseButton.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1MouseButton_1902d3f1a4e4897cf8c7698c76393b3ca" prot="public" static="no">
         <name>Enum</name>
@@ -115,7 +116,7 @@
         <argsstring>(Enum _value=None)</argsstring>
         <name>MouseButton</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1MouseButton_1902d3f1a4e4897cf8c7698c76393b3ca" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>None</defval>
         </param>
@@ -143,7 +144,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1MouseButton_18c684eee27d005a95cdc8e6c42e0dfb9" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1MouseButton_1902d3f1a4e4897cf8c7698c76393b3ca" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::MouseButton::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -163,11 +164,11 @@
         <argsstring>(MouseButton const &amp;a, MouseButton const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>MouseButton const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>MouseButton const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -184,11 +185,11 @@
         <argsstring>(MouseButton const &amp;a, MouseButton const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>MouseButton const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>MouseButton const &amp;</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>

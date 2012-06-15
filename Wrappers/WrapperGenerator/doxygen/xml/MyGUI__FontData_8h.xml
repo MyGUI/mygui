@@ -5,104 +5,104 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI__IFont_8h" local="yes">MyGUI_IFont.h</includedby>
     <incdepgraph>
-      <node id="2667">
+      <node id="2713">
         <label>MyGUI_FontData.h</label>
         <link refid="MyGUI_FontData.h"/>
-        <childnode refid="2668" relation="include">
+        <childnode refid="2714" relation="include">
         </childnode>
       </node>
-      <node id="2669">
+      <node id="2715">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="2670">
+      <node id="2716">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="2668">
+      <node id="2714">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="2669" relation="include">
+        <childnode refid="2715" relation="include">
         </childnode>
-        <childnode refid="2670" relation="include">
+        <childnode refid="2716" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2682">
+      <node id="2728">
         <label>MyGUI_ResourceTrueTypeFont.h</label>
         <link refid="MyGUI__ResourceTrueTypeFont_8h"/>
       </node>
-      <node id="2678">
+      <node id="2724">
         <label>MyGUI_EditText.h</label>
         <link refid="MyGUI__EditText_8h"/>
-        <childnode refid="2679" relation="include">
+        <childnode refid="2725" relation="include">
         </childnode>
       </node>
-      <node id="2677">
+      <node id="2723">
         <label>MyGUI_FontManager.h</label>
         <link refid="MyGUI__FontManager_8h"/>
-        <childnode refid="2676" relation="include">
+        <childnode refid="2722" relation="include">
         </childnode>
       </node>
-      <node id="2671">
+      <node id="2717">
         <label>MyGUI_FontData.h</label>
         <link refid="MyGUI_FontData.h"/>
-        <childnode refid="2672" relation="include">
+        <childnode refid="2718" relation="include">
         </childnode>
       </node>
-      <node id="2679">
+      <node id="2725">
         <label>MyGUI_SimpleText.h</label>
         <link refid="MyGUI__SimpleText_8h"/>
       </node>
-      <node id="2680">
+      <node id="2726">
         <label>MyGUI_TextView.h</label>
         <link refid="MyGUI__TextView_8h"/>
-        <childnode refid="2678" relation="include">
+        <childnode refid="2724" relation="include">
         </childnode>
       </node>
-      <node id="2681">
+      <node id="2727">
         <label>MyGUI_ResourceManualFont.h</label>
         <link refid="MyGUI__ResourceManualFont_8h"/>
       </node>
-      <node id="2673">
+      <node id="2719">
         <label>MyGUI_TextIterator.h</label>
         <link refid="MyGUI__TextIterator_8h"/>
-        <childnode refid="2674" relation="include">
+        <childnode refid="2720" relation="include">
         </childnode>
       </node>
-      <node id="2676">
+      <node id="2722">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="2674">
+      <node id="2720">
         <label>MyGUI_EditBox.h</label>
         <link refid="MyGUI__EditBox_8h"/>
-        <childnode refid="2675" relation="include">
+        <childnode refid="2721" relation="include">
         </childnode>
-        <childnode refid="2676" relation="include">
+        <childnode refid="2722" relation="include">
         </childnode>
       </node>
-      <node id="2675">
+      <node id="2721">
         <label>MyGUI_ComboBox.h</label>
         <link refid="MyGUI__ComboBox_8h"/>
-        <childnode refid="2676" relation="include">
+        <childnode refid="2722" relation="include">
         </childnode>
       </node>
-      <node id="2672">
+      <node id="2718">
         <label>MyGUI_IFont.h</label>
         <link refid="MyGUI__IFont_8h"/>
-        <childnode refid="2673" relation="include">
+        <childnode refid="2719" relation="include">
         </childnode>
-        <childnode refid="2677" relation="include">
+        <childnode refid="2723" relation="include">
         </childnode>
-        <childnode refid="2678" relation="include">
+        <childnode refid="2724" relation="include">
         </childnode>
-        <childnode refid="2680" relation="include">
+        <childnode refid="2726" relation="include">
         </childnode>
-        <childnode refid="2681" relation="include">
+        <childnode refid="2727" relation="include">
         </childnode>
-        <childnode refid="2682" relation="include">
+        <childnode refid="2728" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

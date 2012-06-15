@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1RenderItem" kind="class" prot="public">
     <compoundname>MyGUI::RenderItem</compoundname>
+    <includes local="no">MyGUI_RenderItem.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1RenderItem_136f6c149997ae1ba8c68cd3c729f23e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -35,7 +36,7 @@
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>renderToTarget</name>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -56,7 +57,7 @@
         <argsstring>(ITexture *_value)</argsstring>
         <name>setTexture</name>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -68,7 +69,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="45"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderItem_18fda10e2a481b0044a8efc93233b0e61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>ITexture* MyGUI::RenderItem::getTexture</definition>
         <argsstring>()</argsstring>
         <name>getTexture</name>
@@ -116,7 +117,7 @@
         <argsstring>(ISubWidget *_item, size_t _count)</argsstring>
         <name>addDrawItem</name>
         <param>
-          <type>ISubWidget *</type>
+          <type><ref refid="classMyGUI_1_1ISubWidget" kindref="compound">ISubWidget</ref> *</type>
           <declname>_item</declname>
         </param>
         <param>
@@ -137,7 +138,7 @@
         <argsstring>(ISubWidget *_item)</argsstring>
         <name>removeDrawItem</name>
         <param>
-          <type>ISubWidget *</type>
+          <type><ref refid="classMyGUI_1_1ISubWidget" kindref="compound">ISubWidget</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -154,7 +155,7 @@
         <argsstring>(ISubWidget *_item, size_t _count)</argsstring>
         <name>reallockDrawItem</name>
         <param>
-          <type>ISubWidget *</type>
+          <type><ref refid="classMyGUI_1_1ISubWidget" kindref="compound">ISubWidget</ref> *</type>
           <declname>_item</declname>
         </param>
         <param>
@@ -235,7 +236,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="61"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderItem_1517c304eff6036818f0823c09ef6a3e8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>Vertex *</type>
+        <type><ref refid="structMyGUI_1_1Vertex" kindref="compound">Vertex</ref> *</type>
         <definition>Vertex* MyGUI::RenderItem::getCurrentVertexBuffer</definition>
         <argsstring>() const </argsstring>
         <name>getCurrentVertexBuffer</name>
@@ -265,7 +266,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="64"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1RenderItem_1057cebb18f54876075b2381fd0bf6a98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IRenderTarget *</type>
+        <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
         <definition>IRenderTarget* MyGUI::RenderItem::getRenderTarget</definition>
         <argsstring>()</argsstring>
         <name>getRenderTarget</name>
@@ -293,7 +294,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1RenderItem_157892163a2e6b2a6344c32b0a35bbefd" prot="private" static="no" mutable="no">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>ITexture* MyGUI::RenderItem::mTexture</definition>
         <argsstring></argsstring>
         <name>mTexture</name>
@@ -332,7 +333,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1RenderItem_1826c350e135bba08c537a499d0e7cb4a" prot="private" static="no" mutable="no">
-        <type>VectorDrawItem</type>
+        <type><ref refid="namespaceMyGUI_1319764b5a4405f2aa7e940c7ff20fb52" kindref="member">VectorDrawItem</ref></type>
         <definition>VectorDrawItem MyGUI::RenderItem::mDrawItems</definition>
         <argsstring></argsstring>
         <name>mDrawItems</name>
@@ -371,7 +372,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1RenderItem_16947198a123386ad508c3daf3153fd1b" prot="private" static="no" mutable="no">
-        <type>Vertex *</type>
+        <type><ref refid="structMyGUI_1_1Vertex" kindref="compound">Vertex</ref> *</type>
         <definition>Vertex* MyGUI::RenderItem::mCurrentVertex</definition>
         <argsstring></argsstring>
         <name>mCurrentVertex</name>
@@ -397,7 +398,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1RenderItem_1109340d115368a01815d34c5edc3e299" prot="private" static="no" mutable="no">
-        <type>IVertexBuffer *</type>
+        <type><ref refid="classMyGUI_1_1IVertexBuffer" kindref="compound">IVertexBuffer</ref> *</type>
         <definition>IVertexBuffer* MyGUI::RenderItem::mVertexBuffer</definition>
         <argsstring></argsstring>
         <name>mVertexBuffer</name>
@@ -410,7 +411,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1RenderItem_1433dbd6f71be9f8ba6d7977518e2c692" prot="private" static="no" mutable="no">
-        <type>IRenderTarget *</type>
+        <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
         <definition>IRenderTarget* MyGUI::RenderItem::mRenderTarget</definition>
         <argsstring></argsstring>
         <name>mRenderTarget</name>
@@ -453,6 +454,40 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="2179">
+        <label>MyGUI::Vertex</label>
+        <link refid="structMyGUI_1_1Vertex"/>
+      </node>
+      <node id="2177">
+        <label>MyGUI::IVertexBuffer</label>
+        <link refid="classMyGUI_1_1IVertexBuffer"/>
+      </node>
+      <node id="2178">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2176">
+        <label>MyGUI::RenderItem</label>
+        <link refid="classMyGUI_1_1RenderItem"/>
+        <childnode refid="2177" relation="usage">
+          <edgelabel>mVertexBuffer</edgelabel>
+        </childnode>
+        <childnode refid="2178" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2179" relation="usage">
+          <edgelabel>mCurrentVertex</edgelabel>
+        </childnode>
+        <childnode refid="2180" relation="usage">
+          <edgelabel>mRenderTarget</edgelabel>
+        </childnode>
+      </node>
+      <node id="2180">
+        <label>MyGUI::IRenderTarget</label>
+        <link refid="classMyGUI_1_1IRenderTarget"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderItem.h" bodystart="37" bodyend="94"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1RenderItem_1008c2021e356b22551eee865eb16d725" prot="public" virt="non-virtual"><scope>MyGUI::RenderItem</scope><name>addDrawItem</name></member>

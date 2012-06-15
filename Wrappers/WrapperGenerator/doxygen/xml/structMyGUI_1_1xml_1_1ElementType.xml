@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1xml_1_1ElementType" kind="struct" prot="public">
     <compoundname>MyGUI::xml::ElementType</compoundname>
+    <includes local="no">MyGUI_XmlDocument.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1xml_1_1ElementType_101269d7007b7dd93c975345cfd8c0bc7" prot="public" static="no">
         <name>Enum</name>
@@ -49,7 +50,7 @@
         <argsstring>(Enum _value=MAX)</argsstring>
         <name>ElementType</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType_101269d7007b7dd93c975345cfd8c0bc7" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>MAX</defval>
         </param>
@@ -64,7 +65,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1xml_1_1ElementType_1fb990a08670ed62728218a1a97ea20a7" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1xml_1_1ElementType_101269d7007b7dd93c975345cfd8c0bc7" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::xml::ElementType::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -84,11 +85,11 @@
         <argsstring>(ElementType const &amp;a, ElementType const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>ElementType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>ElementType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -105,11 +106,11 @@
         <argsstring>(ElementType const &amp;a, ElementType const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>ElementType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>ElementType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>

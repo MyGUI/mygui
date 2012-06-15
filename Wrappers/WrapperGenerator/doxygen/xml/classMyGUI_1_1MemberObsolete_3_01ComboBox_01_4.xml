@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; ComboBox &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ComboBox" prot="public" virt="non-virtual">MyGUI::ComboBox</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -215,6 +217,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1515">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="1514" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1514">
+        <label>MyGUI::MemberObsolete&lt; ComboBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="63" bodyend="94"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1d846017c9a67d81476173651c47363e5" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ComboBox &gt;</scope><name>clearItemSelected</name></member>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1VertexColourType" kind="struct" prot="public">
     <compoundname>MyGUI::VertexColourType</compoundname>
+    <includes local="no">MyGUI_RenderFormat.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1VertexColourType_10664b8fcc47e8e2c4049d007a1432095" prot="public" static="no">
         <name>Enum</name>
@@ -42,7 +43,7 @@
         <argsstring>(Enum _value=MAX)</argsstring>
         <name>VertexColourType</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType_10664b8fcc47e8e2c4049d007a1432095" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>MAX</defval>
         </param>
@@ -57,7 +58,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1VertexColourType_19503aec693ccd4660c6d26524f7b9ff0" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1VertexColourType_10664b8fcc47e8e2c4049d007a1432095" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::VertexColourType::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -77,11 +78,11 @@
         <argsstring>(VertexColourType const &amp;a, VertexColourType const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>VertexColourType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>VertexColourType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -98,11 +99,11 @@
         <argsstring>(VertexColourType const &amp;a, VertexColourType const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>VertexColourType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>VertexColourType const &amp;</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>

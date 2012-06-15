@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; MenuItem &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1MenuItem" prot="public" virt="non-virtual">MyGUI::MenuItem</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -36,6 +38,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1550">
+        <label>MyGUI::MemberObsolete&lt; MenuItem &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4"/>
+      </node>
+      <node id="1551">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="1550" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="235" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="234" bodyend="241"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4_1bc56b9915d0d587d0107c62e00f146e8" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MenuItem &gt;</scope><name>hideItemChild</name></member>

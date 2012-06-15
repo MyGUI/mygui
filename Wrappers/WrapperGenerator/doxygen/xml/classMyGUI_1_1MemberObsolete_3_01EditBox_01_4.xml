@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; EditBox &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1EditBox" prot="public" virt="non-virtual">MyGUI::EditBox</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -79,7 +81,7 @@
           <declname>_count</declname>
         </param>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -198,7 +200,7 @@
         <argsstring>(const Colour &amp;_colour)</argsstring>
         <name>setTextSelectColour</name>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -214,6 +216,24 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1519">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="1518" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1518">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="1517" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1517">
+        <label>MyGUI::MemberObsolete&lt; EditBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="98" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="97" bodyend="125"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1bcb176f84eaffadc8adfa9bce6d7be7a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>deleteTextSelect</name></member>
